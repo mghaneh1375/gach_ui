@@ -37,6 +37,12 @@ export const OrangeTextInline = props => (
   </BlueTextInlineElem>
 );
 
+export const SilverTextInline = props => (
+  <BlueTextInlineElem style={{color: vars.LIGHT_SILVER}}>
+    {props.text}
+  </BlueTextInlineElem>
+);
+
 // const IconElem =
 //   Platform.OS === 'android' || Platform.OS === 'ios'
 //     ? styled(Image)``
