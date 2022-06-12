@@ -58,3 +58,59 @@ export const signIn = (username, password) => {
       // }
     });
 };
+
+export const signUp = async data => {
+  let res = await Axios({
+    url: '/signUp',
+    method: 'post',
+    baseURL: BASE_URL + base,
+    headers: COMMON_HEADER,
+    data: data,
+  })
+    .then(function (response) {
+      var data = response.data;
+
+      if (data.status === 'nok') {
+        showError(data.msg);
+        return null;
+      }
+
+      if (data.status === 'ok')
+        return {
+          token: data.token,
+          reminder: data.reminder,
+        };
+    })
+    .catch(function (error) {
+      showError('خطایی در انجام عملیات رخ داده است.');
+      return null;
+    });
+
+  return res;
+};
+
+export const activate = async data => {
+  let res = await Axios({
+    url: '/activate',
+    method: 'post',
+    baseURL: BASE_URL + base,
+    headers: COMMON_HEADER,
+    data: data,
+  })
+    .then(function (response) {
+      var data = response.data;
+
+      if (data.status === 'nok') {
+        showError(data.msg);
+        return null;
+      }
+
+      if (data.status === 'ok') return data.id;
+    })
+    .catch(function (error) {
+      showError('خطایی در انجام عملیات رخ داده است.');
+      return null;
+    });
+
+  return res;
+};

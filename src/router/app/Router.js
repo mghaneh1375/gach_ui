@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Home from '../../screens/Home';
+import Home from '../../screens/general/home/Home';
 import Login from '../../screens/general/login/Login';
 import SignUp from '../../screens/general/signup/Signup';
 

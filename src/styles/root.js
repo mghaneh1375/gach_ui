@@ -5,6 +5,7 @@ const vars = {
   WHITE: '#FFFFFF',
   DARK_BLUE: '#013243',
   LIGHT_SILVER: '#707070',
+  RED: '#FF0000',
 };
 
 export default vars;

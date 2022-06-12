@@ -1,22 +1,24 @@
 import React, {useState} from 'react';
-import BackgroundScollView from './../components/BackgroundScrollView';
-import translator from './../tranlates/Home';
-import {Device} from './../models/Device';
+import BackgroundScollView from './../../../components/BackgroundScrollView';
+import translator from './translator';
+import {Device} from './../../../models/Device';
 import {useIsFocused} from '@react-navigation/native';
 import {Text, ScrollView} from 'react-native';
 import {
   ScreenContentContainerStyle,
   ScreenScrollBar,
-} from '../styles/Android/Common';
-import {getToken} from './../API/User';
-import {getDevice, getWidthHeight} from '../services/Utility';
+} from './../../../styles/Android/Common';
+import {getToken} from './../../../API/User';
+import {getDevice, getWidthHeight} from './../../../services/Utility';
 
-import {dispatchStateContext, globalStateContext} from './../App';
+import {dispatchStateContext, globalStateContext} from './../../../App';
 
 const device = getDevice();
 
 const Home = navigator => {
-  [width, height] = getWidthHeight();
+  const wH = getWidthHeight();
+  const width = wH[0];
+  const height = wH[1];
   const isFocused = useIsFocused();
   const [token, setToken] = useState(undefined);
 
@@ -37,7 +39,6 @@ const Home = navigator => {
   }, []);
 
   React.useEffect(() => {
-    console.log('token is ' + token);
     dispatch({token: token});
   }, [token]);
 
@@ -48,13 +49,17 @@ const Home = navigator => {
       <BackgroundScollView
         images={[
           {
-            src: require('./../images/back.jpg'),
+            src: require('./../../../images/back.jpg'),
             title: translator.slider1Title,
             subTitle: translator.slider1SubTitle,
             text: translator.slider1Text,
             idx: 0,
           },
-          {src: require('./../images/slider.jpg'), text: 'salam2', idx: 1},
+          {
+            src: require('./../../../images/slider.jpg'),
+            text: 'salam2',
+            idx: 1,
+          },
         ]}
         width={width}
         height={device === Device.Large ? height : 'auto'}

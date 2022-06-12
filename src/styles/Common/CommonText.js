@@ -24,7 +24,7 @@ const CommonTextInputStyleWeb = {
 export const CommonTextInputContainer =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(View)`
-        margin: 20px;
+        marginTop: 10px;
       `
     : styled.div``;
 

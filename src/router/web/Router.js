@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/web/Navbar';
 import Login from '../../screens/general/login/Login';
-import Home from '../../screens/Home';
+import Home from '../../screens/general/home/Home';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import {View} from 'react-native';
 import BottomNavBar from '../../components/web/BottomNavBar';

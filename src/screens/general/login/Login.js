@@ -65,13 +65,13 @@ const Login = navigator => {
       <CommonTextInput
         placeholder={commonTranslator.username}
         onChangeText={changeUsername}
-        subInputText={translator.usernameFilter}
+        subText={translator.usernameFilter}
       />
       <CommonTextInput
         placeholder={commonTranslator.password}
         type="password"
         onChangeText={changePassword}
-        subInputText={translator.passwordFilter}
+        subText={translator.passwordFilter}
       />
 
       <CommonButton onPress={() => submit()} title={commonTranslator.confirm} />
