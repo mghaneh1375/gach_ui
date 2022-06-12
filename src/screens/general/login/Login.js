@@ -14,8 +14,8 @@ import {
   OrangeTextInline,
   InlineTextContainer,
 } from '../../../styles/Common';
-import {translator} from './translate';
-import {commonTranslator} from './../../../tranlates/Common';
+import translator from './translate';
+import commonTranslator from './../../../tranlates/Common';
 import {dispatchStateContext, globalStateContext} from './../../../App';
 import {Pressable} from 'react-native';
 import {TextIcon} from '../../../styles/Common/TextIcon';

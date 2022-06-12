@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import BackgroundScollView from './../components/BackgroundScrollView';
-import {Translator} from './../tranlates/Home';
+import translator from './../tranlates/Home';
 import {Device} from './../models/Device';
 import {useIsFocused} from '@react-navigation/native';
 import {Text, ScrollView} from 'react-native';
@@ -49,9 +49,9 @@ const Home = navigator => {
         images={[
           {
             src: require('./../images/back.jpg'),
-            title: Translator.slider1Title,
-            subTitle: Translator.slider1SubTitle,
-            text: Translator.slider1Text,
+            title: translator.slider1Title,
+            subTitle: translator.slider1SubTitle,
+            text: translator.slider1Text,
             idx: 0,
           },
           {src: require('./../images/slider.jpg'), text: 'salam2', idx: 1},

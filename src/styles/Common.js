@@ -37,6 +37,12 @@ export const OrangeTextInline = props => (
   </BlueTextInlineElem>
 );
 
+export const SilverTextInline = props => (
+  <BlueTextInlineElem style={{color: vars.LIGHT_SILVER}}>
+    {props.text}
+  </BlueTextInlineElem>
+);
+
 // const IconElem =
 //   Platform.OS === 'android' || Platform.OS === 'ios'
 //     ? styled(Image)``
@@ -70,10 +76,14 @@ export const ScreenScroll =
 export const CommonTextInput = props => (
   <CommonTextInputContainer>
     <CommonTextInputElem
+      secureTextEntry={props.type !== undefined && props.type === 'password'}
       onChangeText={props.onChangeText}
+      keyboardType={props.justNum !== undefined ? 'numeric' : ''}
       placeholder={props.placeholder}
     />
-    <SubInputText>{props.subInputText}</SubInputText>
+    {props.subText !== undefined ? (
+      <SubInputText>props.subInputText</SubInputText>
+    ) : null}
   </CommonTextInputContainer>
 );
 
