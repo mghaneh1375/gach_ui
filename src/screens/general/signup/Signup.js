@@ -14,9 +14,9 @@ import {
   InlineTextContainer,
   SilverTextInline,
 } from '../../../styles/Common';
-import {translator} from './translate';
-import {loginTranslator} from './../login/translate';
-import {commonTranslator} from './../../../tranlates/Common';
+import translator from './translate';
+import loginTranslator from './../login/translate';
+import commonTranslator from './../../../tranlates/Common';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 import {getDevice} from '../../../services/Utility';
 
@@ -55,8 +55,17 @@ const SignUp = navigator => {
         <FontIcon icon={faClose}></FontIcon>
       </TextIcon>
 
-      <CommonTextInput />
-      <CommonTextInput type="password" />
+      <CommonTextInput
+        justNum="true"
+        placeholder={commonTranslator.phone}
+        subText={loginTranslator.usernameFilter}
+      />
+      <CommonTextInput
+        placeholder={commonTranslator.password}
+        subText={loginTranslator.passwordFilter}
+        type="password"
+      />
+      <CommonTextInput placeholder={commonTranslator.NID} justNum="true" />
 
       <SilverTextInline text={translator.acceptTerms} />
       <CommonButton onPress={() => submit()} title={commonTranslator.signUp} />

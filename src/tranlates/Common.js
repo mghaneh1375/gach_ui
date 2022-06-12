@@ -1,4 +1,4 @@
-export const commonTranslator = {
+const translator = {
   username: 'نام کاربری',
   password: 'رمزعبور',
   confirm: 'تایید',
@@ -6,3 +6,4 @@ export const commonTranslator = {
   mail: 'ایمیل',
   signUp: 'ثبت نام',
 };
+export default translator;

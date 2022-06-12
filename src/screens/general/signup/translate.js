@@ -1,4 +1,4 @@
-export const translator = {
+const translator = {
   entryText: 'به آیریسک بپیوندید',
   auth: 'اعتبارسنجی',
   acceptTerms:
@@ -6,3 +6,5 @@ export const translator = {
   ifSubscribe: 'اگر قبلا ثبت نام کرده اید؟',
   login: 'وارد شوید',
 };
+
+export default translator;
