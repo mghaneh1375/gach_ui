@@ -11,6 +11,12 @@ const translator = {
   reminderUntilResend: 'دقیقه تا امکان درخواست دوباره',
   ifWrongData: 'آیا اطلاعات خود را اشتباه',
   ifWrongDataHref: 'وارد کرده اید؟',
+  schoolName: 'نام مدرسه',
+  schoolPhone: 'شماره تماس مدرسه',
+  stateName: 'نام استان',
+  invitationCode: 'کد معرف',
+  invitationCodeHelp:
+    'اگر کسی شما را معرفی کرده است کد معرف را وارد کنید تا از جایزه بهرهمند شوید.',
 };
 
 export default translator;

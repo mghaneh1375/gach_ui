@@ -76,6 +76,20 @@
 		<string>BNaznnBd.woff</string>
 		<string>BNaznnBd.woff2</string>
 		<string>AGhasem.ttf</string>
+		<string>IRANSansWeb_Bold.ttf</string>
+		<string>IRANSansWeb_Bold.woff</string>
+		<string>IRANSansWeb_Bold.woff2</string>
+		<string>IRANSansWeb_Light.ttf</string>
+		<string>IRANSansWeb_Light.woff</string>
+		<string>IRANSansWeb_Light.woff2</string>
+		<string>IRANSansWeb_Medium.ttf</string>
+		<string>IRANSansWeb_Medium.woff</string>
+		<string>IRANSansWeb_Medium.woff2</string>
+		<string>IRANSansWeb_UltraLight.ttf</string>
+		<string>IRANSansWeb_UltraLight.woff</string>
+		<string>IRANSansWeb.ttf</string>
+		<string>IRANSansWeb.woff</string>
+		<string>IRANSansWeb.woff2</string>
 	</array>
 </dict>
 </plist>

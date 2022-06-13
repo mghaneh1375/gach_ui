@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {View, Text, Platform} from 'react-native';
-import {Device} from '../models/Device';
-import vars from '../styles/root';
+import vars from '../root';
+import {BlueTextInline} from '../Common';
 
 export const MyScrollView =
   Platform.OS === 'android' || Platform.OS === 'ios'
@@ -12,7 +12,7 @@ export const MyScrollView =
         display: flex;
         position: relative;
         flex-direction: ${props =>
-          props.device === Device.Large ? 'row' : 'column-reverse'};
+          props.isPhonePortSize ? 'column-reverse' : 'row'};
         direction: rtl;
         justify-content: center;
         justify-items: center;
@@ -33,7 +33,6 @@ const ScrollViewTitle_PHONE = {
   textAlign: 'center',
   width: '100%',
   fontFamily: 'AGhasem',
-  //   fontWeight: '900 !important',
 };
 
 export const ScrollViewTitleAndroid =
@@ -53,33 +52,26 @@ export const ScrollViewTitle =
       `
     : styled.p`
         font-size: 26px !important;
-        ${props =>
-          props.device === Device.PhonePort ? ScrollViewTitle_PHONE : {}};
+        ${props => (props.isPhonePortSize ? ScrollViewTitle_PHONE : {})};
       `;
 
 export const ScrollViewSubTitle =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(Text)`
-        font-size: 16px !important;
-        margin-top: 100px;
+        font-size: 24px !important;
+        margin-top: 50px;
+        color: ${vars.DARK_BLUE};
+        font-weight: 600;
+        font-family: 'IRANSans';
       `
     : styled.p`
         font-size: 22px !important;
         ${props =>
-          props.device === Device.PhonePort
+          props.isPhonePortSize
             ? {
                 marginTop: '100px',
               }
             : {}};
-      `;
-
-export const ScrollViewText =
-  Platform.OS === 'android' || Platform.OS === 'ios'
-    ? styled(Text)`
-        font-size: 10px !important;
-      `
-    : styled.p`
-        font-size: 18px !important;
       `;
 
 const ArrowStyle = {
@@ -92,7 +84,7 @@ const ArrowStyle = {
 
 const ArrowStyleAndroid = {
   padding: 15,
-  top: 50,
+  top: 0,
 };
 
 const ArrowStyleWeb = {

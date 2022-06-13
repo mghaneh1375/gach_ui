@@ -5,6 +5,9 @@ import {Text, Platform} from 'react-native';
 const style = {
   fontSize: 18,
   color: vars.DARK_BLUE,
+  fontFamily: 'IRANSans',
+  fontWeight: 600,
+  lineHeight: 20,
 };
 
 const BlueTextInlineElem =

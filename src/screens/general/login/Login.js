@@ -13,6 +13,8 @@ import {
   BlueTextInline,
   OrangeTextInline,
   InlineTextContainer,
+  MinFullHeightView,
+  ContentView,
 } from '../../../styles/Common';
 import translator from './translate';
 import commonTranslator from './../../../tranlates/Common';
@@ -57,30 +59,42 @@ const Login = navigator => {
 
   return (
     <ScreenScroll>
-      <TextIcon>
-        <BigBoldBlueTextInline text={translator.entryText} device={device} />
-        <FontIcon icon={faClose}></FontIcon>
-      </TextIcon>
+      <MinFullHeightView>
+        <ContentView>
+          <TextIcon>
+            <BigBoldBlueTextInline
+              text={translator.entryText}
+              device={device}
+            />
+            <FontIcon icon={faClose}></FontIcon>
+          </TextIcon>
 
-      <CommonTextInput
-        placeholder={commonTranslator.username}
-        onChangeText={changeUsername}
-        subText={translator.usernameFilter}
-      />
-      <CommonTextInput
-        placeholder={commonTranslator.password}
-        type="password"
-        onChangeText={changePassword}
-        subText={translator.passwordFilter}
-      />
+          <CommonTextInput
+            style={{marginTop: 50}}
+            placeholder={commonTranslator.username}
+            onChangeText={changeUsername}
+            subText={translator.usernameFilter}
+          />
+          <CommonTextInput
+            placeholder={commonTranslator.password}
+            type="password"
+            onChangeText={changePassword}
+            subText={translator.passwordFilter}
+          />
 
-      <CommonButton onPress={() => submit()} title={commonTranslator.confirm} />
-      <InlineTextContainer>
-        <BlueTextInline text={translator.ifNotSubscribe} device={device} />
-        <Pressable onPress={() => navigator.navigation.navigate('SignUp')}>
-          <OrangeTextInline text={translator.subscrible} device={device} />
-        </Pressable>
-      </InlineTextContainer>
+          <CommonButton
+            style={{marginTop: 50}}
+            onPress={() => submit()}
+            title={commonTranslator.confirm}
+          />
+          <InlineTextContainer style={{marginTop: 150}}>
+            <BlueTextInline text={translator.ifNotSubscribe} device={device} />
+            <Pressable onPress={() => navigator.navigation.navigate('SignUp')}>
+              <OrangeTextInline text={translator.subscrible} device={device} />
+            </Pressable>
+          </InlineTextContainer>
+        </ContentView>
+      </MinFullHeightView>
     </ScreenScroll>
   );
 };

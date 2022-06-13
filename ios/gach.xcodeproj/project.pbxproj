@@ -43,6 +43,20 @@
 		4F86599F17E143C0B625C02C /* BNaznnBd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 734C14DD28154B278092CE18 /* BNaznnBd.ttf */; };
 		1386B9F7E63F4B1581389828 /* BNaznnBd.woff in Resources */ = {isa = PBXBuildFile; fileRef = 684E6343264A4CA8AB44D714 /* BNaznnBd.woff */; };
 		3EEA6388E91F49FE92357345 /* BNaznnBd.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = FB95EFCFE2AB42A99F3D7EBF /* BNaznnBd.woff2 */; };
+		13BF94F8D76243D69F21D1D0 /* IRANSansWeb_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BFB52BB8915470CB2AE603B /* IRANSansWeb_Bold.ttf */; };
+		4F2B3870C8604FBFA3E51743 /* IRANSansWeb_Bold.woff in Resources */ = {isa = PBXBuildFile; fileRef = 9F807D5D9B164C2EA36EEAE6 /* IRANSansWeb_Bold.woff */; };
+		8735A5646EB74AF5B0A0BADD /* IRANSansWeb_Bold.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = F54FE382BFBA4EA7B0C0F270 /* IRANSansWeb_Bold.woff2 */; };
+		FD86700B4E6B4399BBD2C836 /* IRANSansWeb_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A8DFFBC84C149F694537951 /* IRANSansWeb_Light.ttf */; };
+		289C8B9B010B4E3B95B05BC9 /* IRANSansWeb_Light.woff in Resources */ = {isa = PBXBuildFile; fileRef = 191D0556EBA9431E8C64AF2B /* IRANSansWeb_Light.woff */; };
+		A6918E83CFA746EE9C60E87A /* IRANSansWeb_Light.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = F7C2A7F68BA04791A92513F0 /* IRANSansWeb_Light.woff2 */; };
+		64DCE7C07F0F48B5947112CF /* IRANSansWeb_Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E49CA8BC7A28481198F63D6D /* IRANSansWeb_Medium.ttf */; };
+		DCF9D9BC4E4E40ADA8A48422 /* IRANSansWeb_Medium.woff in Resources */ = {isa = PBXBuildFile; fileRef = A2E8997C690C4CCC9C102755 /* IRANSansWeb_Medium.woff */; };
+		6DBDBDAAAF4A430081C0B34D /* IRANSansWeb_Medium.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = EE827831ADC046D7931B6A05 /* IRANSansWeb_Medium.woff2 */; };
+		6F990515C92C474BA6A06545 /* IRANSansWeb_UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 015CBC5C6B3F4EE1AC363C02 /* IRANSansWeb_UltraLight.ttf */; };
+		823F59A6CE664E19B4EBB4DF /* IRANSansWeb_UltraLight.woff in Resources */ = {isa = PBXBuildFile; fileRef = 69F5771CF90B4E7996F2BDAF /* IRANSansWeb_UltraLight.woff */; };
+		5B2222EAB71A49578BDA2113 /* IRANSansWeb.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 274D09C01E1D482F880FA86B /* IRANSansWeb.ttf */; };
+		51FA356B5EB14C59A0886076 /* IRANSansWeb.woff in Resources */ = {isa = PBXBuildFile; fileRef = E4EBB52766AA41278E7B2D52 /* IRANSansWeb.woff */; };
+		98D2814AF20A4106A2A85CD2 /* IRANSansWeb.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 28F20D9D37EB4B099BE6F599 /* IRANSansWeb.woff2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +116,20 @@
 		734C14DD28154B278092CE18 /* BNaznnBd.ttf */ = {isa = PBXFileReference; name = "BNaznnBd.ttf"; path = "../public/assets/fonts/BNaznnBd.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		684E6343264A4CA8AB44D714 /* BNaznnBd.woff */ = {isa = PBXFileReference; name = "BNaznnBd.woff"; path = "../public/assets/fonts/BNaznnBd.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FB95EFCFE2AB42A99F3D7EBF /* BNaznnBd.woff2 */ = {isa = PBXFileReference; name = "BNaznnBd.woff2"; path = "../public/assets/fonts/BNaznnBd.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5BFB52BB8915470CB2AE603B /* IRANSansWeb_Bold.ttf */ = {isa = PBXFileReference; name = "IRANSansWeb_Bold.ttf"; path = "../public/assets/fonts/IRANSansWeb_Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9F807D5D9B164C2EA36EEAE6 /* IRANSansWeb_Bold.woff */ = {isa = PBXFileReference; name = "IRANSansWeb_Bold.woff"; path = "../public/assets/fonts/IRANSansWeb_Bold.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F54FE382BFBA4EA7B0C0F270 /* IRANSansWeb_Bold.woff2 */ = {isa = PBXFileReference; name = "IRANSansWeb_Bold.woff2"; path = "../public/assets/fonts/IRANSansWeb_Bold.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3A8DFFBC84C149F694537951 /* IRANSansWeb_Light.ttf */ = {isa = PBXFileReference; name = "IRANSansWeb_Light.ttf"; path = "../public/assets/fonts/IRANSansWeb_Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		191D0556EBA9431E8C64AF2B /* IRANSansWeb_Light.woff */ = {isa = PBXFileReference; name = "IRANSansWeb_Light.woff"; path = "../public/assets/fonts/IRANSansWeb_Light.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F7C2A7F68BA04791A92513F0 /* IRANSansWeb_Light.woff2 */ = {isa = PBXFileReference; name = "IRANSansWeb_Light.woff2"; path = "../public/assets/fonts/IRANSansWeb_Light.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E49CA8BC7A28481198F63D6D /* IRANSansWeb_Medium.ttf */ = {isa = PBXFileReference; name = "IRANSansWeb_Medium.ttf"; path = "../public/assets/fonts/IRANSansWeb_Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A2E8997C690C4CCC9C102755 /* IRANSansWeb_Medium.woff */ = {isa = PBXFileReference; name = "IRANSansWeb_Medium.woff"; path = "../public/assets/fonts/IRANSansWeb_Medium.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EE827831ADC046D7931B6A05 /* IRANSansWeb_Medium.woff2 */ = {isa = PBXFileReference; name = "IRANSansWeb_Medium.woff2"; path = "../public/assets/fonts/IRANSansWeb_Medium.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		015CBC5C6B3F4EE1AC363C02 /* IRANSansWeb_UltraLight.ttf */ = {isa = PBXFileReference; name = "IRANSansWeb_UltraLight.ttf"; path = "../public/assets/fonts/IRANSansWeb_UltraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		69F5771CF90B4E7996F2BDAF /* IRANSansWeb_UltraLight.woff */ = {isa = PBXFileReference; name = "IRANSansWeb_UltraLight.woff"; path = "../public/assets/fonts/IRANSansWeb_UltraLight.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		274D09C01E1D482F880FA86B /* IRANSansWeb.ttf */ = {isa = PBXFileReference; name = "IRANSansWeb.ttf"; path = "../public/assets/fonts/IRANSansWeb.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E4EBB52766AA41278E7B2D52 /* IRANSansWeb.woff */ = {isa = PBXFileReference; name = "IRANSansWeb.woff"; path = "../public/assets/fonts/IRANSansWeb.woff"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		28F20D9D37EB4B099BE6F599 /* IRANSansWeb.woff2 */ = {isa = PBXFileReference; name = "IRANSansWeb.woff2"; path = "../public/assets/fonts/IRANSansWeb.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +267,20 @@
 				734C14DD28154B278092CE18 /* BNaznnBd.ttf */,
 				684E6343264A4CA8AB44D714 /* BNaznnBd.woff */,
 				FB95EFCFE2AB42A99F3D7EBF /* BNaznnBd.woff2 */,
+				5BFB52BB8915470CB2AE603B /* IRANSansWeb_Bold.ttf */,
+				9F807D5D9B164C2EA36EEAE6 /* IRANSansWeb_Bold.woff */,
+				F54FE382BFBA4EA7B0C0F270 /* IRANSansWeb_Bold.woff2 */,
+				3A8DFFBC84C149F694537951 /* IRANSansWeb_Light.ttf */,
+				191D0556EBA9431E8C64AF2B /* IRANSansWeb_Light.woff */,
+				F7C2A7F68BA04791A92513F0 /* IRANSansWeb_Light.woff2 */,
+				E49CA8BC7A28481198F63D6D /* IRANSansWeb_Medium.ttf */,
+				A2E8997C690C4CCC9C102755 /* IRANSansWeb_Medium.woff */,
+				EE827831ADC046D7931B6A05 /* IRANSansWeb_Medium.woff2 */,
+				015CBC5C6B3F4EE1AC363C02 /* IRANSansWeb_UltraLight.ttf */,
+				69F5771CF90B4E7996F2BDAF /* IRANSansWeb_UltraLight.woff */,
+				274D09C01E1D482F880FA86B /* IRANSansWeb.ttf */,
+				E4EBB52766AA41278E7B2D52 /* IRANSansWeb.woff */,
+				28F20D9D37EB4B099BE6F599 /* IRANSansWeb.woff2 */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -369,6 +411,20 @@
 				4F86599F17E143C0B625C02C /* BNaznnBd.ttf in Resources */,
 				1386B9F7E63F4B1581389828 /* BNaznnBd.woff in Resources */,
 				3EEA6388E91F49FE92357345 /* BNaznnBd.woff2 in Resources */,
+				13BF94F8D76243D69F21D1D0 /* IRANSansWeb_Bold.ttf in Resources */,
+				4F2B3870C8604FBFA3E51743 /* IRANSansWeb_Bold.woff in Resources */,
+				8735A5646EB74AF5B0A0BADD /* IRANSansWeb_Bold.woff2 in Resources */,
+				FD86700B4E6B4399BBD2C836 /* IRANSansWeb_Light.ttf in Resources */,
+				289C8B9B010B4E3B95B05BC9 /* IRANSansWeb_Light.woff in Resources */,
+				A6918E83CFA746EE9C60E87A /* IRANSansWeb_Light.woff2 in Resources */,
+				64DCE7C07F0F48B5947112CF /* IRANSansWeb_Medium.ttf in Resources */,
+				DCF9D9BC4E4E40ADA8A48422 /* IRANSansWeb_Medium.woff in Resources */,
+				6DBDBDAAAF4A430081C0B34D /* IRANSansWeb_Medium.woff2 in Resources */,
+				6F990515C92C474BA6A06545 /* IRANSansWeb_UltraLight.ttf in Resources */,
+				823F59A6CE664E19B4EBB4DF /* IRANSansWeb_UltraLight.woff in Resources */,
+				5B2222EAB71A49578BDA2113 /* IRANSansWeb.ttf in Resources */,
+				51FA356B5EB14C59A0886076 /* IRANSansWeb.woff in Resources */,
+				98D2814AF20A4106A2A85CD2 /* IRANSansWeb.woff2 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

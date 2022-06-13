@@ -22,3 +22,7 @@ export function getDevice() {
 export function getWidthHeight() {
   return [Dimensions.get('window').width, Dimensions.get('window').height];
 }
+
+export function getScreenHeight() {
+  return Dimensions.get('window').height - 90;
+}

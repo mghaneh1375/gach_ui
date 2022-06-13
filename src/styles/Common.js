@@ -1,11 +1,10 @@
 import {RadioButton} from 'react-native-paper';
 import styled from 'styled-components';
 import vars from './root';
-import {Text, Platform, View, Image, ScrollView} from 'react-native';
+import {Text, Platform, View, ScrollView} from 'react-native';
 import {Button, CommonButtonTextStyleAndroid} from './Common/Button';
 import BlueTextInlineElem from './Common/BlueTextInline';
 
-import CountDown from 'react-native-countdown-component';
 import {Device} from '../models/Device';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
@@ -20,6 +19,7 @@ import {
 
 import {FontIconStyleAndroid, FontIconStyleWeb} from './Common/FontIcon';
 import SubInputText from './Common/SubInputText';
+import {getScreenHeight, getWidthHeight} from '../services/Utility';
 
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem>{props.text}</BigBoldBlueTextInlineElem>
@@ -51,18 +51,6 @@ export const SilverTextInline = props => (
   </BlueTextInlineElem>
 );
 
-// const IconElem =
-//   Platform.OS === 'android' || Platform.OS === 'ios'
-//     ? styled(Image)``
-//     : styled.img``;
-
-// export const Icon = props =>
-//   Platform.OS === 'android' || Platform.OS === 'ios' ? (
-//     <IconElem source={props.src} />
-//   ) : (
-//     <IconElem src={props.src} />
-//   );
-
 export const FontIcon = props =>
   Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <View style={{position: 'absolute', right: 10}}>
@@ -75,13 +63,15 @@ export const FontIcon = props =>
 export const ScreenScroll =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(ScrollView)`
-        margin-top: 20px;
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-bottom: 30px;
+        width: 100%;
       `
     : styled.div`
         margin-top: 50px;
       `;
+
+// style={ScreenScrollBar}
+// contentContainerStyle={ScreenContentContainerStyle}
 
 export const CommonTextInput = props => (
   <CommonTextInputContainer>
@@ -132,67 +122,12 @@ export const CommonRadioButton = props => (
   </View>
 );
 
-export const MyCountDown = props => (
-  <CountDown
-    until={props.until}
-    onFinish={props.onFinish}
-    timeToShow={['M', 'S']}
-    digitStyle={[
-      {
-        backgroundColor: 'white',
-        borderColor: vars.LIGHT_SILVER,
-        borderWidth: 1,
-        color: vars.RED,
-        borderRadius: 10,
-      },
-      props.style !== undefined ? props.style : {},
-    ]}
-    timeLabels={{m: null, s: null}}
-    size={20}
-  />
-);
+export const MinFullHeightView = styled(View)`
+  min-height: ${getScreenHeight()}px;
+`;
 
-export const RoleCard = props => (
-  <View
-    style={[
-      {
-        backgroundColor: '#FFFFFFD6',
-        shadowColor: 'black',
-        shadowOffset: {width: 0, height: 10},
-        shadowRadius: 20,
-        elevation: 10,
-        width: '46%',
-        marginRight: 4,
-        marginLeft: 4,
-        height: 130,
-        borderRadius: 20,
-        direction: 'row-reverse',
-      },
-      props.style !== undefined ? props.style : {},
-    ]}>
-    <Image
-      resizeMode="contain"
-      style={{
-        width: 70,
-        height: 70,
-        marginTop: 20,
-        tintColor: props.color,
-        alignSelf: 'center',
-      }}
-      source={props.source}
-    />
-    <BlueTextInline
-      style={[
-        {
-          fontWeight: '900',
-          alignSelf: 'center',
-          marginTop: 10,
-        },
-        props.color !== undefined
-          ? {color: props.color}
-          : {color: vars.DARK_BLUE},
-      ]}
-      text={props.text}
-    />
-  </View>
-);
+export const ContentView = styled(View)`
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+`;

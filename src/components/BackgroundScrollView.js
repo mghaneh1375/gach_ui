@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useRef, useState} from 'react';
 import {View, ScrollView, Image, InteractionManager} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
@@ -13,105 +13,114 @@ import {
   MyImage,
   ArrowStyleLeft,
   ArrowStyleRight,
-} from '../styles/ScrollView';
+} from '../styles/Common/ScrollView';
 import {Device} from './../models/Device';
 import fontawesome from '@fortawesome/fontawesome';
+import {BlueTextInline} from '../styles/Common';
 
-var _scrollView;
+function BackgroundScrollView(props) {
+  var scrollValue = 0;
+  const scrollView = useRef();
 
-class BackgroundScrollView extends Component {
-  constructor(props) {
-    super(props);
-  }
+  const isJustImage = props.isJustImage;
 
-  componentDidMount() {
-    let scrollValue = 0;
+  const width = props.width - props.margins[0] - props.margins[2];
 
-    InteractionManager.runAfterInteractions(() => {
-      const width = this.props.width;
-      const scrollable = this.props.scrollable - 1;
-      const scrollDelay = this.props.scrollDelay;
-      // setInterval(function () {
-      //   if (scrollValue >= width * scrollable) scrollValue = 0;
-      //   else scrollValue = scrollValue + width; // width = screen width
-      //   _scrollView.scrollTo({x: scrollValue});
-      // }, scrollDelay);
-    });
-  }
+  const height = Number.isInteger(props.height)
+    ? props.height - props.margins[1] - props.margins[3]
+    : props.height;
 
-  render() {
-    const isJustImage = this.props.isJustImage;
+  const isPhonePortSize =
+    props.device.indexOf(Device.WebPort) !== -1 ||
+    props.device.indexOf(Device.AppPort) !== -1;
 
-    const width =
-      this.props.width - this.props.margins[0] - this.props.margins[2];
-
-    const height = Number.isInteger(this.props.height)
-      ? this.props.height - this.props.margins[1] - this.props.margins[3]
-      : this.props.height;
-
-    const device = this.props.device;
-
-    const widthImage =
-      isJustImage || device === Device.PhonePort
-        ? width
-        : (width * (12 - this.props.textCol)) / 12;
-
-    const widthText = isJustImage
-      ? 0
-      : device === Device.PhonePort
+  const widthImage =
+    isJustImage || isPhonePortSize
       ? width
-      : (width * this.props.textCol) / 12;
+      : (width * (12 - props.textCol)) / 12;
 
-    const imgHeight = this.props.imgHeight;
+  const widthText = isJustImage
+    ? 0
+    : isPhonePortSize
+    ? width
+    : (width * props.textCol) / 12;
 
-    const items = isJustImage
-      ? this.props.images.map(i => (
-          <Image key={i} source={i} style={{height, width}} />
-        ))
-      : this.props.images.map(i => (
-          <MyScrollView
-            device={device}
-            key={i.idx}
-            style={{height: height, width}}>
-            <ScrollViewTextContainer style={{width: widthText}}>
-              <FontAwesomeIcon icon={faAngleLeft} style={ArrowStyleLeft} />
-              <FontAwesomeIcon icon={faAngleRight} style={ArrowStyleRight} />
-              <ScrollViewTitle device={device}>{i.title}</ScrollViewTitle>
-              <ScrollViewSubTitle device={device}>
-                {i.subTitle}
-              </ScrollViewSubTitle>
-              <ScrollViewText>{i.text}</ScrollViewText>
-            </ScrollViewTextContainer>
-            <Image
-              source={i.src}
-              style={[MyImage, {width: widthImage, height: imgHeight}]}
-            />
-            <ScrollViewTitleAndroid device={device}>
+  const imgHeight = props.imgHeight;
+
+  React.useEffect(() => {
+    if (scrollView === undefined || scrollView === null) return;
+
+    setTimeout(() => {
+      updateScrollValue();
+    }, props.scrollDelay);
+  }, []);
+
+  const updateScrollValue = () => {
+    const scrollable = props.scrollable - 1;
+
+    if (scrollValue >= width * scrollable) scrollValue = 0;
+    else scrollValue = scrollValue + width;
+
+    scrollView.current.scrollTo({x: scrollValue});
+
+    setTimeout(() => {
+      updateScrollValue();
+    }, props.scrollDelay);
+  };
+
+  const items = isJustImage
+    ? props.images.map(i => (
+        <Image key={i} source={i} style={{height, width}} />
+      ))
+    : props.images.map(i => (
+        <MyScrollView
+          isPhonePortSize={isPhonePortSize}
+          key={i.idx}
+          style={{height: height, width}}>
+          <ScrollViewTextContainer style={{width: widthText}}>
+            <FontAwesomeIcon icon={faAngleLeft} style={ArrowStyleLeft} />
+            <FontAwesomeIcon icon={faAngleRight} style={ArrowStyleRight} />
+            <ScrollViewTitle isPhonePortSize={isPhonePortSize}>
               {i.title}
-            </ScrollViewTitleAndroid>
-          </MyScrollView>
-        ));
+            </ScrollViewTitle>
+            <ScrollViewSubTitle isPhonePortSize={isPhonePortSize}>
+              {i.subTitle}
+            </ScrollViewSubTitle>
+            <BlueTextInline
+              style={{fontSize: 16, marginTop: 10}}
+              text={i.text}
+            />
+          </ScrollViewTextContainer>
+          <Image
+            source={i.src}
+            resizeMode="contain"
+            style={[MyImage, {width: widthImage, height: imgHeight}]}
+          />
+          <ScrollViewTitleAndroid isPhonePortSize={isPhonePortSize}>
+            {i.title}
+          </ScrollViewTitleAndroid>
+        </MyScrollView>
+      ));
 
-    return (
-      <View
-        style={{
-          marginLeft: this.props.margins[0],
-          marginRight: this.props.margins[2],
-          marginTop: this.props.margins[1],
-          marginBottom: this.props.margins[3],
-          overflow: 'hidden',
-        }}>
-        <ScrollView
-          ref={ref => (_scrollView = ref)}
-          horizontal={true}
-          scrollEnabled={false}
-          style={{overflow: 'hidden'}}
-          pagingEnabled={true}>
-          {items}
-        </ScrollView>
-      </View>
-    );
-  }
+  return (
+    <View
+      style={{
+        marginLeft: props.margins[0],
+        marginRight: props.margins[2],
+        marginTop: props.margins[1],
+        marginBottom: props.margins[3],
+        overflow: 'hidden',
+      }}>
+      <ScrollView
+        ref={scrollView}
+        horizontal={true}
+        scrollEnabled={false}
+        style={{overflow: 'hidden'}}
+        pagingEnabled={true}>
+        {items}
+      </ScrollView>
+    </View>
+  );
 }
 
 export default BackgroundScrollView;

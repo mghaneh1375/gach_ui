@@ -12,8 +12,10 @@ const translator = {
   chooseOne: 'لطفا یکی از گزینه های زیر را انتخاب کنید',
   student: 'دانش آموز',
   teacher: 'دبیر',
-  namayande: 'نماینده',
+  agent: 'نماینده',
   school: 'مدرسه',
   advisor: 'مشاور',
+  pleaseFillAllFields: 'لطفا تمام فیلدهای لازم را پر نمایید.',
+  invalidFieldValue: 'مقدار وارد شده صحیح نمی باشد.',
 };
 export default translator;

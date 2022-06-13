@@ -1,5 +1,10 @@
 import Axios from 'axios';
-import {BASE_URL, COMMON_HEADER, showError} from './Utility';
+import {
+  BASE_URL,
+  COMMON_HEADER,
+  COMMON_HEADER_AUTH,
+  showError,
+} from './Utility';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const base = 'user';
@@ -105,7 +110,59 @@ export const activate = async data => {
         return null;
       }
 
-      if (data.status === 'ok') return data.id;
+      if (data.status === 'ok') return data.token;
+    })
+    .catch(function (error) {
+      showError('خطایی در انجام عملیات رخ داده است.');
+      return null;
+    });
+
+  return res;
+};
+
+export const sendRoleForm = async (data, token) => {
+  let res = await Axios({
+    url: '/sendRoleForm',
+    method: 'post',
+    baseURL: BASE_URL + base,
+    headers: COMMON_HEADER_AUTH(token),
+    data: data,
+  })
+    .then(function (response) {
+      var data = response.data;
+
+      if (data.status === 'nok') {
+        showError(data.msg);
+        return null;
+      }
+
+      if (data.status === 'ok') return 'ok';
+    })
+    .catch(function (error) {
+      showError('خطایی در انجام عملیات رخ داده است.');
+      return null;
+    });
+
+  return res;
+};
+
+export const resencCode = async data => {
+  let res = await Axios({
+    url: '/resendCode',
+    method: 'post',
+    baseURL: BASE_URL + base,
+    headers: COMMON_HEADER,
+    data: data,
+  })
+    .then(function (response) {
+      var data = response.data;
+
+      if (data.status === 'nok') {
+        showError(data.msg);
+        return null;
+      }
+
+      if (data.status === 'ok') return data.reminder;
     })
     .catch(function (error) {
       showError('خطایی در انجام عملیات رخ داده است.');

@@ -19,7 +19,7 @@ export default function WebRouter() {
           <Route exact path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
         </Routes>
-        {device.indexOf(Device.PhonePort) !== -1 ? <BottomNavBar /> : ''}
+        {device.indexOf(Device.WebPort) !== -1 ? <BottomNavBar /> : ''}
       </Router>
     </View>
   );

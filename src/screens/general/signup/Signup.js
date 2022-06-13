@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {signUp, activate} from '../../../API/User';
+import {signUp, activate, sendRoleForm, resencCode} from '../../../API/User';
 import {useIsFocused} from '@react-navigation/native';
 import {dispatchStateContext, globalStateContext} from './../../../App';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
@@ -16,9 +16,8 @@ import {
   SilverTextInline,
   EqualTwoTextInputs,
   CommonRadioButton,
-  MyCountDown,
-  BigBoldBlueText,
-  RoleCard,
+  MinFullHeightView,
+  ContentView,
 } from '../../../styles/Common';
 import translator from './translate';
 import loginTranslator from './../login/translate';
@@ -30,14 +29,18 @@ import {showError} from '../../../API/Utility';
 import {Loader} from '../../../styles/Common/Loader';
 import CodeInput from 'react-native-confirmation-code-input';
 import vars from '../../../styles/root';
+import {RoleCard} from '../../../styles/Common/RoleCard';
+import {MyCountDown} from '../../../styles/Common/MyCountDown';
 
 const SignUp = navigator => {
   const device = getDevice();
+
+  const [userRoleFormData, setUserRoleFormData] = useState({});
   const [loading, setLoading] = useState(false);
   const [canResend, setCanResend] = useState(false);
-  const [step, setStep] = useState('role');
+  const [step, setStep] = useState('signUp'); // available values: [signUp, verification, role, form]
+  const [role, setRole] = useState('student'); // available values: [student, teacher, school, advisor, agent]
   const [token, setToken] = useState('');
-  const [userId, setUserId] = useState('');
   const [reminder, setReminder] = useState(0);
   const [firstname, setFirstname] = useState('سش');
   const [lastname, setLastname] = useState('سیش');
@@ -45,6 +48,35 @@ const SignUp = navigator => {
   const [username, setUsername] = useState('09214915905');
   const [password, setPassword] = useState('Ghhy@110');
   const [authVia, setAuthVia] = useState('sms');
+
+  const roleForms = [];
+  roleForms['school'] = [
+    {
+      title: translator.schoolName,
+      key: 'schoolName',
+    },
+    {
+      title: translator.schoolPhone,
+      justNum: true,
+      key: 'schoolPhone',
+    },
+  ];
+  roleForms['agent'] = [
+    {
+      title: translator.stateName,
+      justNum: true,
+      key: 'stateName',
+    },
+  ];
+  roleForms['student'] = [
+    {
+      title: translator.invitationCode,
+      justNum: true,
+      help: translator.invitationCodeHelp,
+      required: false,
+      key: 'invitationCode',
+    },
+  ];
 
   const isFocused = useIsFocused();
 
@@ -77,7 +109,7 @@ const SignUp = navigator => {
 
     for (const [key, value] of Object.entries(data)) {
       if (value.length === 0) {
-        showError('لطفا تمام فیلدهای لازم را پر نمایید.');
+        showError(commonTranslator.pleaseFillAllFields);
         return;
       }
     }
@@ -94,12 +126,7 @@ const SignUp = navigator => {
     });
   };
 
-  const onFinishCheckingCode = (isValid, code) => {
-    if (!isValid) {
-      showError('مقدار وارد شده صحیح نمی باشد.');
-      return;
-    }
-
+  const onFinishCheckingCode = code => {
     setLoading(true);
 
     const data = {
@@ -111,196 +138,311 @@ const SignUp = navigator => {
     new Promise.all([activate(data)]).then(res => {
       setLoading(false);
       if (res[0] != null) {
-        // navigator.navigation.navigate('Home');
+        setToken(res[0]);
         setStep('role');
       }
     });
   };
 
+  const setFormUserData = (key, val) => {
+    userRoleFormData[key] = val;
+    setUserRoleFormData(userRoleFormData);
+  };
+
+  const checkSendRoleForm = () => {
+    userRoleFormData['role'] = role;
+
+    for (var i = 0; i < roleForms[role].length; i++) {
+      const field = roleForms[role][i];
+
+      if (field.required !== undefined && !field.required) continue;
+
+      if (
+        userRoleFormData[field.key] === undefined ||
+        userRoleFormData[field.key].length === 0
+      ) {
+        showError(commonTranslator.pleaseFillAllFields);
+        return;
+      }
+    }
+
+    setLoading(true);
+
+    new Promise.all([sendRoleForm(userRoleFormData, token)]).then(res => {
+      setLoading(false);
+      if (res[0] != null) {
+        showError('بررسی میشه میگم نتیجه رو');
+        setTimeout(function () {
+          navigator.navigation.navigate('Home');
+        }, 2000);
+      }
+    });
+  };
+
+  const requestResendCode = () => {
+    if (!canResend) {
+      showError('هنوز زمان ارسال مجدد فرانرسیده است.');
+      return;
+    }
+
+    setReminder(0);
+
+    const data = {
+      token: token,
+      username: username,
+    };
+
+    setLoading(true);
+
+    new Promise.all([resencCode(data)]).then(res => {
+      setLoading(false);
+      if (res[0] != null) {
+        setCanResend(false);
+      }
+    });
+  };
+
   return (
-    <ScreenScroll>
-      {loading && <Loader loading={loading} />}
+    <ScreenScroll
+      keyboardDismissMode="on-drag"
+      keyboardShouldPersistTaps="always">
+      <MinFullHeightView>
+        {loading && <Loader loading={loading} />}
+        <ContentView>
+          {step === 'role' && (
+            <View>
+              <TextIcon>
+                <BigBoldBlueTextInline
+                  text={commonTranslator.congratulations}
+                  device={device}
+                />
+                <FontIcon icon={faClose}></FontIcon>
+              </TextIcon>
+              <BlueTextInline
+                style={{marginTop: 20}}
+                text={commonTranslator.chooseOne}
+              />
+              <EqualTwoTextInputs>
+                <RoleCard
+                  text={commonTranslator.student}
+                  onPress={() => {
+                    setRole('student');
+                    setStep('form');
+                  }}
+                  style={{marginTop: 20}}
+                  color={vars.ORANGE}
+                  source={require('./../../../images/student.png')}
+                />
+              </EqualTwoTextInputs>
 
-      {step === 'role' && (
-        <View>
-          <TextIcon>
-            <BigBoldBlueTextInline
-              text={commonTranslator.congratulations}
-              device={device}
-            />
-            <FontIcon icon={faClose}></FontIcon>
-          </TextIcon>
-          <BlueTextInline
-            style={{marginTop: 20}}
-            text={commonTranslator.chooseOne}
-          />
-          <EqualTwoTextInputs>
-            <RoleCard
-              text={commonTranslator.student}
-              style={{marginTop: 20}}
-              color={vars.ORANGE}
-              source={require('./../../../images/student.png')}
-            />
-          </EqualTwoTextInputs>
+              <EqualTwoTextInputs>
+                <RoleCard
+                  text={commonTranslator.teacher}
+                  onPress={() => {
+                    setRole('teacher');
+                    setStep('form');
+                  }}
+                  style={{marginTop: 20}}
+                  source={require('./../../../images/teacher.png')}
+                />
+                <RoleCard
+                  text={commonTranslator.agent}
+                  style={{marginTop: 20}}
+                  onPress={() => {
+                    setRole('agent');
+                    setStep('form');
+                  }}
+                  source={require('./../../../images/agent.png')}
+                />
+              </EqualTwoTextInputs>
 
-          <EqualTwoTextInputs>
-            <RoleCard
-              text={commonTranslator.teacher}
-              style={{marginTop: 20}}
-              source={require('./../../../images/teacher.png')}
-            />
-            <RoleCard
-              text={commonTranslator.namayande}
-              style={{marginTop: 20}}
-              source={require('./../../../images/agent.png')}
-            />
-          </EqualTwoTextInputs>
-
-          <EqualTwoTextInputs style={{marginBottom: 20}}>
-            <RoleCard
-              text={commonTranslator.school}
-              style={{marginTop: 20}}
-              source={require('./../../../images/school.png')}
-            />
-            <RoleCard
-              text={commonTranslator.advisor}
-              style={{marginTop: 20}}
-              source={require('./../../../images/consultant.png')}
-            />
-          </EqualTwoTextInputs>
-        </View>
-      )}
-
-      {step !== 'role' && (
-        <TextIcon>
-          <BigBoldBlueTextInline text={translator.entryText} device={device} />
-          <FontIcon icon={faClose}></FontIcon>
-        </TextIcon>
-      )}
-
-      {step === 'verification' && (
-        <View>
-          <BlueTextInline
-            style={{marginTop: 20}}
-            text={translator.enterVerification}
-          />
-          <CodeInput
-            activeColor="rgba(49, 180, 4, 1)"
-            inactiveColor="rgba(49, 180, 4, 1.3)"
-            keyboardType="numeric"
-            autoFocus={false}
-            codeLength={6}
-            compareWithCode="123456"
-            onFulfill={(isValid, code) => onFinishCheckingCode(isValid, code)}
-            containerStyle={{marginTop: 30}}
-            codeInputStyle={{borderWidth: 1.5}}
-          />
-          <MyCountDown
-            style={{marginTop: 30}}
-            until={reminder}
-            onFinish={() => setCanResend(true)}
-          />
-          <BlueTextInline
-            style={{marginTop: 20, alignSelf: 'center'}}
-            text={translator.reminderUntilResend}
-          />
-          {canResend && (
-            <CommonButton
-              style={{
-                alignSelf: 'center',
-                backgroundColor: vars.RED,
-                marginTop: 20,
-              }}
-              onPress={() => submit()}
-              title={translator.resend}
-            />
+              <EqualTwoTextInputs style={{marginBottom: 20}}>
+                <RoleCard
+                  text={commonTranslator.school}
+                  style={{marginTop: 20}}
+                  onPress={() => {
+                    setRole('school');
+                    setStep('form');
+                  }}
+                  source={require('./../../../images/school.png')}
+                />
+                <RoleCard
+                  text={commonTranslator.advisor}
+                  style={{marginTop: 20}}
+                  onPress={() => {
+                    setRole('advisor');
+                    setStep('form');
+                  }}
+                  source={require('./../../../images/consultant.png')}
+                />
+              </EqualTwoTextInputs>
+            </View>
           )}
 
-          <InlineTextContainer style={{marginTop: 50}}>
-            <BlueTextInline text={translator.ifWrongData} device={device} />
-            <Pressable onPress={() => navigator.navigation.navigate('Login')}>
-              <OrangeTextInline
-                text={translator.ifWrongDataHref}
+          {step !== 'role' && (
+            <TextIcon>
+              <BigBoldBlueTextInline
+                text={translator.entryText}
                 device={device}
               />
-            </Pressable>
-          </InlineTextContainer>
-        </View>
-      )}
+              <FontIcon icon={faClose}></FontIcon>
+            </TextIcon>
+          )}
 
-      {step === 'signUp' && (
-        <View>
-          <EqualTwoTextInputs>
-            <CommonTextInput
-              placeholder={commonTranslator.firstname}
-              onChangeText={e => changeInput('firstname', e)}
-              style={{minWidth: '48%'}}
-            />
+          {step === 'verification' && (
+            <View>
+              <BlueTextInline
+                style={{marginTop: 20}}
+                text={translator.enterVerification}
+              />
+              <CodeInput
+                activeColor="rgba(49, 180, 4, 1)"
+                inactiveColor="rgba(49, 180, 4, 1.3)"
+                keyboardType="numeric"
+                autoFocus={false}
+                codeLength={6}
+                onFulfill={code => onFinishCheckingCode(code)}
+                containerStyle={{marginTop: 30}}
+                codeInputStyle={{borderWidth: 1.5}}
+              />
 
-            <CommonTextInput
-              placeholder={commonTranslator.lastname}
-              style={{minWidth: '48%'}}
-              onChangeText={e => changeInput('lastname', e)}
-            />
-          </EqualTwoTextInputs>
+              {reminder > 0 && (
+                <MyCountDown
+                  style={{marginTop: 30}}
+                  until={reminder}
+                  onFinish={() => setCanResend(true)}
+                />
+              )}
+              {reminder > 0 && (
+                <BlueTextInline
+                  style={{marginTop: 20, alignSelf: 'center'}}
+                  text={translator.reminderUntilResend}
+                />
+              )}
+              {canResend && (
+                <CommonButton
+                  style={{
+                    alignSelf: 'center',
+                    backgroundColor: vars.RED,
+                    marginTop: 20,
+                  }}
+                  onPress={() => requestResendCode()}
+                  title={translator.resend}
+                />
+              )}
 
-          <CommonTextInput
-            placeholder={commonTranslator.NID}
-            justNum="true"
-            onChangeText={e => changeInput('NID', e)}
-          />
+              <InlineTextContainer style={{marginTop: 50}}>
+                <BlueTextInline text={translator.ifWrongData} device={device} />
+                <Pressable
+                  onPress={() => navigator.navigation.navigate('SignUp')}>
+                  <OrangeTextInline
+                    text={translator.ifWrongDataHref}
+                    device={device}
+                  />
+                </Pressable>
+              </InlineTextContainer>
+            </View>
+          )}
 
-          <CommonRadioButton
-            text={translator.auth}
-            value="sms"
-            status={authVia === 'sms' ? 'checked' : 'unchecked'}
-            onPress={() => setAuthVia('sms')}
-          />
+          {step === 'signUp' && (
+            <View>
+              <EqualTwoTextInputs>
+                <CommonTextInput
+                  placeholder={commonTranslator.firstname}
+                  onChangeText={e => changeInput('firstname', e)}
+                  style={{minWidth: '48%'}}
+                />
 
-          <CommonTextInput
-            justNum="true"
-            placeholder={commonTranslator.phone}
-            subText={loginTranslator.usernameFilter}
-            onChangeText={e => changeInput('username', e)}
-          />
+                <CommonTextInput
+                  placeholder={commonTranslator.lastname}
+                  style={{minWidth: '48%'}}
+                  onChangeText={e => changeInput('lastname', e)}
+                />
+              </EqualTwoTextInputs>
 
-          <CommonRadioButton
-            text={translator.auth}
-            value="mail"
-            status={authVia === 'mail' ? 'checked' : 'unchecked'}
-            onPress={() => setAuthVia('mail')}
-          />
+              <CommonTextInput
+                placeholder={commonTranslator.NID}
+                justNum="true"
+                onChangeText={e => changeInput('NID', e)}
+              />
 
-          <CommonTextInput
-            placeholder={commonTranslator.mail}
-            subText={commonTranslator.mail}
-            onChangeText={e => changeInput('username', e)}
-          />
+              <CommonRadioButton
+                text={translator.auth}
+                value="sms"
+                status={authVia === 'sms' ? 'checked' : 'unchecked'}
+                onPress={() => setAuthVia('sms')}
+              />
 
-          <CommonTextInput
-            placeholder={commonTranslator.password}
-            subText={loginTranslator.passwordFilter}
-            type="password"
-            onChangeText={e => changeInput('password', e)}
-          />
+              <CommonTextInput
+                justNum="true"
+                placeholder={commonTranslator.phone}
+                subText={loginTranslator.usernameFilter}
+                onChangeText={e => changeInput('username', e)}
+              />
 
-          <SilverTextInline
-            style={{marginTop: 20}}
-            text={translator.acceptTerms}
-          />
-          <CommonButton
-            style={{alignSelf: 'flex-start', marginTop: 10}}
-            onPress={() => submit()}
-            title={commonTranslator.signUp}
-          />
-          <InlineTextContainer style={{marginTop: 30}}>
-            <BlueTextInline text={translator.ifSubscribe} device={device} />
-            <Pressable onPress={() => navigator.navigation.navigate('Login')}>
-              <OrangeTextInline text={translator.login} device={device} />
-            </Pressable>
-          </InlineTextContainer>
-        </View>
-      )}
+              <CommonRadioButton
+                text={translator.auth}
+                value="mail"
+                status={authVia === 'mail' ? 'checked' : 'unchecked'}
+                onPress={() => setAuthVia('mail')}
+              />
+
+              <CommonTextInput
+                placeholder={commonTranslator.mail}
+                subText={commonTranslator.mail}
+                onChangeText={e => changeInput('username', e)}
+              />
+
+              <CommonTextInput
+                placeholder={commonTranslator.password}
+                subText={loginTranslator.passwordFilter}
+                type="password"
+                onChangeText={e => changeInput('password', e)}
+              />
+
+              <SilverTextInline
+                style={{marginTop: 20}}
+                text={translator.acceptTerms}
+              />
+              <CommonButton
+                style={{alignSelf: 'flex-start', marginTop: 10}}
+                onPress={() => submit()}
+                title={commonTranslator.signUp}
+              />
+              <InlineTextContainer style={{marginTop: 30}}>
+                <BlueTextInline text={translator.ifSubscribe} device={device} />
+                <Pressable
+                  onPress={() => navigator.navigation.navigate('Login')}>
+                  <OrangeTextInline text={translator.login} device={device} />
+                </Pressable>
+              </InlineTextContainer>
+            </View>
+          )}
+          {step === 'form' && (
+            <View style={{marginTop: 20}}>
+              {roleForms[role].map(function (obj, i) {
+                return (
+                  <CommonTextInput
+                    key={i}
+                    placeholder={obj.title}
+                    justNum={obj.justNum}
+                    subText={obj.help}
+                    onChangeText={e => setFormUserData(obj.key, e)}
+                  />
+                );
+              })}
+              <CommonButton
+                style={{
+                  alignSelf: 'flex-start',
+                  marginTop: 40,
+                }}
+                onPress={() => checkSendRoleForm()}
+                title={commonTranslator.confirm}
+              />
+            </View>
+          )}
+        </ContentView>
+      </MinFullHeightView>
     </ScreenScroll>
   );
 };
