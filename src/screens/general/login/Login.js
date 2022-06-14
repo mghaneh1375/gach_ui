@@ -11,15 +11,14 @@ import {
   CommonTextInput,
   CommonButton,
   BlueTextInline,
-  OrangeTextInline,
   InlineTextContainer,
   MinFullHeightView,
   ContentView,
+  TextLink,
 } from '../../../styles/Common';
 import translator from './translate';
 import commonTranslator from './../../../tranlates/Common';
 import {dispatchStateContext, globalStateContext} from './../../../App';
-import {Pressable} from 'react-native';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 
 const Login = navigator => {
@@ -87,11 +86,24 @@ const Login = navigator => {
             onPress={() => submit()}
             title={commonTranslator.confirm}
           />
-          <InlineTextContainer style={{marginTop: 150}}>
+          <InlineTextContainer style={{marginTop: 30}}>
             <BlueTextInline text={translator.ifNotSubscribe} device={device} />
-            <Pressable onPress={() => navigator.navigation.navigate('SignUp')}>
-              <OrangeTextInline text={translator.subscrible} device={device} />
-            </Pressable>
+
+            <TextLink
+              onPress={() => navigator.navigation.navigate('SignUp')}
+              text={translator.subscrible}
+              device={device}
+            />
+          </InlineTextContainer>
+
+          <InlineTextContainer style={{marginTop: 130}}>
+            <BlueTextInline text={translator.ifForget} device={device} />
+
+            <TextLink
+              onPress={() => navigator.navigation.navigate('ForgetPass')}
+              text={translator.forgetAction}
+              device={device}
+            />
           </InlineTextContainer>
         </ContentView>
       </MinFullHeightView>

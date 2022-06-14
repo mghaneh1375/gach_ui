@@ -7,7 +7,8 @@ const style = {
   color: vars.DARK_BLUE,
   fontFamily: 'IRANSans',
   fontWeight: 600,
-  lineHeight: 20,
+  lineHeight: '20px',
+  alignSelf: 'center',
 };
 
 const BlueTextInlineElem =

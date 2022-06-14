@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Home from '../../screens/general/home/Home';
 import Login from '../../screens/general/login/Login';
 import SignUp from '../../screens/general/signup/Signup';
+import ForgetPass from '../../screens/general/signup/ForgetPass';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -35,6 +36,7 @@ export default function Router() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="ForgetPass" component={ForgetPass} />
       </Stack.Navigator>
       <BottomNavBarAndroid show={showBottonNavLocal} />
     </NavigationContainer>

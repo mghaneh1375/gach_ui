@@ -1,7 +1,7 @@
 import {RadioButton} from 'react-native-paper';
 import styled from 'styled-components';
 import vars from './root';
-import {Text, Platform, View, ScrollView} from 'react-native';
+import {Text, Platform, View, ScrollView, Linking} from 'react-native';
 import {Button, CommonButtonTextStyleAndroid} from './Common/Button';
 import BlueTextInlineElem from './Common/BlueTextInline';
 
@@ -38,7 +38,18 @@ export const BlueTextInline = props => (
 export const OrangeTextInline = props => (
   <BlueTextInlineElem
     style={[
-      {color: vars.ORANGE, marginRight: 10},
+      {color: vars.ORANGE},
+      props.style !== undefined ? props.style : {},
+    ]}>
+    {props.text}
+  </BlueTextInlineElem>
+);
+
+export const TextLink = props => (
+  <BlueTextInlineElem
+    onPress={props.onPress}
+    style={[
+      {color: vars.ORANGE},
       props.style !== undefined ? props.style : {},
     ]}>
     {props.text}
@@ -100,6 +111,8 @@ export const InlineTextContainer =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(Text)`
         flex-direction: row-reverse;
+        justify-content: center;
+        align-items: center;
       `
     : styled.div``;
 

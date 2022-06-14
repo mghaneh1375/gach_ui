@@ -5,6 +5,7 @@ import {
   COMMON_HEADER_AUTH,
   showError,
 } from './Utility';
+import commonTranslator from './../tranlates/Common';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const base = 'user';
@@ -64,9 +65,9 @@ export const signIn = (username, password) => {
     });
 };
 
-export const signUp = async data => {
+export const signUpOrForgetPass = async (data, isSignUpMode) => {
   let res = await Axios({
-    url: '/signUp',
+    url: isSignUpMode ? '/signUp' : '/forgetPass',
     method: 'post',
     baseURL: BASE_URL + base,
     headers: COMMON_HEADER,
@@ -87,7 +88,7 @@ export const signUp = async data => {
         };
     })
     .catch(function (error) {
-      showError('خطایی در انجام عملیات رخ داده است.');
+      showError(commonTranslator.opErr);
       return null;
     });
 
@@ -113,7 +114,7 @@ export const activate = async data => {
       if (data.status === 'ok') return data.token;
     })
     .catch(function (error) {
-      showError('خطایی در انجام عملیات رخ داده است.');
+      showError(commonTranslator.opErr);
       return null;
     });
 
@@ -139,7 +140,7 @@ export const sendRoleForm = async (data, token) => {
       if (data.status === 'ok') return 'ok';
     })
     .catch(function (error) {
-      showError('خطایی در انجام عملیات رخ داده است.');
+      showError(commonTranslator.opErr);
       return null;
     });
 
@@ -165,7 +166,7 @@ export const resencCode = async data => {
       if (data.status === 'ok') return data.reminder;
     })
     .catch(function (error) {
-      showError('خطایی در انجام عملیات رخ داده است.');
+      showError(commonTranslator.opErr);
       return null;
     });
 

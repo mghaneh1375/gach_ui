@@ -17,5 +17,6 @@ const translator = {
   advisor: 'مشاور',
   pleaseFillAllFields: 'لطفا تمام فیلدهای لازم را پر نمایید.',
   invalidFieldValue: 'مقدار وارد شده صحیح نمی باشد.',
+  opErr: 'خطایی در انجام عملیات موردنظر رخ داده است',
 };
 export default translator;

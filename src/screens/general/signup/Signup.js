@@ -11,13 +11,13 @@ import {
   CommonTextInput,
   CommonButton,
   BlueTextInline,
-  OrangeTextInline,
   InlineTextContainer,
   SilverTextInline,
   EqualTwoTextInputs,
   CommonRadioButton,
   MinFullHeightView,
   ContentView,
+  TextLink,
 } from '../../../styles/Common';
 import translator from './translate';
 import loginTranslator from './../login/translate';
@@ -335,10 +335,7 @@ const SignUp = navigator => {
                 <BlueTextInline text={translator.ifWrongData} device={device} />
                 <Pressable
                   onPress={() => navigator.navigation.navigate('SignUp')}>
-                  <OrangeTextInline
-                    text={translator.ifWrongDataHref}
-                    device={device}
-                  />
+                  <TextLink text={translator.ifWrongDataHref} device={device} />
                 </Pressable>
               </InlineTextContainer>
             </View>
@@ -413,7 +410,7 @@ const SignUp = navigator => {
                 <BlueTextInline text={translator.ifSubscribe} device={device} />
                 <Pressable
                   onPress={() => navigator.navigation.navigate('Login')}>
-                  <OrangeTextInline text={translator.login} device={device} />
+                  <TextLink text={translator.login} device={device} />
                 </Pressable>
               </InlineTextContainer>
             </View>

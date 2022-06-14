@@ -24,3 +24,45 @@ export function showError(msg) {
   // }
   else alert(msg);
 }
+
+export const generalRequest = async (
+  url,
+  method,
+  data,
+  dataShouldReturnKey,
+  needAuth = false,
+  token = null,
+) => {
+  let res = await Axios({
+    url: url,
+    method: method,
+    baseURL: BASE_URL + base,
+    headers: needAuth ? COMMON_HEADER_AUTH(token) : COMMON_HEADER,
+    data: data,
+  })
+    .then(function (response) {
+      var data = response.data;
+
+      if (data.status === 'nok') {
+        showError(data.msg);
+        return null;
+      }
+
+      if (data.status === 'ok') {
+        if (dataShouldReturnKey instanceof Array) {
+          output = {};
+          for (key in dataShouldReturnKey) output[key] = data[key];
+
+          return output;
+        }
+
+        return data[dataShouldReturnKey];
+      }
+    })
+    .catch(function (error) {
+      showError(commonTranslator.opErr);
+      return null;
+    });
+
+  return res;
+};
