@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {activate, resencCode, signUpOrForgetPass} from '../../../API/User';
+import {resencCode} from '../../../API/User';
 import {useIsFocused} from '@react-navigation/native';
 import {dispatchStateContext, globalStateContext} from './../../../App';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
@@ -11,18 +11,16 @@ import {
   CommonTextInput,
   CommonButton,
   BlueTextInline,
-  InlineTextContainer,
   CommonRadioButton,
   MinFullHeightView,
   ContentView,
-  TextLink,
 } from '../../../styles/Common';
 import translator from './translate';
 import loginTranslator from './../login/translate';
 import commonTranslator from './../../../tranlates/Common';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 import {getDevice} from '../../../services/Utility';
-import {Pressable, View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import {generalRequest, showError} from '../../../API/Utility';
 import {Loader} from '../../../styles/Common/Loader';
 import CodeInput from 'react-native-confirmation-code-input';
@@ -35,12 +33,14 @@ const ForgetPass = navigator => {
 
   const [loading, setLoading] = useState(false);
   const [canResend, setCanResend] = useState(false);
-  const [step, setStep] = useState('signUp'); // available values: [signUp, verification, role, form]
+  const [step, setStep] = useState('forget'); // available values: [signUp, verification, role, form]
   const [token, setToken] = useState('');
   const [reminder, setReminder] = useState(0);
   const [NID, setNID] = useState('0018914373');
-  const [password, setPassword] = useState('Ghhy@110');
+  const [password, setPassword] = useState('Ghhy@112');
+  const [rp, setRp] = useState('Ghhy@112');
   const [authVia, setAuthVia] = useState('sms');
+  const [code, setCode] = useState(111111);
 
   const isFocused = useIsFocused();
 
@@ -56,6 +56,7 @@ const ForgetPass = navigator => {
   const changeInput = (label, text) => {
     if (label === 'NID') setNID(text);
     else if (label === 'password') setPassword(text);
+    else if (label === 'rp') setRp(text);
   };
 
   const getWhichKindOfAuthIsAvailable = () => {
@@ -73,10 +74,19 @@ const ForgetPass = navigator => {
         'via',
       ),
     ]).then(res => {
-      setLoading(false);
       if (res[0] != null) {
-        console.log(res[0]);
+        const via = res[0];
+        if (via === 'none') showError('کد ملی وارد شده معتبر نیست');
+        else if (via === 'both') setStep('chooseAuthMethod');
+        else {
+          setStep('verification');
+          setAuthVia(via);
+          requestForgetPass();
+          return;
+        }
       }
+
+      setLoading(false);
     });
   };
 
@@ -103,20 +113,33 @@ const ForgetPass = navigator => {
     });
   };
 
-  const onFinishCheckingCode = code => {
-    setLoading(true);
-
+  const resetPassword = () => {
     const data = {
       token: token,
       code: code,
-      username: username,
+      NID: NID,
+      newPass: password,
+      rNewPass: rp,
     };
 
-    new Promise.all([activate(data)]).then(res => {
+    for (const [key, value] of Object.entries(data)) {
+      if (value.length === 0) {
+        showError(commonTranslator.pleaseFillAllFields);
+        return;
+      }
+    }
+
+    setLoading(true);
+
+    new Promise.all([
+      generalRequest(routes.resetPassword, 'post', data, undefined),
+    ]).then(res => {
       setLoading(false);
       if (res[0] != null) {
-        setToken(res[0]);
-        setStep('role');
+        showError('رمز شما با موفقیت تغییر کرد.');
+        setTimeout(() => {
+          navigator.navigation.navigate('Login');
+        }, 2000);
       }
     });
   };
@@ -156,7 +179,11 @@ const ForgetPass = navigator => {
               text={translator.entryText}
               device={device}
             />
-            <FontIcon icon={faClose}></FontIcon>
+
+            <FontIcon
+              onPress={() => navigator.navigation.navigate('Login')}
+              icon={faClose}
+            />
           </TextIcon>
 
           {step === 'verification' && (
@@ -171,7 +198,7 @@ const ForgetPass = navigator => {
                 keyboardType="numeric"
                 autoFocus={false}
                 codeLength={6}
-                onFulfill={code => onFinishCheckingCode(code)}
+                onFulfill={code => setCode(code)}
                 containerStyle={{marginTop: 30}}
                 codeInputStyle={{borderWidth: 1.5}}
               />
@@ -201,30 +228,50 @@ const ForgetPass = navigator => {
                 />
               )}
 
-              <InlineTextContainer style={{marginTop: 50}}>
-                <BlueTextInline text={translator.ifWrongData} device={device} />
-                <Pressable
-                  onPress={() => navigator.navigation.navigate('SignUp')}>
-                  <TextLink text={translator.ifWrongDataHref} device={device} />
-                </Pressable>
-              </InlineTextContainer>
+              <CommonTextInput
+                placeholder={translator.password}
+                subText={loginTranslator.passwordFilter}
+                type="password"
+                onChangeText={e => changeInput('password', e)}
+              />
+
+              <CommonTextInput
+                placeholder={translator.rPassword}
+                type="password"
+                onChangeText={e => changeInput('rp', e)}
+              />
+
+              <CommonButton
+                style={{alignSelf: 'flex-start', marginTop: 10}}
+                onPress={() => resetPassword()}
+                title={commonTranslator.confirm}
+              />
             </View>
           )}
 
           {step === 'forget' && (
             <View>
-              {/* <CommonRadioButton
-                text={translator.auth}
-                value="sms"
-                status={authVia === 'sms' ? 'checked' : 'unchecked'}
-                onPress={() => setAuthVia('sms')}
+              <CommonTextInput
+                placeholder={commonTranslator.NID}
+                justNum={true}
+                onChangeText={e => changeInput('NID', e)}
               />
 
-              <CommonTextInput
-                justNum="true"
-                placeholder={commonTranslator.phone}
-                subText={loginTranslator.usernameFilter}
-                onChangeText={e => changeInput('username', e)}
+              <CommonButton
+                style={{alignSelf: 'flex-start', marginTop: 10}}
+                onPress={() => getWhichKindOfAuthIsAvailable()}
+                title={commonTranslator.confirm}
+              />
+            </View>
+          )}
+
+          {step === 'chooseAuthMethod' && (
+            <View>
+              <CommonRadioButton
+                text={translator.auth}
+                value="sms"
+                status={authVia === 'mail' ? 'checked' : 'unchecked'}
+                onPress={() => setAuthVia('sms')}
               />
 
               <CommonRadioButton
@@ -234,21 +281,9 @@ const ForgetPass = navigator => {
                 onPress={() => setAuthVia('mail')}
               />
 
-              <CommonTextInput
-                placeholder={commonTranslator.mail}
-                subText={commonTranslator.mail}
-                onChangeText={e => changeInput('username', e)}
-              />
- */}
-
-              <CommonTextInput
-                placeholder={commonTranslator.NID}
-                onChangeText={e => changeInput('NID', e)}
-              />
-
               <CommonButton
                 style={{alignSelf: 'flex-start', marginTop: 10}}
-                onPress={() => getWhichKindOfAuthIsAvailable()}
+                onPress={() => requestForgetPass()}
                 title={commonTranslator.confirm}
               />
             </View>

@@ -17,6 +17,8 @@ const translator = {
   invitationCode: 'کد معرف',
   invitationCodeHelp:
     'اگر کسی شما را معرفی کرده است کد معرف را وارد کنید تا از جایزه بهرهمند شوید.',
+  rPassword: 'تکرار رمزعبور جدید',
+  password: 'رمزعبور جدید',
 };
 
 export default translator;

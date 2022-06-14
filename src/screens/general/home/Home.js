@@ -4,10 +4,6 @@ import translator from './translator';
 import {Device} from './../../../models/Device';
 import {useIsFocused} from '@react-navigation/native';
 
-import {
-  ScreenContentContainerStyle,
-  ScreenScrollBar,
-} from './../../../styles/Android/Common';
 import {getToken} from './../../../API/User';
 import {getDevice, getWidthHeight} from './../../../services/Utility';
 

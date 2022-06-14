@@ -53,7 +53,7 @@ function BackgroundScrollView(props) {
     setTimeout(() => {
       updateScrollValue();
     }, props.scrollDelay);
-  }, []);
+  }, [scrollView]);
 
   const updateScrollValue = () => {
     const scrollable = props.scrollable - 1;

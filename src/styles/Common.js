@@ -1,7 +1,7 @@
 import {RadioButton} from 'react-native-paper';
 import styled from 'styled-components';
 import vars from './root';
-import {Text, Platform, View, ScrollView, Linking} from 'react-native';
+import {Text, Platform, View, ScrollView, TouchableOpacity} from 'react-native';
 import {Button, CommonButtonTextStyleAndroid} from './Common/Button';
 import BlueTextInlineElem from './Common/BlueTextInline';
 
@@ -64,9 +64,15 @@ export const SilverTextInline = props => (
 
 export const FontIcon = props =>
   Platform.OS === 'android' || Platform.OS === 'ios' ? (
-    <View style={{position: 'absolute', right: 10}}>
+    <TouchableOpacity
+      style={{
+        marginLeft: 'auto',
+        width: 40,
+        height: 40,
+      }}
+      onPress={props.onPress}>
       <FontAwesomeIcon icon={props.icon} style={FontIconStyleAndroid} />
-    </View>
+    </TouchableOpacity>
   ) : (
     <FontAwesomeIcon icon={props.icon} style={FontIconStyleWeb} />
   );

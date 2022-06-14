@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 
-import {signUp, activate, sendRoleForm, resencCode} from '../../../API/User';
+import {
+  signUpOrForgetPass,
+  activate,
+  sendRoleForm,
+  resencCode,
+} from '../../../API/User';
 import {useIsFocused} from '@react-navigation/native';
 import {dispatchStateContext, globalStateContext} from './../../../App';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
@@ -116,7 +121,7 @@ const SignUp = navigator => {
 
     setLoading(true);
 
-    new Promise.all([signUp(data)]).then(res => {
+    new Promise.all([signUpOrForgetPass(data, true)]).then(res => {
       setLoading(false);
       if (res[0] != null) {
         setToken(res[0].token);
@@ -308,7 +313,6 @@ const SignUp = navigator => {
 
               {reminder > 0 && (
                 <MyCountDown
-                  style={{marginTop: 30}}
                   until={reminder}
                   onFinish={() => setCanResend(true)}
                 />
@@ -333,10 +337,11 @@ const SignUp = navigator => {
 
               <InlineTextContainer style={{marginTop: 50}}>
                 <BlueTextInline text={translator.ifWrongData} device={device} />
-                <Pressable
-                  onPress={() => navigator.navigation.navigate('SignUp')}>
-                  <TextLink text={translator.ifWrongDataHref} device={device} />
-                </Pressable>
+                <TextLink
+                  onPress={() => navigator.navigation.navigate('SignUp')}
+                  text={translator.ifWrongDataHref}
+                  device={device}
+                />
               </InlineTextContainer>
             </View>
           )}
