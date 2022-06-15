@@ -6,7 +6,10 @@ import vars from '../root';
 export const Nav = styled.nav`
   background: white;
   height: ${vars.NAV_BAR_H};
-  width: 80%;
+  width: 90%;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 5px 5px 5px #aaaaaa;
   margin: 0 auto;
   direction: rtl;
   display: flex;
@@ -18,8 +21,9 @@ export const Nav = styled.nav`
   }
 `;
 export const NavLink = styled(Link)`
-  color: #808080;
+  color: ${vars.LIGHT_SILVER} !important;
   display: flex;
+  font-family: IRANSans;
   align-items: center;
   text-decoration: none;
   padding: 0 1rem;

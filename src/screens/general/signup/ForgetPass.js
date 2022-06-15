@@ -20,7 +20,7 @@ import loginTranslator from './../login/translate';
 import commonTranslator from './../../../tranlates/Common';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 import {getDevice} from '../../../services/Utility';
-import {View, TouchableOpacity} from 'react-native';
+import {View} from 'react-native';
 import {generalRequest, showError} from '../../../API/Utility';
 import {Loader} from '../../../styles/Common/Loader';
 import CodeInput from 'react-native-confirmation-code-input';
@@ -51,7 +51,7 @@ const ForgetPass = navigator => {
   const [globalStates, dispatch] = useGlobalState();
   React.useEffect(() => {
     if (navigator.navigation.isFocused()) dispatch({showBottonNav: false});
-  }, [isFocused]);
+  }, [isFocused, dispatch, navigator.navigation]);
 
   const changeInput = (label, text) => {
     if (label === 'NID') setNID(text);
@@ -154,7 +154,7 @@ const ForgetPass = navigator => {
 
     const data = {
       token: token,
-      username: username,
+      username: NID,
     };
 
     setLoading(true);

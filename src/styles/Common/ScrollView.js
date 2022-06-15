@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {View, Text, Platform} from 'react-native';
 import vars from '../root';
-import {BlueTextInline} from '../Common';
 
 export const MyScrollView =
   Platform.OS === 'android' || Platform.OS === 'ios'
@@ -49,9 +48,11 @@ export const ScrollViewTitle =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(Text)`
         display: none;
+        font-family: IRANSans;
       `
     : styled.p`
         font-size: 26px !important;
+        font-family: IRANSans;
         ${props => (props.isPhonePortSize ? ScrollViewTitle_PHONE : {})};
       `;
 
@@ -66,6 +67,7 @@ export const ScrollViewSubTitle =
       `
     : styled.p`
         font-size: 22px !important;
+        font-family: IRANSans;
         ${props =>
           props.isPhonePortSize
             ? {

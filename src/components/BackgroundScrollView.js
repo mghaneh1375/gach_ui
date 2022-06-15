@@ -47,26 +47,24 @@ function BackgroundScrollView(props) {
 
   const imgHeight = props.imgHeight;
 
-  React.useEffect(() => {
-    if (scrollView === undefined || scrollView === null) return;
+  // React.useEffect(() => {
+  //   if (scrollView === undefined || scrollView === null) return;
 
-    setTimeout(() => {
-      updateScrollValue();
-    }, props.scrollDelay);
-  }, [scrollView]);
+  //   setInterval(() => {
+  //     const scrollable = props.scrollable - 1;
 
-  const updateScrollValue = () => {
-    const scrollable = props.scrollable - 1;
+  //     if (scrollValue >= width * scrollable) scrollValue = 0;
+  //     else scrollValue = scrollValue + width;
 
-    if (scrollValue >= width * scrollable) scrollValue = 0;
-    else scrollValue = scrollValue + width;
+  //     scrollView.current.scrollTo({x: scrollValue});
+  //   }, props.scrollDelay);
+  // }, [scrollView, props.scrollDelay]);
 
-    scrollView.current.scrollTo({x: scrollValue});
-
-    setTimeout(() => {
-      updateScrollValue();
-    }, props.scrollDelay);
-  };
+  // const updateScrollValue = () => {
+  //   setTimeout(() => {
+  //     updateScrollValue();
+  //   }, props.scrollDelay);
+  // };
 
   const items = isJustImage
     ? props.images.map(i => (

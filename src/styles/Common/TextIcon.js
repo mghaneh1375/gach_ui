@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import vars from './../root';
 import {View, Platform} from 'react-native';
 
 const TextIconStyle = {

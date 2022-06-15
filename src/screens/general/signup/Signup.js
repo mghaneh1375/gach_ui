@@ -92,7 +92,7 @@ const SignUp = navigator => {
   const [globalStates, dispatch] = useGlobalState();
   React.useEffect(() => {
     if (navigator.navigation.isFocused()) dispatch({showBottonNav: false});
-  }, [isFocused]);
+  }, [isFocused, dispatch, navigator.navigation]);
 
   const changeInput = (label, text) => {
     if (label === 'username') setUsername(text);

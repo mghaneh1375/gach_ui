@@ -53,8 +53,8 @@ export const generalRequest = async (
       if (data.status === 'ok') {
         if (dataShouldReturnKey === undefined) return true;
         if (dataShouldReturnKey instanceof Array) {
-          output = {};
-
+          var output = {};
+          var key;
           for (var i = 0; i < dataShouldReturnKey.length; i++) {
             key = dataShouldReturnKey[i];
             output[key] = data[key];

@@ -3,7 +3,6 @@ import {signIn} from '../../../API/User';
 import {getDevice} from '../../../services/Utility';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 
-import {useIsFocused} from '@react-navigation/native';
 import {
   BigBoldBlueTextInline,
   FontIcon,
@@ -25,22 +24,10 @@ const Login = navigator => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const isFocused = useIsFocused();
-
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
-  const [globalStates, dispatch] = useGlobalState();
-
   // if (globalStates.token !== undefined) {
   //   navigator.navigation.navigate('Home');
   //   return null;
   // }
-
-  React.useEffect(() => {
-    if (navigator.navigation.isFocused()) dispatch({showBottonNav: false});
-  }, [isFocused]);
 
   const changeUsername = text => {
     setUsername(text);
@@ -57,57 +44,57 @@ const Login = navigator => {
   const device = getDevice();
 
   return (
-    <ScreenScroll>
-      <MinFullHeightView>
-        <ContentView>
-          <TextIcon>
-            <BigBoldBlueTextInline
-              text={translator.entryText}
-              device={device}
-            />
-            <FontIcon icon={faClose}></FontIcon>
-          </TextIcon>
+    <ContentView>
+      <TextIcon>
+        <BigBoldBlueTextInline text={translator.entryText} device={device} />
+        <FontIcon icon={faClose}></FontIcon>
+      </TextIcon>
 
-          <CommonTextInput
-            style={{marginTop: 50}}
-            placeholder={commonTranslator.username}
-            onChangeText={changeUsername}
-            subText={translator.usernameFilter}
-          />
-          <CommonTextInput
-            placeholder={commonTranslator.password}
-            type="password"
-            onChangeText={changePassword}
-            subText={translator.passwordFilter}
-          />
+      <CommonTextInput
+        style={{marginTop: 50}}
+        placeholder={commonTranslator.username}
+        onChangeText={changeUsername}
+        value={username}
+        subText={translator.usernameFilter}
+      />
+      <CommonTextInput
+        placeholder={commonTranslator.password}
+        type="password"
+        value={password}
+        onChangeText={changePassword}
+        subText={translator.passwordFilter}
+      />
 
-          <CommonButton
-            style={{marginTop: 50}}
-            onPress={() => submit()}
-            title={commonTranslator.confirm}
-          />
-          <InlineTextContainer style={{marginTop: 30}}>
-            <BlueTextInline text={translator.ifNotSubscribe} device={device} />
+      <CommonButton
+        style={{marginTop: 50}}
+        onPress={() => submit()}
+        title={commonTranslator.confirm}
+      />
+      <InlineTextContainer style={{marginTop: 30}}>
+        <BlueTextInline text={translator.ifNotSubscribe} device={device} />
 
-            <TextLink
-              onPress={() => navigator.navigation.navigate('SignUp')}
-              text={translator.subscrible}
-              device={device}
-            />
-          </InlineTextContainer>
+        <TextLink
+          onPress={() =>
+            navigator.navigation !== undefined
+              ? navigator.navigation.navigate('SignUp')
+              : null
+          }
+          href={'/'}
+          text={translator.subscrible}
+          device={device}
+        />
+      </InlineTextContainer>
 
-          <InlineTextContainer style={{marginTop: 130}}>
-            <BlueTextInline text={translator.ifForget} device={device} />
+      <InlineTextContainer style={{marginTop: 130}}>
+        <BlueTextInline text={translator.ifForget} device={device} />
 
-            <TextLink
-              onPress={() => navigator.navigation.navigate('ForgetPass')}
-              text={translator.forgetAction}
-              device={device}
-            />
-          </InlineTextContainer>
-        </ContentView>
-      </MinFullHeightView>
-    </ScreenScroll>
+        <TextLink
+          onPress={() => navigator.navigation.navigate('ForgetPass')}
+          text={translator.forgetAction}
+          device={device}
+        />
+      </InlineTextContainer>
+    </ContentView>
   );
 };
 

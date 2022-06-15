@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import Home from '../../screens/general/home/Home';
 import Login from '../../screens/general/login/Login';
-import SignUp from '../../screens/general/signup/Signup';
-import ForgetPass from '../../screens/general/signup/ForgetPass';
+// import SignUp from '../../screens/general/signup/Signup';
+// import ForgetPass from '../../screens/general/signup/ForgetPass';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BottomNavBarAndroid from '../../components/Android/BottomNavBar';
 import {TopNavBar} from '../../components/Android/TopNavBar';
 import {globalStateContext} from './../../App';
+import AppStructue from '../../screens/AppStructure';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,19 +27,20 @@ export default function Router() {
     setShowBottonNavLocal(state.showBottonNav);
   }, [state.showBottonNav]);
 
+  const HomeComp = props => <AppStructue com={Home} />;
+  const LoginComp = props => <AppStructue com={Login} />;
+
   return (
     <NavigationContainer>
-      <TopNavBar />
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="ForgetPass" component={ForgetPass} />
+        <Stack.Screen name="Home" component={HomeComp} />
+        <Stack.Screen name="Login" component={LoginComp} />
+        {/* <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="ForgetPass" component={ForgetPass} /> */}
       </Stack.Navigator>
-      <BottomNavBarAndroid show={showBottonNavLocal} />
     </NavigationContainer>
   );
 }

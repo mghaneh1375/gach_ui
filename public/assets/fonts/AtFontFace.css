@@ -10,6 +10,17 @@
  */
 
 @font-face {
+  font-family: 'IRANSans';
+  src: local('IRANSans'), local('IRANSans'),
+    url('IRANSansWeb.woff2') format('woff2'),
+    url('IRANSansWeb.woff') format('woff'),
+    url('IRANSansWeb.ttf') format('truetype');
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'AGhasem';
   src: local('AGhasem'), local('AGhasem'),
     /* url('BNazanin.woff2') format('woff2'), 

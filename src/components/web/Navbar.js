@@ -1,5 +1,7 @@
 import React from 'react';
-import {Nav, NavLink, NavButtonY} from '../../styles/web/NavbarElement';
+import {CommonButton} from '../../styles/Common';
+import vars from '../../styles/root';
+import {Nav, NavLink} from '../../styles/web/NavbarElement';
 
 const Navbar = () => {
   return (
@@ -12,7 +14,14 @@ const Navbar = () => {
         <NavLink to="/">همکاران</NavLink>
         <NavLink to="/">راهنما</NavLink>
         <NavLink to="/">تماس با ما</NavLink>
-        <NavButtonY to="/login">ورود/ثبت نام</NavButtonY>
+        <CommonButton
+          style={{backgroundColor: vars.DARK_BLUE, marginLeft: 0}}
+          title={'پشتیبانی'}
+        />
+        <CommonButton
+          onPress={() => window.open('/login', '_self')}
+          title={'ورود/ثبت نام'}
+        />
       </Nav>
     </>
   );

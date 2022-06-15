@@ -47,11 +47,13 @@ export default function App() {
   if (Platform.OS === 'ios' || Platform.OS === 'android') {
     return (
       <GlobalStateProvider>
-        <View style={{flex: 1, height: '100%'}}>
-          <AppRouter />
-        </View>
+        <AppRouter />
       </GlobalStateProvider>
     );
   }
-  return <WebRouter />;
+  return (
+    <GlobalStateProvider>
+      <WebRouter />
+    </GlobalStateProvider>
+  );
 }

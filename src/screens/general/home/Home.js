@@ -2,12 +2,10 @@ import React, {useState} from 'react';
 import BackgroundScrollView from './../../../components/BackgroundScrollView';
 import translator from './translator';
 import {Device} from './../../../models/Device';
-import {useIsFocused} from '@react-navigation/native';
 
 import {getToken} from './../../../API/User';
 import {getDevice, getWidthHeight} from './../../../services/Utility';
 
-import {dispatchStateContext, globalStateContext} from './../../../App';
 import {ScreenScroll} from '../../../styles/Common';
 import {ImageBackground} from 'react-native';
 
@@ -17,34 +15,24 @@ const Home = navigator => {
   const wH = getWidthHeight();
   const width = wH[0];
   const height = wH[1];
-  const isFocused = useIsFocused();
   const [token, setToken] = useState(undefined);
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
-  const [globalStates, dispatch] = useGlobalState();
+  // React.useEffect(() => {
+  //   Promise.all([getToken()]).then(res => {
+  //     setToken(res);
+  //   });
+  // }, []);
 
-  React.useEffect(() => {
-    if (navigator.navigation.isFocused()) dispatch({showBottonNav: true});
-  }, [isFocused]);
-
-  React.useEffect(() => {
-    new Promise.all([getToken()]).then(res => {
-      setToken(res);
-    });
-  }, []);
-
-  React.useEffect(() => {
-    dispatch({token: token});
-  }, [token]);
+  // React.useEffect(() => {
+  //   dispatch({token: token});
+  // }, [token, dispatch]);
 
   return (
     <ScreenScroll>
       <ImageBackground
         resizeMode="cover"
-        source={require('./../../../images/back1.png')}>
+        style={device.indexOf(Device.App) ? {} : {marginTop: '-100px'}}
+        source={require('./../../../images/back3.png')}>
         <BackgroundScrollView
           images={[
             {

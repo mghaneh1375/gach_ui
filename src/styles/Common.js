@@ -2,7 +2,11 @@ import {RadioButton} from 'react-native-paper';
 import styled from 'styled-components';
 import vars from './root';
 import {Text, Platform, View, ScrollView, TouchableOpacity} from 'react-native';
-import {Button, CommonButtonTextStyleAndroid} from './Common/Button';
+import {
+  Button,
+  CommonButtonTextStyleAndroid,
+  CommonButtonTextStyleWeb,
+} from './Common/Button';
 import BlueTextInlineElem from './Common/BlueTextInline';
 
 import {Device} from '../models/Device';
@@ -20,6 +24,7 @@ import {
 import {FontIconStyleAndroid, FontIconStyleWeb} from './Common/FontIcon';
 import SubInputText from './Common/SubInputText';
 import {getScreenHeight, getWidthHeight} from '../services/Utility';
+import {Link} from 'react-router-dom';
 
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem>{props.text}</BigBoldBlueTextInlineElem>
@@ -45,16 +50,19 @@ export const OrangeTextInline = props => (
   </BlueTextInlineElem>
 );
 
-export const TextLink = props => (
-  <BlueTextInlineElem
-    onPress={props.onPress}
-    style={[
-      {color: vars.ORANGE},
-      props.style !== undefined ? props.style : {},
-    ]}>
-    {props.text}
-  </BlueTextInlineElem>
-);
+export const TextLink = props =>
+  Platform.OS === 'android' || Platform.OS === 'ios' ? (
+    <BlueTextInlineElem
+      onPress={props.onPress}
+      style={[
+        {color: vars.ORANGE},
+        props.style !== undefined ? props.style : {},
+      ]}>
+      {props.text}
+    </BlueTextInlineElem>
+  ) : (
+    <Link to={props.href}>{props.text}</Link>
+  );
 
 export const SilverTextInline = props => (
   <BlueTextInlineElem style={[{color: vars.LIGHT_SILVER}, props.style]}>
@@ -92,26 +100,49 @@ export const ScreenScroll =
 
 export const CommonTextInput = props => (
   <CommonTextInputContainer>
-    <CommonTextInputElem
-      secureTextEntry={props.type !== undefined && props.type === 'password'}
-      onChangeText={props.onChangeText}
-      keyboardType={props.justNum !== undefined ? 'numeric' : null}
-      placeholder={props.placeholder}
-      style={props.style !== undefined ? props.style : null}
-    />
+    {Platform.OS === 'android' && (
+      <CommonTextInputElem
+        secureTextEntry={props.type !== undefined && props.type === 'password'}
+        onChangeText={props.onChangeText}
+        keyboardType={props.justNum !== undefined ? 'numeric' : null}
+        placeholder={props.placeholder}
+        style={props.style !== undefined ? props.style : null}
+      />
+    )}
+    {Platform.OS === 'web' && (
+      <CommonTextInputElem
+        type={props.type !== undefined ? props.type : 'null'}
+        value={props.value}
+        onChange={e => {
+          if (props.justNum !== undefined)
+            props.onChangeText(e.target.value.replace(/[^0-9]/g, ''));
+          else props.onChangeText(e.target.value);
+        }}
+        keyboardType={props.justNum !== undefined ? 'numeric' : null}
+        placeholder={props.placeholder}
+        style={props.style !== undefined ? props.style : null}
+      />
+    )}
     {props.subText !== undefined ? (
       <SubInputText>{props.subText}</SubInputText>
     ) : null}
   </CommonTextInputContainer>
 );
 
-export const CommonButton = props => (
-  <Button
-    style={props.style !== undefined ? props.style : null}
-    onPress={props.onPress}>
-    <Text style={CommonButtonTextStyleAndroid}>{props.title}</Text>
-  </Button>
-);
+export const CommonButton = props =>
+  Platform.OS === 'android' || Platform.OS === 'ios' ? (
+    <Button
+      style={props.style !== undefined ? props.style : null}
+      onPress={props.onPress}>
+      <Text style={CommonButtonTextStyleAndroid}>{props.title}</Text>
+    </Button>
+  ) : (
+    <Button
+      style={props.style !== undefined ? props.style : null}
+      onClick={props.onPress}>
+      <Text style={CommonButtonTextStyleWeb}>{props.title}</Text>
+    </Button>
+  );
 
 export const InlineTextContainer =
   Platform.OS === 'android' || Platform.OS === 'ios'
