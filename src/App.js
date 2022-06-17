@@ -6,6 +6,8 @@ import WebRouter from './router/web/Router';
 
 const defaultGlobalState = {
   showBottonNav: true,
+  showTopNav: true,
+  loading: false,
   token: undefined,
 };
 

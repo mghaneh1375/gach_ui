@@ -3,19 +3,21 @@ import vars from './../root';
 import {Text, Platform} from 'react-native';
 
 const style = {
-  fontSize: 14,
   marginTop: 5,
   marginRight: 5,
   color: vars.LIGHT_SILVER,
+  fontFamily: 'IRANSans',
 };
 
 const SubInputText =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(Text)`
         ${style}
+        font-size: 14px;
       `
     : styled.span`
         ${style}
+        font-size: 11px;
       `;
 
 export default SubInputText;

@@ -6,21 +6,18 @@ import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {
   BigBoldBlueTextInline,
   FontIcon,
-  ScreenScroll,
   CommonTextInput,
   CommonButton,
   BlueTextInline,
   InlineTextContainer,
-  MinFullHeightView,
   ContentView,
   TextLink,
 } from '../../../styles/Common';
 import translator from './translate';
 import commonTranslator from './../../../tranlates/Common';
-import {dispatchStateContext, globalStateContext} from './../../../App';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 
-const Login = navigator => {
+const Login = navigation => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -75,9 +72,7 @@ const Login = navigator => {
 
         <TextLink
           onPress={() =>
-            navigator.navigation !== undefined
-              ? navigator.navigation.navigate('SignUp')
-              : null
+            navigation !== undefined ? navigation.navigate('SignUp') : null
           }
           href={'/'}
           text={translator.subscrible}
@@ -89,7 +84,10 @@ const Login = navigator => {
         <BlueTextInline text={translator.ifForget} device={device} />
 
         <TextLink
-          onPress={() => navigator.navigation.navigate('ForgetPass')}
+          onPress={() =>
+            navigation !== undefined ? navigation.navigate('ForgetPass') : null
+          }
+          href={'/forgetPass'}
           text={translator.forgetAction}
           device={device}
         />

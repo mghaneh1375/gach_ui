@@ -9,6 +9,8 @@ import {getDevice, getWidthHeight} from './../../../services/Utility';
 import {ScreenScroll} from '../../../styles/Common';
 import {ImageBackground} from 'react-native';
 
+import {globalStateContext, dispatchStateContext} from './../../../App';
+
 const device = getDevice();
 
 const Home = navigator => {
@@ -16,6 +18,17 @@ const Home = navigator => {
   const width = wH[0];
   const height = wH[1];
   const [token, setToken] = useState(undefined);
+
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
+
+  React.useEffect(() => {
+    dispatch({showTopNav: true});
+  }, [dispatch]);
 
   // React.useEffect(() => {
   //   Promise.all([getToken()]).then(res => {
@@ -31,8 +44,12 @@ const Home = navigator => {
     <ScreenScroll>
       <ImageBackground
         resizeMode="cover"
-        style={device.indexOf(Device.App) ? {} : {marginTop: '-100px'}}
-        source={require('./../../../images/back3.png')}>
+        style={device.indexOf(Device.App) !== -1 ? {} : {marginTop: '-50px'}}
+        source={
+          device.indexOf(Device.App) !== -1
+            ? require('./../../../images/back1.png')
+            : require('./../../../images/back3.png')
+        }>
         <BackgroundScrollView
           images={[
             {

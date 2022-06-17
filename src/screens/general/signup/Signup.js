@@ -83,17 +83,6 @@ const SignUp = navigator => {
     },
   ];
 
-  const isFocused = useIsFocused();
-
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
-  const [globalStates, dispatch] = useGlobalState();
-  React.useEffect(() => {
-    if (navigator.navigation.isFocused()) dispatch({showBottonNav: false});
-  }, [isFocused, dispatch, navigator.navigation]);
-
   const changeInput = (label, text) => {
     if (label === 'username') setUsername(text);
     else if (label === 'password') setPassword(text);

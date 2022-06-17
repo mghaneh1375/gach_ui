@@ -17,11 +17,9 @@ const Navbar = () => {
         <CommonButton
           style={{backgroundColor: vars.DARK_BLUE, marginLeft: 0}}
           title={'پشتیبانی'}
+          href="/login"
         />
-        <CommonButton
-          onPress={() => window.open('/login', '_self')}
-          title={'ورود/ثبت نام'}
-        />
+        <CommonButton href="/login" title={'ورود/ثبت نام'} />
       </Nav>
     </>
   );

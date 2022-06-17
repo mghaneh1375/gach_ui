@@ -39,10 +39,10 @@ module.exports = {
     [
       '@babel/plugin-proposal-class-properties',
       {
-        loose: false,
+        loose: true,
       },
     ],
-
+    ['@babel/plugin-transform-react-jsx', {}],
     ['@babel/plugin-transform-runtime', {}],
   ],
   sourceMaps: true,

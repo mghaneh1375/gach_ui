@@ -6,6 +6,7 @@ const BigBoldBlueTextStyle = {
   fontWeight: 900,
   fontSize: 28,
   color: vars.DARK_BLUE,
+  fontFamily: 'IRANSans',
 };
 
 export const BigBoldBlueTextElem =
@@ -15,6 +16,7 @@ export const BigBoldBlueTextElem =
       `
     : styled.p`
         ${BigBoldBlueTextStyle}
+        margin-bottom: 5px;
       `;
 
 export const BigBoldBlueTextInlineElem =

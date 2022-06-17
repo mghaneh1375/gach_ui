@@ -2,15 +2,34 @@ import vars from './../root';
 import {Platform, Pressable} from 'react-native';
 import styled from 'styled-components';
 
-const CommonButtonStyleAndroid = {
-  backgroundColor: vars.ORANGE,
+const style = {
   textAlign: 'center',
   color: vars.WHITE,
-  borderRadius: 20,
+  backgroundColor: vars.ORANGE,
+  borderRadius: 15,
+  padding: 5,
+  minWidth: 150,
+  alignSelf: 'flex-end',
+};
+
+const CommonButtonStyleAndroid = {
+  ...style,
   fontSize: 24,
   width: '50%',
-  alignSelf: 'flex-end',
-  padding: 10,
+};
+
+const CommonButtonStyleWeb = {
+  ...style,
+  textAlign: 'center',
+  color: vars.WHITE,
+  margin: 10,
+  fontSize: '16px',
+  // fontSize: 24,
+  // width: '50%',
+  // float: 'right',
+  // clear: 'both',
+  border: 'none',
+  cursor: 'pointer',
 };
 
 export const CommonButtonTextStyleAndroid = {
@@ -24,22 +43,6 @@ export const CommonButtonTextStyleWeb = {
   color: vars.WHITE,
   fontSize: 16,
   fontFamily: 'IRANSans',
-};
-
-const CommonButtonStyleWeb = {
-  backgroundColor: vars.ORANGE,
-  textAlign: 'center',
-  color: vars.WHITE,
-  margin: 20,
-  borderRadius: 20,
-  fontSize: '16px',
-  // fontSize: 24,
-  // width: '50%',
-  // float: 'right',
-  // clear: 'both',
-  border: 'none',
-  padding: '10px',
-  cursor: 'pointer',
 };
 
 export const Button =

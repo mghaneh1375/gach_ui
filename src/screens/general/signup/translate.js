@@ -19,6 +19,7 @@ const translator = {
     'اگر کسی شما را معرفی کرده است کد معرف را وارد کنید تا از جایزه بهرهمند شوید.',
   rPassword: 'تکرار رمزعبور جدید',
   password: 'رمزعبور جدید',
+  canNotResend: 'هنوز زمان ارسال مجدد فرانرسیده است.',
 };
 
 export default translator;

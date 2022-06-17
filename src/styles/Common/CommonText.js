@@ -5,8 +5,9 @@ import {TextInput, View, Platform} from 'react-native';
 const CommonTextInputStyle = {
   padding: 10,
   backgroundColor: 'white',
-  borderWidth: 2,
+  borderWidth: 1,
   borderRadius: 15,
+  fontFamily: 'IRANSans',
   borderColor: vars.LIGHT_SILVER,
 };
 
@@ -15,11 +16,12 @@ const CommonTextInputStyleAndroid = {
   flexDirection: 'row-reverse',
 };
 
-const CommonTextInputStyleWeb = {
+export const CommonTextInputStyleWeb = {
   ...CommonTextInputStyle,
   direction: 'rtl',
   width: 'calc(100% - 60px)',
   display: 'block',
+  maxWidth: '300px',
 };
 
 export const CommonTextInputContainer =
@@ -29,11 +31,6 @@ export const CommonTextInputContainer =
       `
     : styled.div``;
 
-export const CommonTextInputElem =
-  Platform.OS === 'android' || Platform.OS === 'ios'
-    ? styled(TextInput)`
-        ${CommonTextInputStyleAndroid}
-      `
-    : styled.input`
-        ${CommonTextInputStyleWeb}
-      `;
+export const CommonTextInputElem = styled(TextInput)`
+  ${CommonTextInputStyleAndroid}
+`;

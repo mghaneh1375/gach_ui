@@ -10,23 +10,25 @@ import {ScreenScroll, MinFullHeightView} from '../styles/Common';
 const AppStructue = props => {
   const navigation = useNavigation();
   const isFocused = useIsFocused();
-  const screensWithOutBottomNav = ['Login'];
 
   const [showBottonNavLocal, setShowBottonNavLocal] = useState(true);
 
   React.useEffect(() => {
+    const screensWithOutBottomNav = ['Login', 'ForgetPass'];
+
     const currentRouteName =
       navigation.getState().routeNames[navigation.getState().index];
-    console.log(currentRouteName);
     setShowBottonNavLocal(
       screensWithOutBottomNav.indexOf(currentRouteName) === -1,
     );
-  }, [isFocused]);
+  }, [isFocused, navigation]);
 
   return (
     <View style={{flex: 1, height: '100%'}}>
       <TopNavBar />
-      <ScreenScroll>
+      <ScreenScroll
+        keyboardDismissMode="on-drag"
+        keyboardShouldPersistTaps="always">
         <MinFullHeightView>{props.com(navigation)}</MinFullHeightView>
       </ScreenScroll>
       <BottomNavBar show={showBottonNavLocal} />

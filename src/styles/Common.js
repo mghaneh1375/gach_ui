@@ -14,6 +14,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   CommonTextInputElem,
   CommonTextInputContainer,
+  CommonTextInputStyleWeb,
 } from './Common/CommonText';
 
 import {
@@ -27,15 +28,20 @@ import {getScreenHeight, getWidthHeight} from '../services/Utility';
 import {Link} from 'react-router-dom';
 
 export const BigBoldBlueTextInline = props => (
-  <BigBoldBlueTextInlineElem>{props.text}</BigBoldBlueTextInlineElem>
+  <BigBoldBlueTextInlineElem
+    style={props.style !== undefined ? props.style : {}}>
+    {props.text}
+  </BigBoldBlueTextInlineElem>
 );
 
 export const BigBoldBlueText = props => (
-  <BigBoldBlueTextElem>{props.text}</BigBoldBlueTextElem>
+  <BigBoldBlueTextElem style={props.style !== undefined ? props.style : {}}>
+    {props.text}
+  </BigBoldBlueTextElem>
 );
 
 export const BlueTextInline = props => (
-  <BlueTextInlineElem style={props.style !== undefined ? props.style : null}>
+  <BlueTextInlineElem style={props.style !== undefined ? props.style : {}}>
     {props.text}
   </BlueTextInlineElem>
 );
@@ -60,15 +66,30 @@ export const TextLink = props =>
       ]}>
       {props.text}
     </BlueTextInlineElem>
+  ) : props.href !== undefined ? (
+    <Link
+      style={{
+        color: vars.ORANGE,
+        fontFamily: 'IRANSans',
+        textDecoration: 'none',
+      }}
+      to={props.href}>
+      {props.text}
+    </Link>
   ) : (
-    <Link to={props.href}>{props.text}</Link>
+    <BlueTextInlineElem
+      onClick={props.onPress}
+      style={{color: vars.ORANGE, cursor: 'pointer'}}>
+      {props.text}
+    </BlueTextInlineElem>
   );
 
-export const SilverTextInline = props => (
-  <BlueTextInlineElem style={[{color: vars.LIGHT_SILVER}, props.style]}>
-    {props.text}
-  </BlueTextInlineElem>
-);
+export const SilverTextInline = props => {
+  const style1 = {color: vars.LIGHT_SILVER};
+  const allStyle =
+    props.style !== undefined ? {...style1, ...props.style} : style1;
+  return <BlueTextInlineElem style={allStyle}>{props.text}</BlueTextInlineElem>;
+};
 
 export const FontIcon = props =>
   Platform.OS === 'android' || Platform.OS === 'ios' ? (
@@ -82,7 +103,10 @@ export const FontIcon = props =>
       <FontAwesomeIcon icon={props.icon} style={FontIconStyleAndroid} />
     </TouchableOpacity>
   ) : (
-    <FontAwesomeIcon icon={props.icon} style={FontIconStyleWeb} />
+    <FontAwesomeIcon
+      icon={props.icon}
+      style={[FontIconStyleWeb, props.style ? props.style : {}]}
+    />
   );
 
 export const ScreenScroll =
@@ -91,43 +115,31 @@ export const ScreenScroll =
         margin-bottom: 30px;
         width: 100%;
       `
-    : styled.div`
-        margin-top: 50px;
-      `;
+    : styled.div``;
 
 // style={ScreenScrollBar}
 // contentContainerStyle={ScreenContentContainerStyle}
 
-export const CommonTextInput = props => (
-  <CommonTextInputContainer>
-    {Platform.OS === 'android' && (
+export const CommonTextInput = props => {
+  const style1 = Platform.OS === 'web' ? CommonTextInputStyleWeb : {};
+  const allStyle =
+    props.style !== undefined ? {...style1, ...props.style} : style1;
+
+  return (
+    <CommonTextInputContainer>
       <CommonTextInputElem
         secureTextEntry={props.type !== undefined && props.type === 'password'}
         onChangeText={props.onChangeText}
         keyboardType={props.justNum !== undefined ? 'numeric' : null}
         placeholder={props.placeholder}
-        style={props.style !== undefined ? props.style : null}
+        style={allStyle}
       />
-    )}
-    {Platform.OS === 'web' && (
-      <CommonTextInputElem
-        type={props.type !== undefined ? props.type : 'null'}
-        value={props.value}
-        onChange={e => {
-          if (props.justNum !== undefined)
-            props.onChangeText(e.target.value.replace(/[^0-9]/g, ''));
-          else props.onChangeText(e.target.value);
-        }}
-        keyboardType={props.justNum !== undefined ? 'numeric' : null}
-        placeholder={props.placeholder}
-        style={props.style !== undefined ? props.style : null}
-      />
-    )}
-    {props.subText !== undefined ? (
-      <SubInputText>{props.subText}</SubInputText>
-    ) : null}
-  </CommonTextInputContainer>
-);
+      {props.subText !== undefined ? (
+        <SubInputText>{props.subText}</SubInputText>
+      ) : null}
+    </CommonTextInputContainer>
+  );
+};
 
 export const CommonButton = props =>
   Platform.OS === 'android' || Platform.OS === 'ios' ? (
@@ -135,6 +147,14 @@ export const CommonButton = props =>
       style={props.style !== undefined ? props.style : null}
       onPress={props.onPress}>
       <Text style={CommonButtonTextStyleAndroid}>{props.title}</Text>
+    </Button>
+  ) : props.href !== undefined ? (
+    <Button style={props.style !== undefined ? props.style : null}>
+      <Link
+        to={props.href !== undefined ? props.href : '/'}
+        style={{textDecoration: 'none'}}>
+        <Text style={CommonButtonTextStyleWeb}>{props.title}</Text>
+      </Link>
     </Button>
   ) : (
     <Button
@@ -161,9 +181,24 @@ export const EqualTwoTextInputs =
       `
     : styled.div``;
 
+const androidCommonStyles = {flexDirection: 'row-reverse'};
+
+export const SimpleText = props => {
+  const style1 = {fontFamily: 'IRANSans'};
+  const allStyle =
+    props.style !== undefined ? {...style1, ...props.style} : style1;
+
+  return <Text style={allStyle}>{props.text}</Text>;
+};
+
 export const CommonRadioButton = props => (
-  <View style={{flexDirection: 'row-reverse'}}>
-    <Text style={{marginTop: 10}}>{props.text}</Text>
+  <View
+    style={
+      Platform.OS === 'android' || Platform.OS === 'ios'
+        ? androidCommonStyles
+        : {display: 'flex', flexDirection: 'row'}
+    }>
+    <SimpleText text={props.text} style={{marginTop: 10}} />
     <RadioButton
       value={props.value}
       status={props.status}
@@ -181,3 +216,9 @@ export const ContentView = styled(View)`
   margin-left: 20px;
   margin-right: 20px;
 `;
+
+export const BlueTextFromStart = props => (
+  <View style={{flexDirection: 'row', alignSelf: 'flex-start'}}>
+    <BlueTextInline text={props.text} />
+  </View>
+);

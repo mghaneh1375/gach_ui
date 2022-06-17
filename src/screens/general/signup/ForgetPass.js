@@ -1,18 +1,14 @@
 import React, {useState} from 'react';
 
 import {resencCode} from '../../../API/User';
-import {useIsFocused} from '@react-navigation/native';
-import {dispatchStateContext, globalStateContext} from './../../../App';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {
   BigBoldBlueTextInline,
   FontIcon,
-  ScreenScroll,
   CommonTextInput,
   CommonButton,
   BlueTextInline,
   CommonRadioButton,
-  MinFullHeightView,
   ContentView,
 } from '../../../styles/Common';
 import translator from './translate';
@@ -28,7 +24,7 @@ import vars from '../../../styles/root';
 import {MyCountDown} from '../../../styles/Common/MyCountDown';
 import {routes} from '../../../API/APIRoutes';
 
-const ForgetPass = navigator => {
+const ForgetPass = navigation => {
   const device = getDevice();
 
   const [loading, setLoading] = useState(false);
@@ -41,17 +37,6 @@ const ForgetPass = navigator => {
   const [rp, setRp] = useState('Ghhy@112');
   const [authVia, setAuthVia] = useState('sms');
   const [code, setCode] = useState(111111);
-
-  const isFocused = useIsFocused();
-
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
-  const [globalStates, dispatch] = useGlobalState();
-  React.useEffect(() => {
-    if (navigator.navigation.isFocused()) dispatch({showBottonNav: false});
-  }, [isFocused, dispatch, navigator.navigation]);
 
   const changeInput = (label, text) => {
     if (label === 'NID') setNID(text);
@@ -138,7 +123,7 @@ const ForgetPass = navigator => {
       if (res[0] != null) {
         showError('رمز شما با موفقیت تغییر کرد.');
         setTimeout(() => {
-          navigator.navigation.navigate('Login');
+          navigation.navigate('Login');
         }, 2000);
       }
     });
@@ -168,129 +153,118 @@ const ForgetPass = navigator => {
   };
 
   return (
-    <ScreenScroll
-      keyboardDismissMode="on-drag"
-      keyboardShouldPersistTaps="always">
-      <MinFullHeightView>
-        {loading && <Loader loading={loading} />}
-        <ContentView>
-          <TextIcon>
-            <BigBoldBlueTextInline
-              text={translator.entryText}
-              device={device}
+    <ContentView>
+      {loading && <Loader loading={loading} />}
+
+      <TextIcon>
+        <BigBoldBlueTextInline text={translator.entryText} device={device} />
+
+        <FontIcon onPress={() => navigation.navigate('Login')} icon={faClose} />
+      </TextIcon>
+
+      {step === 'verification' && (
+        <View>
+          <BlueTextInline
+            style={{marginTop: 20}}
+            text={translator.enterVerification}
+          />
+          <CodeInput
+            activeColor="rgba(49, 180, 4, 1)"
+            inactiveColor="rgba(49, 180, 4, 1.3)"
+            keyboardType="numeric"
+            autoFocus={false}
+            codeLength={6}
+            onFulfill={code => setCode(code)}
+            containerStyle={{marginTop: 30}}
+            codeInputStyle={{borderWidth: 1.5}}
+          />
+
+          {reminder > 0 && (
+            <MyCountDown
+              style={{marginTop: 30}}
+              until={reminder}
+              onFinish={() => setCanResend(true)}
             />
-
-            <FontIcon
-              onPress={() => navigator.navigation.navigate('Login')}
-              icon={faClose}
+          )}
+          {reminder > 0 && (
+            <BlueTextInline
+              style={{marginTop: 20, alignSelf: 'center'}}
+              text={translator.reminderUntilResend}
             />
-          </TextIcon>
-
-          {step === 'verification' && (
-            <View>
-              <BlueTextInline
-                style={{marginTop: 20}}
-                text={translator.enterVerification}
-              />
-              <CodeInput
-                activeColor="rgba(49, 180, 4, 1)"
-                inactiveColor="rgba(49, 180, 4, 1.3)"
-                keyboardType="numeric"
-                autoFocus={false}
-                codeLength={6}
-                onFulfill={code => setCode(code)}
-                containerStyle={{marginTop: 30}}
-                codeInputStyle={{borderWidth: 1.5}}
-              />
-
-              {reminder > 0 && (
-                <MyCountDown
-                  style={{marginTop: 30}}
-                  until={reminder}
-                  onFinish={() => setCanResend(true)}
-                />
-              )}
-              {reminder > 0 && (
-                <BlueTextInline
-                  style={{marginTop: 20, alignSelf: 'center'}}
-                  text={translator.reminderUntilResend}
-                />
-              )}
-              {canResend && (
-                <CommonButton
-                  style={{
-                    alignSelf: 'center',
-                    backgroundColor: vars.RED,
-                    marginTop: 20,
-                  }}
-                  onPress={() => requestResendCode()}
-                  title={translator.resend}
-                />
-              )}
-
-              <CommonTextInput
-                placeholder={translator.password}
-                subText={loginTranslator.passwordFilter}
-                type="password"
-                onChangeText={e => changeInput('password', e)}
-              />
-
-              <CommonTextInput
-                placeholder={translator.rPassword}
-                type="password"
-                onChangeText={e => changeInput('rp', e)}
-              />
-
-              <CommonButton
-                style={{alignSelf: 'flex-start', marginTop: 10}}
-                onPress={() => resetPassword()}
-                title={commonTranslator.confirm}
-              />
-            </View>
+          )}
+          {canResend && (
+            <CommonButton
+              style={{
+                alignSelf: 'center',
+                backgroundColor: vars.RED,
+                marginTop: 20,
+              }}
+              onPress={() => requestResendCode()}
+              title={translator.resend}
+            />
           )}
 
-          {step === 'forget' && (
-            <View>
-              <CommonTextInput
-                placeholder={commonTranslator.NID}
-                justNum={true}
-                onChangeText={e => changeInput('NID', e)}
-              />
+          <CommonTextInput
+            placeholder={translator.password}
+            subText={loginTranslator.passwordFilter}
+            type="password"
+            onChangeText={e => changeInput('password', e)}
+          />
 
-              <CommonButton
-                style={{alignSelf: 'flex-start', marginTop: 10}}
-                onPress={() => getWhichKindOfAuthIsAvailable()}
-                title={commonTranslator.confirm}
-              />
-            </View>
-          )}
+          <CommonTextInput
+            placeholder={translator.rPassword}
+            type="password"
+            onChangeText={e => changeInput('rp', e)}
+          />
 
-          {step === 'chooseAuthMethod' && (
-            <View>
-              <CommonRadioButton
-                text={translator.auth}
-                value="sms"
-                status={authVia === 'mail' ? 'checked' : 'unchecked'}
-                onPress={() => setAuthVia('sms')}
-              />
+          <CommonButton
+            style={{alignSelf: 'flex-start', marginTop: 10}}
+            onPress={() => resetPassword()}
+            title={commonTranslator.confirm}
+          />
+        </View>
+      )}
 
-              <CommonRadioButton
-                text={translator.auth}
-                value="mail"
-                status={authVia === 'mail' ? 'checked' : 'unchecked'}
-                onPress={() => setAuthVia('mail')}
-              />
+      {step === 'forget' && (
+        <View>
+          <CommonTextInput
+            placeholder={commonTranslator.NID}
+            justNum={true}
+            onChangeText={e => changeInput('NID', e)}
+          />
 
-              <CommonButton
-                style={{alignSelf: 'flex-start', marginTop: 10}}
-                onPress={() => requestForgetPass()}
-                title={commonTranslator.confirm}
-              />
-            </View>
-          )}
-        </ContentView>
-      </MinFullHeightView>
-    </ScreenScroll>
+          <CommonButton
+            style={{alignSelf: 'flex-start', marginTop: 10}}
+            onPress={() => getWhichKindOfAuthIsAvailable()}
+            title={commonTranslator.confirm}
+          />
+        </View>
+      )}
+
+      {step === 'chooseAuthMethod' && (
+        <View>
+          <CommonRadioButton
+            text={translator.auth}
+            value="sms"
+            status={authVia === 'mail' ? 'checked' : 'unchecked'}
+            onPress={() => setAuthVia('sms')}
+          />
+
+          <CommonRadioButton
+            text={translator.auth}
+            value="mail"
+            status={authVia === 'mail' ? 'checked' : 'unchecked'}
+            onPress={() => setAuthVia('mail')}
+          />
+
+          <CommonButton
+            style={{alignSelf: 'flex-start', marginTop: 10}}
+            onPress={() => requestForgetPass()}
+            title={commonTranslator.confirm}
+          />
+        </View>
+      )}
+    </ContentView>
   );
 };
 

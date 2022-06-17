@@ -1,34 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Home from '../../screens/general/home/Home';
 import Login from '../../screens/general/login/Login';
-// import SignUp from '../../screens/general/signup/Signup';
-// import ForgetPass from '../../screens/general/signup/ForgetPass';
+import SignUp from '../../screens/general/signup/Signup';
+import ForgetPass from '../../screens/general/signup/ForgetPass';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import BottomNavBarAndroid from '../../components/Android/BottomNavBar';
-import {TopNavBar} from '../../components/Android/TopNavBar';
-import {globalStateContext} from './../../App';
 import AppStructue from '../../screens/AppStructure';
 
 const Stack = createNativeStackNavigator();
 
 export default function Router() {
-  const useGlobalState = () => [React.useContext(globalStateContext)];
-
-  const [state] = useGlobalState();
-
-  const [showBottonNavLocal, setShowBottonNavLocal] = useState(
-    state.showBottonNav,
-  );
-
-  React.useEffect(() => {
-    console.log('detect change ' + state.showBottonNav);
-    setShowBottonNavLocal(state.showBottonNav);
-  }, [state.showBottonNav]);
-
   const HomeComp = props => <AppStructue com={Home} />;
   const LoginComp = props => <AppStructue com={Login} />;
+  const SignUpComp = props => <AppStructue com={SignUp} />;
+  const ForgetPassComp = props => <AppStructue com={ForgetPass} />;
 
   return (
     <NavigationContainer>
@@ -38,8 +24,8 @@ export default function Router() {
         }}>
         <Stack.Screen name="Home" component={HomeComp} />
         <Stack.Screen name="Login" component={LoginComp} />
-        {/* <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="ForgetPass" component={ForgetPass} /> */}
+        {/* <Stack.Screen name="SignUp" component={SignUpComp} /> */}
+        <Stack.Screen name="ForgetPass" component={ForgetPassComp} />
       </Stack.Navigator>
     </NavigationContainer>
   );
