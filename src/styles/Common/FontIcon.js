@@ -1,21 +1,41 @@
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {Platform, Pressable} from 'react-native';
 import vars from './../root';
 
 const FontIconStyle = {
-  backgroundColor: vars.ORANGE,
   color: vars.WHITE,
-  borderRadius: 50,
+  width: '100%',
+  height: '100%',
 };
 
-export const FontIconStyleAndroid = {
+const FontIconStyleAndroid = {
   ...FontIconStyle,
   padding: 20,
-  textAlign: 'left',
 };
 
-export const FontIconStyleWeb = {
+const FontIconStyleWeb = {
   ...FontIconStyle,
   padding: 5,
   cursor: 'pointer',
-  alignSelf: 'end',
-  marginRight: 'auto',
+  alignSelf: 'center',
 };
+
+export const FontIcon = props => (
+  <Pressable
+    style={{
+      backgroundColor: vars.ORANGE_RED,
+      cursor: 'pointer',
+      width: '100%',
+      height: '100%',
+      borderRadius: 20,
+    }}
+    onPress={props.onPress}>
+    <FontAwesomeIcon
+      icon={props.icon}
+      style={[
+        Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
+        props.style ? props.style : {},
+      ]}
+    />
+  </Pressable>
+);

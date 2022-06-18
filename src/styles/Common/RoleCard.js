@@ -35,16 +35,12 @@ export const RoleCard = props => (
         source={props.source}
       />
       <BlueTextInline
-        style={[
-          {
-            fontWeight: '900',
-            alignSelf: 'center',
-            marginTop: 10,
-          },
-          props.color !== undefined
-            ? {color: props.color}
-            : {color: vars.DARK_BLUE},
-        ]}
+        style={{
+          fontWeight: '900',
+          alignSelf: 'center',
+          marginTop: 10,
+          color: props.color !== undefined ? props.color : vars.DARK_BLUE,
+        }}
         text={props.text}
       />
     </View>

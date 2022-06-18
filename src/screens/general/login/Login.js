@@ -1,98 +1,85 @@
-import React, {useState} from 'react';
-import {signIn} from '../../../API/User';
-import {getDevice} from '../../../services/Utility';
+import React from 'react';
+import {getDevice, getWidthHeight} from '../../../services/Utility';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
+import LoginModule from './web/components/Login';
 
 import {
-  BigBoldBlueTextInline,
-  FontIcon,
-  CommonTextInput,
-  CommonButton,
   BlueTextInline,
   InlineTextContainer,
   ContentView,
   TextLink,
 } from '../../../styles/Common';
 import translator from './translate';
-import commonTranslator from './../../../tranlates/Common';
 import {TextIcon} from '../../../styles/Common/TextIcon';
+import {Device} from '../../../models/Device';
+import {ImageBackground} from 'react-native';
+import {globalStateContext, dispatchStateContext} from './../../../App';
 
-const Login = navigation => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
+const Login = navigate => {
   // if (globalStates.token !== undefined) {
   //   navigator.navigation.navigate('Home');
   //   return null;
   // }
 
-  const changeUsername = text => {
-    setUsername(text);
-  };
-
-  const changePassword = text => {
-    setPassword(text);
-  };
-
-  const submit = () => {
-    signIn(username, password);
-  };
-
   const device = getDevice();
 
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
+
+  React.useEffect(() => {
+    dispatch({showBottomNav: false});
+  }, [dispatch]);
+
+  const setLoading = status => {
+    dispatch({loading: status});
+  };
+
+  const height = getWidthHeight()[1];
+
   return (
-    <ContentView>
-      <TextIcon>
-        <BigBoldBlueTextInline text={translator.entryText} device={device} />
-        <FontIcon icon={faClose}></FontIcon>
-      </TextIcon>
-
-      <CommonTextInput
-        style={{marginTop: 50}}
-        placeholder={commonTranslator.username}
-        onChangeText={changeUsername}
-        value={username}
-        subText={translator.usernameFilter}
-      />
-      <CommonTextInput
-        placeholder={commonTranslator.password}
-        type="password"
-        value={password}
-        onChangeText={changePassword}
-        subText={translator.passwordFilter}
-      />
-
-      <CommonButton
-        style={{marginTop: 50}}
-        onPress={() => submit()}
-        title={commonTranslator.confirm}
-      />
-      <InlineTextContainer style={{marginTop: 30}}>
-        <BlueTextInline text={translator.ifNotSubscribe} device={device} />
-
-        <TextLink
-          onPress={() =>
-            navigation !== undefined ? navigation.navigate('SignUp') : null
-          }
-          href={'/'}
-          text={translator.subscrible}
-          device={device}
+    <ImageBackground
+      style={{minHeight: height}}
+      resizeMode="contain"
+      source={require('./../../../images/back2.png')}>
+      <ContentView>
+        <TextIcon
+          style={{marginTop: 20}}
+          text={translator.entryText}
+          icon={faClose}
         />
-      </InlineTextContainer>
 
-      <InlineTextContainer style={{marginTop: 130}}>
-        <BlueTextInline text={translator.ifForget} device={device} />
-
-        <TextLink
-          onPress={() =>
-            navigation !== undefined ? navigation.navigate('ForgetPass') : null
-          }
-          href={'/forgetPass'}
-          text={translator.forgetAction}
-          device={device}
+        <LoginModule
+          style={{marginTop: 20}}
+          navigate={navigate}
+          setLoading={setLoading}
         />
-      </InlineTextContainer>
-    </ContentView>
+        <InlineTextContainer style={{marginTop: 30}}>
+          <BlueTextInline text={translator.ifNotSubscribe} device={device} />
+
+          <TextLink
+            onPress={() => navigate('SignUp')}
+            href={'/'}
+            text={translator.subscrible}
+            device={device}
+          />
+        </InlineTextContainer>
+
+        <InlineTextContainer style={{marginTop: 130}}>
+          <BlueTextInline text={translator.ifForget} device={device} />
+
+          <TextLink
+            onPress={() => navigate('ForgetPass')}
+            href={'/forgetPass'}
+            text={translator.forgetAction}
+            device={device}
+          />
+        </InlineTextContainer>
+      </ContentView>
+    </ImageBackground>
   );
 };
 

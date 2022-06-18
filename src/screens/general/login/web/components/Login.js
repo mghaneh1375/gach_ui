@@ -4,7 +4,6 @@ import {signIn} from '../../../../../API/User';
 import {CommonButton, CommonTextInput} from '../../../../../styles/Common';
 import commonTranlator from './../../../../../tranlates/Common';
 import loginTranslator from './../../translate';
-import {useNavigate} from 'react-router-dom';
 
 const Login = props => {
   const [username, setUsername] = useState('');
@@ -15,21 +14,19 @@ const Login = props => {
     else if (label === 'password') setPassword(value);
   };
 
-  const navigate = useNavigate();
-
   const requestLogin = () => {
     props.setLoading(true);
 
     Promise.all([signIn(username, password)]).then(res => {
       props.setLoading(false);
       if (res[0] !== null) {
-        navigate('/');
+        props.navigate('/');
       }
     });
   };
 
   return (
-    <View>
+    <View style={props.style}>
       <CommonTextInput
         placeholder={loginTranslator.phoneOrMail}
         subText={loginTranslator.phoneOrMail}
@@ -40,10 +37,12 @@ const Login = props => {
         subText={loginTranslator.passwordFilter}
         type={'password'}
         onChangeText={e => changeInput('password', e)}
-        style={{marginTop: '20px'}}
+        style={{marginTop: 20}}
       />
+
       <View>
         <CommonButton
+          style={{marginTop: 50}}
           onPress={() => requestLogin()}
           title={commonTranlator.entrance}
         />

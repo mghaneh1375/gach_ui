@@ -64,16 +64,16 @@ const Signup = props => {
   };
   return (
     <View>
-      <EqualTwoTextInputs>
+      <EqualTwoTextInputs style={{paddingRight: 0, paddingLeft: 30}}>
         <CommonTextInput
           placeholder={commonTranslator.firstname}
           value={firstname}
           onChangeText={e => changeInput('firstname', e)}
-          style={{minWidth: '48%'}}
+          // style={{minWidth: '48%'}}
         />
         <CommonTextInput
           placeholder={commonTranslator.lastname}
-          style={{minWidth: '48%'}}
+          // style={{minWidth: '48%'}}
           value={lastname}
           onChangeText={e => changeInput('lastname', e)}
         />
@@ -82,12 +82,13 @@ const Signup = props => {
       <CommonTextInput
         placeholder={commonTranslator.NID}
         justNum="true"
+        style={{marginTop: '20px'}}
         value={NID}
         onChangeText={e => changeInput('NID', e)}
       />
 
       <CommonRadioButton
-        text={translator.auth}
+        text={translator.viaSMS}
         value="sms"
         status={authVia === 'sms' ? 'checked' : 'unchecked'}
         onPress={() => setAuthVia('sms')}
@@ -102,7 +103,7 @@ const Signup = props => {
       />
 
       <CommonRadioButton
-        text={translator.auth}
+        text={translator.viaMail}
         value="mail"
         status={authVia === 'mail' ? 'checked' : 'unchecked'}
         onPress={() => setAuthVia('mail')}

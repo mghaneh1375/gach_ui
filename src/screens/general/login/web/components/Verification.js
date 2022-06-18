@@ -13,8 +13,6 @@ import {MyCountDown} from '../../../../../styles/Common/MyCountDown';
 import vars from '../../../../../styles/root';
 import translator from '../../../signup/translate';
 
-import {resencCode} from './../../../../../API/User';
-
 const Verification = props => {
   const [canResend, setCanResend] = useState(false);
 
@@ -29,7 +27,7 @@ const Verification = props => {
 
     Promise.all([
       generalRequest(
-        routes.activate,
+        props.isSignUp ? routes.activate : routes.checkCode,
         'post',
         data,
         props.isSignUp ? 'token' : undefined,
@@ -37,9 +35,11 @@ const Verification = props => {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] != null) {
-        props.setToken(res[0]);
-        if (props.isSignUp) props.setMode('role');
-        else props.setMode('resetPass');
+        props.setCode(code);
+        if (props.isSignUp) {
+          props.setToken(res[0]);
+          props.setMode('roleForm');
+        } else props.setMode('resetPass');
       }
     });
   };
@@ -59,7 +59,9 @@ const Verification = props => {
 
     props.setLoading(true);
 
-    new Promise.all([resencCode(data)]).then(res => {
+    Promise.all([
+      generalRequest(routes.resendCode, 'post', data, 'reminder'),
+    ]).then(res => {
       props.setLoading(false);
       if (res[0] != null) {
         setCanResend(false);

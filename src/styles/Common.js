@@ -1,7 +1,14 @@
 import {RadioButton} from 'react-native-paper';
 import styled from 'styled-components';
 import vars from './root';
-import {Text, Platform, View, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  Platform,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
 import {
   Button,
   CommonButtonTextStyleAndroid,
@@ -91,24 +98,6 @@ export const SilverTextInline = props => {
   return <BlueTextInlineElem style={allStyle}>{props.text}</BlueTextInlineElem>;
 };
 
-export const FontIcon = props =>
-  Platform.OS === 'android' || Platform.OS === 'ios' ? (
-    <TouchableOpacity
-      style={{
-        marginLeft: 'auto',
-        width: 40,
-        height: 40,
-      }}
-      onPress={props.onPress}>
-      <FontAwesomeIcon icon={props.icon} style={FontIconStyleAndroid} />
-    </TouchableOpacity>
-  ) : (
-    <FontAwesomeIcon
-      icon={props.icon}
-      style={[FontIconStyleWeb, props.style ? props.style : {}]}
-    />
-  );
-
 export const ScreenScroll =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(ScrollView)`
@@ -125,15 +114,26 @@ export const CommonTextInput = props => {
   const allStyle =
     props.style !== undefined ? {...style1, ...props.style} : style1;
 
+  const inputProps = {
+    placeholder: props.placeholder,
+    onChangeText: props.onChangeText,
+    style: allStyle,
+  };
+  if (props.value !== undefined) inputProps.value = props.value;
+  if (props.type !== undefined && props.type === 'password')
+    inputProps.secureTextEntry = true;
+
+  if (props.justNum !== undefined && Platform.OS === 'web') {
+    inputProps.keyboardType = 'numeric';
+    inputProps.onKeyPress = e => {
+      var charCode = e.which ? e.which : e.keyCode;
+      if (charCode !== 8 && String.fromCharCode(charCode).match(/[^0-9]/g))
+        e.preventDefault();
+    };
+  }
   return (
     <CommonTextInputContainer>
-      <CommonTextInputElem
-        secureTextEntry={props.type !== undefined && props.type === 'password'}
-        onChangeText={props.onChangeText}
-        keyboardType={props.justNum !== undefined ? 'numeric' : null}
-        placeholder={props.placeholder}
-        style={allStyle}
-      />
+      <CommonTextInputElem {...inputProps} />
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>
       ) : null}
@@ -179,7 +179,13 @@ export const EqualTwoTextInputs =
         flex-direction: row-reverse;
         justify-content: space-between;
       `
-    : styled.div``;
+    : styled.div`
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+      `;
 
 const androidCommonStyles = {flexDirection: 'row-reverse'};
 

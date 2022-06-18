@@ -1,25 +1,123 @@
+import React, {useState} from 'react';
 import {View} from 'react-native';
+import {routes} from '../../../../../API/APIRoutes';
+import {generalRequest, showError} from '../../../../../API/Utility';
 import {
   BlueTextFromStart,
   CommonButton,
+  CommonRadioButton,
   CommonTextInput,
 } from '../../../../../styles/Common';
-import commonTranlator from './../../../../../tranlates/Common';
+import commonTranslator from './../../../../../tranlates/Common';
 import loginTranslator from './../../translate';
+import translator from '../../../signup/translate';
 
 const ForgetPass = props => {
+  const [authVia, setAuthVia] = useState('sms');
+  const [step, setStep] = useState('forget'); // available values: []
+
+  const changeNID = value => {
+    props.setUsername(value);
+  };
+
+  const getWhichKindOfAuthIsAvailable = () => {
+    if (props.username.length === 0) {
+      showError(commonTranslator.pleaseFillAllFields);
+      return;
+    }
+
+    props.setLoading(true);
+    Promise.all([
+      generalRequest(
+        routes.whichKindOfAuthIsAvailable + props.username,
+        'get',
+        null,
+        'via',
+      ),
+    ]).then(res => {
+      if (res[0] != null) {
+        const via = res[0];
+        if (via === 'none') showError(commonTranslator.invalidFieldValue);
+        else if (via === 'both') setStep('chooseAuthMethod');
+        else {
+          setAuthVia(via);
+          requestForgetPass();
+          return;
+        }
+      }
+
+      props.setLoading(false);
+    });
+  };
+
+  const requestForgetPass = () => {
+    var data = {
+      NID: props.username,
+      authVia: authVia,
+    };
+
+    props.setLoading(true);
+
+    Promise.all([
+      generalRequest(routes.forgetPassword, 'post', data, [
+        'token',
+        'reminder',
+      ]),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] != null) {
+        props.setToken(res[0].token);
+        props.setReminder(res[0].reminder);
+        props.setMode('verification');
+      }
+    });
+  };
+
   return (
     <View>
       <BlueTextFromStart text={loginTranslator.forgetPass} />
-      <CommonTextInput
-        style={{marginTop: '20px'}}
-        value={props.username}
-        justNum={true}
-        placeholder={commonTranlator.NID}
-      />
-      <View>
-        <CommonButton style={{}} title={commonTranlator.continue} />
-      </View>
+      {step === 'forget' && (
+        <View>
+          <CommonTextInput
+            style={{marginTop: '20px'}}
+            value={props.username}
+            justNum={true}
+            placeholder={commonTranslator.NID}
+            onChangeText={e => changeNID(e)}
+          />
+
+          <View>
+            <CommonButton
+              onPress={() => getWhichKindOfAuthIsAvailable()}
+              title={commonTranslator.continue}
+            />
+          </View>
+        </View>
+      )}
+
+      {step === 'chooseAuthMethod' && (
+        <View>
+          <CommonRadioButton
+            text={translator.viaSMS}
+            value="sms"
+            status={authVia === 'sms' ? 'checked' : 'unchecked'}
+            onPress={() => setAuthVia('sms')}
+          />
+
+          <CommonRadioButton
+            text={translator.viaMail}
+            value="mail"
+            status={authVia === 'mail' ? 'checked' : 'unchecked'}
+            onPress={() => setAuthVia('mail')}
+          />
+
+          <CommonButton
+            style={{alignSelf: 'flex-start', marginTop: 10}}
+            onPress={() => requestForgetPass()}
+            title={commonTranslator.confirm}
+          />
+        </View>
+      )}
     </View>
   );
 };

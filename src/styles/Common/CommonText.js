@@ -19,17 +19,14 @@ const CommonTextInputStyleAndroid = {
 export const CommonTextInputStyleWeb = {
   ...CommonTextInputStyle,
   direction: 'rtl',
-  width: 'calc(100% - 60px)',
+  width: 'calc(100% - 20px)',
   display: 'block',
   maxWidth: '300px',
 };
 
-export const CommonTextInputContainer =
-  Platform.OS === 'android' || Platform.OS === 'ios'
-    ? styled(View)`
-        margintop: 10px;
-      `
-    : styled.div``;
+export const CommonTextInputContainer = styled(View)`
+  margintop: 10px;
+`;
 
 export const CommonTextInputElem = styled(TextInput)`
   ${CommonTextInputStyleAndroid}

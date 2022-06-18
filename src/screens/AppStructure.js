@@ -6,6 +6,8 @@ import {View} from 'react-native';
 import {TopNavBar} from '../components/Android/TopNavBar';
 
 import {ScreenScroll, MinFullHeightView} from '../styles/Common';
+import {Loader} from '../styles/Common/Loader';
+import {globalStateContext} from '../App';
 
 const AppStructue = props => {
   const navigation = useNavigation();
@@ -23,13 +25,19 @@ const AppStructue = props => {
     );
   }, [isFocused, navigation]);
 
+  const useGlobalState = () => [React.useContext(globalStateContext)];
+  const [state] = useGlobalState();
+
   return (
     <View style={{flex: 1, height: '100%'}}>
       <TopNavBar />
       <ScreenScroll
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="always">
-        <MinFullHeightView>{props.com(navigation)}</MinFullHeightView>
+        <MinFullHeightView>
+          {state.loading && <Loader />}
+          {props.com(navigation)}
+        </MinFullHeightView>
       </ScreenScroll>
       <BottomNavBar show={showBottonNavLocal} />
     </View>

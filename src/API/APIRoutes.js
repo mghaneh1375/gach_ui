@@ -4,4 +4,7 @@ export const routes = {
   resetPassword: 'user/resetPassword',
   signup: 'user/signUp',
   activate: 'user/activate',
+  resendCode: 'user/resendCode',
+  checkCode: 'user/checkCode',
+  sendRoleForm: 'user/sendRoleForm',
 };

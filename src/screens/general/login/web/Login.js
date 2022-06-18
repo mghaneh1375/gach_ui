@@ -9,24 +9,26 @@ import {
   ScreenScroll,
   TextLink,
 } from '../../../../styles/Common';
-import {useNavigate} from 'react-router-dom';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {BlurLoginBack} from './style';
 import LoginModule from './components/Login';
 import ForgetPassModule from './components/ForgetPass';
 import VerificationModule from './components/Verification';
 import SignupModule from './components/Signup';
+import ResetPassModule from './components/ResetPass';
+import RoleFormModule from './components/RoleForm';
 import commonTranlator from './../../../../tranlates/Common';
 import loginTranslator from './../translate';
 import {Container, Row, Col} from 'react-grid-system';
 import vars from '../../../../styles/root';
 import {globalStateContext, dispatchStateContext} from './../../../../App';
 
-const Login = () => {
+const Login = navigate => {
   const [mode, setMode] = useState('login');
   const [token, setToken] = useState('');
+  const [code, setCode] = useState('');
   const [reminder, setReminder] = useState(0);
-  const [username, setUsername] = useState('09214915905');
+  const [username, setUsername] = useState('0018914373'); //0018914373
   const [isSignUp, setIsSignUp] = useState(false);
 
   const useGlobalState = () => [
@@ -51,8 +53,6 @@ const Login = () => {
     setMode(wantedMode);
   };
 
-  const navigate = useNavigate();
-
   const redirectToHome = () => {
     navigate('/');
   };
@@ -63,22 +63,22 @@ const Login = () => {
         resizeMode="cover"
         style={{minHeight: '100vh'}}
         source={require('./../../../../images/back3.png')}>
-        <Pressable
-          onPress={() =>
-            mode === 'login' ? redirectToHome() : changeMode('login')
-          }>
+        <View
+          style={{
+            position: 'absolute',
+            width: 40,
+            height: 40,
+            left: 50,
+            top: 40,
+            zIndex: 100,
+          }}>
           <FontIcon
-            style={{
-              position: 'absolute',
-              left: '50px',
-              top: '40px',
-              cursor: 'pointer',
-              backgroundColor: vars.ORANGE_RED,
-              width: '30px',
-              height: '30px',
-            }}
-            icon={faClose}></FontIcon>
-        </Pressable>
+            icon={faClose}
+            onPress={() =>
+              mode === 'login' ? redirectToHome() : changeMode('login')
+            }
+          />
+        </View>
 
         <div
           style={{
@@ -90,12 +90,27 @@ const Login = () => {
             bottom: '50px',
           }}>
           <BlurLoginBack>
-            {mode === 'login' && <LoginModule setLoading={setLoading} />}
+            {mode === 'login' && (
+              <LoginModule navigate={navigate} setLoading={setLoading} />
+            )}
             {mode === 'forgetPass' && (
               <ForgetPassModule
                 setUsername={setUsername}
                 username={username}
+                setMode={setMode}
                 setLoading={setLoading}
+                setReminder={setReminder}
+                setToken={setToken}
+              />
+            )}
+            {mode === 'resetPass' && (
+              <ResetPassModule
+                username={username}
+                token={token}
+                code={code}
+                setLoading={setLoading}
+                navigate={navigate}
+                redirectTo={'/login'}
               />
             )}
             {mode === 'verification' && (
@@ -105,6 +120,7 @@ const Login = () => {
                 setToken={setToken}
                 reminder={reminder}
                 token={token}
+                setCode={setCode}
                 setMode={setMode}
                 username={username}
                 isSignUp={isSignUp}
@@ -119,6 +135,14 @@ const Login = () => {
                 isInLargeScreen={true}
                 username={username}
                 setUsername={setUsername}
+              />
+            )}
+            {mode === 'roleForm' && (
+              <RoleFormModule
+                token={token}
+                setLoading={setLoading}
+                navigate={navigate}
+                redirectTo={'/'}
               />
             )}
           </BlurLoginBack>

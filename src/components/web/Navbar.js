@@ -15,11 +15,19 @@ const Navbar = () => {
         <NavLink to="/">راهنما</NavLink>
         <NavLink to="/">تماس با ما</NavLink>
         <CommonButton
-          style={{backgroundColor: vars.DARK_BLUE, marginLeft: 0}}
+          style={{
+            backgroundColor: vars.DARK_BLUE,
+            minWidth: 'unset',
+            marginLeft: 0,
+          }}
           title={'پشتیبانی'}
           href="/login"
         />
-        <CommonButton href="/login" title={'ورود/ثبت نام'} />
+        <CommonButton
+          style={{minWidth: 'unset'}}
+          href="/login"
+          title={'ورود/ثبت نام'}
+        />
       </Nav>
     </>
   );

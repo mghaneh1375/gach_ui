@@ -1,13 +1,7 @@
 import React, {useState} from 'react';
 
-import {
-  signUpOrForgetPass,
-  activate,
-  sendRoleForm,
-  resencCode,
-} from '../../../API/User';
-import {useIsFocused} from '@react-navigation/native';
-import {dispatchStateContext, globalStateContext} from './../../../App';
+import {sendRoleForm, resencCode} from '../../../API/User';
+
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {
   BigBoldBlueTextInline,
@@ -30,12 +24,13 @@ import commonTranslator from './../../../tranlates/Common';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 import {getDevice} from '../../../services/Utility';
 import {Pressable, View} from 'react-native';
-import {showError} from '../../../API/Utility';
+import {generalRequest, showError} from '../../../API/Utility';
 import {Loader} from '../../../styles/Common/Loader';
 import CodeInput from 'react-native-confirmation-code-input';
 import vars from '../../../styles/root';
 import {RoleCard} from '../../../styles/Common/RoleCard';
 import {MyCountDown} from '../../../styles/Common/MyCountDown';
+import {routes} from '../../../API/APIRoutes';
 
 const SignUp = navigator => {
   const device = getDevice();
@@ -110,7 +105,9 @@ const SignUp = navigator => {
 
     setLoading(true);
 
-    new Promise.all([signUpOrForgetPass(data, true)]).then(res => {
+    new Promise.all([
+      generalRequest(routes.signup, 'post', data, ['token', 'reminder']),
+    ]).then(res => {
       setLoading(false);
       if (res[0] != null) {
         setToken(res[0].token);
@@ -129,7 +126,9 @@ const SignUp = navigator => {
       username: username,
     };
 
-    new Promise.all([activate(data)]).then(res => {
+    new Promise.all([
+      generalRequest(routes.activate, 'post', data, 'token'),
+    ]).then(res => {
       setLoading(false);
       if (res[0] != null) {
         setToken(res[0]);
@@ -201,7 +200,6 @@ const SignUp = navigator => {
       keyboardDismissMode="on-drag"
       keyboardShouldPersistTaps="always">
       <MinFullHeightView>
-        {loading && <Loader loading={loading} />}
         <ContentView>
           {step === 'role' && (
             <View>
