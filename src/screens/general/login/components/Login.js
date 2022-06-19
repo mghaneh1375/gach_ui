@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {signIn} from '../../../../../API/User';
-import {CommonButton, CommonTextInput} from '../../../../../styles/Common';
-import commonTranlator from './../../../../../tranlates/Common';
-import loginTranslator from './../../translate';
+import {signIn} from '../../../../API/User';
+import {CommonButton, CommonTextInput} from '../../../../styles/Common';
+import commonTranlator from './../../../../tranlates/Common';
+import translator from './../translate';
 
 const Login = props => {
   const [username, setUsername] = useState('');
@@ -28,13 +28,13 @@ const Login = props => {
   return (
     <View style={props.style}>
       <CommonTextInput
-        placeholder={loginTranslator.phoneOrMail}
-        subText={loginTranslator.phoneOrMail}
+        placeholder={translator.phoneOrMail}
+        subText={translator.phoneOrMail}
         onChangeText={e => changeInput('username', e)}
       />
       <CommonTextInput
         placeholder={commonTranlator.password}
-        subText={loginTranslator.passwordFilter}
+        subText={translator.passwordFilter}
         type={'password'}
         onChangeText={e => changeInput('password', e)}
         style={{marginTop: 20}}

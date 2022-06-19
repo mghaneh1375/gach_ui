@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest, showError} from '../../../../../API/Utility';
-import {CommonButton, CommonTextInput} from '../../../../../styles/Common';
-import translator from '../../../signup/translate';
-import commonTranslator from './../../../../../tranlates/Common';
+import {routes} from '../../../../API/APIRoutes';
+import {generalRequest, showError} from '../../../../API/Utility';
+import {CommonButton, CommonTextInput} from '../../../../styles/Common';
+import translator from '..//translate';
+import commonTranslator from './../../../../tranlates/Common';
 
 const ResetPass = props => {
   const [password, setPassword] = useState('Ghhy@112');

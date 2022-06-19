@@ -1,21 +1,19 @@
 import {useState} from 'react';
 import {View} from 'react-native';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest, showError} from '../../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
+import {generalRequest, showError} from '../../../../API/Utility';
 import {
   BigBoldBlueTextInline,
   BlueTextFromStart,
   CommonButton,
   CommonTextInput,
   EqualTwoTextInputs,
-  FontIcon,
-} from '../../../../../styles/Common';
-import {RoleCard} from '../../../../../styles/Common/RoleCard';
-import {TextIcon} from '../../../../../styles/Common/TextIcon';
-import translator from '../../../signup/translate';
-import commonTranslator from './../../../../../tranlates/Common';
-import {faClose} from '@fortawesome/free-solid-svg-icons';
-import vars from '../../../../../styles/root';
+} from '../../../../styles/Common';
+import {RoleCard} from '../../../../styles/Common/RoleCard';
+import {TextIcon} from '../../../../styles/Common/TextIcon';
+import translator from '..//translate';
+import commonTranslator from './../../../../tranlates/Common';
+import vars from '../../../../styles/root';
 
 const RoleForm = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});
@@ -119,7 +117,7 @@ const RoleForm = props => {
               onPress={() => changeRole('student')}
               style={{marginTop: 20}}
               color={vars.ORANGE}
-              source={require('./../../../../../images/student.png')}
+              source={require('./../../../../images/student.png')}
             />
           </EqualTwoTextInputs>
 
@@ -128,13 +126,13 @@ const RoleForm = props => {
               text={commonTranslator.teacher}
               onPress={() => changeRole('teacher')}
               style={{marginTop: 20}}
-              source={require('./../../../../../images/teacher.png')}
+              source={require('./../../../../images/teacher.png')}
             />
             <RoleCard
               text={commonTranslator.agent}
               style={{marginTop: 20}}
               onPress={() => changeRole('agent')}
-              source={require('./../../../../../images/agent.png')}
+              source={require('./../../../../images/agent.png')}
             />
           </EqualTwoTextInputs>
 
@@ -143,13 +141,13 @@ const RoleForm = props => {
               text={commonTranslator.school}
               style={{marginTop: 20}}
               onPress={() => changeRole('school')}
-              source={require('./../../../../../images/school.png')}
+              source={require('./../../../../images/school.png')}
             />
             <RoleCard
               text={commonTranslator.advisor}
               style={{marginTop: 20}}
               onPress={() => changeRole('advisor')}
-              source={require('./../../../../../images/consultant.png')}
+              source={require('./../../../../images/consultant.png')}
             />
           </EqualTwoTextInputs>
         </View>

@@ -1,21 +1,18 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {
-  BlueTextInline,
   CommonButton,
   CommonRadioButton,
   CommonTextInput,
   EqualTwoTextInputs,
-  InlineTextContainer,
   SilverTextInline,
-  TextLink,
-} from '../../../../../styles/Common';
+  TextWithLink,
+} from '../../../../styles/Common';
 
-import {generalRequest, showError} from '../../../../../API/Utility';
-import translator from '../../../signup/translate';
-import loginTranslator from '../../../login/translate';
-import commonTranslator from './../../../../../tranlates/Common';
-import {routes} from '../../../../../API/APIRoutes';
+import {generalRequest, showError} from '../../../../API/Utility';
+import translator from '../translate';
+import commonTranslator from './../../../../tranlates/Common';
+import {routes} from '../../../../API/APIRoutes';
 
 const Signup = props => {
   const [firstname, setFirstname] = useState('سش');
@@ -23,6 +20,11 @@ const Signup = props => {
   const [NID, setNID] = useState('0018914373');
   const [password, setPassword] = useState('Ghhy@110');
   const [authVia, setAuthVia] = useState('sms');
+
+  const changeAuthVia = newMode => {
+    setAuthVia(newMode);
+    props.setUsername('');
+  };
 
   const changeInput = (label, text) => {
     if (label === 'username') props.setUsername(text);
@@ -63,18 +65,21 @@ const Signup = props => {
     });
   };
   return (
-    <View>
-      <EqualTwoTextInputs style={{paddingRight: 0, paddingLeft: 30}}>
+    <View style={props.style !== undefined ? props.style : {}}>
+      <EqualTwoTextInputs
+        style={{paddingRight: 0, paddingLeft: props.isInLargeScreen ? 30 : 0}}>
         <CommonTextInput
           placeholder={commonTranslator.firstname}
           value={firstname}
+          isHalf={true}
           onChangeText={e => changeInput('firstname', e)}
-          // style={{minWidth: '48%'}}
+          style={{minWidth: '48%'}}
         />
         <CommonTextInput
           placeholder={commonTranslator.lastname}
-          // style={{minWidth: '48%'}}
+          style={{minWidth: '48%'}}
           value={lastname}
+          isHalf={true}
           onChangeText={e => changeInput('lastname', e)}
         />
       </EqualTwoTextInputs>
@@ -82,7 +87,7 @@ const Signup = props => {
       <CommonTextInput
         placeholder={commonTranslator.NID}
         justNum="true"
-        style={{marginTop: '20px'}}
+        style={{marginTop: 20}}
         value={NID}
         onChangeText={e => changeInput('NID', e)}
       />
@@ -91,14 +96,14 @@ const Signup = props => {
         text={translator.viaSMS}
         value="sms"
         status={authVia === 'sms' ? 'checked' : 'unchecked'}
-        onPress={() => setAuthVia('sms')}
+        onPress={() => changeAuthVia('sms')}
       />
 
       <CommonTextInput
         justNum="true"
         placeholder={commonTranslator.phone}
         value={authVia === 'sms' ? props.username : ''}
-        subText={loginTranslator.usernameFilter}
+        subText={translator.usernameFilter}
         onChangeText={e => changeInput('username', e)}
       />
 
@@ -106,7 +111,7 @@ const Signup = props => {
         text={translator.viaMail}
         value="mail"
         status={authVia === 'mail' ? 'checked' : 'unchecked'}
-        onPress={() => setAuthVia('mail')}
+        onPress={() => changeAuthVia('mail')}
       />
 
       <CommonTextInput
@@ -119,7 +124,7 @@ const Signup = props => {
       <CommonTextInput
         placeholder={commonTranslator.password}
         value={password}
-        subText={loginTranslator.passwordFilter}
+        subText={translator.passwordFilter}
         type="password"
         onChangeText={e => changeInput('password', e)}
       />
@@ -131,10 +136,12 @@ const Signup = props => {
         title={commonTranslator.signUp}
       />
       {!props.isInLargeScreen && (
-        <InlineTextContainer style={{marginTop: 30}}>
-          <BlueTextInline text={translator.ifSubscribe} />
-          <TextLink href={'Login'} text={translator.login} />
-        </InlineTextContainer>
+        <TextWithLink
+          link={translator.login}
+          text={translator.ifSubscribe}
+          onPress={() => props.setMode('login')}
+          style={{marginTop: 30}}
+        />
       )}
     </View>
   );

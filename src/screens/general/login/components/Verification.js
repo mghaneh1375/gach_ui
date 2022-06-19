@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import CodeInput from 'react-native-confirmation-code-input';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest, showError} from '../../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
+import {generalRequest, showError} from '../../../../API/Utility';
 import {
   TextLink,
   BlueTextInline,
   CommonButton,
   InlineTextContainer,
-} from '../../../../../styles/Common';
-import {MyCountDown} from '../../../../../styles/Common/MyCountDown';
-import vars from '../../../../../styles/root';
-import translator from '../../../signup/translate';
+} from '../../../../styles/Common';
+import {MyCountDown} from '../../../../styles/Common/MyCountDown';
+import vars from './../../../../styles/root';
+import translator from './../translate';
 
 const Verification = props => {
   const [canResend, setCanResend] = useState(false);

@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest, showError} from '../../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
+import {generalRequest, showError} from '../../../../API/Utility';
 import {
   BlueTextFromStart,
   CommonButton,
   CommonRadioButton,
   CommonTextInput,
-} from '../../../../../styles/Common';
-import commonTranslator from './../../../../../tranlates/Common';
-import loginTranslator from './../../translate';
-import translator from '../../../signup/translate';
+} from '../../../../styles/Common';
+import commonTranslator from './../../../../tranlates/Common';
+import translator from './../translate';
 
 const ForgetPass = props => {
   const [authVia, setAuthVia] = useState('sms');
@@ -74,19 +73,19 @@ const ForgetPass = props => {
   };
 
   return (
-    <View>
-      <BlueTextFromStart text={loginTranslator.forgetPass} />
+    <View style={props.style !== undefined ? props.style : {}}>
+      <BlueTextFromStart text={translator.forgetPass} />
       {step === 'forget' && (
         <View>
           <CommonTextInput
-            style={{marginTop: '20px'}}
+            style={{marginTop: 20}}
             value={props.username}
             justNum={true}
             placeholder={commonTranslator.NID}
             onChangeText={e => changeNID(e)}
           />
 
-          <View>
+          <View style={{marginTop: 40}}>
             <CommonButton
               onPress={() => getWhichKindOfAuthIsAvailable()}
               title={commonTranslator.continue}

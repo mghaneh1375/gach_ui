@@ -16,7 +16,7 @@ const TopNavBar = () => {
         backgroundColor: 'white',
         height: 60,
       }}>
-      <TouchableOpacity style={{height: 60}} onPress={() => navigate('/home')}>
+      <TouchableOpacity style={{height: 60}} onPress={() => navigate('/')}>
         <Image
           style={{width: '100%', height: '90%'}}
           resizeMode="contain"

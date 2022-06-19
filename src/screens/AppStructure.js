@@ -36,7 +36,7 @@ const AppStructue = props => {
         keyboardShouldPersistTaps="always">
         <MinFullHeightView>
           {state.loading && <Loader />}
-          {props.com(navigation)}
+          {props.com(navigation.navigate)}
         </MinFullHeightView>
       </ScreenScroll>
       <BottomNavBar show={showBottonNavLocal} />

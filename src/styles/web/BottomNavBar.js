@@ -1,8 +1,10 @@
+import vars from '../root';
+
 export const NavContainerStyle = {
   width: '100%',
   height: '50px',
   bottom: 0,
-  flexDirection: 'row',
+  flexDirection: vars.flexDirectionRev,
   alignContent: 'center',
   alignItems: 'center',
   position: 'fixed',

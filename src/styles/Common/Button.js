@@ -9,7 +9,7 @@ const style = {
   borderRadius: 15,
   padding: 5,
   minWidth: 150,
-  alignSelf: 'flex-end',
+  alignSelf: vars.alignSelfRev,
 };
 
 const CommonButtonStyleAndroid = {

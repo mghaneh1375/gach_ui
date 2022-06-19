@@ -33,12 +33,15 @@ export const TextIcon = props => {
   const allStyles =
     props.style !== undefined ? {...style, ...props.style} : style;
 
+  var fontProps = {icon: props.icon};
+  if (props.onPress !== undefined) fontProps.onPress = props.onPress;
+
   return (
     <View style={allStyles}>
       <BigBoldBlueTextInline text={props.text} />
 
       <View style={InnerViewStyle}>
-        <FontIcon icon={props.icon} />
+        <FontIcon {...fontProps} />
       </View>
     </View>
   );

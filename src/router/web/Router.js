@@ -1,8 +1,5 @@
 import React from 'react';
 import Navbar from '../../components/web/Navbar';
-import Login from '../../screens/general/login/Login';
-import WebLogin from '../../screens/general/login/web/Login';
-import Home from '../../screens/general/home/Home';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import {View} from 'react-native';
 import BottomNavBar from '../../components/web/BottomNavBar';
@@ -12,6 +9,8 @@ import {MinFullHeightView} from '../../styles/Common';
 import {Loader} from '../../styles/Common/Loader';
 import {globalStateContext} from './../../App';
 import TopNavBar from '../../components/web/TopNavBar';
+import WebStructue from '../../screens/WebStructure';
+
 export default function WebRouter() {
   const device = getDevice();
 
@@ -25,17 +24,16 @@ export default function WebRouter() {
       <MinFullHeightView>
         <Router>
           {device.indexOf(Device.WebPort) !== -1 && <TopNavBar />}
-          {state.showTopNav && device.indexOf(Device.Large) && <Navbar />}
+          {state.showTopNav && device.indexOf(Device.Large) !== -1 && (
+            <Navbar />
+          )}
+
           <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route
-              path="/login"
-              element={
-                device.indexOf(Device.Large) !== -1 ? <WebLogin /> : <Login />
-              }
-            />
+            <Route exact path="/" element={<WebStructue page="home" />} />
+            <Route path="/login" element={<WebStructue page="login" />} />
+            <Route path="/profile" element={<WebStructue page="profile" />} />
           </Routes>
-          {state.showBottomNav && device.indexOf(Device.WebPort) !== -1 && (
+          {state.showBottonNav && device.indexOf(Device.WebPort) !== -1 && (
             <BottomNavBar />
           )}
         </Router>

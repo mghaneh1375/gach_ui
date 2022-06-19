@@ -1,29 +1,29 @@
 import React, {useState} from 'react';
-import {ImageBackground, View, Pressable} from 'react-native';
+import {ImageBackground, View} from 'react-native';
 import {
   BigBoldBlueText,
   BlueTextInline,
   CommonButton,
-  FontIcon,
   InlineTextContainer,
   ScreenScroll,
   TextLink,
 } from '../../../../styles/Common';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {BlurLoginBack} from './style';
-import LoginModule from './components/Login';
-import ForgetPassModule from './components/ForgetPass';
-import VerificationModule from './components/Verification';
-import SignupModule from './components/Signup';
-import ResetPassModule from './components/ResetPass';
-import RoleFormModule from './components/RoleForm';
+import LoginModule from './../components/Login';
+import ForgetPassModule from './../components/ForgetPass';
+import VerificationModule from './../components/Verification';
+import SignupModule from './../components/Signup';
+import ResetPassModule from './../components/ResetPass';
+import RoleFormModule from './../components/RoleForm';
 import commonTranlator from './../../../../tranlates/Common';
-import loginTranslator from './../translate';
+import translator from './../translate';
 import {Container, Row, Col} from 'react-grid-system';
 import vars from '../../../../styles/root';
 import {globalStateContext, dispatchStateContext} from './../../../../App';
+import {FontIcon} from '../../../../styles/Common/FontIcon';
 
-const Login = navigate => {
+const Login = props => {
   const [mode, setMode] = useState('login');
   const [token, setToken] = useState('');
   const [code, setCode] = useState('');
@@ -36,11 +36,8 @@ const Login = navigate => {
     React.useContext(dispatchStateContext),
   ];
 
+  const navigate = props.navigate;
   const [state, dispatch] = useGlobalState();
-
-  React.useEffect(() => {
-    dispatch({showTopNav: false});
-  }, [dispatch]);
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -148,9 +145,9 @@ const Login = navigate => {
           </BlurLoginBack>
           <BlurLoginBack style={{marginTop: '20px'}}>
             <InlineTextContainer>
-              <BlueTextInline text={loginTranslator.ifForget} />
+              <BlueTextInline text={translator.ifForget} />
               <TextLink
-                text={loginTranslator.forgetAction}
+                text={translator.forgetAction}
                 onPress={() => changeMode('forgetPass')}
               />
             </InlineTextContainer>
@@ -158,7 +155,7 @@ const Login = navigate => {
             <View style={{marginTop: 10, flexDirection: 'row'}}>
               <BlueTextInline
                 style={{alignSelf: 'center'}}
-                text={loginTranslator.notSubscribeYet}
+                text={translator.notSubscribeYet}
               />
 
               <CommonButton
@@ -171,7 +168,7 @@ const Login = navigate => {
             <View style={{marginTop: 10, flexDirection: 'row'}}>
               <BlueTextInline
                 style={{alignSelf: 'center'}}
-                text={loginTranslator.ifHaveProblem}
+                text={translator.ifHaveProblem}
               />
 
               <CommonButton
@@ -199,7 +196,7 @@ const Login = navigate => {
               />
               <BlueTextInline
                 style={{display: 'block'}}
-                text={loginTranslator.sliderDesc}
+                text={translator.sliderDesc}
               />
             </Col>
           </Row>

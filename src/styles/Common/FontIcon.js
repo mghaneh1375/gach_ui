@@ -39,3 +39,24 @@ export const FontIcon = props => (
     />
   </Pressable>
 );
+
+export const SimpleFontIcon = props => (
+  <Pressable
+    style={{
+      cursor: 'pointer',
+      width: '100%',
+      height: '100%',
+      alignSelf: 'center',
+      color: vars.LIGHT_SILVER,
+    }}
+    onPress={props.onPress}>
+    <FontAwesomeIcon
+      icon={props.icon}
+      style={[
+        Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
+        {color: vars.LIGHT_SILVER},
+        props.style ? props.style : {},
+      ]}
+    />
+  </Pressable>
+);

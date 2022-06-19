@@ -19,17 +19,6 @@ const Home = navigator => {
   const height = wH[1];
   const [token, setToken] = useState(undefined);
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
-
-  const [state, dispatch] = useGlobalState();
-
-  React.useEffect(() => {
-    dispatch({showTopNav: true});
-  }, [dispatch]);
-
   // React.useEffect(() => {
   //   Promise.all([getToken()]).then(res => {
   //     setToken(res);
@@ -84,7 +73,7 @@ const Home = navigator => {
           margins={
             device.indexOf(Device.Large) !== -1
               ? [100, 100, 100, 100]
-              : [10, 10, 10, 10]
+              : [10, device.indexOf(Device.App) !== -1 ? 10 : 80, 10, 10]
           }
           device={device}
         />

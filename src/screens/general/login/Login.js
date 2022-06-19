@@ -1,27 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {getDevice, getWidthHeight} from '../../../services/Utility';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import LoginModule from './web/components/Login';
+import LoginModule from './components/Login';
 
-import {
-  BlueTextInline,
-  InlineTextContainer,
-  ContentView,
-  TextLink,
-} from '../../../styles/Common';
+import {commonStyles, TextWithLink} from '../../../styles/Common';
 import translator from './translate';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 import {Device} from '../../../models/Device';
-import {ImageBackground} from 'react-native';
+import {ImageBackground, View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from './../../../App';
+import ForgetPassModule from './components/ForgetPass';
+import ResetPassModule from './components/ResetPass';
+import VerificationModule from './components/Verification';
+import SignupModule from './components/Signup';
+import RoleFormModule from './components/RoleForm';
 
-const Login = navigate => {
+const Login = props => {
   // if (globalStates.token !== undefined) {
   //   navigator.navigation.navigate('Home');
   //   return null;
   // }
 
   const device = getDevice();
+  const navigate = device.indexOf(Device.App) !== -1 ? props : props.navigate;
 
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -30,55 +31,125 @@ const Login = navigate => {
 
   const [state, dispatch] = useGlobalState();
 
-  React.useEffect(() => {
-    dispatch({showBottomNav: false});
-  }, [dispatch]);
-
   const setLoading = status => {
     dispatch({loading: status});
   };
 
   const height = getWidthHeight()[1];
 
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [mode, setMode] = useState('login'); // available values: [signUp, verification, role, form]
+  const [token, setToken] = useState('');
+  const [reminder, setReminder] = useState(0);
+  const [username, setUsername] = useState('0018914373');
+  const [code, setCode] = useState(111111);
+
+  const changeMode = wantedMode => {
+    if (wantedMode === 'signUp') setIsSignUp(true);
+    else if (wantedMode === 'forgetPass') setIsSignUp(false);
+    setMode(wantedMode);
+  };
+
+  const redirectToHome = () => {
+    const to = device.indexOf(Device.App) !== -1 ? 'Home' : '/';
+    navigate(to);
+  };
+
   return (
     <ImageBackground
       style={{minHeight: height}}
       resizeMode="contain"
       source={require('./../../../images/back2.png')}>
-      <ContentView>
+      <View style={commonStyles.ContentView}>
         <TextIcon
           style={{marginTop: 20}}
           text={translator.entryText}
           icon={faClose}
+          onPress={() =>
+            mode === 'login' ? redirectToHome() : changeMode('login')
+          }
         />
 
-        <LoginModule
-          style={{marginTop: 20}}
-          navigate={navigate}
-          setLoading={setLoading}
-        />
-        <InlineTextContainer style={{marginTop: 30}}>
-          <BlueTextInline text={translator.ifNotSubscribe} device={device} />
+        {mode === 'login' && (
+          <View>
+            <LoginModule
+              navigate={navigate}
+              style={{marginTop: 20}}
+              setLoading={setLoading}
+            />
 
-          <TextLink
-            onPress={() => navigate('SignUp')}
-            href={'/'}
-            text={translator.subscrible}
-            device={device}
+            <TextWithLink
+              onPress={() => changeMode('signUp')}
+              style={{marginTop: 30}}
+              link={translator.subscrible}
+              text={translator.ifNotSubscribe}
+            />
+
+            <TextWithLink
+              onPress={() => changeMode('forget')}
+              style={{marginTop: 130}}
+              text={translator.ifForget}
+              link={translator.forgetAction}
+            />
+          </View>
+        )}
+
+        {mode === 'forget' && (
+          <ForgetPassModule
+            setUsername={setUsername}
+            username={username}
+            setMode={changeMode}
+            setLoading={setLoading}
+            setReminder={setReminder}
+            setToken={setToken}
+            style={{marginTop: 20}}
           />
-        </InlineTextContainer>
-
-        <InlineTextContainer style={{marginTop: 130}}>
-          <BlueTextInline text={translator.ifForget} device={device} />
-
-          <TextLink
-            onPress={() => navigate('ForgetPass')}
-            href={'/forgetPass'}
-            text={translator.forgetAction}
-            device={device}
+        )}
+        {mode === 'verification' && (
+          <VerificationModule
+            setLoading={setLoading}
+            setReminder={setReminder}
+            setToken={setToken}
+            reminder={reminder}
+            token={token}
+            setCode={setCode}
+            setMode={setMode}
+            username={username}
+            isSignUp={isSignUp}
           />
-        </InlineTextContainer>
-      </ContentView>
+        )}
+
+        {mode === 'resetPass' && (
+          <ResetPassModule
+            username={username}
+            token={token}
+            code={code}
+            setLoading={setLoading}
+            navigate={navigate}
+            redirectTo={'/login'}
+          />
+        )}
+        {mode === 'signUp' && (
+          <SignupModule
+            setLoading={setLoading}
+            setToken={setToken}
+            setReminder={setReminder}
+            setMode={changeMode}
+            isInLargeScreen={false}
+            style={{marginTop: 20}}
+            username={username}
+            setUsername={setUsername}
+          />
+        )}
+        {mode === 'roleForm' && (
+          <RoleFormModule
+            token={token}
+            setLoading={setLoading}
+            navigate={navigate}
+            redirectTo={'/'}
+          />
+        )}
+      </View>
     </ImageBackground>
   );
 };

@@ -1,25 +1,75 @@
 import React, {useState} from 'react';
 
-import Navbar from '../components/web/Navbar';
-
 import {ScreenScroll, MinFullHeightView} from '../styles/Common';
 import {View} from 'react-native';
-import {Loader} from '../styles/Common/Loader';
+import {useNavigate} from 'react-router-dom';
+import Home from './general/home/Home';
+import Login from './general/login/Login';
+import WebLogin from './general/login/web/Login';
+import WebProfile from './general/profile/web/Profile';
+import {getDevice} from '../services/Utility';
+import {Device} from '../models/Device';
+import {globalStateContext, dispatchStateContext} from '../App';
+import Logo from '../components/web/LargeScreen/Header/Logo';
+import Header from '../components/web/LargeScreen/Header/Header';
+import Menu from '../components/web/LargeScreen/Header/Menu';
+import vars from '../styles/root';
 
 const WebStructue = props => {
-  //   const currentRouteName = location.pathname;
-  //   const screensWithOutTopNav = ['/login'];
-  //   const showTopNavLocal = screensWithOutTopNav.indexOf(currentRouteName) === -1;
-  const showTopNavLocal = true;
-  const [loading, setLoading] = useState(false);
+  const device = getDevice();
+  const navigate = useNavigate();
+  const isInLargeMode = device.indexOf(Device.Large) !== -1;
+
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
+  const [hideRightMenu, setHideRightMenu] = useState(false);
+
+  React.useEffect(() => {
+    const excludeTopNav = ['login', 'profile'];
+    const excludeBottomNav = ['login'];
+    dispatch({
+      showTopNav: excludeTopNav.indexOf(props.page) === -1,
+      showBottonNav: excludeBottomNav.indexOf(props.page) === -1,
+    });
+  }, [dispatch, props.page]);
+
+  const excludeRightMenu = ['login', 'home'];
+  const showLoginComponents =
+    isInLargeMode && excludeRightMenu.indexOf(props.page) === -1;
 
   return (
     <View style={{flex: 1, height: '100%'}}>
-      {showTopNavLocal && <Navbar />}
+      <MinFullHeightView>
+        {props.page === 'home' && <Home navigate={navigate} />}
+        {props.page === 'login' && isInLargeMode && (
+          <WebLogin navigate={navigate} />
+        )}
+        {props.page === 'login' && !isInLargeMode && (
+          <Login navigate={navigate} />
+        )}
 
-      {loading && <Loader loading={loading} />}
-      <MinFullHeightView>{props.com(setLoading)}</MinFullHeightView>
-      {/* <BottomNavBar show={showBottonNavLocal} /> */}
+        {showLoginComponents && (
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              backgroundColor: vars.DARK_WHITE,
+            }}>
+            <Logo />
+            <Header
+              pic={'https://statics.okft.org/usersPic/1649843007648.jpg'}
+              name={'محمد قانع'}
+            />
+            <Menu selected="profile" />
+            {/* {!hideRightMenu && <Menu />} */}
+            {props.page === 'profile' && <WebProfile navigate={navigate} />}
+          </View>
+        )}
+      </MinFullHeightView>
     </View>
   );
 };

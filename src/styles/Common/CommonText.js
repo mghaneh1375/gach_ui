@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import vars from './../root';
-import {TextInput, View, Platform} from 'react-native';
+import {TextInput, View} from 'react-native';
 
 const CommonTextInputStyle = {
   padding: 10,
@@ -21,6 +21,13 @@ export const CommonTextInputStyleWeb = {
   direction: 'rtl',
   width: 'calc(100% - 20px)',
   display: 'block',
+  maxWidth: '300px',
+};
+
+export const CommonHalfTextInputStyleWeb = {
+  ...CommonTextInputStyle,
+  direction: 'rtl',
+  width: 'calc(50% - 10px)',
   maxWidth: '300px',
 };
 

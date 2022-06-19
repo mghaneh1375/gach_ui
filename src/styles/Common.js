@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Pressable,
+  StyleSheet,
 } from 'react-native';
 import {
   Button,
@@ -17,11 +18,11 @@ import {
 import BlueTextInlineElem from './Common/BlueTextInline';
 
 import {Device} from '../models/Device';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   CommonTextInputElem,
   CommonTextInputContainer,
   CommonTextInputStyleWeb,
+  CommonHalfTextInputStyleWeb,
 } from './Common/CommonText';
 
 import {
@@ -29,7 +30,6 @@ import {
   BigBoldBlueTextInlineElem,
 } from './Common/BigBoldTextElem';
 
-import {FontIconStyleAndroid, FontIconStyleWeb} from './Common/FontIcon';
 import SubInputText from './Common/SubInputText';
 import {getScreenHeight, getWidthHeight} from '../services/Utility';
 import {Link} from 'react-router-dom';
@@ -110,7 +110,13 @@ export const ScreenScroll =
 // contentContainerStyle={ScreenContentContainerStyle}
 
 export const CommonTextInput = props => {
-  const style1 = Platform.OS === 'web' ? CommonTextInputStyleWeb : {};
+  const isHalf = props.isHalf !== undefined && props.isHalf;
+  const style1 =
+    Platform.OS === 'web'
+      ? isHalf
+        ? CommonHalfTextInputStyleWeb
+        : CommonTextInputStyleWeb
+      : {};
   const allStyle =
     props.style !== undefined ? {...style1, ...props.style} : style1;
 
@@ -131,6 +137,9 @@ export const CommonTextInput = props => {
         e.preventDefault();
     };
   }
+
+  if (isHalf) return <CommonTextInputElem {...inputProps} />;
+
   return (
     <CommonTextInputContainer>
       <CommonTextInputElem {...inputProps} />
@@ -185,6 +194,7 @@ export const EqualTwoTextInputs =
         justify-content: space-between;
         padding-left: 10px;
         padding-right: 10px;
+        flex-wrap: wrap;
       `;
 
 const androidCommonStyles = {flexDirection: 'row-reverse'};
@@ -193,7 +203,6 @@ export const SimpleText = props => {
   const style1 = {fontFamily: 'IRANSans'};
   const allStyle =
     props.style !== undefined ? {...style1, ...props.style} : style1;
-
   return <Text style={allStyle}>{props.text}</Text>;
 };
 
@@ -217,14 +226,28 @@ export const MinFullHeightView = styled(View)`
   min-height: ${getScreenHeight()}px;
 `;
 
-export const ContentView = styled(View)`
-  margin-top: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-`;
+export const commonStyles = StyleSheet.create({
+  ContentView: {
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+});
+
+export const ContentView = styled(View)``;
 
 export const BlueTextFromStart = props => (
-  <View style={{flexDirection: 'row', alignSelf: 'flex-start'}}>
+  <View style={{flexDirection: 'row', alignSelf: vars.alignSelf}}>
     <BlueTextInline text={props.text} />
   </View>
 );
+
+export const TextWithLink = props => {
+  return (
+    <InlineTextContainer style={props.style !== undefined ? props.style : {}}>
+      <BlueTextInline text={props.text} />
+
+      <TextLink onPress={props.onPress} href={props.href} text={props.link} />
+    </InlineTextContainer>
+  );
+};
