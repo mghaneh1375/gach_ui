@@ -2,6 +2,7 @@ import {StyleSheet, View} from 'react-native';
 import {SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import vars from '../../../../styles/root';
+import { Hoverable } from 'react-native-web-hover'
 
 const style = StyleSheet.create({
   Logo: {
@@ -74,6 +75,7 @@ const style = StyleSheet.create({
     marginTop: 5,
     borderBottomWidth: 1,
     borderBottomColor: vars.LIGHT_SILVER,
+    cursor: 'pointer',
   },
   Menu_Item_Selected: {
     backgroundColor: vars.YELLOW,
@@ -90,13 +92,16 @@ const style = StyleSheet.create({
 });
 
 export const MenuItem = props => {
+
+  const style1 = style.Menu_Item;
+  const allStyles = props.selected !== undefined && props.selected ?
+  {...style1, style.Menu_Item_Selected} : {};
+
   return (
     <View
-      style={[
-        style.Menu_Item,
-        props.selected !== undefined && props.selected
-          ? style.Menu_Item_Selected
-          : {},
+      style={
+        ({ hovered, focused, pressed }) => [
+          allStyles,
       ]}>
       <SimpleText
         style={{
@@ -107,7 +112,7 @@ export const MenuItem = props => {
               ? vars.WHITE
               : vars.LIGHT_SILVER,
         }}
-        text="خانه"
+        text={props.text}
       />
       <View
         style={[

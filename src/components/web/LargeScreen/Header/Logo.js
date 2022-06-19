@@ -3,7 +3,7 @@ import {FontIcon} from '../../../../styles/Common/FontIcon';
 import style from './style';
 import {faNavicon} from '@fortawesome/free-solid-svg-icons';
 
-const Logo = () => {
+const Logo = props => {
   return (
     <View style={style.Logo}>
       <Image
@@ -12,7 +12,7 @@ const Logo = () => {
         source={require('./../../../../images/irysc.png')}
       />
       <View style={{width: 30, height: 30, alignSelf: 'center'}}>
-        <FontIcon icon={faNavicon} />
+        <FontIcon onPress={e => props.toggleHideRightMenu()} icon={faNavicon} />
       </View>
     </View>
   );

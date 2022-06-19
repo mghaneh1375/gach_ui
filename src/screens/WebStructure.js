@@ -41,6 +41,10 @@ const WebStructue = props => {
   const showLoginComponents =
     isInLargeMode && excludeRightMenu.indexOf(props.page) === -1;
 
+  const toggleHideRightMenu = () => {
+    setHideRightMenu(!hideRightMenu);
+  };
+
   return (
     <View style={{flex: 1, height: '100%'}}>
       <MinFullHeightView>
@@ -59,14 +63,15 @@ const WebStructue = props => {
               flexWrap: 'wrap',
               backgroundColor: vars.DARK_WHITE,
             }}>
-            <Logo />
+            <Logo toggleHideRightMenu={toggleHideRightMenu} />
             <Header
               pic={'https://statics.okft.org/usersPic/1649843007648.jpg'}
               name={'محمد قانع'}
             />
-            <Menu selected="profile" />
-            {/* {!hideRightMenu && <Menu />} */}
-            {props.page === 'profile' && <WebProfile navigate={navigate} />}
+            {!hideRightMenu && <Menu selected="profile" />}
+            <View style={{minHeight: 'calc(100vh - 60px)', marginTop: 60}}>
+              {props.page === 'profile' && <WebProfile navigate={navigate} />}
+            </View>
           </View>
         )}
       </MinFullHeightView>
