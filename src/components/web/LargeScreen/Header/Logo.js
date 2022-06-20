@@ -1,6 +1,6 @@
 import {Image, View} from 'react-native';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
-import style from './style';
+import {style} from './style';
 import {faNavicon} from '@fortawesome/free-solid-svg-icons';
 
 const Logo = props => {

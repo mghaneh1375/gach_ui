@@ -22,10 +22,12 @@ const translator = {
   myQuizes: 'آزمون های من',
   buyQuiz: 'خرید آزمون',
   charge: 'شارژ',
-  history: 'سابفه',
+  history: 'سابقه',
   config: 'تنظیمات',
   pleaseFillAllFields: 'لطفا تمام فیلدهای لازم را پر نمایید.',
   invalidFieldValue: 'مقدار وارد شده صحیح نمی باشد.',
   opErr: 'خطایی در انجام عملیات موردنظر رخ داده است',
+  necessary: 'ضروری',
+  necessaryField: 'این فیلد ضروری است.',
 };
 export default translator;

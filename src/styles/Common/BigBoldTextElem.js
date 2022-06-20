@@ -4,19 +4,28 @@ import {Text, Platform} from 'react-native';
 
 const BigBoldBlueTextStyle = {
   fontWeight: 900,
-  fontSize: 28,
   color: vars.DARK_BLUE,
   fontFamily: 'IRANSans',
+};
+
+const BigBoldBlueTextStyleAndroid = {
+  ...BigBoldBlueTextStyle,
+  fontSize: 28,
+};
+
+const BigBoldBlueTextStyleWeb = {
+  ...BigBoldBlueTextStyle,
+  fontSize: 20,
+  marginBottom: 5,
 };
 
 export const BigBoldBlueTextElem =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(Text)`
-        ${BigBoldBlueTextStyle}
+        ${BigBoldBlueTextStyleAndroid}
       `
     : styled.p`
-        ${BigBoldBlueTextStyle}
-        margin-bottom: 5px;
+        ${BigBoldBlueTextStyleWeb}
       `;
 
 export const BigBoldBlueTextInlineElem =

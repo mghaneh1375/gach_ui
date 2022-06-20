@@ -2,9 +2,9 @@ import {StyleSheet, View} from 'react-native';
 import {SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import vars from '../../../../styles/root';
-import { Hoverable } from 'react-native-web-hover'
+import {Pressable} from 'react-native-web-hover';
 
-const style = StyleSheet.create({
+export const style = {
   Logo: {
     backgroundColor: vars.WHITE,
     borderBottomRightRadius: 10,
@@ -51,6 +51,8 @@ const style = StyleSheet.create({
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     boxShadow: '0px 3px 6px #00000029',
+    minWidth: '140px',
+    left: 0,
   },
   Header_NOTIF: {
     backgroundColor: vars.WHITE,
@@ -70,39 +72,16 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 10,
     width: 200,
   },
-  Menu_Item: {
-    flexDirection: 'row',
-    marginTop: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: vars.LIGHT_SILVER,
-    cursor: 'pointer',
-  },
-  Menu_Item_Selected: {
-    backgroundColor: vars.YELLOW,
-  },
-  Menu_Item_Font: {
-    marginRight: 'auto',
-    backgroundColor: vars.LIGHT_SILVER,
-    width: 30,
-    height: 30,
-  },
-  Menu_Item_Font_Selecetd: {
-    backgroundColor: vars.YELLOW,
-  },
-});
+};
 
 export const MenuItem = props => {
-
-  const style1 = style.Menu_Item;
-  const allStyles = props.selected !== undefined && props.selected ?
-  {...style1, style.Menu_Item_Selected} : {};
-
   return (
-    <View
-      style={
-        ({ hovered, focused, pressed }) => [
-          allStyles,
-      ]}>
+    <div
+      className={
+        props.selected !== undefined && props.selected
+          ? 'menu-item menu-item-selected'
+          : 'menu-item'
+      }>
       <SimpleText
         style={{
           paddingTop: 10,
@@ -114,17 +93,14 @@ export const MenuItem = props => {
         }}
         text={props.text}
       />
-      <View
-        style={[
-          style.Menu_Item_Font,
+      <div
+        className={
           props.selected !== undefined && props.selected
-            ? style.Menu_Item_Font_Selecetd
-            : {},
-        ]}>
+            ? 'menu-item-font-container menu-item-font-container-selected'
+            : 'menu-item-font-container'
+        }>
         <SimpleFontIcon style={{color: vars.WHITE}} icon={props.icon} />
-      </View>
-    </View>
+      </div>
+    </div>
   );
 };
-
-export default style;

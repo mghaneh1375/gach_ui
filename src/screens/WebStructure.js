@@ -69,7 +69,11 @@ const WebStructue = props => {
               name={'محمد قانع'}
             />
             {!hideRightMenu && <Menu selected="profile" />}
-            <View style={{minHeight: 'calc(100vh - 60px)', marginTop: 60}}>
+            <View
+              style={{
+                width: 'calc(100% - 200px)',
+                minHeight: 'calc(100vh - 60px)',
+              }}>
               {props.page === 'profile' && <WebProfile navigate={navigate} />}
             </View>
           </View>

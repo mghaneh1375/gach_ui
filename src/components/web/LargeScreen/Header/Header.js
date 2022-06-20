@@ -2,14 +2,19 @@ import React, {useState} from 'react';
 import {Image, View} from 'react-native';
 import {SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import style from './style';
+import {style} from './style';
 import {faAngleDown, faBell} from '@fortawesome/free-solid-svg-icons';
 
 const Header = props => {
   const [show, setShow] = useState(false);
+  const [showNotif, setShowNotif] = useState(false);
 
   const changeShow = newStatus => {
     setShow(newStatus);
+  };
+
+  const changeShowNotif = newStatus => {
+    setShowNotif(newStatus);
   };
 
   return (
@@ -32,7 +37,12 @@ const Header = props => {
       </View>
 
       <View style={style.Header_NOTIF}>
-        <SimpleFontIcon onPress={() => changeShow(!show)} icon={faBell} />
+        <SimpleFontIcon
+          onPress={() => changeShowNotif(!showNotif)}
+          icon={faBell}
+        />
+
+        {showNotif && <View style={style.Header_Profile_MENU}></View>}
       </View>
     </View>
   );

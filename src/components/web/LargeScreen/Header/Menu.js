@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import style, {MenuItem} from './style';
+import {style, MenuItem} from './style';
 import {
   faHome,
   faBasketShopping,
@@ -13,7 +13,7 @@ import translator from '../../../../tranlates/Common';
 
 const Menu = () => {
   return (
-    <View style={style.Menu}>
+    <div className="menu-item-container" style={style.Menu}>
       <MenuItem text={translator.home} icon={faHome} />
       <MenuItem text={translator.myQuizes} icon={faCheckSquare} />
       <MenuItem
@@ -25,7 +25,7 @@ const Menu = () => {
       <MenuItem text={translator.history} icon={faHistory} />
       <MenuItem text={translator.support} icon={faQuestion} />
       <MenuItem text={translator.config} icon={faCog} />
-    </View>
+    </div>
   );
 };
 

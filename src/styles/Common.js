@@ -18,19 +18,12 @@ import {
 import BlueTextInlineElem from './Common/BlueTextInline';
 
 import {Device} from '../models/Device';
-import {
-  CommonTextInputElem,
-  CommonTextInputContainer,
-  CommonTextInputStyleWeb,
-  CommonHalfTextInputStyleWeb,
-} from './Common/CommonText';
 
 import {
   BigBoldBlueTextElem,
   BigBoldBlueTextInlineElem,
 } from './Common/BigBoldTextElem';
 
-import SubInputText from './Common/SubInputText';
 import {getScreenHeight, getWidthHeight} from '../services/Utility';
 import {Link} from 'react-router-dom';
 
@@ -108,47 +101,6 @@ export const ScreenScroll =
 
 // style={ScreenScrollBar}
 // contentContainerStyle={ScreenContentContainerStyle}
-
-export const CommonTextInput = props => {
-  const isHalf = props.isHalf !== undefined && props.isHalf;
-  const style1 =
-    Platform.OS === 'web'
-      ? isHalf
-        ? CommonHalfTextInputStyleWeb
-        : CommonTextInputStyleWeb
-      : {};
-  const allStyle =
-    props.style !== undefined ? {...style1, ...props.style} : style1;
-
-  const inputProps = {
-    placeholder: props.placeholder,
-    onChangeText: props.onChangeText,
-    style: allStyle,
-  };
-  if (props.value !== undefined) inputProps.value = props.value;
-  if (props.type !== undefined && props.type === 'password')
-    inputProps.secureTextEntry = true;
-
-  if (props.justNum !== undefined && Platform.OS === 'web') {
-    inputProps.keyboardType = 'numeric';
-    inputProps.onKeyPress = e => {
-      var charCode = e.which ? e.which : e.keyCode;
-      if (charCode !== 8 && String.fromCharCode(charCode).match(/[^0-9]/g))
-        e.preventDefault();
-    };
-  }
-
-  if (isHalf) return <CommonTextInputElem {...inputProps} />;
-
-  return (
-    <CommonTextInputContainer>
-      <CommonTextInputElem {...inputProps} />
-      {props.subText !== undefined ? (
-        <SubInputText>{props.subText}</SubInputText>
-      ) : null}
-    </CommonTextInputContainer>
-  );
-};
 
 export const CommonButton = props =>
   Platform.OS === 'android' || Platform.OS === 'ios' ? (
@@ -249,5 +201,22 @@ export const TextWithLink = props => {
 
       <TextLink onPress={props.onPress} href={props.href} text={props.link} />
     </InlineTextContainer>
+  );
+};
+
+export const CommonWebBox = props => {
+  return (
+    <View
+      style={{
+        backgroundColor: vars.WHITE,
+        borderRadius: 10,
+        direction: 'rtl',
+        padding: 10,
+        margin: 10,
+        width: props.width,
+        boxShadow: '0px 3px 6px #00000029',
+      }}>
+      {props.child}
+    </View>
   );
 };

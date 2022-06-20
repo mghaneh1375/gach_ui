@@ -1,0 +1,48 @@
+.menu-item-container > div {
+  background: linear-gradient(to right, #ffaa00 50%, #707070 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.7s ease-out;
+}
+.menu-item-container > div:hover {
+  background-position: left bottom;
+}
+.menu-item-font-container {
+  margin-right: auto;
+  width: 30px;
+  height: 30px;
+}
+.menu-item-font-container-selected {
+  background-color: #ffaa00;
+}
+.menu-item {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  cursor: 'pointer';
+  border-bottom-width: 1px;
+  border-bottom-color: #707070;
+  border-bottom-style: solid;
+}
+
+.menu-item > div:nth-child(1) {
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
+
+.menu-item:not(.menu-item-selected) > div:nth-child(1) {
+  color: #707070;
+  background: linear-gradient(to right, #ffaa00 50%, white 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.7s ease-out;
+}
+.menu-item:not(.menu-item-selected) > div:nth-child(1):hover {
+  background-color: transparent;
+  color: white !important;
+  background-position: left bottom;
+}
+
+.menu-item-selected {
+  background: #ffaa00 !important;
+}
