@@ -7,4 +7,5 @@ export const routes = {
   resendCode: 'user/resendCode',
   checkCode: 'user/checkCode',
   sendRoleForm: 'user/sendRoleForm',
+  fetchState: 'general/fetchStates',
 };

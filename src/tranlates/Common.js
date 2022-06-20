@@ -29,5 +29,9 @@ const translator = {
   opErr: 'خطایی در انجام عملیات موردنظر رخ داده است',
   necessary: 'ضروری',
   necessaryField: 'این فیلد ضروری است.',
+  cancel: 'انصراف',
+  sex: 'جنسیت',
+  state: 'استان',
+  city: 'شهر',
 };
 export default translator;

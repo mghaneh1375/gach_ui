@@ -3,7 +3,7 @@ import {ToastAndroid, Platform} from 'react-native'; //(Platform.OS === 'android
 
 import commonTranslator from './../tranlates/Common';
 
-export const BASE_URL = 'http://192.168.0.106:8080/api/';
+export const BASE_URL = 'http://192.168.1.101:8080/api/';
 
 export const COMMON_HEADER = {
   'content-type': 'application/json',

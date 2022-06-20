@@ -27,8 +27,6 @@ export const CommonTextInputStyleWeb = {
 export const CommonHalfTextInputStyleWeb = {
   ...CommonTextInputStyle,
   direction: 'rtl',
-  width: 'calc(100% - 10px)',
-  maxWidth: '300px',
 };
 
 export const CommonTextInputContainer = styled(View)`

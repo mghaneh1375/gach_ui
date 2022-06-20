@@ -1,7 +1,6 @@
 import {StyleSheet, ActivityIndicator, View} from 'react-native';
-import {getWidthHeight} from '../../services/Utility';
 
-const styles = StyleSheet.create({
+const blur = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -17,7 +16,7 @@ const styles = StyleSheet.create({
 });
 
 export const Loader = props => (
-  <View style={[styles.container]}>
+  <View style={[blur.container]}>
     <ActivityIndicator color="green" size="large" />
   </View>
 );

@@ -205,18 +205,18 @@ export const TextWithLink = props => {
 };
 
 export const CommonWebBox = props => {
-  return (
-    <View
-      style={{
-        backgroundColor: vars.WHITE,
-        borderRadius: 10,
-        direction: 'rtl',
-        padding: 10,
-        margin: 10,
-        width: props.width,
-        boxShadow: '0px 3px 6px #00000029',
-      }}>
-      {props.child}
-    </View>
-  );
+  const style1 = {
+    backgroundColor: vars.WHITE,
+    borderRadius: 10,
+    direction: 'rtl',
+    padding: 10,
+    margin: 10,
+    width: props.width !== undefined ? props.width : 'auto',
+    boxShadow: '0px 3px 6px #00000029',
+  };
+
+  const allStyle =
+    props.style !== undefined ? {...style1, ...props.style} : {...style1};
+
+  return <View style={allStyle}>{props.child}</View>;
 };

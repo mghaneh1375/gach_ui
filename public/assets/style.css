@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: row;
   margin-top: 5px;
-  cursor: 'pointer';
+  cursor: pointer;
   border-bottom-width: 1px;
   border-bottom-color: #707070;
   border-bottom-style: solid;
