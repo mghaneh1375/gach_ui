@@ -27,11 +27,16 @@ const translator = {
   pleaseFillAllFields: 'لطفا تمام فیلدهای لازم را پر نمایید.',
   invalidFieldValue: 'مقدار وارد شده صحیح نمی باشد.',
   opErr: 'خطایی در انجام عملیات موردنظر رخ داده است',
+  noResult: 'نتیجه ای یافت نشد',
   necessary: 'ضروری',
   necessaryField: 'این فیلد ضروری است.',
   cancel: 'انصراف',
   sex: 'جنسیت',
   state: 'استان',
   city: 'شهر',
+  grade: 'پایه تحصیلی',
+  branch: 'گروه آموزشی',
+  change: 'تغییر',
+  doChange: 'اعمال تغییر',
 };
 export default translator;

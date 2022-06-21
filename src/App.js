@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, View, LogBox} from 'react-native';
+import {Platform, LogBox} from 'react-native';
 
 import AppRouter from './router/app/Router';
 import WebRouter from './router/web/Router';
@@ -8,7 +8,6 @@ const defaultGlobalState = {
   showBottonNav: true,
   showTopNav: true,
   loading: false,
-  token: undefined,
 };
 
 export const globalStateContext = React.createContext(defaultGlobalState);

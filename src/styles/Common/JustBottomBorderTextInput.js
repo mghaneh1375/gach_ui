@@ -1,4 +1,6 @@
 import {CommonTextInput} from './CommonTextInput';
+import {MultiSearchableTextInput} from './MultiSearchableTextInput';
+import {SearchableTextInput} from './SearchableTextInput';
 
 export const JustBottomBorderTextInput = props => {
   const customStyle = {
@@ -8,15 +10,46 @@ export const JustBottomBorderTextInput = props => {
     borderRadius: 0,
     paddingBottom: 0,
   };
+
+  if (props.resultPane === undefined)
+    return (
+      <CommonTextInput
+        onChangeText={props.onChangeText}
+        justNum={props.justNum}
+        isHalf={props.isHalf}
+        placeholder={props.placeholder}
+        subText={props.subText}
+        style={customStyle}
+        value={props.value}
+      />
+    );
+
+  if (props.multi === undefined)
+    return (
+      <SearchableTextInput
+        onChangeText={props.onChangeText}
+        justNum={props.justNum}
+        isHalf={props.isHalf}
+        placeholder={props.placeholder}
+        subText={props.subText}
+        style={customStyle}
+        values={props.values}
+        reset={props.reset}
+        setSelectedItem={props.setSelectedItem}
+      />
+    );
+
   return (
-    <CommonTextInput
+    <MultiSearchableTextInput
       onChangeText={props.onChangeText}
       justNum={props.justNum}
       isHalf={props.isHalf}
       placeholder={props.placeholder}
       subText={props.subText}
-      resultPane={props.resultPane}
       style={customStyle}
+      values={props.values}
+      reset={props.reset}
+      setSelectedItem={props.setSelectedItem}
     />
   );
 };

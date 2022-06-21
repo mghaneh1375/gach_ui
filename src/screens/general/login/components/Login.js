@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {signIn} from '../../../../API/User';
-import {CommonButton, CommonTextInput} from '../../../../styles/Common';
+import {CommonButton} from '../../../../styles/Common';
+import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import commonTranlator from './../../../../tranlates/Common';
 import translator from './../translate';
 

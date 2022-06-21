@@ -8,7 +8,7 @@ import {View} from 'react-native';
 const UpdateUsername = props => {
   return (
     <View>
-      <BigBoldBlueText text={translator.yourInfo} />
+      <BigBoldBlueText text={translator.usernameInfo} />
       <EqualTwoTextInputs>
         <JustBottomBorderTextInput
           isHalf={true}

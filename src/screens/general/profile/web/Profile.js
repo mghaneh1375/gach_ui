@@ -33,12 +33,12 @@ const Profile = props => {
         <ChangePass toggleModal={toggleChangePassModal} />
       )}
       <CommonWebBox
-        width={'calc(60% - 20px)'}
-        child={<UpdateInfo setLoading={setLoading} />}
+        width={'calc(65% - 20px)'}
+        child={<UpdateInfo user={props.user.user} setLoading={setLoading} />}
       />
-      <CommonWebBox width={'calc(40% - 20px)'} child={<UpdatePic />} />
-      <CommonWebBox width={'calc(60% - 20px)'} child={<UpdateUsername />} />
-      <CommonWebBox width={'calc(60% - 20px)'} child={<UpdatePassword />} />
+      <CommonWebBox width={'calc(35% - 20px)'} child={<UpdatePic />} />
+      <CommonWebBox width={'calc(65% - 20px)'} child={<UpdateUsername />} />
+      <CommonWebBox width={'calc(65% - 20px)'} child={<UpdatePassword />} />
     </View>
   );
 };

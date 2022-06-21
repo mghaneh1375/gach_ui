@@ -8,4 +8,6 @@ export const routes = {
   checkCode: 'user/checkCode',
   sendRoleForm: 'user/sendRoleForm',
   fetchState: 'general/fetchStates',
+  fetchGrades: 'admin/content/grades',
+  fetchBranches: 'admin/content/branches',
 };

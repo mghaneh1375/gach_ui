@@ -1,5 +1,4 @@
 import {Platform, View} from 'react-native';
-import vars from '../root';
 import {
   CommonHalfTextInputStyleWeb,
   CommonTextInputContainer,
@@ -48,19 +47,6 @@ export const CommonTextInput = props => {
         <CommonTextInputElem {...inputProps} />
         {props.subText !== undefined ? (
           <SubInputText>{props.subText}</SubInputText>
-        ) : null}
-        {props.resultPane !== undefined && props.resultPane ? (
-          <View
-            style={{
-              position: 'absolute',
-              width: '100%',
-              top: 40,
-              zIndex: 1000,
-              left: 0,
-              height: 100,
-              backgroundColor: vars.WHITE,
-              border: '1px solid',
-            }}></View>
         ) : null}
       </View>
     );
