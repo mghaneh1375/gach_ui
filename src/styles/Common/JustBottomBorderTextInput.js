@@ -2,14 +2,24 @@ import {CommonTextInput} from './CommonTextInput';
 import {MultiSearchableTextInput} from './MultiSearchableTextInput';
 import {SearchableTextInput} from './SearchableTextInput';
 
-export const JustBottomBorderTextInput = props => {
-  const customStyle = {
-    borderTopWidth: 0,
-    borderLeftWidth: 0,
-    borderRightWidth: 0,
-    borderRadius: 0,
-    paddingBottom: 0,
-  };
+const JustBottomBorderTextInput = props => {
+  const customStyle =
+    props.style === undefined
+      ? {
+          borderTopWidth: 0,
+          borderLeftWidth: 0,
+          borderRightWidth: 0,
+          borderRadius: 0,
+          paddingBottom: 0,
+        }
+      : {
+          ...props.style,
+          borderTopWidth: 0,
+          borderLeftWidth: 0,
+          borderRightWidth: 0,
+          borderRadius: 0,
+          paddingBottom: 0,
+        };
 
   if (props.resultPane === undefined)
     return (
@@ -53,3 +63,5 @@ export const JustBottomBorderTextInput = props => {
     />
   );
 };
+
+export default JustBottomBorderTextInput;

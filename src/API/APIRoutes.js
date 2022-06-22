@@ -5,9 +5,11 @@ export const routes = {
   signup: 'user/signUp',
   activate: 'user/activate',
   resendCode: 'user/resendCode',
+  updateInfo: 'user/updateInfo',
   checkCode: 'user/checkCode',
   sendRoleForm: 'user/sendRoleForm',
   fetchState: 'general/fetchStates',
+  fetchSchoolsDigest: 'general/fetchSchoolsDigest',
   fetchGrades: 'admin/content/grades',
   fetchBranches: 'admin/content/branches',
 };

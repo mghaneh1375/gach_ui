@@ -34,7 +34,13 @@ const Profile = props => {
       )}
       <CommonWebBox
         width={'calc(65% - 20px)'}
-        child={<UpdateInfo user={props.user.user} setLoading={setLoading} />}
+        child={
+          <UpdateInfo
+            token={props.token}
+            user={props.user.user}
+            setLoading={setLoading}
+          />
+        }
       />
       <CommonWebBox width={'calc(35% - 20px)'} child={<UpdatePic />} />
       <CommonWebBox width={'calc(65% - 20px)'} child={<UpdateUsername />} />

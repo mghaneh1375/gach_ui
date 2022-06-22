@@ -116,42 +116,36 @@ export const SearchableTextInput = props => {
     };
   }
 
-  if (isHalf)
-    return (
-      <View
-        style={{
-          width: 'calc(50% - 10px)',
-          maxWidth: '300px',
-        }}>
-        <CommonTextInputElem {...inputProps} />
-        {props.subText !== undefined ? (
-          <SubInputText>{props.subText}</SubInputText>
-        ) : null}
-
-        {showResultPane && (
-          <CommonWebBox
-            style={{
-              width: '100%',
-              height: 100,
-              marginTop: props.subText !== undefined ? -20 : 10,
-              backgroundColor: vars.WHITE,
-              borderWidth: 1,
-              marginLeft: 0,
-              marginRight: 0,
-              overflow: 'auto',
-            }}
-            child={<View>{SuggestListItems()}</View>}
-          />
-        )}
-      </View>
-    );
-
   return (
-    <CommonTextInputContainer>
+    <CommonTextInputContainer
+      style={
+        isHalf
+          ? {
+              width: 'calc(50% - 10px)',
+              maxWidth: '300px',
+            }
+          : {}
+      }>
       <CommonTextInputElem {...inputProps} />
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>
       ) : null}
+
+      {showResultPane && (
+        <CommonWebBox
+          style={{
+            width: '100%',
+            height: 100,
+            marginTop: props.subText !== undefined ? -20 : 10,
+            backgroundColor: vars.WHITE,
+            borderWidth: 1,
+            marginLeft: 0,
+            marginRight: 0,
+            overflow: 'auto',
+          }}
+          child={<View>{SuggestListItems()}</View>}
+        />
+      )}
     </CommonTextInputContainer>
   );
 };

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {JustBottomBorderTextInput} from '../../../../styles/Common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';
 import {
@@ -8,7 +9,7 @@ import {
   EqualTwoTextInputs,
 } from '../../../../styles/Common';
 import {View} from 'react-native';
-import {generalRequest} from '../../../../API/Utility';
+import {generalRequest, showError} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import vars from '../../../../styles/root';
 
@@ -16,30 +17,25 @@ const UpdateInfo = props => {
   const [states, setStates] = useState([]);
   const [grades, setGrades] = useState([]);
   const [branches, setBranches] = useState([]);
+  const [schools, setSchools] = useState([]);
 
   const [state, setState] = useState(undefined);
   const [city, setCity] = useState(undefined);
   const [sex, setSex] = useState(undefined);
   const [grade, setGrade] = useState(undefined);
   const [branch, setBranch] = useState(undefined);
+  const [school, setSchool] = useState(undefined);
 
   const [resetCity, setResetCity] = useState(false);
 
-  console.log(props.user);
+  // console.log(props.user);
   const [firstname, setFirstname] = useState(props.user.firstName);
   const [lastname, setLastname] = useState(props.user.lastName);
   const [NID, setNID] = useState(props.user.NID);
 
   const [fetchedStates, setFetchedStates] = useState(false);
   const sexKeyVals = [
-    {name: 'مرد', id: 'male'},
-    {name: 'مذکر', id: 'male'},
-    {name: 'پسر', id: 'male'},
     {name: 'آقا', id: 'male'},
-    {name: 'اقا', id: 'male'},
-    {name: 'زن', id: 'female'},
-    {name: 'مونت', id: 'female'},
-    {name: 'دختر', id: 'female'},
     {name: 'خانم', id: 'female'},
   ];
 
@@ -53,11 +49,13 @@ const UpdateInfo = props => {
       generalRequest(routes.fetchState, 'get', undefined, 'data'),
       generalRequest(routes.fetchGrades, 'get', undefined, 'data'),
       generalRequest(routes.fetchBranches, 'get', undefined, 'data'),
+      generalRequest(routes.fetchSchoolsDigest, 'get', undefined, 'data'),
     ]).then(res => {
       props.setLoading(false);
       if (res[0] !== null) setStates(res[0]);
       if (res[1] !== null) setGrades(res[1]);
       if (res[2] !== null) setBranches(res[2]);
+      if (res[3] !== null) setSchools(res[3]);
     });
   }, [fetchedStates, props]);
 
@@ -74,8 +72,8 @@ const UpdateInfo = props => {
     setResetCity(false);
   };
 
-  const setSelectedSex = item => {
-    setSex(item);
+  const setSelectedSex = (item_key, item_idx) => {
+    setSex(sexKeyVals[item_idx].id);
   };
 
   const setSelectedGrade = item => {
@@ -84,6 +82,55 @@ const UpdateInfo = props => {
 
   const setSelectedBranch = item => {
     setBranch(item);
+  };
+
+  const setSelectedSchool = item => {
+    setSchool(item);
+  };
+
+  const update = () => {
+    if (
+      state === undefined ||
+      city === undefined ||
+      grade === undefined ||
+      branch === undefined ||
+      school === undefined ||
+      firstname.length === 0 ||
+      lastname.length === 0 ||
+      NID.length === 0
+    ) {
+      showError(commonTranslator.pleaseFillAllFields);
+      return;
+    }
+
+    const data = {
+      firstName: firstname,
+      lastName: lastname,
+      schoolId: school.id,
+      branches: branch.map(function (element) {
+        return element.id;
+      }),
+      gradeId: grade.id,
+      cityId: city.id,
+      NID: NID,
+      sex: sex,
+    };
+
+    props.setLoading(true);
+    console.log(data);
+    Promise.all([
+      generalRequest(
+        routes.updateInfo,
+        'post',
+        data,
+        undefined,
+        true,
+        props.token,
+      ),
+    ]).then(res => {
+      console.log(res);
+      props.setLoading(false);
+    });
   };
 
   return (
@@ -96,12 +143,14 @@ const UpdateInfo = props => {
             value={firstname}
             subText={commonTranslator.necessaryField}
             placeholder={commonTranslator.firstname}
+            onChangeText={e => setFirstname(e)}
           />
           <JustBottomBorderTextInput
             isHalf={true}
             value={lastname}
             subText={commonTranslator.necessaryField}
             placeholder={commonTranslator.lastname}
+            onChangeText={e => setLastname(e)}
           />
         </EqualTwoTextInputs>
         <EqualTwoTextInputs style={{marginTop: 20}}>
@@ -109,17 +158,15 @@ const UpdateInfo = props => {
             isHalf={true}
             justNum={true}
             value={NID}
+            onChangeText={e => setNID(e)}
             subText={commonTranslator.necessaryField}
             placeholder={commonTranslator.NID}
           />
-          <JustBottomBorderTextInput
+          <JustBottomBorderSelect
             isHalf={true}
-            subText={commonTranslator.necessaryField}
             placeholder={commonTranslator.sex}
-            resultPane={true}
-            setSelectedItem={setSelectedSex}
+            onSelect={setSelectedSex}
             values={sexKeyVals}
-            reset={false}
           />
         </EqualTwoTextInputs>
         <EqualTwoTextInputs style={{marginTop: 20}}>
@@ -162,10 +209,23 @@ const UpdateInfo = props => {
             multi={true}
           />
         </EqualTwoTextInputs>
+
+        <View style={{marginTop: 30, marginRight: 10}}>
+          <JustBottomBorderTextInput
+            isHalf={false}
+            style={{maxWidth: 'unset'}}
+            placeholder={commonTranslator.school}
+            resultPane={true}
+            setSelectedItem={setSelectedSchool}
+            values={schools}
+            reset={false}
+          />
+        </View>
       </View>
       <CommonButton
         style={{backgroundColor: vars.DARK_BLUE, marginTop: 50, minWidth: 120}}
         title={commonTranslator.doChange}
+        onPress={() => update()}
       />
     </View>
   );

@@ -37,22 +37,16 @@ export const CommonTextInput = props => {
     };
   }
 
-  if (isHalf)
-    return (
-      <View
-        style={{
-          width: 'calc(50% - 10px)',
-          maxWidth: '300px',
-        }}>
-        <CommonTextInputElem {...inputProps} />
-        {props.subText !== undefined ? (
-          <SubInputText>{props.subText}</SubInputText>
-        ) : null}
-      </View>
-    );
-
   return (
-    <CommonTextInputContainer>
+    <CommonTextInputContainer
+      style={
+        isHalf
+          ? {
+              width: 'calc(50% - 10px)',
+              maxWidth: '300px',
+            }
+          : {}
+      }>
       <CommonTextInputElem {...inputProps} />
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>

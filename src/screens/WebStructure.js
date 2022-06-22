@@ -9,12 +9,19 @@ import WebLogin from './general/login/web/Login';
 import WebProfile from './general/profile/web/Profile';
 import {getDevice} from '../services/Utility';
 import {Device} from '../models/Device';
+
+import 'react-notifications-component/dist/theme.css';
+import {ReactNotifications} from 'react-notifications-component';
+
 import {globalStateContext, dispatchStateContext} from '../App';
 import Logo from '../components/web/LargeScreen/Header/Logo';
 import Header from '../components/web/LargeScreen/Header/Header';
 import Menu from '../components/web/LargeScreen/Header/Menu';
 import vars from '../styles/root';
 import {getToken, getUser, setCacheItem} from '../API/User';
+import {TopNavBar} from '../components/web/TopNavBar';
+import Navbar from '../components/web/Navbar';
+import BottomNavBar from '../components/web/BottomNavBar';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -67,44 +74,56 @@ const WebStructue = props => {
   };
 
   return (
-    <View style={{flex: 1, height: '100%'}}>
-      {allowRenderPage && (
-        <MinFullHeightView>
-          {props.page === 'home' && <Home navigate={navigate} />}
-          {props.page === 'login' && isInLargeMode && (
-            <WebLogin navigate={navigate} />
-          )}
-          {props.page === 'login' && !isInLargeMode && (
-            <Login navigate={navigate} />
-          )}
+    <MinFullHeightView>
+      {device.indexOf(Device.WebPort) !== -1 && <TopNavBar />}
+      {state.showTopNav && device.indexOf(Device.Large) !== -1 && (
+        <Navbar user={user} />
+      )}
+      <View style={{flex: 1, height: '100%'}}>
+        {allowRenderPage && (
+          <MinFullHeightView>
+            {props.page === 'home' && <Home navigate={navigate} />}
+            {props.page === 'login' && isInLargeMode && (
+              <WebLogin navigate={navigate} />
+            )}
+            {props.page === 'login' && !isInLargeMode && (
+              <Login navigate={navigate} />
+            )}
 
-          {showLoginComponents && (
-            <View
-              style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                backgroundColor: vars.DARK_WHITE,
-              }}>
-              <Logo toggleHideRightMenu={toggleHideRightMenu} />
-              <Header
-                pic={'https://statics.okft.org/usersPic/1649843007648.jpg'}
-                name={'محمد قانع'}
-              />
-              {!hideRightMenu && <Menu selected="profile" />}
+            {showLoginComponents && (
               <View
                 style={{
-                  width: 'calc(100% - 200px)',
-                  minHeight: 'calc(100vh - 60px)',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  backgroundColor: vars.DARK_WHITE,
                 }}>
-                {props.page === 'profile' && (
-                  <WebProfile token={token} user={user} navigate={navigate} />
-                )}
+                <Logo toggleHideRightMenu={toggleHideRightMenu} />
+                <Header
+                  pic={'https://statics.okft.org/usersPic/1649843007648.jpg'}
+                  name={'محمد قانع'}
+                />
+                {!hideRightMenu && <Menu selected="profile" />}
+                <View
+                  style={{
+                    width: 'calc(100% - 200px)',
+                    minHeight: 'calc(100vh - 60px)',
+                  }}>
+                  {props.page === 'profile' && (
+                    <WebProfile token={token} user={user} navigate={navigate} />
+                  )}
+                </View>
               </View>
-            </View>
-          )}
-        </MinFullHeightView>
+            )}
+          </MinFullHeightView>
+        )}
+      </View>
+
+      {state.showBottonNav && device.indexOf(Device.WebPort) !== -1 && (
+        <BottomNavBar />
       )}
-    </View>
+
+      <ReactNotifications />
+    </MinFullHeightView>
   );
 };
 

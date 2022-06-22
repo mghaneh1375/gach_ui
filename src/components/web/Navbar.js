@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {CommonButton} from '../../styles/Common';
 import vars from '../../styles/root';
 import {Nav, NavLink} from '../../styles/web/NavbarElement';
 
-const Navbar = () => {
+const Navbar = props => {
+  const [isLogin, setIsLogin] = useState(props.user !== undefined);
+
+  React.useEffect(() => {
+    setIsLogin(props.user !== undefined);
+  }, [props.user]);
+
   return (
     <>
       <Nav>
@@ -23,11 +29,20 @@ const Navbar = () => {
           title={'پشتیبانی'}
           href="/login"
         />
-        <CommonButton
-          style={{minWidth: 'unset'}}
-          href="/login"
-          title={'ورود/ثبت نام'}
-        />
+        {!isLogin && (
+          <CommonButton
+            style={{minWidth: 'unset'}}
+            href="/login"
+            title={'ورود/ثبت نام'}
+          />
+        )}
+        {isLogin && (
+          <CommonButton
+            style={{minWidth: 'unset'}}
+            href="/profile"
+            title={'پروفایل'}
+          />
+        )}
       </Nav>
     </>
   );

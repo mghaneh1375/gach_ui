@@ -46,3 +46,18 @@
 .menu-item-selected {
   background: #ffaa00 !important;
 }
+
+.rnc__notification-container--top-right {
+  position: fixed !important;
+  bottom: 20px !important;
+  top: unset !important;
+  z-index: 100000001;
+}
+
+.rnc__notification-container--top-right .rnc__notification-title {
+  font-family: IRANSans;
+}
+
+.rnc__notification-container--top-right .rnc__notification-message {
+  font-family: IRANSans;
+}

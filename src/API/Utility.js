@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import {ToastAndroid, Platform} from 'react-native'; //(Platform.OS === 'android')
-
+import {Store} from 'react-notifications-component';
 import commonTranslator from './../tranlates/Common';
 
 export const BASE_URL = 'http://192.168.0.106:8080/api/';
@@ -25,7 +25,21 @@ export function showError(msg) {
   //  else if (Platform.OS === 'ios') {
   //   AlertIOS.alert(msg);
   // }
-  else alert(msg);
+  else {
+    Store.addNotification({
+      title: 'خطا در انجام عملیات',
+      message: msg,
+      type: 'danger',
+      insert: 'top',
+      container: 'top-right',
+      animationIn: ['animate__animated', 'animate__fadeIn'],
+      animationOut: ['animate__animated', 'animate__fadeOut'],
+      dismiss: {
+        duration: 3000,
+        onScreen: true,
+      },
+    });
+  }
 }
 
 export const generalRequest = async (
