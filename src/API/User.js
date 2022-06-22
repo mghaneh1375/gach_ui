@@ -1,11 +1,5 @@
 import Axios from 'axios';
-import {
-  BASE_URL,
-  COMMON_HEADER,
-  COMMON_HEADER_AUTH,
-  showError,
-} from './Utility';
-import commonTranslator from './../tranlates/Common';
+import {BASE_URL, COMMON_HEADER, showError} from './Utility';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const base = 'user';

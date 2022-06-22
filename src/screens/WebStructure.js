@@ -22,6 +22,8 @@ import {getToken, getUser, setCacheItem} from '../API/User';
 import {TopNavBar} from '../components/web/TopNavBar';
 import Navbar from '../components/web/Navbar';
 import BottomNavBar from '../components/web/BottomNavBar';
+import {generalRequest} from '../API/Utility';
+import {routes} from '../API/APIRoutes';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -51,13 +53,43 @@ const WebStructue = props => {
 
     Promise.all([getToken(), getUser()]).then(res => {
       setToken(res[0]);
-      setUser(res[1]);
-      if (
-        (res[1] === null || res[1] === undefined) &&
-        excludeAuthRoutes.indexOf(props.page) === -1
-      ) {
-        navigate('/login');
-        return;
+      let token = res[0];
+      let waitForGetUser = false;
+
+      if (res[0] !== null && res[0] !== undefined) {
+        if (res[1] !== null && res[1] !== undefined) setUser(res[1]);
+        else waitForGetUser = true;
+      }
+
+      if (!waitForGetUser) {
+        if (
+          (res[1] === null || res[1] === undefined) &&
+          excludeAuthRoutes.indexOf(props.page) === -1
+        ) {
+          navigate('/login');
+          return;
+        }
+      } else {
+        Promise.all([
+          generalRequest(
+            routes.fetchUser,
+            'get',
+            undefined,
+            'user',
+            true,
+            token,
+          ),
+        ]).then(res => {
+          setUser(res[0]);
+          setCacheItem('user', res[0]);
+          if (
+            (res[0] === null || res[0] === undefined) &&
+            excludeAuthRoutes.indexOf(props.page) === -1
+          ) {
+            navigate('/login');
+            return;
+          }
+        });
       }
       // setCacheItem('token', undefined);
       // setCacheItem('user', undefined);

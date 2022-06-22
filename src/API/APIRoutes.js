@@ -6,6 +6,7 @@ export const routes = {
   activate: 'user/activate',
   resendCode: 'user/resendCode',
   updateInfo: 'user/updateInfo',
+  fetchUser: 'user/fetchUser',
   checkCode: 'user/checkCode',
   sendRoleForm: 'user/sendRoleForm',
   fetchState: 'general/fetchStates',

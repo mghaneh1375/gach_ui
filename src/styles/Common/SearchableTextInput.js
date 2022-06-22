@@ -27,6 +27,10 @@ export const SearchableTextInput = props => {
     setSelectFromChoices(false);
   }, [props.reset]);
 
+  React.useEffect(() => {
+    setUserInput(props.value);
+  }, [props.value]);
+
   const select = item => {
     setUserInput(item.name);
     setShowResultPane(false);

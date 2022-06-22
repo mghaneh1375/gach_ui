@@ -12,6 +12,8 @@ import {View} from 'react-native';
 import {generalRequest, showError} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import vars from '../../../../styles/root';
+import {setCacheItem} from '../../../../API/User';
+import {shouldUseActivityState} from 'react-native-screens';
 
 const UpdateInfo = props => {
   const [states, setStates] = useState([]);
@@ -19,16 +21,15 @@ const UpdateInfo = props => {
   const [branches, setBranches] = useState([]);
   const [schools, setSchools] = useState([]);
 
-  const [state, setState] = useState(undefined);
-  const [city, setCity] = useState(undefined);
-  const [sex, setSex] = useState(undefined);
-  const [grade, setGrade] = useState(undefined);
+  const [state, setState] = useState(props.user.state);
+  const [city, setCity] = useState(props.user.city);
+  const [sex, setSex] = useState(props.user.sex);
+  const [grade, setGrade] = useState(props.user.grade);
   const [branch, setBranch] = useState(undefined);
-  const [school, setSchool] = useState(undefined);
+  const [school, setSchool] = useState(props.user.school);
 
   const [resetCity, setResetCity] = useState(false);
 
-  // console.log(props.user);
   const [firstname, setFirstname] = useState(props.user.firstName);
   const [lastname, setLastname] = useState(props.user.lastName);
   const [NID, setNID] = useState(props.user.NID);
@@ -93,7 +94,6 @@ const UpdateInfo = props => {
       state === undefined ||
       city === undefined ||
       grade === undefined ||
-      branch === undefined ||
       school === undefined ||
       firstname.length === 0 ||
       lastname.length === 0 ||
@@ -107,9 +107,12 @@ const UpdateInfo = props => {
       firstName: firstname,
       lastName: lastname,
       schoolId: school.id,
-      branches: branch.map(function (element) {
-        return element.id;
-      }),
+      branches:
+        branch !== undefined
+          ? branch.map(function (element) {
+              return element.id;
+            })
+          : [],
       gradeId: grade.id,
       cityId: city.id,
       NID: NID,
@@ -128,8 +131,8 @@ const UpdateInfo = props => {
         props.token,
       ),
     ]).then(res => {
-      console.log(res);
       props.setLoading(false);
+      if (res[0]) setCacheItem('user', undefined);
     });
   };
 
@@ -164,6 +167,7 @@ const UpdateInfo = props => {
           />
           <JustBottomBorderSelect
             isHalf={true}
+            value={sex !== undefined ? (sex === 'male' ? 'آقا' : 'خانم') : ''}
             placeholder={commonTranslator.sex}
             onSelect={setSelectedSex}
             values={sexKeyVals}
@@ -176,6 +180,7 @@ const UpdateInfo = props => {
             resultPane={true}
             setSelectedItem={setSelectedState}
             values={states}
+            value={state !== undefined ? state.name : ''}
             reset={false}
           />
 
@@ -185,6 +190,7 @@ const UpdateInfo = props => {
             placeholder={commonTranslator.city}
             setSelectedItem={setSelectedCity}
             reset={resetCity}
+            value={city !== undefined ? city.name : ''}
             values={state !== undefined ? state.cities : []}
           />
         </EqualTwoTextInputs>
@@ -196,6 +202,7 @@ const UpdateInfo = props => {
             resultPane={true}
             setSelectedItem={setSelectedGrade}
             values={grades}
+            value={grade !== undefined ? grade.name : ''}
             reset={false}
           />
 
@@ -218,6 +225,7 @@ const UpdateInfo = props => {
             resultPane={true}
             setSelectedItem={setSelectedSchool}
             values={schools}
+            value={school !== undefined ? school.name : ''}
             reset={false}
           />
         </View>
