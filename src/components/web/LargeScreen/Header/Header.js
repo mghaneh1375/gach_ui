@@ -1,50 +1,111 @@
 import React, {useState} from 'react';
 import {Image, View} from 'react-native';
-import {SimpleText} from '../../../../styles/Common';
+import {PhoneView, SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
 import {faAngleDown, faBell} from '@fortawesome/free-solid-svg-icons';
+import {getDevice} from '../../../../services/Utility';
+import {Device} from '../../../../models/Device';
 
 const Header = props => {
-  const [show, setShow] = useState(false);
+  const device = getDevice();
+  const isLargePage = device.indexOf(Device.Large) !== -1;
+  const isApp = device.indexOf(Device.App) !== -1;
+
+  const [showProfilePane, setShowProfilePane] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
+  const [pic, setPic] = useState(undefined);
 
   const changeShow = newStatus => {
-    setShow(newStatus);
+    setShowProfilePane(newStatus);
   };
 
   const changeShowNotif = newStatus => {
     setShowNotif(newStatus);
   };
 
-  return (
-    <View style={style.Header}>
-      <View style={style.Header_Profile}>
-        <Image style={style.Header_Profile_Image} source={props.pic} />
-        <SimpleText
-          style={{marginTop: 10, marginRight: 10}}
-          text={'سلام - ' + props.name}
-        />
-        <View style={{width: 30, height: 30, marginTop: 5, marginRight: 5}}>
-          <SimpleFontIcon
-            style={{}}
-            onPress={() => changeShow(!show)}
-            icon={faAngleDown}
+  React.useEffect(() => {
+    setPic(props.pic);
+  }, [props.pic]);
+
+  if (isLargePage || !props.hideRightMenu) {
+    return (
+      <PhoneView
+        style={
+          isLargePage
+            ? {...style.Header, ...style.HeaderJustLarge}
+            : isApp
+            ? {
+                ...style.Header,
+                ...style.HeaderJustPhone,
+                ...style.HeaderJustApp,
+              }
+            : {
+                ...style.Header,
+                ...style.HeaderJustPhone,
+                ...style.HeaderJustWebPhone,
+              }
+        }>
+        <PhoneView
+          style={
+            isLargePage
+              ? {...style.Header_Profile, ...style.Header_Profile_Large}
+              : {...style.Header_Profile, ...style.Header_Profile_Phone}
+          }>
+          {pic !== undefined && (
+            <Image
+              resizeMode="contain"
+              style={
+                isApp
+                  ? {
+                      ...style.Header_Profile_Image,
+                      ...style.Header_Profile_Image_App,
+                    }
+                  : {
+                      ...style.Header_Profile_Image,
+                      ...style.Header_Profile_Image_Web,
+                    }
+              }
+              source={{uri: pic}}
+            />
+          )}
+          <SimpleText
+            style={
+              isApp
+                ? {
+                    ...style.Header_Profile_Text,
+                    ...style.Header_Profile_Text_App,
+                  }
+                : {
+                    ...style.Header_Profile_Text,
+                    ...style.Header_Profile_Text_Web,
+                  }
+            }
+            text={'سلام - ' + props.name}
           />
+          <View style={{width: 30, height: 30, marginTop: 5, marginRight: 5}}>
+            <SimpleFontIcon
+              style={{}}
+              onPress={() => changeShow(!showProfilePane)}
+              icon={faAngleDown}
+            />
+          </View>
+
+          {showProfilePane && <View style={style.Header_Profile_MENU}></View>}
+        </PhoneView>
+
+        <View style={style.Header_NOTIF}>
+          <SimpleFontIcon
+            onPress={() => changeShowNotif(!showNotif)}
+            icon={faBell}
+          />
+
+          {showNotif && <View style={style.Header_Profile_MENU}></View>}
         </View>
+      </PhoneView>
+    );
+  }
 
-        {show && <View style={style.Header_Profile_MENU}></View>}
-      </View>
-
-      <View style={style.Header_NOTIF}>
-        <SimpleFontIcon
-          onPress={() => changeShowNotif(!showNotif)}
-          icon={faBell}
-        />
-
-        {showNotif && <View style={style.Header_Profile_MENU}></View>}
-      </View>
-    </View>
-  );
+  return <></>;
 };
 export default Header;

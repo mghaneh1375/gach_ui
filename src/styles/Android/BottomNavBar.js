@@ -2,7 +2,7 @@ export const NavContainerStyle = {
   width: '100%',
   height: 50,
   bottom: 0,
-  flexDirection: 'row',
+  flexDirection: 'row-reverse',
   alignContent: 'center',
   alignItems: 'center',
   // display: 'none',

@@ -1,6 +1,7 @@
 import Axios from 'axios';
-import {BASE_URL, COMMON_HEADER, showError} from './Utility';
+import {BASE_URL, COMMON_HEADER, generalRequest, showError} from './Utility';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {routes} from './APIRoutes';
 
 const base = 'user';
 
@@ -8,7 +9,7 @@ export const setCacheItem = async (key, val) => {
   try {
     await AsyncStorage.setItem(key, val);
   } catch (e) {
-    // saving error
+    console.log(e);
   }
 };
 
@@ -30,6 +31,19 @@ export const getUser = async () => {
   } catch (e) {
     return null;
   }
+};
+
+export const fetchUser = async (token, callBack) => {
+  let result = await generalRequest(
+    routes.fetchUser,
+    'get',
+    undefined,
+    'user',
+    true,
+    token,
+  );
+  await setCacheItem('user', JSON.stringify(result));
+  callBack(result);
 };
 
 export const signIn = async (username, password) => {

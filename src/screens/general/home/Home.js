@@ -33,7 +33,6 @@ const Home = navigator => {
     <ScreenScroll>
       <ImageBackground
         resizeMode="cover"
-        style={device.indexOf(Device.App) !== -1 ? {} : {marginTop: '-50px'}}
         source={
           device.indexOf(Device.App) !== -1
             ? require('./../../../images/back1.png')

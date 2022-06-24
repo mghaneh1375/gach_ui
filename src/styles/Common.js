@@ -26,6 +26,7 @@ import {
 
 import {getScreenHeight, getWidthHeight} from '../services/Utility';
 import {Link} from 'react-router-dom';
+import {style} from '../components/web/LargeScreen/Header/style';
 
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem
@@ -128,7 +129,6 @@ export const CommonButton = props =>
 export const InlineTextContainer =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(Text)`
-        flex-direction: row-reverse;
         justify-content: center;
         align-items: center;
       `
@@ -137,7 +137,7 @@ export const InlineTextContainer =
 export const EqualTwoTextInputs =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(View)`
-        flex-direction: row-reverse;
+        flex-direction: row;
         justify-content: space-between;
       `
     : styled.div`
@@ -149,8 +149,6 @@ export const EqualTwoTextInputs =
         flex-wrap: wrap;
       `;
 
-const androidCommonStyles = {flexDirection: 'row-reverse'};
-
 export const SimpleText = props => {
   const style1 = {fontFamily: 'IRANSans'};
   const allStyle =
@@ -159,12 +157,7 @@ export const SimpleText = props => {
 };
 
 export const CommonRadioButton = props => (
-  <View
-    style={
-      Platform.OS === 'android' || Platform.OS === 'ios'
-        ? androidCommonStyles
-        : {display: 'flex', flexDirection: 'row'}
-    }>
+  <View style={{display: 'flex', flexDirection: 'row'}}>
     <SimpleText text={props.text} style={{marginTop: 10}} />
     <RadioButton
       value={props.value}
@@ -185,8 +178,6 @@ export const commonStyles = StyleSheet.create({
     marginRight: 20,
   },
 });
-
-export const ContentView = styled(View)``;
 
 export const BlueTextFromStart = props => (
   <View style={{flexDirection: 'row', alignSelf: vars.alignSelf}}>
@@ -220,3 +211,29 @@ export const CommonWebBox = props => {
 
   return <View style={allStyle}>{props.child}</View>;
 };
+
+export const PhoneContentConianerStyle = {
+  width: '100%',
+};
+
+export const LargeContentConianerStyle = {
+  width: 'calc(100% - 200px)',
+  minHeight: 'calc(100vh - 60px)',
+};
+
+export function PhoneView(props) {
+  const style1 = {flexDirection: Platform.OS === 'web' ? 'row' : 'row-reverse'};
+
+  const allStyles =
+    props.style !== undefined ? {...style1, ...props.style} : style1;
+
+  let viewProps = {
+    style: allStyles,
+  };
+
+  if (props.onClick !== undefined) viewProps.onClick = props.onClick;
+
+  return <View {...viewProps}>{props.children}</View>;
+}
+
+export const ContentView = styled(View)``;

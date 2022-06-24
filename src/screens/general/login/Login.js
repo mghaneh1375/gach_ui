@@ -20,9 +20,8 @@ const Login = props => {
   //   navigator.navigation.navigate('Home');
   //   return null;
   // }
-
   const device = getDevice();
-  const navigate = device.indexOf(Device.App) !== -1 ? props : props.navigate;
+  const navigate = props.navigate;
 
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -50,9 +49,10 @@ const Login = props => {
     setMode(wantedMode);
   };
 
+  const home = device.indexOf(Device.App) !== -1 ? 'Home' : '/';
+
   const redirectToHome = () => {
-    const to = device.indexOf(Device.App) !== -1 ? 'Home' : '/';
-    navigate(to);
+    navigate(home);
   };
 
   return (
@@ -76,6 +76,7 @@ const Login = props => {
               navigate={navigate}
               style={{marginTop: 20}}
               setLoading={setLoading}
+              toPath={home}
             />
 
             <TextWithLink

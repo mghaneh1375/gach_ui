@@ -10,6 +10,18 @@ import UpdateUsername from '../components/UpdateUsername';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 
 const Profile = props => {
+  const [user, setUser] = useState(undefined);
+
+  React.useEffect(() => {
+    const navigate = props.navigate;
+
+    if (props.user === undefined) {
+      navigate('/');
+      return;
+    }
+    setUser(props.user.user);
+  }, [props.user, props.navigate]);
+
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -32,16 +44,18 @@ const Profile = props => {
       {showChangePassModal && (
         <ChangePass toggleModal={toggleChangePassModal} />
       )}
-      <CommonWebBox
-        width={'calc(65% - 20px)'}
-        child={
-          <UpdateInfo
-            token={props.token}
-            user={props.user.user}
-            setLoading={setLoading}
-          />
-        }
-      />
+      {user !== undefined && (
+        <CommonWebBox
+          width={'calc(65% - 20px)'}
+          child={
+            <UpdateInfo
+              token={props.token}
+              user={user}
+              setLoading={setLoading}
+            />
+          }
+        />
+      )}
       <CommonWebBox width={'calc(35% - 20px)'} child={<UpdatePic />} />
       <CommonWebBox width={'calc(65% - 20px)'} child={<UpdateUsername />} />
       <CommonWebBox width={'calc(65% - 20px)'} child={<UpdatePassword />} />

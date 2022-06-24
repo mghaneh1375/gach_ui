@@ -1,5 +1,5 @@
 import {View, Platform} from 'react-native';
-import {BigBoldBlueTextInline, SimpleText} from '../Common';
+import {BigBoldBlueTextInline, PhoneView, SimpleText} from '../Common';
 import {FontIcon, SimpleFontIcon} from './FontIcon';
 
 const style = {
@@ -7,8 +7,6 @@ const style = {
   direction: 'rtl',
   paddingLeft: 10,
   paddingRight: 10,
-  flexDirection:
-    Platform.OS === 'android' || Platform.OS === 'ios' ? 'row-reverse' : 'row',
 };
 
 const InnerViewCommonStyle = {
@@ -37,13 +35,13 @@ export const TextIcon = props => {
   if (props.onPress !== undefined) fontProps.onPress = props.onPress;
 
   return (
-    <View style={allStyles}>
+    <PhoneView style={allStyles}>
       <BigBoldBlueTextInline text={props.text} />
 
       <View style={InnerViewStyle}>
         <FontIcon {...fontProps} />
       </View>
-    </View>
+    </PhoneView>
   );
 };
 

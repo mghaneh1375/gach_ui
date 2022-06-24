@@ -10,7 +10,8 @@ const FontIconStyle = {
 
 const FontIconStyleAndroid = {
   ...FontIconStyle,
-  padding: 20,
+  padding: 15,
+  alignSelf: 'center',
 };
 
 const FontIconStyleWeb = {
@@ -28,6 +29,8 @@ export const FontIcon = props => (
       width: '100%',
       height: '100%',
       borderRadius: 20,
+      alignSelf: 'center',
+      justifyContent: 'center',
     }}
     onPress={props.onPress}>
     <FontAwesomeIcon
@@ -48,6 +51,7 @@ export const SimpleFontIcon = props => (
       height: '100%',
       alignSelf: 'center',
       color: vars.LIGHT_SILVER,
+      justifyContent: 'center',
     }}
     onPress={props.onPress}>
     <FontAwesomeIcon

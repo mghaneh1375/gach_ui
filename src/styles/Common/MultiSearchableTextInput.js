@@ -31,13 +31,21 @@ export const MultiSearchableTextInput = props => {
     setSelectFromChoices(false);
   }, [props.reset]);
 
+  React.useEffect(() => {
+    if (props.value === undefined || props.value.length === 0) {
+      setSelectFromChoices(true);
+      return;
+    }
+
+    setSelectedItems(props.value);
+  }, [props.value]);
+
   const select = item => {
     setUserInput('');
     setShowResultPane(false);
     setSelectFromChoices(true);
     let items = selectedItems;
     items.push(item);
-    setSelectedItems(items);
     props.setSelectedItem(items);
   };
 

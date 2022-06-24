@@ -94,12 +94,13 @@ export const SearchableTextInput = props => {
   };
 
   const isHalf = props.isHalf !== undefined && props.isHalf;
-  const style1 =
-    Platform.OS === 'web'
-      ? isHalf
-        ? CommonHalfTextInputStyleWeb
-        : CommonTextInputStyleWeb
-      : {};
+  const isApp = Platform.OS !== 'web';
+
+  const style1 = !isApp
+    ? isHalf
+      ? CommonHalfTextInputStyleWeb
+      : CommonTextInputStyleWeb
+    : {};
   const allStyle =
     props.style !== undefined ? {...style1, ...props.style} : style1;
 
@@ -125,8 +126,8 @@ export const SearchableTextInput = props => {
       style={
         isHalf
           ? {
-              width: 'calc(50% - 10px)',
-              maxWidth: '300px',
+              width: isApp ? 'auto' : 'calc(50% - 10px)',
+              maxWidth: 300,
             }
           : {}
       }>

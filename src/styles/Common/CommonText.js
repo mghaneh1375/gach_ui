@@ -14,7 +14,6 @@ const CommonTextInputStyle = {
 
 const CommonTextInputStyleAndroid = {
   ...CommonTextInputStyle,
-  flexDirection: 'row-reverse',
 };
 
 export const CommonTextInputStyleWeb = {
@@ -33,7 +32,7 @@ export const CommonHalfTextInputStyleWeb = {
 };
 
 export const CommonTextInputContainer = styled(View)`
-  margintop: 10px;
+  ${{marginTop: 10}}
 `;
 
 export const CommonTextInputElem = styled(TextInput)`

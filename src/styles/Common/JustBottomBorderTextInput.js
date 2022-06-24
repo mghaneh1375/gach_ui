@@ -59,6 +59,7 @@ const JustBottomBorderTextInput = props => {
       subText={props.subText}
       style={customStyle}
       values={props.values}
+      value={props.value}
       reset={props.reset}
       setSelectedItem={props.setSelectedItem}
     />

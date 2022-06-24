@@ -21,7 +21,7 @@ const Login = props => {
     Promise.all([signIn(username, password)]).then(res => {
       props.setLoading(false);
       if (res[0] !== null) {
-        props.navigate('/');
+        props.navigate(props.toPath);
       }
     });
   };

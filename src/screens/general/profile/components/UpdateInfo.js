@@ -7,13 +7,13 @@ import {
   BigBoldBlueText,
   CommonButton,
   EqualTwoTextInputs,
+  PhoneView,
 } from '../../../../styles/Common';
 import {View} from 'react-native';
 import {generalRequest, showError} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import vars from '../../../../styles/root';
-import {setCacheItem} from '../../../../API/User';
-import {shouldUseActivityState} from 'react-native-screens';
+import {fetchUser, setCacheItem} from '../../../../API/User';
 
 const UpdateInfo = props => {
   const [states, setStates] = useState([]);
@@ -25,7 +25,7 @@ const UpdateInfo = props => {
   const [city, setCity] = useState(props.user.city);
   const [sex, setSex] = useState(props.user.sex);
   const [grade, setGrade] = useState(props.user.grade);
-  const [branch, setBranch] = useState(undefined);
+  const [branch, setBranch] = useState(props.user.branches);
   const [school, setSchool] = useState(props.user.school);
 
   const [resetCity, setResetCity] = useState(false);
@@ -120,7 +120,7 @@ const UpdateInfo = props => {
     };
 
     props.setLoading(true);
-    console.log(data);
+
     Promise.all([
       generalRequest(
         routes.updateInfo,
@@ -131,8 +131,14 @@ const UpdateInfo = props => {
         props.token,
       ),
     ]).then(res => {
-      props.setLoading(false);
-      if (res[0]) setCacheItem('user', undefined);
+      if (res[0]) {
+        setCacheItem('user', undefined);
+        fetchUser(props.token, user => {
+          props.setLoading(false);
+        });
+      } else {
+        props.setLoading(false);
+      }
     });
   };
 
@@ -140,7 +146,13 @@ const UpdateInfo = props => {
     <View>
       <BigBoldBlueText text={translator.yourInfo} />
       <View style={{paddingLeft: 70}}>
-        <EqualTwoTextInputs>
+        <PhoneView
+          style={{
+            justifyContent: 'space-between',
+            // paddingLeft: 10,
+            // paddingRight: 10,
+            // flexWrap: 'wrap',
+          }}>
           <JustBottomBorderTextInput
             isHalf={true}
             value={firstname}
@@ -155,8 +167,15 @@ const UpdateInfo = props => {
             placeholder={commonTranslator.lastname}
             onChangeText={e => setLastname(e)}
           />
-        </EqualTwoTextInputs>
-        <EqualTwoTextInputs style={{marginTop: 20}}>
+        </PhoneView>
+        <PhoneView
+          style={{
+            justifyContent: 'space-between',
+            marginTop: 20,
+            // paddingLeft: 10,
+            // paddingRight: 10,
+            // flexWrap: 'wrap',
+          }}>
           <JustBottomBorderTextInput
             isHalf={true}
             justNum={true}
@@ -172,8 +191,8 @@ const UpdateInfo = props => {
             onSelect={setSelectedSex}
             values={sexKeyVals}
           />
-        </EqualTwoTextInputs>
-        <EqualTwoTextInputs style={{marginTop: 20}}>
+        </PhoneView>
+        {/* <EqualTwoTextInputs style={{marginTop: 20}}>
           <JustBottomBorderTextInput
             isHalf={true}
             placeholder={commonTranslator.state}
@@ -213,11 +232,12 @@ const UpdateInfo = props => {
             setSelectedItem={setSelectedBranch}
             reset={false}
             values={branches}
+            value={branch}
             multi={true}
           />
-        </EqualTwoTextInputs>
+        </EqualTwoTextInputs> */}
 
-        <View style={{marginTop: 30, marginRight: 10}}>
+        {/* <View style={{marginTop: 30, marginRight: 10}}>
           <JustBottomBorderTextInput
             isHalf={false}
             style={{maxWidth: 'unset'}}
@@ -228,13 +248,13 @@ const UpdateInfo = props => {
             value={school !== undefined ? school.name : ''}
             reset={false}
           />
-        </View>
+        </View> */}
       </View>
-      <CommonButton
+      {/* <CommonButton
         style={{backgroundColor: vars.DARK_BLUE, marginTop: 50, minWidth: 120}}
         title={commonTranslator.doChange}
         onPress={() => update()}
-      />
+      /> */}
     </View>
   );
 };
