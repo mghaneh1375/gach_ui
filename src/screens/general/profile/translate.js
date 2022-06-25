@@ -8,6 +8,11 @@ const translator = {
   sendCode: 'ارسال کد',
   changeUsernameSuccessfully:
     'ایمیل/شماره همراه شما با موفقیت تغییر کرد و باید مجددا لاگین کنید.',
+  changePassSuccessfully:
+    'رمزعبور شما با موفقیت تغییر کرد و باید مجددا لاگین کنید.',
+  oldPass: 'رمزعبور فعلی',
+  newPass: 'رمزعبور جدید',
+  rNewPass: 'تکرار رمزعبور جدید',
 };
 
 export default translator;
