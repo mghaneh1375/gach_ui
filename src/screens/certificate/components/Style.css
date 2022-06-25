@@ -1,0 +1,40 @@
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.cancleBtn {
+  background-color: #ffaa00;
+}
+.rowContaine {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0px;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+}
+.progressContainer {
+  width: 20%;
+  /* padding: 5px; */
+  background-color: #ffaa0029;
+}
+.progressBar {
+  padding: 5px;
+  width: 40%;
+  background-color: #ffaa00;
+}
+
+.simpleText {
+  margin-top: 5;
+  margin-left: 10px;
+}
+.marginTop {
+  margin-top: 5px;
+}
+.container2 {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0px;
+}

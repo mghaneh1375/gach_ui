@@ -4,24 +4,21 @@ import {RadioButton} from 'react-native-paper';
 import {PhoneView, SimpleText, BigBoldBlueText} from '../../../styles/Common';
 import certTranslator from '../Translator';
 import translator from '../../../tranlates/Common';
+import './Style.css';
 
 const CreateNewCertificate = () => {
   return (
     <>
       <BigBoldBlueText text={certTranslator.createNewCert} />
-      <div style={{display: 'flex', flexDirection: 'row', margin: '15px 0px'}}>
+      <div className="rowContaine">
         <JustBottomBorderTextInput placeholder={certTranslator.certName} />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}>
+        <div className="container">
           <SimpleText
             text={certTranslator.certType}
-            style={{marginTop: 5, marginLeft: '10px'}}
+            style={{marginTop: '5px', marginLeft: '10px'}}
           />
           <PhoneView>
-            <SimpleText text={translator.vertical} style={{marginTop: 5}} />
+            <SimpleText text={translator.vertical} style={{marginTop: '5px'}} />
             <RadioButton
             //   value={props.value}
             //   status={props.status}
@@ -29,7 +26,10 @@ const CreateNewCertificate = () => {
             />
           </PhoneView>
           <PhoneView>
-            <SimpleText text={translator.horizontal} style={{marginTop: 5}} />
+            <SimpleText
+              text={translator.horizontal}
+              style={{marginTop: '5px'}}
+            />
             <RadioButton
             //   value={props.value}
             //   status={props.status}
@@ -38,7 +38,7 @@ const CreateNewCertificate = () => {
           </PhoneView>
         </div>
       </div>
-      <div style={{display: 'flex', flexDirection: 'row', margin: '15px 0px'}}>
+      <div className="container2">
         <JustBottomBorderTextInput placeholder={certTranslator.qrSize} />
         <JustBottomBorderTextInput
           subText={certTranslator.fromRightScreen}

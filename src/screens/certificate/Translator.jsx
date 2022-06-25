@@ -11,10 +11,13 @@ const certTranslator = {
   selectParameters: 'انتخاب پارامتر',
   fontType: 'نوع فونت',
   fontSize: 'سایز فونت',
-  rightDistance: 'فاصله از راست',
+  rightDistance: 'فاصله از راست:',
   offset: 'آفست',
   normalOrBold: 'معمولی یا بولد',
   matchingWord: 'word مطابق سایز',
+  fileNotSelect: 'هنوز فایلی انتخاب نشده است',
+  formate: 'فرمت:',
+  fortyPercent: '40%',
 };
 
 export default certTranslator;

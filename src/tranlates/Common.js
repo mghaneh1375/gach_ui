@@ -40,6 +40,7 @@ const translator = {
   doChange: 'اعمال تغییر',
   horizontal: 'افقی',
   vertical: 'عمودی',
-  center: 'مرکز',
+  center: 'مرکز:',
+  nextStep: 'مرحله بعد',
 };
 export default translator;
