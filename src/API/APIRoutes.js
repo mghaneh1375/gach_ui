@@ -11,6 +11,7 @@ export const routes = {
   sendRoleForm: 'user/sendRoleForm',
   updateUsername: 'user/updateUsername',
   setUsername: 'user/setNewUsername',
+  changePass: 'user/changePassword',
   logout: 'user/logout',
   fetchState: 'general/fetchStates',
   fetchSchoolsDigest: 'general/fetchSchoolsDigest',

@@ -37,7 +37,6 @@ const ChangeUsername = props => {
   };
 
   const requestChange = () => {
-    console.log('sa');
     if (newUsername.length === 0) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
@@ -88,7 +87,7 @@ const ChangeUsername = props => {
         {step === 'chageUsername' && (
           <JustBottomBorderTextInput
             subText={commonTranslator.necessaryField}
-            justNum={true}
+            justNum={props.mode === 'sms' ? true : undefined}
             placeholder={
               props.mode === 'sms' ? translator.newPhone : translator.newMail
             }

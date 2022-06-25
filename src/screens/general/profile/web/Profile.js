@@ -52,9 +52,6 @@ const Profile = props => {
 
   return (
     <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-      {showChangePassModal && (
-        <ChangePass toggleModal={toggleChangePassModal} />
-      )}
       {showChangeUsernameModal && (
         <ChangeUsername
           mode={usernameModalMode}
@@ -86,7 +83,16 @@ const Profile = props => {
           />
         }
       />
-      <CommonWebBox width={'calc(65% - 20px)'} child={<UpdatePassword />} />
+      <CommonWebBox
+        width={'calc(65% - 20px)'}
+        child={
+          <ChangePass
+            setLoading={setLoading}
+            token={props.token}
+            toggleModal={toggleChangePassModal}
+          />
+        }
+      />
     </View>
   );
 };
