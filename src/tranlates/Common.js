@@ -38,5 +38,8 @@ const translator = {
   branch: 'گروه آموزشی',
   change: 'تغییر',
   doChange: 'اعمال تغییر',
+  horizontal: 'افقی',
+  vertical: 'عمودی',
+  center: 'مرکز',
 };
 export default translator;

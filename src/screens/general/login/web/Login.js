@@ -11,11 +11,11 @@ import {
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {BlurLoginBack} from './style';
 import LoginModule from './../components/Login';
-import ForgetPassModule from './../components/ForgetPass';
-import VerificationModule from './../components/Verification';
-import SignupModule from './../components/Signup';
-import ResetPassModule from './../components/ResetPass';
-import RoleFormModule from './../components/RoleForm';
+// import ForgetPassModule from './../components/ForgetPass';
+// import VerificationModule from './../components/Verification';
+// import SignupModule from './../components/Signup';
+// import ResetPassModule from './../components/ResetPass';
+// import RoleFormModule from './../components/RoleForm';
 import commonTranlator from './../../../../tranlates/Common';
 import translator from './../translate';
 import {Container, Row, Col} from 'react-grid-system';
@@ -90,7 +90,7 @@ const Login = props => {
             {mode === 'login' && (
               <LoginModule navigate={navigate} setLoading={setLoading} />
             )}
-            {mode === 'forgetPass' && (
+            {/* {mode === 'forgetPass' && (
               <ForgetPassModule
                 setUsername={setUsername}
                 username={username}
@@ -141,7 +141,7 @@ const Login = props => {
                 navigate={navigate}
                 redirectTo={'/'}
               />
-            )}
+            )} */}
           </BlurLoginBack>
           <BlurLoginBack style={{marginTop: '20px'}}>
             <InlineTextContainer>
