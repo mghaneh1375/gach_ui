@@ -25,6 +25,7 @@ import Menu from '../components/web/LargeScreen/Header/Menu';
 import {fetchUser, getToken, getUser} from '../API/User';
 import Navbar from '../components/web/Navbar';
 import BottomNavBar from '../components/web/BottomNavBar';
+import Certificate from './certificate/Certificate';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -141,6 +142,9 @@ const WebStructue = props => {
               )}
               {props.page === 'profile' && !isInLargeMode && (
                 <Profile token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'cert' && (
+                <Certificate token={token} user={user} navigate={navigate} />
               )}
             </View>
           </View>
