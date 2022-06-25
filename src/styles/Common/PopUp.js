@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import {CommonButton, CommonWebBox} from '../Common';
+import {CommonButton, CommonWebBox, PhoneView} from '../Common';
 import translator from '../../tranlates/Common';
 import {TextIcon} from './TextIcon';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
@@ -24,7 +24,7 @@ const modal = {
   },
 };
 
-export const LargePopUp = props => {
+export function LargePopUp(props) {
   return (
     <View style={modal.container}>
       <CommonWebBox
@@ -36,17 +36,17 @@ export const LargePopUp = props => {
               text={props.title}
               icon={faClose}
             />
-            {props.child}
-            <View style={{flexDirection: 'row', marginTop: 20}}>
+            {props.children}
+            <PhoneView style={{marginTop: 20}}>
               {props.btns}
               <CommonButton
                 onPress={() => props.toggleShowPopUp()}
                 title={translator.cancel}
               />
-            </View>
+            </PhoneView>
           </View>
         }
       />
     </View>
   );
-};
+}

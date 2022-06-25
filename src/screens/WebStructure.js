@@ -63,7 +63,7 @@ const WebStructue = props => {
       let token = res[0];
       let waitForGetUser = false;
 
-      if (res[0] !== null && res[0] !== undefined) {
+      if (token !== null && token !== undefined) {
         if (res[1] !== null && res[1] !== undefined) setUser(res[1]);
         else waitForGetUser = true;
       }
@@ -96,7 +96,7 @@ const WebStructue = props => {
   }, [dispatch, props.page, navigate]);
 
   const toggleHideRightMenu = () => {
-    setHideRightMenu(!hideRightMenu);
+    setHideRightMenu(user === undefined ? true : !hideRightMenu);
   };
 
   return (
@@ -104,13 +104,22 @@ const WebStructue = props => {
       {allowRenderPage && (
         <MinFullHeightView>
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-            <Logo toggleHideRightMenu={toggleHideRightMenu} />
+            <Logo
+              isLogin={user !== undefined}
+              toggleHideRightMenu={toggleHideRightMenu}
+            />
+
+            {user === undefined && device.indexOf(Device.Large) !== -1 && (
+              <Navbar user={user} />
+            )}
 
             {user !== undefined && (
               <Header
                 pic={'https://statics.okft.org/usersPic/1649843007648.jpg'}
                 name={user.user.firstName + ' ' + user.user.lastName}
+                token={token}
                 hideRightMenu={hideRightMenu}
+                navigate={navigate}
               />
             )}
             {!hideRightMenu && (
@@ -136,9 +145,6 @@ const WebStructue = props => {
             </View>
           </View>
 
-          {user === undefined && device.indexOf(Device.Large) !== -1 && (
-            <Navbar user={user} />
-          )}
           {props.page === 'login' && isInLargeMode && (
             <WebLogin navigate={navigate} />
           )}

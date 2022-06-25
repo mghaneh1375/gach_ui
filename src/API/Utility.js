@@ -3,7 +3,7 @@ import {ToastAndroid, Platform} from 'react-native'; //(Platform.OS === 'android
 import {Store} from 'react-notifications-component';
 import commonTranslator from './../tranlates/Common';
 
-export const BASE_URL = 'http://192.168.1.102:8080/api/';
+export const BASE_URL = 'http://192.168.0.106:8080/api/';
 
 export const COMMON_HEADER = {
   'content-type': 'application/json',
@@ -47,14 +47,16 @@ export const generalRequest = async (
   method,
   data,
   dataShouldReturnKey,
-  needAuth = false,
   token = null,
 ) => {
   let res = await Axios({
     url: url,
     method: method,
     baseURL: BASE_URL,
-    headers: needAuth ? COMMON_HEADER_AUTH(token) : COMMON_HEADER,
+    headers:
+      token !== null && token !== undefined
+        ? COMMON_HEADER_AUTH(token)
+        : COMMON_HEADER,
     data: data,
   })
     .then(function (response) {

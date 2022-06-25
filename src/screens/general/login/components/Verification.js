@@ -27,19 +27,28 @@ const Verification = props => {
 
     Promise.all([
       generalRequest(
-        props.isSignUp ? routes.activate : routes.checkCode,
+        props.mode === 'signUp'
+          ? routes.activate
+          : props.mode === 'forgetPass'
+          ? routes.checkCode
+          : routes.setUsername,
         'post',
         data,
-        props.isSignUp ? 'token' : undefined,
+        props.mode === 'signUp' ? 'token' : undefined,
+        props.mode === 'changeUsername' ? props.authToken : undefined,
       ),
     ]).then(res => {
       props.setLoading(false);
       if (res[0] != null) {
-        props.setCode(code);
-        if (props.isSignUp) {
+        if (props.mode === 'signUp') {
           props.setToken(res[0]);
+          props.setCode(code);
           props.setMode('roleForm');
-        } else props.setMode('resetPass');
+        } else if (props.mode === 'changeUsername') props.setMode('finish');
+        else {
+          props.setMode('resetPass');
+          props.setCode(code);
+        }
       }
     });
   };
@@ -113,11 +122,8 @@ const Verification = props => {
       <InlineTextContainer style={{marginTop: 50}}>
         <BlueTextInline text={translator.ifWrongData} />
         <TextLink
-          onPress={() =>
-            props.isSignUp
-              ? props.setMode('signUp')
-              : props.setMode('forgetPsas')
-          }
+          // 'forgetPsas' 'signUp'
+          onPress={() => props.setMode(props.mode)}
           text={translator.ifWrongDataHref}
         />
       </InlineTextContainer>

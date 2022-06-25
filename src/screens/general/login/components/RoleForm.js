@@ -85,7 +85,6 @@ const RoleForm = props => {
         'post',
         userRoleFormData,
         undefined,
-        true,
         props.token,
       ),
     ]).then(res => {

@@ -122,14 +122,7 @@ const UpdateInfo = props => {
     props.setLoading(true);
 
     Promise.all([
-      generalRequest(
-        routes.updateInfo,
-        'post',
-        data,
-        undefined,
-        true,
-        props.token,
-      ),
+      generalRequest(routes.updateInfo, 'post', data, undefined, props.token),
     ]).then(res => {
       if (res[0]) {
         setCacheItem('user', undefined);
@@ -146,13 +139,7 @@ const UpdateInfo = props => {
     <View>
       <BigBoldBlueText text={translator.yourInfo} />
       <View style={{paddingLeft: 70}}>
-        <PhoneView
-          style={{
-            justifyContent: 'space-between',
-            // paddingLeft: 10,
-            // paddingRight: 10,
-            // flexWrap: 'wrap',
-          }}>
+        <EqualTwoTextInputs>
           <JustBottomBorderTextInput
             isHalf={true}
             value={firstname}
@@ -167,15 +154,8 @@ const UpdateInfo = props => {
             placeholder={commonTranslator.lastname}
             onChangeText={e => setLastname(e)}
           />
-        </PhoneView>
-        <PhoneView
-          style={{
-            justifyContent: 'space-between',
-            marginTop: 20,
-            // paddingLeft: 10,
-            // paddingRight: 10,
-            // flexWrap: 'wrap',
-          }}>
+        </EqualTwoTextInputs>
+        <EqualTwoTextInputs>
           <JustBottomBorderTextInput
             isHalf={true}
             justNum={true}
@@ -191,8 +171,8 @@ const UpdateInfo = props => {
             onSelect={setSelectedSex}
             values={sexKeyVals}
           />
-        </PhoneView>
-        {/* <EqualTwoTextInputs style={{marginTop: 20}}>
+        </EqualTwoTextInputs>
+        <EqualTwoTextInputs>
           <JustBottomBorderTextInput
             isHalf={true}
             placeholder={commonTranslator.state}
@@ -235,9 +215,9 @@ const UpdateInfo = props => {
             value={branch}
             multi={true}
           />
-        </EqualTwoTextInputs> */}
+        </EqualTwoTextInputs>
 
-        {/* <View style={{marginTop: 30, marginRight: 10}}>
+        <View style={{marginTop: 30, marginRight: 10}}>
           <JustBottomBorderTextInput
             isHalf={false}
             style={{maxWidth: 'unset'}}
@@ -248,13 +228,13 @@ const UpdateInfo = props => {
             value={school !== undefined ? school.name : ''}
             reset={false}
           />
-        </View> */}
+        </View>
       </View>
-      {/* <CommonButton
+      <CommonButton
         style={{backgroundColor: vars.DARK_BLUE, marginTop: 50, minWidth: 120}}
         title={commonTranslator.doChange}
         onPress={() => update()}
-      /> */}
+      />
     </View>
   );
 };

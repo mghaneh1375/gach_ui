@@ -1,11 +1,16 @@
 import React, {useState} from 'react';
-import {Image, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import {PhoneView, SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
-import {faAngleDown, faBell} from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleDown,
+  faBell,
+  faLongArrowAltUp,
+} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
+import {logout} from '../../../../API/User';
 
 const Header = props => {
   const device = getDevice();
@@ -91,7 +96,14 @@ const Header = props => {
             />
           </View>
 
-          {showProfilePane && <View style={style.Header_Profile_MENU}></View>}
+          {showProfilePane && (
+            <View style={style.Header_Profile_MENU}>
+              <TouchableOpacity
+                onPress={() => logout(props.token, props.navigate)}>
+                <SimpleText text="خروج" />
+              </TouchableOpacity>
+            </View>
+          )}
         </PhoneView>
 
         <View style={style.Header_NOTIF}>

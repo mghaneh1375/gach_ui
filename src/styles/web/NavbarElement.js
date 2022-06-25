@@ -6,7 +6,6 @@ import vars from '../root';
 export const Nav = styled.nav`
   background: white;
   height: ${vars.NAV_BAR_H};
-  width: 80%;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   box-shadow: 5px 5px 5px #aaaaaa;

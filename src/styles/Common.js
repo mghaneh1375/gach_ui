@@ -134,21 +134,6 @@ export const InlineTextContainer =
       `
     : styled.div``;
 
-export const EqualTwoTextInputs =
-  Platform.OS === 'android' || Platform.OS === 'ios'
-    ? styled(View)`
-        flex-direction: row;
-        justify-content: space-between;
-      `
-    : styled.div`
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding-left: 10px;
-        padding-right: 10px;
-        flex-wrap: wrap;
-      `;
-
 export const SimpleText = props => {
   const style1 = {fontFamily: 'IRANSans'};
   const allStyle =
@@ -202,6 +187,7 @@ export const CommonWebBox = props => {
     direction: 'rtl',
     padding: 10,
     margin: 10,
+    zIndex: 1,
     width: props.width !== undefined ? props.width : 'auto',
     boxShadow: '0px 3px 6px #00000029',
   };
@@ -220,6 +206,18 @@ export const LargeContentConianerStyle = {
   width: 'calc(100% - 200px)',
   minHeight: 'calc(100vh - 60px)',
 };
+
+export function EqualTwoTextInputs(props) {
+  return (
+    <PhoneView
+      style={{
+        justifyContent: 'space-between',
+        marginTop: 20,
+      }}>
+      {props.children}
+    </PhoneView>
+  );
+}
 
 export function PhoneView(props) {
   const style1 = {flexDirection: Platform.OS === 'web' ? 'row' : 'row-reverse'};

@@ -116,7 +116,7 @@ const Login = props => {
             setCode={setCode}
             setMode={setMode}
             username={username}
-            isSignUp={isSignUp}
+            mode={isSignUp ? 'signUp' : 'forgetPass'}
           />
         )}
 

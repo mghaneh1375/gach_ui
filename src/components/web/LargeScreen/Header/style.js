@@ -57,6 +57,7 @@ export const style = {
     backgroundColor: 'red',
     height: 60,
     justifyContent: 'space-between',
+    zIndex: 2,
   },
   Header_Profile_Phone: {
     marginRight: 40,
@@ -69,6 +70,7 @@ export const style = {
     backgroundColor: vars.WHITE,
     paddingRight: 20,
     height: 40,
+    zIndex: 2,
   },
   Header_Profile_Image_App: {
     left: -10,
@@ -104,6 +106,9 @@ export const style = {
     boxShadow: '0px 3px 6px #00000029',
     minWidth: 140,
     left: 0,
+    zIndex: 10000,
+    padding: 10,
+    alignItems: 'center',
   },
   Header_NOTIF: {
     backgroundColor: vars.WHITE,

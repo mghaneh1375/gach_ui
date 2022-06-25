@@ -26,13 +26,16 @@ const Logo = props => {
         }
         source={require('./../../../../images/irysc.png')}
       />
-      <View style={{width: 40, height: 40, alignSelf: 'center'}}>
-        <FontIcon
-          style={{padding: device.indexOf(Device.App) === -1 ? 7 : 15}}
-          onPress={e => props.toggleHideRightMenu()}
-          icon={faNavicon}
-        />
-      </View>
+
+      {props.isLogin && (
+        <View style={{width: 40, height: 40, alignSelf: 'center'}}>
+          <FontIcon
+            style={{padding: device.indexOf(Device.App) === -1 ? 7 : 15}}
+            onPress={e => props.toggleHideRightMenu()}
+            icon={faNavicon}
+          />
+        </View>
+      )}
     </PhoneView>
   );
 };
