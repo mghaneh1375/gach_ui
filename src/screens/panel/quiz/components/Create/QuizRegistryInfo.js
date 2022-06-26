@@ -3,6 +3,7 @@ import {PhoneView} from '../../../../../styles/Common';
 import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../Translator';
+import commonTranslator from '../../../../../tranlates/Common';
 
 const QuizRegistryInfo = props => {
   const changeStart = unix_timestamp => {
@@ -16,6 +17,7 @@ const QuizRegistryInfo = props => {
   const changeInput = (label, val) => {
     if (label === 'price') props.setPrice(val);
     else if (label === 'ranking') props.setRanking(val);
+    else if (label === 'capacity') props.setCapacity(val);
   };
 
   return (
@@ -33,6 +35,14 @@ const QuizRegistryInfo = props => {
           isHalf={true}
           value={props.ranking}
           onChangeText={e => changeInput('ranking', e)}
+          justNum={true}
+        />
+        <JustBottomBorderTextInput
+          subText={commonTranslator.optional}
+          placeholder={translator.capacity}
+          isHalf={true}
+          value={props.capacity}
+          onChangeText={e => changeInput('capacity', e)}
           justNum={true}
         />
       </PhoneView>

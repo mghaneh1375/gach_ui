@@ -17,4 +17,5 @@ export const routes = {
   fetchSchoolsDigest: 'general/fetchSchoolsDigest',
   fetchGrades: 'admin/content/grades',
   fetchBranches: 'admin/content/branches',
+  sampleUpload: 'user/sampleUpload',
 };

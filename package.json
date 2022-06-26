@@ -38,6 +38,7 @@
     "react-native": "^0.68.2",
     "react-native-confirmation-code-input": "^1.0.4",
     "react-native-countdown-component": "^2.7.1",
+    "react-native-document-picker": "^8.1.1",
     "react-native-eject": "^0.1.2",
     "react-native-gesture-handler": "^2.4.2",
     "react-native-paper": "^3.12.0",
@@ -55,7 +56,8 @@
     "react-router-dom": "^6.3.0",
     "react-router-native": "^5.3.2",
     "react-scripts": "^5.0.1",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "use-file-picker": "^1.4.2"
   },
   "devDependencies": {
     "@babel/core": "7.18.2",

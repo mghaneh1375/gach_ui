@@ -23,6 +23,7 @@ const CreateQuiz = props => {
   const [start, setStart] = useState('');
   const [price, setPrice] = useState('');
   const [ranking, setRanking] = useState('');
+  const [capacity, setCapacity] = useState('');
   const [end, setEnd] = useState('');
   const [startRegistry, setStartRegistry] = useState('');
   const [endRegistry, setEndRegistry] = useState('');
@@ -80,6 +81,8 @@ const CreateQuiz = props => {
             setPrice={setPrice}
             ranking={ranking}
             setRanking={setRanking}
+            capacity={capacity}
+            setCapacity={setCapacity}
             // startTime={startTime}
             // endTime={endTime}
             // setStartDate={setStartDate}
@@ -91,7 +94,7 @@ const CreateQuiz = props => {
       />
       <CommonWebBox
         header={translator.answerSheetInfo}
-        child={<QuizAnswerSheetInfo />}
+        child={<QuizAnswerSheetInfo setLoading={props.setLoading} />}
       />
       <EqualTwoTextInputs>
         <CommonButton

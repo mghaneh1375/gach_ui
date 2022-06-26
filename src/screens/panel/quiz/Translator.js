@@ -18,6 +18,7 @@ const translator = {
   questionBased: 'بر اساس سوالات',
   online: 'آنلاین',
   offline: 'حضوری',
+  capacity: 'ظرفیت آزمون',
 };
 
 export default translator;

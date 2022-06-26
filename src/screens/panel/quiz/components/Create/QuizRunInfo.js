@@ -1,3 +1,4 @@
+import {Col} from 'react-grid-system';
 import {View} from 'react-native';
 import {
   CommonRadioButton,
@@ -37,40 +38,46 @@ const QuizRunInfo = props => {
 
   return (
     <View>
-      <EqualTwoTextInputs>
-        <PhoneView>
-          <CommonRadioButton
-            value="question"
-            status={props.lenMode === 'question' ? 'checked' : 'unchecked'}
-            onPress={() => changeLenMode('question')}
-            text={translator.questionBased}
-          />
-          <CommonRadioButton
-            value="custom"
-            status={props.lenMode === 'custom' ? 'checked' : 'unchecked'}
-            onPress={() => changeLenMode('custom')}
-            type={'textInput'}
-            disable={props.lenMode !== 'custom'}
-            justNum={true}
-            text={translator.len}
-            onChangeText={e => changeLen(e)}
-            textValue={props.len}
-          />
-        </PhoneView>
-        <JustBottomBorderSelect
-          isHalf={true}
-          values={runKindValues}
-          value={
-            props.isOnline === undefined
-              ? ''
-              : props.isOnline === 'online'
-              ? 'آنلاین'
-              : 'حضوری'
-          }
-          onSelect={selectRunKind}
-          placeholder={translator.isOnline}
-        />
-      </EqualTwoTextInputs>
+      <PhoneView>
+        <Col lg={6}>
+          <PhoneView>
+            <CommonRadioButton
+              value="question"
+              status={props.lenMode === 'question' ? 'checked' : 'unchecked'}
+              onPress={() => changeLenMode('question')}
+              text={translator.questionBased}
+            />
+            <CommonRadioButton
+              value="custom"
+              status={props.lenMode === 'custom' ? 'checked' : 'unchecked'}
+              onPress={() => changeLenMode('custom')}
+              type={'textInput'}
+              disable={props.lenMode !== 'custom'}
+              justNum={true}
+              text={translator.len}
+              onChangeText={e => changeLen(e)}
+              textValue={props.len}
+            />
+          </PhoneView>
+        </Col>
+        <Col lg={6}>
+          <PhoneView>
+            <JustBottomBorderSelect
+              isHalf={true}
+              values={runKindValues}
+              value={
+                props.isOnline === undefined
+                  ? ''
+                  : props.isOnline === 'online'
+                  ? 'آنلاین'
+                  : 'حضوری'
+              }
+              onSelect={selectRunKind}
+              placeholder={translator.isOnline}
+            />
+          </PhoneView>
+        </Col>
+      </PhoneView>
       <PhoneView style={{marginTop: 10}}>
         <JustBottomBorderDatePicker
           placeholder={translator.startDate}
