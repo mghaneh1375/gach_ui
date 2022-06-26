@@ -1,5 +1,5 @@
 import React from 'react';
-import {CommonWebBox} from '../../styles/Common';
+import {CommonWebBox} from '../../../styles/Common';
 import CreateNewCertificate from './components/CreateNewCertificate';
 import DynamicParameters from './components/DynamicParameters';
 import SelectFile from './components/SelectFile';

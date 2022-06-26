@@ -1,9 +1,13 @@
 import React from 'react';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {RadioButton} from 'react-native-paper';
-import {PhoneView, SimpleText, BigBoldBlueText} from '../../../styles/Common';
+import {
+  PhoneView,
+  SimpleText,
+  BigBoldBlueText,
+} from '../../../../styles/Common';
 import certTranslator from '../Translator';
-import translator from '../../../tranlates/Common';
+import translator from '../../../../tranlates/Common';
 import './Style.css';
 
 const DynamicParameters = () => {

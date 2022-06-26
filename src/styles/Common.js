@@ -27,6 +27,7 @@ import {
 import {getScreenHeight, getWidthHeight} from '../services/Utility';
 import {Link} from 'react-router-dom';
 import {style} from '../components/web/LargeScreen/Header/style';
+import JustBottomBorderTextInput from './Common/JustBottomBorderTextInput';
 
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem
@@ -103,15 +104,17 @@ export const ScreenScroll =
 // style={ScreenScrollBar}
 // contentContainerStyle={ScreenContentContainerStyle}
 
-export const CommonButton = props =>
-  Platform.OS === 'android' || Platform.OS === 'ios' ? (
-    <Button
-      style={props.style !== undefined ? props.style : null}
-      onPress={props.onPress}>
+export const CommonButton = props => {
+  let allStyles = props.style !== undefined ? props.style : null;
+  if (props.theme !== undefined && props.theme === 'dark')
+    allStyles = {...allStyles, ...{backgroundColor: vars.DARK_BLUE}};
+
+  return Platform.OS === 'android' || Platform.OS === 'ios' ? (
+    <Button style={allStyles} onPress={props.onPress}>
       <Text style={CommonButtonTextStyleAndroid}>{props.title}</Text>
     </Button>
   ) : props.href !== undefined ? (
-    <Button style={props.style !== undefined ? props.style : null}>
+    <Button style={allStyles}>
       <Link
         to={props.href !== undefined ? props.href : '/'}
         style={{textDecoration: 'none'}}>
@@ -119,12 +122,11 @@ export const CommonButton = props =>
       </Link>
     </Button>
   ) : (
-    <Button
-      style={props.style !== undefined ? props.style : null}
-      onClick={props.onPress}>
+    <Button style={allStyles} onClick={props.onPress}>
       <Text style={CommonButtonTextStyleWeb}>{props.title}</Text>
     </Button>
   );
+};
 
 export const InlineTextContainer =
   Platform.OS === 'android' || Platform.OS === 'ios'
@@ -142,14 +144,25 @@ export const SimpleText = props => {
 };
 
 export const CommonRadioButton = props => (
-  <View style={{display: 'flex', flexDirection: 'row'}}>
-    <SimpleText text={props.text} style={{marginTop: 10}} />
+  <PhoneView>
     <RadioButton
       value={props.value}
       status={props.status}
       onPress={props.onPress}
     />
-  </View>
+    {(props.type === undefined || props.type === 'simple') && (
+      <SimpleText text={props.text} style={{marginTop: 10}} />
+    )}
+    {props.type !== undefined && props.type === 'textInput' && (
+      <JustBottomBorderTextInput
+        onChangeText={props.onChangeText}
+        justNum={props.justNum}
+        placeholder={props.text}
+        disable={props.disable}
+        value={props.textValue}
+      />
+    )}
+  </PhoneView>
 );
 
 export const MinFullHeightView = styled(View)`
@@ -195,7 +208,14 @@ export const CommonWebBox = props => {
   const allStyle =
     props.style !== undefined ? {...style1, ...props.style} : {...style1};
 
-  return <View style={allStyle}>{props.child}</View>;
+  return (
+    <View style={allStyle}>
+      {props.header !== undefined && (
+        <BigBoldBlueTextInline text={props.header} />
+      )}
+      {props.child}
+    </View>
+  );
 };
 
 export const PhoneContentConianerStyle = {
@@ -208,15 +228,21 @@ export const LargeContentConianerStyle = {
 };
 
 export function EqualTwoTextInputs(props) {
-  return (
-    <PhoneView
-      style={{
-        justifyContent: 'space-between',
-        marginTop: 20,
-      }}>
-      {props.children}
-    </PhoneView>
-  );
+  const allStyle =
+    props.style === undefined
+      ? {
+          justifyContent: 'space-between',
+          marginTop: 20,
+        }
+      : {
+          ...props.style,
+          ...{
+            justifyContent: 'space-between',
+            marginTop: 20,
+          },
+        };
+
+  return <PhoneView style={allStyle}>{props.children}</PhoneView>;
 }
 
 export function PhoneView(props) {

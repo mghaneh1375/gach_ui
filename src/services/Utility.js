@@ -1,5 +1,6 @@
 import {Dimensions, Platform} from 'react-native';
 import {Device} from '../models/Device';
+import JDate from 'jalali-date';
 
 export function getDevice() {
   const device = [];
@@ -25,4 +26,15 @@ export function getWidthHeight() {
 
 export function getScreenHeight() {
   return Dimensions.get('window').height - 90;
+}
+
+export function convertTimestamp(unix_timestamp) {
+  let date = new Date(unix_timestamp);
+  let jdate = new JDate(date);
+  return (
+    jdate.format('تاریخ: YYYY/MM/DD ساعت: ') +
+    date.getHours() +
+    ':' +
+    date.getMinutes()
+  );
 }

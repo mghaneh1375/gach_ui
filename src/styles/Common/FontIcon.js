@@ -21,27 +21,33 @@ const FontIconStyleWeb = {
   alignSelf: 'center',
 };
 
-export const FontIcon = props => (
-  <Pressable
-    style={{
-      backgroundColor: vars.ORANGE_RED,
-      cursor: 'pointer',
-      width: '100%',
-      height: '100%',
-      borderRadius: 20,
-      alignSelf: 'center',
-      justifyContent: 'center',
-    }}
-    onPress={props.onPress}>
-    <FontAwesomeIcon
-      icon={props.icon}
-      style={[
-        Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
-        props.style ? props.style : {},
-      ]}
-    />
-  </Pressable>
-);
+export const FontIcon = props => {
+  const style1 = {
+    backgroundColor: vars.ORANGE_RED,
+    cursor: 'pointer',
+    width: '100%',
+    height: '100%',
+    borderRadius: 20,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  };
+  const allStyles =
+    props.parentStyle === undefined
+      ? style1
+      : {...style1, ...props.parentStyle};
+
+  return (
+    <Pressable style={allStyles} onPress={props.onPress}>
+      <FontAwesomeIcon
+        icon={props.icon}
+        style={[
+          Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
+          props.style ? props.style : {},
+        ]}
+      />
+    </Pressable>
+  );
+};
 
 export const SimpleFontIcon = props => (
   <Pressable

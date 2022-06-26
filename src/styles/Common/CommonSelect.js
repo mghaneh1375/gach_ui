@@ -9,6 +9,7 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import vars from '../root';
+import SubInputText from './SubInputText';
 
 export const CommonSelect = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
@@ -40,7 +41,8 @@ export const CommonSelect = props => {
       fontFamily: 'IRANSans',
     },
     dropdownIconPosition: 'left',
-    defaultButtonText: 'انتخاب کنید',
+    defaultButtonText:
+      props.placeholder === undefined ? 'انتخاب کنید' : props.placeholder,
 
     buttonStyle: allStyle,
     onSelect: (selectedItem, index) => {
@@ -62,6 +64,9 @@ export const CommonSelect = props => {
           : {}
       }>
       <CommonSelectElem {...inputProps} />
+      {props.subText !== undefined ? (
+        <SubInputText>{props.subText}</SubInputText>
+      ) : null}
     </CommonTextInputContainer>
   );
 };

@@ -1,12 +1,12 @@
 import {View, Platform} from 'react-native';
-import {BigBoldBlueTextInline, PhoneView, SimpleText} from '../Common';
-import {FontIcon, SimpleFontIcon} from './FontIcon';
+import {BigBoldBlueTextInline, EqualTwoTextInputs, SimpleText} from '../Common';
+import vars from '../root';
+import {FontIcon} from './FontIcon';
 
 const style = {
-  display: 'flex',
-  direction: 'rtl',
   paddingLeft: 10,
   paddingRight: 10,
+  marginTop: 0,
 };
 
 const InnerViewCommonStyle = {
@@ -34,14 +34,23 @@ export const TextIcon = props => {
   var fontProps = {icon: props.icon};
   if (props.onPress !== undefined) fontProps.onPress = props.onPress;
 
+  if (props.theme !== undefined) {
+    fontProps.parentStyle = {
+      borderRadius: 7,
+      backgroundColor: vars.YELLOW,
+      width: 30,
+      height: 30,
+    };
+  }
+
   return (
-    <PhoneView style={allStyles}>
+    <EqualTwoTextInputs style={allStyles}>
       <BigBoldBlueTextInline text={props.text} />
 
       <View style={InnerViewStyle}>
         <FontIcon {...fontProps} />
       </View>
-    </PhoneView>
+    </EqualTwoTextInputs>
   );
 };
 

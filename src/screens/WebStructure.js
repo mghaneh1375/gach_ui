@@ -25,7 +25,8 @@ import Menu from '../components/web/LargeScreen/Header/Menu';
 import {fetchUser, getToken, getUser} from '../API/User';
 import Navbar from '../components/web/Navbar';
 import BottomNavBar from '../components/web/BottomNavBar';
-import Certificate from './certificate/Certificate';
+import Certificate from './panel/certificate/Certificate';
+import Quiz from './panel/quiz/Quiz';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -145,6 +146,9 @@ const WebStructue = props => {
               )}
               {props.page === 'cert' && (
                 <Certificate token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'quiz' && (
+                <Quiz token={token} user={user} navigate={navigate} />
               )}
             </View>
           </View>

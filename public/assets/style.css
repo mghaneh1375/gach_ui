@@ -71,3 +71,87 @@
 .rnc__notification-container--top-right .rnc__notification-message {
   font-family: IRANSans;
 }
+
+.JDatePicker {
+  font-family: IRANSans;
+  background-color: #ffaa00 !important;
+  max-width: 230px !important;
+}
+.JDatePicker .JC-months .holder:last-child {
+  width: 100% !important;
+}
+.JDatePicker .JDheader > .right,
+.JDatePicker .JDheader > .left {
+  width: 100% !important;
+}
+/* .JDatePicker .JDheader .left {
+} */
+.JDatePicker .JDheader .right .number {
+  background-color: white;
+}
+
+.JDatePicker .JDheader > .right {
+  position: relative;
+  margin-top: 5px;
+}
+
+.JDatePicker .JDheader .right input[type='tel'] {
+  width: 70% !important;
+  top: 3px !important;
+}
+
+.JDatePicker .JDheader select {
+  background-color: white !important;
+  text-align: center;
+  height: 25px;
+  font-family: IRANSans;
+  font-size: 14px;
+}
+
+.JDatePicker .day-items:hover,
+.JDatePicker .day-items.selected {
+  background-color: #013243 !important;
+  color: white;
+}
+.JDheader {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.JDsubmit {
+  background-color: #013243 !important;
+  font-family: IRANSans;
+  font-size: 12px !important;
+  cursor: pointer;
+}
+.JDcancel {
+  background-color: #ff0000 !important;
+  font-family: IRANSans;
+  font-size: 12px !important;
+  cursor: pointer;
+}
+.date-picker {
+  padding-top: 10px;
+}
+
+.date-picker > input {
+  font-family: IRANSans;
+  background-color: white;
+  border: 1px solid #707070;
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  direction: rtl;
+  height: 35px;
+  padding-bottom: 0;
+  cursor: pointer;
+  width: 100%;
+  max-width: 276px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.JDatePicker .JDheader .left p {
+  color: white !important;
+  font-size: 12px;
+  font-weight: bold;
+}

@@ -11,11 +11,15 @@ import SubInputText from './SubInputText';
 export const CommonTextInput = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
   const isApp = Platform.OS !== 'web';
-  const style1 = !isApp
+  let style1 = !isApp
     ? isHalf
       ? CommonHalfTextInputStyleWeb
       : CommonTextInputStyleWeb
     : {};
+
+  if (props.multiline !== undefined && props.multiline)
+    style1 = {...style1, ...{height: 100, maxWidth: 500, overflow: 'auto'}};
+
   const allStyle =
     props.style !== undefined ? {...style1, ...props.style} : style1;
 
@@ -23,6 +27,7 @@ export const CommonTextInput = props => {
     placeholder: props.placeholder,
     onChangeText: props.onChangeText,
     style: allStyle,
+    editable: !props.disable,
   };
   if (props.value !== undefined) inputProps.value = props.value;
   if (props.type !== undefined && props.type === 'password')
@@ -37,6 +42,9 @@ export const CommonTextInput = props => {
     };
   }
 
+  if (props.multiline !== undefined && props.multiline)
+    inputProps.multiline = true;
+
   return (
     <CommonTextInputContainer
       style={
@@ -44,6 +52,8 @@ export const CommonTextInput = props => {
           ? {
               width: isApp ? 'auto' : 'calc(50% - 10px)',
               maxWidth: 300,
+              paddingLeft: 10,
+              paddingRight: 10,
             }
           : {}
       }>

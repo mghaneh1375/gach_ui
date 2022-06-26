@@ -27,6 +27,7 @@ const JustBottomBorderSelect = props => {
       style={customStyle}
       values={props.values}
       value={props.value}
+      subText={props.subText}
     />
   );
 };
