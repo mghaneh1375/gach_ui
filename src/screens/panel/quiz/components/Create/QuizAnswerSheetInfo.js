@@ -1,62 +1,82 @@
-import {CommonButton, PhoneView} from '../../../../../styles/Common';
-import {useFilePicker} from 'use-file-picker';
 import {View} from 'react-native';
-import {generalRequest} from '../../../../../API/Utility';
+import {CKEditor} from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import translator from '../../Translator';
+import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter';
+import {
+  CommonButton,
+  PhoneView,
+  SimpleText,
+} from '../../../../../styles/Common';
+import {useState} from 'react';
+import UploadFile from '../../../../../components/web/UploadFile';
 import {routes} from '../../../../../API/APIRoutes';
 
 const QuizAnswerSheetInfo = props => {
-  const [openFileSelector, {filesContent, loading, errors}] = useFilePicker({
-    maxFileSize: 100,
-    accept: 'image/*',
-    readAs: 'ArrayBuffer',
-  });
+  let ckEditor = null;
+  const [showUploadFile, setShowUploadFile] = useState(false);
 
-  // if (loading) {
-  //   props.setLoading(true);
-  // }
-
-  const doUpload = () => {
-    const data = new FormData();
-    var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
-    data.append('file', myblob, filesContent[0].name);
-    props.setLoading(true);
-
-    Promise.all([
-      generalRequest(routes.sampleUpload, 'post', data, undefined),
-    ]).then(res => {
-      props.setLoading(false);
-      console.log(res[0]);
-    });
+  const toggleShowUploadFile = () => {
+    setShowUploadFile(!showUploadFile);
   };
 
   return (
     <View>
+      {showUploadFile && (
+        <UploadFile
+          show={showUploadFile}
+          toggleShow={toggleShowUploadFile}
+          maxFileSize={20}
+          accept={['video/*', '.pdf']}
+          expectedRes={'url'}
+          url={routes.uploadQuizAttaches}
+          title={translator.uploadFile}
+        />
+      )}
       <PhoneView>
-        <button onClick={() => openFileSelector()}>upload</button>
-
-        {errors.length > 0 &&
-          errors[0].fileSizeTooSmall &&
-          'File size is too small!'}
-        {errors.length > 0 &&
-          errors[0].fileSizeToolarge &&
-          'File size is too large!'}
-        {errors.length > 0 &&
-          errors[0].readerError &&
-          'Problem occured while reading file!'}
-        {errors.length > 0 && errors[0].maxLimitExceeded && 'Too many files'}
-        {errors.length > 0 &&
-          errors[0].minLimitNotReached &&
-          'Not enought files'}
+        <CommonButton
+          onPress={() => toggleShowUploadFile()}
+          title={translator.uploadFile}
+        />
       </PhoneView>
-      {filesContent.map((file, index) => (
-        <div key={index}>
-          <h2>{file.name}</h2>
-          <img alt={file.name} src={file.content}></img>
-          <br />
-        </div>
-      ))}
 
-      <CommonButton onPress={() => doUpload()} />
+      <View style={{marginTop: 20}}>
+        <SimpleText text={translator.descBefore} />
+        <CKEditor
+          editor={ClassicEditor}
+          config={{
+            customValues: {token: props.token},
+            extraPlugins: [MyCustomUploadAdapterPlugin],
+            placeholder: translator.descBefore,
+          }}
+          data={props.descBefore === undefined ? '' : props.descBefore}
+          onReady={editor => {
+            ckEditor = editor;
+          }}
+          onChange={(event, editor) => {
+            props.setDescBefore(editor.getData());
+          }}
+        />
+      </View>
+
+      <View style={{marginTop: 20}}>
+        <SimpleText text={translator.descAfter} />
+        <CKEditor
+          editor={ClassicEditor}
+          config={{
+            customValues: {token: props.token},
+            extraPlugins: [MyCustomUploadAdapterPlugin],
+            placeholder: translator.descAfter,
+          }}
+          data={props.descAfter === undefined ? '' : props.descAfter}
+          onReady={editor => {
+            ckEditor = editor;
+          }}
+          onChange={(event, editor) => {
+            props.setDescAfter(editor.getData());
+          }}
+        />
+      </View>
     </View>
   );
 };

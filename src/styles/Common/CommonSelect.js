@@ -60,6 +60,8 @@ export const CommonSelect = props => {
               width: isApp ? 'auto' : 'calc(50% - 10px)',
               maxWidth: 300,
               direction: 'rtl',
+              paddingLeft: 10,
+              paddingRight: 10,
             }
           : {}
       }>

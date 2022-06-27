@@ -14,11 +14,19 @@ const translator = {
   price: 'قیمت آزمون',
   ranking: 'تعداد نفرات برتر',
   isOnline: 'نوع اجرا',
-  len: 'مدت آزمون',
+  len: 'مدت آزمون (به دقیقه)',
   questionBased: 'بر اساس سوالات',
   online: 'آنلاین',
   offline: 'حضوری',
   capacity: 'ظرفیت آزمون',
+  permute: 'آیا سوالات بر زده شود؟',
+  backEn: 'آیا بازگشت به سوال قبل امکان پذیر باشد؟',
+  minusMark: 'آیا آزمون نمره منفی داشته باشد؟',
+  showResultAfterCorrection:
+    'آیا نتایج بعد از صدور تراز به دانش آموزان نمایش داده شود؟',
+  descBefore: 'توضیحات قبل از آزمون (این فیلد اختیاری است)',
+  descAfter: 'توضیحات بعد از آزمون (این فیلد اختیاری است)',
+  uploadFile: 'بارگذاری فایل جهت درج در ckeditor (اختیاری)',
 };
 
 export default translator;

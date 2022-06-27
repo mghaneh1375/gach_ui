@@ -45,5 +45,15 @@ const translator = {
   nextStep: 'مرحله بعد',
   desc: 'توضیحات',
   optional: 'اختیاری',
+  yes: 'بله',
+  no: 'خیر',
+  optionalFalseDefault: 'اختیاری(پیش فرض این فیلد خیر است)',
+  optionalTrueDefault: 'اختیاری(پیش فرض این فیلد بله است)',
+  chooseFile: 'انتخاب فایل',
+  uploading: 'در حال آپلود',
+  pleaseWait: 'لطفا شکیبا باشید',
+  fileAdressFor: 'آدرس فایل آپلود شده برای',
+  copyLink: 'کپی کردن لینک',
+  copied: 'کپی شد!',
 };
 export default translator;

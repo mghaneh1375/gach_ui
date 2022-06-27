@@ -76,6 +76,7 @@
   font-family: IRANSans;
   background-color: #ffaa00 !important;
   max-width: 230px !important;
+  z-index: 10 !important;
 }
 .JDatePicker .JC-months .holder:last-child {
   width: 100% !important;
@@ -154,4 +155,12 @@
   color: white !important;
   font-size: 12px;
   font-weight: bold;
+}
+.ck-editor__main {
+  font-family: IRANSans;
+}
+.ck-editor__main > .ck-editor__editable {
+  min-height: 200px;
+  direction: rtl;
+  text-align: right !important;
 }
