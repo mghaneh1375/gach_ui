@@ -19,4 +19,5 @@ export const routes = {
   fetchBranches: 'admin/content/branches',
   uploadQuizAttaches: 'ckeditor/quiz',
   createQuiz: 'quiz/manage/store/',
+  fetchAllQuiz: 'quiz/manage/getAll/regular',
 };

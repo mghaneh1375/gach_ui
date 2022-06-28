@@ -47,6 +47,7 @@ const translator = {
   optional: 'اختیاری',
   yes: 'بله',
   no: 'خیر',
+  hide: 'عدم نمایش',
   optionalFalseDefault: 'اختیاری(پیش فرض این فیلد خیر است)',
   optionalTrueDefault: 'اختیاری(پیش فرض این فیلد بله است)',
   chooseFile: 'انتخاب فایل',

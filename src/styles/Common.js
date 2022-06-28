@@ -106,24 +106,61 @@ export const ScreenScroll =
 
 export const CommonButton = props => {
   let allStyles = props.style !== undefined ? props.style : null;
-  if (props.theme !== undefined && props.theme === 'dark')
-    allStyles = {...allStyles, ...{backgroundColor: vars.DARK_BLUE}};
+  let textStyle =
+    Platform.OS === 'web'
+      ? CommonButtonTextStyleWeb
+      : CommonButtonTextStyleAndroid;
+
+  if (props.theme !== undefined) {
+    if (props.theme === 'transparent') {
+      allStyles = {
+        ...allStyles,
+        ...{
+          backgroundColor: 'transparent',
+          borderWidth: 1,
+          borderStyle: 'solid',
+          borderColor: vars.LIGHT_SILVER,
+        },
+      };
+      textStyle = {
+        ...textStyle,
+        ...{
+          color: vars.LIGHT_SILVER,
+        },
+      };
+    } else
+      allStyles = {
+        ...allStyles,
+        ...{
+          backgroundColor: vars.DARK_BLUE,
+        },
+      };
+  }
+
+  if (props.dir !== undefined && props.dir === 'rtl') {
+    allStyles = {
+      ...allStyles,
+      ...{
+        alignSelf: 'flex-start',
+      },
+    };
+  }
 
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <Button style={allStyles} onPress={props.onPress}>
-      <Text style={CommonButtonTextStyleAndroid}>{props.title}</Text>
+      <Text style={textStyle}>{props.title}</Text>
     </Button>
   ) : props.href !== undefined ? (
     <Button style={allStyles}>
       <Link
         to={props.href !== undefined ? props.href : '/'}
         style={{textDecoration: 'none'}}>
-        <Text style={CommonButtonTextStyleWeb}>{props.title}</Text>
+        <Text style={textStyle}>{props.title}</Text>
       </Link>
     </Button>
   ) : (
     <Button style={allStyles} onClick={props.onPress}>
-      <Text style={CommonButtonTextStyleWeb}>{props.title}</Text>
+      <Text style={textStyle}>{props.title}</Text>
     </Button>
   );
 };

@@ -15,7 +15,7 @@ import {CallAPI} from './Create/CallAPI';
 import {routes} from '../../../../API/APIRoutes';
 
 const CreateQuiz = props => {
-  const [name, setName] = useState('dsa');
+  const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [kind, setKind] = useState('test'); //undefined
   const [tags, setTags] = useState([]);
@@ -29,7 +29,7 @@ const CreateQuiz = props => {
   const [capacity, setCapacity] = useState('23');
   const [backEn, setBackEn] = useState(undefined);
   const [permuteEn, setPermuteEn] = useState(undefined);
-  const [showResultAfterCorrection, setShowResultAfterCorrection] =
+  const [showResultsAfterCorrection, setShowResultsAfterCorrection] =
     useState(true); //undefined
   const [minusMark, setMinusMark] = useState(undefined);
 
@@ -44,7 +44,6 @@ const CreateQuiz = props => {
   };
 
   const submit = async () => {
-    console.log('Asdqw');
     const data = {
       title: name,
       description: desc,
@@ -52,7 +51,7 @@ const CreateQuiz = props => {
       end: end,
       startRegistry: startRegistry,
       endRegistry: endRegistry,
-      kind: kind,
+      // kind: kind,
       duration: len,
       isOnline: isOnline,
       tags: tags,
@@ -61,12 +60,12 @@ const CreateQuiz = props => {
       capacity: capacity,
       minusMark: minusMark,
       backEn: backEn,
-      showResultAfterCorrection: showResultAfterCorrection,
+      showResultsAfterCorrection: showResultsAfterCorrection,
       topStudentsCount: ranking,
       descAfter: descAfter,
       desc: descBefore,
     };
-    console.log(data);
+
     let result = await CallAPI(
       data,
       routes.createQuiz + 'regular',
@@ -74,7 +73,8 @@ const CreateQuiz = props => {
       props.setLoading,
       'regular',
     );
-    console.log(result);
+
+    if (result !== null) props.setMode('list');
   };
 
   return (
@@ -114,8 +114,8 @@ const CreateQuiz = props => {
             setPermuteEn={setPermuteEn}
             minusMark={minusMark}
             setMinusMark={setMinusMark}
-            showResultAfterCorrection={showResultAfterCorrection}
-            setShowResultAfterCorrection={setShowResultAfterCorrection}
+            showResultsAfterCorrection={showResultsAfterCorrection}
+            setShowResultsAfterCorrection={setShowResultsAfterCorrection}
           />
         }
       />
@@ -159,7 +159,7 @@ const CreateQuiz = props => {
       />
       <EqualTwoTextInputs>
         <CommonButton
-          onPress={() => changeMode('show')}
+          onPress={() => changeMode('list')}
           title={commonTranslator.cancel}
         />
         <CommonButton

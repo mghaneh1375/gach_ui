@@ -49,8 +49,8 @@ const QuizRunInfo = props => {
     props.setMinusMark(trueFalseValues[item_idx].id);
   };
 
-  const selectShowResultAfterCorrection = (item_key, item_idx) => {
-    props.setShowResultAfterCorrection(trueFalseValues[item_idx].id);
+  const selectShowResultsAfterCorrection = (item_key, item_idx) => {
+    props.setShowResultsAfterCorrection(trueFalseValues[item_idx].id);
   };
 
   return (
@@ -148,13 +148,13 @@ const QuizRunInfo = props => {
               isHalf={true}
               values={trueFalseValues}
               value={
-                props.showResultAfterCorrection === undefined
+                props.showResultsAfterCorrection === undefined
                   ? ''
-                  : props.showResultAfterCorrection
+                  : props.showResultsAfterCorrection
                   ? 'بله'
                   : 'خیر'
               }
-              onSelect={selectShowResultAfterCorrection}
+              onSelect={selectShowResultsAfterCorrection}
               subText={commonTranslator.necessaryField}
               placeholder={translator.showResultAfterCorrection}
             />

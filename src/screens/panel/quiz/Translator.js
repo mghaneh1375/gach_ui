@@ -27,6 +27,13 @@ const translator = {
   descBefore: 'توضیحات قبل از آزمون (این فیلد اختیاری است)',
   descAfter: 'توضیحات بعد از آزمون (این فیلد اختیاری است)',
   uploadFile: 'بارگذاری فایل جهت درج در ckeditor (اختیاری)',
+  seeInfo: 'مشاهده اطلاعات',
+  editQuestions: 'ویرایش سوالات',
+  studentsList: 'مشاهده لیست دانش آموزان',
+  forceRegistry: 'ثبت نام مستقیم',
+  createTaraz: 'ساخت تراز',
+  gift: 'اهدا جوایز',
+  transferToOpenQuiz: 'انتقال به آزمون باز',
 };
 
 export default translator;

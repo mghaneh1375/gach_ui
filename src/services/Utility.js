@@ -1,6 +1,7 @@
-import {Dimensions, Platform} from 'react-native';
+import {ToastAndroid, Dimensions, Platform} from 'react-native';
 import {Device} from '../models/Device';
-import JDate from 'jalali-date';
+import moment from 'moment-jalaali';
+import {Store} from 'react-notifications-component';
 
 export function getDevice() {
   const device = [];
@@ -29,12 +30,31 @@ export function getScreenHeight() {
 }
 
 export function convertTimestamp(unix_timestamp) {
-  let date = new Date(unix_timestamp);
-  let jdate = new JDate(date);
-  return (
-    jdate.format('تاریخ: YYYY/MM/DD ساعت: ') +
-    date.getHours() +
-    ':' +
-    date.getMinutes()
-  );
+  return moment
+    .unix(unix_timestamp / 1000)
+    .format('تاریخ: jYYYY/jMM/jDD ساعت: HH:mm');
+}
+
+export function showError(msg) {
+  if (Platform.OS === 'android') {
+    ToastAndroid.show(msg, ToastAndroid.SHORT);
+  }
+  //  else if (Platform.OS === 'ios') {
+  //   AlertIOS.alert(msg);
+  // }
+  else {
+    Store.addNotification({
+      title: 'خطا در انجام عملیات',
+      message: msg,
+      type: 'danger',
+      insert: 'top',
+      container: 'top-right',
+      animationIn: ['animate__animated', 'animate__fadeIn'],
+      animationOut: ['animate__animated', 'animate__fadeOut'],
+      dismiss: {
+        duration: 3000,
+        onScreen: true,
+      },
+    });
+  }
 }
