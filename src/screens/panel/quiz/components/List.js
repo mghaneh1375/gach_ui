@@ -5,7 +5,6 @@ import {TextIcon} from '../../../../styles/Common/TextIcon';
 import translator from '../Translator';
 import DataTable from 'react-data-table-component';
 import {convertTimestamp} from '../../../../services/Utility';
-import {useState} from 'react';
 
 const List = props => {
   const changeMode = newMode => {

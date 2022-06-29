@@ -20,4 +20,10 @@ export const routes = {
   uploadQuizAttaches: 'ckeditor/quiz',
   createQuiz: 'quiz/manage/store/',
   fetchAllQuiz: 'quiz/manage/getAll/regular',
+  fetchIRYSCQuiz: 'quiz/manage/get/irysc/',
+  fetchSchoolQuiz: 'quiz/manage/get/school/',
+  editQuiz: 'quiz/manage/edit/',
+  removeIRYSCQuiz: 'quiz/manage/remove/irysc/',
+  removeSchoolQuiz: 'quiz/manage/remove/school/',
+  addBatchQuestions: 'admin/question/addBatch',
 };

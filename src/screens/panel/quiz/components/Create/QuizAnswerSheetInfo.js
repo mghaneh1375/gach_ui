@@ -31,6 +31,8 @@ const QuizAnswerSheetInfo = props => {
           expectedRes={'url'}
           url={routes.uploadQuizAttaches}
           title={translator.uploadFile}
+          multi={true}
+          token={props.token}
         />
       )}
       <PhoneView>

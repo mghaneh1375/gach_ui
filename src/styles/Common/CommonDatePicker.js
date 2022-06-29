@@ -8,9 +8,14 @@ export const CommonDatePicker = props => {
   const isApp = Platform.OS !== 'web';
 
   let value = props.value;
-  if (value.indexOf('ساعت') == -1) {
+
+  if (
+    value !== undefined &&
+    (typeof value === 'number' || value.indexOf('ساعت') == -1)
+  ) {
     value = convertTimestamp(value);
   }
+
   const inputProps = {
     placeholder: props.placeholder,
     format: 'تاریخ: jYYYY/jMM/jDD ساعت: HH:mm',

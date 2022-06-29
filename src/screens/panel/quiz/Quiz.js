@@ -5,13 +5,11 @@ import List from './components/List';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import {generalRequest} from '../../../API/Utility';
 import {routes} from '../../../API/APIRoutes';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import {CommonButton, PhoneView} from '../../../styles/Common';
-import translator from './Translator';
-import commonTranslator from '../../../tranlates/Common';
+import Ops from './components/Ops';
+import Update from './components/Update';
 
 const Quiz = props => {
-  const [mode, setMode] = useState('list');
+  const [mode, setMode] = useState('create');
   const [quizes, setQuizes] = useState([]);
   const [selectedQuiz, setSelectedQuiz] = useState(undefined);
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -53,55 +51,39 @@ const Quiz = props => {
     setShowOpPopUp(!showOpPopUp);
   };
 
+  const removeQuiz = quizId => {
+    let newList = [];
+    for (let i = 0; i < quizes.length; i++) {
+      if (quizes[i].id !== quizId) newList.push(quizes[i]);
+    }
+
+    setQuizes(newList);
+  };
+
+  const updateQuiz = newData => {
+    const quizId = newData.id;
+    let newList = [];
+    for (let i = 0; i < quizes.length; i++) {
+      if (quizes[i].id !== quizId) newList.push(quizes[i]);
+      else newList.push(newData);
+    }
+
+    setQuizes(newList);
+  };
+
   return (
     <View>
       {showOpPopUp && (
-        <LargePopUp
-          title={selectedQuiz.title}
-          toggleShowPopUp={toggleShowOpPopUp}>
-          <PhoneView style={{flexWrap: 'wrap'}}>
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              title={translator.seeInfo}
-            />
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              title={translator.editQuestions}
-            />
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              title={translator.forceRegistry}
-            />
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              title={commonTranslator.hide}
-            />
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              title={translator.studentsList}
-            />
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              title={translator.createTaraz}
-            />
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              title={translator.gift}
-            />
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              title={translator.transferToOpenQuiz}
-            />
-          </PhoneView>
-        </LargePopUp>
+        <Ops
+          quiz={selectedQuiz}
+          toggleShowPopUp={toggleShowOpPopUp}
+          token={props.token}
+          setLoading={setLoading}
+          removeQuiz={removeQuiz}
+          updateQuiz={updateQuiz}
+          setMode={setMode}
+          setSelectedQuiz={setSelectedQuiz}
+        />
       )}
       {mode === 'list' && (
         <List
@@ -118,6 +100,14 @@ const Quiz = props => {
           setLoading={setLoading}
           setMode={setMode}
           token={props.token}
+        />
+      )}
+      {mode === 'update' && (
+        <Update
+          setLoading={setLoading}
+          setMode={setMode}
+          token={props.token}
+          quiz={selectedQuiz}
         />
       )}
     </View>

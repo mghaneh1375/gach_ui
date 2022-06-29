@@ -27,6 +27,7 @@ import Navbar from '../components/web/Navbar';
 import BottomNavBar from '../components/web/BottomNavBar';
 import Certificate from './panel/certificate/Certificate';
 import Quiz from './panel/quiz/Quiz';
+import Question from './panel/question/Question';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -149,6 +150,9 @@ const WebStructue = props => {
               )}
               {props.page === 'quiz' && (
                 <Quiz token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'question' && (
+                <Question token={token} user={user} navigate={navigate} />
               )}
             </View>
           </View>

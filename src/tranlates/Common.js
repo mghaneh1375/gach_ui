@@ -48,6 +48,7 @@ const translator = {
   yes: 'بله',
   no: 'خیر',
   hide: 'عدم نمایش',
+  show: 'نمایش',
   optionalFalseDefault: 'اختیاری(پیش فرض این فیلد خیر است)',
   optionalTrueDefault: 'اختیاری(پیش فرض این فیلد بله است)',
   chooseFile: 'انتخاب فایل',
@@ -56,5 +57,7 @@ const translator = {
   fileAdressFor: 'آدرس فایل آپلود شده برای',
   copyLink: 'کپی کردن لینک',
   copied: 'کپی شد!',
+  delete: 'حذف',
+  upload: 'بارگذاری فایل',
 };
 export default translator;

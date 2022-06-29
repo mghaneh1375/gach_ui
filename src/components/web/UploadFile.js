@@ -2,13 +2,14 @@ import {CommonButton, PhoneView, SimpleText} from '../../styles/Common';
 import {LargePopUp} from '../../styles/Common/PopUp';
 import commonTranslator from '../../tranlates/Common';
 import {useFilePicker} from 'use-file-picker';
-import {generalRequest} from '../../API/Utility';
+import {fileRequest} from '../../API/Utility';
 import React, {useState} from 'react';
 import CopyBox from '../CopyBox';
 
 const UploadFile = props => {
   const [isWorking, setIsWorking] = useState(false);
   const [urls, setUrls] = useState([]);
+  const [canUpload, setCanUpload] = useState(true);
 
   const [openFileSelector, {filesContent, loading, errors, clear}] =
     useFilePicker({
@@ -20,22 +21,31 @@ const UploadFile = props => {
   React.useEffect(() => {
     if (!isWorking && filesContent.length === 1) {
       setIsWorking(true);
-      const data = new FormData();
+
+      let data = new FormData();
       var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
       data.append('file', myblob, filesContent[0].name);
 
+      console.log(myblob);
+
       Promise.all([
-        generalRequest(props.url, 'post', data, props.expectedRes, props.token),
+        fileRequest(props.url, 'post', data, props.expectedRes, props.token),
       ]).then(res => {
         if (res[0] !== null) {
-          let urlsTmp = urls;
-          urlsTmp.push({url: res[0], file: filesContent[0].name});
-          setUrls(urlsTmp);
+          if (props.multi) {
+            let urlsTmp = urls;
+            urlsTmp.push({url: res[0], file: filesContent[0].name});
+            setUrls(urlsTmp);
+          } else {
+            props.setResult(res[0]);
+            setCanUpload(false);
+          }
         }
 
         clear();
         setIsWorking(false);
       });
+      // });
     }
   }, [filesContent, isWorking, props, urls, clear]);
 
@@ -51,11 +61,13 @@ const UploadFile = props => {
       }
       title={props.title}>
       <PhoneView>
-        <CommonButton
-          theme={'dark'}
-          title={commonTranslator.chooseFile}
-          onPress={() => openFileSelector()}
-        />
+        {canUpload && (
+          <CommonButton
+            theme={'dark'}
+            title={commonTranslator.chooseFile}
+            onPress={() => openFileSelector()}
+          />
+        )}
 
         {errors.length > 0 &&
           errors[0].fileSizeTooSmall &&
@@ -85,12 +97,17 @@ const UploadFile = props => {
             />
           </div>
         ))}
-      {urls.map((url, index) => (
-        <div key={index}>
-          <SimpleText text={commonTranslator.fileAdressFor + ' ' + url.file} />
-          <CopyBox text={url.url} />
-        </div>
-      ))}
+      {props.multi &&
+        urls.map((url, index) => (
+          <div key={index}>
+            <SimpleText
+              text={commonTranslator.fileAdressFor + ' ' + url.file}
+            />
+            <CopyBox text={url.url} />
+          </div>
+        ))}
+
+      {props.finalMsg !== undefined && <SimpleText text={props.finalMsg} />}
     </LargePopUp>
   );
 };

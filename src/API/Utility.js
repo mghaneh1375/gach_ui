@@ -19,6 +19,19 @@ export const COMMON_HEADER_AUTH = token => {
   };
 };
 
+export const COMMON_FILE_HEADER = () => {
+  return {
+    accept: 'application/json',
+  };
+};
+
+export const COMMON_FILE_HEADER_AUTH = token => {
+  return {
+    accept: 'application/json',
+    Authorization: 'Bearer ' + token,
+  };
+};
+
 export const generalRequest = async (
   url,
   method,
@@ -42,6 +55,54 @@ export const generalRequest = async (
       token !== null && token !== undefined
         ? COMMON_HEADER_AUTH(token)
         : COMMON_HEADER,
+    data: data,
+  })
+    .then(function (response) {
+      var data = response.data;
+      if (data.status === 'nok') {
+        showError(data.msg);
+        return null;
+      }
+
+      if (data.status === 'ok') {
+        if (dataShouldReturnKey === undefined) return true;
+        if (dataShouldReturnKey instanceof Array) {
+          var output = {};
+          var key;
+          for (var i = 0; i < dataShouldReturnKey.length; i++) {
+            key = dataShouldReturnKey[i];
+            output[key] = data[key];
+          }
+
+          return output;
+        }
+
+        return data[dataShouldReturnKey];
+      }
+    })
+    .catch(function (error) {
+      showError(commonTranslator.opErr);
+      return null;
+    });
+
+  return res;
+};
+
+export const fileRequest = async (
+  url,
+  method,
+  data,
+  dataShouldReturnKey,
+  token = null,
+) => {
+  let res = await Axios({
+    url: url,
+    method: method,
+    baseURL: BASE_URL,
+    headers:
+      token !== null && token !== undefined
+        ? COMMON_FILE_HEADER_AUTH(token)
+        : COMMON_FILE_HEADER,
     data: data,
   })
     .then(function (response) {
