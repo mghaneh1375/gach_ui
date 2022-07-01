@@ -37,13 +37,21 @@ export const CommonTextInput = props => {
     inputProps.keyboardType = 'numeric';
     inputProps.onKeyPress = e => {
       var charCode = e.which ? e.which : e.keyCode;
-      if (charCode !== 8 && String.fromCharCode(charCode).match(/[^0-9]/g))
+
+      if (
+        charCode !== 8 &&
+        charCode !== 37 &&
+        charCode !== 39 &&
+        String.fromCharCode(charCode).match(/[^0-9]/g)
+      )
         e.preventDefault();
     };
   }
 
   if (props.multiline !== undefined && props.multiline)
     inputProps.multiline = true;
+
+  if (props.onPress !== undefined) inputProps.onClick = props.onPress;
 
   return (
     <CommonTextInputContainer

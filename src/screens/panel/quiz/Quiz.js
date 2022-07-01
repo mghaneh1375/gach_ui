@@ -5,14 +5,14 @@ import List from './components/List';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import {generalRequest} from '../../../API/Utility';
 import {routes} from '../../../API/APIRoutes';
-import Ops from './components/Ops';
 import Update from './components/Update';
+import Students from './components/Students';
+import Questions from './components/Questions';
 
 const Quiz = props => {
-  const [mode, setMode] = useState('create');
+  const [mode, setMode] = useState('list');
   const [quizes, setQuizes] = useState([]);
   const [selectedQuiz, setSelectedQuiz] = useState(undefined);
-  const [showOpPopUp, setShowOpPopUp] = useState(false);
 
   const navigate = props.navigate;
 
@@ -47,8 +47,17 @@ const Quiz = props => {
     });
   }, [navigate, props.token, dispatch]);
 
-  const toggleShowOpPopUp = () => {
-    setShowOpPopUp(!showOpPopUp);
+  const updateQuiz = newData => {
+    const quizId = newData.id;
+    let newList = [];
+    for (let i = 0; i < quizes.length; i++) {
+      if (quizes[i].id !== quizId) newList.push(quizes[i]);
+      else newList.push(newData);
+    }
+
+    if (selectedQuiz.id === quizId) setSelectedQuiz(newData);
+
+    setQuizes(newList);
   };
 
   const removeQuiz = quizId => {
@@ -60,38 +69,18 @@ const Quiz = props => {
     setQuizes(newList);
   };
 
-  const updateQuiz = newData => {
-    const quizId = newData.id;
-    let newList = [];
-    for (let i = 0; i < quizes.length; i++) {
-      if (quizes[i].id !== quizId) newList.push(quizes[i]);
-      else newList.push(newData);
-    }
-
-    setQuizes(newList);
-  };
-
   return (
     <View>
-      {showOpPopUp && (
-        <Ops
-          quiz={selectedQuiz}
-          toggleShowPopUp={toggleShowOpPopUp}
-          token={props.token}
-          setLoading={setLoading}
-          removeQuiz={removeQuiz}
-          updateQuiz={updateQuiz}
-          setMode={setMode}
-          setSelectedQuiz={setSelectedQuiz}
-        />
-      )}
       {mode === 'list' && (
         <List
           quizes={quizes}
           setQuizes={setQuizes}
           setMode={setMode}
+          selectedQuiz={selectedQuiz}
           setSelectedQuiz={setSelectedQuiz}
-          toggleShowOpPopUp={toggleShowOpPopUp}
+          setLoading={setLoading}
+          removeQuiz={removeQuiz}
+          updateQuiz={updateQuiz}
           token={props.token}
         />
       )}
@@ -108,6 +97,24 @@ const Quiz = props => {
           setMode={setMode}
           token={props.token}
           quiz={selectedQuiz}
+        />
+      )}
+      {mode === 'student' && (
+        <Students
+          setLoading={setLoading}
+          setMode={setMode}
+          token={props.token}
+          quiz={selectedQuiz}
+          updateQuiz={updateQuiz}
+        />
+      )}
+      {mode === 'question' && (
+        <Questions
+          setLoading={setLoading}
+          setMode={setMode}
+          token={props.token}
+          quiz={selectedQuiz}
+          updateQuiz={updateQuiz}
         />
       )}
     </View>

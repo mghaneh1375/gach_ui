@@ -28,6 +28,7 @@ import BottomNavBar from '../components/web/BottomNavBar';
 import Certificate from './panel/certificate/Certificate';
 import Quiz from './panel/quiz/Quiz';
 import Question from './panel/question/Question';
+import vars from '../styles/root';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -103,7 +104,7 @@ const WebStructue = props => {
   };
 
   return (
-    <View style={{flex: 1, height: '100%'}}>
+    <View style={{flex: 1, height: '100%', backgroundColor: vars.DARK_WHITE}}>
       {allowRenderPage && (
         <MinFullHeightView>
           <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>

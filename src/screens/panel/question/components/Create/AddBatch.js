@@ -17,7 +17,7 @@ const AddBatch = props => {
       url={routes.addBatchQuestions}
       token={props.token}
       maxFileSize={6}
-      accept={['.xls']}
+      accept={['.xls', '.xlsx']}
       expectedRes="excepts"
       toggleShow={props.toggleShowPopUp}
       title={translator.addBatch}

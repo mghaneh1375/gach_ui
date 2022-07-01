@@ -3,30 +3,23 @@ import {View} from 'react-native';
 import {CommonWebBox} from '../../../../styles/Common';
 import {TextIcon} from '../../../../styles/Common/TextIcon';
 import translator from '../Translator';
-import DataTable from 'react-data-table-component';
 import {convertTimestamp} from '../../../../services/Utility';
+import CommonDataTable from '../../../../styles/Common/CommonDataTable';
+import {useState} from 'react';
+import Ops from './Ops';
 
 const List = props => {
+  const [showOpPopUp, setShowOpPopUp] = useState(false);
+
+  const toggleShowOpPopUp = () => {
+    setShowOpPopUp(!showOpPopUp);
+  };
+
   const changeMode = newMode => {
     props.setMode(newMode);
   };
 
   const columns = [
-    {
-      name: 'ردیف',
-      grow: 1,
-    },
-    {
-      name: 'عملیات',
-      style: {
-        cursor: 'pointer',
-      },
-      cell: (row, index, column, id) => {
-        return <p onClick={() => handleOp(index)}>...</p>;
-      },
-      ignoreRowClick: true,
-      grow: 1,
-    },
     {
       name: 'نام آزمون',
       selector: row => row.title,
@@ -44,7 +37,7 @@ const List = props => {
       grow: 4,
       wrap: true,
       style: {
-        minWidth: 200,
+        minWidth: '200px !important',
       },
       sortable: true,
       sortFunction: (a, b) => {
@@ -60,7 +53,7 @@ const List = props => {
       grow: 4,
       wrap: true,
       style: {
-        minWidth: 200,
+        minWidth: '200px !important',
       },
     },
     {
@@ -74,48 +67,43 @@ const List = props => {
       grow: 1,
     },
   ];
-  const customStyles = {
-    rows: {
-      style: {
-        fontFamily: 'IRANSans',
-      },
-    },
-    headCells: {
-      style: {
-        fontFamily: 'IRANSans',
-      },
-    },
-    cells: {
-      style: {
-        fontFamily: 'IRANSans',
-      },
-    },
-  };
 
   const handleOp = idx => {
     props.setSelectedQuiz(props.quizes[idx]);
-    props.toggleShowOpPopUp();
+    toggleShowOpPopUp();
   };
 
   return (
-    <CommonWebBox
-      child={
-        <View>
-          <TextIcon
-            onPress={() => changeMode('create')}
-            theme={'rect'}
-            text={translator.quizes}
-            icon={faPlus}
-          />
-          <DataTable
-            customStyles={customStyles}
-            columns={columns}
-            data={props.quizes}
-            selectableRows
-          />
-        </View>
-      }
-    />
+    <View>
+      {showOpPopUp && (
+        <Ops
+          quiz={props.selectedQuiz}
+          toggleShowPopUp={toggleShowOpPopUp}
+          token={props.token}
+          setLoading={props.setLoading}
+          removeQuiz={props.removeQuiz}
+          updateQuiz={props.updateQuiz}
+          setMode={props.setMode}
+        />
+      )}
+      <CommonWebBox
+        child={
+          <View>
+            <TextIcon
+              onPress={() => changeMode('create')}
+              theme={'rect'}
+              text={translator.quizes}
+              icon={faPlus}
+            />
+            <CommonDataTable
+              columns={columns}
+              data={props.quizes}
+              handleOp={handleOp}
+            />
+          </View>
+        }
+      />
+    </View>
   );
 };
 

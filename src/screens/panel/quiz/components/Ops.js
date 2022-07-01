@@ -67,7 +67,6 @@ const Ops = props => {
         props.setLoading(false);
         if (res[0] !== null) {
           props.updateQuiz(res[0]);
-          props.setSelectedQuiz(res[0]);
           props.setMode(newMode);
           props.toggleShowPopUp();
         }
@@ -98,14 +97,15 @@ const Ops = props => {
         />
         <CommonButton
           dir={'rtl'}
+          onPress={() => changeMode('question')}
           theme={'transparent'}
           title={translator.editQuestions}
         />
-        <CommonButton
+        {/* <CommonButton
           dir={'rtl'}
           theme={'transparent'}
           title={translator.forceRegistry}
-        />
+        /> */}
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
@@ -119,6 +119,7 @@ const Ops = props => {
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
+          onPress={() => changeMode('student')}
           title={translator.studentsList}
         />
         <CommonButton

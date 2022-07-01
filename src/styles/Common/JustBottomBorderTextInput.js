@@ -27,6 +27,7 @@ const JustBottomBorderTextInput = props => {
         onChangeText={props.onChangeText}
         justNum={props.justNum}
         isHalf={props.isHalf}
+        onPress={props.onPress}
         type={props.type}
         placeholder={props.placeholder}
         subText={props.subText}

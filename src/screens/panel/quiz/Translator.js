@@ -34,6 +34,13 @@ const translator = {
   createTaraz: 'ساخت تراز',
   gift: 'اهدا جوایز',
   transferToOpenQuiz: 'انتقال به آزمون باز',
+  studentsListInQuiz: 'لیست دانش آموزان آزمون ',
+  addStudent: 'اضافه کردن دانش آموز',
+  deleteStudent: 'حذف دانش آموز',
+  chooseQuestion: 'انتخاب سوال',
+  questions: 'سوالات آزمون',
+  organizationId: 'کد سازمانی سوال',
+  organizationIdHelp: 'چندین کد را با استفاده از , جدا کنید',
 };
 
 export default translator;

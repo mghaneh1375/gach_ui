@@ -56,7 +56,8 @@ export const fetchUser = async (token, callBack) => {
     'user',
     token,
   );
-  await setCacheItem('user', JSON.stringify(result));
+  if (result == null) await removeAuthCache();
+  else await setCacheItem('user', JSON.stringify(result));
   callBack(result);
 };
 

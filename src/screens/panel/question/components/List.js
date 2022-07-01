@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
 import {TextIcon} from '../../../../styles/Common/TextIcon';
 import translator from '../Translator';
-import commonTranslator from '../../../../tranlates/Common';
 
 const List = props => {
   const changeMode = newMode => {
@@ -24,7 +23,12 @@ const List = props => {
             <CommonButton
               onPress={() => props.toggleShowAddBatchPopUp()}
               theme={'dark'}
-              title={commonTranslator.upload}
+              title={translator.uploadExcelFile}
+            />
+            <CommonButton
+              onPress={() => props.toggleShowAddBatchFilesPopUp()}
+              theme={'dark'}
+              title={translator.uploadZipFile}
             />
           </PhoneView>
         </View>

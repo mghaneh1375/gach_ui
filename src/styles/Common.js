@@ -177,7 +177,13 @@ export const SimpleText = props => {
   const style1 = {fontFamily: 'IRANSans'};
   const allStyle =
     props.style !== undefined ? {...style1, ...props.style} : style1;
-  return <Text style={allStyle}>{props.text}</Text>;
+
+  let textProps = {
+    style: allStyle,
+  };
+
+  if (props.onPress !== undefined) textProps.onClick = props.onPress;
+  return <Text {...textProps}>{props.text}</Text>;
 };
 
 export const CommonRadioButton = props => (
@@ -248,7 +254,13 @@ export const CommonWebBox = props => {
   return (
     <View style={allStyle}>
       {props.header !== undefined && (
-        <BigBoldBlueTextInline text={props.header} />
+        <EqualTwoTextInputs>
+          <BigBoldBlueTextInline
+            style={{alignSelf: 'center'}}
+            text={props.header}
+          />
+          {props.btn !== undefined && props.btn}
+        </EqualTwoTextInputs>
       )}
       {props.child}
     </View>

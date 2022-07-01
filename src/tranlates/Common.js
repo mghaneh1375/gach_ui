@@ -59,5 +59,15 @@ const translator = {
   copied: 'کپی شد!',
   delete: 'حذف',
   upload: 'بارگذاری فایل',
+  notChooseFile: 'هنوز فایلی انتخاب نشده است',
+  maxSize: 'حداکثر حجم ',
+  format: 'فرمت',
+  success: 'عملیات موردنظر با موفقیت انجام شد',
+  paid: 'مقدار پرداختی',
+  searchBy: 'جست و جو بر اساس',
+  nameAndLast: 'نام و نام خانوادگی',
+  searchStudent: 'یافتن دانش آموز',
+  wantedUser: 'دانش آموز موردنظر',
+  deleteAll: 'حذف همه',
 };
 export default translator;
