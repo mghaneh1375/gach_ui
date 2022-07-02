@@ -50,8 +50,7 @@ export const style = {
     borderBottomLeftRadius: 10,
   },
   Header: {
-    // backgroundImage
-    // linear-gradient(to left, #FFAA00, #FF6600)
+    backgroundImage: 'linear-gradient(to left, #FFAA00, #FF6600)',
     paddingRight: 20,
     paddingLeft: 20,
     backgroundColor: 'red',

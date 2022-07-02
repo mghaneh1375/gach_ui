@@ -3,11 +3,7 @@ import {Image, TouchableOpacity, View} from 'react-native';
 import {PhoneView, SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
-import {
-  faAngleDown,
-  faBell,
-  faLongArrowAltUp,
-} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDown, faBell} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import {logout} from '../../../../API/User';
