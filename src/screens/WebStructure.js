@@ -29,6 +29,7 @@ import Certificate from './panel/certificate/Certificate';
 import Quiz from './panel/quiz/Quiz';
 import Question from './panel/question/Question';
 import vars from '../styles/root';
+import Off from './panel/offcode/Off';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -154,6 +155,9 @@ const WebStructue = props => {
               )}
               {props.page === 'question' && (
                 <Question token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'offs' && (
+                <Off token={token} user={user} navigate={navigate} />
               )}
             </View>
           </View>

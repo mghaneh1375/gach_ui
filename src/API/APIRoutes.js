@@ -34,4 +34,5 @@ export const routes = {
   addBatchQuestionsToQuiz: 'quiz/manage/addBatchQuestionsToQuiz/',
   addBatchQuestions: 'admin/question/addBatch',
   addBatchFiles: 'admin/general/uploadFiles/',
+  fetchAllOffs: 'admin/off/offs',
 };

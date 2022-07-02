@@ -1,0 +1,64 @@
+import React, {useState} from 'react';
+import {View} from 'react-native-web';
+import {routes} from '../../../API/APIRoutes';
+import {generalRequest} from '../../../API/Utility';
+import {globalStateContext, dispatchStateContext} from '../../../App';
+import Create from './components/Create';
+import List from './components/List';
+
+const Off = props => {
+  const [mode, setMode] = useState('list');
+  const [offs, setOffs] = useState([]);
+  const [selectedOff, setSelectedOff] = useState();
+
+  const navigate = props.navigate;
+
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
+
+  const setLoading = status => {
+    dispatch({loading: status});
+  };
+
+  React.useEffect(() => {
+    dispatch({loading: true});
+    Promise.all([
+      generalRequest(
+        routes.fetchAllOffs,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      if (res[0] == null) {
+        navigate('/');
+        return;
+      }
+      setOffs(res[0]);
+      dispatch({loading: false});
+    });
+  }, [navigate, props.token, dispatch]);
+  return (
+    <View>
+      {mode === 'list' && (
+        <List
+          offs={offs}
+          setMode={setMode}
+          setLoading={setLoading}
+          token={props.token}
+          setSelectedOff={setSelectedOff}
+        />
+      )}
+      {mode === 'create' && (
+        <Create setLoading={setLoading} token={props.token} />
+      )}
+    </View>
+  );
+};
+
+export default Off;
