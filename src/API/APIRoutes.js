@@ -35,4 +35,7 @@ export const routes = {
   addBatchQuestions: 'admin/question/addBatch',
   addBatchFiles: 'admin/general/uploadFiles/',
   fetchAllOffs: 'admin/off/offs',
+  storeOffs: 'admin/off/store',
+  storeOffsWithExcel: 'admin/off/storeWithExcel',
+  removeOffs: 'admin/off/remove',
 };

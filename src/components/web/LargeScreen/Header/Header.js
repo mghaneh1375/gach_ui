@@ -21,6 +21,13 @@ const Header = props => {
     setShowProfilePane(newStatus);
   };
 
+  const callLogout = async () => {
+    props.setLoading(true);
+    await logout(props.token, props.navigate);
+    props.setUser(undefined);
+    props.setLoading(false);
+  };
+
   const changeShowNotif = newStatus => {
     setShowNotif(newStatus);
   };
@@ -94,8 +101,7 @@ const Header = props => {
 
           {showProfilePane && (
             <View style={style.Header_Profile_MENU}>
-              <TouchableOpacity
-                onPress={() => logout(props.token, props.navigate)}>
+              <TouchableOpacity onPress={() => callLogout()}>
                 <SimpleText text="خروج" />
               </TouchableOpacity>
             </View>

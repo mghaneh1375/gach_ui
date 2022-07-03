@@ -24,6 +24,25 @@ const Off = props => {
     dispatch({loading: status});
   };
 
+  const addOffs = items => {
+    if (items === undefined) return;
+    let allOffs = offs;
+    items.forEach(element => {
+      allOffs.unshift(element);
+    });
+    setOffs(allOffs);
+  };
+
+  const removeOffs = items => {
+    let allOffs = offs;
+
+    allOffs = allOffs.filter(function (element) {
+      return items.indexOf(element.id) === -1;
+    });
+
+    setOffs(allOffs);
+  };
+
   React.useEffect(() => {
     dispatch({loading: true});
     Promise.all([
@@ -52,10 +71,17 @@ const Off = props => {
           setLoading={setLoading}
           token={props.token}
           setSelectedOff={setSelectedOff}
+          selectedOff={selectedOff}
+          removeOffs={removeOffs}
         />
       )}
       {mode === 'create' && (
-        <Create setLoading={setLoading} token={props.token} />
+        <Create
+          setMode={setMode}
+          addOffs={addOffs}
+          setLoading={setLoading}
+          token={props.token}
+        />
       )}
     </View>
   );

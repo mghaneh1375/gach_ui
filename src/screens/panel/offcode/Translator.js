@@ -7,6 +7,7 @@ const translator = {
   NIDHelp: 'چندین کد ملی را با استفاده از , جدا کنید',
   value: 'مقداری',
   percent: 'درصدی',
+  expire: 'تاریخ انقضا',
 };
 
 export default translator;

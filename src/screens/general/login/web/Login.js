@@ -88,7 +88,11 @@ const Login = props => {
           }}>
           <BlurLoginBack>
             {mode === 'login' && (
-              <LoginModule navigate={navigate} setLoading={setLoading} />
+              <LoginModule
+                toPath={'/profile'}
+                navigate={navigate}
+                setLoading={setLoading}
+              />
             )}
             {/* {mode === 'forgetPass' && (
               <ForgetPassModule

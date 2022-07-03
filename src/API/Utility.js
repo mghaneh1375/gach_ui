@@ -2,6 +2,7 @@ import Axios from 'axios';
 import {showError} from '../services/Utility';
 
 import commonTranslator from './../tranlates/Common';
+import {removeAuthCache} from './User';
 
 // export const BASE_URL = 'http://192.168.1.100:8080/api/';
 export const BASE_URL = 'http://192.168.0.106:8080/api/';
@@ -60,6 +61,8 @@ export const generalRequest = async (
     .then(function (response) {
       var data = response.data;
       if (data.status === 'nok') {
+        if (data.msg === 'Token is not valid') removeAuthCache();
+
         showError(data.msg);
         return null;
       }
@@ -94,7 +97,20 @@ export const fileRequest = async (
   data,
   dataShouldReturnKey,
   token = null,
+  additionalData = undefined,
+  mandatoryFields = undefined,
 ) => {
+  if (additionalData !== undefined && additionalData !== null) {
+    try {
+      if (mandatoryFields !== undefined)
+        additionalData = preProcess(additionalData, mandatoryFields);
+
+      data.append('json', JSON.stringify(additionalData));
+    } catch (err) {
+      throw 'preProccess err';
+    }
+  }
+
   let res = await Axios({
     url: url,
     method: method,
@@ -151,8 +167,10 @@ export const preProcess = (data, mandatoryFields = undefined) => {
 
   for (const [key, value] of Object.entries(data)) {
     if (value === undefined || value.length === 0) continue;
+
     if (typeof value === 'boolean') newData[key] = value;
-    else if (!isNaN(value)) newData[key] = Number(value);
+    else if (typeof value !== 'object' && !isNaN(value))
+      newData[key] = Number(value);
     else newData[key] = value;
   }
 

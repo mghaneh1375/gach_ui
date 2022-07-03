@@ -130,9 +130,9 @@
   font-size: 12px !important;
   cursor: pointer;
 }
-.date-picker {
+/* .date-picker {
   padding-top: 10px;
-}
+} */
 
 .date-picker > input {
   font-family: IRANSans;

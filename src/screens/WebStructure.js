@@ -100,6 +100,12 @@ const WebStructue = props => {
     });
   }, [dispatch, props.page, navigate]);
 
+  const setLoading = status => {
+    dispatch({
+      loading: status,
+    });
+  };
+
   const toggleHideRightMenu = () => {
     setHideRightMenu(user === undefined ? true : !hideRightMenu);
   };
@@ -124,7 +130,9 @@ const WebStructue = props => {
                 name={user.user.firstName + ' ' + user.user.lastName}
                 token={token}
                 hideRightMenu={hideRightMenu}
+                setLoading={setLoading}
                 navigate={navigate}
+                setUser={setUser}
               />
             )}
             {!hideRightMenu && (

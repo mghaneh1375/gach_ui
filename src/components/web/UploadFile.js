@@ -33,7 +33,15 @@ const UploadFile = props => {
       data.append('file', myblob, filesContent[0].name);
 
       Promise.all([
-        fileRequest(props.url, 'post', data, props.expectedRes, props.token),
+        fileRequest(
+          props.url,
+          'post',
+          data,
+          props.expectedRes,
+          props.token,
+          props.additionalData,
+          props.mandatoryFields,
+        ),
       ]).then(res => {
         if (res[0] !== null) {
           if (props.multi) {

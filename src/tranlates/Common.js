@@ -69,5 +69,8 @@ const translator = {
   searchStudent: 'یافتن دانش آموز',
   wantedUser: 'دانش آموز موردنظر',
   deleteAll: 'حذف همه',
+  edit: 'ویرایش',
+  opMenu: 'منو عملیات',
+  sureRemove: 'آیا از حذف آیتم/آیتم های موردنظر اطمینان دارید؟',
 };
 export default translator;

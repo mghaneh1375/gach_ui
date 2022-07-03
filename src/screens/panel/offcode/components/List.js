@@ -32,7 +32,7 @@ const List = props => {
     },
     {
       name: 'نوع',
-      selector: row => row.type,
+      selector: row => (row.type === 'value' ? 'مقداری' : 'درصدی'),
       grow: 1,
     },
     {
@@ -91,6 +91,7 @@ const List = props => {
           setLoading={props.setLoading}
           updateOff={props.updateOff}
           setMode={props.setMode}
+          removeOffs={props.removeOffs}
         />
       )}
       <CommonWebBox

@@ -15,14 +15,13 @@ import commonTranslator from '../../tranlates/Common';
 import UploadFile from './UploadFile';
 
 const ExcelComma = props => {
-  const [codes, setCodes] = useState();
+  const [codes, setCodes] = useState('ads_23,ads_41');
   const [showUploadPopUp, setShowUploadPopUp] = useState(false);
 
   const [result, setResult] = useState();
-  const [finalMsg, setFinalMsg] = useState();
 
   const toggleShowUploadPopUp = () => {
-    if (!showUploadPopUp) setFinalMsg(undefined);
+    // if (!showUploadPopUp) setFinalMsg(undefined);
     setShowUploadPopUp(!showUploadPopUp);
   };
 
@@ -36,30 +35,35 @@ const ExcelComma = props => {
     let ids = codes.replaceAll(' ', '');
     ids = ids.split(',');
     ids = ids.filter(n => n);
-    let allIds = [];
-    ids.forEach(element => {
-      allIds.push({
-        id: element,
-      });
-    });
 
     props.setLoading(true);
 
     Promise.all([
-      generalRequest(props.url, 'put', {items: allIds}, 'excepts', props.token),
-    ]).then(res => {
-      if (res[0] !== null) {
-        setResult(res[0]);
-        props.afterAddingCallBack();
-      } else {
+      generalRequest(
+        props.url,
+        'put',
+        {items: ids, ...props.additionalData},
+        ['excepts', 'addedItems'],
+        props.token,
+        props.mandatoryFields,
+      ),
+    ])
+      .then(res => {
+        if (res[0] !== null) localAfterCallBack(res[0]);
+
         props.setLoading(false);
-      }
-    });
+      })
+      .catch(() => {
+        props.setLoading(false);
+      });
   };
 
-  const afterUploadingCallBack = result => {
-    props.afterAddingCallBack();
-    setFinalMsg(result);
+  const localAfterCallBack = res => {
+    props.afterAddingCallBack(res.addedItems);
+
+    if (showUploadPopUp) setShowUploadPopUp(false);
+
+    setResult(res.excepts);
   };
 
   return (
@@ -72,14 +76,24 @@ const ExcelComma = props => {
           multi={false}
           url={props.uploadUrl}
           token={props.token}
-          expectedRes={'excepts'}
-          setResult={afterUploadingCallBack}
-          finalMsg={finalMsg}
+          expectedRes={['excepts', 'addedItems']}
+          setResult={localAfterCallBack}
           title={props.popUpHeader}
+          additionalData={props.additionalData}
+          mandatoryFields={props.mandatoryFields}
         />
       )}
+
       <CommonWebBox
         header={props.header}
+        btn={
+          props.backFunc !== undefined && (
+            <CommonButton
+              onPress={() => props.backFunc()}
+              title={commonTranslator.cancel}
+            />
+          )
+        }
         child={
           <View>
             {props.preChild}
@@ -90,6 +104,7 @@ const ExcelComma = props => {
                   onChangeText={e => changeInput(e)}
                   placeholder={props.placeholder}
                   subText={props.help}
+                  value={codes}
                 />
               </View>
               <View style={{width: 30, height: 30, alignSelf: 'center'}}>
@@ -105,7 +120,9 @@ const ExcelComma = props => {
                 theme={'dark'}
               />
             </PhoneView>
-            {result !== undefined && <SimpleText text={result} />}
+            {result !== undefined && (
+              <SimpleText style={{marginTop: 20}} text={result} />
+            )}
           </View>
         }
       />
