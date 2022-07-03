@@ -17,7 +17,7 @@ const Ops = props => {
     setShowRemovePane(!showRemovePane);
   };
 
-  const afterRemove = () => {
+  const afterRemove = res => {
     setShowRemovePane(false);
     props.removeOffs([props.off.id]);
     props.setMode('list');

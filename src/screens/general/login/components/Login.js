@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {signIn} from '../../../../API/User';
+import {routes} from '../../../../API/APIRoutes';
+import {setCacheItem, signIn} from '../../../../API/User';
+import {generalRequest} from '../../../../API/Utility';
 import {CommonButton} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import commonTranlator from './../../../../tranlates/Common';
@@ -18,9 +20,21 @@ const Login = props => {
   const requestLogin = () => {
     props.setLoading(true);
 
-    Promise.all([signIn(username, password)]).then(res => {
+    Promise.all([
+      generalRequest(
+        routes.signIn,
+        'post',
+        {
+          username: username,
+          password: password,
+        },
+        ['user', 'token'],
+      ),
+    ]).then(res => {
       props.setLoading(false);
       if (res[0] !== null) {
+        setCacheItem('token', res[0].token);
+        setCacheItem('user', JSON.stringify(res[0].user));
         props.navigate(props.toPath);
       }
     });

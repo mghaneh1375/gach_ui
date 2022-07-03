@@ -60,35 +60,3 @@ export const fetchUser = async (token, callBack) => {
   else await setCacheItem('user', JSON.stringify(result));
   callBack(result);
 };
-
-export const signIn = async (username, password) => {
-  let res = await Axios({
-    url: '/signIn',
-    method: 'post',
-    baseURL: BASE_URL + base,
-    headers: COMMON_HEADER,
-    data: {
-      username: username,
-      password: password,
-    },
-  })
-    .then(function (response) {
-      var data = response.data;
-
-      if (data.status === 'nok') {
-        showError(data.msg);
-        return null;
-      } else if (data.status === 'ok') {
-        setCacheItem('token', data.token);
-        setCacheItem('user', JSON.stringify(data.user));
-        return 'ok';
-      }
-
-      return null;
-    })
-    .catch(function (error) {
-      return null;
-    });
-
-  return res;
-};

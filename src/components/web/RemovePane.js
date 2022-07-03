@@ -7,11 +7,17 @@ const RemovePane = props => {
   const remove = () => {
     props.setLoading(true);
     Promise.all([
-      generalRequest(props.url, 'delete', props.data, undefined, props.token),
+      generalRequest(
+        props.url,
+        'delete',
+        props.data,
+        props.expected,
+        props.token,
+      ),
     ]).then(res => {
       props.setLoading(false);
       if (res[0] !== null) {
-        props.afterRemoveFunc();
+        props.afterRemoveFunc(res[0]);
       }
     });
   };

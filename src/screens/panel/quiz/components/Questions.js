@@ -11,17 +11,23 @@ import {
 import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';
 import ExcelComma from '../../../../components/web/ExcelCommaInput';
+import RemovePane from '../../../../components/web/RemovePane';
 
 const Questions = props => {
   const [isWorking, setIsWorking] = useState(false);
   const [result, setResult] = useState();
   const [finalMsg, setFinalMsg] = useState();
   const [selectedIds, setSelectedIds] = useState([]);
+  const [showRemovePane, setShowRemovePane] = useState(false);
 
   const addQuestions = () => {
     // setResult(res[0]);
     props.quiz.questions = undefined;
     props.updateQuiz(props.quiz);
+  };
+
+  const toggleShowRemovePopUp = () => {
+    setShowRemovePane(!showRemovePane);
   };
 
   const refresh = result => {
@@ -41,7 +47,20 @@ const Questions = props => {
     props.updateQuiz(props.quiz);
   };
 
-  const removeAll = () => {};
+  const callRemoveAll = () => {
+    setShowRemovePane(true);
+  };
+
+  const afterRemove = res => {
+    toggleShowRemovePopUp();
+
+    props.quiz.questions = props.quiz.questions.filter((element, index) => {
+      return selectedIds.indexOf(index) === -1;
+    });
+
+    setSelectedIds([]);
+    props.updateQuiz(props.quiz);
+  };
 
   React.useEffect(() => {
     if (!isWorking && props.quiz.questions === undefined) {
@@ -69,60 +88,83 @@ const Questions = props => {
 
   return (
     <View>
-      <ExcelComma
-        header={translator.questions}
-        placeholder={translator.organizationId}
-        help={translator.organizationIdHelp}
-        setLoading={props.setLoading}
-        token={props.token}
-        url={
-          routes.addBatchQuestionsToQuiz +
-          props.quiz.generalMode +
-          '/' +
-          props.quiz.id
-        }
-        uploadUrl={
-          routes.addBatchQuestionsToQuiz +
-          props.quiz.generalMode +
-          '/' +
-          props.quiz.id
-        }
-        afterAddingCallBack={refresh}
-      />
+      {showRemovePane && (
+        <RemovePane
+          url={
+            routes.removeQuestionFromQuiz +
+            props.quiz.generalMode +
+            '/' +
+            props.quiz.id
+          }
+          afterRemoveFunc={afterRemove}
+          setLoading={props.setLoading}
+          token={props.token}
+          data={{
+            items: selectedIds.map(idx => {
+              return props.quiz.questions[idx].id;
+            }),
+          }}
+          toggleShowPopUp={toggleShowRemovePopUp}
+        />
+      )}
+      {!showRemovePane && (
+        <ExcelComma
+          header={translator.questions}
+          placeholder={translator.organizationId}
+          help={translator.organizationIdHelp}
+          setLoading={props.setLoading}
+          token={props.token}
+          url={
+            routes.addBatchQuestionsToQuiz +
+            props.quiz.generalMode +
+            '/' +
+            props.quiz.id
+          }
+          uploadUrl={
+            routes.addBatchQuestionsToQuiz +
+            props.quiz.generalMode +
+            '/' +
+            props.quiz.id
+          }
+          afterAddingCallBack={refresh}
+        />
+      )}
 
-      <CommonWebBox
-        header={translator.questions}
-        btn={
-          selectedIds.length > 0 ? (
-            <CommonButton
-              onPress={() => removeAll()}
-              title={
-                commonTranslator.deleteAll + '(' + selectedIds.length + ')'
-              }
-            />
-          ) : undefined
-        }
-        child={
-          <View>
-            {props.quiz.questions !== undefined &&
-              props.quiz.questions.map((element, key) => {
-                return (
-                  <PhoneView key={key}>
-                    <CommonRadioButton
-                      status={
-                        selectedIds.indexOf(key) !== -1
-                          ? 'checked'
-                          : 'unchecked'
-                      }
-                      onPress={() => toggleSelect(key)}
-                      text={element.organizationId}
-                    />
-                  </PhoneView>
-                );
-              })}
-          </View>
-        }
-      />
+      {!showRemovePane && (
+        <CommonWebBox
+          header={translator.questions}
+          btn={
+            selectedIds.length > 0 ? (
+              <CommonButton
+                onPress={() => callRemoveAll()}
+                title={
+                  commonTranslator.deleteAll + '(' + selectedIds.length + ')'
+                }
+              />
+            ) : undefined
+          }
+          child={
+            <View>
+              {props.quiz.questions !== undefined &&
+                props.quiz.questions.map((element, key) => {
+                  return (
+                    <PhoneView key={key}>
+                      <CommonRadioButton
+                        status={
+                          selectedIds.indexOf(key) !== -1
+                            ? 'checked'
+                            : 'unchecked'
+                        }
+                        onPress={() => toggleSelect(key)}
+                        text={element.organizationId}
+                      />
+                    </PhoneView>
+                  );
+                })}
+            </View>
+          }
+        />
+      )}
     </View>
   );
 };

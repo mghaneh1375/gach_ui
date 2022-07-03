@@ -4,8 +4,8 @@ import {showError} from '../services/Utility';
 import commonTranslator from './../tranlates/Common';
 import {removeAuthCache} from './User';
 
-// export const BASE_URL = 'http://192.168.1.100:8080/api/';
-export const BASE_URL = 'http://192.168.0.106:8080/api/';
+export const BASE_URL = 'http://192.168.1.100:8080/api/';
+// export const BASE_URL = 'http://192.168.0.106:8080/api/';
 
 export const COMMON_HEADER = {
   'content-type': 'application/json',
@@ -169,9 +169,10 @@ export const preProcess = (data, mandatoryFields = undefined) => {
     if (value === undefined || value.length === 0) continue;
 
     if (typeof value === 'boolean') newData[key] = value;
-    else if (typeof value !== 'object' && !isNaN(value))
-      newData[key] = Number(value);
-    else newData[key] = value;
+    else if (typeof value !== 'object' && !isNaN(value)) {
+      if (typeof value === 'string' && value[0] == '0') newData[key] = value;
+      else newData[key] = Number(value);
+    } else newData[key] = value;
   }
 
   return newData;
