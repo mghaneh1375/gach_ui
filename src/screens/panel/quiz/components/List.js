@@ -7,6 +7,7 @@ import {convertTimestamp} from '../../../../services/Utility';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import {useState} from 'react';
 import Ops from './Ops';
+import {routes} from '../../../../API/APIRoutes';
 
 const List = props => {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -98,7 +99,11 @@ const List = props => {
             <CommonDataTable
               columns={columns}
               data={props.quizes}
+              setData={props.setQuizes}
               handleOp={handleOp}
+              token={props.token}
+              setLoading={props.setLoading}
+              removeUrl={routes.removeIRYSCQuiz}
             />
           </View>
         }

@@ -69,6 +69,12 @@ const Quiz = props => {
     setQuizes(newList);
   };
 
+  const addQuiz = quiz => {
+    let newList = quizes;
+    newList.push(quiz);
+    setQuizes(newList);
+  };
+
   return (
     <View>
       {mode === 'list' && (
@@ -88,6 +94,7 @@ const Quiz = props => {
         <CreateQuiz
           setLoading={setLoading}
           setMode={setMode}
+          addQuiz={addQuiz}
           token={props.token}
         />
       )}

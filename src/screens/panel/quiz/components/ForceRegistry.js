@@ -9,6 +9,7 @@ import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import SearchUser from '../../../../components/web/SearchUser';
 import {showError} from '../../../../services/Utility';
+import ExcelComma from '../../../../components/web/ExcelCommaInput';
 
 const ForceRegistry = props => {
   const [paid, setPaid] = useState();
@@ -50,35 +51,36 @@ const ForceRegistry = props => {
   };
 
   return (
-    <LargePopUp
-      title={translator.addStudent}
-      toggleShowPopUp={props.toggleShowPopUp}
-      btns={
-        <CommonButton
-          onPress={() => doRegistry()}
-          title={commonTranslator.confirm}
-        />
-      }>
-      <View>
-        <SearchUser
-          show={showSearchUser}
-          setLoading={props.setLoading}
-          setShow={setShowSearchUser}
-          setFinalResult={setUser}
-          token={props.token}
-        />
-        <JustBottomBorderTextInput
-          disable={true}
-          onPress={e => setShowSearchUser(true)}
-          value={user === undefined ? '' : user.nameFa + ' ' + user.lastNameFa}
-          placeholder={commonTranslator.wantedUser}
-        />
-        <JustBottomBorderTextInput
-          onChangeText={e => changeInput('paid', e)}
-          placeholder={commonTranslator.paid}
-        />
-      </View>
-    </LargePopUp>
+    <ExcelComma />
+    // <LargePopUp
+    //   title={translator.addStudent}
+    //   toggleShowPopUp={props.toggleShowPopUp}
+    //   btns={
+    //     <CommonButton
+    //       onPress={() => doRegistry()}
+    //       title={commonTranslator.confirm}
+    //     />
+    //   }>
+    //   <View>
+    //     <SearchUser
+    //       show={showSearchUser}
+    //       setLoading={props.setLoading}
+    //       setShow={setShowSearchUser}
+    //       setFinalResult={setUser}
+    //       token={props.token}
+    //     />
+    //     <JustBottomBorderTextInput
+    //       disable={true}
+    //       onPress={e => setShowSearchUser(true)}
+    //       value={user === undefined ? '' : user.nameFa + ' ' + user.lastNameFa}
+    //       placeholder={commonTranslator.wantedUser}
+    //     />
+    //     <JustBottomBorderTextInput
+    //       onChangeText={e => changeInput('paid', e)}
+    //       placeholder={commonTranslator.paid}
+    //     />
+    //   </View>
+    // </LargePopUp>
   );
 };
 

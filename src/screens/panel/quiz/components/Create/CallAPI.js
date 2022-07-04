@@ -20,7 +20,7 @@ export async function CallAPI(data, url, token, setLoading, mode) {
       url,
       'post',
       data,
-      'id',
+      'quiz',
       token,
       mandatoryFields,
     );

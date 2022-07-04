@@ -73,5 +73,7 @@ const translator = {
   opMenu: 'منو عملیات',
   op: 'عملیات کلی',
   sureRemove: 'آیا از حذف آیتم/آیتم های موردنظر اطمینان دارید؟',
+  NIDs: 'کد ملی دانش آموزان مدنظر',
+  NIDHelp: 'چندین کد ملی را با استفاده از , جدا کنید',
 };
 export default translator;

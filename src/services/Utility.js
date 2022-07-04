@@ -58,3 +58,27 @@ export function showError(msg) {
     });
   }
 }
+
+export function showSuccess(msg) {
+  if (Platform.OS === 'android') {
+    ToastAndroid.show(msg, ToastAndroid.SHORT);
+  }
+  //  else if (Platform.OS === 'ios') {
+  //   AlertIOS.alert(msg);
+  // }
+  else {
+    Store.addNotification({
+      title: 'نتیجه عملیات',
+      message: msg,
+      type: 'success',
+      insert: 'top',
+      container: 'top-right',
+      animationIn: ['animate__animated', 'animate__fadeIn'],
+      animationOut: ['animate__animated', 'animate__fadeOut'],
+      dismiss: {
+        duration: 3000,
+        onScreen: true,
+      },
+    });
+  }
+}

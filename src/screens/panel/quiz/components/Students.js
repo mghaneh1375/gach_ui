@@ -15,6 +15,7 @@ import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import ForceRegistry from './ForceRegistry';
+import ExcelComma from '../../../../components/web/ExcelCommaInput';
 
 const Students = props => {
   const [data, setData] = useState(undefined);
@@ -128,18 +129,41 @@ const Students = props => {
     toggleShowOpPopUp();
   };
 
+  const [paid, setPaid] = useState();
+
+  const afterAdd = () => {
+    // if (items === undefined) return;
+    // let allOffs = offs;
+    // items.forEach(element => {
+    //   allOffs.unshift(element);
+    // });
+    // setOffs(allOffs);
+  };
+
   return (
     <View>
-      {showForceRegistryPopUp && (
-        <ForceRegistry
-          setLoading={props.setLoading}
-          toggleShowPopUp={toggleShowForceRegistryPopUp}
-          setMode={props.setMode}
-          token={props.token}
-          quiz={props.quiz}
-          updateQuiz={props.updateQuiz}
-        />
-      )}
+      <ExcelComma
+        header={translator.addStudent}
+        placeholder={commonTranslator.NIDs}
+        help={commonTranslator.NIDHelp}
+        setLoading={props.setLoading}
+        token={props.token}
+        url={routes.forceRegistry + props.quiz.id}
+        // uploadUrl={routes.storeOffsWithExcel}
+        afterAddingCallBack={afterAdd}
+        additionalData={{paid: paid}}
+        mandatoryFields={['paid']}
+      />
+      {/* {showForceRegistryPopUp && ( */}
+      {/* <ForceRegistry
+        setLoading={props.setLoading}
+        toggleShowPopUp={toggleShowForceRegistryPopUp}
+        setMode={props.setMode}
+        token={props.token}
+        quiz={props.quiz}
+        updateQuiz={props.updateQuiz}
+      /> */}
+      {/* )} */}
       {showOpPopUp && (
         <LargePopUp
           toggleShowPopUp={toggleShowOpPopUp}

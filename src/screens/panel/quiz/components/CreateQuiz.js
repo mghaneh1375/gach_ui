@@ -74,7 +74,10 @@ const CreateQuiz = props => {
       'regular',
     );
 
-    if (result !== null) props.setMode('list');
+    if (result !== null) {
+      props.addQuiz(result);
+      props.setMode('list');
+    }
   };
 
   return (

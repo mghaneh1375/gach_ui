@@ -8,6 +8,7 @@ import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSe
 import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
 import translator from '../Translator';
 import {Col} from 'react-grid-system';
+import commonTranslator from '../../../../tranlates/Common';
 
 const Create = props => {
   const [additionalData, setAdditionalData] = useState({
@@ -47,8 +48,8 @@ const Create = props => {
     <View>
       <ExcelComma
         header={translator.addOff}
-        placeholder={translator.NIDs}
-        help={translator.NIDHelp}
+        placeholder={commonTranslator.NIDs}
+        help={commonTranslator.NIDHelp}
         setLoading={props.setLoading}
         token={props.token}
         url={routes.storeOffs}
