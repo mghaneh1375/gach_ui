@@ -3,12 +3,11 @@ import {View} from 'react-native-web';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../App';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
 import Create from './components/Create';
 import List from './components/List';
 
 const Off = props => {
-  const [mode, setMode] = useState('sd');
+  const [mode, setMode] = useState('list');
   const [offs, setOffs] = useState([]);
   const [selectedOff, setSelectedOff] = useState();
 
@@ -64,13 +63,8 @@ const Off = props => {
     });
   }, [navigate, props.token, dispatch]);
 
-  const keyVals = [
-    {name: 'a', id: 1},
-    {name: 'b', id: 2},
-  ];
   return (
     <View>
-      <JustBottomBorderSelect values={keyVals} placeholde={'salm'} />
       {mode === 'list' && (
         <List
           offs={offs}

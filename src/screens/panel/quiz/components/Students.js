@@ -1,35 +1,44 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  EqualTwoTextInputs,
-  PhoneView,
-} from '../../../../styles/Common';
+import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
 import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';
 import {View} from 'react-native';
-import {TextIcon} from '../../../../styles/Common/TextIcon';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
-import ForceRegistry from './ForceRegistry';
 import ExcelComma from '../../../../components/web/ExcelCommaInput';
+import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 
 const Students = props => {
   const [data, setData] = useState(undefined);
   const [isWorking, setIsWorking] = useState(false);
   const [showOpPopUp, setShowOpPopUp] = useState(false);
-  const [showForceRegistryPopUp, setShowForceRegistryPopUp] = useState(false);
   const [selectedSudent, setSelectedStudent] = useState(undefined);
+  const [paid, setPaid] = useState();
+
+  const afterAdd = items => {
+    if (items === undefined) return;
+    let allStudents = props.quiz.students;
+
+    items.forEach(element => {
+      allStudents.unshift(element);
+    });
+
+    setStudents(allStudents);
+  };
+
+  const setStudents = newList => {
+    props.quiz.students = newList;
+    props.updateQuiz(props.quiz);
+  };
+
+  const changeInput = (label, text) => {
+    if (label === 'paid') setPaid(text);
+  };
 
   const changeMode = newMode => {
     props.setMode(newMode);
-  };
-
-  const toggleShowForceRegistryPopUp = () => {
-    setShowForceRegistryPopUp(!showForceRegistryPopUp);
   };
 
   const toggleShowOpPopUp = () => {
@@ -129,17 +138,6 @@ const Students = props => {
     toggleShowOpPopUp();
   };
 
-  const [paid, setPaid] = useState();
-
-  const afterAdd = () => {
-    // if (items === undefined) return;
-    // let allOffs = offs;
-    // items.forEach(element => {
-    //   allOffs.unshift(element);
-    // });
-    // setOffs(allOffs);
-  };
-
   return (
     <View>
       <ExcelComma
@@ -148,22 +146,24 @@ const Students = props => {
         help={commonTranslator.NIDHelp}
         setLoading={props.setLoading}
         token={props.token}
-        url={routes.forceRegistry + props.quiz.id}
+        url={
+          routes.forceRegistry + props.quiz.generalMode + '/' + props.quiz.id
+        }
         // uploadUrl={routes.storeOffsWithExcel}
         afterAddingCallBack={afterAdd}
         additionalData={{paid: paid}}
         mandatoryFields={['paid']}
+        preChild={
+          <View style={{zIndex: 1, marginBottom: 10}}>
+            <JustBottomBorderTextInput
+              justNum={true}
+              value={paid}
+              onChangeText={e => changeInput('paid', e)}
+              placeholder={commonTranslator.paid}
+            />
+          </View>
+        }
       />
-      {/* {showForceRegistryPopUp && ( */}
-      {/* <ForceRegistry
-        setLoading={props.setLoading}
-        toggleShowPopUp={toggleShowForceRegistryPopUp}
-        setMode={props.setMode}
-        token={props.token}
-        quiz={props.quiz}
-        updateQuiz={props.updateQuiz}
-      /> */}
-      {/* )} */}
       {showOpPopUp && (
         <LargePopUp
           toggleShowPopUp={toggleShowOpPopUp}
@@ -179,26 +179,23 @@ const Students = props => {
         </LargePopUp>
       )}
       <CommonWebBox
+        style={{zIndex: 5}}
         header={translator.studentsListInQuiz}
         child={
           <View>
-            <EqualTwoTextInputs>
-              <TextIcon
-                onPress={() => toggleShowForceRegistryPopUp()}
-                theme={'rect'}
-                text={translator.addStudent}
-                icon={faPlus}
-                style={{width: 250}}
-              />
-              <CommonButton
-                onPress={() => changeMode('list')}
-                title={commonTranslator.cancel}
-              />
-            </EqualTwoTextInputs>
             <CommonDataTable
               columns={columns}
               data={data}
               handleOp={handleOp}
+              setLoading={props.setLoading}
+              token={props.token}
+              setData={setStudents}
+              removeUrl={
+                routes.forceDeportation +
+                props.quiz.generalMode +
+                '/' +
+                props.quiz.id
+              }
             />
           </View>
         }

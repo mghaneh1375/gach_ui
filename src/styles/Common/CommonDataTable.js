@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import DataTable from 'react-data-table-component';
 import {View} from 'react-native';
 import RemovePane from '../../components/web/RemovePane';
-import {showError, showSuccess} from '../../services/Utility';
+import {showSuccess} from '../../services/Utility';
 import commonTranslator from '../../tranlates/Common';
 
 const CommonDataTable = props => {
