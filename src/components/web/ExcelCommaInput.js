@@ -15,7 +15,7 @@ import commonTranslator from '../../tranlates/Common';
 import UploadFile from './UploadFile';
 
 const ExcelComma = props => {
-  const [codes, setCodes] = useState();
+  const [codes, setCodes] = useState('0018914373');
   const [showUploadPopUp, setShowUploadPopUp] = useState(false);
 
   const [result, setResult] = useState();
