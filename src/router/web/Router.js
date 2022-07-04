@@ -22,6 +22,7 @@ export default function WebRouter() {
           <Route path="/quiz" element={<WebStructue page="quiz" />} />
           <Route path="/question" element={<WebStructue page="question" />} />
           <Route path="/offs" element={<WebStructue page="offs" />} />
+          <Route path="/ticket" element={<WebStructue page="ticket" />} />
         </Routes>
       </Router>
     </View>

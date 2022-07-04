@@ -7,7 +7,7 @@ import {
 } from './CommonText';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faClose} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import vars from '../root';
 import SubInputText from './SubInputText';
 import {FontIcon, SimpleFontIcon} from './FontIcon';
@@ -68,15 +68,20 @@ export const CommonSelect = props => {
             }
           : {}
       }>
-      <PhoneView>
+      <View>
         <CommonSelectElem {...inputProps} />
-        <View style={{width: 30, height: 30}}>
-          <SimpleFontIcon
-            style={{position: 'absolute', left: 30}}
-            icon={faClose}
-          />
+        <View
+          style={{
+            width: 24,
+            height: 24,
+            position: 'absolute',
+            left: 0,
+            top: 8,
+          }}>
+          <SimpleFontIcon icon={faAngleDown} />
         </View>
-      </PhoneView>
+      </View>
+
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>
       ) : null}
