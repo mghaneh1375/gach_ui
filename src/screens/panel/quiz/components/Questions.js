@@ -87,7 +87,7 @@ const Questions = props => {
   }, [props, isWorking]);
 
   return (
-    <View>
+    <View style={{zIndex: 5}}>
       {showRemovePane && (
         <RemovePane
           url={

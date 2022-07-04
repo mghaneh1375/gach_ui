@@ -1,5 +1,4 @@
-import Axios from 'axios';
-import {BASE_URL, COMMON_HEADER, generalRequest, showError} from './Utility';
+import {generalRequest} from './Utility';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {routes} from './APIRoutes';
 import {getDevice} from '../services/Utility';

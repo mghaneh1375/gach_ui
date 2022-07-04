@@ -71,6 +71,7 @@ const translator = {
   deleteAll: 'حذف همه',
   edit: 'ویرایش',
   opMenu: 'منو عملیات',
+  op: 'عملیات کلی',
   sureRemove: 'آیا از حذف آیتم/آیتم های موردنظر اطمینان دارید؟',
 };
 export default translator;

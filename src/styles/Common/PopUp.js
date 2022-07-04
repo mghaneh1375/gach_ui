@@ -12,15 +12,17 @@ const modal = {
     height: '100vh',
     top: 0,
     left: 0,
-    width: 'calc(100% + 200px)',
-    position: 'absolute',
-    zIndex: 2,
+    width: '100%',
+    // width: 'calc(100% + 200px)',
+    // position: 'absolute',
+    position: 'fixed',
+    zIndex: 20,
   },
   box: {
     position: 'absolute',
     left: 0,
     right: 200,
-    top: 30,
+    top: 90,
   },
 };
 
