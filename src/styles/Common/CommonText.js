@@ -3,6 +3,7 @@ import vars from './../root';
 import {TextInput, View} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import {DateTimePicker} from 'react-advance-jalaali-datepicker';
+import SelectBox from 'react-native-multi-selectbox';
 
 const CommonTextInputStyle = {
   padding: 10,
@@ -40,7 +41,7 @@ export const CommonTextInputElem = styled(TextInput)`
   ${CommonTextInputStyleAndroid}
 `;
 
-export const CommonSelectElem = styled(SelectDropdown)`
+export const CommonSelectElem = styled(SelectBox)`
   ${CommonTextInputStyleAndroid}
 `;
 
