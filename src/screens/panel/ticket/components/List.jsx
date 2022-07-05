@@ -31,36 +31,23 @@ function List(props) {
 
   const columns = [
     {
-      name: 'نام کاربر',
-      selector: row => row.user,
+      name: ' نام و نام خانوادگی',
+      selector: row => row.student.name,
       grow: 1,
     },
     {
-      name: 'مقدار',
-      selector: row => row.amount,
+      name: 'واحد',
+      selector: row => row.student.unit,
       grow: 1,
     },
     {
-      name: 'نوع',
-      selector: row => (row.type === 'value' ? 'مقداری' : 'درصدی'),
+      name: 'ضرورت',
+      selector: row => row.statusFa,
       grow: 1,
     },
     {
       name: 'زمان ایجاد',
-      selector: row => row.createdAt,
-      grow: 4,
-      wrap: true,
-      style: {
-        minWidth: '200px !important',
-      },
-      sortable: true,
-      sortFunction: (a, b) => {
-        return a.createdAt - b.createdAt;
-      },
-    },
-    {
-      name: 'زمان انقضا',
-      selector: row => row.expireAt,
+      selector: row => row.answeredDate,
       grow: 4,
       wrap: true,
       style: {
@@ -72,8 +59,8 @@ function List(props) {
       },
     },
     {
-      name: 'زمان استفاده',
-      selector: row => row.usedAt,
+      name: 'تاریخ ایجاد آخرین وضعیت',
+      selector: row => row.sendDate,
       grow: 4,
       wrap: true,
       style: {
@@ -81,8 +68,18 @@ function List(props) {
       },
       sortable: true,
       sortFunction: (a, b) => {
-        return a.usedAt - b.usedAt;
+        return a.expireAt - b.expireAt;
       },
+    },
+    {
+      name: 'وضعیت',
+      selector: row => row.status,
+      grow: 1,
+    },
+    {
+      name: 'بررسی کننده',
+      selector: row => row.status,
+      grow: 1,
     },
   ];
 

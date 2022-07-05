@@ -27,7 +27,7 @@ function Ticket(props) {
     dispatch({loading: true});
     Promise.all([
       generalRequest(
-        routes.fetchAllOffs,
+        routes.fetchAllTickets,
         'get',
         undefined,
         'data',
