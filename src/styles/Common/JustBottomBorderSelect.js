@@ -22,6 +22,7 @@ const JustBottomBorderSelect = props => {
   return (
     <CommonSelect
       onSelect={props.onSelect}
+      setter={props.setter}
       isHalf={props.isHalf}
       placeholder={props.placeholder}
       style={customStyle}

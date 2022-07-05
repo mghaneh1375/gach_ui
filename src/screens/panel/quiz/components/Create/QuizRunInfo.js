@@ -8,12 +8,12 @@ import commonTranslator from '../../../../../tranlates/Common';
 
 const QuizRunInfo = props => {
   const runKindValues = [
-    {name: translator.online, id: 'online'},
-    {name: translator.offline, id: 'offline'},
+    {item: translator.online, id: 'online'},
+    {item: translator.offline, id: 'offline'},
   ];
   const trueFalseValues = [
-    {name: commonTranslator.yes, id: true},
-    {name: commonTranslator.no, id: false},
+    {item: commonTranslator.yes, id: true},
+    {item: commonTranslator.no, id: false},
   ];
 
   const changeStart = unix_timestamp => {
@@ -31,26 +31,6 @@ const QuizRunInfo = props => {
   const changeLenMode = newMode => {
     if (newMode === 'question') props.setLen('');
     props.setLenMode(newMode);
-  };
-
-  const selectRunKind = (item_key, item_idx) => {
-    props.setIsOnline(runKindValues[item_idx].id);
-  };
-
-  const selectPermute = (item_key, item_idx) => {
-    props.setPermuteEn(trueFalseValues[item_idx].id);
-  };
-
-  const selectBackEn = (item_key, item_idx) => {
-    props.setBackEn(trueFalseValues[item_idx].id);
-  };
-
-  const selectMinus = (item_key, item_idx) => {
-    props.setMinusMark(trueFalseValues[item_idx].id);
-  };
-
-  const selectShowResultsAfterCorrection = (item_key, item_idx) => {
-    props.setShowResultsAfterCorrection(trueFalseValues[item_idx].id);
   };
 
   return (
@@ -84,12 +64,12 @@ const QuizRunInfo = props => {
               values={runKindValues}
               value={
                 props.isOnline === undefined
-                  ? ''
-                  : props.isOnline === 'online'
-                  ? 'آنلاین'
-                  : 'حضوری'
+                  ? {}
+                  : runKindValues.filter(element => {
+                      return element.id === props.isOnline;
+                    })[0]
               }
-              onSelect={selectRunKind}
+              setter={props.setIsOnline}
               placeholder={translator.isOnline}
               subText={commonTranslator.necessaryField}
             />
@@ -103,13 +83,13 @@ const QuizRunInfo = props => {
               isHalf={true}
               values={trueFalseValues}
               value={
-                props.permuteEn === undefined
-                  ? ''
-                  : props.permuteEn
-                  ? 'بله'
-                  : 'خیر'
+                props.permute === undefined
+                  ? {}
+                  : trueFalseValues.filter(element => {
+                      return element.id === props.permute;
+                    })[0]
               }
-              onSelect={selectPermute}
+              setter={props.setPermuteEn}
               subText={commonTranslator.optionalFalseDefault}
               placeholder={translator.permute}
             />
@@ -117,9 +97,13 @@ const QuizRunInfo = props => {
               isHalf={true}
               values={trueFalseValues}
               value={
-                props.backEn === undefined ? '' : props.backEn ? 'بله' : 'خیر'
+                props.backEn === undefined
+                  ? {}
+                  : trueFalseValues.filter(element => {
+                      return element.id === props.backEn;
+                    })[0]
               }
-              onSelect={selectBackEn}
+              setter={props.setBackEn}
               subText={commonTranslator.optionalTrueDefault}
               placeholder={translator.backEn}
             />
@@ -135,12 +119,12 @@ const QuizRunInfo = props => {
               values={trueFalseValues}
               value={
                 props.minusMark === undefined
-                  ? ''
-                  : props.minusMark
-                  ? 'بله'
-                  : 'خیر'
+                  ? {}
+                  : trueFalseValues.filter(element => {
+                      return element.id === props.minusMark;
+                    })[0]
               }
-              onSelect={selectMinus}
+              setter={props.setMinusMark}
               subText={commonTranslator.optionalTrueDefault}
               placeholder={translator.minusMark}
             />
@@ -149,12 +133,12 @@ const QuizRunInfo = props => {
               values={trueFalseValues}
               value={
                 props.showResultsAfterCorrection === undefined
-                  ? ''
-                  : props.showResultsAfterCorrection
-                  ? 'بله'
-                  : 'خیر'
+                  ? {}
+                  : trueFalseValues.filter(element => {
+                      return element.id === props.showResultsAfterCorrection;
+                    })[0]
               }
-              onSelect={selectShowResultsAfterCorrection}
+              setter={props.setShowResultsAfterCorrection}
               subText={commonTranslator.necessaryField}
               placeholder={translator.showResultAfterCorrection}
             />

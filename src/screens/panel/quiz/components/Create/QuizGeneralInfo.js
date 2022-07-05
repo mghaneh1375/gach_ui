@@ -8,17 +8,13 @@ import commonTranslator from '../../../../../tranlates/Common';
 
 const QuizGeneralInfo = props => {
   const kindKeyVals = [
-    {name: 'تستی', id: 'test'},
-    {name: 'تشریحی', id: 'tashrihi'},
+    {item: 'تستی', id: 'test'},
+    {item: 'تشریحی', id: 'tashrihi'},
   ];
 
   const changeInput = (label, text) => {
     if (label === 'name') props.setName(text);
     else if (label === 'desc') props.setDesc(text);
-  };
-
-  const setSelectedKind = (item_key, item_idx) => {
-    props.setKind(kindKeyVals[item_idx].id);
   };
 
   return (
@@ -37,13 +33,13 @@ const QuizGeneralInfo = props => {
               isHalf={true}
               value={
                 props.kind === undefined
-                  ? ''
-                  : props.kind === 'test'
-                  ? 'تستی'
-                  : 'تشریحی'
+                  ? {}
+                  : kindKeyVals.filter(element => {
+                      return element.id === props.kind;
+                    })[0]
               }
               placeholder={translator.kind}
-              onSelect={setSelectedKind}
+              setter={props.setKind}
               values={kindKeyVals}
             />
           </EqualTwoTextInputs>

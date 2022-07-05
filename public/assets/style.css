@@ -185,6 +185,6 @@
   min-width: 80px !important;
 }
 
-/* .r-touchAction-1otgn73 {
-  align-self: center;
-} */
+.r-touchAction-1otgn73 svg {
+  margin-top: 6px;
+}
