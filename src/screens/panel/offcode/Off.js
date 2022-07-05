@@ -3,11 +3,13 @@ import {View} from 'react-native-web';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../App';
+import {CommonWebBox} from '../../../styles/Common';
+import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
 import Create from './components/Create';
 import List from './components/List';
 
 const Off = props => {
-  const [mode, setMode] = useState('list');
+  const [mode, setMode] = useState('sa');
   const [offs, setOffs] = useState([]);
   const [selectedOff, setSelectedOff] = useState();
 
@@ -43,28 +45,43 @@ const Off = props => {
     setOffs(allOffs);
   };
 
-  React.useEffect(() => {
-    dispatch({loading: true});
-    Promise.all([
-      generalRequest(
-        routes.fetchAllOffs,
-        'get',
-        undefined,
-        'data',
-        props.token,
-      ),
-    ]).then(res => {
-      if (res[0] == null) {
-        navigate('/');
-        return;
-      }
-      setOffs(res[0]);
-      dispatch({loading: false});
-    });
-  }, [navigate, props.token, dispatch]);
+  // React.useEffect(() => {
+  //   dispatch({loading: true});
+  //   Promise.all([
+  //     generalRequest(
+  //       routes.fetchAllOffs,
+  //       'get',
+  //       undefined,
+  //       'data',
+  //       props.token,
+  //     ),
+  //   ]).then(res => {
+  //     if (res[0] == null) {
+  //       navigate('/');
+  //       return;
+  //     }
+  //     setOffs(res[0]);
+  //     dispatch({loading: false});
+  //   });
+  // }, [navigate, props.token, dispatch]);
+
+  const [val, setVal] = useState();
 
   return (
-    <View>
+    <View style={{zIndex: 10}}>
+      <CommonWebBox
+        child={
+          <JustBottomBorderSelect
+            values={[
+              {name: 'گزینه ۱', id: 1},
+              {name: 'گزینه ۲', id: 2},
+            ]}
+            value={val}
+            onSelect={e => setVal(e)}
+          />
+        }
+      />
+
       {mode === 'list' && (
         <List
           offs={offs}

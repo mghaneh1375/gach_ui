@@ -6,6 +6,8 @@ const vars = {
   ORANGE: '#FFAA00',
   ORANGE_RED: '#FF6600',
   WHITE: '#FFFFFF',
+  transparent: '#FFFFFF00',
+  BLACK: '#000000',
   DARK_WHITE: '#EEEEEE',
   DARK_BLUE: '#013243',
   LIGHT_SILVER: '#707070',

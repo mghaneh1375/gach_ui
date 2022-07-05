@@ -1,3 +1,4 @@
+import React from 'react';
 import {Platform} from 'react-native';
 import {
   CommonHalfTextInputStyleWeb,
@@ -6,13 +7,14 @@ import {
   CommonTextInputStyleWeb,
 } from './CommonText';
 
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import vars from '../root';
 import SubInputText from './SubInputText';
-import {FontIcon, SimpleFontIcon} from './FontIcon';
-import {PhoneView} from '../Common';
-import {View} from 'react-native-web';
+import {SimpleFontIcon} from './FontIcon';
+import {
+  faAngleDown,
+  faArrowDown,
+  faClose,
+} from '@fortawesome/free-solid-svg-icons';
 
 export const CommonSelect = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
@@ -24,33 +26,45 @@ export const CommonSelect = props => {
     : {};
   const allStyle =
     props.style !== undefined
-      ? {...style1, ...props.style, ...{height: 35}}
-      : {...style1, ...{height: 35}};
+      ? {...style1, ...props.style, ...{}}
+      : {...style1, ...{}};
 
   const inputProps = {
-    data: props.values.map(function (element) {
-      return element.name;
+    options: props.values.map(elem => {
+      return {item: elem.name, id: elem.id};
     }),
-    dropdownStyle: {
-      padding: 10,
-      backgroundColor: vars.WHITE,
-      borderWidth: 1,
-      borderRadius: 7,
-    },
-    buttonTextStyle: {
-      fontFamily: 'IRANSans',
-    },
-    rowTextStyle: {
-      fontFamily: 'IRANSans',
-    },
-    dropdownIconPosition: 'left',
-    defaultButtonText:
+    value: props.value === undefined ? {} : props.value,
+    label: '',
+    inputPlaceholder:
       props.placeholder === undefined ? 'انتخاب کنید' : props.placeholder,
-
-    buttonStyle: allStyle,
-    onSelect: (selectedItem, index) => {
+    onChange: (selectedItem, index) => {
       props.onSelect(selectedItem, index);
     },
+    containerStyle: {
+      backgroundColor: vars.transparent,
+      paddingRight: 0,
+      paddingLeft: 10,
+      paddingBottom: 0,
+      borderBottomWidth: 2,
+      borderColor: vars.BLACK,
+    },
+    // selectIcon: <SimpleFontIcon icon={faAngleDown} />,
+    optionContainerStyle: {
+      borderRadius: 0,
+      borderWidth: 1,
+      borderTopWidth: 0,
+      borderColor: vars.BLACK,
+      backgroundColor: vars.transparent,
+      padding: 0,
+    },
+    selectedItemStyle: {
+      fontFamily: 'IRANSans',
+      color: vars.BLACK,
+      paddingRight: 0,
+    },
+    arrowIconColor: vars.BLACK,
+    optionsLabelStyle: {fontFamily: 'IRANSans', color: vars.BLACK},
+    hideInputFilter: true,
   };
 
   if (props.value !== undefined) inputProps.defaultValue = props.value;
@@ -66,21 +80,9 @@ export const CommonSelect = props => {
               paddingLeft: 10,
               paddingRight: 10,
             }
-          : {}
+          : {maxWidth: 300}
       }>
-      <View>
-        <CommonSelectElem {...inputProps} />
-        <View
-          style={{
-            width: 24,
-            height: 24,
-            position: 'absolute',
-            left: 0,
-            top: 8,
-          }}>
-          <SimpleFontIcon icon={faAngleDown} />
-        </View>
-      </View>
+      <CommonSelectElem {...inputProps} />
 
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>
