@@ -8,6 +8,8 @@ const translator = {
   closeRecords: 'بستن درخواست',
   titleSuggest: 'عنوان مربوطه',
   closedRequest: 'بسته شده',
+  section: 'واحد',
+  priority: 'ضرورت',
 };
 
 export default translator;
