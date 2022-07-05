@@ -5,6 +5,7 @@ import List from './components/List';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import Create from './components/Create';
+import Show from './components/Show';
 
 function Ticket(props) {
   const [mode, setMode] = useState('list');
@@ -18,6 +19,7 @@ function Ticket(props) {
 
   const [state, dispatch] = useGlobalState();
   const [tickets, setTickets] = useState([]);
+  const [selectedTicket, setSelectedTicket] = useState({});
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -50,11 +52,20 @@ function Ticket(props) {
           setMode={setMode}
           setLoading={setLoading}
           tickets={tickets}
+          setTickets={setTickets}
           token={props.token}
+          setSelectedTicket={setSelectedTicket}
         />
       )}
       {mode === 'create' && (
         <Create setLoading={setLoading} tickets={tickets} token={props.token} />
+      )}
+      {mode === 'show' && (
+        <Show
+          setLoading={setLoading}
+          ticket={selectedTicket}
+          token={props.token}
+        />
       )}
     </View>
   );

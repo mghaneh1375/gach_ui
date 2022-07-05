@@ -1,8 +1,6 @@
 import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
 import translator from '../Translator';
-import commonTranslator from '../../../../tranlates/Common';
 import {TextIcon} from '../../../../styles/Common/TextIcon';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
@@ -11,22 +9,55 @@ import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSe
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {useState} from 'react';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
+import {LargePopUp} from '../../../../styles/Common/PopUp';
+import {generalRequest} from '../../../../API/Utility';
+import {showSuccess} from '../../../../services/Utility';
 
 function List(props) {
   const [status, setStatus] = useState();
-  const statusKeyVals = [
-    {name: translator.pending, id: 'pending'},
-    {name: translator.finished, id: 'finished'},
-  ];
-
-  const selectStatus = (item_key, item_idx) => {
-    setStatus(statusKeyVals[item_idx].id);
+  const [showOpPopUp, setShowOpPopUp] = useState(false);
+  const [selectedId, setSelectedId] = useState();
+  const handleOp = index => {
+    props.setSelectedTicket(props.tickets[index]);
+    setSelectedId(props.tickets[index].id);
+    toggleShowOpPopUp();
   };
 
-  const handleOp = index => {
-    console.log('====================================');
-    console.log(index);
-    console.log('====================================');
+  const toggleShowOpPopUp = () => {
+    setShowOpPopUp(!showOpPopUp);
+  };
+
+  const changeMode = newMode => {
+    props.setMode(newMode);
+    toggleShowOpPopUp();
+  };
+
+  const closeRequest = () => {
+    props.setLoading(true);
+    Promise.all([
+      generalRequest(
+        routes.closeTicketRequest,
+        'post',
+        {items: [selectedId]},
+        ['excepts', 'closedIds'],
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] !== null) {
+        showSuccess(res[0].excepts);
+        let tickets = props.tickets;
+        console.log(tickets);
+        tickets = tickets.map(elem => {
+          if (res[0].closedIds.indexOf(elem.id) !== -1)
+            elem.statusFa = translator.closedRequest;
+          return elem;
+        });
+        console.log(tickets);
+        props.setTickets(tickets);
+        toggleShowOpPopUp();
+      }
+    });
   };
 
   const columns = [
@@ -85,6 +116,26 @@ function List(props) {
 
   return (
     <View>
+      {showOpPopUp && (
+        <LargePopUp toggleShowPopUp={toggleShowOpPopUp}>
+          <PhoneView>
+            <CommonButton
+              onPress={() => changeMode('show')}
+              title={translator.showRequest}
+              theme={'transparent'}
+            />
+            <CommonButton
+              title={translator.showRecords}
+              theme={'transparent'}
+            />
+            <CommonButton
+              onPress={() => closeRequest()}
+              title={translator.closeRecords}
+              theme={'transparent'}
+            />
+          </PhoneView>
+        </LargePopUp>
+      )}
       <CommonWebBox
         child={
           <View>
@@ -94,7 +145,7 @@ function List(props) {
               text={translator.allRequests}
               icon={faPlus}
             />
-            <PhoneView>
+            {/* <PhoneView>
               <Col lg={6}>
                 <PhoneView>
                   <JustBottomBorderSelect
@@ -143,7 +194,7 @@ function List(props) {
                   <CommonButton isHalf={true} title={commonTranslator.show} />
                 </PhoneView>
               </Col>
-            </PhoneView>
+            </PhoneView> */}
             <CommonDataTable
               handleOp={handleOp}
               columns={columns}

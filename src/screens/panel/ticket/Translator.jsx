@@ -5,8 +5,9 @@ const translator = {
   finished: 'اتمام یافته',
   showRequest: 'مشاهده ی درخواست',
   showRecords: 'مشاهده ی سوابق',
-  closeRecords: 'بستن سوابق',
+  closeRecords: 'بستن درخواست',
   titleSuggest: 'عنوان مربوطه',
+  closedRequest: 'بسته شده',
 };
 
 export default translator;
