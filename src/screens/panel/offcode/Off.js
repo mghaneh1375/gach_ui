@@ -9,7 +9,7 @@ import Create from './components/Create';
 import List from './components/List';
 
 const Off = props => {
-  const [mode, setMode] = useState('sa');
+  const [mode, setMode] = useState('list');
   const [offs, setOffs] = useState([]);
   const [selectedOff, setSelectedOff] = useState();
 
@@ -45,39 +45,48 @@ const Off = props => {
     setOffs(allOffs);
   };
 
-  // React.useEffect(() => {
-  //   dispatch({loading: true});
-  //   Promise.all([
-  //     generalRequest(
-  //       routes.fetchAllOffs,
-  //       'get',
-  //       undefined,
-  //       'data',
-  //       props.token,
-  //     ),
-  //   ]).then(res => {
-  //     if (res[0] == null) {
-  //       navigate('/');
-  //       return;
-  //     }
-  //     setOffs(res[0]);
-  //     dispatch({loading: false});
-  //   });
-  // }, [navigate, props.token, dispatch]);
+  React.useEffect(() => {
+    dispatch({loading: true});
+    Promise.all([
+      generalRequest(
+        routes.fetchAllOffs,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      if (res[0] == null) {
+        navigate('/');
+        return;
+      }
+      setOffs(res[0]);
+      dispatch({loading: false});
+    });
+  }, [navigate, props.token, dispatch]);
 
   const [val, setVal] = useState();
+  const values = [
+    {item: 'گزینه ۱', id: 1},
+    {item: 'گزینه ۲', id: 2},
+  ];
+
+  const select = selectedItem => {
+    setVal(selectedItem.id);
+  };
 
   return (
     <View style={{zIndex: 10}}>
       <CommonWebBox
         child={
           <JustBottomBorderSelect
-            values={[
-              {name: 'گزینه ۱', id: 1},
-              {name: 'گزینه ۲', id: 2},
-            ]}
-            value={val}
-            onSelect={e => setVal(e)}
+            values={values}
+            value={
+              values.filter(element => {
+                return element.id === val;
+              })[0]
+            }
+            onSelect={select}
           />
         }
       />

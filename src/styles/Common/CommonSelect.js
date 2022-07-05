@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Platform} from 'react-native';
 import {
   CommonHalfTextInputStyleWeb,
@@ -9,12 +9,6 @@ import {
 
 import vars from '../root';
 import SubInputText from './SubInputText';
-import {SimpleFontIcon} from './FontIcon';
-import {
-  faAngleDown,
-  faArrowDown,
-  faClose,
-} from '@fortawesome/free-solid-svg-icons';
 
 export const CommonSelect = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
@@ -30,40 +24,43 @@ export const CommonSelect = props => {
       : {...style1, ...{}};
 
   const inputProps = {
-    options: props.values.map(elem => {
-      return {item: elem.name, id: elem.id};
-    }),
+    options: props.values,
     value: props.value === undefined ? {} : props.value,
     label: '',
     inputPlaceholder:
       props.placeholder === undefined ? 'انتخاب کنید' : props.placeholder,
-    onChange: (selectedItem, index) => {
-      props.onSelect(selectedItem, index);
+    onChange: e => {
+      props.setter(e.id);
     },
     containerStyle: {
       backgroundColor: vars.transparent,
-      paddingRight: 0,
+      paddingRight: 7,
       paddingLeft: 10,
       paddingBottom: 0,
-      borderBottomWidth: 2,
-      borderColor: vars.BLACK,
+      borderBottomWidth: 1,
+      borderColor: vars.LIGHT_SILVER,
     },
-    // selectIcon: <SimpleFontIcon icon={faAngleDown} />,
     optionContainerStyle: {
       borderRadius: 0,
       borderWidth: 1,
       borderTopWidth: 0,
-      borderColor: vars.BLACK,
+      borderColor: vars.LIGHT_SILVER,
       backgroundColor: vars.transparent,
-      padding: 0,
+      paddingTop: 6,
+      paddingBottom: 6,
     },
     selectedItemStyle: {
       fontFamily: 'IRANSans',
-      color: vars.BLACK,
+      color: vars.LIGHT_SILVER,
       paddingRight: 0,
+      fontSize: 15,
     },
-    arrowIconColor: vars.BLACK,
-    optionsLabelStyle: {fontFamily: 'IRANSans', color: vars.BLACK},
+    arrowIconColor: vars.LIGHT_SILVER,
+    optionsLabelStyle: {
+      fontFamily: 'IRANSans',
+      fontSize: 15,
+      color: vars.LIGHT_SILVER,
+    },
     hideInputFilter: true,
   };
 

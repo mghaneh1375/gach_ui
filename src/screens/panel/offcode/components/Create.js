@@ -29,15 +29,16 @@ const Create = props => {
     setAdditionalData(data);
   };
 
-  const selectType = (item_key, item_idx) => {
+  const selectType = selectedItem => {
     let data = additionalData;
-    data['type'] = typeKeyVals[item_idx].id;
+    console.log(selectedItem);
+    data['type'] = selectedItem.id;
     setAdditionalData(data);
   };
 
   const typeKeyVals = [
-    {name: translator.value, id: 'value'},
-    {name: translator.percent, id: 'percent'},
+    {item: translator.value, id: 'value'},
+    {item: translator.percent, id: 'percent'},
   ];
 
   const back = () => {
@@ -75,11 +76,11 @@ const Create = props => {
                   onSelect={selectType}
                   values={typeKeyVals}
                   value={
-                    additionalData['type'] === undefined
-                      ? ''
-                      : additionalData['type'] === 'value'
-                      ? translator.value
-                      : translator.percent
+                    typeKeyVals.filter(element => {
+                      console.log(element);
+                      console.log(additionalData);
+                      return element.id === additionalData['type'];
+                    })[0]
                   }
                 />
               </PhoneView>
