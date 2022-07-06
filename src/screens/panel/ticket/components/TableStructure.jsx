@@ -1,3 +1,5 @@
+import {priorityKeyVals} from './KeyVals';
+
 const TableStructure = [
   {
     name: ' نام و نام خانوادگی',
@@ -6,17 +8,23 @@ const TableStructure = [
   },
   {
     name: 'واحد',
-    selector: row => row.student.unit,
+    selector: row => row.section,
     grow: 1,
   },
   {
     name: 'ضرورت',
+    selector: row => row.priority,
+    // priorityKeyVals.find(elem => elem.id === row.priority).item,
+    grow: 1,
+  },
+  {
+    name: 'وضعیت',
     selector: row => row.statusFa,
     grow: 1,
   },
   {
     name: 'زمان ایجاد',
-    selector: row => row.answeredDate,
+    selector: row => row.sendDate,
     grow: 4,
     wrap: true,
     style: {
@@ -39,11 +47,6 @@ const TableStructure = [
     sortFunction: (a, b) => {
       return a.expireAt - b.expireAt;
     },
-  },
-  {
-    name: 'وضعیت',
-    selector: row => row.status,
-    grow: 1,
   },
   {
     name: 'بررسی کننده',

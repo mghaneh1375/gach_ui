@@ -1,24 +1,22 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {dispatchStateContext, globalStateContext} from '../../../App';
-import List from './components/List';
+import List from './components/List/List';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import Create from './components/Create';
 import Show from './components/Show';
 
 function Ticket(props) {
-  const [mode, setMode] = useState('list');
-
   const navigate = props.navigate;
 
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
+  const [mode, setMode] = useState('list');
   const [state, dispatch] = useGlobalState();
-  const [tickets, setTickets] = useState([]);
+  const [tickets, setTickets] = useState();
   const [selectedTicket, setSelectedTicket] = useState({});
 
   const updateTicket = ticket => {
