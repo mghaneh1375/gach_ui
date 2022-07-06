@@ -3,7 +3,12 @@ import {routes} from '../../../../API/APIRoutes';
 import translator from '../Translator';
 import {TextIcon} from '../../../../styles/Common/TextIcon';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+  ShrinkView,
+} from '../../../../styles/Common';
 import {Col} from 'react-grid-system';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
@@ -190,7 +195,7 @@ function List(props) {
   };
 
   return (
-    <View>
+    <ShrinkView>
       {showOpPopUp && (
         <LargePopUp toggleShowPopUp={toggleShowOpPopUp}>
           <PhoneView>
@@ -213,7 +218,7 @@ function List(props) {
       )}
       <CommonWebBox
         child={
-          <View>
+          <ShrinkView>
             <TextIcon
               onPress={() => props.setMode('create')}
               theme={'rect'}
@@ -221,31 +226,27 @@ function List(props) {
               icon={faPlus}
             />
             <PhoneView>
-              <Col lg={6}>
-                <PhoneView>
-                  <JustBottomBorderSelect
-                    isHalf={true}
-                    setter={setStatus}
-                    values={statusKeyVals}
-                    value={statusKeyVals.find(elem => elem.id === status)}
-                    placeholder={translator.status}
-                  />
-                  <JustBottomBorderSelect
-                    isHalf={true}
-                    setter={setPriority}
-                    values={priorityKeyVals}
-                    value={priorityKeyVals.find(elem => elem.id === priority)}
-                    placeholder={translator.priority}
-                  />
-                  <JustBottomBorderSelect
-                    isHalf={true}
-                    setter={setSection}
-                    values={sectionKeyVals}
-                    value={sectionKeyVals.find(elem => elem.id === section)}
-                    placeholder={translator.section}
-                  />
-                </PhoneView>
-              </Col>
+              <JustBottomBorderSelect
+                isHalf={true}
+                setter={setStatus}
+                values={statusKeyVals}
+                value={statusKeyVals.find(elem => elem.id === status)}
+                placeholder={translator.status}
+              />
+              <JustBottomBorderSelect
+                isHalf={true}
+                setter={setPriority}
+                values={priorityKeyVals}
+                value={priorityKeyVals.find(elem => elem.id === priority)}
+                placeholder={translator.priority}
+              />
+              <JustBottomBorderSelect
+                isHalf={true}
+                setter={setSection}
+                values={sectionKeyVals}
+                value={sectionKeyVals.find(elem => elem.id === section)}
+                placeholder={translator.section}
+              />
               {/* <Col lg={6}>
                 <PhoneView>
                   <JustBottomBorderSelect
@@ -268,6 +269,7 @@ function List(props) {
                 onPress={() => filter()}
                 isHalf={true}
                 title={commonTranslator.show}
+                style={{alignSelf: 'flex-start'}}
               />
             </PhoneView>
             <CommonDataTable
@@ -276,10 +278,10 @@ function List(props) {
               removeUrl={routes.removeOffs}
               data={props.tickets}
             />
-          </View>
+          </ShrinkView>
         }
       />
-    </View>
+    </ShrinkView>
   );
 }
 
