@@ -34,15 +34,9 @@ export const CommonHalfTextInputStyleWeb = {
 };
 
 export const CommonSelectContainer =
-  Platform.OS === 'web'
-    ? styled.div``
-    : styled(View)`
-        ${{marginTop: 10}}
-      `;
+  Platform.OS === 'web' ? styled.div`` : styled(View)``;
 
-export const CommonTextInputContainer = styled(View)`
-  ${{marginTop: 10}}
-`;
+export const CommonTextInputContainer = styled(View)``;
 
 export const CommonTextInputElem = styled(TextInput)`
   ${CommonTextInputStyleAndroid}

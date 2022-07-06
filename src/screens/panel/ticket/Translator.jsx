@@ -10,6 +10,11 @@ const translator = {
   closedRequest: 'بسته شده',
   section: 'واحد',
   priority: 'ضرورت',
+  dateStartRequest: 'بازه شروع درخواست از :',
+  dateEndRequest: 'بازه شروع درخواست تا :',
+  lastStartUpdate: 'آخرین بروزرسانی از :',
+  lastEndUpdate: 'آخرین بروزرسانی تا :',
+  startWith: 'شروع کننده',
 };
 
 export default translator;

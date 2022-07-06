@@ -55,6 +55,7 @@ export const CommonSelect = props => {
       color: vars.LIGHT_SILVER,
       paddingRight: 0,
       fontSize: 15,
+      paddingBottom: 1,
     },
     arrowIconColor: vars.LIGHT_SILVER,
     optionsLabelStyle: {
@@ -78,9 +79,8 @@ export const CommonSelect = props => {
               direction: 'rtl',
               paddingLeft: 10,
               paddingRight: 10,
-              marginTop: 10,
             }
-          : {maxWidth: 300, marginTop: 10}
+          : {maxWidth: 300}
       }>
       <CommonSelectElem {...inputProps} />
 

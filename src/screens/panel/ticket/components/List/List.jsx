@@ -2,6 +2,7 @@ import {routes} from '../../../../../API/APIRoutes';
 import translator from '../../Translator';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import {faAngleDoubleUp, faPlus} from '@fortawesome/free-solid-svg-icons';
+import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 import {
   CommonButton,
   CommonWebBox,
@@ -13,7 +14,12 @@ import {useState} from 'react';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../tranlates/Common';
-import {sectionKeyVals, statusKeyVals, priorityKeyVals} from './../KeyVals';
+import {
+  sectionKeyVals,
+  statusKeyVals,
+  priorityKeyVals,
+  startWithVals,
+} from './../KeyVals';
 import {closeRequest, filter} from './Utility';
 import columns from '../TableStructure';
 import {PhoneView} from '../../../../../styles/Common';
@@ -30,6 +36,7 @@ function List(props) {
   const [priority, setPriority] = useState();
   const [section, setSection] = useState();
   const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
+  const [startWith, setStartWith] = useState();
 
   const handleOp = index => {
     if (index >= props.tickets.length) return;
@@ -116,7 +123,13 @@ function List(props) {
             <PhoneView>
               <SimpleText
                 onPress={() => toggleShowProSearch()}
-                style={{padding: 15, cursor: 'pointer', color: vars.DARK_BLUE}}
+                style={{
+                  paddingTop: 15,
+                  paddingrRight: 15,
+                  paddingBottom: 15,
+                  cursor: 'pointer',
+                  color: vars.DARK_BLUE,
+                }}
                 text={commonTranslator.advancedSearch}
               />
               <View
@@ -133,7 +146,48 @@ function List(props) {
                 />
               </View>
             </PhoneView>
-            {showProSearch && <SimpleText text={'saa'} />}
+            {showProSearch && (
+              <View style={{zIndex: 11}}>
+                <PhoneView>
+                  <JustBottomBorderDatePicker
+                    placeholder={translator.dateStartRequest}
+                    value={props.start}
+                    isHalf={true}
+                  />
+                  <JustBottomBorderDatePicker
+                    placeholder={translator.dateEndRequest}
+                    value={props.start}
+                    isHalf={true}
+                  />
+                  <JustBottomBorderSelect
+                    isHalf={true}
+                    setter={setStartWith}
+                    values={startWithVals}
+                    value={startWithVals.find(elem => elem.id === startWith)}
+                    placeholder={translator.startWith}
+                  />
+                </PhoneView>
+                <PhoneView>
+                  <JustBottomBorderDatePicker
+                    placeholder={translator.lastStartUpdate}
+                    value={props.start}
+                    isHalf={true}
+                  />
+                  <JustBottomBorderDatePicker
+                    placeholder={translator.lastEndUpdate}
+                    value={props.start}
+                    isHalf={true}
+                  />
+                  <JustBottomBorderSelect
+                    isHalf={true}
+                    setter={setStartWith}
+                    values={startWithVals}
+                    value={startWithVals.find(elem => elem.id === startWith)}
+                    placeholder={translator.startWith}
+                  />
+                </PhoneView>
+              </View>
+            )}
             {props.tickets !== undefined && (
               <CommonDataTable
                 handleOp={handleOp}

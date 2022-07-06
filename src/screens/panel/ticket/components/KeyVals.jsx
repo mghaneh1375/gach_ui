@@ -44,3 +44,8 @@ export const sectionKeyVals = [
     id: 'all',
   },
 ];
+export const startWithVals = [
+  {item: 'ادمین', id: 'admin'},
+  {item: 'دانش آموز', id: 'students'},
+  {item: 'همه', id: 'all'},
+];
