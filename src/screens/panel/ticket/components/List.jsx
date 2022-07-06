@@ -8,6 +8,7 @@ import {
   CommonWebBox,
   PhoneView,
   ShrinkView,
+  SimpleText,
 } from '../../../../styles/Common';
 import {Col} from 'react-grid-system';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
@@ -174,6 +175,13 @@ function List(props) {
                 style={{alignSelf: 'flex-start'}}
               />
             </PhoneView>
+            <PhoneView>
+              <SimpleText
+                style={{padding: 15, color: 'blue'}}
+                text={translator.advancedSearch}
+              />
+            </PhoneView>
+
             <CommonDataTable
               handleOp={handleOp}
               columns={columns}
