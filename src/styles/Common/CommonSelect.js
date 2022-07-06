@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Platform} from 'react-native';
 import {
   CommonHalfTextInputStyleWeb,
+  CommonSelectContainer,
   CommonSelectElem,
   CommonTextInputContainer,
   CommonTextInputStyleWeb,
@@ -67,7 +68,8 @@ export const CommonSelect = props => {
   if (props.value !== undefined) inputProps.defaultValue = props.value;
 
   return (
-    <CommonTextInputContainer
+    <CommonSelectContainer
+      className={'mySelect'}
       style={
         isHalf
           ? {
@@ -76,14 +78,15 @@ export const CommonSelect = props => {
               direction: 'rtl',
               paddingLeft: 10,
               paddingRight: 10,
+              marginTop: 10,
             }
-          : {maxWidth: 300}
+          : {maxWidth: 300, marginTop: 10}
       }>
       <CommonSelectElem {...inputProps} />
 
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>
       ) : null}
-    </CommonTextInputContainer>
+    </CommonSelectContainer>
   );
 };

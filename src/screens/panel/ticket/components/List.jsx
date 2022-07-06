@@ -6,13 +6,15 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
 import {Col} from 'react-grid-system';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {useState} from 'react';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import {generalRequest} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../tranlates/Common';
+import {sectionKeyVals, statusKeyVals, priorityKeyVals} from './KeyVals';
+
+import columns from './TableStructure';
 
 function List(props) {
   const [status, setStatus] = useState();
@@ -62,120 +64,20 @@ function List(props) {
     });
   };
 
-  const columns = [
-    {
-      name: ' نام و نام خانوادگی',
-      selector: row => row.student.name,
-      grow: 1,
-    },
-    {
-      name: 'واحد',
-      selector: row => row.student.unit,
-      grow: 1,
-    },
-    {
-      name: 'ضرورت',
-      selector: row => row.statusFa,
-      grow: 1,
-    },
-    {
-      name: 'زمان ایجاد',
-      selector: row => row.answeredDate,
-      grow: 4,
-      wrap: true,
-      style: {
-        minWidth: '200px !important',
-      },
-      sortable: true,
-      sortFunction: (a, b) => {
-        return a.expireAt - b.expireAt;
-      },
-    },
-    {
-      name: 'تاریخ ایجاد آخرین وضعیت',
-      selector: row => row.sendDate,
-      grow: 4,
-      wrap: true,
-      style: {
-        minWidth: '200px !important',
-      },
-      sortable: true,
-      sortFunction: (a, b) => {
-        return a.expireAt - b.expireAt;
-      },
-    },
-    {
-      name: 'وضعیت',
-      selector: row => row.status,
-      grow: 1,
-    },
-    {
-      name: 'بررسی کننده',
-      selector: row => row.status,
-      grow: 1,
-    },
-  ];
-
-  const priorityKeyVals = [
-    {
-      item: 'زیاد',
-      id: 'high',
-    },
-    {
-      item: 'متوسط',
-      id: 'avg',
-    },
-    {
-      item: 'کم',
-      id: 'low',
-    },
-    {
-      item: 'همه',
-      id: 'all',
-    },
-  ];
-  const statusKeyVals = [
-    {
-      item: 'درحال بررسی',
-      id: 'pending',
-    },
-    {
-      item: 'اتمام یافته',
-      id: 'finished',
-    },
-    {
-      item: 'همه',
-      id: 'all',
-    },
-  ];
-  const sectionKeyVals = [
-    {
-      item: 'آزمون',
-      id: 'quiz',
-    },
-    {
-      item: 'الکی',
-      id: 'alaki',
-    },
-    {
-      item: 'همه',
-      id: 'all',
-    },
-  ];
-
   const filter = () => {
-    let query = '?';
+    let query = new URLSearchParams();
 
-    if (priority !== undefined) query += `priority=${priority}`;
+    if (priority !== undefined && priority !== 'all')
+      query.append('priority', priority);
+    if (section !== undefined && priority !== 'all')
+      query.append('section', section);
+    if (statusKeyVals !== undefined) query.append('status', status);
 
-    if (query.length > 1) query += '&';
-
-    if (section !== undefined) query += `section=${section}`;
-
+    console.log(query.toString());
     props.setLoading(true);
     Promise.all([
       generalRequest(
-        routes.fetchAllTickets + query,
+        routes.fetchAllTickets + '?' + query.toString(),
         'get',
         undefined,
         'data',
