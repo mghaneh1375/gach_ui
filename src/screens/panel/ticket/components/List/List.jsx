@@ -16,7 +16,6 @@ import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../tranlates/Common';
 import {sectionKeyVals, statusKeyVals, priorityKeyVals} from './KeyVals';
-import {Col} from 'react-grid-system';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import React, {useState} from 'react';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
