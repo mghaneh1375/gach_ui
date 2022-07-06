@@ -61,6 +61,7 @@ export const CommonSelect = props => {
       fontFamily: 'IRANSans',
       fontSize: 15,
       color: vars.LIGHT_SILVER,
+      minWidth: 170,
     },
     hideInputFilter: true,
   };

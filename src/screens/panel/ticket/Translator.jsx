@@ -11,6 +11,7 @@ const translator = {
   section: 'واحد',
   priority: 'ضرورت',
   title: 'موضوع',
+  msgText: 'متن پیام',
 };
 
 export default translator;

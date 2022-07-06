@@ -9,6 +9,7 @@ import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {changeMode, fetchDetail} from './Utility';
 import Chat from './Chat';
+import Add from './Add';
 
 function Show(props) {
   const [isWorking, setIsWorking] = useState(false);
@@ -21,6 +22,11 @@ function Show(props) {
       });
     }
   }, [isWorking, props]);
+
+  const addChat = newChat => {
+    props.ticket.chats.push(newChat);
+    props.updateTicket(props.ticket);
+  };
 
   return (
     <View>
@@ -86,6 +92,12 @@ function Show(props) {
             child={props.ticket.chats.map((elem, key) => {
               return <Chat {...elem} key={key} />;
             })}
+          />
+          <Add
+            toket={props.token}
+            setLoading={props.setLoading}
+            ticketId={props.ticket.id}
+            addChat={addChat}
           />
         </View>
       )}
