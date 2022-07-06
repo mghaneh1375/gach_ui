@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import {routes} from '../../../../../API/APIRoutes';
 import translator from '../../Translator';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
@@ -9,20 +8,13 @@ import {
   ShrinkView,
   SimpleText,
 } from '../../../../styles/Common';
-import {Col} from 'react-grid-system';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {useState} from 'react';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../tranlates/Common';
 import {sectionKeyVals, statusKeyVals, priorityKeyVals} from './KeyVals';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import React, {useState} from 'react';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import {closeRequest, filter} from './Utility';
-import commonTranslator from '../../../../../tranlates/Common';
-import {sectionKeyVals, statusKeyVals, priorityKeyVals} from '../KeyVals';
 import columns from '../TableStructure';
 import {PhoneView} from '../../../../../styles/Common';
 
@@ -115,12 +107,6 @@ function List(props) {
                 text={translator.advancedSearch}
               />
             </PhoneView>
-            <CommonDataTable
-              handleOp={handleOp}
-              columns={columns}
-              removeUrl={routes.removeOffs}
-              data={props.tickets}
-            />
             {props.tickets !== undefined && (
               <CommonDataTable
                 handleOp={handleOp}
