@@ -7,7 +7,6 @@ import {
   CommonButton,
   CommonWebBox,
   ShrinkView,
-<<<<<<< HEAD:src/screens/panel/ticket/components/List.jsx
   SimpleText,
 } from '../../../../styles/Common';
 import {Col} from 'react-grid-system';
@@ -15,15 +14,8 @@ import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSe
 import {useState} from 'react';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
-import {generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../tranlates/Common';
 import {sectionKeyVals, statusKeyVals, priorityKeyVals} from './KeyVals';
-=======
-  PhoneView,
-} from '../../../../../styles/Common';
->>>>>>> 555535581aaf9a07e4ee526b7e7fc2cd02d4647c:src/screens/panel/ticket/components/List/List.jsx
-
 import {Col} from 'react-grid-system';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import React, {useState} from 'react';
@@ -33,6 +25,7 @@ import {closeRequest, filter} from './Utility';
 import commonTranslator from '../../../../../tranlates/Common';
 import {sectionKeyVals, statusKeyVals, priorityKeyVals} from '../KeyVals';
 import columns from '../TableStructure';
+import {PhoneView} from '../../../../../styles/Common';
 
 function List(props) {
   const [status, setStatus] = useState();
@@ -110,24 +103,6 @@ function List(props) {
                 value={sectionKeyVals.find(elem => elem.id === section)}
                 placeholder={translator.section}
               />
-              {/* <Col lg={6}>
-                <PhoneView>
-                  <JustBottomBorderSelect
-                    isHalf={true}
-                    onSelect={selectStatus}
-                    values={statusKeyVals}
-                    value={
-                      status === undefined
-                        ? ''
-                        : status === 'pending'
-                        ? translator.pending
-                        : translator.finished
-                    }
-                    placeholder={translator.status}
-                  />
-                  <CommonButton isHalf={true} title={commonTranslator.show} />
-                </PhoneView>
-              </Col> */}
               <CommonButton
                 onPress={() => filter(props, priority, section, status)}
                 isHalf={true}
@@ -135,21 +110,18 @@ function List(props) {
                 style={{alignSelf: 'flex-start'}}
               />
             </PhoneView>
-<<<<<<< HEAD:src/screens/panel/ticket/components/List.jsx
             <PhoneView>
               <SimpleText
                 style={{padding: 15, color: 'blue'}}
                 text={translator.advancedSearch}
               />
             </PhoneView>
-
             <CommonDataTable
               handleOp={handleOp}
               columns={columns}
               removeUrl={routes.removeOffs}
               data={props.tickets}
             />
-=======
             {props.tickets !== undefined && (
               <CommonDataTable
                 handleOp={handleOp}
@@ -161,7 +133,6 @@ function List(props) {
                 setLoading={props.setLoading}
               />
             )}
->>>>>>> 555535581aaf9a07e4ee526b7e7fc2cd02d4647c:src/screens/panel/ticket/components/List/List.jsx
           </ShrinkView>
         }
       />
