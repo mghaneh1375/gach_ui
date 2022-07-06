@@ -10,7 +10,6 @@ const translator = {
   closedRequest: 'بسته شده',
   section: 'واحد',
   priority: 'ضرورت',
-  advancedSearch: 'جستجوی پیشرفته',
 };
 
 export default translator;

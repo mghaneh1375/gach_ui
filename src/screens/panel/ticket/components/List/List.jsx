@@ -1,35 +1,47 @@
 import {routes} from '../../../../../API/APIRoutes';
 import translator from '../../Translator';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDoubleUp, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {
   CommonButton,
   CommonWebBox,
   ShrinkView,
   SimpleText,
-} from '../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+} from '../../../../../styles/Common';
+import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import {useState} from 'react';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../tranlates/Common';
-import {sectionKeyVals, statusKeyVals, priorityKeyVals} from './KeyVals';
+import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
+import {LargePopUp} from '../../../../../styles/Common/PopUp';
+import commonTranslator from '../../../../../tranlates/Common';
+import {sectionKeyVals, statusKeyVals, priorityKeyVals} from './../KeyVals';
 import {closeRequest, filter} from './Utility';
 import columns from '../TableStructure';
 import {PhoneView} from '../../../../../styles/Common';
+import vars from '../../../../../styles/root';
+import {faAngleDoubleDown} from '@fortawesome/free-solid-svg-icons';
+import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {View} from 'react-native';
 
 function List(props) {
   const [status, setStatus] = useState();
   const [showOpPopUp, setShowOpPopUp] = useState(false);
+  const [showProSearch, setShowProSearch] = useState(false);
   const [selectedId, setSelectedId] = useState();
   const [priority, setPriority] = useState();
   const [section, setSection] = useState();
+  const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
 
   const handleOp = index => {
     if (index >= props.tickets.length) return;
     props.setSelectedTicket(props.tickets[index]);
     setSelectedId(props.tickets[index].id);
     toggleShowOpPopUp();
+  };
+
+  const toggleShowProSearch = () => {
+    if (showProSearch) setWantedIcon(faAngleDoubleDown);
+    else setWantedIcon(faAngleDoubleUp);
+    setShowProSearch(!showProSearch);
   };
 
   const toggleShowOpPopUp = () => {
@@ -103,10 +115,25 @@ function List(props) {
             </PhoneView>
             <PhoneView>
               <SimpleText
-                style={{padding: 15, color: 'blue'}}
-                text={translator.advancedSearch}
+                onPress={() => toggleShowProSearch()}
+                style={{padding: 15, cursor: 'pointer', color: vars.DARK_BLUE}}
+                text={commonTranslator.advancedSearch}
               />
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  alignSelf: 'center',
+                }}>
+                <SimpleFontIcon
+                  style={{
+                    color: vars.DARK_BLUE,
+                  }}
+                  icon={wantedIcon}
+                />
+              </View>
             </PhoneView>
+            {showProSearch && <SimpleText text={'saa'} />}
             {props.tickets !== undefined && (
               <CommonDataTable
                 handleOp={handleOp}
