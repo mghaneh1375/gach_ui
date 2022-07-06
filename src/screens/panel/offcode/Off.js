@@ -3,13 +3,13 @@ import {View} from 'react-native-web';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../App';
-import {CommonWebBox} from '../../../styles/Common';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
+import {CommonButton, CommonWebBox, SimpleText} from '../../../styles/Common';
 import Create from './components/Create';
 import List from './components/List';
+import SearchUser from '../../../components/web/SearchUser';
 
 const Off = props => {
-  const [mode, setMode] = useState('list');
+  const [mode, setMode] = useState('sa');
   const [offs, setOffs] = useState([]);
   const [selectedOff, setSelectedOff] = useState();
 
@@ -46,48 +46,50 @@ const Off = props => {
   };
 
   React.useEffect(() => {
-    dispatch({loading: true});
-    Promise.all([
-      generalRequest(
-        routes.fetchAllOffs,
-        'get',
-        undefined,
-        'data',
-        props.token,
-      ),
-    ]).then(res => {
-      if (res[0] == null) {
-        navigate('/');
-        return;
-      }
-      setOffs(res[0]);
-      dispatch({loading: false});
-    });
+    // dispatch({loading: true});
+    // Promise.all([
+    //   generalRequest(
+    //     routes.fetchAllOffs,
+    //     'get',
+    //     undefined,
+    //     'data',
+    //     props.token,
+    //   ),
+    // ]).then(res => {
+    //   if (res[0] == null) {
+    //     navigate('/');
+    //     return;
+    //   }
+    //   setOffs(res[0]);
+    //   dispatch({loading: false});
+    // });
   }, [navigate, props.token, dispatch]);
 
-  const [val, setVal] = useState();
-  const values = [
-    {item: 'گزینه ۱', id: 1},
-    {item: 'گزینه ۲', id: 2},
-  ];
-
-  const select = selectedItem => {
-    setVal(selectedItem.id);
-  };
+  const [showSearchUser, setShowSearchUser] = useState(false);
+  const [foundUser, setFoundUser] = useState();
 
   return (
     <View style={{zIndex: 10}}>
       <CommonWebBox
         child={
-          <JustBottomBorderSelect
-            values={values}
-            value={
-              values.filter(element => {
-                return element.id === val;
-              })[0]
-            }
-            onSelect={select}
-          />
+          <View>
+            {foundUser !== undefined && (
+              <SimpleText
+                text={foundUser.nameFa + ' ' + foundUser.lastNameFa}
+              />
+            )}
+            <CommonButton
+              title={'جست و جو دانش آموز'}
+              onPress={() => setShowSearchUser(true)}
+            />
+            <SearchUser
+              setFinalResult={setFoundUser}
+              setShow={setShowSearchUser}
+              token={props.token}
+              setLoading={setLoading}
+              show={showSearchUser}
+            />
+          </View>
         }
       />
 

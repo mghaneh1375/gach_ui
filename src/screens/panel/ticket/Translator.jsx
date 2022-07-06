@@ -10,6 +10,7 @@ const translator = {
   closedRequest: 'بسته شده',
   section: 'واحد',
   priority: 'ضرورت',
+  title: 'موضوع',
 };
 
 export default translator;

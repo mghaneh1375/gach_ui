@@ -6,23 +6,6 @@ import {showSuccess} from '../../services/Utility';
 import commonTranslator from '../../tranlates/Common';
 
 const CommonDataTable = props => {
-  props.columns.splice(0, 0, {
-    name: 'ردیف',
-    // grow: 1,
-  });
-
-  props.columns.splice(1, 0, {
-    name: 'عملیات',
-    style: {
-      cursor: 'pointer',
-    },
-    cell: (row, index, column, id) => {
-      return <p onClick={() => props.handleOp(index)}>...</p>;
-    },
-    ignoreRowClick: true,
-    // grow: 1,
-  });
-
   const customStyles = {
     rows: {
       style: {
@@ -44,6 +27,40 @@ const CommonDataTable = props => {
   const [selected, setSelected] = useState([]);
   const [data, setData] = useState(props.data);
   const [showRemovePopUp, setShowRemovePopUp] = useState(false);
+
+  const columns = [
+    {name: 'ردیف'},
+    {
+      name: commonTranslator.operation,
+      style: {
+        cursor: 'pointer',
+      },
+      cell: (row, index, column, id) => {
+        return <p onClick={() => props.handleOp(index)}>...</p>;
+      },
+      ignoreRowClick: true,
+    },
+    ...props.columns,
+  ];
+
+  // if (props.columns[1].name !== commonTranslator.operation) {
+  //   props.columns.splice(0, 0, {
+  //     name: 'ردیف',
+  //     // grow: 1,
+  //   });
+
+  //   props.columns.splice(1, 0, {
+  //     name: commonTranslator.operation,
+  //     style: {
+  //       cursor: 'pointer',
+  //     },
+  //     cell: (row, index, column, id) => {
+  //       return <p onClick={() => props.handleOp(index)}>...</p>;
+  //     },
+  //     ignoreRowClick: true,
+  //     // grow: 1,
+  //   });
+  // }
 
   React.useEffect(() => {
     setData(props.data);
@@ -105,7 +122,7 @@ const CommonDataTable = props => {
       </select>
       <DataTable
         customStyles={customStyles}
-        columns={props.columns}
+        columns={columns}
         data={data}
         selectableRows
         highlightOnHover={true}
