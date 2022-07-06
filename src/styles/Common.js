@@ -295,7 +295,27 @@ export function EqualTwoTextInputs(props) {
 }
 
 export function PhoneView(props) {
-  const style1 = {flexDirection: Platform.OS === 'web' ? 'row' : 'row-reverse'};
+  const style1 = {
+    flexDirection: Platform.OS === 'web' ? 'row' : 'row-reverse',
+    flexShrink: 1,
+  };
+
+  const allStyles =
+    props.style !== undefined ? {...style1, ...props.style} : style1;
+
+  let viewProps = {
+    style: allStyles,
+  };
+
+  if (props.onClick !== undefined) viewProps.onClick = props.onClick;
+
+  return <View {...viewProps}>{props.children}</View>;
+}
+
+export function ShrinkView(props) {
+  const style1 = {
+    flexShrink: 1,
+  };
 
   const allStyles =
     props.style !== undefined ? {...style1, ...props.style} : style1;
