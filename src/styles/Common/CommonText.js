@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import vars from './../root';
-import {TextInput, View} from 'react-native';
+import {Platform, TextInput, View} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import {DateTimePicker} from 'react-advance-jalaali-datepicker';
 import SelectBox from 'react-native-multi-selectbox';
@@ -32,6 +32,13 @@ export const CommonHalfTextInputStyleWeb = {
   direction: 'rtl',
   flexDirection: 'row',
 };
+
+export const CommonSelectContainer =
+  Platform.OS === 'web'
+    ? styled.div``
+    : styled(View)`
+        ${{marginTop: 10}}
+      `;
 
 export const CommonTextInputContainer = styled(View)`
   ${{marginTop: 10}}

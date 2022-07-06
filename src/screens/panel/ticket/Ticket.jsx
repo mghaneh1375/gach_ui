@@ -21,6 +21,14 @@ function Ticket(props) {
   const [tickets, setTickets] = useState([]);
   const [selectedTicket, setSelectedTicket] = useState({});
 
+  const updateTicket = ticket => {
+    const allTickets = tickets.map(elem => {
+      if (elem.id === ticket.id) return ticket;
+      return elem;
+    });
+    setTickets(allTickets);
+  };
+
   const setLoading = status => {
     dispatch({loading: status});
   };
@@ -63,6 +71,7 @@ function Ticket(props) {
       {mode === 'show' && (
         <Show
           setLoading={setLoading}
+          updateTicket={updateTicket}
           ticket={selectedTicket}
           token={props.token}
         />
