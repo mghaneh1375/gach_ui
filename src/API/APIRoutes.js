@@ -43,4 +43,5 @@ export const routes = {
   fetchAllTickets: 'admin/ticket/getRequests',
   fetchTicket: 'admin/ticket/getRequest/',
   closeTicketRequest: 'admin/ticket/rejectRequests',
+  removeTickets: 'admin/ticket/remove',
 };
