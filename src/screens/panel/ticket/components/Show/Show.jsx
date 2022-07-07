@@ -93,12 +93,14 @@ function Show(props) {
               return <Chat {...elem} key={key} />;
             })}
           />
-          <Add
-            toket={props.token}
-            setLoading={props.setLoading}
-            ticketId={props.ticket.id}
-            addChat={addChat}
-          />
+          {props.ticket.status !== 'finish' && (
+            <Add
+              toket={props.token}
+              setLoading={props.setLoading}
+              ticketId={props.ticket.id}
+              addChat={addChat}
+            />
+          )}
         </View>
       )}
     </View>

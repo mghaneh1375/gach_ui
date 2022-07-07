@@ -42,6 +42,10 @@ export const routes = {
   removeOffs: 'admin/off/remove',
   fetchAllTickets: 'admin/ticket/getRequests',
   fetchTicket: 'admin/ticket/getRequest/',
+  submitTicket: 'admin/ticket/submit',
+  setAnswerTicket: 'admin/ticket/setAnswer/',
+  sendTicket: 'admin/ticket/sendRequest/',
+  addFileToTicket: 'admin/ticket/addFileToRequest/',
   closeTicketRequest: 'admin/ticket/rejectRequests',
   removeTickets: 'admin/ticket/remove',
 };
