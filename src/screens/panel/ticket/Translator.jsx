@@ -15,6 +15,9 @@ const translator = {
   lastStartUpdate: 'آخرین بروزرسانی از :',
   lastEndUpdate: 'آخرین بروزرسانی تا :',
   startWith: 'شروع کننده',
+  title: 'موضوع',
+  msgText: 'متن پیام',
+  SearchArchive: 'جستجو در آرشیو :',
 };
 
 export default translator;

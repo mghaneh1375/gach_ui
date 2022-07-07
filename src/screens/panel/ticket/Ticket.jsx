@@ -5,7 +5,7 @@ import List from './components/List/List';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import Create from './components/Create';
-import Show from './components/Show';
+import Show from './components/Show/Show';
 
 function Ticket(props) {
   const navigate = props.navigate;
@@ -24,6 +24,7 @@ function Ticket(props) {
       if (elem.id === ticket.id) return ticket;
       return elem;
     });
+    setSelectedTicket(ticket);
     setTickets(allTickets);
   };
 
@@ -72,6 +73,7 @@ function Ticket(props) {
           updateTicket={updateTicket}
           ticket={selectedTicket}
           token={props.token}
+          setMode={setMode}
         />
       )}
     </View>

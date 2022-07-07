@@ -8,6 +8,7 @@ import {
   CommonWebBox,
   ShrinkView,
   SimpleText,
+  CommonRadioButton,
 } from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import {useState} from 'react';
@@ -37,6 +38,7 @@ function List(props) {
   const [section, setSection] = useState();
   const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
   const [startWith, setStartWith] = useState();
+  const [searchArchive, setSearchArchive] = useState('yes');
 
   const handleOp = index => {
     if (index >= props.tickets.length) return;
@@ -167,7 +169,7 @@ function List(props) {
                     placeholder={translator.startWith}
                   />
                 </PhoneView>
-                <PhoneView>
+                <PhoneView style={{marginTop: 10}}>
                   <JustBottomBorderDatePicker
                     placeholder={translator.lastStartUpdate}
                     value={props.start}
@@ -178,13 +180,30 @@ function List(props) {
                     value={props.start}
                     isHalf={true}
                   />
-                  <JustBottomBorderSelect
-                    isHalf={true}
-                    setter={setStartWith}
-                    values={startWithVals}
-                    value={startWithVals.find(elem => elem.id === startWith)}
-                    placeholder={translator.startWith}
-                  />
+                  <View style={{marginTop: 10}}>
+                    <PhoneView>
+                      <SimpleText
+                        style={{
+                          padding: 10,
+                        }}
+                        text={translator.SearchArchive}
+                      />
+                      <CommonRadioButton
+                        status={
+                          searchArchive === 'yes' ? 'checked' : 'unchecked'
+                        }
+                        onPress={() => setSearchArchive('yes')}
+                        text={commonTranslator.yes}
+                      />
+                      <CommonRadioButton
+                        status={
+                          searchArchive === 'no' ? 'checked' : 'unchecked'
+                        }
+                        onPress={() => setSearchArchive('no')}
+                        text={commonTranslator.no}
+                      />
+                    </PhoneView>
+                  </View>
                 </PhoneView>
               </View>
             )}

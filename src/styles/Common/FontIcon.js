@@ -25,12 +25,14 @@ export const FontIcon = props => {
   const style1 = {
     backgroundColor: vars.ORANGE_RED,
     cursor: 'pointer',
-    width: '100%',
-    height: '100%',
-    borderRadius: 20,
+    width: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
+    height: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
+    borderRadius:
+      props.theme === undefined || props.theme === 'circle' ? 20 : 7,
     alignSelf: 'center',
     justifyContent: 'center',
   };
+
   const allStyles =
     props.parentStyle === undefined
       ? style1
