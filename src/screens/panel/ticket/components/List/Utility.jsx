@@ -29,7 +29,18 @@ export const closeRequest = (props, selectedId, toggleShowOpPopUp) => {
   });
 };
 
-export const filter = (props, priority, section, status) => {
+export const filter = (
+  props,
+  priority,
+  section,
+  startWith,
+  status,
+  searchArchive,
+  sendDateSolar,
+  sendDateSolarEndLimit,
+  answerDateSolar,
+  answerDateSolarEndLimit,
+) => {
   let query = new URLSearchParams();
 
   if (priority !== undefined && priority !== 'all')
@@ -37,6 +48,23 @@ export const filter = (props, priority, section, status) => {
   if (section !== undefined && section !== 'all')
     query.append('section', section);
   if (status !== undefined && status !== 'all') query.append('status', status);
+
+  if (searchArchive !== undefined && searchArchive !== '')
+    query.append('searchInArchive', searchArchive === 'yes');
+
+  if (startWith !== undefined && startWith !== 'all')
+    query.append('startByAdmin', startWith === 'admin');
+
+  if (sendDateSolar !== undefined) query.append('sendDateSolar', sendDateSolar);
+
+  if (sendDateSolarEndLimit !== undefined)
+    query.append('sendDateSolarEndLimit', sendDateSolarEndLimit);
+
+  if (answerDateSolar !== undefined)
+    query.append('answerDateSolar', answerDateSolar);
+
+  if (answerDateSolarEndLimit !== undefined)
+    query.append('answerDateSolarEndLimit', answerDateSolarEndLimit);
 
   props.setLoading(true);
   Promise.all([

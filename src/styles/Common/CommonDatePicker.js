@@ -20,7 +20,10 @@ export const CommonDatePicker = props => {
     placeholder: props.placeholder,
     format: 'تاریخ: jYYYY/jMM/jDD ساعت: HH:mm',
     containerClass: 'date-picker',
-    onChange: props.onChange,
+    onChange: e => {
+      props.setter(e * 1000);
+      props.onChange(e);
+    },
     preSelected: value,
   };
 

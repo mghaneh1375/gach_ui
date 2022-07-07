@@ -39,6 +39,10 @@ function List(props) {
   const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
   const [startWith, setStartWith] = useState();
   const [searchArchive, setSearchArchive] = useState('yes');
+  const [sendDateSolar, setSendDateSolar] = useState('');
+  const [sendDateSolarEndLimit, setSendDateSolarEndLimit] = useState('');
+  const [answerDateSolar, setAnswerDateSolar] = useState('');
+  const [answerDateSolarEndLimit, setAnswerDateSolarEndLimit] = useState('');
 
   const handleOp = index => {
     if (index >= props.tickets.length) return;
@@ -116,7 +120,20 @@ function List(props) {
                 placeholder={translator.section}
               />
               <CommonButton
-                onPress={() => filter(props, priority, section, status)}
+                onPress={() =>
+                  filter(
+                    props,
+                    priority,
+                    section,
+                    startWith,
+                    status,
+                    searchArchive,
+                    sendDateSolar,
+                    sendDateSolarEndLimit,
+                    answerDateSolar,
+                    answerDateSolarEndLimit,
+                  )
+                }
                 isHalf={true}
                 title={commonTranslator.show}
                 style={{alignSelf: 'flex-start'}}
@@ -153,12 +170,14 @@ function List(props) {
                 <PhoneView>
                   <JustBottomBorderDatePicker
                     placeholder={translator.dateStartRequest}
-                    value={props.start}
+                    setter={setSendDateSolar}
+                    value={sendDateSolar}
                     isHalf={true}
                   />
                   <JustBottomBorderDatePicker
                     placeholder={translator.dateEndRequest}
-                    value={props.start}
+                    setter={setSendDateSolarEndLimit}
+                    value={sendDateSolarEndLimit}
                     isHalf={true}
                   />
                   <JustBottomBorderSelect
@@ -172,12 +191,14 @@ function List(props) {
                 <PhoneView style={{marginTop: 10}}>
                   <JustBottomBorderDatePicker
                     placeholder={translator.lastStartUpdate}
-                    value={props.start}
+                    setter={setAnswerDateSolar}
+                    value={answerDateSolar}
                     isHalf={true}
                   />
                   <JustBottomBorderDatePicker
                     placeholder={translator.lastEndUpdate}
-                    value={props.start}
+                    setter={setAnswerDateSolarEndLimit}
+                    value={answerDateSolarEndLimit}
                     isHalf={true}
                   />
                   <View style={{marginTop: 10}}>
