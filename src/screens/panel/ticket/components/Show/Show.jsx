@@ -4,7 +4,7 @@ import {CommonWebBox, PhoneView} from '../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
-import {sectionKeyVals, statusKeyVals, priorityKeyVals} from '../KeyVals';
+import {sectionKeyVals, priorityKeyVals} from '../KeyVals';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {changeMode, fetchDetail} from './Utility';
@@ -74,11 +74,7 @@ function Show(props) {
                 </PhoneView>
                 <PhoneView>
                   <JustBottomBorderTextInput
-                    value={
-                      statusKeyVals.find(
-                        elem => elem.id === props.ticket.status,
-                      ).item
-                    }
+                    value={props.ticket.statusFa}
                     disable={true}
                     placeholder={translator.status}
                     subText={translator.status}
@@ -95,9 +91,10 @@ function Show(props) {
           />
           {props.ticket.status !== 'finish' && (
             <Add
-              toket={props.token}
+              updateTicket={props.updateTicket}
+              token={props.token}
               setLoading={props.setLoading}
-              ticketId={props.ticket.id}
+              ticket={props.ticket}
               addChat={addChat}
             />
           )}

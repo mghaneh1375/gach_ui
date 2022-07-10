@@ -3,8 +3,9 @@ import {useState} from 'react';
 import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../tranlates/Common';
-import RemovePane from '../../../../components/web/RemovePane';
+import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
 import {routes} from '../../../../API/APIRoutes';
+import {showSuccess} from '../../../../services/Utility';
 
 const Ops = props => {
   const changeMode = newMode => {
@@ -19,7 +20,11 @@ const Ops = props => {
 
   const afterRemove = res => {
     setShowRemovePane(false);
-    props.removeOffs([props.off.id]);
+    showSuccess(res.excepts);
+
+    if (res.doneIds.indexOf(props.off.id) !== -1)
+      props.removeOffs([props.off.id]);
+
     props.setMode('list');
     props.toggleShowPopUp();
   };
@@ -27,12 +32,13 @@ const Ops = props => {
   return (
     <View style={{zIndex: 10}}>
       {showRemovePane && (
-        <RemovePane
+        <ConfirmationBatchOpPane
           setLoading={props.setLoading}
           token={props.token}
           url={routes.removeOffs}
-          data={{ids: [props.off.id]}}
-          afterRemoveFunc={afterRemove}
+          expected={['excepts', 'doneIds']}
+          data={{items: [props.off.id]}}
+          afterFunc={afterRemove}
           toggleShowPopUp={toggleShowRemovePane}
         />
       )}

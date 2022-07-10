@@ -3,13 +3,13 @@ import {CommonButton} from '../../styles/Common';
 import {LargePopUp} from '../../styles/Common/PopUp';
 import commonTranslator from '../../tranlates/Common';
 
-const RemovePane = props => {
-  const remove = () => {
+const ConfirmationBatchOpPane = props => {
+  const doOp = () => {
     props.setLoading(true);
     Promise.all([
       generalRequest(
         props.url,
-        'delete',
+        props.method === undefined ? 'delete' : props.method,
         props.data,
         props.expected,
         props.token,
@@ -17,7 +17,7 @@ const RemovePane = props => {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] !== null) {
-        props.afterRemoveFunc(res[0]);
+        props.afterFunc(res[0]);
       }
     });
   };
@@ -28,12 +28,16 @@ const RemovePane = props => {
       btns={
         <CommonButton
           title={commonTranslator.yes}
-          onPress={() => remove()}
+          onPress={() => doOp()}
           theme={'dark'}
         />
       }
-      title={commonTranslator.sureRemove}></LargePopUp>
+      title={
+        props.warning === undefined
+          ? commonTranslator.sureRemove
+          : props.warning
+      }></LargePopUp>
   );
 };
 
-export default RemovePane;
+export default ConfirmationBatchOpPane;

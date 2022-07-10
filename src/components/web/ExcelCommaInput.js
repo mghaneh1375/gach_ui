@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 import {generalRequest} from '../../API/Utility';
@@ -17,7 +17,7 @@ import UploadFile from './UploadFile';
 const ExcelComma = props => {
   const [codes, setCodes] = useState('0018914373');
   const [showUploadPopUp, setShowUploadPopUp] = useState(false);
-
+  const [additionalData, setAdditionalData] = useState();
   const [result, setResult] = useState();
 
   const toggleShowUploadPopUp = () => {
@@ -43,7 +43,7 @@ const ExcelComma = props => {
         props.url,
         'put',
         {items: ids, ...props.additionalData},
-        ['excepts', 'addedItems'],
+        ['excepts', 'doneIds'],
         props.token,
         props.mandatoryFields,
       ),
@@ -59,12 +59,16 @@ const ExcelComma = props => {
   };
 
   const localAfterCallBack = res => {
-    props.afterAddingCallBack(res.addedItems);
+    props.afterAddingCallBack(res.doneIds);
 
     if (showUploadPopUp) setShowUploadPopUp(false);
 
     setResult(res.excepts);
   };
+
+  React.useEffect(() => {
+    setAdditionalData(props.additionalData);
+  }, [props.additionalData]);
 
   return (
     <View style={{zIndex: 2}}>
@@ -76,56 +80,44 @@ const ExcelComma = props => {
           multi={false}
           url={props.uploadUrl}
           token={props.token}
-          expectedRes={['excepts', 'addedItems']}
+          expectedRes={['excepts', 'doneIds']}
           setResult={localAfterCallBack}
           title={props.popUpHeader}
-          additionalData={props.additionalData}
+          additionalData={additionalData}
           mandatoryFields={props.mandatoryFields}
         />
       )}
 
-      <CommonWebBox
-        header={props.header}
-        btn={
-          props.backFunc !== undefined && (
-            <CommonButton
-              onPress={() => props.backFunc()}
-              title={commonTranslator.cancel}
-            />
-          )
-        }
-        child={
-          <View>
-            {props.preChild}
-            <PhoneView>
-              <View style={{width: '80%'}}>
-                <JustBottomBorderTextInput
-                  style={{minWidth: '95%'}}
-                  onChangeText={e => changeInput(e)}
-                  placeholder={props.placeholder}
-                  subText={props.help}
-                  value={codes}
-                />
-              </View>
-              <View style={{width: 30, height: 30, alignSelf: 'center'}}>
-                <FontIcon
-                  onPress={() => addItems()}
-                  parentStyle={{borderRadius: 7, backgroundColor: vars.YELLOW}}
-                  icon={faPlus}
-                />
-              </View>
-              <CommonButton
-                onPress={() => toggleShowUploadPopUp()}
-                title={commonTranslator.upload}
-                theme={'dark'}
+      <PhoneView>
+        <View>
+          <PhoneView>
+            <View style={{width: '80%'}}>
+              <JustBottomBorderTextInput
+                style={{minWidth: '95%'}}
+                onChangeText={e => changeInput(e)}
+                placeholder={props.placeholder}
+                subText={props.help}
+                value={codes}
               />
-            </PhoneView>
-            {result !== undefined && (
-              <SimpleText style={{marginTop: 20}} text={result} />
-            )}
-          </View>
-        }
-      />
+            </View>
+            <View style={{width: 30, height: 30, alignSelf: 'center'}}>
+              <FontIcon
+                onPress={() => addItems()}
+                parentStyle={{borderRadius: 7, backgroundColor: vars.YELLOW}}
+                icon={faPlus}
+              />
+            </View>
+            <CommonButton
+              onPress={() => toggleShowUploadPopUp()}
+              title={commonTranslator.upload}
+              theme={'dark'}
+            />
+          </PhoneView>
+          {result !== undefined && (
+            <SimpleText style={{marginTop: 20}} text={result} />
+          )}
+        </View>
+      </PhoneView>
     </View>
   );
 };

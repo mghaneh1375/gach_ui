@@ -4,7 +4,6 @@ import {
   CommonHalfTextInputStyleWeb,
   CommonSelectContainer,
   CommonSelectElem,
-  CommonTextInputContainer,
   CommonTextInputStyleWeb,
 } from './CommonText';
 

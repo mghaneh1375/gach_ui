@@ -2,6 +2,8 @@ import {ToastAndroid, Dimensions, Platform} from 'react-native';
 import {Device} from '../models/Device';
 import moment from 'moment-jalaali';
 import {Store} from 'react-notifications-component';
+import {generalRequest} from '../API/Utility';
+import {routes} from '../API/APIRoutes';
 
 export function getDevice() {
   const device = [];
@@ -29,9 +31,19 @@ export function getScreenHeight() {
   return Dimensions.get('window').height - 90;
 }
 
+export function simpleConvertTimestamp(unix_timestamp) {
+  return moment.unix(unix_timestamp / 1000).format('jYYYY/jM/jD - HH:mm');
+}
+
 export function convertTimestamp(unix_timestamp) {
   return moment
     .unix(unix_timestamp / 1000)
+    .format('تاریخ: jYYYY/jMM/jDD ساعت: HH:mm');
+}
+
+export function getCurrTime() {
+  return moment
+    .unix(Date.now() / 1000)
     .format('تاریخ: jYYYY/jMM/jDD ساعت: HH:mm');
 }
 
@@ -82,3 +94,22 @@ export function showSuccess(msg) {
     });
   }
 }
+
+export const generalUpdate = (
+  url,
+  data,
+  setLoading,
+  token,
+  afterUpdate,
+  mandatoryFileds = '',
+  method = 'put',
+  expected = undefined,
+) => {
+  setLoading(true);
+  Promise.all([
+    generalRequest(url, method, data, expected, token, mandatoryFileds),
+  ]).then(res => {
+    setLoading(false);
+    afterUpdate(res[0]);
+  });
+};

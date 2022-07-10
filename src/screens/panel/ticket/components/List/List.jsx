@@ -1,4 +1,3 @@
-import {routes} from '../../../../../API/APIRoutes';
 import translator from '../../Translator';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import {faAngleDoubleUp, faPlus} from '@fortawesome/free-solid-svg-icons';
@@ -15,6 +14,7 @@ import {useState} from 'react';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../tranlates/Common';
+import {routes} from '../../../../../API/APIRoutes';
 import {
   sectionKeyVals,
   statusKeyVals,
@@ -232,11 +232,32 @@ function List(props) {
               <CommonDataTable
                 handleOp={handleOp}
                 columns={columns}
-                removeUrl={routes.removeTickets}
                 token={props.token}
                 data={props.tickets}
                 setData={props.setTickets}
                 setLoading={props.setLoading}
+                groupOps={[
+                  {
+                    key: 'removeAll',
+                    url: routes.removeTickets,
+                  },
+                  {
+                    key: 'closeAll',
+                    label: translator.closeRecords,
+                    url: routes.closeTicketRequest,
+                    warning: translator.sureClose,
+                    method: 'post',
+                    afterFunc: res => {
+                      props.tickets = props.tickets.map(elem => {
+                        if (res.doneIds.indexOf(elem.id) === -1) return elem;
+                        elem.status = 'finish';
+                        elem.statusFa = translator.closedRequest;
+                        return elem;
+                      });
+                      props.setTickets(props.tickets);
+                    },
+                  },
+                ]}
               />
             )}
           </ShrinkView>

@@ -19,34 +19,30 @@ export const changeMode = (setMode, newMode) => {
   setMode(newMode);
 };
 
-export const addMsg = (ticketId, props, msg, files) => {
-  props.setLoading(true);
-  Promise.all([
-    generalRequest(
-      routes.setAnswerTicket + ticketId,
-      'put',
-      {answer: msg},
-      undefined,
-      props.token,
-    ),
-  ]).then(res => {
-    props.setLoading(false);
-    if (res[0] !== null) {
-    }
-  });
+export const addMsg = async (ticketId, token, msg) => {
+  let res = await generalRequest(
+    routes.setAnswerTicket + ticketId,
+    'put',
+    {answer: msg},
+    undefined,
+    token,
+  );
+
+  return res;
 };
 
-export const addFile = async (token, dataUrl, ticketId) => {
-  return await fetch(dataUrl)
+export const addFile = async (token, fileContent, ticketId) => {
+  return await fetch(fileContent.content)
     .then(res => res.blob())
     .then(async blob => {
       let formData = new FormData();
-      formData.append('file', blob);
+      formData.append('file', blob, fileContent.name);
+
       let res = await fileRequest(
         routes.addFileToTicket + ticketId,
         'put',
         formData,
-        undefined,
+        'filename',
         token,
       );
       return res;

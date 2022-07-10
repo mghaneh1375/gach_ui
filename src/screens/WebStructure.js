@@ -31,6 +31,7 @@ import Question from './panel/question/Question';
 import vars from '../styles/root';
 import Off from './panel/offcode/Off';
 import Ticket from './panel/ticket/Ticket';
+import Users from './panel/users/Users';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -170,6 +171,9 @@ const WebStructue = props => {
               )}
               {props.page === 'ticket' && (
                 <Ticket token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'users' && (
+                <Users token={token} user={user} navigate={navigate} />
               )}
             </View>
           </View>

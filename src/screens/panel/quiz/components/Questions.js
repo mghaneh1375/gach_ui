@@ -11,7 +11,7 @@ import {
 import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';
 import ExcelComma from '../../../../components/web/ExcelCommaInput';
-import RemovePane from '../../../../components/web/RemovePane';
+import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
 
 const Questions = props => {
   const [isWorking, setIsWorking] = useState(false);
@@ -89,14 +89,14 @@ const Questions = props => {
   return (
     <View style={{zIndex: 5}}>
       {showRemovePane && (
-        <RemovePane
+        <ConfirmationBatchOpPane
           url={
             routes.removeQuestionFromQuiz +
             props.quiz.generalMode +
             '/' +
             props.quiz.id
           }
-          afterRemoveFunc={afterRemove}
+          afterFunc={afterRemove}
           setLoading={props.setLoading}
           token={props.token}
           data={{
