@@ -26,7 +26,7 @@ const Chat = props => {
     marginLeft: 20,
     marginRight: 20,
     width: '95%',
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
   };
   const allStyles = props.isForUser
     ? {...commonStyles, ...myMsgStyle}
