@@ -28,6 +28,12 @@ function Show(props) {
     props.updateTicket(props.ticket);
   };
 
+  const [studentPic, setStudentPic] = useState();
+
+  React.useEffect(() => {
+    setStudentPic(props.ticket.student.pic);
+  }, [props.ticket]);
+
   return (
     <View>
       {props.ticket.chats !== undefined && (
@@ -86,7 +92,13 @@ function Show(props) {
 
           <CommonWebBox
             child={props.ticket.chats.map((elem, key) => {
-              return <Chat {...elem} key={key} />;
+              return (
+                <Chat
+                  pic={elem.isForUser ? studentPic : elem.responder.pic}
+                  {...elem}
+                  key={key}
+                />
+              );
             })}
           />
           {props.ticket.status !== 'finish' && (
