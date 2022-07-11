@@ -19,8 +19,9 @@ export const closeRequest = (props, selectedId, toggleShowOpPopUp) => {
       showSuccess(res[0].excepts);
       let tickets = props.tickets;
       tickets = tickets.map(elem => {
-        if (res[0].closedIds.indexOf(elem.id) !== -1)
+        if (res[0].closedIds.indexOf(elem.id) !== -1) {
           elem.statusFa = translator.closedRequest;
+        }
         return elem;
       });
       props.setTickets(tickets);
@@ -43,30 +44,45 @@ export const filter = (
 ) => {
   let query = new URLSearchParams();
 
-  if (priority !== undefined && priority !== 'all')
+  if (priority !== undefined && priority !== 'all') {
     query.append('priority', priority);
-  if (section !== undefined && section !== 'all')
+  }
+  if (section !== undefined && section !== 'all') {
     query.append('section', section);
-  if (status !== undefined && status !== 'all') query.append('status', status);
+  }
+  if (status !== undefined && status !== 'all') {
+    query.append('status', status);
+  }
 
-  if (searchArchive !== undefined && searchArchive !== '')
+  if (searchArchive !== undefined && searchArchive !== '') {
     query.append('searchInArchive', searchArchive === 'yes');
+  }
 
-  if (startWith !== undefined && startWith !== 'all')
+  if (startWith !== undefined && startWith !== 'all') {
     query.append('startByAdmin', startWith === 'admin');
+  }
 
-  if (sendDateSolar !== undefined && sendDateSolar.length > 0)
+  if (sendDateSolar !== undefined && sendDateSolar.toString().length > 0) {
     query.append('sendDateSolar', sendDateSolar);
+  }
 
-  if (sendDateSolarEndLimit !== undefined && sendDateSolarEndLimit.length > 0)
+  if (
+    sendDateSolarEndLimit !== undefined &&
+    sendDateSolarEndLimit.toString().length > 0
+  ) {
     query.append('sendDateSolarEndLimit', sendDateSolarEndLimit);
+  }
 
-  if (answerDateSolar !== undefined && answerDateSolar.length > 0)
+  if (answerDateSolar !== undefined && answerDateSolar.toString().length > 0) {
     query.append('answerDateSolar', answerDateSolar);
+  }
 
-  if (answerDateSolarEndLimit !== undefined && answerDateSolarEndLimit > 0)
+  if (
+    answerDateSolarEndLimit !== undefined &&
+    answerDateSolarEndLimit.toString().length > 0
+  ) {
     query.append('answerDateSolarEndLimit', answerDateSolarEndLimit);
-
+  }
   props.setLoading(true);
   Promise.all([
     generalRequest(

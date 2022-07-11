@@ -45,7 +45,7 @@ function Filter(props) {
   };
 
   return (
-    <View>
+    <View style={{zIndex: 'unset'}}>
       <PhoneView>
         <JustBottomBorderSelect
           isHalf={true}
@@ -115,39 +115,39 @@ function Filter(props) {
         </View>
       </PhoneView>
       {showProSearch && (
-        <View style={{zIndex: 10}}>
-          <PhoneView>
+        <View style={{zIndex: 'unset'}}>
+          <PhoneView style={{zIndex: 'unset'}}>
             <JustBottomBorderDatePicker
               placeholder={translator.dateStartRequest}
-              setter={props.setsenddateSolar}
-              value={props.senddateSolar}
+              setter={setSendDateSolar}
+              value={sendDateSolar}
               isHalf={true}
             />
             <JustBottomBorderDatePicker
               placeholder={translator.dateEndRequest}
-              setter={props.setsenddatesolarendlimit}
-              value={props.senddatesolarendlimit}
+              setter={setSendDateSolarEndLimit}
+              value={sendDateSolarEndLimit}
               isHalf={true}
             />
             <JustBottomBorderSelect
               isHalf={true}
-              setter={props.setStartWith}
+              setter={setStartWith}
               values={startWithVals}
-              value={startWithVals.find(elem => elem.id === props.startWith)}
+              value={startWithVals.find(elem => elem.id === startWith)}
               placeholder={translator.startWith}
             />
           </PhoneView>
-          <PhoneView style={{marginTop: 10}}>
+          <PhoneView style={{marginTop: 10, zIndex: 'unset'}}>
             <JustBottomBorderDatePicker
               placeholder={translator.lastStartUpdate}
-              setter={props.setanswersatesolar}
-              value={props.answersateaolar}
+              setter={setAnswerDateSolar}
+              value={answerDateSolar}
               isHalf={true}
             />
             <JustBottomBorderDatePicker
               placeholder={translator.lastEndUpdate}
-              setter={props.setanswerdatesolarendlimit}
-              value={props.answerdatesolarendlimit}
+              setter={setAnswerDateSolarEndLimit}
+              value={answerDateSolarEndLimit}
               isHalf={true}
             />
             <View style={{marginTop: 10}}>
@@ -159,17 +159,13 @@ function Filter(props) {
                   text={translator.SearchArchive}
                 />
                 <CommonRadioButton
-                  status={
-                    props.searcharchive === 'yes' ? 'checked' : 'unchecked'
-                  }
-                  onPress={() => props.setsearcharchive('yes')}
+                  status={searchArchive === 'yes' ? 'checked' : 'unchecked'}
+                  onPress={() => setSearchArchive('yes')}
                   text={commonTranslator.yes}
                 />
                 <CommonRadioButton
-                  status={
-                    props.searcharchive === 'no' ? 'checked' : 'unchecked'
-                  }
-                  onPress={() => props.setsearcharchive('no')}
+                  status={searchArchive === 'no' ? 'checked' : 'unchecked'}
+                  onPress={() => setSearchArchive('no')}
                   text={commonTranslator.no}
                 />
               </PhoneView>

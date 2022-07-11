@@ -34,6 +34,7 @@ export const CommonDatePicker = props => {
               width: isApp ? 'auto' : 'calc(50% - 10px)',
               maxWidth: 300,
               direction: 'rtl',
+              zIndex: 'unset',
             }
           : {}
       }>
