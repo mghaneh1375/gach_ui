@@ -22,10 +22,9 @@ const Chat = props => {
         </PhoneView>
         <SimpleText text={props.msg} />
         <PhoneView>
-          {/* {props.files.map((elem, index) => {
-            console.log(elem);
+          {props.files.map((elem, index) => {
             return <AttachBox key={index} filename={elem} />;
-          })} */}
+          })}
         </PhoneView>
       </View>
     </CommonWebBox>

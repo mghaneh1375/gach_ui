@@ -142,6 +142,7 @@ const WebStructue = props => {
                 toggleHideRightMenu={toggleHideRightMenu}
                 navigate={navigate}
                 selected={props.page}
+                accesses={user.accesses}
               />
             )}
             <View

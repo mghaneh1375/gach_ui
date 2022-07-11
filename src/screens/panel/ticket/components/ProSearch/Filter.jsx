@@ -24,6 +24,7 @@ import {
 import {filter} from '../List/Utility';
 import vars from '../../../../../styles/root';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
 
 function Filter(props) {
   const [showProSearch, setShowProSearch] = useState(false);
@@ -140,6 +141,7 @@ function Filter(props) {
           <PhoneView style={{marginTop: 10, zIndex: 'unset'}}>
             <JustBottomBorderDatePicker
               placeholder={translator.lastStartUpdate}
+              subText={translator.lastStartUpdate}
               setter={setAnswerDateSolar}
               value={answerDateSolar}
               isHalf={true}
@@ -151,24 +153,11 @@ function Filter(props) {
               isHalf={true}
             />
             <View style={{marginTop: 10}}>
-              <PhoneView>
-                <SimpleText
-                  style={{
-                    padding: 10,
-                  }}
-                  text={translator.SearchArchive}
-                />
-                <CommonRadioButton
-                  status={searchArchive === 'yes' ? 'checked' : 'unchecked'}
-                  onPress={() => setSearchArchive('yes')}
-                  text={commonTranslator.yes}
-                />
-                <CommonRadioButton
-                  status={searchArchive === 'no' ? 'checked' : 'unchecked'}
-                  onPress={() => setSearchArchive('no')}
-                  text={commonTranslator.no}
-                />
-              </PhoneView>
+              <RadioButtonYesOrNo
+                label={translator.searchArchive}
+                selected={searchArchive}
+                setSelected={setSearchArchive}
+              />
             </View>
           </PhoneView>
         </View>

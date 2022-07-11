@@ -66,6 +66,8 @@ const Add = props => {
         ticket.chats = chats;
         props.updateTicket(ticket);
         showSuccess(translator.successSendAnswer);
+        clear();
+        setMsg('');
       }
     }
   };
