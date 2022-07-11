@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {globalStateContext, dispatchStateContext} from './../../../../App';
+import Create from './components/Create';
 import List from './components/List';
 
 function Avatar(props) {
@@ -43,6 +44,12 @@ function Avatar(props) {
 
   const updateAvatar = avatar => {};
 
+  const addAvatar = avatar => {
+    let allAvatars = avatars;
+    allAvatars.push(avatar);
+    setAvatars(allAvatars);
+  };
+
   return (
     <View>
       {mode === 'list' && (
@@ -51,7 +58,16 @@ function Avatar(props) {
           avatars={avatars}
           setAvatars={setAvatars}
           setLoading={setLoading}
+          setMode={setMode}
           token={props.token}
+        />
+      )}
+      {mode === 'create' && (
+        <Create
+          addAvatar={addAvatar}
+          setMode={setMode}
+          token={props.token}
+          setLoading={props.setLoading}
         />
       )}
     </View>
