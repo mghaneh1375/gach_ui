@@ -32,6 +32,8 @@ import vars from '../styles/root';
 import Off from './panel/offcode/Off';
 import Ticket from './panel/ticket/Ticket';
 import Users from './panel/users/Users';
+import Avatar from './panel/Config/Avatars/Avatar';
+import PageNotFound from './general/404/PageNotFound';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -176,6 +178,11 @@ const WebStructue = props => {
               {props.page === 'users' && (
                 <Users token={token} user={user} navigate={navigate} />
               )}
+              {props.page === 'avatars' && (
+                <Avatar token={token} user={user} navigate={navigate} />
+              )}
+
+              {props.page === '404' && <PageNotFound navigate={navigate} />}
             </View>
           </View>
 

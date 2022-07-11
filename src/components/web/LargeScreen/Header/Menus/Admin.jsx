@@ -37,6 +37,12 @@ function AdminMenu(props) {
           icon={faUsers}
           selected={props.selected === 'quiz'}
         />
+        <MenuItem
+          onClick={() => navigate('/avatar')}
+          text={translator.avatars}
+          icon={faUsers}
+          selected={props.selected === 'avatar'}
+        />
       </div>
     );
   }
@@ -53,7 +59,6 @@ function AdminMenu(props) {
         icon={faHome}
         onClick={() => {
           navigate('/');
-          props.toggleHideRightMenu();
         }}
         selected={props.selected === 'home'}
       />
@@ -63,7 +68,6 @@ function AdminMenu(props) {
         isApp={false}
         onClick={() => {
           navigate('/ticket');
-          props.toggleHideRightMenu();
         }}
       />
       <MenuItemPhone
@@ -72,7 +76,6 @@ function AdminMenu(props) {
         isApp={false}
         onClick={() => {
           navigate('/users');
-          props.toggleHideRightMenu();
         }}
       />
     </View>

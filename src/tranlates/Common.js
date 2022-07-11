@@ -22,6 +22,7 @@ const translator = {
   myQuizes: 'آزمون های من',
   buyQuiz: 'خرید آزمون',
   quizes: 'آزمون ها',
+  avatars: 'مدیریت تصاویر آواتار',
   charge: 'شارژ',
   history: 'سابقه',
   config: 'تنظیمات',
@@ -83,5 +84,6 @@ const translator = {
   advancedSearch: 'جستجوی پیشرفته',
   update: 'ویرایش',
   all: 'همه',
+  pageNotFound: 'صفحه موردنظر یافت نشد.',
 };
 export default translator;

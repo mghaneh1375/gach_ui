@@ -50,4 +50,5 @@ export const routes = {
   closeTicketRequest: 'admin/ticket/rejectRequests',
   removeTickets: 'admin/ticket/remove',
   fetchAllUsers: 'admin/users',
+  fetchAllAvatars: 'admin/config/avatar/getAll',
 };
