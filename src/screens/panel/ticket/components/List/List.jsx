@@ -8,7 +8,6 @@ import {
   CommonWebBox,
   ShrinkView,
   SimpleText,
-  CommonRadioButton,
 } from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import {useState} from 'react';
@@ -19,7 +18,7 @@ import {
   sectionKeyVals,
   statusKeyVals,
   priorityKeyVals,
-  startWithVals,
+  // startWithVals,
 } from './../KeyVals';
 import {closeRequest, filter} from './Utility';
 import columns from '../TableStructure';
@@ -28,6 +27,7 @@ import vars from '../../../../../styles/root';
 import {faAngleDoubleDown} from '@fortawesome/free-solid-svg-icons';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {View} from 'react-native';
+import ProSearch from '../ProSearch/ProSearch';
 
 function List(props) {
   const [status, setStatus] = useState();
@@ -37,13 +37,12 @@ function List(props) {
   const [priority, setPriority] = useState();
   const [section, setSection] = useState();
   const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
-  const [startWith, setStartWith] = useState();
+  const [startWith, setStartWith] = useState('all');
   const [searchArchive, setSearchArchive] = useState('yes');
   const [sendDateSolar, setSendDateSolar] = useState('');
   const [sendDateSolarEndLimit, setSendDateSolarEndLimit] = useState('');
   const [answerDateSolar, setAnswerDateSolar] = useState('');
   const [answerDateSolarEndLimit, setAnswerDateSolarEndLimit] = useState('');
-
   const handleOp = index => {
     if (index >= props.tickets.length) return;
     props.setSelectedTicket(props.tickets[index]);
@@ -166,67 +165,20 @@ function List(props) {
               </View>
             </PhoneView>
             {showProSearch && (
-              <View style={{zIndex: 11}}>
-                <PhoneView>
-                  <JustBottomBorderDatePicker
-                    placeholder={translator.dateStartRequest}
-                    setter={setSendDateSolar}
-                    value={sendDateSolar}
-                    isHalf={true}
-                  />
-                  <JustBottomBorderDatePicker
-                    placeholder={translator.dateEndRequest}
-                    setter={setSendDateSolarEndLimit}
-                    value={sendDateSolarEndLimit}
-                    isHalf={true}
-                  />
-                  <JustBottomBorderSelect
-                    isHalf={true}
-                    setter={setStartWith}
-                    values={startWithVals}
-                    value={startWithVals.find(elem => elem.id === startWith)}
-                    placeholder={translator.startWith}
-                  />
-                </PhoneView>
-                <PhoneView style={{marginTop: 10}}>
-                  <JustBottomBorderDatePicker
-                    placeholder={translator.lastStartUpdate}
-                    setter={setAnswerDateSolar}
-                    value={answerDateSolar}
-                    isHalf={true}
-                  />
-                  <JustBottomBorderDatePicker
-                    placeholder={translator.lastEndUpdate}
-                    setter={setAnswerDateSolarEndLimit}
-                    value={answerDateSolarEndLimit}
-                    isHalf={true}
-                  />
-                  <View style={{marginTop: 10}}>
-                    <PhoneView>
-                      <SimpleText
-                        style={{
-                          padding: 10,
-                        }}
-                        text={translator.SearchArchive}
-                      />
-                      <CommonRadioButton
-                        status={
-                          searchArchive === 'yes' ? 'checked' : 'unchecked'
-                        }
-                        onPress={() => setSearchArchive('yes')}
-                        text={commonTranslator.yes}
-                      />
-                      <CommonRadioButton
-                        status={
-                          searchArchive === 'no' ? 'checked' : 'unchecked'
-                        }
-                        onPress={() => setSearchArchive('no')}
-                        text={commonTranslator.no}
-                      />
-                    </PhoneView>
-                  </View>
-                </PhoneView>
-              </View>
+              <ProSearch
+                senddatesolar={sendDateSolar}
+                setsenddatesolar={setSendDateSolar}
+                senddatesolarendlimit={sendDateSolarEndLimit}
+                setsenddatesolarendlimit={setSendDateSolarEndLimit}
+                answerdatesolar={answerDateSolar}
+                setsnswerdatesolar={setAnswerDateSolar}
+                answerdatesolarendlimit={answerDateSolarEndLimit}
+                setanswerdatesolarendlimit={setAnswerDateSolarEndLimit}
+                searcharchive={searchArchive}
+                setsearcharchive={setSearchArchive}
+                startwith={startWith}
+                setatartwith={setStartWith}
+              />
             )}
             {props.tickets !== undefined && (
               <CommonDataTable
