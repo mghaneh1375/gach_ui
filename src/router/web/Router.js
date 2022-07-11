@@ -24,6 +24,8 @@ export default function WebRouter() {
           <Route path="/offs" element={<WebStructue page="offs" />} />
           <Route path="/ticket" element={<WebStructue page="ticket" />} />
           <Route path="/users" element={<WebStructue page="users" />} />
+          <Route path="/avatars" element={<WebStructue page="avatars" />} />
+          <Route path="*" element={<WebStructue page="404" />} />
         </Routes>
       </Router>
     </View>

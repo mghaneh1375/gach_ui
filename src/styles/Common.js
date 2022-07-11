@@ -28,6 +28,8 @@ import {getScreenHeight, getWidthHeight} from '../services/Utility';
 import {Link} from 'react-router-dom';
 import {style} from '../components/web/LargeScreen/Header/style';
 import JustBottomBorderTextInput from './Common/JustBottomBorderTextInput';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {FontIcon} from './Common/FontIcon';
 
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem
@@ -260,6 +262,14 @@ export const CommonWebBox = props => {
             text={props.header}
           />
           {props.btn !== undefined && props.btn}
+          {props.backBtn !== undefined && props.backBtn && (
+            <FontIcon
+              onPress={props.onBackClick}
+              theme="rect"
+              kind="normal"
+              icon={faArrowLeft}
+            />
+          )}
         </EqualTwoTextInputs>
       )}
       {props.child !== undefined && props.child}

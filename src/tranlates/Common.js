@@ -21,9 +21,13 @@ const translator = {
   home: 'خانه',
   myQuizes: 'آزمون های من',
   buyQuiz: 'خرید آزمون',
+  quizes: 'آزمون ها',
+  avatars: 'مدیریت تصاویر آواتار',
   charge: 'شارژ',
   history: 'سابقه',
   config: 'تنظیمات',
+  requests: 'درخواست ها',
+  users: 'کاربران',
   pleaseFillAllFields: 'لطفا تمام فیلدهای لازم را پر نمایید.',
   invalidFieldValue: 'مقدار وارد شده صحیح نمی باشد.',
   opErr: 'خطایی در انجام عملیات موردنظر رخ داده است',
@@ -80,5 +84,6 @@ const translator = {
   advancedSearch: 'جستجوی پیشرفته',
   update: 'ویرایش',
   all: 'همه',
+  pageNotFound: 'صفحه موردنظر یافت نشد.',
 };
 export default translator;

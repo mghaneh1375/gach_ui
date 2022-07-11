@@ -9,6 +9,8 @@ export const CommonDatePicker = props => {
 
   let value = props.value;
 
+  if (typeof value === 'string' && value.length === 0) value = undefined;
+
   if (
     value !== undefined &&
     (typeof value === 'number' || value.indexOf('ساعت') == -1)
@@ -23,8 +25,8 @@ export const CommonDatePicker = props => {
     onChange: e => {
       props.setter(e * 1000);
     },
-    preSelected: value,
   };
+  if (value !== undefined) inputProps['preSelected'] = value;
 
   return (
     <CommonTextInputContainer

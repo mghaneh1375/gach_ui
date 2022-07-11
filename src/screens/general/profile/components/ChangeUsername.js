@@ -6,11 +6,11 @@ import {LargePopUp} from '../../../../styles/Common/PopUp';
 import vars from '../../../../styles/root';
 import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';
-import {generalRequest, showError} from '../../../../API/Utility';
+import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import Verification from '../../login/components/Verification';
-import {removeAuthCache, setCacheItem} from '../../../../API/User';
-import {getDevice} from '../../../../services/Utility';
+import {removeAuthCache} from '../../../../API/User';
+import {getDevice, showError} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 
 const ChangeUsername = props => {
