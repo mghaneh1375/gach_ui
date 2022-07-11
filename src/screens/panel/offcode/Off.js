@@ -5,11 +5,12 @@ import {generalRequest} from '../../../API/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import {CommonButton, CommonWebBox, SimpleText} from '../../../styles/Common';
 import Create from './components/Create';
-import List from './components/List';
+import List from './components/List/List';
 import SearchUser from '../../../components/web/SearchUser';
+import Update from './components/Update';
 
 const Off = props => {
-  const [mode, setMode] = useState('sa');
+  const [mode, setMode] = useState('list');
   const [offs, setOffs] = useState([]);
   const [selectedOff, setSelectedOff] = useState();
 
@@ -35,6 +36,19 @@ const Off = props => {
     setOffs(allOffs);
   };
 
+  const updateOff = item => {
+    if (item === undefined) return;
+    let allOffs = offs;
+    for (let i = 0; i < offs.length; i++) {
+      if (offs[i].id === item.id) {
+        offs[i] = item;
+        break;
+      }
+    }
+
+    setOffs(allOffs);
+  };
+
   const removeOffs = items => {
     let allOffs = offs;
 
@@ -46,23 +60,23 @@ const Off = props => {
   };
 
   React.useEffect(() => {
-    // dispatch({loading: true});
-    // Promise.all([
-    //   generalRequest(
-    //     routes.fetchAllOffs,
-    //     'get',
-    //     undefined,
-    //     'data',
-    //     props.token,
-    //   ),
-    // ]).then(res => {
-    //   if (res[0] == null) {
-    //     navigate('/');
-    //     return;
-    //   }
-    //   setOffs(res[0]);
-    //   dispatch({loading: false});
-    // });
+    dispatch({loading: true});
+    Promise.all([
+      generalRequest(
+        routes.fetchAllOffs,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      if (res[0] == null) {
+        navigate('/');
+        return;
+      }
+      setOffs(res[0]);
+      dispatch({loading: false});
+    });
   }, [navigate, props.token, dispatch]);
 
   const [showSearchUser, setShowSearchUser] = useState(false);
@@ -70,7 +84,7 @@ const Off = props => {
 
   return (
     <View style={{zIndex: 10}}>
-      <CommonWebBox
+      {/* <CommonWebBox
         child={
           <View>
             {foundUser !== undefined && (
@@ -91,12 +105,13 @@ const Off = props => {
             />
           </View>
         }
-      />
+      /> */}
 
       {mode === 'list' && (
         <List
           offs={offs}
           setMode={setMode}
+          setData={setOffs}
           setLoading={setLoading}
           token={props.token}
           setSelectedOff={setSelectedOff}
@@ -110,6 +125,15 @@ const Off = props => {
           addOffs={addOffs}
           setLoading={setLoading}
           token={props.token}
+        />
+      )}
+      {mode === 'update' && (
+        <Update
+          setMode={setMode}
+          updateOff={updateOff}
+          setLoading={setLoading}
+          token={props.token}
+          off={selectedOff}
         />
       )}
     </View>

@@ -22,7 +22,6 @@ export const CommonDatePicker = props => {
     containerClass: 'date-picker',
     onChange: e => {
       props.setter(e * 1000);
-      props.onChange(e);
     },
     preSelected: value,
   };

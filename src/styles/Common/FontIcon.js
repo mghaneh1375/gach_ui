@@ -55,8 +55,8 @@ export const SimpleFontIcon = props => (
   <Pressable
     style={{
       cursor: 'pointer',
-      width: '100%',
-      height: '100%',
+      width: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
+      height: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
       alignSelf: 'center',
       color: vars.LIGHT_SILVER,
       justifyContent: 'center',

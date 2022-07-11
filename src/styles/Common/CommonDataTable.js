@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import DataTable from 'react-data-table-component';
 import {View} from 'react-native';
-import RemovePane from '../../components/web/RemovePane';
+import ConfirmationBatchOpPane from '../../components/web/ConfirmationBatchOpPane';
 import {showSuccess} from '../../services/Utility';
 import commonTranslator from '../../tranlates/Common';
 
@@ -27,9 +27,15 @@ const CommonDataTable = props => {
   const [selected, setSelected] = useState([]);
   const [data, setData] = useState(props.data);
   const [showRemovePopUp, setShowRemovePopUp] = useState(false);
+  const [selectedOp, setSelectedOp] = useState();
 
   const columns = [
-    {name: 'ردیف'},
+    {
+      name: 'ردیف',
+      cell: (row, index, column, id) => {
+        return <p>{index + 1}</p>;
+      },
+    },
     {
       name: commonTranslator.operation,
       style: {
@@ -43,25 +49,6 @@ const CommonDataTable = props => {
     ...props.columns,
   ];
 
-  // if (props.columns[1].name !== commonTranslator.operation) {
-  //   props.columns.splice(0, 0, {
-  //     name: 'ردیف',
-  //     // grow: 1,
-  //   });
-
-  //   props.columns.splice(1, 0, {
-  //     name: commonTranslator.operation,
-  //     style: {
-  //       cursor: 'pointer',
-  //     },
-  //     cell: (row, index, column, id) => {
-  //       return <p onClick={() => props.handleOp(index)}>...</p>;
-  //     },
-  //     ignoreRowClick: true,
-  //     // grow: 1,
-  //   });
-  // }
-
   React.useEffect(() => {
     setData(props.data);
   }, [props.data]);
@@ -71,32 +58,87 @@ const CommonDataTable = props => {
   };
 
   const changeOpSelect = e => {
-    if (selected.length === 0) return;
-    if (e.target.value === 'remove') {
-      toggleShowRemovePopUp();
+    if (selected.length === 0 || e.target.value === 'none') {
+      setSelectedOp(undefined);
+      return;
     }
+
+    setSelectedOp(
+      ops.find(elem => {
+        return elem.key === e.target.value;
+      }),
+    );
+    setShowRemovePopUp(true);
   };
 
   const toggleShowRemovePopUp = () => {
+    if (showRemovePopUp) setSelectedOp(undefined);
     setShowRemovePopUp(!showRemovePopUp);
   };
 
-  const afterRemove = res => {
+  const localAfterFunc = res => {
     toggleShowRemovePopUp();
     showSuccess(res.excepts);
-    let newData = data.filter(elem => {
-      return res.removedIds.indexOf(elem.id) === -1;
-    });
-
-    setData(newData);
-    props.setData(newData);
+    selectedOp.afterFunc(res);
     setSelected([]);
+    setSelectedOp(undefined);
+    handleClearRows();
   };
+
+  const [toggledClearRows, setToggleClearRows] = React.useState(false);
+  const [ops, setOps] = React.useState();
+
+  const handleClearRows = () => {
+    setToggleClearRows(!toggledClearRows);
+  };
+
+  React.useEffect(() => {
+    if (ops !== undefined) return;
+
+    const afterRemove = res => {
+      let newData = data.filter(elem => {
+        return res.doneIds.indexOf(elem.id) === -1;
+      });
+
+      setData(newData);
+      props.setData(newData);
+    };
+
+    if (props.groupOps === undefined && props.removeUrl !== undefined) {
+      setOps([
+        {
+          label: commonTranslator.deleteAll,
+          url: props.removeUrl,
+          key: 'removeAll',
+          method: 'delete',
+          warning: commonTranslator.sureRemove,
+          afterFunc: afterRemove,
+        },
+      ]);
+    } else if (props.groupOps !== undefined) {
+      for (let i = 0; i < props.groupOps.length; i++) {
+        if (props.groupOps[i].key === 'removeAll') {
+          if (props.groupOps[i].afterFunc === undefined) {
+            props.groupOps[i] = {
+              label: commonTranslator.deleteAll,
+              url: props.groupOps[i],
+              key: 'removeAll',
+              method: 'delete',
+              warning: commonTranslator.sureRemove,
+              afterFunc: afterRemove,
+            };
+          }
+          break;
+        }
+      }
+      setOps(props.groupOps);
+    }
+  }, [props, data, ops]);
 
   return (
     <View>
-      {showRemovePopUp && (
-        <RemovePane
+      {showRemovePopUp && selectedOp !== undefined && (
+        <ConfirmationBatchOpPane
           setLoading={props.setLoading}
           token={props.token}
           data={{
@@ -104,21 +146,30 @@ const CommonDataTable = props => {
               return element.id;
             }),
           }}
-          expected={['excepts', 'removedIds']}
-          afterRemoveFunc={afterRemove}
-          url={props.removeUrl}
+          expected={['excepts', 'doneIds']}
+          afterFunc={localAfterFunc}
+          url={selectedOp.url}
+          method={selectedOp.method}
+          warning={selectedOp.warning}
           toggleShowPopUp={toggleShowRemovePopUp}
         />
       )}
       <select
+        value={selectedOp === undefined ? 'none' : selectedOp.key}
         onChange={e => changeOpSelect(e)}
         style={{alignSelf: 'flex-end', fontFamily: 'IRANSans'}}>
-        <option>{commonTranslator.op + ' (' + selected.length + ')'}</option>
-        {(props.ops === undefined || props.ops.indexOf('delete') !== -1) && (
-          <option value={'remove'}>
-            {commonTranslator.deleteAll + ' (' + selected.length + ')'}
-          </option>
-        )}
+        <option value="none">
+          {commonTranslator.op + ' (' + selected.length + ')'}
+        </option>
+
+        {ops !== undefined &&
+          ops.map((elem, index) => {
+            return (
+              <option key={index} value={elem.key}>
+                {elem.label + ' (' + selected.length + ')'}
+              </option>
+            );
+          })}
       </select>
       <DataTable
         customStyles={customStyles}
@@ -130,6 +181,7 @@ const CommonDataTable = props => {
         onSelectedRowsChange={({selectedRows}) =>
           onChangeSelectedRows(selectedRows)
         }
+        clearSelectedRows={toggledClearRows}
       />
     </View>
   );

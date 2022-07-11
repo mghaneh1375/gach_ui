@@ -262,7 +262,8 @@ export const CommonWebBox = props => {
           {props.btn !== undefined && props.btn}
         </EqualTwoTextInputs>
       )}
-      {props.child}
+      {props.child !== undefined && props.child}
+      {props.children !== undefined && props.children}
     </View>
   );
 };

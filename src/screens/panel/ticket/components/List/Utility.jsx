@@ -55,15 +55,16 @@ export const filter = (
   if (startWith !== undefined && startWith !== 'all')
     query.append('startByAdmin', startWith === 'admin');
 
-  if (sendDateSolar !== undefined) query.append('sendDateSolar', sendDateSolar);
+  if (sendDateSolar !== undefined && sendDateSolar.length > 0)
+    query.append('sendDateSolar', sendDateSolar);
 
-  if (sendDateSolarEndLimit !== undefined)
+  if (sendDateSolarEndLimit !== undefined && sendDateSolarEndLimit.length > 0)
     query.append('sendDateSolarEndLimit', sendDateSolarEndLimit);
 
-  if (answerDateSolar !== undefined)
+  if (answerDateSolar !== undefined && answerDateSolar.length > 0)
     query.append('answerDateSolar', answerDateSolar);
 
-  if (answerDateSolarEndLimit !== undefined)
+  if (answerDateSolarEndLimit !== undefined && answerDateSolarEndLimit > 0)
     query.append('answerDateSolarEndLimit', answerDateSolarEndLimit);
 
   props.setLoading(true);

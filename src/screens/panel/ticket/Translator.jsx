@@ -18,6 +18,7 @@ const translator = {
   title: 'موضوع',
   msgText: 'متن پیام',
   SearchArchive: 'جستجو در آرشیو :',
+  sureClose: 'آیا از بستن آیتم/آیتم های موردنظر اطمینان دارید؟',
 };
 
 export default translator;
