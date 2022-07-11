@@ -2,19 +2,17 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {
   CommonButton,
-  CommonWebBox,
   EqualTwoTextInputs,
   SimpleText,
 } from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
 import vars from '../../../../styles/root';
 import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';
-import {generalRequest, showError} from '../../../../API/Utility';
+import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import {removeAuthCache} from '../../../../API/User';
-import {getDevice} from '../../../../services/Utility';
+import {getDevice, showError} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 
 const ChangePass = props => {

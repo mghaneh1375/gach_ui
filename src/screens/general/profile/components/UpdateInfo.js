@@ -7,13 +7,13 @@ import {
   BigBoldBlueText,
   CommonButton,
   EqualTwoTextInputs,
-  PhoneView,
 } from '../../../../styles/Common';
 import {View} from 'react-native';
-import {generalRequest, showError} from '../../../../API/Utility';
+import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import vars from '../../../../styles/root';
 import {fetchUser, setCacheItem} from '../../../../API/User';
+import {showError} from '../../../../services/Utility';
 
 const UpdateInfo = props => {
   const [states, setStates] = useState([]);

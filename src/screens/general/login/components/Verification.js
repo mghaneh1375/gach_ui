@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import CodeInput from 'react-native-confirmation-code-input';
 import {routes} from '../../../../API/APIRoutes';
-import {generalRequest, showError} from '../../../../API/Utility';
+import {generalRequest} from '../../../../API/Utility';
+import {showError} from '../../../../services/Utility';
 import {
   TextLink,
   BlueTextInline,
