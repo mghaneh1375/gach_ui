@@ -6,12 +6,16 @@ import {
   EqualTwoTextInputs,
   PhoneView,
 } from '../../../../../styles/Common';
-import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../Translator';
 import {useFilePicker} from 'use-file-picker';
 import AttachBox from './AttachBox/AttachBox';
-import {getCurrTime, showError} from '../../../../../services/Utility';
+import {
+  getSimpleCurrTime,
+  showError,
+  showSuccess,
+} from '../../../../../services/Utility';
 import {addFile, addMsg} from './Utility';
 
 const Add = props => {
@@ -44,22 +48,24 @@ const Add = props => {
 
       for (let i = 0; i < filesContent.length; i++) {
         res = await addFile(props.token, filesContent[i], props.ticket.id);
-        console.log(res);
         if (res !== null) files.push(res);
       }
 
       res = await addMsg(props.ticket.id, props.token, msg);
       props.setLoading(false);
+      let chats = ticket.chats;
+      const isForUser = !chats[chats.length - 1].isForUser;
 
       if (res !== null) {
-        ticket.chats.push({
+        chats.push({
           msg: msg,
-          isForUser: !ticket.chats[ticket.chats.length - 1].isForUser,
+          isForUser: isForUser,
           files: files,
-          createdAt: getCurrTime(),
+          createdAt: getSimpleCurrTime(),
         });
-
+        ticket.chats = chats;
         props.updateTicket(ticket);
+        showSuccess(translator.successSendAnswer);
       }
     }
   };

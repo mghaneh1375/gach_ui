@@ -4,6 +4,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
+import AttachBox from './AttachBox/AttachBox';
 
 const Chat = props => {
   const commonStyles = {};
@@ -14,17 +15,20 @@ const Chat = props => {
     : {...commonStyles, ...notForMeMsgStyle};
 
   return (
-    <CommonWebBox
-      style={allStyles}
-      child={
-        <View>
-          <PhoneView>
-            <SimpleText text={props.createdAt} />
-          </PhoneView>
-          <SimpleText text={props.msg} />
-        </View>
-      }
-    />
+    <CommonWebBox style={allStyles}>
+      <View>
+        <PhoneView>
+          <SimpleText text={props.createdAt} />
+        </PhoneView>
+        <SimpleText text={props.msg} />
+        <PhoneView>
+          {/* {props.files.map((elem, index) => {
+            console.log(elem);
+            return <AttachBox key={index} filename={elem} />;
+          })} */}
+        </PhoneView>
+      </View>
+    </CommonWebBox>
   );
 };
 

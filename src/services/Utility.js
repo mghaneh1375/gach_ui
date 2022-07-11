@@ -3,7 +3,6 @@ import {Device} from '../models/Device';
 import moment from 'moment-jalaali';
 import {Store} from 'react-notifications-component';
 import {generalRequest} from '../API/Utility';
-import {routes} from '../API/APIRoutes';
 
 export function getDevice() {
   const device = [];
@@ -45,6 +44,10 @@ export function getCurrTime() {
   return moment
     .unix(Date.now() / 1000)
     .format('تاریخ: jYYYY/jMM/jDD ساعت: HH:mm');
+}
+
+export function getSimpleCurrTime() {
+  return moment.unix(Date.now() / 1000).format('jYYYY/jM/jD - HH:mm');
 }
 
 export function showError(msg) {

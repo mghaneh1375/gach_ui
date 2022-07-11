@@ -19,6 +19,7 @@ const translator = {
   msgText: 'متن پیام',
   SearchArchive: 'جستجو در آرشیو :',
   sureClose: 'آیا از بستن آیتم/آیتم های موردنظر اطمینان دارید؟',
+  successSendAnswer: 'پاسخ شما با موفقیت ذخیره شد.',
 };
 
 export default translator;
