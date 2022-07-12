@@ -28,6 +28,7 @@ function Avatar(props) {
       if (res[0] !== undefined) {
         await props.updateUserPic(res[0]);
         props.toggleShowChooseAvatar();
+        props.setPic(res[0]);
         showSuccess(commonTranslator.success);
       }
     });

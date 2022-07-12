@@ -173,14 +173,16 @@ export const MenuItem = props => {
         }}
         text={props.text}
       />
-      <div
-        className={
-          props.selected !== undefined && props.selected
-            ? 'menu-item-font-container menu-item-font-container-selected'
-            : 'menu-item-font-container'
-        }>
-        <SimpleFontIcon style={{color: vars.WHITE}} icon={props.icon} />
-      </div>
+      {props.icon !== undefined && (
+        <div
+          className={
+            props.selected !== undefined && props.selected
+              ? 'menu-item-font-container menu-item-font-container-selected'
+              : 'menu-item-font-container'
+          }>
+          <SimpleFontIcon style={{color: vars.WHITE}} icon={props.icon} />
+        </div>
+      )}
     </div>
   );
 };

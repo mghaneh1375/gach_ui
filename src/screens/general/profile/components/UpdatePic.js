@@ -38,7 +38,6 @@ const UpdatePic = props => {
   };
 
   React.useEffect(() => {
-    console.log(props.user.pic);
     setPic(props.user.pic);
   }, [props.user]);
 
@@ -56,6 +55,7 @@ const UpdatePic = props => {
                     setLoading={props.setLoading}
                     avatarId={elem.id}
                     pic={elem.file}
+                    setPic={setPic}
                     toggleShowChooseAvatar={toggleShowChooseAvatar}
                     updateUserPic={props.updateUserPic}
                   />

@@ -4,6 +4,7 @@ import {MenuItem, style, MenuItemPhone} from '../style';
 import translator from '../../../../../tranlates/Common';
 import {faHome, faCog, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
+import {SuperMenuItem} from './SuperMenuItem';
 
 function AdminMenu(props) {
   const device = getDevice();
@@ -30,6 +31,26 @@ function AdminMenu(props) {
           text={translator.users}
           icon={faUsers}
           selected={props.selected === 'users'}
+        />
+        <SuperMenuItem
+          text={translator.quizes}
+          icon={faUsers}
+          selected={props.selected === 'quiz'}
+          navigate={navigate}
+          items={[
+            {
+              text: 'زیرمنو۱ ',
+              url: '/quiz1',
+            },
+            {
+              text: 'زیرمنو۲ ',
+              url: '/quiz2',
+            },
+            {
+              text: 'زیرمنو۳ ',
+              url: '/quiz3',
+            },
+          ]}
         />
         <MenuItem
           onClick={() => navigate('/quiz')}
