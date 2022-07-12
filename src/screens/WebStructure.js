@@ -130,7 +130,7 @@ const WebStructue = props => {
 
             {user !== undefined && (
               <Header
-                pic={'https://statics.okft.org/usersPic/1649843007648.jpg'}
+                pic={user.user.pic}
                 name={user.user.firstName + ' ' + user.user.lastName}
                 token={token}
                 hideRightMenu={hideRightMenu}
@@ -144,7 +144,7 @@ const WebStructue = props => {
                 toggleHideRightMenu={toggleHideRightMenu}
                 navigate={navigate}
                 selected={props.page}
-                accesses={user.accesses}
+                accesses={user !== undefined ? user.accesses : null}
               />
             )}
             <View
@@ -155,10 +155,20 @@ const WebStructue = props => {
               }>
               {props.page === 'home' && <Home navigate={navigate} />}
               {props.page === 'profile' && isInLargeMode && (
-                <WebProfile token={token} user={user} navigate={navigate} />
+                <WebProfile
+                  setUser={setUser}
+                  token={token}
+                  user={user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'profile' && !isInLargeMode && (
-                <Profile token={token} user={user} navigate={navigate} />
+                <Profile
+                  setUser={setUser}
+                  token={token}
+                  user={user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'cert' && (
                 <Certificate token={token} user={user} navigate={navigate} />

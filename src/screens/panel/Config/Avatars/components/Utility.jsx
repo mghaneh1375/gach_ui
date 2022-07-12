@@ -1,7 +1,6 @@
 import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
+import {fileRequest, generalRequest} from '../../../../../API/Utility';
 import {showSuccess} from '../../../../../services/Utility';
-import translator from '../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
 
 export const setAsDefault = async (avatarId, setLoading, token, setDefault) => {
@@ -41,7 +40,7 @@ export const remove = async (
 
   setLoading(false);
   if (res !== null) {
-    if (res !== 'no_changes') setDefault(res);
+    if (res !== 'no_change') setDefault(res);
     removeAvatar(avatarId);
     showSuccess(commonTranslator.success);
   }

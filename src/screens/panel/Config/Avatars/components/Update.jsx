@@ -4,7 +4,7 @@ import UploadFile from '../../../../../components/web/UploadFile';
 import {showSuccess} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../tranlates/Common';
 
-function Create(props) {
+function Update(props) {
   const [showPopUp, setShowPopUp] = useState(true);
   const toggleShowPopUp = () => {
     if (showPopUp) props.setMode('list');
@@ -12,9 +12,9 @@ function Create(props) {
     setShowPopUp(!showPopUp);
   };
 
-  const afterAdd = res => {
+  const afterUpdate = res => {
     if (res !== null) {
-      props.addAvatar({isDefault: false, file: res.file, id: res.id});
+      props.updateAvatar(props.avatar.id, res);
       showSuccess(commonTranslator.success);
       props.setMode('list');
     }
@@ -24,10 +24,10 @@ function Create(props) {
     return (
       <UploadFile
         accept={['image/*']}
-        url={routes.addAvatar}
-        expectedRes={['file', 'id']}
+        url={routes.editAvatar + props.avatar.id}
+        expectedRes={'file'}
         token={props.token}
-        setResult={afterAdd}
+        setResult={afterUpdate}
         multi={false}
         maxFileSize={1}
         toggleShow={toggleShowPopUp}
@@ -37,4 +37,4 @@ function Create(props) {
   return <></>;
 }
 
-export default Create;
+export default Update;

@@ -38,6 +38,8 @@ function List(props) {
               return (
                 <Show
                   setDefault={setDefaultAvatar}
+                  setSelected={props.setSelected}
+                  setMode={props.setMode}
                   removeAvatar={removeAvatar}
                   token={props.token}
                   setLoading={props.setLoading}

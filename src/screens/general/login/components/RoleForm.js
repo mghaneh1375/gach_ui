@@ -1,12 +1,11 @@
 import {useState} from 'react';
 import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
-import {generalRequest, showError} from '../../../../API/Utility';
+import {generalRequest} from '../../../../API/Utility';
 import {
   BigBoldBlueTextInline,
   BlueTextFromStart,
   CommonButton,
-  CommonTextInput,
   EqualTwoTextInputs,
 } from '../../../../styles/Common';
 import {RoleCard} from '../../../../styles/Common/RoleCard';
@@ -14,6 +13,8 @@ import {TextIcon} from '../../../../styles/Common/TextIcon';
 import translator from '..//translate';
 import commonTranslator from './../../../../tranlates/Common';
 import vars from '../../../../styles/root';
+import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
+import {showError, showSuccess} from '../../../../services/Utility';
 
 const RoleForm = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});
@@ -90,7 +91,7 @@ const RoleForm = props => {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] != null) {
-        showError('بررسی میشه میگم نتیجه رو');
+        showSuccess('بررسی میشه میگم نتیجه رو');
         setTimeout(function () {
           props.navigate(props.redirectTo);
         }, 2000);

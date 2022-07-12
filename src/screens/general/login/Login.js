@@ -9,11 +9,11 @@ import {TextIcon} from '../../../styles/Common/TextIcon';
 import {Device} from '../../../models/Device';
 import {ImageBackground, View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from './../../../App';
-// import ForgetPassModule from './components/ForgetPass';
-// import ResetPassModule from './components/ResetPass';
-// import VerificationModule from './components/Verification';
-// import SignupModule from './components/Signup';
-// import RoleFormModule from './components/RoleForm';
+import ForgetPassModule from './components/ForgetPass';
+import ResetPassModule from './components/ResetPass';
+import VerificationModule from './components/Verification';
+import SignupModule from './components/Signup';
+import RoleFormModule from './components/RoleForm';
 
 const Login = props => {
   // if (globalStates.token !== undefined) {
@@ -95,7 +95,7 @@ const Login = props => {
           </View>
         )}
 
-        {/* {mode === 'forget' && (
+        {mode === 'forget' && (
           <ForgetPassModule
             setUsername={setUsername}
             username={username}
@@ -140,8 +140,8 @@ const Login = props => {
             style={{marginTop: 20}}
             username={username}
             setUsername={setUsername}
-          /> */}
-        {/* )}
+          />
+        )}
         {mode === 'roleForm' && (
           <RoleFormModule
             token={token}
@@ -149,7 +149,7 @@ const Login = props => {
             navigate={navigate}
             redirectTo={'/'}
           />
-        )} */}
+        )}
       </View>
     </ImageBackground>
   );

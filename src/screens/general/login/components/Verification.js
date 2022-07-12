@@ -85,23 +85,25 @@ const Verification = props => {
         style={{marginTop: 20}}
         text={translator.enterVerification}
       />
-      <CodeInput
-        activeColor="rgba(49, 180, 4, 1)"
-        inactiveColor="rgba(49, 180, 4, 1.3)"
-        keyboardType="numeric"
-        autoFocus={false}
-        codeLength={6}
-        onFulfill={code => onFinishCheckingCode(code)}
-        containerStyle={{marginTop: 30}}
-        codeInputStyle={{borderWidth: 1.5}}
-      />
-
-      {props.reminder > 0 && (
-        <MyCountDown
-          until={props.reminder}
-          onFinish={() => setCanResend(true)}
+      <View style={{direction: 'ltr'}}>
+        <CodeInput
+          activeColor="rgba(49, 180, 4, 1)"
+          inactiveColor="rgba(49, 180, 4, 1.3)"
+          keyboardType="numeric"
+          autoFocus={false}
+          codeLength={6}
+          onFulfill={code => onFinishCheckingCode(code)}
+          containerStyle={{marginTop: 30}}
+          codeInputStyle={{borderWidth: 1.5}}
         />
-      )}
+
+        {props.reminder > 0 && (
+          <MyCountDown
+            until={props.reminder}
+            onFinish={() => setCanResend(true)}
+          />
+        )}
+      </View>
       {props.reminder > 0 && (
         <BlueTextInline
           style={{marginTop: 20, alignSelf: 'center'}}
