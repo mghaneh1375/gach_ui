@@ -36,6 +36,7 @@ import Avatar from './panel/Config/Avatars/Avatar';
 import PageNotFound from './general/404/PageNotFound';
 import General from './panel/Config/Configuration/General';
 import Ravan from './panel/Config/Configuration/Ravan';
+import Schools from './panel/Config/Schools/Schools';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -200,7 +201,7 @@ const WebStructue = props => {
                 <Ravan token={token} user={user} navigate={navigate} />
               )}
               {props.page === 'schools' && (
-                <Ravan token={token} user={user} navigate={navigate} />
+                <Schools token={token} user={user} navigate={navigate} />
               )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </View>

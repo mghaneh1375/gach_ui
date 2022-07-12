@@ -91,6 +91,13 @@ const translator = {
   update: 'ویرایش',
   all: 'همه',
   pageNotFound: 'صفحه موردنظر یافت نشد.',
-  SunMenu: 'منوی زیر مجموعه',
+  sampad: 'سمپاد',
+  gheyr: 'غیرانتفاعی',
+  sayer: 'سایر',
+  nemone: 'نمونه دولتی',
+  dolati: 'دولتی',
+  aval: 'متوسطه اول',
+  dovom: 'متوسطه دوم',
+  dabestan: 'دبستان',
 };
 export default translator;

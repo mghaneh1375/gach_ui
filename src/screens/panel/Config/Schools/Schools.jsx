@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
-import translator from './Translator';
-import commonTranslator from '../../../../tranlates/Common';
 import {View} from 'react-native';
+import {generalRequest} from '../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
+import List from './components/List/List';
 
 function Schools(props) {
   const navigate = props.navigate;
@@ -19,25 +20,28 @@ function Schools(props) {
   };
 
   const [schools, setSchools] = useState();
+  const [selectedSchool, setSelectedSchool] = useState();
   const [mode, setMode] = useState('list');
+
+  const removeSchools = items => {};
 
   React.useEffect(() => {
     dispatch({loading: true});
     Promise.all([
       generalRequest(
-        routes.fetchAllOffs,
+        routes.fetchSchools,
         'get',
         undefined,
         'data',
         props.token,
       ),
     ]).then(res => {
+      dispatch({loading: false});
       if (res[0] == null) {
         navigate('/');
         return;
       }
       setSchools(res[0]);
-      dispatch({loading: false});
     });
   }, [navigate, props.token, dispatch]);
 
@@ -45,14 +49,14 @@ function Schools(props) {
     <View style={{zIndex: 10}}>
       {mode === 'list' && (
         <List
-          offs={offs}
+          schools={schools}
           setMode={setMode}
-          setData={setOffs}
+          setData={setSchools}
           setLoading={setLoading}
           token={props.token}
-          setSelectedOff={setSelectedOff}
-          selectedOff={selectedOff}
-          removeOffs={removeOffs}
+          setSelectedSchool={setSelectedSchool}
+          selectedSchool={selectedSchool}
+          removeSchools={removeSchools}
         />
       )}
     </View>

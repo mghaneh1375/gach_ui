@@ -3,7 +3,7 @@ import {CommonButton, PhoneView} from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
-import {allTypeKeyVals, filter, typeKeyVals, usedKeyVals} from '../Utility';
+import {allTypeKeyVals, filter, usedKeyVals} from '../Utility';
 
 const Filter = props => {
   const [used, setUsed] = useState();

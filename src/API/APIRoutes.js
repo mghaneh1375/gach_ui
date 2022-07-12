@@ -17,6 +17,7 @@ export const routes = {
   fetchTinyUser: 'admin/user/fetchTinyUser?',
   fetchState: 'general/fetchStates',
   fetchSchoolsDigest: 'general/fetchSchoolsDigest',
+  fetchSchools: 'general/fetchSchools',
   fetchGrades: 'admin/content/grades',
   fetchBranches: 'admin/content/branches',
   uploadQuizAttaches: 'ckeditor/quiz',
@@ -58,4 +59,5 @@ export const routes = {
   setAvatarAsMyPic: 'user/setAvatar/',
   getAllConfiguration: 'admin/config/config/getAll',
   updateConfiguration: 'admin/config/config/update',
+  removeSchools: 'admin/',
 };
