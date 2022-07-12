@@ -15,19 +15,19 @@ const AttachBox = props => {
   switch (getFileExtension(props.filename)[0]) {
     case 'docx':
       text = 'Word';
-      background = 'blue';
+      background = vars.ORANGE;
       textColor = vars.ORANGE_RED;
       break;
     case 'pdf':
       text = 'PDF';
-      background = 'red';
+      background = vars.ORANGE;
       textColor = vars.DARK_BLUE;
       break;
     case 'xls':
     case 'xlsx':
       text = 'Excel';
-      background = 'green';
-      textColor = vars.ORANGE_RED;
+      background = vars.ORANGE;
+      textColor = vars.ORANGE;
       break;
   }
 
@@ -77,7 +77,7 @@ const AttachBox = props => {
       )}
       {isImg && (
         <img
-          style={{width: 150, borderRadius: 10}}
+          style={{width: 100, height: 80, borderRadius: 10}}
           src={
             props.fileContent === undefined ? props.filename : props.fileContent
           }

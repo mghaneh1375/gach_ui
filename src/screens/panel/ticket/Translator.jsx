@@ -20,6 +20,7 @@ const translator = {
   searchArchive: 'جستجو در آرشیو :',
   sureClose: 'آیا از بستن آیتم/آیتم های موردنظر اطمینان دارید؟',
   successSendAnswer: 'پاسخ شما با موفقیت ذخیره شد.',
+  insetYourMsg: 'لطفا متن پیام خود را وارد نمایید.',
 };
 
 export default translator;

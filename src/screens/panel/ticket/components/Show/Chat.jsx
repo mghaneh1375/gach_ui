@@ -8,37 +8,29 @@ import AttachBox from './AttachBox/AttachBox';
 import ChatImage from './ChatImage/ChatImage';
 
 const Chat = props => {
-  const commonStyles = {};
-  const myMsgStyle = {
-    backgroundColor: 'white',
-    marginTop: 15,
-    marginBottom: 15,
+  const commonStyles = {
+    marginTop: 10,
+    marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
     width: '95%',
+  };
+  const myMsgStyle = {
+    backgroundColor: 'white',
     direction: 'rtl',
     alignSelf: 'flex-start',
   };
   const notForMeMsgStyle = {
     backgroundColor: 'white',
-    marginTop: 15,
-    marginBottom: 15,
-    marginLeft: 20,
-    marginRight: 20,
-    width: '95%',
-    alignSelf: 'flex-start',
+    alignSelf: 'flex-end',
   };
   const allStyles = props.isForUser
     ? {...commonStyles, ...myMsgStyle}
     : {...commonStyles, ...notForMeMsgStyle};
 
-  console.log('====================================');
-  console.log(props.pic);
-  console.log('====================================');
-
   return (
     <CommonWebBox style={allStyles}>
-      <ChatImage src={props.pic} />
+      <ChatImage dir={props.isForUser ? 'right' : 'left'} src={props.pic} />
       <View>
         <PhoneView>
           <SimpleText text={props.createdAt} />
