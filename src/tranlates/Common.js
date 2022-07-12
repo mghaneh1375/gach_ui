@@ -85,5 +85,6 @@ const translator = {
   update: 'ویرایش',
   all: 'همه',
   pageNotFound: 'صفحه موردنظر یافت نشد.',
+  SunMenu: 'منوی زیر مجموعه',
 };
 export default translator;

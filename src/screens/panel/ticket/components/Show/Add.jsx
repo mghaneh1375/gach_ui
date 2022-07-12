@@ -90,7 +90,12 @@ const Add = props => {
                 style={{width: '100%', maxWidth: 'unset', height: 40}}
                 onChangeText={e => changeText(e)}
               />
-              <PhoneView style={{alignSelf: 'flex-start'}}>
+              <PhoneView
+                style={{
+                  alignSelf: 'flex-end',
+                  width: '8%',
+                  justifyContent: 'inherit',
+                }}>
                 <FontIcon
                   onPress={() => openFileSelector()}
                   theme={'rect'}
