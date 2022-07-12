@@ -13,7 +13,7 @@ import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import vars from '../../../../styles/root';
 import {fetchUser, setCacheItem} from '../../../../API/User';
-import {showError} from '../../../../services/Utility';
+import {showError, showSuccess} from '../../../../services/Utility';
 
 const UpdateInfo = props => {
   const [states, setStates] = useState([]);
@@ -36,8 +36,8 @@ const UpdateInfo = props => {
 
   const [fetchedStates, setFetchedStates] = useState(false);
   const sexKeyVals = [
-    {name: 'آقا', id: 'male'},
-    {name: 'خانم', id: 'female'},
+    {item: 'آقا', id: 'male'},
+    {item: 'خانم', id: 'female'},
   ];
 
   React.useEffect(() => {
@@ -71,10 +71,6 @@ const UpdateInfo = props => {
   const setSelectedCity = item => {
     setCity(item);
     setResetCity(false);
-  };
-
-  const setSelectedSex = (item_key, item_idx) => {
-    setSex(sexKeyVals[item_idx].id);
   };
 
   const setSelectedGrade = item => {
@@ -128,6 +124,7 @@ const UpdateInfo = props => {
         setCacheItem('user', undefined);
         fetchUser(props.token, user => {
           props.setLoading(false);
+          showSuccess(commonTranslator.success);
         });
       } else {
         props.setLoading(false);
@@ -164,16 +161,16 @@ const UpdateInfo = props => {
             subText={commonTranslator.necessaryField}
             placeholder={commonTranslator.NID}
           />
-          {/* <JustBottomBorderSelect
+          <JustBottomBorderSelect
             isHalf={true}
-            value={sex !== undefined ? (sex === 'male' ? 'آقا' : 'خانم') : ''}
+            value={sexKeyVals.find(elem => elem.id === sex)}
             placeholder={commonTranslator.sex}
-            onSelect={setSelectedSex}
+            setter={setSex}
             values={sexKeyVals}
-          /> */}
+          />
         </EqualTwoTextInputs>
         <EqualTwoTextInputs>
-          {/* <JustBottomBorderTextInput
+          <JustBottomBorderTextInput
             isHalf={true}
             placeholder={commonTranslator.state}
             resultPane={true}
@@ -181,9 +178,9 @@ const UpdateInfo = props => {
             values={states}
             value={state !== undefined ? state.name : ''}
             reset={false}
-          /> */}
+          />
 
-          {/* <JustBottomBorderTextInput
+          <JustBottomBorderTextInput
             isHalf={true}
             resultPane={true}
             placeholder={commonTranslator.city}
@@ -191,11 +188,11 @@ const UpdateInfo = props => {
             reset={resetCity}
             value={city !== undefined ? city.name : ''}
             values={state !== undefined ? state.cities : []}
-          /> */}
+          />
         </EqualTwoTextInputs>
 
         <EqualTwoTextInputs style={{marginTop: 30}}>
-          {/* <JustBottomBorderTextInput
+          <JustBottomBorderTextInput
             isHalf={true}
             placeholder={commonTranslator.grade}
             resultPane={true}
@@ -203,9 +200,9 @@ const UpdateInfo = props => {
             values={grades}
             value={grade !== undefined ? grade.name : ''}
             reset={false}
-          /> */}
+          />
 
-          {/* <JustBottomBorderTextInput
+          <JustBottomBorderTextInput
             isHalf={true}
             resultPane={true}
             placeholder={commonTranslator.branch}
@@ -214,11 +211,11 @@ const UpdateInfo = props => {
             values={branches}
             value={branch}
             multi={true}
-          /> */}
+          />
         </EqualTwoTextInputs>
 
         <View style={{marginTop: 30, marginRight: 10}}>
-          {/* <JustBottomBorderTextInput
+          <JustBottomBorderTextInput
             isHalf={false}
             style={{maxWidth: 'unset'}}
             placeholder={commonTranslator.school}
@@ -227,7 +224,7 @@ const UpdateInfo = props => {
             values={schools}
             value={school !== undefined ? school.name : ''}
             reset={false}
-          /> */}
+          />
         </View>
       </View>
       <CommonButton
