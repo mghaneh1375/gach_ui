@@ -1,16 +1,16 @@
 export const style = {
   container: {
-    margin: 10,
-    width: 150,
+    margin: 8,
+    width: 100,
     position: 'relative',
   },
   box: {
-    width: 150,
-    height: 120,
+    width: 100,
+    height: 80,
     justifyContent: 'end',
     borderRadius: 10,
   },
-  icon: {position: 'absolute', left: 10, top: 10},
+  icon: {position: 'absolute', left: 8, top: 8},
   text: {
     fontWeight: 900,
     fontSize: 20,

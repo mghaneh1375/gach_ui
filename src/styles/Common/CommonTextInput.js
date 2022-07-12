@@ -53,18 +53,20 @@ export const CommonTextInput = props => {
 
   if (props.onPress !== undefined) inputProps.onClick = props.onPress;
 
+  let parentAllStyles = isHalf
+    ? {
+        width: isApp ? 'auto' : 'calc(50% - 10px)',
+        maxWidth: 300,
+        paddingLeft: 10,
+        paddingRight: 10,
+      }
+    : {};
+
+  if (props.parentStyle !== undefined)
+    parentAllStyles = {...parentAllStyles, ...props.parentStyle};
+
   return (
-    <CommonTextInputContainer
-      style={
-        isHalf
-          ? {
-              width: isApp ? 'auto' : 'calc(50% - 10px)',
-              maxWidth: 300,
-              paddingLeft: 10,
-              paddingRight: 10,
-            }
-          : {}
-      }>
+    <CommonTextInputContainer style={parentAllStyles}>
       <CommonTextInputElem {...inputProps} />
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>

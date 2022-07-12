@@ -17,6 +17,7 @@ import {
   showSuccess,
 } from '../../../../../services/Utility';
 import {addFile, addMsg} from './Utility';
+import Translator from '../../Translator';
 
 const Add = props => {
   const [msg, setMsg] = useState();
@@ -35,10 +36,9 @@ const Add = props => {
 
   const sendMsg = async () => {
     if (msg === undefined || msg.length === 0) {
-      showError('لطفا متن پیام خود را وارد نمایید.');
+      showError(Translator.insetYourMsg);
       return;
     }
-
     if (filesContent.length > 0) {
       props.setLoading(true);
 
@@ -86,10 +86,11 @@ const Add = props => {
                 multiline={true}
                 placeholder={translator.msgText}
                 value={msg}
-                style={{minWidth: 500, height: 40}}
+                parentStyle={{width: '90%'}}
+                style={{width: '100%', maxWidth: 'unset', height: 40}}
                 onChangeText={e => changeText(e)}
               />
-              <PhoneView>
+              <PhoneView style={{alignSelf: 'flex-start'}}>
                 <FontIcon
                   onPress={() => openFileSelector()}
                   theme={'rect'}

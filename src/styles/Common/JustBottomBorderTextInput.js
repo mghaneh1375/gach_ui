@@ -33,6 +33,7 @@ const JustBottomBorderTextInput = props => {
         subText={props.subText}
         disable={props.disable}
         style={customStyle}
+        parentStyle={props.parentStyle}
         value={props.value}
         multiline={props.multiline}
       />
