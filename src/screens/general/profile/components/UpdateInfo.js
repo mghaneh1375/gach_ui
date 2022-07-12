@@ -164,16 +164,16 @@ const UpdateInfo = props => {
             subText={commonTranslator.necessaryField}
             placeholder={commonTranslator.NID}
           />
-          <JustBottomBorderSelect
+          {/* <JustBottomBorderSelect
             isHalf={true}
             value={sex !== undefined ? (sex === 'male' ? 'آقا' : 'خانم') : ''}
             placeholder={commonTranslator.sex}
             onSelect={setSelectedSex}
             values={sexKeyVals}
-          />
+          /> */}
         </EqualTwoTextInputs>
         <EqualTwoTextInputs>
-          <JustBottomBorderTextInput
+          {/* <JustBottomBorderTextInput
             isHalf={true}
             placeholder={commonTranslator.state}
             resultPane={true}
@@ -181,9 +181,9 @@ const UpdateInfo = props => {
             values={states}
             value={state !== undefined ? state.name : ''}
             reset={false}
-          />
+          /> */}
 
-          <JustBottomBorderTextInput
+          {/* <JustBottomBorderTextInput
             isHalf={true}
             resultPane={true}
             placeholder={commonTranslator.city}
@@ -191,11 +191,11 @@ const UpdateInfo = props => {
             reset={resetCity}
             value={city !== undefined ? city.name : ''}
             values={state !== undefined ? state.cities : []}
-          />
+          /> */}
         </EqualTwoTextInputs>
 
         <EqualTwoTextInputs style={{marginTop: 30}}>
-          <JustBottomBorderTextInput
+          {/* <JustBottomBorderTextInput
             isHalf={true}
             placeholder={commonTranslator.grade}
             resultPane={true}
@@ -203,9 +203,9 @@ const UpdateInfo = props => {
             values={grades}
             value={grade !== undefined ? grade.name : ''}
             reset={false}
-          />
+          /> */}
 
-          <JustBottomBorderTextInput
+          {/* <JustBottomBorderTextInput
             isHalf={true}
             resultPane={true}
             placeholder={commonTranslator.branch}
@@ -214,11 +214,11 @@ const UpdateInfo = props => {
             values={branches}
             value={branch}
             multi={true}
-          />
+          /> */}
         </EqualTwoTextInputs>
 
         <View style={{marginTop: 30, marginRight: 10}}>
-          <JustBottomBorderTextInput
+          {/* <JustBottomBorderTextInput
             isHalf={false}
             style={{maxWidth: 'unset'}}
             placeholder={commonTranslator.school}
@@ -227,7 +227,7 @@ const UpdateInfo = props => {
             values={schools}
             value={school !== undefined ? school.name : ''}
             reset={false}
-          />
+          /> */}
         </View>
       </View>
       <CommonButton

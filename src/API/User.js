@@ -43,6 +43,7 @@ export const getUser = async () => {
       return JSON.parse(value);
     }
   } catch (e) {
+    console.log(e);
     return null;
   }
 };

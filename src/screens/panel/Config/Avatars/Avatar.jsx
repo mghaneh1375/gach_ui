@@ -3,7 +3,9 @@ import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {globalStateContext, dispatchStateContext} from './../../../../App';
+import Create from './components/Create';
 import List from './components/List';
+import Update from './components/Update';
 
 function Avatar(props) {
   const navigate = props.navigate;
@@ -16,6 +18,7 @@ function Avatar(props) {
   const [state, dispatch] = useGlobalState();
   const [avatars, setAvatars] = useState();
   const [mode, setMode] = useState('list');
+  const [selected, setSelected] = useState();
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -41,7 +44,18 @@ function Avatar(props) {
     });
   }, [navigate, props.token, dispatch]);
 
-  const updateAvatar = avatar => {};
+  const updateAvatar = (avatarId, newFilename) => {
+    let allAvatars = avatars;
+    let wanted = allAvatars.find(elem => elem.id === avatarId);
+    wanted.file = newFilename;
+    setAvatars(allAvatars);
+  };
+
+  const addAvatar = avatar => {
+    let allAvatars = avatars;
+    allAvatars.push(avatar);
+    setAvatars(allAvatars);
+  };
 
   return (
     <View>
@@ -51,7 +65,26 @@ function Avatar(props) {
           avatars={avatars}
           setAvatars={setAvatars}
           setLoading={setLoading}
+          setMode={setMode}
           token={props.token}
+          setSelected={setSelected}
+        />
+      )}
+      {mode === 'create' && (
+        <Create
+          addAvatar={addAvatar}
+          setMode={setMode}
+          token={props.token}
+          setLoading={props.setLoading}
+        />
+      )}
+      {mode === 'edit' && (
+        <Update
+          updateAvatar={updateAvatar}
+          avatar={selected}
+          setMode={setMode}
+          token={props.token}
+          setLoading={props.setLoading}
         />
       )}
     </View>

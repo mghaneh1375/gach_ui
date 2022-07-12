@@ -1,11 +1,9 @@
-import {useState} from 'react';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';
 import {
   BigBoldBlueText,
   CommonButton,
-  EqualTwoTextInputs,
   PhoneView,
 } from '../../../../styles/Common';
 import {View} from 'react-native';

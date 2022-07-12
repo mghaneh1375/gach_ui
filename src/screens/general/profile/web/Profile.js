@@ -11,6 +11,7 @@ import UpdateUsername from '../components/UpdateUsername';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
+import {setCacheItem} from '../../../../API/User';
 
 const Profile = props => {
   const [user, setUser] = useState(undefined);
@@ -50,6 +51,16 @@ const Profile = props => {
     setShowChangeUsernameModal(!showChangeUsernameModal);
   };
 
+  const updateUserPic = async newFilename => {
+    if (user === undefined) return;
+    let u = user;
+    u.pic = newFilename;
+    let newUserModel = props.user;
+    newUserModel.user = u;
+    await setCacheItem('user', JSON.stringify(newUserModel));
+    props.setUser(newUserModel);
+  };
+
   return (
     <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
       {showChangeUsernameModal && (
@@ -61,7 +72,7 @@ const Profile = props => {
           toggleModal={toggleChangeUsernameModal}
         />
       )}
-      {/* {user !== undefined && (
+      {user !== undefined && (
         <CommonWebBox
           width={'calc(65% - 20px)'}
           child={
@@ -72,8 +83,18 @@ const Profile = props => {
             />
           }
         />
-      )} */}
-      {/* <CommonWebBox width={'calc(35% - 20px)'} child={<UpdatePic />} /> */}
+      )}
+      {user !== undefined && (
+        <CommonWebBox width={'calc(35% - 20px)'}>
+          <UpdatePic
+            accesses={props.user.accesses}
+            token={props.token}
+            user={user}
+            setLoading={setLoading}
+            updateUserPic={updateUserPic}
+          />
+        </CommonWebBox>
+      )}
       <CommonWebBox
         width={'calc(65% - 20px)'}
         child={

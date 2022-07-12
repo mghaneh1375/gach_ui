@@ -51,4 +51,9 @@ export const routes = {
   removeTickets: 'admin/ticket/remove',
   fetchAllUsers: 'admin/users',
   fetchAllAvatars: 'admin/config/avatar/getAll',
+  addAvatar: 'admin/config/avatar/add',
+  deleteAvatar: 'admin/config/avatar/delete/',
+  editAvatar: 'admin/config/avatar/edit/',
+  setAvatarAsDefault: 'admin/config/avatar/setDefault/',
+  setAvatarAsMyPic: 'user/setAvatar/',
 };

@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import {
   CommonButton,
   CommonRadioButton,
-  CommonTextInput,
   EqualTwoTextInputs,
   SilverTextInline,
   TextWithLink,
@@ -13,13 +12,14 @@ import {generalRequest, showError} from '../../../../API/Utility';
 import translator from '../translate';
 import commonTranslator from './../../../../tranlates/Common';
 import {routes} from '../../../../API/APIRoutes';
+import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 
 const Signup = props => {
-  const [firstname, setFirstname] = useState('سش');
-  const [lastname, setLastname] = useState('سیش');
-  const [NID, setNID] = useState('0018914373');
+  const [firstname, setFirstname] = useState('رضا');
+  const [lastname, setLastname] = useState('قانع');
+  const [NID, setNID] = useState('0878716882');
   const [password, setPassword] = useState('Ghhy@110');
-  const [authVia, setAuthVia] = useState('sms');
+  const [authVia, setAuthVia] = useState('mail');
 
   const changeAuthVia = newMode => {
     setAuthVia(newMode);

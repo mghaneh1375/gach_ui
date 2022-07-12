@@ -13,6 +13,8 @@ const translator = {
   oldPass: 'رمزعبور فعلی',
   newPass: 'رمزعبور جدید',
   rNewPass: 'تکرار رمزعبور جدید',
+  yourPic: 'تصویر شما',
+  chooseAvatar: 'انتخاب آواتار',
 };
 
 export default translator;
