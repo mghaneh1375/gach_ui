@@ -35,12 +35,12 @@ function Avatar(props) {
         props.token,
       ),
     ]).then(res => {
+      dispatch({loading: false});
       if (res[0] == null) {
         navigate('/');
         return;
       }
       setAvatars(res[0]);
-      dispatch({loading: false});
     });
   }, [navigate, props.token, dispatch]);
 

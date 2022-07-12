@@ -26,29 +26,42 @@ function AdminMenu(props) {
           icon={faCog}
           selected={props.selected === 'ticket'}
         />
-        <MenuItem
-          onClick={() => navigate('/users')}
+        <SuperMenuItem
           text={translator.users}
           icon={faUsers}
           selected={props.selected === 'users'}
+          items={[
+            {
+              text: translator.agent,
+              url: 'users/agents',
+            },
+            {
+              text: translator.students,
+              url: 'users/students',
+            },
+            {
+              text: translator.schools,
+              url: 'users/schools',
+            },
+          ]}
         />
         <SuperMenuItem
-          text={translator.quizes}
+          text={translator.configuration}
           icon={faUsers}
           selected={props.selected === 'quiz'}
           navigate={navigate}
           items={[
             {
-              text: 'زیرمنو۱ ',
-              url: '/quiz1',
+              text: translator.generalConfiguration,
+              url: '/generalConfiguration',
             },
             {
-              text: 'زیرمنو۲ ',
-              url: '/quiz2',
+              text: translator.ravanConfiguration,
+              url: '/ravanConfiguration',
             },
             {
-              text: 'زیرمنو۳ ',
-              url: '/quiz3',
+              text: translator.schools,
+              url: '/schools',
             },
           ]}
         />

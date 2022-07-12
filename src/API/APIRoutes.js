@@ -56,4 +56,6 @@ export const routes = {
   editAvatar: 'admin/config/avatar/edit/',
   setAvatarAsDefault: 'admin/config/avatar/setDefault/',
   setAvatarAsMyPic: 'user/setAvatar/',
+  getAllConfiguration: 'admin/config/config/getAll',
+  updateConfiguration: 'admin/config/config/update',
 };

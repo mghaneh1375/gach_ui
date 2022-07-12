@@ -71,13 +71,13 @@ const UpdatePic = props => {
         style={{width: 200, height: 200, alignSelf: 'center'}}
         source={{uri: pic}}
       />
-      {props.accesses.indexOf('student') !== -1 && (
-        <CommonButton
-          theme={'dark'}
-          onPress={() => toggleShowChooseAvatar()}
-          title={translator.chooseAvatar}
-        />
-      )}
+      {/* {props.accesses.indexOf('student') !== -1 && ( */}
+      <CommonButton
+        theme={'dark'}
+        onPress={() => toggleShowChooseAvatar()}
+        title={translator.chooseAvatar}
+      />
+      {/* )} */}
     </View>
   );
 };
