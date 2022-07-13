@@ -4,6 +4,7 @@ import {
   PhoneView,
   SimpleText,
   ShrinkView,
+  CommonButton,
 } from '../../../../styles/Common';
 import {TextIcon} from '../../../../styles/Common/TextIcon';
 import Translator from '../../ticket/Translator';
@@ -43,7 +44,7 @@ function Create(props) {
             onChangeText={text => setNameOfReciver(text)}
             parentStyle={{width: '30%'}}
           />
-          {/* <TextIcon theme={'rect'} icon={faPlus} onPress={} /> */}
+          <TextIcon theme={'rect'} icon={faPlus} />
         </PhoneView>
 
         <PhoneView style={{margin: 10}}>
@@ -83,6 +84,9 @@ function Create(props) {
             height: 200,
           }}
         />
+        {/* <CommonButton title={Translator.confrim} onPress={
+          () => {
+        } /> */}
       </CommonWebBox>
     </>
   );
