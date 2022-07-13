@@ -54,7 +54,7 @@ function Create(props) {
             placeholder={translator.kind}
           />
         </PhoneView>
-        <PhoneView>
+        {/* <PhoneView>
           <JustBottomBorderTextInput
             isHalf={true}
             placeholder={commonTranslator.state}
@@ -74,7 +74,7 @@ function Create(props) {
             value={city !== undefined ? city.name : ''}
             values={state !== undefined ? state.cities : []}
           />
-        </PhoneView>
+        </PhoneView> */}
         <CommonButton theme={'dark'} title={commonTranslator.confirm} />
       </CommonWebBox>
     </View>
