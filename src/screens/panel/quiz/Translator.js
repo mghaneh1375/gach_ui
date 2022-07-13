@@ -41,6 +41,7 @@ const translator = {
   questions: 'سوالات آزمون',
   organizationId: 'کد سازمانی سوال',
   organizationIdHelp: 'چندین کد را با استفاده از , جدا کنید',
+  topic: 'موضوع',
 };
 
 export default translator;

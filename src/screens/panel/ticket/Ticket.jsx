@@ -65,7 +65,12 @@ function Ticket(props) {
         />
       )}
       {mode === 'create' && (
-        <Create setLoading={setLoading} tickets={tickets} token={props.token} />
+        <Create
+          setMode={setMode}
+          setLoading={setLoading}
+          tickets={tickets}
+          token={props.token}
+        />
       )}
       {mode === 'show' && (
         <Show
