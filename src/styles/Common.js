@@ -1,15 +1,7 @@
 import {RadioButton} from 'react-native-paper';
 import styled from 'styled-components';
 import vars from './root';
-import {
-  Text,
-  Platform,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Pressable,
-  StyleSheet,
-} from 'react-native';
+import {Text, Platform, View, ScrollView, StyleSheet} from 'react-native';
 import {
   Button,
   CommonButtonTextStyleAndroid,
@@ -17,18 +9,17 @@ import {
 } from './Common/Button';
 import BlueTextInlineElem from './Common/BlueTextInline';
 
-import {Device} from '../models/Device';
-import {FontIcon} from './Common/FontIcon';
-import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {
   BigBoldBlueTextElem,
   BigBoldBlueTextInlineElem,
 } from './Common/BigBoldTextElem';
 
-import {getScreenHeight, getWidthHeight} from '../services/Utility';
+import {getScreenHeight} from '../services/Utility';
 import {Link} from 'react-router-dom';
-import {style} from '../components/web/LargeScreen/Header/style';
+
 import JustBottomBorderTextInput from './Common/JustBottomBorderTextInput';
+import {FontIcon} from './Common/FontIcon';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem
@@ -260,6 +251,7 @@ export const CommonWebBox = props => {
             style={{alignSelf: 'center'}}
             text={props.header}
           />
+          {props.btn !== undefined && props.btn}
           {props.backBtn !== undefined && props.backBtn && (
             <FontIcon
               onPress={props.onBackClick}

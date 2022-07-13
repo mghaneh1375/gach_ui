@@ -62,8 +62,9 @@ function Schools(props) {
           removeSchools={removeSchools}
         />
       )}
-      {mode === 'add' && (
+      {mode === 'create' && (
         <Create
+          setMode={setMode}
           addSchool={addSchool}
           setLoading={setLoading}
           token={props.token}
