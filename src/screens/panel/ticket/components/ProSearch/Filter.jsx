@@ -8,6 +8,7 @@ import {
   statusKeyVals,
   priorityKeyVals,
   sectionKeyVals,
+  sectionKeyValsForFilter,
 } from '../KeyVals';
 import {
   PhoneView,
@@ -65,8 +66,8 @@ function Filter(props) {
         <JustBottomBorderSelect
           isHalf={true}
           setter={setSection}
-          values={sectionKeyVals}
-          value={sectionKeyVals.find(elem => elem.id === section)}
+          values={sectionKeyValsForFilter}
+          value={sectionKeyValsForFilter.find(elem => elem.id === section)}
           placeholder={translator.section}
         />
         <CommonButton

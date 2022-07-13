@@ -10,6 +10,10 @@ import Translator from '../../ticket/Translator';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {useState} from 'react';
 import {faBorderNone, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import {priorityKeyVals, sectionKeyVals} from './KeyVals';
+
 function Create(props) {
   const [nameOfReciver, setNameOfReciver] = useState('');
   const [section, setSection] = useState('');
@@ -23,16 +27,15 @@ function Create(props) {
     backgroundColor: '#F1F1F1',
     height: 50,
     padding: 5,
-    borderRadius: 10,
   };
 
   return (
     <>
       <CommonWebBox
-        header={Translator.topic}
+        header={Translator.title}
         backBtn={true}
         onBackClick={() => props.setMode('list')}
-        style={{margin: 10}}>
+        style={{margin: 10, paddingRight: 25}}>
         <PhoneView>
           <JustBottomBorderTextInput
             placeholder={Translator.nameOfReciver}
@@ -40,43 +43,35 @@ function Create(props) {
             onChangeText={text => setNameOfReciver(text)}
             parentStyle={{width: '30%'}}
           />
-          {/* <JustBottomBorderSelect
-            isHalf={true}
-            setter={setNameOfReciver}
-            values={nameOfReciverKeyVals}
-            value={nameOfReciverKeyVals.find(elem => elem.id === nameOfReciver)}
-            placeholder={Translator.nameOfReciver}
-          /> */}
           <TextIcon theme={'rect'} icon={faPlus} />
         </PhoneView>
 
         <PhoneView style={{margin: 10}}>
-          <JustBottomBorderTextInput
-            placeholder={Translator.section}
-            value={section}
-            onChangeText={text => setSection(text)}
-            parentStyle={{width: '50%'}}
-            style={{maxWidth: '100%'}}
-          />
-          <JustBottomBorderTextInput
+          <JustBottomBorderSelect
+            isHalf={true}
+            setter={setPriority}
+            values={priorityKeyVals}
+            value={priorityKeyVals.find(elem => elem.id === priority)}
             placeholder={Translator.priority}
-            value={priority}
-            onChangeText={text => setPriority(text)}
-            parentStyle={{width: '30%'}}
+          />
+          <JustBottomBorderSelect
+            isHalf={true}
+            setter={setSection}
+            values={sectionKeyVals}
+            value={sectionKeyVals.find(elem => elem.id === section)}
+            placeholder={Translator.section}
           />
         </PhoneView>
       </CommonWebBox>
       <CommonWebBox style={{marginTop: -5}}>
-        <JustBottomBorderTextInput
+        <CommonTextInput
           placeholder={Translator.title}
           value={title}
           onChangeText={text => setTitle(text)}
           parentStyle={{width: '100%'}}
-          style={{
-            ...allStyle,
-          }}
+          style={allStyle}
         />
-        <JustBottomBorderTextInput
+        <CommonTextInput
           multiline={true}
           placeholder={Translator.textRequest}
           value={textRequest}

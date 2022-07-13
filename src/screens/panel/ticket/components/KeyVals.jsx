@@ -30,6 +30,7 @@ export const statusKeyVals = [
     id: 'all',
   },
 ];
+
 export const sectionKeyVals = [
   {
     item: 'آزمون',
@@ -39,6 +40,10 @@ export const sectionKeyVals = [
     item: 'الکی',
     id: 'alaki',
   },
+];
+
+export const sectionKeyValsForFilter = [
+  ...sectionKeyVals,
   {
     item: 'همه',
     id: 'all',
