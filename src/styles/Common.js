@@ -260,6 +260,7 @@ export const CommonWebBox = props => {
             style={{alignSelf: 'center'}}
             text={props.header}
           />
+          {props.btn !== undefined && props.btn}
           {props.backBtn !== undefined && props.backBtn && (
             <FontIcon
               onPress={props.onBackClick}
