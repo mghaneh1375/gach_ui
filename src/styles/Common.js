@@ -18,7 +18,8 @@ import {
 import BlueTextInlineElem from './Common/BlueTextInline';
 
 import {Device} from '../models/Device';
-
+import {FontIcon} from './Common/FontIcon';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {
   BigBoldBlueTextElem,
   BigBoldBlueTextInlineElem,
@@ -259,7 +260,14 @@ export const CommonWebBox = props => {
             style={{alignSelf: 'center'}}
             text={props.header}
           />
-          {props.btn !== undefined && props.btn}
+          {props.backBtn !== undefined && props.backBtn && (
+            <FontIcon
+              onPress={props.onBackClick}
+              theme="rect"
+              kind="normal"
+              icon={faArrowLeft}
+            />
+          )}
         </EqualTwoTextInputs>
       )}
       {props.child !== undefined && props.child}

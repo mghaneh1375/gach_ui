@@ -43,7 +43,7 @@ function Create(props) {
             onChangeText={text => setNameOfReciver(text)}
             parentStyle={{width: '30%'}}
           />
-          <TextIcon theme={'rect'} icon={faPlus} />
+          {/* <TextIcon theme={'rect'} icon={faPlus} onPress={} /> */}
         </PhoneView>
 
         <PhoneView style={{margin: 10}}>
