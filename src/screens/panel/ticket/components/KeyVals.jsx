@@ -11,6 +11,9 @@ export const priorityKeyVals = [
     item: 'کم',
     id: 'low',
   },
+];
+export const priorityKeyValsForFilter = [
+  ...priorityKeyVals,
   {
     item: 'همه',
     id: 'all',

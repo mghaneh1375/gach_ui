@@ -8,6 +8,7 @@ import Create from './components/Create';
 import List from './components/List/List';
 import SearchUser from '../../../components/web/SearchUser';
 import Update from './components/Update';
+import {filter} from './components/Utility';
 
 const Off = props => {
   const [mode, setMode] = useState('list');
@@ -60,22 +61,10 @@ const Off = props => {
   };
 
   React.useEffect(() => {
-    dispatch({loading: true});
-    Promise.all([
-      generalRequest(
-        routes.fetchAllOffs,
-        'get',
-        undefined,
-        'data',
-        props.token,
-      ),
-    ]).then(res => {
-      if (res[0] == null) {
-        navigate('/');
-        return;
-      }
-      setOffs(res[0]);
-      dispatch({loading: false});
+    filter({
+      setLoading: status => dispatch({loading: status}),
+      token: props.token,
+      setData: setOffs,
     });
   }, [navigate, props.token, dispatch]);
 
