@@ -10,16 +10,16 @@ import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBo
 import translator from '../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
 import {grades, kindSchools} from './KeyVals';
+import StateAndCity from '../../../../../components/web/StateAndCity';
+import {add} from 'react-native-reanimated';
+import {create} from './Utility';
 
 function Create(props) {
-  const [states, setStates] = useState([]);
-  const [state, setState] = useState();
   const [city, setCity] = useState();
   const [name, setName] = useState();
   const [address, setAddress] = useState();
   const [grade, setGrade] = useState();
   const [kind, setKind] = useState();
-  const [resetCity, setResetCity] = useState(false);
 
   const changeText = (label, text) => {
     if (label === 'name') setName(text);
@@ -54,28 +54,37 @@ function Create(props) {
             placeholder={translator.kind}
           />
         </PhoneView>
-        {/* <PhoneView>
-          <JustBottomBorderTextInput
-            isHalf={true}
-            placeholder={commonTranslator.state}
-            resultPane={true}
-            setSelectedItem={setSelectedState}
-            values={states}
-            value={state !== undefined ? state.name : ''}
-            reset={false}
-          />
 
-          <JustBottomBorderTextInput
-            isHalf={true}
-            resultPane={true}
-            placeholder={commonTranslator.city}
-            setSelectedItem={setSelectedCity}
-            reset={resetCity}
-            value={city !== undefined ? city.name : ''}
-            values={state !== undefined ? state.cities : []}
-          />
-        </PhoneView> */}
-        <CommonButton theme={'dark'} title={commonTranslator.confirm} />
+        <PhoneView style={{marginTop: 20}}>
+          <StateAndCity setter={setCity} setLoading={props.setLoading} />
+        </PhoneView>
+
+        <JustBottomBorderTextInput
+          style={{marginTop: 20}}
+          placeholder={commonTranslator.address}
+          value={address}
+          subText={commonTranslator.optional}
+          onChangeText={e => changeText('address', e)}
+          multiline={true}
+        />
+        <CommonButton
+          onPress={() =>
+            create(
+              {
+                name: name,
+                address: address,
+                kind: kind,
+                grade: grade,
+                city: city,
+              },
+              props.setLoading,
+              props.token,
+              props.addSchool,
+            )
+          }
+          theme={'dark'}
+          title={commonTranslator.confirm}
+        />
       </CommonWebBox>
     </View>
   );

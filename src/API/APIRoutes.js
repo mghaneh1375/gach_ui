@@ -60,4 +60,5 @@ export const routes = {
   updateConfiguration: 'admin/config/config/update',
   fetchSchools: 'admin/config/school/fetchSchools',
   removeSchools: 'admin/config/school/remove',
+  addSchool: 'admin/config/school/add',
 };
