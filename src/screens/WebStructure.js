@@ -6,7 +6,7 @@ import {
   PhoneContentConianerStyle,
 } from '../styles/Common';
 import {View} from 'react-native';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import Home from './general/home/Home';
 import Login from './general/login/Login';
 import WebLogin from './general/login/web/Login';
@@ -116,6 +116,9 @@ const WebStructue = props => {
   const toggleHideRightMenu = () => {
     setHideRightMenu(user === undefined ? true : !hideRightMenu);
   };
+
+  const data = useParams();
+  console.log(data);
 
   return (
     <View style={{flex: 1, height: '100%', backgroundColor: vars.DARK_WHITE}}>

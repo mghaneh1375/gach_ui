@@ -23,7 +23,11 @@ export default function WebRouter() {
           <Route path="/question" element={<WebStructue page="question" />} />
           <Route path="/offs" element={<WebStructue page="offs" />} />
           <Route path="/ticket" element={<WebStructue page="ticket" />} />
-          <Route path="/users/:level" element={<WebStructue page="users" />} />
+          <Route
+            exact
+            path="/users/:level"
+            element={<WebStructue page="users" />}
+          />
           <Route path="/avatars" element={<WebStructue page="avatars" />} />
           <Route path="/schools" element={<WebStructue page="schools" />} />
           <Route
