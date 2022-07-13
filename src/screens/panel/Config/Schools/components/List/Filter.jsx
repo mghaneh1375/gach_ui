@@ -9,6 +9,7 @@ import {filter} from '../Utility';
 function Filter(props) {
   const [kindSchool, setKindSchool] = useState();
   const [grade, setGrade] = useState();
+  const [city, setCity] = useState();
 
   return (
     <PhoneView>
@@ -26,8 +27,9 @@ function Filter(props) {
         value={grades.find(elem => elem.id === grade)}
         placeholder={translator.grade}
       />
+
       <CommonButton
-        onPress={() => filter(props, kindSchool, grade)}
+        onPress={() => filter(props, kindSchool, grade, undefined)}
         isHalf={true}
         title={commonTranslator.show}
         style={{alignSelf: 'flex-start'}}

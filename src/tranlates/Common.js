@@ -99,5 +99,6 @@ const translator = {
   aval: 'متوسطه اول',
   dovom: 'متوسطه دوم',
   dabestan: 'دبستان',
+  address: 'آدرس',
 };
 export default translator;
