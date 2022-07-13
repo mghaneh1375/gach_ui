@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {routes} from '../../../../../API/APIRoutes';
 import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
+import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton, PhoneView} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../tranlates/Common';
@@ -17,7 +18,16 @@ function Ops(props) {
     setShowRemovePane(!showRemovePane);
   };
 
-  const afterRemove = () => {};
+  const afterRemove = res => {
+    setShowRemovePane(false);
+    showSuccess(res.excepts);
+
+    if (res.doneIds.indexOf(props.school.id) !== -1)
+      props.removeSchools([props.school.id]);
+
+    props.setMode('list');
+    props.toggleShowPopUp();
+  };
 
   return (
     <View style={{zIndex: 10}}>

@@ -4,6 +4,8 @@ import {View} from 'react-native';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import List from './components/List/List';
+import Create from './components/Create';
+import {filter} from './components/Utility';
 
 function Schools(props) {
   const navigate = props.navigate;
@@ -23,25 +25,26 @@ function Schools(props) {
   const [selectedSchool, setSelectedSchool] = useState();
   const [mode, setMode] = useState('list');
 
-  const removeSchools = items => {};
+  const removeSchools = items => {
+    let allSchools = schools;
+    allSchools = allSchools.filter(elem => items.indexOf(elem.id) === -1);
+    setSchools(allSchools);
+  };
+
+  const addSchool = item => {
+    let allSchools = schools;
+    allSchools.push(item);
+    setSchools(allSchools);
+  };
 
   React.useEffect(() => {
-    dispatch({loading: true});
-    Promise.all([
-      generalRequest(
-        routes.fetchSchools,
-        'get',
-        undefined,
-        'data',
-        props.token,
-      ),
-    ]).then(res => {
-      dispatch({loading: false});
-      if (res[0] == null) {
-        navigate('/');
-        return;
-      }
-      setSchools(res[0]);
+    filter({
+      setLoading: status => {
+        dispatch({loading: status});
+      },
+      token: props.token,
+      setData: setSchools,
+      navigate: navigate,
     });
   }, [navigate, props.token, dispatch]);
 
@@ -57,6 +60,13 @@ function Schools(props) {
           setSelectedSchool={setSelectedSchool}
           selectedSchool={selectedSchool}
           removeSchools={removeSchools}
+        />
+      )}
+      {mode === 'add' && (
+        <Create
+          addSchool={addSchool}
+          setLoading={setLoading}
+          token={props.token}
         />
       )}
     </View>

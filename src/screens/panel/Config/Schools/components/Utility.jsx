@@ -22,5 +22,6 @@ export const filter = (props, kind, grade, city) => {
   ]).then(res => {
     props.setLoading(false);
     if (res[0] !== null) props.setData(res[0]);
+    else props.navigate('/');
   });
 };

@@ -30,7 +30,7 @@ function List(props) {
     <View>
       {showOpPopUp && (
         <Ops
-          school={props.setSelectedSchool}
+          school={props.selectedSchool}
           toggleShowPopUp={toggleShowOpPopUp}
           token={props.token}
           setLoading={props.setLoading}
