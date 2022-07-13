@@ -172,6 +172,7 @@ const CommonDataTable = props => {
           })}
       </select>
       <DataTable
+        pagination
         customStyles={customStyles}
         columns={columns}
         data={data}

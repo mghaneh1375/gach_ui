@@ -38,7 +38,10 @@ export const CommonTextInput = props => {
     inputProps.onKeyPress = e => {
       var charCode = e.which ? e.which : e.keyCode;
 
-      if (
+      if (charCode === 190) {
+        if (props.float === undefined || !props.float) e.preventDefault();
+      } else if (
+        charCode !== 9 &&
         charCode !== 8 &&
         charCode !== 37 &&
         charCode !== 39 &&

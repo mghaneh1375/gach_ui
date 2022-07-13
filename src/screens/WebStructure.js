@@ -34,6 +34,9 @@ import Ticket from './panel/ticket/Ticket';
 import Users from './panel/users/Users';
 import Avatar from './panel/Config/Avatars/Avatar';
 import PageNotFound from './general/404/PageNotFound';
+import General from './panel/Config/Configuration/General';
+import Ravan from './panel/Config/Configuration/Ravan';
+import Schools from './panel/Config/Schools/Schools';
 
 const WebStructue = props => {
   const device = getDevice();
@@ -191,7 +194,15 @@ const WebStructue = props => {
               {props.page === 'avatars' && (
                 <Avatar token={token} user={user} navigate={navigate} />
               )}
-
+              {props.page === 'generalConfiguration' && (
+                <General token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'ravanConfiguration' && (
+                <Ravan token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'schools' && (
+                <Schools token={token} user={user} navigate={navigate} />
+              )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </View>
           </View>
