@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useReducer, useState} from 'react';
 import DataTable from 'react-data-table-component';
 import {View} from 'react-native';
 import ConfirmationBatchOpPane from '../../components/web/ConfirmationBatchOpPane';
@@ -24,8 +24,9 @@ const CommonDataTable = props => {
     },
   };
 
+  const [res, setRes] = useState();
+  const [toggledClearRows, setToggleClearRows] = useState(false);
   const [selected, setSelected] = useState([]);
-  const [data, setData] = useState(props.data);
   const [showRemovePopUp, setShowRemovePopUp] = useState(false);
   const [selectedOp, setSelectedOp] = useState();
 
@@ -49,10 +50,6 @@ const CommonDataTable = props => {
     ...props.columns,
   ];
 
-  React.useEffect(() => {
-    setData(props.data);
-  }, [props.data]);
-
   const onChangeSelectedRows = selectedRows => {
     setSelected(selectedRows);
   };
@@ -64,7 +61,7 @@ const CommonDataTable = props => {
     }
 
     setSelectedOp(
-      ops.find(elem => {
+      state.ops.find(elem => {
         return elem.key === e.target.value;
       }),
     );
@@ -85,55 +82,91 @@ const CommonDataTable = props => {
     handleClearRows();
   };
 
-  const [toggledClearRows, setToggleClearRows] = React.useState(false);
-  const [ops, setOps] = React.useState();
-
   const handleClearRows = () => {
     setToggleClearRows(!toggledClearRows);
   };
 
-  React.useEffect(() => {
-    if (ops !== undefined) return;
+  const initialState = {
+    data: [],
+    ops: undefined,
+    shouldUpdateParent: false,
+  };
 
-    const afterRemove = res => {
-      let newData = data.filter(elem => {
-        return res.doneIds.indexOf(elem.id) === -1;
-      });
-
-      setData(newData);
-      props.setData(newData);
-    };
-
-    if (props.groupOps === undefined && props.removeUrl !== undefined) {
-      setOps([
-        {
-          label: commonTranslator.deleteAll,
-          url: props.removeUrl,
-          key: 'removeAll',
-          method: 'delete',
-          warning: commonTranslator.sureRemove,
-          afterFunc: afterRemove,
-        },
-      ]);
-    } else if (props.groupOps !== undefined) {
-      for (let i = 0; i < props.groupOps.length; i++) {
-        if (props.groupOps[i].key === 'removeAll') {
-          if (props.groupOps[i].afterFunc === undefined) {
-            props.groupOps[i] = {
+  function reducer(state, action) {
+    switch (action.type) {
+      case 'set':
+        return {...state, data: props.data};
+      case 'remove':
+        let data = state.data;
+        let newData = data.filter(elem => {
+          return res.doneIds.indexOf(elem.id) === -1;
+        });
+        return {...state, data: newData, shouldUpdateParent: true};
+      case 'op':
+        let ops = [];
+        if (props.groupOps === undefined && props.removeUrl !== undefined) {
+          ops = [
+            {
               label: commonTranslator.deleteAll,
-              url: props.groupOps[i],
+              url: props.removeUrl,
               key: 'removeAll',
               method: 'delete',
               warning: commonTranslator.sureRemove,
-              afterFunc: afterRemove,
-            };
+              afterFunc: res => {
+                setRes(res);
+              },
+            },
+          ];
+        } else if (props.groupOps !== undefined) {
+          for (let i = 0; i < props.groupOps.length; i++) {
+            if (props.groupOps[i].key === 'removeAll') {
+              if (props.groupOps[i].afterFunc === undefined) {
+                props.groupOps[i] = {
+                  label: commonTranslator.deleteAll,
+                  url: props.groupOps[i],
+                  key: 'removeAll',
+                  method: 'delete',
+                  warning: commonTranslator.sureRemove,
+                  afterFunc: res => {
+                    setRes(res);
+                  },
+                };
+              }
+              break;
+            }
           }
-          break;
+          ops = props.groupOps;
         }
-      }
-      setOps(props.groupOps);
+        return {...state, ops: ops};
+      case 'parentUpdated':
+        return {...state, shouldUpdateParent: false};
+      default:
+        throw new Error();
     }
-  }, [props, data, ops]);
+  }
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  React.useEffect(() => {
+    if (props.data === undefined || props.data.length === 0) return;
+    dispatch({type: 'set'});
+  }, [props.data]);
+
+  React.useEffect(() => {
+    if (res === undefined) return;
+    dispatch({type: 'remove'});
+  }, [res]);
+
+  React.useEffect(() => {
+    if (!state.shouldUpdateParent) return;
+
+    props.setData(state.data);
+    dispatch({type: 'parentUpdated'});
+  }, [props, state.data, state.shouldUpdateParent]);
+
+  React.useEffect(() => {
+    dispatch({type: 'op'});
+  }, [props.groupOps, props.removeUrl]);
 
   return (
     <View>
@@ -162,8 +195,8 @@ const CommonDataTable = props => {
           {commonTranslator.op + ' (' + selected.length + ')'}
         </option>
 
-        {ops !== undefined &&
-          ops.map((elem, index) => {
+        {state.ops !== undefined &&
+          state.ops.map((elem, index) => {
             return (
               <option key={index} value={elem.key}>
                 {elem.label + ' (' + selected.length + ')'}
@@ -175,7 +208,7 @@ const CommonDataTable = props => {
         pagination
         customStyles={customStyles}
         columns={columns}
-        data={data}
+        data={state.data}
         selectableRows
         highlightOnHover={true}
         persistTableHead={true}
