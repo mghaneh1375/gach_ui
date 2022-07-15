@@ -37,16 +37,18 @@ const CommonDataTable = props => {
         return <p>{index + 1}</p>;
       },
     },
-    {
-      name: commonTranslator.operation,
-      style: {
-        cursor: 'pointer',
-      },
-      cell: (row, index, column, id) => {
-        return <p onClick={() => props.handleOp(index)}>...</p>;
-      },
-      ignoreRowClick: true,
-    },
+    props.handleOp !== undefined
+      ? {
+          name: commonTranslator.operation,
+          style: {
+            cursor: 'pointer',
+          },
+          cell: (row, index, column, id) => {
+            return <p onClick={() => props.handleOp(index)}>...</p>;
+          },
+          ignoreRowClick: true,
+        }
+      : {},
     ...props.columns,
   ];
 
@@ -158,7 +160,7 @@ const CommonDataTable = props => {
   }, [res]);
 
   React.useEffect(() => {
-    if (!state.shouldUpdateParent) return;
+    if (!state.shouldUpdateParent || props.setData === undefined) return;
 
     props.setData(state.data);
     dispatch({type: 'parentUpdated'});
@@ -170,23 +172,25 @@ const CommonDataTable = props => {
 
   return (
     <View>
-      {showRemovePopUp && selectedOp !== undefined && (
-        <ConfirmationBatchOpPane
-          setLoading={props.setLoading}
-          token={props.token}
-          data={{
-            items: selected.map(element => {
-              return element.id;
-            }),
-          }}
-          expected={['excepts', 'doneIds']}
-          afterFunc={localAfterFunc}
-          url={selectedOp.url}
-          method={selectedOp.method}
-          warning={selectedOp.warning}
-          toggleShowPopUp={toggleShowRemovePopUp}
-        />
-      )}
+      {showRemovePopUp &&
+        selectedOp !== undefined &&
+        props.token !== undefined && (
+          <ConfirmationBatchOpPane
+            setLoading={props.setLoading}
+            token={props.token}
+            data={{
+              items: selected.map(element => {
+                return element.id;
+              }),
+            }}
+            expected={['excepts', 'doneIds']}
+            afterFunc={localAfterFunc}
+            url={selectedOp.url}
+            method={selectedOp.method}
+            warning={selectedOp.warning}
+            toggleShowPopUp={toggleShowRemovePopUp}
+          />
+        )}
       <select
         value={selectedOp === undefined ? 'none' : selectedOp.key}
         onChange={e => changeOpSelect(e)}
@@ -209,11 +213,13 @@ const CommonDataTable = props => {
         customStyles={customStyles}
         columns={columns}
         data={state.data}
-        selectableRows
+        selectableRows={true}
         highlightOnHover={true}
         persistTableHead={true}
-        onSelectedRowsChange={({selectedRows}) =>
-          onChangeSelectedRows(selectedRows)
+        onSelectedRowsChange={
+          props.onRowSelect === undefined
+            ? ({selectedRows}) => onChangeSelectedRows(selectedRows)
+            : ({selectedRows}) => props.onRowSelect(selectedRows)
         }
         clearSelectedRows={toggledClearRows}
       />

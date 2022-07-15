@@ -51,6 +51,7 @@ function List(props) {
             setData={props.setData}
             token={props.token}
             setLoading={props.setLoading}
+            states={props.states}
           />
           <CommonDataTable
             columns={columns}

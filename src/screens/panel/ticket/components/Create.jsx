@@ -1,26 +1,34 @@
-import {View} from 'react-native-web';
+import {View} from 'react-native';
 import {
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-  ShrinkView,
   CommonButton,
+  CommonWebBox,
+  ErrorText,
+  PhoneView,
 } from '../../../../styles/Common';
-import {TextIcon} from '../../../../styles/Common/TextIcon';
-import Translator from '../../ticket/Translator';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import translator from '../../ticket/Translator';
+import commonTranslator from '../../../../tranlates/Common';
 import {useState} from 'react';
-import {faBorderNone, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {priorityKeyVals, sectionKeyVals} from './KeyVals';
+import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import {FontIcon} from '../../../../styles/Common/FontIcon';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import SearchUser from '../../../../components/web/SearchUser/SearchUser';
+import {finalize, submit} from './Show/Utility';
 
 function Create(props) {
-  const [nameOfReciver, setNameOfReciver] = useState('');
+  const [showSearchUser, setShowSearchUser] = useState(false);
+  const [foundUser, setFoundUser] = useState();
   const [section, setSection] = useState('');
   const [priority, setPriority] = useState('');
   const [title, setTitle] = useState();
-  const [textRequest, setTextRequest] = useState('');
+  const [desc, setDesc] = useState('');
+  const [err, setErr] = useState();
+
+  const toggleShowSearchUser = () => {
+    setShowSearchUser(!showSearchUser);
+  };
 
   const allStyle = {
     maxWidth: '100%',
@@ -30,21 +38,65 @@ function Create(props) {
     padding: 5,
   };
 
+  const send = async () => {
+    if (foundUser === undefined || foundUser.length === 0) {
+      setErr(commonTranslator.pleaseFillAllFields);
+      return;
+    }
+
+    props.setLoading(true);
+    let res = await submit(
+      {
+        title: title,
+        description: desc,
+        section: section,
+        priority: priority,
+        userId: foundUser[0].id,
+      },
+      props.token,
+    );
+    props.setLoading(false);
+    if (res === null || res === undefined) return;
+
+    // res = await finalize(res, props.token);
+    // if (res !== null) {
+    //   props.setMode('list');
+    // }
+  };
+
   return (
-    <>
+    <View zIndex={5}>
+      <SearchUser
+        setFinalResult={setFoundUser}
+        setShow={setShowSearchUser}
+        token={props.token}
+        setLoading={props.setLoading}
+        show={showSearchUser}
+      />
+
       <CommonWebBox
-        header={Translator.title}
+        header={translator.title}
         backBtn={true}
         onBackClick={() => props.setMode('list')}
         style={{margin: 10, paddingRight: 25}}>
         <PhoneView>
           <JustBottomBorderTextInput
-            placeholder={Translator.nameOfReciver}
-            value={nameOfReciver}
-            onChangeText={text => setNameOfReciver(text)}
-            parentStyle={{width: '30%'}}
+            isHalf={true}
+            value={
+              foundUser !== undefined
+                ? foundUser.map(elem => elem.name).join(',')
+                : ''
+            }
+            placeholder={translator.nameOfReciver}
+            disable={true}
           />
-          <TextIcon theme={'rect'} icon={faPlus} />
+          <FontIcon
+            kind={'normal'}
+            theme={'rect'}
+            back={'yellow'}
+            icon={faPlus}
+            onPress={() => toggleShowSearchUser()}
+          />
         </PhoneView>
 
         <PhoneView style={{margin: 10}}>
@@ -53,20 +105,20 @@ function Create(props) {
             setter={setPriority}
             values={priorityKeyVals}
             value={priorityKeyVals.find(elem => elem.id === priority)}
-            placeholder={Translator.priority}
+            placeholder={translator.priority}
           />
           <JustBottomBorderSelect
             isHalf={true}
             setter={setSection}
             values={sectionKeyVals}
             value={sectionKeyVals.find(elem => elem.id === section)}
-            placeholder={Translator.section}
+            placeholder={translator.section}
           />
         </PhoneView>
       </CommonWebBox>
       <CommonWebBox style={{marginTop: -5}}>
         <CommonTextInput
-          placeholder={Translator.title}
+          placeholder={translator.title}
           value={title}
           onChangeText={text => setTitle(text)}
           parentStyle={{width: '100%'}}
@@ -74,9 +126,9 @@ function Create(props) {
         />
         <CommonTextInput
           multiline={true}
-          placeholder={Translator.textRequest}
-          value={textRequest}
-          onChangeText={text => setTextRequest(text)}
+          placeholder={translator.desc}
+          value={desc}
+          onChangeText={text => setDesc(text)}
           parentStyle={{width: '100%'}}
           style={{
             ...allStyle,
@@ -84,11 +136,10 @@ function Create(props) {
             height: 200,
           }}
         />
-        {/* <CommonButton title={Translator.confrim} onPress={
-          () => {
-        } /> */}
+        <CommonButton title={translator.confrim} onPress={() => send()} />
+        {err !== undefined && <ErrorText text={err} />}
       </CommonWebBox>
-    </>
+    </View>
   );
 }
 

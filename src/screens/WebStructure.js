@@ -117,8 +117,8 @@ const WebStructue = props => {
     setHideRightMenu(user === undefined ? true : !hideRightMenu);
   };
 
-  const data = useParams();
-  console.log(data);
+  // const data = useParams();
+  // console.log(data);
 
   return (
     <View style={{flex: 1, height: '100%', backgroundColor: vars.DARK_WHITE}}>

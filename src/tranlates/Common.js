@@ -74,9 +74,9 @@ const translator = {
   format: 'فرمت',
   success: 'عملیات موردنظر با موفقیت انجام شد',
   paid: 'مقدار پرداختی',
-  searchBy: 'جست و جو بر اساس',
+  searchBy: 'خصوصیت یکتا',
   nameAndLast: 'نام و نام خانوادگی',
-  searchStudent: 'یافتن دانش آموز',
+  search: 'جست و جو',
   wantedUser: 'دانش آموز موردنظر',
   deleteAll: 'حذف همه',
   edit: 'ویرایش',
@@ -100,5 +100,6 @@ const translator = {
   dovom: 'متوسطه دوم',
   dabestan: 'دبستان',
   address: 'آدرس',
+  searchUser: 'یافتن دانش آموز',
 };
 export default translator;

@@ -43,9 +43,9 @@ export const routes = {
   removeOffs: 'admin/off/remove',
   fetchAllTickets: 'admin/ticket/getRequests',
   fetchTicket: 'admin/ticket/getRequest/',
-  submitTicket: 'admin/ticket/submit',
+  submitTicket: 'ticket/submit',
   setAnswerTicket: 'ticket/setAnswer/',
-  sendTicket: 'admin/ticket/sendRequest/',
+  sendTicket: 'ticket/sendRequest/',
   addFileToTicket: 'ticket/addFileToRequest/',
   closeTicketRequest: 'admin/ticket/rejectRequests',
   removeTickets: 'admin/ticket/remove',
@@ -61,4 +61,5 @@ export const routes = {
   fetchSchools: 'admin/config/school/fetchSchools',
   removeSchools: 'admin/config/school/remove',
   addSchool: 'admin/config/school/add',
+  editSchool: 'admin/config/school/edit/',
 };

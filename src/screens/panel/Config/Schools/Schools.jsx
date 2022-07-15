@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import {View} from 'react-native';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
 import List from './components/List/List';
 import Create from './components/Create';
 import {filter} from './components/Utility';
+import {addItem, editItem, removeItems} from '../../../../services/Utility';
+import {generalRequest} from '../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
 
 function Schools(props) {
   const navigate = props.navigate;
@@ -23,30 +24,25 @@ function Schools(props) {
 
   const [schools, setSchools] = useState();
   const [selectedSchool, setSelectedSchool] = useState();
-  const [mode, setMode] = useState('list');
-
-  const removeSchools = items => {
-    let allSchools = schools;
-    allSchools = allSchools.filter(elem => items.indexOf(elem.id) === -1);
-    setSchools(allSchools);
-  };
-
-  const addSchool = item => {
-    let allSchools = schools;
-    allSchools.push(item);
-    setSchools(allSchools);
-  };
+  const [mode, setMode] = useState('');
+  const [states, setStates] = useState();
 
   React.useEffect(() => {
-    filter({
-      setLoading: status => {
-        dispatch({loading: status});
-      },
-      token: props.token,
-      setData: setSchools,
-      navigate: navigate,
+    if (states !== undefined) return;
+    dispatch({loading: true});
+    Promise.all([
+      filter(props.token, undefined, undefined, undefined, undefined),
+      generalRequest(routes.fetchState, 'get', undefined, 'data'),
+    ]).then(res => {
+      dispatch({loading: false});
+      if (res[0] === null) navigate('/');
+      setSchools(res[0]);
+      if (res[1] !== null) {
+        setStates(res[1]);
+        setMode('list');
+      } else navigate('/');
     });
-  }, [navigate, props.token, dispatch]);
+  }, [navigate, props.token, dispatch, states]);
 
   return (
     <View style={{zIndex: 10}}>
@@ -57,16 +53,32 @@ function Schools(props) {
           setData={setSchools}
           setLoading={setLoading}
           token={props.token}
+          states={states}
           setSelectedSchool={setSelectedSchool}
           selectedSchool={selectedSchool}
-          removeSchools={removeSchools}
+          removeSchools={removedIds => {
+            removeItems(schools, setSchools, removedIds);
+          }}
         />
       )}
       {mode === 'create' && (
         <Create
           setMode={setMode}
-          addSchool={addSchool}
+          addSchool={item => {
+            addItem(schools, setSchools, item);
+          }}
           setLoading={setLoading}
+          token={props.token}
+        />
+      )}
+      {mode === 'update' && (
+        <Create
+          setMode={setMode}
+          editSchool={item => {
+            editItem(schools, setSchools, item);
+          }}
+          setLoading={setLoading}
+          selectedSchool={selectedSchool}
           token={props.token}
         />
       )}

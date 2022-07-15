@@ -3,29 +3,28 @@ import {generalRequest} from '../../../../../API/Utility';
 import {showSuccess} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../tranlates/Common';
 
-export const filter = (props, kind, grade, city) => {
+export const filter = async (token, kind, grade, state, city) => {
   let query = new URLSearchParams();
 
   if (kind !== undefined && kind !== 'all') query.append('kind', kind);
 
   if (grade !== undefined && grade !== 'all') query.append('grade', grade);
 
-  if (city !== undefined && city !== 'all') query.append('city', city);
+  if (city !== undefined) query.append('city', city.id);
 
-  props.setLoading(true);
-  Promise.all([
-    generalRequest(
-      routes.fetchSchools + '?' + query.toString(),
-      'get',
-      undefined,
-      'data',
-      props.token,
-    ),
-  ]).then(res => {
-    props.setLoading(false);
-    if (res[0] !== null) props.setData(res[0]);
-    else props.navigate('/');
-  });
+  if (state !== undefined) query.append('state', state.id);
+
+  let res = await generalRequest(
+    routes.fetchSchools + '?' + query.toString(),
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+
+  if (res !== null) return res;
+
+  return null;
 };
 
 const mandatoryFields = ['name', 'cityId', 'grade', 'kind'];
@@ -36,8 +35,6 @@ export const create = (data, setLoading, token, afterAdd) => {
     postData.cityId = postData.city.id;
     postData.city = undefined;
   }
-
-  console.log(postData);
   setLoading(true);
   Promise.all([
     generalRequest(
@@ -54,6 +51,31 @@ export const create = (data, setLoading, token, afterAdd) => {
       if (res[0] !== undefined) {
         data.id = res[0];
         afterAdd(data);
+        showSuccess(commonTranslator.success);
+      }
+    })
+    .catch(x => {
+      setLoading(false);
+    });
+};
+
+export const update = (id, tableData, data, setLoading, token, afterUpdate) => {
+  setLoading(true);
+  Promise.all([
+    generalRequest(
+      routes.editSchool + id,
+      'put',
+      data,
+      undefined,
+      token,
+      mandatoryFields,
+    ),
+  ])
+    .then(res => {
+      setLoading(false);
+      if (res[0] !== null) {
+        console.log(tableData);
+        afterUpdate(tableData);
         showSuccess(commonTranslator.success);
       }
     })

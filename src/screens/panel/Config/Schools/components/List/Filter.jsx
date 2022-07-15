@@ -1,4 +1,6 @@
 import {useState} from 'react';
+import {View} from 'react-native';
+import StateAndCity from '../../../../../../components/web/StateAndCity';
 import {CommonButton, PhoneView} from '../../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
 import commonTranslator from '../../../../../../tranlates/Common';
@@ -10,31 +12,50 @@ function Filter(props) {
   const [kindSchool, setKindSchool] = useState();
   const [grade, setGrade] = useState();
   const [city, setCity] = useState();
+  const [state, setState] = useState();
+
+  const doFilter = async () => {
+    props.setLoading(true);
+    let res = await filter(props.token, kindSchool, grade, state, city);
+    props.setLoading(false);
+    if (res !== null) props.setData(res);
+  };
 
   return (
-    <PhoneView>
-      <JustBottomBorderSelect
-        isHalf={true}
-        setter={setKindSchool}
-        values={kindSchools}
-        value={kindSchools.find(elem => elem.id === kindSchool)}
-        placeholder={translator.kind}
-      />
-      <JustBottomBorderSelect
-        isHalf={true}
-        setter={setGrade}
-        values={grades}
-        value={grades.find(elem => elem.id === grade)}
-        placeholder={translator.grade}
-      />
-
-      <CommonButton
-        onPress={() => filter(props, kindSchool, grade, undefined)}
-        isHalf={true}
-        title={commonTranslator.show}
-        style={{alignSelf: 'flex-start'}}
-      />
-    </PhoneView>
+    <View>
+      <PhoneView>
+        <JustBottomBorderSelect
+          isHalf={true}
+          setter={setKindSchool}
+          values={kindSchools}
+          value={kindSchools.find(elem => elem.id === kindSchool)}
+          placeholder={translator.kind}
+        />
+        <JustBottomBorderSelect
+          isHalf={true}
+          setter={setGrade}
+          values={grades}
+          value={grades.find(elem => elem.id === grade)}
+          placeholder={translator.grade}
+        />
+      </PhoneView>
+      <PhoneView>
+        <StateAndCity
+          states={props.states}
+          state={state}
+          city={city}
+          setter={setCity}
+          stateSetter={setState}
+          setLoading={props.setLoading}
+        />
+        <CommonButton
+          onPress={() => doFilter()}
+          isHalf={true}
+          title={commonTranslator.show}
+          style={{alignSelf: 'flex-start'}}
+        />
+      </PhoneView>
+    </View>
   );
 }
 

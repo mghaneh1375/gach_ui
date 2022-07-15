@@ -23,7 +23,10 @@ const FontIconStyleWeb = {
 
 export const FontIcon = props => {
   const style1 = {
-    backgroundColor: vars.ORANGE_RED,
+    backgroundColor:
+      props.back === undefined || props.back === 'orange'
+        ? vars.ORANGE_RED
+        : vars.YELLOW,
     cursor: 'pointer',
     width: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
     height: props.kind === undefined || props.kind === 'full' ? '100%' : 30,

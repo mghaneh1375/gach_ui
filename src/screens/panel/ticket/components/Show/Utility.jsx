@@ -64,3 +64,25 @@ export const sendMsg = (props, ticketId) => {
     }
   });
 };
+
+export const submit = async (data, token) => {
+  let res = await generalRequest(
+    routes.submitTicket,
+    'post',
+    data,
+    'id',
+    token,
+  );
+  return res;
+};
+
+export const finalize = async (ticketId, token) => {
+  let res = await generalRequest(
+    routes.sendTicket + ticketId,
+    'post',
+    undefined,
+    undefined,
+    token,
+  );
+  return res;
+};

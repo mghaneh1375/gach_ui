@@ -1,5 +1,3 @@
-import {priorityKeyVals} from './KeyVals';
-
 const TableStructure = [
   {
     name: ' نام و نام خانوادگی',

@@ -6,12 +6,30 @@ import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextI
 import commonTranslator from '../../tranlates/Common';
 
 function StateAndCity(props) {
-  const [fetchedStates, setFetchedStates] = useState(false);
-  const [states, setStates] = useState([]);
+  const [fetchedStates, setFetchedStates] = useState(
+    props.states !== undefined,
+  );
+  const [states, setStates] = useState(
+    props.states === undefined ? [] : props.states,
+  );
 
-  const [state, setState] = useState(props.state);
-  const [city, setCity] = useState(props.city);
+  const [state, setState] = useState();
+  const [city, setCity] = useState();
+
   const [resetCity, setResetCity] = useState(false);
+  const [choose, setChoose] = useState(false);
+
+  React.useEffect(() => {
+    if (state === undefined || props.city === undefined) return;
+    let c = state.cities.find(elem => props.city.id === elem.id);
+    setCity(c);
+  }, [props.city, state]);
+
+  React.useEffect(() => {
+    if (states === undefined || props.state === undefined) return;
+    let s = states.find(elem => props.state.id === elem.id);
+    setState(s);
+  }, [props.state, states]);
 
   React.useEffect(() => {
     if (fetchedStates) return;
@@ -23,14 +41,18 @@ function StateAndCity(props) {
       generalRequest(routes.fetchState, 'get', undefined, 'data'),
     ]).then(res => {
       props.setLoading(false);
-      if (res[0] !== null) setStates(res[0]);
+      if (res[0] !== null) {
+        setStates(res[0]);
+      }
     });
   }, [fetchedStates, props]);
 
   React.useEffect(() => {
-    if (city === undefined) return;
+    if (state === undefined || city === undefined || !choose) return;
     props.setter(city);
-  }, [city, props]);
+    props.stateSetter(state);
+    setChoose(false);
+  }, [city, state, choose, props]);
 
   const setSelectedState = item => {
     setState(item);
@@ -43,6 +65,7 @@ function StateAndCity(props) {
   const setSelectedCity = item => {
     setCity(item);
     setResetCity(false);
+    setChoose(true);
   };
 
   return (

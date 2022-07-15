@@ -178,6 +178,19 @@ export const SimpleText = props => {
   return <Text {...textProps}>{props.text}</Text>;
 };
 
+export const ErrorText = props => {
+  const style1 = {fontFamily: 'IRANSans', color: vars.RED};
+  const allStyle =
+    props.style !== undefined ? {...style1, ...props.style} : style1;
+
+  let textProps = {
+    style: allStyle,
+  };
+
+  if (props.onPress !== undefined) textProps.onClick = props.onPress;
+  return <Text {...textProps}>{props.text}</Text>;
+};
+
 export const CommonRadioButton = props => (
   <PhoneView>
     <RadioButton

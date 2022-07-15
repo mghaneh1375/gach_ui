@@ -22,7 +22,7 @@ const translator = {
   successSendAnswer: 'پاسخ شما با موفقیت ذخیره شد.',
   insetYourMsg: 'لطفا متن پیام خود را وارد نمایید.',
   nameOfReciver: 'نام دریافت کننده',
-  textRequest: 'متن درخواست',
+  desc: 'متن درخواست',
   confrim: 'ثبت',
 };
 

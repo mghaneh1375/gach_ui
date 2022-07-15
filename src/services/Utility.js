@@ -116,3 +116,30 @@ export const generalUpdate = (
     afterUpdate(res[0]);
   });
 };
+
+export const removeItems = (items, setItems, removedIds) => {
+  let allItems = items;
+  allItems = allItems.filter(elem => removedIds.indexOf(elem.id) === -1);
+  setItems(allItems);
+};
+
+export const addItem = (items, setItems, item) => {
+  let allItems = items;
+  allItems.push(item);
+  setItems(allItems);
+};
+
+export const editItem = (items, setItems, item) => {
+  let allItems = items;
+  console.log(item);
+  allItems = allItems.map(elem => {
+    if (elem.id === item.id) {
+      console.log('here');
+      console.log(item);
+      return item;
+    }
+    return elem;
+  });
+  console.log(allItems);
+  setItems(allItems);
+};

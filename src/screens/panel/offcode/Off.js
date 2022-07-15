@@ -1,12 +1,8 @@
 import React, {useState} from 'react';
 import {View} from 'react-native-web';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../App';
-import {CommonButton, CommonWebBox, SimpleText} from '../../../styles/Common';
 import Create from './components/Create';
 import List from './components/List/List';
-import SearchUser from '../../../components/web/SearchUser';
 import Update from './components/Update';
 import {filter} from './components/Utility';
 
@@ -68,34 +64,8 @@ const Off = props => {
     });
   }, [navigate, props.token, dispatch]);
 
-  const [showSearchUser, setShowSearchUser] = useState(false);
-  const [foundUser, setFoundUser] = useState();
-
   return (
     <View style={{zIndex: 10}}>
-      {/* <CommonWebBox
-        child={
-          <View>
-            {foundUser !== undefined && (
-              <SimpleText
-                text={foundUser.nameFa + ' ' + foundUser.lastNameFa}
-              />
-            )}
-            <CommonButton
-              title={'جست و جو دانش آموز'}
-              onPress={() => setShowSearchUser(true)}
-            />
-            <SearchUser
-              setFinalResult={setFoundUser}
-              setShow={setShowSearchUser}
-              token={props.token}
-              setLoading={setLoading}
-              show={showSearchUser}
-            />
-          </View>
-        }
-      /> */}
-
       {mode === 'list' && (
         <List
           offs={offs}

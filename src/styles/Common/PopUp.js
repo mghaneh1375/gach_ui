@@ -41,10 +41,12 @@ export function LargePopUp(props) {
             {props.children}
             <PhoneView style={{marginTop: 20}}>
               {props.btns}
-              <CommonButton
-                onPress={() => props.toggleShowPopUp()}
-                title={translator.cancel}
-              />
+              {(props.removeCancel === undefined || !props.removeCancel) && (
+                <CommonButton
+                  onPress={() => props.toggleShowPopUp()}
+                  title={translator.cancel}
+                />
+              )}
             </PhoneView>
           </View>
         }

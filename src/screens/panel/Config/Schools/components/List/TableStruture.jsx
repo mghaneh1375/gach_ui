@@ -9,7 +9,7 @@ const columns = [
   },
   {
     name: commonTranslator.city,
-    selector: row => row.city,
+    selector: row => row.city.name,
     grow: 1,
   },
   {
