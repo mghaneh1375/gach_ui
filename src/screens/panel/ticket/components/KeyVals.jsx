@@ -12,6 +12,28 @@ export const priorityKeyVals = [
     id: 'low',
   },
 ];
+export const levelKeyVals = [
+  {
+    item: 'نماینده',
+    id: 'agent',
+  },
+  {
+    item: 'مدرسه',
+    id: 'school',
+  },
+  {
+    item: 'دبیر',
+    id: 'teacher',
+  },
+  {
+    item: 'مشاور',
+    id: 'adviser',
+  },
+  {
+    item: 'ادمین',
+    id: 'admin',
+  },
+];
 export const priorityKeyValsForFilter = [
   ...priorityKeyVals,
   {

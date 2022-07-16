@@ -104,5 +104,8 @@ const translator = {
   changeStatus: 'تغییر وضعیت',
   changeLevel: 'تغییر سطح',
   changePassword: 'تغییر رمز عبور',
+  currentLevel: 'سطح فعلی',
+  newLevel: 'سطح جدید',
+  confrim: 'ثبت',
 };
 export default translator;

@@ -3,9 +3,10 @@ import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import {filter} from './components/Utility';
 import List from './components/List/List';
-import {CommonWebBox, SimpleText} from '../../../styles/Common';
+import {CommonWebBox} from '../../../styles/Common';
 import ChangePass from '../../general/profile/components/ChangePass';
 import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
+import ChangeLevel from './components/ChangeLevel';
 
 const Users = props => {
   const [mode, setMode] = useState('list');
@@ -49,10 +50,24 @@ const Users = props => {
       )}
       {mode === 'changePass' && (
         <CommonWebBox
-          child={<ChangePass setLoading={setLoading} token={props.token} />}
+          child={
+            <ChangePass
+              setLoading={setLoading}
+              setMode={setMode}
+              token={props.token}
+            />
+          }
         />
       )}
-      {mode === 'changeLevel' && <CommonWebBox child={<SimpleFontIcon />} />}
+      {mode === 'changeLevel' && (
+        <ChangeLevel
+          setMode={setMode}
+          user={selectedUser}
+          accesses={selectedUser.accesses}
+          setLoading={setLoading}
+          token={props.token}
+        />
+      )}
       {mode === 'changeState' && <CommonWebBox child={<></>} />}
     </View>
   );

@@ -1,5 +1,7 @@
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
+import {showSuccess} from '../../../../services/Utility';
+import commonTranslator from '../../../../tranlates/Common';
 
 export const filter = (props, status) => {
   props.setLoading(true);
@@ -19,4 +21,27 @@ export const filter = (props, status) => {
     }
     props.setData(res[0]);
   });
+};
+
+export const addAccess = async (
+  setLoading,
+  token,
+  userId,
+  newRole,
+  afterFunc,
+) => {
+  setLoading(true);
+  let res = await generalRequest(
+    routes.addAccess + userId + '/' + newRole,
+    'put',
+    undefined,
+    undefined,
+    token,
+  );
+  setLoading(false);
+  if (res !== undefined) {
+    showSuccess(commonTranslator.success);
+
+    afterFunc();
+  }
 };

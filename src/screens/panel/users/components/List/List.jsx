@@ -11,6 +11,8 @@ import Ops from '../Ops';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
+  // const [mode, setMode] = useState();
+
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
