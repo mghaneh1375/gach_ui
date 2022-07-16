@@ -15,6 +15,7 @@ export const routes = {
   changePass: 'user/changePassword',
   logout: 'user/logout',
   fetchTinyUser: 'admin/user/fetchTinyUser?',
+  addAccess: 'admin/user/addAccess/',
   fetchState: 'general/fetchStates',
   fetchSchoolsDigest: 'general/fetchSchoolsDigest',
   fetchGrades: 'admin/content/grades',
