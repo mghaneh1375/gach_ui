@@ -45,3 +45,19 @@ export const addAccess = async (
     afterFunc();
   }
 };
+
+export const toggleStatus = async (setLoading, token, userId, afterFunc) => {
+  setLoading(true);
+  let res = await generalRequest(
+    routes.toggleStatus + userId,
+    'put',
+    undefined,
+    'newStatus',
+    token,
+  );
+  setLoading(false);
+  if (res !== undefined) {
+    showSuccess(commonTranslator.success);
+    afterFunc(res);
+  }
+};

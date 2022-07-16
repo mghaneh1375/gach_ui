@@ -29,7 +29,14 @@ function List(props) {
   return (
     <View>
       {showOpPopUp && (
-        <Ops changeMode={changeMode} toggleShowPopUp={toggleShowOpPopUp} />
+        <Ops
+          user={props.selectedUser}
+          updateUser={props.updateUser}
+          token={props.token}
+          setLoading={props.setLoading}
+          changeMode={changeMode}
+          toggleShowPopUp={toggleShowOpPopUp}
+        />
       )}
       <CommonWebBox>
         <View>

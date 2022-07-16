@@ -100,6 +100,7 @@ const translator = {
   dovom: 'متوسطه دوم',
   dabestan: 'دبستان',
   address: 'آدرس',
+  status: 'وضعیت',
   searchUser: 'یافتن دانش آموز',
   changeStatus: 'تغییر وضعیت',
   changeLevel: 'تغییر سطح',

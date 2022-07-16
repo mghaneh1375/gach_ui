@@ -5,8 +5,8 @@ import {filter} from './components/Utility';
 import List from './components/List/List';
 import {CommonWebBox} from '../../../styles/Common';
 import ChangePass from '../../general/profile/components/ChangePass';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 import ChangeLevel from './components/ChangeLevel';
+import {editItem} from '../../../services/Utility';
 
 const Users = props => {
   const [mode, setMode] = useState('list');
@@ -45,7 +45,9 @@ const Users = props => {
           setMode={setMode}
           setLoading={setLoading}
           setSelectedUser={setSelectedUser}
+          selectedUser={selectedUser}
           token={props.token}
+          updateUser={newUser => editItem(users, setUsers, newUser)}
         />
       )}
       {mode === 'changePass' && (

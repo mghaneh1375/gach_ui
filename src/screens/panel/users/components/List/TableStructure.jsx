@@ -9,8 +9,26 @@ const columns = [
   },
 
   {
+    name: commonTranslator.NID,
+    selector: row => row.NID,
+    grow: 1,
+  },
+
+  {
     name: commonTranslator.mail,
     selector: row => row.mail,
+    grow: 1,
+  },
+
+  {
+    name: commonTranslator.phone,
+    selector: row => row.phone,
+    grow: 1,
+  },
+
+  {
+    name: commonTranslator.status,
+    selector: row => row.status,
     grow: 1,
   },
 ];

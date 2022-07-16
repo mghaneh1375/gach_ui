@@ -4,7 +4,7 @@ import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
 import commonTranslator from '../../../../tranlates/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {levelKeyVals} from '../../../panel/ticket/components/KeyVals';
+import {levelKeyVals} from '../../ticket/components/KeyVals';
 import {addAccess} from './Utility';
 function ChangeLevel(props) {
   const [newLevel, setNewLevel] = useState();

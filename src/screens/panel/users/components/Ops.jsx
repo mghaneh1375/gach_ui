@@ -3,11 +3,9 @@ import {View} from 'react-native';
 import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../tranlates/Common';
+import {toggleStatus} from './Utility';
 
 function Ops(props) {
-  const changeMode = newMode => {
-    props.setMode(newMode);
-  };
   return (
     <View style={{zIndex: 10}}>
       <LargePopUp
@@ -21,7 +19,20 @@ function Ops(props) {
             title={commonTranslator.changeLevel}
           />
           <CommonButton
-            onPress={() => props.changeMode('changeState')}
+            onPress={() => {
+              toggleStatus(
+                props.setLoading,
+                props.token,
+                props.user.id,
+                res => {
+                  if (res !== null) {
+                    props.user.status = res;
+                    props.updateUser();
+                    props.toggleShowPopUp();
+                  }
+                },
+              );
+            }}
             dir={'rtl'}
             theme={'transparent'}
             title={commonTranslator.changeStatus}
