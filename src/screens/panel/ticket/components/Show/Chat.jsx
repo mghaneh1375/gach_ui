@@ -13,7 +13,8 @@ const Chat = props => {
     marginBottom: 10,
     marginLeft: 20,
     marginRight: 20,
-    width: '95%',
+    width: '90%',
+    fontSize: '10px important',
   };
   const myMsgStyle = {
     backgroundColor: 'white',
@@ -21,7 +22,7 @@ const Chat = props => {
     alignSelf: 'flex-start',
   };
   const notForMeMsgStyle = {
-    backgroundColor: 'white',
+    backgroundColor: '#F1F1F1',
     alignSelf: 'flex-end',
   };
   const allStyles = props.isForUser
@@ -32,11 +33,19 @@ const Chat = props => {
     <CommonWebBox style={allStyles}>
       <ChatImage dir={props.isForUser ? 'right' : 'left'} src={props.pic} />
       <View>
-        <PhoneView>
-          <SimpleText text={props.createdAt} />
+        <PhoneView style={{alignSelf: props.isForUser ? '' : 'flex-end'}}>
+          <SimpleText
+            style={{
+              fontSize: 10,
+              marginTop: -7,
+              marginLeft: 10,
+              marginRight: 15,
+            }}
+            text={props.createdAt}
+          />
         </PhoneView>
         <SimpleText text={props.msg} />
-        <PhoneView>
+        <PhoneView style={{alignSelf: props.isForUser ? 'flex-start' : ''}}>
           {props.files.map((elem, index) => {
             return <AttachBox key={index} filename={elem} />;
           })}
