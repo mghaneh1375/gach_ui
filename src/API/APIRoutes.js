@@ -42,6 +42,7 @@ export const routes = {
   storeOffsWithExcel: 'admin/off/storeWithExcel',
   removeOffs: 'admin/off/remove',
   fetchAllTickets: 'admin/ticket/getRequests',
+  fetchMyTickets: 'ticket/getMyRequests',
   fetchTicket: 'admin/ticket/getRequest/',
   submitTicket: 'ticket/submit',
   setAnswerTicket: 'ticket/setAnswer/',

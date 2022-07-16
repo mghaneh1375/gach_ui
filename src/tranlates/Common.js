@@ -101,5 +101,8 @@ const translator = {
   dabestan: 'دبستان',
   address: 'آدرس',
   searchUser: 'یافتن دانش آموز',
+  changeStatus: 'تغییر وضعیت',
+  changeLevel: 'تغییر سطح',
+  changePassword: 'تغییر رمز عبور',
 };
 export default translator;

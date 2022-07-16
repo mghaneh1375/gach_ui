@@ -86,7 +86,9 @@ export const filter = (
   props.setLoading(true);
   Promise.all([
     generalRequest(
-      routes.fetchAllTickets + '?' + query.toString(),
+      props.isAdmin
+        ? routes.fetchAllTickets + '?' + query.toString()
+        : routes.fetchMyTickets + '?' + query.toString(),
       'get',
       undefined,
       'data',

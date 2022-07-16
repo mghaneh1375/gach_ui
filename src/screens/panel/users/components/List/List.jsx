@@ -7,6 +7,7 @@ import Translator from '../../Translator';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {routes} from '../../../../../API/APIRoutes';
 import columns from './TableStructure';
+import {Ops} from '../Ops';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -23,30 +24,34 @@ function List(props) {
     toggleShowOpPopUp();
   };
   return (
-    <CommonWebBox>
-      <View>
-        <TextIcon
-          onPress={() => changeMode('create')}
-          theme={'rect'}
-          text={Translator.test}
-          icon={faPlus}
-        />
-        {/* <Filter
-              setData={props.setData}
-              token={props.token}
-              setLoading={props.setLoading}
-            /> */}
-        <CommonDataTable
-          columns={columns}
-          data={props.users}
-          setData={props.setData}
-          handleOp={handleOp}
-          removeUrl={routes.removeOffs}
-          token={props.token}
-          setLoading={props.setLoading}
-        />
-      </View>
-    </CommonWebBox>
+    <View>
+      {showOpPopUp && <Ops toggleShowPopUp={toggleShowOpPopUp} />}
+      <CommonWebBox>
+        <View>
+          <TextIcon
+            onPress={() => changeMode('create')}
+            theme={'rect'}
+            text={Translator.offs}
+            icon={faPlus}
+          />
+          {/* <Filter
+            setData={props.setData}
+            token={props.token}
+            setLoading={props.setLoading}
+            states={props.states}
+          /> */}
+          <CommonDataTable
+            columns={columns}
+            data={props.users}
+            setData={props.setData}
+            handleOp={handleOp}
+            removeUrl={routes.removeSchools}
+            token={props.token}
+            setLoading={props.setLoading}
+          />
+        </View>
+      </CommonWebBox>
+    </View>
   );
 }
 
