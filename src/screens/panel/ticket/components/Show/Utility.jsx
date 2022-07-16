@@ -70,7 +70,7 @@ export const submit = async (data, token) => {
     routes.submitTicket,
     'post',
     data,
-    'id',
+    'ticket',
     token,
   );
   return res;

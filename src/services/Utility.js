@@ -131,15 +131,21 @@ export const addItem = (items, setItems, item) => {
 
 export const editItem = (items, setItems, item) => {
   let allItems = items;
-  console.log(item);
   allItems = allItems.map(elem => {
-    if (elem.id === item.id) {
-      console.log('here');
-      console.log(item);
-      return item;
-    }
+    if (elem.id === item.id) return item;
     return elem;
   });
-  console.log(allItems);
   setItems(allItems);
+};
+
+export const isAdmin = user => {
+  if (user === undefined) return false;
+
+  if (
+    user.accesses.indexOf('admin') === -1 &&
+    user.accesses.indexOf('superadmin') === -1
+  )
+    return false;
+
+  return true;
 };

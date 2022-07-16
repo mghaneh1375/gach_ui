@@ -6,6 +6,7 @@ import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import Create from './components/Create';
 import Show from './components/Show/Show';
+import {addItem} from '../../../services/Utility';
 
 function Ticket(props) {
   const navigate = props.navigate;
@@ -18,6 +19,7 @@ function Ticket(props) {
   const [state, dispatch] = useGlobalState();
   const [tickets, setTickets] = useState();
   const [selectedTicket, setSelectedTicket] = useState({});
+  const isAdmin = isAdmin(props.user);
 
   const updateTicket = ticket => {
     const allTickets = tickets.map(elem => {
@@ -68,7 +70,8 @@ function Ticket(props) {
         <Create
           setMode={setMode}
           setLoading={setLoading}
-          tickets={tickets}
+          isAdmin={props.isAdmin}
+          addTicket={newTicket => addItem(tickets, setTickets, newTicket)}
           token={props.token}
         />
       )}

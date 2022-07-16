@@ -58,10 +58,12 @@ function Create(props) {
     props.setLoading(false);
     if (res === null || res === undefined) return;
 
-    // res = await finalize(res, props.token);
-    // if (res !== null) {
-    //   props.setMode('list');
-    // }
+    if (!props.isAdmin) res = await finalize(res.id, props.token);
+
+    if (res !== null) {
+      props.addTicket(res);
+      props.setMode('list');
+    }
   };
 
   return (
