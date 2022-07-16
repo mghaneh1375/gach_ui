@@ -28,8 +28,18 @@ export const FontIcon = props => {
         ? vars.ORANGE_RED
         : vars.YELLOW,
     cursor: 'pointer',
-    width: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
-    height: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
+    width:
+      props.kind === undefined || props.kind === 'full'
+        ? '100%'
+        : props.kind === 'normal'
+        ? 30
+        : 20,
+    height:
+      props.kind === undefined || props.kind === 'full'
+        ? '100%'
+        : props.kind === 'normal'
+        ? 30
+        : 20,
     borderRadius:
       props.theme === undefined || props.theme === 'circle' ? 20 : 7,
     alignSelf: 'center',

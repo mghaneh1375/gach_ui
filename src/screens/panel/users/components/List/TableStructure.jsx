@@ -25,7 +25,6 @@ const columns = [
     selector: row => row.phone,
     grow: 1,
   },
-
   {
     name: commonTranslator.status,
     selector: row => row.status,

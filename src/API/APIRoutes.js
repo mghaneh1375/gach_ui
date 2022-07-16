@@ -52,7 +52,7 @@ export const routes = {
   addFileToTicket: 'ticket/addFileToRequest/',
   closeTicketRequest: 'admin/ticket/rejectRequests',
   removeTickets: 'admin/ticket/remove',
-  fetchAllUsers: 'admin/user/fetchTinyUser',
+  fetchAllUsers: 'admin/user/fetchTinyUser/',
   fetchAllAvatars: 'admin/config/avatar/getAll',
   addAvatar: 'admin/config/avatar/add',
   deleteAvatar: 'admin/config/avatar/delete/',

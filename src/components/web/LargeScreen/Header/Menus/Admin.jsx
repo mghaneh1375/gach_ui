@@ -36,6 +36,10 @@ function AdminMenu(props) {
               url: 'users/agents',
             },
             {
+              text: translator.advisor,
+              url: 'users/advisors',
+            },
+            {
               text: translator.students,
               url: 'users/students',
             },

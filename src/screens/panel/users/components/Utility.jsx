@@ -3,11 +3,11 @@ import {generalRequest} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../tranlates/Common';
 
-export const filter = (props, status) => {
+export const filter = (props, level) => {
   props.setLoading(true);
   Promise.all([
     generalRequest(
-      routes.fetchAllUsers,
+      routes.fetchAllUsers + level,
       'get',
       undefined,
       'users',
@@ -15,10 +15,20 @@ export const filter = (props, status) => {
     ),
   ]).then(res => {
     props.setLoading(false);
-    if (res[0] == null) {
-      props.navigate('/');
-      return;
-    }
+    res[0] = [
+      {
+        id: 'Asdqwasd',
+        name: 'ASdqwasd',
+        mail: 'Ascx',
+        phone: 'xcqeqw',
+        NID: '0018914373',
+        status: 'active',
+      },
+    ];
+    // if (res[0] == null) {
+    // props.navigate('/');
+    // return;
+    // }
     props.setData(res[0]);
   });
 };

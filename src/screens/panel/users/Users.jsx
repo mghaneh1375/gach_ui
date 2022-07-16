@@ -6,12 +6,21 @@ import List from './components/List/List';
 import {CommonWebBox} from '../../../styles/Common';
 import ChangePass from '../../general/profile/components/ChangePass';
 import ChangeLevel from './components/ChangeLevel';
-import {editItem} from '../../../services/Utility';
+import {editItem, removeItems} from '../../../services/Utility';
+import {levelKeyVals} from '../ticket/components/KeyVals';
 
 const Users = props => {
   const [mode, setMode] = useState('list');
   const [selectedUser, setSelectedUser] = useState();
   const [users, setUsers] = useState();
+  const [accesses, setAccesses] = useState(
+    ['agent', 'school'].map(elem => {
+      return {
+        id: elem,
+        title: levelKeyVals.find(level => level.id === elem).item,
+      };
+    }),
+  );
 
   const navigate = props.navigate;
 
@@ -27,14 +36,21 @@ const Users = props => {
   };
 
   React.useEffect(() => {
-    filter({
-      token: props.token,
-      setLoading: status => {
-        dispatch({loading: status});
+    if (props.level === undefined) {
+      navigate('/');
+      return;
+    }
+    filter(
+      {
+        token: props.token,
+        setLoading: status => {
+          dispatch({loading: status});
+        },
+        setData: setUsers,
       },
-      setData: setUsers,
-    });
-  }, [navigate, props.token, dispatch]);
+      props.level,
+    );
+  }, [navigate, props.token, props.level, dispatch]);
 
   return (
     <View>
@@ -65,12 +81,13 @@ const Users = props => {
         <ChangeLevel
           setMode={setMode}
           user={selectedUser}
-          accesses={selectedUser.accesses}
+          removeItem={ids => removeItems(accesses, setAccesses, ids)}
+          // accesses={selectedUser.accesses}
+          accesses={accesses}
           setLoading={setLoading}
           token={props.token}
         />
       )}
-      {mode === 'changeState' && <CommonWebBox child={<></>} />}
     </View>
   );
 };

@@ -4,6 +4,7 @@ import {
   MinFullHeightView,
   LargeContentConianerStyle,
   PhoneContentConianerStyle,
+  SimpleText,
 } from '../styles/Common';
 import {View} from 'react-native';
 import {useNavigate, useParams} from 'react-router-dom';
@@ -39,8 +40,9 @@ import Ravan from './panel/Config/Configuration/Ravan';
 import Schools from './panel/Config/Schools/Schools';
 
 const WebStructue = props => {
-  const device = getDevice();
   const navigate = useNavigate();
+
+  const device = getDevice();
   const isInLargeMode = device.indexOf(Device.Large) !== -1;
 
   const useGlobalState = () => [
@@ -50,25 +52,27 @@ const WebStructue = props => {
 
   const [state, dispatch] = useGlobalState();
 
-  const excludeRightMenu = ['login', 'home'];
-
-  const [hideRightMenu, setHideRightMenu] = useState(
-    device.indexOf(Device.Large) === -1 ||
-      excludeRightMenu.indexOf(props.page) !== -1,
-  );
+  const [hideRightMenu, setHideRightMenu] = useState(true);
   const [token, setToken] = useState(undefined);
   const [user, setUser] = useState(undefined);
   const [allowRenderPage, setAllowRenderPage] = useState(false);
 
   React.useEffect(() => {
+    const excludeRightMenu = ['login', 'home', 'users'];
     const excludeTopNav = ['login', 'profile'];
     const excludeBottomNav = ['login'];
-    const excludeAuthRoutes = ['login', 'home'];
+    const excludeAuthRoutes = ['login', 'home', 'users'];
 
     dispatch({
       showTopNav: excludeTopNav.indexOf(props.page) === -1,
       showBottonNav: excludeBottomNav.indexOf(props.page) === -1,
     });
+
+    const d = getDevice();
+    setHideRightMenu(
+      d.indexOf(Device.Large) === -1 ||
+        excludeRightMenu.indexOf(props.page) !== -1,
+    );
 
     Promise.all([getToken(), getUser()]).then(res => {
       setToken(res[0]);
@@ -117,8 +121,7 @@ const WebStructue = props => {
     setHideRightMenu(user === undefined ? true : !hideRightMenu);
   };
 
-  // const data = useParams();
-  // console.log(data);
+  const params = useParams();
 
   return (
     <View style={{flex: 1, height: '100%', backgroundColor: vars.DARK_WHITE}}>
@@ -191,9 +194,7 @@ const WebStructue = props => {
               {props.page === 'ticket' && (
                 <Ticket token={token} user={user} navigate={navigate} />
               )}
-              {props.page === 'users' && (
-                <Users token={token} user={user} navigate={navigate} />
-              )}
+
               {props.page === 'avatars' && (
                 <Avatar token={token} user={user} navigate={navigate} />
               )}
@@ -210,6 +211,14 @@ const WebStructue = props => {
             </View>
           </View>
 
+          {props.page === 'users' && (
+            <Users
+              level={params === undefined ? undefined : params.level}
+              token={token}
+              user={user}
+              navigate={navigate}
+            />
+          )}
           {props.page === 'login' && isInLargeMode && (
             <WebLogin navigate={navigate} />
           )}

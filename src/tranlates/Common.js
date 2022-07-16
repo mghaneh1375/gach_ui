@@ -18,6 +18,7 @@ const translator = {
   school: 'مدرسه',
   schools: 'مدارس',
   advisor: 'مشاور',
+  advisors: 'مشاوران',
   entrance: 'ورود',
   continue: 'ادامه',
   support: 'پشتیبانی',

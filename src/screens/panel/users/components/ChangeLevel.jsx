@@ -2,10 +2,11 @@ import {View} from 'react-native-web';
 import {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
 import commonTranslator from '../../../../tranlates/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {levelKeyVals} from '../../ticket/components/KeyVals';
 import {addAccess} from './Utility';
+import MultiBox from '../../../../components/web/MultiBox/MultiBox';
+
 function ChangeLevel(props) {
   const [newLevel, setNewLevel] = useState();
   return (
@@ -15,12 +16,7 @@ function ChangeLevel(props) {
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
         <PhoneView style={{margin: 10}}>
-          <JustBottomBorderTextInput
-            placeholder={commonTranslator.currentLevel}
-            ishalf={true}
-            disable={true}
-            value={props.accesses !== undefined ? props.accesses.join(',') : ''}
-          />
+          <MultiBox removeItem={props.removeItem} items={props.accesses} />
           <JustBottomBorderSelect
             isHalf={true}
             setter={setNewLevel}
