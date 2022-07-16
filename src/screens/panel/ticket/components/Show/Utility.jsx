@@ -81,7 +81,7 @@ export const finalize = async (ticketId, token) => {
     routes.sendTicket + ticketId,
     'post',
     undefined,
-    undefined,
+    'ticket',
     token,
   );
   return res;

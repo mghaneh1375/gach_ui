@@ -11,7 +11,7 @@ import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import {routes} from '../../../../../API/APIRoutes';
 import {closeRequest} from './Utility';
-import columns from '../TableStructure';
+import {StudentTableStructure, TableStructure} from '../TableStructure';
 import {PhoneView} from '../../../../../styles/Common';
 import Filter from '../ProSearch/Filter';
 
@@ -74,7 +74,7 @@ function List(props) {
             {props.tickets !== undefined && (
               <CommonDataTable
                 handleOp={handleOp}
-                columns={columns}
+                columns={props.isAdmin ? TableStructure : StudentTableStructure}
                 token={props.token}
                 data={props.tickets}
                 setData={props.setTickets}
