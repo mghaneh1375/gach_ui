@@ -18,11 +18,13 @@ function Ops(props) {
         toggleShowPopUp={props.toggleShowPopUp}>
         <PhoneView style={{flexWrap: 'wrap'}}>
           <CommonButton
+            onPress={() => props.changeMode('changeLevel')}
             dir={'rtl'}
             theme={'transparent'}
             title={commonTranslator.changeLevel}
           />
           <CommonButton
+            onPress={() => props.changeMode('changeState')}
             dir={'rtl'}
             theme={'transparent'}
             title={commonTranslator.changeStatus}
