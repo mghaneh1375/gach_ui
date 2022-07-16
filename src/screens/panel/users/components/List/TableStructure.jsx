@@ -7,6 +7,7 @@ const columns = [
     selector: row => row.name,
     grow: 1,
   },
+
   {
     name: commonTranslator.mail,
     selector: row => row.mail,
