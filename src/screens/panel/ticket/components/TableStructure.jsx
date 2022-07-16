@@ -1,9 +1,4 @@
-const TableStructure = [
-  {
-    name: ' نام و نام خانوادگی',
-    selector: row => row.student.name,
-    grow: 1,
-  },
+const commonColumns = [
   {
     name: 'واحد',
     selector: row => row.section,
@@ -46,6 +41,15 @@ const TableStructure = [
       return a.expireAt - b.expireAt;
     },
   },
+];
+
+export const TableStructure = [
+  {
+    name: ' نام و نام خانوادگی',
+    selector: row => row.student.name,
+    grow: 1,
+  },
+  ...commonColumns,
   {
     name: 'بررسی کننده',
     selector: row => row.status,
@@ -53,4 +57,4 @@ const TableStructure = [
   },
 ];
 
-export default TableStructure;
+export const StudentTableStructure = [...commonColumns];

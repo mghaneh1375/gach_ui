@@ -16,13 +16,14 @@ import {FontIcon} from '../../../../styles/Common/FontIcon';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import SearchUser from '../../../../components/web/SearchUser/SearchUser';
 import {finalize, submit} from './Show/Utility';
+import {changeText} from '../../../../services/Utility';
 
 function Create(props) {
   const [showSearchUser, setShowSearchUser] = useState(false);
   const [foundUser, setFoundUser] = useState();
   const [section, setSection] = useState('');
   const [priority, setPriority] = useState('');
-  const [title, setTitle] = useState();
+  const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [err, setErr] = useState();
 
@@ -126,7 +127,7 @@ function Create(props) {
         <CommonTextInput
           placeholder={translator.title}
           value={title}
-          onChangeText={text => setTitle(text)}
+          onChangeText={e => changeText(e, setTitle)}
           parentStyle={{width: '100%'}}
           style={allStyle}
         />

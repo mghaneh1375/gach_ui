@@ -39,36 +39,36 @@ const Add = props => {
       showError(Translator.insetYourMsg);
       return;
     }
+
+    let res;
+    let ticket = props.ticket;
+    let files = [];
+    props.setLoading(true);
+
     if (filesContent.length > 0) {
-      props.setLoading(true);
-
-      let res;
-      let ticket = props.ticket;
-      let files = [];
-
       for (let i = 0; i < filesContent.length; i++) {
         res = await addFile(props.token, filesContent[i], props.ticket.id);
         if (res !== null) files.push(res);
       }
+    }
 
-      res = await addMsg(props.ticket.id, props.token, msg);
-      props.setLoading(false);
-      let chats = ticket.chats;
-      const isForUser = !chats[chats.length - 1].isForUser;
+    res = await addMsg(props.ticket.id, props.token, msg);
+    props.setLoading(false);
+    let chats = ticket.chats;
+    const isForUser = !chats[chats.length - 1].isForUser;
 
-      if (res !== null) {
-        chats.push({
-          msg: msg,
-          isForUser: isForUser,
-          files: files,
-          createdAt: getSimpleCurrTime(),
-        });
-        ticket.chats = chats;
-        props.updateTicket(ticket);
-        showSuccess(translator.successSendAnswer);
-        clear();
-        setMsg('');
-      }
+    if (res !== null) {
+      chats.push({
+        msg: msg,
+        isForUser: isForUser,
+        files: files,
+        createdAt: getSimpleCurrTime(),
+      });
+      ticket.chats = chats;
+      props.updateTicket(ticket);
+      showSuccess(translator.successSendAnswer);
+      clear();
+      setMsg('');
     }
   };
 

@@ -40,6 +40,7 @@ function Ticket(props) {
         token: props.token,
         setTickets: setTickets,
         navigate: navigate,
+        isAdmin: isAdmin,
       },
       undefined,
       undefined,
@@ -51,7 +52,7 @@ function Ticket(props) {
       undefined,
       undefined,
     );
-  }, [navigate, props.token, dispatch]);
+  }, [navigate, props.token, isAdmin, dispatch]);
 
   return (
     <View>
@@ -77,6 +78,8 @@ function Ticket(props) {
       )}
       {mode === 'show' && (
         <Show
+          isAdmin={isAdmin}
+          user={props.user}
           setLoading={setLoading}
           updateTicket={updateTicket}
           ticket={selectedTicket}

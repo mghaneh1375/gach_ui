@@ -123,9 +123,13 @@ export const removeItems = (items, setItems, removedIds) => {
   setItems(allItems);
 };
 
+export const changeText = (text, setter) => {
+  setter(text);
+};
+
 export const addItem = (items, setItems, item) => {
   let allItems = items;
-  allItems.push(item);
+  allItems.unshift(item);
   setItems(allItems);
 };
 

@@ -31,8 +31,9 @@ function Show(props) {
   const [studentPic, setStudentPic] = useState();
 
   React.useEffect(() => {
-    setStudentPic(props.ticket.student.pic);
-  }, [props.ticket]);
+    if (props.isAdmin) setStudentPic(props.ticket.student.pic);
+    else setStudentPic(props.user.user.pic);
+  }, [props.ticket, props.isAdmin, props.user]);
 
   return (
     <View>
@@ -51,12 +52,14 @@ function Show(props) {
             child={
               <View>
                 <PhoneView>
-                  <JustBottomBorderTextInput
-                    value={props.ticket.student.name}
-                    disable={true}
-                    placeholder={commonTranslator.nameAndLast}
-                    subText={commonTranslator.nameAndLast}
-                  />
+                  {props.isAdmin && (
+                    <JustBottomBorderTextInput
+                      value={props.ticket.student.name}
+                      disable={true}
+                      placeholder={commonTranslator.nameAndLast}
+                      subText={commonTranslator.nameAndLast}
+                    />
+                  )}
                   <JustBottomBorderTextInput
                     value={
                       priorityKeyVals.find(
@@ -101,7 +104,8 @@ function Show(props) {
               );
             })}
           />
-          {props.ticket.status !== 'finish' && (
+          {((props.isAdmin && props.ticket.status === 'pending') ||
+            (!props.isAdmin && props.ticket.status === 'answered')) && (
             <Add
               updateTicket={props.updateTicket}
               token={props.token}
