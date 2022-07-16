@@ -7,7 +7,7 @@ import Translator from '../../Translator';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {routes} from '../../../../../API/APIRoutes';
 import columns from './TableStructure';
-import {Ops} from '../Ops';
+import Ops from '../Ops';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -20,18 +20,21 @@ function List(props) {
   };
 
   const handleOp = idx => {
-    props.setSelectedOff(props.offs[idx]);
+    props.setSelectedUser(props.users[idx]);
     toggleShowOpPopUp();
   };
+
   return (
     <View>
-      {showOpPopUp && <Ops toggleShowPopUp={toggleShowOpPopUp} />}
+      {showOpPopUp && (
+        <Ops changeMode={changeMode} toggleShowPopUp={toggleShowOpPopUp} />
+      )}
       <CommonWebBox>
         <View>
           <TextIcon
             onPress={() => changeMode('create')}
             theme={'rect'}
-            text={Translator.offs}
+            text={Translator.studentList}
             icon={faPlus}
           />
           {/* <Filter

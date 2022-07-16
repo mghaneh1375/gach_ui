@@ -30,6 +30,7 @@ function Ops(props) {
           <CommonButton
             dir={'rtl'}
             theme={'transparent'}
+            onPress={() => props.changeMode('changePass')}
             title={commonTranslator.changePassword}
           />
         </PhoneView>

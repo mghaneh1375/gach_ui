@@ -3,10 +3,12 @@ import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import {filter} from './components/Utility';
 import List from './components/List/List';
-import {SimpleText} from '../../../styles/Common';
+import {CommonWebBox, SimpleText} from '../../../styles/Common';
+import ChangePass from '../../general/profile/components/ChangePass';
 
 const Users = props => {
   const [mode, setMode] = useState('list');
+  const [selectedUser, setSelectedUser] = useState();
   const [users, setUsers] = useState();
 
   const navigate = props.navigate;
@@ -40,7 +42,13 @@ const Users = props => {
           setData={setUsers}
           setMode={setMode}
           setLoading={setLoading}
+          setSelectedUser={setSelectedUser}
           token={props.token}
+        />
+      )}
+      {mode === 'changePass' && (
+        <CommonWebBox
+          child={<ChangePass setLoading={setLoading} token={props.token} />}
         />
       )}
     </View>
