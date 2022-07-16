@@ -2,11 +2,10 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import List from './components/List/List';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
 import Create from './components/Create';
 import Show from './components/Show/Show';
-import {addItem} from '../../../services/Utility';
+import {addItem, isUserAdmin} from '../../../services/Utility';
+import {filter} from './components/List/Utility';
 
 function Ticket(props) {
   const navigate = props.navigate;
@@ -19,7 +18,7 @@ function Ticket(props) {
   const [state, dispatch] = useGlobalState();
   const [tickets, setTickets] = useState();
   const [selectedTicket, setSelectedTicket] = useState({});
-  const isAdmin = isAdmin(props.user);
+  const isAdmin = isUserAdmin(props.user);
 
   const updateTicket = ticket => {
     const allTickets = tickets.map(elem => {
@@ -35,23 +34,23 @@ function Ticket(props) {
   };
 
   React.useEffect(() => {
-    dispatch({loading: true});
-    Promise.all([
-      generalRequest(
-        routes.fetchAllTickets,
-        'get',
-        undefined,
-        'data',
-        props.token,
-      ),
-    ]).then(res => {
-      dispatch({loading: false});
-      if (res[0] == null) {
-        navigate('/');
-        return;
-      }
-      setTickets(res[0]);
-    });
+    filter(
+      {
+        setLoading: status => dispatch({loading: status}),
+        token: props.token,
+        setTickets: setTickets,
+        navigate: navigate,
+      },
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    );
   }, [navigate, props.token, dispatch]);
 
   return (
@@ -61,6 +60,7 @@ function Ticket(props) {
           setMode={setMode}
           setLoading={setLoading}
           tickets={tickets}
+          isAdmin={isAdmin}
           setTickets={setTickets}
           token={props.token}
           setSelectedTicket={setSelectedTicket}
@@ -70,7 +70,7 @@ function Ticket(props) {
         <Create
           setMode={setMode}
           setLoading={setLoading}
-          isAdmin={props.isAdmin}
+          isAdmin={isAdmin}
           addTicket={newTicket => addItem(tickets, setTickets, newTicket)}
           token={props.token}
         />

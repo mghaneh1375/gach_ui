@@ -173,6 +173,7 @@ const CommonDataTable = props => {
   return (
     <View>
       {showRemovePopUp &&
+        state.ops !== undefined &&
         selectedOp !== undefined &&
         props.token !== undefined && (
           <ConfirmationBatchOpPane
@@ -191,29 +192,33 @@ const CommonDataTable = props => {
             toggleShowPopUp={toggleShowRemovePopUp}
           />
         )}
-      <select
-        value={selectedOp === undefined ? 'none' : selectedOp.key}
-        onChange={e => changeOpSelect(e)}
-        style={{alignSelf: 'flex-end', fontFamily: 'IRANSans'}}>
-        <option value="none">
-          {commonTranslator.op + ' (' + selected.length + ')'}
-        </option>
+      {state.ops !== undefined && state.ops.length > 0 && (
+        <select
+          value={selectedOp === undefined ? 'none' : selectedOp.key}
+          onChange={e => changeOpSelect(e)}
+          style={{alignSelf: 'flex-end', fontFamily: 'IRANSans'}}>
+          <option value="none">
+            {commonTranslator.op + ' (' + selected.length + ')'}
+          </option>
 
-        {state.ops !== undefined &&
-          state.ops.map((elem, index) => {
+          {state.ops.map((elem, index) => {
             return (
               <option key={index} value={elem.key}>
                 {elem.label + ' (' + selected.length + ')'}
               </option>
             );
           })}
-      </select>
+        </select>
+      )}
       <DataTable
         pagination
         customStyles={customStyles}
         columns={columns}
         data={state.data}
-        selectableRows={true}
+        selectableRows={
+          (state.ops !== undefined && state.ops.length > 0) ||
+          props.onRowSelect !== undefined
+        }
         highlightOnHover={true}
         persistTableHead={true}
         onSelectedRowsChange={

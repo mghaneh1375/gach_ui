@@ -94,8 +94,7 @@ export const filter = (
     ),
   ]).then(res => {
     props.setLoading(false);
-    if (res[0] !== null) {
-      props.setTickets(res[0]);
-    }
+    if (res[0] !== null) props.setTickets(res[0]);
+    else props.navigate('/');
   });
 };

@@ -17,12 +17,10 @@ import Filter from '../ProSearch/Filter';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
-  const [selectedId, setSelectedId] = useState();
 
   const handleOp = index => {
     if (index >= props.tickets.length) return;
     props.setSelectedTicket(props.tickets[index]);
-    setSelectedId(props.tickets[index].id);
     toggleShowOpPopUp();
   };
 
@@ -45,15 +43,19 @@ function List(props) {
               title={translator.showRequest}
               theme={'transparent'}
             />
-            <CommonButton
-              title={translator.showRecords}
-              theme={'transparent'}
-            />
-            <CommonButton
-              onPress={() => closeRequest()}
-              title={translator.closeRecords}
-              theme={'transparent'}
-            />
+            {props.isAdmin && (
+              <CommonButton
+                title={translator.showRecords}
+                theme={'transparent'}
+              />
+            )}
+            {props.isAdmin && (
+              <CommonButton
+                onPress={() => closeRequest()}
+                title={translator.closeRecords}
+                theme={'transparent'}
+              />
+            )}
           </PhoneView>
         </LargePopUp>
       )}
@@ -66,7 +68,9 @@ function List(props) {
               text={translator.allRequests}
               icon={faPlus}
             />
-            <Filter token={props.token} setLoading={props.setLoading} />
+            {props.isAdmin && (
+              <Filter token={props.token} setLoading={props.setLoading} />
+            )}
             {props.tickets !== undefined && (
               <CommonDataTable
                 handleOp={handleOp}
@@ -75,28 +79,33 @@ function List(props) {
                 data={props.tickets}
                 setData={props.setTickets}
                 setLoading={props.setLoading}
-                groupOps={[
-                  {
-                    key: 'removeAll',
-                    url: routes.removeTickets,
-                  },
-                  {
-                    key: 'closeAll',
-                    label: translator.closeRecords,
-                    url: routes.closeTicketRequest,
-                    warning: translator.sureClose,
-                    method: 'post',
-                    afterFunc: res => {
-                      props.tickets = props.tickets.map(elem => {
-                        if (res.doneIds.indexOf(elem.id) === -1) return elem;
-                        elem.status = 'finish';
-                        elem.statusFa = translator.closedRequest;
-                        return elem;
-                      });
-                      props.setTickets(props.tickets);
-                    },
-                  },
-                ]}
+                groupOps={
+                  !props.isAdmin
+                    ? []
+                    : [
+                        {
+                          key: 'removeAll',
+                          url: routes.removeTickets,
+                        },
+                        {
+                          key: 'closeAll',
+                          label: translator.closeRecords,
+                          url: routes.closeTicketRequest,
+                          warning: translator.sureClose,
+                          method: 'post',
+                          afterFunc: res => {
+                            props.tickets = props.tickets.map(elem => {
+                              if (res.doneIds.indexOf(elem.id) === -1)
+                                return elem;
+                              elem.status = 'finish';
+                              elem.statusFa = translator.closedRequest;
+                              return elem;
+                            });
+                            props.setTickets(props.tickets);
+                          },
+                        },
+                      ]
+                }
               />
             )}
           </ShrinkView>

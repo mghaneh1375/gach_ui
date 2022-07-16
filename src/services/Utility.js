@@ -138,7 +138,7 @@ export const editItem = (items, setItems, item) => {
   setItems(allItems);
 };
 
-export const isAdmin = user => {
+export const isUserAdmin = user => {
   if (user === undefined) return false;
 
   if (

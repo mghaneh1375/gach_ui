@@ -39,7 +39,7 @@ function Create(props) {
   };
 
   const send = async () => {
-    if (foundUser === undefined || foundUser.length === 0) {
+    if (props.isAdmin && (foundUser === undefined || foundUser.length === 0)) {
       setErr(commonTranslator.pleaseFillAllFields);
       return;
     }
@@ -51,7 +51,7 @@ function Create(props) {
         description: desc,
         section: section,
         priority: priority,
-        userId: foundUser[0].id,
+        userId: props.isAdmin ? foundUser[0].id : undefined,
       },
       props.token,
     );
@@ -68,38 +68,42 @@ function Create(props) {
 
   return (
     <View zIndex={5}>
-      <SearchUser
-        setFinalResult={setFoundUser}
-        setShow={setShowSearchUser}
-        token={props.token}
-        setLoading={props.setLoading}
-        show={showSearchUser}
-      />
+      {props.isAdmin && (
+        <SearchUser
+          setFinalResult={setFoundUser}
+          setShow={setShowSearchUser}
+          token={props.token}
+          setLoading={props.setLoading}
+          show={showSearchUser}
+        />
+      )}
 
       <CommonWebBox
         header={translator.title}
         backBtn={true}
         onBackClick={() => props.setMode('list')}
         style={{margin: 10, paddingRight: 25}}>
-        <PhoneView>
-          <JustBottomBorderTextInput
-            isHalf={true}
-            value={
-              foundUser !== undefined
-                ? foundUser.map(elem => elem.name).join(',')
-                : ''
-            }
-            placeholder={translator.nameOfReciver}
-            disable={true}
-          />
-          <FontIcon
-            kind={'normal'}
-            theme={'rect'}
-            back={'yellow'}
-            icon={faPlus}
-            onPress={() => toggleShowSearchUser()}
-          />
-        </PhoneView>
+        {props.isAdmin && (
+          <PhoneView>
+            <JustBottomBorderTextInput
+              isHalf={true}
+              value={
+                foundUser !== undefined
+                  ? foundUser.map(elem => elem.name).join(',')
+                  : ''
+              }
+              placeholder={translator.nameOfReciver}
+              disable={true}
+            />
+            <FontIcon
+              kind={'normal'}
+              theme={'rect'}
+              back={'yellow'}
+              icon={faPlus}
+              onPress={() => toggleShowSearchUser()}
+            />
+          </PhoneView>
+        )}
 
         <PhoneView style={{margin: 10}}>
           <JustBottomBorderSelect
