@@ -4,7 +4,7 @@ import {dispatchStateContext, globalStateContext} from '../../../App';
 import List from './components/List/List';
 import Create from './components/Create';
 import Show from './components/Show/Show';
-import {addItem, isUserAdmin} from '../../../services/Utility';
+import {addItem, editItem, isUserAdmin} from '../../../services/Utility';
 import {filter} from './components/List/Utility';
 
 function Ticket(props) {
@@ -19,15 +19,6 @@ function Ticket(props) {
   const [tickets, setTickets] = useState();
   const [selectedTicket, setSelectedTicket] = useState({});
   const isAdmin = isUserAdmin(props.user);
-
-  const updateTicket = ticket => {
-    const allTickets = tickets.map(elem => {
-      if (elem.id === ticket.id) return ticket;
-      return elem;
-    });
-    setSelectedTicket(ticket);
-    setTickets(allTickets);
-  };
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -69,6 +60,7 @@ function Ticket(props) {
       )}
       {mode === 'create' && (
         <Create
+          user={props.user}
           setMode={setMode}
           setLoading={setLoading}
           isAdmin={isAdmin}
@@ -81,7 +73,8 @@ function Ticket(props) {
           isAdmin={isAdmin}
           user={props.user}
           setLoading={setLoading}
-          updateTicket={updateTicket}
+          updateTicket={ticket => editItem(tickets, setTickets, ticket)}
+          setSelectedTicket={setSelectedTicket}
           ticket={selectedTicket}
           token={props.token}
           setMode={setMode}

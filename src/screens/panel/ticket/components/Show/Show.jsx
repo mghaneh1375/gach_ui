@@ -17,16 +17,17 @@ function Show(props) {
   React.useEffect(() => {
     if (!isWorking && props.ticket.chats === undefined) {
       setIsWorking(true);
-      Promise.all([fetchDetail(props)]).then(res => {
+      props.setLoading(true);
+      Promise.all([fetchDetail(props.ticket.id, props.token)]).then(res => {
+        props.setLoading(false);
+        if (res[0] !== null) {
+          props.updateTicket(res[0]);
+          props.setSelectedTicket(res[0]);
+        }
         setIsWorking(false);
       });
     }
   }, [isWorking, props]);
-
-  const addChat = newChat => {
-    props.ticket.chats.push(newChat);
-    props.updateTicket(props.ticket);
-  };
 
   const [studentPic, setStudentPic] = useState();
 
@@ -105,13 +106,13 @@ function Show(props) {
             })}
           />
           {((props.isAdmin && props.ticket.status === 'pending') ||
-            (!props.isAdmin && props.ticket.status === 'answered')) && (
+            (!props.isAdmin && props.ticket.status === 'answer')) && (
             <Add
               updateTicket={props.updateTicket}
               token={props.token}
               setLoading={props.setLoading}
+              setSelectedTicket={props.setSelectedTicket}
               ticket={props.ticket}
-              addChat={addChat}
             />
           )}
         </View>

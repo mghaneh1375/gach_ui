@@ -54,17 +54,10 @@ const Add = props => {
 
     res = await addMsg(props.ticket.id, props.token, msg);
     props.setLoading(false);
-    let chats = ticket.chats;
-    const isForUser = !chats[chats.length - 1].isForUser;
 
     if (res !== null) {
-      chats.push({
-        msg: msg,
-        isForUser: isForUser,
-        files: files,
-        createdAt: getSimpleCurrTime(),
-      });
-      ticket.chats = chats;
+      ticket = res;
+      props.setSelectedTicket(ticket);
       props.updateTicket(ticket);
       showSuccess(translator.successSendAnswer);
       clear();

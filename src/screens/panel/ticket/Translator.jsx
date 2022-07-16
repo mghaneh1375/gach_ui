@@ -23,7 +23,7 @@ const translator = {
   insetYourMsg: 'لطفا متن پیام خود را وارد نمایید.',
   nameOfReciver: 'نام دریافت کننده',
   desc: 'متن درخواست',
-  confrim: 'ثبت',
+  confrim: 'ارسال',
 };
 
 export default translator;

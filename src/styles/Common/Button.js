@@ -6,9 +6,12 @@ const style = {
   textAlign: 'center',
   color: vars.WHITE,
   backgroundColor: vars.ORANGE,
-  borderRadius: 15,
-  padding: 5,
-  minWidth: 150,
+  borderRadius: 10,
+  paddingTop: 5,
+  paddingBottom: 5,
+  paddingLeft: 15,
+  paddingRight: 15,
+  // minWidth: 150,
   alignSelf: vars.alignSelfRev,
 };
 

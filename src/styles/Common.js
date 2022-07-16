@@ -18,7 +18,7 @@ import {getScreenHeight} from '../services/Utility';
 import {Link} from 'react-router-dom';
 
 import JustBottomBorderTextInput from './Common/JustBottomBorderTextInput';
-import {FontIcon} from './Common/FontIcon';
+import {FontIcon, SimpleFontIcon} from './Common/FontIcon';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 
 export const BigBoldBlueTextInline = props => (
@@ -137,6 +137,12 @@ export const CommonButton = props => {
       },
     };
   }
+  allStyles = {
+    ...allStyles,
+    ...{
+      display: 'flex',
+    },
+  };
 
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <Button style={allStyles} onPress={props.onPress}>
@@ -152,6 +158,13 @@ export const CommonButton = props => {
     </Button>
   ) : (
     <Button style={allStyles} onClick={props.onPress}>
+      {props.icon !== undefined && (
+        <SimpleFontIcon
+          kind={'normal'}
+          style={{color: vars.WHITE}}
+          icon={props.icon}
+        />
+      )}
       <Text style={textStyle}>{props.title}</Text>
     </Button>
   );
@@ -295,13 +308,13 @@ export function EqualTwoTextInputs(props) {
     props.style === undefined
       ? {
           justifyContent: 'space-between',
-          marginTop: 20,
+          // marginTop: 20,
         }
       : {
           ...props.style,
           ...{
             justifyContent: 'space-between',
-            marginTop: 20,
+            // marginTop: 20,
           },
         };
 

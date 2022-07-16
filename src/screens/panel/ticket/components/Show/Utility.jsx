@@ -1,18 +1,16 @@
 import {routes} from '../../../../../API/APIRoutes';
 import {fileRequest, generalRequest} from '../../../../../API/Utility';
 
-export const fetchDetail = async props => {
-  props.setLoading(true);
+export const fetchDetail = async (ticketId, token) => {
   const res = await generalRequest(
-    routes.fetchTicket + props.ticket.id,
+    routes.fetchTicket + ticketId,
     'get',
     undefined,
     'data',
-    props.token,
+    token,
   );
 
-  props.setLoading(false);
-  if (res !== null) props.updateTicket(res);
+  return res;
 };
 
 export const changeMode = (setMode, newMode) => {
@@ -24,7 +22,7 @@ export const addMsg = async (ticketId, token, msg) => {
     routes.setAnswerTicket + ticketId,
     'put',
     {answer: msg},
-    undefined,
+    'ticket',
     token,
   );
 

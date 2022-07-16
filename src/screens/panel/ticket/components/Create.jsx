@@ -2,8 +2,10 @@ import {View} from 'react-native';
 import {
   CommonButton,
   CommonWebBox,
+  EqualTwoTextInputs,
   ErrorText,
   PhoneView,
+  SimpleText,
 } from '../../../../styles/Common';
 import translator from '../../ticket/Translator';
 import commonTranslator from '../../../../tranlates/Common';
@@ -12,11 +14,15 @@ import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {priorityKeyVals, sectionKeyVals} from './KeyVals';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {faPaperclip, faPlus} from '@fortawesome/free-solid-svg-icons';
 import SearchUser from '../../../../components/web/SearchUser/SearchUser';
 import {finalize, submit} from './Show/Utility';
 import {changeText} from '../../../../services/Utility';
+import Add from './Show/Add';
+import AttachBox from './Show/AttachBox/AttachBox';
+import {useFilePicker} from 'use-file-picker';
+import ChatImage from './Show/ChatImage/ChatImage';
 
 function Create(props) {
   const [showSearchUser, setShowSearchUser] = useState(false);
@@ -29,6 +35,19 @@ function Create(props) {
 
   const toggleShowSearchUser = () => {
     setShowSearchUser(!showSearchUser);
+  };
+
+  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
+    useFilePicker({
+      maxFileSize: 6,
+      accept: ['image/*', '.pdf', '.xls', '.xlsx', '.docx'],
+      readAs: 'DataURL',
+      multiple: true,
+      limitFilesConfig: {max: 5},
+    });
+
+  const removeAttach = index => {
+    remove(index);
   };
 
   const allStyle = {
@@ -143,8 +162,41 @@ function Create(props) {
             height: 200,
           }}
         />
-        <CommonButton title={translator.confrim} onPress={() => send()} />
         {err !== undefined && <ErrorText text={err} />}
+      </CommonWebBox>
+      <CommonWebBox>
+        <EqualTwoTextInputs>
+          <PhoneView>
+            <ChatImage dir={'right'} src={props.user.user.pic} />
+            <SimpleText text={'راهنما'} />
+          </PhoneView>
+          <PhoneView>
+            <SimpleFontIcon
+              onPress={() => openFileSelector()}
+              kind={'normal'}
+              icon={faPaperclip}
+            />
+            <CommonButton
+              icon={faPlus}
+              title={translator.confrim}
+              onPress={() => send()}
+            />
+          </PhoneView>
+        </EqualTwoTextInputs>
+        {filesContent !== undefined && filesContent.length > 0 && (
+          <PhoneView style={{marginTop: 20}}>
+            {filesContent.map((file, index) => {
+              return (
+                <AttachBox
+                  key={index}
+                  filename={file.name}
+                  fileContent={file.content}
+                  removeAttach={() => removeAttach(index)}
+                />
+              );
+            })}
+          </PhoneView>
+        )}
       </CommonWebBox>
     </View>
   );

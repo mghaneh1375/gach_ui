@@ -1,12 +1,12 @@
 const commonColumns = [
   {
     name: 'واحد',
-    selector: row => row.section,
+    selector: row => row.sectionFa,
     grow: 1,
   },
   {
     name: 'ضرورت',
-    selector: row => row.priority,
+    selector: row => row.priorityFa,
     // priorityKeyVals.find(elem => elem.id === row.priority).item,
     grow: 1,
   },

@@ -1,5 +1,4 @@
 import {View} from 'react-native';
-import {CommonWebBox} from '../../../../../../styles/Common';
 
 function ChatImage(props) {
   const style = {
