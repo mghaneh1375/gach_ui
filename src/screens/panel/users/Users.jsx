@@ -6,21 +6,12 @@ import List from './components/List/List';
 import {CommonWebBox} from '../../../styles/Common';
 import ChangePass from '../../general/profile/components/ChangePass';
 import ChangeLevel from './components/ChangeLevel';
-import {editItem, removeItems} from '../../../services/Utility';
-import {levelKeyVals} from '../ticket/components/KeyVals';
+import {editItem} from '../../../services/Utility';
 
 const Users = props => {
   const [mode, setMode] = useState('list');
   const [selectedUser, setSelectedUser] = useState();
-  const [users, setUsers] = useState();
-  const [accesses, setAccesses] = useState(
-    ['agent', 'school'].map(elem => {
-      return {
-        id: elem,
-        title: levelKeyVals.find(level => level.id === elem).item,
-      };
-    }),
-  );
+  const [users, setUsers] = useState([]);
 
   const navigate = props.navigate;
 
@@ -40,16 +31,16 @@ const Users = props => {
       navigate('/');
       return;
     }
-    filter(
-      {
-        token: props.token,
-        setLoading: status => {
-          dispatch({loading: status});
-        },
-        setData: setUsers,
-      },
-      props.level,
-    );
+    dispatch({loading: true});
+    Promise.all([filter(props.token, props.level)]).then(res => {
+      dispatch({loading: false});
+      if (res[0] == null) {
+        navigate('/');
+        return;
+      }
+      setUsers(res[0]);
+      setMode('list');
+    });
   }, [navigate, props.token, props.level, dispatch]);
 
   return (
@@ -81,9 +72,6 @@ const Users = props => {
         <ChangeLevel
           setMode={setMode}
           user={selectedUser}
-          removeItem={ids => removeItems(accesses, setAccesses, ids)}
-          // accesses={selectedUser.accesses}
-          accesses={accesses}
           setLoading={setLoading}
           token={props.token}
         />

@@ -30,22 +30,23 @@ function AdminMenu(props) {
           text={translator.users}
           icon={faUsers}
           selected={props.selected === 'users'}
+          navigate={navigate}
           items={[
             {
               text: translator.agent,
-              url: 'users/agents',
+              url: '/users/agent',
             },
             {
               text: translator.advisor,
-              url: 'users/advisors',
+              url: '/users/advisor',
             },
             {
               text: translator.students,
-              url: 'users/students',
+              url: '/users/student',
             },
             {
               text: translator.schools,
-              url: 'users/schools',
+              url: '/users/school',
             },
           ]}
         />

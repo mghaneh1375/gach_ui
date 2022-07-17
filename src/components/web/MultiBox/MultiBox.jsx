@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {removeAccess} from '../../../screens/panel/users/components/Utility';
 import {PhoneView} from '../../../styles/Common';
 import Box from './Box';
 
@@ -16,8 +17,15 @@ const MultiBox = props => {
           return (
             <Box
               key={index}
-              id={elem.id}
-              removeItem={props.removeItem}
+              removeItem={() =>
+                removeAccess({
+                  setLoading: props.setLoading,
+                  token: props.token,
+                  userId: props.userId,
+                  afterFunc: props.afterFunc,
+                  access: elem.id,
+                })
+              }
               title={elem.title}
             />
           );

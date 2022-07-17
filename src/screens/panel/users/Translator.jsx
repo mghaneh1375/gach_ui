@@ -1,6 +1,5 @@
 const Translator = {
-  test: 'تست',
-  studentList: 'لیست دانش آموزان',
+  list: 'لیست کاربران',
 };
 
 export default Translator;

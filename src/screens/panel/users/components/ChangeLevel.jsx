@@ -1,14 +1,32 @@
-import {View} from 'react-native-web';
-import {useState} from 'react';
+import {View} from 'react-native';
+import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
 import commonTranslator from '../../../../tranlates/Common';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {levelKeyVals} from '../../ticket/components/KeyVals';
 import {addAccess} from './Utility';
 import MultiBox from '../../../../components/web/MultiBox/MultiBox';
+import {useParams} from 'react-router';
 
 function ChangeLevel(props) {
   const [newLevel, setNewLevel] = useState();
+  const [accesses, setAccesses] = useState();
+
+  const currLevel = useParams().level;
+
+  React.useEffect(() => {
+    if (props.user !== undefined)
+      setAccesses(
+        props.user.accesses.map(elem => {
+          return {
+            id: elem,
+            title: levelKeyVals.find(level => level.id === elem).item,
+          };
+        }),
+      );
+    else setAccesses([]);
+  }, [props.user]);
+
   return (
     <View>
       <CommonWebBox
@@ -16,7 +34,13 @@ function ChangeLevel(props) {
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
         <PhoneView style={{margin: 10}}>
-          <MultiBox removeItem={props.removeItem} items={props.accesses} />
+          <MultiBox
+            setLoading={props.setLoading}
+            token={props.token}
+            userId={props.user.id}
+            afterFunc={newAccesses => setAccesses(newAccesses)}
+            items={accesses}
+          />
           <JustBottomBorderSelect
             isHalf={true}
             setter={setNewLevel}
@@ -33,10 +57,11 @@ function ChangeLevel(props) {
                 props.token,
                 props.user.id,
                 newLevel,
-                () => {},
+                newAccesses => setAccesses(newAccesses),
               )
             }
-            title={commonTranslator.confrim}></CommonButton>
+            title={commonTranslator.confrim}
+          />
         </PhoneView>
       </CommonWebBox>
     </View>
