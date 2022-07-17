@@ -121,8 +121,6 @@ const WebStructue = props => {
     setHideRightMenu(user === undefined ? true : !hideRightMenu);
   };
 
-  const params = useParams();
-
   return (
     <View style={{flex: 1, height: '100%', backgroundColor: vars.DARK_WHITE}}>
       {allowRenderPage && (
@@ -194,7 +192,9 @@ const WebStructue = props => {
               {props.page === 'ticket' && (
                 <Ticket token={token} user={user} navigate={navigate} />
               )}
-
+              {props.page === 'basic' && (
+                <Users token={token} user={user} navigate={navigate} />
+              )}
               {props.page === 'avatars' && (
                 <Avatar token={token} user={user} navigate={navigate} />
               )}

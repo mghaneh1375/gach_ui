@@ -109,5 +109,9 @@ const translator = {
   currentLevel: 'سطح فعلی',
   newLevel: 'سطح جدید',
   confrim: 'ثبت',
+  basicDefinition: 'تعاریف پایه',
+  gradeDefinition: 'تعریف مقاطع ',
+  lessonsDefinition: 'تعاریف دروس',
+  subjectDefinition: 'تعاریف حیطه',
 };
 export default translator;
