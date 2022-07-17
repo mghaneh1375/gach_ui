@@ -28,6 +28,11 @@ export default function WebRouter() {
             path="/users/:level"
             element={<WebStructue page="users" />}
           />
+          <Route
+            exact
+            path="/basic/:mode"
+            element={<WebStructue page="basic" />}
+          />
           <Route path="/avatars" element={<WebStructue page="avatars" />} />
           <Route path="/schools" element={<WebStructue page="schools" />} />
           <Route

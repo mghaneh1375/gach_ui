@@ -37,6 +37,7 @@ import PageNotFound from './general/404/PageNotFound';
 import General from './panel/Config/Configuration/General';
 import Ravan from './panel/Config/Configuration/Ravan';
 import Schools from './panel/Config/Schools/Schools';
+import Grade from './panel/grade/Grade';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -120,8 +121,6 @@ const WebStructue = props => {
     setHideRightMenu(user === undefined ? true : !hideRightMenu);
   };
 
-  const params = useParams();
-
   return (
     <View style={{flex: 1, height: '100%', backgroundColor: vars.DARK_WHITE}}>
       {allowRenderPage && (
@@ -193,7 +192,9 @@ const WebStructue = props => {
               {props.page === 'ticket' && (
                 <Ticket token={token} user={user} navigate={navigate} />
               )}
-
+              {props.page === 'basic' && (
+                <Grade token={token} user={user} navigate={navigate} />
+              )}
               {props.page === 'avatars' && (
                 <Avatar token={token} user={user} navigate={navigate} />
               )}
@@ -208,12 +209,7 @@ const WebStructue = props => {
               )}
 
               {props.page === 'users' && (
-                <Users
-                  level={params === undefined ? undefined : params.level}
-                  token={token}
-                  user={user}
-                  navigate={navigate}
-                />
+                <Users token={token} user={user} navigate={navigate} />
               )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </View>

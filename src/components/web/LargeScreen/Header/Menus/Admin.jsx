@@ -2,7 +2,12 @@ import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
 import {MenuItem, style, MenuItemPhone} from '../style';
 import translator from '../../../../../tranlates/Common';
-import {faHome, faCog, faUsers} from '@fortawesome/free-solid-svg-icons';
+import {
+  faHome,
+  faCog,
+  faUsers,
+  faContactBook,
+} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 import {SuperMenuItem} from './SuperMenuItem';
 
@@ -19,6 +24,26 @@ function AdminMenu(props) {
           text={translator.home}
           icon={faHome}
           selected={props.selected === 'home'}
+        />
+        <SuperMenuItem
+          text={translator.basicDefinition}
+          icon={faContactBook}
+          selected={props.selected === 'book'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.gradeDefinition,
+              url: '/basic/grades',
+            },
+            {
+              text: translator.lessonsDefinition,
+              url: '/basic/lessons',
+            },
+            {
+              text: translator.subjectDefinition,
+              url: '/basic/subjects',
+            },
+          ]}
         />
         <MenuItem
           onClick={() => navigate('/ticket')}
