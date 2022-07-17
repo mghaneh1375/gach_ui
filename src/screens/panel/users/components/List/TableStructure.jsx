@@ -27,7 +27,7 @@ const columns = [
   },
   {
     name: commonTranslator.status,
-    selector: row => row.status,
+    selector: row => (row.status === 'active' ? 'فعال' : 'غیرفعال'),
     grow: 1,
   },
 ];

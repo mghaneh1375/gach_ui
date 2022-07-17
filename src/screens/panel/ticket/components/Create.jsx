@@ -17,12 +17,13 @@ import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorde
 import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {faPaperclip, faPlus} from '@fortawesome/free-solid-svg-icons';
 import SearchUser from '../../../../components/web/SearchUser/SearchUser';
-import {finalize, submit} from './Show/Utility';
+import {addFile, finalize, submit} from './Show/Utility';
 import {changeText} from '../../../../services/Utility';
 import Add from './Show/Add';
 import AttachBox from './Show/AttachBox/AttachBox';
 import {useFilePicker} from 'use-file-picker';
 import ChatImage from './Show/ChatImage/ChatImage';
+import UserTinyPic from '../../../../components/web/LargeScreen/UserTinyPic';
 
 function Create(props) {
   const [showSearchUser, setShowSearchUser] = useState(false);
@@ -75,15 +76,29 @@ function Create(props) {
       },
       props.token,
     );
-    props.setLoading(false);
-    if (res === null || res === undefined) return;
+
+    if (res === null || res === undefined) {
+      props.setLoading(false);
+      return;
+    }
+    let files = [];
+
+    if (filesContent.length > 0) {
+      for (let i = 0; i < filesContent.length; i++) {
+        let fileRes = await addFile(props.token, filesContent[i], res.id);
+        if (fileRes !== null) files.push(fileRes);
+      }
+    }
 
     if (!props.isAdmin) res = await finalize(res.id, props.token);
 
     if (res !== null) {
+      if (props.isAdmin) res.chats[0].files = files;
       props.addTicket(res);
       props.setMode('list');
     }
+
+    props.setLoading(false);
   };
 
   return (
@@ -167,8 +182,11 @@ function Create(props) {
       <CommonWebBox>
         <EqualTwoTextInputs>
           <PhoneView>
-            <ChatImage dir={'right'} src={props.user.user.pic} />
-            <SimpleText text={'راهنما'} />
+            <UserTinyPic pic={props.user.user.pic} />
+            <SimpleText
+              style={{alignSelf: 'center', marginRight: 20}}
+              text={'راهنما'}
+            />
           </PhoneView>
           <PhoneView>
             <SimpleFontIcon

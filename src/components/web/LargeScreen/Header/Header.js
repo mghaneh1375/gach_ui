@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {PhoneView, SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
@@ -7,6 +7,7 @@ import {faAngleDown, faBell} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import {logout} from '../../../../API/User';
+import UserTinyPic from '../UserTinyPic';
 
 const Header = props => {
   const device = getDevice();
@@ -60,23 +61,20 @@ const Header = props => {
               ? {...style.Header_Profile, ...style.Header_Profile_Large}
               : {...style.Header_Profile, ...style.Header_Profile_Phone}
           }>
-          {pic !== undefined && (
-            <Image
-              resizeMode="contain"
-              style={
-                isApp
-                  ? {
-                      ...style.Header_Profile_Image,
-                      ...style.Header_Profile_Image_App,
-                    }
-                  : {
-                      ...style.Header_Profile_Image,
-                      ...style.Header_Profile_Image_Web,
-                    }
-              }
-              source={{uri: pic}}
-            />
-          )}
+          <UserTinyPic
+            style={
+              isApp
+                ? {
+                    ...style.Header_Profile_Image,
+                    ...style.Header_Profile_Image_App,
+                  }
+                : {
+                    ...style.Header_Profile_Image,
+                    ...style.Header_Profile_Image_Web,
+                  }
+            }
+            pic={pic}
+          />
           <SimpleText
             style={
               isApp

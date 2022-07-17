@@ -12,8 +12,6 @@ function ChangeLevel(props) {
   const [newLevel, setNewLevel] = useState();
   const [accesses, setAccesses] = useState();
 
-  const currLevel = useParams().level;
-
   React.useEffect(() => {
     if (props.user !== undefined)
       setAccesses(
@@ -27,12 +25,20 @@ function ChangeLevel(props) {
     else setAccesses([]);
   }, [props.user]);
 
+  const currLevel = useParams().level;
+
+  const back = () => {
+    if (accesses.find(elem => elem.id === currLevel) === undefined)
+      props.removeFromList([props.user.id]);
+    props.setMode('list');
+  };
+
   return (
     <View>
       <CommonWebBox
         header={commonTranslator.changeLevel}
         backBtn={true}
-        onBackClick={() => props.setMode('list')}>
+        onBackClick={() => back()}>
         <PhoneView style={{margin: 10}}>
           <MultiBox
             setLoading={props.setLoading}

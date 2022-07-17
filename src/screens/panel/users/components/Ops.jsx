@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
@@ -14,7 +14,6 @@ function Ops(props) {
         <PhoneView style={{flexWrap: 'wrap'}}>
           <CommonButton
             onPress={() => props.changeMode('changeLevel')}
-            dir={'rtl'}
             theme={'transparent'}
             title={commonTranslator.changeLevel}
           />
@@ -27,18 +26,15 @@ function Ops(props) {
                 res => {
                   if (res !== null) {
                     props.user.status = res;
-                    props.updateUser();
                     props.toggleShowPopUp();
                   }
                 },
               );
             }}
-            dir={'rtl'}
             theme={'transparent'}
             title={commonTranslator.changeStatus}
           />
           <CommonButton
-            dir={'rtl'}
             theme={'transparent'}
             onPress={() => props.changeMode('changePass')}
             title={commonTranslator.changePassword}

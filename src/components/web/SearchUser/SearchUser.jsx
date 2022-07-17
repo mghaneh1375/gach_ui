@@ -182,7 +182,6 @@ const SearchUser = props => {
         <CommonButton
           onPress={() => {
             props.setFinalResult(selected);
-            console.log(selected);
             props.setShow(false);
           }}
           style={{alignSelf: 'flex-start'}}

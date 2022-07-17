@@ -6,7 +6,7 @@ import List from './components/List/List';
 import {CommonWebBox} from '../../../styles/Common';
 import ChangePass from '../../general/profile/components/ChangePass';
 import ChangeLevel from './components/ChangeLevel';
-import {editItem} from '../../../services/Utility';
+import {editItem, removeItems} from '../../../services/Utility';
 
 const Users = props => {
   const [mode, setMode] = useState('list');
@@ -74,6 +74,7 @@ const Users = props => {
           user={selectedUser}
           setLoading={setLoading}
           token={props.token}
+          removeFromList={ids => removeItems(users, setUsers, ids)}
         />
       )}
     </View>

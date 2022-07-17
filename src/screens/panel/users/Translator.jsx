@@ -1,5 +1,5 @@
 const Translator = {
-  list: 'لیست کاربران',
+  list: 'لیست ',
 };
 
 export default Translator;

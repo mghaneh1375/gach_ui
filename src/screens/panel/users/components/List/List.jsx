@@ -2,12 +2,14 @@ import {useState} from 'react';
 import {View} from 'react-native';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
-import {CommonWebBox, SimpleText} from '../../../../../styles/Common';
+import {CommonWebBox} from '../../../../../styles/Common';
 import Translator from '../../Translator';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {routes} from '../../../../../API/APIRoutes';
 import columns from './TableStructure';
 import Ops from '../Ops';
+import {levelsKeyVals} from '../../../ticket/components/KeyVals';
+import {useParams} from 'react-router';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -24,6 +26,8 @@ function List(props) {
     props.setSelectedUser(props.users[idx]);
     toggleShowOpPopUp();
   };
+
+  const currLevel = useParams().level;
 
   return (
     <View>
@@ -42,7 +46,10 @@ function List(props) {
           <TextIcon
             onPress={() => changeMode('create')}
             theme={'rect'}
-            text={Translator.list}
+            text={
+              Translator.list +
+              levelsKeyVals.find(elem => elem.id === currLevel).item
+            }
             icon={faPlus}
           />
           {/* <Filter

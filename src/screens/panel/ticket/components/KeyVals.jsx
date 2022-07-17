@@ -38,6 +38,32 @@ export const levelKeyVals = [
     id: 'admin',
   },
 ];
+export const levelsKeyVals = [
+  {
+    item: 'دانش آموزان',
+    id: 'student',
+  },
+  {
+    item: 'نمایندگان',
+    id: 'agent',
+  },
+  {
+    item: 'مدارس',
+    id: 'school',
+  },
+  {
+    item: 'دبیران',
+    id: 'teacher',
+  },
+  {
+    item: 'مشاوران',
+    id: 'adviser',
+  },
+  {
+    item: 'ادمین ها',
+    id: 'admin',
+  },
+];
 export const priorityKeyValsForFilter = [
   ...priorityKeyVals,
   {

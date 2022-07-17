@@ -41,7 +41,7 @@ function Show(props) {
       {props.ticket.chats !== undefined && (
         <View>
           <CommonWebBox
-            header={translator.title}
+            header={props.ticket.title}
             btn={
               <FontIcon
                 onPress={() => changeMode(props.setMode, 'list')}
