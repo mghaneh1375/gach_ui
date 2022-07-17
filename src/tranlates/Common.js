@@ -111,7 +111,10 @@ const translator = {
   confrim: 'ثبت',
   basicDefinition: 'تعاریف پایه',
   gradeDefinition: 'تعریف مقاطع ',
-  lessonsDefinition: 'تعاریف دروس',
-  subjectDefinition: 'تعاریف حیطه',
+  lessonsDefinition: 'تعریف دروس',
+  subjectDefinition: 'تعریف حیطه',
+  nameContent: 'نام محتوا',
+  necessaryContent: 'توضیحات ضروری',
+  title: 'عنوان',
 };
 export default translator;

@@ -33,15 +33,15 @@ function AdminMenu(props) {
           items={[
             {
               text: translator.gradeDefinition,
-              url: 'basic/grades',
+              url: '/basic/grades',
             },
             {
               text: translator.lessonsDefinition,
-              url: 'basic/lessons',
+              url: '/basic/lessons',
             },
             {
               text: translator.subjectDefinition,
-              url: 'basic/subjects',
+              url: '/basic/subjects',
             },
           ]}
         />
