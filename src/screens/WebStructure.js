@@ -4,7 +4,6 @@ import {
   MinFullHeightView,
   LargeContentConianerStyle,
   PhoneContentConianerStyle,
-  SimpleText,
 } from '../styles/Common';
 import {View} from 'react-native';
 import {useNavigate, useParams} from 'react-router-dom';
@@ -58,10 +57,10 @@ const WebStructue = props => {
   const [allowRenderPage, setAllowRenderPage] = useState(false);
 
   React.useEffect(() => {
-    const excludeRightMenu = ['login', 'home', 'users'];
+    const excludeRightMenu = ['login', 'home'];
     const excludeTopNav = ['login', 'profile'];
     const excludeBottomNav = ['login'];
-    const excludeAuthRoutes = ['login', 'home', 'users'];
+    const excludeAuthRoutes = ['login', 'home'];
 
     dispatch({
       showTopNav: excludeTopNav.indexOf(props.page) === -1,
@@ -207,18 +206,19 @@ const WebStructue = props => {
               {props.page === 'schools' && (
                 <Schools token={token} user={user} navigate={navigate} />
               )}
+
+              {props.page === 'users' && (
+                <Users
+                  level={params === undefined ? undefined : params.level}
+                  token={token}
+                  user={user}
+                  navigate={navigate}
+                />
+              )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </View>
           </View>
 
-          {props.page === 'users' && (
-            <Users
-              level={params === undefined ? undefined : params.level}
-              token={token}
-              user={user}
-              navigate={navigate}
-            />
-          )}
           {props.page === 'login' && isInLargeMode && (
             <WebLogin navigate={navigate} />
           )}

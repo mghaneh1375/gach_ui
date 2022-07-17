@@ -2,34 +2,42 @@ import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../tranlates/Common';
+import {levelKeyVals} from '../../ticket/components/KeyVals';
 
-export const filter = (props, level) => {
+export const filter = async (token, level) => {
+  let res = await generalRequest(
+    routes.fetchAllUsers + '?level=' + level,
+    'get',
+    undefined,
+    'users',
+    token,
+  );
+  return res;
+};
+
+export const removeAccess = props => {
   props.setLoading(true);
   Promise.all([
     generalRequest(
-      routes.fetchAllUsers + level,
-      'get',
+      routes.removeAccess + props.userId + '/' + props.access,
+      'delete',
       undefined,
-      'users',
+      'accesses',
       props.token,
     ),
   ]).then(res => {
     props.setLoading(false);
-    res[0] = [
-      {
-        id: 'Asdqwasd',
-        name: 'ASdqwasd',
-        mail: 'Ascx',
-        phone: 'xcqeqw',
-        NID: '0018914373',
-        status: 'active',
-      },
-    ];
-    // if (res[0] == null) {
-    // props.navigate('/');
-    // return;
-    // }
-    props.setData(res[0]);
+    if (res[0] !== null) {
+      showSuccess(commonTranslator.success);
+      props.afterFunc(
+        res[0].map(elem => {
+          return {
+            id: elem,
+            title: levelKeyVals.find(level => level.id === elem).item,
+          };
+        }),
+      );
+    }
   });
 };
 
@@ -45,14 +53,20 @@ export const addAccess = async (
     routes.addAccess + userId + '/' + newRole,
     'put',
     undefined,
-    undefined,
+    'accesses',
     token,
   );
   setLoading(false);
   if (res !== undefined) {
     showSuccess(commonTranslator.success);
-
-    afterFunc();
+    afterFunc(
+      res.map(elem => {
+        return {
+          id: elem,
+          title: levelKeyVals.find(level => level.id === elem).item,
+        };
+      }),
+    );
   }
 };
 

@@ -14,6 +14,10 @@ export const priorityKeyVals = [
 ];
 export const levelKeyVals = [
   {
+    item: 'دانش آموز',
+    id: 'student',
+  },
+  {
     item: 'نماینده',
     id: 'agent',
   },

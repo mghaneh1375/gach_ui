@@ -150,9 +150,13 @@ const CommonDataTable = props => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   React.useEffect(() => {
-    if (props.data === undefined || props.data.length === 0) return;
+    if (
+      props.data === undefined ||
+      (props.data.length === 0 && state.data.length === 0)
+    )
+      return;
     dispatch({type: 'set'});
-  }, [props.data]);
+  }, [props.data, state.data]);
 
   React.useEffect(() => {
     if (res === undefined) return;

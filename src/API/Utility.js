@@ -49,7 +49,6 @@ export const generalRequest = async (
       throw 'preProccess err';
     }
   }
-  if (1 == 1) return null;
   let res = await Axios({
     url: url,
     method: method,
