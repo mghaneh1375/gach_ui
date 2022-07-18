@@ -6,7 +6,7 @@ import {
   CommonWebBox,
   ShrinkView,
 } from '../../../../../styles/Common';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import {routes} from '../../../../../API/APIRoutes';
@@ -14,13 +14,31 @@ import {closeRequest} from './Utility';
 import {StudentTableStructure, TableStructure} from '../TableStructure';
 import {PhoneView} from '../../../../../styles/Common';
 import Filter from '../ProSearch/Filter';
+import {useLocation} from 'react-router';
+const queryString = require('query-string');
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
+  const [section, setSection] = useState();
+  const [isInUpgradeMode, setIsInUpgradeMode] = useState(false);
+  const [selected, setSelected] = useState();
+
+  let {search} = useLocation();
+  const params = queryString.parse(search);
+
+  React.useEffect(() => {
+    if (params !== undefined) {
+      if (params.section !== undefined) {
+        if (params.section === 'upgradelevel') setIsInUpgradeMode(true);
+        setSection(params.section);
+      }
+    }
+  }, [params]);
 
   const handleOp = index => {
     if (index >= props.tickets.length) return;
     props.setSelectedTicket(props.tickets[index]);
+    setSelected(props.tickets[index]);
     toggleShowOpPopUp();
   };
 
@@ -38,6 +56,13 @@ function List(props) {
       {showOpPopUp && (
         <LargePopUp toggleShowPopUp={toggleShowOpPopUp}>
           <PhoneView>
+            {isInUpgradeMode && (
+              <CommonButton
+                title={translator.seeForm}
+                onPress={() => window.open('/profile/' + selected.student.id)}
+                theme={'transparent'}
+              />
+            )}
             <CommonButton
               onPress={() => changeMode('show')}
               title={translator.showRequest}
@@ -69,7 +94,12 @@ function List(props) {
               icon={faPlus}
             />
             {props.isAdmin && (
-              <Filter token={props.token} setLoading={props.setLoading} />
+              <Filter
+                setIsInUpgradeMode={setIsInUpgradeMode}
+                section={section}
+                token={props.token}
+                setLoading={props.setLoading}
+              />
             )}
             {props.tickets !== undefined && (
               <CommonDataTable

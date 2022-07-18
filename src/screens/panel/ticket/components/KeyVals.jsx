@@ -31,7 +31,7 @@ export const levelKeyVals = [
   },
   {
     item: 'مشاور',
-    id: 'adviser',
+    id: 'advisor',
   },
   {
     item: 'ادمین',
@@ -57,7 +57,7 @@ export const levelsKeyVals = [
   },
   {
     item: 'مشاوران',
-    id: 'adviser',
+    id: 'advisor',
   },
   {
     item: 'ادمین ها',
@@ -92,8 +92,16 @@ export const sectionKeyVals = [
     id: 'quiz',
   },
   {
-    item: 'الکی',
-    id: 'alaki',
+    item: 'کلاس و دوره ها',
+    id: 'class',
+  },
+  {
+    item: 'ارتقای سطح',
+    id: 'upgradelevel',
+  },
+  {
+    item: 'تسویه مالی',
+    id: 'requestmoney',
   },
 ];
 

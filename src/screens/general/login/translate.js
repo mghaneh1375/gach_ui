@@ -14,6 +14,10 @@ const translator = {
   schoolName: 'نام مدرسه',
   schoolPhone: 'شماره تماس مدرسه',
   stateName: 'نام استان',
+  workYear: 'تعداد سال سابقه',
+  workSchools: 'مدارس کار کرده',
+  universeField: 'رشته دانشگاهی',
+  bio: 'رزومه',
   invitationCode: 'کد معرف',
   invitationCodeHelp:
     'اگر کسی شما را معرفی کرده است کد معرف را وارد کنید تا از جایزه بهرهمند شوید.',

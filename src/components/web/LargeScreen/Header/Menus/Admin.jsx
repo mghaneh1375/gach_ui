@@ -7,6 +7,7 @@ import {
   faCog,
   faUsers,
   faContactBook,
+  faMoneyBill,
 } from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 import {SuperMenuItem} from './SuperMenuItem';
@@ -42,6 +43,22 @@ function AdminMenu(props) {
             {
               text: translator.subjectDefinition,
               url: '/basic/subjects',
+            },
+          ]}
+        />
+        <SuperMenuItem
+          text={translator.finantialManagement}
+          icon={faMoneyBill}
+          selected={props.selected === 'finantial'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.report,
+              url: '/finantialReport',
+            },
+            {
+              text: translator.offcode,
+              url: '/offs',
             },
           ]}
         />
@@ -102,7 +119,7 @@ function AdminMenu(props) {
           selected={props.selected === 'quiz'}
         />
         <MenuItem
-          onClick={() => navigate('/avatar')}
+          onClick={() => navigate('/avatars')}
           text={translator.avatars}
           icon={faUsers}
           selected={props.selected === 'avatar'}

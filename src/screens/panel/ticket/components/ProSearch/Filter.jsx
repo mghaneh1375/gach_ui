@@ -40,6 +40,12 @@ function Filter(props) {
   const [priority, setPriority] = useState();
   const [section, setSection] = useState();
 
+  React.useEffect(() => {
+    if (section === undefined && props.section !== undefined) {
+      setSection(props.section);
+    }
+  }, [props.section, section]);
+
   const toggleShowProSearch = () => {
     if (showProSearch) setWantedIcon(faAngleDoubleDown);
     else setWantedIcon(faAngleDoubleUp);

@@ -21,10 +21,11 @@ const UpdateUsername = props => {
 
   return (
     <View>
-      <BigBoldBlueText text={translator.usernameInfo} />
       <PhoneView>
         <JustBottomBorderTextInput
+          value={props.phone}
           isHalf={true}
+          disable={true}
           placeholder={commonTranslator.phone}
         />
         <CommonButton
@@ -39,6 +40,8 @@ const UpdateUsername = props => {
       <PhoneView>
         <JustBottomBorderTextInput
           isHalf={true}
+          value={props.mail}
+          disable={true}
           placeholder={commonTranslator.mail}
         />
         <CommonButton

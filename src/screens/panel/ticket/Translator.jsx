@@ -1,5 +1,6 @@
 const translator = {
   allRequests: 'لیست درخواست ها',
+  seeForm: 'مشاهده فرم اطلاعات',
   status: 'وضعیت درخواست',
   pending: 'در حال بررسی',
   finished: 'اتمام یافته',

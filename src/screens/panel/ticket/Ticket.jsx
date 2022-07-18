@@ -6,6 +6,8 @@ import Create from './components/Create';
 import Show from './components/Show/Show';
 import {addItem, editItem, isUserAdmin} from '../../../services/Utility';
 import {filter} from './components/List/Utility';
+import {useLocation} from 'react-router';
+const queryString = require('query-string');
 
 function Ticket(props) {
   const navigate = props.navigate;
@@ -24,7 +26,11 @@ function Ticket(props) {
     dispatch({loading: status});
   };
 
+  let {search} = useLocation();
+
   React.useEffect(() => {
+    const params = queryString.parse(search);
+
     filter(
       {
         setLoading: status => dispatch({loading: status}),
@@ -34,7 +40,7 @@ function Ticket(props) {
         isAdmin: isAdmin,
       },
       undefined,
-      undefined,
+      params !== undefined ? params.section : undefined,
       undefined,
       undefined,
       undefined,
@@ -43,7 +49,7 @@ function Ticket(props) {
       undefined,
       undefined,
     );
-  }, [navigate, props.token, isAdmin, dispatch]);
+  }, [navigate, props.token, isAdmin, search, dispatch]);
 
   return (
     <View>

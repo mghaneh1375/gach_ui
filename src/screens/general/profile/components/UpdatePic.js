@@ -1,11 +1,6 @@
 import React, {useState} from 'react';
 import translator from '../translate';
-import commonTranslator from '../../../../tranlates/Common';
-import {
-  BigBoldBlueText,
-  CommonButton,
-  PhoneView,
-} from '../../../../styles/Common';
+import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {Image, View} from 'react-native';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import {generalRequest} from '../../../../API/Utility';
@@ -16,6 +11,7 @@ const UpdatePic = props => {
   const [pic, setPic] = useState(undefined);
   const [showAvatars, setShowAvatars] = useState(false);
   const [avatars, setAvatars] = useState();
+  const [userId, setUserId] = useState();
 
   const toggleShowChooseAvatar = async () => {
     if (avatars === undefined) {
@@ -38,9 +34,12 @@ const UpdatePic = props => {
   };
 
   React.useEffect(() => {
-    setPic(props.user.pic);
-  }, [props.user]);
+    if (pic === undefined) setPic(props.user.pic);
+  }, [pic, props.user.pic]);
 
+  React.useEffect(() => {
+    if (userId === undefined && props.isAdmin) setUserId(props.user.id);
+  }, [props.user.id, props.isAdmin, userId]);
   return (
     <View style={{zIndex: 5}}>
       {showAvatars && (
@@ -55,6 +54,7 @@ const UpdatePic = props => {
                     setLoading={props.setLoading}
                     avatarId={elem.id}
                     pic={elem.file}
+                    userId={userId}
                     setPic={setPic}
                     toggleShowChooseAvatar={toggleShowChooseAvatar}
                     updateUserPic={props.updateUserPic}
@@ -65,7 +65,6 @@ const UpdatePic = props => {
           )}
         </LargePopUp>
       )}
-      <BigBoldBlueText text={translator.yourPic} />
       <Image
         resizeMode="contain"
         style={{width: 200, height: 200, alignSelf: 'center'}}

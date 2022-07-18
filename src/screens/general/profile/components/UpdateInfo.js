@@ -1,13 +1,8 @@
 import React, {useState} from 'react';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';
-import {
-  BigBoldBlueText,
-  CommonButton,
-  EqualTwoTextInputs,
-} from '../../../../styles/Common';
+import {CommonButton, EqualTwoTextInputs} from '../../../../styles/Common';
 import {View} from 'react-native';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
@@ -134,7 +129,6 @@ const UpdateInfo = props => {
 
   return (
     <View>
-      <BigBoldBlueText text={translator.yourInfo} />
       <View style={{paddingLeft: 70}}>
         <EqualTwoTextInputs>
           <JustBottomBorderTextInput

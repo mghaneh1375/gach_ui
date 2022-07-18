@@ -38,6 +38,8 @@ import General from './panel/Config/Configuration/General';
 import Ravan from './panel/Config/Configuration/Ravan';
 import Schools from './panel/Config/Schools/Schools';
 import Grade from './panel/grade/Grade';
+import {generalRequest} from '../API/Utility';
+import {routes} from '../API/APIRoutes';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -56,6 +58,7 @@ const WebStructue = props => {
   const [token, setToken] = useState(undefined);
   const [user, setUser] = useState(undefined);
   const [allowRenderPage, setAllowRenderPage] = useState(false);
+  const [newAlerts, setNewAlerts] = useState();
 
   React.useEffect(() => {
     const excludeRightMenu = ['login', 'home'];
@@ -74,7 +77,7 @@ const WebStructue = props => {
         excludeRightMenu.indexOf(props.page) !== -1,
     );
 
-    Promise.all([getToken(), getUser()]).then(res => {
+    Promise.all([getToken(), getUser()]).then(async res => {
       setToken(res[0]);
       let token = res[0];
       let waitForGetUser = false;
@@ -105,11 +108,33 @@ const WebStructue = props => {
         });
       }
 
+      let userTmp = res[1];
+
       // setCacheItem('token', undefined);
       // setCacheItem('user', undefined);
       setAllowRenderPage(true);
+
+      if (
+        newAlerts === undefined &&
+        token !== null &&
+        token !== undefined &&
+        userTmp !== null &&
+        userTmp !== undefined &&
+        (userTmp.accesses.indexOf('admin') !== -1 ||
+          userTmp.accesses.indexOf('superadmin') !== -1)
+      ) {
+        let res = await generalRequest(
+          routes.fetchNewAlerts,
+          'get',
+          undefined,
+          'data',
+          token,
+        );
+        if (res !== null) setNewAlerts(res);
+        else setNewAlerts([]);
+      }
     });
-  }, [dispatch, props.page, navigate]);
+  }, [dispatch, props.page, navigate, newAlerts]);
 
   const setLoading = status => {
     dispatch({
@@ -144,6 +169,7 @@ const WebStructue = props => {
                 setLoading={setLoading}
                 navigate={navigate}
                 setUser={setUser}
+                newAlerts={newAlerts}
               />
             )}
             {!hideRightMenu && (
@@ -207,7 +233,9 @@ const WebStructue = props => {
               {props.page === 'schools' && (
                 <Schools token={token} user={user} navigate={navigate} />
               )}
-
+              {props.page === 'finantialReport' && (
+                <Schools token={token} user={user} navigate={navigate} />
+              )}
               {props.page === 'users' && (
                 <Users token={token} user={user} navigate={navigate} />
               )}

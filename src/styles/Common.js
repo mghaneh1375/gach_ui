@@ -50,33 +50,35 @@ export const OrangeTextInline = props => (
   </BlueTextInlineElem>
 );
 
-export const TextLink = props =>
-  Platform.OS === 'android' || Platform.OS === 'ios' ? (
-    <BlueTextInlineElem
-      onPress={props.onPress}
-      style={[
-        {color: vars.ORANGE},
-        props.style !== undefined ? props.style : {},
-      ]}>
+export const TextLink = props => {
+  let allStyles =
+    Platform.OS === 'web'
+      ? props.href !== undefined
+        ? {
+            color: vars.ORANGE,
+            fontFamily: 'IRANSans',
+            textDecoration: 'none',
+          }
+        : {color: vars.ORANGE, cursor: 'pointer'}
+      : {color: vars.ORANGE};
+
+  allStyles =
+    props.style !== undefined ? {...allStyles, ...props.style} : allStyles;
+
+  return Platform.OS === 'android' || Platform.OS === 'ios' ? (
+    <BlueTextInlineElem onPress={props.onPress} style={allStyles}>
       {props.text}
     </BlueTextInlineElem>
   ) : props.href !== undefined ? (
-    <Link
-      style={{
-        color: vars.ORANGE,
-        fontFamily: 'IRANSans',
-        textDecoration: 'none',
-      }}
-      to={props.href}>
+    <Link style={allStyles} to={props.href}>
       {props.text}
     </Link>
   ) : (
-    <BlueTextInlineElem
-      onClick={props.onPress}
-      style={{color: vars.ORANGE, cursor: 'pointer'}}>
+    <BlueTextInlineElem onClick={props.onPress} style={allStyles}>
       {props.text}
     </BlueTextInlineElem>
   );
+};
 
 export const SilverTextInline = props => {
   const style1 = {color: vars.LIGHT_SILVER};

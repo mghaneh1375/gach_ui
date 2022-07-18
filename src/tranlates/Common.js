@@ -116,5 +116,11 @@ const translator = {
   nameContent: 'نام محتوا',
   necessaryContent: 'توضیحات ضروری',
   title: 'عنوان',
+  finantialManagement: 'مدیریت مالی',
+  offcode: 'کدهای تخفیف',
+  report: 'گزارشات',
+  logout: 'خروج',
+  profile: 'پروفایل',
+  hello: 'سلام',
 };
 export default translator;

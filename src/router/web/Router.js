@@ -17,6 +17,10 @@ export default function WebRouter() {
         <Routes>
           <Route exact path="/" element={<WebStructue page="home" />} />
           <Route path="/login" element={<WebStructue page="login" />} />
+          <Route
+            path="/profile/:userId"
+            element={<WebStructue page="profile" />}
+          />
           <Route path="/profile" element={<WebStructue page="profile" />} />
           <Route path="/cert" element={<WebStructue page="cert" />} />
           <Route path="/quiz" element={<WebStructue page="quiz" />} />
@@ -35,6 +39,10 @@ export default function WebRouter() {
           />
           <Route path="/avatars" element={<WebStructue page="avatars" />} />
           <Route path="/schools" element={<WebStructue page="schools" />} />
+          <Route
+            path="/finantialReport"
+            element={<WebStructue page="finantialReport" />}
+          />
           <Route
             path="/generalConfiguration"
             element={<WebStructue page="generalConfiguration" />}

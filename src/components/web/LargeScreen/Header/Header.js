@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {PhoneView, SimpleText} from '../../../../styles/Common';
+import {PhoneView, SimpleText, TextLink} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
 import {faAngleDown, faBell} from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +8,8 @@ import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import {logout} from '../../../../API/User';
 import UserTinyPic from '../UserTinyPic';
+import commonTranslator from '../../../../tranlates/Common';
+import newAlertsKeyVals from './NewAlertsKeyVals';
 
 const Header = props => {
   const device = getDevice();
@@ -17,6 +19,15 @@ const Header = props => {
   const [showProfilePane, setShowProfilePane] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
   const [pic, setPic] = useState(undefined);
+  const [newAlerts, setNewAlerts] = useState();
+
+  React.useEffect(() => {
+    setNewAlerts(props.newAlerts);
+  }, [props.newAlerts]);
+
+  React.useEffect(() => {
+    setShowNotif(false);
+  }, [props.navigate]);
 
   const changeShow = newStatus => {
     setShowProfilePane(newStatus);
@@ -87,7 +98,7 @@ const Header = props => {
                     ...style.Header_Profile_Text_Web,
                   }
             }
-            text={'سلام - ' + props.name}
+            text={commonTranslator.hello + ' - ' + props.name}
           />
           <View style={{width: 30, height: 30, marginTop: 5, marginRight: 5}}>
             <SimpleFontIcon
@@ -99,8 +110,11 @@ const Header = props => {
 
           {showProfilePane && (
             <View style={style.Header_Profile_MENU}>
+              <TouchableOpacity onPress={() => props.navigate('/profile')}>
+                <SimpleText text={commonTranslator.profile} />
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => callLogout()}>
-                <SimpleText text="خروج" />
+                <SimpleText text={commonTranslator.logout} />
               </TouchableOpacity>
             </View>
           )}
@@ -112,7 +126,26 @@ const Header = props => {
             icon={faBell}
           />
 
-          {showNotif && <View style={style.Header_Profile_MENU}></View>}
+          {showNotif && (
+            <View style={style.Header_Profile_MENU}>
+              {newAlerts !== undefined &&
+                newAlerts.map((elem, index) => {
+                  return (
+                    <TextLink
+                      style={{fontSize: 10}}
+                      key={index}
+                      text={
+                        newAlertsKeyVals.find(itr => itr.id === elem.key)
+                          .title +
+                        ' ' +
+                        elem.value
+                      }
+                      href={'/ticket?section=upgradelevel'}
+                    />
+                  );
+                })}
+            </View>
+          )}
         </View>
       </PhoneView>
     );

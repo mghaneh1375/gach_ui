@@ -7,6 +7,7 @@ import {CommonWebBox} from '../../../styles/Common';
 import ChangePass from '../../general/profile/components/ChangePass';
 import ChangeLevel from './components/ChangeLevel';
 import {editItem, removeItems} from '../../../services/Utility';
+import {useParams} from 'react-router';
 
 const Users = props => {
   const [mode, setMode] = useState('list');
@@ -26,13 +27,15 @@ const Users = props => {
     dispatch({loading: status});
   };
 
+  const level = useParams().level;
+
   React.useEffect(() => {
-    if (props.level === undefined) {
+    if (level === undefined) {
       navigate('/');
       return;
     }
     dispatch({loading: true});
-    Promise.all([filter(props.token, props.level)]).then(res => {
+    Promise.all([filter(props.token, level)]).then(res => {
       dispatch({loading: false});
       if (res[0] == null) {
         navigate('/');
@@ -41,7 +44,7 @@ const Users = props => {
       setUsers(res[0]);
       setMode('list');
     });
-  }, [navigate, props.token, props.level, dispatch]);
+  }, [navigate, props.token, level, dispatch]);
 
   return (
     <View>

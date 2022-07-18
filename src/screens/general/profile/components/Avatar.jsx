@@ -17,7 +17,9 @@ function Avatar(props) {
     props.setLoading(true);
     Promise.all([
       generalRequest(
-        routes.setAvatarAsMyPic + props.avatarId,
+        props.userId !== undefined
+          ? routes.setAvatarAsMyPic + props.avatarId + '/' + props.userId
+          : routes.setAvatarAsMyPic + props.avatarId,
         'put',
         undefined,
         'file',

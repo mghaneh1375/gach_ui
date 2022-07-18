@@ -49,7 +49,7 @@ function List(props) {
             data={props.grades}
             setData={props.setGrades}
             handleOp={handleOp}
-            removeUrl={routes.removeSchools}
+            removeUrl={routes.removeGrade}
             token={props.token}
             setLoading={props.setLoading}
           />

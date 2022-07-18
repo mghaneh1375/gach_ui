@@ -40,6 +40,25 @@ const RoleForm = props => {
       key: 'stateName',
     },
   ];
+  roleForms['advisor'] = [
+    {
+      title: translator.workYear,
+      justNum: true,
+      key: 'workYear',
+    },
+    {
+      title: translator.workSchools,
+      key: 'workSchools',
+    },
+    {
+      title: translator.bio,
+      key: 'bio',
+    },
+    {
+      title: translator.universeField,
+      key: 'universeField',
+    },
+  ];
   roleForms['student'] = [
     {
       title: translator.invitationCode,
