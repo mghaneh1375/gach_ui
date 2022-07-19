@@ -5,6 +5,9 @@ import {useParams} from 'react-router';
 import {getGrade} from './components/Utility';
 import List from './components/List/List';
 import Create from './components/Create';
+import Edit from './components/Edit';
+import Translate from './Translate';
+import {addItem, editItem} from '../../../services/Utility';
 
 function Grade(props) {
   const [mode, setMode] = useState('list');
@@ -26,10 +29,6 @@ function Grade(props) {
   // const mode = useParams().mode;
 
   React.useEffect(() => {
-    // if (mode === undefined) {
-    //   navigate('/');
-    //   return;
-    // }
     dispatch({loading: true});
     Promise.all([getGrade(props.token)]).then(res => {
       dispatch({loading: false});
@@ -55,12 +54,19 @@ function Grade(props) {
         />
       )}
       {mode === 'create' && (
-        <Create token={props.token} setMode={setMode} setLoading={setLoading} />
+        <Create
+          name={Translate.name}
+          token={props.token}
+          setMode={setMode}
+          afterFunc={newItem => addItem(grades, setGrades, newItem)}
+          setLoading={setLoading}
+        />
       )}
       {mode === 'edit' && (
         <Create
           token={props.token}
           setMode={setMode}
+          afterFunc={newItem => editItem(grades, setGrades, newItem)}
           setLoading={setLoading}
           grade={selectedGrade}
         />

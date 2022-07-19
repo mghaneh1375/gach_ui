@@ -6,8 +6,8 @@ const columns = [
     grow: 1,
   },
   {
-    name: commonTranslator.status,
-    selector: row => row.status,
+    name: commonTranslator.isOlympiad,
+    selector: row => row.isOlympiad,
     grow: 1,
   },
 ];
