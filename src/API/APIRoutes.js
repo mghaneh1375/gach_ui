@@ -14,6 +14,7 @@ export const routes = {
   setUsername: 'user/setNewUsername',
   changePass: 'user/changePassword',
   logout: 'user/logout',
+  adminLogin: 'admin/user/signIn/',
   fetchTinyUser: 'admin/user/fetchTinyUser?',
   addAccess: 'admin/user/addAccess/',
   removeAccess: 'admin/user/removeAccess/',

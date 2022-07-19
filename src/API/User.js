@@ -14,6 +14,18 @@ export const logout = async (token, navigate) => {
 };
 
 export const removeAuthCache = async () => {
+  let secToken = await getToken('token_sec');
+  if (secToken !== undefined) {
+    let secUser = await getUser('user_sec');
+    if (secUser !== undefined) {
+      await setCacheItem('token', secToken);
+      await setCacheItem('user', secUser);
+      await setCacheItem('token_sec', undefined);
+      await setCacheItem('user_sec', undefined);
+      return;
+    }
+  }
+
   await setCacheItem('token', undefined);
   await setCacheItem('user', undefined);
 };
@@ -26,9 +38,9 @@ export const setCacheItem = async (key, val) => {
   }
 };
 
-export const getToken = async () => {
+export const getToken = async (key = 'token') => {
   try {
-    const value = await AsyncStorage.getItem('token');
+    const value = await AsyncStorage.getItem(key);
     if (value !== null && value !== undefined && value != 'undefined')
       return value;
   } catch (e) {
@@ -36,9 +48,9 @@ export const getToken = async () => {
   }
 };
 
-export const getUser = async () => {
+export const getUser = async (key = 'user') => {
   try {
-    const value = await AsyncStorage.getItem('user');
+    const value = await AsyncStorage.getItem(key);
     if (value !== null) {
       return JSON.parse(value);
     }

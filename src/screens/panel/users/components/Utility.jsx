@@ -1,4 +1,5 @@
 import {routes} from '../../../../API/APIRoutes';
+import {getUser, setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../tranlates/Common';
@@ -83,5 +84,24 @@ export const toggleStatus = async (setLoading, token, userId, afterFunc) => {
   if (res !== undefined) {
     showSuccess(commonTranslator.success);
     afterFunc(res);
+  }
+};
+
+export const login = async (setLoading, token, userId) => {
+  setLoading(true);
+  let res = await generalRequest(
+    routes.adminLogin + userId,
+    'post',
+    undefined,
+    ['user', 'token'],
+    token,
+  );
+  setLoading(false);
+  if (res !== null) {
+    await setCacheItem('token_sec', token);
+    let adminUser = await getUser();
+    await setCacheItem('user_sec', adminUser);
+    await setCacheItem('token', res.token);
+    await setCacheItem('user', JSON.stringify(res.user));
   }
 };

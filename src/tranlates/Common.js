@@ -122,5 +122,6 @@ const translator = {
   logout: 'خروج',
   profile: 'پروفایل',
   hello: 'سلام',
+  seeInfo: 'مشاهده اطلاعات',
 };
 export default translator;

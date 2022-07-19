@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../tranlates/Common';
-import {toggleStatus} from './Utility';
+import {login, toggleStatus} from './Utility';
 
 function Ops(props) {
   return (
@@ -12,6 +12,16 @@ function Ops(props) {
         title={commonTranslator.opMenu}
         toggleShowPopUp={props.toggleShowPopUp}>
         <PhoneView style={{flexWrap: 'wrap'}}>
+          <CommonButton
+            title={commonTranslator.seeInfo}
+            onPress={() => window.open('/profile/' + props.user.id)}
+            theme={'transparent'}
+          />
+          <CommonButton
+            title={commonTranslator.entrance}
+            onPress={() => login(props.setLoading, props.token, props.user.id)}
+            theme={'transparent'}
+          />
           <CommonButton
             onPress={() => props.changeMode('changeLevel')}
             theme={'transparent'}
