@@ -23,6 +23,7 @@ export const routes = {
   fetchNewAlerts: 'general/getNewAlerts',
   fetchSchoolsDigest: 'general/fetchSchoolsDigest',
   fetchGrades: 'admin/content/grades',
+  fetchLesson: 'admin/content/lessons',
   fetchGradesAndBranches: 'admin/content/gradesAndBranches',
   removeGrade: 'admin/content/deleteGrade',
   addGrade: 'admin/content/addGrade',

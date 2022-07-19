@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {globalStateContext, dispatchStateContext} from '../../../App';
-import {useParams} from 'react-router';
-import {getGrade} from './components/Utility';
-import List from './components/List/List';
-import Create from './components/Create';
-import Edit from './components/Edit';
-import Translate from '../lesson/Translate';
-import {addItem, editItem} from '../../../services/Utility';
+import {globalStateContext, dispatchStateContext} from '../../../../App';
+import {getGrade} from '../Utility';
+import List from '../../Basic/grade/List/List';
+import Create from './Create';
+import Translate from '../Translate';
+import {addItem, editItem} from '../../../../services/Utility';
 
 function Grade(props) {
   const [mode, setMode] = useState('list');
@@ -19,15 +17,10 @@ function Grade(props) {
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = status => {
     dispatch({loading: status});
   };
-
-  // const mode = useParams().mode;
-
   React.useEffect(() => {
     dispatch({loading: true});
     Promise.all([getGrade(props.token)]).then(res => {

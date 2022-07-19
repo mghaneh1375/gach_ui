@@ -37,10 +37,10 @@ import PageNotFound from './general/404/PageNotFound';
 import General from './panel/Config/Configuration/General';
 import Ravan from './panel/Config/Configuration/Ravan';
 import Schools from './panel/Config/Schools/Schools';
-import Grade from './panel/grade/Grade';
+import Grade from './panel/Basic/grade/Grade.jsx';
 import {generalRequest} from '../API/Utility';
 import {routes} from '../API/APIRoutes';
-import Lesson from './panel/lesson/Lesson';
+import Lesson from './panel/Basic/lesson/Lesson';
 
 const WebStructue = props => {
   const navigate = useNavigate();

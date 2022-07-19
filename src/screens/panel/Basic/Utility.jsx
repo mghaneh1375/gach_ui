@@ -1,11 +1,21 @@
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../tranlates/Common';
+import {routes} from '../../../API/APIRoutes';
+import {generalRequest} from '../../../API/Utility';
+import {showSuccess} from '../../../services/Utility';
+import commonTranslator from '../../../tranlates/Common';
 
 export const getGrade = async token => {
   let res = await generalRequest(
     routes.fetchGradesAndBranches,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+  return res;
+};
+export const getLessons = async token => {
+  let res = await generalRequest(
+    routes.fetchLesson,
     'get',
     undefined,
     'data',

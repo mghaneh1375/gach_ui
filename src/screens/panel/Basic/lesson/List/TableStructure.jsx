@@ -1,13 +1,14 @@
 import commonTranslator from '../../../../../tranlates/Common';
+import Translate from '../../Translate';
 const columns = [
   {
-    name: commonTranslator.title,
+    name: Translate.nameOfBook,
     selector: row => row.name,
     grow: 1,
   },
   {
-    name: commonTranslator.isOlympiad,
-    selector: row => (row.isOlympiad ? 'بله' : 'خیر'),
+    name: Translate.level,
+    selector: row => row.grade.name,
     grow: 1,
   },
 ];
