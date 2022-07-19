@@ -16,12 +16,9 @@ import SignupModule from './components/Signup';
 import RoleFormModule from './components/RoleForm';
 
 const Login = props => {
-  // if (globalStates.token !== undefined) {
-  //   navigator.navigation.navigate('Home');
-  //   return null;
-  // }
   const device = getDevice();
   const navigate = props.navigate;
+  const isApp = device.indexOf(Device.App) !== -1;
 
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -29,6 +26,14 @@ const Login = props => {
   ];
 
   const [state, dispatch] = useGlobalState();
+
+  console.log('Asd');
+  React.useEffect(() => {
+    console.log(state);
+    if (state.token !== undefined) {
+      navigate(isApp ? 'Home' : '/');
+    }
+  }, [state.token, isApp, state, navigate]);
 
   const setLoading = status => {
     dispatch({loading: status});

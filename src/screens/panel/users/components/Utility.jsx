@@ -103,5 +103,7 @@ export const login = async (setLoading, token, userId) => {
     await setCacheItem('user_sec', adminUser);
     await setCacheItem('token', res.token);
     await setCacheItem('user', JSON.stringify(res.user));
+    return true;
   }
+  return false;
 };

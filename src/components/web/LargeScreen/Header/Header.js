@@ -110,10 +110,18 @@ const Header = props => {
 
           {showProfilePane && (
             <View style={style.Header_Profile_MENU}>
-              <TouchableOpacity onPress={() => props.navigate('/profile')}>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowProfilePane(false);
+                  props.navigate('/profile');
+                }}>
                 <SimpleText text={commonTranslator.profile} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => callLogout()}>
+              <TouchableOpacity
+                onPress={async () => {
+                  await callLogout();
+                  window.location.href = '/';
+                }}>
                 <SimpleText text={commonTranslator.logout} />
               </TouchableOpacity>
             </View>

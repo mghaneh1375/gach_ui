@@ -10,7 +10,7 @@ import {View} from 'react-native';
 import vars from '../../../../styles/root';
 
 const UpdateUsername = props => {
-  const changePass = () => {
+  const changePhone = () => {
     props.setMode('sms');
     props.toggleModal();
   };
@@ -34,7 +34,7 @@ const UpdateUsername = props => {
             minWidth: 120,
           }}
           title={commonTranslator.change}
-          onPress={() => changePass()}
+          onPress={() => changePhone()}
         />
       </PhoneView>
       <PhoneView>

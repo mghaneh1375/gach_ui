@@ -13,11 +13,12 @@ import {Device} from '../../../../models/Device';
 import {setCacheItem} from '../../../../API/User';
 import translator from '../translate';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import {Col, Row} from 'react-grid-system';
 import {useParams} from 'react-router';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
+import {getPreRequirements, updateUserPic} from '../components/Utility';
 
 const Profile = props => {
   const [user, setUser] = useState();
@@ -37,6 +38,11 @@ const Profile = props => {
   };
 
   const [isWorking, setIsWorking] = useState(false);
+  const [fetchedStates, setFetchedStates] = useState(false);
+  const [states, setStates] = useState();
+  const [grades, setGrades] = useState();
+  const [branches, setBranches] = useState();
+  const [schools, setSchools] = useState();
 
   React.useEffect(() => {
     if (user !== undefined || isWorking) return;
@@ -71,7 +77,18 @@ const Profile = props => {
     } else setUser(props.user.user);
   }, [props, isWorking, user, dispatch, navigate, params]);
 
-  const [showChangePassModal, setShowChangePassModal] = useState(false);
+  React.useEffect(() => {
+    if (fetchedStates) return;
+    setFetchedStates(true);
+    getPreRequirements(
+      status => dispatch({loading: status}),
+      setStates,
+      setGrades,
+      setBranches,
+      setSchools,
+    );
+  }, [fetchedStates, dispatch]);
+
   const [showChangeUsernameModal, setShowChangeUsernameModal] = useState(false);
   const [usernameModalMode, setUsernameModalMode] = useState(false);
   const [showEditInfo, setShowEditInfo] = useState(true);
@@ -79,22 +96,8 @@ const Profile = props => {
   const [showEditPassword, setShowEditPassword] = useState(true);
   const [showEditPic, setShowEditPic] = useState(true);
 
-  const toggleChangePassModal = () => {
-    setShowChangePassModal(!showChangePassModal);
-  };
-
   const toggleChangeUsernameModal = () => {
     setShowChangeUsernameModal(!showChangeUsernameModal);
-  };
-
-  const updateUserPic = async newFilename => {
-    if (user === undefined || isAdmin) return;
-    let u = user;
-    u.pic = newFilename;
-    let newUserModel = props.user;
-    newUserModel.user = u;
-    await setCacheItem('user', JSON.stringify(newUserModel));
-    props.setUser(newUserModel);
   };
 
   return (
@@ -104,6 +107,12 @@ const Profile = props => {
           mode={usernameModalMode}
           token={props.token}
           setLoading={setLoading}
+          userId={isAdmin ? user.id : undefined}
+          updateUser={(key, val) => {
+            let u = user;
+            u[key] = val;
+            setUser(u);
+          }}
           navigate={navigate}
           toggleModal={toggleChangeUsernameModal}
         />
@@ -111,62 +120,71 @@ const Profile = props => {
 
       <Row>
         <Col lg={8}>
-          {user !== undefined && (
-            <View>
-              <CommonWebBox
-                header={translator.yourInfo}
-                btn={
-                  <SimpleFontIcon
-                    onPress={() => setShowEditInfo(!showEditInfo)}
-                    kind={'small'}
-                    icon={faAngleDown}
-                  />
-                }>
-                {showEditInfo && (
-                  <UpdateInfo
-                    token={props.token}
-                    user={user}
-                    setLoading={setLoading}
-                  />
-                )}
-              </CommonWebBox>
-              <CommonWebBox
-                header={translator.usernameInfo}
-                btn={
-                  <SimpleFontIcon
-                    onPress={() => setShowEditUsername(!showEditUsername)}
-                    kind={'small'}
-                    icon={faAngleDown}
-                  />
-                }>
-                {showEditUsername && (
-                  <UpdateUsername
-                    phone={user.phone}
-                    mail={user.mail}
-                    setMode={setUsernameModalMode}
-                    toggleModal={toggleChangeUsernameModal}
-                  />
-                )}
-              </CommonWebBox>
-              <CommonWebBox
-                header={''}
-                btn={
-                  <SimpleFontIcon
-                    onPress={() => setShowEditPassword(!showEditPassword)}
-                    kind={'small'}
-                    icon={faAngleDown}
-                  />
-                }>
-                {showEditPassword && (
-                  <ChangePass
-                    setLoading={setLoading}
-                    token={props.token}
-                    toggleModal={toggleChangePassModal}
-                  />
-                )}
-              </CommonWebBox>
-            </View>
-          )}
+          {user !== undefined &&
+            states !== undefined &&
+            schools !== undefined &&
+            grades !== undefined &&
+            branches !== undefined && (
+              <View>
+                <CommonWebBox
+                  header={translator.yourInfo}
+                  btn={
+                    <SimpleFontIcon
+                      onPress={() => setShowEditInfo(!showEditInfo)}
+                      kind={'small'}
+                      icon={showEditInfo ? faAngleUp : faAngleDown}
+                    />
+                  }>
+                  {showEditInfo && (
+                    <UpdateInfo
+                      token={props.token}
+                      userId={isAdmin ? user.id : undefined}
+                      user={user}
+                      setLoading={setLoading}
+                      states={states}
+                      grades={grades}
+                      branches={branches}
+                      schools={schools}
+                    />
+                  )}
+                </CommonWebBox>
+                <CommonWebBox
+                  header={translator.usernameInfo}
+                  btn={
+                    <SimpleFontIcon
+                      onPress={() => setShowEditUsername(!showEditUsername)}
+                      kind={'small'}
+                      icon={showEditUsername ? faAngleUp : faAngleDown}
+                    />
+                  }>
+                  {showEditUsername && (
+                    <UpdateUsername
+                      phone={user.phone}
+                      mail={user.mail}
+                      setMode={setUsernameModalMode}
+                      toggleModal={toggleChangeUsernameModal}
+                    />
+                  )}
+                </CommonWebBox>
+                <CommonWebBox
+                  header={translator.changePass}
+                  btn={
+                    <SimpleFontIcon
+                      onPress={() => setShowEditPassword(!showEditPassword)}
+                      kind={'small'}
+                      icon={showEditPassword ? faAngleUp : faAngleDown}
+                    />
+                  }>
+                  {showEditPassword && (
+                    <ChangePass
+                      userId={isAdmin ? user.id : undefined}
+                      setLoading={setLoading}
+                      token={props.token}
+                    />
+                  )}
+                </CommonWebBox>
+              </View>
+            )}
         </Col>
         <Col lg={4}>
           {user !== undefined && (
@@ -176,7 +194,7 @@ const Profile = props => {
                 <SimpleFontIcon
                   onPress={() => setShowEditPic(!showEditPic)}
                   kind={'small'}
-                  icon={faAngleDown}
+                  icon={showEditPic ? faAngleUp : faAngleDown}
                 />
               }>
               {showEditPic && (
@@ -186,7 +204,15 @@ const Profile = props => {
                   user={user}
                   isAdmin={isAdmin}
                   setLoading={setLoading}
-                  updateUserPic={updateUserPic}
+                  updateUserPic={newFilePath =>
+                    updateUserPic(
+                      newFilePath,
+                      isAdmin,
+                      user,
+                      props.user,
+                      props.setUser,
+                    )
+                  }
                 />
               )}
             </CommonWebBox>

@@ -6,19 +6,17 @@ import {LargePopUp} from '../../../../styles/Common/PopUp';
 import vars from '../../../../styles/root';
 import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
 import Verification from '../../login/components/Verification';
 import {removeAuthCache} from '../../../../API/User';
-import {getDevice, showError} from '../../../../services/Utility';
+import {getDevice, showSuccess} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
+import {changeUsername} from './Utility';
 
 const ChangeUsername = props => {
   const [newUsername, setNewUsername] = useState('');
   const [step, setStep] = useState('chageUsername');
   const [token, setToken] = useState('');
   const [reminder, setReminder] = useState(0);
-  const [code, setCode] = useState('');
 
   const navigate = props.navigate;
 
@@ -36,36 +34,6 @@ const ChangeUsername = props => {
     setNewUsername(text);
   };
 
-  const requestChange = () => {
-    if (newUsername.length === 0) {
-      showError(commonTranslator.pleaseFillAllFields);
-      return;
-    }
-
-    props.setLoading(true);
-
-    Promise.all([
-      generalRequest(
-        routes.updateUsername,
-        'post',
-        {
-          mode: props.mode,
-          username: newUsername,
-        },
-        ['token', 'reminder'],
-        props.token,
-      ),
-    ]).then(res => {
-      props.setLoading(false);
-
-      if (res[0] !== null) {
-        setToken(res[0].token);
-        setReminder(res[0].reminder);
-        setStep('verification');
-      }
-    });
-  };
-
   return (
     <LargePopUp
       toggleShowPopUp={props.toggleModal}
@@ -76,8 +44,35 @@ const ChangeUsername = props => {
         step === 'chageUsername' ? (
           <CommonButton
             style={{backgroundColor: vars.DARK_BLUE}}
-            title={translator.sendCode}
-            onPress={() => requestChange()}
+            title={
+              props.userId === undefined
+                ? translator.sendCode
+                : commonTranslator.confirmChanges
+            }
+            onPress={async () => {
+              let res = await changeUsername(
+                props.setLoading,
+                props.token,
+                props.userId,
+                props.mode,
+                newUsername,
+              );
+
+              if (res !== null) {
+                if (props.userId === undefined) {
+                  setToken(res.token);
+                  setReminder(res.reminder);
+                  setStep('verification');
+                } else {
+                  showSuccess(commonTranslator.success);
+                  props.updateUser(
+                    props.mode === 'sms' ? 'phone' : 'mail',
+                    newUsername,
+                  );
+                  props.toggleModal();
+                }
+              }
+            }}
           />
         ) : (
           <></>
