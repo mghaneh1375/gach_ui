@@ -6,7 +6,7 @@ import {getGrade} from './components/Utility';
 import List from './components/List/List';
 import Create from './components/Create';
 import Edit from './components/Edit';
-import Translate from './Translate';
+import Translate from '../lesson/Translate';
 import {addItem, editItem} from '../../../services/Utility';
 
 function Grade(props) {

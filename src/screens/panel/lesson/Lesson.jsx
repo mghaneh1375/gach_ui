@@ -1,7 +1,12 @@
 import {View} from 'react-native';
+import {SimpleText} from '../../../styles/Common';
 
 function Lesson() {
-  return <View>{/* <Text>Lesson</Text> */}</View>;
+  return (
+    <View>
+      <SimpleText text="Lesson" />
+    </View>
+  );
 }
 
 export default Lesson;

@@ -1,19 +1,16 @@
 import {View} from 'react-native';
 import React, {useState} from 'react';
 import RadioButtonYesOrNo from '../../../../components/web/RadioButtonYesOrNo';
-import {
-  CommonButton,
-  CommonRadioButton,
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
+import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import Translate from '../Translate';
+import Translate from '../../lesson/Translate';
+import commonTranslate from '../../../../tranlates/Common';
 import {createGrade, editGrade} from './Utility';
 
 function Create(props) {
-  const [isOlympiad, setIsOlympiad] = useState('no');
+  const [isOlympiad, setIsOlympiad] = useState(
+    props.grade !== undefined ? (props.grade.isOlympiad ? 'yes' : 'no') : 'no',
+  );
   const [name, setName] = useState(
     props.grade !== undefined ? props.grade.name : '',
   );
@@ -64,7 +61,7 @@ function Create(props) {
                 props.setMode('list');
               }
             }}
-            title="ثبت"
+            title={commonTranslate.confirm}
           />
         </View>
       </CommonWebBox>
