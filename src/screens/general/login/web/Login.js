@@ -22,6 +22,7 @@ import {Container, Row, Col} from 'react-grid-system';
 import vars from '../../../../styles/root';
 import {globalStateContext, dispatchStateContext} from './../../../../App';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
+import {getToken} from '../../../../API/User';
 
 const Login = props => {
   const [mode, setMode] = useState('login');
@@ -38,6 +39,12 @@ const Login = props => {
 
   const navigate = props.navigate;
   const [state, dispatch] = useGlobalState();
+
+  React.useEffect(() => {
+    Promise.all([getToken()]).then(res => {
+      if (res[0] !== undefined) navigate('/');
+    });
+  }, [state.token, state, navigate]);
 
   const setLoading = status => {
     dispatch({loading: status});

@@ -19,7 +19,17 @@ function Ops(props) {
           />
           <CommonButton
             title={commonTranslator.entrance}
-            onPress={() => login(props.setLoading, props.token, props.user.id)}
+            onPress={async () => {
+              let res = await login(
+                props.setLoading,
+                props.token,
+                props.user.id,
+              );
+              if (res) {
+                props.toggleShowPopUp();
+                window.location.href = '/';
+              }
+            }}
             theme={'transparent'}
           />
           <CommonButton

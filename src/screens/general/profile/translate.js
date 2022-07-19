@@ -15,6 +15,7 @@ const translator = {
   rNewPass: 'تکرار رمزعبور جدید',
   yourPic: 'تصویر شما',
   chooseAvatar: 'انتخاب آواتار',
+  changePass: 'تغییر رمزعبور',
 };
 
 export default translator;

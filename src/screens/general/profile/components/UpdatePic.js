@@ -6,6 +6,7 @@ import {LargePopUp} from '../../../../styles/Common/PopUp';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import Avatar from './Avatar';
+import {fetchAvatars} from './Utility';
 
 const UpdatePic = props => {
   const [pic, setPic] = useState(undefined);
@@ -15,15 +16,7 @@ const UpdatePic = props => {
 
   const toggleShowChooseAvatar = async () => {
     if (avatars === undefined) {
-      props.setLoading(true);
-      let res = await generalRequest(
-        routes.fetchAllAvatars,
-        'get',
-        undefined,
-        'data',
-        props.token,
-      );
-      props.setLoading(false);
+      let res = await fetchAvatars(props.setLoading, props.token);
       if (res === null) {
         setAvatars([]);
         return;
@@ -40,6 +33,7 @@ const UpdatePic = props => {
   React.useEffect(() => {
     if (userId === undefined && props.isAdmin) setUserId(props.user.id);
   }, [props.user.id, props.isAdmin, userId]);
+
   return (
     <View style={{zIndex: 5}}>
       {showAvatars && (

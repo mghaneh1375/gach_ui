@@ -9,13 +9,9 @@ import {routes} from '../../../../API/APIRoutes';
 import vars from '../../../../styles/root';
 import {fetchUser, setCacheItem} from '../../../../API/User';
 import {showError, showSuccess} from '../../../../services/Utility';
+import {updateInfo} from './Utility';
 
 const UpdateInfo = props => {
-  const [states, setStates] = useState([]);
-  const [grades, setGrades] = useState([]);
-  const [branches, setBranches] = useState([]);
-  const [schools, setSchools] = useState([]);
-
   const [state, setState] = useState(props.user.state);
   const [city, setCity] = useState(props.user.city);
   const [sex, setSex] = useState(props.user.sex);
@@ -29,31 +25,10 @@ const UpdateInfo = props => {
   const [lastname, setLastname] = useState(props.user.lastName);
   const [NID, setNID] = useState(props.user.NID);
 
-  const [fetchedStates, setFetchedStates] = useState(false);
   const sexKeyVals = [
     {item: 'آقا', id: 'male'},
     {item: 'خانم', id: 'female'},
   ];
-
-  React.useEffect(() => {
-    if (fetchedStates) return;
-
-    setFetchedStates(true);
-    props.setLoading(true);
-
-    Promise.all([
-      generalRequest(routes.fetchState, 'get', undefined, 'data'),
-      generalRequest(routes.fetchGrades, 'get', undefined, 'data'),
-      generalRequest(routes.fetchBranches, 'get', undefined, 'data'),
-      generalRequest(routes.fetchSchoolsDigest, 'get', undefined, 'data'),
-    ]).then(res => {
-      props.setLoading(false);
-      if (res[0] !== null) setStates(res[0]);
-      if (res[1] !== null) setGrades(res[1]);
-      if (res[2] !== null) setBranches(res[2]);
-      if (res[3] !== null) setSchools(res[3]);
-    });
-  }, [fetchedStates, props]);
 
   const setSelectedState = item => {
     setState(item);
@@ -79,54 +54,6 @@ const UpdateInfo = props => {
   const setSelectedSchool = item => {
     setSchool(item);
   };
-
-  const update = () => {
-    if (
-      state === undefined ||
-      city === undefined ||
-      grade === undefined ||
-      school === undefined ||
-      firstname.length === 0 ||
-      lastname.length === 0 ||
-      NID.length === 0
-    ) {
-      showError(commonTranslator.pleaseFillAllFields);
-      return;
-    }
-
-    const data = {
-      firstName: firstname,
-      lastName: lastname,
-      schoolId: school.id,
-      branches:
-        branch !== undefined
-          ? branch.map(function (element) {
-              return element.id;
-            })
-          : [],
-      gradeId: grade.id,
-      cityId: city.id,
-      NID: NID,
-      sex: sex,
-    };
-
-    props.setLoading(true);
-
-    Promise.all([
-      generalRequest(routes.updateInfo, 'post', data, undefined, props.token),
-    ]).then(res => {
-      if (res[0]) {
-        setCacheItem('user', undefined);
-        fetchUser(props.token, user => {
-          props.setLoading(false);
-          showSuccess(commonTranslator.success);
-        });
-      } else {
-        props.setLoading(false);
-      }
-    });
-  };
-
   return (
     <View>
       <View style={{paddingLeft: 70}}>
@@ -169,7 +96,7 @@ const UpdateInfo = props => {
             placeholder={commonTranslator.state}
             resultPane={true}
             setSelectedItem={setSelectedState}
-            values={states}
+            values={props.states}
             value={state !== undefined ? state.name : ''}
             reset={false}
           />
@@ -191,7 +118,7 @@ const UpdateInfo = props => {
             placeholder={commonTranslator.grade}
             resultPane={true}
             setSelectedItem={setSelectedGrade}
-            values={grades}
+            values={props.grades}
             value={grade !== undefined ? grade.name : ''}
             reset={false}
           />
@@ -202,7 +129,7 @@ const UpdateInfo = props => {
             placeholder={commonTranslator.branch}
             setSelectedItem={setSelectedBranch}
             reset={false}
-            values={branches}
+            values={props.branches}
             value={branch}
             multi={true}
           />
@@ -215,7 +142,7 @@ const UpdateInfo = props => {
             placeholder={commonTranslator.school}
             resultPane={true}
             setSelectedItem={setSelectedSchool}
-            values={schools}
+            values={props.schools}
             value={school !== undefined ? school.name : ''}
             reset={false}
           />
@@ -224,7 +151,23 @@ const UpdateInfo = props => {
       <CommonButton
         style={{backgroundColor: vars.DARK_BLUE, marginTop: 50, minWidth: 120}}
         title={commonTranslator.doChange}
-        onPress={() => update()}
+        onPress={() =>
+          updateInfo(props.setLoading, props.token, props.userId, {
+            firstName: firstname,
+            lastName: lastname,
+            schoolId: school.id,
+            branches:
+              branch !== undefined
+                ? branch.map(function (element) {
+                    return element.id;
+                  })
+                : [],
+            gradeId: grade.id,
+            cityId: city.id,
+            NID: NID,
+            sex: sex,
+          })
+        }
       />
     </View>
   );
