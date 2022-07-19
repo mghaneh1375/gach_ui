@@ -183,6 +183,25 @@ const Profile = props => {
                     />
                   )}
                 </CommonWebBox>
+
+                {user.forms !== undefined && (
+                  <CommonWebBox
+                    header={translator.formInfo}
+                    btn={
+                      <SimpleFontIcon
+                        onPress={() => setShowEditUsername(!showEditUsername)}
+                        kind={'small'}
+                        icon={showEditUsername ? faAngleUp : faAngleDown}
+                      />
+                    }>
+                    {showEditUsername && (
+                      <UpdateUsername
+                        userId={isAdmin ? user.id : undefined}
+                        forms={user.forms}
+                      />
+                    )}
+                  </CommonWebBox>
+                )}
               </View>
             )}
         </Col>

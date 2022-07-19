@@ -8,9 +8,11 @@ import {routes} from '../../../../../API/APIRoutes';
 import columns from './TableStructure';
 import commonTranslator from '../../../../../tranlates/Common';
 import Ops from './../Ops';
+import {removeItems} from '../../../../../services/Utility';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
+  const [selected, setSelected] = useState();
 
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
@@ -22,6 +24,7 @@ function List(props) {
 
   const handleOp = idx => {
     props.setSelectedGrade(props.grades[idx]);
+    setSelected(props.grades[idx]);
     toggleShowOpPopUp();
   };
 
@@ -29,11 +32,15 @@ function List(props) {
     <View>
       {showOpPopUp && (
         <Ops
-          grade={props.selectedGrade}
+          grade={selected}
           token={props.token}
           setLoading={props.setLoading}
           changeMode={changeMode}
           toggleShowPopUp={toggleShowOpPopUp}
+          afterDelete={ids => {
+            removeItems(props.grades, props.setGrades, ids);
+            toggleShowOpPopUp();
+          }}
         />
       )}
       <CommonWebBox>

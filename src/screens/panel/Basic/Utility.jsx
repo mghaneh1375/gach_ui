@@ -3,6 +3,22 @@ import {generalRequest} from '../../../API/Utility';
 import {showSuccess} from '../../../services/Utility';
 import commonTranslator from '../../../tranlates/Common';
 
+export const removeGrade = async (setLoading, token, gradeId, afterFunc) => {
+  setLoading(true);
+  let res = await generalRequest(
+    routes.removeGrade,
+    'delete',
+    {items: [gradeId]},
+    ['excepts', 'doneIds'],
+    token,
+  );
+  setLoading(false);
+  if (res !== null) {
+    showSuccess(res.excepts);
+    afterFunc(res.doneIds);
+  }
+};
+
 export const getGrade = async token => {
   let res = await generalRequest(
     routes.fetchGradesAndBranches,
