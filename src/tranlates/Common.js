@@ -123,5 +123,6 @@ const translator = {
   profile: 'پروفایل',
   hello: 'سلام',
   seeInfo: 'مشاهده اطلاعات',
+  isOlympiad: 'آیا جز رشته های المپیادی است؟',
 };
 export default translator;
