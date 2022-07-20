@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
-import {getGrade} from '../Utility';
+import {getGrade, getGrades} from '../Utility';
 import List from '../../Basic/grade/List/List';
 import Create from './Create';
 import Translate from '../Translate';
@@ -23,7 +23,7 @@ function Grade(props) {
   };
   React.useEffect(() => {
     dispatch({loading: true});
-    Promise.all([getGrade(props.token)]).then(res => {
+    Promise.all([getGrades(props.token)]).then(res => {
       dispatch({loading: false});
       if (res[0] == null) {
         navigate('/');

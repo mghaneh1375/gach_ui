@@ -4,15 +4,18 @@ import {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import List from '../lesson/List/List';
 import React from 'react';
-import {getLesson, getLessons} from '../Utility';
+import {getGrades, getGradesOnly, getLessons} from '../Utility';
 import Create from '../lesson/Create';
 import Translate from '../Translate';
+import {addItem, editItem} from '../../../../services/Utility';
 
 function Lesson(props) {
   const navigate = props.navigate;
   const [mode, setMode] = useState('list');
   const [selectedLesson, setSelectedLesson] = useState();
-  const [lesson, setLesson] = useState();
+  const [lessons, setLessons] = useState();
+  const [grades, setGrades] = useState();
+
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -23,37 +26,56 @@ function Lesson(props) {
   };
   React.useEffect(() => {
     dispatch({loading: true});
-    Promise.all([getLessons(props.token)]).then(res => {
-      dispatch({loading: false});
-      if (res[0] == null) {
-        navigate('/');
-        return;
-      }
-      setLesson(res[0]);
-      setMode('list');
-    });
+    Promise.all([getLessons(props.token), getGradesOnly(props.token)]).then(
+      res => {
+        dispatch({loading: false});
+        if (res[0] == null || res[1] == null) {
+          navigate('/');
+          return;
+        }
+        setLessons(res[0]);
+        setGrades(
+          res[1].map(elem => {
+            return {id: elem.id, item: elem.name};
+          }),
+        );
+        setMode('list');
+      },
+    );
   }, [navigate, props.token, dispatch]);
   return (
     <View>
       {mode === 'list' && (
         <List
-          Lesson={lesson}
-          setLesson={setLesson}
+          lessons={lessons}
+          setLessons={setLessons}
           setMode={setMode}
           setLoading={setLoading}
           setSelectedLesson={setSelectedLesson}
           token={props.token}
         />
       )}
-      {/* {mode === 'create' && (
+      {mode === 'create' && (
         <Create
           name={Translate.name}
           token={props.token}
           setMode={setMode}
-          afterFunc={newItem => addItem(grades, setGrades, newItem)}
+          grades={grades}
+          afterFunc={newItem => addItem(lessons, setLessons, newItem)}
           setLoading={setLoading}
         />
-      )} */}
+      )}
+      {mode === 'edit' && (
+        <Create
+          name={Translate.name}
+          token={props.token}
+          setMode={setMode}
+          grades={grades}
+          lesson={selectedLesson}
+          afterFunc={newItem => addItem(lessons, setLessons, newItem)}
+          setLoading={setLoading}
+        />
+      )}
     </View>
   );
 }

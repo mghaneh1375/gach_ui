@@ -19,7 +19,18 @@ export const removeGrade = async (setLoading, token, gradeId, afterFunc) => {
   }
 };
 
-export const getGrade = async token => {
+export const getGradesOnly = async token => {
+  let res = await generalRequest(
+    routes.fetchGrades,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+  return res;
+};
+
+export const getGrades = async token => {
   let res = await generalRequest(
     routes.fetchGradesAndBranches,
     'get',
@@ -53,9 +64,33 @@ export const editGrade = async (id, token, data, isOlympiad) => {
   return res;
 };
 
+export const editLesson = async (id, gradeId, token, data) => {
+  let res = await generalRequest(
+    routes.editLesson + gradeId + '/' + id,
+    'put',
+    data,
+    undefined,
+    token,
+  );
+  if (res !== null) showSuccess(commonTranslator.success);
+
+  return res;
+};
+
 export const createGrade = async (token, data, isOlympiad) => {
   let res = await generalRequest(
     isOlympiad === 'yes' ? routes.addBranch : routes.addGrade,
+    'post',
+    data,
+    'id',
+    token,
+  );
+  if (res !== null) showSuccess(commonTranslator.success);
+  return res;
+};
+export const createLesson = async (token, gradeId, data) => {
+  let res = await generalRequest(
+    routes.addLesson + gradeId,
     'post',
     data,
     'id',

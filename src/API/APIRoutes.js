@@ -24,6 +24,8 @@ export const routes = {
   fetchSchoolsDigest: 'general/fetchSchoolsDigest',
   fetchGrades: 'admin/content/grades',
   fetchLesson: 'admin/content/lessons',
+  addLesson: 'admin/content/addLesson/',
+  editLesson: 'admin/content/updateLesson/',
   fetchGradesAndBranches: 'admin/content/gradesAndBranches',
   removeGrade: 'admin/content/deleteGrade',
   addGrade: 'admin/content/addGrade',
