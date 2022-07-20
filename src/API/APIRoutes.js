@@ -9,7 +9,7 @@ export const routes = {
   updateInfo: 'user/updateInfo/',
   fetchUser: 'user/fetchUser/',
   checkCode: 'user/checkCode',
-  sendRoleForm: 'user/sendRoleForm',
+  sendRoleForm: 'user/sendRoleForm/',
   updateUsername: 'user/updateUsername/',
   setUsername: 'user/setNewUsername',
   changePass: 'user/changePassword/',

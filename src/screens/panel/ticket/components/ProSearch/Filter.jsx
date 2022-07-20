@@ -31,7 +31,7 @@ function Filter(props) {
   const [showProSearch, setShowProSearch] = useState(false);
   const [status, setStatus] = useState();
   const [startWith, setStartWith] = useState('all');
-  const [searchArchive, setSearchArchive] = useState('yes');
+  const [searchArchive, setSearchArchive] = useState('no');
   const [sendDateSolar, setSendDateSolar] = useState('');
   const [sendDateSolarEndLimit, setSendDateSolarEndLimit] = useState('');
   const [answerDateSolar, setAnswerDateSolar] = useState('');

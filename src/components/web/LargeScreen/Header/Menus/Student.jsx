@@ -33,10 +33,10 @@ function StudentMenu(props) {
         <MenuItem text={translator.history} icon={faHistory} />
         <MenuItem text={translator.support} icon={faQuestion} />
         <MenuItem
-          onClick={() => navigate('/profile')}
-          text={translator.config}
+          onClick={() => navigate('/ticket')}
+          text={translator.requests}
           icon={faCog}
-          selected={props.selected === 'profile'}
+          selected={props.selected === 'ticket'}
         />
       </div>
     );
