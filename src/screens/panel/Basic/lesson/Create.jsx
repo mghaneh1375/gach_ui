@@ -4,14 +4,15 @@ import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import Translate from '../Translate';
 import commonTranslate from '../../../../tranlates/Common';
-import {createGrade, editGrade} from '../Utility';
-import RadioButtonYesOrNo from '../../../../components/web/RadioButtonYesOrNo';
+import {editLesson, createLesson} from '../Utility';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+
 function Create(props) {
-  const [isOlympiad, setIsOlympiad] = useState(
-    props.grade !== undefined ? (props.grade.isOlympiad ? 'yes' : 'no') : 'no',
-  );
   const [name, setName] = useState(
-    props.grade !== undefined ? props.grade.name : '',
+    props.lesson !== undefined ? props.lesson.name : '',
+  );
+  const [grade, setGrade] = useState(
+    props.lesson !== undefined ? props.lesson.grade.id : undefined,
   );
 
   return (
@@ -27,10 +28,14 @@ function Create(props) {
               onChangeText={e => setName(e)}
               placeholder={props.name}
             />
-            <RadioButtonYesOrNo
-              selected={isOlympiad}
-              setSelected={setIsOlympiad}
-              label={Translate.addOlympiad}
+            <JustBottomBorderSelect
+              isHalf={true}
+              placeholder={Translate.level}
+              setter={setGrade}
+              value={props.grades.find(elem => {
+                return elem.id === grade;
+              })}
+              values={props.grades}
             />
           </PhoneView>
 
@@ -39,23 +44,28 @@ function Create(props) {
               props.setLoading(true);
               let res;
 
-              if (props.grade !== undefined) {
-                res = await editGrade(
-                  props.grade.id,
+              if (props.lesson !== undefined) {
+                res = await editLesson(
+                  props.lesson.id,
+                  props.lesson.grade.id,
                   props.token,
-                  {name: name},
-                  isOlympiad,
+                  {
+                    name: name,
+                    gradeId: grade,
+                  },
                 );
               } else {
-                res = await createGrade(props.token, {name: name}, isOlympiad);
+                res = await createLesson(props.token, grade, {name: name});
               }
-
               props.setLoading(false);
               if (res !== null) {
+                let selectedGrade = props.grades.find(
+                  elem => elem.id === grade,
+                );
                 props.afterFunc({
                   name: name,
-                  id: props.grade !== undefined ? props.grade.id : res,
-                  isOlympiad: isOlympiad === 'yes' ? true : false,
+                  grade: {id: selectedGrade.id, name: selectedGrade.item},
+                  id: props.lesson !== undefined ? props.lesson.id : res,
                 });
                 props.setMode('list');
               }

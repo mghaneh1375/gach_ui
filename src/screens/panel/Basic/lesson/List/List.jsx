@@ -8,8 +8,11 @@ import commonTranslator from '../../../../../tranlates/Common';
 import Ops from '../Ops';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {CommonWebBox} from '../../../../../styles/Common';
+import {removeItems} from '../../../../../services/Utility';
+
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
+  const [selected, setSelected] = useState();
 
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
@@ -20,7 +23,8 @@ function List(props) {
   };
 
   const handleOp = idx => {
-    props.setSelectedGrade(props.grades[idx]);
+    props.setSelectedLesson(props.lessons[idx]);
+    setSelected(props.lessons[idx]);
     toggleShowOpPopUp();
   };
 
@@ -28,11 +32,15 @@ function List(props) {
     <View>
       {showOpPopUp && (
         <Ops
-          lesson={props.selectedLesson}
+          lesson={selected}
           token={props.token}
           setLoading={props.setLoading}
           changeMode={changeMode}
           toggleShowPopUp={toggleShowOpPopUp}
+          afterDelete={ids => {
+            removeItems(props.lessons, props.setLessons, ids);
+            toggleShowOpPopUp();
+          }}
         />
       )}
 
@@ -46,8 +54,8 @@ function List(props) {
           />
           <CommonDataTable
             columns={columns}
-            data={props.Lesson}
-            setData={props.setLesson}
+            data={props.lessons}
+            setData={props.setLessons}
             handleOp={handleOp}
             removeUrl={routes.removeLesson}
             token={props.token}
