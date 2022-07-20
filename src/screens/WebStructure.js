@@ -41,6 +41,7 @@ import Grade from './panel/Basic/grade/Grade.jsx';
 import {generalRequest} from '../API/Utility';
 import {routes} from '../API/APIRoutes';
 import Lesson from './panel/Basic/lesson/Lesson';
+import Package from './panel/package/Package';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -209,9 +210,18 @@ const WebStructue = props => {
               {props.page === 'cert' && (
                 <Certificate token={token} user={user} navigate={navigate} />
               )}
-              {props.page === 'quiz' && (
-                <Quiz token={token} user={user} navigate={navigate} />
-              )}
+              {props.page === 'quiz' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'list' && (
+                  <Quiz token={token} user={user} navigate={navigate} />
+                )}
+              {props.page === 'quiz' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'package' && (
+                  <Package token={token} user={user} navigate={navigate} />
+                )}
               {props.page === 'question' && (
                 <Question token={token} user={user} navigate={navigate} />
               )}

@@ -1,0 +1,3 @@
+const Translate = {
+  test: 'تست',
+};

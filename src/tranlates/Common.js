@@ -124,5 +124,7 @@ const translator = {
   hello: 'سلام',
   seeInfo: 'مشاهده اطلاعات',
   isOlympiad: 'آیا جز رشته های المپیادی است؟',
+  listQuiz: 'لیست آزمون ها',
+  packageQuiz: 'بسته های آزمون',
 };
 export default translator;

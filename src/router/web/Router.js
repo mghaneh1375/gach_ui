@@ -23,7 +23,6 @@ export default function WebRouter() {
           />
           <Route path="/profile" element={<WebStructue page="profile" />} />
           <Route path="/cert" element={<WebStructue page="cert" />} />
-          <Route path="/quiz" element={<WebStructue page="quiz" />} />
           <Route path="/question" element={<WebStructue page="question" />} />
           <Route path="/offs" element={<WebStructue page="offs" />} />
           <Route path="/ticket" element={<WebStructue page="ticket" />} />
@@ -51,6 +50,7 @@ export default function WebRouter() {
             path="/ravanConfiguration"
             element={<WebStructue page="ravanConfiguration" />}
           />
+          <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route path="*" element={<WebStructue page="404" />} />
         </Routes>
       </Router>

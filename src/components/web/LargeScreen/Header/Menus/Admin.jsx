@@ -112,11 +112,21 @@ function AdminMenu(props) {
             },
           ]}
         />
-        <MenuItem
-          onClick={() => navigate('/quiz')}
+        <SuperMenuItem
           text={translator.quizes}
           icon={faUsers}
           selected={props.selected === 'quiz'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.listQuiz,
+              url: '/quiz/list',
+            },
+            {
+              text: translator.packageQuiz,
+              url: '/quiz/package',
+            },
+          ]}
         />
         <MenuItem
           onClick={() => navigate('/avatars')}
