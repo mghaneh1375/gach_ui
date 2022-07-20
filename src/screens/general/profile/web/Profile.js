@@ -10,7 +10,6 @@ import UpdateUsername from '../components/UpdateUsername';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
-import {setCacheItem} from '../../../../API/User';
 import translator from '../translate';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +18,7 @@ import {useParams} from 'react-router';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import {getPreRequirements, updateUserPic} from '../components/Utility';
+import UpdateForm from '../components/UpdateForm';
 
 const Profile = props => {
   const [user, setUser] = useState();
@@ -43,6 +43,14 @@ const Profile = props => {
   const [grades, setGrades] = useState();
   const [branches, setBranches] = useState();
   const [schools, setSchools] = useState();
+
+  const [showChangeUsernameModal, setShowChangeUsernameModal] = useState(false);
+  const [usernameModalMode, setUsernameModalMode] = useState(false);
+  const [showEditInfo, setShowEditInfo] = useState(true);
+  const [showEditUsername, setShowEditUsername] = useState(true);
+  const [showEditPassword, setShowEditPassword] = useState(true);
+  const [showEditPic, setShowEditPic] = useState(true);
+  const [showEditForm, setShowEditForm] = useState(true);
 
   React.useEffect(() => {
     if (user !== undefined || isWorking) return;
@@ -88,13 +96,6 @@ const Profile = props => {
       setSchools,
     );
   }, [fetchedStates, dispatch]);
-
-  const [showChangeUsernameModal, setShowChangeUsernameModal] = useState(false);
-  const [usernameModalMode, setUsernameModalMode] = useState(false);
-  const [showEditInfo, setShowEditInfo] = useState(true);
-  const [showEditUsername, setShowEditUsername] = useState(true);
-  const [showEditPassword, setShowEditPassword] = useState(true);
-  const [showEditPic, setShowEditPic] = useState(true);
 
   const toggleChangeUsernameModal = () => {
     setShowChangeUsernameModal(!showChangeUsernameModal);
@@ -189,13 +190,13 @@ const Profile = props => {
                     header={translator.formInfo}
                     btn={
                       <SimpleFontIcon
-                        onPress={() => setShowEditUsername(!showEditUsername)}
+                        onPress={() => setShowEditForm(!showEditForm)}
                         kind={'small'}
-                        icon={showEditUsername ? faAngleUp : faAngleDown}
+                        icon={showEditForm ? faAngleUp : faAngleDown}
                       />
                     }>
-                    {showEditUsername && (
-                      <UpdateUsername
+                    {showEditForm && (
+                      <UpdateForm
                         userId={isAdmin ? user.id : undefined}
                         forms={user.forms}
                       />

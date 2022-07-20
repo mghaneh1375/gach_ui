@@ -2,6 +2,7 @@ const translator = {
   yourInfo: 'اطلاعات شما',
   usernameInfo: 'اطلاعات مهم',
   formInfo: 'اطلاعات تخصصی',
+  formData: 'اطلاعات فرم ',
   changePhone: 'تغییر تلفن همراه',
   changeMail: 'تغییر ایمیل',
   newPhone: 'تلفن همراه جدید',

@@ -9,7 +9,7 @@ import {PhoneView} from '../../../../styles/Common';
 const Logo = props => {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
-
+  if (!props.isLogin) return <></>;
   return (
     <PhoneView
       style={

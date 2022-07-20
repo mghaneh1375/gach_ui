@@ -7,7 +7,6 @@ const commonColumns = [
   {
     name: 'ضرورت',
     selector: row => row.priorityFa,
-    // priorityKeyVals.find(elem => elem.id === row.priority).item,
     grow: 1,
   },
   {
