@@ -159,3 +159,14 @@ export const updateInfo = async (setLoading, token, userId, data) => {
     }
   } else setLoading(false);
 };
+
+export const updateForm = async (token, userId, data) => {
+  let res = await generalRequest(
+    userId !== undefined ? routes.sendRoleForm + userId : routes.sendRoleForm,
+    'post',
+    data,
+    undefined,
+    token,
+  );
+  return res;
+};

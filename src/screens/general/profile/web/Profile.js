@@ -199,6 +199,8 @@ const Profile = props => {
                       <UpdateForm
                         userId={isAdmin ? user.id : undefined}
                         forms={user.forms}
+                        setLoading={setLoading}
+                        token={props.token}
                       />
                     )}
                   </CommonWebBox>

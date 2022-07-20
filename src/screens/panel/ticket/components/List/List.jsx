@@ -56,13 +56,14 @@ function List(props) {
       {showOpPopUp && (
         <LargePopUp toggleShowPopUp={toggleShowOpPopUp}>
           <PhoneView>
-            {isInUpgradeMode && (
-              <CommonButton
-                title={translator.seeForm}
-                onPress={() => window.open('/profile/' + selected.student.id)}
-                theme={'transparent'}
-              />
-            )}
+            {props.isAdmin &&
+              (isInUpgradeMode || selected.section === 'upgradelevel') && (
+                <CommonButton
+                  title={translator.seeForm}
+                  onPress={() => window.open('/profile/' + selected.student.id)}
+                  theme={'transparent'}
+                />
+              )}
             <CommonButton
               onPress={() => changeMode('show')}
               title={translator.showRequest}
@@ -97,6 +98,8 @@ function List(props) {
               <Filter
                 setIsInUpgradeMode={setIsInUpgradeMode}
                 section={section}
+                setTickets={props.setTickets}
+                isAdmin={props.isAdmin}
                 token={props.token}
                 setLoading={props.setLoading}
               />

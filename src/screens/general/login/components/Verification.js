@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import CodeInput from 'react-native-confirmation-code-input';
 import {routes} from '../../../../API/APIRoutes';
+import {fetchUser, setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {showError} from '../../../../services/Utility';
 import {
@@ -38,18 +39,27 @@ const Verification = props => {
         props.mode === 'signUp' ? 'token' : undefined,
         props.mode === 'changeUsername' ? props.authToken : undefined,
       ),
-    ]).then(res => {
-      props.setLoading(false);
+    ]).then(async res => {
       if (res[0] != null) {
         if (props.mode === 'signUp') {
           props.setToken(res[0]);
           props.setCode(code);
-          props.setMode('roleForm');
-        } else if (props.mode === 'changeUsername') props.setMode('finish');
-        else {
+          await setCacheItem('user', undefined);
+          await fetchUser(res[0], async user => {
+            props.setLoading(false);
+            await setCacheItem('token', res[0]);
+            props.setMode('roleForm');
+          });
+        } else if (props.mode === 'changeUsername') {
+          props.setMode('finish');
+          props.setLoading(false);
+        } else {
           props.setMode('resetPass');
           props.setCode(code);
+          props.setLoading(false);
         }
+      } else {
+        props.setLoading(false);
       }
     });
   };

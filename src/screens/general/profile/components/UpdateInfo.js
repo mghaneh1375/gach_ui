@@ -4,11 +4,7 @@ import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSe
 import commonTranslator from '../../../../tranlates/Common';
 import {CommonButton, EqualTwoTextInputs} from '../../../../styles/Common';
 import {View} from 'react-native';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
 import vars from '../../../../styles/root';
-import {fetchUser, setCacheItem} from '../../../../API/User';
-import {showError, showSuccess} from '../../../../services/Utility';
 import {updateInfo} from './Utility';
 
 const UpdateInfo = props => {
