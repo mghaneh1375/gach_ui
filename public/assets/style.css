@@ -219,3 +219,7 @@
 .mySelect .r-touchAction-1otgn73 svg {
   margin-top: 6px;
 }
+.rdt_Pagination {
+  direction: ltr !important;
+  justify-content: flex-start !important;
+}

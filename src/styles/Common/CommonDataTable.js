@@ -200,7 +200,12 @@ const CommonDataTable = props => {
         <select
           value={selectedOp === undefined ? 'none' : selectedOp.key}
           onChange={e => changeOpSelect(e)}
-          style={{alignSelf: 'flex-end', fontFamily: 'IRANSans'}}>
+          style={{
+            alignSelf: 'flex-end',
+            marginBottom: 10,
+            color: '#202020',
+            fontFamily: 'IRANSans',
+          }}>
           <option value="none">
             {commonTranslator.op + ' (' + selected.length + ')'}
           </option>
@@ -223,7 +228,7 @@ const CommonDataTable = props => {
           (state.ops !== undefined && state.ops.length > 0) ||
           props.onRowSelect !== undefined
         }
-        highlightOnHover={true}
+        // highlightOnHover={true}
         persistTableHead={true}
         onSelectedRowsChange={
           props.onRowSelect === undefined

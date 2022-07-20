@@ -38,3 +38,13 @@
   flex-direction: row;
   margin: 15px 0px;
 }
+.rdt_TableRow:nth-child(even) {
+  background-color: #01324324;
+}
+.rdt_TableHeadRow {
+  background-color: #013243 !important;
+}
+.rdt_TableHeadRow div {
+  color: white;
+  font-weight: bold;
+}
