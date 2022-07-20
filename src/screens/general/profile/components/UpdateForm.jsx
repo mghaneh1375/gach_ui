@@ -47,8 +47,8 @@ const UpdateForm = props => {
 
     if (hasAnyChange && !hasAnyErr)
       if (props.userId === undefined) {
-        setCacheItem('user', undefined);
-        fetchUser(props.token, user => {
+        await setCacheItem('user', undefined);
+        await fetchUser(props.token, user => {
           props.setLoading(false);
           showSuccess(commonTranslator.success);
         });

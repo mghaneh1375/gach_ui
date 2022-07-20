@@ -1,7 +1,5 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
 import {
   BigBoldBlueTextInline,
   BlueTextFromStart,
@@ -9,65 +7,30 @@ import {
   EqualTwoTextInputs,
 } from '../../../../styles/Common';
 import {RoleCard} from '../../../../styles/Common/RoleCard';
-import {TextIcon} from '../../../../styles/Common/TextIcon';
-import translator from '..//translate';
 import commonTranslator from './../../../../tranlates/Common';
 import vars from '../../../../styles/root';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import {showError, showSuccess} from '../../../../services/Utility';
+import {checkSendRoleForm, getRoleForms} from './Utility';
+import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
+import {FontIcon} from '../../../../styles/Common/FontIcon';
 
 const RoleForm = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});
+  const [roleForms, setRoleForms] = useState();
   const [role, setRole] = useState('student');
   const [step, setStep] = useState('role'); // available values: [role, form]
+  const [isWorking, setIsWorking] = useState(false);
 
-  const roleForms = [];
-  roleForms['school'] = [
-    {
-      title: translator.schoolName,
-      key: 'schoolName',
-    },
-    {
-      title: translator.schoolPhone,
-      justNum: true,
-      key: 'schoolPhone',
-    },
-  ];
-  roleForms['agent'] = [
-    {
-      title: translator.stateName,
-      justNum: true,
-      key: 'stateName',
-    },
-  ];
-  roleForms['advisor'] = [
-    {
-      title: translator.workYear,
-      justNum: true,
-      key: 'workYear',
-    },
-    {
-      title: translator.workSchools,
-      key: 'workSchools',
-    },
-    {
-      title: translator.bio,
-      key: 'bio',
-    },
-    {
-      title: translator.universeField,
-      key: 'universeField',
-    },
-  ];
-  roleForms['student'] = [
-    {
-      title: translator.invitationCode,
-      justNum: true,
-      help: translator.invitationCodeHelp,
-      required: false,
-      key: 'invitationCode',
-    },
-  ];
+  React.useEffect(() => {
+    if (isWorking || roleForms !== undefined) return;
+    setIsWorking(true);
+    props.setLoading(true);
+    Promise.all([getRoleForms()]).then(res => {
+      props.setLoading(false);
+      if (res[0] !== undefined) setRoleForms(res[0]);
+      setIsWorking(false);
+    });
+  }, [props, roleForms, isWorking]);
 
   const changeRole = r => {
     setRole(r);
@@ -80,52 +43,12 @@ const RoleForm = props => {
     setUserRoleFormData(userRoleFormData);
   };
 
-  const checkSendRoleForm = () => {
-    userRoleFormData['role'] = role;
-
-    for (var i = 0; i < roleForms[role].length; i++) {
-      const field = roleForms[role][i];
-
-      if (field.required !== undefined && !field.required) continue;
-
-      if (
-        userRoleFormData[field.key] === undefined ||
-        userRoleFormData[field.key].length === 0
-      ) {
-        showError(commonTranslator.pleaseFillAllFields);
-        return;
-      }
-    }
-
-    props.setLoading(true);
-
-    Promise.all([
-      generalRequest(
-        routes.sendRoleForm,
-        'post',
-        userRoleFormData,
-        undefined,
-        props.token,
-      ),
-    ]).then(res => {
-      props.setLoading(false);
-      if (res[0] != null) {
-        showSuccess('بررسی میشه میگم نتیجه رو');
-        setTimeout(function () {
-          props.navigate(props.redirectTo);
-        }, 2000);
-      }
-    });
-  };
-
   return (
     <View>
       {step === 'role' && (
         <View>
-          <TextIcon>
-            <BigBoldBlueTextInline text={commonTranslator.congratulations} />
-            {/* <FontIcon icon={faClose}></FontIcon> */}
-          </TextIcon>
+          <BigBoldBlueTextInline text={commonTranslator.congratulations} />
+
           <BlueTextFromStart
             style={{marginTop: 20}}
             text={commonTranslator.chooseOne}
@@ -172,26 +95,50 @@ const RoleForm = props => {
         </View>
       )}
 
-      {step === 'form' && (
+      {step === 'form' && role !== undefined && (
         <View style={{marginTop: 20}}>
-          {roleForms[role].map(function (obj, i) {
-            return (
-              <CommonTextInput
-                key={i}
-                placeholder={obj.title}
-                subText={obj.help}
-                justNum={obj.justNum}
-                type={obj.type}
-                onChangeText={e => setFormUserData(obj.key, e)}
-              />
-            );
-          })}
+          <FontIcon
+            onPress={() => setStep('role')}
+            parentStyle={{
+              alignSelf: 'flex-end',
+              marginLeft: 20,
+              marginBottom: 20,
+            }}
+            back={vars.YELLOW}
+            kind={'normal'}
+            theme={'rect'}
+            icon={faAngleLeft}
+          />
+          {roleForms
+            .find(elem => elem.role === role)
+            .data.map(function (obj, i) {
+              return (
+                <CommonTextInput
+                  style={{marginTop: 10}}
+                  key={i}
+                  placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
+                  subText={obj.help === undefined ? obj.title : obj.help}
+                  justNum={obj.isJustNum ? true : undefined}
+                  type={obj.type}
+                  onChangeText={e => setFormUserData(obj.key, e)}
+                />
+              );
+            })}
           <CommonButton
             style={{
               alignSelf: 'flex-start',
               marginTop: 40,
             }}
-            onPress={() => checkSendRoleForm()}
+            onPress={() => {
+              userRoleFormData['role'] = role;
+              checkSendRoleForm(
+                userRoleFormData,
+                props.setLoading,
+                props.navigate,
+                props.redirectTo,
+                props.token,
+              );
+            }}
             title={commonTranslator.confirm}
           />
         </View>
