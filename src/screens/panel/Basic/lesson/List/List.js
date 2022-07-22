@@ -45,23 +45,21 @@ function List(props) {
       )}
 
       <CommonWebBox>
-        <View>
-          <TextIcon
-            onPress={() => changeMode('create')}
-            theme={'rect'}
-            text={commonTranslator.lessonsDefinition}
-            icon={faPlus}
-          />
-          <CommonDataTable
-            columns={columns}
-            data={props.lessons}
-            setData={props.setLessons}
-            handleOp={handleOp}
-            removeUrl={routes.removeLesson}
-            token={props.token}
-            setLoading={props.setLoading}
-          />
-        </View>
+        <TextIcon
+          onPress={() => changeMode('create')}
+          theme={'rect'}
+          text={commonTranslator.lessonsDefinition}
+          icon={faPlus}
+        />
+        <CommonDataTable
+          columns={columns}
+          data={props.lessons}
+          setData={props.setLessons}
+          handleOp={handleOp}
+          removeUrl={routes.removeLessons}
+          token={props.token}
+          setLoading={props.setLoading}
+        />
       </CommonWebBox>
     </View>
   );

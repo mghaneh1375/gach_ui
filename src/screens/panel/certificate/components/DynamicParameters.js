@@ -8,7 +8,7 @@ import {
 } from '../../../../styles/Common';
 import certTranslator from '../Translator';
 import translator from '../../../../tranlates/Common';
-import './Style.css';
+// import './Style.css';
 
 const DynamicParameters = () => {
   return (

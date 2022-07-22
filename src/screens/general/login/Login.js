@@ -27,9 +27,7 @@ const Login = props => {
 
   const [state, dispatch] = useGlobalState();
 
-  console.log('Asd');
   React.useEffect(() => {
-    console.log(state);
     if (state.token !== undefined) {
       navigate(isApp ? 'Home' : '/');
     }
@@ -45,7 +43,7 @@ const Login = props => {
   const [mode, setMode] = useState('login'); // available values: [signUp, verification, role, form]
   const [token, setToken] = useState('');
   const [reminder, setReminder] = useState(0);
-  const [username, setUsername] = useState('0018914373');
+  const [username, setUsername] = useState();
   const [code, setCode] = useState(111111);
 
   const changeMode = wantedMode => {
@@ -152,7 +150,7 @@ const Login = props => {
             token={token}
             setLoading={setLoading}
             navigate={navigate}
-            redirectTo={'/'}
+            redirectTo={isApp ? 'Home' : '/'}
           />
         )}
       </View>

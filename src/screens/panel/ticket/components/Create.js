@@ -7,7 +7,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
-import translator from '../../ticket/Translator';
+import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';
 import {useState} from 'react';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';

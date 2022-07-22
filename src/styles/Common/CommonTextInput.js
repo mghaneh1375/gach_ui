@@ -33,8 +33,7 @@ export const CommonTextInput = props => {
   if (props.type !== undefined && props.type === 'password')
     inputProps.secureTextEntry = true;
 
-  if (props.justNum !== undefined && Platform.OS === 'web') {
-    inputProps.keyboardType = 'numeric';
+  if (props.justNum !== undefined && props.justNum && Platform.OS === 'web') {
     inputProps.onKeyPress = e => {
       var charCode = e.which ? e.which : e.keyCode;
 
@@ -49,7 +48,8 @@ export const CommonTextInput = props => {
       )
         e.preventDefault();
     };
-  }
+  } else if (props.justNum !== undefined && props.justNum)
+    inputProps.keyboardType = 'numeric';
 
   if (props.multiline !== undefined && props.multiline)
     inputProps.multiline = true;

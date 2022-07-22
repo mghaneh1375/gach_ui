@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../App';
-import List from './components/List';
 import AddBatch from './components/Create/AddBatch';
 import AddBatchFiles from './components/Create/AddBatchFiles';
+import List from './components/List/List';
+import {getSubjects} from './components/Utility';
 
 const Question = props => {
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
   const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
+  const [subjects, setSubjects] = useState();
   const [mode, setMode] = useState('list');
+  const [selected, setSelected] = useState();
 
   const navigate = props.navigate;
 
@@ -30,6 +33,19 @@ const Question = props => {
   const toggleShowAddBatchFilesPopUp = () => {
     setShowAddBatchFilesPopUp(!showAddBatchFilesPopUp);
   };
+
+  React.useEffect(() => {
+    dispatch({loading: true});
+
+    Promise.all([getSubjects(props.token)]).then(res => {
+      dispatch({loading: false});
+      if (res[0] === null) {
+        navigate('/');
+        return;
+      }
+      setSubjects(res[0]);
+    });
+  }, [dispatch, navigate, props.token]);
 
   return (
     <View>
@@ -54,6 +70,8 @@ const Question = props => {
           toggleShowAddBatchFilesPopUp={toggleShowAddBatchFilesPopUp}
           setMode={setMode}
           token={props.token}
+          data={subjects}
+          setSelected={setSelected}
         />
       )}
     </View>

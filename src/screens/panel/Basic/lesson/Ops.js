@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../tranlates/Common';
+import {removeLesson} from '../Utility';
 
 function Ops(props) {
   return (
@@ -12,7 +13,14 @@ function Ops(props) {
         toggleShowPopUp={props.toggleShowPopUp}>
         <PhoneView style={{flexWrap: 'wrap'}}>
           <CommonButton
-            onPress={() => props.changeMode('delete')}
+            onPress={() =>
+              removeLesson(
+                props.setLoading,
+                props.token,
+                props.lesson.id,
+                props.afterDelete,
+              )
+            }
             dir={'rtl'}
             theme={'transparent'}
             title={commonTranslator.delete}

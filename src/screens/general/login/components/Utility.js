@@ -15,7 +15,6 @@ export const checkSendRoleForm = async (
   token,
 ) => {
   setLoading(true);
-
   Promise.all([
     generalRequest(
       routes.sendRoleForm,

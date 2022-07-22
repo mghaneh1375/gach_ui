@@ -4,7 +4,7 @@ import certTranslator from '../Translator';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faFolderOpen, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {SimpleText} from '../../../../styles/Common';
-import './Style.css';
+// import './Style.css';
 
 const SelectFile = () => {
   return (

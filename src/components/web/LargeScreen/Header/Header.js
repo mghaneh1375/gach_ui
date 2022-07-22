@@ -7,9 +7,9 @@ import {faAngleDown, faBell} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import {logout} from '../../../../API/User';
-import UserTinyPic from '../UserTinyPic';
 import commonTranslator from '../../../../tranlates/Common';
 import newAlertsKeyVals from './NewAlertsKeyVals';
+import UserTinyPic from '../UserTinyPic';
 
 const Header = props => {
   const device = getDevice();

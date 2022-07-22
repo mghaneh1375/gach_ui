@@ -144,6 +144,7 @@ export const updateInfo = async (setLoading, token, userId, data) => {
     data,
     undefined,
     token,
+    changeInfoMandatoryFields,
   );
 
   if (res !== null) {

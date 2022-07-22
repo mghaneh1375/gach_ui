@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import {getGrade, getGrades} from '../Utility';
-import List from '../../Basic/grade/List/List';
+import List from './List/List';
 import Create from './Create';
 import Translate from '../Translate';
 import {addItem, editItem} from '../../../../services/Utility';

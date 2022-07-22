@@ -1,6 +1,5 @@
 import React from 'react';
 import {View} from 'react-native';
-import {removeItems} from '../../../../services/Utility';
 import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../tranlates/Common';

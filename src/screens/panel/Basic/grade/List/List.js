@@ -7,7 +7,7 @@ import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {routes} from '../../../../../API/APIRoutes';
 import columns from './TableStructure';
 import commonTranslator from '../../../../../tranlates/Common';
-import Ops from './../Ops';
+import Ops from '../Ops';
 import {removeItems} from '../../../../../services/Utility';
 
 function List(props) {
@@ -56,7 +56,7 @@ function List(props) {
             data={props.grades}
             setData={props.setGrades}
             handleOp={handleOp}
-            removeUrl={routes.removeGrade}
+            removeUrl={routes.removeGrades}
             token={props.token}
             setLoading={props.setLoading}
           />

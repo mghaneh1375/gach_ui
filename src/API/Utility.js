@@ -4,9 +4,9 @@ import {showError} from '../services/Utility';
 import commonTranslator from './../tranlates/Common';
 import {removeAuthCache} from './User';
 
-// export const BASE_URL = 'http://192.168.1.100:8080/api/';
-// export const BASE_URL = 'http://192.168.1.36:8080/api/';
-export const BASE_URL = 'http://192.168.0.106:8080/api/';
+export const BASE_URL = 'http://192.168.1.103:8080/api/';
+// export const BASE_URL = 'http://192.168.43.251:8080/api/';
+// export const BASE_URL = 'http://192.168.0.106:8080/api/';
 // export const BASE_URL = 'http://185.239.106.26:8087/api/';
 
 export const COMMON_HEADER = {
