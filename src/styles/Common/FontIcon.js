@@ -64,7 +64,6 @@ export const FontIcon = props => {
   );
 };
 
-<<<<<<< HEAD
 export const SimpleFontIcon = props => {
   let allStyles = {
     cursor: 'pointer',
@@ -90,8 +89,7 @@ export const SimpleFontIcon = props => {
     </Pressable>
   );
 };
-=======
-export const SimpleFontIcon = props => (
+export const SimpleFontIcon0 = props => (
   <Pressable
     style={{
       cursor: 'pointer',
@@ -122,4 +120,3 @@ export const SimpleFontIcon = props => (
     />
   </Pressable>
 );
->>>>>>> 0f9eea714bf8a49e6d78edc62d0c6fb9853b1094

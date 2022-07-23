@@ -77,3 +77,7 @@ export const styleGiftIcon = {
 export const styleColorWhite = {
   color: 'white',
 };
+export const styleTextDecorRed = {
+  textDecoration: 'line-through',
+  textDecorationColor: 'red',
+};

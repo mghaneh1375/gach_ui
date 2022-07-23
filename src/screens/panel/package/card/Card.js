@@ -25,6 +25,7 @@ import {
   styleGiftIcon,
   styleGiftIconParent,
   styleColorWhite,
+  styleTextDecorRed,
 } from './Style';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
 import {routes} from '../../../../API/APIRoutes';
@@ -141,13 +142,20 @@ function Card(props) {
 
         <View>
           <PhoneView style={{...stylePhoneViewForButtonAndPrice}}>
-            {props.isAdmin && (
+            {!props.isAdmin && (
               <PhoneView>
-                <SimpleText style={{}} text={'قیمت :'} />
+                <SimpleText text={'قیمت : '} />
+                <SimpleText
+                  style={{
+                    ...styleTextDecorRed,
+                  }}
+                  text={' 30.000 ' + 'تومان'}
+                />
+                <SimpleText text={' 10.000 ' + 'تومان'} />
               </PhoneView>
             )}
-            {props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
-            {!props.isAdmin && (
+            {!props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
+            {props.isAdmin && (
               <PhoneView style={styleJustifyContentEnd}>
                 <CommonButton
                   onPress={() => setShowRemovePane(true)}
