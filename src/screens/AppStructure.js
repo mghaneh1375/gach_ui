@@ -24,7 +24,6 @@ const AppStructue = props => {
 
   const [token, setToken] = useState(undefined);
   const [user, setUser] = useState(undefined);
-  const [allowRenderPage, setAllowRenderPage] = useState(false);
 
   React.useEffect(() => {
     const screensWithOutBottomNav = ['Login', 'ForgetPass'];
@@ -77,15 +76,19 @@ const AppStructue = props => {
   const toggleHideRightMenu = () => {
     setHideRightMenu(!hideRightMenu);
   };
+  console.log(user);
 
   return (
     <View style={{flex: 1, height: '100%'}}>
       {user === undefined && <TopNavBar />}
-      {user !== undefined && <Logo toggleHideRightMenu={toggleHideRightMenu} />}
-      {!hideRightMenu && currentPage !== undefined && (
+      {user !== undefined && (
+        <Logo isLogin={true} toggleHideRightMenu={toggleHideRightMenu} />
+      )}
+      {!hideRightMenu && currentPage !== undefined && user !== undefined && (
         <Menu
           toggleHideRightMenu={toggleHideRightMenu}
           navigate={navigate}
+          accesses={user !== undefined ? user.accesses : null}
           selected={currentPage}
         />
       )}
@@ -103,7 +106,7 @@ const AppStructue = props => {
 
       {user !== undefined && (
         <Header
-          pic={'https://statics.okft.org/usersPic/1649843007648.jpg'}
+          pic={user.user.pic}
           name={user.user.firstName + ' ' + user.user.lastName}
           hideRightMenu={hideRightMenu}
         />

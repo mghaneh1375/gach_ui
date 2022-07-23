@@ -15,7 +15,7 @@ import Profile from './general/profile/Profile';
 import {getDevice} from '../services/Utility';
 import {Device} from '../models/Device';
 
-import 'react-notifications-component/dist/theme.css';
+// import 'react-notifications-component/dist/theme.css';
 import {ReactNotifications} from 'react-notifications-component';
 
 import {globalStateContext, dispatchStateContext} from '../App';
@@ -25,23 +25,24 @@ import Menu from '../components/web/LargeScreen/Header/Menu';
 import {fetchUser, getToken, getUser} from '../API/User';
 import Navbar from '../components/web/Navbar';
 import BottomNavBar from '../components/web/BottomNavBar';
-import Certificate from './panel/certificate/Certificate';
 import Quiz from './panel/quiz/Quiz';
 import Question from './panel/question/Question';
 import vars from '../styles/root';
 import Off from './panel/offcode/Off';
-import Ticket from './panel/ticket/Ticket';
 import Users from './panel/users/Users';
 import Avatar from './panel/Config/Avatars/Avatar';
 import PageNotFound from './general/404/PageNotFound';
 import General from './panel/Config/Configuration/General';
 import Ravan from './panel/Config/Configuration/Ravan';
 import Schools from './panel/Config/Schools/Schools';
-import Grade from './panel/Basic/grade/Grade.jsx';
+import Grade from './panel/Basic/grade/Grade';
 import {generalRequest} from '../API/Utility';
 import {routes} from '../API/APIRoutes';
 import Lesson from './panel/Basic/lesson/Lesson';
 import Package from './panel/package/Package';
+import Subject from './panel/Basic/subject/Subject';
+import Certificate from './panel/certificate/Certificate';
+import Ticket from './panel/ticket/Ticket';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -242,6 +243,12 @@ const WebStructue = props => {
                 params.mode !== undefined &&
                 params.mode === 'lessons' && (
                   <Lesson token={token} user={user} navigate={navigate} />
+                )}
+              {props.page === 'basic' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'subjects' && (
+                  <Subject token={token} user={user} navigate={navigate} />
                 )}
               {props.page === 'avatars' && (
                 <Avatar token={token} user={user} navigate={navigate} />

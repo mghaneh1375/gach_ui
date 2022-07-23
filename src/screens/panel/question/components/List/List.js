@@ -1,12 +1,22 @@
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import {TextIcon} from '../../../../styles/Common/TextIcon';
-import translator from '../Translator';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+} from '../../../../../styles/Common';
+import {TextIcon} from '../../../../../styles/Common/TextIcon';
+import translator from '../../Translator';
+import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
+import columns from './TableStructure';
 
 const List = props => {
   const changeMode = newMode => {
     props.setMode(newMode);
+  };
+
+  const handleOp = index => {
+    props.setSelected(props.data[index]);
   };
 
   return (
@@ -31,6 +41,12 @@ const List = props => {
               title={translator.uploadZipFile}
             />
           </PhoneView>
+          <CommonDataTable
+            columns={columns}
+            handleOp={handleOp}
+            groupOps={[]}
+            data={props.data}
+          />
         </View>
       }
     />

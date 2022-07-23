@@ -51,7 +51,7 @@ export const getToken = async (key = 'token') => {
 export const getUser = async (key = 'user') => {
   try {
     const value = await AsyncStorage.getItem(key);
-    if (value !== null) {
+    if (value !== null && value !== undefined && value != 'undefined') {
       return JSON.parse(value);
     }
   } catch (e) {

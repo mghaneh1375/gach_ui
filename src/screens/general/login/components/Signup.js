@@ -8,18 +8,19 @@ import {
   TextWithLink,
 } from '../../../../styles/Common';
 
-import {generalRequest, showError} from '../../../../API/Utility';
+import {generalRequest} from '../../../../API/Utility';
 import translator from '../translate';
 import commonTranslator from './../../../../tranlates/Common';
 import {routes} from '../../../../API/APIRoutes';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
+import {showError} from '../../../../services/Utility';
 
 const Signup = props => {
-  const [firstname, setFirstname] = useState('رضا');
-  const [lastname, setLastname] = useState('قانع');
-  const [NID, setNID] = useState('0878716882');
-  const [password, setPassword] = useState('Ghhy@110');
-  const [authVia, setAuthVia] = useState('mail');
+  const [firstname, setFirstname] = useState();
+  const [lastname, setLastname] = useState();
+  const [NID, setNID] = useState();
+  const [password, setPassword] = useState();
+  const [authVia, setAuthVia] = useState('sms');
 
   const changeAuthVia = newMode => {
     setAuthVia(newMode);
@@ -86,7 +87,7 @@ const Signup = props => {
 
       <CommonTextInput
         placeholder={commonTranslator.NID}
-        justNum="true"
+        justNum={true}
         style={{marginTop: 20}}
         value={NID}
         onChangeText={e => changeInput('NID', e)}

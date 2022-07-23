@@ -3,13 +3,10 @@ import BackgroundScrollView from './../../../components/BackgroundScrollView';
 import translator from './translator';
 import {Device} from './../../../models/Device';
 
-import {getToken} from './../../../API/User';
 import {getDevice, getWidthHeight} from './../../../services/Utility';
 
 import {ScreenScroll} from '../../../styles/Common';
 import {ImageBackground} from 'react-native';
-
-import {globalStateContext, dispatchStateContext} from './../../../App';
 
 const device = getDevice();
 
@@ -17,17 +14,6 @@ const Home = navigator => {
   const wH = getWidthHeight();
   const width = wH[0];
   const height = wH[1];
-  const [token, setToken] = useState(undefined);
-
-  // React.useEffect(() => {
-  //   Promise.all([getToken()]).then(res => {
-  //     setToken(res);
-  //   });
-  // }, []);
-
-  // React.useEffect(() => {
-  //   dispatch({token: token});
-  // }, [token, dispatch]);
 
   return (
     <ScreenScroll>

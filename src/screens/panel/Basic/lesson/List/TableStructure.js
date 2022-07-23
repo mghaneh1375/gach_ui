@@ -2,7 +2,7 @@ import commonTranslator from '../../../../../tranlates/Common';
 import Translate from '../../Translate';
 const columns = [
   {
-    name: Translate.nameOfBook,
+    name: Translate.lessonName,
     selector: row => row.name,
     grow: 1,
   },

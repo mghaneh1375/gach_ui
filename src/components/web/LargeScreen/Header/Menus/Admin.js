@@ -8,6 +8,7 @@ import {
   faUsers,
   faContactBook,
   faMoneyBill,
+  faQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 import {SuperMenuItem} from './SuperMenuItem';
@@ -67,6 +68,12 @@ function AdminMenu(props) {
           text={translator.requests}
           icon={faCog}
           selected={props.selected === 'ticket'}
+        />
+        <MenuItem
+          onClick={() => navigate('/question')}
+          text={translator.questions}
+          icon={faQuestion}
+          selected={props.selected === 'question'}
         />
         <SuperMenuItem
           text={translator.users}

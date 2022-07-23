@@ -2,7 +2,7 @@ import React from 'react';
 import vars from '../../../../styles/root';
 import translator from '../../../../tranlates/Common';
 import {CommonButton} from '../../../../styles/Common';
-import './Style.css';
+// import './Style.css';
 
 const Buttons = () => {
   return (

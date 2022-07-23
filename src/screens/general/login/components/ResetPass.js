@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
-import {generalRequest, showError} from '../../../../API/Utility';
-import {CommonButton, CommonTextInput} from '../../../../styles/Common';
+import {generalRequest} from '../../../../API/Utility';
+import {showError} from '../../../../services/Utility';
+import {CommonButton} from '../../../../styles/Common';
+import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import translator from '..//translate';
 import commonTranslator from './../../../../tranlates/Common';
 

@@ -126,5 +126,8 @@ const translator = {
   isOlympiad: 'آیا جز رشته های المپیادی است؟',
   listQuiz: 'لیست آزمون ها',
   packageQuiz: 'بسته های آزمون',
+  name: 'نام',
+  addBatch: 'افزودن دسته ای',
+  questions: 'سوالات',
 };
 export default translator;

@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {
-  CommonButton,
-  EqualTwoTextInputs,
-  SimpleText,
-} from '../../../../styles/Common';
+import {CommonButton, EqualTwoTextInputs} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import vars from '../../../../styles/root';
 import translator from '../translate';

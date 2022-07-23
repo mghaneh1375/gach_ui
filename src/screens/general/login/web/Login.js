@@ -41,10 +41,11 @@ const Login = props => {
   const [state, dispatch] = useGlobalState();
 
   React.useEffect(() => {
+    if (mode === 'verification' || mode === 'roleForm') return;
     Promise.all([getToken()]).then(res => {
       if (res[0] !== undefined) navigate('/');
     });
-  }, [state.token, state, navigate]);
+  }, [navigate, mode]);
 
   const setLoading = status => {
     dispatch({loading: status});

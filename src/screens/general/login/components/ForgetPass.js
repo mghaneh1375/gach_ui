@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
-import {generalRequest, showError} from '../../../../API/Utility';
+import {generalRequest} from '../../../../API/Utility';
+import {showError} from '../../../../services/Utility';
 import {
   BlueTextFromStart,
   CommonButton,

@@ -1,12 +1,10 @@
 import {View} from 'react-native';
-import {CommonWebBox, SimpleText} from '../../../../styles/Common';
 import {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
-import List from '../lesson/List/List';
+import List from './List/List';
 import React from 'react';
-import {getGrades, getGradesOnly, getLessons} from '../Utility';
-import Create from '../lesson/Create';
-import Translate from '../Translate';
+import {getGradesOnly, getLessons} from '../Utility';
+import Create from './Create';
 import {addItem, editItem} from '../../../../services/Utility';
 
 function Lesson(props) {
@@ -57,7 +55,6 @@ function Lesson(props) {
       )}
       {mode === 'create' && (
         <Create
-          name={Translate.name}
           token={props.token}
           setMode={setMode}
           grades={grades}
@@ -67,12 +64,11 @@ function Lesson(props) {
       )}
       {mode === 'edit' && (
         <Create
-          name={Translate.name}
           token={props.token}
           setMode={setMode}
           grades={grades}
           lesson={selectedLesson}
-          afterFunc={newItem => addItem(lessons, setLessons, newItem)}
+          afterFunc={newItem => editItem(lessons, setLessons, newItem)}
           setLoading={setLoading}
         />
       )}
