@@ -176,7 +176,7 @@ export const createSubject = async (token, gradeId, lessonId, data) => {
     routes.addSubject + gradeId + '/' + lessonId,
     'post',
     data,
-    'id',
+    ['id', 'code'],
     token,
   );
   if (res !== null) showSuccess(commonTranslator.success);

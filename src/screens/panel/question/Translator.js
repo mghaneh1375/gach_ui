@@ -4,9 +4,23 @@ const translator = {
   addBatch: 'افزودن دسته ای سوالات',
   addBatchFiles: 'افزودن دسته ای فایل صورت/پاسخ سوالات',
   qNo: 'تعداد سوالات',
+  questions: 'مدیریت سوالات',
   subject: 'مبحث',
   lesson: 'درس',
   grade: 'مقطع',
+  addQuestions: 'افزودن سوالات',
+  criticalThresh: 'حد آستانه کمبود سوالات',
+  justCriticals: 'تنها مباحث دارای کمبود سوال را نمایش بده',
+  organizationCode: 'کد سازمانی: ',
+  neededTime: 'زمان پاسخدهی: ',
+  author: 'مولف: ',
+  kind: 'نوع پاسخ: ',
+  level: 'درجه سختی: ',
+  choicesCount: 'تعداد گزینه: ',
+  telorance: 'تلورانس پاسخ: ',
+  answer: 'پاسخ صحیح: ',
+  questionFile: 'فایل سوال',
+  answerFile: 'فایل پاسخ',
 };
 
 export default translator;
