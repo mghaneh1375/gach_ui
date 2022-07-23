@@ -64,24 +64,28 @@ export const FontIcon = props => {
   );
 };
 
-export const SimpleFontIcon = props => (
-  <Pressable
-    style={{
-      cursor: 'pointer',
-      width: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
-      height: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
-      alignSelf: 'center',
-      color: vars.LIGHT_SILVER,
-      justifyContent: 'center',
-    }}
-    onPress={props.onPress}>
-    <FontAwesomeIcon
-      icon={props.icon}
-      style={[
-        Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
-        {color: vars.LIGHT_SILVER},
-        props.style ? props.style : {},
-      ]}
-    />
-  </Pressable>
-);
+export const SimpleFontIcon = props => {
+  let allStyles = {
+    cursor: 'pointer',
+    width: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
+    height: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
+    alignSelf: 'center',
+    color: vars.LIGHT_SILVER,
+    justifyContent: 'center',
+  };
+  if (props.parentStyle !== undefined)
+    allStyles = {...allStyles, ...props.parentStyle};
+
+  return (
+    <Pressable style={allStyles} onPress={props.onPress}>
+      <FontAwesomeIcon
+        icon={props.icon}
+        style={[
+          Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
+          {color: vars.LIGHT_SILVER},
+          props.style ? props.style : {},
+        ]}
+      />
+    </Pressable>
+  );
+};

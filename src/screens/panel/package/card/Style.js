@@ -1,3 +1,5 @@
+import vars from '../../../../styles/root';
+
 export const styleCommonWebBoxView = {
   width: 360,
   height: 40,
@@ -18,6 +20,7 @@ export const styleSimpleTextTitle = {
 };
 export const styleLittleView = {
   width: 60,
+  color: 'white',
   height: 60,
   borderRadius: '50%',
   position: 'absolute',
@@ -62,4 +65,15 @@ export const stylePhoneViewForButtonAndPrice = {
 export const styleJustifyContentEnd = {
   justifyContent: 'flex-end',
   width: '100%',
+};
+export const styleGiftIconParent = {
+  position: 'absolute',
+  right: -15,
+  top: -15,
+};
+export const styleGiftIcon = {
+  color: vars.ORANGE_RED,
+};
+export const styleColorWhite = {
+  color: 'white',
 };
