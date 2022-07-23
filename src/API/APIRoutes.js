@@ -56,6 +56,7 @@ export const routes = {
   forceDeportation: 'quiz/manage/forceDeportation/',
   fetchQuestions: 'quiz/manage/fetchQuestions/',
   addBatchQuestionsToQuiz: 'quiz/manage/addBatchQuestionsToQuiz/',
+  fetchAllPackages: 'quiz/manage/getPackages',
   addBatchQuestions: 'admin/question/addBatch',
   getSubjectQuestions: 'admin/question/subjectQuestions',
   addBatchFiles: 'admin/general/uploadFiles/',
