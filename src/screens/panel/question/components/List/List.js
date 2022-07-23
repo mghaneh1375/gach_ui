@@ -9,6 +9,7 @@ import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import translator from '../../Translator';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import columns from './TableStructure';
+// import Filter from './Filter';
 
 const List = props => {
   const changeMode = newMode => {
@@ -41,6 +42,7 @@ const List = props => {
               title={translator.uploadZipFile}
             />
           </PhoneView>
+          {/* <Filter grades={props.grades} token={props.token} /> */}
           <CommonDataTable
             columns={columns}
             handleOp={handleOp}

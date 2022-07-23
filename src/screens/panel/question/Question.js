@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../App';
+import {getGradeLessons} from '../Basic/Utility';
 import AddBatch from './components/Create/AddBatch';
 import AddBatchFiles from './components/Create/AddBatchFiles';
 import List from './components/List/List';
@@ -11,6 +12,7 @@ const Question = props => {
   const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
   const [subjects, setSubjects] = useState();
   const [mode, setMode] = useState('list');
+  const [grades, setGrades] = useState();
   const [selected, setSelected] = useState();
 
   const navigate = props.navigate;
@@ -37,14 +39,17 @@ const Question = props => {
   React.useEffect(() => {
     dispatch({loading: true});
 
-    Promise.all([getSubjects(props.token)]).then(res => {
-      dispatch({loading: false});
-      if (res[0] === null) {
-        navigate('/');
-        return;
-      }
-      setSubjects(res[0]);
-    });
+    Promise.all([getSubjects(props.token), getGradeLessons(props.token)]).then(
+      res => {
+        dispatch({loading: false});
+        if (res[0] === null || res[1] === null) {
+          navigate('/');
+          return;
+        }
+        setSubjects(res[0]);
+        setGrades(res[1]);
+      },
+    );
   }, [dispatch, navigate, props.token]);
 
   return (
@@ -72,6 +77,7 @@ const Question = props => {
           token={props.token}
           data={subjects}
           setSelected={setSelected}
+          grades={grades}
         />
       )}
     </View>

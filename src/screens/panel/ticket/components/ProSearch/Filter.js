@@ -7,12 +7,10 @@ import {
   startWithVals,
   statusKeyVals,
   priorityKeyVals,
-  sectionKeyVals,
   sectionKeyValsForFilter,
 } from '../KeyVals';
 import {
   PhoneView,
-  CommonRadioButton,
   SimpleText,
   CommonButton,
 } from '../../../../../styles/Common';
