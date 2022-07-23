@@ -5,5 +5,6 @@ const Translate = {
   minSelect: 'حداقل تعداد آزمون انتخابی',
   buyersCount: 'تعداد خریداران',
   showQuiz: 'مشاهده آزمون',
+  packageQuizzes: 'آزمون های بسته ',
 };
 export default Translate;

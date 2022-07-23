@@ -13,27 +13,55 @@ export const fetchAllPackages = async token => {
   );
 };
 
-export const editPackage = async (id, token, data) => {
-  let res = await generalRequest(
-    routes.editPackage + id,
-    'put',
-    data,
+export const fetchPackageQuizzes = async (token, id) => {
+  return await generalRequest(
+    routes.fetchPackageQuizzes + id,
+    'get',
     undefined,
+    'data',
     token,
   );
-  if (res !== null) showSuccess(commonTranslator.success);
+};
 
-  return res;
+const mandatoryFields = [
+  'title',
+  'gradeId',
+  'minSelect',
+  'offPercent',
+  'lessonId',
+];
+
+export const editPackage = async (id, token, data) => {
+  try {
+    let res = await generalRequest(
+      routes.updatePackage + id,
+      'put',
+      data,
+      undefined,
+      token,
+      mandatoryFields,
+    );
+    if (res !== null) showSuccess(commonTranslator.success);
+
+    return res;
+  } catch (e) {
+    return null;
+  }
 };
 
 export const createPackage = async (token, data) => {
-  let res = await generalRequest(
-    routes.createPackage,
-    'post',
-    data,
-    'id',
-    token,
-  );
-  if (res !== null) showSuccess(commonTranslator.success);
-  return res;
+  try {
+    let res = await generalRequest(
+      routes.createPackage,
+      'post',
+      data,
+      'id',
+      token,
+      mandatoryFields,
+    );
+    if (res !== null) showSuccess(commonTranslator.success);
+    return res;
+  } catch (e) {
+    return null;
+  }
 };

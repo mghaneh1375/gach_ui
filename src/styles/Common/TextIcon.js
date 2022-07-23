@@ -60,10 +60,12 @@ export const TinyTextIcon = props => {
       ? {...style, ...props.style, ...{paddingLeft: 3, paddingRight: 3}}
       : {...style, ...{paddingLeft: 3, paddingRight: 3}};
 
-  var fontProps = {icon: props.icon};
-  if (props.onPress !== undefined) fontProps.onPress = props.onPress;
+  var fontProps =
+    props.icon === undefined
+      ? undefined
+      : {icon: props.icon, style: {padding: 2}};
 
-  fontProps.style = {padding: 2};
+  if (props.onPress !== undefined) fontProps.onPress = props.onPress;
 
   const tinyFontIconStyle = {
     width: 15,

@@ -53,13 +53,15 @@ export const FontIcon = props => {
 
   return (
     <Pressable style={allStyles} onPress={props.onPress}>
-      <FontAwesomeIcon
-        icon={props.icon}
-        style={[
-          Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
-          props.style ? props.style : {},
-        ]}
-      />
+      {props.icon !== undefined && (
+        <FontAwesomeIcon
+          icon={props.icon}
+          style={[
+            Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
+            props.style ? props.style : {},
+          ]}
+        />
+      )}
     </Pressable>
   );
 };

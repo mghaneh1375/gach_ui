@@ -26,6 +26,8 @@ function List(props) {
                   package={package_}
                   setLoading={props.setLoading}
                   token={props.token}
+                  setMode={props.setMode}
+                  setSelected={props.setSelected}
                 />
               );
             })}

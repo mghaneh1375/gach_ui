@@ -6,6 +6,7 @@ import {fetchAllPackages} from './components/Utility';
 import {addItem, editItem, removeItems} from '../../../services/Utility';
 import Create from './components/Create';
 import {getGradeLessons} from '../Basic/Utility';
+import Detail from './components/Detail';
 
 function Package(props) {
   const navigate = props.navigate;
@@ -58,6 +59,14 @@ function Package(props) {
           setLoading={setLoading}
           token={props.token}
           setSelected={setSelected}
+        />
+      )}
+      {mode === 'detail' && (
+        <Detail
+          package={selected}
+          setMode={setMode}
+          setLoading={setLoading}
+          token={props.token}
         />
       )}
       {mode === 'create' && (

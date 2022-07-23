@@ -5,10 +5,10 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {TinyTextIcon} from '../../../../styles/Common/TextIcon';
-import Translate from '../Translate';
-import commonTranslator from '../../../../tranlates/Common';
+} from './../../../../../styles/Common';
+import {TinyTextIcon} from '../../../../../styles/Common/TextIcon';
+import Translate from './Translate';
+import commonTranslator from '../../../../../tranlates/Common';
 import {
   styleCommonWebBoxView,
   styleLittleView,
@@ -27,11 +27,10 @@ import {
   styleColorWhite,
   styleTextDecorRed,
 } from './Style';
-import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
-import {routes} from '../../../../API/APIRoutes';
-import {showSuccess} from '../../../../services/Utility';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {faGift} from '@fortawesome/free-solid-svg-icons';
+import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
+import {routes} from '../../../../../API/APIRoutes';
+import {showSuccess} from '../../../../../services/Utility';
+import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 
 function Card(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);
@@ -57,13 +56,6 @@ function Card(props) {
         />
       )}
       <CommonWebBox width={390} style={{height: 250}}>
-        <SimpleFontIcon
-          kind={'normal'}
-          icon={faGift}
-          parentStyle={{...styleGiftIconParent}}
-          style={{...styleGiftIcon}}
-        />
-
         <View
           style={{
             ...styleCommonWebBoxView,
@@ -169,14 +161,7 @@ function Card(props) {
                   theme={'transparent'}
                   title={commonTranslator.edit}
                 />
-                <CommonButton
-                  onPress={() => {
-                    props.setSelected(props.package);
-                    props.setMode('detail');
-                  }}
-                  theme={'dark'}
-                  title={Translate.showQuiz}
-                />
+                <CommonButton theme={'dark'} title={Translate.showQuiz} />
               </PhoneView>
             )}
           </PhoneView>

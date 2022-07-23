@@ -9,10 +9,18 @@ import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSe
 import {createPackage, editPackage} from './Utility';
 
 function Create(props) {
-  const [title, setTitle] = useState('');
-  const [minSelect, setMinSelect] = useState('');
-  const [desc, setDesc] = useState('');
-  const [offPercent, setOffPercent] = useState('');
+  const [title, setTitle] = useState(
+    props.package !== undefined ? props.package.title : '',
+  );
+  const [minSelect, setMinSelect] = useState(
+    props.package !== undefined ? props.package.minSelect : '',
+  );
+  const [desc, setDesc] = useState(
+    props.package !== undefined ? props.package.description : '',
+  );
+  const [offPercent, setOffPercent] = useState(
+    props.package !== undefined ? props.package.offPercent : '',
+  );
   const [lesson, setLesson] = useState(
     props.package !== undefined ? props.package.lesson.id : undefined,
   );
@@ -59,7 +67,7 @@ function Create(props) {
             onChangeText={e => changeText(e, setOffPercent)}
           />
         </PhoneView>
-        <PhoneView>
+        <PhoneView style={{marginTop: 25}}>
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={commonTranslator.grade}
@@ -122,9 +130,13 @@ function Create(props) {
                   description: desc,
                   minSelect: minSelect,
                   offPercent: offPercent,
+                  buyers:
+                    props.package !== undefined ? props.package.buyers : 0,
+                  quizzes:
+                    props.package !== undefined ? props.package.quizzes : 0,
                   grade: {id: selectedGrade.id, name: selectedGrade.item},
                   lesson: {id: selectedLesson.id, name: selectedLesson.item},
-                  id: props.subject !== undefined ? props.subject.id : res,
+                  id: props.package !== undefined ? props.package.id : res,
                 });
                 props.setMode('list');
               }
