@@ -80,25 +80,7 @@ function Package() {
               </View>
             </PhoneView>
           </View>
-          <View style={{width: '90%', height: 40, margin: '0 auto 0 auto'}}>
-            <PhoneView style={{justifyContent: 'space-around', marginTop: 15}}>
-              <View>
-                <TinyTextIcon style={{right: -50, top: 26}} />
-                <SimpleText style={{fontSize: 11}} text={'مدت زمان'} />
-                <SimpleText style={{fontSize: 15}} text={'25 دقیقه'} />
-              </View>
-              <View>
-                <TinyTextIcon style={{right: -50, top: 26}} />
-                <SimpleText style={{fontSize: 11}} text={'تعداد سوال'} />
-                <SimpleText style={{fontSize: 15}} text={'7000'} />
-              </View>
-              <View>
-                <TinyTextIcon style={{right: -50, top: 26}} />
-                <SimpleText style={{fontSize: 11}} text={'درجه سختی'} />
-                <SimpleText style={{fontSize: 15}} text={'بسیار دشوار'} />
-              </View>
-            </PhoneView>
-          </View>
+
           <View>
             <PhoneView
               style={{
