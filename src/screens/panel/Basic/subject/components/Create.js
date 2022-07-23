@@ -190,7 +190,11 @@ function Create(props) {
                     easyPrice: easyPrice,
                     grade: {id: selectedGrade.id, name: selectedGrade.item},
                     lesson: {id: selectedLesson.id, name: selectedLesson.item},
-                    id: props.subject !== undefined ? props.subject.id : res,
+                    code:
+                      props.subject !== undefined
+                        ? props.subject.code
+                        : res.code,
+                    id: props.subject !== undefined ? props.subject.id : res.id,
                   });
                   props.setMode('list');
                 }

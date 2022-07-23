@@ -1,17 +1,16 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../App';
+import {editItem} from '../../../services/Utility';
 import {getGradeLessons} from '../Basic/Utility';
-import AddBatch from './components/Create/AddBatch';
-import AddBatchFiles from './components/Create/AddBatchFiles';
+import Create from './components/Create/Create';
+import Detail from './components/Detail/Detail';
 import List from './components/List/List';
 import {getSubjects} from './components/Utility';
 
 const Question = props => {
-  const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
-  const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
   const [subjects, setSubjects] = useState();
-  const [mode, setMode] = useState('list');
+  const [mode, setMode] = useState('');
   const [grades, setGrades] = useState();
   const [selected, setSelected] = useState();
 
@@ -28,14 +27,6 @@ const Question = props => {
     dispatch({loading: status});
   };
 
-  const toggleShowAddBatchPopUp = () => {
-    setShowAddBatchPopUp(!showAddBatchPopUp);
-  };
-
-  const toggleShowAddBatchFilesPopUp = () => {
-    setShowAddBatchFilesPopUp(!showAddBatchFilesPopUp);
-  };
-
   React.useEffect(() => {
     dispatch({loading: true});
 
@@ -47,37 +38,43 @@ const Question = props => {
           return;
         }
         setSubjects(res[0]);
-        setGrades(res[1]);
+
+        setGrades(
+          res[1].map(elem => {
+            return {id: elem.id, item: elem.name, lessons: elem.lessons};
+          }),
+        );
+        setMode('list');
       },
     );
   }, [dispatch, navigate, props.token]);
 
   return (
     <View>
-      {showAddBatchPopUp && (
-        <AddBatch
-          toggleShowPopUp={toggleShowAddBatchPopUp}
-          token={props.token}
-          setLoading={setLoading}
-          setMode={setMode}
-        />
-      )}
-      {showAddBatchFilesPopUp && (
-        <AddBatchFiles
-          toggleShowPopUp={toggleShowAddBatchFilesPopUp}
-          token={props.token}
-          setLoading={setLoading}
-        />
-      )}
       {mode === 'list' && (
         <List
-          toggleShowAddBatchPopUp={toggleShowAddBatchPopUp}
-          toggleShowAddBatchFilesPopUp={toggleShowAddBatchFilesPopUp}
           setMode={setMode}
           token={props.token}
           data={subjects}
+          setData={setSubjects}
           setSelected={setSelected}
           grades={grades}
+          setLoading={setLoading}
+        />
+      )}
+      {mode === 'create' && (
+        <Create setMode={setMode} token={props.token} setLoading={setLoading} />
+      )}
+      {mode === 'detail' && (
+        <Detail
+          subject={selected}
+          setSubject={newItem => {
+            editItem(subjects, setSubjects, newItem);
+            setSelected(newItem);
+          }}
+          setMode={setMode}
+          token={props.token}
+          setLoading={setLoading}
         />
       )}
     </View>

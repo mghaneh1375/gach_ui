@@ -130,5 +130,7 @@ const translator = {
   name: 'نام',
   addBatch: 'افزودن دسته ای',
   questions: 'سوالات',
+  more: 'اطلاعات بیشتر',
+  less: 'اطلاعات کمتر',
 };
 export default translator;

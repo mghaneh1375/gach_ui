@@ -64,6 +64,7 @@ export const FontIcon = props => {
   );
 };
 
+<<<<<<< HEAD
 export const SimpleFontIcon = props => {
   let allStyles = {
     cursor: 'pointer',
@@ -89,3 +90,36 @@ export const SimpleFontIcon = props => {
     </Pressable>
   );
 };
+=======
+export const SimpleFontIcon = props => (
+  <Pressable
+    style={{
+      cursor: 'pointer',
+      width:
+        props.kind === undefined || props.kind === 'full'
+          ? '100%'
+          : props.kind === 'normal'
+          ? 30
+          : 20,
+      height:
+        props.kind === undefined || props.kind === 'full'
+          ? '100%'
+          : props.kind === 'normal'
+          ? 30
+          : 20,
+      alignSelf: 'center',
+      color: vars.LIGHT_SILVER,
+      justifyContent: 'center',
+    }}
+    onPress={props.onPress}>
+    <FontAwesomeIcon
+      icon={props.icon}
+      style={[
+        Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
+        {color: vars.LIGHT_SILVER},
+        props.style ? props.style : {},
+      ]}
+    />
+  </Pressable>
+);
+>>>>>>> 0f9eea714bf8a49e6d78edc62d0c6fb9853b1094

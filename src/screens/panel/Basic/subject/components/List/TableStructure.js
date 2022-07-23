@@ -8,12 +8,17 @@ const columns = [
     grow: 1,
   },
   {
-    name: Translate.lessonName,
+    name: Translate.code,
+    selector: row => row.code,
+    grow: 1,
+  },
+  {
+    name: commonTranslator.lesson,
     selector: row => row.lesson.name,
     grow: 1,
   },
   {
-    name: Translate.gradeName,
+    name: commonTranslator.grade,
     selector: row => row.grade.name,
     grow: 1,
   },
