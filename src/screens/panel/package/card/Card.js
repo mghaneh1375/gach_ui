@@ -6,87 +6,115 @@ import {
   SimpleText,
 } from '../../../../styles/Common';
 import {TinyTextIcon} from '../../../../styles/Common/TextIcon';
-
+import Translate from '../Translate';
+import commonTranslator from '../../../../tranlates/Common';
+import {
+  styleCommonWebBoxView,
+  styleLittleView,
+  styleSimpleTextTitle,
+  styleViewWithGrade,
+  styleFont13,
+  styleViewThreeChild,
+  styleTinyTextIcon,
+  styleFontSize11,
+  styleJustifyContentBetween,
+  styleFontSize15,
+  stylePhoneViewForButtonAndPrice,
+  styleJustifyContentEnd,
+} from './Style';
 function Card(props) {
   return (
-    <>
-      <CommonWebBox text={props.textParent} width={514} style={{height: 300}}>
-        <View
+    <CommonWebBox width={390} style={{height: 250}}>
+      <View
+        style={{
+          ...styleCommonWebBoxView,
+        }}>
+        <SimpleText
           style={{
-            width: 443,
-            height: 40,
-            backgroundColor: '#FFEFCE',
-            alignSelf: 'center',
-            margin: 7,
-            borderRadius: 5,
-            alignItems: 'center',
-            // boxShadow: '0 3 6',
-          }}>
-          <SimpleText
-            style={{
-              width: '80%',
-              height: 40,
-              display: 'flex',
-              alignItems: 'center',
-              marginRight: 0,
-            }}
-            text={props.onvanTakhfif}
-          />
-        </View>
-        <View
-          style={{
-            width: 60,
-            height: 60,
-            borderRadius: '50%',
-            position: 'absolute',
-            backgroundColor: 'orange',
-            left: 50,
-            top: 5,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <SimpleText text={props.mizanTakhfif}></SimpleText>
-        </View>
-        <View
-          style={{
-            width: 325,
-            height: 55,
-            marginRight: 40,
-          }}>
-          <SimpleText style={{fontSize: 13}} text={props.options0} />
-          <SimpleText style={{fontSize: 13}} text={props.subOption0} />
-        </View>
-        <View style={{width: '90%', height: 40, margin: '0 auto 0 auto'}}>
-          <PhoneView style={{justifyContent: 'space-around'}}>
+            ...styleSimpleTextTitle,
+          }}
+          text={props.package.title}
+        />
+      </View>
+      <View
+        style={{
+          ...styleLittleView,
+        }}>
+        <SimpleText text={props.package.offPercent} />
+      </View>
+      <View
+        style={{
+          ...styleViewWithGrade,
+        }}>
+        <SimpleText
+          style={{...styleFont13}}
+          text={commonTranslator.grade + ' : ' + props.package.grade}
+        />
+        <SimpleText
+          style={{...styleFont13}}
+          text={commonTranslator.lesson + ' : ' + props.package.lesson}
+        />
+      </View>
+      <View style={{...styleViewThreeChild}}>
+        <PhoneView style={{...styleJustifyContentBetween}}>
+          <View>
+            <TinyTextIcon style={{...styleTinyTextIcon}} />
+            <SimpleText
+              style={{...styleFontSize11}}
+              text={Translate.quizCount}
+            />
+            <SimpleText
+              style={{...styleFontSize15}}
+              text={props.package.quizzes}
+            />
+          </View>
+          {props.isAdmin && (
             <View>
-              <TinyTextIcon style={{right: -50, top: 26}} />
-              <SimpleText style={{fontSize: 11}} text={props.options1} />
-              <SimpleText style={{fontSize: 15}} text={props.subOptions1} />
+              <TinyTextIcon style={{...styleTinyTextIcon}} />
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={Translate.minSelect}
+              />
+              <SimpleText
+                style={{...styleFontSize15}}
+                text={props.package.minSelect}
+              />
             </View>
-            {/* <View>
-              <TinyTextIcon style={{right: -50, top: 26}} />
-              <SimpleText style={{fontSize: 11}} text={'تعداد سوال'} />
-              <SimpleText style={{fontSize: 15}} text={'7000'} />
-            </View> */}
-          </PhoneView>
-        </View>
+          )}
 
-        <View>
-          <PhoneView
-            style={{
-              marginTop: 40,
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: '100%',
-            }}>
-            {/* <SimpleText text="تومان 30.000     10.000" /> */}
-            {props.isAdmin &&
-                <CommonButton title={props.submitText} />
-            };
-          </PhoneView>
-        </View>
-      </CommonWebBox>
-    </>
+          {props.isAdmin && (
+            <View>
+              <TinyTextIcon style={{...styleTinyTextIcon}} />
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={Translate.buyersCount}
+              />
+              <SimpleText
+                style={{...styleFontSize15}}
+                text={props.package.buyersCount}
+              />
+            </View>
+          )}
+        </PhoneView>
+      </View>
+
+      <View>
+        <PhoneView style={{...stylePhoneViewForButtonAndPrice}}>
+          {!props.isAdmin && (
+            <PhoneView>
+              <SimpleText text="تومان 30.000     10.000" />
+            </PhoneView>
+          )}
+          {!props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
+          {props.isAdmin && (
+            <PhoneView style={styleJustifyContentEnd}>
+              <CommonButton title={commonTranslator.delete} />
+              <CommonButton title={commonTranslator.edit} />
+            </PhoneView>
+          )}
+        </PhoneView>
+      </View>
+    </CommonWebBox>
   );
 }
 

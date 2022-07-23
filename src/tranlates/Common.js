@@ -46,6 +46,7 @@ const translator = {
   state: 'استان',
   city: 'شهر',
   grade: 'پایه تحصیلی',
+  lesson: 'درس',
   branch: 'گروه آموزشی',
   change: 'تغییر',
   doChange: 'اعمال تغییر',

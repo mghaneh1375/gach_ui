@@ -1,8 +1,8 @@
 const Translate = {
-  test: 'تست',
+  quizCount: 'تعداد آزمون ها',
   buyQuiz: 'خرید آزمون',
-  onvanTakhfif: 'عنوان تخفیف',
   mizanTakhfif: 'میزان تخفیف',
-  deleteButton: 'حدف',
+  minSelect: 'حداقل تعداد آزمون انتخابی',
+  buyersCount: 'تعداد خریداران',
 };
 export default Translate;
