@@ -7,19 +7,50 @@ import Translate from '../../Translate';
 import commonTranslator from '../../../../../tranlates/Common';
 import {showSuccess} from '../../../../../services/Utility';
 import {dispatchQuizzesContext, quizzesContext} from './Utility';
+import {generalRequest} from '../../../../../API/Utility';
 
 function Add(props) {
   const [selectedQuizzes, setSelectedQuizzes] = useState([]);
+  const [isWorking, setIsWorking] = useState(false);
+
   const useGlobalState = () => [
     React.useContext(quizzesContext),
     React.useContext(dispatchQuizzesContext),
   ];
   const [state, dispatch] = useGlobalState();
 
+  React.useEffect(() => {
+    if (isWorking || state.registrableQuizzes !== undefined) return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+
+    Promise.all([
+      generalRequest(
+        routes.fetchIRYSCRegistrableQuizzes,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+
+      if (res[0] === null) {
+        dispatch({selectingQuiz: false});
+        return;
+      }
+
+      dispatch({registrableQuizzes: res[0]});
+      setIsWorking(false);
+    });
+  }, [props, isWorking, state, dispatch]);
+
+  if (state.registrableQuizzes === undefined) return <></>;
   return (
     <Quizzes
       onBackClicked={() => dispatch({selectingQuiz: false})}
-      fetchUrl={routes.fetchIRYSCRegistrableQuizzes}
+      quizzes={state.registrableQuizzes}
       token={props.token}
       setSelectedQuizzes={setSelectedQuizzes}
       setLoading={props.setLoading}>
@@ -41,6 +72,7 @@ function Add(props) {
             props.package.quizzesDoc = res;
             props.package.quizzes = res.length;
             props.setPackage(props.package);
+            setSelectedQuizzes([]);
           }
         }}
       />

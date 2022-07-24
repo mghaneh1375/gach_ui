@@ -37,8 +37,13 @@ function Quizzes(props) {
   };
 
   React.useEffect(() => {
-    if (isWorking || quizzes !== undefined || props.fetchUrl === undefined)
+    if (isWorking || (quizzes !== undefined && props.fetchUrl !== undefined))
       return;
+
+    if (props.fetchUrl === undefined && props.quizzes !== undefined) {
+      setQuizzes(props.quizzes);
+      return;
+    }
 
     setIsWorking(true);
     props.setLoading(true);
