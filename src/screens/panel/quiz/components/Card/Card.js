@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {View} from 'react-native';
 import {
   CommonButton,
@@ -11,163 +10,182 @@ import Translate from './Translate';
 import commonTranslator from '../../../../../tranlates/Common';
 import {
   styleCommonWebBoxView,
-  styleLittleView,
-  styleSimpleTextTitle,
-  styleViewWithGrade,
-  styleFont13,
-  styleViewThreeChild,
+  styleTitle,
+  styleDigest,
+  styleFontSize13,
   styleTinyTextIcon,
   styleFontSize11,
-  styleJustifyContentBetween,
   styleFontSize15,
-  stylePhoneViewForButtonAndPrice,
-  styleJustifyContentEnd,
-  styleGiftIcon,
-  styleGiftIconParent,
-  styleColorWhite,
-  styleTextDecorRed,
-} from './Style';
-import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
-import {routes} from '../../../../../API/APIRoutes';
-import {showSuccess} from '../../../../../services/Utility';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+  styleItemsParent,
+  styleItem,
+  styleFullItem,
+  styleItemsGrandParent,
+  styleCard,
+  stylePricaPane,
+} from './../../../package/card/Style';
+import {convertTimestamp} from '../../../../../services/Utility';
+import {isOnlineKeyVals, kindQuizKeyVals} from '../KeyVals';
 
 function Card(props) {
-  const [showRemovePane, setShowRemovePane] = useState(false);
-
-  const afterRemove = res => {
-    setShowRemovePane(false);
-    showSuccess(res.excepts);
-    props.afterRemove(res.doneIds);
-    setShowRemovePane(false);
-  };
-
   return (
-    <View>
-      {showRemovePane && (
-        <ConfirmationBatchOpPane
-          setLoading={props.setLoading}
-          token={props.token}
-          url={routes.removePackages}
-          expected={['excepts', 'doneIds']}
-          data={{items: [props.package.id]}}
-          afterFunc={afterRemove}
-          toggleShowPopUp={() => setShowRemovePane(false)}
+    <CommonWebBox style={{...styleCard}}>
+      <View
+        style={{
+          ...styleCommonWebBoxView,
+        }}>
+        <SimpleText
+          style={{
+            ...styleTitle,
+          }}
+          text={props.quiz.title}
         />
-      )}
-      <CommonWebBox width={390} style={{height: 250}}>
-        <View
-          style={{
-            ...styleCommonWebBoxView,
-          }}>
-          <SimpleText
-            style={{
-              ...styleSimpleTextTitle,
-            }}
-            text={props.package.title}
-          />
-        </View>
-        <View
-          style={{
-            ...styleLittleView,
-          }}>
-          <SimpleText
-            style={{...styleColorWhite}}
-            text={props.package.offPercent + '%'}
-          />
-        </View>
-        <View
-          style={{
-            ...styleViewWithGrade,
-          }}>
-          <SimpleText
-            style={{...styleFont13}}
-            text={commonTranslator.grade + ' : ' + props.package.grade.name}
-          />
-          <SimpleText
-            style={{...styleFont13}}
-            text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
-          />
-        </View>
-        <View style={{...styleViewThreeChild}}>
-          <PhoneView style={{...styleJustifyContentBetween}}>
+      </View>
+
+      <View style={{...styleItemsGrandParent}}>
+        <PhoneView style={{...styleItemsParent}}>
+          {props.quiz.reminder !== undefined && (
+            <PhoneView style={{...styleItem}}>
+              <TinyTextIcon />
+              <View>
+                <SimpleText
+                  style={{...styleFontSize11}}
+                  text={Translate.reminder}
+                />
+                <SimpleText
+                  style={{...styleFontSize15}}
+                  text={props.quiz.reminder}
+                />
+              </View>
+            </PhoneView>
+          )}
+          <PhoneView style={{...styleItem}}>
+            <TinyTextIcon />
             <View>
+              <SimpleText style={{...styleFontSize11}} text={Translate.kind} />
+              <SimpleText
+                style={{...styleFontSize13}}
+                text={
+                  kindQuizKeyVals.find(elem => elem.id === props.quiz.mode).item
+                }
+              />
+            </View>
+          </PhoneView>
+          <PhoneView style={{...styleItem}}>
+            <TinyTextIcon />
+            <View>
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={Translate.isOnline}
+              />
+              <SimpleText
+                style={{...styleFontSize13}}
+                text={
+                  isOnlineKeyVals.find(elem => elem.id === props.quiz.isOnline)
+                    .item
+                }
+              />
+            </View>
+          </PhoneView>
+          {props.quiz.studentsCount !== undefined && (
+            <PhoneView style={{...styleItem}}>
+              <TinyTextIcon />
+              <View>
+                <SimpleText
+                  style={{...styleFontSize11}}
+                  text={Translate.studentsCount}
+                />
+                <SimpleText
+                  style={{...styleFontSize15}}
+                  text={props.quiz.studentsCount}
+                />
+              </View>
+            </PhoneView>
+          )}
+
+          {props.quiz.visibility !== undefined && (
+            <View style={{...styleItem}}>
               <TinyTextIcon style={{...styleTinyTextIcon}} />
               <SimpleText
                 style={{...styleFontSize11}}
-                text={Translate.quizCount}
+                text={commonTranslator.visibility + ' : '}
               />
               <SimpleText
                 style={{...styleFontSize15}}
-                text={props.package.quizzes}
+                text={props.quiz.visibility}
               />
             </View>
-            {props.isAdmin && (
-              <View>
-                <TinyTextIcon style={{...styleTinyTextIcon}} />
-                <SimpleText
-                  style={{...styleFontSize11}}
-                  text={Translate.minSelect}
-                />
-                <SimpleText
-                  style={{...styleFontSize15}}
-                  text={props.package.minSelect}
-                />
-              </View>
-            )}
-
-            {props.isAdmin && (
-              <View>
-                <TinyTextIcon style={{...styleTinyTextIcon}} />
-                <SimpleText
-                  style={{...styleFontSize11}}
-                  text={Translate.buyersCount}
-                />
-                <SimpleText
-                  style={{...styleFontSize15}}
-                  text={props.package.buyers}
-                />
-              </View>
-            )}
+          )}
+          <PhoneView style={{...styleFullItem}}>
+            <TinyTextIcon />
+            <View>
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={Translate.launching}
+              />
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={
+                  commonTranslator.from +
+                  convertTimestamp(props.quiz.start) +
+                  commonTranslator.to +
+                  convertTimestamp(props.quiz.end)
+                }
+              />
+            </View>
           </PhoneView>
-        </View>
-
-        <View>
-          <PhoneView style={{...stylePhoneViewForButtonAndPrice}}>
-            {!props.isAdmin && (
-              <PhoneView>
-                <SimpleText text={'قیمت : '} />
-                <SimpleText
-                  style={{
-                    ...styleTextDecorRed,
-                  }}
-                  text={' 30.000 ' + 'تومان'}
-                />
-                <SimpleText text={' 10.000 ' + 'تومان'} />
-              </PhoneView>
-            )}
-            {!props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
-            {props.isAdmin && (
-              <PhoneView style={styleJustifyContentEnd}>
-                <CommonButton
-                  onPress={() => setShowRemovePane(true)}
-                  title={commonTranslator.delete}
-                />
-                <CommonButton
-                  onPress={() => {
-                    props.setSelected(props.package);
-                    props.setMode('edit');
-                  }}
-                  theme={'transparent'}
-                  title={commonTranslator.edit}
-                />
-                <CommonButton theme={'dark'} title={Translate.showQuiz} />
-              </PhoneView>
-            )}
+          <PhoneView style={{...styleFullItem}}>
+            <TinyTextIcon />
+            <View>
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={Translate.registery}
+              />
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={
+                  commonTranslator.from +
+                  convertTimestamp(props.quiz.startRegistry) +
+                  commonTranslator.to +
+                  convertTimestamp(props.quiz.endRegistry)
+                }
+              />
+            </View>
           </PhoneView>
+        </PhoneView>
+      </View>
+
+      <View>
+        <PhoneView style={{...stylePricaPane}}>
+          {!props.isAdmin && (
+            <PhoneView>
+              <SimpleText text={Translate.price} />
+              <SimpleText text={props.quiz.price + ' تومان'} />
+            </PhoneView>
+          )}
+          <PhoneView>
+            <CommonButton
+              onPress={() => props.onClick(props.quiz.id)}
+              theme={
+                props.quiz.isSelected !== undefined && props.quiz.isSelected
+                  ? 'yellow'
+                  : 'yellow-transparent'
+              }
+              title={
+                props.quiz.isSelected !== undefined && props.quiz.isSelected
+                  ? commonTranslator.selected
+                  : commonTranslator.select
+              }
+            />
+          </PhoneView>
+        </PhoneView>
+        <View
+          style={{
+            ...styleDigest,
+          }}>
+          <SimpleText style={{...styleFontSize13}} text={props.quiz.tags} />
         </View>
-      </CommonWebBox>
-    </View>
+      </View>
+    </CommonWebBox>
   );
 }
 

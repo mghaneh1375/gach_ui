@@ -1,6 +1,6 @@
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
+import {showError, showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../tranlates/Common';
 
 export const fetchAllPackages = async token => {
@@ -64,4 +64,32 @@ export const createPackage = async (token, data) => {
   } catch (e) {
     return null;
   }
+};
+
+export const addQuizzesToPackage = async (id, selectedQuizzes, token) => {
+  if (selectedQuizzes.length === 0) {
+    showError('لطفا آزمون موردنظر خود را انتخاب کنید');
+    return null;
+  }
+  return await generalRequest(
+    routes.addQuizzesToPackage + id,
+    'put',
+    {ids: selectedQuizzes},
+    'data',
+    token,
+  );
+};
+
+export const removeQuizzesFromPackage = async (id, selectedQuizzes, token) => {
+  if (selectedQuizzes.length === 0) {
+    showError('لطفا آزمون موردنظر خود را انتخاب کنید');
+    return null;
+  }
+  return await generalRequest(
+    routes.removeQuizzesFromPackage + id,
+    'delete',
+    {ids: selectedQuizzes},
+    'data',
+    token,
+  );
 };

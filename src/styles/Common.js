@@ -122,6 +122,29 @@ export const CommonButton = props => {
           color: vars.LIGHT_SILVER,
         },
       };
+    } else if (props.theme === 'yellow-transparent') {
+      allStyles = {
+        ...allStyles,
+        ...{
+          backgroundColor: 'transparent',
+          borderWidth: 1,
+          borderStyle: 'solid',
+          borderColor: vars.YELLOW,
+        },
+      };
+      textStyle = {
+        ...textStyle,
+        ...{
+          color: vars.YELLOW,
+        },
+      };
+    } else if (props.theme === 'yellow') {
+      allStyles = {
+        ...allStyles,
+        ...{
+          backgroundColor: vars.YELLOW,
+        },
+      };
     } else
       allStyles = {
         ...allStyles,

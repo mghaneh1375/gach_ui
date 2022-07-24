@@ -132,5 +132,12 @@ const translator = {
   questions: 'سوالات',
   more: 'اطلاعات بیشتر',
   less: 'اطلاعات کمتر',
+  from: 'از ',
+  to: ' تا ',
+  visibility: 'وضعیت نمایش',
+  select: 'انتخاب',
+  selected: 'انتخاب شده',
+  selectAll: 'انتخاب همه',
+  back: 'بازگشت',
 };
 export default translator;

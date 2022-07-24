@@ -6,7 +6,8 @@ import {fetchAllPackages} from './components/Utility';
 import {addItem, editItem, removeItems} from '../../../services/Utility';
 import Create from './components/Create';
 import {getGradeLessons} from '../Basic/Utility';
-import Detail from './components/Detail';
+import Detail from './components/Detail/Detail';
+import {QuizzesProvider} from './components/Detail/Utility';
 
 function Package(props) {
   const navigate = props.navigate;
@@ -62,12 +63,15 @@ function Package(props) {
         />
       )}
       {mode === 'detail' && (
-        <Detail
-          package={selected}
-          setMode={setMode}
-          setLoading={setLoading}
-          token={props.token}
-        />
+        <QuizzesProvider>
+          <Detail
+            package={selected}
+            setPackage={newItem => editItem(packages, setPackages, newItem)}
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
+          />
+        </QuizzesProvider>
       )}
       {mode === 'create' && (
         <Create

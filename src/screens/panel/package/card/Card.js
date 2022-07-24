@@ -12,20 +12,21 @@ import commonTranslator from '../../../../tranlates/Common';
 import {
   styleCommonWebBoxView,
   styleLittleView,
-  styleSimpleTextTitle,
-  styleViewWithGrade,
-  styleFont13,
-  styleViewThreeChild,
-  styleTinyTextIcon,
+  styleTitle,
+  styleDigest,
+  styleFontSize13,
   styleFontSize11,
-  styleJustifyContentBetween,
   styleFontSize15,
-  stylePhoneViewForButtonAndPrice,
   styleJustifyContentEnd,
   styleGiftIcon,
   styleGiftIconParent,
   styleColorWhite,
   styleTextDecorRed,
+  styleItemsGrandParent,
+  styleItemsParent,
+  styleItem,
+  styleCard,
+  stylePricaPane,
 } from './Style';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
 import {routes} from '../../../../API/APIRoutes';
@@ -56,7 +57,7 @@ function Card(props) {
           toggleShowPopUp={() => setShowRemovePane(false)}
         />
       )}
-      <CommonWebBox width={390} style={{height: 250}}>
+      <CommonWebBox style={{...styleCard}}>
         <SimpleFontIcon
           kind={'normal'}
           icon={faGift}
@@ -70,7 +71,7 @@ function Card(props) {
           }}>
           <SimpleText
             style={{
-              ...styleSimpleTextTitle,
+              ...styleTitle,
             }}
             text={props.package.title}
           />
@@ -86,101 +87,105 @@ function Card(props) {
         </View>
         <View
           style={{
-            ...styleViewWithGrade,
+            ...styleDigest,
           }}>
           <SimpleText
-            style={{...styleFont13}}
+            style={{...styleFontSize13}}
             text={commonTranslator.grade + ' : ' + props.package.grade.name}
           />
           <SimpleText
-            style={{...styleFont13}}
+            style={{...styleFontSize13}}
             text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
           />
         </View>
-        <View style={{...styleViewThreeChild}}>
-          <PhoneView style={{...styleJustifyContentBetween}}>
-            <View>
-              <TinyTextIcon style={{...styleTinyTextIcon}} />
-              <SimpleText
-                style={{...styleFontSize11}}
-                text={Translate.quizCount}
-              />
-              <SimpleText
-                style={{...styleFontSize15}}
-                text={props.package.quizzes}
-              />
-            </View>
-            {props.isAdmin && (
+        <View style={{...styleItemsGrandParent}}>
+          <PhoneView style={{...styleItemsParent}}>
+            <PhoneView style={{...styleItem}}>
+              <TinyTextIcon />
               <View>
-                <TinyTextIcon style={{...styleTinyTextIcon}} />
                 <SimpleText
                   style={{...styleFontSize11}}
-                  text={Translate.minSelect}
+                  text={Translate.quizCount}
                 />
                 <SimpleText
                   style={{...styleFontSize15}}
-                  text={props.package.minSelect}
+                  text={props.package.quizzes}
                 />
               </View>
-            )}
-
+            </PhoneView>
             {props.isAdmin && (
-              <View>
-                <TinyTextIcon style={{...styleTinyTextIcon}} />
-                <SimpleText
-                  style={{...styleFontSize11}}
-                  text={Translate.buyersCount}
-                />
-                <SimpleText
-                  style={{...styleFontSize15}}
-                  text={props.package.buyers}
-                />
-              </View>
-            )}
-          </PhoneView>
-        </View>
-
-        <View>
-          <PhoneView style={{...stylePhoneViewForButtonAndPrice}}>
-            {!props.isAdmin && (
-              <PhoneView>
-                <SimpleText text={'قیمت : '} />
-                <SimpleText
-                  style={{
-                    ...styleTextDecorRed,
-                  }}
-                  text={' 30.000 ' + 'تومان'}
-                />
-                <SimpleText text={' 10.000 ' + 'تومان'} />
+              <PhoneView style={{...styleItem}}>
+                <TinyTextIcon />
+                <View>
+                  <SimpleText
+                    style={{...styleFontSize11}}
+                    text={Translate.minSelect}
+                  />
+                  <SimpleText
+                    style={{...styleFontSize15}}
+                    text={props.package.minSelect}
+                  />
+                </View>
               </PhoneView>
             )}
-            {!props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
+
             {props.isAdmin && (
-              <PhoneView style={styleJustifyContentEnd}>
-                <CommonButton
-                  onPress={() => setShowRemovePane(true)}
-                  title={commonTranslator.delete}
-                />
-                <CommonButton
-                  onPress={() => {
-                    props.setSelected(props.package);
-                    props.setMode('edit');
-                  }}
-                  theme={'transparent'}
-                  title={commonTranslator.edit}
-                />
-                <CommonButton
-                  onPress={() => {
-                    props.setSelected(props.package);
-                    props.setMode('detail');
-                  }}
-                  theme={'dark'}
-                  title={Translate.showQuiz}
-                />
+              <PhoneView style={{...styleItem}}>
+                <TinyTextIcon />
+                <View>
+                  <SimpleText
+                    style={{...styleFontSize11}}
+                    text={Translate.buyersCount}
+                  />
+                  <SimpleText
+                    style={{...styleFontSize15}}
+                    text={props.package.buyers}
+                  />
+                </View>
               </PhoneView>
             )}
           </PhoneView>
         </View>
+
+        <PhoneView style={{...stylePricaPane}}>
+          {!props.isAdmin && (
+            <PhoneView>
+              <SimpleText text={'قیمت : '} />
+              <SimpleText
+                style={{
+                  ...styleTextDecorRed,
+                }}
+                text={' 30.000 ' + 'تومان'}
+              />
+              <SimpleText text={' 10.000 ' + 'تومان'} />
+            </PhoneView>
+          )}
+          {!props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
+          {props.isAdmin && (
+            <PhoneView style={styleJustifyContentEnd}>
+              <CommonButton
+                onPress={() => setShowRemovePane(true)}
+                title={commonTranslator.delete}
+              />
+              <CommonButton
+                onPress={() => {
+                  props.setSelected(props.package);
+                  props.setMode('edit');
+                }}
+                theme={'transparent'}
+                title={commonTranslator.edit}
+              />
+              <CommonButton
+                onPress={() => {
+                  props.setSelected(props.package);
+                  props.setMode('detail');
+                }}
+                theme={'dark'}
+                title={Translate.showQuiz}
+              />
+            </PhoneView>
+          )}
+        </PhoneView>
       </CommonWebBox>
     </View>
   );
