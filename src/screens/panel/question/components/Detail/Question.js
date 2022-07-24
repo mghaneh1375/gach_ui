@@ -178,7 +178,7 @@ function Question(props) {
       <PhoneView style={{...styleMarginRight25, ...styleJustifyContentEnd}}>
         <CommonButton title={commonTranslator.delete} />
         <CommonButton theme={'transparent'} title={commonTranslator.edit} />
-        <CommonButton theme={'dark'} title={Translate.showQuiz} />
+        <CommonButton theme={'dark'} title={translator.addQuiz} />
       </PhoneView>
       {showMore && (
         <View>

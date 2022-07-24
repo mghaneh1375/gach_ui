@@ -20,8 +20,10 @@ export const styleJustifyContentEnd = {
 };
 export const styleYellowMarginTop7 = {
   color: vars.YELLOW,
-  marginTop: -7,
+  marginTop: -11,
   marginRight: 5,
+  width: 20,
+  height: 20,
 };
 export const YellowFont13 = {
   color: vars.YELLOW,
@@ -33,4 +35,5 @@ export const styleJustifyContentBetween = {
 };
 export const styleMarginRight25 = {
   marginLeft: 40,
+  gap: 10,
 };
