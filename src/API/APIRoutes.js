@@ -42,7 +42,7 @@ export const routes = {
   editBranch: 'admin/content/updateBranch/',
   fetchBranches: 'admin/content/branches',
   uploadQuizAttaches: 'ckeditor/quiz',
-  fetchIRYSCRegistrableQuizzes: 'quiz/manage/getRegistrable/irysc/',
+  fetchIRYSCRegistrableQuizzes: 'quiz/public/get/irysc',
   createQuiz: 'quiz/manage/store/',
   fetchAllQuiz: 'quiz/manage/getAll/regular',
   fetchIRYSCQuiz: 'quiz/manage/get/irysc/',

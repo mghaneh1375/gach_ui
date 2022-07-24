@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {generalRequest} from '../../API/Utility';
 import Card from '../../screens/panel/quiz/components/Card/Card';
-import {CommonWebBox} from '../../styles/Common';
+import {PhoneView} from '../../styles/Common';
 
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState(props.quizzes);
@@ -30,12 +30,12 @@ function Quizzes(props) {
   }, [props, isWorking, quizzes]);
 
   return (
-    <CommonWebBox>
+    <PhoneView>
       {quizzes !== undefined &&
         quizzes.map((quiz, index) => {
           return <Card quiz={quiz} key={index} />;
         })}
-    </CommonWebBox>
+    </PhoneView>
   );
 }
 

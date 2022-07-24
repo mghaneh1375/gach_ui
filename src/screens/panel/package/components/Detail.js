@@ -34,18 +34,22 @@ function Detail(props) {
   return (
     <View>
       {selectingQuiz && (
-        <Quizzes
-          fetchUrl={routes.fetchIRYSCRegistrableQuizzes}
-          token={props.token}
-          setLoading={props.setLoading}
-        />
+        <CommonWebBox
+          backBtn={true}
+          onBackClick={() => setSelectingQuiz(false)}>
+          <Quizzes
+            fetchUrl={routes.fetchIRYSCRegistrableQuizzes}
+            token={props.token}
+            setLoading={props.setLoading}
+          />
+        </CommonWebBox>
       )}
 
       {!selectingQuiz && (
         <CommonWebBox>
           <View>
             <TextIcon
-              onPress={() => props.setMode('create')}
+              onPress={() => setSelectingQuiz(true)}
               theme={'rect'}
               text={Translate.packageQuizzes + props.package.title}
               icon={faPlus}
