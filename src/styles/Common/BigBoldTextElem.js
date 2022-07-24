@@ -15,7 +15,7 @@ const BigBoldBlueTextStyleAndroid = {
 
 const BigBoldBlueTextStyleWeb = {
   ...BigBoldBlueTextStyle,
-  fontSize: 20,
+  fontSize: 18,
   marginBottom: 5,
 };
 
