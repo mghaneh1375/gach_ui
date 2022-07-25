@@ -37,3 +37,6 @@ export const styleMarginRight25 = {
   marginLeft: 40,
   gap: 10,
 };
+export const styleMaxHeight300 = {
+  maxHeight: 300,
+};

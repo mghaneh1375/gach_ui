@@ -9,7 +9,6 @@ import {
 } from '../../../../../styles/Common';
 import commonTranslator from '../../../../../tranlates/Common';
 import translator from '../../Translator';
-
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {
   faAngleDoubleDown,
@@ -27,6 +26,7 @@ import {
   YellowFont13,
   styleJustifyContentBetween,
   styleMarginRight25,
+  styleMaxHeight300,
 } from './style';
 import {levelKeyVals, statusKeyVals, typeOfQuestionKeyVals} from '../KeyVals';
 
@@ -202,12 +202,18 @@ function Question(props) {
       {showMore && (
         <View>
           <BigBoldBlueText text={translator.questionFile} />
-          <img style={{maxHeight: 300}} src={props.question.questionFile} />
+          <img
+            style={{...styleMaxHeight300}}
+            src={props.question.questionFile}
+          />
           {props.question.answerFile !== null &&
             props.question.answerFile !== undefined && (
               <View>
                 <BigBoldBlueText text={translator.answerFile} />
-                <img style={{maxHeight: 300}} src={props.question.answerFile} />
+                <img
+                  style={{...styleMaxHeight300}}
+                  src={props.question.answerFile}
+                />
               </View>
             )}
         </View>
