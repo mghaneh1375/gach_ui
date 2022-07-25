@@ -3,7 +3,7 @@ import vars from './../root';
 import {Text, Platform} from 'react-native';
 
 const BigBoldBlueTextStyle = {
-  fontWeight: 900,
+  fontWeight: 700,
   color: vars.DARK_BLUE,
   fontFamily: 'IRANSans',
 };

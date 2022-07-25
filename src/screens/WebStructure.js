@@ -43,6 +43,7 @@ import Package from './panel/package/Package';
 import Subject from './panel/Basic/subject/Subject';
 import Certificate from './panel/certificate/Certificate';
 import Ticket from './panel/ticket/Ticket';
+import Dashboard from './studentPanel/dashboard/Dashboard';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -194,6 +195,14 @@ const WebStructue = props => {
               {props.page === 'home' && <Home navigate={navigate} />}
               {props.page === 'profile' && isInLargeMode && (
                 <WebProfile
+                  setUser={setUser}
+                  token={token}
+                  user={user}
+                  navigate={navigate}
+                />
+              )}
+              {props.page === 'dashboard' && (
+                <Dashboard
                   setUser={setUser}
                   token={token}
                   user={user}
