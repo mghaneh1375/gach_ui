@@ -8,7 +8,7 @@ import {View} from 'react-native';
 function List(props) {
   return (
     <CommonWebBox>
-      <View>
+      <View style={{zIndex: 'unset'}}>
         <TextIcon
           onPress={() => props.setMode('create')}
           theme={'rect'}

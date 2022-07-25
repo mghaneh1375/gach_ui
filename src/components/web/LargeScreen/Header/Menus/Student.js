@@ -22,10 +22,10 @@ function StudentMenu(props) {
     return (
       <div className="menu-item-container" style={style.MenuJustLarge}>
         <MenuItem
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/dashboard')}
           text={translator.home}
           icon={faHome}
-          selected={props.selected === 'home'}
+          selected={props.selected === 'dashboard'}
         />
         <MenuItem text={translator.myQuizes} icon={faCheckSquare} />
         <MenuItem text={translator.buyQuiz} icon={faBasketShopping} />

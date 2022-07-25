@@ -16,6 +16,7 @@ export default function WebRouter() {
       <Router>
         <Routes>
           <Route exact path="/" element={<WebStructue page="home" />} />
+          <Route path="dashboard" element={<WebStructue page="dashboard" />} />
           <Route path="/login" element={<WebStructue page="login" />} />
           <Route
             path="/profile/:userId"
