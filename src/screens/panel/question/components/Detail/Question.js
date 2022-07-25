@@ -78,7 +78,10 @@ function Question(props) {
           />
         </PhoneView>
         <PhoneView>
-          <BlueTextInline style={{...styleFont14}} text={translator.longTime} />
+          <BlueTextInline
+            style={{...styleFont14}}
+            text={translator.neededTime}
+          />
           <SimpleText
             style={{...styleMarginRight25}}
             text={' ' + props.question.neededTime + translator.second}
