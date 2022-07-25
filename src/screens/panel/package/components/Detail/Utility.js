@@ -2,7 +2,8 @@ import React from 'react';
 
 const defaultGlobalState = {
   selectingQuiz: false,
-  quizzes: [],
+  quizzes: undefined,
+  registrableQuizzes: undefined,
 };
 export const quizzesContext = React.createContext(defaultGlobalState);
 export const dispatchQuizzesContext = React.createContext(undefined);

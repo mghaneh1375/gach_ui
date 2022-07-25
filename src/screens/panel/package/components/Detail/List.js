@@ -40,6 +40,7 @@ function List(props) {
                 props.package.quizzesDoc = res;
                 props.package.quizzes = res.length;
                 props.setPackage(props.package);
+                setSelectedQuizzes([]);
               }
             }}
           />

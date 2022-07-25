@@ -47,3 +47,5 @@ export const filter = async (
     token,
   );
 };
+
+export const addQuestionsToQuiz = () => {};
