@@ -118,8 +118,7 @@ const Login = props => {
                 token={token}
                 code={code}
                 setLoading={setLoading}
-                navigate={navigate}
-                redirectTo={'/login'}
+                setMode={setMode}
               />
             )}
             {mode === 'verification' && (

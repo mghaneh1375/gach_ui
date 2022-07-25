@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {addQuestionsToQuiz, filter} from '../Utility';
+import {addQuestionToQuizzes, filter} from '../Utility';
 import Question from './Question';
 import Quizzes from './../../../../../components/web/Quizzes';
 import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
 import {showSuccess} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../tranlates/Common';
+import {CommonButton} from '../../../../../styles/Common';
+import translator from '../../Translator';
 
 function Detail(props) {
-  const [selectingQuiz, setselectingQuiz] = useState(false);
-  const [questionId, setQuestionId] = useState();
+  const [selectingQuiz, setSelectingQuiz] = useState(false);
+  const [questionOrganizationId, setQuestionOrganizationId] = useState();
   const [selectedQuizzes, setSelectedQuizzes] = useState();
   const [quizzes, setQuizzes] = useState();
   const [isWorking, setIsWorking] = useState(false);
@@ -33,7 +34,7 @@ function Detail(props) {
       props.setLoading(false);
 
       if (res[0] === null) {
-        setselectingQuiz(false);
+        setSelectingQuiz(false);
         return;
       }
 
@@ -78,8 +79,8 @@ function Detail(props) {
         props.subject.questions.map((elem, index) => {
           return (
             <Question
-              setselectingQuiz={setselectingQuiz}
-              setQuestionId={setQuestionId}
+              setSelectingQuiz={setSelectingQuiz}
+              setQuestionOrganizationId={setQuestionOrganizationId}
               question={elem}
               key={index}
             />
@@ -87,23 +88,30 @@ function Detail(props) {
         })}
       {selectingQuiz && quizzes !== undefined && (
         <Quizzes
-          onPress={async () => {
-            props.setLoading(true);
-            let res = await addQuestionsToQuiz(
-              questionId,
-              selectedQuizzes,
-              props.token,
-            );
-            props.setLoading(false);
-            if (res !== null) {
-              showSuccess(commonTranslator.success);
-              setselectingQuiz(false);
-              setSelectedQuizzes([]);
-            }
-          }}
+          onBackClicked={() => setSelectingQuiz(false)}
           setSelectedQuizzes={setSelectedQuizzes}
-          quizzes={quizzes}
-        />
+          quizzes={quizzes}>
+          <CommonButton
+            style={{alignSelf: 'flex-end'}}
+            title={translator.addQuiz}
+            theme={'dark'}
+            onPress={async () => {
+              props.setLoading(true);
+              let res = await addQuestionToQuizzes(
+                questionOrganizationId,
+                props.quizMode,
+                selectedQuizzes,
+                props.token,
+              );
+              props.setLoading(false);
+              if (res !== null) {
+                showSuccess(res.excepts);
+                setSelectingQuiz(false);
+                setSelectedQuizzes([]);
+              }
+            }}
+          />
+        </Quizzes>
       )}
     </View>
   );

@@ -57,6 +57,7 @@ export const routes = {
   forceDeportation: 'quiz/manage/forceDeportation/',
   fetchQuestions: 'quiz/manage/fetchQuestions/',
   addBatchQuestionsToQuiz: 'quiz/manage/addBatchQuestionsToQuiz/',
+  addQuestionToQuizzes: 'quiz/manage/addQuestionToQuizzes/',
   fetchAllPackages: 'quiz/manage/getPackages',
   fetchPackageQuizzes: 'quiz/manage/getPackageQuizzes/',
   removePackages: 'quiz/manage/removePackages',

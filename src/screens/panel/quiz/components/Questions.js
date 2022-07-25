@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
 import {
   CommonButton,
   CommonRadioButton,
@@ -12,6 +11,8 @@ import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';
 import ExcelComma from '../../../../components/web/ExcelCommaInput';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
+import {getQuestions} from './Utility';
+import Question from './../../question/components/Detail/Question';
 
 const Questions = props => {
   const [isWorking, setIsWorking] = useState(false);
@@ -67,13 +68,7 @@ const Questions = props => {
       setIsWorking(true);
       props.setLoading(true);
       Promise.all([
-        generalRequest(
-          routes.fetchQuestions + props.quiz.generalMode + '/' + props.quiz.id,
-          'get',
-          undefined,
-          'data',
-          props.token,
-        ),
+        getQuestions(props.token, props.quiz.id, props.quiz.generalMode),
       ]).then(res => {
         props.setLoading(false);
         setIsWorking(false);
@@ -148,7 +143,7 @@ const Questions = props => {
               {props.quiz.questions !== undefined &&
                 props.quiz.questions.map((element, key) => {
                   return (
-                    <PhoneView key={key}>
+                    <PhoneView key={key} style={{flexWrap: 'wrap'}}>
                       <CommonRadioButton
                         status={
                           selectedIds.indexOf(key) !== -1
@@ -156,8 +151,11 @@ const Questions = props => {
                             : 'unchecked'
                         }
                         onPress={() => toggleSelect(key)}
-                        text={element.organizationId}
+                        text={''}
                       />
+                      <View style={{width: '90%'}}>
+                        <Question needOps={false} question={element} />
+                      </View>
                     </PhoneView>
                   );
                 })}

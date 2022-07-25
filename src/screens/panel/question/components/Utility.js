@@ -48,4 +48,17 @@ export const filter = async (
   );
 };
 
-export const addQuestionsToQuiz = () => {};
+export const addQuestionToQuizzes = async (
+  questionOrganizationId,
+  mode,
+  quizzes,
+  token,
+) => {
+  return await generalRequest(
+    routes.addQuestionToQuizzes + mode + '/' + questionOrganizationId + '/3',
+    'put',
+    {items: quizzes},
+    ['excepts', 'doneIds'],
+    token,
+  );
+};

@@ -29,7 +29,7 @@ import {
   styleMarginRight25,
 } from './style';
 import {levelKeyVals, statusKeyVals, typeOfQuestionKeyVals} from '../KeyVals';
-import Translate from '../../../package/Translate';
+
 function Question(props) {
   const [showMore, setShowMore] = useState(false);
 
@@ -115,8 +115,6 @@ function Question(props) {
             }
           />
         </PhoneView>
-        {/* </PhoneView> */}
-        {/* <PhoneView style={{...styleMargin25, ...styleJustifyContentBetween}}> */}
         {props.question.answer !== undefined && (
           <PhoneView>
             <BlueTextInline style={{...styleFont14}} text={translator.answer} />
@@ -174,19 +172,33 @@ function Question(props) {
             />
           </PhoneView>
         )}
+        {props.question.subject !== undefined && (
+          <PhoneView>
+            <BlueTextInline
+              style={{...styleFont14}}
+              text={commonTranslator.subject + ' : '}
+            />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={' ' + props.question.subject.name}
+            />
+          </PhoneView>
+        )}
       </PhoneView>
-      <PhoneView style={{...styleMarginRight25, ...styleJustifyContentEnd}}>
-        <CommonButton title={commonTranslator.delete} />
-        <CommonButton theme={'transparent'} title={commonTranslator.edit} />
-        <CommonButton
-          onPress={() => {
-            props.setQuestionId(props.question.id);
-            props.setselectingQuiz(true);
-          }}
-          theme={'dark'}
-          title={translator.addQuiz}
-        />
-      </PhoneView>
+      {(props.needOps === undefined || props.needOps) && (
+        <PhoneView style={{...styleMarginRight25, ...styleJustifyContentEnd}}>
+          <CommonButton title={commonTranslator.delete} />
+          <CommonButton theme={'transparent'} title={commonTranslator.edit} />
+          <CommonButton
+            onPress={() => {
+              props.setQuestionOrganizationId(props.question.organizationId);
+              props.setSelectingQuiz(true);
+            }}
+            theme={'dark'}
+            title={translator.addQuiz}
+          />
+        </PhoneView>
+      )}
       {showMore && (
         <View>
           <BigBoldBlueText text={translator.questionFile} />

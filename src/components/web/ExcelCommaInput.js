@@ -15,7 +15,7 @@ import commonTranslator from '../../tranlates/Common';
 import UploadFile from './UploadFile';
 
 const ExcelComma = props => {
-  const [codes, setCodes] = useState('0018914373');
+  const [codes, setCodes] = useState();
   const [showUploadPopUp, setShowUploadPopUp] = useState(false);
   const [additionalData, setAdditionalData] = useState();
   const [result, setResult] = useState();
@@ -89,35 +89,40 @@ const ExcelComma = props => {
       )}
 
       <PhoneView>
-        <View>
-          <PhoneView>
-            <View style={{width: '80%'}}>
-              <JustBottomBorderTextInput
-                style={{minWidth: '95%'}}
-                onChangeText={e => changeInput(e)}
-                placeholder={props.placeholder}
-                subText={props.help}
-                value={codes}
-              />
-            </View>
-            <View style={{width: 30, height: 30, alignSelf: 'center'}}>
-              <FontIcon
-                onPress={() => addItems()}
-                parentStyle={{borderRadius: 7, backgroundColor: vars.YELLOW}}
-                icon={faPlus}
-              />
-            </View>
-            <CommonButton
-              onPress={() => toggleShowUploadPopUp()}
-              title={commonTranslator.upload}
-              theme={'dark'}
-            />
-          </PhoneView>
-          {result !== undefined && (
-            <SimpleText style={{marginTop: 20}} text={result} />
-          )}
+        <View
+          style={{
+            width: '80%',
+            height: 75,
+            justifyContent: 'center',
+            marginRight: 20,
+          }}>
+          <JustBottomBorderTextInput
+            style={{minWidth: '95%'}}
+            onChangeText={e => changeInput(e)}
+            placeholder={props.placeholder}
+            subText={props.help}
+            value={codes}
+          />
         </View>
+
+        <FontIcon
+          onPress={() => addItems()}
+          kind={'normal'}
+          theme={'rect'}
+          back={vars.YELLOW}
+          parentStyle={{marginTop: -15}}
+          icon={faPlus}
+        />
+        <CommonButton
+          onPress={() => toggleShowUploadPopUp()}
+          style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
+          title={commonTranslator.upload}
+          theme={'dark'}
+        />
       </PhoneView>
+      {result !== undefined && (
+        <SimpleText style={{marginTop: 20}} text={result} />
+      )}
     </View>
   );
 };

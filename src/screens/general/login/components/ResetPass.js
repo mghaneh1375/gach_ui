@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
-import {showError} from '../../../../services/Utility';
+import {showError, showSuccess} from '../../../../services/Utility';
 import {CommonButton} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import translator from '..//translate';
@@ -40,10 +40,10 @@ const ResetPass = props => {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] != null) {
-        showError(translator.changePassSuccessfully);
-        setTimeout(() => {
+        showSuccess(translator.changePassSuccessfully);
+        if (props.navigate !== undefined && props.redirectTo !== undefined)
           props.navigate(props.redirectTo);
-        }, 2000);
+        else if (props.setMode !== undefined) props.setMode('login');
       }
     });
   };

@@ -72,6 +72,12 @@ const Question = props => {
             editItem(subjects, setSubjects, newItem);
             setSelected(newItem);
           }}
+          quizMode={
+            props.user.accesses.indexOf('admin') === -1 &&
+            props.user.accesses.indexOf('superadmin')
+              ? 'school'
+              : 'irysc'
+          }
           setMode={setMode}
           token={props.token}
           setLoading={setLoading}
