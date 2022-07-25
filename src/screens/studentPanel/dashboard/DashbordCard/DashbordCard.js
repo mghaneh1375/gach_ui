@@ -3,7 +3,7 @@ import {CommonWebBox, SimpleText} from '../../../../styles/Common';
 import vars from '../../../../styles/root';
 import {styleFontSize25, styleBorderRight} from './style';
 
-function MiniCard(props) {
+function DashbordCard(props) {
   return (
     <CommonWebBox
       width={250}
@@ -32,4 +32,4 @@ function MiniCard(props) {
   );
 }
 
-export default MiniCard;
+export default DashbordCard;
