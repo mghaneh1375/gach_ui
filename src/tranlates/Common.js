@@ -140,5 +140,9 @@ const translator = {
   selected: 'انتخاب شده',
   selectAll: 'انتخاب همه',
   back: 'بازگشت',
+  unit: 'واحد',
+  Learn: 'آموزش',
+  nes: 'فوریت',
+  view: 'مشاهده',
 };
 export default translator;

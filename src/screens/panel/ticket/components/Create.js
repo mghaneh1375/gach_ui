@@ -112,7 +112,6 @@ function Create(props) {
           show={showSearchUser}
         />
       )}
-
       <CommonWebBox
         header={translator.title}
         backBtn={true}
