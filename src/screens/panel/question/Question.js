@@ -7,12 +7,14 @@ import Create from './components/Create/Create';
 import Detail from './components/Detail/Detail';
 import List from './components/List/List';
 import {getSubjects} from './components/Utility';
+import {isUserAdmin} from '../../../services/Utility';
 
 const Question = props => {
   const [subjects, setSubjects] = useState();
   const [mode, setMode] = useState('');
   const [grades, setGrades] = useState();
   const [selected, setSelected] = useState();
+  const isAdmin = isUserAdmin(props.user);
 
   const navigate = props.navigate;
 
@@ -63,7 +65,12 @@ const Question = props => {
         />
       )}
       {mode === 'create' && (
-        <Create setMode={setMode} token={props.token} setLoading={setLoading} />
+        <Create
+          isAdmin={isAdmin}
+          setMode={setMode}
+          token={props.token}
+          setLoading={setLoading}
+        />
       )}
       {mode === 'detail' && (
         <Detail
