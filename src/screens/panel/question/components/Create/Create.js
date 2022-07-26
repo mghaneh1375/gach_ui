@@ -22,7 +22,7 @@ import {View} from 'react-native';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
-
+import commonTranslator from '../../../../../tranlates/Common';
 function Create(props) {
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
   const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
@@ -39,6 +39,7 @@ function Create(props) {
   const [choices, setChoices] = useState();
   const [showSearchUser, setShowSearchUser] = useState(false);
   const [foundUser, setFoundUser] = useState();
+  const [err, setErr] = useState();
 
   React.useEffect(() => {
     if (choicesCount === undefined) return;
@@ -49,7 +50,12 @@ function Create(props) {
     }
     setChoices(choicesTmp);
   }, [choicesCount]);
-
+  const send = async () => {
+    if (props.isAdmin && (foundUser === undefined || foundUser.length === 0)) {
+      setErr(commonTranslator.pleaseFillAllFields);
+      return;
+    }
+  };
   const toggleShowAddBatchPopUp = () => {
     setShowAddBatchPopUp(!showAddBatchPopUp);
   };
@@ -143,7 +149,11 @@ function Create(props) {
             style={{...styleMarginRight25, ...styleMarginTop25}}
             placeholder={translator.author}
             disable={true}
-            value={author}
+            value={
+              foundUser !== undefined
+                ? foundUser.map(elem => elem.name).join(',')
+                : ''
+            }
             onChangeText={e => changeText(e, setAuthor)}
           />
           <FontIcon

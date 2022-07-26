@@ -8,6 +8,7 @@ import Detail from './components/Detail/Detail';
 import List from './components/List/List';
 import {getSubjects} from './components/Utility';
 import {isUserAdmin} from '../../../services/Utility';
+import {ErrorText} from '../../../styles/Common';
 
 const Question = props => {
   const [subjects, setSubjects] = useState();
