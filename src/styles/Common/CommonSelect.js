@@ -1,11 +1,6 @@
 import React, {useState} from 'react';
 import {Platform} from 'react-native';
-import {
-  CommonHalfTextInputStyleWeb,
-  CommonSelectContainer,
-  CommonSelectElem,
-  CommonTextInputStyleWeb,
-} from './CommonText';
+import {CommonSelectContainer, CommonSelectElem} from './CommonText';
 
 import vars from '../root';
 import SubInputText from './SubInputText';
@@ -13,15 +8,6 @@ import SubInputText from './SubInputText';
 export const CommonSelect = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
   const isApp = Platform.OS !== 'web';
-  const style1 = !isApp
-    ? isHalf
-      ? CommonHalfTextInputStyleWeb
-      : CommonTextInputStyleWeb
-    : {};
-  const allStyle =
-    props.style !== undefined
-      ? {...style1, ...props.style, ...{}}
-      : {...style1, ...{}};
 
   const inputProps = {
     options: props.values,
@@ -68,20 +54,22 @@ export const CommonSelect = props => {
 
   if (props.value !== undefined) inputProps.defaultValue = props.value;
 
+  let parentStyle = props.style !== undefined ? props.style : {};
+  parentStyle = isHalf
+    ? {
+        ...parentStyle,
+        ...{
+          width: isApp ? 'auto' : 'calc(50% - 10px)',
+          maxWidth: 300,
+          direction: 'rtl',
+          paddingLeft: 10,
+          paddingRight: 10,
+        },
+      }
+    : {...parentStyle, ...{maxWidth: 300}};
+
   return (
-    <CommonSelectContainer
-      className={'mySelect'}
-      style={
-        isHalf
-          ? {
-              width: isApp ? 'auto' : 'calc(50% - 10px)',
-              maxWidth: 300,
-              direction: 'rtl',
-              paddingLeft: 10,
-              paddingRight: 10,
-            }
-          : {maxWidth: 300}
-      }>
+    <CommonSelectContainer className={'mySelect'} style={parentStyle}>
       <CommonSelectElem {...inputProps} />
 
       {props.subText !== undefined ? (

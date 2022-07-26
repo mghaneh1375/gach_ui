@@ -3,18 +3,22 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
-  SimpleText,
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
 import AddBatch from './AddBatch';
 import AddBatchFiles from './AddBatchFiles';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {typeOfQuestionKeyVals, levelKeyVals, statusKeyVals} from '../KeyVals';
+import {
+  typeOfQuestionKeyVals,
+  levelKeyVals,
+  statusKeyVals,
+  choicesCountKeyVals,
+} from '../KeyVals';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {CommonTextInput} from '../../../../../styles/Common/CommonTextInput';
 import {changeText} from '../../../../../services/Utility';
 import {styleMarginRight25, styleMarginTop25} from '../Detail/style';
 import RadioButtonYesOrNo from './../../../../../components/web/RadioButtonYesOrNo';
+import {View} from 'react-native';
 
 function Create(props) {
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
@@ -29,6 +33,17 @@ function Create(props) {
   const [choicesCount, setChoicesCount] = useState();
   const [sentencesCount, setSentencesCount] = useState();
   const [sentencesAnswer, setSentencesAnswer] = useState();
+  const [choices, setChoices] = useState();
+
+  React.useEffect(() => {
+    if (choicesCount === undefined) return;
+
+    let choicesTmp = [];
+    for (let i = 0; i < choicesCount; i++) {
+      choicesTmp.push({id: i + 1, item: 'گزینه ' + (i + 1)});
+    }
+    setChoices(choicesTmp);
+  }, [choicesCount]);
 
   const toggleShowAddBatchPopUp = () => {
     setShowAddBatchPopUp(!showAddBatchPopUp);
@@ -58,7 +73,7 @@ function Create(props) {
           setLoading={props.setLoading}
         />
       )}
-      <PhoneView style={{alignSelf: 'flex-end'}}>
+      <PhoneView style={{alignSelf: 'flex-end', marginBottom: 40}}>
         <CommonButton
           onPress={() => toggleShowAddBatchPopUp()}
           theme={'dark'}
@@ -100,6 +115,7 @@ function Create(props) {
           style={{...styleMarginRight25, ...styleMarginTop25}}
           placeholder={translator.neededTime}
           value={neededTime}
+          subText={'ثانیه'}
           justNum={true}
           onChangeText={e => changeText(e, setNeededTime)}
         />
@@ -110,32 +126,52 @@ function Create(props) {
           value={author}
           onChangeText={e => changeText(e, setAuthor)}
         />
-        <JustBottomBorderTextInput
-          isHalf={true}
-          style={{...styleMarginRight25, ...styleMarginTop25}}
-          placeholder={translator.answer}
-          value={answer}
-          justNum={true}
-          onChangeText={e => changeText(e, setAnswer)}
-        />
-        <JustBottomBorderTextInput
-          isHalf={true}
-          style={{...styleMarginRight25, ...styleMarginTop25}}
-          placeholder={translator.telorance}
-          value={telorance}
-          justNum={true}
-          onChangeText={e => changeText(e, setTelorance)}
-        />
-        <JustBottomBorderTextInput
-          isHalf={true}
-          style={{...styleMarginRight25, ...styleMarginTop25}}
-          placeholder={translator.choicesCount}
-          value={choicesCount}
-          justNum={true}
-          onChangeText={e => changeText(e, setChoicesCount)}
-        />
-      </PhoneView>
-      <PhoneView>
+        {type === 'short_answer' && (
+          <JustBottomBorderTextInput
+            isHalf={true}
+            style={{...styleMarginRight25, ...styleMarginTop25}}
+            placeholder={translator.answer}
+            value={answer}
+            justNum={true}
+            onChangeText={e => changeText(e, setAnswer)}
+          />
+        )}
+        {type === 'short_answer' && (
+          <JustBottomBorderTextInput
+            isHalf={true}
+            style={{...styleMarginRight25, ...styleMarginTop25}}
+            placeholder={translator.telorance}
+            value={telorance}
+            justNum={true}
+            onChangeText={e => changeText(e, setTelorance)}
+          />
+        )}
+        {type === 'test' && (
+          <JustBottomBorderSelect
+            isHalf={true}
+            style={{
+              ...styleMarginRight25,
+              ...styleMarginTop25,
+            }}
+            placeholder={translator.choicesCount}
+            setter={setChoicesCount}
+            values={choicesCountKeyVals}
+            value={choicesCountKeyVals.find(elem => elem.id === choicesCount)}
+          />
+        )}
+        {type === 'test' && choices !== undefined && (
+          <JustBottomBorderSelect
+            isHalf={true}
+            style={{
+              ...styleMarginRight25,
+              ...styleMarginTop25,
+            }}
+            placeholder={translator.answer}
+            setter={setAnswer}
+            values={choices}
+            value={choices.find(elem => elem.id === answer)}
+          />
+        )}
         {type === 'multi_sentence' && (
           <JustBottomBorderTextInput
             isHalf={true}
@@ -152,23 +188,36 @@ function Create(props) {
             }}
           />
         )}
-        {type === 'multi_sentence' &&
-          sentencesAnswer !== undefined &&
-          sentencesAnswer.map((elem, index) => {
-            console.log(elem);
-            return (
-              <RadioButtonYesOrNo
-                label={'پاسخ گزاره ' + (index + 1)}
-                selected={elem}
-                setSelected={status => {
-                  let tmp = sentencesAnswer;
-                  tmp[index] = status;
-                  setSentencesAnswer(tmp);
-                }}
-              />
-            );
-          })}
+        <View>
+          {type === 'multi_sentence' &&
+            sentencesAnswer !== undefined &&
+            sentencesAnswer.map((elem, index) => {
+              console.log(elem);
+              return (
+                <RadioButtonYesOrNo
+                  label={'پاسخ گزاره ' + (index + 1)}
+                  selected={elem}
+                  setSelected={status => {
+                    let tmp = sentencesAnswer;
+                    tmp[index] = status;
+                    setSentencesAnswer(tmp);
+                  }}
+                />
+              );
+            })}
+        </View>
+        {type === 'tashrihi' && (
+          <JustBottomBorderTextInput
+            isHalf={true}
+            style={{...styleMarginRight25, ...styleMarginTop25}}
+            placeholder={translator.answer}
+            value={answer}
+            multiline={true}
+            onChangeText={e => changeText(e, setAnswer)}
+          />
+        )}
       </PhoneView>
+      <View></View>
     </CommonWebBox>
   );
 }
