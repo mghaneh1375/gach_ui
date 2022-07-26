@@ -70,7 +70,7 @@ const List = props => {
   ];
 
   const handleOp = idx => {
-    props.setSelectedQuiz(props.quizes[idx]);
+    props.setSelectedQuiz(props.quizzes[idx]);
     toggleShowOpPopUp();
   };
 
@@ -93,13 +93,13 @@ const List = props => {
             <TextIcon
               onPress={() => changeMode('create')}
               theme={'rect'}
-              text={translator.quizes}
+              text={translator.quizzes}
               icon={faPlus}
             />
             <CommonDataTable
               columns={columns}
-              data={props.quizes}
-              setData={props.setQuizes}
+              data={props.quizzes}
+              setData={props.setQuizzes}
               handleOp={handleOp}
               token={props.token}
               setLoading={props.setLoading}

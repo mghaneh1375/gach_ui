@@ -19,7 +19,6 @@ import translate from '../../../quiz/components/Card/Translate';
 import {
   styleFont14,
   styleFont16,
-  styleMargin25,
   styleFlexSpaceBetween,
   styleJustifyContentEnd,
   styleYellowMarginTop7,
@@ -184,19 +183,43 @@ function Question(props) {
             />
           </PhoneView>
         )}
+        {props.question.mark !== undefined && (
+          <PhoneView>
+            <BlueTextInline
+              style={{...styleFont14}}
+              text={translate.mark + ' : '}
+            />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={' ' + props.question.mark}
+            />
+          </PhoneView>
+        )}
+        {props.question.used !== undefined && (
+          <PhoneView>
+            <BlueTextInline
+              style={{...styleFont14}}
+              text={translate.used + ' : '}
+            />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={' ' + props.question.used}
+            />
+          </PhoneView>
+        )}
       </PhoneView>
-      {(props.needOps === undefined || props.needOps) && (
+      {props.btns !== undefined && (
         <PhoneView style={{...styleMarginRight25, ...styleJustifyContentEnd}}>
-          <CommonButton title={commonTranslator.delete} />
-          <CommonButton theme={'transparent'} title={commonTranslator.edit} />
-          <CommonButton
-            onPress={() => {
-              props.setQuestionOrganizationId(props.question.organizationId);
-              props.setSelectingQuiz(true);
-            }}
-            theme={'dark'}
-            title={translator.addQuiz}
-          />
+          {props.btns.map((elem, index) => {
+            return (
+              <CommonButton
+                title={elem.title}
+                key={index}
+                theme={elem.theme}
+                onPress={() => elem.onPress(props.question)}
+              />
+            );
+          })}
         </PhoneView>
       )}
       {showMore && (

@@ -6,12 +6,15 @@ import {globalStateContext, dispatchStateContext} from '../../../App';
 import {generalRequest} from '../../../API/Utility';
 import {routes} from '../../../API/APIRoutes';
 import Update from './components/Update';
-import Students from './components/Students';
-import Questions from './components/Questions';
+import Students from './components/Students/Students';
+import Questions from './components/Questions/Questions';
+import {editItem} from '../../../services/Utility';
+import {getQuizzes} from './components/Utility';
+import CV from './components/CV/CV';
 
 const Quiz = props => {
   const [mode, setMode] = useState('list');
-  const [quizes, setQuizes] = useState([]);
+  const [quizzes, setQuizzes] = useState([]);
   const [selectedQuiz, setSelectedQuiz] = useState(undefined);
 
   const navigate = props.navigate;
@@ -29,64 +32,46 @@ const Quiz = props => {
 
   React.useEffect(() => {
     dispatch({loading: true});
-    Promise.all([
-      generalRequest(
-        routes.fetchAllQuiz,
-        'get',
-        undefined,
-        'data',
-        props.token,
-      ),
-    ]).then(res => {
+    Promise.all([getQuizzes(props.token)]).then(res => {
+      dispatch({loading: false});
       if (res[0] == null) {
         navigate('/');
         return;
       }
-      setQuizes(res[0]);
-      dispatch({loading: false});
+      setQuizzes(res[0]);
     });
   }, [navigate, props.token, dispatch]);
 
-  const updateQuiz = newData => {
-    const quizId = newData.id;
-    let newList = [];
-    for (let i = 0; i < quizes.length; i++) {
-      if (quizes[i].id !== quizId) newList.push(quizes[i]);
-      else newList.push(newData);
-    }
-
-    if (selectedQuiz.id === quizId) setSelectedQuiz(newData);
-
-    setQuizes(newList);
-  };
-
   const removeQuiz = quizId => {
     let newList = [];
-    for (let i = 0; i < quizes.length; i++) {
-      if (quizes[i].id !== quizId) newList.push(quizes[i]);
+    for (let i = 0; i < quizzes.length; i++) {
+      if (quizzes[i].id !== quizId) newList.push(quizzes[i]);
     }
 
-    setQuizes(newList);
+    setQuizzes(newList);
   };
 
   const addQuiz = quiz => {
-    let newList = quizes;
+    let newList = quizzes;
     newList.push(quiz);
-    setQuizes(newList);
+    setQuizzes(newList);
   };
 
   return (
     <View>
       {mode === 'list' && (
         <List
-          quizes={quizes}
-          setQuizes={setQuizes}
+          quizzes={quizzes}
+          setQuizzes={setQuizzes}
           setMode={setMode}
           selectedQuiz={selectedQuiz}
           setSelectedQuiz={setSelectedQuiz}
           setLoading={setLoading}
           removeQuiz={removeQuiz}
-          updateQuiz={updateQuiz}
+          updateQuiz={newQuiz => {
+            editItem(quizzes, setQuizzes, newQuiz);
+            setSelectedQuiz(newQuiz);
+          }}
           token={props.token}
         />
       )}
@@ -112,7 +97,10 @@ const Quiz = props => {
           setMode={setMode}
           token={props.token}
           quiz={selectedQuiz}
-          updateQuiz={updateQuiz}
+          updateQuiz={newQuiz => {
+            editItem(quizzes, setQuizzes, newQuiz);
+            setSelectedQuiz(newQuiz);
+          }}
         />
       )}
       {mode === 'question' && (
@@ -121,7 +109,22 @@ const Quiz = props => {
           setMode={setMode}
           token={props.token}
           quiz={selectedQuiz}
-          updateQuiz={updateQuiz}
+          updateQuiz={newQuiz => {
+            editItem(quizzes, setQuizzes, newQuiz);
+            setSelectedQuiz(newQuiz);
+          }}
+        />
+      )}
+      {mode === 'CV' && (
+        <CV
+          setLoading={setLoading}
+          setMode={setMode}
+          token={props.token}
+          quiz={selectedQuiz}
+          updateQuiz={newQuiz => {
+            editItem(quizzes, setQuizzes, newQuiz);
+            setSelectedQuiz(newQuiz);
+          }}
         />
       )}
     </View>

@@ -6,6 +6,8 @@ const translate = {
   studentsCount: 'تعداد ثبت نامی: ',
   isOnline: 'نوع اجرا: ',
   kind: 'نوع آزمون: ',
+  mark: 'نمره: ',
+  used: 'تعداد مرتبه تکرار در آزمون ها: ',
 };
 
 export default translate;

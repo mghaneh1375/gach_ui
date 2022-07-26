@@ -4,9 +4,9 @@ import {showError} from '../services/Utility';
 import commonTranslator from './../tranlates/Common';
 import {removeAuthCache} from './User';
 
-// export const BASE_URL = 'http://192.168.1.103:8080/api/';
+export const BASE_URL = 'http://192.168.0.145:8080/api/';
 // export const BASE_URL = 'http://192.168.43.251:8080/api/';
-export const BASE_URL = 'http://192.168.0.106:8080/api/';
+// export const BASE_URL = 'http://192.168.0.106:8080/api/';
 // export const BASE_URL = 'http://185.239.106.26:8087/api/';
 
 export const COMMON_HEADER = {
@@ -31,6 +31,19 @@ export const COMMON_FILE_HEADER = () => {
 export const COMMON_FILE_HEADER_AUTH = token => {
   return {
     accept: 'application/json',
+    Authorization: 'Bearer ' + token,
+  };
+};
+
+export const COMMON_DOWNLOAD_HEADER = () => {
+  return {
+    'content-type': 'application/json',
+  };
+};
+
+export const COMMON_DOWNLOAD_HEADER_AUTH = token => {
+  return {
+    'content-type': 'application/json',
     Authorization: 'Bearer ' + token,
   };
 };
@@ -86,6 +99,54 @@ export const generalRequest = async (
       }
     })
     .catch(function (error) {
+      showError(commonTranslator.opErr);
+      return null;
+    });
+
+  return res;
+};
+
+export const downloadRequest = async (
+  url,
+  data,
+  token = null,
+  mandatoryFields = undefined,
+) => {
+  if (data !== undefined && data !== null) {
+    try {
+      data = preProcess(data, mandatoryFields);
+    } catch (err) {
+      throw 'preProccess err';
+    }
+  }
+  let res = await Axios({
+    url: url,
+    method: 'get',
+    baseURL: BASE_URL,
+    headers:
+      token !== null && token !== undefined
+        ? COMMON_DOWNLOAD_HEADER_AUTH(token)
+        : COMMON_DOWNLOAD_HEADER,
+    responseType: 'blob',
+    data: data,
+  })
+    .then(async function (response) {
+      if (response === undefined || response === null) {
+        showError(data.msg);
+        return null;
+      }
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'file.pdf');
+      document.body.appendChild(link);
+      link.click();
+
+      return 'ok';
+    })
+    .catch(function (error) {
+      console.log(error);
       showError(commonTranslator.opErr);
       return null;
     });

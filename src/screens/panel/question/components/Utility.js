@@ -62,3 +62,15 @@ export const addQuestionToQuizzes = async (
     token,
   );
 };
+
+export const removeQuestion = async (questionId, token) => {
+  return await generalRequest(
+    routes.removeQuestion,
+    'delete',
+    {
+      items: [questionId],
+    },
+    ['excepts', 'doneIds'],
+    token,
+  );
+};

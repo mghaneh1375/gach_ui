@@ -25,11 +25,6 @@ const SearchUser = props => {
   const [mail, setMail] = useState();
   const [selected, setSelected] = useState([]);
 
-  const setFinalResult = element => {
-    props.setFinalResult(element);
-    props.setShow(false);
-  };
-
   const changeMode = new_mode => {
     setMode(new_mode);
   };

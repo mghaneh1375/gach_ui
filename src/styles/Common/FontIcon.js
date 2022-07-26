@@ -26,6 +26,8 @@ export const FontIcon = props => {
     backgroundColor:
       props.back === undefined || props.back === 'orange'
         ? vars.ORANGE_RED
+        : props.back === 'blue'
+        ? vars.DARK_BLUE
         : vars.YELLOW,
     cursor: 'pointer',
     width:

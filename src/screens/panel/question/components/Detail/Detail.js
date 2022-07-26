@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {addQuestionToQuizzes, filter} from '../Utility';
+import {addQuestionToQuizzes, filter, removeQuestion} from '../Utility';
 import Question from './Question';
 import Quizzes from './../../../../../components/web/Quizzes';
 import {generalRequest} from '../../../../../API/Utility';
@@ -8,6 +8,9 @@ import {routes} from '../../../../../API/APIRoutes';
 import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton} from '../../../../../styles/Common';
 import translator from '../../Translator';
+import commonTranslator from '../../../../../tranlates/Common';
+import {FontIcon} from '../../../../../styles/Common/FontIcon';
+import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 
 function Detail(props) {
   const [selectingQuiz, setSelectingQuiz] = useState(false);
@@ -61,7 +64,6 @@ function Detail(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-      setIsWorking(false);
 
       if (res[0] === null) {
         props.setMode('list');
@@ -69,23 +71,67 @@ function Detail(props) {
       }
 
       props.setSubject(res[0][0]);
+      setIsWorking(false);
     });
   }, [props, isWorking]);
 
   return (
     <View>
-      {!selectingQuiz &&
-        props.subject.questions !== undefined &&
-        props.subject.questions.map((elem, index) => {
-          return (
-            <Question
-              setSelectingQuiz={setSelectingQuiz}
-              setQuestionOrganizationId={setQuestionOrganizationId}
-              question={elem}
-              key={index}
-            />
-          );
-        })}
+      {!selectingQuiz && (
+        <View>
+          <FontIcon
+            kind={'normal'}
+            theme={'rect'}
+            icon={faAngleLeft}
+            onPress={() => props.setMode('list')}
+            parentStyle={{alignSelf: 'flex-end', margin: 20}}
+            back={'yellow'}
+          />
+          {props.subject.questions !== undefined &&
+            props.subject.questions.map((elem, index) => {
+              return (
+                <Question
+                  setSelectingQuiz={setSelectingQuiz}
+                  setQuestionOrganizationId={setQuestionOrganizationId}
+                  question={elem}
+                  key={index}
+                  btns={[
+                    {
+                      title: commonTranslator.delete,
+                      onPress: async question => {
+                        props.setLoading(true);
+                        let res = await removeQuestion(
+                          question.id,
+                          props.token,
+                        );
+                        props.setLoading(false);
+                        if (res !== null) {
+                          showSuccess(res.excepts);
+                          props.subject.questions =
+                            props.subject.questions.filter(
+                              elem => res.doneIds.indexOf(elem.id) === -1,
+                            );
+                          props.subject.qNo = props.subject.qNo - 1;
+                          props.setSubject(props.subject);
+                        }
+                      },
+                    },
+                    {theme: 'transparent', title: commonTranslator.edit},
+                    {
+                      onPress: question => {
+                        setQuestionOrganizationId(question.organizationId);
+                        setSelectingQuiz(true);
+                      },
+                      theme: 'dark',
+                      title: translator.addQuiz,
+                    },
+                  ]}
+                />
+              );
+            })}
+        </View>
+      )}
+
       {selectingQuiz && quizzes !== undefined && (
         <Quizzes
           onBackClicked={() => setSelectingQuiz(false)}
