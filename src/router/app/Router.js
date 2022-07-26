@@ -6,11 +6,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppStructue from '../../screens/AppStructure';
 import Profile from '../../screens/general/profile/Profile';
+import Gift from '../../screens/general/Gift/Gift';
 
 const Stack = createNativeStackNavigator();
 
 export default function Router() {
-  const HomeComp = props => <AppStructue com={Home} />;
+  const HomeComp = props => <AppStructue com={Gift} />;
   const LoginComp = props => <AppStructue com={Login} />;
   const ProfileComp = props => <AppStructue com={Profile} />;
 

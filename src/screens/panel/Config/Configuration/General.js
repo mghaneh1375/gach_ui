@@ -33,6 +33,9 @@ function General(props) {
   const [coinRateCoef, setCoinRateCoef] = useState();
   const [topInQuizForCert, setTopInQuizForCert] = useState();
   const [advisorOffPercent, setAdvisorOffPercent] = useState();
+  const [maxStudentQuizPerDay, setMaxStudentQuizPerDay] = useState();
+  const [quizPerStudentPrice, setQuizPerStudentPrice] = useState();
+  const [giftPeriod, setGiftPeriod] = useState();
 
   React.useEffect(() => {
     dispatch({loading: true});
@@ -68,6 +71,9 @@ function General(props) {
       setCoinRateCoef(data.coinRateCoef);
       setTopInQuizForCert(data.topInQuizForCert);
       setAdvisorOffPercent(data.advisorOffPercent);
+      setMaxStudentQuizPerDay(data.maxStudentQuizPerDay);
+      setGiftPeriod(data.giftPeriod);
+      setQuizPerStudentPrice(data.quizPerStudentPrice);
     });
   }, [navigate, props.token, dispatch]);
 
@@ -92,6 +98,9 @@ function General(props) {
           coinRateCoef: coinRateCoef,
           topInQuizForCert: topInQuizForCert,
           advisorOffPercent: advisorOffPercent,
+          maxStudentQuizPerDay: maxStudentQuizPerDay,
+          giftPeriod: giftPeriod,
+          quizPerStudentPrice: quizPerStudentPrice,
         },
         undefined,
         props.token,
@@ -107,7 +116,7 @@ function General(props) {
   return (
     <View>
       <CommonWebBox>
-        <PhoneView>
+        <PhoneView style={{flexWrap: 'wrap'}}>
           <JustBottomBorderTextInput
             placeholder={translator.initMoney}
             subText={translator.initMoney}
@@ -122,8 +131,6 @@ function General(props) {
             onChangeText={e => setInitCoin(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
           <JustBottomBorderTextInput
             placeholder={translator.inviteMoney}
             subText={translator.inviteMoney}
@@ -138,9 +145,6 @@ function General(props) {
             onChangeText={e => setInviteCoin(e)}
             justNum={true}
           />
-        </PhoneView>
-
-        <PhoneView>
           <JustBottomBorderTextInput
             placeholder={translator.completeInfoMoney}
             subText={translator.completeInfoMoney}
@@ -155,8 +159,6 @@ function General(props) {
             onChangeText={e => setCompleteInfoCoin(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
           <JustBottomBorderTextInput
             placeholder={translator.quizMoney}
             subText={translator.quizMoney}
@@ -171,8 +173,6 @@ function General(props) {
             onChangeText={e => setQuizCoin(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
           <JustBottomBorderTextInput
             placeholder={translator.agentOffPercent}
             subText={translator.agentOffPercent}
@@ -187,8 +187,6 @@ function General(props) {
             onChangeText={e => setSchoolOffPercent(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
           <JustBottomBorderTextInput
             placeholder={translator.minRequestMoney}
             subText={translator.minRequestMoney}
@@ -204,8 +202,6 @@ function General(props) {
             onChangeText={e => setCoinRateCoef(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
           <JustBottomBorderTextInput
             placeholder={translator.topInQuizForCert}
             subText={translator.topInQuizForCert}
@@ -218,6 +214,29 @@ function General(props) {
             subText={translator.advisorOffPercent}
             value={advisorOffPercent}
             onChangeText={e => setAdvisorOffPercent(e)}
+            justNum={true}
+          />
+          <JustBottomBorderTextInput
+            placeholder={translator.maxStudentQuizPerDay}
+            subText={translator.maxStudentQuizPerDay}
+            value={maxStudentQuizPerDay}
+            onChangeText={e => setMaxStudentQuizPerDay(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.quizPerStudentPrice}
+            subText={translator.quizPerStudentPrice}
+            value={quizPerStudentPrice}
+            onChangeText={e => setQuizPerStudentPrice(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.giftPeriod}
+            subText={translator.giftPeriod}
+            value={giftPeriod}
+            onChangeText={e => setGiftPeriod(e)}
             justNum={true}
           />
         </PhoneView>

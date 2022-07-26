@@ -30,6 +30,9 @@ const translator = {
   cannor: 'تست هراس اجتماعی کانور',
   GHQ: 'تست سلامت عمومی ( GHQ )',
   RCMAS: 'آزمون اضطراب آشکار کودکان رینولدز و ریچموند',
+  maxStudentQuizPerDay: 'حداکثر تعداد دانش آموز برای برگزاری آزمون در روز',
+  quizPerStudentPrice: 'قیمت شرکت هر دانش آموز در آزمون های مدرسه ای',
+  giftPeriod: 'بازه شرکت در گردونه شانس',
 };
 
 export default translator;
