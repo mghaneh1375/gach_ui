@@ -135,6 +135,7 @@ export const addItem = (items, setItems, item) => {
 
 export const editItem = (items, setItems, item) => {
   let allItems = items;
+
   allItems = allItems.map(elem => {
     if (elem.id === item.id) return item;
     return elem;

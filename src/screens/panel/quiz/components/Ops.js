@@ -5,6 +5,7 @@ import commonTranslator from '../../../../tranlates/Common';
 import vars from '../../../../styles/root';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
+import {generateQuestionPDF} from './Utility';
 
 const Ops = props => {
   const toggleVisibility = () => {
@@ -137,6 +138,31 @@ const Ops = props => {
           theme={'transparent'}
           title={translator.transferToOpenQuiz}
         />
+        {!props.quiz.isOnline && props.quiz.mode === 'regular' && (
+          <CommonButton
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => props.setMode('CV')}
+            title={translator.correntAnswerSheets}
+          />
+        )}
+        {!props.quiz.isOnline && (
+          <CommonButton
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={async () => {
+              props.setLoading(true);
+              await generateQuestionPDF(
+                props.quiz.id,
+                props.quiz.generalMode,
+                props.token,
+              );
+
+              props.setLoading(false);
+            }}
+            title={translator.generateQuestionPDF}
+          />
+        )}
       </PhoneView>
     </LargePopUp>
   );

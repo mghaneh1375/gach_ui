@@ -51,9 +51,7 @@ function Add(props) {
     <Quizzes
       onBackClicked={() => dispatch({selectingQuiz: false})}
       quizzes={state.registrableQuizzes}
-      token={props.token}
-      setSelectedQuizzes={setSelectedQuizzes}
-      setLoading={props.setLoading}>
+      setSelectedQuizzes={setSelectedQuizzes}>
       <CommonButton
         style={{alignSelf: 'flex-end'}}
         title={Translate.addToPackage}

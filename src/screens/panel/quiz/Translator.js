@@ -29,6 +29,7 @@ const translator = {
   uploadFile: 'بارگذاری فایل جهت درج در ckeditor (اختیاری)',
   seeInfo: 'مشاهده اطلاعات',
   editQuestions: 'ویرایش سوالات',
+  editQuestion: 'ویرایش سوال',
   studentsList: 'مشاهده لیست دانش آموزان',
   forceRegistry: 'ثبت نام مستقیم',
   createTaraz: 'ساخت تراز',
@@ -42,6 +43,10 @@ const translator = {
   organizationId: 'کد سازمانی سوال',
   organizationIdHelp: 'چندین کد را با استفاده از , جدا کنید',
   topic: 'موضوع',
+  mark: 'نمره سوال',
+  generateQuestionPDF: 'دانلود دفترچه آزمون',
+  generateAnswerSheetPDF: 'دانلود دفترچه پاسخبرگ',
+  correntAnswerSheets: 'تصحیح پاسخ برگ های اسکن شده',
 };
 
 export default translator;

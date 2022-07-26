@@ -47,6 +47,7 @@ const translator = {
   city: 'شهر',
   grade: 'پایه تحصیلی',
   lesson: 'درس',
+  subject: 'حیطه',
   branch: 'گروه آموزشی',
   change: 'تغییر',
   doChange: 'اعمال تغییر',

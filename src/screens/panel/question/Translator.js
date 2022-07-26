@@ -37,7 +37,7 @@ const translator = {
   multiSentence: 'چند گزاره ای',
   sentencesCount: 'تعداد گزاره ها :',
   neededLines: 'تعداد خطوط : ',
-  addQuiz: 'افزودن آزمون',
+  addQuiz: 'افزودن به آزمون',
 };
 
 export default translator;
