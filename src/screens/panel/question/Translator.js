@@ -22,7 +22,6 @@ const translator = {
   questionFile: 'فایل سوال',
   answerFile: 'فایل پاسخ',
   typeOfQuestion: ' نوع سوال : ',
-  longTime: 'مدت زمان :  ',
   minuts: ' دقیقه ',
   second: ' ثانیه ',
   easy: 'آسان',
@@ -35,8 +34,8 @@ const translator = {
   test: 'تستی',
   tashrihi: 'تشریحی',
   shortAnswer: 'پاسخ کوتاه',
-  multiSentence: 'پاسخ چند جمله',
-  sentencesCount: 'تعداد گزاره  ها :',
+  multiSentence: 'چند گزاره ای',
+  sentencesCount: 'تعداد گزاره ها :',
   neededLines: 'تعداد خطوط : ',
   addQuiz: 'افزودن به آزمون',
 };

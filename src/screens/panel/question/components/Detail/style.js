@@ -40,3 +40,6 @@ export const styleMarginRight25 = {
 export const styleMaxHeight300 = {
   maxHeight: 300,
 };
+export const styleMarginTop25 = {
+  marginTop: 25,
+};
