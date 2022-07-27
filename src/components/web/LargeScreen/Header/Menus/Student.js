@@ -10,6 +10,7 @@ import {
   faCreditCard,
   faCheckSquare,
   faCog,
+  faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 
@@ -27,7 +28,12 @@ function StudentMenu(props) {
           icon={faHome}
           selected={props.selected === 'dashboard'}
         />
-        <MenuItem text={translator.myQuizes} icon={faCheckSquare} />
+        <MenuItem
+          onClick={() => navigate('/buy')}
+          text={translator.myQuizes}
+          icon={faShoppingCart}
+          selected={props.selected === 'buy'}
+        />
         <MenuItem text={translator.buyQuiz} icon={faBasketShopping} />
         <MenuItem text={translator.charge} icon={faCreditCard} />
         <MenuItem text={translator.history} icon={faHistory} />
