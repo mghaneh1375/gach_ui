@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
+import {CommonWebBox, PhoneView} from '../../../../../styles/Common';
 import {getAnswerSheets} from '../Utility';
 import Card from './Card';
+import {
+  AnswerSheetProvider,
+  answerSheetContext,
+  dispatchAnswerSheetContext,
+} from './../AnswerSheet/AnswerSheetProvider';
+import AnswerSheet from '../AnswerSheet/AnswerSheet';
 
 function CV(props) {
   const [isWorking, setIsWorking] = useState(false);
+  const [showAnswerSheet, setShowAnswerSheet] = useState(false);
 
   React.useEffect(() => {
     if (!isWorking && props.quiz.answer_sheets === undefined) {
@@ -32,26 +34,35 @@ function CV(props) {
   }, [props, isWorking]);
 
   return (
-    <View style={{zIndex: 'unset'}}>
-      <CommonWebBox backBtn={true} onBackClick={() => props.setMode('list')}>
-        <PhoneView style={{flexWrap: 'wrap'}}>
-          {props.quiz.answer_sheets !== undefined &&
-            props.quiz.answer_sheets.map((elem, index) => {
-              return (
-                <Card
-                  token={props.token}
-                  setLoading={props.setLoading}
-                  user={elem.student}
-                  quizId={props.quiz.id}
-                  quizMode={props.quiz.generalMode}
-                  answerSheet={elem.answerSheet}
-                  answerSheetAfterCorrection={elem.answerSheetAfterCorrection}
-                />
-              );
-            })}
-        </PhoneView>
-      </CommonWebBox>
-    </View>
+    <AnswerSheetProvider>
+      <View style={{zIndex: 'unset'}}>
+        {showAnswerSheet && <AnswerSheet />}
+        {!showAnswerSheet && (
+          <CommonWebBox
+            backBtn={true}
+            onBackClick={() => props.setMode('list')}>
+            <PhoneView style={{flexWrap: 'wrap'}}>
+              {props.quiz.answer_sheets !== undefined &&
+                props.quiz.answer_sheets.map((elem, index) => {
+                  console.log(elem);
+                  return (
+                    <Card
+                      setShowAnswerSheet={setShowAnswerSheet}
+                      key={index}
+                      token={props.token}
+                      setLoading={props.setLoading}
+                      quizId={props.quiz.id}
+                      quizGeneralMode={props.quiz.generalMode}
+                      quizMode={props.quiz.mode}
+                      answerSheet={elem}
+                    />
+                  );
+                })}
+            </PhoneView>
+          </CommonWebBox>
+        )}
+      </View>
+    </AnswerSheetProvider>
   );
 }
 
