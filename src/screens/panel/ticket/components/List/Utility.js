@@ -3,9 +3,9 @@ import {generalRequest} from '../../../../../API/Utility';
 import {showSuccess} from '../../../../../services/Utility';
 import translator from '../../Translator';
 
-export const closeRequest = (props, selectedId, toggleShowOpPopUp) => {
+export const closeRequest = async (props, selectedId, toggleShowOpPopUp) => {
   props.setLoading(true);
-  Promise.all([
+  let res = await Promise.all([
     generalRequest(
       routes.closeTicketRequest,
       'post',
@@ -17,17 +17,22 @@ export const closeRequest = (props, selectedId, toggleShowOpPopUp) => {
     props.setLoading(false);
     if (res[0] !== null) {
       showSuccess(res[0].excepts);
-      let tickets = props.tickets;
-      tickets = tickets.map(elem => {
-        if (res[0].closedIds.indexOf(elem.id) !== -1) {
-          elem.statusFa = translator.closedRequest;
-        }
-        return elem;
-      });
-      props.setTickets(tickets);
-      toggleShowOpPopUp();
+      if (props.setTickets !== undefined) {
+        let tickets = props.tickets;
+        tickets = tickets.map(elem => {
+          if (res[0].closedIds.indexOf(elem.id) !== -1) {
+            elem.statusFa = translator.closedRequest;
+          }
+          return elem;
+        });
+        props.setTickets(tickets);
+      }
+      if (toggleShowOpPopUp !== undefined) toggleShowOpPopUp();
     }
+    return res;
   });
+
+  return res;
 };
 
 export const filter = (

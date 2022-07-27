@@ -3,7 +3,6 @@ import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
-  SimpleText,
 } from '../../../../../styles/Common';
 import {useState} from 'react';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
@@ -12,42 +11,55 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../../../../tranlates/Common';
 import Digest from '../Digest/Digest';
+import Filter from '../../../../panel/ticket/components/ProSearch/Filter';
+import {editItem} from '../../../../../services/Utility';
 
-function List() {
+function List(props) {
   const [type, setType] = useState();
+  const [section, setSection] = useState();
 
   return (
     <View>
       <CommonWebBox>
+        {/* backBtn={true} onBackClick={() => props.setMOde('list')} */}
         <View>
           <TextIcon
-            // onPress={() => changeMode('create')}
+            onPress={() => props.setMode('create')}
             theme={'rect'}
             text={Translate.sendRequest}
             icon={faPlus}
           />
         </View>
-        <SimpleText text={'خرید آزمون'} />
       </CommonWebBox>
       <CommonWebBox style={{marginTop: -5}}>
-        <EqualTwoTextInputs style={{padding: 5}}>
-          <JustBottomBorderTextInput
-            value={type}
-            onChangeText={text => setType(text)}
-            placeholder={Translate.showType}
-            subText={commonTranslator.necessaryContent}
+        <View style={{padding: 5, zIndex: 'unset'}}>
+          <Filter
+            // setIsInUpgradeMode={setIsInUpgradeMode}
+            section={section}
+            setTickets={props.setTickets}
+            isAdmin={props.isAdmin}
+            token={props.token}
+            setLoading={props.setLoading}
           />
-          <CommonButton title={commonTranslator.show} theme={'dark'} />
-        </EqualTwoTextInputs>
+        </View>
       </CommonWebBox>
-      <Digest
-        title={Translate.titleTicket}
-        sendData={Translate.sendDate}
-        unit={commonTranslator.Learn}
-        nes={commonTranslator.necessary}
-        condition={Translate.conditionAnswer}
-        isTrash={true}
-      />
+      {props.tickets !== undefined &&
+        props.tickets.map((elem, index) => {
+          return (
+            <Digest
+              ticket={elem}
+              setSelectedTicket={props.setSelectedTicket}
+              setMode={props.setMode}
+              key={index}
+              removeTicket={props.removeTicket}
+              updateTicket={newItem =>
+                editItem(props.tickets, props.setTickets, newItem)
+              }
+              token={props.token}
+              setLoading={props.setLoading}
+            />
+          );
+        })}
     </View>
   );
 }

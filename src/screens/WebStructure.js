@@ -45,7 +45,7 @@ import Certificate from './panel/certificate/Certificate';
 import Ticket from './panel/ticket/Ticket';
 import Dashboard from './studentPanel/dashboard/Dashboard';
 import Gift from './general/Gift/Gift';
-import Buy from './studentPanel/Buy/Buy';
+import StudentTicket from './studentPanel/Buy/Ticket';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -241,9 +241,20 @@ const WebStructue = props => {
               {props.page === 'offs' && (
                 <Off token={token} user={user} navigate={navigate} />
               )}
-              {props.page === 'ticket' && (
-                <Ticket token={token} user={user} navigate={navigate} />
-              )}
+              {props.page === 'ticket' &&
+                (user.accesses.indexOf('admin') !== -1 ||
+                  user.accesses.indexOf('superadmin') !== -1) && (
+                  <Ticket token={token} user={user} navigate={navigate} />
+                )}
+              {props.page === 'ticket' &&
+                user.accesses.indexOf('admin') === -1 &&
+                user.accesses.indexOf('superadmin') === -1 && (
+                  <StudentTicket
+                    token={token}
+                    user={user}
+                    navigate={navigate}
+                  />
+                )}
               {props.page === 'basic' &&
                 params !== undefined &&
                 params.mode !== undefined &&
@@ -279,9 +290,6 @@ const WebStructue = props => {
               )}
               {props.page === 'users' && (
                 <Users token={token} user={user} navigate={navigate} />
-              )}
-              {props.page === 'buy' && (
-                <Buy token={token} user={user} navigate={navigate} />
               )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </View>
