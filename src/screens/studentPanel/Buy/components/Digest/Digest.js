@@ -87,27 +87,29 @@ function Digest({
               }}
             />
           )}
-          <CommonButton
-            theme={'dark'}
-            title={Translate.closeAll}
-            onPress={async () => {
-              setLoading(true);
-              let res = await closeRequest(
-                {
-                  token: token,
-                  setLoading: setLoading,
-                },
-                ticket.id,
-                undefined,
-              );
-              setLoading(false);
-              if (res !== null) {
-                ticket.status = 'finish';
-                ticket.statusFa = 'خاتمه شده';
-                updateTicket(ticket);
-              }
-            }}
-          />
+          {ticket.status !== 'finish' && (
+            <CommonButton
+              theme={'dark'}
+              title={Translate.closeAll}
+              onPress={async () => {
+                setLoading(true);
+                let res = await closeRequest(
+                  {
+                    token: token,
+                    setLoading: setLoading,
+                  },
+                  ticket.id,
+                  undefined,
+                );
+                setLoading(false);
+                if (res !== null) {
+                  ticket.status = 'finish';
+                  ticket.statusFa = commonTranslator.finished;
+                  updateTicket(ticket);
+                }
+              }}
+            />
+          )}
           <CommonButton
             onPress={() => {
               setSelectedTicket(ticket);

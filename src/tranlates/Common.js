@@ -144,5 +144,6 @@ const translator = {
   Learn: 'آموزش',
   nes: 'فوریت',
   view: 'مشاهده',
+  finished: 'خاتمه شده',
 };
 export default translator;
