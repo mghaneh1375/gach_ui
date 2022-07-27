@@ -15,7 +15,7 @@ import Profile from './general/profile/Profile';
 import {getDevice} from '../services/Utility';
 import {Device} from '../models/Device';
 
-// import 'react-notifications-component/dist/theme.css';
+import 'react-notifications-component/dist/theme.css';
 import {ReactNotifications} from 'react-notifications-component';
 
 import {globalStateContext, dispatchStateContext} from '../App';
@@ -194,8 +194,8 @@ const WebStructue = props => {
                   ? LargeContentConianerStyle
                   : PhoneContentConianerStyle
               }>
-              {/* {props.page === 'home' && <Home navigate={navigate} />} */}
-              {props.page === 'home' && <Gift navigate={navigate} />}
+              {props.page === 'home' && <Home navigate={navigate} />}
+              {/* {props.page === 'home' && <Gift navigate={navigate} />} */}
               {props.page === 'profile' && isInLargeMode && (
                 <WebProfile
                   setUser={setUser}

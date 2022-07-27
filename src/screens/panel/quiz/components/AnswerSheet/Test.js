@@ -1,5 +1,5 @@
 function Test(props) {
-    return (  );
+  return <View></View>;
 }
 
 export default Test;
