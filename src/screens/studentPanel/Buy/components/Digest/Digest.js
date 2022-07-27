@@ -13,10 +13,21 @@ import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import commonTranslator from '../../../../../tranlates/Common';
 import {styleFontSize15, styleFontSize11} from '../List/style';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
+import {callRemoveTicket} from '../Utility';
+import {showSuccess} from '../../../../../services/Utility';
+import {closeRequest} from '../../../../panel/ticket/components/List/Utility';
 
-function Digest({ticket, setSelectedTicket, setMode, removeTicket}) {
+function Digest({
+  ticket,
+  setSelectedTicket,
+  setMode,
+  removeTicket,
+  updateTicket,
+  token,
+  setLoading,
+}) {
   return (
-    <CommonWebBox header={ticket.title}>
+    <CommonWebBox header={ticket.title} style={{zIndex: 'unset'}}>
       <PhoneView
         style={{
           justifyContent: 'space-around',
@@ -65,10 +76,38 @@ function Digest({ticket, setSelectedTicket, setMode, removeTicket}) {
               kind={'normal'}
               theme={'rect'}
               icon={faTrash}
-              onPress={() => removeTicket(ticket.id)}
+              onPress={async () => {
+                setLoading(true);
+                let res = await callRemoveTicket(token, ticket.id);
+                setLoading(false);
+                if (res !== null) {
+                  showSuccess(res.excepts);
+                  removeTicket(res.doneIds);
+                }
+              }}
             />
           )}
-          <CommonButton theme={'dark'} title={Translate.closeAll} />
+          <CommonButton
+            theme={'dark'}
+            title={Translate.closeAll}
+            onPress={async () => {
+              setLoading(true);
+              let res = await closeRequest(
+                {
+                  token: token,
+                  setLoading: setLoading,
+                },
+                ticket.id,
+                undefined,
+              );
+              setLoading(false);
+              if (res !== null) {
+                ticket.status = 'finish';
+                ticket.statusFa = 'خاتمه شده';
+                updateTicket(ticket);
+              }
+            }}
+          />
           <CommonButton
             onPress={() => {
               setSelectedTicket(ticket);

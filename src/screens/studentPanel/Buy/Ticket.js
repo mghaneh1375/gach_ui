@@ -50,6 +50,7 @@ function Buy(props) {
       {mode === 'list' && (
         <List
           tickets={tickets}
+          setTickets={setTickets}
           setMode={setMode}
           setLoading={setLoading}
           setSelectedTicket={setSelectedTicket}

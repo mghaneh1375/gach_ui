@@ -11,9 +11,12 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../../../../tranlates/Common';
 import Digest from '../Digest/Digest';
+import Filter from '../../../../panel/ticket/components/ProSearch/Filter';
+import {editItem} from '../../../../../services/Utility';
 
 function List(props) {
   const [type, setType] = useState();
+  const [section, setSection] = useState();
 
   return (
     <View>
@@ -29,15 +32,16 @@ function List(props) {
         </View>
       </CommonWebBox>
       <CommonWebBox style={{marginTop: -5}}>
-        <EqualTwoTextInputs style={{padding: 5}}>
-          <JustBottomBorderTextInput
-            value={type}
-            onChangeText={text => setType(text)}
-            placeholder={Translate.showType}
-            subText={commonTranslator.necessaryContent}
+        <View style={{padding: 5, zIndex: 'unset'}}>
+          <Filter
+            // setIsInUpgradeMode={setIsInUpgradeMode}
+            section={section}
+            setTickets={props.setTickets}
+            isAdmin={props.isAdmin}
+            token={props.token}
+            setLoading={props.setLoading}
           />
-          <CommonButton title={commonTranslator.show} theme={'dark'} />
-        </EqualTwoTextInputs>
+        </View>
       </CommonWebBox>
       {props.tickets !== undefined &&
         props.tickets.map((elem, index) => {
@@ -48,6 +52,11 @@ function List(props) {
               setMode={props.setMode}
               key={index}
               removeTicket={props.removeTicket}
+              updateTicket={newItem =>
+                editItem(props.tickets, props.setTickets, newItem)
+              }
+              token={props.token}
+              setLoading={props.setLoading}
             />
           );
         })}
