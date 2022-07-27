@@ -3,8 +3,6 @@ import {View} from 'react-native';
 import CreateQuiz from './components/CreateQuiz';
 import List from './components/List';
 import {globalStateContext, dispatchStateContext} from '../../../App';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
 import Update from './components/Update';
 import Students from './components/Students/Students';
 import Questions from './components/Questions/Questions';

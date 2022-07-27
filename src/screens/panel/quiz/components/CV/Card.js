@@ -5,6 +5,10 @@ import UploadFile from '../../../../../components/web/UploadFile';
 import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton, SimpleText} from '../../../../../styles/Common';
 import commonTranslator from '../../../../../tranlates/Common';
+import {
+  answerSheetContext,
+  dispatchAnswerSheetContext,
+} from '../AnswerSheet/AnswerSheetProvider';
 import {correct} from '../Utility';
 
 function Card(props) {
@@ -13,13 +17,19 @@ function Card(props) {
   const [answerSheetAfterCorrection, setAnswerSheetAfterCorrection] =
     useState();
 
-  React.useEffect(() => {
-    setAnswerSheet(props.answerSheet);
-  }, [props.answerSheet]);
+  const useGlobalState = () => [
+    React.useContext(answerSheetContext),
+    React.useContext(dispatchAnswerSheetContext),
+  ];
+  const [state, dispatch] = useGlobalState();
 
   React.useEffect(() => {
-    setAnswerSheetAfterCorrection(props.answerSheetAfterCorrection);
-  }, [props.answerSheetAfterCorrection]);
+    setAnswerSheet(props.answerSheet.answerSheet);
+  }, [props.answerSheet.answerSheet]);
+
+  React.useEffect(() => {
+    setAnswerSheetAfterCorrection(props.answerSheet.answerSheetAfterCorrection);
+  }, [props.answerSheet.answerSheetAfterCorrection]);
 
   const afterAdd = res => {
     if (res !== null) {
@@ -37,11 +47,11 @@ function Card(props) {
           accept={['image/*']}
           url={
             routes.setQuizAnswerSheet +
-            props.quizMode +
+            props.quizGeneralMode +
             '/' +
             props.quizId +
             '/' +
-            props.user.id
+            props.answerSheet.student.id
           }
           expectedRes={'file'}
           setResult={afterAdd}
@@ -51,7 +61,10 @@ function Card(props) {
           toggleShow={() => setShowUploadPane(false)}
         />
       )}
-      <SimpleText style={{alignSelf: 'center'}} text={props.user.name} />
+      <SimpleText
+        style={{alignSelf: 'center'}}
+        text={props.answerSheet.student.name}
+      />
       {answerSheet !== undefined && answerSheet !== '' && (
         <img style={{width: 100}} src={answerSheet} />
       )}
@@ -64,14 +77,29 @@ function Card(props) {
         theme={'dark'}
         title={'آپلود تصویر پاسخ برگ'}
       />
+      <CommonButton
+        onPress={() => {
+          dispatch({
+            answerSheet: props.answerSheet.answers,
+            quizMode: props.quizMode,
+            quizId: props.quizId,
+          });
+          props.setShowAnswerSheet(true);
+        }}
+        theme={'dark'}
+        title={'وارد کردن پاسخ ها'}
+      />
       {answerSheet !== undefined && answerSheet !== '' && (
         <CommonButton
           onPress={async () => {
             props.setLoading(true);
-            let res = await correct(props.quizId, props.user.id, props.token);
+            let res = await correct(
+              props.quizId,
+              props.answerSheet.student.id,
+              props.token,
+            );
             props.setLoading(false);
             if (res !== null) {
-              console.log(res.path);
               setAnswerSheetAfterCorrection(res.path);
             }
           }}

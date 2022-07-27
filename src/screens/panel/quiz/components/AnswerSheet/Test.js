@@ -1,5 +1,7 @@
+import {PhoneView} from '../../../../../styles/Common';
+
 function Test(props) {
-  return <View></View>;
+  return <PhoneView></PhoneView>;
 }
 
 export default Test;

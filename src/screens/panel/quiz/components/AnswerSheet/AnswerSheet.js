@@ -1,26 +1,25 @@
+import React from 'react';
 import {View} from 'react-native';
-import React, {useState} from 'react';
+import TestAnswerSheet from './TestAnswerSheet';
 import {
   answerSheetContext,
   dispatchAnswerSheetContext,
 } from './AnswerSheetProvider';
-import Test from './Test';
 
-function TestAnswerSheet(props) {
+function AnswerSheet(props) {
   const useGlobalState = () => [
     React.useContext(answerSheetContext),
     React.useContext(dispatchAnswerSheetContext),
   ];
   const [state, dispatch] = useGlobalState();
-
+  console.log(state);
   return (
     <View>
-      {state.answerSheet !== undefined &&
-        state.answerSheet.map((elem, index) => {
-          return <Test key={index} />;
-        })}
+      {state.quizMode !== undefined && state.quizMode === 'regular' && (
+        <TestAnswerSheet />
+      )}
     </View>
   );
 }
 
-export default TestAnswerSheet;
+export default AnswerSheet;
