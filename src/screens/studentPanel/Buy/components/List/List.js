@@ -11,7 +11,7 @@ import {Translate} from '../../Translate';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../../../../tranlates/Common';
-import TitleTicket from '../TitleTicket/TitleTicket';
+import Digest from '../Digest/Digest';
 
 function List() {
   const [type, setType] = useState();
@@ -40,7 +40,7 @@ function List() {
           <CommonButton title={commonTranslator.show} theme={'dark'} />
         </EqualTwoTextInputs>
       </CommonWebBox>
-      <TitleTicket
+      <Digest
         title={Translate.titleTicket}
         sendData={Translate.sendDate}
         unit={commonTranslator.Learn}

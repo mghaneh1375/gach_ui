@@ -13,7 +13,7 @@ import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import commonTranslator from '../../../../../tranlates/Common';
 import {styleFontSize15, styleFontSize11} from '../List/style';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
-function TitleTicket({title, sendData, unit, nes, condition, isTrash}) {
+function Digest({title, sendData, unit, nes, condition, isTrash}) {
   return (
     <CommonWebBox header={title}>
       <PhoneView
@@ -70,4 +70,4 @@ function TitleTicket({title, sendData, unit, nes, condition, isTrash}) {
   );
 }
 
-export default TitleTicket;
+export default Digest;
