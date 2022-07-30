@@ -101,5 +101,6 @@ export const routes = {
   removeSchools: 'admin/config/school/remove',
   addSchool: 'admin/config/school/add',
   editSchool: 'admin/config/school/edit/',
-  addCreateAuthor: 'admin/config/author/store',
+  createAuthor: 'admin/config/author/store',
+  removeAuthors: 'admin/config/author/remove',
 };

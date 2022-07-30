@@ -6,11 +6,13 @@ import Translate from '../Translator';
 import {useState} from 'react';
 import Ops from './Ops/Ops';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import Columns from './Ops/Columns';
+import columns from './AuthorTableStructure';
+import {routes} from '../../../../../API/APIRoutes';
+
 //import {routes} from '../../../../../../API/APIRoutes';
 
 function List(props) {
-  const [showOpPopUp, setShowOpPopUp] = useState(true);
+  const [showOpPopUp, setShowOpPopUp] = useState(false);
   const changeMode = newMode => {
     props.setMode(newMode);
   };
@@ -18,7 +20,7 @@ function List(props) {
     setShowOpPopUp(!showOpPopUp);
   };
   const handleOp = idx => {
-    props.setSelectedUser(props.users[idx]);
+    props.setSelectedUser(props.authors[idx]);
     toggleShowOpPopUp();
   };
 
@@ -34,7 +36,7 @@ function List(props) {
             updateAuthor={props.updateAuthor}
             token={props.token}
             setMode={props.setMode}
-            //setLoading={props.setLoading}
+            setLoading={props.setLoading}
             changeMode={changeMode}
             toggleShowPopUp={toggleShowOpPopUp}
           />
@@ -42,11 +44,11 @@ function List(props) {
       </View>
       <View>
         <CommonDataTable
-          columns={Columns}
-          data={props.users}
-          setData={props.setData}
+          columns={columns}
+          data={props.authors}
+          setData={props.setAuthors}
           handleOp={handleOp}
-          //removeUrl={routes.removeSchools}
+          removeUrl={routes.removeAuthors}
           token={props.token}
           setLoading={props.setLoading}
         />

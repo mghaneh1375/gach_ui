@@ -1,17 +1,16 @@
-import {CommonWebBox, SimpleText} from '../../../../../styles/Common';
-import { routs } from '../../../../../API/APIRoutes';
+import {routes} from '../../../../../API/APIRoutes';
 import {generalRequest} from '../../../../../API/Utility';
+import {showSuccess} from '../../../../../services/Utility';
+import commonTranslator from '../../../../../tranlates/Common';
 
-export const create = async (token, gradeId, lessonId, data) => {
+export const createAuthor = async (token, data) => {
   let res = await generalRequest(
-    routes.addSubject + gradeId + '/' + lessonId,
+    routes.createAuthor,
     'post',
     data,
-    ['id', 'code'],
+    'id',
     token,
   );
   if (res !== null) showSuccess(commonTranslator.success);
   return res;
 };
-
-

@@ -2,14 +2,15 @@ import {ShadowPropTypesIOS, View} from 'react-native';
 import React, {useState} from 'react';
 import List from './List/List';
 import Show from './Show/Show';
-import CreateAuthor from './CreateAuthor/Create';
+import CreateAuthor from './Create/Create';
 import CreateTransaction from './Show/CreateTransaction/CreateTransaction';
-import {editItem, removeItems} from '../../../../services/Utility';
+import {addItem, editItem, removeItems} from '../../../../services/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 
 function Author(props) {
   const [mode, setMode] = useState('list');
-  const [authors, setAuthors] = useState();
+  const [authors, setAuthors] = useState([]);
+  const [selectedUser, setSelectedUser] = useState();
   const navigate = props.navigate;
 
   const useGlobalState = () => [
@@ -24,21 +25,20 @@ function Author(props) {
     <View>
       {mode === 'list' && (
         <List
-          author={authors}
+          authors={authors}
           setAuthors={setAuthors}
           setMode={setMode}
-          //setLoading={setLoading}
-          //setSelectedUser={setSelectedUser}
+          setLoading={setLoading}
+          setSelectedUser={setSelectedUser}
           token={props.token}
           updateAuthor={newAuthor => editItem(authors, setAuthors, newAuthor)}
         />
       )}
       {mode === 'createAuthor' && (
         <CreateAuthor
-          setAuthors={setAuthors}
           setMode={setMode}
-          //setLoading={setLoading}
-          //setSelectedUser={setSelectedUser}
+          setLoading={setLoading}
+          afterAdd={newItem => addItem(authors, setAuthors, newItem)}
           token={props.token}
         />
       )}
@@ -55,8 +55,7 @@ function Author(props) {
         <CreateTransaction
           setAuthors={setAuthors}
           setMode={setMode}
-          //setLoading={setLoading}
-          //setSelectedUser={setSelectedUser}
+          setLoading={setLoading}
           token={props.token}
         />
       )}

@@ -11,6 +11,7 @@ import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBo
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import Translate from '../Translator';
 import commonTranslate from '../../../../../tranlates/Common';
+import {createAuthor} from '../List/Utility';
 
 function CreateAuthor(props) {
   const [name, setName] = useState();
@@ -25,13 +26,6 @@ function CreateAuthor(props) {
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <View>
-        {/* <TextIcon
-          onPress={() => changeMode('list')}
-          theme={'rect'}
-          text={Translate.author}
-          kind={'normal'}
-          icon={faArrowLeft}
-        /> */}
         <PhoneView>
           <JustBottomBorderTextInput
             isHalf={true}
@@ -53,7 +47,29 @@ function CreateAuthor(props) {
             subText={commonTranslate.notNecessary}
           />
         </PhoneView>
-        <CommonButton title={commonTranslate.confirm} />
+        <CommonButton
+          onPress={async () => {
+            props.setLoading(true);
+            let res = await createAuthor(props.token, {
+              firstName: name,
+              lastName: family,
+              tag: tag,
+            });
+            props.setLoading(false);
+            if (res !== null) {
+              props.afterAdd({
+                name: name + ' ' + family,
+                tag: tag,
+                lastTransaction: '',
+                sumPayment: 0,
+                questionCount: 0,
+                id: res,
+              });
+              props.setMode('list');
+            }
+          }}
+          title={commonTranslate.confirm}
+        />
       </View>
     </CommonWebBox>
   );
