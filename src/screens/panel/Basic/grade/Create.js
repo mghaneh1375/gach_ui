@@ -16,7 +16,7 @@ function Create(props) {
   );
 
   return (
-    <View>
+    <View style={{zIndex: 'unset'}}>
       <CommonWebBox
         backBtn={true}
         onBackClick={() => props.setMode('list')}

@@ -46,6 +46,7 @@ import Ticket from './panel/ticket/Ticket';
 import Dashboard from './studentPanel/dashboard/Dashboard';
 import Gift from './general/Gift/Gift';
 import StudentTicket from './studentPanel/Buy/Ticket';
+import Author from './panel/users/Author/Author';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -290,6 +291,9 @@ const WebStructue = props => {
               )}
               {props.page === 'users' && (
                 <Users token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'author' && (
+                <Author token={token} user={user} navigate={navigate} />
               )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </View>

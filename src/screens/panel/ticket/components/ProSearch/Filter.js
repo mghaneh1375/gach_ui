@@ -125,23 +125,27 @@ function Filter(props) {
           <PhoneView style={{zIndex: 'unset'}}>
             <JustBottomBorderDatePicker
               placeholder={translator.dateStartRequest}
+              subText={translator.dateStartRequest}
               setter={setSendDateSolar}
               value={sendDateSolar}
               isHalf={true}
             />
             <JustBottomBorderDatePicker
               placeholder={translator.dateEndRequest}
+              subText={translator.dateEndRequest}
               setter={setSendDateSolarEndLimit}
               value={sendDateSolarEndLimit}
               isHalf={true}
             />
-            <JustBottomBorderSelect
-              isHalf={true}
-              setter={setStartWith}
-              values={startWithVals}
-              value={startWithVals.find(elem => elem.id === startWith)}
-              placeholder={translator.startWith}
-            />
+            {props.isAdmin && (
+              <JustBottomBorderSelect
+                isHalf={true}
+                setter={setStartWith}
+                values={startWithVals}
+                value={startWithVals.find(elem => elem.id === startWith)}
+                placeholder={translator.startWith}
+              />
+            )}
           </PhoneView>
           <PhoneView style={{marginTop: 10, zIndex: 'unset'}}>
             <JustBottomBorderDatePicker
@@ -153,17 +157,20 @@ function Filter(props) {
             />
             <JustBottomBorderDatePicker
               placeholder={translator.lastEndUpdate}
+              subText={translator.lastEndUpdate}
               setter={setAnswerDateSolarEndLimit}
               value={answerDateSolarEndLimit}
               isHalf={true}
             />
-            <View style={{marginTop: 10}}>
-              <RadioButtonYesOrNo
-                label={translator.searchArchive}
-                selected={searchArchive}
-                setSelected={setSearchArchive}
-              />
-            </View>
+            {props.isAdmin && (
+              <View style={{marginTop: 10}}>
+                <RadioButtonYesOrNo
+                  label={translator.searchArchive}
+                  selected={searchArchive}
+                  setSelected={setSearchArchive}
+                />
+              </View>
+            )}
           </PhoneView>
         </View>
       )}
