@@ -36,7 +36,7 @@ function Level(props) {
           <SimpleText text={'نمایش سوالات آسان'} />
           <SimpleText
             style={{fontSize: 11}}
-            text={'تعداد سوالات موجود: ' + state.easy}
+            text={'تعداد سوالات موجود: ' + state.total_easy}
           />
         </View>
       </PhoneView>
@@ -52,7 +52,7 @@ function Level(props) {
           <SimpleText text={'نمایش سوالات متوسط'} />
           <SimpleText
             style={{fontSize: 11}}
-            text={'تعداد سوالات موجود: ' + state.mid}
+            text={'تعداد سوالات موجود: ' + state.total_mid}
           />
         </View>
       </PhoneView>
@@ -68,7 +68,7 @@ function Level(props) {
           <SimpleText text={'نمایش سوالات سخت'} />
           <SimpleText
             style={{fontSize: 11}}
-            text={'تعداد سوالات موجود: ' + state.hard}
+            text={'تعداد سوالات موجود: ' + state.total_hard}
           />
         </View>
       </PhoneView>

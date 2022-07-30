@@ -18,6 +18,8 @@ import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import Author from './Filter/Author';
 import {questionContext, dispatchQuestionContext} from './Context';
 import Level from './Filter/Level';
+import Report from './Report';
+import Type from './Filter/Type';
 
 function Detail(props) {
   const [selectingQuiz, setSelectingQuiz] = useState(false);
@@ -46,7 +48,15 @@ function Detail(props) {
           return false;
       } else return false;
 
-      return true;
+      if (
+        (state.showTest && elem.kindQuestion === 'test') ||
+        (state.showShortAnswer && elem.kindQuestion === 'short_answer') ||
+        (state.showMultiSentence && elem.kindQuestion === 'multi_sentence') ||
+        (state.showTashrihi && elem.kindQuestion === 'tashrihi')
+      )
+        return true;
+
+      return false;
     });
 
     dispatch({questionsAfterFilter: tmp, currPage: 1});
@@ -56,6 +66,10 @@ function Detail(props) {
     state.showEasy,
     state.showHard,
     state.showMid,
+    state.showTest,
+    state.showShortAnswer,
+    state.showMultiSentence,
+    state.showTashrihi,
     state.authors,
     isWorking,
     dispatch,
@@ -100,14 +114,39 @@ function Detail(props) {
   React.useEffect(() => {
     if (props.subject.questions === undefined) return;
     let allAuthors = [];
+    let easy = 0,
+      mid = 0,
+      hard = 0;
+    let test = 0,
+      short_answer = 0,
+      multi_sentence = 0,
+      tashrihi = 0;
     props.subject.questions.forEach(element => {
       let a = allAuthors.find(elem => elem.author === element.author);
       if (a === undefined)
         allAuthors.push({author: element.author, qNo: 1, selected: true});
       else a.qNo = a.qNo + 1;
+      if (element.level === 'easy') easy++;
+      else if (element.level === 'mid') mid++;
+      else hard++;
+
+      if (element.kindQuestion === 'test') test++;
+      else if (element.kindQuestion === 'short_answer') short_answer++;
+      else if (element.kindQuestion === 'multi_sentence') multi_sentence++;
+      else tashrihi++;
     });
 
-    dispatch({allowShow: true, authors: allAuthors});
+    dispatch({
+      allowShow: true,
+      authors: allAuthors,
+      total_easy: easy,
+      total_mid: mid,
+      total_hard: hard,
+      total_test: test,
+      total_short_answer: short_answer,
+      total_multi_sentence: multi_sentence,
+      total_tashrihi: tashrihi,
+    });
   }, [props.subject.questions, dispatch]);
 
   React.useEffect(() => {
@@ -160,10 +199,16 @@ function Detail(props) {
             parentStyle={{alignSelf: 'flex-end', margin: 20}}
             back={'yellow'}
           />
-          <CommonWebBox>
+          <CommonWebBox style={{gap: 20}}>
             <Level localFilter={localFilter} />
+            <Type localFilter={localFilter} />
             <Author localFilter={localFilter} />
           </CommonWebBox>
+
+          <CommonWebBox>
+            <Report />
+          </CommonWebBox>
+
           {state.questions !== undefined &&
             state.questions.map((elem, index) => {
               return (

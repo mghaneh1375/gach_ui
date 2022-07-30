@@ -10,11 +10,26 @@ const defaultGlobalState = {
   showEasy: true,
   showMid: true,
   showHard: true,
+  showTest: true,
+  showShortAnswer: true,
+  showMultiSentence: true,
+  showTashrihi: true,
   questions: undefined,
   questionsAfterFilter: undefined,
   easy: 0,
   mid: 0,
   hard: 0,
+  test: 0,
+  short_answer: 0,
+  multi_sentence: 0,
+  tashrihi: 0,
+  total_easy: 0,
+  total_mid: 0,
+  total_hard: 0,
+  total_test: 0,
+  total_short_answer: 0,
+  total_multi_sentence: 0,
+  total_tashrihi: 0,
 };
 
 export const perPage = 10;
@@ -35,10 +50,20 @@ export const QuestionProvider = ({children}) => {
     let mid = 0;
     let hard = 0;
 
+    let test = 0,
+      short_answer = 0,
+      multi_sentence = 0,
+      tashrihi = 0;
+
     state.questionsAfterFilter.forEach(element => {
       if (element.level === 'easy') easy++;
       else if (element.level === 'mid') mid++;
       else if (element.level === 'hard') hard++;
+
+      if (element.kindQuestion === 'test') test++;
+      else if (element.kindQuestion === 'short_answer') short_answer++;
+      else if (element.kindQuestion === 'multi_sentence') multi_sentence++;
+      else tashrihi++;
     });
 
     dispatch({
@@ -47,6 +72,10 @@ export const QuestionProvider = ({children}) => {
       easy: easy,
       mid: mid,
       hard: hard,
+      test: test,
+      short_answer: short_answer,
+      multi_sentence: multi_sentence,
+      tashrihi: tashrihi,
     });
   }, [state.questionsAfterFilter]);
 
