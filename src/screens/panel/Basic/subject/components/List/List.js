@@ -25,7 +25,10 @@ function List(props) {
   };
 
   return (
-    <CommonWebBox>
+    <CommonWebBox
+      header={commonTranslator.subjectDefinition}
+      addBtn={true}
+      onAddBtn={() => props.setMode('create')}>
       {showOpModel && (
         <Ops
           subject={selected}
@@ -39,14 +42,6 @@ function List(props) {
           }}
         />
       )}
-
-      <TextIcon
-        onPress={() => props.setMode('create')}
-        theme={'rect'}
-        text={commonTranslator.subjectDefinition}
-        icon={faPlus}
-      />
-
       <CommonDataTable
         columns={columns}
         data={props.subjects}

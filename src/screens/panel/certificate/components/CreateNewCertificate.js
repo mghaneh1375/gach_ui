@@ -13,7 +13,6 @@ import translator from '../../../../tranlates/Common';
 const CreateNewCertificate = () => {
   return (
     <>
-      <BigBoldBlueText text={certTranslator.createNewCert} />
       <div className="rowContaine">
         <JustBottomBorderTextInput placeholder={certTranslator.certName} />
         <div className="container">

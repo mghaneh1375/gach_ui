@@ -7,14 +7,11 @@ import {View} from 'react-native';
 
 function List(props) {
   return (
-    <CommonWebBox>
+    <CommonWebBox
+      header={commonTranslator.packageQuiz}
+      addBtn={true}
+      onAddClick={() => props.setMode('create')}>
       <View style={{zIndex: 'unset'}}>
-        <TextIcon
-          onPress={() => props.setMode('create')}
-          theme={'rect'}
-          text={commonTranslator.packageQuiz}
-          icon={faPlus}
-        />
         <PhoneView style={{flexWrap: 'wrap'}}>
           {props.packages !== undefined &&
             props.packages.map((package_, index) => {

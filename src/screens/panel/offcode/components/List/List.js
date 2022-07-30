@@ -39,14 +39,11 @@ const List = props => {
           removeOffs={props.removeOffs}
         />
       )}
-      <CommonWebBox>
+      <CommonWebBox
+        header={translator.offs}
+        addBtn={true}
+        onAddBtn={() => props.setMode('create')}>
         <View>
-          <TextIcon
-            onPress={() => changeMode('create')}
-            theme={'rect'}
-            text={translator.offs}
-            icon={faPlus}
-          />
           <Filter
             setData={props.setData}
             token={props.token}

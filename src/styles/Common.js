@@ -324,7 +324,7 @@ export const CommonWebBox = props => {
             text={props.header}
           />
           {props.btn !== undefined && props.btn}
-          <PhoneView style={{gap: 10}}>
+          <PhoneView style={{gap: 10, marginBottom: 10}}>
             {props.addBtn !== undefined && props.addBtn && (
               <FontIcon
                 onPress={props.onAddClick}

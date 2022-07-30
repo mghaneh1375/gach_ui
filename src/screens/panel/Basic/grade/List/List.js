@@ -43,14 +43,17 @@ function List(props) {
           }}
         />
       )}
-      <CommonWebBox>
+      <CommonWebBox
+        header={commonTranslator.gradeDefinition}
+        addBtn={true}
+        onAddClick={() => props.setMode('create')}>
         <View>
-          <TextIcon
+          {/* <TextIcon
             onPress={() => changeMode('create')}
             theme={'rect'}
-            text={commonTranslator.gradeDefinition}
+            text={}
             icon={faPlus}
-          />
+          /> */}
           <CommonDataTable
             columns={columns}
             data={props.grades}
