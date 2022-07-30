@@ -26,6 +26,7 @@ function Create(props) {
       <View>
         <PhoneView>
           <JustBottomBorderTextInput
+            isHalf={true}
             value={name}
             onChangeText={e => setName(e)}
             placeholder={commonTranslate.name}

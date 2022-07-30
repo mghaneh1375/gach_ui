@@ -16,6 +16,7 @@ const translator = {
   agent: 'نماینده',
   agents: 'نمایندگان',
   school: 'مدرسه',
+  author: 'مولف',
   schools: 'مدارس',
   advisor: 'مشاور',
   advisors: 'مشاوران',
@@ -41,6 +42,7 @@ const translator = {
   noResult: 'نتیجه ای یافت نشد',
   necessary: 'ضروری',
   necessaryField: 'این فیلد ضروری است.',
+  notNecessary: 'این فیلد ضروری نیست',
   cancel: 'انصراف',
   sex: 'جنسیت',
   state: 'استان',
@@ -145,5 +147,6 @@ const translator = {
   nes: 'فوریت',
   view: 'مشاهده',
   finished: 'خاتمه شده',
+  date: 'تاریخ',
 };
 export default translator;

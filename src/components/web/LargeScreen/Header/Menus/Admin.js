@@ -97,6 +97,10 @@ function AdminMenu(props) {
               text: translator.schools,
               url: '/users/school',
             },
+            {
+              text: translator.author,
+              url: '/users/author',
+            },
           ]}
         />
         <SuperMenuItem

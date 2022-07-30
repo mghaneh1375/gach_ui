@@ -53,7 +53,7 @@ export default function WebRouter() {
           />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route path="/buy" element={<WebStructue page="buy" />} />
-
+          <Route path="/users/author" element={<WebStructue page="author" />} />
           <Route path="*" element={<WebStructue page="404" />} />
         </Routes>
       </Router>

@@ -44,13 +44,10 @@ function List(props) {
         />
       )}
 
-      <CommonWebBox>
-        <TextIcon
-          onPress={() => changeMode('create')}
-          theme={'rect'}
-          text={commonTranslator.lessonsDefinition}
-          icon={faPlus}
-        />
+      <CommonWebBox
+        header={commonTranslator.lessonsDefinition}
+        addBtn={true}
+        onAddClick={() => props.setMode('create')}>
         <CommonDataTable
           columns={columns}
           data={props.lessons}

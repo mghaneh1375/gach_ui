@@ -39,14 +39,11 @@ function List(props) {
           removeSchools={props.removeSchools}
         />
       )}
-      <CommonWebBox>
+      <CommonWebBox
+        header={translator.offs}
+        addbtn={true}
+        onAddBtn={() => props.setMode('create')}>
         <View>
-          <TextIcon
-            onPress={() => changeMode('create')}
-            theme={'rect'}
-            text={translator.offs}
-            icon={faPlus}
-          />
           <Filter
             setData={props.setData}
             token={props.token}

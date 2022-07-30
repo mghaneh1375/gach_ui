@@ -1,9 +1,5 @@
 import {View} from 'react-native-web';
-import {
-  CommonButton,
-  CommonWebBox,
-  EqualTwoTextInputs,
-} from '../../../../../styles/Common';
+import {CommonWebBox} from '../../../../../styles/Common';
 import {useState} from 'react';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import {Translate} from '../../Translate';
@@ -21,7 +17,6 @@ function List(props) {
   return (
     <View>
       <CommonWebBox>
-        {/* backBtn={true} onBackClick={() => props.setMOde('list')} */}
         <View>
           <TextIcon
             onPress={() => props.setMode('create')}
@@ -34,10 +29,8 @@ function List(props) {
       <CommonWebBox style={{marginTop: -5}}>
         <View style={{padding: 5, zIndex: 'unset'}}>
           <Filter
-            // setIsInUpgradeMode={setIsInUpgradeMode}
-            section={section}
             setTickets={props.setTickets}
-            isAdmin={props.isAdmin}
+            isAdmin={false}
             token={props.token}
             setLoading={props.setLoading}
           />

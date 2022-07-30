@@ -19,7 +19,7 @@ import {Link} from 'react-router-dom';
 
 import JustBottomBorderTextInput from './Common/JustBottomBorderTextInput';
 import {FontIcon, SimpleFontIcon} from './Common/FontIcon';
-import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {faArrowLeft, faPlus} from '@fortawesome/free-solid-svg-icons';
 
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem
@@ -324,14 +324,25 @@ export const CommonWebBox = props => {
             text={props.header}
           />
           {props.btn !== undefined && props.btn}
-          {props.backBtn !== undefined && props.backBtn && (
-            <FontIcon
-              onPress={props.onBackClick}
-              theme="rect"
-              kind="normal"
-              icon={faArrowLeft}
-            />
-          )}
+          <PhoneView style={{gap: 10, marginBottom: 10}}>
+            {props.addBtn !== undefined && props.addBtn && (
+              <FontIcon
+                onPress={props.onAddClick}
+                theme="rect"
+                kind="normal"
+                back={'yellow'}
+                icon={faPlus}
+              />
+            )}
+            {props.backBtn !== undefined && props.backBtn && (
+              <FontIcon
+                onPress={props.onBackClick}
+                theme="rect"
+                kind="normal"
+                icon={faArrowLeft}
+              />
+            )}
+          </PhoneView>
         </EqualTwoTextInputs>
       )}
       {props.child !== undefined && props.child}

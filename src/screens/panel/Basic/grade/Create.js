@@ -16,11 +16,12 @@ function Create(props) {
   );
 
   return (
-    <View>
+    <View style={{zIndex: 'unset'}}>
       <CommonWebBox
+        style={{zIndex: 10}}
         backBtn={true}
         onBackClick={() => props.setMode('list')}
-        header={Translate.edit}>
+        header={commonTranslate.edit}>
         <View>
           <PhoneView>
             <JustBottomBorderTextInput

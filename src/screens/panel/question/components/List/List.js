@@ -28,13 +28,10 @@ const List = props => {
           toggleShowPopUp={() => setShowOpPopUp(false)}
         />
       )}
-      <CommonWebBox>
-        <TextIcon
-          onPress={() => changeMode('create')}
-          theme={'rect'}
-          text={translator.questions}
-          icon={faPlus}
-        />
+      <CommonWebBox
+        header={translator.questions}
+        addBtn={true}
+        onAddBtn={() => props.setMode('create')}>
         <Filter
           setLoading={props.setLoading}
           setData={props.setData}
