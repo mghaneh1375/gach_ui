@@ -100,7 +100,7 @@ function Question(props) {
           <BlueTextInline style={{...styleFont14}} text={translator.author} />
           <SimpleText
             style={{...styleMarginRight25}}
-            text={' ' + props.question.author.name}
+            text={' ' + props.question.author}
           />
         </PhoneView>
         <PhoneView>
@@ -207,6 +207,42 @@ function Question(props) {
             <SimpleText
               style={{...styleMarginRight25}}
               text={' ' + props.question.used}
+            />
+          </PhoneView>
+        )}
+        {props.question.oldWhite !== undefined && (
+          <PhoneView>
+            <BlueTextInline
+              style={{...styleFont14}}
+              text={translate.oldWhite + ' : '}
+            />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={' ' + props.question.oldWhite}
+            />
+          </PhoneView>
+        )}
+        {props.question.oldCorrect !== undefined && (
+          <PhoneView>
+            <BlueTextInline
+              style={{...styleFont14}}
+              text={translate.oldCorrect + ' : '}
+            />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={' ' + props.question.oldCorrect}
+            />
+          </PhoneView>
+        )}
+        {props.question.oldIncorrect !== undefined && (
+          <PhoneView>
+            <BlueTextInline
+              style={{...styleFont14}}
+              text={translate.oldIncorrect + ' : '}
+            />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={' ' + props.question.oldIncorrect}
             />
           </PhoneView>
         )}

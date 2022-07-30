@@ -8,6 +8,9 @@ const translate = {
   kind: 'نوع آزمون: ',
   mark: 'نمره: ',
   used: 'تعداد مرتبه تکرار در آزمون ها: ',
+  oldWhite: 'تعداد نزده: ',
+  oldCorrect: 'تعداد درست: ',
+  oldIncorrect: 'تعداد نادرست: ',
 };
 
 export default translate;

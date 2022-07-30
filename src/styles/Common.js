@@ -251,7 +251,7 @@ export const ErrorText = props => {
 };
 
 export const CommonRadioButton = props => (
-  <PhoneView>
+  <PhoneView style={props.style !== undefined ? props.style : {}}>
     <RadioButton
       value={props.value}
       status={props.status}

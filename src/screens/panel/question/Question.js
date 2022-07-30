@@ -8,7 +8,7 @@ import Detail from './components/Detail/Detail';
 import List from './components/List/List';
 import {getSubjects} from './components/Utility';
 import {isUserAdmin} from '../../../services/Utility';
-import {ErrorText} from '../../../styles/Common';
+import {QuestionProvider} from './components/Detail/Context';
 
 const Question = props => {
   const [subjects, setSubjects] = useState();
@@ -74,22 +74,24 @@ const Question = props => {
         />
       )}
       {mode === 'detail' && (
-        <Detail
-          subject={selected}
-          setSubject={newItem => {
-            editItem(subjects, setSubjects, newItem);
-            setSelected(newItem);
-          }}
-          quizMode={
-            props.user.accesses.indexOf('admin') === -1 &&
-            props.user.accesses.indexOf('superadmin')
-              ? 'school'
-              : 'irysc'
-          }
-          setMode={setMode}
-          token={props.token}
-          setLoading={setLoading}
-        />
+        <QuestionProvider>
+          <Detail
+            subject={selected}
+            setSubject={newItem => {
+              editItem(subjects, setSubjects, newItem);
+              setSelected(newItem);
+            }}
+            quizMode={
+              props.user.accesses.indexOf('admin') === -1 &&
+              props.user.accesses.indexOf('superadmin')
+                ? 'school'
+                : 'irysc'
+            }
+            setMode={setMode}
+            token={props.token}
+            setLoading={setLoading}
+          />
+        </QuestionProvider>
       )}
     </View>
   );

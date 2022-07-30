@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {View} from 'react-native';
 import {addQuestionToQuizzes, filter, removeQuestion} from '../Utility';
 import Question from './Question';
@@ -6,11 +6,18 @@ import Quizzes from './../../../../../components/web/Quizzes';
 import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
 import {showSuccess} from '../../../../../services/Utility';
-import {CommonButton} from '../../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+} from '../../../../../styles/Common';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
+import Author from './Filter/Author';
+import {questionContext, dispatchQuestionContext} from './Context';
+import Level from './Filter/Level';
 
 function Detail(props) {
   const [selectingQuiz, setSelectingQuiz] = useState(false);
@@ -18,6 +25,41 @@ function Detail(props) {
   const [selectedQuizzes, setSelectedQuizzes] = useState();
   const [quizzes, setQuizzes] = useState();
   const [isWorking, setIsWorking] = useState(false);
+
+  const useGlobalState = () => [
+    React.useContext(questionContext),
+    React.useContext(dispatchQuestionContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
+  const localFilter = useCallback(() => {
+    if (isWorking || props.subject.questions === undefined) return;
+    setIsWorking(true);
+
+    let tmp = props.subject.questions.filter(elem => {
+      if (
+        (state.showEasy && elem.level === 'easy') ||
+        (state.showMid && elem.level === 'mid') ||
+        (state.showHard && elem.level === 'hard')
+      ) {
+        if (!state.authors.find(itr => itr.author === elem.author).selected)
+          return false;
+      } else return false;
+
+      return true;
+    });
+
+    dispatch({questionsAfterFilter: tmp, currPage: 1});
+    setIsWorking(false);
+  }, [
+    props.subject.questions,
+    state.showEasy,
+    state.showHard,
+    state.showMid,
+    state.authors,
+    isWorking,
+    dispatch,
+  ]);
 
   React.useEffect(() => {
     if (isWorking || !selectingQuiz || quizzes !== undefined) return;
@@ -46,10 +88,43 @@ function Detail(props) {
     });
   }, [props, isWorking, quizzes, selectingQuiz]);
 
+  const [firstFilter, setFirstFilter] = useState(false);
+
+  React.useEffect(() => {
+    if (state.authors !== undefined && !firstFilter) {
+      setFirstFilter(true);
+      localFilter();
+    }
+  }, [localFilter, firstFilter, state.authors]);
+
+  React.useEffect(() => {
+    if (props.subject.questions === undefined) return;
+    let allAuthors = [];
+    props.subject.questions.forEach(element => {
+      let a = allAuthors.find(elem => elem.author === element.author);
+      if (a === undefined)
+        allAuthors.push({author: element.author, qNo: 1, selected: true});
+      else a.qNo = a.qNo + 1;
+    });
+
+    dispatch({allowShow: true, authors: allAuthors});
+  }, [props.subject.questions, dispatch]);
+
+  React.useEffect(() => {
+    if (
+      state.allowShow === undefined ||
+      (state.allowShow && !state.isLoadingOn) ||
+      (!state.allowShow && state.isLoadingOn)
+    )
+      return;
+    props.setLoading(!state.allowShow);
+    dispatch({isLoadingOn: !state.allowShow});
+  }, [state.allowShow, state.isLoadingOn, dispatch, props]);
+
   React.useEffect(() => {
     if (isWorking || props.subject.questions !== undefined) return;
 
-    props.setLoading(true);
+    dispatch({allowShow: false});
     setIsWorking(true);
 
     Promise.all([
@@ -63,8 +138,6 @@ function Detail(props) {
         true,
       ),
     ]).then(res => {
-      props.setLoading(false);
-
       if (res[0] === null) {
         props.setMode('list');
         return;
@@ -73,11 +146,11 @@ function Detail(props) {
       props.setSubject(res[0][0]);
       setIsWorking(false);
     });
-  }, [props, isWorking]);
+  }, [props, isWorking, dispatch]);
 
   return (
     <View>
-      {!selectingQuiz && (
+      {!selectingQuiz && state.allowShow && (
         <View>
           <FontIcon
             kind={'normal'}
@@ -87,8 +160,12 @@ function Detail(props) {
             parentStyle={{alignSelf: 'flex-end', margin: 20}}
             back={'yellow'}
           />
-          {props.subject.questions !== undefined &&
-            props.subject.questions.map((elem, index) => {
+          <CommonWebBox>
+            <Level localFilter={localFilter} />
+            <Author localFilter={localFilter} />
+          </CommonWebBox>
+          {state.questions !== undefined &&
+            state.questions.map((elem, index) => {
               return (
                 <Question
                   setSelectingQuiz={setSelectingQuiz}
@@ -129,6 +206,7 @@ function Detail(props) {
                 />
               );
             })}
+          <PhoneView style={{flexWrap: 'wrap'}}>{state.totalPage}</PhoneView>
         </View>
       )}
 
