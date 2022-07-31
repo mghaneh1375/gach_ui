@@ -34,25 +34,34 @@ function Detail(props) {
   ];
   const [state, dispatch] = useGlobalState();
 
-  const localFilter = useCallback(() => {
+  const localFilter = (
+    showEasy,
+    showMid,
+    showHard,
+    showTest,
+    showShortAnswer,
+    showMultiSentence,
+    showTashrihi,
+    authors,
+  ) => {
     if (isWorking || props.subject.questions === undefined) return;
     setIsWorking(true);
 
     let tmp = props.subject.questions.filter(elem => {
       if (
-        (state.showEasy && elem.level === 'easy') ||
-        (state.showMid && elem.level === 'mid') ||
-        (state.showHard && elem.level === 'hard')
+        (showEasy && elem.level === 'easy') ||
+        (showMid && elem.level === 'mid') ||
+        (showHard && elem.level === 'hard')
       ) {
-        if (!state.authors.find(itr => itr.author === elem.author).selected)
+        if (!authors.find(itr => itr.author === elem.author).selected)
           return false;
       } else return false;
 
       if (
-        (state.showTest && elem.kindQuestion === 'test') ||
-        (state.showShortAnswer && elem.kindQuestion === 'short_answer') ||
-        (state.showMultiSentence && elem.kindQuestion === 'multi_sentence') ||
-        (state.showTashrihi && elem.kindQuestion === 'tashrihi')
+        (showTest && elem.kindQuestion === 'test') ||
+        (showShortAnswer && elem.kindQuestion === 'short_answer') ||
+        (showMultiSentence && elem.kindQuestion === 'multi_sentence') ||
+        (showTashrihi && elem.kindQuestion === 'tashrihi')
       )
         return true;
 
@@ -61,19 +70,7 @@ function Detail(props) {
 
     dispatch({questionsAfterFilter: tmp, currPage: 1});
     setIsWorking(false);
-  }, [
-    props.subject.questions,
-    state.showEasy,
-    state.showHard,
-    state.showMid,
-    state.showTest,
-    state.showShortAnswer,
-    state.showMultiSentence,
-    state.showTashrihi,
-    state.authors,
-    isWorking,
-    dispatch,
-  ]);
+  };
 
   React.useEffect(() => {
     if (isWorking || !selectingQuiz || quizzes !== undefined) return;
@@ -107,9 +104,8 @@ function Detail(props) {
   React.useEffect(() => {
     if (state.authors !== undefined && !firstFilter) {
       setFirstFilter(true);
-      localFilter();
     }
-  }, [localFilter, firstFilter, state.authors]);
+  }, [firstFilter, state.authors]);
 
   React.useEffect(() => {
     if (props.subject.questions === undefined) return;

@@ -16,11 +16,31 @@ function Level(props) {
   const [state, dispatch] = useGlobalState();
 
   const filter = level => {
-    if (level === 'easy') dispatch({showEasy: !state.showEasy});
-    else if (level === 'mid') dispatch({showMid: !state.showMid});
-    else if (level === 'hard') dispatch({showHard: !state.showHard});
+    let newShowEasy = state.showEasy;
+    let newShowMid = state.showMid;
+    let newShowHard = state.showHard;
 
-    props.localFilter();
+    if (level === 'easy') {
+      dispatch({showEasy: !state.showEasy});
+      newShowEasy = !newShowEasy;
+    } else if (level === 'mid') {
+      dispatch({showMid: !state.showMid});
+      newShowMid = !newShowMid;
+    } else if (level === 'hard') {
+      dispatch({showHard: !state.showHard});
+      newShowHard = !newShowHard;
+    }
+
+    props.localFilter(
+      newShowEasy,
+      newShowMid,
+      newShowHard,
+      state.showTest,
+      state.showShortAnswer,
+      state.showMultiSentence,
+      state.showTashrihi,
+      state.authors,
+    );
   };
 
   return (

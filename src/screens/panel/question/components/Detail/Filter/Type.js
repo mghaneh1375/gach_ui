@@ -15,14 +15,35 @@ function Type(props) {
   const [state, dispatch] = useGlobalState();
 
   const filter = type => {
-    if (type === 'test') dispatch({showTest: !state.showTest});
-    else if (type === 'short_answer')
-      dispatch({showShortAnswer: !state.showShortAnswer});
-    else if (type === 'multi_sentence')
-      dispatch({showMultiSentence: !state.showMultiSentence});
-    else dispatch({showTashrihi: !state.showTashrihi});
+    let newShowTest = state.showTest;
+    let newShowShortAnswer = state.showShortAnswer;
+    let newShowMultiSentence = state.showMultiSentence;
+    let newShowTashrihi = state.showTashrihi;
 
-    props.localFilter();
+    if (type === 'test') {
+      dispatch({showTest: !state.showTest});
+      newShowTest = !newShowTest;
+    } else if (type === 'short_answer') {
+      dispatch({showShortAnswer: !state.showShortAnswer});
+      newShowShortAnswer = !newShowShortAnswer;
+    } else if (type === 'multi_sentence') {
+      dispatch({showMultiSentence: !state.showMultiSentence});
+      newShowMultiSentence = !newShowMultiSentence;
+    } else {
+      dispatch({showTashrihi: !state.showTashrihi});
+      newShowTashrihi = !newShowTashrihi;
+    }
+
+    props.localFilter(
+      state.showEasy,
+      state.showMid,
+      state.showHard,
+      newShowTest,
+      newShowShortAnswer,
+      newShowMultiSentence,
+      newShowTashrihi,
+      state.authors,
+    );
   };
 
   return (

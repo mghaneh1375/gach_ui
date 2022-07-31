@@ -18,8 +18,18 @@ function Author(props) {
     let allAuthors = state.authors;
     let tmp = allAuthors.find(elem => elem.author === author);
     tmp.selected = !tmp.selected;
+
+    props.localFilter(
+      state.showEasy,
+      state.showMid,
+      state.showHard,
+      state.showTest,
+      state.showShortAnswer,
+      state.showMultiSentence,
+      state.showTashrihi,
+      allAuthors,
+    );
     dispatch({authors: allAuthors});
-    props.localFilter();
   };
 
   return (
