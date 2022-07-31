@@ -223,3 +223,14 @@
   direction: ltr !important;
   justify-content: flex-start !important;
 }
+
+input::placeholder {
+  font-size: 11px;
+}
+.rdt_TableHeadRow {
+  background-color: #013243 !important;
+  color: white !important;
+}
+.rdt_TableRow:nth-child(odd) {
+  background-color: #efefef !important;
+}

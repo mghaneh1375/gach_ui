@@ -45,6 +45,7 @@ export const routes = {
   fetchIRYSCRegistrableQuizzes: 'quiz/public/get/irysc',
   createQuiz: 'quiz/manage/store/',
   fetchAllQuiz: 'quiz/manage/getAll/regular',
+  fetchQuizTags: 'quiz/manage/getDistinctTags',
   fetchIRYSCQuiz: 'quiz/manage/get/irysc/',
   fetchSchoolQuiz: 'quiz/manage/get/school/',
   editQuiz: 'quiz/manage/edit/',

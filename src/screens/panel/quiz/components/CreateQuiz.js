@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {
   CommonButton,
@@ -13,6 +13,8 @@ import commonTranslator from '../../../../tranlates/Common';
 import translator from '../Translator';
 import {CallAPI} from './Create/CallAPI';
 import {routes} from '../../../../API/APIRoutes';
+import {dispatchQuizContext, quizContext} from './Context';
+import {getTags} from './Utility';
 
 const CreateQuiz = props => {
   const [name, setName] = useState('');
@@ -33,15 +35,36 @@ const CreateQuiz = props => {
     useState(true); //undefined
   const [minusMark, setMinusMark] = useState(undefined);
 
-  const [startRegistry, setStartRegistry] = useState('1655895360000');
-  const [endRegistry, setEndRegistry] = useState('1655981760000');
+  const [startRegistry, setStartRegistry] = useState();
+  const [endRegistry, setEndRegistry] = useState();
 
   const [descBefore, setDescBefore] = useState(undefined);
   const [descAfter, setDescAfter] = useState(undefined);
 
-  const changeMode = newMode => {
-    props.setMode(newMode);
-  };
+  const useGlobalState = () => [
+    React.useContext(quizContext),
+    React.useContext(dispatchQuizContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
+  const [isWorking, setIsWorking] = useState(false);
+
+  React.useEffect(() => {
+    if (isWorking || state.tags !== undefined) return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+    Promise.all([getTags()]).then(res => {
+      props.setLoading(false);
+      if (res[0] !== undefined)
+        dispatch({
+          tags: res[0].map(elem => {
+            return {id: elem, name: elem};
+          }),
+        });
+      setIsWorking(false);
+    });
+  }, [props, dispatch, state.tags, isWorking]);
 
   const submit = async () => {
     const data = {
@@ -50,7 +73,6 @@ const CreateQuiz = props => {
       start: start,
       end: end,
       startRegistry: startRegistry,
-      endRegistry: endRegistry,
       // kind: kind,
       duration: len,
       launchMode: launchMode,
@@ -65,6 +87,7 @@ const CreateQuiz = props => {
       descAfter: descAfter,
       desc: descBefore,
     };
+    if (endRegistry !== undefined) data.endRegistry = endRegistry;
 
     let result = await CallAPI(
       data,
@@ -75,7 +98,9 @@ const CreateQuiz = props => {
     );
 
     if (result !== null) {
-      props.addQuiz(result);
+      let allQuizzes = state.quizzes;
+      allQuizzes.push(result);
+      dispatch({quizzes: allQuizzes});
       props.setMode('list');
     }
   };
@@ -93,6 +118,7 @@ const CreateQuiz = props => {
             setName={setName}
             kind={kind}
             setKind={setKind}
+            tags={tags}
             setTags={setTags}
             desc={desc}
             setDesc={setDesc}
@@ -151,6 +177,7 @@ const CreateQuiz = props => {
       />
       <CommonWebBox
         header={translator.answerSheetInfo}
+        style={{zIndex: 4}}
         child={
           <QuizAnswerSheetInfo
             descBefore={descBefore}
@@ -165,7 +192,7 @@ const CreateQuiz = props => {
       />
       <EqualTwoTextInputs>
         <CommonButton
-          onPress={() => changeMode('list')}
+          onPress={() => props.setMode('list')}
           title={commonTranslator.cancel}
         />
         <CommonButton

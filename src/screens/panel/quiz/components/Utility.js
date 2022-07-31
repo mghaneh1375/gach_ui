@@ -1,5 +1,7 @@
 import {routes} from '../../../../API/APIRoutes';
 import {downloadRequest, generalRequest} from '../../../../API/Utility';
+import {showSuccess} from '../../../../services/Utility';
+import commonTranslator from '../../../../tranlates/Common';
 
 export const getQuizzes = async token => {
   return await generalRequest(
@@ -9,6 +11,24 @@ export const getQuizzes = async token => {
     'data',
     token,
   );
+};
+
+export const removeQuiz = async (generalMode, quizId, token) => {
+  let res = await generalRequest(
+    generalMode === 'IRYSC'
+      ? routes.removeIRYSCQuiz + quizId
+      : routes.removeSchoolQuiz + quizId,
+    'delete',
+    undefined,
+    undefined,
+    token,
+  );
+  if (res !== null) showSuccess(commonTranslator.success);
+  return res;
+};
+
+export const getTags = async () => {
+  return await generalRequest(routes.fetchQuizTags, 'get', undefined, 'data');
 };
 
 export const getAnswerSheets = async (quizId, quizMode, token) => {

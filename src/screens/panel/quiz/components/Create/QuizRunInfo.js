@@ -5,24 +5,13 @@ import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomB
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
+import {launchModeKeyVals} from '../KeyVals';
 
 const QuizRunInfo = props => {
-  const runKindValues = [
-    {item: translator.online, id: 'online'},
-    {item: translator.offline, id: 'offline'},
-  ];
   const trueFalseValues = [
     {item: commonTranslator.yes, id: true},
     {item: commonTranslator.no, id: false},
   ];
-
-  const changeStart = unix_timestamp => {
-    props.setStart(unix_timestamp * 1000);
-  };
-
-  const changeEnd = unix_timestamp => {
-    props.setEnd(unix_timestamp * 1000);
-  };
 
   const changeLen = val => {
     props.setLen(val);
@@ -61,15 +50,15 @@ const QuizRunInfo = props => {
           <PhoneView>
             <JustBottomBorderSelect
               isHalf={true}
-              values={runKindValues}
+              values={launchModeKeyVals}
               value={
-                props.isOnline === undefined
+                props.launchMode === undefined
                   ? {}
-                  : runKindValues.filter(element => {
-                      return element.id === props.isOnline;
+                  : launchModeKeyVals.filter(element => {
+                      return element.id === props.launchMode;
                     })[0]
               }
-              setter={props.setIsOnline}
+              setter={props.setLaunchMode}
               placeholder={translator.isOnline}
               subText={commonTranslator.necessaryField}
             />
@@ -139,7 +128,7 @@ const QuizRunInfo = props => {
                     })[0]
               }
               setter={props.setShowResultsAfterCorrection}
-              subText={commonTranslator.necessaryField}
+              subText={translator.showResultAfterCorrection}
               placeholder={translator.showResultAfterCorrection}
             />
           </PhoneView>
@@ -150,13 +139,13 @@ const QuizRunInfo = props => {
         <JustBottomBorderDatePicker
           placeholder={translator.startDate}
           value={props.start}
-          onChange={changeStart}
+          setter={props.setStart}
           isHalf={true}
         />
         <JustBottomBorderDatePicker
           placeholder={translator.endDate}
           value={props.end}
-          onChange={changeEnd}
+          setter={props.setEnd}
           isHalf={true}
         />
       </PhoneView>

@@ -6,14 +6,6 @@ import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
 
 const QuizRegistryInfo = props => {
-  const changeStart = unix_timestamp => {
-    props.setStart(unix_timestamp * 1000);
-  };
-
-  const changeEnd = unix_timestamp => {
-    props.setEnd(unix_timestamp * 1000);
-  };
-
   const changeInput = (label, val) => {
     if (label === 'price') props.setPrice(val);
     else if (label === 'ranking') props.setRanking(val);
@@ -50,13 +42,13 @@ const QuizRegistryInfo = props => {
         <JustBottomBorderDatePicker
           placeholder={translator.startRegistryDate}
           value={props.start}
-          onChange={changeStart}
+          setter={props.setStart}
           isHalf={true}
         />
         <JustBottomBorderDatePicker
           placeholder={translator.endRegistryDate}
           value={props.end}
-          onChange={changeEnd}
+          setter={props.setEnd}
           isHalf={true}
         />
       </PhoneView>
