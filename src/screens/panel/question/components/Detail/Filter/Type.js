@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  BigBoldBlueText,
   CommonRadioButton,
   PhoneView,
   SimpleText,
@@ -47,71 +48,74 @@ function Type(props) {
   };
 
   return (
-    <PhoneView style={{gap: 50}}>
-      <PhoneView style={{minWidth: 200}}>
-        <CommonRadioButton
-          value="test"
-          status={state.showTest ? 'checked' : 'unchecked'}
-          onPress={() => filter('test')}
-          text={''}
-        />
-        <View>
-          <SimpleText text={'نمایش سوالات تستی'} />
-          <SimpleText
-            style={{fontSize: 11}}
-            text={'تعداد سوالات موجود: ' + state.total_test}
+    <View>
+      <BigBoldBlueText text={'نوع سوال'} />
+      <PhoneView style={{gap: 50}}>
+        <PhoneView style={{minWidth: 200}}>
+          <CommonRadioButton
+            value="test"
+            status={state.showTest ? 'checked' : 'unchecked'}
+            onPress={() => filter('test')}
+            text={''}
           />
-        </View>
-      </PhoneView>
+          <View>
+            <SimpleText text={'نمایش سوالات تستی'} />
+            <SimpleText
+              style={{fontSize: 11}}
+              text={'تعداد سوالات موجود: ' + state.total_test}
+            />
+          </View>
+        </PhoneView>
 
-      <PhoneView style={{minWidth: 200}}>
-        <CommonRadioButton
-          value="short_answer"
-          status={state.showShortAnswer ? 'checked' : 'unchecked'}
-          onPress={() => filter('short_answer')}
-          text={''}
-        />
-        <View>
-          <SimpleText text={'نمایش سوالات کوتاه پاسخ: '} />
-          <SimpleText
-            style={{fontSize: 11}}
-            text={'تعداد سوالات موجود: ' + state.total_short_answer}
+        <PhoneView style={{minWidth: 200}}>
+          <CommonRadioButton
+            value="short_answer"
+            status={state.showShortAnswer ? 'checked' : 'unchecked'}
+            onPress={() => filter('short_answer')}
+            text={''}
           />
-        </View>
-      </PhoneView>
+          <View>
+            <SimpleText text={'نمایش سوالات کوتاه پاسخ: '} />
+            <SimpleText
+              style={{fontSize: 11}}
+              text={'تعداد سوالات موجود: ' + state.total_short_answer}
+            />
+          </View>
+        </PhoneView>
 
-      <PhoneView style={{minWidth: 200}}>
-        <CommonRadioButton
-          value="multi_sentence"
-          status={state.showMultiSentence ? 'checked' : 'unchecked'}
-          onPress={() => filter('multi_sentence')}
-          text={''}
-        />
-        <View>
-          <SimpleText text={'نمایش سوالات چندگزاره ای'} />
-          <SimpleText
-            style={{fontSize: 11}}
-            text={'تعداد سوالات موجود: ' + state.total_multi_sentence}
+        <PhoneView style={{minWidth: 200}}>
+          <CommonRadioButton
+            value="multi_sentence"
+            status={state.showMultiSentence ? 'checked' : 'unchecked'}
+            onPress={() => filter('multi_sentence')}
+            text={''}
           />
-        </View>
-      </PhoneView>
+          <View>
+            <SimpleText text={'نمایش سوالات چندگزاره ای'} />
+            <SimpleText
+              style={{fontSize: 11}}
+              text={'تعداد سوالات موجود: ' + state.total_multi_sentence}
+            />
+          </View>
+        </PhoneView>
 
-      <PhoneView style={{minWidth: 200}}>
-        <CommonRadioButton
-          value="tashrihi"
-          status={state.showTashrihi ? 'checked' : 'unchecked'}
-          onPress={() => filter('tashrihi')}
-          text={''}
-        />
-        <View>
-          <SimpleText text={'نمایش سوالات تشریحی'} />
-          <SimpleText
-            style={{fontSize: 11}}
-            text={'تعداد سوالات موجود: ' + state.total_tashrihi}
+        <PhoneView style={{minWidth: 200}}>
+          <CommonRadioButton
+            value="tashrihi"
+            status={state.showTashrihi ? 'checked' : 'unchecked'}
+            onPress={() => filter('tashrihi')}
+            text={''}
           />
-        </View>
+          <View>
+            <SimpleText text={'نمایش سوالات تشریحی'} />
+            <SimpleText
+              style={{fontSize: 11}}
+              text={'تعداد سوالات موجود: ' + state.total_tashrihi}
+            />
+          </View>
+        </PhoneView>
       </PhoneView>
-    </PhoneView>
+    </View>
   );
 }
 

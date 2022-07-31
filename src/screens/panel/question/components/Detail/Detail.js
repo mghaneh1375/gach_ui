@@ -7,19 +7,26 @@ import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
 import {showSuccess} from '../../../../../services/Utility';
 import {
+  BigBoldBlueText,
   CommonButton,
   CommonWebBox,
+  EqualTwoTextInputs,
   PhoneView,
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
+import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {
+  faAngleDoubleDown,
+  faAngleDoubleUp,
+  faAngleLeft,
+} from '@fortawesome/free-solid-svg-icons';
 import Author from './Filter/Author';
 import {questionContext, dispatchQuestionContext} from './Context';
 import Level from './Filter/Level';
 import Report from './Report';
 import Type from './Filter/Type';
+import {styleYellowMarginTop7} from './style';
 
 function Detail(props) {
   const [selectingQuiz, setSelectingQuiz] = useState(false);
@@ -27,6 +34,8 @@ function Detail(props) {
   const [selectedQuizzes, setSelectedQuizzes] = useState();
   const [quizzes, setQuizzes] = useState();
   const [isWorking, setIsWorking] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
+  const [showReports, setShowReports] = useState(true);
 
   const useGlobalState = () => [
     React.useContext(questionContext),
@@ -104,8 +113,9 @@ function Detail(props) {
   React.useEffect(() => {
     if (state.authors !== undefined && !firstFilter) {
       setFirstFilter(true);
+      dispatch({questionsAfterFilter: props.subject.questions});
     }
-  }, [firstFilter, state.authors]);
+  }, [firstFilter, state.authors, dispatch, props.subject.questions]);
 
   React.useEffect(() => {
     if (props.subject.questions === undefined) return;
@@ -196,13 +206,37 @@ function Detail(props) {
             back={'yellow'}
           />
           <CommonWebBox style={{gap: 20}}>
-            <Level localFilter={localFilter} />
-            <Type localFilter={localFilter} />
-            <Author localFilter={localFilter} />
+            <EqualTwoTextInputs>
+              <BigBoldBlueText text={'فیلتر سوالات'} />
+              <SimpleFontIcon
+                onPress={() => setShowFilters(!showFilters)}
+                parentStyle={{alignSelf: 'flex-end'}}
+                style={{...styleYellowMarginTop7}}
+                kind={'small'}
+                icon={showFilters ? faAngleDoubleDown : faAngleDoubleUp}
+              />
+            </EqualTwoTextInputs>
+            {showFilters && (
+              <View>
+                <Level localFilter={localFilter} />
+                <Type localFilter={localFilter} />
+                <Author localFilter={localFilter} />
+              </View>
+            )}
           </CommonWebBox>
 
           <CommonWebBox>
-            <Report />
+            <EqualTwoTextInputs>
+              <BigBoldBlueText text={'گزارش کلی'} />
+              <SimpleFontIcon
+                onPress={() => setShowReports(!showReports)}
+                parentStyle={{alignSelf: 'flex-end'}}
+                style={{...styleYellowMarginTop7}}
+                kind={'small'}
+                icon={showReports ? faAngleDoubleDown : faAngleDoubleUp}
+              />
+            </EqualTwoTextInputs>
+            {showReports && <Report />}
           </CommonWebBox>
 
           {state.questions !== undefined &&
