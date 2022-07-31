@@ -23,7 +23,7 @@ function Filter(props) {
 
   return (
     <View>
-      <PhoneView>
+      <PhoneView style={{display: 'flex', gap: 10, flexWrap: 'wrap'}}>
         <JustBottomBorderSelect
           isHalf={true}
           setter={setKindSchool}
@@ -38,8 +38,6 @@ function Filter(props) {
           value={grades.find(elem => elem.id === grade)}
           placeholder={translator.grade}
         />
-      </PhoneView>
-      <PhoneView>
         <StateAndCity
           states={props.states}
           state={state}

@@ -21,12 +21,8 @@ const Update = props => {
   return (
     <CommonWebBox
       header={translator.editOff}
-      btn={
-        <CommonButton
-          title={commonTranslator.cancel}
-          onPress={() => backToList(props.setMode)}
-        />
-      }>
+      backBtn={true}
+      onBackClick={() => props.setMode('list')}>
       <View>
         <PhoneView style={{zIndex: 1, marginBottom: 10}}>
           <JustBottomBorderTextInput

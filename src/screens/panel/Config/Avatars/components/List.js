@@ -4,6 +4,7 @@ import translator from '../Translator';
 import {View} from 'react-native';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
+import CardPic from './CardPic/CardPic';
 
 function List(props) {
   const setDefaultAvatar = avatarId => {
@@ -29,7 +30,12 @@ function List(props) {
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
       <View>
-        <PhoneView>
+        <PhoneView
+          style={{
+            width: '100%',
+            height: '100vh',
+            backgroundColor: '#efefef',
+          }}>
           {props.avatars !== undefined &&
             props.avatars.map((elem, index) => {
               return (
