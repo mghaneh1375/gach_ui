@@ -4,7 +4,6 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
-  SimpleText,
 } from '../../../../../../styles/Common';
 import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';

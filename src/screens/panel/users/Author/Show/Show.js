@@ -7,7 +7,7 @@ import {useState} from 'react';
 import Ops from './Ops/Ops';
 
 function Show(props) {
-  const [showOpPopUp, setShowOpPopUp] = useState(true);
+  const [showOpPopUp, setShowOpPopUp] = useState(false);
   const changeMode = newMode => {
     props.setMode(newMode);
   };

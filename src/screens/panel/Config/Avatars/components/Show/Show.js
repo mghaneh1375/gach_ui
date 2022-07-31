@@ -18,51 +18,57 @@ function Show(props) {
 
   return (
     <CommonWebBox style={style.avatar}>
-      <img style={{...style.pic}} src={props.avatar.file} />
-      <PhoneView>
+      <View style={{alignItems: 'center'}}>
+        <img style={{...style.pic}} src={props.avatar.file} />
         <SimpleText
           style={style.defaultText}
           text={props.avatar.isDefault ? translator.default : ''}
         />
-      </PhoneView>
-      <SimpleText
-        style={style.defaultText}
-        text={translator.used + ' : ' + props.avatar.used}
-      />
-      <PhoneView>
-        <CommonButton
-          theme={'transparent'}
-          onPress={() => edit()}
-          title={commonTranslator.edit}
+        <SimpleText
+          style={style.defaultText}
+          text={translator.used + ' : ' + props.avatar.used}
         />
-        <CommonButton
-          onPress={() =>
-            remove(
-              props.avatar.id,
-              props.setLoading,
-              props.token,
-              props.setDefault,
-              props.removeAvatar,
-            )
-          }
-          title={commonTranslator.delete}
-        />
-      </PhoneView>
-
-      {!props.avatar.isDefault && (
-        <CommonButton
-          onPress={() =>
-            setAsDefault(
-              props.avatar.id,
-              props.setLoading,
-              props.token,
-              props.setDefault,
-            )
-          }
-          theme={'dark'}
-          title={translator.setAsDefault}
-        />
-      )}
+      </View>
+      <View>
+        <PhoneView style={{marginBottom: -10}}>
+          <CommonButton
+            style={{marginTight: -10}}
+            theme={'transparent'}
+            onPress={() => edit()}
+            title={commonTranslator.edit}
+          />
+          <CommonButton
+            onPress={() =>
+              remove(
+                props.avatar.id,
+                props.setLoading,
+                props.token,
+                props.setDefault,
+                props.removeAvatar,
+              )
+            }
+            title={commonTranslator.delete}
+          />
+        </PhoneView>
+        <PhoneView>
+          {!props.avatar.isDefault && (
+            <CommonButton
+              onPress={() =>
+                setAsDefault(
+                  props.avatar.id,
+                  props.setLoading,
+                  props.token,
+                  props.setDefault,
+                )
+              }
+              theme={'dark'}
+              title={translator.setAsDefault}
+              textStyle={style.font13}
+              style={{width: 'calc(100% - 20px)', justifyContent: 'center'}}
+            />
+          )}
+        </PhoneView>
+      </View>
     </CommonWebBox>
   );
 }

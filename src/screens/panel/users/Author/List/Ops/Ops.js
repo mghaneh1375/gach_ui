@@ -18,7 +18,11 @@ function Ops(props) {
             title={Translate.showTransaction}
             onPress={() => props.setMode('show')}
           />
-          <CommonButton title={commonTranslator.edit} theme={'transparent'} />
+          <CommonButton
+            onPress={() => props.setMode('editAuthor')}
+            title={commonTranslator.edit}
+            theme={'transparent'}
+          />
           <CommonButton theme={'transparent'} title={commonTranslator.delete} />
         </PhoneView>
       </LargePopUp>

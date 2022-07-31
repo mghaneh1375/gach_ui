@@ -1,22 +1,22 @@
 import {useState} from 'react';
-import {faArrowLeft, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native-web';
 import {
   CommonButton,
   CommonWebBox,
   PhoneView,
 } from '../../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import Translate from '../Translator';
 import commonTranslate from '../../../../../tranlates/Common';
-import {createAuthor} from '../List/Utility';
+import {createAuthor, editAuthor} from '../List/Utility';
 
 function CreateAuthor(props) {
-  const [name, setName] = useState();
-  const [family, setFamily] = useState();
-  const [tag, setTag] = useState();
+  const [name, setName] = useState(
+    props.author !== undefined ? props.author.name : '',
+  );
+  const [tag, setTag] = useState(
+    props.author !== undefined ? props.author.tag : '',
+  );
 
   return (
     <CommonWebBox
@@ -31,12 +31,7 @@ function CreateAuthor(props) {
             value={name}
             onChangeText={text => setName(text)}
           />
-          <JustBottomBorderTextInput
-            isHalf={true}
-            placeholder={Translate.authorFamily}
-            value={family}
-            onChangeText={text => setFamily(text)}
-          />
+
           <JustBottomBorderTextInput
             isHalf={true}
             placeholder={Translate.tag}
@@ -48,20 +43,30 @@ function CreateAuthor(props) {
         <CommonButton
           onPress={async () => {
             props.setLoading(true);
-            let res = await createAuthor(props.token, {
-              firstName: name,
-              lastName: family,
-              tag: tag,
-            });
+            let res =
+              props.author === undefined
+                ? await createAuthor(props.token, {
+                    name: name,
+                    tag: tag,
+                  })
+                : await editAuthor(props.token, props.author.id, {
+                    name: name,
+                    tag: tag,
+                  });
             props.setLoading(false);
             if (res !== null) {
               props.afterAdd({
-                name: name + ' ' + family,
+                name: name,
                 tag: tag,
-                lastTransaction: '',
-                sumPayment: 0,
-                questionCount: 0,
-                id: res,
+                lastTransaction:
+                  props.author === undefined
+                    ? ''
+                    : props.author.lastTransaction,
+                sumPayment:
+                  props.author === undefined ? 0 : props.author.sumPayment,
+                questionCount:
+                  props.author === undefined ? 0 : props.author.questionCount,
+                id: props.author === undefined ? res : props.author.id,
               });
               props.setMode('list');
             }

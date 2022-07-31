@@ -6,6 +6,10 @@ const style = {
     padding: 10,
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    boxShadow: 'rgb(0 0 0 / 10%) .2px 0px 3px 6px',
+    gap: 50,
+    flexWrap: 'wrap',
   },
   defaultText: {
     fontSize: 18,
@@ -20,6 +24,11 @@ const style = {
     border: '5px solid #e7e5e5ad',
     objectFit: 'cover',
     objectPosition: 'center',
+  },
+  font13: {
+    fontSize: 13,
+    justifySelf: 'center',
+    textAlign: 'center',
   },
 };
 export default style;

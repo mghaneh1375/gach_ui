@@ -44,7 +44,7 @@ export const CommonButtonTextStyleAndroid = {
 export const CommonButtonTextStyleWeb = {
   textAlign: 'center',
   color: vars.WHITE,
-  fontSize: 16,
+  fontSize: 14,
   fontFamily: 'IRANSans',
 };
 
