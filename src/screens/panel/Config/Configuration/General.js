@@ -116,7 +116,7 @@ function General(props) {
   return (
     <View>
       <CommonWebBox>
-        <PhoneView style={{flexWrap: 'wrap'}}>
+        <PhoneView style={{flexWrap: 'wrap', gap: 10}}>
           <JustBottomBorderTextInput
             placeholder={translator.initMoney}
             subText={translator.initMoney}

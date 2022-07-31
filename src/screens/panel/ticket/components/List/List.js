@@ -86,14 +86,11 @@ function List(props) {
         </LargePopUp>
       )}
       <CommonWebBox
+        header={translator.allRequests}
+        addBtn={true}
+        onAddClick={() => props.setMode('create')}
         child={
           <ShrinkView>
-            <TextIcon
-              onPress={() => props.setMode('create')}
-              theme={'rect'}
-              text={translator.allRequests}
-              icon={faPlus}
-            />
             {props.isAdmin && (
               <Filter
                 setIsInUpgradeMode={setIsInUpgradeMode}

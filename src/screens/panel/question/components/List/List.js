@@ -31,7 +31,7 @@ const List = props => {
       <CommonWebBox
         header={translator.questions}
         addBtn={true}
-        onAddBtn={() => props.setMode('create')}>
+        onAddClick={() => props.setMode('create')}>
         <Filter
           setLoading={props.setLoading}
           setData={props.setData}

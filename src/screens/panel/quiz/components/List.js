@@ -16,10 +16,6 @@ const List = props => {
     setShowOpPopUp(!showOpPopUp);
   };
 
-  const changeMode = newMode => {
-    props.setMode(newMode);
-  };
-
   const columns = [
     {
       name: 'نام آزمون',
@@ -88,14 +84,11 @@ const List = props => {
         />
       )}
       <CommonWebBox
+        header={translator.quizes}
+        addBtn={true}
+        onAddClick={() => props.setMode('create')}
         child={
           <View>
-            <TextIcon
-              onPress={() => changeMode('create')}
-              theme={'rect'}
-              text={translator.quizzes}
-              icon={faPlus}
-            />
             <CommonDataTable
               columns={columns}
               data={props.quizzes}

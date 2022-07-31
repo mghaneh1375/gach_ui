@@ -45,7 +45,7 @@ import Certificate from './panel/certificate/Certificate';
 import Ticket from './panel/ticket/Ticket';
 import Dashboard from './studentPanel/dashboard/Dashboard';
 import Gift from './general/Gift/Gift';
-import StudentTicket from './studentPanel/Buy/Ticket';
+import Ticketstd from './studentPanel/Ticket/Ticket';
 import Author from './panel/users/Author/Author';
 
 const WebStructue = props => {
@@ -250,11 +250,7 @@ const WebStructue = props => {
               {props.page === 'ticket' &&
                 user.accesses.indexOf('admin') === -1 &&
                 user.accesses.indexOf('superadmin') === -1 && (
-                  <StudentTicket
-                    token={token}
-                    user={user}
-                    navigate={navigate}
-                  />
+                  <Ticketstd token={token} user={user} navigate={navigate} />
                 )}
               {props.page === 'basic' &&
                 params !== undefined &&

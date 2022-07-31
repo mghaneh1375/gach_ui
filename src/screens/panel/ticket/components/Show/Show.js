@@ -42,14 +42,8 @@ function Show(props) {
         <View>
           <CommonWebBox
             header={props.ticket.title}
-            btn={
-              <FontIcon
-                onPress={() => changeMode(props.setMode, 'list')}
-                theme="rect"
-                kind="normal"
-                icon={faArrowLeft}
-              />
-            }
+            backBtn={true}
+            onBackClick={() => props.setMode('list')}
             child={
               <View>
                 <PhoneView>

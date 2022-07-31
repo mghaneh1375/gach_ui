@@ -7,7 +7,7 @@ import Show from '../../panel/ticket/components/Show/Show';
 import Create from '../../panel/ticket/components/Create';
 import {addItem, removeItems} from '../../../services/Utility';
 
-function Buy(props) {
+function Ticketstd(props) {
   const [mode, setMode] = useState('list');
   const [tickets, setTickets] = useState();
   const [selectedTicket, setSelectedTicket] = useState();
@@ -86,4 +86,4 @@ function Buy(props) {
   );
 }
 
-export default Buy;
+export default Ticketstd;

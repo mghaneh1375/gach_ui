@@ -41,17 +41,14 @@ function List(props) {
           toggleShowPopUp={toggleShowOpPopUp}
         />
       )}
-      <CommonWebBox>
+      <CommonWebBox
+        addBtn={true}
+        onAddClick={() => props.setMode('create')}
+        header={
+          Translator.list +
+          levelsKeyVals.find(elem => elem.id === currLevel).item
+        }>
         <View>
-          <TextIcon
-            onPress={() => changeMode('create')}
-            theme={'rect'}
-            text={
-              Translator.list +
-              levelsKeyVals.find(elem => elem.id === currLevel).item
-            }
-            icon={faPlus}
-          />
           {/* <Filter
             setData={props.setData}
             token={props.token}

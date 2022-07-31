@@ -84,6 +84,9 @@ const CreateQuiz = props => {
     <View>
       <CommonWebBox
         header={translator.generalInfo}
+        backBtn={true}
+        onBackClick={() => props.setMode('list')}
+        onback
         child={
           <QuizGeneralInfo
             name={name}

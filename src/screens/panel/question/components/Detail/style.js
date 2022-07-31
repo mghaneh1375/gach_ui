@@ -43,3 +43,7 @@ export const styleMaxHeight300 = {
 export const styleMarginTop25 = {
   marginTop: 25,
 };
+export const styleGap10Wrap = {
+  alignSelf: 'flex-end',
+  marginBottom: 40,
+};

@@ -16,13 +16,14 @@ import {
 } from '../KeyVals';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {changeText} from '../../../../../services/Utility';
-import {styleMarginRight25, styleMarginTop25} from '../Detail/style';
+import {styleGap10Wrap} from '../Detail/style';
 import RadioButtonYesOrNo from './../../../../../components/web/RadioButtonYesOrNo';
 import {View} from 'react-native';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
 import commonTranslator from '../../../../../tranlates/Common';
+
 function Create(props) {
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
   const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
@@ -98,7 +99,7 @@ function Create(props) {
             setLoading={props.setLoading}
           />
         )}
-        <PhoneView style={{alignSelf: 'flex-end', marginBottom: 40}}>
+        <PhoneView style={{...styleGap10Wrap}}>
           <CommonButton
             onPress={() => toggleShowAddBatchPopUp()}
             theme={'dark'}
@@ -110,10 +111,9 @@ function Create(props) {
             title={translator.uploadZipFile}
           />
         </PhoneView>
-        <PhoneView style={{flexWrap: 'wrap', ...styleMarginTop25}}>
+        <PhoneView style={{flexWrap: 'wrap', gap: 10}}>
           <JustBottomBorderSelect
             isHalf={true}
-            style={{...styleMarginRight25, ...styleMarginTop25}}
             placeholder={translator.typeOfQuestion}
             setter={setType}
             values={typeOfQuestionKeyVals}
@@ -121,7 +121,6 @@ function Create(props) {
           />
           <JustBottomBorderSelect
             isHalf={true}
-            style={{...styleMarginRight25, ...styleMarginTop25}}
             placeholder={translator.visibility}
             setter={setVisibility}
             values={statusKeyVals}
@@ -129,7 +128,6 @@ function Create(props) {
           />
           <JustBottomBorderSelect
             isHalf={true}
-            style={{...styleMarginRight25, ...styleMarginTop25}}
             placeholder={translator.level}
             setter={setLevel}
             values={levelKeyVals}
@@ -137,36 +135,15 @@ function Create(props) {
           />
           <JustBottomBorderTextInput
             isHalf={true}
-            style={{...styleMarginRight25, ...styleMarginTop25}}
             placeholder={translator.neededTime}
             value={neededTime}
             subText={'ثانیه'}
             justNum={true}
             onChangeText={e => changeText(e, setNeededTime)}
           />
-          <JustBottomBorderTextInput
-            isHalf={true}
-            style={{...styleMarginRight25, ...styleMarginTop25}}
-            placeholder={translator.author}
-            disable={true}
-            value={
-              foundUser !== undefined
-                ? foundUser.map(elem => elem.name).join(',')
-                : ''
-            }
-            onChangeText={e => changeText(e, setAuthor)}
-          />
-          <FontIcon
-            kind={'normal'}
-            theme={'rect'}
-            back={'yellow'}
-            icon={faPlus}
-            onPress={() => toggleShowSearchUser()}
-          />
           {type === 'short_answer' && (
             <JustBottomBorderTextInput
               isHalf={true}
-              style={{...styleMarginRight25, ...styleMarginTop25}}
               placeholder={translator.answer}
               value={answer}
               justNum={true}
@@ -176,7 +153,6 @@ function Create(props) {
           {type === 'short_answer' && (
             <JustBottomBorderTextInput
               isHalf={true}
-              style={{...styleMarginRight25, ...styleMarginTop25}}
               placeholder={translator.telorance}
               value={telorance}
               justNum={true}
@@ -186,23 +162,26 @@ function Create(props) {
           {type === 'test' && (
             <JustBottomBorderSelect
               isHalf={true}
-              style={{
-                ...styleMarginRight25,
-                ...styleMarginTop25,
-              }}
               placeholder={translator.choicesCount}
               setter={setChoicesCount}
               values={choicesCountKeyVals}
               value={choicesCountKeyVals.find(elem => elem.id === choicesCount)}
             />
           )}
+          <JustBottomBorderTextInput
+            isHalf={true}
+            placeholder={translator.author}
+            disable={true}
+            value={
+              foundUser !== undefined
+                ? foundUser.map(elem => elem.name).join(',')
+                : ''
+            }
+            onChangeText={e => changeText(e, setAuthor)}
+          />
           {type === 'test' && choices !== undefined && (
             <JustBottomBorderSelect
               isHalf={true}
-              style={{
-                ...styleMarginRight25,
-                ...styleMarginTop25,
-              }}
               placeholder={translator.answer}
               setter={setAnswer}
               values={choices}
@@ -212,7 +191,6 @@ function Create(props) {
           {type === 'multi_sentence' && (
             <JustBottomBorderTextInput
               isHalf={true}
-              style={{...styleMarginRight25, ...styleMarginTop25}}
               justNum={true}
               placeholder={translator.sentencesCount}
               value={sentencesCount}
@@ -246,7 +224,6 @@ function Create(props) {
           {type === 'tashrihi' && (
             <JustBottomBorderTextInput
               isHalf={true}
-              style={{...styleMarginRight25, ...styleMarginTop25}}
               placeholder={translator.answer}
               value={answer}
               multiline={true}
@@ -254,7 +231,15 @@ function Create(props) {
             />
           )}
         </PhoneView>
-        <View></View>
+        <View style={{alignContent: 'flex-end', flexWrap: 'wrap'}}>
+          <FontIcon
+            kind={'normal'}
+            theme={'rect'}
+            back={'yellow'}
+            icon={faPlus}
+            onPress={() => toggleShowSearchUser()}
+          />
+        </View>
       </CommonWebBox>
     </View>
   );

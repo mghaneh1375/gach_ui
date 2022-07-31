@@ -17,9 +17,7 @@ function CreateAuthor(props) {
   const [name, setName] = useState();
   const [family, setFamily] = useState();
   const [tag, setTag] = useState();
-  const changeMode = newMode => {
-    props.setMode(newMode);
-  };
+
   return (
     <CommonWebBox
       header={Translate.newAuthor}
