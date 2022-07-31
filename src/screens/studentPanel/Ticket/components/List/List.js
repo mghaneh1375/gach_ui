@@ -10,16 +10,10 @@ import {editItem} from '../../../../../services/Utility';
 function List(props) {
   return (
     <View>
-      <CommonWebBox>
-        <View>
-          <TextIcon
-            onPress={() => props.setMode('create')}
-            theme={'rect'}
-            text={Translate.sendRequest}
-            icon={faPlus}
-          />
-        </View>
-      </CommonWebBox>
+      <CommonWebBox
+        header={Translate.sendRequest}
+        addBtn={true}
+        onAddClick={() => props.setMode('create')}></CommonWebBox>
       <CommonWebBox style={{marginTop: -5}}>
         <View style={{padding: 5, zIndex: 'unset'}}>
           <Filter

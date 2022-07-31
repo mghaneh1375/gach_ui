@@ -1,5 +1,10 @@
 import {View} from 'react-native';
-import {CommonButton, SimpleText} from '../../../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+  SimpleText,
+} from '../../../../../../styles/Common';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../../tranlates/Common';
 import style from './Style';
@@ -12,33 +17,37 @@ function Show(props) {
   };
 
   return (
-    <View style={style.avatar}>
-      <img src={props.avatar.file} />
-      <SimpleText
-        style={style.defaultText}
-        text={props.avatar.isDefault ? translator.default : ''}
-      />
+    <CommonWebBox style={style.avatar}>
+      <img style={{...style.pic}} src={props.avatar.file} />
+      <PhoneView>
+        <SimpleText
+          style={style.defaultText}
+          text={props.avatar.isDefault ? translator.default : ''}
+        />
+      </PhoneView>
       <SimpleText
         style={style.defaultText}
         text={translator.used + ' : ' + props.avatar.used}
       />
-      <CommonButton
-        onPress={() =>
-          remove(
-            props.avatar.id,
-            props.setLoading,
-            props.token,
-            props.setDefault,
-            props.removeAvatar,
-          )
-        }
-        title={commonTranslator.delete}
-      />
-      <CommonButton
-        theme={'transparent'}
-        onPress={() => edit()}
-        title={commonTranslator.edit}
-      />
+      <PhoneView>
+        <CommonButton
+          theme={'transparent'}
+          onPress={() => edit()}
+          title={commonTranslator.edit}
+        />
+        <CommonButton
+          onPress={() =>
+            remove(
+              props.avatar.id,
+              props.setLoading,
+              props.token,
+              props.setDefault,
+              props.removeAvatar,
+            )
+          }
+          title={commonTranslator.delete}
+        />
+      </PhoneView>
 
       {!props.avatar.isDefault && (
         <CommonButton
@@ -54,7 +63,7 @@ function Show(props) {
           title={translator.setAsDefault}
         />
       )}
-    </View>
+    </CommonWebBox>
   );
 }
 
