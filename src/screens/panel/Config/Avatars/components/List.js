@@ -24,14 +24,11 @@ function List(props) {
   };
 
   return (
-    <CommonWebBox backBtn={true} onBackClick={() => props.setMode('list')}>
+    <CommonWebBox
+      header={translator.avatars}
+      addBtn={true}
+      onAddClick={() => props.setMode('create')}>
       <View>
-        <TextIcon
-          onPress={() => props.setMode('create')}
-          theme={'rect'}
-          text={translator.avatars}
-          icon={faPlus}
-        />
         <PhoneView>
           {props.avatars !== undefined &&
             props.avatars.map((elem, index) => {

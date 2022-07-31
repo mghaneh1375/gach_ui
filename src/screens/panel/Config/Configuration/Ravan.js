@@ -114,7 +114,7 @@ function Ravan(props) {
   return (
     <View>
       <CommonWebBox>
-        <PhoneView>
+        <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
           <JustBottomBorderTextInput
             placeholder={translator.beckDep}
             subText={translator.beckDep}
@@ -129,8 +129,7 @@ function Ravan(props) {
             onChangeText={e => setBeckAnx(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
+
           <JustBottomBorderTextInput
             placeholder={translator.CDI}
             subText={translator.CDI}
@@ -145,8 +144,7 @@ function Ravan(props) {
             onChangeText={e => setMBTI(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
+
           <JustBottomBorderTextInput
             placeholder={translator.standardRaven}
             subText={translator.standardRaven}
@@ -161,8 +159,7 @@ function Ravan(props) {
             onChangeText={e => setProRaven(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
+
           <JustBottomBorderTextInput
             placeholder={translator.childRaven}
             subText={translator.childRaven}
@@ -177,8 +174,7 @@ function Ravan(props) {
             onChangeText={e => setCattell(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
+
           <JustBottomBorderTextInput
             placeholder={translator.hermans}
             subText={translator.hermans}
@@ -193,8 +189,7 @@ function Ravan(props) {
             onChangeText={e => setLASSI(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
+
           <JustBottomBorderTextInput
             placeholder={translator.gardner}
             subText={translator.gardner}
@@ -209,8 +204,7 @@ function Ravan(props) {
             onChangeText={e => setIzenk(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
+
           <JustBottomBorderTextInput
             placeholder={translator.haland}
             subText={translator.haland}
@@ -225,8 +219,7 @@ function Ravan(props) {
             onChangeText={e => setNeo(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
+
           <JustBottomBorderTextInput
             placeholder={translator.cannor}
             subText={translator.cannor}
@@ -241,8 +234,7 @@ function Ravan(props) {
             onChangeText={e => setGHQ(e)}
             justNum={true}
           />
-        </PhoneView>
-        <PhoneView>
+
           <JustBottomBorderTextInput
             placeholder={translator.RCMAS}
             subText={translator.RCMAS}
