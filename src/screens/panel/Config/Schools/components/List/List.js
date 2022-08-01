@@ -42,7 +42,7 @@ function List(props) {
       <CommonWebBox
         header={translator.offs}
         addbtn={true}
-        onAddBtn={() => props.setMode('create')}>
+        onAddClick={() => props.setMode('create')}>
         <View>
           <Filter
             setData={props.setData}

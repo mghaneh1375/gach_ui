@@ -13,6 +13,7 @@ import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import {checkSendRoleForm, getRoleForms} from './Utility';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 
 const RoleForm = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});
@@ -112,6 +113,13 @@ const RoleForm = props => {
           {roleForms
             .find(elem => elem.role === role)
             .data.map(function (obj, i) {
+              if (obj.keyVals !== undefined)
+                return (
+                  <JustBottomBorderSelect
+                    setter={setFormUserData(obj.key, e)}
+                    values={obj.keyVals}
+                  />
+                );
               return (
                 <CommonTextInput
                   style={{marginTop: 10}}

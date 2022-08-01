@@ -105,6 +105,12 @@ export const CommonButton = props => {
       ? CommonButtonTextStyleWeb
       : CommonButtonTextStyleAndroid;
 
+  if (props.textStyle !== undefined)
+    textStyle = {
+      ...textStyle,
+      ...props.textStyle,
+    };
+
   if (props.theme !== undefined) {
     if (props.theme === 'transparent') {
       allStyles = {

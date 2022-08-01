@@ -30,7 +30,6 @@ function Ticket(props) {
 
   React.useEffect(() => {
     const params = queryString.parse(search);
-
     filter(
       {
         setLoading: status => dispatch({loading: status}),
