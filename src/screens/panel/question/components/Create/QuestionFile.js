@@ -2,19 +2,27 @@ import {View} from 'react-native';
 import {CommonButton} from '../../../../../styles/Common';
 import {useFilePicker} from 'use-file-picker';
 import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
+import React from 'react';
+import {TextIcon} from '../../../../../styles/Common/TextIcon';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 
 function QuestionFile(props) {
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
       maxFileSize: 1,
       accept: ['image/*'],
-      readAs: 'DataURL',
+      readAs: 'ArrayBuffer',
       multiple: false,
     });
 
   const removeFile = index => {
     remove(index);
   };
+
+  React.useEffect(() => {
+    if (filesContent !== undefined && filesContent.length === 1)
+      props.setFile(filesContent);
+  }, [props, filesContent]);
 
   return (
     <View style={{width: 200}}>
@@ -25,10 +33,10 @@ function QuestionFile(props) {
         title={props.label}
       />
       {filesContent !== undefined && filesContent.length > 0 && (
-        <AttachBox
-          filename={filesContent[0].name}
-          fileContent={filesContent[0].content}
-          removeAttach={() => removeFile(0)}
+        <TextIcon
+          onPress={() => removeFile(0)}
+          icon={faTrash}
+          text={filesContent[0].name}
         />
       )}
     </View>

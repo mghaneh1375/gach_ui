@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {
   CommonButton,
   CommonWebBox,
-  ErrorText,
   PhoneView,
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
@@ -14,6 +13,7 @@ import {
   levelKeyVals,
   statusKeyVals,
   choicesCountKeyVals,
+  sentencesCountKeyVals,
 } from '../KeyVals';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {changeText} from '../../../../../services/Utility';
@@ -30,6 +30,7 @@ function Create(props) {
   const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
   const [type, setType] = useState();
   const [neededTime, setNeededTime] = useState();
+  const [neededLine, setNeededLine] = useState();
   const [level, setLevel] = useState();
   const [author, setAuthor] = useState();
   const [visibility, setVisibility] = useState();
@@ -39,9 +40,10 @@ function Create(props) {
   const [sentencesCount, setSentencesCount] = useState();
   const [subject, setSubject] = useState();
   const [choices, setChoices] = useState();
-  const [showSearchUser, setShowSearchUser] = useState(false);
-  const [foundUser, setFoundUser] = useState();
-  const [err, setErr] = useState();
+  const [organizationId, setOrganizationId] = useState();
+
+  const [questionFile, setQuestionFile] = useState();
+  const [answerFile, setAnswerFile] = useState();
 
   const useGlobalState = () => [
     React.useContext(questionContext),
@@ -82,13 +84,6 @@ function Create(props) {
     setChoices(choicesTmp);
   }, [choicesCount]);
 
-  const send = async () => {
-    if (props.isAdmin && (foundUser === undefined || foundUser.length === 0)) {
-      setErr(commonTranslator.pleaseFillAllFields);
-      return;
-    }
-  };
-
   const toggleShowAddBatchPopUp = () => {
     setShowAddBatchPopUp(!showAddBatchPopUp);
   };
@@ -97,8 +92,25 @@ function Create(props) {
     setShowAddBatchFilesPopUp(!showAddBatchFilesPopUp);
   };
 
-  const toggleShowSearchUser = () => {
-    setShowSearchUser(!showSearchUser);
+  const sendData = async () => {
+    let data = {
+      level: level,
+      authorId: author.id,
+      neededTime: neededTime,
+      answer: answer,
+      organizationId: organizationId,
+      kindQuestion: type,
+      visibility: visibility,
+    };
+
+    if (type === 'tashrihi') data.neededLine = neededLine;
+    else if (type === 'short_answer') data.telorance = telorance;
+    else if (type === 'multi_sentence') data.sentencesCount = sentencesCount;
+    else if (type === 'test') data.choicesCount = choicesCount;
+
+    props.setLoading(true);
+    await addQuestion(subject.id, data, questionFile, answerFile, props.token);
+    props.setLoading(false);
   };
 
   return (
@@ -142,6 +154,26 @@ function Create(props) {
             values={typeOfQuestionKeyVals}
             value={typeOfQuestionKeyVals.find(elem => elem.id === type)}
           />
+
+          <JustBottomBorderTextInput
+            style={{minWidth: 300}}
+            placeholder={commonTranslator.subject}
+            resultPane={true}
+            setSelectedItem={item => {
+              setSubject(item);
+            }}
+            values={state.subjectsKeyVals}
+            value={subject !== undefined ? subject.name : ''}
+            reset={false}
+          />
+
+          <JustBottomBorderTextInput
+            isHalf={true}
+            placeholder={translator.organizationCode}
+            value={organizationId}
+            onChangeText={e => changeText(e, setOrganizationId)}
+          />
+
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={translator.visibility}
@@ -199,18 +231,6 @@ function Create(props) {
             />
           )}
 
-          <JustBottomBorderTextInput
-            style={{minWidth: 300}}
-            placeholder={commonTranslator.subject}
-            resultPane={true}
-            setSelectedItem={item => {
-              setSubject(item);
-            }}
-            values={state.subjectsKeyVals}
-            value={subject !== undefined ? subject.name : ''}
-            reset={false}
-          />
-
           {type === 'test' && (
             <JustBottomBorderSelect
               isHalf={true}
@@ -240,25 +260,40 @@ function Create(props) {
 
           {type === 'tashrihi' && (
             <View style={{width: '100%'}}>
-              <JustBottomBorderTextInput
-                placeholder={translator.answer}
-                value={answer}
-                multiline={true}
-                onChangeText={e => changeText(e, setAnswer)}
-              />
+              <PhoneView>
+                <JustBottomBorderTextInput
+                  placeholder={translator.answer}
+                  value={answer}
+                  multiline={true}
+                  onChangeText={e => changeText(e, setAnswer)}
+                />
+                <JustBottomBorderSelect
+                  placeholder={translator.neededLines}
+                  values={sentencesCountKeyVals}
+                  value={sentencesCountKeyVals.find(elem => {
+                    return elem.id == neededLine;
+                  })}
+                  setter={setNeededLine}
+                />
+              </PhoneView>
             </View>
           )}
 
           <PhoneView style={{width: '100%'}}>
-            <QuestionFile label={translator.questionFile} />
-            <QuestionFile label={translator.answerFile} />
+            <QuestionFile
+              setFile={setQuestionFile}
+              label={translator.questionFile}
+            />
+            <QuestionFile
+              setFile={setAnswerFile}
+              label={translator.answerFile}
+            />
           </PhoneView>
         </PhoneView>
         <CommonButton
-          onPress={() => addQuestion({}, props.token)}
+          onPress={() => sendData()}
           title={commonTranslator.confirm}
         />
-        {err !== undefined && <ErrorText text={err} />}
       </CommonWebBox>
     </View>
   );

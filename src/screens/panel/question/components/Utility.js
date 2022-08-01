@@ -1,5 +1,7 @@
 import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
+import {fileRequest, generalRequest} from '../../../../API/Utility';
+import {showSuccess} from '../../../../services/Utility';
+import commonTranslator from '../../../../tranlates/Common';
 
 export const getSubjects = async token => {
   return await generalRequest(
@@ -95,4 +97,41 @@ export const getSubjectsKeyVals = async token => {
   );
 };
 
-export const addQuestion = async (data, token) => {};
+export const addQuestion = async (
+  subjectId,
+  data,
+  questionFile,
+  answerFile,
+  token,
+) => {
+  let formData = new FormData();
+
+  var myblob = new Blob([new Uint8Array(questionFile.content)]);
+  formData.append('questionFile', myblob, questionFile.name);
+
+  if (answerFile !== undefined) {
+    var myblob2 = new Blob([new Uint8Array(answerFile.content)]);
+    formData.append('answerFile', myblob2, answerFile.name);
+  }
+
+  let res = await fileRequest(
+    routes.addQuestion + subjectId,
+    'post',
+    formData,
+    'id',
+    token,
+    data,
+    [
+      'level',
+      'authorId',
+      'neededTime',
+      'answer',
+      'organizationId',
+      'kindQuestion',
+    ],
+  );
+
+  if (res !== null) showSuccess(commonTranslator.success);
+
+  return res;
+};
