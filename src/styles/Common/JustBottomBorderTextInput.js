@@ -10,7 +10,7 @@ const JustBottomBorderTextInput = props => {
           borderLeftWidth: 0,
           borderRightWidth: 0,
           borderRadius: 0,
-          padding: 0,
+          padding: 5,
         }
       : {
           ...props.style,
@@ -18,7 +18,7 @@ const JustBottomBorderTextInput = props => {
           borderLeftWidth: 0,
           borderRightWidth: 0,
           borderRadius: 0,
-          padding: 0,
+          padding: 5,
         };
 
   if (props.resultPane === undefined)

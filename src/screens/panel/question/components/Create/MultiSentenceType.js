@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
+import {PhoneView} from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../../Translator';
 import {sentencesCountKeyVals} from '../KeyVals';
+import MultiSentenceYesOrNo from './MultiSentenceYesOrNo';
 
 function MultiSentenceType(props) {
   const [sentencesAnswer, setSentencesAnswer] = useState();
@@ -18,7 +20,7 @@ function MultiSentenceType(props) {
   }, [sentencesCount]);
 
   return (
-    <View>
+    <View style={{gap: 20, width: '100%'}}>
       <JustBottomBorderSelect
         placeholder={translator.sentencesCount}
         values={sentencesCountKeyVals}
@@ -30,21 +32,22 @@ function MultiSentenceType(props) {
           props.updateSentencesCount(counter);
         }}
       />
-      {sentencesAnswer !== undefined &&
-        sentencesAnswer.map((elem, index) => {
-          return (
-            <RadioButtonYesOrNo
-              label={'پاسخ گزاره ' + (index + 1)}
-              selected={elem}
-              setSelected={status => {
-                let tmp = sentencesAnswer;
-                tmp[index] = status;
-                console.log(tmp);
-                setSentencesAnswer(tmp);
-              }}
-            />
-          );
-        })}
+      <View>
+        {sentencesAnswer !== undefined &&
+          sentencesAnswer.map((elem, index) => {
+            return (
+              <MultiSentenceYesOrNo
+                key={index}
+                index={index}
+                update={(index, status) => {
+                  let tmp = sentencesAnswer;
+                  tmp[index] = status;
+                  setSentencesAnswer(tmp);
+                }}
+              />
+            );
+          })}
+      </View>
     </View>
   );
 }

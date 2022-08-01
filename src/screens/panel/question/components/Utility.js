@@ -74,3 +74,25 @@ export const removeQuestion = async (questionId, token) => {
     token,
   );
 };
+
+export const getAuthorsKeyVals = async token => {
+  return await generalRequest(
+    routes.getAuthorsKeyVals,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const getSubjectsKeyVals = async token => {
+  return await generalRequest(
+    routes.getSubjectsKeyVals,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const addQuestion = async (data, token) => {};

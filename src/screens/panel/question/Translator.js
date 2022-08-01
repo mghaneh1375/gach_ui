@@ -19,8 +19,6 @@ const translator = {
   choicesCount: ' تعداد گزینه :  ',
   telorance: ' تلورانس پاسخ : ',
   answer: 'پاسخ صحیح  : ',
-  questionFile: 'فایل سوال',
-  answerFile: 'فایل پاسخ',
   typeOfQuestion: ' نوع سوال : ',
   minuts: ' دقیقه ',
   second: ' ثانیه ',
@@ -38,6 +36,8 @@ const translator = {
   sentencesCount: 'تعداد گزاره ها :',
   neededLines: 'تعداد خطوط : ',
   addQuiz: 'افزودن به آزمون',
+  questionFile: 'فایل صورت سوال',
+  answerFile: 'فایل پاسخ سوال(اختیاری)',
 };
 
 export default translator;
