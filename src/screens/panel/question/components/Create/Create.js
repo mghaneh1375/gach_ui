@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {
   CommonButton,
   CommonWebBox,
+  ErrorText,
   PhoneView,
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
@@ -17,13 +18,12 @@ import {
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {changeText} from '../../../../../services/Utility';
 import {styleGap10Wrap} from '../Detail/style';
-import RadioButtonYesOrNo from './../../../../../components/web/RadioButtonYesOrNo';
 import {View} from 'react-native';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
 import commonTranslator from '../../../../../tranlates/Common';
 import MultiSentenceType from './MultiSentenceType';
+import {addQuestion, getAuthorsKeyVals, getSubjectsKeyVals} from '../Utility';
+import QuestionFile from './QuestionFile';
+import {dispatchQuestionContext, questionContext} from '../Detail/Context';
 
 function Create(props) {
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
@@ -37,11 +37,40 @@ function Create(props) {
   const [telorance, setTelorance] = useState();
   const [choicesCount, setChoicesCount] = useState();
   const [sentencesCount, setSentencesCount] = useState();
-
+  const [subject, setSubject] = useState();
   const [choices, setChoices] = useState();
   const [showSearchUser, setShowSearchUser] = useState(false);
   const [foundUser, setFoundUser] = useState();
   const [err, setErr] = useState();
+
+  const useGlobalState = () => [
+    React.useContext(questionContext),
+    React.useContext(dispatchQuestionContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
+  const [isWorking, setIsWorking] = useState();
+
+  React.useEffect(() => {
+    if (isWorking || state.authorsKeyVals !== undefined) return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+
+    Promise.all([
+      getAuthorsKeyVals(props.token),
+      getSubjectsKeyVals(props.token),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null || res[1] === null) {
+        props.setMode('list');
+        return;
+      }
+
+      dispatch({authorsKeyVals: res[0], subjectsKeyVals: res[1]});
+      setIsWorking(false);
+    });
+  }, [props, state, isWorking, dispatch]);
 
   React.useEffect(() => {
     if (choicesCount === undefined) return;
@@ -52,12 +81,14 @@ function Create(props) {
     }
     setChoices(choicesTmp);
   }, [choicesCount]);
+
   const send = async () => {
     if (props.isAdmin && (foundUser === undefined || foundUser.length === 0)) {
       setErr(commonTranslator.pleaseFillAllFields);
       return;
     }
   };
+
   const toggleShowAddBatchPopUp = () => {
     setShowAddBatchPopUp(!showAddBatchPopUp);
   };
@@ -72,15 +103,6 @@ function Create(props) {
 
   return (
     <View>
-      {props.isAdmin && (
-        <SearchUser
-          setFinalResult={setFoundUser}
-          setShow={setShowSearchUser}
-          token={props.token}
-          setLoading={props.setLoading}
-          show={showSearchUser}
-        />
-      )}
       <CommonWebBox
         onBackClick={() => props.setMode('list')}
         header={translator.addQuestions}
@@ -148,18 +170,47 @@ function Create(props) {
               placeholder={translator.answer}
               value={answer}
               justNum={true}
+              float={true}
               onChangeText={e => changeText(e, setAnswer)}
             />
           )}
           {type === 'short_answer' && (
             <JustBottomBorderTextInput
               isHalf={true}
+              float={true}
               placeholder={translator.telorance}
               value={telorance}
               justNum={true}
               onChangeText={e => changeText(e, setTelorance)}
             />
           )}
+
+          {props.isAdmin && (
+            <JustBottomBorderTextInput
+              style={{minWidth: 300}}
+              placeholder={translator.author}
+              resultPane={true}
+              setSelectedItem={item => {
+                setAuthor(item);
+              }}
+              values={state.authorsKeyVals}
+              value={author !== undefined ? author.name : ''}
+              reset={false}
+            />
+          )}
+
+          <JustBottomBorderTextInput
+            style={{minWidth: 300}}
+            placeholder={commonTranslator.subject}
+            resultPane={true}
+            setSelectedItem={item => {
+              setSubject(item);
+            }}
+            values={state.subjectsKeyVals}
+            value={subject !== undefined ? subject.name : ''}
+            reset={false}
+          />
+
           {type === 'test' && (
             <JustBottomBorderSelect
               isHalf={true}
@@ -169,17 +220,7 @@ function Create(props) {
               value={choicesCountKeyVals.find(elem => elem.id === choicesCount)}
             />
           )}
-          <JustBottomBorderTextInput
-            isHalf={true}
-            placeholder={translator.author}
-            disable={true}
-            value={
-              foundUser !== undefined
-                ? foundUser.map(elem => elem.name).join(',')
-                : ''
-            }
-            onChangeText={e => changeText(e, setAuthor)}
-          />
+
           {type === 'test' && choices !== undefined && (
             <JustBottomBorderSelect
               isHalf={true}
@@ -198,24 +239,26 @@ function Create(props) {
           )}
 
           {type === 'tashrihi' && (
-            <JustBottomBorderTextInput
-              isHalf={true}
-              placeholder={translator.answer}
-              value={answer}
-              multiline={true}
-              onChangeText={e => changeText(e, setAnswer)}
-            />
+            <View style={{width: '100%'}}>
+              <JustBottomBorderTextInput
+                placeholder={translator.answer}
+                value={answer}
+                multiline={true}
+                onChangeText={e => changeText(e, setAnswer)}
+              />
+            </View>
           )}
+
+          <PhoneView style={{width: '100%'}}>
+            <QuestionFile label={translator.questionFile} />
+            <QuestionFile label={translator.answerFile} />
+          </PhoneView>
         </PhoneView>
-        <View style={{alignContent: 'flex-end', flexWrap: 'wrap'}}>
-          <FontIcon
-            kind={'normal'}
-            theme={'rect'}
-            back={'yellow'}
-            icon={faPlus}
-            onPress={() => toggleShowSearchUser()}
-          />
-        </View>
+        <CommonButton
+          onPress={() => addQuestion({}, props.token)}
+          title={commonTranslator.confirm}
+        />
+        {err !== undefined && <ErrorText text={err} />}
       </CommonWebBox>
     </View>
   );

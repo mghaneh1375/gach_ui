@@ -66,12 +66,14 @@ const Question = props => {
         />
       )}
       {mode === 'create' && (
-        <Create
-          isAdmin={isAdmin}
-          setMode={setMode}
-          token={props.token}
-          setLoading={setLoading}
-        />
+        <QuestionProvider>
+          <Create
+            isAdmin={isAdmin}
+            setMode={setMode}
+            token={props.token}
+            setLoading={setLoading}
+          />
+        </QuestionProvider>
       )}
       {mode === 'detail' && (
         <QuestionProvider>

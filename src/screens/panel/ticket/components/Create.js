@@ -19,10 +19,8 @@ import {faPaperclip, faPlus} from '@fortawesome/free-solid-svg-icons';
 import SearchUser from '../../../../components/web/SearchUser/SearchUser';
 import {addFile, finalize, submit} from './Show/Utility';
 import {changeText} from '../../../../services/Utility';
-import Add from './Show/Add';
 import AttachBox from './Show/AttachBox/AttachBox';
 import {useFilePicker} from 'use-file-picker';
-import ChatImage from './Show/ChatImage/ChatImage';
 import UserTinyPic from '../../../../components/web/LargeScreen/UserTinyPic';
 
 function Create(props) {
