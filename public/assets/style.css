@@ -8,15 +8,49 @@
   flex-direction: column;
 }
 
-.menu-item-container > div:not(.super-menu-item) {
+.menu-item-container>div:not(.super-menu-item) {
   background: linear-gradient(to right, #ffaa00 50%, #707070 50%);
   background-size: 200% 100%;
   background-position: right bottom;
   transition: all 0.7s ease-out;
 }
-.menu-item-container > div:not(.super-menu-item):hover {
+
+.super-menu-item:hover {
+  background: linear-gradient(to right, #ffaa00 100%, #707070 0%) !important;
+  background-size: 200% 100%;
+  background-position: right bottom;
+  transition: all 0.7s ease-out;
+  /* animation: super-menu .7s ease-out; */
+}
+
+.super-menu-item:hover .super-menu-item-font-container .r-width-13qz1uu {
+  background-color: #ffaa00 !important;
+  overflow: hidden;
+}
+
+/* .r-cursor-1loqt21 {
+  color: #707070 !important;
+} */
+
+/* .super-menu-item:hover .css-text-901oao {
+  color: #efefef !important;
+} */
+
+/* @keyframes super-menu {
+  0% {
+    left: 0;
+    background: #ffaa00 !important;
+  }
+
+  100% {
+    background: #ffaa00 !important;
+  }
+} */
+
+.menu-item-container>div:not(.super-menu-item):hover {
   background-position: left bottom;
 }
+
 .super-menu-item-font-container {
   margin-right: auto;
   width: 62px;
@@ -24,30 +58,42 @@
   display: flex;
   flex-direction: row;
 }
+
+.super-menu-item-font-container:hover {
+  background-color: #ffaa00 !important;
+}
+
 .sub-item {
   width: 100% !important;
 }
-.sub-item > div:hover {
+
+.sub-item>div:hover {
   background-color: #707070 !important;
   color: white;
 }
-.super-menu-item-font-container > div {
+
+.super-menu-item-font-container>div {
   width: 26px !important;
 }
-.super-menu-item-font-container > div:nth-child(2) {
+
+.super-menu-item-font-container>div:nth-child(2) {
   background-color: #707070;
 }
-.super-menu-item-font-container > div:nth-child(1) {
+
+.super-menu-item-font-container>div:nth-child(1) {
   margin-left: 10px;
 }
+
 .menu-item-font-container {
   margin-right: auto;
   width: 30px;
   height: 30px;
 }
+
 .menu-item-font-container-selected {
   background-color: #ffaa00;
 }
+
 .super-menu-item {
   display: flex;
   flex-wrap: wrap;
@@ -55,7 +101,9 @@
   width: 100%;
   background-color: white;
   border-bottom: 1px solid #707070;
+  margin-bottom: -0px;
 }
+
 .menu-item {
   display: flex;
   flex-direction: row;
@@ -66,19 +114,20 @@
   border-bottom-style: solid;
 }
 
-.menu-item > div:nth-child(1) {
+.menu-item>div:nth-child(1) {
   width: -webkit-fill-available;
   width: -moz-available;
 }
 
-.menu-item:not(.menu-item-selected) > div:nth-child(1) {
+.menu-item:not(.menu-item-selected)>div:nth-child(1) {
   color: #707070;
   background: linear-gradient(to right, #ffaa00 50%, white 50%);
   background-size: 200% 100%;
   background-position: right bottom;
   transition: all 0.7s ease-out;
 }
-.menu-item:not(.menu-item-selected) > div:nth-child(1):hover {
+
+.menu-item:not(.menu-item-selected)>div:nth-child(1):hover {
   background-color: transparent;
   color: white !important;
   background-position: left bottom;
@@ -86,6 +135,10 @@
 
 .menu-item-selected {
   background: #ffaa00 !important;
+}
+
+.css-text-901oao {
+  padding-top: 4px !important;
 }
 
 .rnc__notification-container--top-right {
@@ -109,20 +162,23 @@
   max-width: 230px !important;
   z-index: 10 !important;
 }
+
 .JDatePicker .JC-months .holder:last-child {
   width: 100% !important;
 }
-.JDatePicker .JDheader > .right,
-.JDatePicker .JDheader > .left {
+
+.JDatePicker .JDheader>.right,
+.JDatePicker .JDheader>.left {
   width: 100% !important;
 }
+
 /* .JDatePicker .JDheader .left {
 } */
 .JDatePicker .JDheader .right .number {
   background-color: white;
 }
 
-.JDatePicker .JDheader > .right {
+.JDatePicker .JDheader>.right {
   position: relative;
   margin-top: 5px;
 }
@@ -145,27 +201,31 @@
   background-color: #013243 !important;
   color: white;
 }
+
 .JDheader {
   display: flex;
   flex-direction: column-reverse;
 }
+
 .JDsubmit {
   background-color: #013243 !important;
   font-family: IRANSans;
   font-size: 12px !important;
   cursor: pointer;
 }
+
 .JDcancel {
   background-color: #ff0000 !important;
   font-family: IRANSans;
   font-size: 12px !important;
   cursor: pointer;
 }
+
 /* .date-picker {
   padding-top: 10px;
 } */
 
-.date-picker > input {
+.date-picker>input {
   font-family: IRANSans;
   background-color: white;
   border: 1px solid #707070;
@@ -182,15 +242,18 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+
 .JDatePicker .JDheader .left p {
   color: white !important;
   font-size: 12px;
   font-weight: bold;
 }
+
 .ck-editor__main {
   font-family: IRANSans;
 }
-.ck-editor__main > .ck-editor__editable {
+
+.ck-editor__main>.ck-editor__editable {
   min-height: 200px;
   direction: rtl;
   text-align: right !important;
@@ -219,6 +282,7 @@
 .mySelect .r-touchAction-1otgn73 svg {
   margin-top: 6px;
 }
+
 .rdt_Pagination {
   direction: ltr !important;
   justify-content: flex-start !important;
@@ -227,10 +291,12 @@
 input::placeholder {
   font-size: 11px;
 }
+
 .rdt_TableHeadRow {
   background-color: #013243 !important;
   color: white !important;
 }
+
 .rdt_TableRow:nth-child(odd) {
   background-color: #efefef !important;
 }
