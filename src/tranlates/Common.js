@@ -26,6 +26,7 @@ const translator = {
   support: 'پشتیبانی',
   home: 'خانه',
   myQuizes: 'آزمون های من',
+  quiz: 'آزمون',
   buyQuiz: 'خرید آزمون',
   quizes: 'آزمون ها',
   avatars: 'مدیریت تصاویر آواتار',
@@ -157,5 +158,6 @@ const translator = {
   coin: 'سکه',
   money: 'پول',
   howMany: 'تعداد',
+  dateExpire: 'تاریخ انقضا',
 };
 export default translator;

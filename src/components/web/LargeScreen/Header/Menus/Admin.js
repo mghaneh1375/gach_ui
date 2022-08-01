@@ -147,8 +147,8 @@ function AdminMenu(props) {
           navigate={navigate}
           items={[
             {
-              text: translator.winList,
-              url: '/gift/winList',
+              text: translator.selectGift,
+              url: '/gift/selectGift',
             },
             {
               text: translator.generalConfiguration,

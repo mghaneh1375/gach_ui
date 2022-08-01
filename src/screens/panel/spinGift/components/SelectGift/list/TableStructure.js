@@ -7,19 +7,11 @@ const columns = [
     selector: row => row.typeGift,
     grow: 1,
   },
-
   {
     name: Translate.valueGift,
     selector: row => row.howMany,
     grow: 1,
   },
-
-  {
-    name: commonTranslator.howMany,
-    selector: row => row.mail,
-    grow: 1,
-  },
-
   {
     name: commonTranslator.priority,
     selector: row => row.priority,
@@ -28,6 +20,11 @@ const columns = [
   {
     name: Translate.probability,
     selector: row => row.probability,
+    grow: 1,
+  },
+  {
+    name: Translate.siteApp,
+    selector: row => row.siteApp,
     grow: 1,
   },
   {

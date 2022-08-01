@@ -6,7 +6,7 @@ import List from './list/List';
 import Create from './create/Create';
 import {addItem} from '../../../../../services/Utility';
 
-function WinList(props) {
+function SelectGift(props) {
   const queryString = require('query-string');
   const navigate = props.navigate;
 
@@ -16,9 +16,18 @@ function WinList(props) {
   ];
   const [mode, setMode] = useState('list');
   const [state, dispatch] = useGlobalState();
-  const [gifts, setGifts] = useState();
+  const [gifts, setGifts] = useState([
+    {
+      typeGift: 'coin',
+      valueGift: '100',
+      howMany: '1',
+      probability: '100',
+      useable: 'true',
+      priority: '1',
+    },
+  ]);
   const [selectedGift, setSelectedGift] = useState({});
-  //   const isAdmin = isUserAdmin(props.user);
+  //const isAdmin = isUserAdmin(props.user);
   //   const setLoading = status => {
   //     dispatch({loading: status});
   //   };
@@ -71,20 +80,8 @@ function WinList(props) {
           token={props.token}
         />
       )}
-      {/*{mode === 'show' && (
-        <Show
-          isAdmin={isAdmin}
-          user={props.user}
-          setLoading={setLoading}
-          updateGift={gift => editItem(gifts, setGifts, gift)}
-          setSelectedGift={setSelectedGift}
-          gift={selectedGift}
-          token={props.token}
-          setMode={setMode}
-        />
-      )} */}
     </View>
   );
 }
 
-export default WinList;
+export default SelectGift;

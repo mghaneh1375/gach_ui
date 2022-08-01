@@ -16,11 +16,6 @@ const List = props => {
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
-  const changeMode = newMode => {
-    props.setMode(newMode);
-  };
-
   const handleOp = idx => {
     props.setSelectedOff(props.offs[idx]);
     toggleShowOpPopUp();

@@ -8,15 +8,13 @@ import columns from './TableStructure';
 import {routes} from '../../../../../../API/APIRoutes';
 
 function List(props) {
-  const [showOpModel, setShowOpModel] = useState();
   const [showOpPopUp, setShowOpPopUp] = useState(false);
-  const [selected, setSelected] = useState();
+
   const toggleShowOpPopUp = () => {
-    setShowOpModel(!showOpModel);
+    setShowOpPopUp(!showOpPopUp);
   };
   const handleOp = idx => {
-    props.setSelectedSubject(props.subjects[idx]);
-    setSelected(props.subjects[idx]);
+    props.setSelectedGift(props.gifts[idx]);
     toggleShowOpPopUp();
   };
 
@@ -28,12 +26,13 @@ function List(props) {
       <View style={{zIndex: 'unset'}}>
         {showOpPopUp && (
           <Ops
-            gift={props.selectedUser}
-            updateGift={props.updateGift}
-            token={props.token}
-            setMode={props.setMode}
-            setLoading={props.setLoading}
+            gift={props.selectedGift}
             toggleShowPopUp={toggleShowOpPopUp}
+            token={props.token}
+            setLoading={props.setLoading}
+            //updateOff={props.updateOff}
+            setMode={props.setMode}
+            //removeOffs={props.removeOffs}
           />
         )}
         <CommonDataTable
