@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Platform} from 'react-native';
 import {CommonSelectContainer, CommonSelectElem} from './CommonText';
 
@@ -17,6 +17,10 @@ export const CommonSelect = props => {
       props.placeholder === undefined ? 'انتخاب کنید' : props.placeholder,
     onChange: e => {
       props.setter(e.id);
+      if (props.afterSetter !== undefined) {
+        if (props.args === undefined) props.afterSetter(e.id);
+        else props.afterSetter(props.args, e.id);
+      }
     },
     containerStyle: {
       backgroundColor: vars.transparent,

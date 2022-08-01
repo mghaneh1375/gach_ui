@@ -47,6 +47,7 @@ import Dashboard from './studentPanel/dashboard/Dashboard';
 import Gift from './general/Gift/Gift';
 import Ticketstd from './studentPanel/Ticket/Ticket';
 import Author from './panel/users/Author/Author';
+import Upgrade from './studentPanel/Upgrade/Upgrade';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -212,6 +213,9 @@ const WebStructue = props => {
                   user={user}
                   navigate={navigate}
                 />
+              )}
+              {props.page === 'upgrade' && (
+                <Upgrade token={token} user={user} navigate={navigate} />
               )}
               {props.page === 'profile' && !isInLargeMode && (
                 <Profile

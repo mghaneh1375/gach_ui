@@ -1,5 +1,4 @@
 const Translate = {
-  test: 'تست',
   author: 'مولف',
   showTransaction: 'مشاهده تراکنش',
   lastTransaction: 'تاریخ آخرین پرداخت',

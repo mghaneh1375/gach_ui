@@ -103,7 +103,11 @@ export const routes = {
   addSchool: 'admin/config/school/add',
   editSchool: 'admin/config/school/edit/',
   createAuthor: 'admin/config/author/store',
+  getAllAuthors: 'admin/config/author/get',
   editAuthor: 'admin/config/author/edit/',
   removeAuthors: 'admin/config/author/remove',
-  getAllAuthors: 'admin/config/author/get',
+  getAuthorTransactions: 'admin/config/author/getTransactions/',
+  getAuthorLastTransaction: 'admin/config/author/getLastTransaction/',
+  createAuthorTransaction: 'admin/config/author/addTransaction/',
+  removeAuthorTransactions: 'admin/config/author/removeTransactions/',
 };

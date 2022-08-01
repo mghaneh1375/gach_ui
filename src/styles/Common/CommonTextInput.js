@@ -60,8 +60,8 @@ export const CommonTextInput = props => {
     ? {
         width: isApp ? 'auto' : 'calc(50% - 10px)',
         maxWidth: 300,
-        paddingLeft: 15,
-        paddingRight: 15,
+        paddingLeft: 5,
+        paddingRight: 5,
         paddingTop: 5,
         paddingBottom: 0,
       }

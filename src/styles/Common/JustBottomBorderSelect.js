@@ -30,6 +30,8 @@ const JustBottomBorderSelect = props => {
       values={props.values}
       value={props.value}
       subText={props.subText}
+      args={props.args}
+      afterSetter={props.afterSetter}
     />
   );
 };

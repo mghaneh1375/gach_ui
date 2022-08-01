@@ -16,11 +16,19 @@ const Columns = [
     name: Translate.numberQuestion,
     selector: row => row.questionCount,
     grow: 1,
+    sortable: true,
+    sortFunction: (a, b) => {
+      return a.questionCount - b.questionCount;
+    },
   },
   {
     name: Translate.sumPayment,
     selector: row => row.sumPayment,
     grow: 1,
+    sortable: true,
+    sortFunction: (a, b) => {
+      return a.sumPayment - b.sumPayment;
+    },
   },
   {
     name: Translate.lastTransaction,

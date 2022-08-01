@@ -23,6 +23,7 @@ import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
 import commonTranslator from '../../../../../tranlates/Common';
+import MultiSentenceType from './MultiSentenceType';
 
 function Create(props) {
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
@@ -36,7 +37,7 @@ function Create(props) {
   const [telorance, setTelorance] = useState();
   const [choicesCount, setChoicesCount] = useState();
   const [sentencesCount, setSentencesCount] = useState();
-  const [sentencesAnswer, setSentencesAnswer] = useState();
+
   const [choices, setChoices] = useState();
   const [showSearchUser, setShowSearchUser] = useState(false);
   const [foundUser, setFoundUser] = useState();
@@ -189,38 +190,13 @@ function Create(props) {
             />
           )}
           {type === 'multi_sentence' && (
-            <JustBottomBorderTextInput
-              isHalf={true}
-              justNum={true}
-              placeholder={translator.sentencesCount}
-              value={sentencesCount}
-              onChangeText={e => {
-                changeText(e, setSentencesCount);
-                let arr = [];
-                for (var i = 0; i < e; i++) arr.push('yes');
-
-                setSentencesAnswer(arr);
+            <MultiSentenceType
+              updateSentencesCount={item => {
+                setSentencesCount(item);
               }}
             />
           )}
-          <View>
-            {type === 'multi_sentence' &&
-              sentencesAnswer !== undefined &&
-              sentencesAnswer.map((elem, index) => {
-                console.log(elem);
-                return (
-                  <RadioButtonYesOrNo
-                    label={'پاسخ گزاره ' + (index + 1)}
-                    selected={elem}
-                    setSelected={status => {
-                      let tmp = sentencesAnswer;
-                      tmp[index] = status;
-                      setSentencesAnswer(tmp);
-                    }}
-                  />
-                );
-              })}
-          </View>
+
           {type === 'tashrihi' && (
             <JustBottomBorderTextInput
               isHalf={true}

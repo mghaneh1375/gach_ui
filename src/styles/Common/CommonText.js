@@ -8,6 +8,7 @@ const CommonTextInputStyle = {
   backgroundColor: 'white',
   borderWidth: 1,
   borderRadius: 15,
+  padding: 10,
   fontFamily: 'IRANSans',
   borderColor: vars.LIGHT_SILVER,
 };
