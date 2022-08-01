@@ -99,7 +99,7 @@ function AdminMenu(props) {
               url: '/users/school',
             },
             {
-              text: translator.author,
+              text: translator.authors,
               url: '/users/author',
             },
           ]}

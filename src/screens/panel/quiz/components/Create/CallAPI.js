@@ -6,7 +6,7 @@ const IRYSCMandatoryFields = [
   'start',
   'price',
   'end',
-  'isOnline',
+  'launchMode',
   'showResultsAfterCorrection',
 ];
 

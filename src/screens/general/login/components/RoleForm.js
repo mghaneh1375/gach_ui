@@ -9,11 +9,10 @@ import {
 import {RoleCard} from '../../../../styles/Common/RoleCard';
 import commonTranslator from './../../../../tranlates/Common';
 import vars from '../../../../styles/root';
-import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import {checkSendRoleForm, getRoleForms} from './Utility';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import SpecificRoleForm from './SpecificRoleForm';
 
 const RoleForm = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});
@@ -41,6 +40,7 @@ const RoleForm = props => {
 
   const setFormUserData = (key, val) => {
     userRoleFormData[key] = val;
+    console.log(userRoleFormData);
     setUserRoleFormData(userRoleFormData);
   };
 
@@ -97,7 +97,7 @@ const RoleForm = props => {
       )}
 
       {step === 'form' && role !== undefined && (
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 20, gap: 10}}>
           <FontIcon
             onPress={() => setStep('role')}
             parentStyle={{
@@ -113,22 +113,11 @@ const RoleForm = props => {
           {roleForms
             .find(elem => elem.role === role)
             .data.map(function (obj, i) {
-              if (obj.keyVals !== undefined)
-                return (
-                  <JustBottomBorderSelect
-                    setter={setFormUserData(obj.key, e)}
-                    values={obj.keyVals}
-                  />
-                );
               return (
-                <CommonTextInput
-                  style={{marginTop: 10}}
+                <SpecificRoleForm
                   key={i}
-                  placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
-                  subText={obj.help === undefined ? obj.title : obj.help}
-                  justNum={obj.isJustNum ? true : undefined}
-                  type={obj.type}
-                  onChangeText={e => setFormUserData(obj.key, e)}
+                  obj={obj}
+                  setFormUserData={setFormUserData}
                 />
               );
             })}

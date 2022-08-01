@@ -1,16 +1,19 @@
-import {Col} from 'react-grid-system';
+import React from 'react';
 import {View} from 'react-native';
-import {EqualTwoTextInputs, PhoneView} from '../../../../../styles/Common';
+import {PhoneView} from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
+import {kindQuizKeyVals} from '../KeyVals';
+import {dispatchQuizContext, quizContext} from './../Context';
 
 const QuizGeneralInfo = props => {
-  const kindKeyVals = [
-    {item: 'تستی', id: 'test'},
-    {item: 'تشریحی', id: 'tashrihi'},
+  const useGlobalState = () => [
+    React.useContext(quizContext),
+    React.useContext(dispatchQuizContext),
   ];
+  const [state, dispatch] = useGlobalState();
 
   const changeInput = (label, text) => {
     if (label === 'name') props.setName(text);
@@ -19,38 +22,48 @@ const QuizGeneralInfo = props => {
 
   return (
     <View>
-      <PhoneView>
-        <Col lg={6}>
-          <EqualTwoTextInputs style={{marginLeft: 20}}>
-            <JustBottomBorderTextInput
-              placeholder={translator.name}
-              onChangeText={e => changeInput('name', e)}
-              value={props.name}
-              isHalf={true}
-              subText={commonTranslator.necessaryField}
-            />
-            <JustBottomBorderSelect
-              isHalf={true}
-              value={
-                props.kind === undefined
-                  ? {}
-                  : kindKeyVals.filter(element => {
-                      return element.id === props.kind;
-                    })[0]
+      <PhoneView style={{gap: 20}}>
+        <JustBottomBorderTextInput
+          placeholder={translator.name}
+          onChangeText={e => changeInput('name', e)}
+          value={props.name}
+          subText={commonTranslator.necessaryField}
+        />
+        <JustBottomBorderSelect
+          value={
+            props.kind === undefined
+              ? {}
+              : kindQuizKeyVals.filter(element => {
+                  return element.id === props.kind;
+                })[0]
+          }
+          placeholder={translator.kind}
+          setter={props.setKind}
+          values={kindQuizKeyVals}
+        />
+        <JustBottomBorderTextInput
+          multi={true}
+          addNotFound={true}
+          resultPane={true}
+          setSelectedItem={item => {
+            props.setTags(
+              item.map(elem => {
+                return elem.name;
+              }),
+            );
+            let tmp = state.tags;
+            item.forEach(itr => {
+              if (state.tags.find(elem => elem.id === itr.id) === undefined) {
+                tmp.push(itr);
               }
-              placeholder={translator.kind}
-              setter={props.setKind}
-              values={kindKeyVals}
-            />
-          </EqualTwoTextInputs>
-        </Col>
-        <Col lg={6}>
-          <JustBottomBorderTextInput
-            style={{marginTop: 20}}
-            placeholder={translator.tag}
-            subText={commonTranslator.optional}
-          />
-        </Col>
+            });
+            dispatch({tags: tmp});
+          }}
+          values={state.tags}
+          reset={false}
+          placeholder={translator.tag}
+          subText={commonTranslator.optional}
+        />
       </PhoneView>
 
       <PhoneView

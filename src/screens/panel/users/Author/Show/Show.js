@@ -1,22 +1,38 @@
 import {View} from 'react-native';
-import {CommonWebBox, SimpleText} from '../../../../../styles/Common';
+import {CommonWebBox} from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import Translate from '../Translator';
-import Columns from './Ops/Columns';
-import {useState} from 'react';
-import Ops from './Ops/Ops';
+import columns from './TansactionTableStructure';
+import React, {useState} from 'react';
+import {getLastTransaction, getTransations} from '../List/Utility';
+import {routes} from '../../../../../API/APIRoutes';
 
 function Show(props) {
-  const [showOpPopUp, setShowOpPopUp] = useState(false);
-  const changeMode = newMode => {
-    props.setMode(newMode);
-  };
-  const toggleShowOpPopUp = () => {
-    setShowOpPopUp(!showOpPopUp);
-  };
-  const handleOp = idx => {
-    props.setSelectedUser(props.users[idx]);
-    toggleShowOpPopUp();
+  const [isWorking, setIsWorking] = useState(false);
+
+  React.useEffect(() => {
+    if (isWorking || props.author.transactions !== undefined) return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+
+    Promise.all([getTransations(props.author.id, props.token)]).then(res => {
+      props.setLoading(false);
+      if (res[0] !== undefined) props.author.transactions = res[0];
+      else props.author.transactions = [];
+      props.updateAuthor(props.author);
+      setIsWorking(false);
+    });
+  }, [props, isWorking]);
+
+  const setTransactions = async items => {
+    props.author.transactions = items;
+    let res = await getLastTransaction(props.author.id, props.token);
+    if (res !== null) {
+      props.author.sumPayment = res.sumPayment;
+      props.author.lastTransaction = res.lastTransaction;
+    }
+    props.updateAuthor(props.author);
   };
 
   return (
@@ -27,26 +43,17 @@ function Show(props) {
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <View style={{zIndex: 'unset'}}>
-        {showOpPopUp && (
-          <Ops
-            author={props.selectedUser}
-            updateAuthor={props.updateAuthor}
+        {props.author.transactions !== undefined && (
+          <CommonDataTable
+            columns={columns}
+            data={props.author.transactions}
+            setData={setTransactions}
+            groupOps={[]}
+            removeUrl={routes.removeAuthorTransactions + props.author.id}
             token={props.token}
-            setMode={props.setMode}
-            //setLoading={props.setLoading}
-            changeMode={changeMode}
-            toggleShowPopUp={toggleShowOpPopUp}
+            setLoading={props.setLoading}
           />
         )}
-        <CommonDataTable
-          columns={Columns}
-          data={props.users}
-          setData={props.setData}
-          handleOp={handleOp}
-          //removeUrl={routes.removeSchools}
-          token={props.token}
-          setLoading={props.setLoading}
-        />
       </View>
     </CommonWebBox>
   );

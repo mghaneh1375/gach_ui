@@ -17,6 +17,7 @@ const translator = {
   agents: 'نمایندگان',
   school: 'مدرسه',
   author: 'مولف',
+  authors: 'مولفین',
   schools: 'مدارس',
   advisor: 'مشاور',
   advisors: 'مشاوران',

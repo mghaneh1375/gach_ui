@@ -66,9 +66,8 @@ const Signup = props => {
     });
   };
   return (
-    <View style={props.style !== undefined ? props.style : {}}>
-      <EqualTwoTextInputs
-        style={{paddingRight: 0, paddingLeft: props.isInLargeScreen ? 30 : 0}}>
+    <View style={props.style !== undefined ? props.style : {gap: 5}}>
+      <EqualTwoTextInputs style={{paddingRight: 0}}>
         <CommonTextInput
           placeholder={commonTranslator.firstname}
           value={firstname}

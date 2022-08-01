@@ -41,6 +41,7 @@ function Author(props) {
         <List
           authors={authors}
           setAuthors={setAuthors}
+          setTag={setTag}
           setMode={setMode}
           setLoading={setLoading}
           setSelectedUser={setSelectedUser}
@@ -67,19 +68,20 @@ function Author(props) {
       )}
       {mode === 'show' && (
         <Show
-          setAuthors={setAuthors}
           setMode={setMode}
-          //setLoading={setLoading}
-          //setSelectedUser={setSelectedUser}
+          setLoading={setLoading}
+          author={selectedUser}
           token={props.token}
+          updateAuthor={newItem => editItem(authors, setAuthors, newItem)}
         />
       )}
       {mode === 'createTransaction' && (
         <CreateTransaction
-          setAuthors={setAuthors}
+          author={selectedUser}
           setMode={setMode}
           setLoading={setLoading}
           token={props.token}
+          updateAuthor={newItem => editItem(authors, setAuthors, newItem)}
         />
       )}
     </View>

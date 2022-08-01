@@ -5,17 +5,25 @@ import commonTranslator from '../../../../tranlates/Common';
 import vars from '../../../../styles/root';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
-import {generateQuestionPDF} from './Utility';
+import {generateQuestionPDF, removeQuiz} from './Utility';
+import {dispatchQuizContext, quizContext} from './Context';
+import React from 'react';
 
 const Ops = props => {
+  const useGlobalState = () => [
+    React.useContext(quizContext),
+    React.useContext(dispatchQuizContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
   const toggleVisibility = () => {
     props.setLoading(true);
     Promise.all([
       generalRequest(
-        routes.editQuiz + props.quiz.id,
+        routes.editQuiz + state.selectedQuiz.id,
         'post',
         {
-          visibility: !props.quiz.visibility,
+          visibility: !state.selectedQuiz.visibility,
         },
         undefined,
         props.token,
@@ -23,42 +31,40 @@ const Ops = props => {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] !== null) {
-        props.quiz.visibility = !props.quiz.visibility;
-        props.updateQuiz(props.quiz);
+        state.selectedQuiz.visibility = !state.selectedQuiz.visibility;
+        props.updateQuiz(state.selectedQuiz);
       }
     });
   };
 
-  const remove = () => {
+  const remove = async () => {
     props.setLoading(true);
-    Promise.all([
-      generalRequest(
-        props.quiz.generalMode === 'IRYSC'
-          ? routes.removeIRYSCQuiz + props.quiz.id
-          : routes.removeSchoolQuiz + props.quiz.id,
-        'delete',
-        undefined,
-        undefined,
-        props.token,
-      ),
-    ]).then(res => {
-      props.setLoading(false);
-      if (res[0] !== null) props.removeQuiz(props.quiz.id);
-      props.toggleShowPopUp();
-    });
+    let res = await removeQuiz(
+      state.selectedQuiz.generalMode,
+      state.selectedQuiz.id,
+      props.token,
+    );
+    props.setLoading(false);
+    if (res !== null) {
+      let newList = state.quizzes.filter(elem => {
+        return elem.id !== state.selectedQuiz.id;
+      });
+      dispatch({quizzes: newList});
+    }
+    props.toggleShowPopUp();
   };
 
   const changeMode = newMode => {
     if (
       newMode === 'update' &&
-      props.quiz.showResultsAfterCorrection === undefined
+      state.selectedQuiz.showResultsAfterCorrection === undefined
     ) {
       props.setLoading(true);
       Promise.all([
         generalRequest(
-          props.quiz.generalMode === 'IRYSC'
-            ? routes.fetchIRYSCQuiz + props.quiz.id
-            : routes.fetchIRYSCQuiz + props.quiz.id,
+          state.selectedQuiz.generalMode === 'IRYSC'
+            ? routes.fetchIRYSCQuiz + state.selectedQuiz.id
+            : routes.fetchIRYSCQuiz + state.selectedQuiz.id,
           'get',
           undefined,
           'data',
@@ -80,7 +86,7 @@ const Ops = props => {
 
   return (
     <LargePopUp
-      title={props.quiz.title}
+      title={state.selectedQuiz.title}
       btns={
         <CommonButton
           onPress={() => remove()}
@@ -112,7 +118,7 @@ const Ops = props => {
           theme={'transparent'}
           onPress={() => toggleVisibility()}
           title={
-            props.quiz.visibility
+            state.selectedQuiz.visibility
               ? commonTranslator.hide
               : commonTranslator.show
           }
@@ -138,23 +144,26 @@ const Ops = props => {
           theme={'transparent'}
           title={translator.transferToOpenQuiz}
         />
-        {!props.quiz.isOnline && props.quiz.mode === 'regular' && (
-          <CommonButton
-            dir={'rtl'}
-            theme={'transparent'}
-            onPress={() => props.setMode('CV')}
-            title={translator.correntAnswerSheets}
-          />
-        )}
-        {!props.quiz.isOnline && (
+        {(state.selectedQuiz.launchMode === 'physical' ||
+          state.selectedQuiz.launchMode === 'hybrid') &&
+          state.selectedQuiz.mode === 'regular' && (
+            <CommonButton
+              dir={'rtl'}
+              theme={'transparent'}
+              onPress={() => props.setMode('CV')}
+              title={translator.correntAnswerSheets}
+            />
+          )}
+        {(state.selectedQuiz.launchMode === 'physical' ||
+          state.selectedQuiz.launchMode === 'hybrid') && (
           <CommonButton
             dir={'rtl'}
             theme={'transparent'}
             onPress={async () => {
               props.setLoading(true);
               await generateQuestionPDF(
-                props.quiz.id,
-                props.quiz.generalMode,
+                state.selectedQuiz.id,
+                state.selectedQuiz.generalMode,
                 props.token,
               );
 

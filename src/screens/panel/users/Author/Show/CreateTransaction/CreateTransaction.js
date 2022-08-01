@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {View} from 'react-native';
+import {convertTimestamp} from '../../../../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -8,6 +9,7 @@ import {
 import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../../../../../tranlates/Common';
+import {createTransaction} from '../../List/Utility';
 import Translate from '../../Translator';
 
 function CreateTransaction(props) {
@@ -18,30 +20,56 @@ function CreateTransaction(props) {
     <CommonWebBox
       header={commonTranslator.desc}
       backBtn={true}
-      onBackClick={() => props.setMode('list')}>
+      onBackClick={() => props.setMode('show')}>
       <View>
         <PhoneView>
           <JustBottomBorderTextInput
-            isHalf={true}
             placeholder={Translate.amount}
             value={amount}
+            isHalf={true}
+            justNum={true}
             onChangeText={text => setAmount(text)}
           />
           <JustBottomBorderDatePicker
-            isHalf={true}
             placeholder={commonTranslator.date}
             value={date}
-            onChangeText={text => setDate(text)}
+            isHalf={true}
+            setter={setDate}
           />
           <JustBottomBorderTextInput
-            isHalf={true}
             placeholder={commonTranslator.desc}
             value={description}
+            isHalf={true}
             subText={commonTranslator.notNecessary}
             onChangeText={text => setDescription(text)}
           />
         </PhoneView>
-        <CommonButton title={commonTranslator.confirm} />
+        <CommonButton
+          onPress={async () => {
+            props.setLoading(true);
+            let data = {
+              pay: amount,
+              payAt: date,
+              description: description,
+            };
+            let res = await createTransaction(
+              props.author.id,
+              data,
+              props.token,
+            );
+            props.setLoading(false);
+            if (res !== null) {
+              data.id = res.id;
+              data.payAt = convertTimestamp(data.payAt);
+              props.author.transactions.push(data);
+              props.author.sumPayment = res.sumPayment;
+              props.author.lastTransaction = res.lastTransaction;
+              props.updateAuthor(props.author);
+              props.setMode('show');
+            }
+          }}
+          title={commonTranslator.confirm}
+        />
       </View>
     </CommonWebBox>
   );

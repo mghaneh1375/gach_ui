@@ -60,10 +60,12 @@ export const CommonTextInput = props => {
     ? {
         width: isApp ? 'auto' : 'calc(50% - 10px)',
         maxWidth: 300,
-        paddingLeft: 10,
-        paddingRight: 10,
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingTop: 5,
+        paddingBottom: 0,
       }
-    : {};
+    : {paddingLeft: 5, paddingRight: 5, paddingTop: 5, paddingBottom: 0};
 
   if (props.parentStyle !== undefined)
     parentAllStyles = {...parentAllStyles, ...props.parentStyle};

@@ -5,10 +5,10 @@ import {DateTimePicker} from 'react-advance-jalaali-datepicker';
 import SelectBox from 'react-native-multi-selectbox';
 
 const CommonTextInputStyle = {
-  padding: 10,
   backgroundColor: 'white',
   borderWidth: 1,
   borderRadius: 15,
+  padding: 10,
   fontFamily: 'IRANSans',
   borderColor: vars.LIGHT_SILVER,
 };
@@ -20,9 +20,9 @@ const CommonTextInputStyleAndroid = {
 export const CommonTextInputStyleWeb = {
   ...CommonTextInputStyle,
   direction: 'rtl',
-  width: 'calc(100% - 20px)',
+  // width: 'calc(100% - 20px)',
   display: 'block',
-  maxWidth: '300px',
+  // maxWidth: '300px',
   flexDirection: 'row',
 };
 

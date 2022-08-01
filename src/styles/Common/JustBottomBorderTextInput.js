@@ -10,7 +10,7 @@ const JustBottomBorderTextInput = props => {
           borderLeftWidth: 0,
           borderRightWidth: 0,
           borderRadius: 0,
-          paddingBottom: 0,
+          padding: 0,
         }
       : {
           ...props.style,
@@ -18,7 +18,7 @@ const JustBottomBorderTextInput = props => {
           borderLeftWidth: 0,
           borderRightWidth: 0,
           borderRadius: 0,
-          paddingBottom: 0,
+          padding: 0,
         };
 
   if (props.resultPane === undefined)
@@ -68,6 +68,7 @@ const JustBottomBorderTextInput = props => {
       value={props.value}
       reset={props.reset}
       setSelectedItem={props.setSelectedItem}
+      addNotFound={props.addNotFound === undefined ? false : props.addNotFound}
     />
   );
 };

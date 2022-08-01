@@ -47,8 +47,12 @@ import Dashboard from './studentPanel/dashboard/Dashboard';
 import Gift from './general/Gift/Gift';
 import Ticketstd from './studentPanel/Ticket/Ticket';
 import Author from './panel/users/Author/Author';
+<<<<<<< HEAD
 import SpinGift from './panel/spinGift/SpinGift';
 import WinList from './panel/spinGift/components/winList/WinList';
+=======
+import Upgrade from './studentPanel/Upgrade/Upgrade';
+>>>>>>> 5afd7da1d28ef0c91d098d2969fdfa3d385cfc6a
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -214,6 +218,9 @@ const WebStructue = props => {
                   user={user}
                   navigate={navigate}
                 />
+              )}
+              {props.page === 'upgrade' && (
+                <Upgrade token={token} user={user} navigate={navigate} />
               )}
               {props.page === 'profile' && !isInLargeMode && (
                 <Profile

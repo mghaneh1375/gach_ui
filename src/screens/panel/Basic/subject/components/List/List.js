@@ -1,10 +1,7 @@
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {routes} from '../../../../../../API/APIRoutes';
 import {removeItems} from '../../../../../../services/Utility';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
-import {TextIcon} from '../../../../../../styles/Common/TextIcon';
 import Ops from '../Ops';
 import columns from './TableStructure';
 import commonTranslator from '../../../../../../tranlates/Common';

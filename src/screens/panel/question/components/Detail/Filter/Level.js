@@ -1,6 +1,7 @@
 import RadioButtonYesOrNo from '../../../../../../components/web/RadioButtonYesOrNo';
 import React from 'react';
 import {
+  BigBoldBlueText,
   CommonRadioButton,
   PhoneView,
   SimpleText,
@@ -44,55 +45,59 @@ function Level(props) {
   };
 
   return (
-    <PhoneView style={{gap: 50}}>
-      <PhoneView style={{minWidth: 200}}>
-        <CommonRadioButton
-          value="easy"
-          status={state.showEasy ? 'checked' : 'unchecked'}
-          onPress={() => filter('easy')}
-          text={''}
-        />
-        <View>
-          <SimpleText text={'نمایش سوالات آسان'} />
-          <SimpleText
-            style={{fontSize: 11}}
-            text={'تعداد سوالات موجود: ' + state.total_easy}
-          />
-        </View>
-      </PhoneView>
+    <View>
+      <BigBoldBlueText text={'سطح سختی سوال'} />
 
-      <PhoneView style={{minWidth: 200}}>
-        <CommonRadioButton
-          value="mid"
-          status={state.showMid ? 'checked' : 'unchecked'}
-          onPress={() => filter('mid')}
-          text={''}
-        />
-        <View>
-          <SimpleText text={'نمایش سوالات متوسط'} />
-          <SimpleText
-            style={{fontSize: 11}}
-            text={'تعداد سوالات موجود: ' + state.total_mid}
+      <PhoneView style={{gap: 50}}>
+        <PhoneView style={{minWidth: 200}}>
+          <CommonRadioButton
+            value="easy"
+            status={state.showEasy ? 'checked' : 'unchecked'}
+            onPress={() => filter('easy')}
+            text={''}
           />
-        </View>
-      </PhoneView>
+          <View>
+            <SimpleText text={'نمایش سوالات آسان'} />
+            <SimpleText
+              style={{fontSize: 11}}
+              text={'تعداد سوالات موجود: ' + state.total_easy}
+            />
+          </View>
+        </PhoneView>
 
-      <PhoneView style={{minWidth: 200}}>
-        <CommonRadioButton
-          value="hard"
-          status={state.showHard ? 'checked' : 'unchecked'}
-          onPress={() => filter('hard')}
-          text={''}
-        />
-        <View>
-          <SimpleText text={'نمایش سوالات سخت'} />
-          <SimpleText
-            style={{fontSize: 11}}
-            text={'تعداد سوالات موجود: ' + state.total_hard}
+        <PhoneView style={{minWidth: 200}}>
+          <CommonRadioButton
+            value="mid"
+            status={state.showMid ? 'checked' : 'unchecked'}
+            onPress={() => filter('mid')}
+            text={''}
           />
-        </View>
+          <View>
+            <SimpleText text={'نمایش سوالات متوسط'} />
+            <SimpleText
+              style={{fontSize: 11}}
+              text={'تعداد سوالات موجود: ' + state.total_mid}
+            />
+          </View>
+        </PhoneView>
+
+        <PhoneView style={{minWidth: 200}}>
+          <CommonRadioButton
+            value="hard"
+            status={state.showHard ? 'checked' : 'unchecked'}
+            onPress={() => filter('hard')}
+            text={''}
+          />
+          <View>
+            <SimpleText text={'نمایش سوالات سخت'} />
+            <SimpleText
+              style={{fontSize: 11}}
+              text={'تعداد سوالات موجود: ' + state.total_hard}
+            />
+          </View>
+        </PhoneView>
       </PhoneView>
-    </PhoneView>
+    </View>
   );
 }
 

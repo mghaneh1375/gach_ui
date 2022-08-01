@@ -1,6 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
 import {
+  BigBoldBlueText,
+  BlueTextInline,
   CommonRadioButton,
   PhoneView,
   SimpleText,
@@ -33,28 +35,31 @@ function Author(props) {
   };
 
   return (
-    <PhoneView style={{gap: 50, flexWrap: 'wrap'}}>
-      {state.authors !== undefined &&
-        state.authors.map((elem, index) => {
-          return (
-            <PhoneView style={{minWidth: 200}} key={index}>
-              <CommonRadioButton
-                value={elem.author}
-                status={elem.selected ? 'checked' : 'unchecked'}
-                onPress={() => toggleSelect(elem.author)}
-                text={''}
-              />
-              <View>
-                <SimpleText text={elem.author} />
-                <SimpleText
-                  style={{fontSize: 11}}
-                  text={'تعداد سوالات طراحی شده: ' + elem.qNo}
+    <View>
+      <BigBoldBlueText text={'مولفین'} />
+      <PhoneView style={{gap: 10, marginTop: 10, flexWrap: 'wrap'}}>
+        {state.authors !== undefined &&
+          state.authors.map((elem, index) => {
+            return (
+              <PhoneView style={{minWidth: 200, marginLeft: 40}} key={index}>
+                <CommonRadioButton
+                  value={elem.author}
+                  status={elem.selected ? 'checked' : 'unchecked'}
+                  onPress={() => toggleSelect(elem.author)}
+                  text={''}
                 />
-              </View>
-            </PhoneView>
-          );
-        })}
-    </PhoneView>
+                <View>
+                  <SimpleText text={elem.author} />
+                  <SimpleText
+                    style={{fontSize: 11}}
+                    text={'تعداد سوالات طراحی شده: ' + elem.qNo}
+                  />
+                </View>
+              </PhoneView>
+            );
+          })}
+      </PhoneView>
+    </View>
   );
 }
 
