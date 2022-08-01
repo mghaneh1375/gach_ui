@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
-import {PhoneView} from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../../Translator';
 import {sentencesCountKeyVals} from '../KeyVals';
