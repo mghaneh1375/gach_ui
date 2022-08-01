@@ -52,8 +52,12 @@ export default function WebRouter() {
             element={<WebStructue page="ravanConfiguration" />}
           />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
-          <Route path="/buy" element={<WebStructue page="buy" />} />
           <Route path="/users/author" element={<WebStructue page="author" />} />
+          <Route
+            exact
+            path="/gift/:mode"
+            element={<WebStructue page="gift" />}
+          />
           <Route path="*" element={<WebStructue page="404" />} />
         </Routes>
       </Router>

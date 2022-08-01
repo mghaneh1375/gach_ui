@@ -28,7 +28,7 @@ function List(props) {
     <CommonWebBox
       header={commonTranslator.subjectDefinition}
       addBtn={true}
-      onAddBtn={() => props.setMode('create')}>
+      onAddClick={() => props.setMode('create')}>
       {showOpModel && (
         <Ops
           subject={selected}

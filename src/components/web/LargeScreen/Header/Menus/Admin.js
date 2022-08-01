@@ -9,6 +9,7 @@ import {
   faContactBook,
   faMoneyBill,
   faQuestion,
+  faGift,
 } from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 import {SuperMenuItem} from './SuperMenuItem';
@@ -136,6 +137,26 @@ function AdminMenu(props) {
             {
               text: translator.packageQuiz,
               url: '/quiz/package',
+            },
+          ]}
+        />
+        <SuperMenuItem
+          text={translator.spinGift}
+          icon={faGift}
+          selected={props.selected === 'gift'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.winList,
+              url: '/gift/winList',
+            },
+            {
+              text: translator.generalConfiguration,
+              url: '/gift/configuration',
+            },
+            {
+              text: translator.selectGift,
+              url: '/basic/selectgift',
             },
           ]}
         />

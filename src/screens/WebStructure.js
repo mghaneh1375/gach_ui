@@ -47,6 +47,8 @@ import Dashboard from './studentPanel/dashboard/Dashboard';
 import Gift from './general/Gift/Gift';
 import Ticketstd from './studentPanel/Ticket/Ticket';
 import Author from './panel/users/Author/Author';
+import SpinGift from './panel/spinGift/SpinGift';
+import WinList from './panel/spinGift/components/winList/WinList';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -291,6 +293,15 @@ const WebStructue = props => {
               {props.page === 'author' && (
                 <Author token={token} user={user} navigate={navigate} />
               )}
+              {/* {props.page === 'gift' && (
+                <SpinGift token={token} user={user} navigate={navigate} />
+              )} */}
+              {props.page === 'gift' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'winList' && (
+                  <WinList token={token} user={user} navigate={navigate} />
+                )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </View>
           </View>

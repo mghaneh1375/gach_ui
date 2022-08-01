@@ -121,7 +121,7 @@ const translator = {
   necessaryContent: 'توضیحات ضروری',
   title: 'عنوان',
   finantialManagement: 'مدیریت مالی',
-  offcode: 'کدهای تخفیف',
+  offcode: 'کد تخفیف',
   report: 'گزارشات',
   logout: 'خروج',
   profile: 'پروفایل',
@@ -148,5 +148,13 @@ const translator = {
   view: 'مشاهده',
   finished: 'خاتمه شده',
   date: 'تاریخ',
+  spinGift: 'گردونه شانس',
+  winList: 'لیست برند گان',
+  selectGift: 'مشخص کردن جوایز',
+  priority: 'اولویت',
+  used: 'استفاده شده',
+  coin: 'سکه',
+  money: 'پول',
+  howMany: 'تعداد',
 };
 export default translator;
