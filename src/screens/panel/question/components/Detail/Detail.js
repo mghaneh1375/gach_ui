@@ -265,7 +265,18 @@ function Detail(props) {
                       theme: 'transparent',
                       title: commonTranslator.edit,
                       onPress: async () => {
-                        await dispatch({selectedQuestion: elem});
+                        elem.subject = {
+                          id: props.subject.subject.id,
+                          name:
+                            props.subject.subject.name +
+                            ' در ' +
+                            props.subject.lesson.name +
+                            ' در ' +
+                            props.subject.grade.name,
+                        };
+                        await dispatch({
+                          selectedQuestion: elem,
+                        });
                         props.setMode('edit');
                       },
                     },

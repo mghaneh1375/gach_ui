@@ -65,30 +65,26 @@ const Question = props => {
           setLoading={setLoading}
         />
       )}
-      {mode === 'create' && (
-        <QuestionProvider>
+      <QuestionProvider>
+        {mode === 'create' && (
           <Create
             isAdmin={isAdmin}
             setMode={setMode}
             token={props.token}
             setLoading={setLoading}
-            inInEditMode={false}
+            isInEditMode={false}
           />
-        </QuestionProvider>
-      )}
-      {mode === 'edit' && (
-        <QuestionProvider>
+        )}
+        {mode === 'edit' && (
           <Create
             isAdmin={isAdmin}
             setMode={setMode}
             token={props.token}
             setLoading={setLoading}
-            inInEditMode={true}
+            isInEditMode={true}
           />
-        </QuestionProvider>
-      )}
-      {mode === 'detail' && (
-        <QuestionProvider>
+        )}
+        {mode === 'detail' && (
           <Detail
             subject={selected}
             setSubject={newItem => {
@@ -105,8 +101,8 @@ const Question = props => {
             token={props.token}
             setLoading={setLoading}
           />
-        </QuestionProvider>
-      )}
+        )}
+      </QuestionProvider>
     </View>
   );
 };
