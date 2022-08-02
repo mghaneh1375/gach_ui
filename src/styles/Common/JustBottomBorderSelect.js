@@ -9,7 +9,7 @@ const JustBottomBorderSelect = props => {
           borderRightWidth: 0,
           borderRadius: 0,
           paddingBottom: 0,
-          marginTop: -3,
+          marginTop: -13,
         }
       : {
           ...props.style,
