@@ -1,7 +1,6 @@
 import {View} from 'react-native';
 import {CommonButton} from '../../../../../styles/Common';
 import {useFilePicker} from 'use-file-picker';
-import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
 import React from 'react';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
