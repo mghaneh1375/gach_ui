@@ -73,6 +73,7 @@ export const routes = {
   addQuizzesToPackage: 'quiz/manage/addQuizzesToPackage/',
   removeQuizzesFromPackage: 'quiz/manage/removeQuizzesFromPackage/',
   addQuestion: 'admin/question/store/',
+  editQuestion: 'admin/question/edit/',
   addBatchQuestions: 'admin/question/addBatch',
   removeQuestion: 'admin/question/remove',
   getSubjectQuestions: 'admin/question/subjectQuestions',

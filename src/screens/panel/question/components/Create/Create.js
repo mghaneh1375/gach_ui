@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {
+  BigBoldBlueText,
   CommonButton,
   CommonWebBox,
   PhoneView,
+  SimpleText,
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
 import AddBatch from './AddBatch';
@@ -21,54 +23,62 @@ import {styleGap10Wrap} from '../Detail/style';
 import {View} from 'react-native';
 import commonTranslator from '../../../../../tranlates/Common';
 import MultiSentenceType from './MultiSentenceType';
-import {addQuestion, getAuthorsKeyVals, getSubjectsKeyVals} from '../Utility';
+import {
+  addQuestion,
+  editQuestion,
+  getAuthorsKeyVals,
+  getSubjectsKeyVals,
+} from '../Utility';
 import QuestionFile from './QuestionFile';
 import {dispatchQuestionContext, questionContext} from '../Detail/Context';
 
 function Create(props) {
-  const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
-  const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
-  const [type, setType] = useState(
-    props.isInEditMode ? props.question.kindQuestion : '',
-  );
-  const [neededTime, setNeededTime] = useState(
-    props.isInEditMode ? props.question.neededTime : '',
-  );
-  const [neededLine, setNeededLine] = useState(
-    props.isInEditMode && props.question.neededLine !== undefined
-      ? props.question.neededLine
-      : '',
-  );
-  const [level, setLevel] = useState(
-    props.isInEditMode ? props.question.level : '',
-  );
-  const [author, setAuthor] = useState();
-
-  const [visibility, setVisibility] = useState(
-    props.isInEditMode ? props.question.visibility : '',
-  );
-  const [answer, setAnswer] = useState(
-    props.isInEditMode ? props.question.answer : '',
-  );
-  const [telorance, setTelorance] = useState();
-  const [choicesCount, setChoicesCount] = useState();
-  const [sentencesCount, setSentencesCount] = useState();
-  const [subject, setSubject] = useState({
-    name: 'نور در المپیاد فیزیک در المپیاد',
-    id: '62e61680398da905675483de',
-  });
-  const [choices, setChoices] = useState();
-  const [organizationId, setOrganizationId] = useState('ssadw');
-
-  const [questionFile, setQuestionFile] = useState();
-  const [answerFile, setAnswerFile] = useState();
-
   const useGlobalState = () => [
     React.useContext(questionContext),
     React.useContext(dispatchQuestionContext),
   ];
   const [state, dispatch] = useGlobalState();
+  const [questionId, setQuestionId] = useState();
 
+  React.useEffect(() => {
+    if (props.isInEditMode && state.selectedQuestion !== undefined) {
+      setNeededTime(state.selectedQuestion.neededTime);
+      setType(state.selectedQuestion.kindQuestion);
+      setAnswer(state.selectedQuestion.answer);
+      setLevel(state.selectedQuestion.level);
+      setVisibility(state.selectedQuestion.visibility);
+      setOrganizationId(state.selectedQuestion.organizationId);
+
+      setSubject(state.selectedQuestion.subject);
+      setAuthor({
+        id: state.selectedQuestion.author,
+        name: state.selectedQuestion.author,
+      });
+
+      if (state.selectedQuestion.kindQuestion === 'test') {
+        setChoicesCount(state.selectedQuestion.choicesCount);
+      }
+    }
+  }, [state.selectedQuestion, props.isInEditMode]);
+
+  const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
+  const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
+  const [type, setType] = useState();
+  const [neededTime, setNeededTime] = useState();
+  const [neededLine, setNeededLine] = useState();
+  const [level, setLevel] = useState();
+  const [author, setAuthor] = useState();
+  const [visibility, setVisibility] = useState();
+  const [answer, setAnswer] = useState();
+  const [telorance, setTelorance] = useState();
+  const [choicesCount, setChoicesCount] = useState();
+  const [sentencesCount, setSentencesCount] = useState();
+  const [subject, setSubject] = useState();
+  const [choices, setChoices] = useState();
+  const [organizationId, setOrganizationId] = useState();
+
+  const [questionFile, setQuestionFile] = useState();
+  const [answerFile, setAnswerFile] = useState();
   const [isWorking, setIsWorking] = useState();
 
   React.useEffect(() => {
@@ -114,7 +124,7 @@ function Create(props) {
     if (
       (props.isAdmin && author === undefined) ||
       subject === undefined ||
-      questionFile === undefined
+      (!props.isInEditMode && questionFile === undefined)
     ) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
@@ -134,17 +144,28 @@ function Create(props) {
     else if (type === 'multi_sentence') data.sentencesCount = sentencesCount;
     else if (type === 'test') data.choicesCount = choicesCount;
 
-    if (props.isAdmin) data.authorId = author.id;
+    if (props.isAdmin && author.id !== author.name) data.authorId = author.id;
+
+    if (props.isInEditMode) data.subjectId = subject.id;
 
     props.setLoading(true);
-    let res = await addQuestion(
-      subject.id,
-      data,
-      questionFile,
-      answerFile,
-      props.token,
-    );
+    let res = props.isInEditMode
+      ? await editQuestion(
+          state.selectedQuestion.id,
+          data,
+          questionFile,
+          answerFile,
+          props.token,
+        )
+      : await addQuestion(
+          subject.id,
+          data,
+          questionFile,
+          answerFile,
+          props.token,
+        );
     props.setLoading(false);
+
     if (res !== null) window.location.href = '/question';
   };
 
@@ -330,6 +351,22 @@ function Create(props) {
               label={translator.answerFile}
             />
           </PhoneView>
+
+          {props.isInEditMode && state.selectedQuestion !== undefined && (
+            <PhoneView style={{width: '100%'}}>
+              <BigBoldBlueText text={'تصویر صورت سوال فعلی'} />
+              <img width={'75%'} src={state.selectedQuestion.questionFile} />
+            </PhoneView>
+          )}
+
+          {props.isInEditMode &&
+            state.selectedQuestion !== undefined &&
+            state.selectedQuestion.answerFile !== undefined && (
+              <PhoneView style={{width: '100%'}}>
+                <BigBoldBlueText text={'تصویرپاسخ تشریحی فعلی'} />
+                <img width={'75%'} src={state.selectedQuestion.answerFile} />
+              </PhoneView>
+            )}
         </PhoneView>
         <CommonButton
           onPress={() => sendData()}

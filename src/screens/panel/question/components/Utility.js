@@ -139,3 +139,48 @@ export const addQuestion = async (
     return null;
   }
 };
+
+export const editQuestion = async (
+  questionId,
+  data,
+  questionFile,
+  answerFile,
+  token,
+) => {
+  let formData = new FormData();
+
+  if (questionFile !== undefined) {
+    var myblob = new Blob([new Uint8Array(questionFile.content)]);
+    formData.append('questionFile', myblob, questionFile.name);
+  }
+
+  if (answerFile !== undefined) {
+    var myblob2 = new Blob([new Uint8Array(answerFile.content)]);
+    formData.append('answerFile', myblob2, answerFile.name);
+  }
+
+  try {
+    let res = await fileRequest(
+      routes.editQuestion + questionId,
+      'post',
+      formData,
+      undefined,
+      token,
+      data,
+      [
+        'level',
+        'subjectId',
+        'neededTime',
+        'answer',
+        'organizationId',
+        'kindQuestion',
+      ],
+    );
+
+    if (res !== null) showSuccess(commonTranslator.success);
+
+    return 'ok';
+  } catch (e) {
+    return null;
+  }
+};
