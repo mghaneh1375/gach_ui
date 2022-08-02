@@ -26,6 +26,7 @@ function List(props) {
       <View style={{zIndex: 'unset'}}>
         {showOpPopUp && (
           <Ops
+            data={props.data}
             gift={props.selectedGift}
             toggleShowPopUp={toggleShowOpPopUp}
             token={props.token}
@@ -37,8 +38,8 @@ function List(props) {
         )}
         <CommonDataTable
           columns={columns}
-          data={props.gifts}
-          setData={props.setGifts}
+          data={props.data}
+          setData={props.setData}
           handleOp={handleOp}
           removeUrl={routes.removeGifts}
           token={props.token}

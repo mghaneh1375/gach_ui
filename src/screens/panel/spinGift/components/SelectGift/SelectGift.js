@@ -4,6 +4,7 @@ import {useLocation} from 'react-router';
 import {dispatchStateContext, globalStateContext} from '../../../../../App';
 import List from './list/List';
 import Create from './create/Create';
+import {getAllGift} from '../configGift/Utility';
 import {addItem} from '../../../../../services/Utility';
 
 function SelectGift(props) {
@@ -16,6 +17,7 @@ function SelectGift(props) {
   ];
   const [mode, setMode] = useState('list');
   const [state, dispatch] = useGlobalState();
+  const [data, setData] = useState();
   const [gifts, setGifts] = useState([
     {
       typeGift: 'coin',
@@ -27,42 +29,33 @@ function SelectGift(props) {
     },
   ]);
   const [selectedGift, setSelectedGift] = useState({});
-  //const isAdmin = isUserAdmin(props.user);
-  //   const setLoading = status => {
-  //     dispatch({loading: status});
-  //   };
+  const setLoading = status => {
+    dispatch({loading: status});
+  };
 
-  //   let {search} = useLocation();
+  let {search} = useLocation();
 
-  //   React.useEffect(() => {
-  //     const params = queryString.parse(search);
-  //     filter(
-  //       {
-  //         setLoading: status => dispatch({loading: status}),
-  //         token: props.token,
-  //         setGifts: setGifts,
-  //         navigate: navigate,
-  //         isAdmin: isAdmin,
-  //       },
-  //       undefined,
-  //       params !== undefined ? params.section : undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //       undefined,
-  //     );
-  //   }, [navigate, props.token, isAdmin, search, dispatch]);
-
+  React.useEffect(() => {
+    dispatch({loading: true});
+    Promise.all([getAllGift(props.token)]).then(res => {
+      dispatch({loading: false});
+      if (res[0] === null) {
+        navigate('/');
+        return;
+      }
+      setData(res[0]);
+      setMode('list');
+    });
+  }, [navigate, props.token, dispatch]);
   return (
     <View>
       {mode === 'list' && (
         <List
           setMode={setMode}
-          //   setLoading={setLoading}
+          setLoading={setLoading}
           gifts={gifts}
+          data={data}
+          setData={setData}
           //   isAdmin={isAdmin}
           setGifts={setGifts}
           token={props.token}
@@ -73,10 +66,8 @@ function SelectGift(props) {
         <Create
           user={props.user}
           setMode={setMode}
-          gifts={gifts}
-          //   setLoading={setLoading}
-          //   isAdmin={isAdmin}
-          //   addGift={newGift => addItem(gifts, setGifts, newGift)}
+          addItem={i => addItem(data, setData, i)}
+          setLoading={setLoading}
           token={props.token}
         />
       )}

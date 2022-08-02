@@ -114,4 +114,6 @@ export const routes = {
   createAuthorTransaction: 'admin/config/author/addTransaction/',
   removeAuthorTransactions: 'admin/config/author/removeTransactions/',
   getGiftConfig: 'admin/config/gift/getConfig',
+  getAllGift: 'admin/config/gift/get',
+  addGift: 'admin/config/gift/store',
 };

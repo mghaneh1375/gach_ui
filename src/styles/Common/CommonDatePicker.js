@@ -37,7 +37,6 @@ export const CommonDatePicker = props => {
               maxWidth: 300,
               direction: 'rtl',
               zIndex: 'unset',
-              marginTop: -8,
             }
           : {}
       }>

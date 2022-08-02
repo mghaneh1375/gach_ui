@@ -18,16 +18,18 @@ import {
 } from './keyVals';
 import commonTranslator from '../../../../../../tranlates/Common';
 import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBottomBorderDatePicker';
+import {addGift} from '../../configGift/Utility';
 
 function Create(props) {
   const [typeGift, setTypeGift] = useState();
   const [howMany, setHowMany] = useState();
   const [priority, setPriority] = useState();
   const [valueGift, setValueGift] = useState();
-  const [offcode, setOffCode] = useState('all');
+  const [offcode, setOffCode] = useState();
   const [typeOffCode, setTypeOffCode] = useState();
   const [siteApp, setSiteApp] = useState();
   const [dateExpire, setDateExpire] = useState();
+  const [prob, setProb] = useState();
 
   return (
     <CommonWebBox
@@ -68,6 +70,15 @@ function Create(props) {
             subText={commonTranslator.priority}
             onChangeText={text => setPriority(text)}
             value={priority}
+          />
+          <JustBottomBorderTextInput
+            float={true}
+            justNum={true}
+            isHalf={true}
+            placeholder={commonTranslator.prob}
+            subText={commonTranslator.prob}
+            onChangeText={text => setProb(text)}
+            value={prob}
           />
           <JustBottomBorderSelect
             justNum={true}
@@ -116,7 +127,31 @@ function Create(props) {
         </PhoneView>
       </View>
       <View>
-        <CommonButton title={commonTranslate.confirm} />
+        <CommonButton
+          onPress={async () => {
+            props.setLoading(true);
+            let data = {
+              type: typeGift,
+              amount: valueGift,
+              count: howMany,
+              priority: priority,
+              isForSite: siteApp === 'site',
+              prob: prob,
+            };
+            if (typeGift === 'offcode') {
+              data.useFor = offcode;
+              data.offCodeType = typeOffCode;
+              data.expireAt = dateExpire;
+            }
+            let res = await addGift(data, props.token);
+            props.setLoading(false);
+            if (res !== null) {
+              props.addItem(res);
+              props.setMode('list');
+            }
+          }}
+          title={commonTranslate.confirm}
+        />
       </View>
     </CommonWebBox>
   );

@@ -159,5 +159,6 @@ const translator = {
   money: 'پول',
   howMany: 'تعداد',
   dateExpire: 'تاریخ انقضا',
+  prob: 'احتمال',
 };
 export default translator;

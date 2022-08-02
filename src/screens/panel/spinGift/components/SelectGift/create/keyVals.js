@@ -16,8 +16,8 @@ export const offCodeKeyVals = [
   {item: Translate.counseling, id: 'counseling'},
 ];
 export const typeOffCodeKeyVals = [
-  {item: Translate.values, id: 'all'},
-  {item: Translate.percent, id: 'quiz'},
+  {item: Translate.values, id: 'value'},
+  {item: Translate.percent, id: 'percent'},
 ];
 export const siteAppKeyVals = [
   {item: Translate.site, id: 'site'},
