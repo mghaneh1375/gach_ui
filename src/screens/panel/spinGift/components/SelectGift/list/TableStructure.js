@@ -3,12 +3,17 @@ import commonTranslator from '../../../../../../tranlates/Common';
 
 const columns = [
   {
-    name: Translate.typeGift,
+    name: Translate.giftType,
     selector: row => row.typeFa,
     grow: 4,
   },
   {
-    name: Translate.valueGift,
+    name: Translate.amount,
+    selector: row => row.amount,
+    grow: 0.5,
+  },
+  {
+    name: commonTranslator.counter,
     selector: row => row.count,
     grow: 0.5,
   },

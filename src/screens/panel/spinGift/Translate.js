@@ -1,7 +1,7 @@
 const Translate = {
   selectGift: 'انتخاب جایزه',
-  typeGift: 'نوع جایزه',
-  valueGift: 'مقدار جایزه',
+  giftType: 'نوع جایزه',
+  amount: 'مقدار جایزه',
   probability: 'احتمال',
   library: 'کتابخانه',
   class: 'کلاس و همایش',
@@ -16,7 +16,7 @@ const Translate = {
   app: 'اپ',
   launchDates: 'تاریخ های اجرا',
   personalQuiz: 'ازمون هاس شخصی',
-  penQuiz: 'آزمون های گچ',
+  gachQuiz: 'آزمون های گچ',
   counseling: 'مشاوره',
   newDate: 'تاریخ جدید',
 };

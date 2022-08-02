@@ -34,5 +34,10 @@ export const editGift = async (id, data, token) => {
     undefined,
     token,
   );
-  if (res !== null) showSuccess();
+  if (res !== null) {
+    showSuccess();
+    return 'ok';
+  }
+
+  return null;
 };

@@ -20,19 +20,19 @@ import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBott
 import {addGift, editGift} from '../../configGift/Utility';
 
 function Create(props) {
-  const [typeGift, setTypeGift] = useState(
+  const [giftType, setGiftType] = useState(
     props.gift !== undefined ? props.gift.type : '',
   );
-  const [howMany, setHowMany] = useState(
+  const [counter, setCounter] = useState(
     props.gift !== undefined ? props.gift.count : '',
   );
   const [priority, setPriority] = useState(
     props.gift !== undefined ? props.gift.priority : '',
   );
-  const [valueGift, setValueGift] = useState(
-    props.gift !== undefined ? props.gift.used : '',
+  const [amount, setAmount] = useState(
+    props.gift !== undefined ? props.gift.amount : '',
   );
-  const [offcode, setOffCode] = useState(
+  const [useFor, setUseFor] = useState(
     props.gift !== undefined ? props.gift.useFor : '',
   );
   const [typeOffCode, setTypeOffCode] = useState(
@@ -57,28 +57,29 @@ function Create(props) {
         <PhoneView style={{flexWrap: 'wrap', gap: 9}}>
           <JustBottomBorderSelect
             isHalf={true}
-            placeholder={Translate.typeGift}
-            setter={setTypeGift}
+            placeholder={Translate.giftType}
+            setter={setGiftType}
             value={typeGiftKeyVals.find(elem => {
-              return elem.id === typeGift;
+              return elem.id === giftType;
             })}
             values={typeGiftKeyVals}
           />
           <JustBottomBorderTextInput
             justNum={true}
             isHalf={true}
-            placeholder={Translate.valueGift}
-            subText={commonTranslator.valueGift}
-            onChangeText={text => setValueGift(text)}
-            value={valueGift}
+            placeholder={Translate.amount}
+            subText={commonTranslator.amount}
+            onChangeText={text => setAmount(text)}
+            value={amount}
+            float={giftType === 'coin' ? true : undefined}
           />
           <JustBottomBorderTextInput
             justNum={true}
             isHalf={true}
-            placeholder={commonTranslator.howMany}
-            subText={commonTranslator.howMany}
-            onChangeText={text => setHowMany(text)}
-            value={howMany}
+            placeholder={commonTranslator.counter}
+            subText={commonTranslator.counter}
+            onChangeText={text => setCounter(text)}
+            value={counter}
           />
           <JustBottomBorderTextInput
             justNum={true}
@@ -108,19 +109,19 @@ function Create(props) {
             })}
             values={siteAppKeyVals}
           />
-          {typeGift === 'offcode' && (
+          {giftType === 'offcode' && (
             <JustBottomBorderSelect
               isHalf={true}
               placeholder={Translate.useItem}
               subText={Translate.useItem}
-              setter={setOffCode}
+              setter={setUseFor}
               value={offCodeKeyVals.find(elem => {
-                return elem.id === offcode;
+                return elem.id === useFor;
               })}
               values={offCodeKeyVals}
             />
           )}
-          {typeGift === 'offcode' && (
+          {giftType === 'offcode' && (
             <JustBottomBorderSelect
               isHalf={true}
               placeholder={Translate.typeOffCode}
@@ -132,7 +133,7 @@ function Create(props) {
               values={typeOffCodeKeyVals}
             />
           )}
-          {typeGift === 'offcode' && (
+          {giftType === 'offcode' && (
             <JustBottomBorderDatePicker
               placeholder={commonTranslate.dateExpire}
               subText={commonTranslate.dateExpire}
@@ -148,15 +149,15 @@ function Create(props) {
           onPress={async () => {
             props.setLoading(true);
             let data = {
-              type: typeGift,
-              amount: valueGift,
-              count: howMany,
+              type: giftType,
+              amount: amount,
+              count: counter,
               priority: priority,
               isForSite: siteApp === 'site',
               prob: prob,
             };
-            if (typeGift === 'offcode') {
-              data.useFor = offcode;
+            if (giftType === 'offcode') {
+              data.useFor = useFor;
               data.offCodeType = typeOffCode;
               data.expireAt = dateExpire;
             }

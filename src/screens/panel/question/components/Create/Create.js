@@ -166,7 +166,11 @@ function Create(props) {
         );
     props.setLoading(false);
 
-    if (res !== null) window.location.href = '/question';
+    if (res !== null) {
+      setTimeout(() => {
+        window.location.href = '/question';
+      }, 1000);
+    }
   };
 
   return (

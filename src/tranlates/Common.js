@@ -157,7 +157,7 @@ const translator = {
   used: 'استفاده شده',
   coin: 'سکه',
   money: 'پول',
-  howMany: 'تعداد',
+  counter: 'تعداد',
   dateExpire: 'تاریخ انقضا',
   prob: 'احتمال',
   addDate: 'اضافه کردن تاریخ',

@@ -37,6 +37,21 @@ const columns = [
     selector: row => row.hardPrice,
     grow: 1,
   },
+  {
+    name: Translate.schoolEasyPrice,
+    selector: row => row.schoolEasyPrice,
+    grow: 1,
+  },
+  {
+    name: Translate.schoolMidPrice,
+    selector: row => row.schoolMidPrice,
+    grow: 1,
+  },
+  {
+    name: Translate.schoolHardPrice,
+    selector: row => row.schoolHardPrice,
+    grow: 1,
+  },
 ];
 
 export default columns;
