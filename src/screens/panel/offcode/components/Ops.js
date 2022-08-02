@@ -8,10 +8,6 @@ import {routes} from '../../../../API/APIRoutes';
 import {showSuccess} from '../../../../services/Utility';
 
 const Ops = props => {
-  const changeMode = newMode => {
-    props.setMode(newMode);
-  };
-
   const [showRemovePane, setShowRemovePane] = useState(false);
 
   const toggleShowRemovePane = () => {
@@ -48,7 +44,7 @@ const Ops = props => {
           toggleShowPopUp={props.toggleShowPopUp}>
           <PhoneView style={{flexWrap: 'wrap'}}>
             <CommonButton
-              onPress={() => changeMode('update')}
+              onPress={() => props.setMode('update')}
               dir={'rtl'}
               theme={'transparent'}
               title={commonTranslator.edit}

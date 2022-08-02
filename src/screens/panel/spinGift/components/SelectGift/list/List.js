@@ -9,12 +9,14 @@ import {routes} from '../../../../../../API/APIRoutes';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
+  const [selectedId, setSelectedId] = useState();
 
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
   const handleOp = idx => {
-    props.setSelectedGift(props.gifts[idx]);
+    props.setSelectedGift(props.data[idx]);
+    setSelectedId(props.data[idx].id);
     toggleShowOpPopUp();
   };
 
@@ -26,14 +28,14 @@ function List(props) {
       <View style={{zIndex: 'unset'}}>
         {showOpPopUp && (
           <Ops
-            data={props.data}
+            id={selectedId}
             gift={props.selectedGift}
             toggleShowPopUp={toggleShowOpPopUp}
             token={props.token}
             setLoading={props.setLoading}
-            //updateOff={props.updateOff}
+            remove={props.remove}
+            update={props.update}
             setMode={props.setMode}
-            //removeOffs={props.removeOffs}
           />
         )}
         <CommonDataTable
@@ -41,9 +43,9 @@ function List(props) {
           data={props.data}
           setData={props.setData}
           handleOp={handleOp}
-          removeUrl={routes.removeGifts}
+          removeUrl={routes.removeGift}
           token={props.token}
-          //   setLoading={props.setLoading}
+          setLoading={props.setLoading}
         />
       </View>
     </CommonWebBox>

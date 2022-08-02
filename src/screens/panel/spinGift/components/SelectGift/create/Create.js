@@ -4,7 +4,6 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
-  SimpleText,
 } from '../../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
@@ -18,18 +17,36 @@ import {
 } from './keyVals';
 import commonTranslator from '../../../../../../tranlates/Common';
 import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBottomBorderDatePicker';
-import {addGift} from '../../configGift/Utility';
+import {addGift, editGift} from '../../configGift/Utility';
 
 function Create(props) {
-  const [typeGift, setTypeGift] = useState();
-  const [howMany, setHowMany] = useState();
-  const [priority, setPriority] = useState();
-  const [valueGift, setValueGift] = useState();
-  const [offcode, setOffCode] = useState();
-  const [typeOffCode, setTypeOffCode] = useState();
-  const [siteApp, setSiteApp] = useState();
-  const [dateExpire, setDateExpire] = useState();
-  const [prob, setProb] = useState();
+  const [typeGift, setTypeGift] = useState(
+    props.gift !== undefined ? props.gift.type : '',
+  );
+  const [howMany, setHowMany] = useState(
+    props.gift !== undefined ? props.gift.count : '',
+  );
+  const [priority, setPriority] = useState(
+    props.gift !== undefined ? props.gift.priority : '',
+  );
+  const [valueGift, setValueGift] = useState(
+    props.gift !== undefined ? props.gift.used : '',
+  );
+  const [offcode, setOffCode] = useState(
+    props.gift !== undefined ? props.gift.useFor : '',
+  );
+  const [typeOffCode, setTypeOffCode] = useState(
+    props.gift !== undefined ? props.gift.offCodeType : '',
+  );
+  const [siteApp, setSiteApp] = useState(
+    props.gift !== undefined ? (props.gift.isForSite ? 'site' : 'app') : '',
+  );
+  const [dateExpire, setDateExpire] = useState(
+    props.gift !== undefined ? props.gift.expireAt : '',
+  );
+  const [prob, setProb] = useState(
+    props.gift !== undefined ? props.gift.prob : '',
+  );
 
   return (
     <CommonWebBox
@@ -143,10 +160,18 @@ function Create(props) {
               data.offCodeType = typeOffCode;
               data.expireAt = dateExpire;
             }
-            let res = await addGift(data, props.token);
+            let res =
+              props.gift === undefined
+                ? await addGift(data, props.token)
+                : await editGift(props.gift.id, data, props.token);
+
             props.setLoading(false);
             if (res !== null) {
-              props.addItem(res);
+              if (props.gift === undefined) props.addItem(res);
+              else {
+                data.id = props.gift.id;
+                props.update(data);
+              }
               props.setMode('list');
             }
           }}

@@ -5,7 +5,7 @@ import {dispatchStateContext, globalStateContext} from '../../../../../App';
 import List from './list/List';
 import Create from './create/Create';
 import {getAllGift} from '../configGift/Utility';
-import {addItem} from '../../../../../services/Utility';
+import {addItem, editItem, removeItems} from '../../../../../services/Utility';
 
 function SelectGift(props) {
   const queryString = require('query-string');
@@ -18,22 +18,12 @@ function SelectGift(props) {
   const [mode, setMode] = useState('list');
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
-  const [gifts, setGifts] = useState([
-    {
-      typeGift: 'coin',
-      valueGift: '100',
-      howMany: '1',
-      probability: '100',
-      useable: 'true',
-      priority: '1',
-    },
-  ]);
   const [selectedGift, setSelectedGift] = useState({});
+  const [gifts, setGifts] = useState();
+
   const setLoading = status => {
     dispatch({loading: status});
   };
-
-  let {search} = useLocation();
 
   React.useEffect(() => {
     dispatch({loading: true});
@@ -53,13 +43,12 @@ function SelectGift(props) {
         <List
           setMode={setMode}
           setLoading={setLoading}
-          gifts={gifts}
           data={data}
           setData={setData}
-          //   isAdmin={isAdmin}
-          setGifts={setGifts}
           token={props.token}
+          remove={ids => removeItems(data, setData, ids)}
           setSelectedGift={setSelectedGift}
+          update={item => editItem(data, setData, item)}
         />
       )}
       {mode === 'create' && (
@@ -67,6 +56,16 @@ function SelectGift(props) {
           user={props.user}
           setMode={setMode}
           addItem={i => addItem(data, setData, i)}
+          setLoading={setLoading}
+          token={props.token}
+        />
+      )}
+      {mode === 'update' && (
+        <Create
+          user={props.user}
+          setMode={setMode}
+          gift={selectedGift}
+          update={item => editItem(data, setData, item)}
           setLoading={setLoading}
           token={props.token}
         />

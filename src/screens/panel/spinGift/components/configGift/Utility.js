@@ -26,3 +26,13 @@ export const addGift = async (data, token) => {
 
   return res;
 };
+export const editGift = async (id, data, token) => {
+  let res = await generalRequest(
+    routes.editGift + id,
+    'post',
+    data,
+    undefined,
+    token,
+  );
+  if (res !== null) showSuccess();
+};

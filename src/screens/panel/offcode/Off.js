@@ -10,7 +10,6 @@ const Off = props => {
   const [mode, setMode] = useState('list');
   const [offs, setOffs] = useState([]);
   const [selectedOff, setSelectedOff] = useState();
-
   const navigate = props.navigate;
 
   const useGlobalState = () => [

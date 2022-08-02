@@ -15,8 +15,9 @@ function ConfigGift(props) {
   ];
   const [mode, setMode] = useState();
   const [state, dispatch] = useGlobalState();
-  const [gifts, setGifts] = useState();
   const [data, setData] = useState();
+  const [selectedId, setSelectedId] = useState();
+
   const setLoading = status => {
     dispatch({loading: status});
   };
@@ -40,6 +41,7 @@ function ConfigGift(props) {
           setMode={setMode}
           setLoading={setLoading}
           data={data}
+          selectedID={selectedId}
           token={props.token}
         />
       )}

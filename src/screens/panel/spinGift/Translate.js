@@ -18,6 +18,7 @@ const Translate = {
   personalQuiz: 'ازمون هاس شخصی',
   penQuiz: 'آزمون های گچ',
   counseling: 'مشاوره',
+  newDate: 'تاریخ جدید',
 };
 
 export default Translate;

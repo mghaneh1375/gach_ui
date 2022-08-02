@@ -6,6 +6,7 @@ import commonTranslator from '../../tranlates/Common';
 const ConfirmationBatchOpPane = props => {
   const doOp = () => {
     props.setLoading(true);
+
     Promise.all([
       generalRequest(
         props.url,
@@ -28,7 +29,9 @@ const ConfirmationBatchOpPane = props => {
       btns={
         <CommonButton
           title={commonTranslator.yes}
-          onPress={() => doOp()}
+          onPress={() => {
+            doOp();
+          }}
           theme={'dark'}
         />
       }

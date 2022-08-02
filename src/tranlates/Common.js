@@ -160,5 +160,6 @@ const translator = {
   howMany: 'تعداد',
   dateExpire: 'تاریخ انقضا',
   prob: 'احتمال',
+  addDate: 'اضافه کردن تاریخ',
 };
 export default translator;
