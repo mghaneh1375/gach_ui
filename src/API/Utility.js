@@ -91,10 +91,8 @@ export const generalRequest = async (
             key = dataShouldReturnKey[i];
             output[key] = data[key];
           }
-
           return output;
         }
-
         return data[dataShouldReturnKey];
       }
     })
