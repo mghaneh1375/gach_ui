@@ -20,7 +20,7 @@ function QuestionFile(props) {
 
   React.useEffect(() => {
     if (filesContent !== undefined && filesContent.length === 1)
-      props.setFile(filesContent);
+      props.setFile(filesContent[0]);
   }, [props, filesContent]);
 
   return (

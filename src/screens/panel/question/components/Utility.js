@@ -114,24 +114,28 @@ export const addQuestion = async (
     formData.append('answerFile', myblob2, answerFile.name);
   }
 
-  let res = await fileRequest(
-    routes.addQuestion + subjectId,
-    'post',
-    formData,
-    'id',
-    token,
-    data,
-    [
-      'level',
-      'authorId',
-      'neededTime',
-      'answer',
-      'organizationId',
-      'kindQuestion',
-    ],
-  );
+  try {
+    let res = await fileRequest(
+      routes.addQuestion + subjectId,
+      'post',
+      formData,
+      'id',
+      token,
+      data,
+      [
+        'level',
+        'authorId',
+        'neededTime',
+        'answer',
+        'organizationId',
+        'kindQuestion',
+      ],
+    );
 
-  if (res !== null) showSuccess(commonTranslator.success);
+    if (res !== null) showSuccess(commonTranslator.success);
 
-  return res;
+    return res;
+  } catch (e) {
+    return null;
+  }
 };

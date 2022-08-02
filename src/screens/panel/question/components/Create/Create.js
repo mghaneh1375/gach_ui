@@ -16,7 +16,7 @@ import {
   sentencesCountKeyVals,
 } from '../KeyVals';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {changeText} from '../../../../../services/Utility';
+import {changeText, showError} from '../../../../../services/Utility';
 import {styleGap10Wrap} from '../Detail/style';
 import {View} from 'react-native';
 import commonTranslator from '../../../../../tranlates/Common';
@@ -28,19 +28,37 @@ import {dispatchQuestionContext, questionContext} from '../Detail/Context';
 function Create(props) {
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
   const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
-  const [type, setType] = useState();
-  const [neededTime, setNeededTime] = useState();
-  const [neededLine, setNeededLine] = useState();
-  const [level, setLevel] = useState();
+  const [type, setType] = useState(
+    props.isInEditMode ? props.question.kindQuestion : '',
+  );
+  const [neededTime, setNeededTime] = useState(
+    props.isInEditMode ? props.question.neededTime : '',
+  );
+  const [neededLine, setNeededLine] = useState(
+    props.isInEditMode && props.question.neededLine !== undefined
+      ? props.question.neededLine
+      : '',
+  );
+  const [level, setLevel] = useState(
+    props.isInEditMode ? props.question.level : '',
+  );
   const [author, setAuthor] = useState();
-  const [visibility, setVisibility] = useState();
-  const [answer, setAnswer] = useState();
+
+  const [visibility, setVisibility] = useState(
+    props.isInEditMode ? props.question.visibility : '',
+  );
+  const [answer, setAnswer] = useState(
+    props.isInEditMode ? props.question.answer : '',
+  );
   const [telorance, setTelorance] = useState();
   const [choicesCount, setChoicesCount] = useState();
   const [sentencesCount, setSentencesCount] = useState();
-  const [subject, setSubject] = useState();
+  const [subject, setSubject] = useState({
+    name: 'نور در المپیاد فیزیک در المپیاد',
+    id: '62e61680398da905675483de',
+  });
   const [choices, setChoices] = useState();
-  const [organizationId, setOrganizationId] = useState();
+  const [organizationId, setOrganizationId] = useState('ssadw');
 
   const [questionFile, setQuestionFile] = useState();
   const [answerFile, setAnswerFile] = useState();
@@ -93,9 +111,17 @@ function Create(props) {
   };
 
   const sendData = async () => {
+    if (
+      (props.isAdmin && author === undefined) ||
+      subject === undefined ||
+      questionFile === undefined
+    ) {
+      showError(commonTranslator.pleaseFillAllFields);
+      return;
+    }
+
     let data = {
       level: level,
-      authorId: author.id,
       neededTime: neededTime,
       answer: answer,
       organizationId: organizationId,
@@ -108,9 +134,18 @@ function Create(props) {
     else if (type === 'multi_sentence') data.sentencesCount = sentencesCount;
     else if (type === 'test') data.choicesCount = choicesCount;
 
+    if (props.isAdmin) data.authorId = author.id;
+
     props.setLoading(true);
-    await addQuestion(subject.id, data, questionFile, answerFile, props.token);
+    let res = await addQuestion(
+      subject.id,
+      data,
+      questionFile,
+      answerFile,
+      props.token,
+    );
     props.setLoading(false);
+    if (res !== null) window.location.href = '/question';
   };
 
   return (
@@ -255,28 +290,34 @@ function Create(props) {
               updateSentencesCount={item => {
                 setSentencesCount(item);
               }}
+              setAnswer={ans => {
+                console.log(ans);
+                setAnswer(ans);
+              }}
             />
           )}
 
           {type === 'tashrihi' && (
-            <View style={{width: '100%'}}>
-              <PhoneView>
-                <JustBottomBorderTextInput
-                  placeholder={translator.answer}
-                  value={answer}
-                  multiline={true}
-                  onChangeText={e => changeText(e, setAnswer)}
-                />
-                <JustBottomBorderSelect
-                  placeholder={translator.neededLines}
-                  values={sentencesCountKeyVals}
-                  value={sentencesCountKeyVals.find(elem => {
-                    return elem.id == neededLine;
-                  })}
-                  setter={setNeededLine}
-                />
-              </PhoneView>
-            </View>
+            <JustBottomBorderSelect
+              isHalf={true}
+              placeholder={translator.neededLine}
+              values={sentencesCountKeyVals}
+              value={sentencesCountKeyVals.find(elem => {
+                return elem.id == neededLine;
+              })}
+              setter={setNeededLine}
+            />
+          )}
+          {type === 'tashrihi' && (
+            <PhoneView style={{width: '100%'}}>
+              <JustBottomBorderTextInput
+                placeholder={translator.answer}
+                value={answer}
+                multiline={true}
+                style={{minWidth: 400}}
+                onChangeText={e => changeText(e, setAnswer)}
+              />
+            </PhoneView>
           )}
 
           <PhoneView style={{width: '100%'}}>

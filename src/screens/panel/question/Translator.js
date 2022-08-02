@@ -34,7 +34,7 @@ const translator = {
   shortAnswer: 'پاسخ کوتاه',
   multiSentence: 'چند گزاره ای',
   sentencesCount: 'تعداد گزاره ها :',
-  neededLines: 'تعداد خطوط : ',
+  neededLine: 'تعداد خطوط : ',
   addQuiz: 'افزودن به آزمون',
   questionFile: 'فایل صورت سوال',
   answerFile: 'فایل پاسخ سوال(اختیاری)',
