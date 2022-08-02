@@ -234,7 +234,8 @@ export const preProcess = (data, mandatoryFields = undefined) => {
 
     if (typeof value === 'boolean') newData[key] = value;
     else if (typeof value !== 'object' && !isNaN(value)) {
-      if (typeof value === 'string' && value[0] == '0') newData[key] = value;
+      if (typeof value === 'string' && value[0] == '0' && value[1] !== '.')
+        newData[key] = value;
       else newData[key] = Number(value);
     } else newData[key] = value;
   }

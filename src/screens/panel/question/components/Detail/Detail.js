@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {addQuestionToQuizzes, filter, removeQuestion} from '../Utility';
 import Question from './Question';
@@ -108,15 +108,6 @@ function Detail(props) {
     });
   }, [props, isWorking, quizzes, selectingQuiz]);
 
-  const [firstFilter, setFirstFilter] = useState(false);
-
-  React.useEffect(() => {
-    if (state.authors !== undefined && !firstFilter) {
-      setFirstFilter(true);
-      dispatch({questionsAfterFilter: props.subject.questions});
-    }
-  }, [firstFilter, state.authors, dispatch, props.subject.questions]);
-
   React.useEffect(() => {
     if (props.subject.questions === undefined) return;
     let allAuthors = [];
@@ -152,6 +143,7 @@ function Detail(props) {
       total_short_answer: short_answer,
       total_multi_sentence: multi_sentence,
       total_tashrihi: tashrihi,
+      questionsAfterFilter: props.subject.questions,
     });
   }, [props.subject.questions, dispatch]);
 
@@ -260,15 +252,23 @@ function Detail(props) {
                         if (res !== null) {
                           showSuccess(res.excepts);
                           props.subject.questions =
-                            props.subject.questions.filter(
-                              elem => res.doneIds.indexOf(elem.id) === -1,
-                            );
-                          props.subject.qNo = props.subject.qNo - 1;
+                            props.subject.questions.filter(elem => {
+                              return res.doneIds.indexOf(elem.id) === -1;
+                            });
+                          props.subject.qNo =
+                            props.subject.qNo - res.doneIds.length;
                           props.setSubject(props.subject);
                         }
                       },
                     },
-                    {theme: 'transparent', title: commonTranslator.edit},
+                    {
+                      theme: 'transparent',
+                      title: commonTranslator.edit,
+                      onPress: async () => {
+                        await dispatch({selectedQuestion: elem});
+                        props.setMode('edit');
+                      },
+                    },
                     {
                       onPress: question => {
                         setQuestionOrganizationId(question.organizationId);

@@ -72,6 +72,18 @@ const Question = props => {
             setMode={setMode}
             token={props.token}
             setLoading={setLoading}
+            inInEditMode={false}
+          />
+        </QuestionProvider>
+      )}
+      {mode === 'edit' && (
+        <QuestionProvider>
+          <Create
+            isAdmin={isAdmin}
+            setMode={setMode}
+            token={props.token}
+            setLoading={setLoading}
+            inInEditMode={true}
           />
         </QuestionProvider>
       )}

@@ -41,6 +41,12 @@ function MultiSentenceType(props) {
                   let tmp = sentencesAnswer;
                   tmp[index] = status;
                   setSentencesAnswer(tmp);
+                  let ans = '';
+                  for (let i = 0; i < sentencesAnswer.length; i++) {
+                    ans += sentencesAnswer[i] === 'yes' ? '1' : '0';
+                  }
+
+                  props.setAnswer(ans);
                 }}
               />
             );
