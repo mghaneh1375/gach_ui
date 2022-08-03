@@ -4,5 +4,5 @@ export const Translate = {
   testEnable: 'آزمون های فعال',
   testAll: 'تمامی آزمون ها',
   yourRank: 'رتبه شما',
-  howMany: 'چند عدد',
+  counter: 'چند عدد',
 };

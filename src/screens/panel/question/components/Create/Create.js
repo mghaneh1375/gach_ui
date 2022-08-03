@@ -4,7 +4,6 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
-  SimpleText,
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
 import AddBatch from './AddBatch';
@@ -55,8 +54,12 @@ function Create(props) {
         name: state.selectedQuestion.author,
       });
 
-      if (state.selectedQuestion.kindQuestion === 'test') {
+      if (state.selectedQuestion.kindQuestion === 'test')
         setChoicesCount(state.selectedQuestion.choicesCount);
+      else if (state.selectedQuestion.kindQuestion === 'short_answer')
+        setTelorance(state.selectedQuestion.telorance);
+      else {
+        setSentencesCount(state.selectedQuestion.sentencesCount);
       }
     }
   }, [state.selectedQuestion, props.isInEditMode]);
@@ -166,7 +169,18 @@ function Create(props) {
         );
     props.setLoading(false);
 
-    if (res !== null) window.location.href = '/question';
+    if (res !== null) {
+      props.flushSubjectQuestionsInc(subject.id);
+
+      if (
+        props.isInEditMode &&
+        state.selectedQuestion.subject.id !== subject.id
+      ) {
+        props.flushSubjectQuestionsInc(state.selectedQuestion.subject.id);
+        dispatch({selectedQuestion: undefined});
+        props.setMode('detail');
+      } else props.setMode('list');
+    }
   };
 
   return (
@@ -226,6 +240,7 @@ function Create(props) {
           <JustBottomBorderTextInput
             isHalf={true}
             placeholder={translator.organizationCode}
+            subText={translator.organizationCode}
             value={organizationId}
             onChangeText={e => changeText(e, setOrganizationId)}
           />
@@ -252,10 +267,26 @@ function Create(props) {
             justNum={true}
             onChangeText={e => changeText(e, setNeededTime)}
           />
+
+          {props.isAdmin && (
+            <JustBottomBorderTextInput
+              style={{minWidth: 300}}
+              placeholder={translator.author}
+              subText={translator.author}
+              resultPane={true}
+              setSelectedItem={item => {
+                setAuthor(item);
+              }}
+              values={state.authorsKeyVals}
+              value={author !== undefined ? author.name : ''}
+              reset={false}
+            />
+          )}
           {type === 'short_answer' && (
             <JustBottomBorderTextInput
               isHalf={true}
               placeholder={translator.answer}
+              subText={translator.answer}
               value={answer}
               justNum={true}
               float={true}
@@ -267,23 +298,10 @@ function Create(props) {
               isHalf={true}
               float={true}
               placeholder={translator.telorance}
+              subText={translator.telorance}
               value={telorance}
               justNum={true}
               onChangeText={e => changeText(e, setTelorance)}
-            />
-          )}
-
-          {props.isAdmin && (
-            <JustBottomBorderTextInput
-              style={{minWidth: 300}}
-              placeholder={translator.author}
-              resultPane={true}
-              setSelectedItem={item => {
-                setAuthor(item);
-              }}
-              values={state.authorsKeyVals}
-              value={author !== undefined ? author.name : ''}
-              reset={false}
             />
           )}
 
@@ -315,6 +333,8 @@ function Create(props) {
                 console.log(ans);
                 setAnswer(ans);
               }}
+              initAnswer={answer}
+              initSentencesCount={sentencesCount}
             />
           )}
 

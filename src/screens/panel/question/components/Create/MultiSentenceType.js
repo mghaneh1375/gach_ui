@@ -8,14 +8,37 @@ import MultiSentenceYesOrNo from './MultiSentenceYesOrNo';
 function MultiSentenceType(props) {
   const [sentencesAnswer, setSentencesAnswer] = useState();
   const [sentencesCount, setSentencesCount] = useState();
+  const [initialed, setInitialed] = useState(false);
 
   React.useEffect(() => {
-    if (sentencesCount === undefined) return;
+    if (initialed) return;
+
+    if (
+      props.initSentencesCount !== undefined &&
+      props.initAnswer !== undefined
+    ) {
+      setSentencesCount(props.initSentencesCount);
+
+      let arr = [];
+      for (var i = 0; i < props.initAnswer.length; i++) {
+        if (props.initAnswer[i] == '1') {
+          arr.push('yes');
+        } else {
+          arr.push('no');
+        }
+      }
+
+      setSentencesAnswer(arr);
+      setInitialed(true);
+    }
+  }, [initialed, props.initSentencesCount, props.initAnswer]);
+
+  const buildSentencesAnswer = counter => {
     let arr = [];
-    for (var i = 0; i < sentencesCount; i++) arr.push('yes');
+    for (var i = 0; i < counter; i++) arr.push('yes');
 
     setSentencesAnswer(arr);
-  }, [sentencesCount]);
+  };
 
   return (
     <View style={{gap: 20, width: '100%'}}>
@@ -28,6 +51,7 @@ function MultiSentenceType(props) {
         setter={setSentencesCount}
         afterSetter={counter => {
           props.updateSentencesCount(counter);
+          buildSentencesAnswer(counter);
         }}
       />
       <View>
@@ -35,6 +59,7 @@ function MultiSentenceType(props) {
           sentencesAnswer.map((elem, index) => {
             return (
               <MultiSentenceYesOrNo
+                status={elem}
                 key={index}
                 index={index}
                 update={(index, status) => {

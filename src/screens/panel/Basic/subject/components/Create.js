@@ -36,6 +36,15 @@ function Create(props) {
   const [hardPrice, setHarPrice] = useState(
     props.subject !== undefined ? props.subject.hardPrice : undefined,
   );
+  const [schoolEasyPrice, setSchoolEasyPrice] = useState(
+    props.subject !== undefined ? props.subject.schoolEasyPrice : undefined,
+  );
+  const [schoolMidPrice, setSchoolMidPrice] = useState(
+    props.subject !== undefined ? props.subject.schoolMidPrice : undefined,
+  );
+  const [schoolHardPrice, setSchoolHarPrice] = useState(
+    props.subject !== undefined ? props.subject.schoolHardPrice : undefined,
+  );
   const [lessons, setLessons] = useState();
   const [showUploadPane, setShowUploadPane] = useState(false);
 
@@ -84,15 +93,17 @@ function Create(props) {
             : commonTranslate.subjectDefinition
         }>
         <View>
-          <PhoneView>
+          <PhoneView style={{flexWrap: 'wrap', gap: 20}}>
             <JustBottomBorderTextInput
               value={name}
+              subText={commonTranslate.name}
               onChangeText={e => setName(e)}
               placeholder={commonTranslate.name}
             />
             <JustBottomBorderSelect
               isHalf={true}
-              placeholder={Translate.level}
+              placeholder={commonTranslate.grade}
+              subText={commonTranslate.grade}
               setter={setGrade}
               value={props.grades.find(elem => {
                 return elem.id === grade;
@@ -101,7 +112,8 @@ function Create(props) {
             />
             <JustBottomBorderSelect
               isHalf={true}
-              placeholder={Translate.lessonName}
+              placeholder={commonTranslate.lesson}
+              subText={commonTranslate.lesson}
               setter={setLesson}
               value={
                 lessons !== undefined
@@ -112,9 +124,7 @@ function Create(props) {
               }
               values={lessons !== undefined ? lessons : []}
             />
-          </PhoneView>
 
-          <PhoneView style={{marginTop: 20}}>
             <JustBottomBorderTextInput
               isHalf={true}
               value={easyPrice}
@@ -139,6 +149,30 @@ function Create(props) {
               justNum={true}
               placeholder={Translate.hardPrice}
             />
+            <JustBottomBorderTextInput
+              isHalf={true}
+              value={schoolEasyPrice}
+              subText={Translate.schoolEasyPrice}
+              onChangeText={e => setSchoolEasyPrice(e)}
+              justNum={true}
+              placeholder={Translate.schoolEasyPrice}
+            />
+            <JustBottomBorderTextInput
+              isHalf={true}
+              value={schoolMidPrice}
+              subText={Translate.schoolMidPrice}
+              onChangeText={e => setSchoolMidPrice(e)}
+              justNum={true}
+              placeholder={Translate.schoolMidPrice}
+            />
+            <JustBottomBorderTextInput
+              isHalf={true}
+              value={schoolHardPrice}
+              subText={Translate.schoolHardPrice}
+              onChangeText={e => setSchoolHarPrice(e)}
+              justNum={true}
+              placeholder={Translate.schoolHardPrice}
+            />
           </PhoneView>
 
           <JustBottomBorderTextInput
@@ -150,11 +184,13 @@ function Create(props) {
           />
 
           <PhoneView style={{alignSelf: 'flex-end'}}>
-            <CommonButton
-              theme={'dark'}
-              title={commonTranslate.addBatch}
-              onPress={() => setShowUploadPane(true)}
-            />
+            {props.subject === undefined && (
+              <CommonButton
+                theme={'dark'}
+                title={commonTranslate.addBatch}
+                onPress={() => setShowUploadPane(true)}
+              />
+            )}
             <CommonButton
               onPress={async () => {
                 props.setLoading(true);
@@ -165,6 +201,9 @@ function Create(props) {
                   midPrice: midPrice,
                   hardPrice: hardPrice,
                   easyPrice: easyPrice,
+                  schoolMidPrice: schoolMidPrice,
+                  schoolEasyPrice: schoolEasyPrice,
+                  schoolHardPrice: schoolHardPrice,
                 };
 
                 if (props.subject !== undefined)
@@ -188,6 +227,9 @@ function Create(props) {
                     midPrice: midPrice,
                     hardPrice: hardPrice,
                     easyPrice: easyPrice,
+                    schoolEasyPrice: schoolEasyPrice,
+                    schoolHardPrice: schoolHardPrice,
+                    schoolMidPrice: schoolMidPrice,
                     grade: {id: selectedGrade.id, name: selectedGrade.item},
                     lesson: {id: selectedLesson.id, name: selectedLesson.item},
                     code:

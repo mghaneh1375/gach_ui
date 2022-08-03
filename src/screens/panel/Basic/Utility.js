@@ -136,19 +136,6 @@ export const editLesson = async (id, gradeId, token, data) => {
   return res;
 };
 
-export const editSubject = async (id, token, data) => {
-  let res = await generalRequest(
-    routes.editSubject + id,
-    'put',
-    data,
-    undefined,
-    token,
-  );
-  if (res !== null) showSuccess(commonTranslator.success);
-
-  return res;
-};
-
 export const createGrade = async (token, data, isOlympiad) => {
   let res = await generalRequest(
     isOlympiad === 'yes' ? routes.addBranch : routes.addGrade,
@@ -171,14 +158,45 @@ export const createLesson = async (token, gradeId, data) => {
   if (res !== null) showSuccess(commonTranslator.success);
   return res;
 };
+let mandatoryFields = [
+  'name',
+  'easyPrice',
+  'midPrice',
+  'hardPrice',
+  'schoolEasyPrice',
+  'schoolMidPrice',
+  'schoolHardPrice',
+];
 export const createSubject = async (token, gradeId, lessonId, data) => {
-  let res = await generalRequest(
-    routes.addSubject + gradeId + '/' + lessonId,
-    'post',
-    data,
-    ['id', 'code'],
-    token,
-  );
-  if (res !== null) showSuccess(commonTranslator.success);
-  return res;
+  try {
+    let res = await generalRequest(
+      routes.addSubject + gradeId + '/' + lessonId,
+      'post',
+      data,
+      ['id', 'code'],
+      token,
+      mandatoryFields,
+    );
+    if (res !== null) showSuccess(commonTranslator.success);
+    return res;
+  } catch (e) {
+    return null;
+  }
+};
+
+export const editSubject = async (id, token, data) => {
+  try {
+    let res = await generalRequest(
+      routes.editSubject + id,
+      'put',
+      data,
+      undefined,
+      token,
+      mandatoryFields,
+    );
+    if (res !== null) showSuccess(commonTranslator.success);
+    return res;
+  } catch (e) {
+    return null;
+  }
 };
