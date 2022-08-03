@@ -51,6 +51,7 @@ import SpinGift from './panel/spinGift/SpinGift';
 import SelectGift from './panel/spinGift/components/SelectGift/SelectGift';
 import Upgrade from './studentPanel/Upgrade/Upgrade';
 import ConfigGift from './panel/spinGift/components/configGift/configGift';
+import Agent from './agentPanel/schools/schools';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -313,6 +314,9 @@ const WebStructue = props => {
                 params.mode === 'configuration' && (
                   <ConfigGift token={token} user={user} navigate={navigate} />
                 )}
+              {props.page === 'agents' && (
+                <Agent token={token} user={user} navigate={navigate} />
+              )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </View>
           </View>

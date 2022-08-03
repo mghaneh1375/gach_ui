@@ -119,4 +119,5 @@ export const routes = {
   removeGift: 'admin/config/gift/remove',
   addGift: 'admin/config/gift/store',
   editGift: 'admin/config/gift/edit/',
+  updateGiftConfig: 'admin/config/config/update',
 };

@@ -11,6 +11,16 @@ export const getConfig = async token => {
     token,
   );
 };
+export const updateGift = async (data, token) => {
+  let res = await generalRequest(
+    routes.updateGiftConfig,
+    'put',
+    data,
+    undefined,
+    token,
+  );
+  if (res !== null) showSuccess();
+};
 export const getAllGift = async token => {
   return await generalRequest(
     routes.getAllGift,

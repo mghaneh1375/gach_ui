@@ -59,6 +59,7 @@ export default function WebRouter() {
             path="/gift/:mode"
             element={<WebStructue page="gift" />}
           />
+          <Route path="/agents" element={<WebStructue page="agents" />} />
           <Route path="*" element={<WebStructue page="404" />} />
         </Routes>
       </Router>

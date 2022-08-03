@@ -10,6 +10,7 @@ import {
   faMoneyBill,
   faQuestion,
   faGift,
+  faManatSign,
 } from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 import {SuperMenuItem} from './SuperMenuItem';
@@ -165,6 +166,12 @@ function AdminMenu(props) {
           text={translator.avatars}
           icon={faUsers}
           selected={props.selected === 'avatar'}
+        />
+        <MenuItem
+          onClick={() => navigate('/agent')}
+          text={translator.access + ' ' + translator.agent}
+          icon={faManatSign}
+          selected={props.selected === 'agent'}
         />
       </div>
     );

@@ -107,6 +107,7 @@ const translator = {
   dovom: 'متوسطه دوم',
   dabestan: 'دبستان',
   address: 'آدرس',
+  access: 'دسترسی',
   status: 'وضعیت',
   searchUser: 'یافتن دانش آموز',
   changeStatus: 'تغییر وضعیت',
@@ -161,5 +162,7 @@ const translator = {
   dateExpire: 'تاریخ انقضا',
   prob: 'احتمال',
   addDate: 'اضافه کردن تاریخ',
+  web: 'وب',
+  app: 'اپ',
 };
 export default translator;

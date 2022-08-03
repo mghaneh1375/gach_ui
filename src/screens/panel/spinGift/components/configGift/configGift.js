@@ -41,7 +41,7 @@ function ConfigGift(props) {
           setMode={setMode}
           setLoading={setLoading}
           data={data}
-          selectedID={selectedId}
+          selectedId={selectedId}
           token={props.token}
         />
       )}
