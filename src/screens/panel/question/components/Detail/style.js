@@ -38,7 +38,8 @@ export const styleMarginRight25 = {
   gap: 10,
 };
 export const styleMaxHeight300 = {
-  maxHeight: 300,
+  maxWidth: 1000,
+  alignSelf: 'center',
 };
 export const styleMarginTop25 = {
   marginTop: 25,

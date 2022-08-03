@@ -14,8 +14,15 @@ import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationB
 import {getQuestions} from '../Utility';
 import Question from '../../../question/components/Detail/Question';
 import Edit from './Edit';
+import {dispatchQuizContext, quizContext} from '../Context';
 
 const Questions = props => {
+  const useGlobalState = () => [
+    React.useContext(quizContext),
+    React.useContext(dispatchQuizContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
   const [isWorking, setIsWorking] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
   const [showRemovePane, setShowRemovePane] = useState(false);
@@ -27,8 +34,7 @@ const Questions = props => {
   };
 
   const refresh = result => {
-    props.quiz.questions = undefined;
-    props.updateQuiz(props.quiz);
+    dispatch({selectedQuiz: undefined, needUpdate: true});
   };
 
   const toggleSelect = id => {
@@ -39,7 +45,8 @@ const Questions = props => {
       : newSelectedIds.splice(newSelectedIds.indexOf(id), 1);
 
     setSelectedIds(newSelectedIds);
-    props.updateQuiz(props.quiz);
+
+    // props.updateQuiz(state.selectedQuiz);
   };
 
   const callRemoveAll = () => {
@@ -49,31 +56,37 @@ const Questions = props => {
   const afterRemove = res => {
     toggleShowRemovePopUp();
 
-    props.quiz.questions = props.quiz.questions.filter((element, index) => {
-      return selectedIds.indexOf(index) === -1;
-    });
+    state.selectedQuiz.questions = state.selectedQuiz.questions.filter(
+      (element, index) => {
+        return selectedIds.indexOf(index) === -1;
+      },
+    );
 
     setSelectedIds([]);
-    props.updateQuiz(props.quiz);
+    dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
   };
 
   React.useEffect(() => {
-    if (!isWorking && props.quiz.questions === undefined) {
+    if (!isWorking && state.selectedQuiz.questions === undefined) {
       setIsWorking(true);
       props.setLoading(true);
       Promise.all([
-        getQuestions(props.token, props.quiz.id, props.quiz.generalMode),
+        getQuestions(
+          props.token,
+          state.selectedQuiz.id,
+          state.selectedQuiz.generalMode,
+        ),
       ]).then(res => {
         props.setLoading(false);
-        setIsWorking(false);
 
         if (res[0] !== null) {
-          props.quiz.questions = res[0];
-          props.updateQuiz(props.quiz);
+          state.selectedQuiz.questions = res[0];
+          dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
         }
+        setIsWorking(false);
       });
     }
-  }, [props, isWorking]);
+  }, [props, isWorking, state.selectedQuiz, dispatch]);
 
   return (
     <View style={{zIndex: 5}}>
@@ -81,16 +94,16 @@ const Questions = props => {
         <ConfirmationBatchOpPane
           url={
             routes.removeQuestionFromQuiz +
-            props.quiz.generalMode +
+            state.selectedQuiz.generalMode +
             '/' +
-            props.quiz.id
+            state.selectedQuiz.id
           }
           afterFunc={afterRemove}
           setLoading={props.setLoading}
           token={props.token}
           data={{
             items: selectedIds.map(idx => {
-              return props.quiz.questions[idx].id;
+              return state.selectedQuiz.questions[idx].id;
             }),
           }}
           toggleShowPopUp={toggleShowRemovePopUp}
@@ -101,20 +114,22 @@ const Questions = props => {
           setLoading={props.setLoading}
           token={props.token}
           setShowEditPane={setShowEditPane}
-          quizId={props.quiz.id}
-          quizGeneralMode={props.quiz.generalMode}
+          quizId={state.selectedQuiz.id}
+          quizGeneralMode={state.selectedQuiz.generalMode}
           question={selectedQuestion}
           afterFunc={mark => {
-            props.quiz.questions = props.quiz.questions.map(element => {
-              if (element.id === selectedQuestion.id) {
-                let tmp = selectedQuestion;
-                tmp.mark = mark;
-                return tmp;
-              }
-              return element;
-            });
+            state.selectedQuiz.questions = state.selectedQuiz.questions.map(
+              element => {
+                if (element.id === selectedQuestion.id) {
+                  let tmp = selectedQuestion;
+                  tmp.mark = mark;
+                  return tmp;
+                }
+                return element;
+              },
+            );
 
-            props.updateQuiz(props.quiz);
+            props.updateQuiz(state.selectedQuiz);
             setSelectedQuestion(undefined);
             setShowEditPane(false);
           }}
@@ -135,15 +150,15 @@ const Questions = props => {
               token={props.token}
               url={
                 routes.addBatchQuestionsToQuiz +
-                props.quiz.generalMode +
+                state.selectedQuiz.generalMode +
                 '/' +
-                props.quiz.id
+                state.selectedQuiz.id
               }
               uploadUrl={
                 routes.addBatchQuestionsToQuiz +
-                props.quiz.generalMode +
+                state.selectedQuiz.generalMode +
                 '/' +
-                props.quiz.id
+                state.selectedQuiz.id
               }
               afterAddingCallBack={refresh}
             />
@@ -155,8 +170,8 @@ const Questions = props => {
                 }
               />
             )}
-            {props.quiz.questions !== undefined &&
-              props.quiz.questions.map((element, key) => {
+            {state.selectedQuiz.questions !== undefined &&
+              state.selectedQuiz.questions.map((element, key) => {
                 return (
                   <PhoneView key={key} style={{flexWrap: 'wrap'}}>
                     <CommonRadioButton

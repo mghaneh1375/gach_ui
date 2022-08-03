@@ -75,7 +75,6 @@ const Quiz = props => {
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}
-            quiz={selectedQuiz}
             updateQuiz={newQuiz => {
               editItem(quizzes, setQuizzes, newQuiz);
               setSelectedQuiz(newQuiz);

@@ -5,6 +5,7 @@ const defaultGlobalState = {
   tags: undefined,
   selectedQuiz: undefined,
   quizzes: undefined,
+  needUpdate: false,
 };
 
 export const quizContext = React.createContext(defaultGlobalState);
@@ -15,6 +16,29 @@ export const QuizProvider = ({children}) => {
     (state, newValue) => ({...state, ...newValue}),
     defaultGlobalState,
   );
+
+  React.useEffect(() => {
+    if (
+      !state.needUpdate ||
+      state.quizzes === undefined ||
+      state.selectedQuiz === undefined
+    )
+      return;
+
+    dispatch({needUpdate: false});
+    const updateQuiz = () => {
+      dispatch({
+        quizzes: state.quizzes.map(elem => {
+          if (elem.id !== state.selectedQuiz.id) return elem;
+          return state.selectedQuiz;
+        }),
+      });
+    };
+
+    if (state.selectedQuiz === undefined) return;
+
+    updateQuiz();
+  }, [state.selectedQuiz, state.quizzes, state.needUpdate, dispatch]);
 
   return (
     <quizContext.Provider value={state}>

@@ -73,6 +73,19 @@ const Question = props => {
             token={props.token}
             setLoading={setLoading}
             isInEditMode={false}
+            flushSubjectQuestionsInc={id => {
+              setSubjects(
+                subjects.map(elem => {
+                  if (elem.subject.id !== id) return elem;
+                  elem.questions = undefined;
+                  elem.qNo = elem.qNo + 1;
+                  return elem;
+                }),
+              );
+              setSelected(
+                subjects.find(elem => elem.subject.id === selected.subject.id),
+              );
+            }}
           />
         )}
         {mode === 'edit' && (
@@ -82,6 +95,29 @@ const Question = props => {
             token={props.token}
             setLoading={setLoading}
             isInEditMode={true}
+            flushSubjectQuestionsInc={id => {
+              setSubjects(
+                subjects.map(elem => {
+                  if (elem.subject.id !== id) return elem;
+                  elem.questions = undefined;
+                  elem.qNo = elem.qNo + 1;
+                  return elem;
+                }),
+              );
+              setSelected(
+                subjects.find(elem => elem.subject.id === selected.subject.id),
+              );
+            }}
+            flushSubjectQuestionsDec={id => {
+              setSubjects(
+                subjects.map(elem => {
+                  if (elem.subject.id !== id) return elem;
+                  elem.questions = undefined;
+                  elem.qNo = elem.qNo - 1;
+                  return elem;
+                }),
+              );
+            }}
           />
         )}
         {mode === 'detail' && (

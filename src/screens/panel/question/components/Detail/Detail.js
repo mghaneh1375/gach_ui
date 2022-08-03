@@ -251,10 +251,7 @@ function Detail(props) {
                         props.setLoading(false);
                         if (res !== null) {
                           showSuccess(res.excepts);
-                          props.subject.questions =
-                            props.subject.questions.filter(elem => {
-                              return res.doneIds.indexOf(elem.id) === -1;
-                            });
+                          props.subject.questions = undefined;
                           props.subject.qNo =
                             props.subject.qNo - res.doneIds.length;
                           props.setSubject(props.subject);

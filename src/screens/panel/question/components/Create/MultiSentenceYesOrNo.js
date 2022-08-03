@@ -2,7 +2,7 @@ import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo
 import {useState} from 'react';
 
 function MultiSentenceYesOrNo(props) {
-  const [status, setStatus] = useState('yes');
+  const [status, setStatus] = useState(props.status);
   return (
     <RadioButtonYesOrNo
       label={'پاسخ گزاره ' + (props.index + 1)}
