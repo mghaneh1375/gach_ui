@@ -27,6 +27,7 @@ function List(props) {
           token={props.token}
           setLoading={props.setLoading}
           edit={props.edit}
+          remove={props.remove}
           setMode={props.setMode}
         />
       )}

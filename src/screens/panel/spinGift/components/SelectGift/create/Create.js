@@ -176,7 +176,7 @@ function Create(props) {
               props.setMode('list');
             }
           }}
-          title={commonTranslate.confirm}
+          title={commonTranslate.confrim}
         />
       </View>
     </CommonWebBox>
