@@ -1,4 +1,4 @@
-import {View} from 'react-native-web';
+import {View} from 'react-native';
 import {CommonButton, PhoneView} from '../../../../../../styles/Common';
 import {LargePopUp} from '../../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../../tranlates/Common';
