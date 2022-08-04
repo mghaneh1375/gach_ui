@@ -4,6 +4,7 @@ import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';
+import {addAgentSchools, editAgentSchools} from '../Utility';
 
 function Create(props) {
   const [name, setName] = useState();
@@ -58,8 +59,30 @@ function Create(props) {
       </View>
       <View>
         <CommonButton
-          title={commonTranslator.confrim}
-          onPress={() => props.save()}
+          title={commonTranslator.confirm}
+          onPress={async () => {
+            props.setLoading(true);
+            let info = {
+              name: name,
+              manager: manager,
+              phone: phone,
+              tel: tel,
+              address: address,
+            };
+            let res =
+              props.data === undefined
+                ? await addAgentSchools(info, props.token)
+                : await editAgentSchools(props.data.id, info, props.token);
+            props.setLoading(false);
+            if (res !== null) {
+              if (props.data === undefined) props.addItem(res);
+              else {
+                info.id = props.data.id;
+                props.edit(info);
+              }
+              props.setMode('list');
+            }
+          }}
         />
       </View>
     </CommonWebBox>

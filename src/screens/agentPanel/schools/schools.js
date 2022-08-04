@@ -5,6 +5,8 @@ import Create from './create/create';
 import Details from './details/Details';
 import List from './list/List';
 import Students from './students/Students';
+import {removeItems, editItem, addItem} from '../../../services/Utility';
+import {getAllAgentSchools} from './Utility';
 
 function Agent(props) {
   const useGlobalState = () => [
@@ -23,6 +25,13 @@ function Agent(props) {
       phone: '09121234567',
       number: 10,
     },
+    {
+      id: 2,
+      name: 'مدرسه دوم',
+      manager: 'فرهاد اقبالی',
+      phone: '09921234987',
+      number: 15,
+    },
   ]);
   const setLoading = status => {
     dispatch({loading: status});
@@ -34,23 +43,30 @@ function Agent(props) {
           setMode={setMode}
           setLoading={setLoading}
           data={data}
-          // setData={setData}
+          setData={setData}
           token={props.token}
-          // remove={ids => removeItems(data, setData, ids)}
+          remove={ids => removeItems(data, setData, ids)}
           setSelectedAgent={setSelectedAgent}
-          // update={item => editItem(data, setData, item)}
+          edit={ids => editItem(data, setData, ids)}
         />
       )}
       {mode === 'create' && (
         <Create
           setMode={setMode}
           setLoading={setLoading}
-          data={data}
-          // setData={setData}
           token={props.token}
-          // remove={ids => removeItems(data, setData, ids)}
+          addItem={i => addItem(data, setData, i)}
+        />
+      )}
+      {mode === 'edit' && (
+        <Create
+          setMode={setMode}
+          setLoading={setLoading}
+          data={data}
+          setData={setData}
+          token={props.token}
           setSelectedAgent={setSelectedAgent}
-          // update={item => editItem(data, setData, item)}
+          edit={item => editItem(data, setData, item)}
         />
       )}
       {mode === 'students' && (
@@ -69,18 +85,6 @@ function Agent(props) {
           data={data}
           token={props.token}
           setSelectedAgent={setSelectedAgent}
-        />
-      )}
-      {mode === 'edit' && (
-        <Create
-          setMode={setMode}
-          setLoading={setLoading}
-          data={data}
-          // setData={setData}
-          token={props.token}
-          // remove={ids => removeItems(data, setData, ids)}
-          setSelectedAgent={setSelectedAgent}
-          // update={item => editItem(data, setData, item)}
         />
       )}
     </View>

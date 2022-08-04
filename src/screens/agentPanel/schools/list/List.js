@@ -4,6 +4,7 @@ import {CommonWebBox} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import columns from './TableStructure';
 import Ops from './Ops/Ops';
+import commonTranslator from '../../../../tranlates/Common';
 
 function List(props) {
   const [selectedId, setSelectedId] = useState();
@@ -25,12 +26,12 @@ function List(props) {
           toggleShowPopUp={toggleShowOpPopUp}
           token={props.token}
           setLoading={props.setLoading}
-          //remove={props.remove}
+          edit={props.edit}
           setMode={props.setMode}
         />
       )}
       <CommonWebBox
-        header={'سلام'}
+        header={commonTranslator.schools}
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         <CommonDataTable
