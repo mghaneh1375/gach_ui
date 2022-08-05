@@ -1,6 +1,4 @@
 import {View} from 'react-native-web';
-import {CommonWebBox} from '../../../../../styles/Common';
-import commonTranslator from '../../../../../tranlates/Common';
 import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '../../../../../App';
 import List from './list/List';
