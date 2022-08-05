@@ -5,35 +5,34 @@ import UploadFile from '../../../../../components/web/UploadFile';
 import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton, SimpleText} from '../../../../../styles/Common';
 import commonTranslator from '../../../../../tranlates/Common';
-import {
-  answerSheetContext,
-  dispatchAnswerSheetContext,
-} from '../AnswerSheet/AnswerSheetProvider';
+import {dispatchQuizContext, quizContext} from '../Context';
 import {correct} from '../Utility';
 
 function Card(props) {
   const [showUploadPane, setShowUploadPane] = useState(false);
-  const [answerSheet, setAnswerSheet] = useState();
-  const [answerSheetAfterCorrection, setAnswerSheetAfterCorrection] =
-    useState();
+  // const [answerSheet, setAnswerSheet] = useState();
+  // const [answerSheetAfterCorrection, setAnswerSheetAfterCorrection] =
+  //   useState();
 
   const useGlobalState = () => [
-    React.useContext(answerSheetContext),
-    React.useContext(dispatchAnswerSheetContext),
+    React.useContext(quizContext),
+    React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
 
-  React.useEffect(() => {
-    setAnswerSheet(props.answerSheet.answerSheet);
-  }, [props.answerSheet.answerSheet]);
-
-  React.useEffect(() => {
-    setAnswerSheetAfterCorrection(props.answerSheet.answerSheetAfterCorrection);
-  }, [props.answerSheet.answerSheetAfterCorrection]);
+  // React.useEffect(() => {
+  //   if (props.index === undefined) return;
+  //   setAnswerSheet(state.selectedQuiz.answer_sheets[props.index].answerSheet);
+  //   setAnswerSheetAfterCorrection(
+  //     state.selectedQuiz.answer_sheets[props.index].answerSheetAfterCorrection,
+  //   );
+  // }, [props.index, state.selectedQuiz]);
 
   const afterAdd = res => {
     if (res !== null) {
-      setAnswerSheet(res);
+      // setAnswerSheet(res);
+      state.selectedQuiz.answer_sheets[props.index].answerSheet = res;
+      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
       showSuccess(commonTranslator.success);
       setShowUploadPane(false);
     }
@@ -47,9 +46,9 @@ function Card(props) {
           accept={['image/*']}
           url={
             routes.setQuizAnswerSheet +
-            props.quizGeneralMode +
+            state.selectedQuiz.generalMode +
             '/' +
-            props.quizId +
+            state.selectedQuiz.id +
             '/' +
             props.answerSheet.student.id
           }
@@ -63,14 +62,28 @@ function Card(props) {
       )}
       <SimpleText
         style={{alignSelf: 'center'}}
-        text={props.answerSheet.student.name}
+        text={state.selectedQuiz.answer_sheets[props.index].student.name}
       />
-      {answerSheet !== undefined && answerSheet !== '' && (
-        <img style={{width: 100}} src={answerSheet} />
-      )}
-      {answerSheetAfterCorrection !== undefined &&
-        answerSheetAfterCorrection !== '' && (
-          <img src={answerSheetAfterCorrection} />
+      {props.index !== undefined &&
+        state.selectedQuiz.answer_sheets[props.index].answerSheet !==
+          undefined &&
+        state.selectedQuiz.answer_sheets[props.index].answerSheet !== '' && (
+          <img
+            style={{width: 100}}
+            src={state.selectedQuiz.answer_sheets[props.index].answerSheet}
+          />
+        )}
+      {props.index !== undefined &&
+        state.selectedQuiz.answer_sheets[props.index]
+          .answerSheetAfterCorrection !== undefined &&
+        state.selectedQuiz.answer_sheets[props.index]
+          .answerSheetAfterCorrection !== '' && (
+          <img
+            src={
+              state.selectedQuiz.answer_sheets[props.index]
+                .answerSheetAfterCorrection
+            }
+          />
         )}
       <CommonButton
         onPress={() => setShowUploadPane(true)}
@@ -79,34 +92,47 @@ function Card(props) {
       />
       <CommonButton
         onPress={() => {
-          dispatch({
-            answerSheet: props.answerSheet.answers,
-            quizMode: props.quizMode,
-            quizId: props.quizId,
+          let data = state.selectedQuiz.answer_sheet.map((elem, index) => {
+            elem.studentAns =
+              state.selectedQuiz.answer_sheets[props.index].answers[index];
+            return elem;
           });
-          props.setShowAnswerSheet(true);
+          dispatch({
+            wanted_answer_sheet: data,
+            new_std_answer_sheet: state.selectedQuiz.answer_sheets[
+              props.index
+            ].answers.map(elem => {
+              return elem;
+            }),
+          });
+          props.setSelectedAnswerSheetIdx(props.index);
         }}
         theme={'dark'}
         title={'وارد کردن پاسخ ها'}
       />
-      {answerSheet !== undefined && answerSheet !== '' && (
-        <CommonButton
-          onPress={async () => {
-            props.setLoading(true);
-            let res = await correct(
-              props.quizId,
-              props.answerSheet.student.id,
-              props.token,
-            );
-            props.setLoading(false);
-            if (res !== null) {
-              setAnswerSheetAfterCorrection(res.path);
-            }
-          }}
-          theme={'dark'}
-          title={'تصحیح'}
-        />
-      )}
+      {state.selectedQuiz.answer_sheets[props.index].answerSheet !==
+        undefined &&
+        state.selectedQuiz.answer_sheets[props.index].answerSheet !== '' && (
+          <CommonButton
+            onPress={async () => {
+              props.setLoading(true);
+              let res = await correct(
+                state.selectedQuiz.id,
+                props.answerSheet.student.id,
+                props.token,
+              );
+              props.setLoading(false);
+              if (res !== null) {
+                state.selectedQuiz.answer_sheets[
+                  props.index
+                ].answerSheetAfterCorrection = res.path;
+                dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+              }
+            }}
+            theme={'dark'}
+            title={'تصحیح'}
+          />
+        )}
     </View>
   );
 }

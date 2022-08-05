@@ -41,6 +41,16 @@ export const getAnswerSheets = async (quizId, quizMode, token) => {
   );
 };
 
+export const getAnswerSheet = async (quizId, quizMode, token) => {
+  return await generalRequest(
+    routes.fetchQuizAnswerSheet + quizMode + '/' + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const getQuestions = async (token, quizId, quizMode) => {
   return await generalRequest(
     routes.fetchQuestions + quizMode + '/' + quizId,

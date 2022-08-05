@@ -17,8 +17,15 @@ import columns from './TableStructure';
 import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
 import {changeText, showSuccess} from '../../../../../services/Utility';
 import {removeStudents} from '../Utility';
+import {dispatchQuizContext, quizContext} from '../Context';
 
 const Students = props => {
+  const useGlobalState = () => [
+    React.useContext(quizContext),
+    React.useContext(dispatchQuizContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
   const [isWorking, setIsWorking] = useState(false);
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedSudent, setSelectedStudent] = useState(undefined);
@@ -26,12 +33,13 @@ const Students = props => {
 
   const afterAdd = items => {
     if (items === undefined) return;
-    setStudents(items.concat(props.quiz.students));
+    setStudents(items.concat(state.selectedQuiz.students));
   };
 
   const setStudents = newList => {
-    props.quiz.students = newList;
-    props.updateQuiz(props.quiz);
+    state.selectedQuiz.students = newList;
+    state.selectedQuiz.studentsCount = newList.length;
+    dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
   };
 
   const toggleShowOpPopUp = () => {
@@ -42,15 +50,15 @@ const Students = props => {
     props.setLoading(true);
     Promise.all([
       removeStudents(
-        props.quiz.id,
-        props.quiz.generalMode,
+        state.selectedQuiz.id,
+        state.selectedQuiz.generalMode,
         [selectedSudent.student.id],
         props.token,
       ),
     ]).then(res => {
       props.setLoading(false);
       if (res[0] !== null) {
-        let stds = props.quiz.students.filter(elem => {
+        let stds = state.selectedQuiz.students.filter(elem => {
           return res[0].doneIds.indexOf(elem.id) === -1;
         });
 
@@ -62,36 +70,36 @@ const Students = props => {
   };
 
   React.useEffect(() => {
-    if (!isWorking && props.quiz.students === undefined) {
-      setIsWorking(true);
-      props.setLoading(true);
+    if (isWorking || state.selectedQuiz.students !== undefined) return;
 
-      Promise.all([
-        generalRequest(
-          props.quiz.generalMode === 'IRYSC'
-            ? routes.getIRYSCParticipants + props.quiz.id
-            : routes.getSchoolParticipants + props.quiz.id,
-          'get',
-          undefined,
-          'students',
-          props.token,
-        ),
-      ]).then(res => {
-        props.setLoading(false);
-        if (res[0] === null) {
-          props.setMode('list');
-          return;
-        }
+    setIsWorking(true);
+    props.setLoading(true);
 
-        props.quiz.students = res[0];
-        props.updateQuiz(props.quiz);
-        setIsWorking(false);
-      });
-    }
-  }, [props, isWorking]);
+    Promise.all([
+      generalRequest(
+        state.selectedQuiz.generalMode === 'IRYSC'
+          ? routes.getIRYSCParticipants + state.selectedQuiz.id
+          : routes.getSchoolParticipants + state.selectedQuiz.id,
+        'get',
+        undefined,
+        'students',
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null) {
+        props.setMode('list');
+        return;
+      }
+
+      state.selectedQuiz.students = res[0];
+      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+      setIsWorking(false);
+    });
+  }, [props, isWorking, dispatch, state.selectedQuiz]);
 
   const handleOp = idx => {
-    setSelectedStudent(props.quiz.students[idx]);
+    setSelectedStudent(state.selectedQuiz.students[idx]);
     toggleShowOpPopUp();
   };
 
@@ -110,7 +118,7 @@ const Students = props => {
       {showOpPopUp && (
         <LargePopUp
           toggleShowPopUp={toggleShowOpPopUp}
-          title={props.quiz.title}>
+          title={state.selectedQuiz.title}>
           <PhoneView style={{flexWrap: 'wrap'}}>
             <CommonButton
               onPress={() => removeStudent()}
@@ -138,7 +146,10 @@ const Students = props => {
           onSearchClick={() => setShowSearchUser(true)}
           token={props.token}
           url={
-            routes.forceRegistry + props.quiz.generalMode + '/' + props.quiz.id
+            routes.forceRegistry +
+            state.selectedQuiz.generalMode +
+            '/' +
+            state.selectedQuiz.id
           }
           afterAddingCallBack={afterAdd}
           additionalData={{paid: paid}}
@@ -154,16 +165,16 @@ const Students = props => {
         </ExcelComma>
         <CommonDataTable
           columns={columns}
-          data={props.quiz.students}
+          data={state.selectedQuiz.students}
           handleOp={handleOp}
           setLoading={props.setLoading}
           token={props.token}
           setData={setStudents}
           removeUrl={
             routes.forceDeportation +
-            props.quiz.generalMode +
+            state.selectedQuiz.generalMode +
             '/' +
-            props.quiz.id
+            state.selectedQuiz.id
           }
         />
       </CommonWebBox>

@@ -50,6 +50,7 @@ export const routes = {
   fetchIRYSCQuiz: 'quiz/manage/get/irysc/',
   fetchSchoolQuiz: 'quiz/manage/get/school/',
   editQuiz: 'quiz/manage/edit/',
+  fetchQuizAnswerSheet: 'quiz/manage/getQuizAnswerSheet/',
   fetchQuizAnswerSheets: 'quiz/manage/getQuizAnswerSheets/',
   setQuizAnswerSheet: 'quiz/manage/setQuizAnswerSheet/',
   correct: 'quiz/manage/correct/10/2/30/70/4/',

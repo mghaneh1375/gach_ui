@@ -7,12 +7,12 @@ import {FontIcon} from '../../styles/Common/FontIcon';
 import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../tranlates/Common';
 import UploadFile from './UploadFile';
+import {showSuccess} from '../../services/Utility';
 
 const ExcelComma = props => {
   const [codes, setCodes] = useState('');
   const [showUploadPopUp, setShowUploadPopUp] = useState(false);
   const [additionalData, setAdditionalData] = useState();
-  const [result, setResult] = useState();
   const [isWorking, setIsWorking] = useState(false);
 
   React.useEffect(() => {
@@ -45,7 +45,6 @@ const ExcelComma = props => {
   }, [codes, props, isWorking]);
 
   const toggleShowUploadPopUp = () => {
-    // if (!showUploadPopUp) setFinalMsg(undefined);
     setShowUploadPopUp(!showUploadPopUp);
   };
 
@@ -87,7 +86,8 @@ const ExcelComma = props => {
 
     if (showUploadPopUp) setShowUploadPopUp(false);
 
-    setResult(res.excepts);
+    showSuccess(res.excepts);
+    setCodes('');
   };
 
   React.useEffect(() => {
@@ -161,9 +161,6 @@ const ExcelComma = props => {
           theme={'dark'}
         />
       </PhoneView>
-      {result !== undefined && (
-        <SimpleText style={{marginTop: 20}} text={result} />
-      )}
     </View>
   );
 };

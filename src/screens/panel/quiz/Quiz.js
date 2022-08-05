@@ -9,6 +9,7 @@ import Questions from './components/Questions/Questions';
 import {editItem} from '../../../services/Utility';
 import CV from './components/CV/CV';
 import {QuizProvider} from './components/Context';
+import Key from './components/Key/Key';
 
 const Quiz = props => {
   const [mode, setMode] = useState('list');
@@ -58,16 +59,14 @@ const Quiz = props => {
             quiz={selectedQuiz}
           />
         )}
+        {mode === 'key' && (
+          <Key setLoading={setLoading} setMode={setMode} token={props.token} />
+        )}
         {mode === 'student' && (
           <Students
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}
-            quiz={selectedQuiz}
-            updateQuiz={newQuiz => {
-              editItem(quizzes, setQuizzes, newQuiz);
-              setSelectedQuiz(newQuiz);
-            }}
           />
         )}
         {mode === 'question' && (
@@ -82,16 +81,7 @@ const Quiz = props => {
           />
         )}
         {mode === 'CV' && (
-          <CV
-            setLoading={setLoading}
-            setMode={setMode}
-            token={props.token}
-            quiz={selectedQuiz}
-            updateQuiz={newQuiz => {
-              editItem(quizzes, setQuizzes, newQuiz);
-              setSelectedQuiz(newQuiz);
-            }}
-          />
+          <CV setLoading={setLoading} setMode={setMode} token={props.token} />
         )}
       </QuizProvider>
     </View>

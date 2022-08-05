@@ -172,6 +172,14 @@ const Ops = props => {
             title={translator.generateQuestionPDF}
           />
         )}
+        {state.selectedQuiz.mode !== 'tashrihi' && (
+          <CommonButton
+            title={translator.keySheet}
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => props.setMode('key')}
+          />
+        )}
       </PhoneView>
     </LargePopUp>
   );

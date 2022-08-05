@@ -11,6 +11,7 @@ import {getQuizzes} from './Utility';
 
 const List = props => {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
+  const [isWorking, setIsWorking] = useState(false);
 
   const useGlobalState = () => [
     React.useContext(quizContext),
@@ -19,9 +20,11 @@ const List = props => {
   const [state, dispatch] = useGlobalState();
 
   React.useEffect(() => {
-    if (state.quizzes !== undefined) return;
+    if (isWorking || state.quizzes !== undefined) return;
 
     props.setLoading(true);
+    setIsWorking(true);
+
     Promise.all([getQuizzes(props.token)]).then(res => {
       props.setLoading(false);
       if (res[0] == null) {
@@ -29,8 +32,9 @@ const List = props => {
         return;
       }
       dispatch({quizzes: res[0]});
+      setIsWorking(false);
     });
-  }, [props, dispatch, state.quizzes]);
+  }, [props, dispatch, isWorking, state.quizzes]);
 
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
