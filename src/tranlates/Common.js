@@ -113,6 +113,7 @@ const translator = {
   changeStatus: 'تغییر وضعیت',
   changeLevel: 'تغییر سطح',
   changePassword: 'تغییر رمز عبور',
+  repeat: 'تکرار',
   currentLevel: 'سطح فعلی',
   newLevel: 'سطح جدید',
   confrim: 'ثبت',

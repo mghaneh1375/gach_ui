@@ -34,7 +34,7 @@ function List(props) {
       <CommonWebBox
         header={commonTranslator.schools}
         addBtn={true}
-        onAddClick={() => props.setMode('create')}>
+        onAddClick={() => props.setMode('createStep1')}>
         <CommonDataTable
           columns={columns}
           data={props.data}

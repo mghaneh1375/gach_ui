@@ -25,18 +25,12 @@ export const addAgentSchools = async (data, token) => {
   return res;
 };
 
-export const editAgentSchools = async (id, data, token) => {
-  let res = await generalRequest(
-    routes.editAgentSchools + id,
+export const checkDuplicate = async (data, token) => {
+  return await generalRequest(
+    routes.checkDuplicate,
     'post',
     data,
-    undefined,
+    'exist',
     token,
   );
-  if (res !== null) {
-    showSuccess();
-    return 'ok';
-  }
-
-  return null;
 };

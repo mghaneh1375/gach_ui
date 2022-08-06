@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {dispatchStateContext, globalStateContext} from '../../../App';
-import Create from './create/create';
+import CreateStep1 from './CreateStep1/CreateStep1';
 import Details from './details/Details';
 import List from './list/List';
 import Students from './students/Students';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
-import {getAllAgentSchools} from './Utility';
+import {postCreateStep} from './Utility';
 
 function Agent(props) {
   const useGlobalState = () => [
@@ -36,6 +36,21 @@ function Agent(props) {
   const setLoading = status => {
     dispatch({loading: status});
   };
+
+  // const navigate = props.navigate;
+  // React.useEffect(() => {
+  //   dispatch({loading: true});
+  //   Promise.all([postCreateStep(props.token)]).then(res => {
+  //     dispatch({loading: false});
+  //     if (res[0] === null) {
+  //       navigate('/');
+  //       return;
+  //     }
+  //     setData(res[0]);
+  //     setMode('list');
+  //   });
+  // }, [navigate, props.token, dispatch]);
+
   return (
     <View>
       {mode === 'list' && (
@@ -50,23 +65,13 @@ function Agent(props) {
           edit={ids => editItem(data, setData, ids)}
         />
       )}
-      {mode === 'create' && (
-        <Create
+      {mode === 'createStep1' && (
+        <CreateStep1
           setMode={setMode}
           setLoading={setLoading}
           token={props.token}
+          step={1}
           addItem={i => addItem(data, setData, i)}
-        />
-      )}
-      {mode === 'edit' && (
-        <Create
-          setMode={setMode}
-          setLoading={setLoading}
-          data={data}
-          setData={setData}
-          token={props.token}
-          setSelectedAgent={setSelectedAgent}
-          edit={item => editItem(data, setData, item)}
         />
       )}
       {mode === 'students' && (
