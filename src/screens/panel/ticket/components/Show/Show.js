@@ -5,9 +5,7 @@ import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBo
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
 import {sectionKeyVals, priorityKeyVals} from '../KeyVals';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
-import {changeMode, fetchDetail} from './Utility';
+import {fetchDetail} from './Utility';
 import Chat from './Chat';
 import Add from './Add';
 
@@ -23,6 +21,8 @@ function Show(props) {
         if (res[0] !== null) {
           props.updateTicket(res[0]);
           props.setSelectedTicket(res[0]);
+        } else {
+          props.setMode('list');
         }
         setIsWorking(false);
       });
@@ -95,6 +95,7 @@ function Show(props) {
                   pic={elem.isForUser ? studentPic : elem.responder.pic}
                   {...elem}
                   key={key}
+                  isHtml={props.ticket.section === 'access'}
                 />
               );
             })}

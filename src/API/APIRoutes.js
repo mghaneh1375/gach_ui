@@ -121,4 +121,5 @@ export const routes = {
   addGift: 'admin/config/gift/store',
   editGift: 'admin/config/gift/edit/',
   updateGiftConfig: 'admin/config/config/update',
+  acceptInvite: 'admin/user/acceptInvite/',
 };

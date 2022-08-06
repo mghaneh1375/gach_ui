@@ -157,3 +157,8 @@ export const isUserAdmin = user => {
 
   return true;
 };
+
+export const sexKeyVals = [
+  {item: 'آقا', id: 'male'},
+  {item: 'خانم', id: 'female'},
+];

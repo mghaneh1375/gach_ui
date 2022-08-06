@@ -52,6 +52,7 @@ import SelectGift from './panel/spinGift/components/SelectGift/SelectGift';
 import Upgrade from './studentPanel/Upgrade/Upgrade';
 import ConfigGift from './panel/spinGift/components/configGift/configGift';
 import Agent from './agentPanel/schools/schools';
+import AcceptInvite from './SinglePages/AcceptInvite';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -217,6 +218,9 @@ const WebStructue = props => {
                   user={user}
                   navigate={navigate}
                 />
+              )}
+              {props.page === 'acceptInvite' && (
+                <AcceptInvite token={token} navigate={navigate} />
               )}
               {props.page === 'upgrade' && (
                 <Upgrade token={token} user={user} navigate={navigate} />

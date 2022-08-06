@@ -6,6 +6,7 @@ import {
 } from '../../../../../styles/Common';
 import AttachBox from './AttachBox/AttachBox';
 import ChatImage from './ChatImage/ChatImage';
+import RenderHtml from 'react-native-render-html';
 
 const Chat = props => {
   const commonStyles = {
@@ -44,7 +45,10 @@ const Chat = props => {
             text={props.createdAt}
           />
         </PhoneView>
-        <SimpleText text={props.msg} />
+        {props.isHtml && (
+          <RenderHtml contentWidth={'100%'} source={{html: props.msg}} />
+        )}
+        {!props.isHtml && <SimpleText text={props.msg} />}
         <PhoneView style={{alignSelf: props.isForUser ? 'flex-start' : ''}}>
           {props.files.map((elem, index) => {
             return <AttachBox key={index} filename={elem} />;
