@@ -16,14 +16,12 @@ function AcceptInvite(props) {
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [msg, setMsg] = useState();
-
-  const params = useParams();
-  if (params.reqId === undefined) navigate('/');
-
-  const reqId = params.reqId;
+  const reqId = useParams().reqId;
 
   React.useEffect(() => {
     if (isWorking || msg !== undefined) return;
+    if (reqId === undefined) navigate('/');
+
     setIsWorking(true);
     dispatch({loading: true});
     Promise.all([
@@ -39,7 +37,7 @@ function AcceptInvite(props) {
       if (res !== null) setMsg(res);
       setIsWorking(false);
     });
-  }, [navigate, props.token, dispatch, reqId, isWorking, msg]);
+  }, [navigate, props.token, dispatch, isWorking, msg, reqId]);
 
   return (
     <CommonWebBox>

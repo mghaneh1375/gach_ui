@@ -61,7 +61,7 @@ export default function WebRouter() {
           />
           <Route path="/agents" element={<WebStructue page="agents" />} />
           <Route
-            path="/acceptInvite"
+            path="/acceptInvite/:reqId"
             element={<WebStructue page="acceptInvite" />}
           />
           <Route path="*" element={<WebStructue page="404" />} />

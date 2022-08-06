@@ -6,7 +6,7 @@ import {
   EqualTwoTextInputs,
   CommonButton,
 } from '../../../../../styles/Common';
-import {getAnswerSheets} from '../Utility';
+import {getAnswerSheets, updateStudentAnswers} from '../Utility';
 import Card from './Card';
 import AnswerSheet from '../AnswerSheet/AnswerSheet';
 import {dispatchQuizContext, quizContext} from '../Context';
@@ -126,19 +126,32 @@ function CV(props) {
               <CommonButton
                 title={'ثبت تغییرات پاسخ برگ دانش آموز'}
                 theme={'dark'}
-                onPress={() => {
-                  state.selectedQuiz.answer_sheets[
-                    selectedAnswerSheetIdx
-                  ].answers = state.new_std_answer_sheet;
-                  dispatch({
-                    selectedQuiz: state.selectedQuiz,
-                    needUpdate: true,
-                  });
-                  // console.log(state.new_std_answer_sheet);
-                  // console.log(
-                  //   state.selectedQuiz.answer_sheets[selectedAnswerSheetIdx]
-                  //     .student.id,
-                  // );
+                onPress={async () => {
+                  let res = await updateStudentAnswers(
+                    state.selectedQuiz.id,
+                    state.selectedQuiz.answer_sheets[selectedAnswerSheetIdx]
+                      .student.id,
+                    state.selectedQuiz.generalMode,
+                    {answers: state.new_std_answer_sheet},
+                    props.token,
+                  );
+                  if (res !== null) {
+                    state.selectedQuiz.answer_sheets[
+                      selectedAnswerSheetIdx
+                    ].answers = state.new_std_answer_sheet;
+
+                    let data = state.selectedQuiz.answer_sheet.map(
+                      (elem, index) => {
+                        elem.studentAns = state.new_std_answer_sheet[index];
+                        return elem;
+                      },
+                    );
+                    dispatch({
+                      selectedQuiz: state.selectedQuiz,
+                      needUpdate: true,
+                      wanted_answer_sheet: data,
+                    });
+                  }
                 }}
               />
             )}

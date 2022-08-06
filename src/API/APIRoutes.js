@@ -53,6 +53,7 @@ export const routes = {
   fetchQuizAnswerSheet: 'quiz/manage/getQuizAnswerSheet/',
   fetchQuizAnswerSheets: 'quiz/manage/getQuizAnswerSheets/',
   setQuizAnswerSheet: 'quiz/manage/setQuizAnswerSheet/',
+  storeAnswers: 'quiz/manage/storeAnswers/',
   correct: 'quiz/manage/correct/10/2/30/70/4/',
   updateQuestionMark: 'quiz/manage/updateQuestionMark/',
   removeIRYSCQuiz: 'quiz/manage/remove/irysc/',

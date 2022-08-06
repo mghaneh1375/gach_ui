@@ -41,7 +41,10 @@ function Key(props) {
         dispatch({
           selectedQuiz: state.selectedQuiz,
           wanted_answer_sheet: res[0],
+          new_answer_sheet: res[0],
           needUpdate: true,
+          showAnswers: true,
+          showStdAnswers: false,
         });
       } else props.setMode('list');
 
@@ -59,7 +62,11 @@ function Key(props) {
         parentStyle={{alignSelf: 'flex-end', marginLeft: 20, marginTop: 20}}
       />
       {state.wanted_answer_sheet !== undefined && (
-        <AnswerSheet setLoading={props.setLoading} token={props.token} />
+        <AnswerSheet
+          answer_sheet={state.wanted_answer_sheet}
+          setLoading={props.setLoading}
+          token={props.token}
+        />
       )}
     </View>
   );
