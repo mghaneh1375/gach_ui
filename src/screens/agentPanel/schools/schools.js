@@ -6,7 +6,6 @@ import Details from './details/Details';
 import List from './list/List';
 import Students from './students/Students';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
-import {postCreateStep} from './Utility';
 
 function Agent(props) {
   const useGlobalState = () => [
@@ -23,14 +22,20 @@ function Agent(props) {
       name: 'مدرسه اول',
       manager: 'فرهاد اقبالی',
       phone: '09121234567',
+      NID: '0018374921',
+      kindSchool: 'دبستان',
       number: 10,
+      schoolSex: 'آقا',
     },
     {
       id: 2,
       name: 'مدرسه دوم',
       manager: 'فرهاد اقبالی',
       phone: '09921234987',
-      number: 15,
+      NID: '0018374921',
+      kindSchool: 'دبستان',
+      number: 199,
+      schoolSex: 'خانم',
     },
   ]);
   const setLoading = status => {
@@ -67,6 +72,7 @@ function Agent(props) {
       )}
       {mode === 'createStep1' && (
         <CreateStep1
+          data={data}
           setMode={setMode}
           setLoading={setLoading}
           token={props.token}

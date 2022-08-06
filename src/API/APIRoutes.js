@@ -123,4 +123,5 @@ export const routes = {
   updateGiftConfig: 'admin/config/config/update',
   checkDuplicate: 'admin/user/checkDuplicate',
   acceptInvite: 'admin/user/acceptInvite/',
+  addSchoolByAgent: 'admin/user/addSchool',
 };

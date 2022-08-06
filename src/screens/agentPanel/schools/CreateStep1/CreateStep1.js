@@ -9,26 +9,30 @@ import {
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';
-import {checkDuplicate} from '../Utility';
+import {checkDuplicate, addAgentSchools, addSchool} from '../Utility';
 
 import StateAndCity from '../../../../components/web/StateAndCity';
+import {sexKeyVals, showError, showSuccess} from '../../../../services/Utility';
+import {grades} from '../../../panel/Config/Schools/components/KeyVals';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import {addItem} from '../../../../services/Utility';
 
 function CreateStep1(props) {
-  const [phone, setPhone] = useState();
-  const [nid, setNid] = useState();
+  const [phone, setPhone] = useState('09224786125');
+  const [nid, setNid] = useState('00018374921');
 
-  const [name, setName] = useState();
-  //   const [phone, setPhone] = useState();
-  const [manager, setManager] = useState();
-  const [address, setAddress] = useState();
-  const [tel, setTel] = useState();
-  const [liableName, setLiableName] = useState();
-  const [liableFamily, setLiableFamily] = useState();
-  const [password, setPassword] = useState();
-  const [repeatPassword, setRepeatPassword] = useState();
+  const [name, setName] = useState('البرز');
+  const [sex, setSex] = useState('male');
+  const [manager, setManager] = useState('علی');
+  const [address, setAddress] = useState('سه راه تهارنپاری');
+  const [tel, setTel] = useState('02177417714');
+  const [liableName, setLiableName] = useState('قلی');
+  const [liableFamily, setLiableFamily] = useState('علی');
+  const [password, setPassword] = useState('123456Al');
+  const [repeatPassword, setRepeatPassword] = useState('123456Al');
   const [state, setState] = useState();
   const [city, setCity] = useState();
-
+  const [grade, setGrade] = useState();
   const [showAllFields, setShowAllFields] = useState();
   const [step, setStep] = useState(1);
 
@@ -46,6 +50,7 @@ function CreateStep1(props) {
               placeholder={Translate.phone}
               subText={Translate.phone}
               value={phone}
+              justNum={true}
             />
             <JustBottomBorderTextInput
               onChangeText={text => setNid(text)}
@@ -53,6 +58,7 @@ function CreateStep1(props) {
               placeholder={commonTranslator.NID}
               subText={commonTranslator.NID}
               value={nid}
+              justNum={true}
             />
           </PhoneView>
           <CommonButton
@@ -95,6 +101,7 @@ function CreateStep1(props) {
               isHalf={true}
               placeholder={Translate.tel}
               subText={Translate.tel}
+              justNum={true}
               value={tel}
             />
             <JustBottomBorderTextInput
@@ -103,6 +110,20 @@ function CreateStep1(props) {
               placeholder={Translate.address}
               subText={Translate.address}
               value={address}
+            />
+            <JustBottomBorderSelect
+              isHalf={true}
+              values={grades}
+              setter={setGrade}
+              value={grades.find(elem => elem.id === grade)}
+              placeholder={commonTranslator.grade}
+            />
+            <JustBottomBorderSelect
+              isHalf={true}
+              values={sexKeyVals}
+              setter={setSex}
+              value={sexKeyVals.find(elem => elem.id === sex)}
+              placeholder={commonTranslator.sex}
             />
             {showAllFields && (
               <View>
@@ -124,24 +145,34 @@ function CreateStep1(props) {
                     subText={Translate.liableFamily}
                     value={liableFamily}
                   />
-                  <JustBottomBorderTextInput
-                    onChangeText={text => setPassword(text)}
-                    isHalf={true}
-                    placeholder={commonTranslator.password}
-                    subText={commonTranslator.password}
-                    value={password}
-                  />
-                  <JustBottomBorderTextInput
-                    onChangeText={text => setRepeatPassword(text)}
-                    isHalf={true}
-                    placeholder={
-                      commonTranslator.repeat + ' ' + commonTranslator.password
-                    }
-                    subText={
-                      commonTranslator.repeat + ' ' + commonTranslator.password
-                    }
-                    value={repeatPassword}
-                  />
+                  <View>
+                    <PhoneView>
+                      <JustBottomBorderTextInput
+                        onChangeText={text => setPassword(text)}
+                        isHalf={true}
+                        type={'password'}
+                        placeholder={commonTranslator.password}
+                        subText={commonTranslator.password}
+                        value={password}
+                      />
+                      <JustBottomBorderTextInput
+                        onChangeText={text => setRepeatPassword(text)}
+                        isHalf={true}
+                        type={'password'}
+                        placeholder={
+                          commonTranslator.repeat +
+                          ' ' +
+                          commonTranslator.password
+                        }
+                        subText={
+                          commonTranslator.repeat +
+                          ' ' +
+                          commonTranslator.password
+                        }
+                        value={repeatPassword}
+                      />
+                    </PhoneView>
+                  </View>
                   <StateAndCity
                     state={state}
                     city={city}
@@ -153,8 +184,42 @@ function CreateStep1(props) {
               </View>
             )}
           </PhoneView>
+          <CommonButton
+            title={commonTranslator.confrim}
+            onPress={async () => {
+              if (showAllFields && city === undefined) {
+                showError(commonTranslator.pleaseFillAllFields);
+                return;
+              }
+              props.setLoading(true);
+              let info = {
+                phone: phone,
+                NID: nid,
+                name: name,
+                tel: tel,
+                address: address,
+                managerName: manager,
+                schoolSex: sex,
+                kindSchool: grade,
+              };
+              if (showAllFields) {
+                info.password = password;
+                info.rPassword = repeatPassword;
+                info.city = city.id;
+                info.firstName = liableName;
+                info.lastName = liableFamily;
+              }
+              let res = await addSchool(info, props.token);
+              props.setLoading(false);
+              if (res !== null) {
+                if (res != -1) {
+                  info.id = res;
+                  props.addItem(res);
+                }
 
-          <CommonButton title={commonTranslator.confrim}></CommonButton>
+                props.setMode('list');
+              }
+            }}></CommonButton>
         </View>
       )}
     </CommonWebBox>

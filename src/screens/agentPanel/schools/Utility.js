@@ -12,17 +12,28 @@ export const getAllAgentSchools = async token => {
   );
 };
 
-export const addAgentSchools = async (data, token) => {
-  let res = await generalRequest(
-    routes.addAgentSchools,
-    'post',
-    data,
-    'data',
-    token,
-  );
-  if (res !== null) showSuccess();
+export const addSchool = async (data, token) => {
+  try {
+    let res = await generalRequest(
+      routes.addSchoolByAgent,
+      'post',
+      data,
+      'id',
+      token,
+      ['tel', 'NID', 'phone', 'name', 'address', 'managerName'],
+    );
+    if (res !== null) {
+      if (res == -1) {
+        showSuccess('درخواست شما در انتظار تایید قرار گرفت');
+      } else {
+        showSuccess();
+      }
+    }
 
-  return res;
+    return res;
+  } catch (error) {
+    return null;
+  }
 };
 
 export const checkDuplicate = async (data, token) => {
