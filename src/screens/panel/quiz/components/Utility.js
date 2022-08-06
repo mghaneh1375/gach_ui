@@ -113,3 +113,24 @@ export const correct = async (quizId, userId, token) => {
     token,
   );
 };
+
+export const updateStudentAnswers = async (
+  quizId,
+  studentId,
+  quizGeneralMode,
+  data,
+  token,
+) => {
+  let res = await generalRequest(
+    routes.storeAnswers + quizGeneralMode + '/' + quizId + '/' + studentId,
+    'put',
+    data,
+    undefined,
+    token,
+  );
+  if (res !== null) {
+    showSuccess();
+    return 'ok';
+  }
+  return null;
+};
