@@ -6,6 +6,7 @@ import {CommonButton, EqualTwoTextInputs} from '../../../../styles/Common';
 import {View} from 'react-native';
 import vars from '../../../../styles/root';
 import {updateInfo} from './Utility';
+import {sexKeyVals} from '../../../../services/Utility';
 
 const UpdateInfo = props => {
   const [state, setState] = useState(props.user.state);
@@ -20,11 +21,6 @@ const UpdateInfo = props => {
   const [firstname, setFirstname] = useState(props.user.firstName);
   const [lastname, setLastname] = useState(props.user.lastName);
   const [NID, setNID] = useState(props.user.NID);
-
-  const sexKeyVals = [
-    {item: 'آقا', id: 'male'},
-    {item: 'خانم', id: 'female'},
-  ];
 
   const setSelectedState = item => {
     setState(item);

@@ -92,6 +92,10 @@ export const sectionKeyVals = [
     id: 'quiz',
   },
   {
+    item: 'دسترسی',
+    id: 'access',
+  },
+  {
     item: 'کلاس و دوره ها',
     id: 'class',
   },

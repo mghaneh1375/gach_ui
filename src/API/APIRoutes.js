@@ -121,5 +121,9 @@ export const routes = {
   addGift: 'admin/config/gift/store',
   editGift: 'admin/config/gift/edit/',
   updateGiftConfig: 'admin/config/config/update',
+<<<<<<< HEAD
   checkDuplicate: 'admin/user/checkDuplicate',
+=======
+  acceptInvite: 'admin/user/acceptInvite/',
+>>>>>>> 03696b1a58a57970e75e95d6c117f3ad2c5ee148
 };

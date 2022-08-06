@@ -60,6 +60,10 @@ export default function WebRouter() {
             element={<WebStructue page="gift" />}
           />
           <Route path="/agents" element={<WebStructue page="agents" />} />
+          <Route
+            path="/acceptInvite"
+            element={<WebStructue page="acceptInvite" />}
+          />
           <Route path="*" element={<WebStructue page="404" />} />
         </Routes>
       </Router>
