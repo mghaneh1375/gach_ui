@@ -167,12 +167,6 @@ function AdminMenu(props) {
           icon={faUsers}
           selected={props.selected === 'avatar'}
         />
-        <MenuItem
-          onClick={() => navigate('/agent')}
-          text={translator.access + ' ' + translator.agent}
-          icon={faManatSign}
-          selected={props.selected === 'agent'}
-        />
       </div>
     );
   }
