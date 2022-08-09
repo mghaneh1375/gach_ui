@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {dispatchStateContext, globalStateContext} from '../../../App';
-import CreateStep1 from './CreateStep1/CreateStep1';
-import Details from './details/Details';
 import List from './list/List';
-import Students from './students/Students';
+import Create from './create/Create';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
-import {getAllAgent} from './Utility';
+import AddAll from './addAll/AddAll';
 
-function Agent(props) {
+function Students(props) {
   const queryString = require('query-string');
   const navigate = props.navigate;
 
@@ -16,27 +14,21 @@ function Agent(props) {
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [mode, setMode] = useState('list');
-  const [selectedAgent, setSelectedAgent] = useState({});
+  const [selectedStudent, setSelectedStudent] = useState();
   const [state, dispatch] = useGlobalState();
-  const [data, setData] = useState();
+
+  const [data, setData] = useState([
+    {
+      name: 'البرز منشی زاده',
+      NID: '123456789',
+      phone: '09121234567',
+      email: 'aborzmoon@gmail.com',
+    },
+  ]);
   const setLoading = status => {
     dispatch({loading: status});
   };
-  React.useEffect(() => {
-    dispatch({loading: true});
-    Promise.all([getAllAgent(props.token)]).then(res => {
-      dispatch({loading: false});
-      if (res[0] === null) {
-        navigate('/');
-        return;
-      }
-      setData(res[0]);
-      setMode('list');
-    });
-  }, [navigate, props.token, dispatch]);
-
   return (
     <View>
       {mode === 'list' && (
@@ -47,40 +39,30 @@ function Agent(props) {
           setData={setData}
           token={props.token}
           remove={ids => removeItems(data, setData, ids)}
-          setSelectedAgent={setSelectedAgent}
+          setSelectedStudent={setSelectedStudent}
           edit={ids => editItem(data, setData, ids)}
         />
       )}
-      {mode === 'createStep1' && (
-        <CreateStep1
+      {mode === 'create' && (
+        <Create
           data={data}
           setMode={setMode}
           setLoading={setLoading}
           token={props.token}
-          step={1}
           addItem={i => addItem(data, setData, i)}
         />
       )}
-      {mode === 'students' && (
-        <Students
+      {mode === 'addAll' && (
+        <AddAll
+          data={data}
           setMode={setMode}
           setLoading={setLoading}
-          data={data}
           token={props.token}
-          setSelectedAgent={setSelectedAgent}
-        />
-      )}
-      {mode === 'details' && (
-        <Details
-          setMode={setMode}
-          setLoading={setLoading}
-          data={data}
-          token={props.token}
-          setSelectedAgent={setSelectedAgent}
+          addItem={i => addItem(data, setData, i)}
         />
       )}
     </View>
   );
 }
 
-export default Agent;
+export default Students;

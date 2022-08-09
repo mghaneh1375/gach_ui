@@ -2,9 +2,9 @@ import {useState} from 'react';
 import {View} from 'react-native';
 import {CommonWebBox} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import columns from './TableStructure';
-import Ops from './Ops/Ops';
-import commonTranslator from '../../../../tranlates/Common';
+import columns from '../../teachers/list/TableStructure';
+import Ops from '../../teachers/list/Ops/Ops';
+import Translate from '../Translate';
 
 function List(props) {
   const [selectedId, setSelectedId] = useState();
@@ -13,7 +13,7 @@ function List(props) {
     setShowOpPopUp(!showOpPopUp);
   };
   const handleOp = idx => {
-    props.setSelectedAgent(props.data[idx]);
+    props.setSelectedStudent(props.data[idx]);
     setSelectedId(props.data[idx].id);
     toggleShowOpPopUp();
   };
@@ -32,7 +32,7 @@ function List(props) {
         />
       )}
       <CommonWebBox
-        header={commonTranslator.schools}
+        header={Translate.managementStudents}
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         <CommonDataTable

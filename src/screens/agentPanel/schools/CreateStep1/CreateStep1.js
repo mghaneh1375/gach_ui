@@ -15,11 +15,10 @@ import StateAndCity from '../../../../components/web/StateAndCity';
 import {sexKeyVals, showError, showSuccess} from '../../../../services/Utility';
 import {grades} from '../../../panel/Config/Schools/components/KeyVals';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {addItem} from '../../../../services/Utility';
 
 function CreateStep1(props) {
   const [phone, setPhone] = useState('09224786125');
-  const [nid, setNid] = useState('00018374921');
+  const [nid, setNid] = useState('0018374921');
 
   const [name, setName] = useState('البرز');
   const [sex, setSex] = useState('male');
@@ -213,8 +212,7 @@ function CreateStep1(props) {
               props.setLoading(false);
               if (res !== null) {
                 if (res != -1) {
-                  info.id = res;
-                  props.addItem(res);
+                  props.addItem(res.school);
                 }
 
                 props.setMode('list');
