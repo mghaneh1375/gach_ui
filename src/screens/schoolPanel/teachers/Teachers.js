@@ -3,9 +3,7 @@ import {View} from 'react-native';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import List from './list/List';
 import Create from './create/Create';
-// import AddAll from './addAll/addAll';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
-import ShowPic from './showPic/ShowPic';
 
 function TeacherAccess(props) {
   const queryString = require('query-string');
@@ -53,16 +51,6 @@ function TeacherAccess(props) {
           addItem={i => addItem(data, setData, i)}
         />
       )}
-      {mode === 'showPic' && <ShowPic />}
-      {/* {mode === 'addAll' && (
-        <AddAll
-          data={data}
-          setMode={setMode}
-          setLoading={setLoading}
-          token={props.token}
-          addItem={i => addItem(data, setData, i)}
-        />
-      )} */}
     </View>
   );
 }

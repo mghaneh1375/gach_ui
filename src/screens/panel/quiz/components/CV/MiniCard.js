@@ -1,9 +1,4 @@
-import {
-  faEye,
-  faPen,
-  faPlane,
-  faTrash,
-} from '@fortawesome/free-solid-svg-icons';
+import {faEye, faPen, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 import {
   BigBoldBlueText,
@@ -12,6 +7,7 @@ import {
   SimpleText,
 } from '../../../../../styles/Common';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
+import {removeItems} from '../../../../../services/Utility';
 
 function MiniCard(props) {
   //   const [show, setShow] = useState();
@@ -42,14 +38,14 @@ function MiniCard(props) {
             </View>
             <PhoneView style={{paddingRight: 15, gap: 15}}>
               <FontIcon
-                onPress={window.open(`${(<img src={props.src} />)}`)}
+                onPress={() => window.open(props.src)}
                 theme="rect"
                 kind="normal"
                 back={'orange'}
                 icon={faEye}
               />
               <FontIcon
-                onPress={props.onPress}
+                onPress={props.remove}
                 theme="rect"
                 kind="normal"
                 back={'yellow'}
@@ -69,5 +65,4 @@ function MiniCard(props) {
     </CommonWebBox>
   );
 }
-
 export default MiniCard;
