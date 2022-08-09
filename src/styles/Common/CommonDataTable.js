@@ -30,27 +30,29 @@ const CommonDataTable = props => {
   const [showRemovePopUp, setShowRemovePopUp] = useState(false);
   const [selectedOp, setSelectedOp] = useState();
 
-  const columns = [
-    {
+  let columns = [];
+
+  if (props.show_row_no === undefined || props.show_row_no)
+    columns[0] = {
       name: 'ردیف',
       cell: (row, index, column, id) => {
         return <p>{index + 1}</p>;
       },
-    },
-    props.handleOp !== undefined
-      ? {
-          name: commonTranslator.operation,
-          style: {
-            cursor: 'pointer',
-          },
-          cell: (row, index, column, id) => {
-            return <p onClick={() => props.handleOp(index)}>...</p>;
-          },
-          ignoreRowClick: true,
-        }
-      : {},
-    ...props.columns,
-  ];
+    };
+
+  if (props.handleOp !== undefined)
+    columns[columns.length === 0 ? 0 : columns.length - 1] = {
+      name: commonTranslator.operation,
+      style: {
+        cursor: 'pointer',
+      },
+      cell: (row, index, column, id) => {
+        return <p onClick={() => props.handleOp(index)}>...</p>;
+      },
+      ignoreRowClick: true,
+    };
+
+  columns = [...columns, ...props.columns];
 
   const onChangeSelectedRows = selectedRows => {
     setSelected(selectedRows);
@@ -220,7 +222,9 @@ const CommonDataTable = props => {
         </select>
       )}
       <DataTable
-        pagination
+        pagination={
+          props.pagination === undefined || props.pagination ? true : false
+        }
         customStyles={customStyles}
         columns={columns}
         data={state.data}

@@ -144,6 +144,12 @@ const Ops = props => {
           theme={'transparent'}
           title={translator.transferToOpenQuiz}
         />
+        <CommonButton
+          onPress={() => props.setMode('ranking')}
+          dir={'rtl'}
+          theme={'transparent'}
+          title={'مشاهده نتایج'}
+        />
         {(state.selectedQuiz.launchMode === 'physical' ||
           state.selectedQuiz.launchMode === 'hybrid') &&
           state.selectedQuiz.mode === 'regular' && (

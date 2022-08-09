@@ -52,6 +52,8 @@ export const routes = {
   editQuiz: 'quiz/manage/edit/',
   fetchQuizAnswerSheet: 'quiz/manage/getQuizAnswerSheet/',
   fetchQuizAnswerSheets: 'quiz/manage/getQuizAnswerSheets/',
+  fetchQuizRanking: 'quiz/manage/showRanking/',
+  fetchQuizKarname: 'quiz/manage/getStudentStat/',
   setQuizAnswerSheet: 'quiz/manage/setQuizAnswerSheet/',
   storeAnswers: 'quiz/manage/storeAnswers/',
   correct: 'quiz/manage/correct/10/2/30/70/4/',

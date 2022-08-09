@@ -10,6 +10,8 @@ import {editItem} from '../../../services/Utility';
 import CV from './components/CV/CV';
 import {QuizProvider} from './components/Context';
 import Key from './components/Key/Key';
+import Ranking from './components/Reports/Ranking/Ranking';
+import Karname from './components/Reports/Karname/Karname';
 
 const Quiz = props => {
   const [mode, setMode] = useState('list');
@@ -82,6 +84,20 @@ const Quiz = props => {
         )}
         {mode === 'CV' && (
           <CV setLoading={setLoading} setMode={setMode} token={props.token} />
+        )}
+        {mode === 'ranking' && (
+          <Ranking
+            setLoading={setLoading}
+            setMode={setMode}
+            token={props.token}
+          />
+        )}
+        {mode === 'karname' && (
+          <Karname
+            setLoading={setLoading}
+            setMode={setMode}
+            token={props.token}
+          />
         )}
       </QuizProvider>
     </View>

@@ -61,6 +61,26 @@ export const getQuestions = async (token, quizId, quizMode) => {
   );
 };
 
+export const getRanking = async (token, quizId, quizMode) => {
+  return await generalRequest(
+    routes.fetchQuizRanking + quizMode + '/' + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const getKarname = async (token, studentId, quizId, quizMode) => {
+  return await generalRequest(
+    routes.fetchQuizKarname + quizMode + '/' + quizId + '/' + studentId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const updateQuestionMark = async (
   token,
   quizId,
