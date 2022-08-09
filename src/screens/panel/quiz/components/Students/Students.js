@@ -16,8 +16,9 @@ import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBo
 import columns from './TableStructure';
 import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
 import {changeText, showSuccess} from '../../../../../services/Utility';
-import {removeStudents} from '../Utility';
+import {getAnswerSheets, removeStudents} from '../Utility';
 import {dispatchQuizContext, quizContext} from '../Context';
+import StudentAnswerSheet from '../AnswerSheet/StudentAnswerSheet';
 
 const Students = props => {
   const useGlobalState = () => [
@@ -105,79 +106,145 @@ const Students = props => {
 
   const [showSearchUser, setShowSearchUser] = useState(false);
   const [foundUser, setFoundUser] = useState();
+  const [studentIdx, setStudentIdx] = useState();
+  const [showAnswerSheet, setShowAnswerSheet] = useState(false);
+
+  const prepareShowAnswerSheet = async () => {
+    if (state.selectedQuiz.answer_sheets === undefined) {
+      props.setLoading(true);
+      let res = await getAnswerSheets(
+        state.selectedQuiz.id,
+        state.selectedQuiz.generalMode,
+        props.token,
+      );
+
+      props.setLoading(false);
+
+      if (res !== null) {
+        state.selectedQuiz.answer_sheet = res.answers;
+        state.selectedQuiz.answer_sheets = res.students;
+        dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+      } else {
+        return;
+      }
+    }
+
+    state.selectedQuiz.answer_sheets.forEach((elem, index) => {
+      if (elem.student.id == selectedSudent.id) {
+        let data = state.selectedQuiz.answer_sheet.map((elem, idx) => {
+          elem.studentAns =
+            state.selectedQuiz.answer_sheets[index].answers[idx];
+          return elem;
+        });
+
+        dispatch({
+          showAnswers: true,
+          showStdAnswers: true,
+          allowChangeStdAns: false,
+          allowChangeAns: false,
+          wanted_answer_sheet: data,
+          new_std_answer_sheet: state.selectedQuiz.answer_sheets[
+            index
+          ].answers.map(elem => {
+            return elem;
+          }),
+        });
+        setStudentIdx(index);
+        setShowOpPopUp(false);
+        setShowAnswerSheet(true);
+      }
+    });
+  };
 
   return (
     <View>
-      <SearchUser
-        setFinalResult={setFoundUser}
-        setShow={setShowSearchUser}
-        token={props.token}
-        setLoading={props.setLoading}
-        show={showSearchUser}
-      />
+      {showAnswerSheet && (
+        <StudentAnswerSheet
+          selectedAnswerSheetIdx={studentIdx}
+          setLoading={props.setLoading}
+          onBackClick={() => setShowAnswerSheet(false)}
+        />
+      )}
       {showOpPopUp && (
         <LargePopUp
           toggleShowPopUp={toggleShowOpPopUp}
           title={state.selectedQuiz.title}>
-          <PhoneView style={{flexWrap: 'wrap'}}>
+          <PhoneView style={{flexWrap: 'wrap', gap: 20}}>
             <CommonButton
               onPress={() => removeStudent()}
               dir={'rtl'}
               theme={'transparent'}
               title={translator.deleteStudent}
             />
+            <CommonButton
+              onPress={() => prepareShowAnswerSheet()}
+              dir={'rtl'}
+              theme={'transparent'}
+              title={'مشاهده پاسخ برگ'}
+            />
           </PhoneView>
         </LargePopUp>
       )}
-      <CommonWebBox
-        backBtn={true}
-        onBackClick={() => props.setMode('list')}
-        style={{zIndex: 'unset'}}
-        header={translator.studentsListInQuiz}>
-        <ExcelComma
-          header={translator.addStudent}
-          placeholder={commonTranslator.NIDs}
-          help={commonTranslator.NIDHelp}
-          newItems={
-            foundUser === undefined ? [] : foundUser.map(elem => elem.NID)
-          }
-          setNewItems={setFoundUser}
-          setLoading={props.setLoading}
-          onSearchClick={() => setShowSearchUser(true)}
-          token={props.token}
-          url={
-            routes.forceRegistry +
-            state.selectedQuiz.generalMode +
-            '/' +
-            state.selectedQuiz.id
-          }
-          afterAddingCallBack={afterAdd}
-          additionalData={{paid: paid}}
-          mandatoryFields={['paid']}>
-          <View style={{zIndex: 1, marginBottom: 10}}>
-            <JustBottomBorderTextInput
-              justNum={true}
-              value={paid}
-              onChangeText={e => changeText(e, setPaid)}
-              placeholder={commonTranslator.paid}
+      {!showAnswerSheet && (
+        <View>
+          <SearchUser
+            setFinalResult={setFoundUser}
+            setShow={setShowSearchUser}
+            token={props.token}
+            setLoading={props.setLoading}
+            show={showSearchUser}
+          />
+          <CommonWebBox
+            backBtn={true}
+            onBackClick={() => props.setMode('list')}
+            style={{zIndex: 'unset'}}
+            header={translator.studentsListInQuiz}>
+            <ExcelComma
+              header={translator.addStudent}
+              placeholder={commonTranslator.NIDs}
+              help={commonTranslator.NIDHelp}
+              newItems={
+                foundUser === undefined ? [] : foundUser.map(elem => elem.NID)
+              }
+              setNewItems={setFoundUser}
+              setLoading={props.setLoading}
+              onSearchClick={() => setShowSearchUser(true)}
+              token={props.token}
+              url={
+                routes.forceRegistry +
+                state.selectedQuiz.generalMode +
+                '/' +
+                state.selectedQuiz.id
+              }
+              afterAddingCallBack={afterAdd}
+              additionalData={{paid: paid}}
+              mandatoryFields={['paid']}>
+              <View style={{zIndex: 1, marginBottom: 10}}>
+                <JustBottomBorderTextInput
+                  justNum={true}
+                  value={paid}
+                  onChangeText={e => changeText(e, setPaid)}
+                  placeholder={commonTranslator.paid}
+                />
+              </View>
+            </ExcelComma>
+            <CommonDataTable
+              columns={columns}
+              data={state.selectedQuiz.students}
+              handleOp={handleOp}
+              setLoading={props.setLoading}
+              token={props.token}
+              setData={setStudents}
+              removeUrl={
+                routes.forceDeportation +
+                state.selectedQuiz.generalMode +
+                '/' +
+                state.selectedQuiz.id
+              }
             />
-          </View>
-        </ExcelComma>
-        <CommonDataTable
-          columns={columns}
-          data={state.selectedQuiz.students}
-          handleOp={handleOp}
-          setLoading={props.setLoading}
-          token={props.token}
-          setData={setStudents}
-          removeUrl={
-            routes.forceDeportation +
-            state.selectedQuiz.generalMode +
-            '/' +
-            state.selectedQuiz.id
-          }
-        />
-      </CommonWebBox>
+          </CommonWebBox>
+        </View>
+      )}
     </View>
   );
 };

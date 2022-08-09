@@ -4,7 +4,8 @@ const columns = [
   {
     name: 'نام آزمون',
     selector: row => row.title,
-    grow: 1,
+    grow: 3,
+    wrap: true,
   },
   {
     name: 'قیمت',

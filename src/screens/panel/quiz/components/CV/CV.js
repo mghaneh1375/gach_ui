@@ -15,6 +15,7 @@ import translator from '../../Translator';
 import ToggleSwitch from 'toggle-switch-react-native';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {faLock, faUnlock} from '@fortawesome/free-solid-svg-icons';
+import StudentAnswerSheet from '../AnswerSheet/StudentAnswerSheet';
 
 function CV(props) {
   const useGlobalState = () => [
@@ -26,15 +27,6 @@ function CV(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [showAnswerSheet, setShowAnswerSheet] = useState(false);
   const [selectedAnswerSheetIdx, setSelectedAnswerSheetIdx] = useState();
-
-  const [stdChangingMode, setStdChangingMode] = useState();
-
-  React.useEffect(() => {
-    dispatch({
-      showAnswers: !stdChangingMode,
-      allowChangeStdAns: stdChangingMode,
-    });
-  }, [stdChangingMode, dispatch]);
 
   React.useEffect(() => {
     if (selectedAnswerSheetIdx === undefined) return;
@@ -51,7 +43,7 @@ function CV(props) {
 
   React.useEffect(() => {
     if (!showAnswerSheet) {
-      setStdChangingMode(false);
+      // setStdChangingMode(false);
       setSelectedAnswerSheetIdx(undefined);
       dispatch({
         wanted_answer_sheet: undefined,
@@ -91,77 +83,10 @@ function CV(props) {
   return (
     <View style={{zIndex: 'unset'}}>
       {showAnswerSheet && (
-        <View>
-          <CommonWebBox
-            backBtn={true}
-            onBackClick={() => setShowAnswerSheet(false)}
-            header={
-              state.selectedQuiz.answer_sheets[selectedAnswerSheetIdx].student
-                .name
-            }>
-            <EqualTwoTextInputs>
-              <View>
-                <ToggleSwitch
-                  isOn={stdChangingMode}
-                  onColor="green"
-                  offColor="red"
-                  label="تغییر پاسخ دانش آموز"
-                  labelStyle={{
-                    color: 'black',
-                    fontFamily: 'IRANSans',
-                  }}
-                  size="medium"
-                  onToggle={isOn => {
-                    setStdChangingMode(isOn);
-                  }}
-                />
-              </View>
-              <SimpleFontIcon
-                parentStyle={{marginLeft: 20, marginTop: 20}}
-                kind={'normal'}
-                icon={stdChangingMode ? faUnlock : faLock}
-              />
-            </EqualTwoTextInputs>
-            {stdChangingMode && (
-              <CommonButton
-                title={'ثبت تغییرات پاسخ برگ دانش آموز'}
-                theme={'dark'}
-                onPress={async () => {
-                  let res = await updateStudentAnswers(
-                    state.selectedQuiz.id,
-                    state.selectedQuiz.answer_sheets[selectedAnswerSheetIdx]
-                      .student.id,
-                    state.selectedQuiz.generalMode,
-                    {answers: state.new_std_answer_sheet},
-                    props.token,
-                  );
-                  if (res !== null) {
-                    state.selectedQuiz.answer_sheets[
-                      selectedAnswerSheetIdx
-                    ].answers = state.new_std_answer_sheet;
-
-                    let data = state.selectedQuiz.answer_sheet.map(
-                      (elem, index) => {
-                        elem.studentAns = state.new_std_answer_sheet[index];
-                        return elem;
-                      },
-                    );
-                    dispatch({
-                      selectedQuiz: state.selectedQuiz,
-                      needUpdate: true,
-                      wanted_answer_sheet: data,
-                    });
-                  }
-                }}
-              />
-            )}
-          </CommonWebBox>
-          <AnswerSheet
-            answer_sheet={state.wanted_answer_sheet}
-            setLoading={props.setLoading}
-            token={props.token}
-          />
-        </View>
+        <StudentAnswerSheet
+          selectedAnswerSheetIdx={selectedAnswerSheetIdx}
+          onBackClick={setShowAnswerSheet(false)}
+        />
       )}
       {!showAnswerSheet && (
         <CommonWebBox
