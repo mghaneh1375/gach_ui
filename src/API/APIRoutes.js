@@ -127,4 +127,5 @@ export const routes = {
   checkDuplicate: 'admin/user/checkDuplicate',
   acceptInvite: 'admin/user/acceptInvite/',
   addSchoolByAgent: 'admin/user/addSchool',
+  getAllAgent: 'admin/user/getMySchools',
 };

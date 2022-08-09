@@ -14,7 +14,7 @@ const columns = [
   },
   {
     name: Translate.manager,
-    selector: row => row.manager,
+    selector: row => row.ManagerName,
     grow: 1,
   },
   {
@@ -24,17 +24,17 @@ const columns = [
   },
   {
     name: Translate.number,
-    selector: row => row.number,
+    selector: row => row.studentsNo,
     grow: 1,
   },
   {
     name: commonTranslator.sex,
-    selector: row => row.schoolSex,
+    selector: row => row.schoolSexFa,
     grow: 1,
   },
   {
     name: commonTranslator.grade,
-    selector: row => row.kindSchool,
+    selector: row => row.kindSchoolFa,
     grow: 1,
   },
 ];

@@ -61,6 +61,15 @@ export default function WebRouter() {
           />
           <Route path="/agents" element={<WebStructue page="agents" />} />
           <Route
+            path="/schoolAccess"
+            element={<WebStructue page="schoolAccess" />}
+          />
+          <Route
+            path="/teacherAccess"
+            element={<WebStructue page="teacherAccess" />}
+          />
+          <Route path="/teachers" element={<WebStructue page="teachers" />} />
+          <Route
             path="/acceptInvite/:reqId"
             element={<WebStructue page="acceptInvite" />}
           />

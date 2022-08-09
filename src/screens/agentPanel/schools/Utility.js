@@ -2,9 +2,9 @@ import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {showSuccess} from '../../../services/Utility';
 
-export const getAllAgentSchools = async token => {
+export const getAllAgent = async token => {
   return await generalRequest(
-    routes.getAllAgentSchools,
+    routes.getAllAgent,
     'get',
     undefined,
     'data',
@@ -18,7 +18,7 @@ export const addSchool = async (data, token) => {
       routes.addSchoolByAgent,
       'post',
       data,
-      'id',
+      ['id', 'school'],
       token,
       ['tel', 'NID', 'phone', 'name', 'address', 'managerName'],
     );

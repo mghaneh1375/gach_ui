@@ -53,6 +53,10 @@ import Upgrade from './studentPanel/Upgrade/Upgrade';
 import ConfigGift from './panel/spinGift/components/configGift/configGift';
 import Agent from './agentPanel/schools/schools';
 import AcceptInvite from './SinglePages/AcceptInvite';
+import Students from './schoolPanel/students/students';
+import Teacher from '../components/web/LargeScreen/Header/Menus/Teacher';
+import Teachers from './teacher/teachers/Teachers';
+import TeacherAccess from './schoolPanel/teachers/Teachers';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -320,6 +324,15 @@ const WebStructue = props => {
                 )}
               {props.page === 'agents' && (
                 <Agent token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'schoolAccess' && (
+                <Students token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'teacherAccess' && (
+                <TeacherAccess token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'teachers' && (
+                <Teachers token={token} user={user} navigate={navigate} />
               )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </View>
