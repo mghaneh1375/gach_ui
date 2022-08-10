@@ -45,6 +45,7 @@ function List(props) {
       </CommonWebBox>
       <PhoneView>
         <MiniCard
+          remove={ids => props.remove(ids)}
           src={
             'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Orange-Whole-%26-Split.jpg/800px-Orange-Whole-%26-Split.jpg'
           }
@@ -52,6 +53,8 @@ function List(props) {
           text={'توضیحات متن'}
         />
         <MiniCard
+          data={props.data}
+          setData={props.setData}
           src={
             'https://images.unsplash.com/photo-1598646319019-0001e1300494?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=876&q=80'
           }
@@ -59,13 +62,15 @@ function List(props) {
           text={'مثال متن'}
         />
         <MiniCard
+          data={props.data}
+          setData={props.setData}
           src={
             'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
           }
-          onPress={window.open('www.google.com')}
           header={'سلام دانش آموز'}
           text={'توضیحات '}
         />
+        <MiniCard />
       </PhoneView>
     </View>
   );
