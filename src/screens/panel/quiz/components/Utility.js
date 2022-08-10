@@ -41,6 +41,46 @@ export const getAnswerSheets = async (quizId, quizMode, token) => {
   );
 };
 
+export const fetchSchoolReport = async (quizId, token) => {
+  return await generalRequest(
+    routes.fetchSchoolReport + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const fetchCityReport = async (quizId, token) => {
+  return await generalRequest(
+    routes.fetchCityReport + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const fetchStateReport = async (quizId, token) => {
+  return await generalRequest(
+    routes.fetchStateReport + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const fetchGenderReport = async (quizId, token) => {
+  return await generalRequest(
+    routes.fetchGenderReport + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const getAnswerSheet = async (quizId, quizMode, token) => {
   return await generalRequest(
     routes.fetchQuizAnswerSheet + quizMode + '/' + quizId,
