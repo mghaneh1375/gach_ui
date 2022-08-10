@@ -12,7 +12,7 @@ function MyLineChart(props) {
         ],
       }}
       width={props.width} // from react-native
-      height={600}
+      height={props.height}
       withVerticalLabels={true}
       chartConfig={{
         backgroundColor: '#e26a00',

@@ -169,5 +169,6 @@ const translator = {
   addDate: 'اضافه کردن تاریخ',
   web: 'وب',
   app: 'اپ',
+  print: 'چاپ',
 };
 export default translator;
