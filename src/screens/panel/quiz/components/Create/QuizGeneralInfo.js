@@ -22,7 +22,7 @@ const QuizGeneralInfo = props => {
 
   return (
     <View>
-      <PhoneView style={{gap: 20}}>
+      <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
         <JustBottomBorderTextInput
           placeholder={translator.name}
           onChangeText={e => changeInput('name', e)}

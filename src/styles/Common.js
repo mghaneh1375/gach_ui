@@ -120,6 +120,7 @@ export const CommonButton = props => {
           borderWidth: 1,
           borderStyle: 'solid',
           borderColor: vars.LIGHT_SILVER,
+          padding: '5px 30px',
         },
       };
       textStyle = {
@@ -136,6 +137,7 @@ export const CommonButton = props => {
           borderWidth: 1,
           borderStyle: 'solid',
           borderColor: vars.YELLOW,
+          padding: '5px 30px',
         },
       };
       textStyle = {
@@ -149,6 +151,7 @@ export const CommonButton = props => {
         ...allStyles,
         ...{
           backgroundColor: vars.YELLOW,
+          padding: '5px 30px',
         },
       };
     } else
@@ -156,6 +159,7 @@ export const CommonButton = props => {
         ...allStyles,
         ...{
           backgroundColor: vars.DARK_BLUE,
+          padding: '5px 30px',
         },
       };
   }
@@ -165,6 +169,7 @@ export const CommonButton = props => {
       ...allStyles,
       ...{
         alignSelf: 'flex-start',
+        padding: '5px 30px',
       },
     };
   }
@@ -172,6 +177,7 @@ export const CommonButton = props => {
     ...allStyles,
     ...{
       display: 'flex',
+      padding: '5px 30px',
     },
   };
 
@@ -330,7 +336,7 @@ export const CommonWebBox = props => {
             text={props.header}
           />
           {props.btn !== undefined && props.btn}
-          <View style={{gap: 10, marginBottom: 10}}>
+          <View style={{gap: 10, marginBottom: 10, text: 'center'}}>
             {props.addBtn !== undefined && props.addBtn && (
               <FontIcon
                 onPress={props.onAddClick}

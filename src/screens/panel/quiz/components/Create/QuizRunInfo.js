@@ -26,7 +26,7 @@ const QuizRunInfo = props => {
     <View>
       <PhoneView>
         <Col lg={6}>
-          <PhoneView>
+          <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
             <CommonRadioButton
               value="question"
               status={props.lenMode === 'question' ? 'checked' : 'unchecked'}
@@ -47,7 +47,7 @@ const QuizRunInfo = props => {
           </PhoneView>
         </Col>
         <Col lg={6}>
-          <PhoneView>
+          <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
             <JustBottomBorderSelect
               isHalf={true}
               values={launchModeKeyVals}
@@ -65,9 +65,9 @@ const QuizRunInfo = props => {
           </PhoneView>
         </Col>
       </PhoneView>
-      <PhoneView style={{marginTop: 20}}>
+      <PhoneView>
         <Col lg={12}>
-          <PhoneView>
+          <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
             <JustBottomBorderSelect
               isHalf={true}
               values={trueFalseValues}
@@ -100,9 +100,9 @@ const QuizRunInfo = props => {
         </Col>
       </PhoneView>
 
-      <PhoneView style={{marginTop: 20}}>
+      <PhoneView>
         <Col lg={12}>
-          <PhoneView>
+          <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
             <JustBottomBorderSelect
               isHalf={true}
               values={trueFalseValues}
@@ -135,7 +135,7 @@ const QuizRunInfo = props => {
         </Col>
       </PhoneView>
 
-      <PhoneView style={{marginTop: 10}}>
+      <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
         <JustBottomBorderDatePicker
           placeholder={translator.startDate}
           value={props.start}

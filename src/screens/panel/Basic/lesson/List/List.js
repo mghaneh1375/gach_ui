@@ -43,7 +43,6 @@ function List(props) {
           }}
         />
       )}
-
       <CommonWebBox
         header={commonTranslator.lessonsDefinition}
         addBtn={true}

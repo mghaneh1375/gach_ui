@@ -113,10 +113,9 @@ function Create(props) {
       <CommonWebBox
         header={translator.title}
         backBtn={true}
-        onBackClick={() => props.setMode('list')}
-        style={{margin: 10, paddingRight: 25}}>
+        onBackClick={() => props.setMode('list')}>
         {props.isAdmin && (
-          <PhoneView>
+          <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
             <JustBottomBorderTextInput
               isHalf={true}
               value={
@@ -137,7 +136,7 @@ function Create(props) {
           </PhoneView>
         )}
 
-        <PhoneView style={{margin: 10}}>
+        <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
           <JustBottomBorderSelect
             isHalf={true}
             setter={setPriority}

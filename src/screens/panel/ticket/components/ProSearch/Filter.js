@@ -52,23 +52,23 @@ function Filter(props) {
 
   return (
     <View style={{zIndex: 'unset'}}>
-      <PhoneView>
+      <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
         <JustBottomBorderSelect
-          isHalf={true}
+          isHalf={false}
           setter={setStatus}
           values={statusKeyVals}
           value={statusKeyVals.find(elem => elem.id === status)}
           placeholder={translator.status}
         />
         <JustBottomBorderSelect
-          isHalf={true}
+          isHalf={false}
           setter={setPriority}
           values={priorityKeyVals}
           value={priorityKeyVals.find(elem => elem.id === priority)}
           placeholder={translator.priority}
         />
         <JustBottomBorderSelect
-          isHalf={true}
+          isHalf={false}
           setter={setSection}
           values={sectionKeyValsForFilter}
           value={sectionKeyValsForFilter.find(elem => elem.id === section)}
