@@ -54,6 +54,18 @@ const CommonDataTable = props => {
 
   columns = [...columns, ...props.columns];
 
+  columns.map(elem => {
+    elem.wrap = true;
+    // elem.style =
+    //   elem.style !== undefined
+    //     ? {
+    //         ...elem.style,
+    //         ...{justifyContent: 'center'},
+    //       }
+    //     : {justifyContent: 'center'};
+    return elem;
+  });
+
   const onChangeSelectedRows = selectedRows => {
     setSelected(selectedRows);
   };
