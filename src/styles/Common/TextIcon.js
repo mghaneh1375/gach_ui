@@ -4,14 +4,13 @@ import vars from '../root';
 import {FontIcon} from './FontIcon';
 
 const style = {
-  paddingLeft: 10,
   paddingRight: 10,
   marginTop: 0,
 };
 
 const InnerViewCommonStyle = {
-  width: 40,
-  height: 40,
+  width: 30,
+  height: 30,
 };
 
 const InnerViewStyleAndroid = {

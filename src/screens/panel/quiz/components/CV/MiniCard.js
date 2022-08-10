@@ -21,29 +21,34 @@ function MiniCard(props) {
     <CommonWebBox width={250} style={{padding: 0}}>
       <View>
         <PhoneView>
-          {props.src !== undefined && (
+          {src !== undefined && (
             <Image
               style={{
                 width: 100,
                 height: 140,
-                borderRadius: 12,
+                borderRadius: 11,
                 objectFit: 'cover',
                 objectPosition: 'center',
               }}
               source={src}
             />
           )}
-          {props.src === undefined && (
+          {src === undefined && (
             <View
               style={{
                 width: 100,
                 height: 140,
-                borderRadius: 12,
+                borderRadius: 11,
                 objectFit: 'cover',
                 objectPosition: 'center',
                 justifyContent: 'center',
               }}>
-              <FontIcon theme="rect" kind="normal" style={{}} icon={faPlus} />
+              <FontIcon
+                theme={'transparent'}
+                style={{width: 30, marginTop: 32}}
+                icon={faPlus}
+                text={'فایل را اضافه کنید'}
+              />
             </View>
           )}
 
@@ -53,7 +58,7 @@ function MiniCard(props) {
                 style={{padding: 0, paddingRight: 10, fontSize: 15}}
                 text={props.header}
               />
-              {props.src === undefined && (
+              {src === undefined && (
                 <BigBoldBlueText
                   style={{padding: 0, paddingRight: 10, fontSize: 15}}
                   text={'فایل را اضافه کنید'}
@@ -64,7 +69,7 @@ function MiniCard(props) {
                 text={props.text}
               />
             </View>
-            {props.src !== undefined && (
+            {src !== undefined && (
               <PhoneView style={{paddingRight: 15, gap: 15}}>
                 <FontIcon
                   onPress={() => window.open(props.src)}
@@ -74,7 +79,6 @@ function MiniCard(props) {
                   icon={faEye}
                 />
                 <FontIcon
-                  // onPress={() => remove(link)}
                   theme="rect"
                   kind="normal"
                   back={'yellow'}

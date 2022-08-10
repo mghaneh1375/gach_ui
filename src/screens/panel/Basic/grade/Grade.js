@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import {getGrade, getGrades} from '../Utility';
 import List from './List/List';
-import Create from './Create';
+import Create from './create/Create';
 import Translate from '../Translate';
 import {addItem, editItem} from '../../../../services/Utility';
 

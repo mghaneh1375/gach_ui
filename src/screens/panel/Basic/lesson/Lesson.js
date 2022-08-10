@@ -4,7 +4,7 @@ import {globalStateContext, dispatchStateContext} from '../../../../App';
 import List from './List/List';
 import React from 'react';
 import {getGradesOnly, getLessons} from '../Utility';
-import Create from './Create';
+import Create from './create/Create';
 import {addItem, editItem} from '../../../../services/Utility';
 
 function Lesson(props) {

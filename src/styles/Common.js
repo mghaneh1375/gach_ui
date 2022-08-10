@@ -264,7 +264,7 @@ export const CommonRadioButton = props => (
       onPress={props.onPress}
     />
     {(props.type === undefined || props.type === 'simple') && (
-      <SimpleText text={props.text} style={{marginTop: 10}} />
+      <SimpleText text={props.text} style={{marginTop: 4}} />
     )}
     {props.type !== undefined && props.type === 'textInput' && (
       <JustBottomBorderTextInput
