@@ -2,7 +2,7 @@ const columns = [
   {
     name: 'نام درس ',
     selector: row => row.name,
-    grow: 5,
+    grow: 4,
   },
   {
     name: 'میانگین درصد پاسخگویی',

@@ -1,6 +1,11 @@
 import React, {useState, useRef, useCallback} from 'react';
 import {Image, View} from 'react-native';
-import {CommonWebBox, PhoneView} from '../../../../../../styles/Common';
+import {
+  BigBoldBlueTextInline,
+  CommonWebBox,
+  EqualTwoTextInputs,
+  PhoneView,
+} from '../../../../../../styles/Common';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
 import {getKarname} from '../../Utility';
@@ -89,16 +94,18 @@ function Karname(props) {
         </PhoneView>
       </CommonWebBox>
       <PhoneView style={{flexWrap: 'wrap'}}>
-        <CommonWebBox
-          header={'جدول شماره 1 - نتایج دروس'}
-          width={'60%'}
-          btn={
+        <CommonWebBox width={'60%'}>
+          <EqualTwoTextInputs>
+            <BigBoldBlueTextInline
+              style={{alignSelf: 'center'}}
+              text={'جدول شماره 1 - نتایج دروس'}
+            />
             <SimpleFontIcon
               kind={'normal'}
               onPress={() => setShowLessonChart(!showLessonChart)}
               icon={showLessonChart ? faAngleUp : faAngleDown}
             />
-          }>
+          </EqualTwoTextInputs>
           {karname !== undefined && (
             <View style={{padding: 10}}>
               {karname !== undefined && !showLessonChart && (
@@ -124,16 +131,18 @@ function Karname(props) {
             </View>
           )}
         </CommonWebBox>
-        <CommonWebBox
-          header={'جدول شماره 2 - نتایج آماری دروس'}
-          width={'35%'}
-          btn={
+        <CommonWebBox width={'35%'}>
+          <EqualTwoTextInputs>
+            <BigBoldBlueTextInline
+              style={{alignSelf: 'center'}}
+              text={'جدول شماره 2 - نتایج آماری دروس'}
+            />
             <SimpleFontIcon
               kind={'normal'}
               onPress={() => setShowGeneralStatChart(!showGeneralStatChart)}
               icon={showGeneralStatChart ? faAngleUp : faAngleDown}
             />
-          }>
+          </EqualTwoTextInputs>
           <View style={{padding: 10}}>
             {karname !== undefined && !showGeneralStatChart && (
               <CommonDataTable
@@ -169,16 +178,18 @@ function Karname(props) {
           </View>
         </CommonWebBox>
 
-        <CommonWebBox
-          header={'جدول شماره 3 - نتایج حیطه ها'}
-          width={'60%'}
-          btn={
+        <CommonWebBox width={'60%'}>
+          <EqualTwoTextInputs>
+            <BigBoldBlueTextInline
+              style={{alignSelf: 'center'}}
+              text={'جدول شماره 3 - نتایج حیطه ها'}
+            />
             <SimpleFontIcon
               kind={'normal'}
               onPress={() => setShowSubjectChart(!showSubjectChart)}
               icon={showSubjectChart ? faAngleUp : faAngleDown}
             />
-          }>
+          </EqualTwoTextInputs>
           <View style={{padding: 10}}>
             {karname !== undefined && !showSubjectChart && (
               <CommonDataTable
@@ -203,16 +214,18 @@ function Karname(props) {
           </View>
         </CommonWebBox>
 
-        <CommonWebBox
-          header={'جدول شماره 4 - نتایج آماری حیطه ها'}
-          width={'60%'}
-          btn={
+        <CommonWebBox width={'60%'}>
+          <EqualTwoTextInputs>
+            <BigBoldBlueTextInline
+              style={{alignSelf: 'center'}}
+              text={'جدول شماره 4 - نتایج آماری حیطه ها'}
+            />
             <SimpleFontIcon
               kind={'normal'}
               onPress={() => setShowSubjectChart(!showSubjectChart)}
               icon={showSubjectChart ? faAngleUp : faAngleDown}
             />
-          }>
+          </EqualTwoTextInputs>
           <View style={{padding: 10}}>
             {karname !== undefined && !showSubjectChart && (
               <CommonDataTable
