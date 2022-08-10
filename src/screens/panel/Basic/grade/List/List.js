@@ -1,7 +1,5 @@
 import {useState} from 'react';
 import {View} from 'react-native';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import {CommonWebBox} from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {routes} from '../../../../../API/APIRoutes';
@@ -48,12 +46,6 @@ function List(props) {
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         <View>
-          {/* <TextIcon
-            onPress={() => changeMode('create')}
-            theme={'rect'}
-            text={}
-            icon={faPlus}
-          /> */}
           <CommonDataTable
             columns={columns}
             data={props.grades}

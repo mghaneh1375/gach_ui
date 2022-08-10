@@ -1,11 +1,15 @@
 import {View} from 'react-native';
 import React, {useState} from 'react';
-import RadioButtonYesOrNo from '../../../../components/web/RadioButtonYesOrNo';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import Translate from '../Translate';
-import commonTranslate from '../../../../tranlates/Common';
-import {createGrade, editGrade} from '../Utility';
+import Translate from '../../Translate';
+import commonTranslate from '../../../../../tranlates/Common';
+import {createGrade, editGrade} from '../../Utility';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+} from '../../../../../styles/Common';
+import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
+import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
 
 function Create(props) {
   const [isOlympiad, setIsOlympiad] = useState(
@@ -23,7 +27,7 @@ function Create(props) {
         onBackClick={() => props.setMode('list')}
         header={commonTranslate.edit}>
         <View>
-          <PhoneView>
+          <PhoneView style={{gap: 10}}>
             <JustBottomBorderTextInput
               value={name}
               onChangeText={e => setName(e)}
@@ -35,7 +39,6 @@ function Create(props) {
               label={Translate.addOlympiad}
             />
           </PhoneView>
-
           <CommonButton
             onPress={async () => {
               props.setLoading(true);

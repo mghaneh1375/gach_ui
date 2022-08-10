@@ -1,5 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Platform, Pressable} from 'react-native';
+import {BigBoldBlueText} from '../Common';
 import vars from './../root';
 
 const FontIconStyle = {
@@ -28,6 +29,8 @@ export const FontIcon = props => {
         ? vars.ORANGE_RED
         : props.back === 'blue'
         ? vars.DARK_BLUE
+        : props.back === 'dark'
+        ? vars.DARK_WHITE
         : vars.YELLOW,
     cursor: 'pointer',
     width:
@@ -62,6 +65,12 @@ export const FontIcon = props => {
             Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
             props.style ? props.style : {},
           ]}
+        />
+      )}
+      {props.text !== undefined && (
+        <BigBoldBlueText
+          style={{padding: 0, paddingRight: 10, fontSize: 11}}
+          text={props.text}
         />
       )}
     </Pressable>
