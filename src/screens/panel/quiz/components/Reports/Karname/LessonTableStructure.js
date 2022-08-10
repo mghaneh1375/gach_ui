@@ -22,17 +22,17 @@ const columns = [
   {
     name: 'نزده',
     selector: row => row.whites,
-    grow: 1,
+    grow: 0.5,
   },
   {
     name: 'درصد',
     selector: row => row.percent,
-    grow: 1,
+    grow: 0.5,
   },
   {
     name: 'نمره تراز',
     selector: row => row.taraz,
-    grow: 1,
+    grow: 0.5,
   },
 ];
 

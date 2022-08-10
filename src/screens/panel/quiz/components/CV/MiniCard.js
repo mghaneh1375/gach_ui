@@ -1,10 +1,6 @@
-import {
-  faEye,
-  faPen,
-  faPlane,
-  faTrash,
-} from '@fortawesome/free-solid-svg-icons';
-import {View} from 'react-native';
+import {faEye, faPen, faTrash} from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react';
+import {Image, View} from 'react-native';
 import {
   BigBoldBlueText,
   CommonWebBox,
@@ -14,13 +10,19 @@ import {
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 
 function MiniCard(props) {
+  const [src, setSrc] = useState();
   //   const [show, setShow] = useState();
+
+  React.useEffect(() => {
+    setSrc(props.src);
+  }, [props.src]);
+
   const link = props.src;
   return (
     <CommonWebBox width={250} style={{padding: 0}}>
       <View>
         <PhoneView>
-          <img
+          <Image
             style={{
               width: 100,
               height: 140,
@@ -28,7 +30,8 @@ function MiniCard(props) {
               objectFit: 'cover',
               objectPosition: 'center',
             }}
-            src={props.src}></img>
+            source={src}
+          />
           <View style={{justifyContent: 'space-around', marginTop: -15}}>
             <View>
               <BigBoldBlueText

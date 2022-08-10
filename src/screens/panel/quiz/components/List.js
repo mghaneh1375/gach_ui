@@ -54,6 +54,7 @@ const List = props => {
           setLoading={props.setLoading}
           updateQuiz={props.updateQuiz}
           setMode={props.setMode}
+          navigate={props.navigate}
         />
       )}
       <CommonWebBox

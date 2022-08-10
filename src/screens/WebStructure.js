@@ -246,6 +246,14 @@ const WebStructue = props => {
                 params.mode === 'list' && (
                   <Quiz token={token} user={user} navigate={navigate} />
                 )}
+              {props.page === 'ranking' && params !== undefined && (
+                <Quiz
+                  mode={'ranking'}
+                  token={token}
+                  user={user}
+                  navigate={navigate}
+                />
+              )}
               {props.page === 'quiz' &&
                 params !== undefined &&
                 params.mode !== undefined &&

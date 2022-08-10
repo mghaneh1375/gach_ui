@@ -1,19 +1,15 @@
 import React, {useState, useRef, useCallback} from 'react';
-import {View} from 'react-native';
+import {Image, View} from 'react-native';
 import {CommonWebBox, PhoneView} from '../../../../../../styles/Common';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
 import {getKarname} from '../../Utility';
 import lessonTableStructure from './LessonTableStructure.js';
 import generalStatTableStructure from './GeneralStatTableStructure';
-import {
-  LineChart,
-  BarChart,
-  PieChart,
-  ProgressChart,
-  ContributionGraph,
-  StackedBarChart,
-} from 'react-native-chart-kit';
+import {SimpleFontIcon} from '../../../../../../styles/Common/FontIcon';
+import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
+import MyLineChart from './MyLineChart';
+import MiniCard from '../../CV/MiniCard';
 
 function Karname(props) {
   const useGlobalState = () => [
@@ -24,7 +20,9 @@ function Karname(props) {
 
   const [isWorking, setIsWorking] = useState();
   const [karname, setKarname] = useState();
-  const [showSubjectChart, setShowSubjectChart] = useState(true);
+  const [showSubjectChart, setShowSubjectChart] = useState(false);
+  const [showGeneralStatChart, setShowGeneralStatChart] = useState(false);
+  const [showLessonChart, setShowLessonChart] = useState(false);
 
   React.useEffect(() => {
     if (isWorking || state.selectedStudentId === undefined) return;
@@ -71,84 +69,175 @@ function Karname(props) {
   }, [dispatch, props, state.selectedQuiz, state.selectedStudentId, isWorking]);
 
   return (
-    <PhoneView style={{flexWrap: 'wrap'}}>
-      <CommonWebBox header={'جدول شماره 1 - نتایج دروس'} width={'60%'}>
-        {karname !== undefined && (
-          <CommonDataTable
-            columns={lessonTableStructure}
-            data={karname.lessons}
-            show_row_no={false}
-            pagination={false}
-            groupOps={[]}
-          />
-        )}
+    <View>
+      <CommonWebBox
+        header={
+          state.selectedQuiz !== undefined
+            ? 'کارنامه آزمون ' + state.selectedQuiz.title
+            : 'کارنامه آزمون '
+        }
+        backBtn={true}
+        onBackClick={() => props.setMode('list')}>
+        <PhoneView>
+          {karname !== undefined && (
+            <MiniCard
+              text={'رتبه: ' + karname.rank.rank}
+              header={karname.student.name}
+              src={karname.student.pic}
+            />
+          )}
+        </PhoneView>
       </CommonWebBox>
-      <CommonWebBox header={'جدول شماره 2 - نتایج آماری دروس'} width={'35%'}>
-        {karname !== undefined && (
-          <CommonDataTable
-            columns={generalStatTableStructure}
-            data={karname.lessons}
-            show_row_no={false}
-            pagination={false}
-            groupOps={[]}
-          />
-        )}
-      </CommonWebBox>
-
-      <CommonWebBox header={'جدول شماره 3 - نتایج حیطه ها'} width={'60%'}>
-        {karname !== undefined && !showSubjectChart && (
-          <CommonDataTable
-            columns={lessonTableStructure}
-            data={karname.subjects}
-            show_row_no={false}
-            pagination={false}
-            groupOps={[]}
-          />
-        )}
-        {karname !== undefined && showSubjectChart && (
-          <LineChart
-            data={{
-              labels: karname.subjects.map(elem => {
-                return elem.name;
-              }),
-              datasets: [
-                {
-                  data: karname.subjects.map(elem => {
+      <PhoneView style={{flexWrap: 'wrap'}}>
+        <CommonWebBox
+          header={'جدول شماره 1 - نتایج دروس'}
+          width={'60%'}
+          btn={
+            <SimpleFontIcon
+              kind={'normal'}
+              onPress={() => setShowLessonChart(!showLessonChart)}
+              icon={showLessonChart ? faAngleUp : faAngleDown}
+            />
+          }>
+          {karname !== undefined && (
+            <View style={{padding: 10}}>
+              {karname !== undefined && !showLessonChart && (
+                <CommonDataTable
+                  columns={lessonTableStructure}
+                  data={karname.lessons}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                />
+              )}
+              {karname !== undefined && showLessonChart && (
+                <MyLineChart
+                  labels={karname.lessons.map(elem => {
+                    return elem.name;
+                  })}
+                  data={karname.lessons.map(elem => {
                     return elem.percent;
-                  }),
-                },
-              ],
-            }}
-            width={600} // from react-native
-            height={220}
-            yAxisInterval={1} // optional, defaults to 1
-            chartConfig={{
-              backgroundColor: '#e26a00',
-              backgroundGradientFrom: '#fb8c00',
-              backgroundGradientTo: '#ffa726',
-              decimalPlaces: 2, // optional, defaults to 2dp
-              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-              style: {
-                borderRadius: 16,
-                maxWidth: 50,
-              },
-              propsForDots: {
-                r: '6',
-                strokeWidth: '2',
-                stroke: '#ffa726',
-              },
-            }}
-            bezier
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
-              fontFamily: 'IRANSans',
-            }}
-          />
-        )}
-      </CommonWebBox>
-    </PhoneView>
+                  })}
+                  width={600}
+                />
+              )}
+            </View>
+          )}
+        </CommonWebBox>
+        <CommonWebBox
+          header={'جدول شماره 2 - نتایج آماری دروس'}
+          width={'35%'}
+          btn={
+            <SimpleFontIcon
+              kind={'normal'}
+              onPress={() => setShowGeneralStatChart(!showGeneralStatChart)}
+              icon={showGeneralStatChart ? faAngleUp : faAngleDown}
+            />
+          }>
+          <View style={{padding: 10}}>
+            {karname !== undefined && !showGeneralStatChart && (
+              <CommonDataTable
+                columns={generalStatTableStructure}
+                data={karname.lessons}
+                show_row_no={false}
+                pagination={false}
+                groupOps={[]}
+              />
+            )}
+            {karname !== undefined &&
+              showGeneralStatChart &&
+              karname.lessons.map((elem, index) => {
+                return (
+                  <MyLineChart
+                    width={400}
+                    key={index}
+                    labels={[
+                      'میانگین درصد پاسخگویی',
+                      'کمترین درصد پاسخگویی',
+                      'بیشترین درصد پاسخگویی',
+                      'درصد پاسخگویی داوطلب',
+                    ]}
+                    data={[
+                      parseInt(elem.avg) / 100,
+                      parseInt(elem.min) / 100,
+                      parseInt(elem.max) / 100,
+                      elem.percent / 100,
+                    ]}
+                  />
+                );
+              })}
+          </View>
+        </CommonWebBox>
+
+        <CommonWebBox
+          header={'جدول شماره 3 - نتایج حیطه ها'}
+          width={'60%'}
+          btn={
+            <SimpleFontIcon
+              kind={'normal'}
+              onPress={() => setShowSubjectChart(!showSubjectChart)}
+              icon={showSubjectChart ? faAngleUp : faAngleDown}
+            />
+          }>
+          <View style={{padding: 10}}>
+            {karname !== undefined && !showSubjectChart && (
+              <CommonDataTable
+                columns={lessonTableStructure}
+                show_row_no={false}
+                pagination={false}
+                groupOps={[]}
+                data={karname.subjects}
+              />
+            )}
+            {karname !== undefined && showSubjectChart && (
+              <MyLineChart
+                labels={karname.subjects.map(elem => {
+                  return elem.name;
+                })}
+                data={karname.subjects.map(elem => {
+                  return elem.percent;
+                })}
+                width={400}
+              />
+            )}
+          </View>
+        </CommonWebBox>
+
+        <CommonWebBox
+          header={'جدول شماره 4 - نتایج آماری حیطه ها'}
+          width={'60%'}
+          btn={
+            <SimpleFontIcon
+              kind={'normal'}
+              onPress={() => setShowSubjectChart(!showSubjectChart)}
+              icon={showSubjectChart ? faAngleUp : faAngleDown}
+            />
+          }>
+          <View style={{padding: 10}}>
+            {karname !== undefined && !showSubjectChart && (
+              <CommonDataTable
+                columns={generalStatTableStructure}
+                show_row_no={false}
+                pagination={false}
+                groupOps={[]}
+                data={karname.subjects}
+              />
+            )}
+            {karname !== undefined && showSubjectChart && (
+              <MyLineChart
+                labels={karname.subjects.map(elem => {
+                  return elem.name;
+                })}
+                data={karname.subjects.map(elem => {
+                  return elem.percent;
+                })}
+                width={400}
+              />
+            )}
+          </View>
+        </CommonWebBox>
+      </PhoneView>
+    </View>
   );
 }
 

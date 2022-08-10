@@ -1,5 +1,4 @@
 import React, {useState, useRef, useCallback} from 'react';
-import {View} from 'react-native';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {getRanking} from '../../Utility';
 import {CommonWebBox} from '../../../../../../styles/Common';
@@ -12,10 +11,30 @@ function Ranking(props) {
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState();
 
+  // const fetchQuiz = React.useCallback(() => {
+  //   console.log(state.quizzes);
+  // }, [state.quizzes]);
+
+  // React.useEffect(() => {
+  //   setTimeout(() => {
+  //     fetchQuiz();
+  //   }, [2000]);
+  // }, [fetchQuiz]);
+
+  // React.useEffect(() => {
+  //   console.log(state.quizzes);
+  //   if (isWorking) return;
+  //   if (state.quizzes === undefined) {
+  //     setIsWorking(true);
+  //     return;
+  //   }
+  // }, [state.quizzes, isWorking]);
+
   React.useEffect(() => {
+    if (state.selectedQuiz === undefined) return;
+
     if (isWorking || state.selectedQuiz.ranking !== undefined) return;
 
     props.setLoading(true);
@@ -50,16 +69,17 @@ function Ranking(props) {
       header={'نتایج'}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      {state.selectedQuiz.ranking !== undefined && (
-        <CommonDataTable
-          columns={columns}
-          data={state.selectedQuiz.ranking}
-          handleOp={handleOp}
-          show_row_no={false}
-          pagination={false}
-          groupOps={[]}
-        />
-      )}
+      {state.selectedQuiz !== undefined &&
+        state.selectedQuiz.ranking !== undefined && (
+          <CommonDataTable
+            columns={columns}
+            data={state.selectedQuiz.ranking}
+            handleOp={handleOp}
+            show_row_no={false}
+            pagination={false}
+            groupOps={[]}
+          />
+        )}
     </CommonWebBox>
   );
 }

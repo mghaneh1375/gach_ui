@@ -8,7 +8,7 @@
   flex-direction: column;
 }
 
-.menu-item-container>div:not(.super-menu-item) {
+.menu-item-container > div:not(.super-menu-item) {
   background: linear-gradient(to right, #ffaa00 50%, #707070 50%);
   background-size: 200% 100%;
   background-position: right bottom;
@@ -47,7 +47,7 @@
   }
 } */
 
-.menu-item-container>div:not(.super-menu-item):hover {
+.menu-item-container > div:not(.super-menu-item):hover {
   background-position: left bottom;
 }
 
@@ -67,20 +67,20 @@
   width: 100% !important;
 }
 
-.sub-item>div:hover {
+.sub-item > div:hover {
   background-color: #707070 !important;
   color: white;
 }
 
-.super-menu-item-font-container>div {
+.super-menu-item-font-container > div {
   width: 26px !important;
 }
 
-.super-menu-item-font-container>div:nth-child(2) {
+.super-menu-item-font-container > div:nth-child(2) {
   background-color: #707070;
 }
 
-.super-menu-item-font-container>div:nth-child(1) {
+.super-menu-item-font-container > div:nth-child(1) {
   margin-left: 10px;
 }
 
@@ -114,12 +114,12 @@
   border-bottom-style: solid;
 }
 
-.menu-item>div:nth-child(1) {
+.menu-item > div:nth-child(1) {
   width: -webkit-fill-available;
   width: -moz-available;
 }
 
-.menu-item:not(.menu-item-selected)>div:nth-child(1) {
+.menu-item:not(.menu-item-selected) > div:nth-child(1) {
   color: #707070;
   background: linear-gradient(to right, #ffaa00 50%, white 50%);
   background-size: 200% 100%;
@@ -127,7 +127,7 @@
   transition: all 0.7s ease-out;
 }
 
-.menu-item:not(.menu-item-selected)>div:nth-child(1):hover {
+.menu-item:not(.menu-item-selected) > div:nth-child(1):hover {
   background-color: transparent;
   color: white !important;
   background-position: left bottom;
@@ -167,8 +167,8 @@
   width: 100% !important;
 }
 
-.JDatePicker .JDheader>.right,
-.JDatePicker .JDheader>.left {
+.JDatePicker .JDheader > .right,
+.JDatePicker .JDheader > .left {
   width: 100% !important;
 }
 
@@ -178,7 +178,7 @@
   background-color: white;
 }
 
-.JDatePicker .JDheader>.right {
+.JDatePicker .JDheader > .right {
   position: relative;
   margin-top: 5px;
 }
@@ -225,7 +225,7 @@
   padding-top: 10px;
 } */
 
-.date-picker>input {
+.date-picker > input {
   font-family: IRANSans;
   background-color: white;
   border: 1px solid #707070;
@@ -253,7 +253,7 @@
   font-family: IRANSans;
 }
 
-.ck-editor__main>.ck-editor__editable {
+.ck-editor__main > .ck-editor__editable {
   min-height: 200px;
   direction: rtl;
   text-align: right !important;

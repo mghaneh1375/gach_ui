@@ -12,6 +12,7 @@ import {QuizProvider} from './components/Context';
 import Key from './components/Key/Key';
 import Ranking from './components/Reports/Ranking/Ranking';
 import Karname from './components/Reports/Karname/Karname';
+import {useParams} from 'react-router';
 
 const Quiz = props => {
   const [mode, setMode] = useState('list');
@@ -30,6 +31,14 @@ const Quiz = props => {
   const setLoading = status => {
     dispatch({loading: status});
   };
+
+  // const params = useParams();
+
+  // React.useEffect(() => {
+  //   if (props.mode !== undefined) {
+  //     setMode(props.mode);
+  //   } else setMode('list');
+  // }, [props.mode]);
 
   return (
     <View>

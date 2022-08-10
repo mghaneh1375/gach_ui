@@ -146,6 +146,7 @@ const Ops = props => {
         />
         <CommonButton
           onPress={() => props.setMode('ranking')}
+          // onPress={() => props.navigate('/ranking/irysc/1')}
           dir={'rtl'}
           theme={'transparent'}
           title={'مشاهده نتایج'}
