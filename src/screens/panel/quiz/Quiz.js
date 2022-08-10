@@ -12,6 +12,7 @@ import {QuizProvider} from './components/Context';
 import Key from './components/Key/Key';
 import Ranking from './components/Reports/Ranking/Ranking';
 import Karname from './components/Reports/Karname/Karname';
+import ReportList from './components/Reports/List/List';
 import {useParams} from 'react-router';
 
 const Quiz = props => {
@@ -103,6 +104,13 @@ const Quiz = props => {
         )}
         {mode === 'karname' && (
           <Karname
+            setLoading={setLoading}
+            setMode={setMode}
+            token={props.token}
+          />
+        )}
+        {mode === 'report' && (
+          <ReportList
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}

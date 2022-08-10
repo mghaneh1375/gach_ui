@@ -9,20 +9,14 @@ import {
   SimpleText,
 } from '../../../../../styles/Common';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import {remove} from '../../../Config/Avatars/components/Utility';
 
 function MiniCard(props) {
   const [src, setSrc] = useState();
-  //   const [show, setShow] = useState();
 
   React.useEffect(() => {
     setSrc(props.src);
   }, [props.src]);
 
-  const link = props.src;
-  console.log('====================================');
-  console.log(link);
-  console.log('====================================');
   return (
     <CommonWebBox width={250} style={{padding: 0}}>
       <View>
@@ -80,7 +74,7 @@ function MiniCard(props) {
                   icon={faEye}
                 />
                 <FontIcon
-                  onPress={() => remove(link)}
+                  // onPress={() => remove(link)}
                   theme="rect"
                   kind="normal"
                   back={'yellow'}

@@ -151,6 +151,12 @@ const Ops = props => {
           theme={'transparent'}
           title={'مشاهده نتایج'}
         />
+        <CommonButton
+          onPress={() => props.setMode('report')}
+          dir={'rtl'}
+          theme={'transparent'}
+          title={'گزارشات'}
+        />
         {(state.selectedQuiz.launchMode === 'physical' ||
           state.selectedQuiz.launchMode === 'hybrid') &&
           state.selectedQuiz.mode === 'regular' && (

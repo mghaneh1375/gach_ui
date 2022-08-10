@@ -1,9 +1,14 @@
-import {PhoneView, SimpleText} from '../../../../../../styles/Common';
+import {CommonButton, PhoneView} from '../../../../../../styles/Common';
 import React, {useState} from 'react';
 import {quizContext, dispatchQuizContext} from '../../Context';
 import {View} from 'react-native';
 import Participants from '../Participants/Participants';
-import {fetchSchoolReport, fetchStateReport} from '../../Utility';
+import {
+  fetchCityReport,
+  fetchSchoolReport,
+  fetchStateReport,
+} from '../../Utility';
+import translator from './Translator';
 
 function List(props) {
   const useGlobalState = () => [
@@ -23,7 +28,10 @@ function List(props) {
       return;
     }
 
+    props.setLoading(true);
     let res = await fetchSchoolReport(state.selectedQuiz.id, props.token);
+    props.setLoading(false);
+
     if (res === null) return;
 
     state.selectedQuiz.schoolReport = res;
@@ -37,7 +45,10 @@ function List(props) {
       return;
     }
 
+    props.setLoading(true);
     let res = await fetchStateReport(state.selectedQuiz.id, props.token);
+    props.setLoading(false);
+
     if (res === null) return;
 
     state.selectedQuiz.stateReport = res;
@@ -45,20 +56,40 @@ function List(props) {
     setShowStateReport(true);
   };
 
+  const fetchCityReportLocal = async () => {
+    if (state.selectedQuiz.cityReport !== undefined) {
+      setShowCityReport(true);
+      return;
+    }
+
+    props.setLoading(true);
+    let res = await fetchCityReport(state.selectedQuiz.id, props.token);
+    props.setLoading(false);
+
+    if (res === null) return;
+
+    state.selectedQuiz.cityReport = res;
+    dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+    setShowCityReport(true);
+  };
+
   return (
     <View>
       <PhoneView>
-        <SimpleText
-          onPress={() => fetchSchoolReportLocal}
-          text={'شهر های شرکت کننده'}
+        <CommonButton
+          onPress={() => fetchSchoolReportLocal()}
+          title={translator.schoolReport}
         />
-        <SimpleText
-          onPress={() => fetchStateReportLocal}
-          text={'استان های شرکت کننده'}
+        <CommonButton
+          onPress={() => fetchStateReportLocal()}
+          title={translator.stateReprt}
         />
-        <SimpleText text={'مدارس شرکت کننده'} />
-        <SimpleText text={'نمای کلی'} />
-        <SimpleText text={'لیست حضور و غیاب'} />
+        <CommonButton
+          onPress={() => fetchCityReportLocal()}
+          title={translator.cirtReport}
+        />
+        <CommonButton title={translator.A1} />
+        <CommonButton title={translator.participationReport} />
       </PhoneView>
       {showSchoolReport && state.selectedQuiz.schoolReport !== undefined && (
         <Participants data={state.selectedQuiz.schoolReport} />
