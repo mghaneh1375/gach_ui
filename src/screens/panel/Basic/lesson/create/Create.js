@@ -1,11 +1,15 @@
 import {View} from 'react-native';
 import React, {useState} from 'react';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import Translate from '../Translate';
-import commonTranslate from '../../../../tranlates/Common';
-import {editLesson, createLesson} from '../Utility';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+} from '../../../../../styles/Common';
+import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
+import Translate from '../../Translate';
+import commonTranslate from '../../../../../tranlates/Common';
+import {editLesson, createLesson} from '../../Utility';
+import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 
 function Create(props) {
   const [name, setName] = useState(

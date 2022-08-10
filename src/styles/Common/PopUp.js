@@ -34,6 +34,7 @@ export function LargePopUp(props) {
         child={
           <View>
             <TextIcon
+              style={{marginBottom: 20}}
               onPress={() => props.toggleShowPopUp()}
               text={props.title}
               icon={faClose}
@@ -43,6 +44,7 @@ export function LargePopUp(props) {
               {props.btns}
               {(props.removeCancel === undefined || !props.removeCancel) && (
                 <CommonButton
+                  style={{padding: '5px 30px'}}
                   onPress={() => props.toggleShowPopUp()}
                   title={translator.cancel}
                 />
