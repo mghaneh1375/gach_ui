@@ -13,6 +13,16 @@ export const getQuizzes = async token => {
   );
 };
 
+export const getQuiz = async (quizId, quizMode, token) => {
+  return await generalRequest(
+    routes.fetchQuiz + quizMode + '/' + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const removeQuiz = async (generalMode, quizId, token) => {
   let res = await generalRequest(
     generalMode === 'IRYSC'
@@ -44,6 +54,16 @@ export const getAnswerSheets = async (quizId, quizMode, token) => {
 export const fetchSchoolReport = async (quizId, token) => {
   return await generalRequest(
     routes.fetchSchoolReport + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const fetchAuthorReport = async (quizId, token) => {
+  return await generalRequest(
+    routes.fetchAuthorReport + quizId,
     'get',
     undefined,
     'data',
@@ -172,6 +192,18 @@ export const correct = async (quizId, userId, token) => {
     ['path', 'result'],
     token,
   );
+};
+
+export const createTaraz = async (quizId, generalMode, token) => {
+  let res = await generalRequest(
+    routes.createTaraz + generalMode + '/' + quizId,
+    'put',
+    undefined,
+    undefined,
+    token,
+  );
+
+  if (res !== null) showSuccess();
 };
 
 export const updateStudentAnswers = async (

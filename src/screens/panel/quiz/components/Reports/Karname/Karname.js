@@ -15,7 +15,6 @@ import generalStatTableStructure from './GeneralStatTableStructure';
 import rankStatTableStructure from './RankStatTableStructure';
 import {SimpleFontIcon} from '../../../../../../styles/Common/FontIcon';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
-import MyLineChart from './MyLineChart';
 import MiniCard from '../../CV/MiniCard';
 import commonTranslator from '../../../../../../tranlates/Common';
 import {jsPDF} from 'jspdf';
@@ -38,11 +37,17 @@ function Karname(props) {
   const [isWorking, setIsWorking] = useState();
   const [karname, setKarname] = useState();
   const [showSubjectChart, setShowSubjectChart] = useState(false);
-  const [showGeneralStatChart, setShowGeneralStatChart] = useState(false);
-  const [showSubjectGeneralStatChart, setShowSujectGeneralStatChart] =
-    useState(false);
 
   React.useEffect(() => {
+    console.log(state.selectedQuiz);
+    if (state.selectedQuiz === undefined) {
+      dispatch({
+        selectedQuiz: {id: props.quizId, generalMode: props.quizMode},
+        selectedStudentId: props.studentId,
+      });
+      return;
+    }
+
     if (isWorking || state.selectedStudentId === undefined) return;
 
     if (
@@ -92,10 +97,6 @@ function Karname(props) {
     if (ref.current === null) return;
 
     props.setLoading(true);
-
-    setShowSubjectChart(true);
-    setShowGeneralStatChart(true);
-    setShowSujectGeneralStatChart(true);
 
     setTimeout(() => {
       print();

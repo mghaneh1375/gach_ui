@@ -5,7 +5,7 @@ import commonTranslator from '../../../../tranlates/Common';
 import vars from '../../../../styles/root';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
-import {generateQuestionPDF, removeQuiz} from './Utility';
+import {createTaraz, generateQuestionPDF, removeQuiz} from './Utility';
 import {dispatchQuizContext, quizContext} from './Context';
 import React from 'react';
 
@@ -35,6 +35,17 @@ const Ops = props => {
         props.updateQuiz(state.selectedQuiz);
       }
     });
+  };
+
+  const createTarazLocal = async () => {
+    props.setLoading(true);
+
+    await createTaraz(
+      state.selectedQuiz.id,
+      state.selectedQuiz.generalMode,
+      props.token,
+    );
+    props.setLoading(false);
   };
 
   const remove = async () => {
@@ -108,11 +119,6 @@ const Ops = props => {
           theme={'transparent'}
           title={translator.editQuestions}
         />
-        {/* <CommonButton
-          dir={'rtl'}
-          theme={'transparent'}
-          title={translator.forceRegistry}
-        /> */}
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
@@ -130,6 +136,7 @@ const Ops = props => {
           title={translator.studentsList}
         />
         <CommonButton
+          onPress={() => createTarazLocal()}
           dir={'rtl'}
           theme={'transparent'}
           title={translator.createTaraz}
@@ -146,16 +153,15 @@ const Ops = props => {
         />
         <CommonButton
           onPress={() => props.setMode('ranking')}
-          // onPress={() => props.navigate('/ranking/irysc/1')}
           dir={'rtl'}
           theme={'transparent'}
-          title={'مشاهده نتایج'}
+          title={translator.seeRanking}
         />
         <CommonButton
           onPress={() => props.setMode('report')}
           dir={'rtl'}
           theme={'transparent'}
-          title={'گزارشات'}
+          title={commonTranslator.report}
         />
         {(state.selectedQuiz.launchMode === 'physical' ||
           state.selectedQuiz.launchMode === 'hybrid') &&

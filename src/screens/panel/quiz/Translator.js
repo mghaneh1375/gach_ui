@@ -48,6 +48,7 @@ const translator = {
   generateAnswerSheetPDF: 'دانلود دفترچه پاسخبرگ',
   correntAnswerSheets: 'تصحیح پاسخ برگ های اسکن شده',
   keySheet: 'کلید آزمون',
+  seeRanking: 'مشاهده نتایج',
 };
 
 export default translator;

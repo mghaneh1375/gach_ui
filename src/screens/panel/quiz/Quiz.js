@@ -16,7 +16,7 @@ import ReportList from './components/Reports/List/List';
 import {useParams} from 'react-router';
 
 const Quiz = props => {
-  const [mode, setMode] = useState('list');
+  const [mode, setMode] = useState();
   const [quizzes, setQuizzes] = useState([]);
   const [selectedQuiz, setSelectedQuiz] = useState(undefined);
 
@@ -33,13 +33,13 @@ const Quiz = props => {
     dispatch({loading: status});
   };
 
-  // const params = useParams();
+  const params = useParams();
 
-  // React.useEffect(() => {
-  //   if (props.mode !== undefined) {
-  //     setMode(props.mode);
-  //   } else setMode('list');
-  // }, [props.mode]);
+  React.useEffect(() => {
+    if (props.mode !== undefined) {
+      setMode(props.mode);
+    } else setMode('list');
+  }, [props.mode]);
 
   return (
     <View>
@@ -100,6 +100,8 @@ const Quiz = props => {
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}
+            quizMode={params.mode}
+            quizId={params.quizId}
           />
         )}
         {mode === 'karname' && (
@@ -107,6 +109,9 @@ const Quiz = props => {
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}
+            quizMode={params.mode}
+            quizId={params.quizId}
+            studentId={params.studentId}
           />
         )}
         {mode === 'report' && (

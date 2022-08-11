@@ -1,6 +1,6 @@
 import React, {useState, useRef, useCallback} from 'react';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
-import {getRanking} from '../../Utility';
+import {getQuiz, getRanking} from '../../Utility';
 import {CommonWebBox} from '../../../../../../styles/Common';
 import columns from './Columns';
 import {quizContext, dispatchQuizContext} from '../../Context';
@@ -13,27 +13,38 @@ function Ranking(props) {
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState();
 
-  // const fetchQuiz = React.useCallback(() => {
-  //   console.log(state.quizzes);
-  // }, [state.quizzes]);
+  // const fetchQuiz = React.useCallback(async () => {
+  //   props.setLoading(true);
 
-  // React.useEffect(() => {
-  //   setTimeout(() => {
-  //     fetchQuiz();
-  //   }, [2000]);
-  // }, [fetchQuiz]);
+  //   let res = await getQuiz(props.quizId, props.quizMode, props.token);
 
-  // React.useEffect(() => {
-  //   console.log(state.quizzes);
-  //   if (isWorking) return;
-  //   if (state.quizzes === undefined) {
-  //     setIsWorking(true);
+  //   if (res === null) {
+  //     props.setLoading(false);
+  //     props.navigate('/');
+  //     setIsWorking(false);
   //     return;
   //   }
-  // }, [state.quizzes, isWorking]);
+
+  //   dispatch({selectedQuiz: res, needUpdate: true});
+  // }, [props, dispatch]);
+
+  // React.useEffect(() => {
+  //   if (isWorking) return;
+
+  //   if (state.quizzes === undefined) {
+  //     setIsWorking(true);
+  //     fetchQuiz();
+  //     return;
+  //   }
+  // }, [state.quizzes, fetchQuiz, isWorking]);
 
   React.useEffect(() => {
-    if (state.selectedQuiz === undefined) return;
+    if (state.selectedQuiz === undefined) {
+      dispatch({
+        selectedQuiz: {id: props.quizId, generalMode: props.quizMode},
+      });
+      return;
+    }
 
     if (isWorking || state.selectedQuiz.ranking !== undefined) return;
 
