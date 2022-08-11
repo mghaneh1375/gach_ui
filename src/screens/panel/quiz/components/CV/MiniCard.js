@@ -47,6 +47,7 @@ function MiniCard(props) {
                 theme={'transparent'}
                 style={{width: 30, marginTop: 32}}
                 icon={faPlus}
+                textColor={'#efefef'}
                 text={'فایل را اضافه کنید'}
               />
             </View>
@@ -60,7 +61,11 @@ function MiniCard(props) {
               />
               {src === undefined && (
                 <BigBoldBlueText
-                  style={{padding: 0, paddingRight: 10, fontSize: 15}}
+                  style={{
+                    padding: 0,
+                    paddingRight: 10,
+                    fontSize: 15,
+                  }}
                   text={'فایل را اضافه کنید'}
                 />
               )}
@@ -79,6 +84,7 @@ function MiniCard(props) {
                   icon={faEye}
                 />
                 <FontIcon
+                  onPress={() => setSrc(undefined)}
                   theme="rect"
                   kind="normal"
                   back={'yellow'}

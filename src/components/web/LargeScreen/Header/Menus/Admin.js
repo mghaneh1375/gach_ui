@@ -96,6 +96,10 @@ function AdminMenu(props) {
               url: '/users/student',
             },
             {
+              text: translator.teacher,
+              url: '/users/teacher',
+            },
+            {
               text: translator.schools,
               url: '/users/school',
             },

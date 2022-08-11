@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {CommonWebBox, PhoneView} from '../../../styles/Common';
 
 import ChangePass from './components/ChangePass';

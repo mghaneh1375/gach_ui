@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {CommonWebBox} from '../../../../styles/Common';
+import {
+  BigBoldBlueTextInline,
+  CommonWebBox,
+  EqualTwoTextInputs,
+  PhoneView,
+} from '../../../../styles/Common';
 
 import ChangePass from '../components/ChangePass';
 import ChangeUsername from '../components/ChangeUsername';
@@ -127,15 +132,19 @@ const Profile = props => {
             grades !== undefined &&
             branches !== undefined && (
               <View>
-                <CommonWebBox
-                  header={translator.yourInfo}
-                  btn={
+                <CommonWebBox>
+                  <EqualTwoTextInputs>
+                    <BigBoldBlueTextInline
+                      style={{alignSelf: 'center'}}
+                      text={translator.yourInfo}
+                    />
+
                     <SimpleFontIcon
                       onPress={() => setShowEditInfo(!showEditInfo)}
                       kind={'small'}
                       icon={showEditInfo ? faAngleUp : faAngleDown}
                     />
-                  }>
+                  </EqualTwoTextInputs>
                   {showEditInfo && (
                     <UpdateInfo
                       token={props.token}
@@ -149,15 +158,18 @@ const Profile = props => {
                     />
                   )}
                 </CommonWebBox>
-                <CommonWebBox
-                  header={translator.usernameInfo}
-                  btn={
+                <CommonWebBox>
+                  <EqualTwoTextInputs>
+                    <BigBoldBlueTextInline
+                      style={{alignSelf: 'center'}}
+                      text={translator.usernameInfo}
+                    />
                     <SimpleFontIcon
                       onPress={() => setShowEditUsername(!showEditUsername)}
                       kind={'small'}
                       icon={showEditUsername ? faAngleUp : faAngleDown}
                     />
-                  }>
+                  </EqualTwoTextInputs>
                   {showEditUsername && (
                     <UpdateUsername
                       phone={user.phone}
@@ -167,15 +179,18 @@ const Profile = props => {
                     />
                   )}
                 </CommonWebBox>
-                <CommonWebBox
-                  header={translator.changePass}
-                  btn={
+                <CommonWebBox>
+                  <EqualTwoTextInputs>
+                    <BigBoldBlueTextInline
+                      style={{alignSelf: 'center'}}
+                      text={translator.changePass}
+                    />
                     <SimpleFontIcon
                       onPress={() => setShowEditPassword(!showEditPassword)}
                       kind={'small'}
                       icon={showEditPassword ? faAngleUp : faAngleDown}
                     />
-                  }>
+                  </EqualTwoTextInputs>
                   {showEditPassword && (
                     <ChangePass
                       userId={isAdmin ? user.id : undefined}
@@ -186,15 +201,18 @@ const Profile = props => {
                 </CommonWebBox>
 
                 {user.forms !== undefined && (
-                  <CommonWebBox
-                    header={translator.formInfo}
-                    btn={
+                  <CommonWebBox>
+                    <EqualTwoTextInputs>
+                      <BigBoldBlueTextInline
+                        style={{alignSelf: 'center'}}
+                        text={translator.formInfo}
+                      />
                       <SimpleFontIcon
                         onPress={() => setShowEditForm(!showEditForm)}
                         kind={'small'}
                         icon={showEditForm ? faAngleUp : faAngleDown}
                       />
-                    }>
+                    </EqualTwoTextInputs>
                     {showEditForm && (
                       <UpdateForm
                         userId={isAdmin ? user.id : undefined}
@@ -210,15 +228,18 @@ const Profile = props => {
         </Col>
         <Col lg={4}>
           {user !== undefined && (
-            <CommonWebBox
-              header={translator.yourPic}
-              btn={
+            <CommonWebBox>
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={translator.yourPic}
+                />
                 <SimpleFontIcon
                   onPress={() => setShowEditPic(!showEditPic)}
                   kind={'small'}
                   icon={showEditPic ? faAngleUp : faAngleDown}
                 />
-              }>
+              </EqualTwoTextInputs>
               {showEditPic && (
                 <UpdatePic
                   accesses={props.user.accesses}

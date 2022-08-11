@@ -336,7 +336,7 @@ export const CommonWebBox = props => {
             text={props.header}
           />
           {props.btn !== undefined && props.btn}
-          <View style={{gap: 10, marginBottom: 10, text: 'center'}}>
+          <PhoneView style={{gap: 10, marginBottom: 10, text: 'center'}}>
             {props.addBtn !== undefined && props.addBtn && (
               <FontIcon
                 onPress={props.onAddClick}
@@ -354,7 +354,7 @@ export const CommonWebBox = props => {
                 icon={faArrowLeft}
               />
             )}
-          </View>
+          </PhoneView>
         </EqualTwoTextInputs>
       )}
       {props.child !== undefined && props.child}

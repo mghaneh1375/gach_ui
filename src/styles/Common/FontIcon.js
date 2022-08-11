@@ -69,7 +69,12 @@ export const FontIcon = props => {
       )}
       {props.text !== undefined && (
         <BigBoldBlueText
-          style={{padding: 0, paddingRight: 10, fontSize: 11}}
+          style={{
+            padding: 0,
+            paddingRight: 10,
+            fontSize: 11,
+            color: props.textColor,
+          }}
           text={props.text}
         />
       )}
