@@ -198,7 +198,7 @@ function Detail(props) {
             back={'yellow'}
           />
           <CommonWebBox style={{gap: 20}}>
-            <EqualTwoTextInputs>
+            <EqualTwoTextInputs style={{marginTop: -15}}>
               <BigBoldBlueText text={'فیلتر سوالات'} />
               <SimpleFontIcon
                 onPress={() => setShowFilters(!showFilters)}
@@ -218,7 +218,7 @@ function Detail(props) {
           </CommonWebBox>
 
           <CommonWebBox>
-            <EqualTwoTextInputs>
+            <EqualTwoTextInputs style={{marginTop: -15}}>
               <BigBoldBlueText text={'گزارش کلی'} />
               <SimpleFontIcon
                 onPress={() => setShowReports(!showReports)}

@@ -1,9 +1,11 @@
 import {useState} from 'react';
 import {
   BigBoldBlueText,
+  BigBoldBlueTextInline,
   BlueTextInline,
   CommonButton,
   CommonWebBox,
+  EqualTwoTextInputs,
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
@@ -38,28 +40,27 @@ function Question(props) {
 
   return (
     <CommonWebBox>
-      <PhoneView style={{...styleJustifyContentBetween}}>
-        <BlueTextInline
+      <EqualTwoTextInputs>
+        <BigBoldBlueTextInline
           style={{...styleFont16}}
           text={translator.organizationCode + props.question.organizationId}
         />
-        <PhoneView>
-          <SimpleText
-            onPress={() => toggleShowMore()}
-            text={!showMore ? commonTranslator.more : commonTranslator.less}
-            style={{...YellowFont13}}
-          />
-          <SimpleFontIcon
-            kind={'small'}
-            icon={!showMore ? faAngleDoubleDown : faAngleDoubleUp}
-            style={{...styleYellowMarginTop7}}
-          />
-        </PhoneView>
-      </PhoneView>
+        <SimpleText
+          onPress={() => toggleShowMore()}
+          text={!showMore ? commonTranslator.more : commonTranslator.less}
+          style={{...YellowFont13}}
+        />
+        <SimpleFontIcon
+          kind={'small'}
+          icon={!showMore ? faAngleDoubleDown : faAngleDoubleUp}
+          style={{...styleYellowMarginTop7}}
+        />
+      </EqualTwoTextInputs>
       <PhoneView
         style={{
           ...styleFlexSpaceBetween,
           ...styleMarginRight25,
+          flexWrap: 'wrap',
         }}>
         <PhoneView>
           <BlueTextInline

@@ -26,7 +26,7 @@ const QuizRunInfo = props => {
     <View>
       <PhoneView>
         <Col lg={6}>
-          <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
+          <PhoneView style={{gap: 10, flexWrap: 'no-wrap'}}>
             <CommonRadioButton
               value="question"
               status={props.lenMode === 'question' ? 'checked' : 'unchecked'}
@@ -44,10 +44,6 @@ const QuizRunInfo = props => {
               onChangeText={e => changeLen(e)}
               textValue={props.len}
             />
-          </PhoneView>
-        </Col>
-        <Col lg={6}>
-          <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
             <JustBottomBorderSelect
               isHalf={true}
               values={launchModeKeyVals}
@@ -61,8 +57,13 @@ const QuizRunInfo = props => {
               setter={props.setLaunchMode}
               placeholder={translator.isOnline}
               subText={commonTranslator.necessaryField}
+              style={{marginRight: 70}}
             />
           </PhoneView>
+        </Col>
+        <Col lg={6}>
+          <PhoneView
+            style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}></PhoneView>
         </Col>
       </PhoneView>
       <PhoneView>

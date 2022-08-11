@@ -41,7 +41,9 @@ function Author(props) {
         {state.authors !== undefined &&
           state.authors.map((elem, index) => {
             return (
-              <PhoneView style={{minWidth: 200, marginLeft: 40}} key={index}>
+              <PhoneView
+                style={{minWidth: 200, marginLeft: 40, flexWrap: 'wrap'}}
+                key={index}>
                 <CommonRadioButton
                   value={elem.author}
                   status={elem.selected ? 'checked' : 'unchecked'}

@@ -12,7 +12,7 @@ function Report() {
 
   return (
     <View style={{gap: 20}}>
-      <PhoneView style={{gap: 50}}>
+      <PhoneView style={{gap: 50, flexWrap: 'wrap'}}>
         <SimpleText
           style={{minWidth: 200}}
           text={'تعداد سوالات آسان: ' + state.easy}
@@ -25,8 +25,6 @@ function Report() {
           style={{minWidth: 200}}
           text={'تعداد سوالات سخت: ' + state.hard}
         />
-      </PhoneView>
-      <PhoneView style={{gap: 50}}>
         <SimpleText
           style={{minWidth: 200}}
           text={'تعداد سوالات تستی: ' + state.test}

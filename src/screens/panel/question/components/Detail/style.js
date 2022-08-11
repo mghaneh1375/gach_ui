@@ -17,6 +17,7 @@ export const styleFlexSpaceBetween = {
 };
 export const styleJustifyContentEnd = {
   justifyContent: 'flex-end',
+  flexWrap: 'wrap',
 };
 export const styleYellowMarginTop7 = {
   color: vars.YELLOW,
@@ -24,6 +25,7 @@ export const styleYellowMarginTop7 = {
   marginRight: 5,
   width: 20,
   height: 20,
+  flexWrap: 'wrap',
 };
 export const YellowFont13 = {
   color: vars.YELLOW,
