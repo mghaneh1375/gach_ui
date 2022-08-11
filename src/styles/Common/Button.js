@@ -46,6 +46,7 @@ export const CommonButtonTextStyleWeb = {
   color: vars.WHITE,
   fontSize: 14,
   fontFamily: 'IRANSans',
+  padding: '5px 30px',
 };
 
 export const Button =

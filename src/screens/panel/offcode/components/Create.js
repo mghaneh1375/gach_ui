@@ -7,13 +7,7 @@ import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSe
 import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
 import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';
-import {
-  backToList,
-  changeText,
-  update,
-  typeKeyVals,
-  mandatoryFields,
-} from './Utility';
+import {changeText, update, typeKeyVals, mandatoryFields} from './Utility';
 
 const Create = props => {
   const [amount, setAmount] = useState(1000000);
@@ -34,7 +28,8 @@ const Create = props => {
       header={translator.addOff}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{zIndex: 1, marginBottom: 10}}>
+      <PhoneView
+        style={{zIndex: 1, gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
         <JustBottomBorderTextInput
           isHalf={true}
           placeholder={translator.amount}
