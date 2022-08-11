@@ -91,7 +91,7 @@ export const style = {
     marginRight: 30,
   },
   Header_Profile_Text: {
-    marginTop: 10,
+    marginTop: 6,
   },
   Header_Profile_MENU: {
     width: '100%',

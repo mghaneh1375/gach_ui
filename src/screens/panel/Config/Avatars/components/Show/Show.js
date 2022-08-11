@@ -36,6 +36,7 @@ function Show(props) {
             theme={'transparent'}
             onPress={() => edit()}
             title={commonTranslator.edit}
+            padding={'unset'}
           />
           <CommonButton
             onPress={() =>
@@ -48,6 +49,7 @@ function Show(props) {
               )
             }
             title={commonTranslator.delete}
+            padding={'unset'}
           />
         </PhoneView>
         <PhoneView>

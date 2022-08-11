@@ -180,7 +180,19 @@ export const CommonButton = props => {
       padding: '5px 30px',
     },
   };
-
+  if (props.padding !== undefined && props.padding === 'unset') {
+    allStyles = {
+      ...{
+        alignSelf: 'flex-start',
+        padding: '9px 15px',
+      },
+    };
+    textStyle = {
+      ...{
+        color: vars.WHITE,
+      },
+    };
+  }
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <Button style={allStyles} onPress={props.onPress}>
       <Text style={textStyle}>{props.title}</Text>
