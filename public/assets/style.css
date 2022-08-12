@@ -317,3 +317,14 @@ input::placeholder {
 .Zncqt {
   font-size: 10 impoertant;
 }
+/* for SelectBox */
+.r-transform-1sncvnh {
+    transform: translateZ(0px);
+    position: absolute;
+    margin-top: 50px;
+    z-index: 5 !important;
+    background: white;
+}
+.css-view-1dbjc4n{
+  z-index: unset;
+}
