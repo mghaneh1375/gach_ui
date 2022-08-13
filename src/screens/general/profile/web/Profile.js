@@ -107,7 +107,7 @@ const Profile = props => {
   };
 
   return (
-    <View>
+    <MyView>
       {showChangeUsernameModal && (
         <ChangeUsername
           mode={usernameModalMode}
@@ -131,7 +131,7 @@ const Profile = props => {
             schools !== undefined &&
             grades !== undefined &&
             branches !== undefined && (
-              <View>
+              <MyView>
                 <CommonWebBox>
                   <EqualTwoTextInputs>
                     <BigBoldBlueTextInline
@@ -223,7 +223,7 @@ const Profile = props => {
                     )}
                   </CommonWebBox>
                 )}
-              </View>
+              </MyView>
             )}
         </Col>
         <Col lg={4}>
@@ -262,7 +262,7 @@ const Profile = props => {
           )}
         </Col>
       </Row>
-    </View>
+    </MyView>
   );
 };
 

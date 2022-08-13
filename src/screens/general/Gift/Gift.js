@@ -42,7 +42,7 @@ function Gift(props) {
     // (child = ref)
   };
   return (
-    <View>
+    <MyView>
       <CommonButton
         title={'بچرخون!'}
         onPress={() => {
@@ -51,7 +51,7 @@ function Gift(props) {
         }}
         style={styles.startButtonText}
       />
-      <View onPress={() => console.log('asd')} style={styles.container}>
+      <MyView onPress={() => console.log('asd')} style={styles.container}>
         <StatusBar barStyle={'light-content'} />
         <WheelOfFortune
           options={wheelOptions}
@@ -61,7 +61,7 @@ function Gift(props) {
           }}
         />
         {winnerIndex != null && (
-          <View>
+          <MyView>
             <Text style={styles.winnerText}>
               You win {participants[winnerIndex]}
             </Text>
@@ -73,10 +73,10 @@ function Gift(props) {
               style={styles.tryAgainButton}>
               <Text style={styles.tryAgainText}>TRY AGAIN</Text>
             </TouchableOpacity>
-          </View>
+          </MyView>
         )}
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 }
 export default Gift;

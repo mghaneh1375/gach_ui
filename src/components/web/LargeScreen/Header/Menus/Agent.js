@@ -24,7 +24,7 @@ function Agent(props) {
   }
 
   return (
-    <View
+    <MyView
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
@@ -38,7 +38,7 @@ function Agent(props) {
           navigate('/users');
         }}
       />
-    </View>
+    </MyView>
   );
 }
 

@@ -13,7 +13,7 @@ const QuizRegistryInfo = props => {
   };
 
   return (
-    <View>
+    <MyView>
       <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
         <JustBottomBorderTextInput
           placeholder={translator.price}
@@ -52,7 +52,7 @@ const QuizRegistryInfo = props => {
           isHalf={true}
         />
       </PhoneView>
-    </View>
+    </MyView>
   );
 };
 

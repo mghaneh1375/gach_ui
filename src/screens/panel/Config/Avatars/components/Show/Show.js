@@ -18,7 +18,7 @@ function Show(props) {
 
   return (
     <CommonWebBox style={style.avatar}>
-      <View style={{alignItems: 'center'}}>
+      <MyView style={{alignItems: 'center'}}>
         <img style={{...style.pic}} src={props.avatar.file} />
         <SimpleText
           style={style.defaultText}
@@ -28,8 +28,8 @@ function Show(props) {
           style={style.defaultText}
           text={translator.used + ' : ' + props.avatar.used}
         />
-      </View>
-      <View>
+      </MyView>
+      <MyView>
         <PhoneView style={{marginBottom: -10}}>
           <CommonButton
             style={{marginTight: -10}}
@@ -70,7 +70,7 @@ function Show(props) {
             />
           )}
         </PhoneView>
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

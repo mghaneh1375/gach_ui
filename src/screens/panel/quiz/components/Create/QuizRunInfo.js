@@ -23,7 +23,7 @@ const QuizRunInfo = props => {
   };
 
   return (
-    <View>
+    <MyView>
       <PhoneView>
         <Col lg={6}>
           <PhoneView style={{gap: 10, flexWrap: 'no-wrap'}}>
@@ -150,7 +150,7 @@ const QuizRunInfo = props => {
           isHalf={true}
         />
       </PhoneView>
-    </View>
+    </MyView>
   );
 };
 

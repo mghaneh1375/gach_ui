@@ -70,10 +70,10 @@ const Add = props => {
   };
 
   return (
-    <View style={{zIndex: 5}}>
+    <MyView style={{zIndex: 5}}>
       <CommonWebBox
         child={
-          <View>
+          <MyView>
             <EqualTwoTextInputs>
               <JustBottomBorderTextInput
                 multiline={true}
@@ -115,10 +115,10 @@ const Add = props => {
                 );
               })}
             </PhoneView>
-          </View>
+          </MyView>
         }
       />
-    </View>
+    </MyView>
   );
 };
 

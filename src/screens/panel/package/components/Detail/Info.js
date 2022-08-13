@@ -31,7 +31,7 @@ function Info(props) {
       header={props.package.title}
       onBackClick={() => props.setMode('list')}
       backBtn={true}>
-      <View style={{marginTop: 20}}>
+      <MyView style={{marginTop: 20}}>
         <SimpleText
           style={{...styleFontSize13}}
           text={commonTranslator.grade + ' : ' + props.package.grade.name}
@@ -40,11 +40,11 @@ function Info(props) {
           style={{...styleFontSize13}}
           text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
         />
-        <View style={{...styleItemsGrandParent}}>
+        <MyView style={{...styleItemsGrandParent}}>
           <PhoneView style={{...styleItemsParent}}>
             <PhoneView style={{...styleItem}}>
               <TinyTextIcon />
-              <View>
+              <MyView>
                 <SimpleText
                   style={{...styleFontSize11}}
                   text={Translate.quizCount}
@@ -53,12 +53,12 @@ function Info(props) {
                   style={{...styleFontSize15}}
                   text={props.package.quizzes}
                 />
-              </View>
+              </MyView>
             </PhoneView>
 
             <PhoneView style={{...styleItem}}>
               <TinyTextIcon />
-              <View>
+              <MyView>
                 <SimpleText
                   style={{...styleFontSize11}}
                   text={Translate.minSelect}
@@ -67,12 +67,12 @@ function Info(props) {
                   style={{...styleFontSize15}}
                   text={props.package.minSelect}
                 />
-              </View>
+              </MyView>
             </PhoneView>
 
             <PhoneView style={{...styleItem}}>
               <TinyTextIcon />
-              <View>
+              <MyView>
                 <SimpleText
                   style={{...styleFontSize11}}
                   text={Translate.buyersCount}
@@ -81,17 +81,17 @@ function Info(props) {
                   style={{...styleFontSize15}}
                   text={props.package.buyers}
                 />
-              </View>
+              </MyView>
             </PhoneView>
           </PhoneView>
-        </View>
+        </MyView>
 
         <CommonButton
           title={Translate.addQuiz}
           theme={'dark'}
           onPress={() => dispatch({selectingQuiz: true})}
         />
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

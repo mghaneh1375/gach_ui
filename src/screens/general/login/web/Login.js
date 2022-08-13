@@ -68,7 +68,7 @@ const Login = props => {
         resizeMode="cover"
         style={{minHeight: '100vh'}}
         source={require('./../../../../images/back3.png')}>
-        <View
+        <MyView
           style={{
             position: 'absolute',
             width: 40,
@@ -83,7 +83,7 @@ const Login = props => {
               mode === 'login' ? redirectToHome() : changeMode('login')
             }
           />
-        </View>
+        </MyView>
 
         <div
           style={{
@@ -163,7 +163,7 @@ const Login = props => {
               />
             </InlineTextContainer>
 
-            <View style={{marginTop: 10, flexDirection: 'row'}}>
+            <MyView style={{marginTop: 10, flexDirection: 'row'}}>
               <BlueTextInline
                 style={{alignSelf: 'center'}}
                 text={translator.notSubscribeYet}
@@ -174,9 +174,9 @@ const Login = props => {
                 title={commonTranlator.signUp}
                 onPress={() => changeMode('signUp')}
               />
-            </View>
+            </MyView>
 
-            <View style={{marginTop: 10, flexDirection: 'row'}}>
+            <MyView style={{marginTop: 10, flexDirection: 'row'}}>
               <BlueTextInline
                 style={{alignSelf: 'center'}}
                 text={translator.ifHaveProblem}
@@ -186,7 +186,7 @@ const Login = props => {
                 style={{marginRight: 'auto', backgroundColor: vars.DARK_BLUE}}
                 title={commonTranlator.support}
               />
-            </View>
+            </MyView>
           </BlurLoginBack>
         </div>
         <Container

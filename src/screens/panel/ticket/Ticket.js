@@ -51,7 +51,7 @@ function Ticket(props) {
   }, [navigate, props.token, isAdmin, search, dispatch]);
 
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           setMode={setMode}
@@ -85,7 +85,7 @@ function Ticket(props) {
           setMode={setMode}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

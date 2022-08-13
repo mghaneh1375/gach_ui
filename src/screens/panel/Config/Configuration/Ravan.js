@@ -112,7 +112,7 @@ function Ravan(props) {
   };
 
   return (
-    <View>
+    <MyView>
       <CommonWebBox>
         <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
           <JustBottomBorderTextInput
@@ -248,7 +248,7 @@ function Ravan(props) {
           title={commonTranslator.update}
         />
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

@@ -78,7 +78,7 @@ const ChangeUsername = props => {
           <></>
         )
       }>
-      <View>
+      <MyView>
         {step === 'chageUsername' && (
           <JustBottomBorderTextInput
             subText={commonTranslator.necessaryField}
@@ -104,7 +104,7 @@ const ChangeUsername = props => {
         {step === 'finish' && (
           <SimpleText text={translator.changeUsernameSuccessfully} />
         )}
-      </View>
+      </MyView>
     </LargePopUp>
   );
 };

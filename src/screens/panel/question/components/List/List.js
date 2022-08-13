@@ -16,7 +16,7 @@ const List = props => {
   };
 
   return (
-    <View>
+    <MyView>
       {showOpPopUp && (
         <Ops
           setMode={props.setMode}
@@ -40,7 +40,7 @@ const List = props => {
           data={props.data}
         />
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 };
 

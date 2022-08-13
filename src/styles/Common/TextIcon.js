@@ -46,9 +46,9 @@ export const TextIcon = props => {
     <EqualTwoTextInputs style={allStyles}>
       <BigBoldBlueTextInline text={props.text} />
 
-      <View style={InnerViewStyle}>
+      <MyView style={InnerViewStyle}>
         <FontIcon {...fontProps} />
-      </View>
+      </MyView>
     </EqualTwoTextInputs>
   );
 };
@@ -74,12 +74,12 @@ export const TinyTextIcon = props => {
   };
 
   return (
-    <View style={allStyles}>
+    <MyView style={allStyles}>
       <SimpleText style={{fontSize: 11}} text={props.text} />
 
-      <View style={{...InnerViewStyle, ...tinyFontIconStyle}}>
+      <MyView style={{...InnerViewStyle, ...tinyFontIconStyle}}>
         <FontIcon {...fontProps} />
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 };

@@ -48,17 +48,20 @@ export const addAccess = async (
   userId,
   newRole,
   afterFunc,
+  schoolId = undefined,
 ) => {
   setLoading(true);
   let res = await generalRequest(
-    routes.addAccess + userId + '/' + newRole,
+    schoolId === undefined
+      ? routes.addAccess + userId + '/' + newRole
+      : routes.addAccess + userId + '/' + newRole + '/' + schoolId,
     'put',
     undefined,
     'accesses',
     token,
   );
   setLoading(false);
-  if (res !== undefined) {
+  if (res !== null) {
     showSuccess(commonTranslator.success);
     afterFunc(
       res.map(elem => {
@@ -68,7 +71,9 @@ export const addAccess = async (
         };
       }),
     );
+    return 'ok';
   }
+  return null;
 };
 
 export const toggleStatus = async (setLoading, token, userId, afterFunc) => {

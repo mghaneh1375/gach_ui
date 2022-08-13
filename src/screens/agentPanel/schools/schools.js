@@ -38,7 +38,7 @@ function Agent(props) {
   }, [navigate, props.token, dispatch]);
 
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           setMode={setMode}
@@ -79,7 +79,7 @@ function Agent(props) {
           setSelectedAgent={setSelectedAgent}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

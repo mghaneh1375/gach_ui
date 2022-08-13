@@ -22,7 +22,7 @@ function Ops(props) {
     setShowRemovePane(!showRemovePane);
   };
   return (
-    <View style={{zIndex: '10'}}>
+    <MyView style={{zIndex: '10'}}>
       {showRemovePane && (
         <ConfirmationBatchOpPane
           setLoading={props.setLoading}
@@ -61,7 +61,7 @@ function Ops(props) {
           </PhoneView>
         </LargePopUp>
       )}
-    </View>
+    </MyView>
   );
 }
 

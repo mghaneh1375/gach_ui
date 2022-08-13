@@ -27,7 +27,7 @@ function List(props) {
   };
 
   return (
-    <View>
+    <MyView>
       {showOpPopUp && (
         <Ops
           school={props.selectedSchool}
@@ -43,7 +43,7 @@ function List(props) {
         header={translator.offs}
         addbtn={true}
         onAddClick={() => props.setMode('create')}>
-        <View>
+        <MyView>
           <Filter
             setData={props.setData}
             token={props.token}
@@ -59,9 +59,9 @@ function List(props) {
             token={props.token}
             setLoading={props.setLoading}
           />
-        </View>
+        </MyView>
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

@@ -18,7 +18,7 @@ function List(props) {
     toggleShowOpPopUp();
   };
   return (
-    <View>
+    <MyView>
       {showOpPopUp && (
         <Ops
           selectedId={selectedId}
@@ -42,7 +42,7 @@ function List(props) {
           handleOp={handleOp}
         />
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

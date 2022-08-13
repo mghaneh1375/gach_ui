@@ -41,7 +41,7 @@ function List(props) {
 
   return (
     // for web
-    <View style={{zIndex: 'unset'}}>
+    <MyView style={{zIndex: 'unset'}}>
       <CommonWebBox
         header={commonTranslator.configuration + ' ' + commonTranslator.web}>
         {showPane && (
@@ -49,7 +49,7 @@ function List(props) {
             removeCancel={true}
             title={commonTranslator.addDate}
             toggleShowPopUp={toggleShowPopUpPane}>
-            <View style={{zIndex: 'unset'}}>
+            <MyView style={{zIndex: 'unset'}}>
               <PhoneView style={{flexWrap: 'wrap'}}>
                 <CommonDatePicker
                   placeholder={Translate.newDate}
@@ -75,7 +75,7 @@ function List(props) {
                   onPress={toggleShowPopUpPane}
                 />
               </PhoneView>
-            </View>
+            </MyView>
           </LargePopUp>
         )}
         <JustBottomBorderTextInput
@@ -88,7 +88,7 @@ function List(props) {
         />
         <PhoneView style={{marginTop: 25, gap: 10}}>
           <SimpleText text={Translate.launchDates} />
-          <View>
+          <MyView>
             {webDateList.map((elem, index) => {
               return (
                 <TextIcon
@@ -106,7 +106,7 @@ function List(props) {
                 />
               );
             })}
-          </View>
+          </MyView>
           <FontIcon
             parentStyle={{alignSelf: 'flex-start'}}
             theme={'rect'}
@@ -116,7 +116,7 @@ function List(props) {
             onPress={toggleShowPopUpPane}
           />
         </PhoneView>
-        <View>
+        <MyView>
           <CommonButton
             title={commonTranslator.confrim}
             onPress={async () => {
@@ -129,7 +129,7 @@ function List(props) {
               props.setLoading(false);
             }}
           />
-        </View>
+        </MyView>
       </CommonWebBox>
       {/* for app */}
       <CommonWebBox
@@ -140,7 +140,7 @@ function List(props) {
             removeCancel={true}
             title={commonTranslator.addDate + ' ' + commonTranslator.app}
             toggleShowPopUp={appToggleShowPopUpPane}>
-            <View style={{zIndex: 'unset'}}>
+            <MyView style={{zIndex: 'unset'}}>
               <PhoneView style={{flexWrap: 'wrap'}}>
                 <CommonDatePicker
                   placeholder={Translate.newDate}
@@ -166,7 +166,7 @@ function List(props) {
                   onPress={appToggleShowPopUpPane}
                 />
               </PhoneView>
-            </View>
+            </MyView>
           </LargePopUp>
         )}
         <JustBottomBorderTextInput
@@ -179,7 +179,7 @@ function List(props) {
         />
         <PhoneView style={{marginTop: 25, gap: 10}}>
           <SimpleText text={Translate.launchDates} />
-          <View>
+          <MyView>
             {appDateList.map((elem, index) => {
               return (
                 <TextIcon
@@ -197,7 +197,7 @@ function List(props) {
                 />
               );
             })}
-          </View>
+          </MyView>
           <FontIcon
             parentStyle={{alignSelf: 'flex-start'}}
             theme={'rect'}
@@ -207,7 +207,7 @@ function List(props) {
             onPress={appToggleShowPopUpPane}
           />
         </PhoneView>
-        <View>
+        <MyView>
           <CommonButton
             title={commonTranslator.confrim}
             onPress={async () => {
@@ -220,9 +220,9 @@ function List(props) {
               props.setLoading(false);
             }}
           />
-        </View>
+        </MyView>
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

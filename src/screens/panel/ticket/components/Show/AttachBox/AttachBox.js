@@ -38,32 +38,32 @@ const AttachBox = props => {
     props.filename.indexOf('.pdf') === -1;
 
   return (
-    <View style={style.container}>
+    <MyView style={style.container}>
       {props.fileContent !== undefined && (
-        <View style={style.close}>
+        <MyView style={style.close}>
           <SimpleFontIcon
             onPress={props.removeAttach}
             style={{color: vars.ORANGE_RED}}
             icon={faClose}
           />
-        </View>
+        </MyView>
       )}
 
       {!isImg && (
-        <View
+        <MyView
           style={{
             ...style.box,
             ...{
               background: background,
             },
           }}>
-          <View style={style.icon}>
+          <MyView style={style.icon}>
             <SimpleFontIcon
               style={{color: textColor}}
               kind={'normal'}
               icon={faPaperclip}
             />
-          </View>
+          </MyView>
           <SimpleText
             style={{
               ...style.text,
@@ -73,7 +73,7 @@ const AttachBox = props => {
             }}
             text={text}
           />
-        </View>
+        </MyView>
       )}
       {isImg && (
         <img
@@ -86,7 +86,7 @@ const AttachBox = props => {
       {props.fileContent !== undefined && (
         <SimpleText text={props.filename} style={style.filename} />
       )}
-    </View>
+    </MyView>
   );
 };
 

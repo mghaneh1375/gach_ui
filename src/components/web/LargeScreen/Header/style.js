@@ -205,7 +205,7 @@ export const MenuItemPhone = props => {
           }}
           text={props.text}
         />
-        <View
+        <MyView
           style={
             props.selected !== undefined && props.selected
               ? [
@@ -217,7 +217,7 @@ export const MenuItemPhone = props => {
               : style.MenuItemFontContainer
           }>
           <SimpleFontIcon style={{color: vars.WHITE}} icon={props.icon} />
-        </View>
+        </MyView>
       </PhoneView>
     </TouchableOpacity>
   );

@@ -19,7 +19,7 @@ function MiniCard(props) {
 
   return (
     <CommonWebBox width={250} style={{padding: 0}}>
-      <View>
+      <MyView>
         <PhoneView>
           {src !== undefined && (
             <Image
@@ -34,7 +34,7 @@ function MiniCard(props) {
             />
           )}
           {src === undefined && (
-            <View
+            <MyView
               style={{
                 width: 100,
                 height: 140,
@@ -50,11 +50,11 @@ function MiniCard(props) {
                 textColor={'#efefef'}
                 text={'فایل را اضافه کنید'}
               />
-            </View>
+            </MyView>
           )}
 
-          <View style={{justifyContent: 'space-around', marginTop: -15}}>
-            <View>
+          <MyView style={{justifyContent: 'space-around', marginTop: -15}}>
+            <MyView>
               <BigBoldBlueText
                 style={{padding: 0, paddingRight: 10, fontSize: 15}}
                 text={props.header}
@@ -73,7 +73,7 @@ function MiniCard(props) {
                 style={{padding: 0, paddingRight: 10}}
                 text={props.text}
               />
-            </View>
+            </MyView>
             {src !== undefined && (
               <PhoneView style={{paddingRight: 15, gap: 15}}>
                 <FontIcon
@@ -99,9 +99,9 @@ function MiniCard(props) {
                 />
               </PhoneView>
             )}
-          </View>
+          </MyView>
         </PhoneView>
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

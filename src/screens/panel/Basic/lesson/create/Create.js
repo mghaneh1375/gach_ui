@@ -27,7 +27,7 @@ function Create(props) {
       backBtn={true}
       onBackClick={() => props.setMode('list')}
       header={commonTranslate.edit}>
-      <View>
+      <MyView>
         <PhoneView>
           <JustBottomBorderTextInput
             isHalf={true}
@@ -90,7 +90,7 @@ function Create(props) {
           }}
           title={commonTranslate.confirm}
         />
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

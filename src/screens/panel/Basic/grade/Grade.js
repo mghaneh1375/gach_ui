@@ -35,7 +35,7 @@ function Grade(props) {
   }, [navigate, props.token, dispatch]);
 
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           grades={grades}
@@ -64,7 +64,7 @@ function Grade(props) {
           grade={selectedGrade}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

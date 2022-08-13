@@ -63,7 +63,7 @@ const Login = props => {
       style={{minHeight: height}}
       resizeMode="contain"
       source={require('./../../../images/back2.png')}>
-      <View style={commonStyles.ContentView}>
+      <MyView style={commonStyles.ContentView}>
         <TextIcon
           style={{marginTop: 20}}
           text={translator.entryText}
@@ -74,7 +74,7 @@ const Login = props => {
         />
 
         {mode === 'login' && (
-          <View>
+          <MyView>
             <LoginModule
               navigate={navigate}
               style={{marginTop: 20}}
@@ -95,7 +95,7 @@ const Login = props => {
               text={translator.ifForget}
               link={translator.forgetAction}
             />
-          </View>
+          </MyView>
         )}
 
         {mode === 'forget' && (
@@ -153,7 +153,7 @@ const Login = props => {
             redirectTo={isApp ? 'Home' : '/'}
           />
         )}
-      </View>
+      </MyView>
     </ImageBackground>
   );
 };

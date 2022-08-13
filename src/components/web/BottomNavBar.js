@@ -12,8 +12,8 @@ import {
 
 export default function BottomNavBar() {
   return (
-    <View style={NavContainerStyle}>
-      <View style={NavItemContainerStyle}>
+    <MyView style={NavContainerStyle}>
+      <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/login">
           <img
             style={NavItemImageStyle}
@@ -21,8 +21,8 @@ export default function BottomNavBar() {
           />
         </Link>
         <Text style={NavTextStyle}>ورود/ثبت نام</Text>
-      </View>
-      <View style={NavItemContainerStyle}>
+      </MyView>
+      <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/">
           <img
             style={NavItemImageStyle}
@@ -30,8 +30,8 @@ export default function BottomNavBar() {
           />
         </Link>
         <Text style={NavTextStyle}>پشتیبانی</Text>
-      </View>
-      <View style={NavItemContainerStyle}>
+      </MyView>
+      <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/">
           <img
             style={NavItemImageStyle}
@@ -39,8 +39,8 @@ export default function BottomNavBar() {
           />
         </Link>
         <Text style={NavTextStyle}>آزمون ها</Text>
-      </View>
-      <View style={NavItemContainerStyle}>
+      </MyView>
+      <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/">
           <img
             style={NavItemImageStyle}
@@ -48,8 +48,8 @@ export default function BottomNavBar() {
           />
         </Link>
         <Text style={NavTextStyle}>رتبه بندی</Text>
-      </View>
-      <View style={NavItemContainerStyle}>
+      </MyView>
+      <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/">
           <img
             style={NavItemImageStyle}
@@ -57,7 +57,7 @@ export default function BottomNavBar() {
           />
         </Link>
         <Text style={NavTextStyle}>آزمون ها</Text>
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 }

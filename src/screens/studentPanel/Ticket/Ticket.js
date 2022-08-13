@@ -46,7 +46,7 @@ function Ticketstd(props) {
   }, [navigate, props.token, dispatch]);
 
   return (
-    <View style={{zIndex: 10}}>
+    <MyView style={{zIndex: 10}}>
       {mode === 'list' && (
         <List
           tickets={tickets}
@@ -82,7 +82,7 @@ function Ticketstd(props) {
           addTicket={newItem => addItem(tickets, setTickets, newItem)}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

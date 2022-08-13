@@ -186,9 +186,9 @@ function Detail(props) {
   }, [props, isWorking, dispatch]);
 
   return (
-    <View>
+    <MyView>
       {!selectingQuiz && state.allowShow && (
-        <View>
+        <MyView>
           <FontIcon
             kind={'normal'}
             theme={'rect'}
@@ -209,11 +209,11 @@ function Detail(props) {
               />
             </EqualTwoTextInputs>
             {showFilters && (
-              <View>
+              <MyView>
                 <Level localFilter={localFilter} />
                 <Type localFilter={localFilter} />
                 <Author localFilter={localFilter} />
-              </View>
+              </MyView>
             )}
           </CommonWebBox>
 
@@ -290,7 +290,7 @@ function Detail(props) {
               );
             })}
           <PhoneView style={{flexWrap: 'wrap'}}>{state.totalPage}</PhoneView>
-        </View>
+        </MyView>
       )}
 
       {selectingQuiz && quizzes !== undefined && (
@@ -320,7 +320,7 @@ function Detail(props) {
           />
         </Quizzes>
       )}
-    </View>
+    </MyView>
   );
 }
 

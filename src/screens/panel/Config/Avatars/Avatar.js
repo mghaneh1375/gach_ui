@@ -58,7 +58,7 @@ function Avatar(props) {
   };
 
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           updateAvatar={updateAvatar}
@@ -87,7 +87,7 @@ function Avatar(props) {
           setLoading={props.setLoading}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

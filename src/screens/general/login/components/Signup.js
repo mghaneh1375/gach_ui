@@ -66,7 +66,7 @@ const Signup = props => {
     });
   };
   return (
-    <View style={props.style !== undefined ? props.style : {gap: 5}}>
+    <MyView style={props.style !== undefined ? props.style : {gap: 5}}>
       <EqualTwoTextInputs style={{paddingRight: 0}}>
         <CommonTextInput
           placeholder={commonTranslator.firstname}
@@ -143,7 +143,7 @@ const Signup = props => {
           style={{marginTop: 30}}
         />
       )}
-    </View>
+    </MyView>
   );
 };
 

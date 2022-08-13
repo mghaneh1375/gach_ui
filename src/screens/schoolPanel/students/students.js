@@ -30,7 +30,7 @@ function Students(props) {
     dispatch({loading: status});
   };
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           setMode={setMode}
@@ -61,7 +61,7 @@ function Students(props) {
           addItem={i => addItem(data, setData, i)}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

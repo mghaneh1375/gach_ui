@@ -74,10 +74,10 @@ const ForgetPass = props => {
   };
 
   return (
-    <View style={props.style !== undefined ? props.style : {}}>
+    <MyView style={props.style !== undefined ? props.style : {}}>
       <BlueTextFromStart text={translator.forgetPass} />
       {step === 'forget' && (
-        <View>
+        <MyView>
           <CommonTextInput
             style={{marginTop: 20}}
             value={props.username}
@@ -86,17 +86,17 @@ const ForgetPass = props => {
             onChangeText={e => changeNID(e)}
           />
 
-          <View style={{marginTop: 40}}>
+          <MyView style={{marginTop: 40}}>
             <CommonButton
               onPress={() => getWhichKindOfAuthIsAvailable()}
               title={commonTranslator.continue}
             />
-          </View>
-        </View>
+          </MyView>
+        </MyView>
       )}
 
       {step === 'chooseAuthMethod' && (
-        <View>
+        <MyView>
           <CommonRadioButton
             text={translator.viaSMS}
             value="sms"
@@ -116,9 +116,9 @@ const ForgetPass = props => {
             onPress={() => requestForgetPass()}
             title={commonTranslator.confirm}
           />
-        </View>
+        </MyView>
       )}
-    </View>
+    </MyView>
   );
 };
 

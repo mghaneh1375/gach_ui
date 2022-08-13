@@ -20,13 +20,13 @@ function Create(props) {
   );
 
   return (
-    <View style={{zIndex: 'unset'}}>
+    <MyView style={{zIndex: 'unset'}}>
       <CommonWebBox
         style={{zIndex: 10}}
         backBtn={true}
         onBackClick={() => props.setMode('list')}
         header={commonTranslate.edit}>
-        <View>
+        <MyView>
           <PhoneView style={{gap: 10}}>
             <JustBottomBorderTextInput
               value={name}
@@ -67,9 +67,9 @@ function Create(props) {
             }}
             title={commonTranslate.confirm}
           />
-        </View>
+        </MyView>
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

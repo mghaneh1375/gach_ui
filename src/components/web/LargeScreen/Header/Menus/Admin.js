@@ -176,7 +176,7 @@ function AdminMenu(props) {
   }
 
   return (
-    <View
+    <MyView
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
@@ -206,7 +206,7 @@ function AdminMenu(props) {
           navigate('/users');
         }}
       />
-    </View>
+    </MyView>
   );
 }
 

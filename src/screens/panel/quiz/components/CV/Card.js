@@ -39,7 +39,7 @@ function Card(props) {
   };
 
   return (
-    <View style={{zIndex: 'unset'}}>
+    <MyView style={{zIndex: 'unset'}}>
       {showUploadPane && (
         <UploadFile
           token={props.token}
@@ -133,7 +133,7 @@ function Card(props) {
             title={'تصحیح'}
           />
         )}
-    </View>
+    </MyView>
   );
 }
 

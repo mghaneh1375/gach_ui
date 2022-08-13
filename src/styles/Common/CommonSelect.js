@@ -29,6 +29,7 @@ export const CommonSelect = props => {
       paddingBottom: 0,
       paddingTop: 13,
       borderBottomWidth: 1,
+      zIndex: 5,
       borderColor: vars.LIGHT_SILVER,
     },
     optionContainerStyle: {
@@ -70,9 +71,13 @@ export const CommonSelect = props => {
           paddingLeft: 10,
           paddingRight: 10,
           textAlign: 'right',
+          zIndex: 5,
         },
       }
-    : {...parentStyle, ...{maxWidth: 300, textAlign: 'right', minWidth: 200}};
+    : {
+        ...parentStyle,
+        ...{maxWidth: 300, zIndex: 5, textAlign: 'right', minWidth: 200},
+      };
 
   return (
     <CommonSelectContainer className={'mySelect'} style={parentStyle}>

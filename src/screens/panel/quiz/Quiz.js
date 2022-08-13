@@ -42,7 +42,7 @@ const Quiz = props => {
   }, [props.mode]);
 
   return (
-    <View>
+    <MyView>
       <QuizProvider>
         {mode === 'list' && (
           <List
@@ -122,7 +122,7 @@ const Quiz = props => {
           />
         )}
       </QuizProvider>
-    </View>
+    </MyView>
   );
 };
 

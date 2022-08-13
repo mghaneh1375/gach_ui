@@ -93,19 +93,19 @@ const UploadFile = props => {
                 props.accept
               }
             />
-            <View style={{width: 40, height: 40, marginRight: 10}}>
+            <MyView style={{width: 40, height: 40, marginRight: 10}}>
               <SimpleFontIcon
                 onPress={() => openFileSelector()}
                 icon={faFolder}
               />
-            </View>
-            <View style={{width: 40, height: 40}}>
+            </MyView>
+            <MyView style={{width: 40, height: 40}}>
               <SimpleFontIcon
                 onPress={() => clear()}
                 style={{color: vars.ORANGE_RED}}
                 icon={faTrash}
               />
-            </View>
+            </MyView>
           </PhoneView>
         )}
 

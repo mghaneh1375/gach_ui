@@ -16,9 +16,10 @@ const Home = navigator => {
   const height = wH[1];
 
   return (
-    <ScreenScroll>
+    <ScreenScroll style={{height: '100vh'}}>
       <ImageBackground
         resizeMode="cover"
+        style={{height: '100%'}}
         source={
           device.indexOf(Device.App) !== -1
             ? require('./../../../images/back1.png')

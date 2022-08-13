@@ -45,7 +45,7 @@ function Level(props) {
   };
 
   return (
-    <View>
+    <MyView>
       <BigBoldBlueText text={'سطح سختی سوال'} />
 
       <PhoneView style={{gap: 50, flexWrap: 'wrap'}}>
@@ -56,13 +56,13 @@ function Level(props) {
             onPress={() => filter('easy')}
             text={''}
           />
-          <View>
+          <MyView>
             <SimpleText text={'نمایش سوالات آسان'} />
             <SimpleText
               style={{fontSize: 11}}
               text={'تعداد سوالات موجود: ' + state.total_easy}
             />
-          </View>
+          </MyView>
         </PhoneView>
 
         <PhoneView style={{minWidth: 200}}>
@@ -72,13 +72,13 @@ function Level(props) {
             onPress={() => filter('mid')}
             text={''}
           />
-          <View>
+          <MyView>
             <SimpleText text={'نمایش سوالات متوسط'} />
             <SimpleText
               style={{fontSize: 11}}
               text={'تعداد سوالات موجود: ' + state.total_mid}
             />
-          </View>
+          </MyView>
         </PhoneView>
 
         <PhoneView style={{minWidth: 200}}>
@@ -88,16 +88,16 @@ function Level(props) {
             onPress={() => filter('hard')}
             text={''}
           />
-          <View>
+          <MyView>
             <SimpleText text={'نمایش سوالات سخت'} />
             <SimpleText
               style={{fontSize: 11}}
               text={'تعداد سوالات موجود: ' + state.total_hard}
             />
-          </View>
+          </MyView>
         </PhoneView>
       </PhoneView>
-    </View>
+    </MyView>
   );
 }
 

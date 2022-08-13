@@ -24,7 +24,7 @@ function QuestionFile(props) {
   }, [props, filesContent]);
 
   return (
-    <View style={{width: 200}}>
+    <MyView style={{width: 200}}>
       <CommonButton
         theme={'dark'}
         style={{alignSelf: 'flex-start'}}
@@ -38,7 +38,7 @@ function QuestionFile(props) {
           text={filesContent[0].name}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

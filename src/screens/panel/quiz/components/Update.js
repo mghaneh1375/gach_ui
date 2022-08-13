@@ -86,7 +86,7 @@ const Update = props => {
   }, [quiz]);
 
   return (
-    <View>
+    <MyView>
       <CommonWebBox
         header={translator.generalInfo}
         child={
@@ -176,7 +176,7 @@ const Update = props => {
           title={commonTranslator.confirmChanges}
         />
       </EqualTwoTextInputs>
-    </View>
+    </MyView>
   );
 };
 

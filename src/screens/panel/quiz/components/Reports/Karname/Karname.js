@@ -123,7 +123,7 @@ function Karname(props) {
   }, [ref, props]);
 
   return (
-    <View>
+    <MyView>
       <CommonWebBox
         header={
           state.selectedQuiz !== undefined
@@ -149,7 +149,7 @@ function Karname(props) {
         </EqualTwoTextInputs>
       </CommonWebBox>
 
-      <View ref={ref}>
+      <MyView ref={ref}>
         <PhoneView style={{flexWrap: 'wrap'}}>
           <CommonWebBox width={'60%'}>
             <EqualTwoTextInputs>
@@ -164,7 +164,7 @@ function Karname(props) {
               /> */}
             </EqualTwoTextInputs>
             {karname !== undefined && (
-              <View style={{padding: 10}}>
+              <MyView style={{padding: 10}}>
                 {karname !== undefined && (
                   <CommonDataTable
                     columns={lessonTableStructure}
@@ -174,7 +174,7 @@ function Karname(props) {
                     groupOps={[]}
                   />
                 )}
-              </View>
+              </MyView>
             )}
           </CommonWebBox>
           <CommonWebBox width={'35%'}>
@@ -184,7 +184,7 @@ function Karname(props) {
                 text={'جدول شماره 2 - نتایج آماری دروس'}
               />
             </EqualTwoTextInputs>
-            <View style={{padding: 10}}>
+            <MyView style={{padding: 10}}>
               {karname !== undefined && (
                 <CommonDataTable
                   columns={generalStatTableStructure}
@@ -194,7 +194,7 @@ function Karname(props) {
                   groupOps={[]}
                 />
               )}
-            </View>
+            </MyView>
           </CommonWebBox>
 
           <CommonWebBox width={'60%'}>
@@ -209,7 +209,7 @@ function Karname(props) {
                 icon={showSubjectChart ? faAngleUp : faAngleDown}
               />
             </EqualTwoTextInputs>
-            <View style={{padding: 10}}>
+            <MyView style={{padding: 10}}>
               {karname !== undefined && (
                 <CommonDataTable
                   columns={lessonTableStructure}
@@ -331,7 +331,7 @@ function Karname(props) {
                 //   height={400}
                 // />
               )}
-            </View>
+            </MyView>
           </CommonWebBox>
 
           <CommonWebBox width={'35%'}>
@@ -341,7 +341,7 @@ function Karname(props) {
                 text={'جدول شماره 4 - نتایج کلی'}
               />
             </EqualTwoTextInputs>
-            <View style={{padding: 10}}>
+            <MyView style={{padding: 10}}>
               {karname !== undefined && (
                 <CommonDataTable
                   columns={rankStatTableStructure}
@@ -351,7 +351,7 @@ function Karname(props) {
                   groupOps={[]}
                 />
               )}
-            </View>
+            </MyView>
           </CommonWebBox>
 
           <CommonWebBox width={'60%'}>
@@ -361,7 +361,7 @@ function Karname(props) {
                 text={'جدول شماره 5 - نتایج آماری حیطه ها'}
               />
             </EqualTwoTextInputs>
-            <View style={{padding: 10}}>
+            <MyView style={{padding: 10}}>
               {karname !== undefined && (
                 <CommonDataTable
                   columns={generalStatTableStructure}
@@ -371,11 +371,11 @@ function Karname(props) {
                   data={karname.subjects}
                 />
               )}
-            </View>
+            </MyView>
           </CommonWebBox>
         </PhoneView>
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 }
 

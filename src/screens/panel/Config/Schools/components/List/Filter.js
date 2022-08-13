@@ -22,7 +22,7 @@ function Filter(props) {
   };
 
   return (
-    <View>
+    <MyView>
       <PhoneView style={{display: 'flex', gap: 10, flexWrap: 'wrap'}}>
         <JustBottomBorderSelect
           isHalf={true}
@@ -53,7 +53,7 @@ function Filter(props) {
           style={{alignSelf: 'flex-start'}}
         />
       </PhoneView>
-    </View>
+    </MyView>
   );
 }
 

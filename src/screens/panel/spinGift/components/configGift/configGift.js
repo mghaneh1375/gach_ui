@@ -33,7 +33,7 @@ function ConfigGift(props) {
     });
   }, [navigate, props.token, dispatch]);
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           setMode={setMode}
@@ -43,7 +43,7 @@ function ConfigGift(props) {
           token={props.token}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

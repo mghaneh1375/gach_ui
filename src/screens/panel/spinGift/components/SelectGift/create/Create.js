@@ -53,7 +53,7 @@ function Create(props) {
       header={Translate.selectGift}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <View>
+      <MyView>
         <PhoneView style={{flexWrap: 'wrap', gap: 9}}>
           <JustBottomBorderSelect
             isHalf={true}
@@ -143,8 +143,8 @@ function Create(props) {
             />
           )}
         </PhoneView>
-      </View>
-      <View>
+      </MyView>
+      <MyView>
         <CommonButton
           onPress={async () => {
             props.setLoading(true);
@@ -178,7 +178,7 @@ function Create(props) {
           }}
           title={commonTranslate.confrim}
         />
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

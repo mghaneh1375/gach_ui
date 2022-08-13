@@ -42,7 +42,7 @@ function Show(props) {
       onAddClick={() => props.setMode('createTransaction')}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <View style={{zIndex: 'unset'}}>
+      <MyView style={{zIndex: 'unset'}}>
         {props.author.transactions !== undefined && (
           <CommonDataTable
             columns={columns}
@@ -54,7 +54,7 @@ function Show(props) {
             setLoading={props.setLoading}
           />
         )}
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

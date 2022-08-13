@@ -90,12 +90,12 @@ const Verification = props => {
   };
 
   return (
-    <View>
+    <MyView>
       <BlueTextInline
         style={{marginTop: 20}}
         text={translator.enterVerification}
       />
-      <View style={{direction: 'ltr'}}>
+      <MyView style={{direction: 'ltr'}}>
         <CodeInput
           activeColor="rgba(49, 180, 4, 1)"
           inactiveColor="rgba(49, 180, 4, 1.3)"
@@ -113,7 +113,7 @@ const Verification = props => {
             onFinish={() => setCanResend(true)}
           />
         )}
-      </View>
+      </MyView>
       {props.reminder > 0 && (
         <BlueTextInline
           style={{marginTop: 20, alignSelf: 'center'}}
@@ -140,7 +140,7 @@ const Verification = props => {
           text={translator.ifWrongDataHref}
         />
       </InlineTextContainer>
-    </View>
+    </MyView>
   );
 };
 

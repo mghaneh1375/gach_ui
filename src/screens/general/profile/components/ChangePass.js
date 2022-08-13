@@ -19,8 +19,8 @@ const ChangePass = props => {
   };
 
   return (
-    <View>
-      <View>
+    <MyView>
+      <MyView>
         {props.userId === undefined && (
           <JustBottomBorderTextInput
             subText={commonTranslator.necessaryField}
@@ -58,8 +58,8 @@ const ChangePass = props => {
             )
           }
         />
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 };
 

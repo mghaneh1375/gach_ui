@@ -30,7 +30,7 @@ function SchoolMenu(props) {
   }
 
   return (
-    <View
+    <MyView
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
@@ -44,7 +44,7 @@ function SchoolMenu(props) {
           navigate('/users');
         }}
       />
-    </View>
+    </MyView>
   );
 }
 

@@ -42,7 +42,7 @@ function Subject(props) {
   }, [dispatch, props.token, navigate]);
 
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           subjects={subjects}
@@ -73,7 +73,7 @@ function Subject(props) {
           afterFunc={newItem => editItem(subjects, setSubjects, newItem)}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

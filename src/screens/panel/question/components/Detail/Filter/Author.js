@@ -35,7 +35,7 @@ function Author(props) {
   };
 
   return (
-    <View>
+    <MyView>
       <BigBoldBlueText text={'مولفین'} />
       <PhoneView style={{gap: 10, marginTop: 10, flexWrap: 'wrap'}}>
         {state.authors !== undefined &&
@@ -50,18 +50,18 @@ function Author(props) {
                   onPress={() => toggleSelect(elem.author)}
                   text={''}
                 />
-                <View>
+                <MyView>
                   <SimpleText text={elem.author} />
                   <SimpleText
                     style={{fontSize: 11}}
                     text={'تعداد سوالات طراحی شده: ' + elem.qNo}
                   />
-                </View>
+                </MyView>
               </PhoneView>
             );
           })}
       </PhoneView>
-    </View>
+    </MyView>
   );
 }
 

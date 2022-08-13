@@ -101,7 +101,7 @@ function BackgroundScrollView(props) {
       ));
 
   return (
-    <View
+    <MyView
       style={{
         marginLeft: props.margins[0],
         marginRight: props.margins[2],
@@ -117,7 +117,7 @@ function BackgroundScrollView(props) {
         pagingEnabled={true}>
         {items}
       </ScrollView>
-    </View>
+    </MyView>
   );
 }
 

@@ -24,7 +24,7 @@ function AnswerSheet(props) {
   }, [props.answer_sheet]);
 
   return (
-    <View>
+    <MyView>
       <PhoneView
         style={{
           flexWrap: 'wrap',
@@ -51,7 +51,7 @@ function AnswerSheet(props) {
             );
           })}
       </PhoneView>
-    </View>
+    </MyView>
   );
 }
 

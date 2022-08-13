@@ -79,7 +79,7 @@ const AppStructue = props => {
   console.log(user);
 
   return (
-    <View style={{flex: 1, height: '100%'}}>
+    <MyView style={{flex: 1, height: '100%'}}>
       {user === undefined && <TopNavBar />}
       {user !== undefined && (
         <Logo isLogin={true} toggleHideRightMenu={toggleHideRightMenu} />
@@ -111,7 +111,7 @@ const AppStructue = props => {
           hideRightMenu={hideRightMenu}
         />
       )}
-    </View>
+    </MyView>
   );
 };
 

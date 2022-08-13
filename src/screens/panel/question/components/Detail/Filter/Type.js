@@ -48,7 +48,7 @@ function Type(props) {
   };
 
   return (
-    <View>
+    <MyView>
       <BigBoldBlueText text={'نوع سوال'} />
       <PhoneView style={{gap: 50, flexWrap: 'wrap'}}>
         <PhoneView style={{minWidth: 200}}>
@@ -58,13 +58,13 @@ function Type(props) {
             onPress={() => filter('test')}
             text={''}
           />
-          <View>
+          <MyView>
             <SimpleText text={'نمایش سوالات تستی'} />
             <SimpleText
               style={{fontSize: 11}}
               text={'تعداد سوالات موجود: ' + state.total_test}
             />
-          </View>
+          </MyView>
         </PhoneView>
 
         <PhoneView style={{minWidth: 200}}>
@@ -74,13 +74,13 @@ function Type(props) {
             onPress={() => filter('short_answer')}
             text={''}
           />
-          <View>
+          <MyView>
             <SimpleText text={'نمایش سوالات کوتاه پاسخ: '} />
             <SimpleText
               style={{fontSize: 11}}
               text={'تعداد سوالات موجود: ' + state.total_short_answer}
             />
-          </View>
+          </MyView>
         </PhoneView>
 
         <PhoneView style={{minWidth: 200}}>
@@ -90,13 +90,13 @@ function Type(props) {
             onPress={() => filter('multi_sentence')}
             text={''}
           />
-          <View>
+          <MyView>
             <SimpleText text={'نمایش سوالات چندگزاره ای'} />
             <SimpleText
               style={{fontSize: 11}}
               text={'تعداد سوالات موجود: ' + state.total_multi_sentence}
             />
-          </View>
+          </MyView>
         </PhoneView>
 
         <PhoneView style={{minWidth: 200}}>
@@ -106,16 +106,16 @@ function Type(props) {
             onPress={() => filter('tashrihi')}
             text={''}
           />
-          <View>
+          <MyView>
             <SimpleText text={'نمایش سوالات تشریحی'} />
             <SimpleText
               style={{fontSize: 11}}
               text={'تعداد سوالات موجود: ' + state.total_tashrihi}
             />
-          </View>
+          </MyView>
         </PhoneView>
       </PhoneView>
-    </View>
+    </MyView>
   );
 }
 

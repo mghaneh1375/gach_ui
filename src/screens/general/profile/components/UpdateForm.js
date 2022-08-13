@@ -58,11 +58,11 @@ const UpdateForm = props => {
   };
 
   return (
-    <View>
+    <MyView>
       {forms !== undefined &&
         props.forms.map((elem, index) => {
           return (
-            <View key={index}>
+            <MyView key={index}>
               <SimpleText text={translator.formData + elem.roleFa} />
               {elem.data.map((itr, idx) => {
                 return (
@@ -81,10 +81,10 @@ const UpdateForm = props => {
                 theme={'dark'}
                 title={commonTranslator.change}
               />
-            </View>
+            </MyView>
           );
         })}
-    </View>
+    </MyView>
   );
 };
 

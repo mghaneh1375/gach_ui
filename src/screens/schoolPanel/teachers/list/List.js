@@ -19,7 +19,7 @@ function List(props) {
     toggleShowOpPopUp();
   };
   return (
-    <View>
+    <MyView>
       {showOpPopUp && (
         <Ops
           selectedId={selectedId}
@@ -72,7 +72,7 @@ function List(props) {
         />
         <MiniCard />
       </PhoneView>
-    </View>
+    </MyView>
   );
 }
 

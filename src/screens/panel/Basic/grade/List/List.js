@@ -27,7 +27,7 @@ function List(props) {
   };
 
   return (
-    <View>
+    <MyView>
       {showOpPopUp && (
         <Ops
           grade={selected}
@@ -45,7 +45,7 @@ function List(props) {
         header={commonTranslator.gradeDefinition}
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
-        <View>
+        <MyView>
           <CommonDataTable
             columns={columns}
             data={props.grades}
@@ -55,9 +55,9 @@ function List(props) {
             token={props.token}
             setLoading={props.setLoading}
           />
-        </View>
+        </MyView>
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

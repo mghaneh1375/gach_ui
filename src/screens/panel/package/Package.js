@@ -48,7 +48,7 @@ function Package(props) {
   }, [dispatch, props.token, navigate]);
 
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           afterRemove={removedIds =>
@@ -92,7 +92,7 @@ function Package(props) {
           afterFunc={newItem => editItem(packages, setPackages, newItem)}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

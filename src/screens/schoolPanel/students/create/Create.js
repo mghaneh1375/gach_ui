@@ -66,7 +66,7 @@ function Create(props) {
           subText={commonTranslator.optional}
           value={email}
         />
-        <View>
+        <MyView>
           <PhoneView>
             <JustBottomBorderTextInput
               onChangeText={text => setPassword(text)}
@@ -89,7 +89,7 @@ function Create(props) {
               value={rPassword}
             />
           </PhoneView>
-        </View>
+        </MyView>
       </PhoneView>
     </CommonWebBox>
   );

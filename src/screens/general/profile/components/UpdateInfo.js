@@ -47,8 +47,8 @@ const UpdateInfo = props => {
     setSchool(item);
   };
   return (
-    <View>
-      <View style={{paddingLeft: 70}}>
+    <MyView>
+      <MyView style={{paddingLeft: 70}}>
         <EqualTwoTextInputs>
           <JustBottomBorderTextInput
             isHalf={true}
@@ -127,7 +127,7 @@ const UpdateInfo = props => {
           />
         </EqualTwoTextInputs>
 
-        <View style={{marginTop: 30, marginRight: 10}}>
+        <MyView style={{marginTop: 30, marginRight: 10}}>
           <JustBottomBorderTextInput
             isHalf={false}
             style={{maxWidth: 'unset'}}
@@ -138,8 +138,8 @@ const UpdateInfo = props => {
             value={school !== undefined ? school.name : ''}
             reset={false}
           />
-        </View>
-      </View>
+        </MyView>
+      </MyView>
       <CommonButton
         style={{backgroundColor: vars.DARK_BLUE, marginTop: 50, minWidth: 120}}
         title={commonTranslator.doChange}
@@ -161,7 +161,7 @@ const UpdateInfo = props => {
           })
         }
       />
-    </View>
+    </MyView>
   );
 };
 export default UpdateInfo;

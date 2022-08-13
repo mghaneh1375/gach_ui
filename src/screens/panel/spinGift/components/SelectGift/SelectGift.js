@@ -38,7 +38,7 @@ function SelectGift(props) {
     });
   }, [navigate, props.token, dispatch]);
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           setMode={setMode}
@@ -70,7 +70,7 @@ function SelectGift(props) {
           token={props.token}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

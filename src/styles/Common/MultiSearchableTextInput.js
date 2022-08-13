@@ -192,10 +192,10 @@ export const MultiSearchableTextInput = props => {
             marginRight: 0,
             overflow: 'auto',
           }}
-          child={<View>{SuggestListItems()}</View>}
+          child={<MyView>{SuggestListItems()}</MyView>}
         />
       )}
-      <View
+      <MyView
         style={{
           width: '100%',
           marginTop: 10,
@@ -203,7 +203,7 @@ export const MultiSearchableTextInput = props => {
           flexWrap: 'wrap',
         }}>
         {SelectedListItems()}
-      </View>
+      </MyView>
     </CommonTextInputContainer>
   );
 };

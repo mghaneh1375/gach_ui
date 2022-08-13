@@ -36,7 +36,7 @@ function Author(props) {
     });
   }, [navigate, props.token, dispatch, tag]);
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           authors={authors}
@@ -84,7 +84,7 @@ function Author(props) {
           updateAuthor={newItem => editItem(authors, setAuthors, newItem)}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

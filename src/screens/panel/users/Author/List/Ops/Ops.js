@@ -8,7 +8,7 @@ import Translate from '../../Translator';
 
 function Ops(props) {
   return (
-    <View style={{zIndex: '10'}}>
+    <MyView style={{zIndex: '10'}}>
       <LargePopUp
         title={commonTranslator.opMenu}
         toggleShowPopUp={props.toggleShowPopUp}>
@@ -26,7 +26,7 @@ function Ops(props) {
           <CommonButton theme={'transparent'} title={commonTranslator.delete} />
         </PhoneView>
       </LargePopUp>
-    </View>
+    </MyView>
   );
 }
 

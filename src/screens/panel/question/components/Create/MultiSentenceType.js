@@ -41,7 +41,7 @@ function MultiSentenceType(props) {
   };
 
   return (
-    <View style={{gap: 20, width: '100%'}}>
+    <MyView style={{gap: 20, width: '100%'}}>
       <JustBottomBorderSelect
         placeholder={translator.sentencesCount}
         values={sentencesCountKeyVals}
@@ -54,7 +54,7 @@ function MultiSentenceType(props) {
           buildSentencesAnswer(counter);
         }}
       />
-      <View>
+      <MyView>
         {sentencesAnswer !== undefined &&
           sentencesAnswer.map((elem, index) => {
             return (
@@ -76,8 +76,8 @@ function MultiSentenceType(props) {
               />
             );
           })}
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 }
 

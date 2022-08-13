@@ -45,9 +45,9 @@ const RoleForm = props => {
   };
 
   return (
-    <View>
+    <MyView>
       {step === 'role' && (
-        <View>
+        <MyView>
           <BigBoldBlueTextInline text={commonTranslator.congratulations} />
 
           <BlueTextFromStart
@@ -93,11 +93,11 @@ const RoleForm = props => {
               source={require('./../../../../images/consultant.png')}
             />
           </EqualTwoTextInputs>
-        </View>
+        </MyView>
       )}
 
       {step === 'form' && role !== undefined && (
-        <View style={{marginTop: 20, gap: 10}}>
+        <MyView style={{marginTop: 20, gap: 10}}>
           <FontIcon
             onPress={() => setStep('role')}
             parentStyle={{
@@ -138,9 +138,9 @@ const RoleForm = props => {
             }}
             title={commonTranslator.confirm}
           />
-        </View>
+        </MyView>
       )}
-    </View>
+    </MyView>
   );
 };
 

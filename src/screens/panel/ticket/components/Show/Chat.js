@@ -33,7 +33,7 @@ const Chat = props => {
   return (
     <CommonWebBox style={allStyles}>
       <ChatImage dir={props.isForUser ? 'right' : 'left'} src={props.pic} />
-      <View>
+      <MyView>
         <PhoneView style={{alignSelf: props.isForUser ? '' : 'flex-end'}}>
           <SimpleText
             style={{
@@ -54,7 +54,7 @@ const Chat = props => {
             return <AttachBox key={index} filename={elem} />;
           })}
         </PhoneView>
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 };

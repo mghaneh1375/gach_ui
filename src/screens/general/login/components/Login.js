@@ -41,7 +41,7 @@ const Login = props => {
   };
 
   return (
-    <View style={props.style}>
+    <MyView style={props.style}>
       <CommonTextInput
         placeholder={translator.phoneOrMail}
         subText={translator.phoneOrMail}
@@ -55,14 +55,14 @@ const Login = props => {
         style={{marginTop: 20}}
       />
 
-      <View>
+      <MyView>
         <CommonButton
           style={{marginTop: 50}}
           onPress={() => requestLogin()}
           title={commonTranlator.entrance}
         />
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 };
 

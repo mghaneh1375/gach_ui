@@ -308,7 +308,7 @@ input::placeholder {
 .eakvSs,
 .ghjlDB,
 .pXGVD,
-.jxOuQK {
+.rdt_TableCell {
   justify-content: center !important;
   flex-wrap: wrap;
   min-width: auto !important;
@@ -319,12 +319,27 @@ input::placeholder {
 }
 /* for SelectBox */
 .r-transform-1sncvnh {
-    transform: translateZ(0px);
-    position: absolute;
-    margin-top: 50px;
-    z-index: 5 !important;
-    background: white;
+  transform: translateZ(0px);
+  position: absolute;
+  margin-top: 50px;
+  z-index: 5 !important;
+  background: white;
 }
-.css-view-1dbjc4n{
+.myView {
+  -moz-box-align: stretch;
+  -moz-box-direction: normal;
+  -moz-box-orient: vertical;
+  align-items: stretch;
+  border: 0px solid black;
+  box-sizing: border-box;
+  display: flex;
+  flex-basis: auto;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin: 0px;
+  min-height: 0px;
+  min-width: 0px;
+  padding: 0px;
+  position: relative;
   z-index: unset;
 }

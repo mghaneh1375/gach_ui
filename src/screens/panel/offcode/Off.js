@@ -64,7 +64,7 @@ const Off = props => {
   }, [navigate, props.token, dispatch]);
 
   return (
-    <View style={{zIndex: 10}}>
+    <MyView style={{zIndex: 10}}>
       {mode === 'list' && (
         <List
           offs={offs}
@@ -94,7 +94,7 @@ const Off = props => {
           off={selectedOff}
         />
       )}
-    </View>
+    </MyView>
   );
 };
 

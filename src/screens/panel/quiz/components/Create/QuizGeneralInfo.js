@@ -21,7 +21,7 @@ const QuizGeneralInfo = props => {
   };
 
   return (
-    <View>
+    <MyView>
       <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
         <JustBottomBorderTextInput
           placeholder={translator.name}
@@ -76,7 +76,7 @@ const QuizGeneralInfo = props => {
           multiline={true}
         />
       </PhoneView>
-    </View>
+    </MyView>
   );
 };
 

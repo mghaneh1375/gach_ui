@@ -106,7 +106,7 @@ const CreateQuiz = props => {
   };
 
   return (
-    <View>
+    <MyView>
       <CommonWebBox
         header={translator.generalInfo}
         backBtn={true}
@@ -201,7 +201,7 @@ const CreateQuiz = props => {
           title={commonTranslator.confirmChanges}
         />
       </EqualTwoTextInputs>
-    </View>
+    </MyView>
   );
 };
 

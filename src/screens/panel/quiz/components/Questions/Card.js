@@ -32,7 +32,7 @@ function Card(props) {
         onPress={() => toggleSelected()}
         text={''}
       />
-      <View style={{width: '90%'}}>
+      <MyView style={{width: '90%'}}>
         <Question
           needOps={false}
           question={props.question}
@@ -46,7 +46,7 @@ function Card(props) {
             },
           ]}
         />
-      </View>
+      </MyView>
     </PhoneView>
   );
 }

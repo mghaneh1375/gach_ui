@@ -80,7 +80,7 @@ function Key(props) {
   }, [ref, props]);
 
   return (
-    <View>
+    <MyView>
       <EqualTwoTextInputs>
         <CommonButton title={'پرینت'} onPress={() => print()} />
         <FontIcon
@@ -91,7 +91,7 @@ function Key(props) {
           parentStyle={{alignSelf: 'flex-end', marginLeft: 20, marginTop: 20}}
         />
       </EqualTwoTextInputs>
-      <View ref={ref}>
+      <MyView ref={ref}>
         {state.wanted_answer_sheet !== undefined && (
           <AnswerSheet
             answer_sheet={state.wanted_answer_sheet}
@@ -99,8 +99,8 @@ function Key(props) {
             token={props.token}
           />
         )}
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 }
 

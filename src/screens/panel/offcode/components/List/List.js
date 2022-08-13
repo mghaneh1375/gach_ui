@@ -22,7 +22,7 @@ const List = props => {
   };
 
   return (
-    <View>
+    <MyView>
       {showOpPopUp && (
         <Ops
           off={props.selectedOff}
@@ -38,7 +38,7 @@ const List = props => {
         header={translator.offs}
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
-        <View>
+        <MyView>
           <Filter
             setData={props.setData}
             token={props.token}
@@ -53,9 +53,9 @@ const List = props => {
             token={props.token}
             setLoading={props.setLoading}
           />
-        </View>
+        </MyView>
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 };
 

@@ -40,6 +40,17 @@ export const BlueTextInline = props => (
   </BlueTextInlineElem>
 );
 
+export const MyView = props => {
+  if (Platform.OS === 'web')
+    return (
+      <div className={'myView'} style={props.style}>
+        {props.children}
+      </div>
+    );
+
+  return <MyView style={props.style}>{props.children}</MyView>;
+};
+
 export const OrangeTextInline = props => (
   <BlueTextInlineElem
     style={[
@@ -309,9 +320,9 @@ export const commonStyles = StyleSheet.create({
 });
 
 export const BlueTextFromStart = props => (
-  <View style={{flexDirection: 'row', alignSelf: vars.alignSelf}}>
+  <MyView style={{flexDirection: 'row', alignSelf: vars.alignSelf}}>
     <BlueTextInline text={props.text} />
-  </View>
+  </MyView>
 );
 
 export const TextWithLink = props => {
@@ -331,7 +342,7 @@ export const CommonWebBox = props => {
     direction: 'rtl',
     padding: 10,
     margin: 10,
-    zIndex: 1,
+    zIndex: 'unset',
     width: props.width !== undefined ? props.width : 'auto',
     boxShadow: '0px 3px 6px #00000029',
   };
@@ -340,7 +351,7 @@ export const CommonWebBox = props => {
     props.style !== undefined ? {...style1, ...props.style} : {...style1};
 
   return (
-    <View style={allStyle}>
+    <MyView style={allStyle}>
       {props.header !== undefined && (
         <EqualTwoTextInputs>
           <BigBoldBlueTextInline
@@ -371,7 +382,7 @@ export const CommonWebBox = props => {
       )}
       {props.child !== undefined && props.child}
       {props.children !== undefined && props.children}
-    </View>
+    </MyView>
   );
 };
 
@@ -417,7 +428,7 @@ export function PhoneView(props) {
 
   if (props.onClick !== undefined) viewProps.onClick = props.onClick;
 
-  return <View {...viewProps}>{props.children}</View>;
+  return <MyView {...viewProps}>{props.children}</MyView>;
 }
 
 export function ShrinkView(props) {
@@ -434,7 +445,7 @@ export function ShrinkView(props) {
 
   if (props.onClick !== undefined) viewProps.onClick = props.onClick;
 
-  return <View {...viewProps}>{props.children}</View>;
+  return <MyView {...viewProps}>{props.children}</MyView>;
 }
 
 export const ContentView = styled(View)``;

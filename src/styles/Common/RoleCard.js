@@ -22,7 +22,7 @@ export const RoleCard = props => (
       props.style !== undefined ? props.style : {},
       pressed ? {opacity: 0.9} : {},
     ]}>
-    <View>
+    <MyView>
       <Image
         resizeMode="contain"
         style={{
@@ -43,6 +43,6 @@ export const RoleCard = props => (
         }}
         text={props.text}
       />
-    </View>
+    </MyView>
   </Pressable>
 );

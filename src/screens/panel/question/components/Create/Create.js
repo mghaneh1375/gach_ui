@@ -184,7 +184,7 @@ function Create(props) {
   };
 
   return (
-    <View>
+    <MyView>
       <CommonWebBox
         onBackClick={() => props.setMode('list')}
         header={translator.addQuestions}
@@ -393,7 +393,7 @@ function Create(props) {
           title={commonTranslator.confirm}
         />
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

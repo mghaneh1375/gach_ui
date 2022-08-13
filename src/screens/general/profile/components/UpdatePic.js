@@ -35,7 +35,7 @@ const UpdatePic = props => {
   }, [props.user.id, props.isAdmin, userId]);
 
   return (
-    <View style={{zIndex: 5}}>
+    <MyView style={{zIndex: 5}}>
       {showAvatars && (
         <LargePopUp toggleShowPopUp={toggleShowChooseAvatar}>
           {avatars !== undefined && (
@@ -71,7 +71,7 @@ const UpdatePic = props => {
         title={translator.chooseAvatar}
       />
       {/* )} */}
-    </View>
+    </MyView>
   );
 };
 export default UpdatePic;

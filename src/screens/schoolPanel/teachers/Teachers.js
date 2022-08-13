@@ -29,7 +29,7 @@ function TeacherAccess(props) {
     dispatch({loading: status});
   };
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           setMode={setMode}
@@ -51,7 +51,7 @@ function TeacherAccess(props) {
           addItem={i => addItem(data, setData, i)}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 export default TeacherAccess;

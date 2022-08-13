@@ -16,7 +16,7 @@ function ChatImage(props) {
     backgroundSize: 'cover',
     backgroundPosition: 'Center',
   };
-  return <View style={style} />;
+  return <MyView style={style} />;
 }
 
 export default ChatImage;

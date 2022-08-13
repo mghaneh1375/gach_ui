@@ -10,7 +10,7 @@ export default function WebRouter() {
   const [state] = useGlobalState();
 
   return (
-    <View style={{flex: 1, height: '100%'}}>
+    <MyView style={{flex: 1, height: '100%'}}>
       {state.loading && <Loader />}
 
       <Router>
@@ -84,6 +84,6 @@ export default function WebRouter() {
           <Route path="*" element={<WebStructue page="404" />} />
         </Routes>
       </Router>
-    </View>
+    </MyView>
   );
 }

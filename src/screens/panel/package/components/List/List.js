@@ -11,7 +11,7 @@ function List(props) {
       header={commonTranslator.packageQuiz}
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
-      <View style={{zIndex: 'unset'}}>
+      <MyView style={{zIndex: 'unset'}}>
         <PhoneView style={{flexWrap: 'wrap'}}>
           {props.packages !== undefined &&
             props.packages.map((package_, index) => {
@@ -29,7 +29,7 @@ function List(props) {
               );
             })}
         </PhoneView>
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

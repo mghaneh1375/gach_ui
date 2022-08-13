@@ -166,10 +166,10 @@ const WebStructue = props => {
   const params = useParams();
 
   return (
-    <View style={{flex: 1, height: '100%', backgroundColor: vars.DARK_WHITE}}>
+    <MyView style={{flex: 1, height: '100%', backgroundColor: vars.DARK_WHITE}}>
       {allowRenderPage && (
         <MinFullHeightView>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+          <MyView style={{flexDirection: 'row', flexWrap: 'wrap'}}>
             <Logo
               isLogin={user !== undefined}
               toggleHideRightMenu={toggleHideRightMenu}
@@ -199,7 +199,7 @@ const WebStructue = props => {
                 accesses={user !== undefined ? user.accesses : null}
               />
             )}
-            <View
+            <MyView
               style={
                 isInLargeMode && !hideRightMenu
                   ? LargeContentConianerStyle
@@ -351,8 +351,8 @@ const WebStructue = props => {
                 <Teachers token={token} user={user} navigate={navigate} />
               )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
-            </View>
-          </View>
+            </MyView>
+          </MyView>
 
           {props.page === 'login' && isInLargeMode && (
             <WebLogin navigate={navigate} />
@@ -368,7 +368,7 @@ const WebStructue = props => {
           <ReactNotifications />
         </MinFullHeightView>
       )}
-    </View>
+    </MyView>
   );
 };
 

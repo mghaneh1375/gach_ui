@@ -33,7 +33,7 @@ function List(props) {
       header={Translate.author}
       addBtn={true}
       onAddClick={() => props.setMode('createAuthor')}>
-      <View style={{zIndex: 'unset'}}>
+      <MyView style={{zIndex: 'unset'}}>
         {showOpPopUp && (
           <Ops
             author={props.selectedUser}
@@ -45,8 +45,8 @@ function List(props) {
             toggleShowPopUp={toggleShowOpPopUp}
           />
         )}
-      </View>
-      <View>
+      </MyView>
+      <MyView>
         <PhoneView>
           <JustBottomBorderTextInput
             placeholder={'تگ'}
@@ -67,7 +67,7 @@ function List(props) {
           token={props.token}
           setLoading={props.setLoading}
         />
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

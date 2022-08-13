@@ -49,7 +49,7 @@ const ResetPass = props => {
   };
 
   return (
-    <View>
+    <MyView>
       <CommonTextInput
         placeholder={translator.password}
         subText={translator.passwordFilter}
@@ -70,7 +70,7 @@ const ResetPass = props => {
         onPress={() => resetPassword()}
         title={commonTranslator.confirm}
       />
-    </View>
+    </MyView>
   );
 };
 

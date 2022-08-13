@@ -17,7 +17,7 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
 
   return (
-    <View>
+    <MyView>
       <BigBoldBlueText text={Translate.packageQuizzes} />
       {state.quizzes !== undefined && (
         <Quizzes
@@ -46,7 +46,7 @@ function List(props) {
           />
         </Quizzes>
       )}
-    </View>
+    </MyView>
   );
 }
 

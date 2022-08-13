@@ -29,7 +29,7 @@ function List(props) {
   };
 
   return (
-    <View>
+    <MyView>
       {showOpPopUp && (
         <Ops
           lesson={selected}
@@ -57,7 +57,7 @@ function List(props) {
           setLoading={props.setLoading}
         />
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

@@ -37,15 +37,15 @@ function Show(props) {
   }, [props.ticket, props.isAdmin, props.user]);
 
   return (
-    <View>
+    <MyView>
       {props.ticket.chats !== undefined && (
-        <View>
+        <MyView>
           <CommonWebBox
             header={props.ticket.title}
             backBtn={true}
             onBackClick={() => props.setMode('list')}
             child={
-              <View>
+              <MyView>
                 <PhoneView>
                   {props.isAdmin && (
                     <JustBottomBorderTextInput
@@ -84,7 +84,7 @@ function Show(props) {
                     subText={translator.status}
                   />
                 </PhoneView>
-              </View>
+              </MyView>
             }
           />
 
@@ -110,9 +110,9 @@ function Show(props) {
               ticket={props.ticket}
             />
           )}
-        </View>
+        </MyView>
       )}
-    </View>
+    </MyView>
   );
 }
 

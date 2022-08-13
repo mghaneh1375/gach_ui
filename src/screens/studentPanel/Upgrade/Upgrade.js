@@ -23,14 +23,14 @@ function Upgrade(props) {
 
   return (
     <CommonWebBox>
-      <View style={{width: 400}}>
+      <MyView style={{width: 400}}>
         <RoleForm
           token={props.token}
           setLoading={setLoading}
           navigate={props.navigate}
           redirectTo={isApp ? 'Home' : '/'}
         />
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

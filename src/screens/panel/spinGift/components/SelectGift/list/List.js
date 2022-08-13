@@ -25,7 +25,7 @@ function List(props) {
       header={Translate.selectGift}
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
-      <View style={{zIndex: 'unset'}}>
+      <MyView style={{zIndex: 'unset'}}>
         {showOpPopUp && (
           <Ops
             id={selectedId}
@@ -47,7 +47,7 @@ function List(props) {
           token={props.token}
           setLoading={props.setLoading}
         />
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

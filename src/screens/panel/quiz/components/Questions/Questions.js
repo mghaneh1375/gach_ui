@@ -91,7 +91,7 @@ const Questions = props => {
   }, [selectedQuestion]);
 
   return (
-    <View style={{zIndex: 5}}>
+    <MyView style={{zIndex: 5}}>
       {showRemovePane && state.selectedIds !== undefined && (
         <ConfirmationBatchOpPane
           url={
@@ -143,7 +143,7 @@ const Questions = props => {
           backBtn={true}
           onBackClick={() => props.setMode('list')}
           header={translator.questions}>
-          <View>
+          <MyView>
             <ExcelComma
               header={translator.questions}
               placeholder={translator.organizationId}
@@ -189,10 +189,10 @@ const Questions = props => {
                   />
                 );
               })}
-          </View>
+          </MyView>
         </CommonWebBox>
       )}
-    </View>
+    </MyView>
   );
 };
 

@@ -100,16 +100,16 @@ const Header = props => {
             }
             text={commonTranslator.hello + ' - ' + props.name}
           />
-          <View style={{width: 30, height: 30, marginTop: 5, marginRight: 5}}>
+          <MyView style={{width: 30, height: 30, marginTop: 5, marginRight: 5}}>
             <SimpleFontIcon
               style={{}}
               onPress={() => changeShow(!showProfilePane)}
               icon={faAngleDown}
             />
-          </View>
+          </MyView>
 
           {showProfilePane && (
-            <View style={style.Header_Profile_MENU}>
+            <MyView style={style.Header_Profile_MENU}>
               <TouchableOpacity
                 onPress={() => {
                   setShowProfilePane(false);
@@ -124,18 +124,18 @@ const Header = props => {
                 }}>
                 <SimpleText text={commonTranslator.logout} />
               </TouchableOpacity>
-            </View>
+            </MyView>
           )}
         </PhoneView>
 
-        <View style={style.Header_NOTIF}>
+        <MyView style={style.Header_NOTIF}>
           <SimpleFontIcon
             onPress={() => changeShowNotif(!showNotif)}
             icon={faBell}
           />
 
           {showNotif && (
-            <View style={style.Header_Profile_MENU}>
+            <MyView style={style.Header_Profile_MENU}>
               {newAlerts !== undefined &&
                 newAlerts.map((elem, index) => {
                   return (
@@ -152,9 +152,9 @@ const Header = props => {
                     />
                   );
                 })}
-            </View>
+            </MyView>
           )}
-        </View>
+        </MyView>
       </PhoneView>
     );
   }

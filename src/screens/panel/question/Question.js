@@ -53,7 +53,7 @@ const Question = props => {
   }, [dispatch, navigate, props.token]);
 
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           setMode={setMode}
@@ -139,7 +139,7 @@ const Question = props => {
           />
         )}
       </QuestionProvider>
-    </View>
+    </MyView>
   );
 };
 

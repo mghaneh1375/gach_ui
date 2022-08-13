@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Platform, Pressable, View} from 'react-native';
-import {CommonWebBox, SimpleText} from '../Common';
+import {CommonWebBox, MyView, SimpleText} from '../Common';
 import vars from '../root';
 import {
   CommonHalfTextInputStyleWeb,
@@ -122,7 +122,7 @@ export const SearchableTextInput = props => {
   }
 
   return (
-    <CommonTextInputContainer
+    <MyView
       style={
         isHalf
           ? {
@@ -152,9 +152,9 @@ export const SearchableTextInput = props => {
             marginRight: 0,
             overflow: 'auto',
           }}
-          child={<View>{SuggestListItems()}</View>}
+          child={<MyView>{SuggestListItems()}</MyView>}
         />
       )}
-    </CommonTextInputContainer>
+    </MyView>
   );
 };

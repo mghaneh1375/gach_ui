@@ -11,7 +11,7 @@ function Report() {
   const [state, dispatch] = useGlobalState();
 
   return (
-    <View style={{gap: 20}}>
+    <MyView style={{gap: 20}}>
       <PhoneView style={{gap: 50, flexWrap: 'wrap'}}>
         <SimpleText
           style={{minWidth: 200}}
@@ -42,7 +42,7 @@ function Report() {
           text={'تعداد سوالات تشریحی: ' + state.tashrihi}
         />
       </PhoneView>
-    </View>
+    </MyView>
   );
 }
 

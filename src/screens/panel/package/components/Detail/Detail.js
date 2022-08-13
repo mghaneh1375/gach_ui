@@ -41,7 +41,7 @@ function Detail(props) {
   }, [props, isWorking, dispatch, state.quizzes]);
 
   return (
-    <View>
+    <MyView>
       {state.selectingQuiz && (
         <Add
           token={props.token}
@@ -52,7 +52,7 @@ function Detail(props) {
       )}
 
       {!state.selectingQuiz && (
-        <View>
+        <MyView>
           <Info setMode={props.setMode} package={props.package} />
           {state.quizzes !== undefined && (
             <List
@@ -62,9 +62,9 @@ function Detail(props) {
               setPackage={props.setPackage}
             />
           )}
-        </View>
+        </MyView>
       )}
-    </View>
+    </MyView>
   );
 }
 

@@ -21,7 +21,7 @@ const QuizAnswerSheetInfo = props => {
   };
 
   return (
-    <View>
+    <MyView>
       {showUploadFile && (
         <UploadFile
           show={showUploadFile}
@@ -42,7 +42,7 @@ const QuizAnswerSheetInfo = props => {
         />
       </PhoneView>
 
-      <View style={{marginTop: 20}}>
+      <MyView style={{marginTop: 20}}>
         <SimpleText text={translator.descBefore} />
         <CKEditor
           editor={ClassicEditor}
@@ -59,9 +59,9 @@ const QuizAnswerSheetInfo = props => {
             props.setDescBefore(editor.getData());
           }}
         />
-      </View>
+      </MyView>
 
-      <View style={{marginTop: 20}}>
+      <MyView style={{marginTop: 20}}>
         <SimpleText text={translator.descAfter} />
         <CKEditor
           editor={ClassicEditor}
@@ -78,8 +78,8 @@ const QuizAnswerSheetInfo = props => {
             props.setDescAfter(editor.getData());
           }}
         />
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 };
 

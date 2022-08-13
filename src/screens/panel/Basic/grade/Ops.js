@@ -7,7 +7,7 @@ import {removeGrade} from '../Utility';
 
 function Ops(props) {
   return (
-    <View style={{zIndex: 10}}>
+    <MyView style={{zIndex: 10}}>
       <LargePopUp
         title={commonTranslator.opMenu}
         toggleShowPopUp={props.toggleShowPopUp}>
@@ -33,7 +33,7 @@ function Ops(props) {
           />
         </PhoneView>
       </LargePopUp>
-    </View>
+    </MyView>
   );
 }
 

@@ -46,7 +46,7 @@ const List = props => {
   };
 
   return (
-    <View>
+    <MyView>
       {showOpPopUp && (
         <Ops
           toggleShowPopUp={toggleShowOpPopUp}
@@ -61,7 +61,7 @@ const List = props => {
         header={translator.quizes}
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
-        <View>
+        <MyView>
           {state.quizzes !== undefined && (
             <CommonDataTable
               columns={columns}
@@ -73,9 +73,9 @@ const List = props => {
               removeUrl={routes.removeIRYSCQuiz}
             />
           )}
-        </View>
+        </MyView>
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 };
 

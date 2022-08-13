@@ -6,7 +6,7 @@ export function TopNavBar() {
   const navigation = useNavigation();
 
   return (
-    <View
+    <MyView
       style={{
         shadowColor: 'black',
         shadowOpacity: 0.8,
@@ -23,6 +23,6 @@ export function TopNavBar() {
           source={require('./../../images/irysc.png')}
         />
       </TouchableOpacity>
-    </View>
+    </MyView>
   );
 }

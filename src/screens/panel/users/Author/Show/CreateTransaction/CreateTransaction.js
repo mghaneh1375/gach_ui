@@ -21,7 +21,7 @@ function CreateTransaction(props) {
       header={commonTranslator.desc}
       backBtn={true}
       onBackClick={() => props.setMode('show')}>
-      <View>
+      <MyView>
         <PhoneView>
           <JustBottomBorderTextInput
             placeholder={Translate.amount}
@@ -70,7 +70,7 @@ function CreateTransaction(props) {
           }}
           title={commonTranslator.confirm}
         />
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

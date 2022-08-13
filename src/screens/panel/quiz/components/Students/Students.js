@@ -157,7 +157,7 @@ const Students = props => {
   };
 
   return (
-    <View>
+    <MyView>
       {showAnswerSheet && (
         <StudentAnswerSheet
           selectedAnswerSheetIdx={studentIdx}
@@ -186,7 +186,7 @@ const Students = props => {
         </LargePopUp>
       )}
       {!showAnswerSheet && (
-        <View>
+        <MyView>
           <SearchUser
             setFinalResult={setFoundUser}
             setShow={setShowSearchUser}
@@ -219,14 +219,14 @@ const Students = props => {
               afterAddingCallBack={afterAdd}
               additionalData={{paid: paid}}
               mandatoryFields={['paid']}>
-              <View style={{zIndex: 1, marginBottom: 10}}>
+              <MyView style={{zIndex: 1, marginBottom: 10}}>
                 <JustBottomBorderTextInput
                   justNum={true}
                   value={paid}
                   onChangeText={e => changeText(e, setPaid)}
                   placeholder={commonTranslator.paid}
                 />
-              </View>
+              </MyView>
             </ExcelComma>
             <CommonDataTable
               columns={columns}
@@ -243,9 +243,9 @@ const Students = props => {
               }
             />
           </CommonWebBox>
-        </View>
+        </MyView>
       )}
-    </View>
+    </MyView>
   );
 };
 

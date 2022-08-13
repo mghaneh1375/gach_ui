@@ -42,7 +42,7 @@ function Lesson(props) {
     );
   }, [navigate, props.token, dispatch]);
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           lessons={lessons}
@@ -72,7 +72,7 @@ function Lesson(props) {
           setLoading={setLoading}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

@@ -37,33 +37,33 @@ function Digest({
         }}>
         <PhoneView>
           <TinyTextIcon />
-          <View>
+          <MyView>
             <SimpleText
               style={{...styleFontSize11}}
               text={Translate.sendDate}
             />
             <SimpleText style={{...styleFontSize15}} text={ticket.sendDate} />
-          </View>
+          </MyView>
         </PhoneView>
         <PhoneView>
           <TinyTextIcon />
-          <View>
+          <MyView>
             <SimpleText
               style={{...styleFontSize11}}
               text={commonTranslator.unit}
             />
             <SimpleText style={{...styleFontSize15}} text={ticket.sectionFa} />
-          </View>
+          </MyView>
         </PhoneView>
         <PhoneView>
           <TinyTextIcon />
-          <View>
+          <MyView>
             <SimpleText
               style={{...styleFontSize11}}
               text={commonTranslator.nes}
             />
             <SimpleText style={{...styleFontSize15}} text={ticket.priorityFa} />
-          </View>
+          </MyView>
         </PhoneView>
       </PhoneView>
       <EqualTwoTextInputs>

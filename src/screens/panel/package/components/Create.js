@@ -46,7 +46,7 @@ function Create(props) {
       header={commonTranslator.title}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <View>
+      <MyView>
         <PhoneView>
           <JustBottomBorderTextInput
             isHalf={true}
@@ -91,7 +91,7 @@ function Create(props) {
             values={lessons !== undefined ? lessons : []}
           />
         </PhoneView>
-        <View style={{marginTop: 25}}>
+        <MyView style={{marginTop: 25}}>
           <JustBottomBorderTextInput
             multiline={true}
             subText={commonTranslator.optional}
@@ -99,8 +99,8 @@ function Create(props) {
             value={desc}
             onChangeText={e => changeText(e, setDesc)}
           />
-        </View>
-        <View>
+        </MyView>
+        <MyView>
           <CommonButton
             onPress={async () => {
               props.setLoading(true);
@@ -143,8 +143,8 @@ function Create(props) {
             }}
             title={commonTranslator.confirm}
           />
-        </View>
-      </View>
+        </MyView>
+      </MyView>
     </CommonWebBox>
   );
 }

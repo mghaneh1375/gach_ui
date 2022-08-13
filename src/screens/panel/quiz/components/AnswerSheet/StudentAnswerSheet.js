@@ -54,7 +54,7 @@ function StudentAnswerSheet(props) {
   }, [ref, props]);
 
   return (
-    <View>
+    <MyView>
       <CommonWebBox
         backBtn={true}
         onBackClick={() => props.onBackClick()}
@@ -63,7 +63,7 @@ function StudentAnswerSheet(props) {
             .name
         }>
         <EqualTwoTextInputs>
-          <View>
+          <MyView>
             <ToggleSwitch
               isOn={stdChangingMode}
               onColor="green"
@@ -83,7 +83,7 @@ function StudentAnswerSheet(props) {
               title={'پرینت'}
               onPress={() => print()}
             />
-          </View>
+          </MyView>
           <SimpleFontIcon
             parentStyle={{marginLeft: 20, marginTop: 20}}
             kind={'normal'}
@@ -124,14 +124,14 @@ function StudentAnswerSheet(props) {
           />
         )}
       </CommonWebBox>
-      <View ref={ref}>
+      <MyView ref={ref}>
         <AnswerSheet
           answer_sheet={state.wanted_answer_sheet}
           setLoading={props.setLoading}
           token={props.token}
         />
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 }
 

@@ -1,20 +1,11 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {
-  CommonWebBox,
-  PhoneView,
-  EqualTwoTextInputs,
-  CommonButton,
-} from '../../../../../styles/Common';
-import {getAnswerSheets, updateStudentAnswers} from '../Utility';
+import {CommonWebBox, PhoneView} from '../../../../../styles/Common';
+import {getAnswerSheets} from '../Utility';
 import Card from './Card';
-import AnswerSheet from '../AnswerSheet/AnswerSheet';
 import {dispatchQuizContext, quizContext} from '../Context';
 import translator from '../../Translator';
 
-import ToggleSwitch from 'toggle-switch-react-native';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import {faLock, faUnlock} from '@fortawesome/free-solid-svg-icons';
 import StudentAnswerSheet from '../AnswerSheet/StudentAnswerSheet';
 
 function CV(props) {
@@ -81,7 +72,7 @@ function CV(props) {
   }, [props, isWorking, dispatch, state.selectedQuiz]);
 
   return (
-    <View style={{zIndex: 'unset'}}>
+    <MyView style={{zIndex: 'unset'}}>
       {showAnswerSheet && (
         <StudentAnswerSheet
           selectedAnswerSheetIdx={selectedAnswerSheetIdx}
@@ -109,7 +100,7 @@ function CV(props) {
           </PhoneView>
         </CommonWebBox>
       )}
-    </View>
+    </MyView>
   );
 }
 

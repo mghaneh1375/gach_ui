@@ -45,7 +45,7 @@ function Card(props) {
   };
 
   return (
-    <View>
+    <MyView>
       {showRemovePane && (
         <ConfirmationBatchOpPane
           setLoading={props.setLoading}
@@ -65,7 +65,7 @@ function Card(props) {
           style={{...styleGiftIcon}}
         />
 
-        <View
+        <MyView
           style={{
             ...styleCommonWebBoxView,
           }}>
@@ -75,8 +75,8 @@ function Card(props) {
             }}
             text={props.package.title}
           />
-        </View>
-        <View
+        </MyView>
+        <MyView
           style={{
             ...styleLittleView,
           }}>
@@ -84,8 +84,8 @@ function Card(props) {
             style={{...styleColorWhite}}
             text={props.package.offPercent + '%'}
           />
-        </View>
-        <View
+        </MyView>
+        <MyView
           style={{
             ...styleDigest,
           }}>
@@ -97,12 +97,12 @@ function Card(props) {
             style={{...styleFontSize13}}
             text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
           />
-        </View>
-        <View style={{...styleItemsGrandParent}}>
+        </MyView>
+        <MyView style={{...styleItemsGrandParent}}>
           <PhoneView style={{...styleItemsParent}}>
             <PhoneView style={{...styleItem}}>
               <TinyTextIcon />
-              <View>
+              <MyView>
                 <SimpleText
                   style={{...styleFontSize11}}
                   text={Translate.quizCount}
@@ -111,12 +111,12 @@ function Card(props) {
                   style={{...styleFontSize15}}
                   text={props.package.quizzes}
                 />
-              </View>
+              </MyView>
             </PhoneView>
             {props.isAdmin && (
               <PhoneView style={{...styleItem}}>
                 <TinyTextIcon />
-                <View>
+                <MyView>
                   <SimpleText
                     style={{...styleFontSize11}}
                     text={Translate.minSelect}
@@ -125,14 +125,14 @@ function Card(props) {
                     style={{...styleFontSize15}}
                     text={props.package.minSelect}
                   />
-                </View>
+                </MyView>
               </PhoneView>
             )}
 
             {props.isAdmin && (
               <PhoneView style={{...styleItem}}>
                 <TinyTextIcon />
-                <View>
+                <MyView>
                   <SimpleText
                     style={{...styleFontSize11}}
                     text={Translate.buyersCount}
@@ -141,11 +141,11 @@ function Card(props) {
                     style={{...styleFontSize15}}
                     text={props.package.buyers}
                   />
-                </View>
+                </MyView>
               </PhoneView>
             )}
           </PhoneView>
-        </View>
+        </MyView>
 
         <PhoneView style={{...stylePricaPane}}>
           {!props.isAdmin && (
@@ -187,7 +187,7 @@ function Card(props) {
           )}
         </PhoneView>
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

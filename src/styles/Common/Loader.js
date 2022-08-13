@@ -16,7 +16,7 @@ const blur = StyleSheet.create({
 });
 
 export const Loader = props => (
-  <View style={[blur.container]}>
+  <MyView style={[blur.container]}>
     <ActivityIndicator color="green" size="large" />
-  </View>
+  </MyView>
 );

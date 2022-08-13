@@ -61,7 +61,7 @@ function Create(props) {
   }, [grade, props.grades]);
 
   return (
-    <View>
+    <MyView>
       {showUploadPane && (
         <UploadFile
           setResult={res => {
@@ -92,7 +92,7 @@ function Create(props) {
             ? commonTranslate.edit
             : commonTranslate.subjectDefinition
         }>
-        <View>
+        <MyView>
           <PhoneView style={{flexWrap: 'wrap', gap: 20}}>
             <JustBottomBorderTextInput
               value={name}
@@ -244,9 +244,9 @@ function Create(props) {
               title={commonTranslate.confirm}
             />
           </PhoneView>
-        </View>
+        </MyView>
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

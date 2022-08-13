@@ -30,7 +30,7 @@ function List(props) {
   const currLevel = useParams().level;
 
   return (
-    <View>
+    <MyView>
       {showOpPopUp && (
         <Ops
           user={props.selectedUser}
@@ -48,7 +48,7 @@ function List(props) {
           Translator.list +
           levelsKeyVals.find(elem => elem.id === currLevel).item
         }>
-        <View>
+        <MyView>
           {/* <Filter
             setData={props.setData}
             token={props.token}
@@ -64,9 +64,9 @@ function List(props) {
             token={props.token}
             setLoading={props.setLoading}
           />
-        </View>
+        </MyView>
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

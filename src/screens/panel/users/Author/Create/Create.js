@@ -23,7 +23,7 @@ function CreateAuthor(props) {
       header={Translate.newAuthor}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <View>
+      <MyView>
         <PhoneView>
           <JustBottomBorderTextInput
             isHalf={true}
@@ -73,7 +73,7 @@ function CreateAuthor(props) {
           }}
           title={commonTranslate.confirm}
         />
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 }

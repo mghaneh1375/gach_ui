@@ -38,7 +38,7 @@ function Create(props) {
   };
 
   return (
-    <View>
+    <MyView>
       <CommonWebBox
         header={translator.add}
         backBtn={true}
@@ -132,7 +132,7 @@ function Create(props) {
           title={commonTranslator.confirm}
         />
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

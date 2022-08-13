@@ -41,7 +41,7 @@ function CreateStep1(props) {
       backBtn={true}
       onBackClick={() => (step === 1 ? props.setMode('list') : setStep(1))}>
       {step === 1 && (
-        <View>
+        <MyView>
           <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
             <JustBottomBorderTextInput
               onChangeText={text => setPhone(text)}
@@ -76,10 +76,10 @@ function CreateStep1(props) {
               } else props.setMode('list');
             }}
           />
-        </View>
+        </MyView>
       )}
       {step === 2 && (
-        <View>
+        <MyView>
           <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
             <JustBottomBorderTextInput
               onChangeText={text => setName(text)}
@@ -125,7 +125,7 @@ function CreateStep1(props) {
               placeholder={commonTranslator.sex}
             />
             {showAllFields && (
-              <View>
+              <MyView>
                 <PhoneView>
                   <BigBoldBlueTextInline text={Translate.info} />
                 </PhoneView>
@@ -144,7 +144,7 @@ function CreateStep1(props) {
                     subText={Translate.liableFamily}
                     value={liableFamily}
                   />
-                  <View>
+                  <MyView>
                     <PhoneView>
                       <JustBottomBorderTextInput
                         onChangeText={text => setPassword(text)}
@@ -171,7 +171,7 @@ function CreateStep1(props) {
                         value={repeatPassword}
                       />
                     </PhoneView>
-                  </View>
+                  </MyView>
                   <StateAndCity
                     state={state}
                     city={city}
@@ -180,7 +180,7 @@ function CreateStep1(props) {
                     setLoading={props.setLoading}
                   />
                 </PhoneView>
-              </View>
+              </MyView>
             )}
           </PhoneView>
           <CommonButton
@@ -218,7 +218,7 @@ function CreateStep1(props) {
                 props.setMode('list');
               }
             }}></CommonButton>
-        </View>
+        </MyView>
       )}
     </CommonWebBox>
   );

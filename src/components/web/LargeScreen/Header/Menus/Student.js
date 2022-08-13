@@ -51,7 +51,7 @@ function StudentMenu(props) {
   const isApp = device.indexOf(Device.App) !== -1;
 
   return (
-    <View
+    <MyView
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
@@ -80,7 +80,7 @@ function StudentMenu(props) {
           props.toggleHideRightMenu();
         }}
       />
-    </View>
+    </MyView>
   );
 }
 

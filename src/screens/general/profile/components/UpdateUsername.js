@@ -20,7 +20,7 @@ const UpdateUsername = props => {
   };
 
   return (
-    <View>
+    <MyView>
       <PhoneView>
         <JustBottomBorderTextInput
           value={props.phone}
@@ -53,7 +53,7 @@ const UpdateUsername = props => {
           onPress={() => changeMail()}
         />
       </PhoneView>
-    </View>
+    </MyView>
   );
 };
 export default UpdateUsername;

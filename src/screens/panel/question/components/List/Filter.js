@@ -46,7 +46,7 @@ function Filter(props) {
   };
 
   return (
-    <View style={{zIndex: 'unset'}}>
+    <MyView style={{zIndex: 'unset'}}>
       <PhoneView>
         <JustBottomBorderSelect
           isHalf={true}
@@ -102,7 +102,7 @@ function Filter(props) {
           }}
           text={commonTranslator.advancedSearch}
         />
-        <View
+        <MyView
           style={{
             width: 20,
             height: 20,
@@ -114,10 +114,10 @@ function Filter(props) {
             }}
             icon={wantedIcon}
           />
-        </View>
+        </MyView>
       </PhoneView>
       {showProSearch && (
-        <View style={{zIndex: 'unset'}}>
+        <MyView style={{zIndex: 'unset'}}>
           <PhoneView style={{zIndex: 'unset'}}>
             <JustBottomBorderTextInput
               placeholder={translator.criticalThresh}
@@ -126,17 +126,17 @@ function Filter(props) {
               value={criticalThresh}
               isHalf={true}
             />
-            <View style={{marginTop: 10}}>
+            <MyView style={{marginTop: 10}}>
               <RadioButtonYesOrNo
                 label={translator.justCriticals}
                 selected={justCriticals}
                 setSelected={setJustCriticals}
               />
-            </View>
+            </MyView>
           </PhoneView>
-        </View>
+        </MyView>
       )}
-    </View>
+    </MyView>
   );
 }
 

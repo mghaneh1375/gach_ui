@@ -95,7 +95,7 @@ const ExcelComma = props => {
   }, [props.additionalData]);
 
   return (
-    <View style={{zIndex: 'unset'}}>
+    <MyView style={{zIndex: 'unset'}}>
       {showUploadPopUp && (
         <UploadFile
           toggleShow={toggleShowUploadPopUp}
@@ -120,7 +120,7 @@ const ExcelComma = props => {
       </PhoneView>
 
       <PhoneView>
-        <View
+        <MyView
           style={{
             width: '80%',
             height: 75,
@@ -134,7 +134,7 @@ const ExcelComma = props => {
             subText={props.help}
             value={codes}
           />
-        </View>
+        </MyView>
 
         {props.onSearchClick !== undefined && (
           <FontIcon
@@ -161,7 +161,7 @@ const ExcelComma = props => {
           theme={'dark'}
         />
       </PhoneView>
-    </View>
+    </MyView>
   );
 };
 

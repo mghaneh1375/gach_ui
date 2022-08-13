@@ -12,7 +12,7 @@ function SpecificRoleForm(props) {
   }, [props.obj]);
 
   return (
-    <View>
+    <MyView>
       {obj !== undefined && obj.keyVals !== undefined && (
         <JustBottomBorderSelect
           setter={setData}
@@ -38,7 +38,7 @@ function SpecificRoleForm(props) {
           }}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

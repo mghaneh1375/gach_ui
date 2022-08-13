@@ -65,7 +65,7 @@ function Quizzes(props) {
   }, [props, isWorking, quizzes]);
 
   return (
-    <View style={{height: getScreenHeight() + 50}}>
+    <MyView style={{height: getScreenHeight() + 50}}>
       {props.onBackClicked !== undefined && (
         <FontIcon
           icon={faAngleLeft}
@@ -92,7 +92,7 @@ function Quizzes(props) {
           height: 70,
         }}>
         <EqualTwoTextInputs>
-          <View>
+          <MyView>
             <PhoneView>
               <SimpleText
                 style={{color: vars.DARK_BLUE, fontWeight: 600, fontSize: 17}}
@@ -120,11 +120,11 @@ function Quizzes(props) {
                 />
               </PhoneView>
             )}
-          </View>
+          </MyView>
           {props.children}
         </EqualTwoTextInputs>
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

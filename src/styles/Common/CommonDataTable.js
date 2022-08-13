@@ -189,7 +189,7 @@ const CommonDataTable = props => {
   }, [props.groupOps, props.removeUrl]);
 
   return (
-    <View>
+    <MyView>
       {showRemovePopUp &&
         state.ops !== undefined &&
         selectedOp !== undefined &&
@@ -253,7 +253,7 @@ const CommonDataTable = props => {
         }
         clearSelectedRows={toggledClearRows}
       />
-    </View>
+    </MyView>
   );
 };
 

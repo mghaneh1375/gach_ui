@@ -114,7 +114,7 @@ function General(props) {
   };
 
   return (
-    <View>
+    <MyView>
       <CommonWebBox>
         <PhoneView style={{flexWrap: 'wrap', gap: 10}}>
           <JustBottomBorderTextInput
@@ -246,7 +246,7 @@ function General(props) {
           title={commonTranslator.update}
         />
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

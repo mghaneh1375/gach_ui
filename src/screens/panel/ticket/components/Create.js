@@ -100,7 +100,7 @@ function Create(props) {
   };
 
   return (
-    <View zIndex={5}>
+    <MyView zIndex={5}>
       {props.isAdmin && (
         <SearchUser
           setFinalResult={setFoundUser}
@@ -212,7 +212,7 @@ function Create(props) {
           </PhoneView>
         )}
       </CommonWebBox>
-    </View>
+    </MyView>
   );
 }
 

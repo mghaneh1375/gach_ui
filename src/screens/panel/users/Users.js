@@ -47,7 +47,7 @@ const Users = props => {
   }, [navigate, props.token, level, dispatch]);
 
   return (
-    <View>
+    <MyView>
       {mode === 'list' && (
         <List
           users={users}
@@ -80,7 +80,7 @@ const Users = props => {
           removeFromList={ids => removeItems(users, setUsers, ids)}
         />
       )}
-    </View>
+    </MyView>
   );
 };
 

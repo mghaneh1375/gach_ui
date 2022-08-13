@@ -102,7 +102,7 @@ const SearchUser = props => {
           text={commonTranslator.phone}
         />
       </PhoneView>
-      <View style={{marginTop: 30, marginBottom: 30}}>
+      <MyView style={{marginTop: 30, marginBottom: 30}}>
         {mode === 'name' && (
           <PhoneView>
             <JustBottomBorderTextInput
@@ -183,7 +183,7 @@ const SearchUser = props => {
           title={commonTranslator.confirmChanges}
           theme={'dark'}
         />
-      </View>
+      </MyView>
     </LargePopUp>
   );
 };

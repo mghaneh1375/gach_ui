@@ -263,7 +263,7 @@ function Question(props) {
         </PhoneView>
       )}
       {showMore && (
-        <View>
+        <MyView>
           <BigBoldBlueText text={translator.questionFile} />
           <img
             style={{...styleMaxHeight300}}
@@ -271,15 +271,15 @@ function Question(props) {
           />
           {props.question.answerFile !== null &&
             props.question.answerFile !== undefined && (
-              <View>
+              <MyView>
                 <BigBoldBlueText text={translator.answerFile} />
                 <img
                   style={{...styleMaxHeight300}}
                   src={props.question.answerFile}
                 />
-              </View>
+              </MyView>
             )}
-        </View>
+        </MyView>
       )}
     </CommonWebBox>
   );

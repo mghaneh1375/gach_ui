@@ -53,7 +53,7 @@ function DashboardCard({theme, text, background, subtext, btnColor, counter}) {
         )}
       </PhoneView>
       {btnColor !== undefined && (
-        <View>
+        <MyView>
           <EqualTwoTextInputs>
             <SimpleText
               style={{...styleFontSize30, ...styleSubText}}
@@ -66,7 +66,7 @@ function DashboardCard({theme, text, background, subtext, btnColor, counter}) {
               icon={faPlus}
             />
           </EqualTwoTextInputs>
-        </View>
+        </MyView>
       )}
     </CommonWebBox>
   );

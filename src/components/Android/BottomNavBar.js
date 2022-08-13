@@ -13,8 +13,8 @@ export default function BottomNavBar(props) {
   const navigation = useNavigation();
 
   return !props.show ? null : (
-    <View style={NavContainerStyle}>
-      <View style={NavItemContainerStyle}>
+    <MyView style={NavContainerStyle}>
+      <MyView style={NavItemContainerStyle}>
         <Pressable
           style={NavItemStyle}
           onPress={() => navigation.navigate('Login')}>
@@ -25,47 +25,47 @@ export default function BottomNavBar(props) {
           />
         </Pressable>
         <Text>ورود/ثبت نام</Text>
-      </View>
-      <View style={NavItemContainerStyle}>
-        <View style={NavItemStyle}>
+      </MyView>
+      <MyView style={NavItemContainerStyle}>
+        <MyView style={NavItemStyle}>
           <Image
             style={NavItemImageStyle}
             resizeMode="contain"
             source={require('./../../images/support.png')}
           />
-        </View>
+        </MyView>
         <Text>پشتیبانی</Text>
-      </View>
-      <View style={NavItemContainerStyle}>
-        <View style={NavItemStyle}>
+      </MyView>
+      <MyView style={NavItemContainerStyle}>
+        <MyView style={NavItemStyle}>
           <Image
             style={NavItemImageStyle}
             resizeMode="contain"
             source={require('./../../images/exam.png')}
           />
-        </View>
+        </MyView>
         <Text>آزمون ها</Text>
-      </View>
-      <View style={NavItemContainerStyle}>
-        <View style={NavItemStyle}>
+      </MyView>
+      <MyView style={NavItemContainerStyle}>
+        <MyView style={NavItemStyle}>
           <Image
             style={NavItemImageStyle}
             resizeMode="contain"
             source={require('./../../images/rank.png')}
           />
-        </View>
+        </MyView>
         <Text>رتبه بندی</Text>
-      </View>
-      <View style={NavItemContainerStyle}>
-        <View style={NavItemStyle}>
+      </MyView>
+      <MyView style={NavItemContainerStyle}>
+        <MyView style={NavItemStyle}>
           <Image
             style={NavItemImageStyle}
             resizeMode="contain"
             source={require('./../../images/exam.png')}
           />
-        </View>
+        </MyView>
         <Text>آزمون ها</Text>
-      </View>
-    </View>
+      </MyView>
+    </MyView>
   );
 }

@@ -9,20 +9,20 @@ import {editItem} from '../../../../../services/Utility';
 
 function List(props) {
   return (
-    <View>
+    <MyView>
       <CommonWebBox
         header={Translate.sendRequest}
         addBtn={true}
         onAddClick={() => props.setMode('create')}></CommonWebBox>
       <CommonWebBox style={{marginTop: -5}}>
-        <View style={{padding: 5, zIndex: 'unset'}}>
+        <MyView style={{padding: 5, zIndex: 'unset'}}>
           <Filter
             setTickets={props.setTickets}
             isAdmin={false}
             token={props.token}
             setLoading={props.setLoading}
           />
-        </View>
+        </MyView>
       </CommonWebBox>
       {props.tickets !== undefined &&
         props.tickets.map((elem, index) => {
@@ -41,7 +41,7 @@ function List(props) {
             />
           );
         })}
-    </View>
+    </MyView>
   );
 }
 

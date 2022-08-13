@@ -6,7 +6,7 @@ const TopNavBar = () => {
   const navigate = useNavigate();
 
   return (
-    <View
+    <MyView
       style={{
         shadowColor: 'black',
         shadowOpacity: 0.8,
@@ -23,7 +23,7 @@ const TopNavBar = () => {
           source={require('./../../images/irysc.png')}
         />
       </TouchableOpacity>
-    </View>
+    </MyView>
   );
 };
 

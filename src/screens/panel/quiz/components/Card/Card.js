@@ -29,7 +29,7 @@ import {isOnlineKeyVals, kindQuizKeyVals} from '../KeyVals';
 function Card(props) {
   return (
     <CommonWebBox style={{...styleCard}}>
-      <View
+      <MyView
         style={{
           ...styleCommonWebBoxView,
         }}>
@@ -39,14 +39,14 @@ function Card(props) {
           }}
           text={props.quiz.title}
         />
-      </View>
+      </MyView>
 
-      <View style={{...styleItemsGrandParent}}>
+      <MyView style={{...styleItemsGrandParent}}>
         <PhoneView style={{...styleItemsParent}}>
           {props.quiz.reminder !== undefined && (
             <PhoneView style={{...styleItem}}>
               <TinyTextIcon />
-              <View>
+              <MyView>
                 <SimpleText
                   style={{...styleFontSize11}}
                   text={Translate.reminder}
@@ -55,12 +55,12 @@ function Card(props) {
                   style={{...styleFontSize15}}
                   text={props.quiz.reminder}
                 />
-              </View>
+              </MyView>
             </PhoneView>
           )}
           <PhoneView style={{...styleItem}}>
             <TinyTextIcon />
-            <View>
+            <MyView>
               <SimpleText style={{...styleFontSize11}} text={Translate.kind} />
               <SimpleText
                 style={{...styleFontSize13}}
@@ -68,11 +68,11 @@ function Card(props) {
                   kindQuizKeyVals.find(elem => elem.id === props.quiz.mode).item
                 }
               />
-            </View>
+            </MyView>
           </PhoneView>
           <PhoneView style={{...styleItem}}>
             <TinyTextIcon />
-            <View>
+            <MyView>
               <SimpleText
                 style={{...styleFontSize11}}
                 text={Translate.isOnline}
@@ -84,12 +84,12 @@ function Card(props) {
                     .item
                 }
               />
-            </View>
+            </MyView>
           </PhoneView>
           {props.quiz.studentsCount !== undefined && (
             <PhoneView style={{...styleItem}}>
               <TinyTextIcon />
-              <View>
+              <MyView>
                 <SimpleText
                   style={{...styleFontSize11}}
                   text={Translate.studentsCount}
@@ -98,12 +98,12 @@ function Card(props) {
                   style={{...styleFontSize15}}
                   text={props.quiz.studentsCount}
                 />
-              </View>
+              </MyView>
             </PhoneView>
           )}
 
           {props.quiz.visibility !== undefined && (
-            <View style={{...styleItem}}>
+            <MyView style={{...styleItem}}>
               <TinyTextIcon style={{...styleTinyTextIcon}} />
               <SimpleText
                 style={{...styleFontSize11}}
@@ -113,11 +113,11 @@ function Card(props) {
                 style={{...styleFontSize15}}
                 text={props.quiz.visibility}
               />
-            </View>
+            </MyView>
           )}
           <PhoneView style={{...styleFullItem}}>
             <TinyTextIcon />
-            <View>
+            <MyView>
               <SimpleText
                 style={{...styleFontSize11}}
                 text={Translate.launching}
@@ -131,11 +131,11 @@ function Card(props) {
                   convertTimestamp(props.quiz.end)
                 }
               />
-            </View>
+            </MyView>
           </PhoneView>
           <PhoneView style={{...styleFullItem}}>
             <TinyTextIcon />
-            <View>
+            <MyView>
               <SimpleText
                 style={{...styleFontSize11}}
                 text={Translate.registery}
@@ -149,12 +149,12 @@ function Card(props) {
                   convertTimestamp(props.quiz.endRegistry)
                 }
               />
-            </View>
+            </MyView>
           </PhoneView>
         </PhoneView>
-      </View>
+      </MyView>
 
-      <View>
+      <MyView>
         <PhoneView style={{...stylePricaPane}}>
           {!props.isAdmin && (
             <PhoneView>
@@ -178,13 +178,13 @@ function Card(props) {
             />
           </PhoneView>
         </PhoneView>
-        <View
+        <MyView
           style={{
             ...styleDigest,
           }}>
           <SimpleText style={{...styleFontSize13}} text={props.quiz.tags} />
-        </View>
-      </View>
+        </MyView>
+      </MyView>
     </CommonWebBox>
   );
 }

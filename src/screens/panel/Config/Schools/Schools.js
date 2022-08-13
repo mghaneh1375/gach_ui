@@ -45,7 +45,7 @@ function Schools(props) {
   }, [navigate, props.token, dispatch, states]);
 
   return (
-    <View style={{zIndex: 10}}>
+    <MyView style={{zIndex: 10}}>
       {mode === 'list' && (
         <List
           schools={schools}
@@ -82,7 +82,7 @@ function Schools(props) {
           token={props.token}
         />
       )}
-    </View>
+    </MyView>
   );
 }
 

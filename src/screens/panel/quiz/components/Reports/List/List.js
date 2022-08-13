@@ -29,7 +29,7 @@ function List(props) {
   const [selectedReport, setSelectedReport] = useState('');
 
   return (
-    <View>
+    <MyView>
       <CommonWebBox
         header={commonTranslator.report}
         backBtn={true}
@@ -120,7 +120,7 @@ function List(props) {
         state.selectedQuiz.authorReport !== undefined && (
           <AuthorReport data={state.selectedQuiz.authorReport} />
         )}
-    </View>
+    </MyView>
   );
 }
 

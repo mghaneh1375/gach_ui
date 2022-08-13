@@ -23,7 +23,7 @@ const Update = props => {
       header={translator.editOff}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <View>
+      <MyView>
         <PhoneView style={{zIndex: 1, marginBottom: 10}}>
           <JustBottomBorderTextInput
             isHalf={true}
@@ -71,7 +71,7 @@ const Update = props => {
             )
           }
         />
-      </View>
+      </MyView>
     </CommonWebBox>
   );
 };

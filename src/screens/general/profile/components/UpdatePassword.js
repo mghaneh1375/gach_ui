@@ -7,7 +7,7 @@ import {View} from 'react-native';
 
 const UpdatePassword = props => {
   return (
-    <View>
+    <MyView>
       <BigBoldBlueText text={translator.yourInfo} />
       <EqualTwoTextInputs>
         <JustBottomBorderTextInput
@@ -20,7 +20,7 @@ const UpdatePassword = props => {
           placeholder={commonTranslator.lastname}
         />
       </EqualTwoTextInputs>
-    </View>
+    </MyView>
   );
 };
 export default UpdatePassword;

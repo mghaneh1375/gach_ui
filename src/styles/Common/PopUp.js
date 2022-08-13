@@ -28,11 +28,11 @@ const modal = {
 
 export function LargePopUp(props) {
   return (
-    <View style={modal.container}>
+    <MyView style={modal.container}>
       <CommonWebBox
         style={modal.box}
         child={
-          <View>
+          <MyView>
             <TextIcon
               style={{marginBottom: 20}}
               onPress={() => props.toggleShowPopUp()}
@@ -50,9 +50,9 @@ export function LargePopUp(props) {
                 />
               )}
             </PhoneView>
-          </View>
+          </MyView>
         }
       />
-    </View>
+    </MyView>
   );
 }
