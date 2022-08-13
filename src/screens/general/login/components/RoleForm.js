@@ -50,11 +50,12 @@ const RoleForm = props => {
       });
 
       setRoleForms(allForms);
-      setUserRoleFormData(
-        form.data.map(elem => {
-          return {key: elem.key, value: elem.value};
-        }),
-      );
+      let newUserData = {};
+
+      form.data.forEach(elem => {
+        newUserData[elem.key] = elem.value;
+      });
+      setUserRoleFormData(newUserData);
     }
     setStep('form');
   };
@@ -141,6 +142,7 @@ const RoleForm = props => {
                   key={i}
                   obj={obj}
                   setFormUserData={setFormUserData}
+                  signUp={false}
                 />
               );
             })}
@@ -157,6 +159,7 @@ const RoleForm = props => {
                 props.navigate,
                 props.redirectTo,
                 props.token,
+                props.userId,
               );
             }}
             title={commonTranslator.confirm}

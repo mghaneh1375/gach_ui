@@ -1,15 +1,12 @@
-import {Device} from '../../../models/Device';
-import {getDevice} from '../../../services/Utility';
 import RoleForm from '../../general/login/components/RoleForm';
-import React from 'react';
+import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import {CommonWebBox, MyView} from '../../../styles/Common';
 import {useParams} from 'react-router';
+import {generalRequest} from '../../../API/Utility';
+import {routes} from '../../../API/APIRoutes';
 
 function Upgrade(props) {
-  const device = getDevice();
-  const isApp = device.indexOf(Device.App) !== -1;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -30,16 +27,43 @@ function Upgrade(props) {
 
   if (isAdmin && userId === undefined) props.navigate('/');
 
+  const [forms, setForms] = useState();
+  const [isWorking, setIsWorking] = useState(false);
+
+  React.useEffect(() => {
+    if (userId === undefined || isWorking || forms !== undefined) return;
+
+    setIsWorking(true);
+    dispatch({loading: true});
+    Promise.all([
+      generalRequest(
+        routes.fetchUser + userId,
+        'get',
+        undefined,
+        'user',
+        props.token,
+      ),
+    ]).then(res => {
+      dispatch({loading: false});
+      if (res[0] === null) {
+        props.navigate('/');
+        return;
+      }
+      setForms(res[0].user.forms);
+      setIsWorking(false);
+    });
+  }, [userId, isWorking, forms, dispatch, props]);
+
   return (
     <CommonWebBox>
       <MyView style={{width: 400}}>
         <RoleForm
-          forms={props.user.user.forms}
+          forms={forms}
+          userId={userId}
           signUp={false}
           token={props.token}
           setLoading={setLoading}
           navigate={props.navigate}
-          redirectTo={isApp ? 'Home' : '/'}
         />
       </MyView>
     </CommonWebBox>

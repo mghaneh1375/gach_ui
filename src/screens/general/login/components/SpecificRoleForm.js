@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {MyView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 
 function SpecificRoleForm(props) {
   const [obj, setObj] = useState();
@@ -23,15 +23,27 @@ function SpecificRoleForm(props) {
           args={obj.key}
           values={obj.keyVals}
           value={obj.keyVals.find(elem => {
-            console.log(elem.id);
-            console.log(data);
             return elem.id === data;
           })}
         />
       )}
 
-      {obj !== undefined && obj.keyVals === undefined && (
+      {obj !== undefined && obj.keyVals === undefined && props.signUp && (
         <CommonTextInput
+          placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
+          subText={obj.help === undefined ? obj.title : obj.help}
+          justNum={obj.isJustNum ? true : undefined}
+          type={obj.type}
+          value={data}
+          onChangeText={e => {
+            setData(e);
+            props.setFormUserData(obj.key, e);
+          }}
+        />
+      )}
+
+      {obj !== undefined && obj.keyVals === undefined && !props.signUp && (
+        <JustBottomBorderTextInput
           placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
           subText={obj.help === undefined ? obj.title : obj.help}
           justNum={obj.isJustNum ? true : undefined}

@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {CommonButton, SimpleText, MyView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';
 import {updateForm} from './Utility';
 import {fetchUser, setCacheItem} from '../../../../API/User';
 import {showSuccess} from '../../../../services/Utility';
+import SpecificRoleForm from '../../login/components/SpecificRoleForm';
 
 const UpdateForm = props => {
   const [forms, setForms] = useState();
@@ -33,19 +32,19 @@ const UpdateForm = props => {
     setForms(allForms);
   };
 
-  const change = async () => {
-    let hasAnyChange = false;
-    let hasAnyErr = false;
+  const change = async index => {
+    // let hasAnyChange = false;
+    // let hasAnyErr = false;
 
     props.setLoading(true);
-    forms.forEach(async form => {
-      if (hasAnyErr) return;
-      let res = await updateForm(props.token, props.userId, form);
-      if (res !== null) hasAnyChange = true;
-      else hasAnyErr = true;
-    });
+    // forms.forEach(async form => {
+    // if (hasAnyErr) return;
+    let res = await updateForm(props.token, props.userId, forms[index]);
+    // if (res !== null) hasAnyChange = true;
+    // else hasAnyErr = true;
+    // });
 
-    if (hasAnyChange && !hasAnyErr)
+    if (res !== null) {
       if (props.userId === undefined) {
         await setCacheItem('user', undefined);
         await fetchUser(props.token, user => {
@@ -54,7 +53,19 @@ const UpdateForm = props => {
         });
       } else showSuccess(commonTranslator.success);
 
-    props.setLoading(false);
+      props.setLoading(false);
+    }
+
+    // if (hasAnyChange && !hasAnyErr)
+    //   if (props.userId === undefined) {
+    //     await setCacheItem('user', undefined);
+    //     await fetchUser(props.token, user => {
+    //       props.setLoading(false);
+    //       showSuccess(commonTranslator.success);
+    //     });
+    //   } else showSuccess(commonTranslator.success);
+
+    // props.setLoading(false);
   };
 
   return (
@@ -64,7 +75,19 @@ const UpdateForm = props => {
           return (
             <MyView key={index}>
               <SimpleText text={translator.formData + elem.roleFa} />
-              {elem.data.map((itr, idx) => {
+              {elem.data.map(function (obj, i) {
+                return (
+                  <SpecificRoleForm
+                    key={i}
+                    obj={obj}
+                    setFormUserData={(key, val) => {
+                      changeForm(elem.role, key, val);
+                    }}
+                    signUp={false}
+                  />
+                );
+              })}
+              {/* {elem.data.map((itr, idx) => {
                 return (
                   <JustBottomBorderTextInput
                     value={forms.find(elem => elem.role === elem.role)[itr.key]}
@@ -75,9 +98,9 @@ const UpdateForm = props => {
                     key={idx}
                   />
                 );
-              })}
+              })} */}
               <CommonButton
-                onPress={() => change()}
+                onPress={() => change(index)}
                 theme={'dark'}
                 title={commonTranslator.change}
               />

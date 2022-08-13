@@ -3,7 +3,6 @@ import {
   BigBoldBlueTextInline,
   CommonWebBox,
   EqualTwoTextInputs,
-  PhoneView,
   MyView,
   CommonButton,
 } from '../../../../styles/Common';

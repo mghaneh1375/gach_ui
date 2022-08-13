@@ -13,11 +13,12 @@ export const checkSendRoleForm = async (
   navigate,
   redirectTo,
   token,
+  userId = undefined,
 ) => {
   setLoading(true);
   Promise.all([
     generalRequest(
-      routes.sendRoleForm,
+      userId === undefined ? routes.sendRoleForm : routes.sendRoleForm + userId,
       'post',
       userRoleFormData,
       undefined,
@@ -26,8 +27,10 @@ export const checkSendRoleForm = async (
   ]).then(res => {
     setLoading(false);
     if (res[0] != null) {
-      showSuccess('بررسی میشه میگم نتیجه رو');
-      navigate(redirectTo);
+      showSuccess(
+        'فرم شما با موفقیت ثبت گردید و در انتظار تایید ادمین قرار گرفته است.',
+      );
+      if (redirectTo !== undefined) navigate(redirectTo);
     }
   });
 };
