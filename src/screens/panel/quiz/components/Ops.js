@@ -106,7 +106,7 @@ const Ops = props => {
         />
       }
       toggleShowPopUp={props.toggleShowPopUp}>
-      <PhoneView style={{flexWrap: 'wrap'}}>
+      <PhoneView>
         <CommonButton
           onPress={() => changeMode('update')}
           dir={'rtl'}

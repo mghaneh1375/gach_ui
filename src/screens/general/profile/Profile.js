@@ -45,7 +45,7 @@ const Profile = props => {
   const boxWidth = getWidthHeight()[0] - 20;
 
   return (
-    <PhoneView style={{flexWrap: 'wrap'}}>
+    <PhoneView>
       {/* {showChangePassModal && (
         <ChangePass toggleModal={toggleChangePassModal} />
       )} */}
@@ -64,7 +64,7 @@ const Profile = props => {
       {/* <CommonWebBox width={boxWidth} child={<UpdatePic />} />
       <CommonWebBox width={boxWidth} child={<UpdateUsername />} />
       <CommonWebBox width={boxWidth} child={<UpdatePassword />} /> */}
-    </PhoneView>
+    </PhoneViewstyle=>
   );
 };
 

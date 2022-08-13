@@ -67,12 +67,12 @@ const QuizRunInfo = props => {
         </Col>
         <Col lg={6}>
           <PhoneView
-            style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}></PhoneView>
+            style={{gap: 10, marginBottom: 10}}></PhoneView>
         </Col>
       </PhoneView>
       <PhoneView>
         <Col lg={12}>
-          <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
+          <PhoneView style={{gap: 10, marginBottom: 10}}>
             <JustBottomBorderSelect
               isHalf={true}
               values={trueFalseValues}
@@ -107,7 +107,7 @@ const QuizRunInfo = props => {
 
       <PhoneView>
         <Col lg={12}>
-          <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
+          <PhoneView style={{gap: 10, marginBottom: 10}}>
             <JustBottomBorderSelect
               isHalf={true}
               values={trueFalseValues}
@@ -140,7 +140,7 @@ const QuizRunInfo = props => {
         </Col>
       </PhoneView>
 
-      <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
+      <PhoneView style={{gap: 10,marginBottom: 10}}>
         <JustBottomBorderDatePicker
           placeholder={translator.startDate}
           value={props.start}

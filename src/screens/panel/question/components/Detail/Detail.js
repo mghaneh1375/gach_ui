@@ -290,7 +290,7 @@ function Detail(props) {
                 />
               );
             })}
-          <PhoneView style={{flexWrap: 'wrap'}}>{state.totalPage}</PhoneView>
+          <PhoneView>{state.totalPage}</PhoneView>
         </MyView>
       )}
 

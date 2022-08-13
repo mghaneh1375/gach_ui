@@ -116,7 +116,7 @@ function Create(props) {
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
         {props.isAdmin && (
-          <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
+          <PhoneView style={{gap: 10, marginBottom: 10}}>
             <JustBottomBorderTextInput
               isHalf={true}
               value={
@@ -137,7 +137,7 @@ function Create(props) {
           </PhoneView>
         )}
 
-        <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
+        <PhoneView style={{gap: 10}}>
           <JustBottomBorderSelect
             isHalf={true}
             setter={setPriority}

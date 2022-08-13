@@ -63,7 +63,6 @@ function Question(props) {
         style={{
           ...styleFlexSpaceBetween,
           ...styleMarginRight25,
-          flexWrap: 'wrap',
         }}>
         <PhoneView>
           <BlueTextInline

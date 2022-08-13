@@ -26,7 +26,7 @@ function List(props) {
       header={translator.avatars}
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
-      <PhoneView style={{flexWrap: 'wrap'}}>
+      <PhoneView>
         {props.avatars !== undefined &&
           props.avatars.map((elem, index) => {
             return (
@@ -42,7 +42,7 @@ function List(props) {
               />
             );
           })}
-      </PhoneView>
+      </PhoneViewstyle=>
     </CommonWebBox>
   );
 }

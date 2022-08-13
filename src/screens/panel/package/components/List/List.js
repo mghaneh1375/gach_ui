@@ -12,7 +12,7 @@ function List(props) {
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
       <MyView>
-        <PhoneView style={{flexWrap: 'wrap'}}>
+        <PhoneView>
           {props.packages !== undefined &&
             props.packages.map((package_, index) => {
               return (

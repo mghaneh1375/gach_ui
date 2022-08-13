@@ -151,7 +151,7 @@ function Karname(props) {
       </CommonWebBox>
 
       <MyView ref={ref}>
-        <PhoneView style={{flexWrap: 'wrap'}}>
+        <PhoneView>
           <CommonWebBox width={'60%'}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline

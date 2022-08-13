@@ -12,7 +12,7 @@ function Report() {
 
   return (
     <MyView style={{gap: 20}}>
-      <PhoneView style={{gap: 50, flexWrap: 'wrap'}}>
+      <PhoneView style={{gap: 50}}>
         <SimpleText
           style={{minWidth: 200}}
           text={'تعداد سوالات آسان: ' + state.easy}

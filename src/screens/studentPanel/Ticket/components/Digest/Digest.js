@@ -34,7 +34,6 @@ function Digest({
           justifyContent: 'space-around',
           marginTop: 25,
           gap: 50,
-          flexWrap: 'wrap',
         }}>
         <PhoneView>
           <TinyTextIcon />

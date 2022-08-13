@@ -30,7 +30,7 @@ function Card(props) {
   };
 
   return (
-    <PhoneView style={{flexWrap: 'wrap'}}>
+    <PhoneView>
       <CommonRadioButton
         status={isSelected ? 'checked' : 'unchecked'}
         onPress={() => toggleSelected()}

@@ -14,7 +14,7 @@ const QuizRegistryInfo = props => {
 
   return (
     <MyView>
-      <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
+      <PhoneView style={{gap: 10, marginBottom: 10}}>
         <JustBottomBorderTextInput
           placeholder={translator.price}
           value={props.price}
@@ -38,7 +38,7 @@ const QuizRegistryInfo = props => {
           justNum={true}
         />
       </PhoneView>
-      <PhoneView style={{gap: 10, flexWrap: 'wrap', marginBottom: 10}}>
+      <PhoneView style={{gap: 10, marginBottom: 10}}>
         <JustBottomBorderDatePicker
           placeholder={translator.startRegistryDate}
           value={props.start}

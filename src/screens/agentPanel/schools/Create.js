@@ -43,7 +43,7 @@ function Create(props) {
       onBackClick={() => (step === 1 ? props.setMode('list') : setStep(1))}>
       {step === 1 && (
         <MyView>
-          <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
+          <PhoneView style={{gap: 10}}>
             <JustBottomBorderTextInput
               onChangeText={text => setPhone(text)}
               isHalf={true}
@@ -81,7 +81,7 @@ function Create(props) {
       )}
       {step === 2 && (
         <MyView>
-          <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
+          <PhoneView style={{gap: 10}}>
             <JustBottomBorderTextInput
               onChangeText={text => setName(text)}
               isHalf={true}
@@ -130,7 +130,7 @@ function Create(props) {
                 <PhoneView>
                   <BigBoldBlueTextInline text={Translate.info} />
                 </PhoneView>
-                <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
+                <PhoneView style={{gap: 10}}>
                   <JustBottomBorderTextInput
                     onChangeText={text => setLiableName(text)}
                     isHalf={true}

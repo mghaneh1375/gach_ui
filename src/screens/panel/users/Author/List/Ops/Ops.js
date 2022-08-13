@@ -12,7 +12,7 @@ function Ops(props) {
       <LargePopUp
         title={commonTranslator.opMenu}
         toggleShowPopUp={props.toggleShowPopUp}>
-        <PhoneView style={{flexWrap: 'wrap'}}>
+        <PhoneView>
           <CommonButton
             theme={'transparent'}
             title={Translate.showTransaction}
