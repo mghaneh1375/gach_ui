@@ -42,7 +42,7 @@ function List(props) {
 
   return (
     // for web
-    <MyView style={{zIndex: 'unset'}}>
+    <MyView>
       <CommonWebBox
         header={commonTranslator.configuration + ' ' + commonTranslator.web}>
         {showPane && (
@@ -50,8 +50,8 @@ function List(props) {
             removeCancel={true}
             title={commonTranslator.addDate}
             toggleShowPopUp={toggleShowPopUpPane}>
-            <MyView style={{zIndex: 'unset'}}>
-              <PhoneView style={{flexWrap: 'wrap'}}>
+            <MyView>
+              <PhoneView>
                 <CommonDatePicker
                   placeholder={Translate.newDate}
                   subText={Translate.newDate}
@@ -134,15 +134,14 @@ function List(props) {
       </CommonWebBox>
       {/* for app */}
       <CommonWebBox
-        header={commonTranslator.configuration + ' ' + commonTranslator.app}
-        style={{zIndex: 'unset'}}>
+        header={commonTranslator.configuration + ' ' + commonTranslator.app}>
         {appShowPane && (
           <LargePopUp
             removeCancel={true}
             title={commonTranslator.addDate + ' ' + commonTranslator.app}
             toggleShowPopUp={appToggleShowPopUpPane}>
-            <MyView style={{zIndex: 'unset'}}>
-              <PhoneView style={{flexWrap: 'wrap'}}>
+            <MyView>
+              <PhoneView>
                 <CommonDatePicker
                   placeholder={Translate.newDate}
                   subText={Translate.newDate}

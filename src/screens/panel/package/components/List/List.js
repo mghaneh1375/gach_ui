@@ -11,7 +11,7 @@ function List(props) {
       header={commonTranslator.packageQuiz}
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
-      <MyView style={{zIndex: 'unset'}}>
+      <MyView>
         <PhoneView style={{flexWrap: 'wrap'}}>
           {props.packages !== undefined &&
             props.packages.map((package_, index) => {

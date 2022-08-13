@@ -34,7 +34,7 @@ function List(props) {
       header={Translate.author}
       addBtn={true}
       onAddClick={() => props.setMode('createAuthor')}>
-      <MyView style={{zIndex: 'unset'}}>
+      <MyView>
         {showOpPopUp && (
           <Ops
             author={props.selectedUser}

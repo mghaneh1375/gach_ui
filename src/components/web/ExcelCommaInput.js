@@ -95,7 +95,7 @@ const ExcelComma = props => {
   }, [props.additionalData]);
 
   return (
-    <MyView style={{zIndex: 'unset'}}>
+    <MyView>
       {showUploadPopUp && (
         <UploadFile
           toggleShow={toggleShowUploadPopUp}

@@ -198,7 +198,6 @@ const Students = props => {
           <CommonWebBox
             backBtn={true}
             onBackClick={() => props.setMode('list')}
-            style={{zIndex: 'unset'}}
             header={translator.studentsListInQuiz}>
             <ExcelComma
               header={translator.addStudent}

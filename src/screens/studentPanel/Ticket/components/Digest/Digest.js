@@ -28,7 +28,7 @@ function Digest({
   setLoading,
 }) {
   return (
-    <CommonWebBox header={ticket.title} style={{zIndex: 'unset'}}>
+    <CommonWebBox header={ticket.title}>
       <PhoneView
         style={{
           justifyContent: 'space-around',

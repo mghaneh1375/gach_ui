@@ -42,7 +42,7 @@ function Show(props) {
       onAddClick={() => props.setMode('createTransaction')}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <MyView style={{zIndex: 'unset'}}>
+      <MyView>
         {props.author.transactions !== undefined && (
           <CommonDataTable
             columns={columns}
