@@ -46,16 +46,18 @@ function Question(props) {
           style={{...styleFont16}}
           text={translator.organizationCode + props.question.organizationId}
         />
-        <SimpleText
-          onPress={() => toggleShowMore()}
-          text={!showMore ? commonTranslator.more : commonTranslator.less}
-          style={{...YellowFont13}}
-        />
-        <SimpleFontIcon
-          kind={'small'}
-          icon={!showMore ? faAngleDoubleDown : faAngleDoubleUp}
-          style={{...styleYellowMarginTop7}}
-        />
+        <PhoneView>
+          <SimpleText
+            onPress={() => toggleShowMore()}
+            text={!showMore ? commonTranslator.more : commonTranslator.less}
+            style={{...YellowFont13}}
+          />
+          <SimpleFontIcon
+            kind={'small'}
+            icon={!showMore ? faAngleDoubleDown : faAngleDoubleUp}
+            style={{...styleYellowMarginTop7}}
+          />
+        </PhoneView>
       </EqualTwoTextInputs>
       <PhoneView
         style={{

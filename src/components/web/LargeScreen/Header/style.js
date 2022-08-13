@@ -164,8 +164,8 @@ export const MenuItem = props => {
       }>
       <SimpleText
         style={{
-          paddingTop: 10,
-          paddingRight: 10,
+          padding: 3,
+          paddingRight: 12,
           color:
             props.selected !== undefined && props.selected
               ? vars.WHITE
@@ -196,8 +196,8 @@ export const MenuItemPhone = props => {
       <PhoneView style={styles}>
         <SimpleText
           style={{
-            paddingTop: 10,
-            paddingRight: 10,
+            padding: 3,
+            paddingRight: 12,
             color:
               props.selected !== undefined && props.selected
                 ? vars.WHITE

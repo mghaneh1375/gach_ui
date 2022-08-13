@@ -20,8 +20,8 @@ export const SuperMenuItem = props => {
       className={'super-menu-item'}>
       <SimpleText
         style={{
-          paddingTop: 10,
-          paddingRight: 10,
+          padding: 3,
+          paddingRight: 12,
           color: isOpen ? vars.WHITE : vars.LIGHT_SILVER,
         }}
         text={props.text}
@@ -44,8 +44,8 @@ export const SuperMenuItem = props => {
                 onPress={() => props.navigate(elem.url)}
                 key={index}
                 style={{
-                  paddingTop: 10,
-                  paddingRight: 10,
+                  padding: 3,
+                  paddingRight: 12,
                   width: '100%',
                   display: 'block',
                   backgroundColor: 'white',
