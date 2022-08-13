@@ -47,7 +47,7 @@ function Filter(props) {
   };
 
   return (
-    <MyView style={{zIndex: 'unset'}}>
+    <MyView>
       <PhoneView>
         <JustBottomBorderSelect
           isHalf={true}
@@ -118,7 +118,7 @@ function Filter(props) {
         </MyView>
       </PhoneView>
       {showProSearch && (
-        <MyView style={{zIndex: 'unset'}}>
+        <MyView>
           <PhoneView style={{zIndex: 'unset'}}>
             <JustBottomBorderTextInput
               placeholder={translator.criticalThresh}

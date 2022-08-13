@@ -25,7 +25,7 @@ function List(props) {
       header={Translate.selectGift}
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
-      <MyView style={{zIndex: 'unset'}}>
+      <MyView>
         {showOpPopUp && (
           <Ops
             id={selectedId}

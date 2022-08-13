@@ -72,7 +72,7 @@ function CV(props) {
   }, [props, isWorking, dispatch, state.selectedQuiz]);
 
   return (
-    <MyView style={{zIndex: 'unset'}}>
+    <MyView>
       {showAnswerSheet && (
         <StudentAnswerSheet
           selectedAnswerSheetIdx={selectedAnswerSheetIdx}

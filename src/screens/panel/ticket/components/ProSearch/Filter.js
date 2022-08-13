@@ -52,7 +52,7 @@ function Filter(props) {
   };
 
   return (
-    <MyView style={{zIndex: 'unset'}}>
+    <MyView>
       <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
         <JustBottomBorderSelect
           isHalf={false}
@@ -122,7 +122,7 @@ function Filter(props) {
         </MyView>
       </PhoneView>
       {showProSearch && (
-        <MyView style={{zIndex: 'unset'}}>
+        <MyView>
           <PhoneView style={{zIndex: 'unset'}}>
             <JustBottomBorderDatePicker
               placeholder={translator.dateStartRequest}

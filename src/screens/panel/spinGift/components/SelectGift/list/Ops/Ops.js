@@ -23,7 +23,7 @@ function Ops(props) {
   };
 
   return (
-    <MyView style={{zIndex: 'unset'}}>
+    <MyView>
       {showRemovePane && (
         <ConfirmationBatchOpPane
           setLoading={props.setLoading}
