@@ -137,9 +137,9 @@
   background: #ffaa00 !important;
 }
 
-.css-text-901oao {
+/* .css-text-901oao {
   padding: 3px !important;
-}
+} */
 
 .rnc__notification-container--top-right {
   position: fixed !important;
@@ -291,31 +291,25 @@
 input::placeholder {
   font-size: 11px;
 }
-
+/* //table */
 .rdt_TableHeadRow {
   background-color: #013243 !important;
   color: white !important;
 }
-
+.rdt_TableCol_Sortable {
+  justify-content: center !important;
+}
 .rdt_TableRow:nth-child(odd) {
   background-color: #efefef !important;
 }
 .gyrqoN {
   white-space: break-spaces !important;
 }
-.btywyU,
-.kAOaE,
-.eakvSs,
-.ghjlDB,
-.pXGVD,
 .rdt_TableCell {
-  justify-content: center !important;
   flex-wrap: wrap;
   min-width: auto !important;
   overflow: hidden;
-}
-.Zncqt {
-  font-size: 10 impoertant;
+  justify-content: center !important;
 }
 /* for SelectBox */
 .r-transform-1sncvnh {
