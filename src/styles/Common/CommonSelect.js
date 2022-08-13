@@ -41,7 +41,6 @@ export const CommonSelect = props => {
       backgroundColor: vars.transparent,
       paddingTop: 6,
       paddingBottom: 6,
-      zIndex: 'unset',
     },
     selectedItemStyle: {
       fontFamily: 'IRANSans',
