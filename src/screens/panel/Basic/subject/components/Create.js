@@ -94,7 +94,7 @@ function Create(props) {
             : commonTranslate.subjectDefinition
         }>
         <MyView>
-          <PhoneView style={{ gap: 20}}>
+          <PhoneView style={{gap: 20}}>
             <JustBottomBorderTextInput
               value={name}
               subText={commonTranslate.name}

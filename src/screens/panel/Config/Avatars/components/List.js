@@ -42,7 +42,7 @@ function List(props) {
               />
             );
           })}
-      </PhoneViewstyle=>
+      </PhoneView>
     </CommonWebBox>
   );
 }

@@ -59,7 +59,7 @@ function Ops(props) {
               theme={'transparent'}
               title={commonTranslator.delete}
             />
-          </PhoneViewstyle=>
+          </PhoneView>
         </LargePopUp>
       )}
     </MyView>

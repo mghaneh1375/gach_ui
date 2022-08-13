@@ -66,8 +66,7 @@ const QuizRunInfo = props => {
           </PhoneView>
         </Col>
         <Col lg={6}>
-          <PhoneView
-            style={{gap: 10, marginBottom: 10}}></PhoneView>
+          <PhoneView style={{gap: 10, marginBottom: 10}}></PhoneView>
         </Col>
       </PhoneView>
       <PhoneView>
@@ -140,7 +139,7 @@ const QuizRunInfo = props => {
         </Col>
       </PhoneView>
 
-      <PhoneView style={{gap: 10,marginBottom: 10}}>
+      <PhoneView style={{gap: 10, marginBottom: 10}}>
         <JustBottomBorderDatePicker
           placeholder={translator.startDate}
           value={props.start}

@@ -31,7 +31,7 @@ function Ops(props) {
             onPress={() => props.changeMode('edit')}
             title={commonTranslator.edit}
           />
-        </PhoneViewstyle=>
+        </PhoneView>
       </LargePopUp>
     </MyView>
   );

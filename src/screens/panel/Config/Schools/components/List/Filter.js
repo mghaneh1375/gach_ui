@@ -23,7 +23,7 @@ function Filter(props) {
 
   return (
     <MyView>
-      <PhoneView style={{ gap: 10}}>
+      <PhoneView style={{gap: 10}}>
         <JustBottomBorderSelect
           isHalf={true}
           setter={setKindSchool}

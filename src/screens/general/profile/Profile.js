@@ -64,7 +64,7 @@ const Profile = props => {
       {/* <CommonWebBox width={boxWidth} child={<UpdatePic />} />
       <CommonWebBox width={boxWidth} child={<UpdateUsername />} />
       <CommonWebBox width={boxWidth} child={<UpdatePassword />} /> */}
-    </PhoneViewstyle=>
+    </PhoneView>
   );
 };
 
