@@ -296,15 +296,18 @@ input::placeholder {
   background-color: #013243 !important;
   color: white !important;
 }
-.rdt_TableCol_Sortable {
+/* .rdt_TableCol_Sortable {
   justify-content: center !important;
-}
+} */
 .rdt_TableRow:nth-child(odd) {
   background-color: #efefef !important;
 }
-.gyrqoN {
+.rdt_TableCol_Sortable > div,
+.rdt_TableCol > div {
   white-space: break-spaces !important;
+  /* min-width: 80px; */
 }
+
 .rdt_TableCell {
   flex-wrap: wrap;
   min-width: auto !important;

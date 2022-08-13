@@ -4,7 +4,6 @@ import {CommonWebBox, SimpleText, MyView} from '../Common';
 import vars from '../root';
 import {
   CommonHalfTextInputStyleWeb,
-  CommonTextInputContainer,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
 } from './CommonText';
@@ -162,7 +161,7 @@ export const MultiSearchableTextInput = props => {
   }
 
   return (
-    <CommonTextInputContainer
+    <MyView
       style={
         isHalf
           ? {
@@ -204,6 +203,6 @@ export const MultiSearchableTextInput = props => {
         }}>
         {SelectedListItems()}
       </MyView>
-    </CommonTextInputContainer>
+    </MyView>
   );
 };

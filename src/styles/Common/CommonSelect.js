@@ -1,9 +1,10 @@
 import React from 'react';
 import {Platform} from 'react-native';
-import {CommonSelectContainer, CommonSelectElem} from './CommonText';
+import {CommonSelectElem} from './CommonText';
 
 import vars from '../root';
 import SubInputText from './SubInputText';
+import {MyView} from '../Common';
 
 export const CommonSelect = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
@@ -29,7 +30,7 @@ export const CommonSelect = props => {
       paddingBottom: 0,
       paddingTop: 13,
       borderBottomWidth: 1,
-      zIndex: 5,
+      // zIndex: 5,
       borderColor: vars.LIGHT_SILVER,
     },
     optionContainerStyle: {
@@ -40,6 +41,7 @@ export const CommonSelect = props => {
       backgroundColor: vars.transparent,
       paddingTop: 6,
       paddingBottom: 6,
+      zIndex: 'unset',
     },
     selectedItemStyle: {
       fontFamily: 'IRANSans',
@@ -71,21 +73,21 @@ export const CommonSelect = props => {
           paddingLeft: 10,
           paddingRight: 10,
           textAlign: 'right',
-          zIndex: 5,
+          // zIndex: 5,
         },
       }
     : {
         ...parentStyle,
-        ...{maxWidth: 300, zIndex: 5, textAlign: 'right', minWidth: 200},
+        ...{maxWidth: 300, textAlign: 'right', minWidth: 200}, // zIndex: 5,
       };
 
   return (
-    <CommonSelectContainer className={'mySelect'} style={parentStyle}>
+    <MyView className={'mySelect'} style={parentStyle}>
       <CommonSelectElem {...inputProps} />
 
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>
       ) : null}
-    </CommonSelectContainer>
+    </MyView>
   );
 };

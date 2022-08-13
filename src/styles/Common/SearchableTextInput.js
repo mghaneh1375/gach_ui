@@ -4,7 +4,6 @@ import {CommonWebBox, MyView, SimpleText} from '../Common';
 import vars from '../root';
 import {
   CommonHalfTextInputStyleWeb,
-  CommonTextInputContainer,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
 } from './CommonText';

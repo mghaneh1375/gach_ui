@@ -1,7 +1,8 @@
 import {Platform} from 'react-native';
-import {CommonDatePickerElem, CommonTextInputContainer} from './CommonText';
+import {CommonDatePickerElem} from './CommonText';
 import SubInputText from './SubInputText';
 import {convertTimestamp} from '../../services/Utility';
+import {MyView} from '../Common';
 
 export const CommonDatePicker = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
@@ -29,7 +30,7 @@ export const CommonDatePicker = props => {
   if (value !== undefined) inputProps['preSelected'] = value;
 
   return (
-    <CommonTextInputContainer
+    <MyView
       style={
         isHalf
           ? {
@@ -44,6 +45,6 @@ export const CommonDatePicker = props => {
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>
       ) : null}
-    </CommonTextInputContainer>
+    </MyView>
   );
 };

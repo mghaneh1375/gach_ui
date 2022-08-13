@@ -1,7 +1,7 @@
 import {Platform} from 'react-native';
+import {MyView} from '../Common';
 import {
   CommonHalfTextInputStyleWeb,
-  CommonTextInputContainer,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
 } from './CommonText';
@@ -71,11 +71,11 @@ export const CommonTextInput = props => {
     parentAllStyles = {...parentAllStyles, ...props.parentStyle};
 
   return (
-    <CommonTextInputContainer style={parentAllStyles}>
+    <MyView style={parentAllStyles}>
       <CommonTextInputElem {...inputProps} />
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>
       ) : null}
-    </CommonTextInputContainer>
+    </MyView>
   );
 };
