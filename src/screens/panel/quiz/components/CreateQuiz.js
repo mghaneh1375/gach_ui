@@ -4,6 +4,7 @@ import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
+  MyView,
 } from '../../../../styles/Common';
 import QuizAnswerSheetInfo from './Create/QuizAnswerSheetInfo';
 import QuizGeneralInfo from './Create/QuizGeneralInfo';

@@ -1,6 +1,6 @@
 import {Platform, Pressable, TouchableOpacity, View} from 'react-native';
 import {getWidthHeight} from '../../../../services/Utility';
-import {PhoneView, SimpleText} from '../../../../styles/Common';
+import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import vars from '../../../../styles/root';
 

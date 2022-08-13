@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {routes} from '../../../../../API/APIRoutes';
-import {CommonButton, CommonWebBox} from '../../../../../styles/Common';
+import {CommonButton, CommonWebBox, MyView} from '../../../../../styles/Common';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
 import ExcelComma from '../../../../../components/web/ExcelCommaInput';

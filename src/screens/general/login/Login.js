@@ -3,7 +3,7 @@ import {getDevice, getWidthHeight} from '../../../services/Utility';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import LoginModule from './components/Login';
 
-import {commonStyles, TextWithLink} from '../../../styles/Common';
+import {commonStyles, MyView, TextWithLink} from '../../../styles/Common';
 import translator from './translate';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 import {Device} from '../../../models/Device';

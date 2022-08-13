@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import {PhoneView, SimpleText} from '../../../../../styles/Common';
+import {MyView, PhoneView, SimpleText} from '../../../../../styles/Common';
 import React from 'react';
 import {questionContext, dispatchQuestionContext} from './Context';
 

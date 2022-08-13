@@ -5,6 +5,7 @@ import List from './list/List';
 import Create from './create/Create';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
 import AddAll from './addAll/AddAll';
+import {MyView} from '../../../styles/Common';
 
 function Students(props) {
   const queryString = require('query-string');

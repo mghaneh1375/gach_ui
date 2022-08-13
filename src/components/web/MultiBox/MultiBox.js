@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {removeAccess} from '../../../screens/panel/users/components/Utility';
-import {PhoneView} from '../../../styles/Common';
+import {PhoneView, MyView} from '../../../styles/Common';
 import Box from './Box';
 
 const MultiBox = props => {

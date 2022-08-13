@@ -1,5 +1,10 @@
 import {View, Platform} from 'react-native';
-import {BigBoldBlueTextInline, EqualTwoTextInputs, SimpleText} from '../Common';
+import {
+  BigBoldBlueTextInline,
+  EqualTwoTextInputs,
+  MyView,
+  SimpleText,
+} from '../Common';
 import vars from '../root';
 import {FontIcon} from './FontIcon';
 

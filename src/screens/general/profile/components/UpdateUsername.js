@@ -5,6 +5,7 @@ import {
   BigBoldBlueText,
   CommonButton,
   PhoneView,
+  MyView,
 } from '../../../../styles/Common';
 import {View} from 'react-native';
 import vars from '../../../../styles/root';

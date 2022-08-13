@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import Quizzes from '../../../../../components/web/Quizzes';
 import {showSuccess} from '../../../../../services/Utility';
-import {BigBoldBlueText, CommonButton} from '../../../../../styles/Common';
+import {
+  BigBoldBlueText,
+  CommonButton,
+  MyView,
+} from '../../../../../styles/Common';
 import Translate from '../../Translate';
 import {removeQuizzesFromPackage} from '../Utility';
 import commonTranslator from '../../../../../tranlates/Common';

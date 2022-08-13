@@ -8,6 +8,7 @@ import {
 } from '../../styles/Android/BottomNavBar';
 
 import {useNavigation} from '@react-navigation/native';
+import {MyView} from '../../styles/Common';
 
 export default function BottomNavBar(props) {
   const navigation = useNavigation();

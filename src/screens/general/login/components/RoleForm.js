@@ -5,6 +5,7 @@ import {
   BlueTextFromStart,
   CommonButton,
   EqualTwoTextInputs,
+  MyView,
 } from '../../../../styles/Common';
 import {RoleCard} from '../../../../styles/Common/RoleCard';
 import commonTranslator from './../../../../tranlates/Common';

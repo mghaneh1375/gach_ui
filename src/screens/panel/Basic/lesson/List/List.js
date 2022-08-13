@@ -7,7 +7,7 @@ import columns from './TableStructure';
 import commonTranslator from '../../../../../tranlates/Common';
 import Ops from '../Ops';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {CommonWebBox} from '../../../../../styles/Common';
+import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import {removeItems} from '../../../../../services/Utility';
 
 function List(props) {

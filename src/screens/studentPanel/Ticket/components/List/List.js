@@ -1,5 +1,5 @@
 import {View} from 'react-native-web';
-import {CommonWebBox} from '../../../../../styles/Common';
+import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import {Translate} from '../../Translate';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';

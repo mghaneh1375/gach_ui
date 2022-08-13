@@ -7,6 +7,7 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
+  MyView,
 } from '../../../../../styles/Common';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 

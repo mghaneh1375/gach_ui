@@ -1,6 +1,11 @@
 import {View} from 'react-native';
 import React, {useState} from 'react';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+  MyView,
+} from '../../../../styles/Common';
 import commonTranslator from '../../../../tranlates/Common';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {levelKeyVals} from '../../ticket/components/KeyVals';

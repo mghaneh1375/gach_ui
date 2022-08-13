@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {PhoneView, SimpleText, TextLink} from '../../../../styles/Common';
+import {
+  MyView,
+  PhoneView,
+  SimpleText,
+  TextLink,
+} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
 import {faAngleDown, faBell} from '@fortawesome/free-solid-svg-icons';

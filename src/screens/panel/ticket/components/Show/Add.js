@@ -5,6 +5,7 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
+  MyView,
 } from '../../../../../styles/Common';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';

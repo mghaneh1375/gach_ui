@@ -1,4 +1,4 @@
-import {CommonWebBox, PhoneView} from '../../../../../styles/Common';
+import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
 import Card from '../../card/Card';
 import commonTranslator from '../../../../../tranlates/Common';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';

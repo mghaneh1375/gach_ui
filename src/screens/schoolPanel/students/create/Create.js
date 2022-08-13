@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {CommonWebBox, PhoneView, MyView} from '../../../../styles/Common';
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';

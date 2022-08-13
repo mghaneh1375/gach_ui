@@ -1,4 +1,4 @@
-import {CommonWebBox, PhoneView} from '../../../../../styles/Common';
+import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
 import Show from './Show/Show';
 import translator from '../Translator';
 import {View} from 'react-native';

@@ -1,6 +1,10 @@
 import {Col} from 'react-grid-system';
 import {View} from 'react-native';
-import {CommonRadioButton, PhoneView} from '../../../../../styles/Common';
+import {
+  CommonRadioButton,
+  PhoneView,
+  MyView,
+} from '../../../../../styles/Common';
 import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../../Translator';

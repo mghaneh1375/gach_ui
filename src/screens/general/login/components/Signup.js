@@ -6,6 +6,7 @@ import {
   EqualTwoTextInputs,
   SilverTextInline,
   TextWithLink,
+  MyView,
 } from '../../../../styles/Common';
 
 import {generalRequest} from '../../../../API/Utility';

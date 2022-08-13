@@ -6,6 +6,7 @@ import List from './list/List';
 import Create from './create/Create';
 import {getAllGift} from '../configGift/Utility';
 import {addItem, editItem, removeItems} from '../../../../../services/Utility';
+import {MyView} from '../../../../../styles/Common';
 
 function SelectGift(props) {
   const queryString = require('query-string');

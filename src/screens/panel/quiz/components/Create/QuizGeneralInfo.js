@@ -1,6 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
-import {PhoneView} from '../../../../../styles/Common';
+import {PhoneView, MyView} from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../Translator';

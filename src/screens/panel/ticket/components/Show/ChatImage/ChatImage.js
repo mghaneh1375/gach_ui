@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {MyView} from '../../../../../../styles/Common';
 
 function ChatImage(props) {
   const style = {

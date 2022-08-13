@@ -3,6 +3,7 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
+  MyView,
 } from '../../../../../styles/Common';
 import AttachBox from './AttachBox/AttachBox';
 import ChatImage from './ChatImage/ChatImage';

@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import ConfirmationBatchOpPane from '../../components/web/ConfirmationBatchOpPane';
 import {showSuccess} from '../../services/Utility';
 import commonTranslator from '../../tranlates/Common';
+import {MyView} from '../Common';
 
 const CommonDataTable = props => {
   const customStyles = {

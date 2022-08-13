@@ -6,6 +6,7 @@ import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
+  MyView,
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';

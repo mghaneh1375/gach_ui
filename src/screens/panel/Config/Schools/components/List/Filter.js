@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {View} from 'react-native';
 import StateAndCity from '../../../../../../components/web/StateAndCity';
-import {CommonButton, PhoneView} from '../../../../../../styles/Common';
+import {CommonButton, PhoneView, MyView} from '../../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
 import commonTranslator from '../../../../../../tranlates/Common';
 import translator from '../../Translator';

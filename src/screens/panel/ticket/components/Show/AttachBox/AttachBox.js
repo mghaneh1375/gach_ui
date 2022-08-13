@@ -1,6 +1,6 @@
 import {faClose, faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
-import {SimpleText} from '../../../../../../styles/Common';
+import {MyView, SimpleText} from '../../../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../../../styles/Common/FontIcon';
 import vars from '../../../../../../styles/root';
 import {style} from './style';

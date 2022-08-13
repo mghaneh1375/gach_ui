@@ -13,6 +13,7 @@ import {
   PhoneView,
   SimpleText,
   CommonButton,
+  MyView,
 } from '../../../../../styles/Common';
 
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';

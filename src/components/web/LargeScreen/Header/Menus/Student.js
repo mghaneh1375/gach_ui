@@ -13,6 +13,7 @@ import {
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
+import {MyView} from '../../../../../styles/Common';
 
 function StudentMenu(props) {
   const device = getDevice();

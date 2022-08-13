@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {CommonButton, PhoneView} from '../../../../../styles/Common';
+import {CommonButton, PhoneView, MyView} from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';

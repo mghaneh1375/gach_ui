@@ -3,7 +3,7 @@ import {getDevice} from '../../../services/Utility';
 import RoleForm from '../../general/login/components/RoleForm';
 import React from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
-import {CommonWebBox} from '../../../styles/Common';
+import {CommonWebBox, MyView} from '../../../styles/Common';
 import {View} from 'react-native';
 
 function Upgrade(props) {

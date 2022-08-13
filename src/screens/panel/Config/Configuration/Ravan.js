@@ -2,7 +2,12 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+  MyView,
+} from '../../../../styles/Common';
 import translator from './Translator';
 import commonTranslator from '../../../../tranlates/Common';
 import {showSuccess} from '../../../../services/Utility';

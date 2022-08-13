@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import {CommonButton, CommonWebBox, PhoneView} from '../Common';
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '../Common';
 import translator from '../../tranlates/Common';
 import {TextIcon} from './TextIcon';
 import {faClose} from '@fortawesome/free-solid-svg-icons';

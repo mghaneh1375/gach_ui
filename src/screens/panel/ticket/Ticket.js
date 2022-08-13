@@ -7,6 +7,7 @@ import Show from './components/Show/Show';
 import {addItem, editItem, isUserAdmin} from '../../../services/Utility';
 import {filter} from './components/List/Utility';
 import {useLocation} from 'react-router';
+import {MyView} from '../../../styles/Common';
 const queryString = require('query-string');
 
 function Ticket(props) {

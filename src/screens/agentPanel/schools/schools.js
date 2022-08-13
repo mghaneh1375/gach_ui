@@ -7,6 +7,7 @@ import List from './list/List';
 import Students from './students/Students';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
 import {getAllAgent} from './Utility';
+import {MyView} from '../../../styles/Common';
 
 function Agent(props) {
   const queryString = require('query-string');

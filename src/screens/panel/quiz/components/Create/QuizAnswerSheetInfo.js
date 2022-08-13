@@ -7,6 +7,7 @@ import {
   CommonButton,
   PhoneView,
   SimpleText,
+  MyView,
 } from '../../../../../styles/Common';
 import {useState} from 'react';
 import UploadFile from '../../../../../components/web/UploadFile';

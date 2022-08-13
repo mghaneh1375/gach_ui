@@ -1,6 +1,7 @@
 import {View, Image, TouchableOpacity} from 'react-native';
 
 import {useNavigate} from 'react-router-dom';
+import {MyView} from '../../styles/Common';
 
 const TopNavBar = () => {
   const navigate = useNavigate();

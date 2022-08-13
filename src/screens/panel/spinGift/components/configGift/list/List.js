@@ -3,6 +3,7 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
+  MyView,
 } from '../../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../../../../../tranlates/Common';

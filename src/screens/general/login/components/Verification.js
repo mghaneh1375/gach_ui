@@ -10,6 +10,7 @@ import {
   BlueTextInline,
   CommonButton,
   InlineTextContainer,
+  MyView,
 } from '../../../../styles/Common';
 import {MyCountDown} from '../../../../styles/Common/MyCountDown';
 import vars from './../../../../styles/root';

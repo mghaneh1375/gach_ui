@@ -6,6 +6,7 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
+  MyView,
 } from '../../../../../../styles/Common';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';

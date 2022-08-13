@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {showError, showSuccess} from '../../../../services/Utility';
-import {CommonButton} from '../../../../styles/Common';
+import {CommonButton, MyView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import translator from '..//translate';
 import commonTranslator from './../../../../tranlates/Common';

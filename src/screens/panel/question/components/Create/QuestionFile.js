@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import {CommonButton} from '../../../../../styles/Common';
+import {CommonButton, MyView} from '../../../../../styles/Common';
 import {useFilePicker} from 'use-file-picker';
 import React from 'react';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';

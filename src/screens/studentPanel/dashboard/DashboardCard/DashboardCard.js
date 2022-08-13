@@ -5,6 +5,7 @@ import {
   EqualTwoTextInputs,
   PhoneView,
   SimpleText,
+  MyView,
 } from '../../../../styles/Common';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import vars from '../../../../styles/root';

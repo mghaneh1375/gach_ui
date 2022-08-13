@@ -1,5 +1,5 @@
 import {View} from 'react-native';
-import {CommonButton, PhoneView} from '../../../../../../styles/Common';
+import {CommonButton, PhoneView, MyView} from '../../../../../../styles/Common';
 import {LargePopUp} from '../../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../../tranlates/Common';
 import Translate from '../../Translator';

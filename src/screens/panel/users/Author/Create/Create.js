@@ -4,6 +4,7 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
+  MyView,
 } from '../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import Translate from '../Translator';
