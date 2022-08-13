@@ -68,6 +68,7 @@ function Test(props) {
     setChoicesArr(tmp);
   };
 
+  console.log(state.wanted_answer_sheet[index]);
   return (
     <PhoneView style={{direction: 'ltr'}}>
       <SimpleText
