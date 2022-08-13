@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '../../../../../App';
 import List from './list/List';
 import {getConfig} from './Utility';
+import {MyView} from '../../../../../styles/Common';
 
 function ConfigGift(props) {
   const navigate = props.navigate;

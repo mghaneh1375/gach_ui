@@ -7,6 +7,7 @@ import {getScreenHeight} from '../../services/Utility';
 import {
   CommonWebBox,
   EqualTwoTextInputs,
+  MyView,
   PhoneView,
   SimpleText,
 } from '../../styles/Common';

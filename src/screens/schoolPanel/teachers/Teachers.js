@@ -4,6 +4,7 @@ import {dispatchStateContext, globalStateContext} from '../../../App';
 import List from './list/List';
 import Create from './create/Create';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
+import {MyView} from '../../../styles/Common';
 
 function TeacherAccess(props) {
   const queryString = require('query-string');

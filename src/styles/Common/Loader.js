@@ -1,4 +1,5 @@
 import {StyleSheet, ActivityIndicator, View} from 'react-native';
+import {MyView} from '../Common';
 
 const blur = StyleSheet.create({
   container: {

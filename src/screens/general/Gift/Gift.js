@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import WheelOfFortune from 'react-native-wheel-of-fortune';
-import {CommonButton} from '../../../styles/Common';
+import {CommonButton, MyView} from '../../../styles/Common';
 
 const participants = [
   '%10',

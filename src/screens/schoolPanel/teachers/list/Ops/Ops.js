@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {View} from 'react-native';
 import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
 import {showSuccess} from '../../../../../services/Utility';
-import {CommonButton, PhoneView} from '../../../../../styles/Common';
+import {CommonButton, PhoneView, MyView} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../tranlates/Common';
 import Translator from '../../../../panel/users/Translator';

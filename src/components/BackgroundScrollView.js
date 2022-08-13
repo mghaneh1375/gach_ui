@@ -16,7 +16,7 @@ import {
 } from '../styles/Common/ScrollView';
 import {Device} from './../models/Device';
 import fontawesome from '@fortawesome/fontawesome';
-import {BlueTextInline} from '../styles/Common';
+import {BlueTextInline, MyView} from '../styles/Common';
 
 function BackgroundScrollView(props) {
   var scrollValue = 0;

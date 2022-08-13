@@ -4,6 +4,7 @@ import {
   CommonButton,
   CommonRadioButton,
   EqualTwoTextInputs,
+  MyView,
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';

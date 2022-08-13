@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView} from '../../../styles/Common';
+import {CommonWebBox, PhoneView, MyView} from '../../../styles/Common';
 
 import ChangePass from './components/ChangePass';
 import UpdateInfo from './components/UpdateInfo';

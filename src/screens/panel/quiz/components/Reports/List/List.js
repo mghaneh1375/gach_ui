@@ -2,6 +2,7 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
+  MyView,
 } from '../../../../../../styles/Common';
 import React, {useState} from 'react';
 import {quizContext, dispatchQuizContext} from '../../Context';

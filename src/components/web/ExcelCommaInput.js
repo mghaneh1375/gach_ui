@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {faPlus, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 import {generalRequest} from '../../API/Utility';
-import {CommonButton, PhoneView, SimpleText} from '../../styles/Common';
+import {CommonButton, MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../tranlates/Common';

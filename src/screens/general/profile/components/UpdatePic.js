@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import translator from '../translate';
-import {CommonButton, PhoneView} from '../../../../styles/Common';
+import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
 import {Image, View} from 'react-native';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import {generalRequest} from '../../../../API/Utility';

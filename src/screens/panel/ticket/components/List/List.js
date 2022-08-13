@@ -12,7 +12,7 @@ import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import {routes} from '../../../../../API/APIRoutes';
 import {closeRequest} from './Utility';
 import {StudentTableStructure, TableStructure} from '../TableStructure';
-import {PhoneView} from '../../../../../styles/Common';
+import {PhoneView, MyView} from '../../../../../styles/Common';
 import Filter from '../ProSearch/Filter';
 import {useLocation} from 'react-router';
 const queryString = require('query-string');

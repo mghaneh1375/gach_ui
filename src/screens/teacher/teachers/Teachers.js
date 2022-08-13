@@ -1,4 +1,4 @@
-import {CommonWebBox} from '../../../styles/Common';
+import {CommonWebBox, MyView} from '../../../styles/Common';
 
 function Teachers() {
   return <CommonWebBox header={'اساتید'} />;

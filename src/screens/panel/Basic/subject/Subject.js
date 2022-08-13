@@ -5,6 +5,7 @@ import {getGradeLessons, getGradesOnly, getSubjects} from '../Utility';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import Create from './components/Create';
 import List from './components/List/List';
+import {MyView} from '../../../../styles/Common';
 
 function Subject(props) {
   const navigate = props.navigate;

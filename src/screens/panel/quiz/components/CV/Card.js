@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {routes} from '../../../../../API/APIRoutes';
 import UploadFile from '../../../../../components/web/UploadFile';
 import {showSuccess} from '../../../../../services/Utility';
-import {CommonButton, SimpleText} from '../../../../../styles/Common';
+import {CommonButton, SimpleText, MyView} from '../../../../../styles/Common';
 import commonTranslator from '../../../../../tranlates/Common';
 import {dispatchQuizContext, quizContext} from '../Context';
 import {correct} from '../Utility';

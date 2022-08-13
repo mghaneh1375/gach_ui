@@ -5,7 +5,7 @@ import BottomNavBar from '../components/Android/BottomNavBar';
 import {View} from 'react-native';
 import {TopNavBar} from '../components/Android/TopNavBar';
 
-import {ScreenScroll, MinFullHeightView} from '../styles/Common';
+import {ScreenScroll, MinFullHeightView, MyView} from '../styles/Common';
 import {Loader} from '../styles/Common/Loader';
 import {globalStateContext} from '../App';
 import {fetchUser, getToken, getUser} from '../API/User';

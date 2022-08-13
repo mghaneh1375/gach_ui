@@ -4,7 +4,7 @@ import {style} from './style';
 import {faNavicon} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
-import {PhoneView} from '../../../../styles/Common';
+import {PhoneView, MyView} from '../../../../styles/Common';
 
 const Logo = props => {
   const device = getDevice();

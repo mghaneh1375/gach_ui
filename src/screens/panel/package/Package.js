@@ -8,6 +8,7 @@ import Create from './components/Create';
 import {getGradeLessons} from '../Basic/Utility';
 import Detail from './components/Detail/Detail';
 import {QuizzesProvider} from './components/Detail/Utility';
+import {MyView} from '../../../styles/Common';
 
 function Package(props) {
   const navigate = props.navigate;

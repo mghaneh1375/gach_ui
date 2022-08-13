@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {CommonWebBox, PhoneView} from '../../../../../styles/Common';
+import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
 import {getAnswerSheets} from '../Utility';
 import Card from './Card';
 import {dispatchQuizContext, quizContext} from '../Context';

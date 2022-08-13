@@ -7,7 +7,11 @@ import {dispatchQuizContext, quizContext} from '../Context';
 import {getAnswerSheet} from '../Utility';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
-import {CommonButton, EqualTwoTextInputs} from '../../../../../styles/Common';
+import {
+  CommonButton,
+  EqualTwoTextInputs,
+  MyView,
+} from '../../../../../styles/Common';
 
 function Key(props) {
   const useGlobalState = () => [

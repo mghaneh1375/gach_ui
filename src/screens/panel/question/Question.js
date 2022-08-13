@@ -9,6 +9,7 @@ import List from './components/List/List';
 import {getSubjects} from './components/Utility';
 import {isUserAdmin} from '../../../services/Utility';
 import {QuestionProvider} from './components/Detail/Context';
+import {MyView} from '../../../styles/Common';
 
 const Question = props => {
   const [subjects, setSubjects] = useState();

@@ -1,5 +1,5 @@
 import {View} from 'react-native-web';
-import {PhoneView} from '../../../../../../../styles/Common';
+import {PhoneView, MyView} from '../../../../../../../styles/Common';
 import {LargePopUp} from '../../../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../../../tranlates/Common';
 import {CommonButton} from '../../../../../../../styles/Common';

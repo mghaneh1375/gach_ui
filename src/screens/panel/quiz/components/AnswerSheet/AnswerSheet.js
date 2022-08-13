@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {CommonWebBox, PhoneView} from '../../../../../styles/Common';
+import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
 import Test from './Test';
 
 const perBox = 10;

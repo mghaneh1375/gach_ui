@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {View} from 'react-native-web';
+import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../App';
+import {MyView} from '../../../styles/Common';
 import Create from './components/Create';
 import List from './components/List/List';
 import Update from './components/Update';

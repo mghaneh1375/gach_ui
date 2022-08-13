@@ -7,6 +7,7 @@ import {
   BlueTextFromStart,
   CommonButton,
   CommonRadioButton,
+  MyView,
 } from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import commonTranslator from './../../../../tranlates/Common';

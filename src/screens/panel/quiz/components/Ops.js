@@ -1,4 +1,4 @@
-import {CommonButton, PhoneView} from '../../../../styles/Common';
+import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';

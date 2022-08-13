@@ -9,6 +9,7 @@ import {
   CommonButton,
   PhoneView,
   SimpleText,
+  MyView,
 } from '../../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';

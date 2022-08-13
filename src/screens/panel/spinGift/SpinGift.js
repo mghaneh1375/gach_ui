@@ -1,5 +1,3 @@
-import {CommonWebBox} from '../../../styles/Common';
-
 function SpinGift() {
   return <></>;
 }

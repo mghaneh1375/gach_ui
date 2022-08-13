@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
+import {MyView} from '../../../../styles/Common';
 import Create from './components/Create';
 import List from './components/List';
 import Update from './components/Update';

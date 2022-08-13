@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import {Link} from 'react-router-dom';
+import {MyView} from '../../styles/Common';
 
 import {
   NavItemStyle,

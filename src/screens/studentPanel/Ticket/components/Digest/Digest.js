@@ -6,6 +6,7 @@ import {
   EqualTwoTextInputs,
   PhoneView,
   SimpleText,
+  MyView,
 } from '../../../../../styles/Common';
 import {TinyTextIcon} from '../../../../../styles/Common/TextIcon';
 import {Translate} from '../../Translate';

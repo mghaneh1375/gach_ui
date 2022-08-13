@@ -6,6 +6,7 @@ import List from './List/List';
 import Create from './create/Create';
 import Translate from '../Translate';
 import {addItem, editItem} from '../../../../services/Utility';
+import {MyView} from '../../../../styles/Common';
 
 function Grade(props) {
   const [mode, setMode] = useState('list');

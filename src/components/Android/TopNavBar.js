@@ -1,6 +1,7 @@
 import {View, Image, TouchableOpacity} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
+import {MyView} from '../../styles/Common';
 
 export function TopNavBar() {
   const navigation = useNavigation();

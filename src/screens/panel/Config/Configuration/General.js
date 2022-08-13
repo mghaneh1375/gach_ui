@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+  MyView,
+} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import translator from './Translator';
 import {globalStateContext, dispatchStateContext} from '../../../../App';

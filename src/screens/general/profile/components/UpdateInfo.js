@@ -2,7 +2,11 @@ import React, {useState} from 'react';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import commonTranslator from '../../../../tranlates/Common';
-import {CommonButton, EqualTwoTextInputs} from '../../../../styles/Common';
+import {
+  CommonButton,
+  EqualTwoTextInputs,
+  MyView,
+} from '../../../../styles/Common';
 import {View} from 'react-native';
 import vars from '../../../../styles/root';
 import {updateInfo} from './Utility';

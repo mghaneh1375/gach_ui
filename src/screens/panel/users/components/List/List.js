@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {View} from 'react-native';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {TextIcon} from '../../../../../styles/Common/TextIcon';
-import {CommonWebBox} from '../../../../../styles/Common';
+import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import Translator from '../../Translator';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {routes} from '../../../../../API/APIRoutes';

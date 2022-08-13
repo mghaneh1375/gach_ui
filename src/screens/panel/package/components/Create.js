@@ -1,5 +1,10 @@
 import {View} from 'react-native-web';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+  MyView,
+} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../../../tranlates/Common';
 import Translate from '../Translate';

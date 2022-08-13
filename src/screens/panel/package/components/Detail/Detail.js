@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
+import {MyView} from '../../../../../styles/Common';
 import {fetchPackageQuizzes} from '../Utility';
 
 import Add from './Add';

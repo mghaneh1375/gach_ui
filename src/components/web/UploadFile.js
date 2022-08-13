@@ -1,4 +1,4 @@
-import {CommonButton, PhoneView, SimpleText} from '../../styles/Common';
+import {CommonButton, MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {LargePopUp} from '../../styles/Common/PopUp';
 import commonTranslator from '../../tranlates/Common';
 import {useFilePicker} from 'use-file-picker';

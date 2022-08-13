@@ -7,6 +7,7 @@ import {filter} from './components/Utility';
 import {addItem, editItem, removeItems} from '../../../../services/Utility';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
+import {MyView} from '../../../../styles/Common';
 
 function Schools(props) {
   const navigate = props.navigate;

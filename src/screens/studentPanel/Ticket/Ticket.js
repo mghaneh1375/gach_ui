@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import React, {useState} from 'react';
 import List from './components/List/List';
 import {filter} from '../../panel/ticket/components/List/Utility';
@@ -6,6 +5,7 @@ import {globalStateContext, dispatchStateContext} from '../../../App';
 import Show from '../../panel/ticket/components/Show/Show';
 import Create from '../../panel/ticket/components/Create';
 import {addItem, removeItems} from '../../../services/Utility';
+import {MyView} from '../../../styles/Common';
 
 function Ticketstd(props) {
   const [mode, setMode] = useState('list');

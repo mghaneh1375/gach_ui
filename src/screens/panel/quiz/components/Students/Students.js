@@ -3,6 +3,7 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
+  MyView,
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';

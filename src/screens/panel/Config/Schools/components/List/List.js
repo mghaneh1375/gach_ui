@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
-import {CommonWebBox} from '../../../../../../styles/Common';
+import {CommonWebBox, MyView} from '../../../../../../styles/Common';
 import {TextIcon} from '../../../../../../styles/Common/TextIcon';
 import translator from '../../Translator';
 import Filter from './Filter';

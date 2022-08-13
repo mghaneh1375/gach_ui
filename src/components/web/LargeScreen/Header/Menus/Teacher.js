@@ -4,6 +4,7 @@ import {MenuItem, style, MenuItemPhone} from '../style';
 import translator from '../../../../../tranlates/Common';
 import {faSchool, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
+import {MyView} from '../../../../../styles/Common';
 
 function Teacher(props) {
   const device = getDevice();

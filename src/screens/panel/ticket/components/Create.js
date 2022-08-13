@@ -6,6 +6,7 @@ import {
   ErrorText,
   PhoneView,
   SimpleText,
+  MyView,
 } from '../../../../styles/Common';
 import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';

@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {View} from 'react-native';
-import {CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {CommonWebBox, PhoneView, MyView} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import columns from '../../teachers/list/TableStructure';
 import Ops from '../../teachers/list/Ops/Ops';

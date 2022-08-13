@@ -4,6 +4,7 @@ import {View} from 'react-native';
 import {Loader} from '../../styles/Common/Loader';
 import {globalStateContext} from './../../App';
 import WebStructue from '../../screens/WebStructure';
+import {MyView} from '../../styles/Common';
 
 export default function WebRouter() {
   const useGlobalState = () => [React.useContext(globalStateContext)];

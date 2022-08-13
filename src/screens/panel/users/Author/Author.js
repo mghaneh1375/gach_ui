@@ -7,6 +7,7 @@ import CreateTransaction from './Show/CreateTransaction/CreateTransaction';
 import {addItem, editItem} from '../../../../services/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import {filter} from './List/Utility';
+import {MyView} from '../../../../styles/Common';
 
 function Author(props) {
   const [mode, setMode] = useState('list');

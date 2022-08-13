@@ -3,6 +3,7 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
+  MyView,
 } from '../../../../../styles/Common';
 import Translate from '../Translator';
 import {useState} from 'react';

@@ -4,6 +4,7 @@ import {
   MinFullHeightView,
   LargeContentConianerStyle,
   PhoneContentConianerStyle,
+  MyView,
 } from '../styles/Common';
 import {View} from 'react-native';
 import {useNavigate, useParams} from 'react-router-dom';
@@ -199,6 +200,7 @@ const WebStructue = props => {
                 accesses={user !== undefined ? user.accesses : null}
               />
             )}
+
             <MyView
               style={
                 isInLargeMode && !hideRightMenu

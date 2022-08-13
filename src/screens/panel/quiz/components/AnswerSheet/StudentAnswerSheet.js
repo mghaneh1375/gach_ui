@@ -4,6 +4,7 @@ import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
+  MyView,
 } from '../../../../../styles/Common';
 import AnswerSheet from './AnswerSheet';
 import React, {useState, useRef, useCallback} from 'react';

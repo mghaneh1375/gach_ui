@@ -1,5 +1,9 @@
 import {View} from 'react-native';
-import {CommonRadioButton, PhoneView} from '../../../../../styles/Common';
+import {
+  CommonRadioButton,
+  PhoneView,
+  MyView,
+} from '../../../../../styles/Common';
 import Question from '../../../question/components/Detail/Question';
 import React, {useState} from 'react';
 import commonTranslator from '../../../../../tranlates/Common';

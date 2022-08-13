@@ -4,6 +4,7 @@ import {
   BigBoldBlueTextInline,
   CommonButton,
   CommonWebBox,
+  MyView,
   PhoneView,
 } from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';

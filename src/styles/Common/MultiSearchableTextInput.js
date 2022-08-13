@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Platform, Pressable, View} from 'react-native';
-import {CommonWebBox, SimpleText} from '../Common';
+import {CommonWebBox, SimpleText, MyView} from '../Common';
 import vars from '../root';
 import {
   CommonHalfTextInputStyleWeb,

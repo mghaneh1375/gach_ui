@@ -5,6 +5,7 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
+  MyView,
 } from '../../../../styles/Common';
 
 import ChangePass from '../components/ChangePass';

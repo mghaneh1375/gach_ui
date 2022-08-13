@@ -14,6 +14,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {View} from 'react-native';
 import {SuperMenuItem} from './SuperMenuItem';
+import {MyView} from '../../../../../styles/Common';
 
 function AdminMenu(props) {
   const device = getDevice();
@@ -109,6 +110,7 @@ function AdminMenu(props) {
             },
           ]}
         />
+
         <SuperMenuItem
           text={translator.configuration}
           icon={faUsers}

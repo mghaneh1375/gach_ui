@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import CreateQuiz from './components/CreateQuiz';
 import List from './components/List';
 import {globalStateContext, dispatchStateContext} from '../../../App';
@@ -14,6 +13,7 @@ import Ranking from './components/Reports/Ranking/Ranking';
 import Karname from './components/Reports/Karname/Karname';
 import ReportList from './components/Reports/List/List';
 import {useParams} from 'react-router';
+import {MyView} from '../../../styles/Common';
 
 const Quiz = props => {
   const [mode, setMode] = useState();

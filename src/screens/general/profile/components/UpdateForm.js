@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {CommonButton, SimpleText} from '../../../../styles/Common';
+import {CommonButton, SimpleText, MyView} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';

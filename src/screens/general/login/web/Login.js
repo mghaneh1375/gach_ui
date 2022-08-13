@@ -5,6 +5,7 @@ import {
   BlueTextInline,
   CommonButton,
   InlineTextContainer,
+  MyView,
   ScreenScroll,
   TextLink,
 } from '../../../../styles/Common';
@@ -84,7 +85,6 @@ const Login = props => {
             }
           />
         </MyView>
-
         <div
           style={{
             width: '35%',
