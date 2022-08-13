@@ -28,13 +28,12 @@ function Digest({
   setLoading,
 }) {
   return (
-    <CommonWebBox header={ticket.title} style={{zIndex: 'unset'}}>
+    <CommonWebBox header={ticket.title}>
       <PhoneView
         style={{
           justifyContent: 'space-around',
           marginTop: 25,
           gap: 50,
-          flexWrap: 'wrap',
         }}>
         <PhoneView>
           <TinyTextIcon />

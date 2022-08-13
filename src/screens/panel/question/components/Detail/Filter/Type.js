@@ -51,7 +51,7 @@ function Type(props) {
   return (
     <MyView>
       <BigBoldBlueText text={'نوع سوال'} />
-      <PhoneView style={{gap: 50, flexWrap: 'wrap'}}>
+      <PhoneView style={{gap: 50}}>
         <PhoneView style={{minWidth: 200}}>
           <CommonRadioButton
             value="test"

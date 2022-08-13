@@ -11,7 +11,7 @@ function Ops(props) {
       <LargePopUp
         title={commonTranslator.opMenu}
         toggleShowPopUp={props.toggleShowPopUp}>
-        <PhoneView style={{flexWrap: 'wrap'}}>
+        <PhoneView>
           <CommonButton
             title={commonTranslator.seeInfo}
             onPress={() => window.open('/profile/' + props.user.id)}

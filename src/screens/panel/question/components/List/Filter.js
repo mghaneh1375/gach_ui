@@ -119,7 +119,7 @@ function Filter(props) {
       </PhoneView>
       {showProSearch && (
         <MyView>
-          <PhoneView style={{zIndex: 'unset'}}>
+          <PhoneView>
             <JustBottomBorderTextInput
               placeholder={translator.criticalThresh}
               subText={translator.criticalThresh}

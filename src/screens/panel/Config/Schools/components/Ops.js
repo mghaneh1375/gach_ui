@@ -46,7 +46,7 @@ function Ops(props) {
         <LargePopUp
           title={commonTranslator.opMenu}
           toggleShowPopUp={props.toggleShowPopUp}>
-          <PhoneView style={{flexWrap: 'wrap'}}>
+          <PhoneView>
             <CommonButton
               onPress={() => changeMode('update')}
               dir={'rtl'}
@@ -59,7 +59,7 @@ function Ops(props) {
               theme={'transparent'}
               title={commonTranslator.delete}
             />
-          </PhoneView>
+          </PhoneViewstyle=>
         </LargePopUp>
       )}
     </MyView>

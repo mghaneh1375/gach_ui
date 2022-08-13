@@ -217,7 +217,7 @@ function Create(props) {
             title={translator.uploadZipFile}
           />
         </PhoneView>
-        <PhoneView style={{flexWrap: 'wrap', gap: 10}}>
+        <PhoneView style={{gap: 10}}>
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={translator.typeOfQuestion}

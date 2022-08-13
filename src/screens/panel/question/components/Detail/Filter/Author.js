@@ -38,12 +38,12 @@ function Author(props) {
   return (
     <MyView>
       <BigBoldBlueText text={'مولفین'} />
-      <PhoneView style={{gap: 10, marginTop: 10, flexWrap: 'wrap'}}>
+      <PhoneView style={{gap: 10, marginTop: 10}}>
         {state.authors !== undefined &&
           state.authors.map((elem, index) => {
             return (
               <PhoneView
-                style={{minWidth: 200, marginLeft: 40, flexWrap: 'wrap'}}
+                style={{minWidth: 200, marginLeft: 40}}
                 key={index}>
                 <CommonRadioButton
                   value={elem.author}

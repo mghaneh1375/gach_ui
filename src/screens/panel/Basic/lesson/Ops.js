@@ -11,7 +11,7 @@ function Ops(props) {
       <LargePopUp
         title={commonTranslator.opMenu}
         toggleShowPopUp={props.toggleShowPopUp}>
-        <PhoneView style={{flexWrap: 'wrap'}}>
+        <PhoneView>
           <CommonButton
             onPress={() =>
               removeLesson(
@@ -31,7 +31,7 @@ function Ops(props) {
             onPress={() => props.changeMode('edit')}
             title={commonTranslator.edit}
           />
-        </PhoneView>
+        </PhoneViewstyle=>
       </LargePopUp>
     </MyView>
   );

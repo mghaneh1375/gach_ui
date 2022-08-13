@@ -424,6 +424,7 @@ export function PhoneView(props) {
   const style1 = {
     flexDirection: Platform.OS === 'web' ? 'row' : 'row-reverse',
     flexShrink: 1,
+    flexWrap: 'wrap',
   };
 
   const allStyles =

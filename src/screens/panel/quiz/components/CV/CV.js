@@ -84,7 +84,7 @@ function CV(props) {
           header={translator.correntAnswerSheets}
           backBtn={true}
           onBackClick={() => props.setMode('list')}>
-          <PhoneView style={{flexWrap: 'wrap'}}>
+          <PhoneView>
             {state.selectedQuiz.answer_sheets !== undefined &&
               state.selectedQuiz.answer_sheets.map((elem, index) => {
                 return (

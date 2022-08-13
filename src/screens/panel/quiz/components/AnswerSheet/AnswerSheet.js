@@ -27,7 +27,6 @@ function AnswerSheet(props) {
     <MyView>
       <PhoneView
         style={{
-          flexWrap: 'wrap',
           justifyContent: 'start',
           padding: 10,
           direction: 'ltr',

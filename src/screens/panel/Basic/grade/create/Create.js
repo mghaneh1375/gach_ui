@@ -23,7 +23,6 @@ function Create(props) {
   return (
     <MyView>
       <CommonWebBox
-        style={{zIndex: 10}}
         backBtn={true}
         onBackClick={() => props.setMode('list')}
         header={commonTranslate.edit}>

@@ -170,7 +170,7 @@ const Students = props => {
         <LargePopUp
           toggleShowPopUp={toggleShowOpPopUp}
           title={state.selectedQuiz.title}>
-          <PhoneView style={{flexWrap: 'wrap', gap: 20}}>
+          <PhoneView style={{gap: 20}}>
             <CommonButton
               onPress={() => removeStudent()}
               dir={'rtl'}
@@ -198,7 +198,6 @@ const Students = props => {
           <CommonWebBox
             backBtn={true}
             onBackClick={() => props.setMode('list')}
-            style={{zIndex: 'unset'}}
             header={translator.studentsListInQuiz}>
             <ExcelComma
               header={translator.addStudent}

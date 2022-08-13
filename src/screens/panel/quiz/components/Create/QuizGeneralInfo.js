@@ -21,7 +21,7 @@ const QuizGeneralInfo = props => {
 
   return (
     <MyView>
-      <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
+      <PhoneView style={{gap: 10}}>
         <JustBottomBorderTextInput
           placeholder={translator.name}
           onChangeText={e => changeInput('name', e)}

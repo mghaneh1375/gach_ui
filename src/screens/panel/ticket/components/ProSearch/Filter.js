@@ -53,23 +53,23 @@ function Filter(props) {
 
   return (
     <MyView>
-      <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
+      <PhoneView style={{gap: 10}}>
         <JustBottomBorderSelect
-          isHalf={false}
+          isHalf={true}
           setter={setStatus}
           values={statusKeyVals}
           value={statusKeyVals.find(elem => elem.id === status)}
           placeholder={translator.status}
         />
         <JustBottomBorderSelect
-          isHalf={false}
+          isHalf={true}
           setter={setPriority}
           values={priorityKeyVals}
           value={priorityKeyVals.find(elem => elem.id === priority)}
           placeholder={translator.priority}
         />
         <JustBottomBorderSelect
-          isHalf={false}
+          isHalf={true}
           setter={setSection}
           values={sectionKeyValsForFilter}
           value={sectionKeyValsForFilter.find(elem => elem.id === section)}
@@ -123,7 +123,7 @@ function Filter(props) {
       </PhoneView>
       {showProSearch && (
         <MyView>
-          <PhoneView style={{zIndex: 'unset'}}>
+          <PhoneView>
             <JustBottomBorderDatePicker
               placeholder={translator.dateStartRequest}
               subText={translator.dateStartRequest}
@@ -148,7 +148,7 @@ function Filter(props) {
               />
             )}
           </PhoneView>
-          <PhoneView style={{marginTop: 10, zIndex: 'unset'}}>
+          <PhoneView style={{marginTop: 10}}>
             <JustBottomBorderDatePicker
               placeholder={translator.lastStartUpdate}
               subText={translator.lastStartUpdate}

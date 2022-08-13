@@ -15,7 +15,7 @@ function List(props) {
         addBtn={true}
         onAddClick={() => props.setMode('create')}></CommonWebBox>
       <CommonWebBox style={{marginTop: -5}}>
-        <MyView style={{padding: 5, zIndex: 'unset'}}>
+        <MyView style={{padding: 5}}>
           <Filter
             setTickets={props.setTickets}
             isAdmin={false}

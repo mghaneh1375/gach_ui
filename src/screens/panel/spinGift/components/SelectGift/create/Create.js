@@ -55,7 +55,7 @@ function Create(props) {
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <MyView>
-        <PhoneView style={{flexWrap: 'wrap', gap: 9}}>
+        <PhoneView style={{gap: 9}}>
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={Translate.giftType}

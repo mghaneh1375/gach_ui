@@ -21,7 +21,7 @@ function Create(props) {
       backBtn={true}
       onAddClick={() => props.setMode('addAll')}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{gap: 10, flexWrap: 'wrap'}}>
+      <PhoneView style={{gap: 10}}>
         <JustBottomBorderTextInput
           onChangeText={text => setName(text)}
           isHalf={true}
