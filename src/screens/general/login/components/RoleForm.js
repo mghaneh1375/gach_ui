@@ -41,7 +41,6 @@ const RoleForm = props => {
 
   const setFormUserData = (key, val) => {
     userRoleFormData[key] = val;
-    console.log(userRoleFormData);
     setUserRoleFormData(userRoleFormData);
   };
 

@@ -15,10 +15,10 @@ function Agent(props) {
     return (
       <div className="menu-item-container" style={style.MenuJustLarge}>
         <MenuItem
-          onClick={() => navigate('/agents')}
-          text={translator.access + ' ' + translator.agent}
+          onClick={() => navigate('/schoolUsers')}
+          text={translator.schools}
           icon={faUsers}
-          selected={props.selected === 'agents'}
+          selected={props.selected === 'schools'}
         />
       </div>
     );

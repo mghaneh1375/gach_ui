@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {
   BigBoldBlueTextInline,
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
   MyView,
+  CommonButton,
 } from '../../../../styles/Common';
 
 import ChangePass from '../components/ChangePass';
@@ -223,6 +223,14 @@ const Profile = props => {
                       />
                     )}
                   </CommonWebBox>
+                )}
+                {isAdmin && (
+                  <CommonButton
+                    onPress={() => window.open('/upgrade/' + user.id, '_blank')}
+                    style={{alignSelf: 'center'}}
+                    theme={'dark'}
+                    title="وارد کردن اطلاعات فرم ها"
+                  />
                 )}
               </MyView>
             )}

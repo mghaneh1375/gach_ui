@@ -57,6 +57,7 @@ function ChangeLevel(props) {
       undefined,
       'data',
     );
+    props.setLoading(false);
     if (res !== null) {
       setSchools(res);
       setShowChooseSchool(true);
@@ -84,7 +85,11 @@ function ChangeLevel(props) {
       newAccesses => setAccesses(newAccesses),
       school.id,
     );
-    if (res !== null) setShowChooseSchool(false);
+    if (res !== null) {
+      setSchool(undefined);
+      setNewLevel(undefined);
+      setShowChooseSchool(false);
+    }
   };
 
   const back = () => {
@@ -118,15 +123,18 @@ function ChangeLevel(props) {
           </PhoneView>
           <PhoneView style={{alignSelf: 'end'}}>
             <CommonButton
-              onPress={() =>
-                addAccess(
+              onPress={async () => {
+                let res = await addAccess(
                   props.setLoading,
                   props.token,
                   props.user.id,
                   newLevel,
                   newAccesses => setAccesses(newAccesses),
-                )
-              }
+                );
+                if (res !== null) {
+                  setNewLevel(undefined);
+                }
+              }}
               title={commonTranslator.confrim}
             />
           </PhoneView>

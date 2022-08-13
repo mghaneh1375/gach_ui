@@ -6,18 +6,18 @@ import {
   CommonWebBox,
   MyView,
   PhoneView,
-} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import Translate from '../Translate';
-import commonTranslator from '../../../../tranlates/Common';
-import {checkDuplicate, addAgentSchools, addSchool} from '../Utility';
+} from '../../../styles/Common';
+import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
+import Translate from './Translate';
+import commonTranslator from '../../../tranlates/Common';
+import {checkDuplicate, addAgentSchools, addSchool} from './Utility';
 
-import StateAndCity from '../../../../components/web/StateAndCity';
-import {sexKeyVals, showError, showSuccess} from '../../../../services/Utility';
-import {grades} from '../../../panel/Config/Schools/components/KeyVals';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import StateAndCity from '../../../components/web/StateAndCity';
+import {sexKeyVals, showError, showSuccess} from '../../../services/Utility';
+import {grades} from '../../panel/Config/Schools/components/KeyVals';
+import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
 
-function CreateStep1(props) {
+function Create(props) {
   const [phone, setPhone] = useState('09224786125');
   const [nid, setNid] = useState('0018374921');
 
@@ -211,18 +211,16 @@ function CreateStep1(props) {
               }
               let res = await addSchool(info, props.token);
               props.setLoading(false);
-              if (res !== null) {
-                if (res != -1) {
-                  props.addItem(res.school);
-                }
 
+              if (res !== null) {
                 props.setMode('list');
               }
-            }}></CommonButton>
+            }}
+          />
         </MyView>
       )}
     </CommonWebBox>
   );
 }
 
-export default CreateStep1;
+export default Create;

@@ -4,7 +4,7 @@ import RoleForm from '../../general/login/components/RoleForm';
 import React from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import {CommonWebBox, MyView} from '../../../styles/Common';
-import {View} from 'react-native';
+import {useParams} from 'react-router';
 
 function Upgrade(props) {
   const device = getDevice();
@@ -20,6 +20,15 @@ function Upgrade(props) {
   const setLoading = status => {
     dispatch({loading: status});
   };
+
+  const isAdmin =
+    props.user.accesses.indexOf('admin') !== -1 ||
+    props.user.accesses.indexOf('superadmin') !== -1;
+
+  const params = useParams();
+  const userId = isAdmin ? params.userId : undefined;
+
+  if (isAdmin && userId === undefined) props.navigate('/');
 
   return (
     <CommonWebBox>

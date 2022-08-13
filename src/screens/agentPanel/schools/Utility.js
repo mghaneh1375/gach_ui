@@ -18,17 +18,11 @@ export const addSchool = async (data, token) => {
       routes.addSchoolByAgent,
       'post',
       data,
-      ['id', 'school'],
+      undefined,
       token,
       ['tel', 'NID', 'phone', 'name', 'address', 'managerName'],
     );
-    if (res !== null) {
-      if (res == -1) {
-        showSuccess('درخواست شما در انتظار تایید قرار گرفت');
-      } else {
-        showSuccess();
-      }
-    }
+    if (res !== null) showSuccess('درخواست شما در انتظار تایید قرار گرفت');
 
     return res;
   } catch (error) {

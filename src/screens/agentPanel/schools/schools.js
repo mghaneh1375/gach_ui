@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {dispatchStateContext, globalStateContext} from '../../../App';
-import CreateStep1 from './CreateStep1/CreateStep1';
+import Create from './Create';
 import Details from './details/Details';
 import List from './list/List';
 import Students from './students/Students';
@@ -9,7 +8,7 @@ import {removeItems, editItem, addItem} from '../../../services/Utility';
 import {getAllAgent} from './Utility';
 import {MyView} from '../../../styles/Common';
 
-function Agent(props) {
+function Schools(props) {
   const queryString = require('query-string');
   const navigate = props.navigate;
 
@@ -52,8 +51,8 @@ function Agent(props) {
           edit={ids => editItem(data, setData, ids)}
         />
       )}
-      {mode === 'createStep1' && (
-        <CreateStep1
+      {mode === 'create' && (
+        <Create
           data={data}
           setMode={setMode}
           setLoading={setLoading}
@@ -84,4 +83,4 @@ function Agent(props) {
   );
 }
 
-export default Agent;
+export default Schools;
