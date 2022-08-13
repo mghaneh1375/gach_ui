@@ -34,6 +34,8 @@ function Upgrade(props) {
     <CommonWebBox>
       <MyView style={{width: 400}}>
         <RoleForm
+          forms={props.user.user.forms}
+          signUp={false}
           token={props.token}
           setLoading={setLoading}
           navigate={props.navigate}
