@@ -41,14 +41,21 @@ export const BlueTextInline = props => (
 );
 
 export const MyView = props => {
-  if (Platform.OS === 'web')
-    return (
-      <div className={'myView'} style={props.style}>
-        {props.children}
-      </div>
-    );
+  if (Platform.OS === 'web') {
+    let style = props.style;
+    if (props.style instanceof Array) style = undefined;
 
-  return <MyView style={props.style}>{props.children}</MyView>;
+    if (style !== undefined)
+      return (
+        <div className={'myView'} style={style}>
+          {props.children}
+        </div>
+      );
+
+    return <div className={'myView'}>{props.children}</div>;
+  }
+
+  return <View style={props.style}>{props.children}</View>;
 };
 
 export const OrangeTextInline = props => (
