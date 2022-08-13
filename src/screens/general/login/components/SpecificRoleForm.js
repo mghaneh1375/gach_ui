@@ -10,6 +10,8 @@ function SpecificRoleForm(props) {
 
   React.useEffect(() => {
     setObj(props.obj);
+    if (props.obj !== undefined && props.obj.value !== undefined)
+      setData(props.obj.value);
   }, [props.obj]);
 
   return (
@@ -21,6 +23,8 @@ function SpecificRoleForm(props) {
           args={obj.key}
           values={obj.keyVals}
           value={obj.keyVals.find(elem => {
+            console.log(elem.id);
+            console.log(data);
             return elem.id === data;
           })}
         />

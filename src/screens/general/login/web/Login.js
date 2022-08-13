@@ -147,6 +147,7 @@ const Login = props => {
             )}
             {mode === 'roleForm' && (
               <RoleFormModule
+                signUp={true}
                 token={token}
                 setLoading={setLoading}
                 navigate={navigate}

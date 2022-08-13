@@ -35,7 +35,27 @@ const RoleForm = props => {
 
   const changeRole = r => {
     setRole(r);
-    setUserRoleFormData({});
+    if (
+      props.forms === undefined ||
+      props.forms.find(elem => elem.role === r) === undefined
+    )
+      setUserRoleFormData({});
+    else {
+      let form = props.forms.find(elem => elem.role === r);
+      let allForms = roleForms;
+
+      allForms = allForms.map(elem => {
+        if (elem.role === form.role) return form;
+        return elem;
+      });
+
+      setRoleForms(allForms);
+      setUserRoleFormData(
+        form.data.map(elem => {
+          return {key: elem.key, value: elem.value};
+        }),
+      );
+    }
     setStep('form');
   };
 
@@ -48,7 +68,9 @@ const RoleForm = props => {
     <MyView>
       {step === 'role' && (
         <MyView>
-          <BigBoldBlueTextInline text={commonTranslator.congratulations} />
+          {props.signUp && (
+            <BigBoldBlueTextInline text={commonTranslator.congratulations} />
+          )}
 
           <BlueTextFromStart
             style={{marginTop: 20}}
@@ -113,6 +135,7 @@ const RoleForm = props => {
           {roleForms
             .find(elem => elem.role === role)
             .data.map(function (obj, i) {
+              console.log(obj);
               return (
                 <SpecificRoleForm
                   key={i}
