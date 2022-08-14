@@ -73,7 +73,8 @@
 }
 
 .super-menu-item-font-container > div {
-  width: 26px !important;
+  width: 30px !important;
+  left: 8px;
 }
 
 .super-menu-item-font-container > div:nth-child(2) {
