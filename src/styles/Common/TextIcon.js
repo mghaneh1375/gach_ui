@@ -36,7 +36,9 @@ export const TextIcon = props => {
     props.style !== undefined ? {...style, ...props.style} : style;
 
   var fontProps = {icon: props.icon};
-  if (props.onPress !== undefined) fontProps.onPress = props.onPress;
+  if (props.onPress !== undefined) {
+    fontProps.onPress = props.onPress;
+  }
 
   if (props.theme !== undefined) {
     fontProps.parentStyle = {

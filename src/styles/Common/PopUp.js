@@ -34,7 +34,7 @@ export function LargePopUp(props) {
         child={
           <MyView>
             <TextIcon
-              style={{marginBottom: 20}}
+              style={{marginBottom: 20, padding: 0}}
               onPress={() => props.toggleShowPopUp()}
               text={props.title}
               icon={faClose}

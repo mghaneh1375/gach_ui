@@ -239,7 +239,7 @@ export const CommonButton = props => {
       </Link>
     </Button>
   ) : (
-    <div className={'hoverable'}>
+    <div className={('hoverable', 'flex-end')}>
       <Button style={allStyles} onClick={props.onPress}>
         {props.icon !== undefined &&
           (props.iconDir === undefined || props.iconDir === 'right') && (
