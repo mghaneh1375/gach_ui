@@ -68,13 +68,13 @@ function Test(props) {
     setChoicesArr(tmp);
   };
 
-  console.log(state.wanted_answer_sheet[index]);
   return (
     <PhoneView style={{direction: 'ltr'}}>
       <SimpleText
         style={{alignSelf: 'center', width: 30}}
         text={index + 1 + ' - '}
       />
+
       {choicesArr !== undefined &&
         choicesArr.map((elem, idx) => {
           return (
@@ -106,6 +106,13 @@ function Test(props) {
             />
           );
         })}
+
+      {state.wanted_answer_sheet[index].percent !== undefined && (
+        <SimpleText
+          style={{alignSelf: 'center', marginLeft: 10}}
+          text={'% ' + state.wanted_answer_sheet[index].percent}
+        />
+      )}
     </PhoneView>
   );
 }

@@ -1,5 +1,4 @@
 import React, {useState, useRef, useCallback} from 'react';
-import {View} from 'react-native';
 import {
   CommonButton,
   BigBoldBlueTextInline,
