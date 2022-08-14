@@ -11,11 +11,9 @@ import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
 import {fetchStudentAnswerSheet, getKarname} from '../../Utility';
 import lessonTableStructure from './LessonTableStructure.js';
+import subjectTableStructure from './SubjectTableStructure';
 import generalStatTableStructure from './GeneralStatTableStructure';
 import rankStatTableStructure from './RankStatTableStructure';
-import {SimpleFontIcon} from '../../../../../../styles/Common/FontIcon';
-import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
-import MiniCard from '../../CV/MiniCard';
 import commonTranslator from '../../../../../../tranlates/Common';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
@@ -250,7 +248,7 @@ function Karname(props) {
             <MyView style={{padding: 10}}>
               {karname !== undefined && (
                 <CommonDataTable
-                  columns={lessonTableStructure}
+                  columns={subjectTableStructure}
                   show_row_no={false}
                   pagination={false}
                   groupOps={[]}
