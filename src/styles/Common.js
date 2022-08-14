@@ -118,6 +118,7 @@ export const ScreenScroll =
 
 export const CommonButton = props => {
   let allStyles = props.style !== undefined ? props.style : null;
+  let className = 'myBtn';
   let textStyle =
     Platform.OS === 'web'
       ? CommonButtonTextStyleWeb
@@ -131,6 +132,7 @@ export const CommonButton = props => {
 
   if (props.theme !== undefined) {
     if (props.theme === 'transparent') {
+      className = 'myTransparentBtn';
       allStyles = {
         ...allStyles,
         ...{
@@ -224,37 +226,39 @@ export const CommonButton = props => {
       </Link>
     </Button>
   ) : (
-    <Button style={allStyles} onClick={props.onPress}>
-      {props.icon !== undefined &&
-        (props.iconDir === undefined || props.iconDir === 'right') && (
-          <SimpleFontIcon
-            kind={'normal'}
-            style={{color: vars.WHITE}}
-            icon={props.icon}
-          />
-        )}
-      <Text style={textStyle}>{props.title}</Text>
-      {props.icon !== undefined &&
-        props.iconDir !== undefined &&
-        props.iconTheme === undefined &&
-        props.iconDir === 'left' && (
-          <SimpleFontIcon
-            kind={'normal'}
-            style={{color: vars.WHITE}}
-            icon={props.icon}
-          />
-        )}
-      {props.icon !== undefined &&
-        props.iconDir !== undefined &&
-        props.iconTheme !== undefined &&
-        props.iconDir === 'left' && (
-          <FontIcon
-            parentStyle={{marginRight: 20}}
-            kind={'small'}
-            icon={props.icon}
-          />
-        )}
-    </Button>
+    <div className={className}>
+      <Button style={allStyles} onClick={props.onPress}>
+        {props.icon !== undefined &&
+          (props.iconDir === undefined || props.iconDir === 'right') && (
+            <SimpleFontIcon
+              kind={'normal'}
+              style={{color: vars.WHITE}}
+              icon={props.icon}
+            />
+          )}
+        <Text style={textStyle}>{props.title}</Text>
+        {props.icon !== undefined &&
+          props.iconDir !== undefined &&
+          props.iconTheme === undefined &&
+          props.iconDir === 'left' && (
+            <SimpleFontIcon
+              kind={'normal'}
+              style={{color: vars.WHITE}}
+              icon={props.icon}
+            />
+          )}
+        {props.icon !== undefined &&
+          props.iconDir !== undefined &&
+          props.iconTheme !== undefined &&
+          props.iconDir === 'left' && (
+            <FontIcon
+              parentStyle={{marginRight: 20}}
+              kind={'small'}
+              icon={props.icon}
+            />
+          )}
+      </Button>
+    </div>
   );
 };
 
