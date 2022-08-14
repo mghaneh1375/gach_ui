@@ -36,7 +36,6 @@ function Karname(props) {
 
   const [isWorking, setIsWorking] = useState();
   const [karname, setKarname] = useState();
-  const [showSubjectChart, setShowSubjectChart] = useState(false);
   const [hasFetchedAnswerSheet, setHasFetchedAnswerSheet] = useState(false);
   const [studentId, setStudentId] = useState();
 

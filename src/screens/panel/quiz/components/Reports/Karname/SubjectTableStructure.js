@@ -35,8 +35,18 @@ const columns = [
     grow: 1,
   },
   {
+    name: 'رتبه در شهر',
+    selector: row => row.cityRank,
+    grow: 1,
+  },
+  {
     name: 'رتبه در استان',
     selector: row => row.stateRank,
+    grow: 1,
+  },
+  {
+    name: 'رتبه در کشور',
+    selector: row => row.countryRank,
     grow: 1,
   },
 ];
