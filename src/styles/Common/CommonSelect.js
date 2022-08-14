@@ -5,6 +5,7 @@ import {CommonSelectElem} from './CommonText';
 import vars from '../root';
 import SubInputText from './SubInputText';
 import {MyView} from '../Common';
+import {getWidthHeight} from '../../services/Utility';
 
 export const CommonSelect = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
@@ -62,22 +63,26 @@ export const CommonSelect = props => {
   if (props.value !== undefined) inputProps.defaultValue = props.value;
 
   let parentStyle = props.style !== undefined ? props.style : {};
+
+  let width = getWidthHeight()[0];
+
   parentStyle = isHalf
     ? {
         ...parentStyle,
         ...{
-          width: isApp ? 'auto' : 'calc(50% - 10px)',
-          maxWidth: 300,
+          width: isApp || width < 768 ? '100%' : 'calc(50% - 10px)',
+          maxWidth: width > 768 ? 300 : '100%',
           direction: 'rtl',
           paddingLeft: 10,
           paddingRight: 10,
           textAlign: 'right',
+          height: 60,
           // zIndex: 5,
         },
       }
     : {
         ...parentStyle,
-        ...{maxWidth: 300, textAlign: 'right', minWidth: 200}, // zIndex: 5,
+        ...{maxWidth: 300, textAlign: 'right'}, // zIndex: 5,
       };
 
   return (

@@ -6,6 +6,7 @@ import {
   CommonButton,
   EqualTwoTextInputs,
   MyView,
+  PhoneView,
 } from '../../../../styles/Common';
 import {View} from 'react-native';
 import vars from '../../../../styles/root';
@@ -52,100 +53,94 @@ const UpdateInfo = props => {
   };
   return (
     <MyView>
-      <MyView style={{paddingLeft: 70}}>
-        <EqualTwoTextInputs>
-          <JustBottomBorderTextInput
-            isHalf={true}
-            value={firstname}
-            subText={commonTranslator.necessaryField}
-            placeholder={commonTranslator.firstname}
-            onChangeText={e => setFirstname(e)}
-          />
-          <JustBottomBorderTextInput
-            isHalf={true}
-            value={lastname}
-            subText={commonTranslator.necessaryField}
-            placeholder={commonTranslator.lastname}
-            onChangeText={e => setLastname(e)}
-          />
-        </EqualTwoTextInputs>
-        <EqualTwoTextInputs>
-          <JustBottomBorderTextInput
-            isHalf={true}
-            justNum={true}
-            value={NID}
-            onChangeText={e => setNID(e)}
-            subText={commonTranslator.necessaryField}
-            placeholder={commonTranslator.NID}
-          />
-          <JustBottomBorderSelect
-            isHalf={true}
-            value={sexKeyVals.find(elem => elem.id === sex)}
-            placeholder={commonTranslator.sex}
-            setter={setSex}
-            values={sexKeyVals}
-          />
-        </EqualTwoTextInputs>
-        <EqualTwoTextInputs>
-          <JustBottomBorderTextInput
-            isHalf={true}
-            placeholder={commonTranslator.state}
-            resultPane={true}
-            setSelectedItem={setSelectedState}
-            values={props.states}
-            value={state !== undefined ? state.name : ''}
-            reset={false}
-          />
+      <PhoneView style={{gap: 10}}>
+        <JustBottomBorderTextInput
+          isHalf={true}
+          value={firstname}
+          subText={commonTranslator.necessaryField}
+          placeholder={commonTranslator.firstname}
+          onChangeText={e => setFirstname(e)}
+        />
+        <JustBottomBorderTextInput
+          isHalf={true}
+          value={lastname}
+          subText={commonTranslator.necessaryField}
+          placeholder={commonTranslator.lastname}
+          onChangeText={e => setLastname(e)}
+        />
+        <JustBottomBorderTextInput
+          isHalf={true}
+          justNum={true}
+          value={NID}
+          onChangeText={e => setNID(e)}
+          subText={commonTranslator.necessaryField}
+          placeholder={commonTranslator.NID}
+        />
+        <JustBottomBorderSelect
+          isHalf={true}
+          value={sexKeyVals.find(elem => elem.id === sex)}
+          placeholder={commonTranslator.sex}
+          setter={setSex}
+          values={sexKeyVals}
+        />
+        <JustBottomBorderTextInput
+          style={{marginTop: 10}}
+          isHalf={true}
+          placeholder={commonTranslator.state}
+          resultPane={true}
+          setSelectedItem={setSelectedState}
+          values={props.states}
+          value={state !== undefined ? state.name : ''}
+          reset={false}
+        />
 
-          <JustBottomBorderTextInput
-            isHalf={true}
-            resultPane={true}
-            placeholder={commonTranslator.city}
-            setSelectedItem={setSelectedCity}
-            reset={resetCity}
-            value={city !== undefined ? city.name : ''}
-            values={state !== undefined ? state.cities : []}
-          />
-        </EqualTwoTextInputs>
+        <JustBottomBorderTextInput
+          style={{marginTop: 10}}
+          isHalf={true}
+          resultPane={true}
+          placeholder={commonTranslator.city}
+          setSelectedItem={setSelectedCity}
+          reset={resetCity}
+          value={city !== undefined ? city.name : ''}
+          values={state !== undefined ? state.cities : []}
+        />
+        <JustBottomBorderTextInput
+          style={{marginTop: 10}}
+          isHalf={true}
+          placeholder={commonTranslator.grade}
+          resultPane={true}
+          setSelectedItem={setSelectedGrade}
+          values={props.grades}
+          value={grade !== undefined ? grade.name : ''}
+          reset={false}
+        />
 
-        <EqualTwoTextInputs style={{marginTop: 30}}>
-          <JustBottomBorderTextInput
-            isHalf={true}
-            placeholder={commonTranslator.grade}
-            resultPane={true}
-            setSelectedItem={setSelectedGrade}
-            values={props.grades}
-            value={grade !== undefined ? grade.name : ''}
-            reset={false}
-          />
-
-          <JustBottomBorderTextInput
-            isHalf={true}
-            resultPane={true}
-            placeholder={commonTranslator.branch}
-            setSelectedItem={setSelectedBranch}
-            reset={false}
-            values={props.branches}
-            value={branch}
-            multi={true}
-          />
-        </EqualTwoTextInputs>
-
-        <MyView style={{marginTop: 30, marginRight: 10}}>
-          <JustBottomBorderTextInput
-            isHalf={false}
-            style={{maxWidth: 'unset'}}
-            placeholder={commonTranslator.school}
-            resultPane={true}
-            setSelectedItem={setSelectedSchool}
-            values={props.schools}
-            value={school !== undefined ? school.name : ''}
-            reset={false}
-          />
-        </MyView>
-      </MyView>
+        <JustBottomBorderTextInput
+          style={{marginTop: 10}}
+          isHalf={true}
+          resultPane={true}
+          placeholder={commonTranslator.branch}
+          setSelectedItem={setSelectedBranch}
+          reset={false}
+          values={props.branches}
+          value={branch}
+          multi={true}
+        />
+        <JustBottomBorderTextInput
+          isHalf={false}
+          style={{maxWidth: 'unset'}}
+          placeholder={commonTranslator.school}
+          resultPane={true}
+          setSelectedItem={setSelectedSchool}
+          values={props.schools}
+          value={school !== undefined ? school.name : ''}
+          reset={false}
+        />
+      </PhoneView>
       <CommonButton
-        style={{backgroundColor: vars.DARK_BLUE, marginTop: 50, minWidth: 120}}
+        style={{
+          backgroundColor: vars.DARK_BLUE,
+        }}
         title={commonTranslator.doChange}
         onPress={() =>
           updateInfo(props.setLoading, props.token, props.userId, {

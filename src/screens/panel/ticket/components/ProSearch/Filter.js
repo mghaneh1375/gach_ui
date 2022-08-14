@@ -123,7 +123,7 @@ function Filter(props) {
       </PhoneView>
       {showProSearch && (
         <MyView>
-          <PhoneView>
+          <PhoneView style={{gap: 10}}>
             <JustBottomBorderDatePicker
               placeholder={translator.dateStartRequest}
               subText={translator.dateStartRequest}
@@ -148,7 +148,7 @@ function Filter(props) {
               />
             )}
           </PhoneView>
-          <PhoneView style={{marginTop: 10}}>
+          <PhoneView style={{gap: 10}}>
             <JustBottomBorderDatePicker
               placeholder={translator.lastStartUpdate}
               subText={translator.lastStartUpdate}

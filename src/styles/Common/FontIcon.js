@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Platform, Pressable} from 'react-native';
-import {BigBoldBlueText} from '../Common';
+import {BigBoldBlueText, CommonButton} from '../Common';
 import vars from './../root';
 
 const FontIconStyle = {

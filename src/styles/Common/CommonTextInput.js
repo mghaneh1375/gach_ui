@@ -1,4 +1,5 @@
 import {Platform} from 'react-native';
+import {getWidthHeight} from '../../services/Utility';
 import {MyView} from '../Common';
 import {
   CommonHalfTextInputStyleWeb,
@@ -21,7 +22,12 @@ export const CommonTextInput = props => {
     style1 = {...style1, ...{height: 100, maxWidth: 500, overflow: 'auto'}};
 
   const allStyle =
-    props.style !== undefined ? {...style1, ...props.style} : style1;
+    props.style !== undefined
+      ? {
+          ...style1,
+          ...props.style,
+        }
+      : style1;
 
   const inputProps = {
     placeholder: props.placeholder,
@@ -56,10 +62,12 @@ export const CommonTextInput = props => {
 
   if (props.onPress !== undefined) inputProps.onClick = props.onPress;
 
+  let width = getWidthHeight()[0];
+
   let parentAllStyles = isHalf
     ? {
-        width: isApp ? 'auto' : 'calc(50% - 10px)',
-        maxWidth: 300,
+        width: isApp || width < 768 ? '100%' : 'calc(50% - 10px)',
+        maxWidth: width > 768 ? 300 : '100%',
         paddingLeft: 5,
         paddingRight: 5,
         paddingTop: 5,

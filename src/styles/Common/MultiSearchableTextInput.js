@@ -12,6 +12,7 @@ import {TinyTextIcon} from './TextIcon';
 import translator from '../../tranlates/Common';
 import SubInputText from './SubInputText';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
+import {getWidthHeight} from '../../services/Utility';
 
 export const MultiSearchableTextInput = props => {
   const [suggests, setSuggests] = useState([]);
@@ -159,14 +160,14 @@ export const MultiSearchableTextInput = props => {
         e.preventDefault();
     };
   }
-
+  let width = getWidthHeight()[0];
   return (
     <MyView
       style={
         isHalf
           ? {
-              width: isApp ? 'auto' : 'calc(50% - 10px)',
-              maxWidth: 300,
+              width: isApp || width < 768 ? '100%' : 'calc(50% - 10px)',
+              maxWidth: width > 768 ? 300 : '100%',
               paddingLeft: 15,
               paddingRight: 15,
               paddingTop: 5,

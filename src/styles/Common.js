@@ -213,6 +213,19 @@ export const CommonButton = props => {
       },
     };
   }
+  if (props.icon !== undefined) {
+    allStyles = {
+      ...{
+        alignSelf: 'flex-start',
+        padding: '0px 0px',
+      },
+    };
+    textStyle = {
+      ...{
+        color: vars.WHITE,
+      },
+    };
+  }
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <Button style={allStyles} onPress={props.onPress}>
       <Text style={textStyle}>{props.title}</Text>
