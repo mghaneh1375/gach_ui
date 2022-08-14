@@ -17,9 +17,9 @@ const FontIconStyleAndroid = {
 
 const FontIconStyleWeb = {
   ...FontIconStyle,
-  padding: 6,
-  width: 18,
-  height: 18,
+  padding: 4,
+  width: 22,
+  height: 22,
   cursor: 'pointer',
   alignSelf: 'center',
 };

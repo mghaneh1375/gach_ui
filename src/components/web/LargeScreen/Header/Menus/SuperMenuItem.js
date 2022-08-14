@@ -33,7 +33,11 @@ export const SuperMenuItem = props => {
           icon={wantedIcon}
         />
         {!isOpen && (
-          <SimpleFontIcon style={{color: vars.WHITE}} icon={props.icon} />
+          <SimpleFontIcon
+            parentStyle={{width: '30px !important'}}
+            style={{color: vars.WHITE}}
+            icon={props.icon}
+          />
         )}
       </div>
       {isOpen && (
