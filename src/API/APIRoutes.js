@@ -57,6 +57,7 @@ export const routes = {
   fetchStateReport: 'quiz/manage/stateReport/',
   fetchGenderReport: 'quiz/manage/genderReport/',
   fetchQuizAnswerSheet: 'quiz/manage/getQuizAnswerSheet/',
+  fetchStudentAnswerSheet: 'quiz/manage/getStudentAnswerSheet/',
   fetchQuizAnswerSheets: 'quiz/manage/getQuizAnswerSheets/',
   fetchQuizRanking: 'quiz/manage/showRanking/',
   fetchQuizKarname: 'quiz/manage/getStudentStat/',

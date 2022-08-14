@@ -9,7 +9,7 @@ import {
 } from '../../../../../../styles/Common';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
-import {getKarname} from '../../Utility';
+import {fetchStudentAnswerSheet, getKarname} from '../../Utility';
 import lessonTableStructure from './LessonTableStructure.js';
 import generalStatTableStructure from './GeneralStatTableStructure';
 import rankStatTableStructure from './RankStatTableStructure';
@@ -26,6 +26,8 @@ import {
   VictoryAxis,
   VictoryLegend,
 } from 'victory-native';
+import AnswerSheet from '../../AnswerSheet/AnswerSheet';
+import StudentCard from '../../../../../../components/web/StudentCard';
 
 function Karname(props) {
   const useGlobalState = () => [
@@ -37,10 +39,52 @@ function Karname(props) {
   const [isWorking, setIsWorking] = useState();
   const [karname, setKarname] = useState();
   const [showSubjectChart, setShowSubjectChart] = useState(false);
+  const [hasFetchedAnswerSheet, setHasFetchedAnswerSheet] = useState(false);
+  const [studentId, setStudentId] = useState();
 
   React.useEffect(() => {
-    console.log(state.selectedQuiz);
+    if (
+      isWorking ||
+      hasFetchedAnswerSheet ||
+      studentId == undefined ||
+      state.selectedQuiz === undefined
+    )
+      return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+    Promise.all([
+      fetchStudentAnswerSheet(
+        state.selectedQuiz.id,
+        state.selectedQuiz.generalMode,
+        studentId,
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] !== null) {
+        setHasFetchedAnswerSheet(true);
+        dispatch({
+          wanted_answer_sheet: res[0],
+          showAnswers: true,
+          showStdAnswers: true,
+          allowChangeStdAns: false,
+        });
+      }
+      setIsWorking(false);
+    });
+  }, [
+    props,
+    isWorking,
+    hasFetchedAnswerSheet,
+    state.selectedQuiz,
+    studentId,
+    dispatch,
+  ]);
+
+  React.useEffect(() => {
     if (state.selectedQuiz === undefined) {
+      setStudentId(props.studentId);
       dispatch({
         selectedQuiz: {id: props.quizId, generalMode: props.quizMode},
         selectedStudentId: props.studentId,
@@ -56,11 +100,11 @@ function Karname(props) {
         elem => elem.student.id === state.selectedStudentId,
       ) !== undefined
     ) {
-      setKarname(
-        state.selectedQuiz.allKarname.find(
-          elem => elem.student.id === state.selectedStudentId,
-        ),
+      let tmp = state.selectedQuiz.allKarname.find(
+        elem => elem.student.id === state.selectedStudentId,
       );
+      setStudentId(tmp.student.id);
+      setKarname(tmp);
       return;
     }
 
@@ -126,20 +170,14 @@ function Karname(props) {
     <MyView>
       <CommonWebBox
         header={
-          state.selectedQuiz !== undefined
-            ? 'کارنامه آزمون ' + state.selectedQuiz.title
+          karname !== undefined
+            ? 'کارنامه آزمون ' + karname.quizName
             : 'کارنامه آزمون '
         }
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
         <EqualTwoTextInputs>
-          {karname !== undefined && (
-            <MiniCard
-              text={'رتبه: ' + karname.rank.rank}
-              header={karname.student.name}
-              src={karname.student.pic}
-            />
-          )}
+          {karname !== undefined && <StudentCard std={karname} />}
           {karname !== undefined && (
             <CommonButton
               onPress={() => preparePrint()}
@@ -203,11 +241,11 @@ function Karname(props) {
                 style={{alignSelf: 'center'}}
                 text={'جدول شماره 3 - نتایج حیطه ها'}
               />
-              <SimpleFontIcon
+              {/* <SimpleFontIcon
                 kind={'normal'}
                 onPress={() => setShowSubjectChart(!showSubjectChart)}
                 icon={showSubjectChart ? faAngleUp : faAngleDown}
-              />
+              /> */}
             </EqualTwoTextInputs>
             <MyView style={{padding: 10}}>
               {karname !== undefined && (
@@ -219,7 +257,51 @@ function Karname(props) {
                   data={karname.subjects}
                 />
               )}
-              {karname !== undefined && showSubjectChart && (
+            </MyView>
+          </CommonWebBox>
+
+          <CommonWebBox width={'35%'}>
+            <EqualTwoTextInputs>
+              <BigBoldBlueTextInline
+                style={{alignSelf: 'center'}}
+                text={'جدول شماره 4 - نتایج کلی'}
+              />
+            </EqualTwoTextInputs>
+            <MyView style={{padding: 10}}>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={rankStatTableStructure}
+                  data={[karname.rank]}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                />
+              )}
+            </MyView>
+          </CommonWebBox>
+
+          <CommonWebBox width={'60%'}>
+            <EqualTwoTextInputs>
+              <BigBoldBlueTextInline
+                style={{alignSelf: 'center'}}
+                text={'جدول شماره 5 - نتایج آماری حیطه ها'}
+              />
+            </EqualTwoTextInputs>
+            <MyView style={{padding: 10}}>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={generalStatTableStructure}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                  data={karname.subjects}
+                />
+              )}
+            </MyView>
+          </CommonWebBox>
+          <CommonWebBox width={'60%'}>
+            <MyView>
+              {karname !== undefined && (
                 <VictoryChart height={500} theme={VictoryTheme.material}>
                   <VictoryLegend
                     x={125}
@@ -314,66 +396,13 @@ function Karname(props) {
                     }}
                   />
                 </VictoryChart>
-
-                // <MyLineChart
-                //   labels={karname.subjects.map(elem => {
-                //     return elem.name;
-                //   })}
-                //   data={[
-                //     karname.subjects.map(elem => {
-                //       return elem.percent;
-                //     }),
-                //     karname.subjects.map(elem => {
-                //       return elem.percent - 2;
-                //     }),
-                //   ]}
-                //   width={700}
-                //   height={400}
-                // />
-              )}
-            </MyView>
-          </CommonWebBox>
-
-          <CommonWebBox width={'35%'}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 4 - نتایج کلی'}
-              />
-            </EqualTwoTextInputs>
-            <MyView style={{padding: 10}}>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={rankStatTableStructure}
-                  data={[karname.rank]}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
-                />
-              )}
-            </MyView>
-          </CommonWebBox>
-
-          <CommonWebBox width={'60%'}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 5 - نتایج آماری حیطه ها'}
-              />
-            </EqualTwoTextInputs>
-            <MyView style={{padding: 10}}>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={generalStatTableStructure}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
-                  data={karname.subjects}
-                />
               )}
             </MyView>
           </CommonWebBox>
         </PhoneView>
+        {hasFetchedAnswerSheet && state.wanted_answer_sheet !== undefined && (
+          <AnswerSheet answer_sheet={state.wanted_answer_sheet} />
+        )}
       </MyView>
     </MyView>
   );

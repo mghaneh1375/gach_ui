@@ -226,3 +226,18 @@ export const updateStudentAnswers = async (
   }
   return null;
 };
+
+export const fetchStudentAnswerSheet = async (
+  quizId,
+  quizMode,
+  userId,
+  token,
+) => {
+  return await generalRequest(
+    routes.fetchStudentAnswerSheet + quizMode + '/' + quizId + '/' + userId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};

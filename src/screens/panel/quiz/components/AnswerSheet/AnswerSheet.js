@@ -20,6 +20,7 @@ function AnswerSheet(props) {
       tmp.push(props.answer_sheet.slice(idx, limit));
       idx += limit;
     }
+
     setBoxes(tmp);
   }, [props.answer_sheet]);
 

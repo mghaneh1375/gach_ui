@@ -56,6 +56,35 @@ export const FontIcon = props => {
       ? style1
       : {...style1, ...props.parentStyle};
 
+  if (Platform.OS === 'web') {
+    return (
+      <div className={'hoverable'}>
+        <Pressable style={allStyles} onPress={props.onPress}>
+          {props.icon !== undefined && (
+            <FontAwesomeIcon
+              icon={props.icon}
+              style={[
+                Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
+                props.style ? props.style : {},
+              ]}
+            />
+          )}
+          {props.text !== undefined && (
+            <BigBoldBlueText
+              style={{
+                padding: 0,
+                paddingRight: 10,
+                fontSize: 11,
+                color: props.textColor,
+              }}
+              text={props.text}
+            />
+          )}
+        </Pressable>
+      </div>
+    );
+  }
+
   return (
     <Pressable style={allStyles} onPress={props.onPress}>
       {props.icon !== undefined && (
