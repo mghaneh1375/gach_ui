@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Platform, Pressable, View} from 'react-native';
+import {getWidthHeight} from '../../services/Utility';
 import {CommonWebBox, MyView, SimpleText} from '../Common';
 import vars from '../root';
 import {
@@ -119,14 +120,14 @@ export const SearchableTextInput = props => {
         e.preventDefault();
     };
   }
-
+  let width = getWidthHeight()[0];
   return (
     <MyView
       style={
         isHalf
           ? {
-              width: isApp ? 'auto' : 'calc(50% - 10px)',
-              maxWidth: 300,
+              width: isApp || width < 768 ? '100%' : 'calc(50% - 10px)',
+              maxWidth: width > 768 ? 300 : '100%',
               paddingLeft: 15,
               paddingRight: 15,
               paddingTop: 5,

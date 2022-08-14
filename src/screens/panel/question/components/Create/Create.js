@@ -227,7 +227,6 @@ function Create(props) {
           />
 
           <JustBottomBorderTextInput
-            style={{minWidth: 300}}
             placeholder={commonTranslator.subject}
             resultPane={true}
             setSelectedItem={item => {
@@ -236,6 +235,8 @@ function Create(props) {
             values={state.subjectsKeyVals}
             value={subject !== undefined ? subject.name : ''}
             reset={false}
+            isHalf={true}
+            subText={commonTranslator.subject}
           />
 
           <JustBottomBorderTextInput
@@ -271,7 +272,7 @@ function Create(props) {
 
           {props.isAdmin && (
             <JustBottomBorderTextInput
-              style={{minWidth: 300}}
+              isHalf={true}
               placeholder={translator.author}
               subText={translator.author}
               resultPane={true}

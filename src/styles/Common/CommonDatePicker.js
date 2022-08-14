@@ -1,7 +1,7 @@
 import {Platform} from 'react-native';
 import {CommonDatePickerElem} from './CommonText';
 import SubInputText from './SubInputText';
-import {convertTimestamp} from '../../services/Utility';
+import {convertTimestamp, getWidthHeight} from '../../services/Utility';
 import {MyView} from '../Common';
 
 export const CommonDatePicker = props => {
@@ -28,14 +28,15 @@ export const CommonDatePicker = props => {
     },
   };
   if (value !== undefined) inputProps['preSelected'] = value;
+  let width = getWidthHeight()[0];
 
   return (
     <MyView
       style={
         isHalf
           ? {
-              width: isApp ? 'auto' : 'calc(50% - 10px)',
-              maxWidth: 300,
+              width: isApp || width < 768 ? '100%' : 'calc(50% - 10px)',
+              maxWidth: width > 768 ? 300 : '100%',
               direction: 'rtl',
               zIndex: 'unset',
             }

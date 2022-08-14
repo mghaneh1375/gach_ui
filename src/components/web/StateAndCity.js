@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {routes} from '../../API/APIRoutes';
 import {generalRequest} from '../../API/Utility';
-import {EqualTwoTextInputs, PhoneView, MyView} from '../../styles/Common';
+import {EqualTwoTextInputs} from '../../styles/Common';
 import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../tranlates/Common';
 

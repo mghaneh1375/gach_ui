@@ -234,13 +234,12 @@
   border-right: none;
   border-top: none;
   direction: rtl;
-  height: 35px;
+  height: 36px;
   padding-bottom: 0;
   cursor: pointer;
-  width: 100%;
-  max-width: 276px;
   margin-left: 10px;
   margin-right: 10px;
+  width: 95%;
 }
 
 .JDatePicker .JDheader .left p {
