@@ -49,6 +49,8 @@ const CommonDataTable = props => {
       cell: (row, index, column, id) => {
         return <p onClick={() => props.handleOp(index)}>...</p>;
       },
+      maxWidth: '40px',
+      grow: 0.5,
       ignoreRowClick: true,
     };
 

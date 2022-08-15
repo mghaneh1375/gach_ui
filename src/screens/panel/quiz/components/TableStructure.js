@@ -5,7 +5,7 @@ const columns = [
     name: 'نام آزمون',
     selector: row => row.title,
     grow: 3,
-    wrap: true,
+    minWidth: '120px',
   },
   {
     name: 'قیمت',
@@ -17,10 +17,7 @@ const columns = [
     selector: row =>
       convertTimestamp(row.start) + ' تا ' + convertTimestamp(row.end),
     grow: 4,
-    wrap: true,
-    style: {
-      minWidth: '200px !important',
-    },
+    minWidth: '200px',
     sortable: true,
     sortFunction: (a, b) => {
       return a.start - b.start;
@@ -33,10 +30,7 @@ const columns = [
       ' تا ' +
       convertTimestamp(row.endRegistry),
     grow: 4,
-    wrap: true,
-    style: {
-      minWidth: '200px !important',
-    },
+    minWidth: '200px',
   },
   {
     name: 'تعداد سوال',
@@ -46,7 +40,7 @@ const columns = [
   {
     name: 'تعداد دانش آموزان',
     selector: row => row.studentsCount,
-    grow: 5,
+    grow: 1,
   },
 ];
 

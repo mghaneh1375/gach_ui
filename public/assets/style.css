@@ -308,10 +308,10 @@ input::placeholder {
   min-width: unset !important;
 } */
 
-/* .rdt_TableCol_Sortable > div,
+.rdt_TableCol_Sortable > div,
 .rdt_TableCol > div {
   white-space: break-spaces !important;
-} */
+}
 
 .rdt_TableCol,
 .rdt_TableCell {
@@ -329,13 +329,13 @@ input::placeholder {
 }
 
 /* for SelectBox */
-/* .r-transform-1sncvnh {
+.r-transform-1sncvnh {
   transform: translateZ(0px);
   position: absolute;
   margin-top: 43px;
   z-index: 5 !important;
   background: white;
-} */
+}
 
 .myView {
   -moz-box-align: stretch;
@@ -355,6 +355,7 @@ input::placeholder {
   position: relative;
   z-index: unset;
 }
+
 button:hover {
   box-shadow: inset 0px 0px 1px 3px #f1f1f180;
   transition: 0.5s ease-in-out;
