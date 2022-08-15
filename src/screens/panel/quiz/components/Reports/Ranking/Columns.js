@@ -26,26 +26,30 @@ const columns = [
   {
     name: 'تراز کل',
     selector: row => row.taraz,
-    grow: 1,
-    fontSize: 10,
+    minWidth: '70px',
+    maxWidth: '70px',
+    center: true,
   },
   {
     name: 'رتبه در شهر',
     selector: row => row.cityRank,
-    grow: 1,
-    fontSize: 10,
+    minWidth: '70px',
+    maxWidth: '70px',
+    center: true,
   },
   {
     name: 'رتبه در استان',
     selector: row => row.stateRank,
-    grow: 1,
-    font: 10,
+    minWidth: '70px',
+    maxWidth: '70px',
+    center: true,
   },
   {
     name: 'رتبه در کشور',
     selector: row => row.rank,
-    grow: 1,
-    fontSize: 10,
+    minWidth: '70px',
+    maxWidth: '70px',
+    center: true,
   },
 ];
 

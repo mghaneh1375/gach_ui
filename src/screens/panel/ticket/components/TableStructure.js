@@ -8,6 +8,7 @@ const commonColumns = [
     name: 'ضرورت',
     selector: row => row.priorityFa,
     grow: 1,
+    center: true,
   },
   {
     name: 'وضعیت',
@@ -18,10 +19,6 @@ const commonColumns = [
     name: 'زمان ایجاد',
     selector: row => row.sendDate,
     grow: 4,
-    wrap: true,
-    // style: {
-    //   minWidth: '200px !important',
-    // },
     sortable: true,
     sortFunction: (a, b) => {
       return a.expireAt - b.expireAt;
@@ -31,10 +28,6 @@ const commonColumns = [
     name: 'تاریخ ایجاد آخرین وضعیت',
     selector: row => row.sendDate,
     grow: 4,
-    wrap: true,
-    // style: {
-    //   minWidth: '200px !important',
-    // },
     sortable: true,
     sortFunction: (a, b) => {
       return a.expireAt - b.expireAt;
@@ -53,11 +46,6 @@ export const TableStructure = [
   },
 
   ...commonColumns,
-  // {
-  //   name: 'بررسی کننده',
-  //   selector: row => row.status,
-  //   grow: 1,
-  // },
 ];
 
 export const StudentTableStructure = [...commonColumns];

@@ -55,7 +55,7 @@ function MiniCard(props) {
             </MyView>
           )}
 
-          <MyView style={{width: 170, justifyContent: 'center'}}>
+          <MyView style={{width: 160, justifyContent: 'center'}}>
             {props.subTexts !== undefined &&
               props.subTexts.map((elem, index) => {
                 return (
