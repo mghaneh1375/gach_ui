@@ -183,6 +183,7 @@ function Create(props) {
             multiline={true}
             style={{marginTop: 20}}
             placeholder={commonTranslate.desc}
+            subText={commonTranslate.desc}
           />
 
           <PhoneView style={{alignSelf: 'flex-end'}}>

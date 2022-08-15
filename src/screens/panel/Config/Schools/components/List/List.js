@@ -16,11 +16,6 @@ function List(props) {
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
-  const changeMode = newMode => {
-    props.setMode(newMode);
-  };
-
   const handleOp = idx => {
     props.setSelectedSchool(props.schools[idx]);
     toggleShowOpPopUp();

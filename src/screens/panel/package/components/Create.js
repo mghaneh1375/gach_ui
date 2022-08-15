@@ -1,4 +1,3 @@
-import {View} from 'react-native-web';
 import {
   CommonButton,
   CommonWebBox,
@@ -56,26 +55,30 @@ function Create(props) {
           <JustBottomBorderTextInput
             isHalf={true}
             placeholder={commonTranslator.title}
+            subText={commonTranslator.title}
             value={title}
-            onChangeText={e => changeText(e, setTitle)}
+            onChangeText={text => changeText(text, setTitle)}
           />
           <JustBottomBorderTextInput
             placeholder={Translate.minSelect}
+            subText={Translate.minSelect}
             value={minSelect}
             justNum={true}
-            onChangeText={e => changeText(e, setMinSelect)}
+            onChangeText={text => changeText(text, setMinSelect)}
           />
           <JustBottomBorderTextInput
             placeholder={Translate.mizanTakhfif}
+            subText={Translate.mizanTakhfif}
             value={offPercent}
             justNum={true}
-            onChangeText={e => changeText(e, setOffPercent)}
+            onChangeText={text => changeText(text, setOffPercent)}
           />
         </PhoneView>
         <PhoneView style={{marginTop: 25}}>
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={commonTranslator.grade}
+            subText={commonTranslator.grade}
             setter={setGrade}
             value={props.grades.find(elem => {
               return elem.id === grade;
@@ -85,6 +88,7 @@ function Create(props) {
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={commonTranslator.lesson}
+            subText={commonTranslator.lesson}
             setter={setLesson}
             value={
               lessons !== undefined
@@ -99,10 +103,10 @@ function Create(props) {
         <MyView style={{marginTop: 25}}>
           <JustBottomBorderTextInput
             multiline={true}
-            subText={commonTranslator.optional}
+            subText={commonTranslator.desc}
             placeholder={commonTranslator.desc}
             value={desc}
-            onChangeText={e => changeText(e, setDesc)}
+            onChangeText={text => changeText(text, setDesc)}
           />
         </MyView>
         <MyView>

@@ -22,11 +22,6 @@ export const usedKeyVals = [
   {item: translator.notUsed, id: false},
   {item: commonTranslator.all, id: 'all'},
 ];
-
-export const changeText = (label, text, setter) => {
-  if (label === 'amount') setter(text);
-};
-
 export const update = (url, off, setLoading, token, afterUpdate) => {
   generalUpdate(url, off, setLoading, token, afterUpdate, mandatoryFields);
 };

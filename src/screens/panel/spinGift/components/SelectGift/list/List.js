@@ -1,4 +1,4 @@
-import {View} from 'react-native-web';
+import React from 'react';
 import {CommonWebBox, MyView} from '../../../../../../styles/Common';
 import Translate from '../../../Translate';
 import Ops from './Ops/Ops';

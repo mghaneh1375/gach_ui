@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {
   CommonButton,
   CommonWebBox,
@@ -112,7 +111,6 @@ const CreateQuiz = props => {
         header={translator.generalInfo}
         backBtn={true}
         onBackClick={() => props.setMode('list')}
-        onback
         child={
           <QuizGeneralInfo
             name={name}
@@ -153,7 +151,6 @@ const CreateQuiz = props => {
       />
       <CommonWebBox
         header={translator.registryInfo}
-        style={{zIndex: 5}}
         child={
           <QuizRegistryInfo
             start={startRegistry}
@@ -177,7 +174,6 @@ const CreateQuiz = props => {
       />
       <CommonWebBox
         header={translator.answerSheetInfo}
-        style={{zIndex: 4}}
         child={
           <QuizAnswerSheetInfo
             descBefore={descBefore}

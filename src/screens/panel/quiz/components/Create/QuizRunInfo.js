@@ -1,5 +1,4 @@
-import {Col} from 'react-grid-system';
-import {View} from 'react-native';
+import React from 'react';
 import {
   CommonRadioButton,
   PhoneView,
@@ -43,6 +42,7 @@ const QuizRunInfo = props => {
           disable={props.lenMode !== 'custom'}
           justNum={true}
           text={translator.len}
+          subText={translator.len}
           onChangeText={e => changeLen(e)}
           textValue={props.len}
         />
@@ -58,7 +58,7 @@ const QuizRunInfo = props => {
           }
           setter={props.setLaunchMode}
           placeholder={translator.isOnline}
-          subText={commonTranslator.necessaryField}
+          subText={translator.isOnline}
         />
 
         <JustBottomBorderSelect
@@ -72,7 +72,7 @@ const QuizRunInfo = props => {
                 })[0]
           }
           setter={props.setPermuteEn}
-          subText={commonTranslator.optionalFalseDefault}
+          subText={translator.permute}
           placeholder={translator.permute}
         />
         <JustBottomBorderSelect
@@ -86,8 +86,8 @@ const QuizRunInfo = props => {
                 })[0]
           }
           setter={props.setBackEn}
-          subText={commonTranslator.optionalTrueDefault}
           placeholder={translator.backEn}
+          subText={translator.backEn}
         />
 
         <JustBottomBorderSelect
@@ -101,7 +101,7 @@ const QuizRunInfo = props => {
                 })[0]
           }
           setter={props.setMinusMark}
-          subText={commonTranslator.optionalTrueDefault}
+          subText={translator.minusMark}
           placeholder={translator.minusMark}
         />
         <JustBottomBorderSelect
@@ -124,12 +124,14 @@ const QuizRunInfo = props => {
           value={props.start}
           setter={props.setStart}
           isHalf={true}
+          subText={translator.startDate}
         />
         <JustBottomBorderDatePicker
           placeholder={translator.endDate}
           value={props.end}
           setter={props.setEnd}
           isHalf={true}
+          subText={translator.endDate}
         />
       </PhoneView>
     </MyView>

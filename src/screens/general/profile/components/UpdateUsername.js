@@ -1,13 +1,6 @@
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';
-import {
-  BigBoldBlueText,
-  CommonButton,
-  PhoneView,
-  MyView,
-} from '../../../../styles/Common';
-import {View} from 'react-native';
+import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
 import vars from '../../../../styles/root';
 
 const UpdateUsername = props => {
@@ -28,6 +21,7 @@ const UpdateUsername = props => {
           isHalf={true}
           disable={true}
           placeholder={commonTranslator.phone}
+          subText={commonTranslator.phone}
         />
         <CommonButton
           style={{
@@ -44,6 +38,7 @@ const UpdateUsername = props => {
           value={props.mail}
           disable={true}
           placeholder={commonTranslator.mail}
+          subText={commonTranslator.mail}
         />
         <CommonButton
           style={{

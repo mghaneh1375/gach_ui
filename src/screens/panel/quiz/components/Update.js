@@ -129,7 +129,6 @@ const Update = props => {
       />
       <CommonWebBox
         header={translator.registryInfo}
-        style={{zIndex: 5}}
         child={
           <QuizRegistryInfo
             start={startRegistry}

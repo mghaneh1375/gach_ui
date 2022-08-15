@@ -13,6 +13,7 @@ import translator from '../../Translator';
 import {useFilePicker} from 'use-file-picker';
 import AttachBox from './AttachBox/AttachBox';
 import {
+  changeText,
   getSimpleCurrTime,
   showError,
   showSuccess,
@@ -30,10 +31,6 @@ const Add = props => {
       multiple: true,
       limitFilesConfig: {max: 5},
     });
-
-  const changeText = text => {
-    setMsg(text);
-  };
 
   const sendMsg = async () => {
     if (msg === undefined || msg.length === 0) {
@@ -71,18 +68,19 @@ const Add = props => {
   };
 
   return (
-    <MyView style={{zIndex: 5}}>
+    <MyView>
       <CommonWebBox
         child={
           <MyView>
             <EqualTwoTextInputs>
               <JustBottomBorderTextInput
+                isHalf={true}
                 multiline={true}
                 placeholder={translator.msgText}
                 value={msg}
                 parentStyle={{width: '90%'}}
                 style={{width: '100%', maxWidth: 'unset', height: 40}}
-                onChangeText={e => changeText(e)}
+                onChangeText={text => changeText(text, setMsg)}
               />
               <PhoneView
                 style={{

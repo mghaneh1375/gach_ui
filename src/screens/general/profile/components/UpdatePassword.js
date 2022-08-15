@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React from 'react';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';
@@ -7,7 +7,6 @@ import {
   EqualTwoTextInputs,
   MyView,
 } from '../../../../styles/Common';
-import {View} from 'react-native';
 
 const UpdatePassword = props => {
   return (
@@ -16,12 +15,13 @@ const UpdatePassword = props => {
       <EqualTwoTextInputs>
         <JustBottomBorderTextInput
           isHalf={true}
-          subText={commonTranslator.necessaryField}
           placeholder={commonTranslator.firstname}
+          subText={commonTranslator.firstname}
         />
         <JustBottomBorderTextInput
           isHalf={true}
           placeholder={commonTranslator.lastname}
+          subText={commonTranslator.lastname}
         />
       </EqualTwoTextInputs>
     </MyView>

@@ -27,7 +27,7 @@ const QuizGeneralInfo = props => {
           placeholder={translator.name}
           onChangeText={e => changeInput('name', e)}
           value={props.name}
-          subText={commonTranslator.necessaryField}
+          subText={translator.name}
         />
         <JustBottomBorderSelect
           isHalf={true}
@@ -39,6 +39,7 @@ const QuizGeneralInfo = props => {
                 })[0]
           }
           placeholder={translator.kind}
+          subText={translator.kind}
           setter={props.setKind}
           values={kindQuizKeyVals}
         />
@@ -64,7 +65,7 @@ const QuizGeneralInfo = props => {
           values={state.tags}
           reset={false}
           placeholder={translator.tag}
-          subText={commonTranslator.optional}
+          subText={translator.tag}
         />
       </PhoneView>
 
@@ -72,7 +73,7 @@ const QuizGeneralInfo = props => {
         style={{marginTop: 20, marginRight: 10, flexDirection: 'column'}}>
         <JustBottomBorderTextInput
           placeholder={commonTranslator.desc}
-          subText={commonTranslator.optional}
+          subText={commonTranslator.desc}
           value={props.desc}
           onChangeText={e => changeInput('desc', e)}
           multiline={true}

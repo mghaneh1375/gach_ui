@@ -1,9 +1,7 @@
+import React from 'react';
 import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
 import Card from '../../card/Card';
 import commonTranslator from '../../../../../tranlates/Common';
-import {TextIcon} from '../../../../../styles/Common/TextIcon';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import {View} from 'react-native';
 
 function List(props) {
   return (
