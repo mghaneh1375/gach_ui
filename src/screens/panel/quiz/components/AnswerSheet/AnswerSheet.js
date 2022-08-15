@@ -18,7 +18,7 @@ function AnswerSheet(props) {
     while (idx < end) {
       let limit = idx + perBox > end ? end : idx + perBox;
       tmp.push(props.answer_sheet.slice(idx, limit));
-      idx += limit;
+      idx += perBox;
     }
 
     setBoxes(tmp);

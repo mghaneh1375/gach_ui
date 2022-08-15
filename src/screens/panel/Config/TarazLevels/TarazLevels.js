@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
+import {addItem, editItem, removeItems} from '../../../../services/Utility';
 import Create from './components/Create';
 import List from './components/List';
+import {globalStateContext, dispatchStateContext} from '../../../../App';
+import {MyView} from 'react-native-multi-selectbox';
+import {fetchData} from './components/Utility';
 
 function TarazLevels(props) {
   const navigate = props.navigate;
@@ -19,29 +23,45 @@ function TarazLevels(props) {
   const [levels, setLevels] = useState();
   const [selectedLevel, setSelectedLevel] = useState();
   const [mode, setMode] = useState('');
+  const [isWorking, setIsWorking] = useState(false);
+
+  React.useEffect(() => {
+    if (isWorking || levels !== undefined) return;
+
+    setIsWorking(true);
+    dispatch({loading: true});
+    Promise.all([fetchData(props.token)]).then(res => {
+      dispatch({loading: false});
+      if (res[0] === null) {
+        navigate('/');
+        return;
+      }
+      setLevels(res[0]);
+      setMode('list');
+    });
+  }, [navigate, props.token, dispatch, levels, isWorking]);
 
   return (
     <MyView>
       {mode === 'list' && (
         <List
-          schools={schools}
+          levels={levels}
           setMode={setMode}
-          setData={setSchools}
+          setData={setLevels}
           setLoading={setLoading}
           token={props.token}
-          states={states}
-          setSelectedSchool={setSelectedSchool}
-          selectedSchool={selectedSchool}
-          removeSchools={removedIds => {
-            removeItems(schools, setSchools, removedIds);
+          setSelectedLevel={setSelectedLevel}
+          selectedLevel={selectedLevel}
+          removeLevels={removedIds => {
+            removeItems(levels, setLevels, removedIds);
           }}
         />
       )}
       {mode === 'create' && (
         <Create
           setMode={setMode}
-          addSchool={item => {
-            addItem(schools, setSchools, item);
+          addLevel={item => {
+            addItem(levels, setLevels, item);
           }}
           setLoading={setLoading}
           token={props.token}
@@ -50,11 +70,11 @@ function TarazLevels(props) {
       {mode === 'update' && (
         <Create
           setMode={setMode}
-          editSchool={item => {
-            editItem(schools, setSchools, item);
+          editLevel={item => {
+            editItem(levels, setLevels, item);
           }}
           setLoading={setLoading}
-          selectedSchool={selectedSchool}
+          selectedLevel={selectedLevel}
           token={props.token}
         />
       )}

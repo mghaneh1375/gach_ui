@@ -6,6 +6,7 @@ import {
   EqualTwoTextInputs,
   PhoneView,
   MyView,
+  SimpleText,
 } from '../../../../../../styles/Common';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
@@ -26,6 +27,7 @@ import {
   VictoryChart,
   VictoryAxis,
   VictoryLegend,
+  VictoryLabel,
 } from 'victory-native';
 import AnswerSheet from '../../AnswerSheet/AnswerSheet';
 import StudentCard from '../../../../../../components/web/StudentCard';
@@ -37,54 +39,11 @@ function Karname(props) {
   ];
   const [state, dispatch] = useGlobalState();
 
-  const [isWorking, setIsWorking] = useState();
+  const [isWorking, setIsWorking] = useState(false);
   const [karname, setKarname] = useState();
-  const [hasFetchedAnswerSheet, setHasFetchedAnswerSheet] = useState(false);
-  const [studentId, setStudentId] = useState();
-
-  React.useEffect(() => {
-    if (
-      isWorking ||
-      hasFetchedAnswerSheet ||
-      studentId == undefined ||
-      state.selectedQuiz === undefined
-    )
-      return;
-
-    setIsWorking(true);
-    props.setLoading(true);
-    Promise.all([
-      fetchStudentAnswerSheet(
-        state.selectedQuiz.id,
-        state.selectedQuiz.generalMode,
-        studentId,
-        props.token,
-      ),
-    ]).then(res => {
-      props.setLoading(false);
-      if (res[0] !== null) {
-        setHasFetchedAnswerSheet(true);
-        dispatch({
-          wanted_answer_sheet: res[0],
-          showAnswers: true,
-          showStdAnswers: true,
-          allowChangeStdAns: false,
-        });
-      }
-      setIsWorking(false);
-    });
-  }, [
-    props,
-    isWorking,
-    hasFetchedAnswerSheet,
-    state.selectedQuiz,
-    studentId,
-    dispatch,
-  ]);
 
   React.useEffect(() => {
     if (state.selectedQuiz === undefined) {
-      setStudentId(props.studentId);
       dispatch({
         selectedQuiz: {id: props.quizId, generalMode: props.quizMode},
         selectedStudentId: props.studentId,
@@ -94,22 +53,22 @@ function Karname(props) {
 
     if (isWorking || state.selectedStudentId === undefined) return;
 
-    if (
-      state.selectedQuiz.allKarname !== undefined &&
-      state.selectedQuiz.allKarname.find(
-        elem => elem.student.id === state.selectedStudentId,
-      ) !== undefined
-    ) {
-      let tmp = state.selectedQuiz.allKarname.find(
-        elem => elem.student.id === state.selectedStudentId,
-      );
-      setStudentId(tmp.student.id);
-      setKarname(tmp);
-      return;
-    }
+    if (state.selectedQuiz.allKarname !== undefined)
+      if (
+        state.selectedQuiz.allKarname !== undefined &&
+        state.selectedQuiz.allKarname.find(
+          elem => elem.student.id === state.selectedStudentId,
+        ) !== undefined
+      ) {
+        let tmp = state.selectedQuiz.allKarname.find(
+          elem => elem.student.id === state.selectedStudentId,
+        );
+        setKarname(tmp);
+        return;
+      }
 
-    props.setLoading(true);
     setIsWorking(true);
+    props.setLoading(true);
 
     Promise.all([
       getKarname(
@@ -118,10 +77,16 @@ function Karname(props) {
         state.selectedQuiz.id,
         state.selectedQuiz.generalMode,
       ),
+      fetchStudentAnswerSheet(
+        state.selectedQuiz.id,
+        state.selectedQuiz.generalMode,
+        state.selectedStudentId,
+        props.token,
+      ),
     ]).then(res => {
       props.setLoading(false);
 
-      if (res[0] === null) {
+      if (res[0] === null || res[1] === null) {
         props.setMode('list');
         return;
       }
@@ -129,7 +94,14 @@ function Karname(props) {
         state.selectedQuiz.allKarname = [res[0]];
       else state.selectedQuiz.allKarname.push(res[0]);
 
-      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+      dispatch({
+        wanted_answer_sheet: res[1],
+        showAnswers: true,
+        showStdAnswers: true,
+        allowChangeStdAns: false,
+        selectedQuiz: state.selectedQuiz,
+        needUpdate: true,
+      });
       setKarname(res[0]);
       setIsWorking(false);
     });
@@ -137,17 +109,10 @@ function Karname(props) {
 
   const ref = useRef();
 
-  const preparePrint = () => {
+  const print = useCallback(() => {
     if (ref.current === null) return;
 
     props.setLoading(true);
-
-    setTimeout(() => {
-      print();
-    }, 2000);
-  };
-
-  const print = useCallback(() => {
     toPng(ref.current, {cacheBust: true})
       .then(async dataUrl => {
         const link = document.createElement('a');
@@ -166,6 +131,23 @@ function Karname(props) {
       });
   }, [ref, props]);
 
+  const [conditionalRowStyles, setConditionalRowStyles] = useState();
+
+  React.useEffect(() => {
+    if (karname === undefined || karname.conditions === undefined) return;
+
+    let conditions = karname.conditions.map(elem => {
+      return {
+        when: row => row.taraz <= elem.max && row.taraz >= elem.min,
+        style: {
+          backgroundColor: elem.color,
+        },
+      };
+    });
+
+    setConditionalRowStyles(conditions);
+  }, [karname]);
+
   return (
     <MyView>
       <CommonWebBox
@@ -176,11 +158,16 @@ function Karname(props) {
         }
         backBtn={true}
         onBackClick={() => props.setMode('ranking')}>
+        {state.selectedStudentId !== undefined && (
+          <SimpleText
+            text={state.selectedQuiz.id + '/' + state.selectedStudentId}
+          />
+        )}
         <EqualTwoTextInputs>
           {karname !== undefined && <StudentCard std={karname} />}
           {karname !== undefined && (
             <CommonButton
-              onPress={() => preparePrint()}
+              onPress={() => print()}
               title={commonTranslator.print}
             />
           )}
@@ -217,6 +204,7 @@ function Karname(props) {
                     show_row_no={false}
                     pagination={false}
                     groupOps={[]}
+                    conditionalRowStyles={conditionalRowStyles}
                   />
                 )}
               </MyView>
@@ -276,6 +264,7 @@ function Karname(props) {
                   pagination={false}
                   groupOps={[]}
                   data={karname.subjects}
+                  conditionalRowStyles={conditionalRowStyles}
                 />
               )}
             </MyView>
@@ -379,10 +368,13 @@ function Karname(props) {
           <CommonWebBox width={'80%'}>
             <MyView>
               {karname !== undefined && (
-                <VictoryChart height={500} theme={VictoryTheme.material}>
+                <VictoryChart
+                  padding={{top: 150, left: 100, bottom: 50, right: 80}}
+                  height={500}
+                  theme={VictoryTheme.material}>
                   <VictoryLegend
                     x={125}
-                    y={50}
+                    y={20}
                     title="راهنما"
                     centerTitle
                     orientation="horizontal"
@@ -408,18 +400,17 @@ function Karname(props) {
                     style={{
                       data: {
                         stroke: '#c43a31',
-                        strokeWidth: ({data}) => data.length,
-                      },
-                      labels: {
-                        fontSize: 15,
-                        fontFamily: 'IRANSans',
-                        fill: ({datum}) =>
-                          datum.x === 3 ? '#000000' : '#c43a31',
+                        strokeWidth: ({data}) => 4,
                       },
                     }}
-                    data={karname.subjects.map(elem => {
-                      return elem.percent;
-                    })}
+                    interpolation={'natural'}
+                    domain={{y: [-30, 100]}}
+                    data={[
+                      0,
+                      ...karname.subjects.map(elem => {
+                        return elem.percent;
+                      }),
+                    ]}
                   />
                   <VictoryLine
                     categories={{
@@ -427,32 +418,33 @@ function Karname(props) {
                         return elem.name;
                       }),
                     }}
+                    interpolation={'natural'}
                     style={{
                       data: {
                         stroke: '#777777',
-                        strokeWidth: ({data}) => data.length,
-                      },
-                      labels: {
-                        fontSize: 15,
-                        fill: ({datum}) =>
-                          datum.x === 3 ? '#000000' : '#c43a31',
+                        strokeWidth: ({data}) => 4,
                       },
                     }}
-                    data={karname.subjects.map(elem => {
-                      return elem.avg;
-                    })}
+                    data={[
+                      0,
+                      ...karname.subjects.map(elem => {
+                        return elem.avg;
+                      }),
+                    ]}
                   />
                   <VictoryAxis
                     style={{
                       tickLabels: {
                         fontFamily: 'IRANSans',
-                        fontSize: 24,
+                        fontSize: 18,
                         dy: 10,
+                        dx: 40,
                       },
                       axisLabel: {
                         fontFamily: 'IRANSans',
-                        fontSize: 24,
+                        fontSize: 19,
                         dy: 10,
+                        dx: 40,
                       },
                     }}
                   />
@@ -477,7 +469,7 @@ function Karname(props) {
             </MyView>
           </CommonWebBox>
         </PhoneView>
-        {hasFetchedAnswerSheet && state.wanted_answer_sheet !== undefined && (
+        {karname !== undefined && state.wanted_answer_sheet !== undefined && (
           <AnswerSheet answer_sheet={state.wanted_answer_sheet} />
         )}
       </MyView>

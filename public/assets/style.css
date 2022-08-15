@@ -300,7 +300,7 @@ input::placeholder {
 }
 
 .rdt_TableRow:nth-child(odd) {
-  background-color: #efefef !important;
+  background-color: #efefef;
 }
 
 /* .rdt_TableCol_Sortable,

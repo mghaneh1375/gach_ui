@@ -11,7 +11,7 @@ function Ranking(props) {
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-  const [isWorking, setIsWorking] = useState();
+  const [isWorking, setIsWorking] = useState(false);
 
   // const fetchQuiz = React.useCallback(async () => {
   //   props.setLoading(true);

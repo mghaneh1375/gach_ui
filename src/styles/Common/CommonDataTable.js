@@ -251,6 +251,7 @@ const CommonDataTable = props => {
             : ({selectedRows}) => props.onRowSelect(selectedRows)
         }
         clearSelectedRows={toggledClearRows}
+        conditionalRowStyles={props.conditionalRowStyles}
       />
     </MyView>
   );

@@ -136,4 +136,8 @@ export const routes = {
   acceptInvite: 'admin/user/acceptInvite/',
   addSchoolByAgent: 'admin/user/addSchool',
   getAllAgent: 'admin/user/getMySchools',
+  fetchAllTarazLevels: 'admin/config/tarazLevel/get',
+  createTarazLevel: 'admin/config/tarazLevel/create',
+  updateTarazLevel: 'admin/config/tarazLevel/update/',
+  removeTarazLevels: 'admin/config/tarazLevel/remove',
 };

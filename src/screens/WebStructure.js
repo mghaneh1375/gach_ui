@@ -57,6 +57,7 @@ import AcceptInvite from './SinglePages/AcceptInvite';
 import Students from './schoolPanel/students/students';
 import Teachers from './teacher/teachers/Teachers';
 import TeacherAccess from './schoolPanel/teachers/Teachers';
+import TarazLevels from './panel/Config/TarazLevels/TarazLevels';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -307,7 +308,7 @@ const WebStructue = props => {
                 <Avatar token={token} user={user} navigate={navigate} />
               )}
               {props.page === 'tarazLevels' && (
-                <General token={token} user={user} navigate={navigate} />
+                <TarazLevels token={token} user={user} navigate={navigate} />
               )}
               {props.page === 'generalConfiguration' && (
                 <General token={token} user={user} navigate={navigate} />

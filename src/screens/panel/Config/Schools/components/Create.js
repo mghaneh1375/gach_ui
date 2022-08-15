@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {
   CommonButton,
   CommonWebBox,
@@ -13,6 +12,7 @@ import commonTranslator from '../../../../../tranlates/Common';
 import {grades, kindSchools} from './KeyVals';
 import StateAndCity from '../../../../../components/web/StateAndCity';
 import {create, update} from './Utility';
+import {changeText} from '../../../../../services/Utility';
 
 function Create(props) {
   const [id, setId] = useState();
@@ -33,11 +33,6 @@ function Create(props) {
     setAddress(props.selectedSchool.address);
   }, [props.selectedSchool]);
 
-  const changeText = (label, text) => {
-    if (label === 'name') setName(text);
-    else if (label === 'address') setAddress(text);
-  };
-
   return (
     <MyView>
       <CommonWebBox
@@ -50,7 +45,7 @@ function Create(props) {
         onBackClick={() => props.setMode('list')}>
         <PhoneView>
           <JustBottomBorderTextInput
-            onChangeText={e => changeText('name', e)}
+            onChangeText={e => changeText(e, setName)}
             isHalf={true}
             value={name}
             placeholder={translator.name}
@@ -93,7 +88,7 @@ function Create(props) {
           placeholder={commonTranslator.address}
           value={address}
           subText={commonTranslator.optional}
-          onChangeText={e => changeText('address', e)}
+          onChangeText={e => changeText(e, setAddress)}
           multiline={true}
         />
         <CommonButton
