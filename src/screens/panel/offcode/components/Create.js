@@ -1,18 +1,13 @@
 import React, {useState} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import ExcelComma from '../../../../components/web/ExcelCommaInput';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../styles/Common';
+import {CommonWebBox, PhoneView} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
 import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';
-import {changeText, update, typeKeyVals, mandatoryFields} from './Utility';
+import {changeText, typeKeyVals, mandatoryFields} from './Utility';
 
 const Create = props => {
   const [amount, setAmount] = useState(1000000);
@@ -30,13 +25,18 @@ const Create = props => {
 
   return (
     <CommonWebBox
-      header={translator.addOff}
+      header={
+        props.addOffs !== undefined
+          ? commonTranslator.add + ' ' + commonTranslator.offcode
+          : commonTranslator.edit
+      }
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <PhoneView style={{zIndex: 1, gap: 10, marginBottom: 10}}>
         <JustBottomBorderTextInput
           isHalf={true}
           placeholder={translator.amount}
+          subText={translator.amount}
           justNum={true}
           onChangeText={e => changeText('amount', e, setAmount)}
           value={amount}
@@ -44,14 +44,17 @@ const Create = props => {
         <JustBottomBorderSelect
           isHalf={true}
           placeholder={translator.type}
+          subText={translator.type}
           setter={setType}
           values={typeKeyVals}
           value={typeKeyVals.find(elem => elem.id === type)}
         />
         <JustBottomBorderDatePicker
+          isHalf={true}
           value={expireAt}
           setter={setExpireAt}
           placeholder={translator.expire}
+          subText={translator.expire}
         />
       </PhoneView>
       <ExcelComma

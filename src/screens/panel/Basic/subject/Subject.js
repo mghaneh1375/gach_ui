@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {addItem, editItem} from '../../../../services/Utility';
-import {getGradeLessons, getGradesOnly, getSubjects} from '../Utility';
+import {getGradeLessons, getSubjects} from '../Utility';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import Create from './components/Create';
 import List from './components/List/List';

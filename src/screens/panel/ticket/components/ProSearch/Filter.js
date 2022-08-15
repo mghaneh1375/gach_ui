@@ -60,6 +60,7 @@ function Filter(props) {
           values={statusKeyVals}
           value={statusKeyVals.find(elem => elem.id === status)}
           placeholder={translator.status}
+          subText={translator.status}
         />
         <JustBottomBorderSelect
           isHalf={true}
@@ -67,6 +68,7 @@ function Filter(props) {
           values={priorityKeyVals}
           value={priorityKeyVals.find(elem => elem.id === priority)}
           placeholder={translator.priority}
+          subText={translator.priority}
         />
         <JustBottomBorderSelect
           isHalf={true}
@@ -74,6 +76,7 @@ function Filter(props) {
           values={sectionKeyValsForFilter}
           value={sectionKeyValsForFilter.find(elem => elem.id === section)}
           placeholder={translator.section}
+          subText={translator.section}
         />
         <CommonButton
           onPress={() =>
@@ -145,6 +148,7 @@ function Filter(props) {
                 values={startWithVals}
                 value={startWithVals.find(elem => elem.id === startWith)}
                 placeholder={translator.startWith}
+                subText={translator.startWith}
               />
             )}
           </PhoneView>

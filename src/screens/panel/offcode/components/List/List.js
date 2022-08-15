@@ -1,11 +1,8 @@
-import {useState} from 'react';
-import {View} from 'react-native';
+import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import Ops from '../Ops';
 import translator from '../../Translator';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import columns from './TableStructure';
 import {routes} from '../../../../../API/APIRoutes';
 import Filter from './Filter';

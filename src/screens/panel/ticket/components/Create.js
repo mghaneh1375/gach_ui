@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import {
   CommonButton,
   CommonWebBox,
@@ -10,7 +9,7 @@ import {
 } from '../../../../styles/Common';
 import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {priorityKeyVals, sectionKeyVals} from './KeyVals';
@@ -125,6 +124,7 @@ function Create(props) {
                   : ''
               }
               placeholder={translator.nameOfReciver}
+              subText={translator.nameOfReciver}
               disable={true}
             />
             <FontIcon
@@ -144,6 +144,7 @@ function Create(props) {
             values={priorityKeyVals}
             value={priorityKeyVals.find(elem => elem.id === priority)}
             placeholder={translator.priority}
+            subText={translator.priority}
           />
           <JustBottomBorderSelect
             isHalf={true}
@@ -151,12 +152,14 @@ function Create(props) {
             values={sectionKeyVals}
             value={sectionKeyVals.find(elem => elem.id === section)}
             placeholder={translator.section}
+            subText={translator.section}
           />
         </PhoneView>
       </CommonWebBox>
       <CommonWebBox style={{marginTop: -5}}>
         <CommonTextInput
           placeholder={translator.title}
+          subText={translator.title}
           value={title}
           onChangeText={e => changeText(e, setTitle)}
           parentStyle={{width: '100%'}}
@@ -165,6 +168,7 @@ function Create(props) {
         <CommonTextInput
           multiline={true}
           placeholder={translator.desc}
+          subText={translator.desc}
           value={desc}
           onChangeText={text => setDesc(text)}
           parentStyle={{width: '100%'}}

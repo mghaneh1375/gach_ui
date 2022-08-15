@@ -1,5 +1,4 @@
-import {useState} from 'react';
-import {View} from 'react-native';
+import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import translator from '../../Translator';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';

@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {faPlus, faSearch} from '@fortawesome/free-solid-svg-icons';
-import {View} from 'react-native';
 import {generalRequest} from '../../API/Utility';
-import {CommonButton, MyView, PhoneView, SimpleText} from '../../styles/Common';
+import {CommonButton, MyView, PhoneView} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../tranlates/Common';
@@ -128,7 +127,7 @@ const ExcelComma = props => {
             marginRight: 20,
           }}>
           <JustBottomBorderTextInput
-            style={{minWidth: '95%'}}
+            style={{minWidth: '80%'}}
             onChangeText={e => changeInput(e)}
             placeholder={props.placeholder}
             subText={props.help}
@@ -142,7 +141,7 @@ const ExcelComma = props => {
             kind={'normal'}
             theme={'rect'}
             back={'orange'}
-            parentStyle={{marginTop: -15, marginLeft: 10}}
+            parentStyle={{marginTop: 31, marginLeft: 10}}
             icon={faSearch}
           />
         )}
@@ -151,16 +150,16 @@ const ExcelComma = props => {
           kind={'normal'}
           theme={'rect'}
           back={'yellow'}
-          parentStyle={{marginTop: -15}}
+          parentStyle={{marginTop: 31}}
           icon={faPlus}
         />
-        <CommonButton
-          onPress={() => toggleShowUploadPopUp()}
-          style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
-          title={commonTranslator.upload}
-          theme={'dark'}
-        />
       </PhoneView>
+      <CommonButton
+        onPress={() => toggleShowUploadPopUp()}
+        style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
+        title={commonTranslator.upload}
+        theme={'dark'}
+      />
     </MyView>
   );
 };

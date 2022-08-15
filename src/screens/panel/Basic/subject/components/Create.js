@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {routes} from '../../../../../API/APIRoutes';
 import UploadFile from '../../../../../components/web/UploadFile';
 import {showSuccess} from '../../../../../services/Utility';
@@ -96,6 +95,7 @@ function Create(props) {
         <MyView>
           <PhoneView style={{gap: 20}}>
             <JustBottomBorderTextInput
+              isHalf={true}
               value={name}
               subText={commonTranslate.name}
               onChangeText={e => setName(e)}
@@ -177,6 +177,7 @@ function Create(props) {
           </PhoneView>
 
           <JustBottomBorderTextInput
+            isHalf={true}
             value={description}
             onChangeText={e => setDescription(e)}
             multiline={true}
