@@ -362,14 +362,9 @@ export const TextWithLink = props => {
 
 export const CommonWebBox = props => {
   const style1 = {
-    backgroundColor: vars.WHITE,
-    borderRadius: 10,
     direction: 'rtl',
     padding: 10,
-    margin: 10,
-    zIndex: 'unset',
     width: props.width !== undefined ? props.width : 'auto',
-    boxShadow: '0px 3px 6px #00000029',
   };
 
   const allStyle =
@@ -377,36 +372,45 @@ export const CommonWebBox = props => {
 
   return (
     <MyView style={allStyle}>
-      {props.header !== undefined && (
-        <EqualTwoTextInputs>
-          <BigBoldBlueTextInline
-            style={{alignSelf: 'center'}}
-            text={props.header}
-          />
-          {props.btn !== undefined && props.btn}
-          <PhoneView style={{gap: 10, marginBottom: 10, text: 'center'}}>
-            {props.addBtn !== undefined && props.addBtn && (
-              <FontIcon
-                onPress={props.onAddClick}
-                theme="rect"
-                kind="normal"
-                back={'yellow'}
-                icon={faPlus}
-              />
-            )}
-            {props.backBtn !== undefined && props.backBtn && (
-              <FontIcon
-                onPress={props.onBackClick}
-                theme="rect"
-                kind="normal"
-                icon={faArrowLeft}
-              />
-            )}
-          </PhoneView>
-        </EqualTwoTextInputs>
-      )}
-      {props.child !== undefined && props.child}
-      {props.children !== undefined && props.children}
+      <MyView
+        style={{
+          backgroundColor: vars.WHITE,
+          boxShadow: '0px 3px 6px #00000029',
+          padding: 10,
+          borderRadius: 10,
+          gap: 10,
+        }}>
+        {props.header !== undefined && (
+          <EqualTwoTextInputs>
+            <BigBoldBlueTextInline
+              style={{alignSelf: 'center'}}
+              text={props.header}
+            />
+            {props.btn !== undefined && props.btn}
+            <PhoneView style={{gap: 10, marginBottom: 10, text: 'center'}}>
+              {props.addBtn !== undefined && props.addBtn && (
+                <FontIcon
+                  onPress={props.onAddClick}
+                  theme="rect"
+                  kind="normal"
+                  back={'yellow'}
+                  icon={faPlus}
+                />
+              )}
+              {props.backBtn !== undefined && props.backBtn && (
+                <FontIcon
+                  onPress={props.onBackClick}
+                  theme="rect"
+                  kind="normal"
+                  icon={faArrowLeft}
+                />
+              )}
+            </PhoneView>
+          </EqualTwoTextInputs>
+        )}
+        {props.child !== undefined && props.child}
+        {props.children !== undefined && props.children}
+      </MyView>
     </MyView>
   );
 };
@@ -425,13 +429,11 @@ export function EqualTwoTextInputs(props) {
     props.style === undefined
       ? {
           justifyContent: 'space-between',
-          // marginTop: 20,
         }
       : {
           ...props.style,
           ...{
             justifyContent: 'space-between',
-            // marginTop: 20,
           },
         };
 

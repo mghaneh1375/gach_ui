@@ -3,7 +3,7 @@ import MiniCard from '../../screens/panel/quiz/components/CV/MiniCard';
 function StudentCard(props) {
   return (
     <MiniCard
-      text={'رتبه: ' + props.std.rank.rank}
+      text={'رتبه: ' + props.std.rank.countryRank}
       subTexts={[
         {label: 'تعداد آزمون های شرکت کرده: ', value: props.std.totalQuizzes},
         {

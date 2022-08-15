@@ -1,40 +1,69 @@
-const columns = [
-  {
-    name: 'نام درس ',
-    selector: row => row.name,
-    grow: 1,
-    wrap: true,
-  },
+const commonCols = [
   {
     name: 'تعداد سوال',
     selector: row => row.total,
-    grow: 0.5,
+    maxWidth: '80px',
+    minWidth: '80px',
+    center: true,
   },
   {
     name: 'درست',
     selector: row => row.corrects,
-    grow: 0.5,
+    maxWidth: '55px',
+    minWidth: '55px',
+    center: true,
   },
   {
     name: 'نادرست',
     selector: row => row.incorrects,
-    grow: 0.5,
+    maxWidth: '55px',
+    minWidth: '55px',
+    center: true,
   },
   {
     name: 'نزده',
     selector: row => row.whites,
-    grow: 0.5,
+    maxWidth: '55px',
+    minWidth: '55px',
+    center: true,
   },
   {
     name: 'درصد',
     selector: row => row.percent,
-    grow: 0.5,
+    maxWidth: '55px',
+    minWidth: '55px',
+    center: true,
+    style: {
+      direction: 'ltr',
+    },
   },
   {
     name: 'نمره تراز',
     selector: row => row.taraz,
-    grow: 0.5,
+    maxWidth: '60px',
+    minWidth: '60px',
+    center: true,
   },
 ];
 
-export default columns;
+export const lessonCols = [
+  {
+    name: 'نام درس',
+    selector: row => row.name,
+    grow: 1,
+    maxWidth: '80px',
+    minWidth: '80px',
+  },
+  ...commonCols,
+];
+
+export const subjectCols = [
+  {
+    name: 'نام مبحث',
+    selector: row => row.name,
+    grow: 1,
+    maxWidth: '80px',
+    minWidth: '80px',
+  },
+  ...commonCols,
+];

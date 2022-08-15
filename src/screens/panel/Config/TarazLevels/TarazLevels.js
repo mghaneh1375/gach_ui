@@ -1,14 +1,8 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
-import List from './components/List/List';
 import Create from './components/Create';
-import {filter} from './components/Utility';
-import {addItem, editItem, removeItems} from '../../../../services/Utility';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {MyView} from '../../../../styles/Common';
+import List from './components/List';
 
-function Schools(props) {
+function TarazLevels(props) {
   const navigate = props.navigate;
 
   const useGlobalState = () => [
@@ -22,27 +16,9 @@ function Schools(props) {
     dispatch({loading: status});
   };
 
-  const [schools, setSchools] = useState();
-  const [selectedSchool, setSelectedSchool] = useState();
+  const [levels, setLevels] = useState();
+  const [selectedLevel, setSelectedLevel] = useState();
   const [mode, setMode] = useState('');
-  const [states, setStates] = useState();
-
-  React.useEffect(() => {
-    if (states !== undefined) return;
-    dispatch({loading: true});
-    Promise.all([
-      filter(props.token, undefined, undefined, undefined, undefined),
-      generalRequest(routes.fetchState, 'get', undefined, 'data'),
-    ]).then(res => {
-      dispatch({loading: false});
-      if (res[0] === null) navigate('/');
-      setSchools(res[0]);
-      if (res[1] !== null) {
-        setStates(res[1]);
-        setMode('list');
-      } else navigate('/');
-    });
-  }, [navigate, props.token, dispatch, states]);
 
   return (
     <MyView>
@@ -86,4 +62,4 @@ function Schools(props) {
   );
 }
 
-export default Schools;
+export default TarazLevels;

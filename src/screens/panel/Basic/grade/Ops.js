@@ -7,7 +7,7 @@ import {removeGrade} from '../Utility';
 
 function Ops(props) {
   return (
-    <MyView style={{zIndex: 10}}>
+    <MyView>
       <LargePopUp
         title={commonTranslator.opMenu}
         toggleShowPopUp={props.toggleShowPopUp}>

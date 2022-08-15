@@ -171,5 +171,6 @@ const translator = {
   web: 'وب',
   app: 'اپ',
   print: 'چاپ',
+  tarazLevels: 'سطوح تراز',
 };
 export default translator;

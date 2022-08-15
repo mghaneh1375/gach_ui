@@ -26,7 +26,7 @@ const Ops = props => {
   };
 
   return (
-    <MyView style={{zIndex: 10}}>
+    <MyView>
       {showRemovePane && (
         <ConfirmationBatchOpPane
           setLoading={props.setLoading}

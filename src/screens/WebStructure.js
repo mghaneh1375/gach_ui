@@ -306,6 +306,9 @@ const WebStructue = props => {
               {props.page === 'avatars' && (
                 <Avatar token={token} user={user} navigate={navigate} />
               )}
+              {props.page === 'tarazLevels' && (
+                <General token={token} user={user} navigate={navigate} />
+              )}
               {props.page === 'generalConfiguration' && (
                 <General token={token} user={user} navigate={navigate} />
               )}

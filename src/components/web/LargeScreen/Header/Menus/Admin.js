@@ -129,6 +129,10 @@ function AdminMenu(props) {
               text: translator.schools,
               url: '/schools',
             },
+            {
+              text: translator.tarazLevels,
+              url: '/tarazLevels',
+            },
           ]}
         />
         <SuperMenuItem

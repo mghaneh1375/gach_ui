@@ -10,12 +10,13 @@ import {
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
 import {fetchStudentAnswerSheet, getKarname} from '../../Utility';
-import lessonTableStructure from './LessonTableStructure.js';
-import lessonRankingTableStructure from './LessonRankingTableStructure';
-import subjectTableStructure from './SubjectTableStructure';
-import subjectRankingTableStructure from './SubjectRankingTableStructure';
+import {lessonCols, subjectCols} from './LessonTableStructure.js';
+import {
+  lessonRankingCols,
+  subjectRankingCols,
+  totalRankCols,
+} from './LessonRankingTableStructure';
 import generalStatTableStructure from './GeneralStatTableStructure';
-import rankStatTableStructure from './RankStatTableStructure';
 import commonTranslator from '../../../../../../tranlates/Common';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
@@ -188,7 +189,14 @@ function Karname(props) {
 
       <MyView ref={ref}>
         <PhoneView>
-          <CommonWebBox width={'60%'}>
+          <CommonWebBox
+            width={'55%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
                 style={{alignSelf: 'center'}}
@@ -201,10 +209,10 @@ function Karname(props) {
               /> */}
             </EqualTwoTextInputs>
             {karname !== undefined && (
-              <MyView style={{padding: 10}}>
+              <MyView>
                 {karname !== undefined && (
                   <CommonDataTable
-                    columns={lessonTableStructure}
+                    columns={lessonCols}
                     data={karname.lessons}
                     show_row_no={false}
                     pagination={false}
@@ -214,14 +222,21 @@ function Karname(props) {
               </MyView>
             )}
           </CommonWebBox>
-          <CommonWebBox width={'35%'}>
+          <CommonWebBox
+            width={'45%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
                 style={{alignSelf: 'center'}}
                 text={'جدول شماره 2 - نتایج آماری دروس'}
               />
             </EqualTwoTextInputs>
-            <MyView style={{padding: 10}}>
+            <MyView>
               {karname !== undefined && (
                 <CommonDataTable
                   columns={generalStatTableStructure}
@@ -231,19 +246,17 @@ function Karname(props) {
                   groupOps={[]}
                 />
               )}
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={lessonRankingTableStructure}
-                  data={karname.lessons}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
-                />
-              )}
             </MyView>
           </CommonWebBox>
 
-          <CommonWebBox width={'60%'}>
+          <CommonWebBox
+            width={'55%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
                 style={{alignSelf: 'center'}}
@@ -255,30 +268,10 @@ function Karname(props) {
                 icon={showSubjectChart ? faAngleUp : faAngleDown}
               /> */}
             </EqualTwoTextInputs>
-            <MyView style={{padding: 10}}>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={subjectTableStructure}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
-                  data={karname.subjects}
-                />
-              )}
-            </MyView>
-          </CommonWebBox>
-
-          <CommonWebBox width={'35%'}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 4 - نتایج رتبه بندی حیطه ها'}
-              />
-            </EqualTwoTextInputs>
             <MyView>
               {karname !== undefined && (
                 <CommonDataTable
-                  columns={subjectRankingTableStructure}
+                  columns={subjectCols}
                   show_row_no={false}
                   pagination={false}
                   groupOps={[]}
@@ -288,14 +281,21 @@ function Karname(props) {
             </MyView>
           </CommonWebBox>
 
-          <CommonWebBox width={'60%'}>
+          <CommonWebBox
+            width={'45%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
                 style={{alignSelf: 'center'}}
-                text={'جدول شماره 5 - نتایج آماری حیطه ها'}
+                text={'جدول شماره 4 - نتایج آماری حیطه ها'}
               />
             </EqualTwoTextInputs>
-            <MyView style={{padding: 10}}>
+            <MyView>
               {karname !== undefined && (
                 <CommonDataTable
                   columns={generalStatTableStructure}
@@ -307,18 +307,39 @@ function Karname(props) {
               )}
             </MyView>
           </CommonWebBox>
-
-          <CommonWebBox width={'35%'}>
+          <CommonWebBox
+            width={'50%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
                 style={{alignSelf: 'center'}}
-                text={'جدول شماره 6 - نتایج کلی'}
+                text={'جدول شماره 5 - نتایج رتبه بندی دروس'}
               />
             </EqualTwoTextInputs>
-            <MyView style={{padding: 10}}>
+            <MyView style={{gap: 20}}>
               {karname !== undefined && (
                 <CommonDataTable
-                  columns={rankStatTableStructure}
+                  columns={lessonRankingCols}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                  data={karname.lessons}
+                />
+              )}
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={'جدول شماره 6 - نتایج کلی'}
+                />
+              </EqualTwoTextInputs>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={totalRankCols}
                   data={[karname.rank]}
                   show_row_no={false}
                   pagination={false}
@@ -328,7 +349,34 @@ function Karname(props) {
             </MyView>
           </CommonWebBox>
 
-          <CommonWebBox width={'60%'}>
+          <CommonWebBox
+            width={'50%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
+            <EqualTwoTextInputs>
+              <BigBoldBlueTextInline
+                style={{alignSelf: 'center'}}
+                text={'جدول شماره 6 - نتایج رتبه بندی حیطه ها'}
+              />
+            </EqualTwoTextInputs>
+            <MyView>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={subjectRankingCols}
+                  data={karname.subjects}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                />
+              )}
+            </MyView>
+          </CommonWebBox>
+
+          <CommonWebBox width={'80%'}>
             <MyView>
               {karname !== undefined && (
                 <VictoryChart height={500} theme={VictoryTheme.material}>

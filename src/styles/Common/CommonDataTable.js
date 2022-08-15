@@ -47,10 +47,15 @@ const CommonDataTable = props => {
         cursor: 'pointer',
       },
       cell: (row, index, column, id) => {
-        return <p onClick={() => props.handleOp(index)}>...</p>;
+        return (
+          <p className="opCol" onClick={() => props.handleOp(index)}>
+            ...
+          </p>
+        );
       },
-      maxWidth: '40px',
-      grow: 0.5,
+      minWidth: '70px',
+      maxWidth: '70px',
+      center: true,
       ignoreRowClick: true,
     };
 

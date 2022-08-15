@@ -57,6 +57,10 @@ export default function WebRouter() {
             path="/ravanConfiguration"
             element={<WebStructue page="ravanConfiguration" />}
           />
+          <Route
+            path="/tarazLevels"
+            element={<WebStructue page="tarazLevels" />}
+          />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route
             path="/ranking/:mode/:quizId"

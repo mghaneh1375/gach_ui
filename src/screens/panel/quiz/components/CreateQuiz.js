@@ -128,7 +128,6 @@ const CreateQuiz = props => {
       />
       <CommonWebBox
         header={translator.runInfo}
-        style={{zIndex: 10}}
         child={
           <QuizRunInfo
             start={start}
