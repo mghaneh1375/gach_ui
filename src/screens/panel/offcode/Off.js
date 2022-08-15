@@ -64,7 +64,7 @@ const Off = props => {
   }, [navigate, props.token, dispatch]);
 
   return (
-    <MyView style={{zIndex: 10}}>
+    <MyView>
       {mode === 'list' && (
         <List
           offs={offs}

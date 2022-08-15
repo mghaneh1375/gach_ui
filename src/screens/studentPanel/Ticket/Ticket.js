@@ -46,7 +46,7 @@ function Ticketstd(props) {
   }, [navigate, props.token, dispatch]);
 
   return (
-    <MyView style={{zIndex: 10}}>
+    <MyView>
       {mode === 'list' && (
         <List
           tickets={tickets}
