@@ -32,6 +32,7 @@ const translator = {
   quiz: 'آزمون',
   buyQuiz: 'خرید آزمون',
   quizes: 'آزمون ها',
+  tag: 'تگ',
   avatars: 'مدیریت تصاویر آواتار',
   charge: 'شارژ',
   history: 'سابقه',

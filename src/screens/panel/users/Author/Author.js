@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import React, {useState} from 'react';
 import List from './List/List';
 import Show from './Show/Show';

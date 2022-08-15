@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import {
   CommonButton,
   CommonWebBox,
@@ -6,13 +5,14 @@ import {
   MyView,
 } from '../../../../../styles/Common';
 import Translate from '../Translator';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import Ops from './Ops/Ops';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import columns from './AuthorTableStructure';
 import {routes} from '../../../../../API/APIRoutes';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../../../../tranlates/Common';
+import {changeText} from '../../../../../services/Utility';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -50,9 +50,11 @@ function List(props) {
       <MyView>
         <PhoneView>
           <JustBottomBorderTextInput
-            placeholder={'تگ'}
+            isHalf={true}
+            placeholder={commonTranslator.tag}
+            subText={commonTranslator.tag}
             value={tag}
-            onChangeText={e => setTag(e)}
+            onChangeText={text => changeText(text, setTag)}
           />
           <CommonButton
             onPress={() => props.setTag(tag)}

@@ -29,13 +29,13 @@ const Update = props => {
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <MyView>
-        <PhoneView style={{zIndex: 1, marginBottom: 10}}>
+        <PhoneView style={{marginBottom: 10}}>
           <JustBottomBorderTextInput
             isHalf={true}
             placeholder={translator.amount}
             subText={translator.amount}
             justNum={true}
-            onChangeText={e => changeText('amount', e, setAmount)}
+            onChangeText={text => changeText(text, setAmount)}
             value={amount}
           />
           <JustBottomBorderSelect

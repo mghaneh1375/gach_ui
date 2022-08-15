@@ -117,6 +117,7 @@ function Filter(props) {
             alignSelf: 'center',
           }}>
           <SimpleFontIcon
+            onPress={() => toggleShowProSearch()}
             style={{
               color: vars.DARK_BLUE,
             }}

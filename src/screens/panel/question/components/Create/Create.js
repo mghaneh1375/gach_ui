@@ -20,7 +20,6 @@ import {
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {changeText, showError} from '../../../../../services/Utility';
 import {styleGap10Wrap} from '../Detail/style';
-import {View} from 'react-native';
 import commonTranslator from '../../../../../tranlates/Common';
 import MultiSentenceType from './MultiSentenceType';
 import {
@@ -38,7 +37,6 @@ function Create(props) {
     React.useContext(dispatchQuestionContext),
   ];
   const [state, dispatch] = useGlobalState();
-  const [questionId, setQuestionId] = useState();
 
   React.useEffect(() => {
     if (props.isInEditMode && state.selectedQuestion !== undefined) {
@@ -221,13 +219,16 @@ function Create(props) {
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={translator.typeOfQuestion}
+            subText={translator.typeOfQuestion}
             setter={setType}
             values={typeOfQuestionKeyVals}
             value={typeOfQuestionKeyVals.find(elem => elem.id === type)}
           />
 
           <JustBottomBorderTextInput
+            isHalf={true}
             placeholder={commonTranslator.subject}
+            subText={commonTranslator.subject}
             resultPane={true}
             setSelectedItem={item => {
               setSubject(item);
@@ -235,8 +236,6 @@ function Create(props) {
             values={state.subjectsKeyVals}
             value={subject !== undefined ? subject.name : ''}
             reset={false}
-            isHalf={true}
-            subText={commonTranslator.subject}
           />
 
           <JustBottomBorderTextInput
@@ -250,6 +249,7 @@ function Create(props) {
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={translator.visibility}
+            subText={translator.visibility}
             setter={setVisibility}
             values={statusKeyVals}
             value={statusKeyVals.find(elem => elem.id === visibility)}
@@ -257,6 +257,7 @@ function Create(props) {
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={translator.level}
+            subText={translator.level}
             setter={setLevel}
             values={levelKeyVals}
             value={levelKeyVals.find(elem => elem.id === level)}
@@ -265,7 +266,7 @@ function Create(props) {
             isHalf={true}
             placeholder={translator.neededTime}
             value={neededTime}
-            subText={'ثانیه'}
+            subText={translator.second}
             justNum={true}
             onChangeText={e => changeText(e, setNeededTime)}
           />
@@ -311,6 +312,7 @@ function Create(props) {
             <JustBottomBorderSelect
               isHalf={true}
               placeholder={translator.choicesCount}
+              subText={translator.choicesCount}
               setter={setChoicesCount}
               values={choicesCountKeyVals}
               value={choicesCountKeyVals.find(elem => elem.id === choicesCount)}
@@ -321,6 +323,7 @@ function Create(props) {
             <JustBottomBorderSelect
               isHalf={true}
               placeholder={translator.answer}
+              subText={translator.answer}
               setter={setAnswer}
               values={choices}
               value={choices.find(elem => elem.id === answer)}
@@ -344,6 +347,7 @@ function Create(props) {
             <JustBottomBorderSelect
               isHalf={true}
               placeholder={translator.neededLine}
+              subText={translator.neededLine}
               values={sentencesCountKeyVals}
               value={sentencesCountKeyVals.find(elem => {
                 return elem.id == neededLine;
@@ -355,6 +359,7 @@ function Create(props) {
             <PhoneView style={{width: '100%'}}>
               <JustBottomBorderTextInput
                 placeholder={translator.answer}
+                subText={translator.answer}
                 value={answer}
                 multiline={true}
                 style={{minWidth: 400}}

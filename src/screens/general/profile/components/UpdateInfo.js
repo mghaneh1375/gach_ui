@@ -57,14 +57,14 @@ const UpdateInfo = props => {
         <JustBottomBorderTextInput
           isHalf={true}
           value={firstname}
-          subText={commonTranslator.necessaryField}
+          subText={commonTranslator.firstname}
           placeholder={commonTranslator.firstname}
           onChangeText={e => setFirstname(e)}
         />
         <JustBottomBorderTextInput
           isHalf={true}
           value={lastname}
-          subText={commonTranslator.necessaryField}
+          subText={commonTranslator.lastname}
           placeholder={commonTranslator.lastname}
           onChangeText={e => setLastname(e)}
         />
@@ -73,13 +73,14 @@ const UpdateInfo = props => {
           justNum={true}
           value={NID}
           onChangeText={e => setNID(e)}
-          subText={commonTranslator.necessaryField}
+          subText={commonTranslator.NID}
           placeholder={commonTranslator.NID}
         />
         <JustBottomBorderSelect
           isHalf={true}
           value={sexKeyVals.find(elem => elem.id === sex)}
           placeholder={commonTranslator.sex}
+          subText={commonTranslator.sex}
           setter={setSex}
           values={sexKeyVals}
         />
@@ -87,6 +88,7 @@ const UpdateInfo = props => {
           style={{marginTop: 10}}
           isHalf={true}
           placeholder={commonTranslator.state}
+          subText={commonTranslator.state}
           resultPane={true}
           setSelectedItem={setSelectedState}
           values={props.states}
@@ -99,6 +101,7 @@ const UpdateInfo = props => {
           isHalf={true}
           resultPane={true}
           placeholder={commonTranslator.city}
+          subText={commonTranslator.city}
           setSelectedItem={setSelectedCity}
           reset={resetCity}
           value={city !== undefined ? city.name : ''}
@@ -108,6 +111,7 @@ const UpdateInfo = props => {
           style={{marginTop: 10}}
           isHalf={true}
           placeholder={commonTranslator.grade}
+          subText={commonTranslator.grade}
           resultPane={true}
           setSelectedItem={setSelectedGrade}
           values={props.grades}
@@ -120,6 +124,7 @@ const UpdateInfo = props => {
           isHalf={true}
           resultPane={true}
           placeholder={commonTranslator.branch}
+          subText={commonTranslator.branch}
           setSelectedItem={setSelectedBranch}
           reset={false}
           values={props.branches}
@@ -130,6 +135,7 @@ const UpdateInfo = props => {
           isHalf={false}
           style={{maxWidth: 'unset'}}
           placeholder={commonTranslator.school}
+          subText={commonTranslator.school}
           resultPane={true}
           setSelectedItem={setSelectedSchool}
           values={props.schools}

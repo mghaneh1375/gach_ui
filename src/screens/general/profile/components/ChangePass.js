@@ -10,40 +10,35 @@ import vars from '../../../../styles/root';
 import translator from '../translate';
 import commonTranslator from '../../../../tranlates/Common';
 import {changePass} from './Utility';
+import {changeText} from '../../../../services/Utility';
 
 const ChangePass = props => {
   const [oldPass, setOldPass] = useState('');
   const [pass, setPass] = useState('');
   const [rpass, setRpass] = useState('');
 
-  const changeText = (label, text) => {
-    if (label === 'old') setOldPass(text);
-    else if (label === 'new') setPass(text);
-    else if (label === 'rpass') setRpass(text);
-  };
-
   return (
     <MyView>
       <MyView>
         {props.userId === undefined && (
           <JustBottomBorderTextInput
-            subText={commonTranslator.necessaryField}
+            subText={translator.oldPass}
             placeholder={translator.oldPass}
             type={'password'}
-            onChangeText={e => changeText('old', e)}
+            onChangeText={text => changeText(text, setOldPass)}
           />
         )}
         <EqualTwoTextInputs>
           <JustBottomBorderTextInput
-            subText={commonTranslator.necessaryField}
+            subText={translator.newPass}
             placeholder={translator.newPass}
             type={'password'}
-            onChangeText={e => changeText('new', e)}
+            onChangeText={text => changeText(text, setPass)}
           />
           <JustBottomBorderTextInput
-            subText={commonTranslator.necessaryField}
+            subText={translator.rNewPass}
             placeholder={translator.rNewPass}
-            onChangeText={e => changeText('rpass', e)}
+            onChangeText={text => changeText(text, setRpass)}
             type={'password'}
           />
         </EqualTwoTextInputs>

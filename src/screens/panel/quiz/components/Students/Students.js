@@ -219,7 +219,7 @@ const Students = props => {
               afterAddingCallBack={afterAdd}
               additionalData={{paid: paid}}
               mandatoryFields={['paid']}>
-              <MyView style={{zIndex: 1, marginBottom: 10}}>
+              <MyView style={{marginBottom: 10}}>
                 <JustBottomBorderTextInput
                   justNum={true}
                   value={paid}

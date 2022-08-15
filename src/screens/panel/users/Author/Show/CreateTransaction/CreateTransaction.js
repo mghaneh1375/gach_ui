@@ -1,5 +1,4 @@
-import {useState} from 'react';
-import {View} from 'react-native';
+import React, {useState} from 'react';
 import {convertTimestamp} from '../../../../../../services/Utility';
 import {
   CommonButton,
@@ -26,6 +25,7 @@ function CreateTransaction(props) {
         <PhoneView>
           <JustBottomBorderTextInput
             placeholder={Translate.amount}
+            subText={Translate.amount}
             value={amount}
             isHalf={true}
             justNum={true}
@@ -33,6 +33,7 @@ function CreateTransaction(props) {
           />
           <JustBottomBorderDatePicker
             placeholder={commonTranslator.date}
+            subText={commonTranslator.date}
             value={date}
             isHalf={true}
             setter={setDate}
@@ -41,7 +42,9 @@ function CreateTransaction(props) {
             placeholder={commonTranslator.desc}
             value={description}
             isHalf={true}
-            subText={commonTranslator.notNecessary}
+            subText={
+              commonTranslator.desc + ':' + ' ' + commonTranslator.notNecessary
+            }
             onChangeText={text => setDescription(text)}
           />
         </PhoneView>

@@ -1,5 +1,4 @@
-import {useState} from 'react';
-import {View} from 'react-native-web';
+import React, {useState} from 'react';
 import {
   CommonButton,
   CommonWebBox,
@@ -19,6 +18,7 @@ import {
 import commonTranslator from '../../../../../../tranlates/Common';
 import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBottomBorderDatePicker';
 import {addGift, editGift} from '../../configGift/Utility';
+import {changeText} from '../../../../../../services/Utility';
 
 function Create(props) {
   const [giftType, setGiftType] = useState(
@@ -59,6 +59,7 @@ function Create(props) {
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={Translate.giftType}
+            subText={Translate.giftType}
             setter={setGiftType}
             value={typeGiftKeyVals.find(elem => {
               return elem.id === giftType;
@@ -69,8 +70,8 @@ function Create(props) {
             justNum={true}
             isHalf={true}
             placeholder={Translate.amount}
-            subText={commonTranslator.amount}
-            onChangeText={text => setAmount(text)}
+            subText={Translate.amount}
+            onChangeText={text => changeText(text, setAmount)}
             value={amount}
             float={giftType === 'coin' ? true : undefined}
           />
@@ -79,7 +80,7 @@ function Create(props) {
             isHalf={true}
             placeholder={commonTranslator.counter}
             subText={commonTranslator.counter}
-            onChangeText={text => setCounter(text)}
+            onChangeText={text => changeText(text, setCounter)}
             value={counter}
           />
           <JustBottomBorderTextInput
@@ -87,7 +88,7 @@ function Create(props) {
             isHalf={true}
             placeholder={commonTranslator.priority}
             subText={commonTranslator.priority}
-            onChangeText={text => setPriority(text)}
+            onChangeText={text => changeText(text, setPriority)}
             value={priority}
           />
           <JustBottomBorderTextInput
@@ -96,13 +97,13 @@ function Create(props) {
             isHalf={true}
             placeholder={commonTranslator.prob}
             subText={commonTranslator.prob}
-            onChangeText={text => setProb(text)}
+            onChangeText={text => changeText(text, setProb)}
             value={prob}
           />
           <JustBottomBorderSelect
             justNum={true}
             isHalf={true}
-            placeholder={commonTranslator.siteApp}
+            placeholder={Translate.siteApp}
             subText={Translate.siteApp}
             setter={setSiteApp}
             value={siteAppKeyVals.find(elem => {

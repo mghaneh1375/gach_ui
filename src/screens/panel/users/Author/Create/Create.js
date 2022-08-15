@@ -1,5 +1,4 @@
-import {useState} from 'react';
-import {View} from 'react-native-web';
+import React, {useState} from 'react';
 import {
   CommonButton,
   CommonWebBox,
@@ -10,6 +9,7 @@ import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBo
 import Translate from '../Translator';
 import commonTranslate from '../../../../../tranlates/Common';
 import {createAuthor, editAuthor} from '../List/Utility';
+import {changeText} from '../../../../../services/Utility';
 
 function CreateAuthor(props) {
   const [name, setName] = useState(
@@ -29,16 +29,17 @@ function CreateAuthor(props) {
           <JustBottomBorderTextInput
             isHalf={true}
             placeholder={Translate.authorName}
+            subText={Translate.authorName}
             value={name}
-            onChangeText={text => setName(text)}
+            onChangeText={text => changeText(text, setName)}
           />
 
           <JustBottomBorderTextInput
             isHalf={true}
             placeholder={Translate.tag}
+            subText={Translate.tag}
             value={tag}
-            onChangeText={text => setTag(text)}
-            subText={commonTranslate.notNecessary}
+            onChangeText={text => changeText(text, setTag)}
           />
         </PhoneView>
         <CommonButton

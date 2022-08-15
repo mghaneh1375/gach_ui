@@ -91,7 +91,7 @@ const Questions = props => {
   }, [selectedQuestion]);
 
   return (
-    <MyView style={{zIndex: 5}}>
+    <MyView>
       {showRemovePane && state.selectedIds !== undefined && (
         <ConfirmationBatchOpPane
           url={

@@ -35,7 +35,7 @@ const UpdatePic = props => {
   }, [props.user.id, props.isAdmin, userId]);
 
   return (
-    <MyView style={{zIndex: 5}}>
+    <MyView>
       {showAvatars && (
         <LargePopUp toggleShowPopUp={toggleShowChooseAvatar}>
           {avatars !== undefined && (

@@ -81,7 +81,9 @@ const ChangeUsername = props => {
       <MyView>
         {step === 'chageUsername' && (
           <JustBottomBorderTextInput
-            subText={commonTranslator.necessaryField}
+            subText={
+              props.mode === 'sms' ? translator.newPhone : translator.newMail
+            }
             justNum={props.mode === 'sms' ? true : undefined}
             placeholder={
               props.mode === 'sms' ? translator.newPhone : translator.newMail

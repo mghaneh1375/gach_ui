@@ -30,6 +30,7 @@ function Filter(props) {
           values={kindSchools}
           value={kindSchools.find(elem => elem.id === kindSchool)}
           placeholder={translator.kind}
+          subText={translator.kind}
         />
         <JustBottomBorderSelect
           isHalf={true}
@@ -37,6 +38,7 @@ function Filter(props) {
           values={grades}
           value={grades.find(elem => elem.id === grade)}
           placeholder={translator.grade}
+          subText={translator.grade}
         />
         <StateAndCity
           states={props.states}

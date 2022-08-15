@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import {CommonWebBox, MyView} from '../../../../styles/Common';
 import translator from '../Translator';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
