@@ -1,6 +1,5 @@
 import React, {useReducer, useState} from 'react';
 import DataTable from 'react-data-table-component';
-import {View} from 'react-native';
 import ConfirmationBatchOpPane from '../../components/web/ConfirmationBatchOpPane';
 import {showSuccess} from '../../services/Utility';
 import commonTranslator from '../../tranlates/Common';
@@ -57,13 +56,6 @@ const CommonDataTable = props => {
 
   columns.map(elem => {
     elem.wrap = true;
-    // elem.style =
-    //   elem.style !== undefined
-    //     ? {
-    //         ...elem.style,
-    //         ...{justifyContent: 'center'},
-    //       }
-    //     : {justifyContent: 'center'};
     return elem;
   });
 
@@ -245,7 +237,6 @@ const CommonDataTable = props => {
           (state.ops !== undefined && state.ops.length > 0) ||
           props.onRowSelect !== undefined
         }
-        // highlightOnHover={true}
         persistTableHead={true}
         onSelectedRowsChange={
           props.onRowSelect === undefined

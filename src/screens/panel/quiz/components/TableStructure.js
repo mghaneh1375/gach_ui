@@ -46,7 +46,7 @@ const columns = [
   {
     name: 'تعداد دانش آموزان',
     selector: row => row.studentsCount,
-    grow: 1,
+    grow: 5,
   },
 ];
 

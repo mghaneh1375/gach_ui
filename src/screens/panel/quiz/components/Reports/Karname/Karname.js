@@ -11,7 +11,9 @@ import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
 import {fetchStudentAnswerSheet, getKarname} from '../../Utility';
 import lessonTableStructure from './LessonTableStructure.js';
+import lessonRankingTableStructure from './LessonRankingTableStructure';
 import subjectTableStructure from './SubjectTableStructure';
+import subjectRankingTableStructure from './SubjectRankingTableStructure';
 import generalStatTableStructure from './GeneralStatTableStructure';
 import rankStatTableStructure from './RankStatTableStructure';
 import commonTranslator from '../../../../../../tranlates/Common';
@@ -172,7 +174,7 @@ function Karname(props) {
             : 'کارنامه آزمون '
         }
         backBtn={true}
-        onBackClick={() => props.setMode('list')}>
+        onBackClick={() => props.setMode('ranking')}>
         <EqualTwoTextInputs>
           {karname !== undefined && <StudentCard std={karname} />}
           {karname !== undefined && (
@@ -229,6 +231,15 @@ function Karname(props) {
                   groupOps={[]}
                 />
               )}
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={lessonRankingTableStructure}
+                  data={karname.lessons}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                />
+              )}
             </MyView>
           </CommonWebBox>
 
@@ -261,17 +272,17 @@ function Karname(props) {
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
                 style={{alignSelf: 'center'}}
-                text={'جدول شماره 4 - نتایج کلی'}
+                text={'جدول شماره 4 - نتایج رتبه بندی حیطه ها'}
               />
             </EqualTwoTextInputs>
-            <MyView style={{padding: 10}}>
+            <MyView>
               {karname !== undefined && (
                 <CommonDataTable
-                  columns={rankStatTableStructure}
-                  data={[karname.rank]}
+                  columns={subjectRankingTableStructure}
                   show_row_no={false}
                   pagination={false}
                   groupOps={[]}
+                  data={karname.subjects}
                 />
               )}
             </MyView>
@@ -296,6 +307,27 @@ function Karname(props) {
               )}
             </MyView>
           </CommonWebBox>
+
+          <CommonWebBox width={'35%'}>
+            <EqualTwoTextInputs>
+              <BigBoldBlueTextInline
+                style={{alignSelf: 'center'}}
+                text={'جدول شماره 6 - نتایج کلی'}
+              />
+            </EqualTwoTextInputs>
+            <MyView style={{padding: 10}}>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={rankStatTableStructure}
+                  data={[karname.rank]}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                />
+              )}
+            </MyView>
+          </CommonWebBox>
+
           <CommonWebBox width={'60%'}>
             <MyView>
               {karname !== undefined && (

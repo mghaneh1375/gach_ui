@@ -283,45 +283,60 @@
   margin-top: 6px;
 }
 
+input::placeholder {
+  font-size: 11px;
+}
+
+/* //table */
+
 .rdt_Pagination {
   direction: ltr !important;
   justify-content: flex-start !important;
 }
 
-input::placeholder {
-  font-size: 11px;
-}
-/* //table */
 .rdt_TableHeadRow {
   background-color: #013243 !important;
   color: white !important;
 }
-/* .rdt_TableCol_Sortable {
-  justify-content: center !important;
-} */
+
 .rdt_TableRow:nth-child(odd) {
   background-color: #efefef !important;
 }
-.rdt_TableCol_Sortable > div,
+
+/* .rdt_TableCol_Sortable,
+.rdt_TableCol {
+  min-width: unset !important;
+} */
+
+/* .rdt_TableCol_Sortable > div,
 .rdt_TableCol > div {
   white-space: break-spaces !important;
-  /* min-width: 80px; */
+} */
+
+.rdt_TableCol,
+.rdt_TableCell {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }
 
 .rdt_TableCell {
-  flex-wrap: wrap;
-  min-width: auto !important;
+  /* min-width: auto !important; */
+
+  /* padding-left: 0 !important;
+  padding-right: 0 !important; */
   overflow: hidden;
-  justify-content: center !important;
+  /* justify-content: center !important; */
 }
+
 /* for SelectBox */
-.r-transform-1sncvnh {
+/* .r-transform-1sncvnh {
   transform: translateZ(0px);
   position: absolute;
   margin-top: 43px;
   z-index: 5 !important;
   background: white;
-}
+} */
+
 .myView {
   -moz-box-align: stretch;
   -moz-box-direction: normal;
