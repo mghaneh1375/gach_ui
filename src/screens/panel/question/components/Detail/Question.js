@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {
   BigBoldBlueText,
   BigBoldBlueTextInline,
@@ -17,7 +17,6 @@ import {
   faAngleDoubleDown,
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
-import {View} from 'react-native';
 import translate from '../../../quiz/components/Card/Translate';
 import {
   styleFont14,

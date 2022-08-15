@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {addQuestionToQuizzes, filter, removeQuestion} from '../Utility';
 import Question from './Question';
 import Quizzes from './../../../../../components/web/Quizzes';
