@@ -3,7 +3,6 @@ import {
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
 import {
   CommonButton,
@@ -52,6 +51,7 @@ function Filter(props) {
         <JustBottomBorderSelect
           isHalf={true}
           placeholder={translator.grade}
+          subText={translator.grade}
           setter={setGrade}
           value={props.grades.find(elem => {
             return elem.id === grade;
@@ -61,7 +61,8 @@ function Filter(props) {
 
         <JustBottomBorderSelect
           isHalf={true}
-          placeholder={translator.lessonName}
+          placeholder={commonTranslator.name + ' ' + commonTranslator.lesson}
+          subText={commonTranslator.name + ' ' + commonTranslator.lesson}
           setter={setLesson}
           value={
             lessons !== undefined

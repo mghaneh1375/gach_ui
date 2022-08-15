@@ -111,6 +111,7 @@ const translator = {
   dovom: 'متوسطه دوم',
   dabestan: 'دبستان',
   address: 'آدرس',
+  add: 'افزودن',
   access: 'دسترسی',
   status: 'وضعیت',
   searchUser: 'یافتن دانش آموز',

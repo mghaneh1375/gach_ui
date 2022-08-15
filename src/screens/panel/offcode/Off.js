@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import {MyView} from '../../../styles/Common';
 import Create from './components/Create';

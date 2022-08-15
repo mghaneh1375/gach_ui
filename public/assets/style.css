@@ -359,7 +359,6 @@ input::placeholder {
 button:hover {
   box-shadow: inset 0px 0px 1px 3px #f1f1f180;
   transition: 0.5s ease-in-out;
-  opacity: 0.7;
 }
 /* .hoverable-fonticon:nth-child(1):hover {
   box-shadow: inset 0px 0px 1px 3px #f1f1f180;
@@ -368,8 +367,6 @@ button:hover {
 } */
 .hoverable > *:hover {
   box-shadow: inset 0px 0px 1px 3px #efefef80;
-  transition: 0.5s ease-in-out;
-  opacity: 0.7;
 }
 .flex-end {
   align-self: flex-end !important;

@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import React, {useState} from 'react';
 import {
   CommonButton,
@@ -27,7 +26,11 @@ function Create(props) {
     <CommonWebBox
       backBtn={true}
       onBackClick={() => props.setMode('list')}
-      header={commonTranslate.edit}>
+      header={
+        props.lesson === undefined
+          ? commonTranslate.add + ' ' + commonTranslate.lesson
+          : commonTranslate.edit
+      }>
       <MyView>
         <PhoneView>
           <JustBottomBorderTextInput
@@ -35,10 +38,12 @@ function Create(props) {
             value={name}
             onChangeText={e => setName(e)}
             placeholder={commonTranslate.name}
+            subText={commonTranslate.name}
           />
           <JustBottomBorderSelect
             isHalf={true}
             placeholder={Translate.level}
+            subText={commonTranslate.grade}
             setter={setGrade}
             value={props.grades.find(elem => {
               return elem.id === grade;

@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import React, {useState} from 'react';
 import Translate from '../../Translate';
 import commonTranslate from '../../../../../tranlates/Common';
@@ -25,13 +24,19 @@ function Create(props) {
       <CommonWebBox
         backBtn={true}
         onBackClick={() => props.setMode('list')}
-        header={commonTranslate.edit}>
+        header={
+          props.grade === undefined
+            ? commonTranslate.add + ' ' + commonTranslate.grade
+            : commonTranslate.edit
+        }>
         <MyView>
           <PhoneView style={{gap: 10}}>
             <JustBottomBorderTextInput
+              isHalf={true}
               value={name}
               onChangeText={e => setName(e)}
               placeholder={props.name}
+              subText={commonTranslate.grade}
             />
             <RadioButtonYesOrNo
               selected={isOlympiad}

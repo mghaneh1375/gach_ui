@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import {editItem} from '../../../services/Utility';
 import {getGradeLessons} from '../Basic/Utility';

@@ -21,6 +21,7 @@ const Filter = props => {
         values={usedKeyVals}
         value={usedKeyVals.find(elem => elem.id === used)}
         placeholder={translator.usedAndNotUsed}
+        subText={translator.used}
       />
       <JustBottomBorderSelect
         isHalf={true}
@@ -28,6 +29,7 @@ const Filter = props => {
         values={allTypeKeyVals}
         value={allTypeKeyVals.find(elem => elem.id === type)}
         placeholder={translator.type}
+        subText={translator.type}
       />
       <CommonButton
         onPress={() =>

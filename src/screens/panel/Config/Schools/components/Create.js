@@ -41,7 +41,11 @@ function Create(props) {
   return (
     <MyView>
       <CommonWebBox
-        header={translator.add}
+        header={
+          props.editSchool !== undefined
+            ? commonTranslator.add + ' ' + commonTranslator.school
+            : commonTranslator.edit
+        }
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
         <PhoneView>
@@ -50,6 +54,7 @@ function Create(props) {
             isHalf={true}
             value={name}
             placeholder={translator.name}
+            subText={translator.name}
           />
           <JustBottomBorderSelect
             isHalf={true}
@@ -57,6 +62,7 @@ function Create(props) {
             setter={setGrade}
             value={grades.find(elem => elem.id === grade)}
             placeholder={translator.grade}
+            subText={translator.grade}
           />
           <JustBottomBorderSelect
             isHalf={true}
@@ -64,6 +70,7 @@ function Create(props) {
             setter={setKind}
             value={kindSchools.find(elem => elem.id === kind)}
             placeholder={translator.kind}
+            subText={translator.kind}
           />
         </PhoneView>
 
