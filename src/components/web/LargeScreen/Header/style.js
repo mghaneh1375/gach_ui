@@ -67,15 +67,15 @@ export const style = {
   Header_Profile: {
     marginTop: 10,
     backgroundColor: vars.WHITE,
-    paddingRight: 20,
     height: 40,
     zIndex: 2,
+    alignItems: 'center',
   },
   Header_Profile_Image_App: {
     left: -10,
   },
   Header_Profile_Image_Web: {
-    right: -10,
+    right: 0,
   },
   Header_Profile_Image: {
     width: 50,
@@ -88,26 +88,27 @@ export const style = {
     marginRight: 50,
   },
   Header_Profile_Text_Web: {
-    marginRight: 30,
+    marginRight: 0,
   },
   Header_Profile_Text: {
     marginTop: 6,
   },
   Header_Profile_MENU: {
     width: '100%',
-    position: 'absolute',
-    top: 45,
-    height: 200,
+    // position: 'absolute',
+    // top: 45,
+    height: 120,
     overflow: 'auto',
     backgroundColor: vars.WHITE,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     boxShadow: '0px 3px 6px #00000029',
     minWidth: 140,
-    left: 0,
+    // left: 0,
     // zIndex: 10000,
     zIndex: 0,
     padding: 10,
+    marginTop: 40,
     alignItems: 'center',
   },
   Header_NOTIF: {
