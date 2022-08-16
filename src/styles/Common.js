@@ -325,6 +325,7 @@ export const CommonRadioButton = props => (
         onChangeText={props.onChangeText}
         justNum={props.justNum}
         placeholder={props.text}
+        subText={props.text}
         disable={props.disable}
         value={props.textValue}
       />

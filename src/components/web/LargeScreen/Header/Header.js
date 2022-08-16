@@ -8,7 +8,11 @@ import {
 } from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
-import {faAngleDown, faBell} from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleDown,
+  faAnglesUp,
+  faBell,
+} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import {logout} from '../../../../API/User';
@@ -78,6 +82,7 @@ const Header = props => {
               : {...style.Header_Profile, ...style.Header_Profile_Phone}
           }>
           <UserTinyPic
+            onPress={() => changeShow(!showProfilePane)}
             style={
               isApp
                 ? {
@@ -89,9 +94,10 @@ const Header = props => {
                     ...style.Header_Profile_Image_Web,
                   }
             }
-            pic={pic}
+            pic={showProfilePane ? pic : ''}
           />
           <SimpleText
+            onPress={() => changeShow(!showProfilePane)}
             style={
               isApp
                 ? {
@@ -109,7 +115,7 @@ const Header = props => {
             <SimpleFontIcon
               style={{}}
               onPress={() => changeShow(!showProfilePane)}
-              icon={faAngleDown}
+              icon={showProfilePane ? '' : faAngleDown}
             />
           </MyView>
 
