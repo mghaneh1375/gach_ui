@@ -45,7 +45,7 @@ function Create(props) {
         onBackClick={() => props.setMode('list')}>
         <PhoneView>
           <JustBottomBorderTextInput
-            onChangeText={text => changeText(text, setName)}
+            onChangeText={e => changeText(e, setName)}
             isHalf={true}
             value={name}
             placeholder={translator.name}
@@ -88,7 +88,7 @@ function Create(props) {
           placeholder={commonTranslator.address}
           value={address}
           subText={commonTranslator.optional}
-          onChangeText={text => changeText(text, setAddress)}
+          onChangeText={e => changeText(e, setAddress)}
           multiline={true}
         />
         <CommonButton

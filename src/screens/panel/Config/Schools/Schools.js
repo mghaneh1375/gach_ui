@@ -35,12 +35,18 @@ function Schools(props) {
       generalRequest(routes.fetchState, 'get', undefined, 'data'),
     ]).then(res => {
       dispatch({loading: false});
-      if (res[0] === null) navigate('/');
+      if (res[0] === null) {
+        navigate('/');
+        return;
+      }
       setSchools(res[0]);
       if (res[1] !== null) {
         setStates(res[1]);
         setMode('list');
-      } else navigate('/');
+      } else {
+        navigate('/');
+        return;
+      }
     });
   }, [navigate, props.token, dispatch, states]);
 

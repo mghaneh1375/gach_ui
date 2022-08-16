@@ -1,7 +1,6 @@
-import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
+import {CommonWebBox, PhoneView} from '../../../../../styles/Common';
 import Show from './Show/Show';
 import translator from '../Translator';
-import {View} from 'react-native';
 
 function List(props) {
   const setDefaultAvatar = avatarId => {
@@ -26,7 +25,7 @@ function List(props) {
       header={translator.avatars}
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
-      <PhoneView>
+      <PhoneView style={{gap: 30}}>
         {props.avatars !== undefined &&
           props.avatars.map((elem, index) => {
             return (

@@ -81,7 +81,7 @@ function Create(props) {
 
   const [questionFile, setQuestionFile] = useState();
   const [answerFile, setAnswerFile] = useState();
-  const [isWorking, setIsWorking] = useState();
+  const [isWorking, setIsWorking] = useState(false);
 
   React.useEffect(() => {
     if (isWorking || state.authorsKeyVals !== undefined) return;
