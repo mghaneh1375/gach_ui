@@ -146,10 +146,20 @@ export const CommonButton = props => {
   allStyles.alignSelf =
     props.dir !== undefined && props.dir === 'rtl' ? 'flex-start' : 'flex-end';
 
-  if (props.padding !== undefined && props.padding === 'unset')
-    allStyles.padding = '9px 15px';
+  allStyles.padding =
+    props.padding !== undefined && props.padding === 'unset'
+      ? '9px 15px'
+      : '5px 30px';
 
-  if (props.icon !== undefined) allStyles.display = 'flex';
+  if (props.icon !== undefined) {
+    allStyles.display = 'flex';
+    allStyles.alignItems = 'center';
+    allStyles.justifyContent = 'space-around';
+  }
+
+  // if (props.icon !== undefined) allStyles.flexDirection = 'row';
+
+  console.log(textStyle);
 
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <Button style={allStyles} onPress={props.onPress}>
@@ -172,6 +182,7 @@ export const CommonButton = props => {
               kind={'normal'}
               style={{color: vars.WHITE}}
               icon={props.icon}
+              onPress={props.onPress}
             />
           )}
         <Text style={textStyle}>{props.title}</Text>
@@ -183,6 +194,7 @@ export const CommonButton = props => {
               kind={'normal'}
               style={{color: vars.WHITE}}
               icon={props.icon}
+              onPress={props.onPress}
             />
           )}
         {props.icon !== undefined &&
@@ -190,9 +202,9 @@ export const CommonButton = props => {
           props.iconTheme !== undefined &&
           props.iconDir === 'left' && (
             <FontIcon
-              parentStyle={{marginRight: 20}}
               kind={'small'}
               icon={props.icon}
+              onPress={props.onPress}
             />
           )}
       </Button>
