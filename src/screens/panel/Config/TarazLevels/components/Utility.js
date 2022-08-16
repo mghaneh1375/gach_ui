@@ -25,3 +25,17 @@ export const create = async (data, token) => {
 
   return res;
 };
+
+export const update = async (id, data, token) => {
+  let res = await generalRequest(
+    routes.updateTarazLevel + id,
+    'put',
+    data,
+    undefined,
+    token,
+  );
+
+  if (res !== null) showSuccess();
+
+  return res;
+};

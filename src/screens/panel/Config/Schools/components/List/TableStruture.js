@@ -23,6 +23,16 @@ const columns = [
     grow: 1,
   },
   {
+    name: translator.user,
+    selector: row => row.manager,
+    grow: 1,
+  },
+  {
+    name: translator.userPhone,
+    selector: row => row.managerPhone,
+    grow: 1,
+  },
+  {
     name: commonTranslator.address,
     selector: row => row.address,
     grow: 4,
