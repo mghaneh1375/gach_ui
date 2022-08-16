@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import ToggleSwitch from 'toggle-switch-react-native';
 import {
   CommonButton,
@@ -14,6 +13,7 @@ import {faLock, faUnlock} from '@fortawesome/free-solid-svg-icons';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function StudentAnswerSheet(props) {
   const useGlobalState = () => [
@@ -33,7 +33,9 @@ function StudentAnswerSheet(props) {
   const ref = useRef();
 
   const print = useCallback(() => {
-    if (ref.current === null) return;
+    if (ref.current === null) {
+      return;
+    }
 
     props.setLoading(true);
 
@@ -70,23 +72,20 @@ function StudentAnswerSheet(props) {
               onColor="green"
               offColor="red"
               label="تغییر پاسخ دانش آموز"
-              labelStyle={{
-                color: 'black',
-                fontFamily: 'IRANSans',
-              }}
+              labelStyle={styles.blackColor}
               size="medium"
               onToggle={isOn => {
                 setStdChangingMode(isOn);
               }}
             />
             <CommonButton
-              style={{alignSelf: 'flex-start'}}
+              style={styles.alignSelfStart}
               title={'پرینت'}
               onPress={() => print()}
             />
           </MyView>
           <SimpleFontIcon
-            parentStyle={{marginLeft: 20, marginTop: 20}}
+            parentStyle={styles.margin20}
             kind={'normal'}
             icon={stdChangingMode ? faUnlock : faLock}
           />

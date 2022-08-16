@@ -1,5 +1,7 @@
+import React from 'react';
+
 import vars from './../root';
-import {Platform, View, Image, Pressable} from 'react-native';
+import {Image, Pressable} from 'react-native';
 import {BlueTextInline, MyView} from '../Common';
 
 export const RoleCard = props => (

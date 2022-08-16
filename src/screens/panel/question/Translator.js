@@ -38,6 +38,11 @@ const translator = {
   addQuiz: 'افزودن به آزمون',
   questionFile: 'فایل صورت سوال',
   answerFile: 'فایل پاسخ سوال(اختیاری)',
+  levelQuestion: 'سطح سختی سوال',
+  questionShowEasy: 'نمایش سوالات آسان',
+  questionShowMid: 'نمایش سوالات متوسط',
+  questionShowHard: 'نمایش سوالات سخت',
+  questionNumber: 'تعداد سوالات موجود: ',
 };
 
 export default translator;

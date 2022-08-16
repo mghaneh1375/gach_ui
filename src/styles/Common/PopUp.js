@@ -1,8 +1,9 @@
-import {View} from 'react-native';
+import React from 'react';
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '../Common';
 import translator from '../../tranlates/Common';
 import {TextIcon} from './TextIcon';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
+import {styles} from './Styles';
 
 const modal = {
   container: {
@@ -13,8 +14,6 @@ const modal = {
     top: 0,
     left: 0,
     width: '100%',
-    // width: 'calc(100% + 200px)',
-    // position: 'absolute',
     position: 'fixed',
     zIndex: 20,
   },
@@ -23,6 +22,15 @@ const modal = {
     left: 0,
     right: 200,
     top: 90,
+  },
+  marginBottom20: {
+    marginBottom: 20,
+  },
+  padding0: {
+    padding: 0,
+  },
+  padding5and30: {
+    padding: '5px 30px',
   },
 };
 
@@ -34,17 +42,17 @@ export function LargePopUp(props) {
         child={
           <MyView>
             <TextIcon
-              style={{marginBottom: 20, padding: 0}}
+              style={{...modal.marginBottom20, ...modal.padding0}}
               onPress={() => props.toggleShowPopUp()}
               text={props.title}
               icon={faClose}
             />
             {props.children}
-            <PhoneView style={{marginTop: 20}}>
+            <PhoneView style={{...styles.marginTop20}}>
               {props.btns}
               {(props.removeCancel === undefined || !props.removeCancel) && (
                 <CommonButton
-                  style={{padding: '5px 30px'}}
+                  style={{...modal.padding5and30}}
                   onPress={() => props.toggleShowPopUp()}
                   title={translator.cancel}
                 />

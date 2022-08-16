@@ -1,4 +1,3 @@
-import RadioButtonYesOrNo from '../../../../../../components/web/RadioButtonYesOrNo';
 import React from 'react';
 import {
   BigBoldBlueText,
@@ -7,8 +6,9 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../../styles/Common';
+import {styles} from '../../../../../../styles/Common/Styles';
+import translator from '../../../Translator';
 import {questionContext, dispatchQuestionContext} from './../Context';
-import {View} from 'react-native';
 
 function Level(props) {
   const useGlobalState = () => [
@@ -47,10 +47,10 @@ function Level(props) {
 
   return (
     <MyView>
-      <BigBoldBlueText text={'سطح سختی سوال'} />
+      <BigBoldBlueText text={translator.levelQuestion} />
 
-      <PhoneView style={{gap: 50}}>
-        <PhoneView style={{minWidth: 200}}>
+      <PhoneView style={styles.gap50}>
+        <PhoneView style={styles.minWidth200}>
           <CommonRadioButton
             value="easy"
             status={state.showEasy ? 'checked' : 'unchecked'}
@@ -58,15 +58,15 @@ function Level(props) {
             text={''}
           />
           <MyView>
-            <SimpleText text={'نمایش سوالات آسان'} />
+            <SimpleText text={translator.questionShowEasy} />
             <SimpleText
-              style={{fontSize: 11}}
-              text={'تعداد سوالات موجود: ' + state.total_easy}
+              style={styles.fontSize11}
+              text={translator.questionNumber + state.total_easy}
             />
           </MyView>
         </PhoneView>
 
-        <PhoneView style={{minWidth: 200}}>
+        <PhoneView style={styles.minWidth200}>
           <CommonRadioButton
             value="mid"
             status={state.showMid ? 'checked' : 'unchecked'}
@@ -74,15 +74,15 @@ function Level(props) {
             text={''}
           />
           <MyView>
-            <SimpleText text={'نمایش سوالات متوسط'} />
+            <SimpleText text={translator.questionShowMid} />
             <SimpleText
-              style={{fontSize: 11}}
-              text={'تعداد سوالات موجود: ' + state.total_mid}
+              style={styles.fontSize11}
+              text={translator.questionNumber + state.total_mid}
             />
           </MyView>
         </PhoneView>
 
-        <PhoneView style={{minWidth: 200}}>
+        <PhoneView style={styles.minWidth200}>
           <CommonRadioButton
             value="hard"
             status={state.showHard ? 'checked' : 'unchecked'}
@@ -90,10 +90,10 @@ function Level(props) {
             text={''}
           />
           <MyView>
-            <SimpleText text={'نمایش سوالات سخت'} />
+            <SimpleText text={translator.questionShowHard} />
             <SimpleText
-              style={{fontSize: 11}}
-              text={'تعداد سوالات موجود: ' + state.total_hard}
+              style={styles.fontSize11}
+              text={translator.questionNumber + state.total_hard}
             />
           </MyView>
         </PhoneView>

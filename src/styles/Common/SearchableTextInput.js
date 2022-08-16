@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Platform, Pressable, View} from 'react-native';
+import {Platform, Pressable} from 'react-native';
 import {getWidthHeight} from '../../services/Utility';
 import {CommonWebBox, MyView, SimpleText} from '../Common';
 import vars from '../root';

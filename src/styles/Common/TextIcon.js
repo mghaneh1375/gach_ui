@@ -1,4 +1,6 @@
-import {View, Platform} from 'react-native';
+import React from 'react';
+
+import {Platform} from 'react-native';
 import {
   BigBoldBlueTextInline,
   EqualTwoTextInputs,
@@ -7,6 +9,7 @@ import {
 } from '../Common';
 import vars from '../root';
 import {FontIcon} from './FontIcon';
+import {styles} from './Styles';
 
 const style = {
   paddingRight: 10,
@@ -71,7 +74,9 @@ export const TinyTextIcon = props => {
       ? undefined
       : {icon: props.icon, style: {padding: 2}};
 
-  if (props.onPress !== undefined) fontProps.onPress = props.onPress;
+  if (props.onPress !== undefined) {
+    fontProps.onPress = props.onPress;
+  }
 
   const tinyFontIconStyle = {
     width: 15,
@@ -82,7 +87,7 @@ export const TinyTextIcon = props => {
 
   return (
     <MyView style={allStyles}>
-      <SimpleText style={{fontSize: 11}} text={props.text} />
+      <SimpleText style={styles.fontSize11} text={props.text} />
 
       <MyView style={{...InnerViewStyle, ...tinyFontIconStyle}}>
         <FontIcon {...fontProps} />

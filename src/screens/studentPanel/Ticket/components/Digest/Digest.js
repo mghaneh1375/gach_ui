@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   BigBoldBlueText,
   CommonButton,
@@ -16,6 +17,7 @@ import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {callRemoveTicket} from '../Utility';
 import {showSuccess} from '../../../../../services/Utility';
 import {closeRequest} from '../../../../panel/ticket/components/List/Utility';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function Digest({
   ticket,
@@ -30,9 +32,9 @@ function Digest({
     <CommonWebBox header={ticket.title}>
       <PhoneView
         style={{
-          justifyContent: 'space-around',
-          marginTop: 25,
-          gap: 50,
+          ...styles.justifyContentSpaceAround,
+          ...styles.margin25,
+          ...styles.gap50,
         }}>
         <PhoneView>
           <TinyTextIcon />
