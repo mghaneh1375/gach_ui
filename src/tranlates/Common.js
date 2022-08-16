@@ -173,5 +173,6 @@ const translator = {
   app: 'اپ',
   print: 'چاپ',
   tarazLevels: 'سطوح تراز',
+  level: 'مقطع',
 };
 export default translator;

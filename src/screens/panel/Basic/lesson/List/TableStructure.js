@@ -1,14 +1,15 @@
 import commonTranslator from '../../../../../tranlates/Common';
-import Translate from '../../Translate';
 const columns = [
   {
-    name: Translate.lessonName,
+    name: commonTranslator.lesson,
     selector: row => row.name,
+    center: true,
     grow: 1,
   },
   {
-    name: Translate.level,
+    name: commonTranslator.level,
     selector: row => row.grade.name,
+    center: true,
     grow: 1,
   },
 ];

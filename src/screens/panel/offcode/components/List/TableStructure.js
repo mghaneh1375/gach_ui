@@ -5,26 +5,26 @@ const columns = [
   {
     name: commonTranslator.nameAndLast,
     selector: row => row.user,
-    grow: 1,
+    grow: 2,
+    center: true,
   },
   {
     name: translator.amount,
     selector: row => row.amount,
     grow: 1,
+    center: true,
   },
   {
     name: translator.type,
     selector: row => (row.type === 'value' ? 'مقداری' : 'درصدی'),
     grow: 1,
+    center: true,
   },
   {
     name: commonTranslator.createdAt,
     selector: row => row.createdAt,
-    grow: 4,
+    grow: 2,
     wrap: true,
-    style: {
-      minWidth: '200px !important',
-    },
     sortable: true,
     sortFunction: (a, b) => {
       return a.createdAtTs - b.createdAtTs;
@@ -33,11 +33,8 @@ const columns = [
   {
     name: translator.expire,
     selector: row => row.expireAt,
-    grow: 4,
+    grow: 2,
     wrap: true,
-    style: {
-      minWidth: '200px !important',
-    },
     sortable: true,
     sortFunction: (a, b) => {
       return a.expireAtTs - b.expireAtTs;
@@ -46,11 +43,8 @@ const columns = [
   {
     name: translator.useAt,
     selector: row => row.usedAt,
-    grow: 4,
+    grow: 2,
     wrap: true,
-    style: {
-      minWidth: '200px !important',
-    },
     sortable: true,
     sortFunction: (a, b) => {
       return a.usedAt - b.usedAt;
