@@ -151,7 +151,13 @@ export const CommonButton = props => {
       ? '9px 15px'
       : '5px 30px';
 
-  if (props.icon !== undefined) allStyles.display = 'flex';
+  if (props.icon !== undefined) {
+    allStyles.display = 'flex';
+    allStyles.alignItems = 'center';
+    allStyles.justifyContent = 'space-around';
+  }
+
+  // if (props.icon !== undefined) allStyles.flexDirection = 'row';
 
   console.log(textStyle);
 
@@ -196,7 +202,6 @@ export const CommonButton = props => {
           props.iconTheme !== undefined &&
           props.iconDir === 'left' && (
             <FontIcon
-              parentStyle={{marginRight: 20}}
               kind={'small'}
               icon={props.icon}
               onPress={props.onPress}

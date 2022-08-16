@@ -7,6 +7,7 @@ const Box = props => {
       onPress={() => props.removeItem()}
       iconDir="left"
       iconTheme="remove"
+      padding="unset"
       title={props.title}
       theme={'transparent'}
       icon={faClose}

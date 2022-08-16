@@ -192,7 +192,7 @@ const Header = props => {
           />
 
           {showNotif && (
-            <MyView style={style.Header_Profile_MENU}>
+            <MyView style={style.Header_Profile_Notif}>
               {newAlerts !== undefined &&
                 newAlerts.map((elem, index) => {
                   return (

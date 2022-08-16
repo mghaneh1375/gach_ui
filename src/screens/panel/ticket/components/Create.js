@@ -186,7 +186,7 @@ function Create(props) {
             <UserTinyPic pic={props.user.user.pic} />
             <SimpleText
               style={{alignSelf: 'center', marginRight: 20}}
-              text={'راهنما'}
+              text={commonTranslator.help}
             />
           </PhoneView>
           <PhoneView>
