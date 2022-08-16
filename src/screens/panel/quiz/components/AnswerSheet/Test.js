@@ -71,7 +71,7 @@ function Test(props) {
   return (
     <PhoneView style={{direction: 'ltr'}}>
       <SimpleText
-        style={{alignSelf: 'center', width: 30}}
+        style={{alignSelf: 'center', width: 25}}
         text={index + 1 + ' - '}
       />
 
@@ -86,12 +86,13 @@ function Test(props) {
               }
               key={idx}
               style={{
-                width: 40,
-                borderRadius: 10,
+                width: 30,
+                height: 25,
+                borderRadius: 7,
                 borderWidth: 2,
                 borderColor: 'black',
                 textAlign: 'center',
-                margin: 6,
+                margin: 4,
                 cursor: 'pointer',
                 backgroundColor:
                   elem.choosen && elem.isAnswer
@@ -109,8 +110,8 @@ function Test(props) {
 
       {state.wanted_answer_sheet[index].percent !== undefined && (
         <SimpleText
-          style={{alignSelf: 'center', marginLeft: 10}}
-          text={'% ' + state.wanted_answer_sheet[index].percent}
+          style={{alignSelf: 'center', marginLeft: 3}}
+          text={'%' + state.wanted_answer_sheet[index].percent}
         />
       )}
     </PhoneView>

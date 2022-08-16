@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
 import Test from './Test';
 
@@ -29,13 +28,13 @@ function AnswerSheet(props) {
       <PhoneView
         style={{
           justifyContent: 'start',
-          padding: 10,
+          padding: 5,
           direction: 'ltr',
         }}>
         {boxes !== undefined &&
           boxes.map((box, index) => {
             return (
-              <CommonWebBox key={index}>
+              <CommonWebBox no_gap={true} style={{padding: 5}} key={index}>
                 {box.map((elem, idx) => {
                   if (elem.type === 'test')
                     return (

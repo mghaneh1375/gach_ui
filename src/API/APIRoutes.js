@@ -138,6 +138,6 @@ export const routes = {
   getAllAgent: 'admin/user/getMySchools',
   fetchAllTarazLevels: 'admin/config/tarazLevel/get',
   createTarazLevel: 'admin/config/tarazLevel/create',
-  updateTarazLevel: 'admin/config/tarazLevel/update/',
+  updateTarazLevel: 'admin/config/tarazLevel/edit/',
   removeTarazLevels: 'admin/config/tarazLevel/remove',
 };

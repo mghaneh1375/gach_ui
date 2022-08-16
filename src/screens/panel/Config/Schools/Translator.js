@@ -3,6 +3,8 @@ const translator = {
   grade: 'مقطع',
   name: 'نام مدرسه',
   add: 'افزودن مدرسه جدید',
+  user: 'متولی',
+  userPhone: 'شماره تماس متولی',
 };
 
 export default translator;

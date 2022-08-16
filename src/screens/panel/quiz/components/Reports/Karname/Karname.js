@@ -1,4 +1,4 @@
-import React, {useState, useRef, useCallback} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   CommonButton,
   BigBoldBlueTextInline,
@@ -6,7 +6,6 @@ import {
   EqualTwoTextInputs,
   PhoneView,
   MyView,
-  SimpleText,
 } from '../../../../../../styles/Common';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
@@ -113,24 +112,33 @@ function Karname(props) {
   const ref2 = useRef();
   const ref3 = useRef();
 
-  const [pdf, setPdf] = useState(new jsPDF());
+  const [pdf, setPdf] = useState(new jsPDF('p', 'pt', 'a4'));
 
-  const callToPng = async (counter, currentRef) => {
-    console.log(currentRef);
+  const callToPng = async (filled, counter, currentRef) => {
     await toPng(currentRef, {cacheBust: true})
       .then(async dataUrl => {
         const imgProps = pdf.getImageProperties(dataUrl);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-        if (counter > 0) pdf.addPage();
-        pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        let y = 0;
 
-        if (counter === 0) callToPng(1, ref2.current);
-        else if (counter === 1) callToPng(2, ref3.current);
+        if (filled + pdfHeight + 50 > 822) {
+          pdf.addPage();
+          filled = 0;
+          y = 0;
+        } else {
+          y = filled + 50;
+        }
+
+        pdf.addImage(dataUrl, 'PNG', 0, y, pdfWidth, pdfHeight);
+
+        if (counter === 0) callToPng(filled + pdfHeight, 1, ref2.current);
+        else if (counter === 1) callToPng(filled + pdfHeight, 2, ref3.current);
         else if (counter === 2) {
           await pdf.save('download.pdf');
           props.setLoading(false);
+          setPdf(undefined);
         }
       })
       .catch(err => {
@@ -141,6 +149,7 @@ function Karname(props) {
   };
 
   const print = () => {
+    if (pdf === undefined) return;
     props.setLoading(true);
 
     if (
@@ -156,7 +165,7 @@ function Karname(props) {
       return;
     }
 
-    callToPng(0, ref.current);
+    callToPng(0, 0, ref.current);
   };
 
   const [conditionalRowStyles, setConditionalRowStyles] = useState();
@@ -190,11 +199,13 @@ function Karname(props) {
           {karname !== undefined && <StudentCard std={karname} />}
           {karname !== undefined && (
             <PhoneView>
-              <CommonButton
-                theme={'dark'}
-                onPress={() => print()}
-                title={commonTranslator.print}
-              />
+              {pdf !== undefined && (
+                <CommonButton
+                  theme={'dark'}
+                  onPress={() => print()}
+                  title={commonTranslator.print}
+                />
+              )}
               {state.selectedStudentId !== undefined && (
                 <CopyBox
                   title={commonTranslator.copyLink}
@@ -409,8 +420,8 @@ function Karname(props) {
           </PhoneView>
         </MyView>
       </div>
-      <div ref={ref2}>
-        <CommonWebBox width={'80%'}>
+      <div style={{display: 'flex', justifyContent: 'center'}} ref={ref2}>
+        <CommonWebBox width={'90%'}>
           <MyView>
             {karname !== undefined && (
               <VictoryChart

@@ -5,8 +5,10 @@ import vars from './root';
 import {Text, Platform, View, ScrollView, StyleSheet} from 'react-native';
 import {
   Button,
+  chooseTheme,
   CommonButtonTextStyleAndroid,
   CommonButtonTextStyleWeb,
+  TransparentButtonStyle,
 } from './Common/Button';
 import BlueTextInlineElem from './Common/BlueTextInline';
 
@@ -118,7 +120,7 @@ export const ScreenScroll =
 // contentContainerStyle={ScreenContentContainerStyle}
 
 export const CommonButton = props => {
-  let allStyles = props.style !== undefined ? props.style : null;
+  let allStyles = props.style !== undefined ? props.style : {};
   let className = 'myBtn';
   let textStyle =
     Platform.OS === 'web'
@@ -132,101 +134,19 @@ export const CommonButton = props => {
     };
 
   if (props.theme !== undefined) {
-    if (props.theme === 'transparent') {
-      className = 'myTransparentBtn';
-      allStyles = {
-        ...allStyles,
-        ...{
-          backgroundColor: 'transparent',
-          borderWidth: 1,
-          borderStyle: 'solid',
-          borderColor: vars.LIGHT_SILVER,
-          padding: '5px 30px',
-        },
-      };
-      textStyle = {
-        ...textStyle,
-        ...{
-          color: vars.LIGHT_SILVER,
-        },
-      };
-    } else if (props.theme === 'yellow-transparent') {
-      allStyles = {
-        ...allStyles,
-        ...{
-          backgroundColor: 'transparent',
-          borderWidth: 1,
-          borderStyle: 'solid',
-          borderColor: vars.YELLOW,
-          padding: '5px 30px',
-        },
-      };
-      textStyle = {
-        ...textStyle,
-        ...{
-          color: vars.YELLOW,
-        },
-      };
-    } else if (props.theme === 'yellow') {
-      allStyles = {
-        ...allStyles,
-        ...{
-          backgroundColor: vars.YELLOW,
-          padding: '5px 30px',
-        },
-      };
-    } else
-      allStyles = {
-        ...allStyles,
-        ...{
-          backgroundColor: vars.DARK_BLUE,
-          padding: '5px 30px',
-        },
-      };
+    const themeRes = chooseTheme(props.theme, allStyles, textStyle);
+    allStyles = themeRes[0];
+    textStyle = themeRes[1];
   }
 
-  if (props.dir !== undefined && props.dir === 'rtl') {
-    allStyles = {
-      ...allStyles,
-      ...{
-        alignSelf: 'flex-start',
-        padding: '5px 30px',
-      },
-    };
-  }
-  allStyles = {
-    ...allStyles,
-    ...{
-      display: 'flex',
-      padding: '5px 30px',
-    },
-  };
-  if (props.padding !== undefined && props.padding === 'unset') {
-    allStyles = {
-      ...{
-        alignSelf: 'flex-start',
-        padding: '9px 15px',
-      },
-    };
-    textStyle = {
-      ...{
-        color: vars.WHITE,
-      },
-    };
-  }
-  if (props.icon !== undefined) {
-    allStyles = {
-      ...{
-        alignSelf: 'flex-start',
-        padding: '0px 0px',
-      },
-    };
-    textStyle = {
-      ...{
-        color: vars.WHITE,
-      },
-    };
-  }
+  allStyles.alignSelf =
+    props.dir !== undefined && props.dir === 'rtl' ? 'flex-start' : 'flex-end';
+
+  if (props.padding !== undefined && props.padding === 'unset')
+    allStyles.padding = '9px 15px';
+
+  if (props.icon !== undefined) allStyles.display = 'flex';
+
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <Button style={allStyles} onPress={props.onPress}>
       <Text style={textStyle}>{props.title}</Text>
@@ -377,9 +297,12 @@ export const CommonWebBox = props => {
         style={{
           backgroundColor: vars.WHITE,
           boxShadow: '0px 3px 6px #00000029',
-          padding: 10,
+          padding:
+            props.style === undefined || props.style.padding === undefined
+              ? 10
+              : props.style.padding,
           borderRadius: 10,
-          gap: 10,
+          gap: props.no_gap === undefined || !props.no_gap ? 10 : 0,
         }}>
         {props.header !== undefined && (
           <EqualTwoTextInputs>

@@ -33,7 +33,7 @@ function List(props) {
             data={props.levels}
             handleOp={handleOp}
             setData={props.setData}
-            removeUrl={routes.removeSchools}
+            removeUrl={routes.removeTarazLevels}
             token={props.token}
             setLoading={props.setLoading}
           />
