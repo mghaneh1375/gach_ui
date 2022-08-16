@@ -42,8 +42,9 @@ const Home = props => {
             ? require('./../../../images/back1.png')
             : require('./../../../images/back3.png')
         }> */}
-      </div>
 
+        {/* </ImageBackground> */}
+      </div>
       <BackgroundScrollView
         images={[
           {
@@ -71,7 +72,6 @@ const Home = props => {
         width={hideRightMenu ? width : width - 200}
         height={device.indexOf(Device.Large) !== -1 ? height : 'auto'}
         imgHeight={300}
-        scrollable={3}
         inJustImage={false}
         textCol={4}
         margins={
@@ -81,7 +81,6 @@ const Home = props => {
         }
         device={device}
       />
-      {/* </ImageBackground> */}
     </ScreenScroll>
   );
 };
