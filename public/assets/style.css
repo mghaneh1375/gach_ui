@@ -324,7 +324,7 @@ input::placeholder {
 }
 
 /* for SelectBox */
-.r-transform-1sncvnh {
+.mySelect > .myView > .r-transform-1sncvnh {
   transform: translateZ(0px);
   position: absolute;
   margin-top: 43px;

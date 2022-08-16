@@ -5,8 +5,10 @@ import vars from './root';
 import {Text, Platform, View, ScrollView, StyleSheet} from 'react-native';
 import {
   Button,
+  chooseTheme,
   CommonButtonTextStyleAndroid,
   CommonButtonTextStyleWeb,
+  TransparentButtonStyle,
 } from './Common/Button';
 import BlueTextInlineElem from './Common/BlueTextInline';
 
@@ -48,7 +50,9 @@ export const MyView = props => {
 
     if (style !== undefined)
       return (
-        <div className={'myView'} style={style}>
+        <div
+          className={props.className === undefined ? 'myView' : props.className}
+          style={style}>
           {props.children}
         </div>
       );
@@ -112,13 +116,15 @@ export const ScreenScroll =
         margin-bottom: 30px;
         width: 100%;
       `
-    : styled.div``;
+    : styled.div`
+        height: calc(100vh - 60px);
+      `;
 
 // style={ScreenScrollBar}
 // contentContainerStyle={ScreenContentContainerStyle}
 
 export const CommonButton = props => {
-  let allStyles = props.style !== undefined ? props.style : null;
+  let allStyles = props.style !== undefined ? props.style : {};
   let className = 'myBtn';
   let textStyle =
     Platform.OS === 'web'
@@ -132,101 +138,29 @@ export const CommonButton = props => {
     };
 
   if (props.theme !== undefined) {
-    if (props.theme === 'transparent') {
-      className = 'myTransparentBtn';
-      allStyles = {
-        ...allStyles,
-        ...{
-          backgroundColor: 'transparent',
-          borderWidth: 1,
-          borderStyle: 'solid',
-          borderColor: vars.LIGHT_SILVER,
-          padding: '5px 30px',
-        },
-      };
-      textStyle = {
-        ...textStyle,
-        ...{
-          color: vars.LIGHT_SILVER,
-        },
-      };
-    } else if (props.theme === 'yellow-transparent') {
-      allStyles = {
-        ...allStyles,
-        ...{
-          backgroundColor: 'transparent',
-          borderWidth: 1,
-          borderStyle: 'solid',
-          borderColor: vars.YELLOW,
-          padding: '5px 30px',
-        },
-      };
-      textStyle = {
-        ...textStyle,
-        ...{
-          color: vars.YELLOW,
-        },
-      };
-    } else if (props.theme === 'yellow') {
-      allStyles = {
-        ...allStyles,
-        ...{
-          backgroundColor: vars.YELLOW,
-          padding: '5px 30px',
-        },
-      };
-    } else
-      allStyles = {
-        ...allStyles,
-        ...{
-          backgroundColor: vars.DARK_BLUE,
-          padding: '5px 30px',
-        },
-      };
+    const themeRes = chooseTheme(props.theme, allStyles, textStyle);
+    allStyles = themeRes[0];
+    textStyle = themeRes[1];
   }
 
-  if (props.dir !== undefined && props.dir === 'rtl') {
-    allStyles = {
-      ...allStyles,
-      ...{
-        alignSelf: 'flex-start',
-        padding: '5px 30px',
-      },
-    };
-  }
-  allStyles = {
-    ...allStyles,
-    ...{
-      display: 'flex',
-      padding: '5px 30px',
-    },
-  };
-  if (props.padding !== undefined && props.padding === 'unset') {
-    allStyles = {
-      ...{
-        alignSelf: 'flex-start',
-        padding: '9px 15px',
-      },
-    };
-    textStyle = {
-      ...{
-        color: vars.WHITE,
-      },
-    };
-  }
+  allStyles.alignSelf =
+    props.dir !== undefined && props.dir === 'rtl' ? 'flex-start' : 'flex-end';
+
+  allStyles.padding =
+    props.padding !== undefined && props.padding === 'unset'
+      ? '9px 15px'
+      : '5px 30px';
+
   if (props.icon !== undefined) {
-    allStyles = {
-      ...{
-        alignSelf: 'flex-start',
-        padding: '0px 0px',
-      },
-    };
-    textStyle = {
-      ...{
-        color: vars.WHITE,
-      },
-    };
+    allStyles.display = 'flex';
+    allStyles.alignItems = 'center';
+    allStyles.justifyContent = 'space-around';
   }
+
+  // if (props.icon !== undefined) allStyles.flexDirection = 'row';
+
+  console.log(textStyle);
+
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <Button style={allStyles} onPress={props.onPress}>
       <Text style={textStyle}>{props.title}</Text>
@@ -248,6 +182,7 @@ export const CommonButton = props => {
               kind={'normal'}
               style={{color: vars.WHITE}}
               icon={props.icon}
+              onPress={props.onPress}
             />
           )}
         <Text style={textStyle}>{props.title}</Text>
@@ -259,6 +194,7 @@ export const CommonButton = props => {
               kind={'normal'}
               style={{color: vars.WHITE}}
               icon={props.icon}
+              onPress={props.onPress}
             />
           )}
         {props.icon !== undefined &&
@@ -266,9 +202,9 @@ export const CommonButton = props => {
           props.iconTheme !== undefined &&
           props.iconDir === 'left' && (
             <FontIcon
-              parentStyle={{marginRight: 20}}
               kind={'small'}
               icon={props.icon}
+              onPress={props.onPress}
             />
           )}
       </Button>
@@ -325,6 +261,7 @@ export const CommonRadioButton = props => (
         onChangeText={props.onChangeText}
         justNum={props.justNum}
         placeholder={props.text}
+        subText={props.text}
         disable={props.disable}
         value={props.textValue}
       />
@@ -376,9 +313,12 @@ export const CommonWebBox = props => {
         style={{
           backgroundColor: vars.WHITE,
           boxShadow: '0px 3px 6px #00000029',
-          padding: 10,
+          padding:
+            props.style === undefined || props.style.padding === undefined
+              ? 10
+              : props.style.padding,
           borderRadius: 10,
-          gap: 10,
+          gap: props.no_gap === undefined || !props.no_gap ? 10 : 0,
         }}>
         {props.header !== undefined && (
           <EqualTwoTextInputs>

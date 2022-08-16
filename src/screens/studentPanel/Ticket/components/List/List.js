@@ -1,8 +1,6 @@
-import {View} from 'react-native-web';
+import React from 'react';
 import {CommonWebBox, MyView} from '../../../../../styles/Common';
-import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import {Translate} from '../../Translate';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import Digest from '../Digest/Digest';
 import Filter from '../../../../panel/ticket/components/ProSearch/Filter';
 import {editItem} from '../../../../../services/Utility';

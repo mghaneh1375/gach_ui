@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import React, {useState} from 'react';
 import {
   CommonButton,
@@ -9,7 +8,7 @@ import {
 import commonTranslator from '../../../../tranlates/Common';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {levelKeyVals} from '../../ticket/components/KeyVals';
-import {addAccess} from './Utility';
+import {addAccess, removeAccess} from './Utility';
 import MultiBox from '../../../../components/web/MultiBox/MultiBox';
 import {useParams} from 'react-router';
 import {generalRequest} from '../../../../API/Utility';
@@ -107,11 +106,16 @@ function ChangeLevel(props) {
           onBackClick={() => back()}>
           <PhoneView style={{margin: 10}}>
             <MultiBox
-              setLoading={props.setLoading}
-              token={props.token}
-              userId={props.user.id}
-              afterFunc={newAccesses => setAccesses(newAccesses)}
               items={accesses}
+              onRemoveClick={id =>
+                removeAccess({
+                  setLoading: props.setLoading,
+                  token: props.token,
+                  userId: props.user.id,
+                  afterFunc: newAccesses => setAccesses(newAccesses),
+                  access: id,
+                })
+              }
             />
             <JustBottomBorderSelect
               isHalf={true}

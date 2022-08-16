@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {showError} from '../../../../services/Utility';
@@ -84,6 +83,7 @@ const ForgetPass = props => {
             value={props.username}
             justNum={true}
             placeholder={commonTranslator.NID}
+            sybText={commonTranslator.NID}
             onChangeText={e => changeNID(e)}
           />
 

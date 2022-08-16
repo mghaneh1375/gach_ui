@@ -30,11 +30,8 @@ function Upgrade(props) {
   const [forms, setForms] = useState();
   const [isWorking, setIsWorking] = useState(false);
 
-  React.useEffect(() => {
-    if (userId === undefined || isWorking || forms !== undefined) return;
-
-    setIsWorking(true);
-    dispatch({loading: true});
+  const fetchUser = React.useCallback(() => {
+    console.log('fetching');
     Promise.all([
       generalRequest(
         routes.fetchUser + userId,
@@ -44,15 +41,31 @@ function Upgrade(props) {
         props.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
       if (res[0] === null) {
         props.navigate('/');
+        setIsWorking(false);
         return;
       }
-      setForms(res[0].user.forms);
+      if (res[0].user.forms === undefined) setForms([]);
+      else setForms(res[0].user.forms);
       setIsWorking(false);
     });
-  }, [userId, isWorking, forms, dispatch, props]);
+  }, [userId, props]);
+
+  React.useEffect(() => {
+    if (forms !== undefined) dispatch({loading: false});
+  }, [forms, dispatch]);
+
+  React.useEffect(() => {
+    if (userId === undefined || isWorking || forms !== undefined) return;
+    console.log(userId);
+    setIsWorking(true);
+    dispatch({loading: true});
+  }, [userId, isWorking, forms, dispatch]);
+
+  React.useEffect(() => {
+    if (isWorking) fetchUser();
+  }, [isWorking, fetchUser]);
 
   return (
     <CommonWebBox>

@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {removeAccess} from '../../../screens/panel/users/components/Utility';
-import {PhoneView, MyView} from '../../../styles/Common';
+import {PhoneView} from '../../../styles/Common';
 import Box from './Box';
 
 const MultiBox = props => {
@@ -17,16 +16,14 @@ const MultiBox = props => {
           return (
             <Box
               key={index}
-              removeItem={() =>
-                removeAccess({
-                  setLoading: props.setLoading,
-                  token: props.token,
-                  userId: props.userId,
-                  afterFunc: props.afterFunc,
-                  access: elem.id,
-                })
+              removeItem={() => props.onRemoveClick(elem.id)}
+              title={
+                elem.title !== undefined
+                  ? elem.title
+                  : elem.name !== undefined
+                  ? elem.name
+                  : ''
               }
-              title={elem.title}
             />
           );
         })}

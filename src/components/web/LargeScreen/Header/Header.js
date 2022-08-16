@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {
   MyView,
   PhoneView,
@@ -8,7 +8,11 @@ import {
 } from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
-import {faAngleDown, faBell} from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleDown,
+  faAngleUp,
+  faBell,
+} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import {logout} from '../../../../API/User';
@@ -48,11 +52,15 @@ const Header = props => {
   const changeShowNotif = newStatus => {
     setShowNotif(newStatus);
   };
+  const displayNone = [
+    {
+      display: 'none',
+    },
+  ];
 
   React.useEffect(() => {
     setPic(props.pic);
   }, [props.pic]);
-
   if (isLargePage || !props.hideRightMenu) {
     return (
       <PhoneView
@@ -71,50 +79,91 @@ const Header = props => {
                 ...style.HeaderJustWebPhone,
               }
         }>
-        <PhoneView
+        <MyView
           style={
             isLargePage
               ? {...style.Header_Profile, ...style.Header_Profile_Large}
               : {...style.Header_Profile, ...style.Header_Profile_Phone}
           }>
-          <UserTinyPic
-            style={
-              isApp
-                ? {
-                    ...style.Header_Profile_Image,
-                    ...style.Header_Profile_Image_App,
-                  }
-                : {
-                    ...style.Header_Profile_Image,
-                    ...style.Header_Profile_Image_Web,
-                  }
-            }
-            pic={pic}
-          />
-          <SimpleText
-            style={
-              isApp
-                ? {
-                    ...style.Header_Profile_Text,
-                    ...style.Header_Profile_Text_App,
-                  }
-                : {
-                    ...style.Header_Profile_Text,
-                    ...style.Header_Profile_Text_Web,
-                  }
-            }
-            text={commonTranslator.hello + ' - ' + props.name}
-          />
-          <MyView style={{width: 30, height: 30, marginTop: 5, marginRight: 5}}>
-            <SimpleFontIcon
-              style={{}}
-              onPress={() => changeShow(!showProfilePane)}
-              icon={faAngleDown}
+          <PhoneView style={{paddingRight: 20}}>
+            <UserTinyPic
+              onPress={() => {
+                changeShow(!showProfilePane);
+                showNotif ? setShowNotif(!showNotif) : '';
+              }}
+              style={
+                isApp
+                  ? {
+                      ...style.Header_Profile_Image,
+                      ...style.Header_Profile_Image_App,
+                    }
+                  : {
+                      ...style.Header_Profile_Image,
+                      ...style.Header_Profile_Image_Web,
+                    }
+              }
+              pic={pic}
             />
-          </MyView>
+            {!showProfilePane && (
+              <SimpleText
+                onPress={() => {
+                  changeShow(!showProfilePane);
+                  showNotif ? setShowNotif(!showNotif) : '';
+                }}
+                style={
+                  isApp
+                    ? {
+                        ...style.Header_Profile_Text,
+                        ...style.Header_Profile_Text_App,
+                      }
+                    : {
+                        ...style.Header_Profile_Text,
+                        ...style.Header_Profile_Text_Web,
+                      }
+                }
+                text={
+                  !showProfilePane
+                    ? commonTranslator.hello + ' - ' + props.name
+                    : ' '
+                }
+              />
+            )}
+
+            <MyView
+              style={{
+                width: 30,
+                height: 30,
+                marginTop: 5,
+                marginRight: 5,
+                right: 0,
+              }}>
+              <SimpleFontIcon
+                style={showProfilePane ? {visibility: 'hidden'} : {}}
+                onPress={() => {
+                  changeShow(!showProfilePane);
+                  showNotif ? setShowNotif(!showNotif) : '';
+                }}
+                icon={faAngleUp}
+              />
+            </MyView>
+          </PhoneView>
 
           {showProfilePane && (
             <MyView style={style.Header_Profile_MENU}>
+              <SimpleText
+                style={
+                  isApp
+                    ? {
+                        ...style.Header_Profile_Text,
+                        ...style.Header_Profile_Text_App,
+                      }
+                    : {
+                        ...style.Header_Profile_Text,
+                        ...style.Header_Profile_Text_Web,
+                      }
+                }
+                text={commonTranslator.hello + ' - ' + props.name}
+              />
               <TouchableOpacity
                 onPress={() => {
                   setShowProfilePane(false);
@@ -124,23 +173,26 @@ const Header = props => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={async () => {
-                  await callLogout();
-                  window.location.href = '/';
+                  changeShowNotif(!showNotif);
+                  showProfilePane ? setShowProfilePane(!showProfilePane) : '';
                 }}>
                 <SimpleText text={commonTranslator.logout} />
               </TouchableOpacity>
             </MyView>
           )}
-        </PhoneView>
+        </MyView>
 
         <MyView style={style.Header_NOTIF}>
           <SimpleFontIcon
-            onPress={() => changeShowNotif(!showNotif)}
+            onPress={async () => {
+              changeShowNotif(!showNotif);
+              showProfilePane ? setShowProfilePane(!showProfilePane) : '';
+            }}
             icon={faBell}
           />
 
           {showNotif && (
-            <MyView style={style.Header_Profile_MENU}>
+            <MyView style={style.Header_Profile_Notif}>
               {newAlerts !== undefined &&
                 newAlerts.map((elem, index) => {
                   return (

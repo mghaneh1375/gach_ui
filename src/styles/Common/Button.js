@@ -46,7 +46,6 @@ export const CommonButtonTextStyleWeb = {
   color: vars.WHITE,
   fontSize: 14,
   fontFamily: 'IRANSans',
-  padding: '5px 30px',
 };
 
 export const Button =
@@ -57,3 +56,49 @@ export const Button =
     : styled.button`
         ${CommonButtonStyleWeb}
       `;
+
+const TransparentButtonStyle = {
+  borderWidth: 1,
+  borderStyle: 'solid',
+};
+
+export const chooseTheme = (theme, allStyles, textStyle) => {
+  allStyles.backgroundColor =
+    theme === 'transparent' || theme === 'yellow-transparent'
+      ? 'transparent'
+      : theme === 'yellow'
+      ? vars.YELLOW
+      : vars.DARK_BLUE;
+
+  if (theme === 'transparent') {
+    // className = 'myTransparentBtn';
+    allStyles = {
+      ...allStyles,
+      ...TransparentButtonStyle,
+      ...{
+        borderColor: vars.LIGHT_SILVER,
+      },
+    };
+    textStyle = {
+      ...textStyle,
+      ...{
+        color: vars.LIGHT_SILVER,
+      },
+    };
+  } else if (theme === 'yellow-transparent') {
+    allStyles = {
+      ...allStyles,
+      ...TransparentButtonStyle,
+      ...{
+        borderColor: vars.YELLOW,
+      },
+    };
+    textStyle = {
+      ...textStyle,
+      ...{
+        color: vars.YELLOW,
+      },
+    };
+  }
+  return [allStyles, textStyle];
+};

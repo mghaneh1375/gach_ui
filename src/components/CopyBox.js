@@ -6,7 +6,7 @@ const CopyBox = props => {
   const [copying, setCopying] = useState(false);
 
   const doCopy = () => {
-    navigator.clipboard.writeText(props.text);
+    navigator.clipboard.writeText(props.url);
     setCopying(true);
     setTimeout(function () {
       setCopying(false);
@@ -14,18 +14,23 @@ const CopyBox = props => {
   };
 
   return (
-    <PhoneView>
-      <SimpleText
+    <PhoneView style={{height: 'max-content', alignSelf: 'flex-end'}}>
+      {/* <SimpleText
         style={{border: '1px solid', padding: 10}}
         text={props.text}
-      />
+      /> */}
       <CommonButton
         onPress={() => doCopy()}
         title={commonTranslator.copyLink}
       />
       {copying && (
         <SimpleText
-          style={{alignSelf: 'center'}}
+          style={{
+            width: 50,
+            position: 'absolute',
+            left: 'calc(50% - 25px)',
+            top: -20,
+          }}
           text={commonTranslator.copied}
         />
       )}

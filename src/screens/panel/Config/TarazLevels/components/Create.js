@@ -81,10 +81,13 @@ function Create(props) {
               : update(props.selectedLevel.id, data, props.token);
             props.setLoading(false);
             if (res !== null) {
-              if (props.selectedLevel === undefined) {
-                data.id = res;
-                props.addLevel(data);
-              } else props.editLevel(data);
+              data.id =
+                props.selectedLevel === undefined
+                  ? res
+                  : props.selectedLevel.id;
+
+              if (props.selectedLevel === undefined) props.addLevel(data);
+              else props.editLevel(data);
               props.setMode('list');
             }
           }}

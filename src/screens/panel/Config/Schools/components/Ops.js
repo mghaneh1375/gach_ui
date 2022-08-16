@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {routes} from '../../../../../API/APIRoutes';
 import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
 import {showSuccess} from '../../../../../services/Utility';

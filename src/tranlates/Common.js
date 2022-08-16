@@ -6,6 +6,7 @@ const translator = {
   mail: 'ایمیل',
   signUp: 'ثبت نام',
   NID: 'کد ملی',
+  help: 'راهنما',
   firstname: 'نام',
   lastname: 'نام خانوادگی',
   congratulations: 'تبریک',

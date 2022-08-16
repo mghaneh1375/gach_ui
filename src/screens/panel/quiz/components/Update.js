@@ -90,6 +90,8 @@ const Update = props => {
     <MyView>
       <CommonWebBox
         header={translator.generalInfo}
+        backBtn={true}
+        onBackClick={() => props.setMode('list')}
         child={
           <QuizGeneralInfo
             name={name}

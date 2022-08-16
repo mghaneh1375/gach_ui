@@ -7,7 +7,6 @@ import React, {useState} from 'react';
 import CopyBox from '../CopyBox';
 import {SimpleFontIcon} from '../../styles/Common/FontIcon';
 import {faFolder, faTrash} from '@fortawesome/free-solid-svg-icons';
-import {View} from 'react-native';
 import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
 import vars from '../../styles/root';
 
@@ -143,7 +142,7 @@ const UploadFile = props => {
             <SimpleText
               text={commonTranslator.fileAdressFor + ' ' + url.file}
             />
-            <CopyBox text={url.url} />
+            <CopyBox text={url.url} url={url.url} />
           </div>
         ))}
 

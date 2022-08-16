@@ -1,4 +1,3 @@
-import {View} from 'react-native-web';
 import {
   BigBoldBlueText,
   CommonButton,
