@@ -6,7 +6,6 @@ import {
   PhoneContentConianerStyle,
   MyView,
 } from '../styles/Common';
-import {View} from 'react-native';
 import {useNavigate, useParams} from 'react-router-dom';
 import Home from './general/home/Home';
 import Login from './general/login/Login';
@@ -207,7 +206,9 @@ const WebStructue = props => {
                   ? LargeContentConianerStyle
                   : PhoneContentConianerStyle
               }>
-              {props.page === 'home' && <Home navigate={navigate} />}
+              {props.page === 'home' && (
+                <Home hideRightMenu={hideRightMenu} navigate={navigate} />
+              )}
               {/* {props.page === 'home' && <Gift navigate={navigate} />} */}
               {props.page === 'profile' && isInLargeMode && (
                 <WebProfile
