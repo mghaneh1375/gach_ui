@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {useNavigation, useIsFocused} from '@react-navigation/native';
 
 import BottomNavBar from '../components/Android/BottomNavBar';
-import {View} from 'react-native';
 import {TopNavBar} from '../components/Android/TopNavBar';
 
 import {ScreenScroll, MinFullHeightView, MyView} from '../styles/Common';

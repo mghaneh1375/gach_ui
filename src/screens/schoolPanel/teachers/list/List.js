@@ -1,5 +1,4 @@
-import {useState} from 'react';
-import {View} from 'react-native';
+import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, MyView} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import columns from '../../teachers/list/TableStructure';
@@ -43,7 +42,7 @@ function List(props) {
           handleOp={handleOp}
         />
       </CommonWebBox>
-      <PhoneView>
+      {/* <PhoneView>
         <MiniCard
           remove={ids => props.remove(ids)}
           src={
@@ -71,7 +70,7 @@ function List(props) {
           text={'توضیحات '}
         />
         <MiniCard />
-      </PhoneView>
+      </PhoneView> */}
     </MyView>
   );
 }

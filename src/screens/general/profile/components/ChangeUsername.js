@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {CommonButton, SimpleText, MyView} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {LargePopUp} from '../../../../styles/Common/PopUp';

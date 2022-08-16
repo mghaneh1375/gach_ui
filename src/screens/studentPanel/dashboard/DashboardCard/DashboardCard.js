@@ -1,5 +1,5 @@
+import React from 'react';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import {View} from 'react-native';
 import {
   CommonWebBox,
   EqualTwoTextInputs,

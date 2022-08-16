@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
 import {setCacheItem, signIn} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';

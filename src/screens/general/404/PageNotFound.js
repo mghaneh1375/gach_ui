@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import React from 'react';
 import {CommonWebBox, SimpleText} from '../../../styles/Common';
 import commonTranslator from '../../../tranlates/Common';
 

@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  TouchableOpacity,
-  Pressable,
-} from 'react-native';
+import {Text, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
 
 import WheelOfFortune from 'react-native-wheel-of-fortune';
 import {CommonButton, MyView} from '../../../styles/Common';

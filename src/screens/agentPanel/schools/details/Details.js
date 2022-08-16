@@ -1,3 +1,4 @@
+import React from 'react';
 import {CommonWebBox} from '../../../../styles/Common';
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';

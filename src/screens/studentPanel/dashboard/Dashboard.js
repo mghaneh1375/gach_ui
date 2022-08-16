@@ -1,10 +1,8 @@
-import {View} from 'react-native';
-import {CommonWebBox, PhoneView, SimpleText} from '../../../styles/Common';
+import React from 'react';
+import {CommonWebBox, PhoneView} from '../../../styles/Common';
 import {Translate} from './Translate';
 import DashboardCard from './DashboardCard/DashboardCard';
-import {styleJustifyContentEnd} from './DashboardCard/style';
 import vars from '../../../styles/root';
-import {color} from 'react-native-reanimated';
 
 function Dashboard(props) {
   return (
