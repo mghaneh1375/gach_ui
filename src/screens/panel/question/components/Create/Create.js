@@ -335,7 +335,6 @@ function Create(props) {
                 setSentencesCount(item);
               }}
               setAnswer={ans => {
-                console.log(ans);
                 setAnswer(ans);
               }}
               initAnswer={answer}

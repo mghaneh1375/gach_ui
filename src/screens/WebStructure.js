@@ -44,7 +44,6 @@ import Subject from './panel/Basic/subject/Subject';
 import Certificate from './panel/certificate/Certificate';
 import Ticket from './panel/ticket/Ticket';
 import Dashboard from './studentPanel/dashboard/Dashboard';
-import Gift from './general/Gift/Gift';
 import Ticketstd from './studentPanel/Ticket/Ticket';
 import Author from './panel/users/Author/Author';
 import SpinGift from './panel/spinGift/SpinGift';

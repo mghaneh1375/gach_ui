@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
-import {getGrade, getGrades} from '../Utility';
+import {getGrades} from '../Utility';
 import List from './List/List';
 import Create from './create/Create';
 import Translate from '../Translate';

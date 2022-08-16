@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {ScrollView, Image} from 'react-native';
+import {Image} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
 
@@ -9,7 +9,6 @@ import {
   ScrollViewSubTitle,
   ScrollViewTitle,
   ScrollViewTitleAndroid,
-  ScrollViewText,
   MyImage,
   ArrowStyleLeft,
   ArrowStyleRight,
@@ -74,7 +73,6 @@ function BackgroundScrollView(props) {
     if (items === undefined) return;
 
     setCurrentNode(items[scrollValue]);
-    console.log('salam');
 
     setTimeout(() => {
       setScrollValue(scrollValue === scrollable - 1 ? 0 : scrollValue + 1);

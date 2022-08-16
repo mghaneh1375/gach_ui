@@ -10,6 +10,7 @@ import Translate from '../../Translate';
 import commonTranslate from '../../../../../tranlates/Common';
 import {editLesson, createLesson} from '../../Utility';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function Create(props) {
   const [name, setName] = useState(
@@ -56,8 +57,9 @@ function Create(props) {
           value={description}
           onChangeText={e => setDescription(e)}
           multiline={true}
-          style={{marginTop: 20}}
+          style={styles.marginTop20}
           placeholder={commonTranslate.desc}
+          subText={commonTranslate.desc}
         />
 
         <CommonButton

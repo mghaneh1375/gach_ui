@@ -4,6 +4,7 @@ const columns = [
     name: translator.qNo,
     selector: row => row.qNo,
     grow: 1,
+    center: true,
   },
   {
     name: translator.subject,

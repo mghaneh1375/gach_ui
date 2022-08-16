@@ -58,7 +58,6 @@ function Upgrade(props) {
 
   React.useEffect(() => {
     if (userId === undefined || isWorking || forms !== undefined) return;
-    console.log(userId);
     setIsWorking(true);
     dispatch({loading: true});
   }, [userId, isWorking, forms, dispatch]);

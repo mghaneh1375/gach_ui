@@ -157,10 +157,6 @@ export const CommonButton = props => {
     allStyles.justifyContent = 'space-around';
   }
 
-  // if (props.icon !== undefined) allStyles.flexDirection = 'row';
-
-  console.log(textStyle);
-
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <Button style={allStyles} onPress={props.onPress}>
       <Text style={textStyle}>{props.title}</Text>

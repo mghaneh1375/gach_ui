@@ -36,11 +36,13 @@ const columns = [
     name: 'تعداد سوال',
     selector: row => row.questionsCount,
     grow: 1,
+    center: true,
   },
   {
     name: 'تعداد دانش آموزان',
     selector: row => row.studentsCount,
     grow: 1,
+    center: true,
   },
 ];
 

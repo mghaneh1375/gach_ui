@@ -10,11 +10,13 @@ const columns = [
     name: commonTranslator.NID,
     selector: row => row.NID,
     grow: 1,
+    center: true,
   },
   {
     name: commonTranslator.tel,
     selector: row => row.tel,
     grow: 1,
+    center: true,
   },
   {
     name: commonTranslator.email,

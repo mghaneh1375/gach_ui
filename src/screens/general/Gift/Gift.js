@@ -18,7 +18,6 @@ const participants = [
 function Gift(props) {
   const [winnerValue, setWinnerValue] = useState();
   const [winnerIndex, setWinnerIndex] = useState();
-  const [started, setStarted] = useState();
   //   const child = useRef();
 
   const wheelOptions = {
@@ -39,7 +38,6 @@ function Gift(props) {
       <CommonButton
         title={'بچرخون!'}
         onPress={() => {
-          console.log('Salam');
           this.buttonPress();
         }}
         style={styles.startButtonText}

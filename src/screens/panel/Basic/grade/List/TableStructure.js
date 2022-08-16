@@ -3,14 +3,18 @@ const columns = [
   {
     name: commonTranslator.level,
     selector: row => row.name,
-    grow: 1,
     center: true,
+    grow: 1,
+    maxWidth: '200px',
+    minWidth: '200px',
   },
   {
     name: commonTranslator.isOlympiad,
     selector: row => (row.isOlympiad ? 'بله' : 'خیر'),
     center: true,
     grow: 1,
+    maxWidth: '200px',
+    minWidth: '200px',
   },
 ];
 

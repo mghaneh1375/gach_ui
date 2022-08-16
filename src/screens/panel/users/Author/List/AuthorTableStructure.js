@@ -10,12 +10,14 @@ const Columns = [
   {
     name: Translate.tag,
     selector: row => row.tag,
+    center: true,
     grow: 1,
   },
   {
     name: Translate.numberQuestion,
     selector: row => row.questionCount,
     grow: 1,
+    center: true,
     sortable: true,
     sortFunction: (a, b) => {
       return a.questionCount - b.questionCount;
@@ -25,6 +27,7 @@ const Columns = [
     name: Translate.sumPayment,
     selector: row => row.sumPayment,
     grow: 1,
+    center: true,
     sortable: true,
     sortFunction: (a, b) => {
       return a.sumPayment - b.sumPayment;

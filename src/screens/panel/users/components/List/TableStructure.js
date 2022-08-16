@@ -11,6 +11,7 @@ const columns = [
   {
     name: commonTranslator.NID,
     selector: row => row.NID,
+    center: true,
     grow: 1,
   },
 
@@ -24,6 +25,7 @@ const columns = [
     name: commonTranslator.phone,
     selector: row => row.phone,
     grow: 1,
+    center: true,
   },
   {
     name: commonTranslator.status,
