@@ -176,6 +176,7 @@ export const CommonButton = props => {
               kind={'normal'}
               style={{color: vars.WHITE}}
               icon={props.icon}
+              onPress={props.onPress}
             />
           )}
         <Text style={textStyle}>{props.title}</Text>
@@ -187,6 +188,7 @@ export const CommonButton = props => {
               kind={'normal'}
               style={{color: vars.WHITE}}
               icon={props.icon}
+              onPress={props.onPress}
             />
           )}
         {props.icon !== undefined &&
@@ -197,6 +199,7 @@ export const CommonButton = props => {
               parentStyle={{marginRight: 20}}
               kind={'small'}
               icon={props.icon}
+              onPress={props.onPress}
             />
           )}
       </Button>
