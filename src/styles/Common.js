@@ -50,7 +50,9 @@ export const MyView = props => {
 
     if (style !== undefined)
       return (
-        <div className={'myView'} style={style}>
+        <div
+          className={props.className === undefined ? 'myView' : props.className}
+          style={style}>
           {props.children}
         </div>
       );
@@ -114,7 +116,9 @@ export const ScreenScroll =
         margin-bottom: 30px;
         width: 100%;
       `
-    : styled.div``;
+    : styled.div`
+        height: calc(100vh - 60px);
+      `;
 
 // style={ScreenScrollBar}
 // contentContainerStyle={ScreenContentContainerStyle}

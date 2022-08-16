@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Platform, Pressable, View} from 'react-native';
+import {Platform, Pressable} from 'react-native';
 import {CommonWebBox, SimpleText, MyView} from '../Common';
 import vars from '../root';
 import {
@@ -13,6 +13,7 @@ import translator from '../../tranlates/Common';
 import SubInputText from './SubInputText';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {getWidthHeight} from '../../services/Utility';
+import MultiBox from '../../components/web/MultiBox/MultiBox';
 
 export const MultiSearchableTextInput = props => {
   const [suggests, setSuggests] = useState([]);
@@ -85,19 +86,14 @@ export const MultiSearchableTextInput = props => {
   };
 
   const SelectedListItems = () => {
-    return selectedItems.map(item => (
-      <CommonWebBox
-        key={item.id}
-        style={{margin: 0, padding: 3, marginRight: 4}}
-        child={
-          <TinyTextIcon
-            onPress={() => removeFormSeletedItems(item.id)}
-            text={item.name}
-            icon={faClose}
-          />
-        }
+    return (
+      <MultiBox
+        items={selectedItems}
+        onRemoveClick={id => {
+          removeFormSeletedItems(id);
+        }}
       />
-    ));
+    );
   };
 
   const checkSelect = () => {

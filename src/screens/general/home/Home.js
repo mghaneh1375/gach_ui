@@ -16,14 +16,12 @@ const Home = props => {
   const wH = getWidthHeight();
   const width = wH[0];
   const height = wH[1];
-  const hideRightMenu = props.hideRightMenu;
   const navigator = props.navigator;
-
-  console.log(hideRightMenu);
+  const hideRightMenu = props.hideRightMenu;
 
   return (
     <ScreenScroll style={{background: 'transparent'}}>
-      <MyView
+      <div
         style={{
           position: 'fixed',
           zIndex: -1,
@@ -44,7 +42,7 @@ const Home = props => {
             ? require('./../../../images/back1.png')
             : require('./../../../images/back3.png')
         }> */}
-      </MyView>
+      </div>
 
       <BackgroundScrollView
         images={[
@@ -70,16 +68,15 @@ const Home = props => {
             idx: 2,
           },
         ]}
-        width={width}
+        width={hideRightMenu ? width : width - 200}
         height={device.indexOf(Device.Large) !== -1 ? height : 'auto'}
         imgHeight={300}
         scrollable={3}
-        scrollDelay={7000}
         inJustImage={false}
         textCol={4}
         margins={
           device.indexOf(Device.Large) !== -1
-            ? [100, 100, 100, 100]
+            ? [100, 50, 100, 10]
             : [10, device.indexOf(Device.App) !== -1 ? 10 : 80, 10, 10]
         }
         device={device}
