@@ -86,7 +86,7 @@ export const CommonSelect = props => {
       };
 
   return (
-    <MyView className={'mySelect'} style={parentStyle}>
+    <MyView className={'myView mySelect'} style={parentStyle}>
       <CommonSelectElem {...inputProps} />
 
       {props.subText !== undefined ? (

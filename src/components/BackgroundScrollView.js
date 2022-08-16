@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, ScrollView, Image, InteractionManager} from 'react-native';
+import {ScrollView, Image, InteractionManager} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
 
@@ -15,17 +15,17 @@ import {
   ArrowStyleRight,
 } from '../styles/Common/ScrollView';
 import {Device} from './../models/Device';
-import fontawesome from '@fortawesome/fontawesome';
 import {BlueTextInline, MyView} from '../styles/Common';
 
+const delay = 7000;
+const scrollable = 3;
+
 function BackgroundScrollView(props) {
-  var scrollValue = 0;
   const scrollView = useRef();
 
   const isJustImage = props.isJustImage;
 
   const width = props.width - props.margins[0] - props.margins[2];
-
   const height = Number.isInteger(props.height)
     ? props.height - props.margins[1] - props.margins[3]
     : props.height;
@@ -47,24 +47,33 @@ function BackgroundScrollView(props) {
 
   const imgHeight = props.imgHeight;
 
-  // React.useEffect(() => {
-  //   if (scrollView === undefined || scrollView === null) return;
+  const [scrollValue, setScrollValue] = useState(0);
 
-  //   setInterval(() => {
-  //     const scrollable = props.scrollable - 1;
+  let calcScrollValue = React.useCallback(() => {
+    if (
+      scrollView === undefined ||
+      scrollView === null ||
+      scrollable === undefined ||
+      scrollValue === undefined
+    )
+      return;
 
-  //     if (scrollValue >= width * scrollable) scrollValue = 0;
-  //     else scrollValue = scrollValue + width;
+    if (scrollValue >= width * (scrollable - 1)) setScrollValue(0);
+    else setScrollValue(scrollValue + width);
+  }, [scrollView, scrollValue, width]);
 
-  //     scrollView.current.scrollTo({x: scrollValue});
-  //   }, props.scrollDelay);
-  // }, [scrollView, props.scrollDelay]);
+  const _scroll_ = React.useCallback(() => {
+    if (scrollView === undefined || scrollView === null) return;
+    scrollView.current.scrollTo({x: scrollValue});
+  }, [scrollView, scrollValue]);
 
-  // const updateScrollValue = () => {
-  //   setTimeout(() => {
-  //     updateScrollValue();
-  //   }, props.scrollDelay);
-  // };
+  React.useEffect(() => {
+    console.log(scrollValue);
+    _scroll_();
+    setTimeout(() => {
+      calcScrollValue();
+    }, delay);
+  }, [scrollValue, calcScrollValue, _scroll_]);
 
   const items = isJustImage
     ? props.images.map(i => (
