@@ -27,10 +27,12 @@ import {
   VictoryChart,
   VictoryAxis,
   VictoryLegend,
-  VictoryLabel,
 } from 'victory-native';
 import AnswerSheet from '../../AnswerSheet/AnswerSheet';
 import StudentCard from '../../../../../../components/web/StudentCard';
+import CopyBox from '../../../../../../components/CopyBox';
+import {BASE_SITE_NAME} from '../../../../../../API/Utility';
+import {showError} from '../../../../../../services/Utility';
 
 function Karname(props) {
   const useGlobalState = () => [
@@ -108,28 +110,54 @@ function Karname(props) {
   }, [dispatch, props, state.selectedQuiz, state.selectedStudentId, isWorking]);
 
   const ref = useRef();
+  const ref2 = useRef();
+  const ref3 = useRef();
 
-  const print = useCallback(() => {
-    if (ref.current === null) return;
+  const [pdf, setPdf] = useState(new jsPDF());
 
-    props.setLoading(true);
-    toPng(ref.current, {cacheBust: true})
+  const callToPng = async (counter, currentRef) => {
+    console.log(currentRef);
+    await toPng(currentRef, {cacheBust: true})
       .then(async dataUrl => {
-        const link = document.createElement('a');
-        link.download = 'my-image-name.png';
-        const pdf = new jsPDF();
         const imgProps = pdf.getImageProperties(dataUrl);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+        if (counter > 0) pdf.addPage();
         pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        await pdf.save('download.pdf');
-        props.setLoading(false);
+
+        if (counter === 0) callToPng(1, ref2.current);
+        else if (counter === 1) callToPng(2, ref3.current);
+        else if (counter === 2) {
+          await pdf.save('download.pdf');
+          props.setLoading(false);
+        }
       })
       .catch(err => {
         console.log(err);
+        showError(commonTranslator.err);
         props.setLoading(false);
       });
-  }, [ref, props]);
+  };
+
+  const print = () => {
+    props.setLoading(true);
+
+    if (
+      ref.current === null ||
+      ref.current === undefined ||
+      ref2.current === null ||
+      ref2.current === undefined ||
+      ref3.current === null ||
+      ref3.current === undefined
+    ) {
+      props.setLoading(false);
+      showError('عملیات موردنظر با خطا رو به رو شده است.');
+      return;
+    }
+
+    callToPng(0, ref.current);
+  };
 
   const [conditionalRowStyles, setConditionalRowStyles] = useState();
 
@@ -158,321 +186,339 @@ function Karname(props) {
         }
         backBtn={true}
         onBackClick={() => props.setMode('ranking')}>
-        {state.selectedStudentId !== undefined && (
-          <SimpleText
-            text={state.selectedQuiz.id + '/' + state.selectedStudentId}
-          />
-        )}
         <EqualTwoTextInputs>
           {karname !== undefined && <StudentCard std={karname} />}
           {karname !== undefined && (
-            <CommonButton
-              onPress={() => print()}
-              title={commonTranslator.print}
-            />
+            <PhoneView>
+              <CommonButton
+                theme={'dark'}
+                onPress={() => print()}
+                title={commonTranslator.print}
+              />
+              {state.selectedStudentId !== undefined && (
+                <CopyBox
+                  title={commonTranslator.copyLink}
+                  url={
+                    BASE_SITE_NAME +
+                    'result/' +
+                    state.selectedQuiz.generalMode +
+                    '/' +
+                    state.selectedQuiz.id +
+                    '/' +
+                    state.selectedStudentId
+                  }
+                />
+              )}
+            </PhoneView>
           )}
         </EqualTwoTextInputs>
       </CommonWebBox>
 
-      <MyView ref={ref}>
-        <PhoneView>
-          <CommonWebBox
-            width={'55%'}
-            style={{
-              paddingLeft: 5,
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 5,
-            }}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 1 - نتایج دروس'}
-              />
-              {/* <SimpleFontIcon
+      <div ref={ref}>
+        <MyView>
+          <PhoneView>
+            <CommonWebBox
+              width={'55%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+              }}>
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={'جدول شماره 1 - نتایج دروس'}
+                />
+                {/* <SimpleFontIcon
                 kind={'normal'}
                 onPress={() => setShowLessonChart(!showLessonChart)}
                 icon={showLessonChart ? faAngleUp : faAngleDown}
               /> */}
-            </EqualTwoTextInputs>
-            {karname !== undefined && (
+              </EqualTwoTextInputs>
+              {karname !== undefined && (
+                <MyView>
+                  {karname !== undefined && (
+                    <CommonDataTable
+                      columns={lessonCols}
+                      data={karname.lessons}
+                      show_row_no={false}
+                      pagination={false}
+                      groupOps={[]}
+                      conditionalRowStyles={conditionalRowStyles}
+                    />
+                  )}
+                </MyView>
+              )}
+            </CommonWebBox>
+            <CommonWebBox
+              width={'45%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+              }}>
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={'جدول شماره 2 - نتایج آماری دروس'}
+                />
+              </EqualTwoTextInputs>
               <MyView>
                 {karname !== undefined && (
                   <CommonDataTable
-                    columns={lessonCols}
+                    columns={generalStatTableStructure}
                     data={karname.lessons}
                     show_row_no={false}
                     pagination={false}
                     groupOps={[]}
-                    conditionalRowStyles={conditionalRowStyles}
                   />
                 )}
               </MyView>
-            )}
-          </CommonWebBox>
-          <CommonWebBox
-            width={'45%'}
-            style={{
-              paddingLeft: 5,
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 5,
-            }}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 2 - نتایج آماری دروس'}
-              />
-            </EqualTwoTextInputs>
-            <MyView>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={generalStatTableStructure}
-                  data={karname.lessons}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
-                />
-              )}
-            </MyView>
-          </CommonWebBox>
+            </CommonWebBox>
 
-          <CommonWebBox
-            width={'55%'}
-            style={{
-              paddingLeft: 5,
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 5,
-            }}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 3 - نتایج حیطه ها'}
-              />
-              {/* <SimpleFontIcon
+            <CommonWebBox
+              width={'55%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+              }}>
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={'جدول شماره 3 - نتایج حیطه ها'}
+                />
+                {/* <SimpleFontIcon
                 kind={'normal'}
                 onPress={() => setShowSubjectChart(!showSubjectChart)}
                 icon={showSubjectChart ? faAngleUp : faAngleDown}
               /> */}
-            </EqualTwoTextInputs>
-            <MyView>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={subjectCols}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
-                  data={karname.subjects}
-                  conditionalRowStyles={conditionalRowStyles}
-                />
-              )}
-            </MyView>
-          </CommonWebBox>
+              </EqualTwoTextInputs>
+              <MyView>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={subjectCols}
+                    show_row_no={false}
+                    pagination={false}
+                    groupOps={[]}
+                    data={karname.subjects}
+                    conditionalRowStyles={conditionalRowStyles}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
 
-          <CommonWebBox
-            width={'45%'}
-            style={{
-              paddingLeft: 5,
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 5,
-            }}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 4 - نتایج آماری حیطه ها'}
-              />
-            </EqualTwoTextInputs>
-            <MyView>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={generalStatTableStructure}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
-                  data={karname.subjects}
-                />
-              )}
-            </MyView>
-          </CommonWebBox>
-          <CommonWebBox
-            width={'50%'}
-            style={{
-              paddingLeft: 5,
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 5,
-            }}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 5 - نتایج رتبه بندی دروس'}
-              />
-            </EqualTwoTextInputs>
-            <MyView style={{gap: 20}}>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={lessonRankingCols}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
-                  data={karname.lessons}
-                />
-              )}
+            <CommonWebBox
+              width={'45%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+              }}>
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
                   style={{alignSelf: 'center'}}
-                  text={'جدول شماره 6 - نتایج کلی'}
+                  text={'جدول شماره 4 - نتایج آماری حیطه ها'}
                 />
               </EqualTwoTextInputs>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={totalRankCols}
-                  data={[karname.rank]}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
+              <MyView>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={generalStatTableStructure}
+                    show_row_no={false}
+                    pagination={false}
+                    groupOps={[]}
+                    data={karname.subjects}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
+
+            <CommonWebBox
+              width={'50%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+              }}>
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={'جدول شماره 5 - نتایج رتبه بندی دروس'}
                 />
-              )}
-            </MyView>
-          </CommonWebBox>
+              </EqualTwoTextInputs>
+              <MyView style={{gap: 20}}>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={lessonRankingCols}
+                    show_row_no={false}
+                    pagination={false}
+                    groupOps={[]}
+                    data={karname.lessons}
+                  />
+                )}
+                <EqualTwoTextInputs>
+                  <BigBoldBlueTextInline
+                    style={{alignSelf: 'center'}}
+                    text={'جدول شماره 6 - نتایج کلی'}
+                  />
+                </EqualTwoTextInputs>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={totalRankCols}
+                    data={[karname.rank]}
+                    show_row_no={false}
+                    pagination={false}
+                    groupOps={[]}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
 
-          <CommonWebBox
-            width={'50%'}
-            style={{
-              paddingLeft: 5,
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 5,
-            }}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 6 - نتایج رتبه بندی حیطه ها'}
-              />
-            </EqualTwoTextInputs>
-            <MyView>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={subjectRankingCols}
-                  data={karname.subjects}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
+            <CommonWebBox
+              width={'50%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+              }}>
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={'جدول شماره 6 - نتایج رتبه بندی حیطه ها'}
                 />
-              )}
-            </MyView>
-          </CommonWebBox>
+              </EqualTwoTextInputs>
+              <MyView>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={subjectRankingCols}
+                    data={karname.subjects}
+                    show_row_no={false}
+                    pagination={false}
+                    groupOps={[]}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
+          </PhoneView>
+        </MyView>
+      </div>
+      <div ref={ref2}>
+        <CommonWebBox width={'80%'}>
+          <MyView>
+            {karname !== undefined && (
+              <VictoryChart
+                padding={{top: 150, left: 100, bottom: 50, right: 80}}
+                height={500}
+                theme={VictoryTheme.material}>
+                <VictoryLegend
+                  x={125}
+                  y={20}
+                  title="راهنما"
+                  centerTitle
+                  orientation="horizontal"
+                  gutter={40}
+                  style={{
+                    data: {fontSize: 30, fontFamily: 'IRANSans'},
+                    labels: {fontSize: 30, fontFamily: 'IRANSans', dx: 100},
+                    border: {stroke: 'black'},
+                    title: {fontSize: 30, fontFamily: 'IRANSans'},
+                  }}
+                  data={[
+                    {name: 'درصد شما', symbol: {fill: '#c43a31'}},
+                    {name: 'میانگین', symbol: {fill: '#777777'}},
+                  ]}
+                />
 
-          <CommonWebBox width={'80%'}>
-            <MyView>
-              {karname !== undefined && (
-                <VictoryChart
-                  padding={{top: 150, left: 100, bottom: 50, right: 80}}
-                  height={500}
-                  theme={VictoryTheme.material}>
-                  <VictoryLegend
-                    x={125}
-                    y={20}
-                    title="راهنما"
-                    centerTitle
-                    orientation="horizontal"
-                    gutter={40}
-                    style={{
-                      data: {fontSize: 30, fontFamily: 'IRANSans'},
-                      labels: {fontSize: 30, fontFamily: 'IRANSans', dx: 100},
-                      border: {stroke: 'black'},
-                      title: {fontSize: 30, fontFamily: 'IRANSans'},
-                    }}
-                    data={[
-                      {name: 'درصد شما', symbol: {fill: '#c43a31'}},
-                      {name: 'میانگین', symbol: {fill: '#777777'}},
-                    ]}
-                  />
-
-                  <VictoryLine
-                    categories={{
-                      x: karname.subjects.map(elem => {
-                        return elem.name;
-                      }),
-                    }}
-                    style={{
-                      data: {
-                        stroke: '#c43a31',
-                        strokeWidth: ({data}) => 4,
-                      },
-                    }}
-                    interpolation={'natural'}
-                    domain={{y: [-30, 100]}}
-                    data={[
-                      0,
-                      ...karname.subjects.map(elem => {
-                        return elem.percent;
-                      }),
-                    ]}
-                  />
-                  <VictoryLine
-                    categories={{
-                      x: karname.subjects.map(elem => {
-                        return elem.name;
-                      }),
-                    }}
-                    interpolation={'natural'}
-                    style={{
-                      data: {
-                        stroke: '#777777',
-                        strokeWidth: ({data}) => 4,
-                      },
-                    }}
-                    data={[
-                      0,
-                      ...karname.subjects.map(elem => {
-                        return elem.avg;
-                      }),
-                    ]}
-                  />
-                  <VictoryAxis
-                    style={{
-                      tickLabels: {
-                        fontFamily: 'IRANSans',
-                        fontSize: 18,
-                        dy: 10,
-                        dx: 40,
-                      },
-                      axisLabel: {
-                        fontFamily: 'IRANSans',
-                        fontSize: 19,
-                        dy: 10,
-                        dx: 40,
-                      },
-                    }}
-                  />
-                  <VictoryAxis
-                    dependentAxis
-                    tickFormat={x => x}
-                    style={{
-                      tickLabels: {
-                        fontFamily: 'IRANSans',
-                        fontSize: 24,
-                        dx: -30,
-                      },
-                      axisLabel: {
-                        fontFamily: 'IRANSans',
-                        fontSize: 24,
-                        dx: -30,
-                      },
-                    }}
-                  />
-                </VictoryChart>
-              )}
-            </MyView>
-          </CommonWebBox>
-        </PhoneView>
+                <VictoryLine
+                  categories={{
+                    x: karname.subjects.map(elem => {
+                      return elem.name;
+                    }),
+                  }}
+                  style={{
+                    data: {
+                      stroke: '#c43a31',
+                      strokeWidth: ({data}) => 4,
+                    },
+                  }}
+                  interpolation={'natural'}
+                  domain={{y: [-30, 105]}}
+                  data={[
+                    0,
+                    ...karname.subjects.map(elem => {
+                      return elem.percent;
+                    }),
+                  ]}
+                />
+                <VictoryLine
+                  categories={{
+                    x: karname.subjects.map(elem => {
+                      return elem.name;
+                    }),
+                  }}
+                  interpolation={'natural'}
+                  style={{
+                    data: {
+                      stroke: '#777777',
+                      strokeWidth: ({data}) => 4,
+                    },
+                  }}
+                  data={[
+                    0,
+                    ...karname.subjects.map(elem => {
+                      return elem.avg;
+                    }),
+                  ]}
+                />
+                <VictoryAxis
+                  style={{
+                    tickLabels: {
+                      fontFamily: 'IRANSans',
+                      fontSize: 18,
+                      dy: 10,
+                      dx: 40,
+                    },
+                    axisLabel: {
+                      fontFamily: 'IRANSans',
+                      fontSize: 19,
+                      dy: 10,
+                      dx: 40,
+                    },
+                  }}
+                />
+                <VictoryAxis
+                  dependentAxis
+                  tickFormat={x => x}
+                  style={{
+                    tickLabels: {
+                      fontFamily: 'IRANSans',
+                      fontSize: 24,
+                      dx: -30,
+                    },
+                    axisLabel: {
+                      fontFamily: 'IRANSans',
+                      fontSize: 24,
+                      dx: -30,
+                    },
+                  }}
+                />
+              </VictoryChart>
+            )}
+          </MyView>
+        </CommonWebBox>
+      </div>
+      <div ref={ref3}>
         {karname !== undefined && state.wanted_answer_sheet !== undefined && (
           <AnswerSheet answer_sheet={state.wanted_answer_sheet} />
         )}
-      </MyView>
+      </div>
     </MyView>
   );
 }
