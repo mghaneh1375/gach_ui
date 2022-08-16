@@ -60,6 +60,7 @@ const ResetPass = props => {
 
       <CommonTextInput
         placeholder={translator.rPassword}
+        subText={translator.rPassword}
         type="password"
         value={rp}
         onChangeText={e => changeInput('rp', e)}

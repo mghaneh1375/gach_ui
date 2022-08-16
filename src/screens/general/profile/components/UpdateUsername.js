@@ -1,3 +1,4 @@
+import React from 'react';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../../../tranlates/Common';
 import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';

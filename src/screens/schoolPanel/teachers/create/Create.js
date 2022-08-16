@@ -1,9 +1,9 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, MyView} from '../../../../styles/Common';
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {View} from 'react-native';
+import {changeText} from '../../../../services/Utility';
 
 function Create(props) {
   const [name, setName] = useState();
@@ -23,21 +23,21 @@ function Create(props) {
       onBackClick={() => props.setMode('list')}>
       <PhoneView style={{gap: 10}}>
         <JustBottomBorderTextInput
-          onChangeText={text => setName(text)}
+          onChangeText={text => changeText(text, setName)}
           isHalf={true}
           placeholder={commonTranslator.name}
           subText={commonTranslator.name}
           value={name}
         />
         <JustBottomBorderTextInput
-          onChangeText={text => setLastname(text)}
+          onChangeText={text => changeText(text, setLastname)}
           isHalf={true}
           placeholder={commonTranslator.lastname}
           subText={commonTranslator.lastname}
           value={lastname}
         />
         <JustBottomBorderTextInput
-          onChangeText={text => setNid(text)}
+          onChangeText={text => changeText(text, setNid)}
           isHalf={true}
           placeholder={commonTranslator.NID}
           subText={commonTranslator.NID}
@@ -45,7 +45,7 @@ function Create(props) {
           justNum={true}
         />
         <JustBottomBorderTextInput
-          onChangeText={text => setTel(text)}
+          onChangeText={text => changeText(text, setTel)}
           isHalf={true}
           placeholder={commonTranslator.tel}
           subText={commonTranslator.optional}
@@ -53,14 +53,14 @@ function Create(props) {
           justNum={true}
         />
         <JustBottomBorderTextInput
-          onChangeText={text => setEmail(text)}
+          onChangeText={text => changeText(text, setEmail)}
           isHalf={true}
           placeholder={commonTranslator.email}
           subText={commonTranslator.optional}
           value={email}
         />
         <JustBottomBorderTextInput
-          onChangeText={text => setEmail(text)}
+          onChangeText={text => changeText(text, setPassword)}
           isHalf={true}
           placeholder={commonTranslator.email}
           subText={commonTranslator.optional}
@@ -69,7 +69,7 @@ function Create(props) {
         <MyView>
           <PhoneView>
             <JustBottomBorderTextInput
-              onChangeText={text => setPassword(text)}
+              onChangeText={text => changeText(text, setPassword)}
               isHalf={true}
               type={'password'}
               placeholder={commonTranslator.password}
@@ -77,7 +77,7 @@ function Create(props) {
               value={password}
             />
             <JustBottomBorderTextInput
-              onChangeText={text => setRPassword(text)}
+              onChangeText={text => changeText(text, setRPassword)}
               isHalf={true}
               type={'password'}
               placeholder={

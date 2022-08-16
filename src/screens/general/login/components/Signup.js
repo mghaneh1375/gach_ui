@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {
   CommonButton,
   CommonRadioButton,
@@ -71,6 +70,7 @@ const Signup = props => {
       <EqualTwoTextInputs style={{paddingRight: 0}}>
         <CommonTextInput
           placeholder={commonTranslator.firstname}
+          subText={commonTranslator.firstname}
           value={firstname}
           isHalf={true}
           onChangeText={e => changeInput('firstname', e)}
@@ -78,6 +78,7 @@ const Signup = props => {
         />
         <CommonTextInput
           placeholder={commonTranslator.lastname}
+          subText={commonTranslator.lastname}
           style={{minWidth: '48%'}}
           value={lastname}
           isHalf={true}
@@ -87,6 +88,7 @@ const Signup = props => {
 
       <CommonTextInput
         placeholder={commonTranslator.NID}
+        subText={commonTranslator.NID}
         justNum={true}
         style={{marginTop: 20}}
         value={NID}
@@ -103,8 +105,8 @@ const Signup = props => {
       <CommonTextInput
         justNum="true"
         placeholder={commonTranslator.phone}
+        subText={commonTranslator.phone}
         value={authVia === 'sms' ? props.username : ''}
-        subText={translator.usernameFilter}
         onChangeText={e => changeInput('username', e)}
       />
 
@@ -124,8 +126,8 @@ const Signup = props => {
 
       <CommonTextInput
         placeholder={commonTranslator.password}
+        subText={commonTranslator.password}
         value={password}
-        subText={translator.passwordFilter}
         type="password"
         onChangeText={e => changeInput('password', e)}
       />

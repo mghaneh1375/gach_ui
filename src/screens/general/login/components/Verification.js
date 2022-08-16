@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import CodeInput from 'react-native-confirmation-code-input';
 import {routes} from '../../../../API/APIRoutes';
 import {fetchUser, setCacheItem} from '../../../../API/User';

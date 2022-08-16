@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import BackgroundScrollView from './../../../components/BackgroundScrollView';
 import translator from './translator';
 import {Device} from './../../../models/Device';

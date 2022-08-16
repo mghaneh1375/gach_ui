@@ -52,6 +52,7 @@ function Question(props) {
             style={{...YellowFont13}}
           />
           <SimpleFontIcon
+            onPress={() => toggleShowMore()}
             kind={'small'}
             icon={!showMore ? faAngleDoubleDown : faAngleDoubleUp}
             style={{...styleYellowMarginTop7}}
