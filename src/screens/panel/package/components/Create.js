@@ -50,109 +50,103 @@ function Create(props) {
       header={commonTranslator.title}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
+      <PhoneView style={{gap: 10}}>
+        <JustBottomBorderTextInput
+          isHalf={true}
+          placeholder={commonTranslator.title}
+          subText={commonTranslator.title}
+          value={title}
+          onChangeText={text => changeText(text, setTitle)}
+        />
+        <JustBottomBorderTextInput
+          isHalf={true}
+          placeholder={Translate.minSelect}
+          subText={Translate.minSelect}
+          value={minSelect}
+          justNum={true}
+          onChangeText={text => changeText(text, setMinSelect)}
+        />
+        <JustBottomBorderTextInput
+          isHalf={true}
+          placeholder={Translate.mizanTakhfif}
+          subText={Translate.mizanTakhfif}
+          value={offPercent}
+          justNum={true}
+          onChangeText={text => changeText(text, setOffPercent)}
+        />
+        <JustBottomBorderSelect
+          isHalf={true}
+          placeholder={commonTranslator.grade}
+          subText={commonTranslator.grade}
+          setter={setGrade}
+          value={props.grades.find(elem => {
+            return elem.id === grade;
+          })}
+          values={props.grades}
+        />
+        <JustBottomBorderSelect
+          isHalf={true}
+          placeholder={commonTranslator.lesson}
+          subText={commonTranslator.lesson}
+          setter={setLesson}
+          value={
+            lessons !== undefined
+              ? lessons.find(elem => {
+                  return elem.id === lesson;
+                })
+              : ''
+          }
+          values={lessons !== undefined ? lessons : []}
+        />
+      </PhoneView>
       <MyView>
-        <PhoneView>
-          <JustBottomBorderTextInput
-            isHalf={true}
-            placeholder={commonTranslator.title}
-            subText={commonTranslator.title}
-            value={title}
-            onChangeText={text => changeText(text, setTitle)}
-          />
-          <JustBottomBorderTextInput
-            placeholder={Translate.minSelect}
-            subText={Translate.minSelect}
-            value={minSelect}
-            justNum={true}
-            onChangeText={text => changeText(text, setMinSelect)}
-          />
-          <JustBottomBorderTextInput
-            placeholder={Translate.mizanTakhfif}
-            subText={Translate.mizanTakhfif}
-            value={offPercent}
-            justNum={true}
-            onChangeText={text => changeText(text, setOffPercent)}
-          />
-        </PhoneView>
-        <PhoneView style={{marginTop: 25}}>
-          <JustBottomBorderSelect
-            isHalf={true}
-            placeholder={commonTranslator.grade}
-            subText={commonTranslator.grade}
-            setter={setGrade}
-            value={props.grades.find(elem => {
-              return elem.id === grade;
-            })}
-            values={props.grades}
-          />
-          <JustBottomBorderSelect
-            isHalf={true}
-            placeholder={commonTranslator.lesson}
-            subText={commonTranslator.lesson}
-            setter={setLesson}
-            value={
-              lessons !== undefined
-                ? lessons.find(elem => {
-                    return elem.id === lesson;
-                  })
-                : ''
-            }
-            values={lessons !== undefined ? lessons : []}
-          />
-        </PhoneView>
-        <MyView style={{marginTop: 25}}>
-          <JustBottomBorderTextInput
-            multiline={true}
-            subText={commonTranslator.desc}
-            placeholder={commonTranslator.desc}
-            value={desc}
-            onChangeText={text => changeText(text, setDesc)}
-          />
-        </MyView>
-        <MyView>
-          <CommonButton
-            onPress={async () => {
-              props.setLoading(true);
-              let res;
-              let data = {
+        <JustBottomBorderTextInput
+          isHalf={true}
+          multiline={true}
+          subText={commonTranslator.desc}
+          placeholder={commonTranslator.desc}
+          value={desc}
+          onChangeText={text => changeText(text, setDesc)}
+        />
+        <CommonButton
+          onPress={async () => {
+            props.setLoading(true);
+            let res;
+            let data = {
+              title: title,
+              description: desc,
+              gradeId: grade,
+              lessonId: lesson,
+              minSelect: minSelect,
+              offPercent: offPercent,
+            };
+
+            if (props.package !== undefined)
+              res = await editPackage(props.package.id, props.token, data);
+            else res = await createPackage(props.token, data);
+
+            props.setLoading(false);
+            if (res !== null) {
+              let selectedGrade = props.grades.find(elem => elem.id === grade);
+              let selectedLesson = lessons.find(elem => elem.id === lesson);
+
+              props.afterFunc({
                 title: title,
                 description: desc,
-                gradeId: grade,
-                lessonId: lesson,
                 minSelect: minSelect,
                 offPercent: offPercent,
-              };
-
-              if (props.package !== undefined)
-                res = await editPackage(props.package.id, props.token, data);
-              else res = await createPackage(props.token, data);
-
-              props.setLoading(false);
-              if (res !== null) {
-                let selectedGrade = props.grades.find(
-                  elem => elem.id === grade,
-                );
-                let selectedLesson = lessons.find(elem => elem.id === lesson);
-
-                props.afterFunc({
-                  title: title,
-                  description: desc,
-                  minSelect: minSelect,
-                  offPercent: offPercent,
-                  buyers:
-                    props.package !== undefined ? props.package.buyers : 0,
-                  quizzes:
-                    props.package !== undefined ? props.package.quizzes : 0,
-                  grade: {id: selectedGrade.id, name: selectedGrade.item},
-                  lesson: {id: selectedLesson.id, name: selectedLesson.item},
-                  id: props.package !== undefined ? props.package.id : res,
-                });
-                props.setMode('list');
-              }
-            }}
-            title={commonTranslator.confirm}
-          />
-        </MyView>
+                buyers: props.package !== undefined ? props.package.buyers : 0,
+                quizzes:
+                  props.package !== undefined ? props.package.quizzes : 0,
+                grade: {id: selectedGrade.id, name: selectedGrade.item},
+                lesson: {id: selectedLesson.id, name: selectedLesson.item},
+                id: props.package !== undefined ? props.package.id : res,
+              });
+              props.setMode('list');
+            }
+          }}
+          title={commonTranslator.confirm}
+        />
       </MyView>
     </CommonWebBox>
   );

@@ -1,6 +1,4 @@
-import {StyleSheet} from 'react-native';
-
-export const styles = StyleSheet.create({
+export const styles = {
   container: {
     marginTop: 50,
   },
@@ -38,7 +36,16 @@ export const styles = StyleSheet.create({
   gap50: {
     gap: 50,
   },
+  flexDirectionRow: {
+    flexDirection: 'row',
+  },
+  flexWrap: {
+    flexWrap: 'wrap',
+  },
   minWidth200: {
     minWidth: 200,
   },
-});
+  flexNoWrap: {
+    flexWrap: 'nowrap',
+  },
+};
