@@ -33,6 +33,7 @@ import {showSuccess} from '../../../../services/Utility';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {faGift} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../styles/Common/Styles';
+import style from '../../Config/Avatars/components/Show/Style';
 
 function Card(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);
@@ -88,13 +89,14 @@ function Card(props) {
         <MyView
           style={{
             ...styleDigest,
+            ...styles.justifyContentCenter,
           }}>
           <SimpleText
-            style={{...styleFontSize13}}
+            style={{...styles.fontSize13}}
             text={commonTranslator.grade + ' : ' + props.package.grade.name}
           />
           <SimpleText
-            style={{...styleFontSize13}}
+            style={{...styles.fontSize13}}
             text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
           />
         </MyView>
@@ -105,25 +107,25 @@ function Card(props) {
             ...styles.justifyContentSpaceAround,
             ...styles.marginTop20,
           }}>
-          <MyView>
+          <MyView style={{...styles.justifyContentCenter}}>
             <SimpleText
-              style={{...styleFontSize11}}
+              style={{...styles.fontSize11}}
               text={Translate.quizCount}
             />
             <SimpleText
-              style={{...styleFontSize15}}
+              style={{...styles.fontSize15}}
               text={props.package.quizzes}
             />
           </MyView>
 
           {props.isAdmin && (
-            <MyView>
+            <MyView style={{...styles.justifyContentCenter}}>
               <SimpleText
-                style={{...styleFontSize11}}
+                style={{...styles.fontSize11}}
                 text={Translate.minSelect}
               />
               <SimpleText
-                style={{...styleFontSize15}}
+                style={{...styles.fontSize15}}
                 text={props.package.minSelect}
               />
             </MyView>
@@ -131,11 +133,11 @@ function Card(props) {
           {props.isAdmin && (
             <MyView>
               <SimpleText
-                style={{...styleFontSize11}}
+                style={{...styles.fontSize11}}
                 text={Translate.buyersCount}
               />
               <SimpleText
-                style={{...styleFontSize15}}
+                style={{...styles.fontSize15}}
                 text={props.package.buyers}
               />
             </MyView>
@@ -148,42 +150,46 @@ function Card(props) {
               <SimpleText text={'قیمت : '} />
               <SimpleText
                 style={{
-                  ...styleTextDecorRed,
+                  ...styles.textDecorRed,
                 }}
                 text={' 30.000 ' + 'تومان'}
               />
               <SimpleText text={' 10.000 ' + 'تومان'} />
             </PhoneView>
           )}
-          {!props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
-          {props.isAdmin && (
-            <PhoneView style={styles.flexNoWrap}>
-              <CommonButton
-                onPress={() => setShowRemovePane(true)}
-                title={commonTranslator.delete}
-                padding={'lite'}
-              />
-              <CommonButton
-                onPress={() => {
-                  props.setSelected(props.package);
-                  props.setMode('edit');
-                }}
-                theme={'transparent'}
-                title={commonTranslator.edit}
-                padding={'lite'}
-              />
-              <CommonButton
-                onPress={() => {
-                  props.setSelected(props.package);
-                  props.setMode('detail');
-                }}
-                theme={'dark'}
-                title={Translate.showQuiz}
-                padding={'lite'}
-              />
-            </PhoneView>
-          )}
         </PhoneView>
+        {!props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
+        {props.isAdmin && (
+          <PhoneView
+            style={{
+              ...styles.flexNoWrap,
+              ...styles.justifyContentCenter,
+            }}>
+            <CommonButton
+              onPress={() => setShowRemovePane(true)}
+              title={commonTranslator.delete}
+              padding={'unset'}
+            />
+            <CommonButton
+              onPress={() => {
+                props.setSelected(props.package);
+                props.setMode('edit');
+              }}
+              theme={'transparent'}
+              title={commonTranslator.edit}
+              padding={'unset'}
+            />
+            <CommonButton
+              onPress={() => {
+                props.setSelected(props.package);
+                props.setMode('detail');
+              }}
+              theme={'dark'}
+              title={Translate.showQuiz}
+              padding={'unset'}
+            />
+          </PhoneView>
+        )}
       </CommonWebBox>
     </MyView>
   );

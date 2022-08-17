@@ -150,9 +150,6 @@ export const CommonButton = props => {
     props.padding !== undefined && props.padding === 'unset'
       ? '9px 15px'
       : '5px 30px';
-  props.padding !== undefined && props.padinng === 'lite'
-    ? '5px 18px'
-    : '5px 30px';
 
   if (props.icon !== undefined) {
     allStyles.display = 'flex';

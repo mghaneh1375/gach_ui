@@ -30,6 +30,9 @@ export const styles = {
   justifyContentSpaceAround: {
     justifyContent: 'space-around',
   },
+  justifyContentCenter: {
+    justifyContent: 'center',
+  },
   margin25: {
     marginTop: 25,
   },
@@ -47,5 +50,15 @@ export const styles = {
   },
   flexNoWrap: {
     flexWrap: 'nowrap',
+  },
+  fontSize13: {
+    fontSize: 13,
+  },
+  fontSize15: {
+    fontSize: 15,
+  },
+  textDecorRed: {
+    textDecoration: 'line-through',
+    textDecorationColor: 'red',
   },
 };
