@@ -7,8 +7,6 @@ import {getDevice, getWidthHeight} from './../../../services/Utility';
 
 import {ScreenScroll} from '../../../styles/Common';
 import {ImageBackground} from 'react-native';
-import {log} from 'react-native-reanimated';
-import {MyView} from 'react-native-multi-selectbox';
 
 const device = getDevice();
 
@@ -17,7 +15,7 @@ const Home = props => {
   const width = wH[0];
   const height = wH[1];
   const navigator = props.navigator;
-  const hideRightMenu = props.hideRightMenu;
+  const isRightMenuVisible = props.isRightMenuVisible;
 
   return (
     <ScreenScroll style={{background: 'transparent'}}>
@@ -69,7 +67,7 @@ const Home = props => {
             idx: 2,
           },
         ]}
-        width={hideRightMenu ? width : width - 200}
+        width={isRightMenuVisible ? width - 200 : width}
         height={device.indexOf(Device.Large) !== -1 ? height : 'auto'}
         imgHeight={300}
         inJustImage={false}

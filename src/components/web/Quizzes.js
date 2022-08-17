@@ -1,7 +1,7 @@
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {generalRequest} from '../../API/Utility';
+import {basketBox} from '../../screens/panel/package/card/Style';
 import Card from '../../screens/panel/quiz/components/Card/Card';
 import {getScreenHeight} from '../../services/Utility';
 import {
@@ -66,7 +66,7 @@ function Quizzes(props) {
   }, [props, isWorking, quizzes]);
 
   return (
-    <MyView style={{height: getScreenHeight() + 50}}>
+    <MyView style={{padding: 10, marginBottom: 120}}>
       {props.onBackClicked !== undefined && (
         <FontIcon
           icon={faAngleLeft}
@@ -76,7 +76,7 @@ function Quizzes(props) {
           onPress={props.onBackClicked}
         />
       )}
-      <PhoneView>
+      <PhoneView style={{gap: 10}}>
         {quizzes !== undefined &&
           quizzes.map((quiz, index) => {
             return (
@@ -84,14 +84,7 @@ function Quizzes(props) {
             );
           })}
       </PhoneView>
-      <CommonWebBox
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          width: '96%',
-          right: '2%',
-          height: 70,
-        }}>
+      <CommonWebBox style={basketBox}>
         <EqualTwoTextInputs>
           <MyView>
             <PhoneView>

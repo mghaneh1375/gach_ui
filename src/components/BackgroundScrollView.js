@@ -74,9 +74,9 @@ function BackgroundScrollView(props) {
 
     setCurrentNode(items[scrollValue]);
 
-    setTimeout(() => {
-      setScrollValue(scrollValue === scrollable - 1 ? 0 : scrollValue + 1);
-    }, delay);
+    // setTimeout(() => {
+    //   setScrollValue(scrollValue === scrollable - 1 ? 0 : scrollValue + 1);
+    // }, delay);
   }, [items, scrollValue]);
 
   React.useEffect(() => {

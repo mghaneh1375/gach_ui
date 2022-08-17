@@ -61,7 +61,7 @@ const Header = props => {
   React.useEffect(() => {
     setPic(props.pic);
   }, [props.pic]);
-  if (isLargePage || !props.hideRightMenu) {
+  if (isLargePage || props.isRightMenuVisible) {
     return (
       <PhoneView
         style={

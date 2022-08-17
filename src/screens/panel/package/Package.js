@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import List from './components/List/List';
 import {fetchAllPackages} from './components/Utility';
