@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
+
 import {
   CommonButton,
   CommonWebBox,
@@ -6,7 +7,6 @@ import {
   SimpleText,
   MyView,
 } from '../../../../styles/Common';
-import {TinyTextIcon} from '../../../../styles/Common/TextIcon';
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';
 import {
@@ -33,6 +33,7 @@ import {routes} from '../../../../API/APIRoutes';
 import {showSuccess} from '../../../../services/Utility';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {faGift} from '@fortawesome/free-solid-svg-icons';
+import {styles} from '../../../../styles/Common/Styles';
 
 function Card(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);
@@ -98,54 +99,49 @@ function Card(props) {
             text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
           />
         </MyView>
-        <MyView style={{...styleItemsGrandParent}}>
-          <PhoneView style={{...styleItemsParent}}>
-            <PhoneView style={{...styleItem}}>
-              <TinyTextIcon />
-              <MyView>
-                <SimpleText
-                  style={{...styleFontSize11}}
-                  text={Translate.quizCount}
-                />
-                <SimpleText
-                  style={{...styleFontSize15}}
-                  text={props.package.quizzes}
-                />
-              </MyView>
-            </PhoneView>
-            {props.isAdmin && (
-              <PhoneView style={{...styleItem}}>
-                <TinyTextIcon />
-                <MyView>
-                  <SimpleText
-                    style={{...styleFontSize11}}
-                    text={Translate.minSelect}
-                  />
-                  <SimpleText
-                    style={{...styleFontSize15}}
-                    text={props.package.minSelect}
-                  />
-                </MyView>
-              </PhoneView>
-            )}
+        <PhoneView
+          style={{
+            ...styles.gap50,
+            ...styles.flexWrap,
+            ...styles.justifyContentSpaceAround,
+            ...styles.marginTop20,
+          }}>
+          <MyView>
+            <SimpleText
+              style={{...styleFontSize11}}
+              text={Translate.quizCount}
+            />
+            <SimpleText
+              style={{...styleFontSize15}}
+              text={props.package.quizzes}
+            />
+          </MyView>
 
-            {props.isAdmin && (
-              <PhoneView style={{...styleItem}}>
-                <TinyTextIcon />
-                <MyView>
-                  <SimpleText
-                    style={{...styleFontSize11}}
-                    text={Translate.buyersCount}
-                  />
-                  <SimpleText
-                    style={{...styleFontSize15}}
-                    text={props.package.buyers}
-                  />
-                </MyView>
-              </PhoneView>
-            )}
-          </PhoneView>
-        </MyView>
+          {props.isAdmin && (
+            <MyView>
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={Translate.minSelect}
+              />
+              <SimpleText
+                style={{...styleFontSize15}}
+                text={props.package.minSelect}
+              />
+            </MyView>
+          )}
+          {props.isAdmin && (
+            <MyView>
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={Translate.buyersCount}
+              />
+              <SimpleText
+                style={{...styleFontSize15}}
+                text={props.package.buyers}
+              />
+            </MyView>
+          )}
+        </PhoneView>
 
         <PhoneView style={{...stylePricaPane}}>
           {!props.isAdmin && (
@@ -162,10 +158,11 @@ function Card(props) {
           )}
           {!props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
           {props.isAdmin && (
-            <PhoneView style={styleJustifyContentEnd}>
+            <PhoneView style={styles.flexNoWrap}>
               <CommonButton
                 onPress={() => setShowRemovePane(true)}
                 title={commonTranslator.delete}
+                padding={'lite'}
               />
               <CommonButton
                 onPress={() => {
@@ -174,6 +171,7 @@ function Card(props) {
                 }}
                 theme={'transparent'}
                 title={commonTranslator.edit}
+                padding={'lite'}
               />
               <CommonButton
                 onPress={() => {
@@ -182,6 +180,7 @@ function Card(props) {
                 }}
                 theme={'dark'}
                 title={Translate.showQuiz}
+                padding={'lite'}
               />
             </PhoneView>
           )}
