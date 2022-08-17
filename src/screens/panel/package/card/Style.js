@@ -108,7 +108,6 @@ export const styleTextDecorRed = {
 export const basketBox = {
   position: 'fixed',
   bottom: 0,
-  width: 'calc(100% - 240px)',
   left: 20,
   height: 100,
   justifyContent: 'flex-end',

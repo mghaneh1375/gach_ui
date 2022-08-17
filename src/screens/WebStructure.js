@@ -190,14 +190,13 @@ const WebStructue = props => {
                 newAlerts={newAlerts}
               />
             )}
-            {state.isRightMenuVisible && (
-              <Menu
-                toggleRightMenuVisibility={toggleRightMenuVisibility}
-                navigate={navigate}
-                selected={props.page}
-                accesses={user !== undefined ? user.accesses : null}
-              />
-            )}
+
+            <Menu
+              toggleRightMenuVisibility={toggleRightMenuVisibility}
+              navigate={navigate}
+              selected={props.page}
+              accesses={user !== undefined ? user.accesses : null}
+            />
 
             <MyView
               style={
