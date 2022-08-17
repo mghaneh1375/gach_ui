@@ -70,7 +70,6 @@ const WebStructue = props => {
 
   const [state, dispatch] = useGlobalState();
 
-  const [hideRightMenu, setHideRightMenu] = useState(true);
   const [token, setToken] = useState(undefined);
   const [user, setUser] = useState(undefined);
   const [allowRenderPage, setAllowRenderPage] = useState(false);
@@ -81,17 +80,15 @@ const WebStructue = props => {
     const excludeTopNav = ['login', 'profile'];
     const excludeBottomNav = ['login'];
     const excludeAuthRoutes = ['login', 'home'];
+    const d = getDevice();
 
     dispatch({
       showTopNav: excludeTopNav.indexOf(props.page) === -1,
       showBottonNav: excludeBottomNav.indexOf(props.page) === -1,
+      isRightMenuVisible:
+        d.indexOf(Device.Large) !== -1 &&
+        excludeRightMenu.indexOf(props.page) === -1,
     });
-
-    const d = getDevice();
-    setHideRightMenu(
-      d.indexOf(Device.Large) === -1 ||
-        excludeRightMenu.indexOf(props.page) !== -1,
-    );
 
     Promise.all([getToken(), getUser()]).then(async res => {
       setToken(res[0]);
@@ -158,8 +155,11 @@ const WebStructue = props => {
     });
   };
 
-  const toggleHideRightMenu = () => {
-    setHideRightMenu(user === undefined ? true : !hideRightMenu);
+  const toggleRightMenuVisibility = () => {
+    dispatch({
+      isRightMenuVisible:
+        user === undefined ? false : !state.isRightMenuVisible,
+    });
   };
 
   const params = useParams();
@@ -171,7 +171,7 @@ const WebStructue = props => {
           <MyView style={{flexDirection: 'row', flexWrap: 'wrap'}}>
             <Logo
               isLogin={user !== undefined}
-              toggleHideRightMenu={toggleHideRightMenu}
+              toggleRightMenuVisibility={toggleRightMenuVisibility}
             />
 
             {user === undefined && device.indexOf(Device.Large) !== -1 && (
@@ -183,30 +183,32 @@ const WebStructue = props => {
                 pic={user.user.pic}
                 name={user.user.firstName + ' ' + user.user.lastName}
                 token={token}
-                hideRightMenu={hideRightMenu}
+                isRightMenuVisible={state.isRightMenuVisible}
                 setLoading={setLoading}
                 navigate={navigate}
                 setUser={setUser}
                 newAlerts={newAlerts}
               />
             )}
-            {!hideRightMenu && (
-              <Menu
-                toggleHideRightMenu={toggleHideRightMenu}
-                navigate={navigate}
-                selected={props.page}
-                accesses={user !== undefined ? user.accesses : null}
-              />
-            )}
+
+            <Menu
+              toggleRightMenuVisibility={toggleRightMenuVisibility}
+              navigate={navigate}
+              selected={props.page}
+              accesses={user !== undefined ? user.accesses : null}
+            />
 
             <MyView
               style={
-                isInLargeMode && !hideRightMenu
+                isInLargeMode && state.isRightMenuVisible
                   ? LargeContentConianerStyle
                   : PhoneContentConianerStyle
               }>
               {props.page === 'home' && (
-                <Home hideRightMenu={hideRightMenu} navigate={navigate} />
+                <Home
+                  isRightMenuVisible={state.isRightMenuVisible}
+                  navigate={navigate}
+                />
               )}
               {/* {props.page === 'home' && <Gift navigate={navigate} />} */}
               {props.page === 'profile' && isInLargeMode && (

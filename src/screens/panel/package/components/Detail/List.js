@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import Quizzes from '../../../../../components/web/Quizzes';
 import {showSuccess} from '../../../../../services/Utility';
 import {
@@ -21,7 +20,7 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
 
   return (
-    <MyView>
+    <MyView style={{padding: 10}}>
       <BigBoldBlueText text={Translate.packageQuizzes} />
       {state.quizzes !== undefined && (
         <Quizzes

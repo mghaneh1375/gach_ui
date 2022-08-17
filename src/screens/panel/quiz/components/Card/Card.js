@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import {
   CommonButton,
   CommonWebBox,
@@ -25,7 +24,7 @@ import {
   stylePricaPane,
 } from './../../../package/card/Style';
 import {convertTimestamp} from '../../../../../services/Utility';
-import {isOnlineKeyVals, kindQuizKeyVals} from '../KeyVals';
+import {launchModeKeyVals, kindQuizKeyVals} from '../KeyVals';
 
 function Card(props) {
   return (
@@ -81,8 +80,9 @@ function Card(props) {
               <SimpleText
                 style={{...styleFontSize13}}
                 text={
-                  isOnlineKeyVals.find(elem => elem.id === props.quiz.isOnline)
-                    .item
+                  launchModeKeyVals.find(
+                    elem => elem.id === props.quiz.launchMode,
+                  ).item
                 }
               />
             </MyView>

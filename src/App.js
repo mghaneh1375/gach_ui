@@ -8,6 +8,8 @@ const defaultGlobalState = {
   showBottonNav: true,
   showTopNav: true,
   loading: false,
+  isRightMenuVisible: false,
+  isFilterMenuVisible: false,
 };
 
 export const globalStateContext = React.createContext(defaultGlobalState);

@@ -1,24 +1,24 @@
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {generalRequest} from '../../API/Utility';
 import Card from '../../screens/panel/quiz/components/Card/Card';
-import {getScreenHeight} from '../../services/Utility';
-import {
-  CommonWebBox,
-  EqualTwoTextInputs,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../styles/Common';
+import {CommonWebBox, MyView, PhoneView} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
-import vars from '../../styles/root';
-import commonTranslator from './../../tranlates/Common';
+import Basket from './Basket';
+import {globalStateContext, dispatchStateContext} from '../../App';
 
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState(props.quizzes);
+  const [selectable, setSelectable] = useState();
   const [isWorking, setIsWorking] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
 
   const toggleSelectedItems = id => {
     let idx = selectedItems.indexOf(id);
@@ -42,6 +42,7 @@ function Quizzes(props) {
       return;
 
     if (props.fetchUrl === undefined && props.quizzes !== undefined) {
+      dispatch({isRightMenuVisible: false, isFilterMenuVisible: true});
       setQuizzes(props.quizzes);
       return;
     }
@@ -60,13 +61,24 @@ function Quizzes(props) {
         return;
       }
 
-      setQuizzes(res[0]);
-      if (props.setQuizzes !== undefined) props.setQuizzes(res[0]);
+      setQuizzes(res[0].items);
+      dispatch({
+        isRightMenuVisible: false,
+        isFilterMenuVisible: true,
+        filters: res[0].tags.map((elem, index) => {
+          return {
+            label: elem,
+            index: index,
+            doFilter: selectedIndices => console.log(selectedIndices),
+          };
+        }),
+      });
+      if (props.setQuizzes !== undefined) props.setQuizzes(res[0].items);
     });
-  }, [props, isWorking, quizzes]);
+  }, [props, isWorking, quizzes, dispatch]);
 
   return (
-    <MyView style={{height: getScreenHeight() + 50}}>
+    <MyView style={{padding: 10, marginBottom: 120}}>
       {props.onBackClicked !== undefined && (
         <FontIcon
           icon={faAngleLeft}
@@ -76,7 +88,7 @@ function Quizzes(props) {
           onPress={props.onBackClicked}
         />
       )}
-      <PhoneView>
+      <PhoneView style={{gap: 10}}>
         {quizzes !== undefined &&
           quizzes.map((quiz, index) => {
             return (
@@ -84,47 +96,9 @@ function Quizzes(props) {
             );
           })}
       </PhoneView>
-      <CommonWebBox
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          width: '96%',
-          right: '2%',
-          height: 70,
-        }}>
-        <EqualTwoTextInputs>
-          <MyView>
-            <PhoneView>
-              <SimpleText
-                style={{color: vars.DARK_BLUE, fontWeight: 600, fontSize: 17}}
-                text={'تعداد آزمون'}
-              />
-              <SimpleText
-                style={{
-                  color: vars.YELLOW,
-                  fontSize: 13,
-                  marginTop: 5,
-                  marginRight: 5,
-                }}
-                text={commonTranslator.selectAll}
-              />
-            </PhoneView>
-            {quizzes !== undefined && (
-              <PhoneView>
-                <SimpleText
-                  style={{color: vars.YELLOW, fontSize: 15}}
-                  text={selectedItems.length}
-                />
-                <SimpleText
-                  style={{color: vars.DARK_BLUE, fontSize: 15}}
-                  text={' از ' + quizzes.length + ' آزمون موجود '}
-                />
-              </PhoneView>
-            )}
-          </MyView>
-          {props.children}
-        </EqualTwoTextInputs>
-      </CommonWebBox>
+      <Basket total={quizzes.length} selectedLength={selectedItems.length}>
+        {props.children}
+      </Basket>
     </MyView>
   );
 }

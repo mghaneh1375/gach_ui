@@ -63,7 +63,7 @@ function StudentMenu(props) {
         icon={faHome}
         onClick={() => {
           navigate(isApp ? 'Home' : '/');
-          props.toggleHideRightMenu();
+          props.toggleRightMenuVisibility();
         }}
         selected={props.selected === 'home'}
       />
@@ -78,7 +78,7 @@ function StudentMenu(props) {
         isApp={isApp}
         onClick={() => {
           navigate(isApp ? 'Profile' : '/profile');
-          props.toggleHideRightMenu();
+          props.toggleRightMenuVisibility();
         }}
       />
     </MyView>

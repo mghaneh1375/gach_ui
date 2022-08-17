@@ -1,3 +1,5 @@
+import vars from '../root';
+
 export const styles = {
   container: {
     marginTop: 50,
@@ -10,8 +12,17 @@ export const styles = {
   red: {
     color: 'red',
   },
+  yellow_color: {
+    color: vars.YELLOW,
+  },
+  dark_blue_color: {
+    color: vars.DARK_BLUE,
+  },
   fontSize11: {
     fontSize: 11,
+  },
+  fontSize17: {
+    fontSize: 17,
   },
   blackColor: {
     color: 'black',

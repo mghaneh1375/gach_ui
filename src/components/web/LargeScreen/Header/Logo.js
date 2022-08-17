@@ -31,7 +31,7 @@ const Logo = props => {
         <MyView style={{width: 40, height: 40, alignSelf: 'center'}}>
           <FontIcon
             style={{padding: device.indexOf(Device.App) === -1 ? 7 : 15}}
-            onPress={e => props.toggleHideRightMenu()}
+            onPress={e => props.toggleRightMenuVisibility()}
             icon={faNavicon}
           />
         </MyView>

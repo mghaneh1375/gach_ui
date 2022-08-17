@@ -104,3 +104,12 @@ export const styleTextDecorRed = {
   textDecoration: 'line-through',
   textDecorationColor: 'red',
 };
+
+export const basketBox = {
+  position: 'fixed',
+  bottom: 0,
+  left: 20,
+  height: 100,
+  justifyContent: 'flex-end',
+  paddingBottom: 0,
+};
