@@ -346,12 +346,12 @@ const WebStructue = props => {
               {props.page === 'schoolUsers' && (
                 <SchoolUsers token={token} user={user} navigate={navigate} />
               )}
-              {/* {props.page === 'schoolAccess' && (
+              {props.page === 'schoolAccess' && (
                 <Students token={token} user={user} navigate={navigate} />
               )}
               {props.page === 'teacherAccess' && (
                 <TeacherAccess token={token} user={user} navigate={navigate} />
-              )} */}
+              )}
               {props.page === 'teachers' && (
                 <Teachers token={token} user={user} navigate={navigate} />
               )}

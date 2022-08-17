@@ -7,6 +7,7 @@ const style = {
   marginRight: 5,
   color: vars.LIGHT_SILVER,
   fontFamily: 'IRANSans',
+  fontWeight: 600,
 };
 
 const SubInputText =

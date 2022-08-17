@@ -80,6 +80,7 @@ const ChangeUsername = props => {
       <MyView>
         {step === 'chageUsername' && (
           <JustBottomBorderTextInput
+            isHalf={true}
             subText={
               props.mode === 'sms' ? translator.newPhone : translator.newMail
             }

@@ -4,6 +4,7 @@ import {CommonButton} from '../../../styles/Common';
 const Box = props => {
   return (
     <CommonButton
+      style={{gap: 10}}
       onPress={() => props.removeItem()}
       iconDir="left"
       iconTheme="remove"

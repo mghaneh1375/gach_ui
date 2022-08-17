@@ -140,4 +140,6 @@ export const routes = {
   createTarazLevel: 'admin/config/tarazLevel/create',
   updateTarazLevel: 'admin/config/tarazLevel/edit/',
   removeTarazLevels: 'admin/config/tarazLevel/remove',
+  getAllStudent: 'admin/user/getStudents',
+  addStudents: 'admin/user/addStudent',
 };

@@ -1,5 +1,6 @@
 import {ActivityIndicator} from 'react-native';
 import {MyView} from '../Common';
+import vars from '../root';
 
 export const Loader = props => (
   <MyView
@@ -7,6 +8,7 @@ export const Loader = props => (
       flex: 1,
       justifyContent: 'center',
       backgroundColor: 'rgba(230,230,230,0.8)',
+      color: vars.ORANGE_RED,
       height: '100%',
       top: 0,
       left: 0,
@@ -15,6 +17,6 @@ export const Loader = props => (
       position: 'fixed',
       zIndex: 2,
     }}>
-    <ActivityIndicator color="green" size="large" />
+    <ActivityIndicator color={vars.ORANGE_RED} size="large" />
   </MyView>
 );
