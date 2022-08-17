@@ -60,7 +60,7 @@ export const FontIcon = props => {
 
   if (Platform.OS === 'web') {
     return (
-      <div style={{display: 'inline-flex'}} className={'hoverable'}>
+      <div className={'hoverable'}>
         <Pressable style={allStyles} onPress={props.onPress}>
           {props.icon !== undefined && (
             <FontAwesomeIcon

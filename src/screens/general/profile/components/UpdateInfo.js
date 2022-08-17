@@ -132,7 +132,7 @@ const UpdateInfo = props => {
           multi={true}
         />
         <JustBottomBorderTextInput
-          isHalf={false}
+          isHalf={true}
           style={{maxWidth: 'unset'}}
           placeholder={commonTranslator.school}
           subText={commonTranslator.school}

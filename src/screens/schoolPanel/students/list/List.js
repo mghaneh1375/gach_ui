@@ -4,6 +4,7 @@ import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import columns from '../../teachers/list/TableStructure';
 import Ops from '../../teachers/list/Ops/Ops';
 import Translate from '../Translate';
+import {routes} from '../../../../API/APIRoutes';
 
 function List(props) {
   const [selectedId, setSelectedId] = useState();
@@ -39,6 +40,9 @@ function List(props) {
           data={props.data}
           setData={props.setData}
           handleOp={handleOp}
+          setLoading={props.setLoading}
+          removeUrl={routes.removeGift}
+          token={props.token}
         />
       </CommonWebBox>
     </MyView>

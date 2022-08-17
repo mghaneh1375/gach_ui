@@ -5,6 +5,7 @@ import Create from './create/Create';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
 import AddAll from './addAll/AddAll';
 import {MyView} from '../../../styles/Common';
+import {getAllStudent} from './Utility';
 
 function Students(props) {
   const queryString = require('query-string');
@@ -18,17 +19,22 @@ function Students(props) {
   const [selectedStudent, setSelectedStudent] = useState();
   const [state, dispatch] = useGlobalState();
 
-  const [data, setData] = useState([
-    {
-      name: 'البرز منشی زاده',
-      NID: '123456789',
-      phone: '09121234567',
-      email: 'aborzmoon@gmail.com',
-    },
-  ]);
+  const [data, setData] = useState();
   const setLoading = status => {
     dispatch({loading: status});
   };
+  React.useEffect(() => {
+    dispatch({loading: true});
+    Promise.all([getAllStudent(props.token)]).then(res => {
+      dispatch({loading: false});
+      if (res[0] === null) {
+        navigate('/');
+        return;
+      }
+      setData(res[0]);
+      setMode('list');
+    });
+  }, [navigate, props.token, dispatch]);
   return (
     <MyView>
       {mode === 'list' && (

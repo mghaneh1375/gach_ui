@@ -174,7 +174,7 @@ const Header = props => {
               <TouchableOpacity
                 onPress={async () => {
                   changeShowNotif(!showNotif);
-                  showProfilePane ? setShowProfilePane(!showProfilePane) : '';
+                  callLogout();
                 }}>
                 <SimpleText text={commonTranslator.logout} />
               </TouchableOpacity>

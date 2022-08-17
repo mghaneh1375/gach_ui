@@ -232,6 +232,8 @@ export const preProcess = (data, mandatoryFields = undefined) => {
     else if (typeof value !== 'object' && !isNaN(value)) {
       if (typeof value === 'string' && value[0] == '0' && value[1] !== '.')
         newData[key] = value;
+      else if (key === 'password' || key === 'rPassword')
+        newData[key] = value.toString();
       else newData[key] = Number(value);
     } else newData[key] = value;
   }
