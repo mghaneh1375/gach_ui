@@ -1,4 +1,5 @@
 const Translate = {
+  agentName: 'نام نمایندگی ',
   name: 'نام مدرسه ',
   manager: 'نام  مدیر مدرسه',
   agentPhone: 'شماره تماس',
