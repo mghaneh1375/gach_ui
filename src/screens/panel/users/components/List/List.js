@@ -7,6 +7,7 @@ import columns from './TableStructure';
 import Ops from '../Ops';
 import {levelsKeyVals} from '../../../ticket/components/KeyVals';
 import {useParams} from 'react-router';
+import Filter from './Filter';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -46,12 +47,11 @@ function List(props) {
           levelsKeyVals.find(elem => elem.id === currLevel).item
         }>
         <MyView>
-          {/* <Filter
+          <Filter
             setData={props.setData}
             token={props.token}
             setLoading={props.setLoading}
-            states={props.states}
-          /> */}
+          />
           <CommonDataTable
             columns={columns}
             data={props.users}

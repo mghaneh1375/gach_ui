@@ -42,6 +42,7 @@ function Schools(props) {
       {mode === 'list' && (
         <List
           setMode={setMode}
+          user={props.user}
           setLoading={setLoading}
           data={data}
           setData={setData}

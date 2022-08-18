@@ -135,6 +135,7 @@ export const routes = {
   checkDuplicate: 'admin/user/checkDuplicate',
   acceptInvite: 'admin/user/acceptInvite/',
   addSchoolByAgent: 'admin/user/addSchool',
+  removeSchoolFormAgent: 'admin/user/removeSchools',
   getAllAgent: 'admin/user/getMySchools',
   fetchAllTarazLevels: 'admin/config/tarazLevel/get',
   createTarazLevel: 'admin/config/tarazLevel/create',
