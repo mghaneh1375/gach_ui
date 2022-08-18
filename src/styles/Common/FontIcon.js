@@ -131,7 +131,10 @@ export const SimpleFontIcon = props => {
         icon={props.icon}
         style={[
           Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
-          {color: vars.LIGHT_SILVER},
+          {
+            color: vars.LIGHT_SILVER,
+            width: props.kind !== undefined && props.kind === 'small' ? 11 : 22,
+          },
           props.style ? props.style : {},
         ]}
       />

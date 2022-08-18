@@ -63,7 +63,7 @@ const SearchUser = props => {
         return (
           <SimpleFontIcon
             kind={'normal'}
-            style={{marginLeft: 100}}
+            style={{marginLeft: 100, alignSelf: 'center'}}
             icon={faTrash}
           />
         );

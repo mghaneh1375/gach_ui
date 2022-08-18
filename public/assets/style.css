@@ -7,7 +7,9 @@
   display: flex;
   flex-direction: column;
 }
-
+::selection {
+  color: #ffaa00;
+}
 .menu-item-container > div:not(.super-menu-item) {
   background: linear-gradient(to right, #ffaa00 50%, #707070 50%);
   background-size: 200% 100%;
@@ -285,26 +287,25 @@
 .mySelect div:focus-visible,
 .mySelect div:focus,
 .mySelect div:focus-within {
-  outline-color: #ffaa00 !important;
   outline-style: none;
   border-color: #ffaa00 !important;
+  background-color: #e8e8e8;
 }
 input::placeholder {
   font-size: 11px;
   font-weight: 500;
 }
 input:focus-visible {
-  outline-color: #ffaa00 !important;
   outline-style: none;
   border-color: #ffaa00 !important;
+  background-color: #e8e8e8 !important;
 }
 textarea:focus-visible {
-  outline-color: #ffaa00 !important;
   outline-style: none;
   border-color: #ffaa00 !important;
+  background-color: #e8e8e8 !important;
 }
 .select:focus-visible {
-  outline-color: #ffaa00 !important;
   outline-style: none;
   border-color: #ffaa00 !important;
 }
@@ -352,7 +353,6 @@ textarea:focus-visible {
   z-index: 10 !important;
   background: white;
 }
-
 .myView {
   -moz-box-align: stretch;
   -moz-box-direction: normal;
@@ -383,8 +383,8 @@ button:hover {
 } */
 .hoverable > *:hover {
   box-shadow: inset 0px 0px 1px 3px #efefef80;
-  display: flex;
-  justify-content: flex-end;
+  display: flex !important;
+  justify-content: flex-end !important;
 }
 .flex-end {
   align-self: flex-end !important;
