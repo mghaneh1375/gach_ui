@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import React from 'react';
 import {PhoneView, MyView} from '../../../../../styles/Common';
 import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';

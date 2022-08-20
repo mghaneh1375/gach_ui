@@ -72,7 +72,6 @@ export const CommonTextInput = props => {
         paddingRight: 5,
         paddingTop: 5,
         paddingBottom: 0,
-        backgroundColor: props.disable === 'true' ? '' : '#e8e8e880',
       }
     : {paddingLeft: 5, paddingRight: 5, paddingTop: 5, paddingBottom: 0};
 
