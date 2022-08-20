@@ -1,6 +1,6 @@
 import React from 'react';
 import {Platform} from 'react-native';
-import {CommonSelectElem} from './CommonText';
+import {calcInputWidth, CommonSelectElem} from './CommonText';
 
 import vars from '../root';
 import SubInputText from './SubInputText';
@@ -28,11 +28,9 @@ export const CommonSelect = props => {
       backgroundColor: vars.transparent,
       paddingRight: 7,
       paddingLeft: 10,
-      paddingBottom: 0,
-      paddingTop: 13,
+      paddingBottom: 2,
+      paddingTop: 9,
       borderBottomWidth: 1,
-
-      // zIndex: 5,
       borderColor: vars.LIGHT_SILVER,
     },
     optionContainerStyle: {
@@ -50,15 +48,15 @@ export const CommonSelect = props => {
       fontFamily: 'IRANSans',
       color: vars.LIGHT_SILVER,
       paddingRight: 0,
-      fontSize: 15,
+      fontSize: 13,
       paddingBottom: 1,
-      width: '100%',
-      height: '100%',
+      // width: '100%',
+      // height: '100%',
     },
     arrowIconColor: vars.LIGHT_SILVER,
     optionsLabelStyle: {
       fontFamily: 'IRANSans',
-      fontSize: 15,
+      fontSize: 13,
       color: vars.LIGHT_SILVER,
       minWidth: 170,
     },
@@ -67,31 +65,26 @@ export const CommonSelect = props => {
 
   if (props.value !== undefined) inputProps.defaultValue = props.value;
 
-  let parentStyle = props.style !== undefined ? props.style : {};
-
-  let width = getWidthHeight()[0];
-
-  parentStyle = isHalf
+  let parentAllStyles = isHalf
     ? {
-        ...parentStyle,
         ...{
-          width: isApp || width < 768 ? '100%' : 'calc(50% - 10px)',
-          maxWidth: width > 768 ? 'calc(25% - 20px)' : '100%',
           direction: 'rtl',
-          paddingLeft: 10,
-          paddingRight: 10,
+          paddingLeft: 0,
+          paddingRight: 0,
           textAlign: 'right',
           height: 60,
-          // zIndex: 5,
         },
       }
     : {
-        ...parentStyle,
-        ...{maxWidth: 300, textAlign: 'right'}, // zIndex: 5,
+        ...props.parentStyle,
+        ...{textAlign: 'right'}, // zIndex: 5,
       };
+  if (props.parentStyle !== undefined)
+    parentAllStyles = {...parentAllStyles, ...props.parentStyle};
 
+  parentAllStyles = calcInputWidth(0, isHalf, parentAllStyles);
   return (
-    <MyView className={'myView mySelect'} style={parentStyle}>
+    <MyView className={'myView mySelect'} style={parentAllStyles}>
       <CommonSelectElem {...inputProps} />
       {props.subText !== undefined ? (
         <SubInputText style={{width: '100%', height: '100%'}}>

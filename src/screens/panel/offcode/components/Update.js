@@ -31,7 +31,7 @@ const Update = props => {
       <MyView>
         <PhoneView style={{marginBottom: 10}}>
           <JustBottomBorderTextInput
-            isHalf={true}
+            isHalf={false}
             placeholder={translator.amount}
             subText={translator.amount}
             justNum={true}
@@ -39,7 +39,7 @@ const Update = props => {
             value={amount}
           />
           <JustBottomBorderSelect
-            isHalf={true}
+            isHalf={false}
             placeholder={translator.type}
             subText={translator.type}
             setter={setType}
@@ -47,7 +47,7 @@ const Update = props => {
             value={typeKeyVals.find(elem => elem.id === type)}
           />
           <JustBottomBorderDatePicker
-            isHalf={true}
+            isHalf={false}
             value={expireAt}
             setter={setExpireAt}
             placeholder={translator.expire}

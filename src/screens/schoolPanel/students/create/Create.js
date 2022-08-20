@@ -25,21 +25,21 @@ function Create(props) {
       <PhoneView style={{gap: 10}}>
         <JustBottomBorderTextInput
           onChangeText={text => setName(text)}
-          isHalf={true}
+          isHalf={false}
           placeholder={commonTranslator.name}
           subText={commonTranslator.name}
           value={name}
         />
         <JustBottomBorderTextInput
           onChangeText={text => setLastname(text)}
-          isHalf={true}
+          isHalf={false}
           placeholder={commonTranslator.lastname}
           subText={commonTranslator.lastname}
           value={lastname}
         />
         <JustBottomBorderTextInput
           onChangeText={text => changeText(text, setNid)}
-          isHalf={true}
+          isHalf={false}
           placeholder={commonTranslator.NID}
           subText={commonTranslator.NID}
           value={nid}
@@ -47,7 +47,7 @@ function Create(props) {
         />
         <JustBottomBorderTextInput
           onChangeText={text => changeText(text, setTel)}
-          isHalf={true}
+          isHalf={false}
           placeholder={commonTranslator.tel}
           subText={commonTranslator.optional}
           value={tel}
@@ -55,7 +55,7 @@ function Create(props) {
         />
         <JustBottomBorderTextInput
           onChangeText={text => changeText(text, setPassword)}
-          isHalf={true}
+          isHalf={false}
           type={'password'}
           placeholder={commonTranslator.password}
           subText={commonTranslator.password}
@@ -63,7 +63,7 @@ function Create(props) {
         />
         <JustBottomBorderTextInput
           onChangeText={text => changeText(text, setRPassword)}
-          isHalf={true}
+          isHalf={false}
           type={'password'}
           placeholder={
             commonTranslator.repeat + ' ' + commonTranslator.password

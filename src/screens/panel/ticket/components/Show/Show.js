@@ -49,7 +49,7 @@ function Show(props) {
                 <PhoneView>
                   {props.isAdmin && (
                     <JustBottomBorderTextInput
-                      isHalf={true}
+                      isHalf={false}
                       value={props.ticket.student.name}
                       disable={true}
                       placeholder={commonTranslator.nameAndLast}
@@ -57,7 +57,7 @@ function Show(props) {
                     />
                   )}
                   <JustBottomBorderTextInput
-                    isHalf={true}
+                    isHalf={false}
                     value={
                       priorityKeyVals.find(
                         elem => elem.id === props.ticket.priority,
@@ -68,7 +68,7 @@ function Show(props) {
                     subText={translator.priority}
                   />
                   <JustBottomBorderTextInput
-                    isHalf={true}
+                    isHalf={false}
                     value={
                       sectionKeyVals.find(
                         elem => elem.id === props.ticket.section,
@@ -81,7 +81,7 @@ function Show(props) {
                 </PhoneView>
                 <PhoneView>
                   <JustBottomBorderTextInput
-                    isHalf={true}
+                    isHalf={false}
                     value={props.ticket.statusFa}
                     disable={true}
                     placeholder={translator.status}

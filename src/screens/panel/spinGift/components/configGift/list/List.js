@@ -57,7 +57,7 @@ function List(props) {
                   subText={Translate.newDate}
                   setter={setNewDate}
                   value={newDate}
-                  isHalf={true}
+                  isHalf={false}
                 />
               </PhoneView>
               <PhoneView style={{flexDirection: 'row-reverse'}}>
@@ -85,7 +85,7 @@ function List(props) {
           justNum={true}
           onChangeText={text => setMaxSlot(text)}
           value={maxSlot}
-          isHalf={true}
+          isHalf={false}
         />
         <PhoneView style={{marginTop: 25, gap: 10}}>
           <SimpleText text={Translate.launchDates} />
@@ -147,7 +147,7 @@ function List(props) {
                   subText={Translate.newDate}
                   setter={setAppNewDate}
                   value={appNewDate}
-                  isHalf={true}
+                  isHalf={false}
                 />
               </PhoneView>
               <PhoneView style={{flexDirection: 'row-reverse'}}>
@@ -175,7 +175,7 @@ function List(props) {
           justNum={true}
           onChangeText={text => setAppMaxSlot(text)}
           value={appMaxSlot}
-          isHalf={true}
+          isHalf={false}
         />
         <PhoneView style={{marginTop: 25, gap: 10}}>
           <SimpleText text={Translate.launchDates} />

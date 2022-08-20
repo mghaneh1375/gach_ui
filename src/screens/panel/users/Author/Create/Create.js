@@ -27,7 +27,7 @@ function CreateAuthor(props) {
       <MyView>
         <PhoneView>
           <JustBottomBorderTextInput
-            isHalf={true}
+            isHalf={false}
             placeholder={Translate.authorName}
             subText={Translate.authorName}
             value={name}
@@ -35,7 +35,7 @@ function CreateAuthor(props) {
           />
 
           <JustBottomBorderTextInput
-            isHalf={true}
+            isHalf={false}
             placeholder={Translate.tag}
             subText={Translate.tag}
             value={tag}

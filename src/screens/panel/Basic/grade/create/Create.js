@@ -32,7 +32,7 @@ function Create(props) {
         <MyView>
           <PhoneView style={{gap: 10}}>
             <JustBottomBorderTextInput
-              isHalf={true}
+              isHalf={false}
               value={name}
               onChangeText={e => setName(e)}
               placeholder={props.name}

@@ -71,7 +71,7 @@ function StateAndCity(props) {
   return (
     <EqualTwoTextInputs>
       <JustBottomBorderTextInput
-        isHalf={true}
+        isHalf={false}
         placeholder={commonTranslator.state}
         resultPane={true}
         setSelectedItem={setSelectedState}
@@ -81,7 +81,7 @@ function StateAndCity(props) {
       />
 
       <JustBottomBorderTextInput
-        isHalf={true}
+        isHalf={false}
         resultPane={true}
         placeholder={commonTranslator.city}
         setSelectedItem={setSelectedCity}

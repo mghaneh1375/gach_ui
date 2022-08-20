@@ -23,14 +23,12 @@ const QuizGeneralInfo = props => {
     <MyView>
       <PhoneView style={{gap: 10}}>
         <JustBottomBorderTextInput
-          isHalf={true}
           placeholder={translator.name}
           onChangeText={e => changeInput('name', e)}
           value={props.name}
           subText={translator.name}
         />
         <JustBottomBorderSelect
-          isHalf={true}
           value={
             props.kind === undefined
               ? {}
@@ -44,7 +42,6 @@ const QuizGeneralInfo = props => {
           values={kindQuizKeyVals}
         />
         <JustBottomBorderTextInput
-          isHalf={true}
           multi={true}
           addNotFound={true}
           resultPane={true}

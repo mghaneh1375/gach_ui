@@ -117,7 +117,6 @@ function Create(props) {
         {props.isAdmin && (
           <PhoneView style={{gap: 10, marginBottom: 10}}>
             <JustBottomBorderTextInput
-              isHalf={true}
               value={
                 foundUser !== undefined
                   ? foundUser.map(elem => elem.name).join(',')
@@ -139,7 +138,6 @@ function Create(props) {
 
         <PhoneView style={{gap: 10}}>
           <JustBottomBorderSelect
-            isHalf={true}
             setter={setPriority}
             values={priorityKeyVals}
             value={priorityKeyVals.find(elem => elem.id === priority)}
@@ -147,7 +145,6 @@ function Create(props) {
             subText={translator.priority}
           />
           <JustBottomBorderSelect
-            isHalf={true}
             setter={setSection}
             values={sectionKeyVals}
             value={sectionKeyVals.find(elem => elem.id === section)}

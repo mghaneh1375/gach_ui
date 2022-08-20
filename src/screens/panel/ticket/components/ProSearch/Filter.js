@@ -55,7 +55,6 @@ function Filter(props) {
     <MyView>
       <PhoneView style={{gap: 10}}>
         <JustBottomBorderSelect
-          isHalf={true}
           setter={setStatus}
           values={statusKeyVals}
           value={statusKeyVals.find(elem => elem.id === status)}
@@ -63,7 +62,6 @@ function Filter(props) {
           subText={translator.status}
         />
         <JustBottomBorderSelect
-          isHalf={true}
           setter={setPriority}
           values={priorityKeyVals}
           value={priorityKeyVals.find(elem => elem.id === priority)}
@@ -71,7 +69,6 @@ function Filter(props) {
           subText={translator.priority}
         />
         <JustBottomBorderSelect
-          isHalf={true}
           setter={setSection}
           values={sectionKeyValsForFilter}
           value={sectionKeyValsForFilter.find(elem => elem.id === section)}
@@ -93,7 +90,7 @@ function Filter(props) {
               answerDateSolarEndLimit,
             )
           }
-          isHalf={true}
+          isHalf={false}
           title={commonTranslator.show}
           style={{alignSelf: 'flex-start'}}
         />
@@ -133,18 +130,15 @@ function Filter(props) {
               subText={translator.dateStartRequest}
               setter={setSendDateSolar}
               value={sendDateSolar}
-              isHalf={true}
             />
             <JustBottomBorderDatePicker
               placeholder={translator.dateEndRequest}
               subText={translator.dateEndRequest}
               setter={setSendDateSolarEndLimit}
               value={sendDateSolarEndLimit}
-              isHalf={true}
             />
             {props.isAdmin && (
               <JustBottomBorderSelect
-                isHalf={true}
                 setter={setStartWith}
                 values={startWithVals}
                 value={startWithVals.find(elem => elem.id === startWith)}
@@ -159,14 +153,12 @@ function Filter(props) {
               subText={translator.lastStartUpdate}
               setter={setAnswerDateSolar}
               value={answerDateSolar}
-              isHalf={true}
             />
             <JustBottomBorderDatePicker
               placeholder={translator.lastEndUpdate}
               subText={translator.lastEndUpdate}
               setter={setAnswerDateSolarEndLimit}
               value={answerDateSolarEndLimit}
-              isHalf={true}
             />
             {props.isAdmin && (
               <MyView style={{marginTop: 10}}>

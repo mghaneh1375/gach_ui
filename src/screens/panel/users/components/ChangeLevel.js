@@ -118,7 +118,7 @@ function ChangeLevel(props) {
               }
             />
             <JustBottomBorderSelect
-              isHalf={true}
+              isHalf={false}
               setter={setNewLevel}
               values={levelKeyVals}
               value={levelKeyVals.find(elem => elem.id === newLevel)}

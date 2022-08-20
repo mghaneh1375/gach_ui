@@ -35,7 +35,7 @@ const Create = props => {
       onBackClick={() => props.setMode('list')}>
       <PhoneView style={{gap: 10, marginBottom: 10}}>
         <JustBottomBorderTextInput
-          isHalf={true}
+          isHalf={false}
           placeholder={translator.amount}
           subText={translator.amount}
           justNum={true}
@@ -43,7 +43,7 @@ const Create = props => {
           value={amount}
         />
         <JustBottomBorderSelect
-          isHalf={true}
+          isHalf={false}
           placeholder={translator.type}
           subText={translator.type}
           setter={setType}
@@ -51,7 +51,7 @@ const Create = props => {
           value={typeKeyVals.find(elem => elem.id === type)}
         />
         <JustBottomBorderDatePicker
-          isHalf={true}
+          isHalf={false}
           value={expireAt}
           setter={setExpireAt}
           placeholder={translator.expire}
