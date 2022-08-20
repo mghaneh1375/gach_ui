@@ -37,11 +37,19 @@ function Add(props) {
       props.setLoading(false);
 
       if (res[0] === null) {
-        dispatch({selectingQuiz: false});
+        props.setMode('list');
         return;
       }
-
-      dispatch({registrableQuizzes: res[0]});
+      dispatch({
+        registrableQuizzes: res[0].items,
+        filters: res[0].tags.map((elem, index) => {
+          return {
+            label: elem,
+            index: index,
+            doFilter: selectedIndices => console.log(selectedIndices),
+          };
+        }),
+      });
       setIsWorking(false);
     });
   }, [props, isWorking, state, dispatch]);
