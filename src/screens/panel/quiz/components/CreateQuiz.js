@@ -28,7 +28,7 @@ const CreateQuiz = props => {
   }, [props]);
 
   React.useEffect(() => {
-    if (props.editMode === undefined) return;
+    if (props.editMode === undefined || !props.editMode) return;
     if (state.selectedQuiz === undefined) {
       backToList();
       return;

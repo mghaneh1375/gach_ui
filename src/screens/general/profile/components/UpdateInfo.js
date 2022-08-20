@@ -2,13 +2,7 @@ import React, {useState} from 'react';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import commonTranslator from '../../../../tranlates/Common';
-import {
-  CommonButton,
-  EqualTwoTextInputs,
-  MyView,
-  PhoneView,
-} from '../../../../styles/Common';
-import {View} from 'react-native';
+import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
 import vars from '../../../../styles/root';
 import {updateInfo} from './Utility';
 import {sexKeyVals} from '../../../../services/Utility';

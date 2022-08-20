@@ -6,7 +6,7 @@ import SchoolMenu from './Menus/SchoolMenu';
 import Teacher from './Menus/Teacher';
 import {globalStateContext} from '../../../../App';
 import Filter from './Filter';
-import {MyView} from 'react-native-multi-selectbox';
+import {MyView} from '../../../../styles/Common';
 
 const Menu = props => {
   const useGlobalState = () => [React.useContext(globalStateContext)];
@@ -14,19 +14,28 @@ const Menu = props => {
 
   return (
     <MyView>
-      {state.isRightMenuVisible && props.accesses.indexOf('student') !== -1 && (
-        <StudentMenu navigate={props.navigate} />
-      )}
-      {state.isRightMenuVisible && props.accesses.indexOf('teacher') !== -1 && (
-        <Teacher navigate={props.navigate} />
-      )}
-      {state.isRightMenuVisible && props.accesses.indexOf('agent') !== -1 && (
-        <Agent navigate={props.navigate} />
-      )}
-      {state.isRightMenuVisible && props.accesses.indexOf('school') !== -1 && (
-        <SchoolMenu navigate={props.navigate} />
-      )}
       {state.isRightMenuVisible &&
+        props.accesses !== undefined &&
+        props.accesses.indexOf('student') !== -1 && (
+          <StudentMenu navigate={props.navigate} />
+        )}
+      {state.isRightMenuVisible &&
+        props.accesses !== undefined &&
+        props.accesses.indexOf('teacher') !== -1 && (
+          <Teacher navigate={props.navigate} />
+        )}
+      {state.isRightMenuVisible &&
+        props.accesses !== undefined &&
+        props.accesses.indexOf('agent') !== -1 && (
+          <Agent navigate={props.navigate} />
+        )}
+      {state.isRightMenuVisible &&
+        props.accesses !== undefined &&
+        props.accesses.indexOf('school') !== -1 && (
+          <SchoolMenu navigate={props.navigate} />
+        )}
+      {state.isRightMenuVisible &&
+        props.accesses !== undefined &&
         (props.accesses.indexOf('admin') !== -1 ||
           props.accesses.indexOf('superadmin') !== -1) && (
           <AdminMenu navigate={props.navigate} />

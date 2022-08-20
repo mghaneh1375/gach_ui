@@ -11,10 +11,7 @@ import {
 
 import translator from '../../tranlates/Common';
 import SubInputText from './SubInputText';
-import {getWidthHeight} from '../../services/Utility';
 import MultiBox from '../../components/web/MultiBox/MultiBox';
-import {styleFlexWrap} from '../../screens/studentPanel/dashboard/DashboardCard/style';
-import {styles} from './Styles';
 
 export const MultiSearchableTextInput = props => {
   const [suggests, setSuggests] = useState([]);
@@ -132,7 +129,6 @@ export const MultiSearchableTextInput = props => {
     setShowResultPane(true);
   };
 
-  const isApp = Platform.OS !== 'web';
   const isHalf = props.isHalf !== undefined && props.isHalf;
   const style1 =
     Platform.OS === 'web'
@@ -151,14 +147,6 @@ export const MultiSearchableTextInput = props => {
     onBlur: () => checkSelect(),
   };
 
-  if (props.justNum !== undefined && Platform.OS === 'web') {
-    inputProps.keyboardType = 'numeric';
-    inputProps.onKeyPress = e => {
-      var charCode = e.which ? e.which : e.keyCode;
-      if (charCode !== 8 && String.fromCharCode(charCode).match(/[^0-9]/g))
-        e.preventDefault();
-    };
-  }
   let parentAllStyles = isHalf
     ? {
         ...{

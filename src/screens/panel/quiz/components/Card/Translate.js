@@ -1,6 +1,8 @@
 const translate = {
-  registery: 'مهلت ثبت نام ',
-  launching: 'زمان برگزاری ',
+  startRegistery: 'آغاز مهلت ثبت نام ',
+  endRegistery: 'اتمام مهلت ثبت نام ',
+  startLaunching: 'آغاز زمان برگزاری ',
+  endLaunching: 'اتمام زمان برگزاری ',
   reminder: 'ظرفیت باقی مانده: ',
   price: 'قیمت : ',
   studentsCount: 'تعداد ثبت نامی: ',

@@ -112,43 +112,59 @@ function Card(props) {
               />
               <SimpleText
                 style={{...styleFontSize15}}
-                text={props.quiz.visibility}
+                text={props.quiz.visibility ? 'قابل رویت' : 'مخفی'}
               />
             </MyView>
           )}
-          <PhoneView style={{...styleFullItem}}>
+          <PhoneView>
             <TinyTextIcon />
             <MyView>
               <SimpleText
                 style={{...styleFontSize11}}
-                text={Translate.launching}
+                text={Translate.startLaunching}
               />
               <SimpleText
                 style={{...styleFontSize11}}
-                text={
-                  commonTranslator.from +
-                  convertTimestamp(props.quiz.start) +
-                  commonTranslator.to +
-                  convertTimestamp(props.quiz.end)
-                }
+                text={convertTimestamp(props.quiz.start)}
               />
             </MyView>
           </PhoneView>
-          <PhoneView style={{...styleFullItem}}>
+          <PhoneView>
             <TinyTextIcon />
             <MyView>
               <SimpleText
                 style={{...styleFontSize11}}
-                text={Translate.registery}
+                text={Translate.endLaunching}
               />
               <SimpleText
                 style={{...styleFontSize11}}
-                text={
-                  commonTranslator.from +
-                  convertTimestamp(props.quiz.startRegistry) +
-                  commonTranslator.to +
-                  convertTimestamp(props.quiz.endRegistry)
-                }
+                text={convertTimestamp(props.quiz.end)}
+              />
+            </MyView>
+          </PhoneView>
+          <PhoneView>
+            <TinyTextIcon />
+            <MyView>
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={Translate.startRegistery}
+              />
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={convertTimestamp(props.quiz.startRegistry)}
+              />
+            </MyView>
+          </PhoneView>
+          <PhoneView>
+            <TinyTextIcon />
+            <MyView>
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={Translate.endRegistery}
+              />
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={convertTimestamp(props.quiz.endRegistry)}
               />
             </MyView>
           </PhoneView>
@@ -183,7 +199,10 @@ function Card(props) {
           style={{
             ...styleDigest,
           }}>
-          <SimpleText style={{...styleFontSize13}} text={props.quiz.tags} />
+          <SimpleText
+            style={{...styleFontSize13}}
+            text={'# ' + props.quiz.tags.join(' - ')}
+          />
         </MyView>
       </MyView>
     </CommonWebBox>

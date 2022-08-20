@@ -51,15 +51,20 @@ const QuizGeneralInfo = props => {
                 return elem.name;
               }),
             );
-            let tmp = state.tags;
-            item.forEach(itr => {
-              if (state.tags.find(elem => elem.id === itr.id) === undefined) {
-                tmp.push(itr);
-              }
-            });
-            dispatch({tags: tmp});
+            if (item.length > 0) {
+              let tmp = state.tags;
+              item.forEach(itr => {
+                if (state.tags.find(elem => elem.id === itr.id) === undefined) {
+                  tmp.push(itr);
+                }
+              });
+              dispatch({tags: tmp});
+            }
           }}
           values={state.tags}
+          value={props.tags.map((elem, index) => {
+            return {id: index, title: elem};
+          })}
           reset={false}
           placeholder={translator.tag}
           subText={translator.tag}
