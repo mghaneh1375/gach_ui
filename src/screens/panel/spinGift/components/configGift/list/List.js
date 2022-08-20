@@ -9,10 +9,13 @@ import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBotto
 import commonTranslator from '../../../../../../tranlates/Common';
 import Translate from '../../../Translate';
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {Platform, View} from 'react-native';
 import {TextIcon} from '../../../../../../styles/Common/TextIcon';
 import {faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
-import {convertTimestamp} from '../../../../../../services/Utility';
+import {
+  convertTimestamp,
+  getWidthHeight,
+} from '../../../../../../services/Utility';
 import {FontIcon} from '../../../../../../styles/Common/FontIcon';
 import {LargePopUp} from '../../../../../../styles/Common/PopUp';
 import {CommonDatePicker} from '../../../../../../styles/Common/CommonDatePicker';
@@ -39,44 +42,43 @@ function List(props) {
     setWebDateList(props.data.webGiftDays);
     setAppDateList(props.data.appGiftDays);
   }, [props.data]);
-
+  let width = getWidthHeight()[0];
   return (
     // for web
     <MyView>
       <CommonWebBox
+        width={350}
         header={commonTranslator.configuration + ' ' + commonTranslator.web}>
         {showPane && (
           <LargePopUp
             removeCancel={true}
             title={commonTranslator.addDate}
             toggleShowPopUp={toggleShowPopUpPane}>
-            <MyView>
-              <PhoneView>
-                <CommonDatePicker
-                  placeholder={Translate.newDate}
-                  subText={Translate.newDate}
-                  setter={setNewDate}
-                  value={newDate}
-                  isHalf={false}
-                />
-              </PhoneView>
-              <PhoneView style={{flexDirection: 'row-reverse'}}>
-                <CommonButton
-                  title={commonTranslator.confirm}
-                  onPress={() => {
-                    let allItems = webDateList;
-                    allItems.push(newDate);
-                    setWebDateList(allItems);
-                    setNewDate(undefined);
-                    toggleShowPopUpPane();
-                  }}
-                />
-                <CommonButton
-                  title={commonTranslator.cancel}
-                  onPress={toggleShowPopUpPane}
-                />
-              </PhoneView>
-            </MyView>
+            <PhoneView>
+              <CommonDatePicker
+                placeholder={Translate.newDate}
+                subText={Translate.newDate}
+                setter={setNewDate}
+                value={newDate}
+              />
+            </PhoneView>
+
+            <PhoneView style={{flexDirection: 'row-reverse'}}>
+              <CommonButton
+                title={commonTranslator.confirm}
+                onPress={() => {
+                  let allItems = webDateList;
+                  allItems.push(newDate);
+                  setWebDateList(allItems);
+                  setNewDate(undefined);
+                  toggleShowPopUpPane();
+                }}
+              />
+              <CommonButton
+                title={commonTranslator.cancel}
+                onPress={toggleShowPopUpPane}
+              />
+            </PhoneView>
           </LargePopUp>
         )}
         <JustBottomBorderTextInput
@@ -85,14 +87,15 @@ function List(props) {
           justNum={true}
           onChangeText={text => setMaxSlot(text)}
           value={maxSlot}
-          isHalf={false}
+          isHalf={true}
         />
-        <PhoneView style={{marginTop: 25, gap: 10}}>
+        <PhoneView style={{gap: 15}}>
           <SimpleText text={Translate.launchDates} />
-          <MyView>
+          <PhoneView>
             {webDateList.map((elem, index) => {
               return (
                 <TextIcon
+                  style={{gap: 15, marginBottom: 15}}
                   onPress={() => {
                     let allItems = webDateList.filter((elem, idx) => {
                       return index !== idx;
@@ -107,15 +110,15 @@ function List(props) {
                 />
               );
             })}
-          </MyView>
-          <FontIcon
-            parentStyle={{alignSelf: 'flex-start'}}
-            theme={'rect'}
-            kind={'normal'}
-            back={'yellow'}
-            icon={faPlus}
-            onPress={toggleShowPopUpPane}
-          />
+            <FontIcon
+              parentStyle={{alignSelf: 'flex-start', marginRight: 15}}
+              theme={'rect'}
+              kind={'normal'}
+              back={'yellow'}
+              icon={faPlus}
+              onPress={toggleShowPopUpPane}
+            />
+          </PhoneView>
         </PhoneView>
         <MyView>
           <CommonButton
@@ -134,55 +137,58 @@ function List(props) {
       </CommonWebBox>
       {/* for app */}
       <CommonWebBox
+        width={350}
         header={commonTranslator.configuration + ' ' + commonTranslator.app}>
         {appShowPane && (
           <LargePopUp
             removeCancel={true}
             title={commonTranslator.addDate + ' ' + commonTranslator.app}
             toggleShowPopUp={appToggleShowPopUpPane}>
-            <MyView>
-              <PhoneView>
-                <CommonDatePicker
-                  placeholder={Translate.newDate}
-                  subText={Translate.newDate}
-                  setter={setAppNewDate}
-                  value={appNewDate}
-                  isHalf={false}
-                />
-              </PhoneView>
-              <PhoneView style={{flexDirection: 'row-reverse'}}>
-                <CommonButton
-                  title={commonTranslator.confirm}
-                  onPress={() => {
-                    let allItems = appDateList;
-                    allItems.push(appNewDate);
-                    setAppDateList(allItems);
-                    setAppNewDate(undefined);
-                    appToggleShowPopUpPane();
-                  }}
-                />
-                <CommonButton
-                  title={commonTranslator.cancel}
-                  onPress={appToggleShowPopUpPane}
-                />
-              </PhoneView>
-            </MyView>
+            <PhoneView>
+              <CommonDatePicker
+                placeholder={Translate.newDate}
+                subText={Translate.newDate}
+                setter={setAppNewDate}
+                value={appNewDate}
+                isHalf={false}
+              />
+            </PhoneView>
+
+            <PhoneView style={{flexDirection: 'row-reverse'}}>
+              <CommonButton
+                title={commonTranslator.confirm}
+                onPress={() => {
+                  let allItems = appDateList;
+                  allItems.push(appNewDate);
+                  setAppDateList(allItems);
+                  setAppNewDate(undefined);
+                  appToggleShowPopUpPane();
+                }}
+              />
+              <CommonButton
+                title={commonTranslator.cancel}
+                onPress={appToggleShowPopUpPane}
+              />
+            </PhoneView>
           </LargePopUp>
         )}
-        <JustBottomBorderTextInput
-          subText={Translate.maxCut}
-          placeholder={Translate.maxCut}
-          justNum={true}
-          onChangeText={text => setAppMaxSlot(text)}
-          value={appMaxSlot}
-          isHalf={false}
-        />
-        <PhoneView style={{marginTop: 25, gap: 10}}>
+        <PhoneView>
+          <JustBottomBorderTextInput
+            subText={Translate.maxCut}
+            placeholder={Translate.maxCut}
+            justNum={true}
+            onChangeText={text => setAppMaxSlot(text)}
+            value={appMaxSlot}
+            isHalf={false}
+          />
+        </PhoneView>
+        <PhoneView style={{gap: 15}}>
           <SimpleText text={Translate.launchDates} />
-          <MyView>
+          <PhoneView style={{gap: 15}}>
             {appDateList.map((elem, index) => {
               return (
                 <TextIcon
+                  style={{gap: 15, marginBottom: 15}}
                   onPress={() => {
                     let allItems = appDateList.filter((elem, idx) => {
                       return index !== idx;
@@ -197,15 +203,15 @@ function List(props) {
                 />
               );
             })}
-          </MyView>
-          <FontIcon
-            parentStyle={{alignSelf: 'flex-start'}}
-            theme={'rect'}
-            kind={'normal'}
-            back={'yellow'}
-            icon={faPlus}
-            onPress={appToggleShowPopUpPane}
-          />
+            <FontIcon
+              parentStyle={{alignSelf: 'flex-start'}}
+              theme={'rect'}
+              kind={'normal'}
+              back={'yellow'}
+              icon={faPlus}
+              onPress={appToggleShowPopUpPane}
+            />
+          </PhoneView>
         </PhoneView>
         <MyView>
           <CommonButton
@@ -222,6 +228,7 @@ function List(props) {
           />
         </MyView>
       </CommonWebBox>
+      {/* /////////////////////////////////////////////////////////////////// */}
     </MyView>
   );
 }

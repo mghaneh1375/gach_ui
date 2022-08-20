@@ -57,8 +57,6 @@ export const calcInputWidth = (padding, isHalf, style) => {
 
   style.minWidth = isApp
     ? '100%'
-    : width > 1200
-    ? 'calc(18% - ' + padding + 'px)'
     : width > 960
     ? 'calc(25% - ' + padding + 'px)'
     : width > 768

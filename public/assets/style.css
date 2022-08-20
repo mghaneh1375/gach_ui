@@ -288,6 +288,7 @@
 .mySelect div:focus-within {
   outline-style: none;
   border-color: #ffaa00 !important;
+  box-shadow: 1px solid 15px;
   background-color: #e8e8e8;
 }
 input::placeholder {
@@ -307,6 +308,7 @@ textarea:focus-visible {
 .select:focus-visible {
   outline-style: none;
   border-color: #ffaa00 !important;
+  box-shadow: 1px solid 15px;
 }
 /* //table */
 
@@ -333,7 +335,6 @@ textarea:focus-visible {
 .rdt_TableCol > div {
   white-space: break-spaces !important;
 }
-
 .rdt_TableCol,
 .rdt_TableCell {
   padding-left: 5px !important;
@@ -351,6 +352,12 @@ textarea:focus-visible {
   margin-top: 38px;
   z-index: 10 !important;
   background: white;
+  box-shadow: 1px 3px 6px 4px #00000029;
+  border-radius: 0px 0px 10px 10px;
+}
+.mySelect > .myView > .r-transform-1sncvnh > div > :hover {
+  background-color: #efefef !important;
+  border-radius: 10px !important;
 }
 .myView {
   -moz-box-align: stretch;

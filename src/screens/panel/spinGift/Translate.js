@@ -14,7 +14,7 @@ const Translate = {
   siteApp: 'سایت / اپ',
   site: 'سایت',
   app: 'اپ',
-  launchDates: 'تاریخ های اجرا',
+  launchDates: 'تاریخ های اجرا :',
   personalQuiz: 'ازمون هاس شخصی',
   gachQuiz: 'آزمون های گچ',
   counseling: 'مشاوره',

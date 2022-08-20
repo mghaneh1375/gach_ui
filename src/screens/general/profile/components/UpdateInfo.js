@@ -108,7 +108,17 @@ const UpdateInfo = props => {
           values={state !== undefined ? state.cities : []}
         />
         <JustBottomBorderTextInput
-          style={{marginTop: 10}}
+          isHalf={true}
+          style={{maxWidth: 'unset'}}
+          placeholder={commonTranslator.school}
+          subText={commonTranslator.school}
+          resultPane={true}
+          setSelectedItem={setSelectedSchool}
+          values={props.schools}
+          value={school !== undefined ? school.name : ''}
+          reset={false}
+        />
+        <JustBottomBorderTextInput
           isHalf={true}
           placeholder={commonTranslator.grade}
           subText={commonTranslator.grade}
@@ -118,7 +128,6 @@ const UpdateInfo = props => {
           value={grade !== undefined ? grade.name : ''}
           reset={false}
         />
-
         <JustBottomBorderTextInput
           style={{marginTop: 10}}
           isHalf={true}
@@ -130,17 +139,6 @@ const UpdateInfo = props => {
           values={props.branches}
           value={branch}
           multi={true}
-        />
-        <JustBottomBorderTextInput
-          isHalf={true}
-          style={{maxWidth: 'unset'}}
-          placeholder={commonTranslator.school}
-          subText={commonTranslator.school}
-          resultPane={true}
-          setSelectedItem={setSelectedSchool}
-          values={props.schools}
-          value={school !== undefined ? school.name : ''}
-          reset={false}
         />
       </PhoneView>
       <CommonButton

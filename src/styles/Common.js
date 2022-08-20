@@ -315,6 +315,8 @@ export const CommonWebBox = props => {
               : props.style.padding,
           borderRadius: 10,
           gap: props.no_gap === undefined || !props.no_gap ? 10 : 0,
+          borderRightWidth: props.borderRightWidth === 'true' ? 18 : 0,
+          borderColor: props.theme,
         }}>
         {props.header !== undefined && (
           <EqualTwoTextInputs>

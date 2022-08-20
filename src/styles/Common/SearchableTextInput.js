@@ -58,7 +58,15 @@ export const SearchableTextInput = props => {
         onBlur={() => setSelectingStatue(false)}
         key={suggest.id}
         onPress={e => select(suggest)}>
-        <SimpleText style={{cursor: 'pointer'}} text={suggest.name} />
+        <SimpleText
+          style={{
+            cursor: 'pointer',
+            borderBottomWidth: 0,
+            borderColor: '#efefef',
+            padding: 10,
+          }}
+          text={suggest.name}
+        />
       </Pressable>
     ));
   };
@@ -150,7 +158,6 @@ export const SearchableTextInput = props => {
             height: 100,
             marginTop: props.subText !== undefined ? -20 : 10,
             backgroundColor: vars.WHITE,
-            borderWidth: 1,
             marginLeft: 0,
             marginRight: 0,
             overflow: 'auto',

@@ -35,8 +35,8 @@ export const CommonSelect = props => {
     },
     optionContainerStyle: {
       borderRadius: 0,
-      borderWidth: 1,
-      borderColor: '#ffaa00',
+      borderWidth: 0,
+      borderColor: 'gray',
       borderTopWidth: 0,
       backgroundColor: vars.transparent,
       paddingTop: 6,

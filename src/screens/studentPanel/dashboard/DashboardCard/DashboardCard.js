@@ -18,17 +18,25 @@ import {
   styleFontSize30,
 } from './style';
 
-function DashboardCard({theme, text, background, subtext, btnColor, counter}) {
+function DashboardCard({
+  theme,
+  text,
+  background,
+  subtext,
+  btnColor,
+  counter,
+  borderRightWidth,
+}) {
   return (
     <CommonWebBox
       width={250}
+      borderRightWidth={borderRightWidth}
+      theme={theme}
       style={{
         ...styleJustifyContentCenter,
-        ...styleBorderRight,
         ...{
           borderColor: theme,
           backgroundImage: background !== undefined ? background : 'white',
-          borderRightWidth: background !== undefined ? 0 : 18,
         },
       }}>
       <PhoneView style={{justifyContent: 'space-between'}}>
