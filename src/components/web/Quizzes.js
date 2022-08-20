@@ -5,20 +5,21 @@ import Card from '../../screens/panel/quiz/components/Card/Card';
 import {MyView, PhoneView} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import Basket from './Basket';
-import {globalStateContext, dispatchStateContext} from '../../App';
+import {dispatchStateContext} from '../../App';
 
 function Quizzes(props) {
-  const [quizzes, setQuizzes] = useState(props.quizzes);
-  const [selectable, setSelectable] = useState();
+  const [quizzes, setQuizzes] = useState();
   const [isWorking, setIsWorking] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
 
-  const [state, dispatch] = useGlobalState();
+  const [dispatch] = useGlobalState();
+
+  React.useEffect(() => {
+    if (props.quizzes !== undefined) setQuizzes(props.quizzes);
+    else fetchQuizzes();
+  }, [props.quizzes, fetchQuizzes]);
 
   const toggleSelectedItems = id => {
     let idx = selectedItems.indexOf(id);
@@ -37,7 +38,7 @@ function Quizzes(props) {
     );
   };
 
-  React.useEffect(() => {
+  const fetchQuizzes = React.useCallback(() => {
     if (isWorking || quizzes !== undefined) return;
 
     if (props.fetchUrl === undefined && props.quizzes !== undefined) {
@@ -95,7 +96,9 @@ function Quizzes(props) {
             );
           })}
       </PhoneView>
-      <Basket total={quizzes.length} selectedLength={selectedItems.length}>
+      <Basket
+        total={quizzes === undefined ? 0 : quizzes.length}
+        selectedLength={selectedItems.length}>
         {props.children}
       </Basket>
     </MyView>

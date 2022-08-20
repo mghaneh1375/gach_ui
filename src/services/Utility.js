@@ -36,6 +36,7 @@ export function simpleConvertTimestamp(unix_timestamp) {
 }
 
 export function convertTimestamp(unix_timestamp) {
+  if (unix_timestamp === undefined || unix_timestamp === '') return '...';
   return moment
     .unix(unix_timestamp / 1000)
     .format('تاریخ: jYYYY/jMM/jDD ساعت: HH:mm');

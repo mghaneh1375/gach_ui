@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   CommonRadioButton,
   PhoneView,
@@ -11,6 +11,17 @@ import commonTranslator from '../../../../../tranlates/Common';
 import {launchModeKeyVals} from '../KeyVals';
 
 const QuizRunInfo = props => {
+  const [start, setStart] = useState();
+  const [end, setEnd] = useState();
+
+  React.useEffect(() => {
+    setStart(props.start);
+  }, [props.start]);
+
+  React.useEffect(() => {
+    setEnd(props.end);
+  }, [props.end]);
+
   const trueFalseValues = [
     {item: commonTranslator.yes, id: true},
     {item: commonTranslator.no, id: false},
@@ -120,20 +131,24 @@ const QuizRunInfo = props => {
           placeholder={translator.showResultAfterCorrection}
         />
 
-        <JustBottomBorderDatePicker
-          placeholder={translator.startDate}
-          value={props.start}
-          setter={props.setStart}
-          isHalf={true}
-          subText={translator.startDate}
-        />
-        <JustBottomBorderDatePicker
-          placeholder={translator.endDate}
-          value={props.end}
-          setter={props.setEnd}
-          isHalf={true}
-          subText={translator.endDate}
-        />
+        {start !== undefined && (
+          <JustBottomBorderDatePicker
+            placeholder={translator.startDate}
+            value={start}
+            setter={props.setStart}
+            isHalf={true}
+            subText={translator.startDate}
+          />
+        )}
+        {end !== undefined && (
+          <JustBottomBorderDatePicker
+            placeholder={translator.endDate}
+            value={end}
+            setter={props.setEnd}
+            isHalf={true}
+            subText={translator.endDate}
+          />
+        )}
       </PhoneView>
     </MyView>
   );

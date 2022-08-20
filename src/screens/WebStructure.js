@@ -200,7 +200,8 @@ const WebStructue = props => {
 
             <MyView
               style={
-                isInLargeMode && state.isRightMenuVisible
+                (isInLargeMode && state.isRightMenuVisible) ||
+                (isInLargeMode && state.isFilterMenuVisible)
                   ? LargeContentConianerStyle
                   : PhoneContentConianerStyle
               }>

@@ -21,21 +21,21 @@ import commonTranslator from '../../tranlates/Common';
 import {globalStateContext} from '../../App';
 
 function Basket(props) {
-  const useGlobalState = () => [React.useContext(globalStateContext)];
-  const [state] = useGlobalState();
+  // const useGlobalState = () => [React.useContext(globalStateContext)];
+  // const [state] = useGlobalState();
 
-  const [width, setWidth] = useState('calc(100% - 240px)');
+  // const [width, setWidth] = useState('calc(100% - 240px)');
 
-  React.useEffect(() => {
-    if (state.isRightMenuVisible) setWidth('calc(100% - 240px)');
-    else setWidth('calc(100% - 40px)');
-  }, [state.isRightMenuVisible]);
+  // React.useEffect(() => {
+  //   if (state.isRightMenuVisible) setWidth('calc(100% - 240px)');
+  //   else setWidth('calc(100% - 40px)');
+  // }, [state.isRightMenuVisible]);
 
   return (
     <CommonWebBox
       style={{
         ...basketBox,
-        ...{width: width},
+        ...{width: 'calc(100% - 240px)'},
       }}>
       <EqualTwoTextInputs>
         <MyView>

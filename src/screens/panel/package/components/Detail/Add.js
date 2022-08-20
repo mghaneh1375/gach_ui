@@ -40,25 +40,60 @@ function Add(props) {
         props.setMode('list');
         return;
       }
+
+      let filters = res[0].tags.map((elem, index) => {
+        return {
+          label: elem,
+          index: index,
+          doFilter: idx => {
+            let tmpIdx = state.checkedFilterIndices.indexOf(idx);
+
+            if (tmpIdx === -1) state.checkedFilterIndices.push(idx);
+            else state.checkedFilterIndices.splice(tmpIdx, 1);
+
+            if (state.checkedFilterIndices.length === 0)
+              dispatch({
+                checkedFilterIndices: state.checkedFilterIndices,
+                needUpdateFilters: true,
+              });
+          },
+        };
+      });
+
+      filters.push({
+        label: commonTranslator.all,
+        index: -1,
+        doFilter: idx => {
+          let tmpIdx = state.checkedFilterIndices.indexOf(idx);
+
+          if (tmpIdx === -1) state.checkedFilterIndices.push(idx);
+          else state.checkedFilterIndices.splice(tmpIdx, 1);
+
+          if (state.checkedFilterIndices.indexOf(-1) !== -1)
+            state.checkedFilterIndices = [-1];
+
+          dispatch({
+            checkedFilterIndices: state.checkedFilterIndices,
+            needUpdateFilters: true,
+          });
+        },
+      });
+
       dispatch({
         registrableQuizzes: res[0].items,
-        filters: res[0].tags.map((elem, index) => {
-          return {
-            label: elem,
-            index: index,
-            doFilter: selectedIndices => console.log(selectedIndices),
-          };
-        }),
+        selectableQuizzes: res[0].items,
+        checkedFilterIndices: [],
+        filters: filters,
       });
       setIsWorking(false);
     });
   }, [props, isWorking, state, dispatch]);
 
-  if (state.registrableQuizzes === undefined) return <></>;
+  if (state.selectableQuizzes === undefined) return <></>;
   return (
     <Quizzes
       onBackClicked={() => dispatch({selectingQuiz: false})}
-      quizzes={state.registrableQuizzes}
+      quizzes={state.selectableQuizzes}
       setSelectedQuizzes={setSelectedQuizzes}>
       <CommonButton
         style={{alignSelf: 'flex-end'}}

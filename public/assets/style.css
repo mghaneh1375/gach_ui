@@ -10,7 +10,7 @@
 ::selection {
   color: #ffaa00;
 }
-.menu-item-container > div:not(.super-menu-item) {
+.menu-item-container:not(.filter) > div:not(.super-menu-item) {
   background: linear-gradient(to right, #ffaa00 50%, #707070 50%);
   background-size: 200% 100%;
   background-position: right bottom;
@@ -49,7 +49,7 @@
   }
 } */
 
-.menu-item-container > div:not(.super-menu-item):hover {
+.menu-item-container:not(.filter) > div:not(.super-menu-item):hover {
   background-position: left bottom;
 }
 

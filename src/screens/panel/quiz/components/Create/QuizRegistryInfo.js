@@ -1,12 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {PhoneView, MyView} from '../../../../../styles/Common';
 import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../Translator';
-import commonTranslator from '../../../../../tranlates/Common';
 import {changeText} from '../../../../../services/Utility';
 
 const QuizRegistryInfo = props => {
+  const [start, setStart] = useState();
+  const [end, setEnd] = useState();
+
+  React.useEffect(() => {
+    setStart(props.start);
+  }, [props.start]);
+
+  React.useEffect(() => {
+    setEnd(props.end);
+  }, [props.end]);
+
   return (
     <MyView>
       <PhoneView style={{gap: 10, marginBottom: 10}}>
@@ -35,22 +45,24 @@ const QuizRegistryInfo = props => {
           justNum={true}
         />
       </PhoneView>
-      <PhoneView style={{gap: 10, marginBottom: 10}}>
-        <JustBottomBorderDatePicker
-          placeholder={translator.startRegistryDate}
-          subText={translator.startRegistryDate}
-          value={props.start}
-          setter={props.setStart}
-          isHalf={true}
-        />
-        <JustBottomBorderDatePicker
-          placeholder={translator.endRegistryDate}
-          subText={translator.endRegistryDate}
-          value={props.end}
-          setter={props.setEnd}
-          isHalf={true}
-        />
-      </PhoneView>
+      {start !== undefined && end !== undefined && (
+        <PhoneView style={{gap: 10, marginBottom: 10}}>
+          <JustBottomBorderDatePicker
+            placeholder={translator.startRegistryDate}
+            subText={translator.startRegistryDate}
+            value={start}
+            setter={props.setStart}
+            isHalf={true}
+          />
+          <JustBottomBorderDatePicker
+            placeholder={translator.endRegistryDate}
+            subText={translator.endRegistryDate}
+            value={end}
+            setter={props.setEnd}
+            isHalf={true}
+          />
+        </PhoneView>
+      )}
     </MyView>
   );
 };

@@ -4,6 +4,7 @@ import {getDevice} from '../../../../services/Utility';
 import {style} from './style';
 import {globalStateContext} from '../../../../App';
 import {CommonRadioButton} from '../../../../styles/Common';
+import FilterItem from './FilterItem';
 
 function Filter(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
@@ -22,10 +23,17 @@ function Filter(props) {
 
   if (isLargePage) {
     return (
-      <div className="menu-item-container" style={style.MenuJustLarge}>
+      <div className="menu-item-container filter" style={style.MenuJustLarge}>
         {filters !== undefined &&
           filters.map((elem, index) => {
-            return <CommonRadioButton text={elem.label} key={index} />;
+            return (
+              <FilterItem
+                idx={index}
+                item={elem}
+                status={'unckecked'}
+                key={index}
+              />
+            );
           })}
       </div>
     );

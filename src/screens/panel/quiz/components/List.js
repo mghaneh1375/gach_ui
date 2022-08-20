@@ -51,7 +51,6 @@ const List = props => {
           toggleShowPopUp={toggleShowOpPopUp}
           token={props.token}
           setLoading={props.setLoading}
-          updateQuiz={props.updateQuiz}
           setMode={props.setMode}
           navigate={props.navigate}
         />

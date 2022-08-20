@@ -8,10 +8,8 @@ import {
   CommonTextInputStyleWeb,
 } from './CommonText';
 
-import {TinyTextIcon} from './TextIcon';
 import translator from '../../tranlates/Common';
 import SubInputText from './SubInputText';
-import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {getWidthHeight} from '../../services/Utility';
 import MultiBox from '../../components/web/MultiBox/MultiBox';
 
@@ -117,9 +115,11 @@ export const MultiSearchableTextInput = props => {
       setSuggests(newSuggests);
       return;
     }
-    for (var i = 0; i < props.values.length; i++) {
-      if (props.values[i].name.includes(text))
-        newSuggests.push(props.values[i]);
+    if (props.values !== undefined) {
+      for (var i = 0; i < props.values.length; i++) {
+        if (props.values[i].name.includes(text))
+          newSuggests.push(props.values[i]);
+      }
     }
     if (props.addNotFound && newSuggests.length === 0) {
       newSuggests.push({id: text, name: text});

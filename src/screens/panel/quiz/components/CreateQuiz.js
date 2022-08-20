@@ -17,6 +17,43 @@ import {dispatchQuizContext, quizContext} from './Context';
 import {getTags} from './Utility';
 
 const CreateQuiz = props => {
+  const useGlobalState = () => [
+    React.useContext(quizContext),
+    React.useContext(dispatchQuizContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
+  const backToList = React.useCallback(() => {
+    props.setMode('list');
+  }, [props]);
+
+  React.useEffect(() => {
+    if (props.editMode === undefined) return;
+    if (state.selectedQuiz === undefined) {
+      backToList();
+      return;
+    }
+
+    setName(state.selectedQuiz.title);
+    setDesc(state.selectedQuiz.description);
+    setTags(state.selectedQuiz.tags);
+    setKind(state.selectedQuiz.mode);
+    setLaunchMode(state.selectedQuiz.launchMode);
+    setPrice(state.selectedQuiz.price);
+    setRanking(state.selectedQuiz.topStudentsCount);
+    setStart(state.selectedQuiz.start);
+    setEnd(state.selectedQuiz.end === undefined ? '' : state.selectedQuiz.end);
+    setStartRegistry(state.selectedQuiz.startRegistry);
+    setEndRegistry(
+      state.selectedQuiz.endRegistry === undefined
+        ? ''
+        : state.selectedQuiz.endRegistry,
+    );
+    setShowResultsAfterCorrection(
+      state.selectedQuiz.showResultsAfterCorrection,
+    );
+  }, [state.selectedQuiz, props.editMode, backToList]);
+
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [kind, setKind] = useState();
@@ -40,13 +77,6 @@ const CreateQuiz = props => {
 
   const [descBefore, setDescBefore] = useState(undefined);
   const [descAfter, setDescAfter] = useState(undefined);
-
-  const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
-  ];
-  const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState(false);
 
   React.useEffect(() => {
@@ -91,17 +121,24 @@ const CreateQuiz = props => {
 
     let result = await CallAPI(
       data,
-      routes.createQuiz + 'regular',
+      props.editMode
+        ? routes.editQuiz + state.selectedQuiz.id
+        : routes.createQuiz + 'regular',
       props.token,
       props.setLoading,
       'regular',
     );
 
     if (result !== null) {
-      let allQuizzes = state.quizzes;
-      allQuizzes.push(result);
-      dispatch({quizzes: allQuizzes});
-      props.setMode('list');
+      if (props.editMode) {
+        data.id = state.selectedQuiz.id;
+        dispatch({selectedQuiz: data, needUpdate: true});
+      } else {
+        let allQuizzes = state.quizzes;
+        allQuizzes.push(result);
+        dispatch({quizzes: allQuizzes});
+      }
+      backToList();
     }
   };
 

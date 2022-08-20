@@ -1,4 +1,4 @@
-import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
+import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../Translator';
 import commonTranslator from '../../../../tranlates/Common';
@@ -32,7 +32,7 @@ const Ops = props => {
       props.setLoading(false);
       if (res[0] !== null) {
         state.selectedQuiz.visibility = !state.selectedQuiz.visibility;
-        props.updateQuiz(state.selectedQuiz);
+        dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
       }
     });
   };
@@ -84,7 +84,7 @@ const Ops = props => {
       ]).then(res => {
         props.setLoading(false);
         if (res[0] !== null) {
-          props.updateQuiz(res[0]);
+          dispatch({selectedQuiz: res[0], needUpdate: true});
           props.setMode(newMode);
           props.toggleShowPopUp();
         }

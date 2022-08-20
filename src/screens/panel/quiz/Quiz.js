@@ -18,7 +18,6 @@ import {MyView} from '../../../styles/Common';
 const Quiz = props => {
   const [mode, setMode] = useState();
   const [quizzes, setQuizzes] = useState([]);
-  const [selectedQuiz, setSelectedQuiz] = useState(undefined);
 
   const navigate = props.navigate;
 
@@ -49,10 +48,6 @@ const Quiz = props => {
             setMode={setMode}
             navigate={navigate}
             setLoading={setLoading}
-            updateQuiz={newQuiz => {
-              editItem(quizzes, setQuizzes, newQuiz);
-              setSelectedQuiz(newQuiz);
-            }}
             token={props.token}
           />
         )}
@@ -61,14 +56,15 @@ const Quiz = props => {
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}
+            editMode={false}
           />
         )}
         {mode === 'update' && (
-          <Update
+          <CreateQuiz
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}
-            quiz={selectedQuiz}
+            editMode={true}
           />
         )}
         {mode === 'key' && (
@@ -86,10 +82,6 @@ const Quiz = props => {
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}
-            updateQuiz={newQuiz => {
-              editItem(quizzes, setQuizzes, newQuiz);
-              setSelectedQuiz(newQuiz);
-            }}
           />
         )}
         {mode === 'CV' && (

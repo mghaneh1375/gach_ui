@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {
   CommonButton,
   CommonWebBox,
@@ -14,39 +13,47 @@ import commonTranslator from '../../../../tranlates/Common';
 import translator from '../Translator';
 import {CallAPI} from './Create/CallAPI';
 import {routes} from '../../../../API/APIRoutes';
+import {quizContext, dispatchQuizContext} from './Context';
 
 const Update = props => {
-  const quiz = props.quiz;
+  const useGlobalState = () => [
+    React.useContext(quizContext),
+    React.useContext(dispatchQuizContext),
+  ];
+  const [state, dispatch] = useGlobalState();
 
-  const [name, setName] = useState(quiz.title);
+  const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
-  const [kind, setKind] = useState(
-    quiz.mode === 'regular' ? 'test' : 'tashrihi',
-  ); //undefined
+  const [kind, setKind] = useState('');
   const [tags, setTags] = useState([]);
   const [len, setLen] = useState('');
   const [lenMode, setLenMode] = useState('question');
-  const [isOnline, setIsOnline] = useState(true); //undefined
-  const [start, setStart] = useState(quiz.start);
-  const [end, setEnd] = useState(quiz.end);
-  const [price, setPrice] = useState(quiz.price);
-  const [ranking, setRanking] = useState(quiz.topStudentsCount);
-  const [capacity, setCapacity] = useState(quiz.capacity);
+  const [launchMode, setLaunchMode] = useState('');
+  const [start, setStart] = useState();
+  const [end, setEnd] = useState();
+  const [price, setPrice] = useState('');
+  const [ranking, setRanking] = useState('');
+  const [capacity, setCapacity] = useState();
   const [backEn, setBackEn] = useState(undefined);
   const [permuteEn, setPermuteEn] = useState(undefined);
   const [showResultsAfterCorrection, setShowResultsAfterCorrection] =
     useState(true); //undefined
   const [minusMark, setMinusMark] = useState(undefined);
 
-  const [startRegistry, setStartRegistry] = useState(quiz.startRegistry);
-  const [endRegistry, setEndRegistry] = useState(quiz.endRegistry);
+  const [startRegistry, setStartRegistry] = useState();
+  const [endRegistry, setEndRegistry] = useState();
 
   const [descBefore, setDescBefore] = useState(undefined);
   const [descAfter, setDescAfter] = useState(undefined);
 
-  const changeMode = newMode => {
-    props.setMode(newMode);
-  };
+  // const [len, setLen] = useState('');
+  // const [lenMode, setLenMode] = useState('question');
+  // const [capacity, setCapacity] = useState(quiz.capacity);
+  // const [backEn, setBackEn] = useState(undefined);
+  // const [permuteEn, setPermuteEn] = useState(undefined);
+  // const [minusMark, setMinusMark] = useState(undefined);
+  // const [descBefore, setDescBefore] = useState(undefined);
+  // const [descAfter, setDescAfter] = useState(undefined);
 
   const submit = async () => {
     const data = {
@@ -58,7 +65,7 @@ const Update = props => {
       endRegistry: endRegistry,
       // kind: kind,
       duration: len,
-      isOnline: isOnline,
+      launchMode: launchMode,
       tags: tags,
       price: price,
       permute: permuteEn,
@@ -73,18 +80,18 @@ const Update = props => {
 
     let result = await CallAPI(
       data,
-      routes.createQuiz + 'regular',
+      routes.editQuiz + state.selectedQuiz.id,
       props.token,
       props.setLoading,
       'regular',
     );
 
-    if (result !== null) props.setMode('list');
+    if (result !== null) {
+      data.id = state.selectedQuiz.id;
+      dispatch({selectedQuiz: data, needUpdate: true});
+      props.setMode('list');
+    }
   };
-
-  React.useEffect(() => {
-    console.log(quiz);
-  }, [quiz]);
 
   return (
     <MyView>
@@ -116,8 +123,8 @@ const Update = props => {
             setLenMode={setLenMode}
             len={len}
             setLen={setLen}
-            setIsOnline={setIsOnline}
-            isOnline={isOnline}
+            setLaunchMode={setLaunchMode}
+            launchMode={launchMode}
             backEn={backEn}
             setBackEn={setBackEn}
             permuteEn={permuteEn}
@@ -143,12 +150,6 @@ const Update = props => {
             setRanking={setRanking}
             capacity={capacity}
             setCapacity={setCapacity}
-            // startTime={startTime}
-            // endTime={endTime}
-            // setStartDate={setStartDate}
-            // setEndDate={setEndDate}
-            // setStartTime={setStartTime}
-            // setEndTime={setEndTime}
           />
         }
       />
@@ -168,7 +169,7 @@ const Update = props => {
       />
       <EqualTwoTextInputs>
         <CommonButton
-          onPress={() => changeMode('list')}
+          onPress={() => props.setMode('list')}
           title={commonTranslator.cancel}
         />
         <CommonButton
