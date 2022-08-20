@@ -67,7 +67,7 @@ export const CommonTextInput = props => {
   let parentAllStyles = isHalf
     ? {
         width: isApp || width < 768 ? '100%' : 'calc(50% - 10px)',
-        maxWidth: width > 768 ? 300 : '100%',
+        maxWidth: width > 768 ? 250 : '100%',
         paddingLeft: 5,
         paddingRight: 5,
         paddingTop: 5,

@@ -1,7 +1,6 @@
 import {View} from 'react-native';
 import {
   CommonButton,
-  CommonWebBox,
   PhoneView,
   SimpleText,
   MyView,

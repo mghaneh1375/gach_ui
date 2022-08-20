@@ -76,7 +76,7 @@ export const CommonSelect = props => {
         ...parentStyle,
         ...{
           width: isApp || width < 768 ? '100%' : 'calc(50% - 10px)',
-          maxWidth: width > 768 ? 300 : '100%',
+          maxWidth: width > 768 ? 'calc(25% - 20px)' : '100%',
           direction: 'rtl',
           paddingLeft: 10,
           paddingRight: 10,
