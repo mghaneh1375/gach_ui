@@ -1,5 +1,5 @@
 import React from 'react';
-import {dispatchStateContext} from '../../../../../App';
+import {dispatchStateContext, globalStateContext} from '../../../../../App';
 
 const defaultGlobalState = {
   selectingQuiz: false,
@@ -7,20 +7,35 @@ const defaultGlobalState = {
   registrableQuizzes: undefined,
   selectableQuizzes: undefined,
   filters: undefined,
-  checkedFilterIndices: [],
+  checkedFilterIndices: undefined,
   needUpdateFilters: false,
 };
 export const quizzesContext = React.createContext(defaultGlobalState);
 export const dispatchQuizzesContext = React.createContext(undefined);
 
 export const QuizzesProvider = ({children}) => {
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
-  const [globalDispatch] = useGlobalState();
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+  const [globalState, globalDispatch] = useGlobalState();
 
   const [state, dispatch] = React.useReducer(
     (state, newValue) => ({...state, ...newValue}),
     defaultGlobalState,
   );
+
+  const selectAll = React.useCallback(() => {
+    let tmp = [];
+    state.filters.items.forEach((e, index) => {
+      tmp.push(index);
+    });
+
+    dispatch({
+      selectableQuizzes: state.registrableQuizzes,
+      checkedFilterIndices: tmp,
+    });
+  }, [state.registrableQuizzes, state.filters]);
 
   const doFilter = React.useCallback(() => {
     if (
@@ -32,7 +47,7 @@ export const QuizzesProvider = ({children}) => {
       return;
 
     let currFilters = [];
-    state.filters.forEach((elem, idx) => {
+    state.filters.items.forEach((elem, idx) => {
       if (state.checkedFilterIndices.indexOf(idx) !== -1)
         currFilters.push(elem.label);
     });
@@ -65,7 +80,8 @@ export const QuizzesProvider = ({children}) => {
     globalDispatch({
       isRightMenuVisible: false,
       isFilterMenuVisible: true,
-      filters: state.filters,
+      filters: state.filters.items,
+      onChangeFilter: state.filters.onChangeFilter,
     });
   }, [globalDispatch, state.filters]);
 
@@ -91,6 +107,11 @@ export const QuizzesProvider = ({children}) => {
       return;
     doFilter();
   }, [state.checkedFilterIndices, state.needUpdateFilters, doFilter]);
+
+  React.useEffect(() => {
+    if (globalState.allFilter === undefined || !globalState.allFilter) return;
+    selectAll();
+  }, [globalState.allFilter, selectAll]);
 
   return (
     <quizzesContext.Provider value={state}>
