@@ -8,6 +8,7 @@ import commonTranslator from '../../../../../tranlates/Common';
 import {showSuccess} from '../../../../../services/Utility';
 import {dispatchQuizzesContext, quizzesContext} from './Utility';
 import {generalRequest} from '../../../../../API/Utility';
+import {filter} from '../../../question/components/Utility';
 
 function Add(props) {
   const [selectedQuizzes, setSelectedQuizzes] = useState([]);
@@ -41,49 +42,26 @@ function Add(props) {
         return;
       }
 
-      let filters = res[0].tags.map((elem, index) => {
+      state.checkedFilterIndices = [];
+      let filtersTmp = res[0].tags.map((elem, index) => {
+        state.checkedFilterIndices.push(index);
         return {
           label: elem,
           index: index,
-          doFilter: idx => {
-            let tmpIdx = state.checkedFilterIndices.indexOf(idx);
-
-            if (tmpIdx === -1) state.checkedFilterIndices.push(idx);
-            else state.checkedFilterIndices.splice(tmpIdx, 1);
-
-            if (state.checkedFilterIndices.length === 0)
-              dispatch({
-                checkedFilterIndices: state.checkedFilterIndices,
-                needUpdateFilters: true,
-              });
-          },
         };
-      });
-
-      filters.push({
-        label: commonTranslator.all,
-        index: -1,
-        doFilter: idx => {
-          let tmpIdx = state.checkedFilterIndices.indexOf(idx);
-
-          if (tmpIdx === -1) state.checkedFilterIndices.push(idx);
-          else state.checkedFilterIndices.splice(tmpIdx, 1);
-
-          if (state.checkedFilterIndices.indexOf(-1) !== -1)
-            state.checkedFilterIndices = [-1];
-
-          dispatch({
-            checkedFilterIndices: state.checkedFilterIndices,
-            needUpdateFilters: true,
-          });
-        },
       });
 
       dispatch({
         registrableQuizzes: res[0].items,
-        selectableQuizzes: res[0].items,
-        checkedFilterIndices: [],
-        filters: filters,
+        filters: {
+          items: filtersTmp,
+          onChangeFilter: selectedIndices => {
+            dispatch({
+              checkedFilterIndices: selectedIndices,
+              needUpdateFilters: true,
+            });
+          },
+        },
       });
       setIsWorking(false);
     });
