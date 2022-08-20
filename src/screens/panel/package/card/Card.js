@@ -14,17 +14,9 @@ import {
   styleLittleView,
   styleTitle,
   styleDigest,
-  styleFontSize13,
-  styleFontSize11,
-  styleFontSize15,
-  styleJustifyContentEnd,
   styleGiftIcon,
   styleGiftIconParent,
   styleColorWhite,
-  styleTextDecorRed,
-  styleItemsGrandParent,
-  styleItemsParent,
-  styleItem,
   styleCard,
   stylePricaPane,
 } from './Style';
@@ -34,7 +26,6 @@ import {showSuccess} from '../../../../services/Utility';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {faGift} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../styles/Common/Styles';
-import style from '../../Config/Avatars/components/Show/Style';
 
 function Card(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);

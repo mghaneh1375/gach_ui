@@ -2,7 +2,7 @@ import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {generalRequest} from '../../API/Utility';
 import Card from '../../screens/panel/quiz/components/Card/Card';
-import {CommonWebBox, MyView, PhoneView} from '../../styles/Common';
+import {MyView, PhoneView} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import Basket from './Basket';
 import {globalStateContext, dispatchStateContext} from '../../App';
@@ -38,8 +38,7 @@ function Quizzes(props) {
   };
 
   React.useEffect(() => {
-    if (isWorking || (quizzes !== undefined && props.fetchUrl !== undefined))
-      return;
+    if (isWorking || quizzes !== undefined) return;
 
     if (props.fetchUrl === undefined && props.quizzes !== undefined) {
       dispatch({isRightMenuVisible: false, isFilterMenuVisible: true});

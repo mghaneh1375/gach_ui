@@ -44,6 +44,7 @@ function Detail(props) {
     <MyView>
       {state.selectingQuiz && (
         <Add
+          setMode={props.setMode}
           token={props.token}
           setLoading={props.setLoading}
           package={props.package}
