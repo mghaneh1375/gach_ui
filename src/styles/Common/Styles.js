@@ -72,4 +72,7 @@ export const styles = {
     textDecoration: 'line-through',
     textDecorationColor: 'red',
   },
+  padding10: {
+    padding: 10,
+  },
 };

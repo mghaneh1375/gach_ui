@@ -119,7 +119,7 @@ function Ravan(props) {
   return (
     <MyView>
       <CommonWebBox>
-        <PhoneView style={{gap: 10}}>
+        <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
             placeholder={translator.beckDep}
             subText={translator.beckDep}

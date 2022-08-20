@@ -1,7 +1,4 @@
 import {useState} from 'react';
-import {View} from 'react-native';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import {TextIcon} from '../../../../../styles/Common/TextIcon';
 import {routes} from '../../../../../API/APIRoutes';
 import columns from './TableStructure';
 import commonTranslator from '../../../../../tranlates/Common';

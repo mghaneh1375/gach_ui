@@ -14,9 +14,9 @@ const Filter = props => {
   const [expiredAtEndLimit, setExpiredAtEndLimit] = useState();
 
   return (
-    <PhoneView>
+    <PhoneView style={{gap: 15}}>
       <JustBottomBorderSelect
-        isHalf={true}
+        isHalf={false}
         setter={setUsed}
         values={usedKeyVals}
         value={usedKeyVals.find(elem => elem.id === used)}
@@ -24,7 +24,7 @@ const Filter = props => {
         subText={translator.used}
       />
       <JustBottomBorderSelect
-        isHalf={true}
+        isHalf={false}
         setter={setType}
         values={allTypeKeyVals}
         value={allTypeKeyVals.find(elem => elem.id === type)}
@@ -43,7 +43,7 @@ const Filter = props => {
             expiredAtEndLimit,
           )
         }
-        isHalf={true}
+        isHalf={false}
         title={commonTranslator.show}
         style={{alignSelf: 'flex-start'}}
       />

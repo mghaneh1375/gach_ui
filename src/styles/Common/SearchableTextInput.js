@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {Platform, Pressable} from 'react-native';
-import {getWidthHeight} from '../../services/Utility';
 import {CommonWebBox, MyView, SimpleText} from '../Common';
 import vars from '../root';
 import {
+  calcInputWidth,
   CommonHalfTextInputStyleWeb,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
@@ -120,21 +120,24 @@ export const SearchableTextInput = props => {
         e.preventDefault();
     };
   }
-  let width = getWidthHeight()[0];
+  let parentAllStyles = isHalf
+    ? {
+        ...{
+          paddingLeft: 0,
+          paddingRight: 0,
+          paddingTop: 5,
+          paddingBottom: 0,
+        },
+      }
+    : {paddingLeft: 0, paddingRight: 0, paddingTop: 5, paddingBottom: 0};
+
+  if (props.parentStyle !== undefined)
+    parentAllStyles = {...parentAllStyles, ...props.parentStyle};
+
+  parentAllStyles = calcInputWidth(15, isHalf, parentAllStyles);
+
   return (
-    <MyView
-      style={
-        isHalf
-          ? {
-              width: isApp || width < 768 ? '100%' : 'calc(50% - 10px)',
-              maxWidth: width > 768 ? 300 : '100%',
-              paddingLeft: 15,
-              paddingRight: 15,
-              paddingTop: 5,
-              paddingBottom: 0,
-            }
-          : {paddingLeft: 5, paddingRight: 5, paddingTop: 5, paddingBottom: 0}
-      }>
+    <MyView style={parentAllStyles}>
       <CommonTextInputElem {...inputProps} />
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>

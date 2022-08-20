@@ -10,7 +10,7 @@ const MultiBox = props => {
   }, [props.items]);
 
   return (
-    <PhoneView>
+    <PhoneView style={{border: 0}}>
       {items !== undefined &&
         items.map((elem, index) => {
           return (

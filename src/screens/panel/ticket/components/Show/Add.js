@@ -74,7 +74,7 @@ const Add = props => {
           <MyView>
             <EqualTwoTextInputs>
               <JustBottomBorderTextInput
-                isHalf={true}
+                isHalf={false}
                 multiline={true}
                 placeholder={translator.msgText}
                 value={msg}

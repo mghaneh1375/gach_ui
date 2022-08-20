@@ -8,7 +8,7 @@ const style = {
     alignItems: 'center',
     justifyContent: 'space-between',
     boxShadow: 'rgb(0 0 0 / 10%) .2px 0px 3px 6px',
-    gap: 50,
+    gap: 30,
     flexWrap: 'wrap',
   },
   defaultText: {

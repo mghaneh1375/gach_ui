@@ -215,9 +215,8 @@ function Create(props) {
             title={translator.uploadZipFile}
           />
         </PhoneView>
-        <PhoneView style={{gap: 10}}>
+        <PhoneView style={{gap: 15}}>
           <JustBottomBorderSelect
-            isHalf={true}
             placeholder={translator.typeOfQuestion}
             subText={translator.typeOfQuestion}
             setter={setType}
@@ -226,7 +225,6 @@ function Create(props) {
           />
 
           <JustBottomBorderTextInput
-            isHalf={true}
             placeholder={commonTranslator.subject}
             subText={commonTranslator.subject}
             resultPane={true}
@@ -239,7 +237,6 @@ function Create(props) {
           />
 
           <JustBottomBorderTextInput
-            isHalf={true}
             placeholder={translator.organizationCode}
             subText={translator.organizationCode}
             value={organizationId}
@@ -247,7 +244,6 @@ function Create(props) {
           />
 
           <JustBottomBorderSelect
-            isHalf={true}
             placeholder={translator.visibility}
             subText={translator.visibility}
             setter={setVisibility}
@@ -255,7 +251,6 @@ function Create(props) {
             value={statusKeyVals.find(elem => elem.id === visibility)}
           />
           <JustBottomBorderSelect
-            isHalf={true}
             placeholder={translator.level}
             subText={translator.level}
             setter={setLevel}
@@ -263,7 +258,6 @@ function Create(props) {
             value={levelKeyVals.find(elem => elem.id === level)}
           />
           <JustBottomBorderTextInput
-            isHalf={true}
             placeholder={translator.neededTime}
             value={neededTime}
             subText={translator.second}
@@ -273,7 +267,6 @@ function Create(props) {
 
           {props.isAdmin && (
             <JustBottomBorderTextInput
-              isHalf={true}
               placeholder={translator.author}
               subText={translator.author}
               resultPane={true}
@@ -287,7 +280,6 @@ function Create(props) {
           )}
           {type === 'short_answer' && (
             <JustBottomBorderTextInput
-              isHalf={true}
               placeholder={translator.answer}
               subText={translator.answer}
               value={answer}
@@ -298,7 +290,6 @@ function Create(props) {
           )}
           {type === 'short_answer' && (
             <JustBottomBorderTextInput
-              isHalf={true}
               float={true}
               placeholder={translator.telorance}
               subText={translator.telorance}
@@ -310,7 +301,6 @@ function Create(props) {
 
           {type === 'test' && (
             <JustBottomBorderSelect
-              isHalf={true}
               placeholder={translator.choicesCount}
               subText={translator.choicesCount}
               setter={setChoicesCount}
@@ -321,7 +311,6 @@ function Create(props) {
 
           {type === 'test' && choices !== undefined && (
             <JustBottomBorderSelect
-              isHalf={true}
               placeholder={translator.answer}
               subText={translator.answer}
               setter={setAnswer}
@@ -344,7 +333,6 @@ function Create(props) {
 
           {type === 'tashrihi' && (
             <JustBottomBorderSelect
-              isHalf={true}
               placeholder={translator.neededLine}
               subText={translator.neededLine}
               values={sentencesCountKeyVals}

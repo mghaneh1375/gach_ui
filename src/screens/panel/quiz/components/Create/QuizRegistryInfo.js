@@ -24,14 +24,12 @@ const QuizRegistryInfo = props => {
           placeholder={translator.price}
           subText={translator.price}
           value={props.price}
-          isHalf={true}
           onChangeText={text => changeText(text, props.setPrice)}
           justNum={true}
         />
         <JustBottomBorderTextInput
           placeholder={translator.ranking}
           subText={translator.ranking}
-          isHalf={true}
           value={props.ranking}
           onChangeText={text => changeText(text, props.setRanking)}
           justNum={true}
@@ -39,7 +37,6 @@ const QuizRegistryInfo = props => {
         <JustBottomBorderTextInput
           subText={translator.capacity}
           placeholder={translator.capacity}
-          isHalf={true}
           value={props.capacity}
           onChangeText={text => changeText(text, props.setCapacity)}
           justNum={true}
@@ -52,14 +49,12 @@ const QuizRegistryInfo = props => {
             subText={translator.startRegistryDate}
             value={start}
             setter={props.setStart}
-            isHalf={true}
           />
           <JustBottomBorderDatePicker
             placeholder={translator.endRegistryDate}
             subText={translator.endRegistryDate}
             value={end}
             setter={props.setEnd}
-            isHalf={true}
           />
         </PhoneView>
       )}

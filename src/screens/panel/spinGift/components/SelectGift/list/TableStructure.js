@@ -5,7 +5,7 @@ const columns = [
   {
     name: Translate.giftType,
     selector: row => row.typeFa,
-    grow: 4,
+    grow: 7,
   },
   {
     name: Translate.amount,

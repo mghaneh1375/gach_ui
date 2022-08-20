@@ -110,21 +110,13 @@ const ExcelComma = props => {
           mandatoryFields={props.mandatoryFields}
         />
       )}
-
-      <PhoneView
-        style={{
-          marginRight: 20,
-        }}>
-        {props.children}
-      </PhoneView>
-
+      <PhoneView style={{gap: 15}}>{props.children}</PhoneView>
       <PhoneView>
         <MyView
           style={{
             width: '80%',
             height: 75,
             justifyContent: 'center',
-            marginRight: 20,
           }}>
           <JustBottomBorderTextInput
             style={{minWidth: '80%'}}
@@ -141,7 +133,7 @@ const ExcelComma = props => {
             kind={'normal'}
             theme={'rect'}
             back={'orange'}
-            parentStyle={{marginTop: 31, marginLeft: 10}}
+            parentStyle={{gap: 15, marginTop: 31, marginLeft: 10}}
             icon={faSearch}
           />
         )}
@@ -150,7 +142,7 @@ const ExcelComma = props => {
           kind={'normal'}
           theme={'rect'}
           back={'yellow'}
-          parentStyle={{marginTop: 31}}
+          parentStyle={{marginTop: 15}}
           icon={faPlus}
         />
       </PhoneView>

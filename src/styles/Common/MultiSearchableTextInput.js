@@ -3,6 +3,7 @@ import {Platform, Pressable} from 'react-native';
 import {CommonWebBox, SimpleText, MyView} from '../Common';
 import vars from '../root';
 import {
+  calcInputWidth,
   CommonHalfTextInputStyleWeb,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
@@ -12,6 +13,8 @@ import translator from '../../tranlates/Common';
 import SubInputText from './SubInputText';
 import {getWidthHeight} from '../../services/Utility';
 import MultiBox from '../../components/web/MultiBox/MultiBox';
+import {styleFlexWrap} from '../../screens/studentPanel/dashboard/DashboardCard/style';
+import {styles} from './Styles';
 
 export const MultiSearchableTextInput = props => {
   const [suggests, setSuggests] = useState([]);
@@ -156,21 +159,29 @@ export const MultiSearchableTextInput = props => {
         e.preventDefault();
     };
   }
-  let width = getWidthHeight()[0];
+  let parentAllStyles = isHalf
+    ? {
+        ...{
+          paddingLeft: 0,
+          paddingRight: 0,
+          paddingTop: 5,
+          paddingBottom: 0,
+        },
+      }
+    : {
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 5,
+        paddingBottom: 0,
+        border: 0,
+      };
+
+  if (props.parentStyle !== undefined)
+    parentAllStyles = {...parentAllStyles, ...props.parentStyle};
+
+  parentAllStyles = calcInputWidth(15, isHalf, parentAllStyles);
   return (
-    <MyView
-      style={
-        isHalf
-          ? {
-              width: isApp || width < 768 ? '100%' : 'calc(50% - 10px)',
-              maxWidth: width > 768 ? 300 : '100%',
-              paddingLeft: 15,
-              paddingRight: 15,
-              paddingTop: 5,
-              paddingBottom: 0,
-            }
-          : {paddingLeft: 5, paddingRight: 5, paddingTop: 5, paddingBottom: 0}
-      }>
+    <MyView style={parentAllStyles}>
       <CommonTextInputElem {...inputProps} />
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>
@@ -183,10 +194,12 @@ export const MultiSearchableTextInput = props => {
             height: 100,
             marginTop: props.subText !== undefined ? -20 : 10,
             backgroundColor: vars.WHITE,
-            borderWidth: 1,
+            borderWidth: 0,
+            border: 0,
             marginLeft: 0,
             marginRight: 0,
             overflow: 'auto',
+            flexWrap: 'wrap',
           }}
           child={<MyView>{SuggestListItems()}</MyView>}
         />
@@ -197,6 +210,7 @@ export const MultiSearchableTextInput = props => {
           marginTop: 10,
           flexDirection: 'row',
           flexWrap: 'wrap',
+          border: 0,
         }}>
         {SelectedListItems()}
       </MyView>

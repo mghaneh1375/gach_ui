@@ -4,7 +4,7 @@ import {Text, Platform} from 'react-native';
 
 const style = {
   marginTop: 5,
-  marginRight: 5,
+  marginRight: 15,
   color: vars.LIGHT_SILVER,
   fontFamily: 'IRANSans',
   fontWeight: 600,

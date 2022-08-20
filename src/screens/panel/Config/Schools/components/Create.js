@@ -43,16 +43,16 @@ function Create(props) {
         }
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
-        <PhoneView>
+        <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
             onChangeText={e => changeText(e, setName)}
-            isHalf={true}
+            isHalf={false}
             value={name}
             placeholder={translator.name}
             subText={translator.name}
           />
           <JustBottomBorderSelect
-            isHalf={true}
+            isHalf={false}
             values={grades}
             setter={setGrade}
             value={grades.find(elem => elem.id === grade)}
@@ -60,7 +60,7 @@ function Create(props) {
             subText={translator.grade}
           />
           <JustBottomBorderSelect
-            isHalf={true}
+            isHalf={false}
             values={kindSchools}
             setter={setKind}
             value={kindSchools.find(elem => elem.id === kind)}
@@ -69,7 +69,7 @@ function Create(props) {
           />
         </PhoneView>
 
-        <PhoneView style={{marginTop: 20}}>
+        <PhoneView style={{gap: 15}}>
           <StateAndCity
             state={
               props.selectedSchool !== undefined

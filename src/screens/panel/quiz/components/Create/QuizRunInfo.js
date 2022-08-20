@@ -58,9 +58,8 @@ const QuizRunInfo = props => {
           textValue={props.len}
         />
       </PhoneView>
-      <PhoneView style={{gap: 10}}>
+      <PhoneView style={{gap: 15}}>
         <JustBottomBorderSelect
-          isHalf={true}
           values={launchModeKeyVals}
           value={
             props.launchMode === undefined
@@ -74,7 +73,6 @@ const QuizRunInfo = props => {
           subText={translator.isOnline}
         />
         <JustBottomBorderSelect
-          isHalf={true}
           values={trueFalseValues}
           value={
             props.permute === undefined
@@ -88,7 +86,6 @@ const QuizRunInfo = props => {
           placeholder={translator.permute}
         />
         <JustBottomBorderSelect
-          isHalf={true}
           values={trueFalseValues}
           value={
             props.backEn === undefined
@@ -103,7 +100,6 @@ const QuizRunInfo = props => {
         />
 
         <JustBottomBorderSelect
-          isHalf={true}
           values={trueFalseValues}
           value={
             props.minusMark === undefined
@@ -117,7 +113,6 @@ const QuizRunInfo = props => {
           placeholder={translator.minusMark}
         />
         <JustBottomBorderSelect
-          isHalf={true}
           values={trueFalseValues}
           value={
             props.showResultsAfterCorrection === undefined
@@ -136,7 +131,6 @@ const QuizRunInfo = props => {
             placeholder={translator.startDate}
             value={start}
             setter={props.setStart}
-            isHalf={true}
             subText={translator.startDate}
           />
         )}
@@ -145,7 +139,6 @@ const QuizRunInfo = props => {
             placeholder={translator.endDate}
             value={end}
             setter={props.setEnd}
-            isHalf={true}
             subText={translator.endDate}
           />
         )}

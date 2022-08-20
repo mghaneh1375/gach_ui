@@ -47,9 +47,9 @@ function Filter(props) {
 
   return (
     <MyView>
-      <PhoneView>
+      <PhoneView style={{gap: 15}}>
         <JustBottomBorderSelect
-          isHalf={true}
+          isHalf={false}
           placeholder={translator.grade}
           subText={translator.grade}
           setter={setGrade}
@@ -60,7 +60,7 @@ function Filter(props) {
         />
 
         <JustBottomBorderSelect
-          isHalf={true}
+          isHalf={false}
           placeholder={commonTranslator.name + ' ' + commonTranslator.lesson}
           subText={commonTranslator.name + ' ' + commonTranslator.lesson}
           setter={setLesson}
@@ -87,7 +87,7 @@ function Filter(props) {
             props.setLoading(false);
             if (res !== null) props.setData(res);
           }}
-          isHalf={true}
+          isHalf={false}
           title={commonTranslator.show}
           style={{alignSelf: 'flex-start'}}
         />
@@ -127,7 +127,7 @@ function Filter(props) {
               subText={translator.criticalThresh}
               onChangeText={e => setCriticalThresh(e)}
               value={criticalThresh}
-              isHalf={true}
+              isHalf={false}
             />
             <MyView style={{marginTop: 10}}>
               <RadioButtonYesOrNo

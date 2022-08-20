@@ -37,10 +37,10 @@ function Create(props) {
         }
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
-        <PhoneView>
+        <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
             onChangeText={e => changeText(e, setMin)}
-            isHalf={true}
+            isHalf={false}
             value={min}
             placeholder={translator.min}
             subText={translator.min}
@@ -48,7 +48,7 @@ function Create(props) {
           />
           <JustBottomBorderTextInput
             onChangeText={e => changeText(e, setMax)}
-            isHalf={true}
+            isHalf={false}
             value={max}
             placeholder={translator.max}
             subText={translator.max}
@@ -56,7 +56,7 @@ function Create(props) {
           />
           <JustBottomBorderTextInput
             onChangeText={e => changeText(e, setPriority)}
-            isHalf={true}
+            isHalf={false}
             value={priority}
             placeholder={commonTranslator.priority}
             subText={commonTranslator.priority}

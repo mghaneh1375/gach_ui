@@ -25,9 +25,9 @@ function CreateAuthor(props) {
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <MyView>
-        <PhoneView>
+        <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
-            isHalf={true}
+            isHalf={false}
             placeholder={Translate.authorName}
             subText={Translate.authorName}
             value={name}
@@ -35,7 +35,7 @@ function CreateAuthor(props) {
           />
 
           <JustBottomBorderTextInput
-            isHalf={true}
+            isHalf={false}
             placeholder={Translate.tag}
             subText={Translate.tag}
             value={tag}
