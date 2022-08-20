@@ -8,11 +8,7 @@ import {
 } from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
-import {
-  faAngleDown,
-  faAngleUp,
-  faBell,
-} from '@fortawesome/free-solid-svg-icons';
+import {faAngleUp, faBell} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import {logout} from '../../../../API/User';
@@ -27,13 +23,13 @@ const Header = props => {
 
   const [showProfilePane, setShowProfilePane] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
-  const [pic, setPic] = useState(undefined);
+  const [pic, setPic] = useState('url(../../../../images/slider.png)');
   const [newAlerts, setNewAlerts] = useState();
+  const [headerClick, setHeaderClick] = useState();
 
   React.useEffect(() => {
     setNewAlerts(props.newAlerts);
   }, [props.newAlerts]);
-
   React.useEffect(() => {
     setShowNotif(false);
   }, [props.navigate]);
@@ -52,12 +48,14 @@ const Header = props => {
   const changeShowNotif = newStatus => {
     setShowNotif(newStatus);
   };
-  const displayNone = [
-    {
-      display: 'none',
-    },
-  ];
-
+  // React.useEffect(() => {
+  //   document.ready(function () {
+  //     document.click(function () {
+  //       setShowNotif(showNotif);
+  //       setShowProfilePane(false);
+  //     });
+  //   });
+  // });
   React.useEffect(() => {
     setPic(props.pic);
   }, [props.pic]);
@@ -104,6 +102,7 @@ const Header = props => {
               }
               pic={pic}
             />
+
             {!showProfilePane && (
               <SimpleText
                 onPress={() => {
@@ -115,10 +114,12 @@ const Header = props => {
                     ? {
                         ...style.Header_Profile_Text,
                         ...style.Header_Profile_Text_App,
+                        marginRight: !showProfilePane ? 40 : 0,
                       }
                     : {
                         ...style.Header_Profile_Text,
                         ...style.Header_Profile_Text_Web,
+                        marginRight: !showProfilePane ? 40 : 0,
                       }
                 }
                 text={
@@ -128,7 +129,6 @@ const Header = props => {
                 }
               />
             )}
-
             <MyView
               style={{
                 width: 30,
@@ -136,9 +136,10 @@ const Header = props => {
                 marginTop: 5,
                 marginRight: 5,
                 right: 0,
+                visibility: showProfilePane ? 'hidden' : 'visible',
               }}>
               <SimpleFontIcon
-                style={showProfilePane ? {visibility: 'hidden'} : {}}
+                kind={'small'}
                 onPress={() => {
                   changeShow(!showProfilePane);
                   showNotif ? setShowNotif(!showNotif) : '';
@@ -174,7 +175,7 @@ const Header = props => {
               <TouchableOpacity
                 onPress={async () => {
                   changeShowNotif(!showNotif);
-                  showProfilePane ? setShowProfilePane(!showProfilePane) : '';
+                  callLogout();
                 }}>
                 <SimpleText text={commonTranslator.logout} />
               </TouchableOpacity>

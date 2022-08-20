@@ -6,6 +6,7 @@ function UserTinyPic(props) {
   const defaultStyle = {
     width: 30,
     height: 30,
+    borderRadius: 'center',
     alignSelf: 'center',
   };
 

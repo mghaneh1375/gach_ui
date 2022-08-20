@@ -27,7 +27,7 @@ const QuizRunInfo = props => {
 
   return (
     <MyView>
-      <PhoneView style={{gap: 10}}>
+      <PhoneView>
         <CommonRadioButton
           value="question"
           status={props.lenMode === 'question' ? 'checked' : 'unchecked'}
@@ -46,6 +46,8 @@ const QuizRunInfo = props => {
           onChangeText={e => changeLen(e)}
           textValue={props.len}
         />
+      </PhoneView>
+      <PhoneView style={{gap: 10}}>
         <JustBottomBorderSelect
           isHalf={true}
           values={launchModeKeyVals}
@@ -60,7 +62,6 @@ const QuizRunInfo = props => {
           placeholder={translator.isOnline}
           subText={translator.isOnline}
         />
-
         <JustBottomBorderSelect
           isHalf={true}
           values={trueFalseValues}

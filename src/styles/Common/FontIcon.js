@@ -60,7 +60,7 @@ export const FontIcon = props => {
 
   if (Platform.OS === 'web') {
     return (
-      <div style={{display: 'inline-flex'}} className={'hoverable'}>
+      <div className={'hoverable'}>
         <Pressable style={allStyles} onPress={props.onPress}>
           {props.icon !== undefined && (
             <FontAwesomeIcon
@@ -131,7 +131,10 @@ export const SimpleFontIcon = props => {
         icon={props.icon}
         style={[
           Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
-          {color: vars.LIGHT_SILVER},
+          {
+            color: vars.LIGHT_SILVER,
+            width: props.kind !== undefined && props.kind === 'small' ? 11 : 22,
+          },
           props.style ? props.style : {},
         ]}
       />

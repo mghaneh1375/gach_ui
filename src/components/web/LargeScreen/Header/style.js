@@ -82,16 +82,18 @@ export const style = {
     height: 50,
     position: 'absolute',
     marginTop: -5,
-    borderRadius: 30,
+    borderRadius: '50%',
+    backgroundColor: '#ff660050',
+    zIndex: 5,
   },
   Header_Profile_Text_App: {
-    marginRight: 50,
+    marginRight: 0,
   },
   Header_Profile_Text_Web: {
     marginRight: 0,
   },
   Header_Profile_Text: {
-    marginTop: 6,
+    marginTop: 9,
   },
   Header_Profile_MENU: {
     width: '100%',

@@ -1,10 +1,10 @@
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';
 
-const columns = [
+const commonCols = [
   {
     name: Translate.name,
-    selector: row => row.name,
+    selector: row => row.schoolName,
     grow: 1,
   },
   {
@@ -15,7 +15,7 @@ const columns = [
   },
   {
     name: Translate.manager,
-    selector: row => row.ManagerName,
+    selector: row => row.managerName,
     grow: 1,
   },
   {
@@ -27,13 +27,16 @@ const columns = [
   {
     name: Translate.number,
     selector: row => row.studentsNo,
-    grow: 1,
+    minWidth: '80px',
+    maxWidth: '80px',
     center: true,
   },
   {
     name: commonTranslator.sex,
     selector: row => row.schoolSexFa,
-    grow: 1,
+    minWidth: '50px',
+    maxWidth: '50px',
+    center: true,
   },
   {
     name: commonTranslator.grade,
@@ -42,4 +45,14 @@ const columns = [
     grow: 1,
   },
 ];
-export default columns;
+
+export const columnsForAgent = [...commonCols];
+
+export const columnsForAdmin = [
+  {
+    name: Translate.agentName,
+    selector: row => row.agent,
+    grow: 1,
+  },
+  ...commonCols,
+];

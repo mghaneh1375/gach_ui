@@ -5,9 +5,19 @@ import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../tranlates/Common';
 import {levelKeyVals} from '../../ticket/components/KeyVals';
 
-export const filter = async (token, level) => {
+export const filter = async (
+  token,
+  level,
+  NID = undefined,
+  phone = undefined,
+) => {
+  let query = new URLSearchParams();
+  query.append('level', level);
+  if (NID !== undefined) query.append('NID', NID);
+  if (phone !== undefined) query.append('phone', phone);
+
   let res = await generalRequest(
-    routes.fetchAllUsers + '?level=' + level,
+    routes.fetchAllUsers + '?' + query.toString(),
     'get',
     undefined,
     'users',

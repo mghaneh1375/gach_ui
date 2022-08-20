@@ -7,7 +7,9 @@
   display: flex;
   flex-direction: column;
 }
-
+::selection {
+  color: #ffaa00;
+}
 .menu-item-container > div:not(.super-menu-item) {
   background: linear-gradient(to right, #ffaa00 50%, #707070 50%);
   background-size: 200% 100%;
@@ -282,11 +284,31 @@
 .mySelect .r-touchAction-1otgn73 svg {
   margin-top: 6px;
 }
-
+.mySelect div:focus-visible,
+.mySelect div:focus,
+.mySelect div:focus-within {
+  outline-style: none;
+  border-color: #ffaa00 !important;
+  background-color: #e8e8e8;
+}
 input::placeholder {
   font-size: 11px;
+  font-weight: 500;
 }
-
+input:focus-visible {
+  outline-style: none;
+  border-color: #ffaa00 !important;
+  background-color: #e8e8e8 !important;
+}
+textarea:focus-visible {
+  outline-style: none;
+  border-color: #ffaa00 !important;
+  background-color: #e8e8e8 !important;
+}
+.select:focus-visible {
+  outline-style: none;
+  border-color: #ffaa00 !important;
+}
 /* //table */
 
 .rdt_Pagination {
@@ -328,10 +350,9 @@ input::placeholder {
   transform: translateZ(0px);
   position: absolute;
   margin-top: 43px;
-  z-index: 5 !important;
+  z-index: 10 !important;
   background: white;
 }
-
 .myView {
   -moz-box-align: stretch;
   -moz-box-direction: normal;
@@ -362,6 +383,8 @@ button:hover {
 } */
 .hoverable > *:hover {
   box-shadow: inset 0px 0px 1px 3px #efefef80;
+  display: flex !important;
+  justify-content: flex-end !important;
 }
 .flex-end {
   align-self: flex-end !important;

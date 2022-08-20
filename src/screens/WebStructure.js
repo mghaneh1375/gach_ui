@@ -324,9 +324,17 @@ const WebStructue = props => {
               {/* {props.page === 'finantialReport' && (
                 <Schools token={token} user={user} navigate={navigate} />
               )} */}
-              {props.page === 'users' && (
-                <Users token={token} user={user} navigate={navigate} />
-              )}
+              {props.page === 'users' &&
+                params.level !== undefined &&
+                params.level !== 'school' && (
+                  <Users token={token} user={user} navigate={navigate} />
+                )}
+              {props.page === 'users' &&
+                params.level !== undefined &&
+                params.level === 'school' && (
+                  <SchoolUsers token={token} user={user} navigate={navigate} />
+                )}
+
               {props.page === 'author' && (
                 <Author token={token} user={user} navigate={navigate} />
               )}
@@ -348,12 +356,12 @@ const WebStructue = props => {
               {props.page === 'schoolUsers' && (
                 <SchoolUsers token={token} user={user} navigate={navigate} />
               )}
-              {/* {props.page === 'schoolAccess' && (
+              {props.page === 'schoolAccess' && (
                 <Students token={token} user={user} navigate={navigate} />
               )}
               {props.page === 'teacherAccess' && (
                 <TeacherAccess token={token} user={user} navigate={navigate} />
-              )} */}
+              )}
               {props.page === 'teachers' && (
                 <Teachers token={token} user={user} navigate={navigate} />
               )}

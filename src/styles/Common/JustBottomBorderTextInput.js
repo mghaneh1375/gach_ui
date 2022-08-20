@@ -1,3 +1,4 @@
+import React from 'react';
 import {CommonTextInput} from './CommonTextInput';
 import {MultiSearchableTextInput} from './MultiSearchableTextInput';
 import {SearchableTextInput} from './SearchableTextInput';

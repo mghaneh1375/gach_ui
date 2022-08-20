@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {MyView} from '../../../../styles/Common';
+import {MyView, PhoneView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
@@ -15,9 +15,10 @@ function SpecificRoleForm(props) {
   }, [props.obj]);
 
   return (
-    <MyView>
+    <PhoneView style={{gap: 20}}>
       {obj !== undefined && obj.keyVals !== undefined && (
         <JustBottomBorderSelect
+          isHalf={true}
           setter={setData}
           afterSetter={props.setFormUserData}
           args={obj.key}
@@ -30,6 +31,7 @@ function SpecificRoleForm(props) {
 
       {obj !== undefined && obj.keyVals === undefined && props.signUp && (
         <CommonTextInput
+          isHalf={true}
           placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
           subText={obj.help === undefined ? obj.title : obj.help}
           justNum={obj.isJustNum ? true : undefined}
@@ -44,6 +46,7 @@ function SpecificRoleForm(props) {
 
       {obj !== undefined && obj.keyVals === undefined && !props.signUp && (
         <JustBottomBorderTextInput
+          isHalf={true}
           placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
           subText={obj.help === undefined ? obj.title : obj.help}
           justNum={obj.isJustNum ? true : undefined}
@@ -55,7 +58,7 @@ function SpecificRoleForm(props) {
           }}
         />
       )}
-    </MyView>
+    </PhoneView>
   );
 }
 

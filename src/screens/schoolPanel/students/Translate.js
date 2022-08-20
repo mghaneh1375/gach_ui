@@ -1,6 +1,6 @@
 const Translate = {
   managementStudents: 'مدیریت دانش آموزان',
-  addAll: 'افزودن به صورت دسته جمعی',
+  addStudents: 'افزودن دانش آموز',
 };
 
 export default Translate;

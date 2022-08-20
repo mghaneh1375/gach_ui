@@ -1,22 +1,23 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView, MyView} from '../../../../styles/Common';
+import {CommonWebBox, PhoneView, CommonButton} from '../../../../styles/Common';
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {changeText} from '../../../../services/Utility';
+import {addStudents} from '../Utility';
+import translator from '../../../../tranlates/Common';
 
 function Create(props) {
-  const [name, setName] = useState();
-  const [lastname, setLastname] = useState();
-  const [tel, setTel] = useState();
-  const [nid, setNid] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [rPassword, setRPassword] = useState();
+  const [name, setName] = useState('testsadsa');
+  const [lastname, setLastname] = useState('asadasdasd');
+  const [tel, setTel] = useState('۰۹۱۶۷۸۹۶۵۴۳');
+  const [nid, setNid] = useState('۰۰۰۹۰۹۰۰۰۲');
+  const [password, setPassword] = useState('12345678');
+  const [rPassword, setRPassword] = useState('12345678');
 
   return (
     <CommonWebBox
-      header={Translate.addAll}
+      header={Translate.addStudents}
       addBtn={true}
       backBtn={true}
       onAddClick={() => props.setMode('addAll')}
@@ -53,44 +54,51 @@ function Create(props) {
           justNum={true}
         />
         <JustBottomBorderTextInput
-          onChangeText={text => changeText(text, setEmail)}
+          onChangeText={text => changeText(text, setPassword)}
           isHalf={true}
-          placeholder={commonTranslator.email}
-          subText={commonTranslator.optional}
-          value={email}
+          type={'password'}
+          placeholder={commonTranslator.password}
+          subText={commonTranslator.password}
+          value={password}
         />
         <JustBottomBorderTextInput
-          onChangeText={text => changeText(text, setEmail)}
+          onChangeText={text => changeText(text, setRPassword)}
           isHalf={true}
-          placeholder={commonTranslator.email}
-          subText={commonTranslator.optional}
-          value={email}
+          type={'password'}
+          placeholder={
+            commonTranslator.repeat + ' ' + commonTranslator.password
+          }
+          subText={commonTranslator.repeat + ' ' + commonTranslator.password}
+          value={rPassword}
         />
-        <MyView>
-          <PhoneView>
-            <JustBottomBorderTextInput
-              onChangeText={text => changeText(text, setPassword)}
-              isHalf={true}
-              type={'password'}
-              placeholder={commonTranslator.password}
-              subText={commonTranslator.password}
-              value={password}
-            />
-            <JustBottomBorderTextInput
-              onChangeText={text => changeText(text, setRPassword)}
-              isHalf={true}
-              type={'password'}
-              placeholder={
-                commonTranslator.repeat + ' ' + commonTranslator.password
-              }
-              subText={
-                commonTranslator.repeat + ' ' + commonTranslator.password
-              }
-              value={rPassword}
-            />
-          </PhoneView>
-        </MyView>
       </PhoneView>
+      <CommonButton
+        title={commonTranslator.confrim}
+        onPress={async () => {
+          props.setLoading(true);
+          let data = {
+            firstName: name,
+            lastName: lastname,
+            NID: nid,
+            password: password,
+            rPassword: rPassword,
+            phone: tel,
+          };
+          let res = props.data === undefined;
+          await addStudents(data, props.token);
+          // : await editStudents(props.data.id, data, props.token);
+
+          props.setLoading(false);
+          if (res !== null) {
+            if (props.data === undefined) props.addItem(res);
+            else {
+              data.id = props.data.id;
+              props.update(data);
+            }
+            props.setMode('list');
+          }
+        }}
+      />
     </CommonWebBox>
   );
 }
