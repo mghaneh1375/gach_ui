@@ -82,7 +82,7 @@ export const CommonSelect = props => {
   if (props.parentStyle !== undefined)
     parentAllStyles = {...parentAllStyles, ...props.parentStyle};
 
-  parentAllStyles = calcInputWidth(0, isHalf, parentAllStyles);
+  parentAllStyles = calcInputWidth(20, isHalf, parentAllStyles);
   return (
     <MyView className={'myView mySelect'} style={parentAllStyles}>
       <CommonSelectElem {...inputProps} />

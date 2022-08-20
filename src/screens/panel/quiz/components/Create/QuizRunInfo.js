@@ -47,7 +47,7 @@ const QuizRunInfo = props => {
           textValue={props.len}
         />
       </PhoneView>
-      <PhoneView style={{gap: 10}}>
+      <PhoneView style={{gap: 15}}>
         <JustBottomBorderSelect
           values={launchModeKeyVals}
           value={

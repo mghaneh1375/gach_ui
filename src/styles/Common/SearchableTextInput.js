@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Platform, Pressable} from 'react-native';
-import {getWidthHeight} from '../../services/Utility';
 import {CommonWebBox, MyView, SimpleText} from '../Common';
 import vars from '../root';
 import {
@@ -135,7 +134,7 @@ export const SearchableTextInput = props => {
   if (props.parentStyle !== undefined)
     parentAllStyles = {...parentAllStyles, ...props.parentStyle};
 
-  parentAllStyles = calcInputWidth(0, isHalf, parentAllStyles);
+  parentAllStyles = calcInputWidth(15, isHalf, parentAllStyles);
 
   return (
     <MyView style={parentAllStyles}>

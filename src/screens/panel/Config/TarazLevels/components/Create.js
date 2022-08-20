@@ -37,7 +37,7 @@ function Create(props) {
         }
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
-        <PhoneView>
+        <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
             onChangeText={e => changeText(e, setMin)}
             isHalf={false}

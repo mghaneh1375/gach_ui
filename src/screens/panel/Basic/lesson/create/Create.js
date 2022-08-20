@@ -33,7 +33,7 @@ function Create(props) {
           : commonTranslate.edit
       }>
       <MyView>
-        <PhoneView>
+        <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
             isHalf={false}
             value={name}

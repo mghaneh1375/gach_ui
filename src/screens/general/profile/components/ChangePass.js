@@ -21,7 +21,7 @@ const ChangePass = props => {
       <MyView>
         {props.userId === undefined && (
           <JustBottomBorderTextInput
-            isHalf={false}
+            isHalf={true}
             subText={translator.oldPass}
             placeholder={translator.oldPass}
             type={'password'}
@@ -30,14 +30,14 @@ const ChangePass = props => {
         )}
         <EqualTwoTextInputs>
           <JustBottomBorderTextInput
-            isHalf={false}
+            isHalf={true}
             subText={translator.newPass}
             placeholder={translator.newPass}
             type={'password'}
             onChangeText={text => changeText(text, setPass)}
           />
           <JustBottomBorderTextInput
-            isHalf={false}
+            isHalf={true}
             subText={translator.rNewPass}
             placeholder={translator.rNewPass}
             onChangeText={text => changeText(text, setRpass)}

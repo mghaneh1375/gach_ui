@@ -53,23 +53,23 @@ const UpdateInfo = props => {
   };
   return (
     <MyView>
-      <PhoneView style={{gap: 10}}>
+      <PhoneView style={{gap: 15}}>
         <JustBottomBorderTextInput
-          isHalf={false}
+          isHalf={true}
           value={firstname}
           subText={commonTranslator.firstname}
           placeholder={commonTranslator.firstname}
           onChangeText={e => setFirstname(e)}
         />
         <JustBottomBorderTextInput
-          isHalf={false}
+          isHalf={true}
           value={lastname}
           subText={commonTranslator.lastname}
           placeholder={commonTranslator.lastname}
           onChangeText={e => setLastname(e)}
         />
         <JustBottomBorderTextInput
-          isHalf={false}
+          isHalf={true}
           justNum={true}
           value={NID}
           onChangeText={e => setNID(e)}
@@ -77,7 +77,7 @@ const UpdateInfo = props => {
           placeholder={commonTranslator.NID}
         />
         <JustBottomBorderSelect
-          isHalf={false}
+          isHalf={true}
           value={sexKeyVals.find(elem => elem.id === sex)}
           placeholder={commonTranslator.sex}
           subText={commonTranslator.sex}
@@ -86,7 +86,7 @@ const UpdateInfo = props => {
         />
         <JustBottomBorderTextInput
           style={{marginTop: 10}}
-          isHalf={false}
+          isHalf={true}
           placeholder={commonTranslator.state}
           subText={commonTranslator.state}
           resultPane={true}
@@ -98,7 +98,7 @@ const UpdateInfo = props => {
 
         <JustBottomBorderTextInput
           style={{marginTop: 10}}
-          isHalf={false}
+          isHalf={true}
           resultPane={true}
           placeholder={commonTranslator.city}
           subText={commonTranslator.city}
@@ -109,7 +109,7 @@ const UpdateInfo = props => {
         />
         <JustBottomBorderTextInput
           style={{marginTop: 10}}
-          isHalf={false}
+          isHalf={true}
           placeholder={commonTranslator.grade}
           subText={commonTranslator.grade}
           resultPane={true}
@@ -121,7 +121,7 @@ const UpdateInfo = props => {
 
         <JustBottomBorderTextInput
           style={{marginTop: 10}}
-          isHalf={false}
+          isHalf={true}
           resultPane={true}
           placeholder={commonTranslator.branch}
           subText={commonTranslator.branch}
@@ -132,7 +132,7 @@ const UpdateInfo = props => {
           multi={true}
         />
         <JustBottomBorderTextInput
-          isHalf={false}
+          isHalf={true}
           style={{maxWidth: 'unset'}}
           placeholder={commonTranslator.school}
           subText={commonTranslator.school}

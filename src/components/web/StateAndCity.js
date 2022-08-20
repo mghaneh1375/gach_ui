@@ -69,7 +69,7 @@ function StateAndCity(props) {
   };
 
   return (
-    <EqualTwoTextInputs>
+    <EqualTwoTextInputs style={{gap: 15}}>
       <JustBottomBorderTextInput
         isHalf={false}
         placeholder={commonTranslator.state}

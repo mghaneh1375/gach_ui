@@ -166,12 +166,18 @@ export const MultiSearchableTextInput = props => {
           paddingBottom: 0,
         },
       }
-    : {paddingLeft: 0, paddingRight: 0, paddingTop: 5, paddingBottom: 0};
+    : {
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 5,
+        paddingBottom: 0,
+        border: 0,
+      };
 
   if (props.parentStyle !== undefined)
     parentAllStyles = {...parentAllStyles, ...props.parentStyle};
 
-  parentAllStyles = calcInputWidth(0, isHalf, parentAllStyles);
+  parentAllStyles = calcInputWidth(15, isHalf, parentAllStyles);
   return (
     <MyView style={parentAllStyles}>
       <CommonTextInputElem {...inputProps} />
@@ -193,7 +199,7 @@ export const MultiSearchableTextInput = props => {
             overflow: 'auto',
             flexWrap: 'wrap',
           }}
-          child={<MyView style={styles.flexWrap}>{SuggestListItems()}</MyView>}
+          child={<MyView>{SuggestListItems()}</MyView>}
         />
       )}
       <MyView
@@ -202,6 +208,7 @@ export const MultiSearchableTextInput = props => {
           marginTop: 10,
           flexDirection: 'row',
           flexWrap: 'wrap',
+          border: 0,
         }}>
         {SelectedListItems()}
       </MyView>

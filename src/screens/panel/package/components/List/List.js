@@ -10,7 +10,7 @@ function List(props) {
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
       <MyView>
-        <PhoneView style={{gap: 10}}>
+        <PhoneView style={{gap: 15}}>
           {props.packages !== undefined &&
             props.packages.map((package_, index) => {
               return (

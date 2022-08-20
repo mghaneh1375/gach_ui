@@ -14,7 +14,7 @@ const Filter = props => {
   const [expiredAtEndLimit, setExpiredAtEndLimit] = useState();
 
   return (
-    <PhoneView>
+    <PhoneView style={{gap: 15}}>
       <JustBottomBorderSelect
         isHalf={false}
         setter={setUsed}

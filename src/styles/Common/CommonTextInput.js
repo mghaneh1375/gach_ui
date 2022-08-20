@@ -74,7 +74,7 @@ export const CommonTextInput = props => {
   if (props.parentStyle !== undefined)
     parentAllStyles = {...parentAllStyles, ...props.parentStyle};
 
-  parentAllStyles = calcInputWidth(0, isHalf, parentAllStyles);
+  parentAllStyles = calcInputWidth(15, isHalf, parentAllStyles);
 
   return (
     <MyView style={parentAllStyles}>

@@ -43,7 +43,7 @@ function Create(props) {
         }
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
-        <PhoneView>
+        <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
             onChangeText={e => changeText(e, setName)}
             isHalf={false}
@@ -69,7 +69,7 @@ function Create(props) {
           />
         </PhoneView>
 
-        <PhoneView style={{marginTop: 20}}>
+        <PhoneView style={{gap: 15}}>
           <StateAndCity
             state={
               props.selectedSchool !== undefined

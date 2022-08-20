@@ -53,7 +53,7 @@ function Filter(props) {
 
   return (
     <MyView>
-      <PhoneView style={{gap: 10}}>
+      <PhoneView style={{gap: 15}}>
         <JustBottomBorderSelect
           setter={setStatus}
           values={statusKeyVals}
@@ -124,7 +124,7 @@ function Filter(props) {
       </PhoneView>
       {showProSearch && (
         <MyView>
-          <PhoneView style={{gap: 10}}>
+          <PhoneView style={{gap: 15}}>
             <JustBottomBorderDatePicker
               placeholder={translator.dateStartRequest}
               subText={translator.dateStartRequest}
@@ -147,7 +147,7 @@ function Filter(props) {
               />
             )}
           </PhoneView>
-          <PhoneView style={{gap: 10}}>
+          <PhoneView style={{gap: 15}}>
             <JustBottomBorderDatePicker
               placeholder={translator.lastStartUpdate}
               subText={translator.lastStartUpdate}

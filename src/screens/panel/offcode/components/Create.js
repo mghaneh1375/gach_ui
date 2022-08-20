@@ -33,7 +33,7 @@ const Create = props => {
       }
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{gap: 10, marginBottom: 10}}>
+      <PhoneView style={{gap: 15}}>
         <JustBottomBorderTextInput
           isHalf={false}
           placeholder={translator.amount}

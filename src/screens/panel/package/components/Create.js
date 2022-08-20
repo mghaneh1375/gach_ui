@@ -50,7 +50,7 @@ function Create(props) {
       header={commonTranslator.title}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{gap: 10}}>
+      <PhoneView style={{gap: 15}}>
         <JustBottomBorderTextInput
           isHalf={false}
           placeholder={commonTranslator.title}

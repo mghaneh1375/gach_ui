@@ -121,7 +121,7 @@ function General(props) {
   return (
     <MyView>
       <CommonWebBox>
-        <PhoneView style={{gap: 10}}>
+        <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
             placeholder={translator.initMoney}
             subText={translator.initMoney}

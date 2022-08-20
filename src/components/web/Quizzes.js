@@ -87,7 +87,7 @@ function Quizzes(props) {
           onPress={props.onBackClicked}
         />
       )}
-      <PhoneView style={{gap: 10}}>
+      <PhoneView style={{gap: 15}}>
         {quizzes !== undefined &&
           quizzes.map((quiz, index) => {
             return (

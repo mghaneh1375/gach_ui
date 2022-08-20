@@ -47,7 +47,7 @@ function Filter(props) {
 
   return (
     <MyView>
-      <PhoneView>
+      <PhoneView style={{gap: 15}}>
         <JustBottomBorderSelect
           isHalf={false}
           placeholder={translator.grade}

@@ -36,7 +36,7 @@ function List(props) {
         header={translator.offs}
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
-        <MyView>
+        <MyView style={{gap: 15}}>
           <Filter
             setData={props.setData}
             token={props.token}

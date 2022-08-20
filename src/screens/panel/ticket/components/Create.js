@@ -115,7 +115,7 @@ function Create(props) {
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
         {props.isAdmin && (
-          <PhoneView style={{gap: 10, marginBottom: 10}}>
+          <PhoneView style={{gap: 15}}>
             <JustBottomBorderTextInput
               value={
                 foundUser !== undefined
@@ -127,6 +127,7 @@ function Create(props) {
               disable={true}
             />
             <FontIcon
+              parentStyle={{marginTop: 6}}
               kind={'normal'}
               theme={'rect'}
               back={'yellow'}
@@ -136,7 +137,7 @@ function Create(props) {
           </PhoneView>
         )}
 
-        <PhoneView style={{gap: 10}}>
+        <PhoneView style={{gap: 15}}>
           <JustBottomBorderSelect
             setter={setPriority}
             values={priorityKeyVals}
