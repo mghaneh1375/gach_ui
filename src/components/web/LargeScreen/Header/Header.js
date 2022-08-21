@@ -139,7 +139,7 @@ const Header = props => {
                 visibility: showProfilePane ? 'hidden' : 'visible',
               }}>
               <SimpleFontIcon
-                kind={'small'}
+                kind={'normal'}
                 onPress={() => {
                   changeShow(!showProfilePane);
                   showNotif ? setShowNotif(!showNotif) : '';

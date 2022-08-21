@@ -6,6 +6,7 @@ import {
   PhoneView,
   SimpleText,
   MyView,
+  BigBoldBlueText,
 } from '../../../../styles/Common';
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';
@@ -95,7 +96,7 @@ function Card(props) {
         </MyView>
         <PhoneView
           style={{
-            ...styles.gap30,
+            ...styles.gap10,
             ...styles.flexWrap,
             ...styles.justifyContentSpaceAround,
             ...styles.marginTop20,
@@ -108,7 +109,7 @@ function Card(props) {
             />
             <MyView style={{...styles.justifyContentCenter}}>
               <SimpleText
-                style={{...styles.fontSize11, ...styles.BlueBold}}
+                style={{...styles.fontSize10, ...styles.BlueBold}}
                 text={Translate.quizCount}
               />
               <SimpleText
@@ -131,7 +132,7 @@ function Card(props) {
               />
               <MyView style={{...styles.justifyContentCenter}}>
                 <SimpleText
-                  style={{...styles.fontSize11, ...styles.BlueBold}}
+                  style={{...styles.fontSize10, ...styles.BlueBold}}
                   text={Translate.registrableCount}
                 />
                 <SimpleText
@@ -154,7 +155,7 @@ function Card(props) {
             />
             <MyView style={{...styles.justifyContentCenter}}>
               <SimpleText
-                style={{...styles.fontSize11, ...styles.BlueBold}}
+                style={{...styles.fontSize10, ...styles.BlueBold}}
                 text={Translate.minSelect}
               />
               <SimpleText
@@ -177,7 +178,7 @@ function Card(props) {
               />
               <MyView>
                 <SimpleText
-                  style={{...styles.fontSize11, ...styles.BlueBold}}
+                  style={{...styles.fontSize10, ...styles.BlueBold}}
                   text={Translate.buyersCount}
                 />
                 <SimpleText
@@ -200,10 +201,12 @@ function Card(props) {
               <SimpleText
                 style={{
                   ...styles.textDecorRed,
+                  ...styles.BlueBold,
                 }}
                 text={formatPrice(props.package.totalPrice) + ' تومان '}
               />
               <SimpleText
+                style={{...styles.BlueBold, ...styles.red}}
                 text={formatPrice(props.package.realPrice) + ' تومان '}
               />
             </PhoneView>

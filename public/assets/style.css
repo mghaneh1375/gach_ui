@@ -394,4 +394,5 @@ button:hover {
 }
 .flex-end {
   align-self: flex-end !important;
+  justify-content: flex-end !important;
 }

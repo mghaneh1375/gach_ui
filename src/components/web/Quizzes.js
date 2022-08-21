@@ -6,6 +6,8 @@ import {MyView, PhoneView} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import Basket from './Basket';
 import {dispatchStateContext} from '../../App';
+import {styleJustifyContentEnd} from '../../screens/panel/package/card/Style';
+import {styles} from '../../styles/Common/Styles';
 
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState();
@@ -78,7 +80,7 @@ function Quizzes(props) {
   }, [props, isWorking, quizzes, dispatch]);
 
   return (
-    <MyView style={{padding: 10, marginBottom: 120}}>
+    <MyView style={{padding: 10, marginBottom: 120, ...styles.alignItemsEnd}}>
       {props.onBackClicked !== undefined && (
         <FontIcon
           icon={faAngleLeft}

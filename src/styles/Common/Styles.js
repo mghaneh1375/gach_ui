@@ -50,8 +50,17 @@ export const styles = {
   alignSelfCenter: {
     alignSelf: 'center',
   },
+  alignSelfEnd: {
+    alignSelf: 'end',
+  },
+  alignItemsEnd: {
+    alignItems: 'end',
+  },
   margin25: {
     marginTop: 25,
+  },
+  gap10: {
+    gap: 10,
   },
   gap30: {
     gap: 30,
@@ -79,6 +88,9 @@ export const styles = {
   },
   fontSize15: {
     fontSize: 15,
+  },
+  fontSize10: {
+    fontSize: 10,
   },
   textDecorRed: {
     textDecoration: 'line-through',

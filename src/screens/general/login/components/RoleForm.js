@@ -5,6 +5,7 @@ import {
   CommonButton,
   EqualTwoTextInputs,
   MyView,
+  PhoneView,
 } from '../../../../styles/Common';
 import {RoleCard} from '../../../../styles/Common/RoleCard';
 import commonTranslator from './../../../../tranlates/Common';
@@ -13,6 +14,7 @@ import {checkSendRoleForm, getRoleForms} from './Utility';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import SpecificRoleForm from './SpecificRoleForm';
+import {styles} from '../../../../styles/Common/Styles';
 
 const RoleForm = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});
@@ -120,18 +122,20 @@ const RoleForm = props => {
 
       {step === 'form' && role !== undefined && (
         <MyView style={{marginTop: 20, gap: 10}}>
-          <FontIcon
-            onPress={() => setStep('role')}
-            parentStyle={{
-              alignSelf: 'flex-end',
-              marginLeft: 20,
-              marginBottom: 20,
-            }}
-            back={vars.YELLOW}
-            kind={'normal'}
-            theme={'rect'}
-            icon={faAngleLeft}
-          />
+          <PhoneView style={{...styles.alignSelfEnd}}>
+            <FontIcon
+              onPress={() => setStep('role')}
+              parentStyle={{
+                alignSelf: 'flex-end',
+                marginLeft: 20,
+                marginBottom: 20,
+              }}
+              back={vars.YELLOW}
+              kind={'normal'}
+              theme={'rect'}
+              icon={faAngleLeft}
+            />
+          </PhoneView>
           {roleForms
             .find(elem => elem.role === role)
             .data.map(function (obj, i) {

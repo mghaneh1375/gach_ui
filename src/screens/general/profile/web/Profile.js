@@ -141,7 +141,7 @@ const Profile = props => {
 
                     <SimpleFontIcon
                       onPress={() => setShowEditInfo(!showEditInfo)}
-                      kind={'small'}
+                      kind={'normal'}
                       icon={showEditInfo ? faAngleUp : faAngleDown}
                     />
                   </EqualTwoTextInputs>
@@ -166,7 +166,7 @@ const Profile = props => {
                     />
                     <SimpleFontIcon
                       onPress={() => setShowEditUsername(!showEditUsername)}
-                      kind={'small'}
+                      kind={'normal'}
                       icon={showEditUsername ? faAngleUp : faAngleDown}
                     />
                   </EqualTwoTextInputs>
@@ -187,7 +187,7 @@ const Profile = props => {
                     />
                     <SimpleFontIcon
                       onPress={() => setShowEditPassword(!showEditPassword)}
-                      kind={'small'}
+                      kind={'normal'}
                       icon={showEditPassword ? faAngleUp : faAngleDown}
                     />
                   </EqualTwoTextInputs>
@@ -209,7 +209,7 @@ const Profile = props => {
                       />
                       <SimpleFontIcon
                         onPress={() => setShowEditForm(!showEditForm)}
-                        kind={'small'}
+                        kind={'normal'}
                         icon={showEditForm ? faAngleUp : faAngleDown}
                       />
                     </EqualTwoTextInputs>
@@ -244,7 +244,7 @@ const Profile = props => {
                 />
                 <SimpleFontIcon
                   onPress={() => setShowEditPic(!showEditPic)}
-                  kind={'small'}
+                  kind={'normal'}
                   icon={showEditPic ? faAngleUp : faAngleDown}
                 />
               </EqualTwoTextInputs>

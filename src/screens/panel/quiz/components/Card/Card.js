@@ -217,8 +217,11 @@ function Card(props) {
         <PhoneView style={{...stylePricaPane}}>
           {!props.isAdmin && (
             <PhoneView>
-              <SimpleText text={Translate.price} />
-              <SimpleText text={props.quiz.price + ' تومان'} />
+              <SimpleText style={{...styles.BlueBold}} text={Translate.price} />
+              <SimpleText
+                style={{...styles.BlueBold}}
+                text={props.quiz.price + ' تومان'}
+              />
             </PhoneView>
           )}
           <PhoneView>
