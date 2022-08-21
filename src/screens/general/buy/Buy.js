@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {MyView, PhoneView} from '../../../styles/Common';
 import Card from '../../panel/package/card/Card';
+import QuizCard from '../../panel/quiz/components/Card/Card';
 import {fetchRegistrablePackages} from './components/Utility';
 import {dispatchStateContext} from '../../../App';
 
@@ -14,18 +15,32 @@ function Buy(props) {
   };
 
   const [packages, setPackages] = useState();
+  const [quizzes, setQuizzes] = useState();
   const [selected, setSelected] = useState();
 
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+      isFilterMenuVisible: true,
+      isRightMenuVisible: false,
+    });
     Promise.all([fetchRegistrablePackages()]).then(res => {
       dispatch({loading: false});
       if (res[0] === null) {
         navigate('/');
         return;
       }
-      console.log(res[0]);
-      setPackages(res[0]);
+      setPackages(res[0].packages);
+      setQuizzes(res[0].quizzes);
+      dispatch({
+        filters: res[0].tags,
+        onChangeFilter: selectedIndices => {
+          dispatch({
+            checkedFilterIndices: selectedIndices,
+            needUpdateFilters: true,
+          });
+        },
+      });
     });
   }, [navigate, dispatch]);
 
@@ -44,6 +59,10 @@ function Buy(props) {
                 setSelected={props.setSelected}
               />
             );
+          })}
+        {quizzes !== undefined &&
+          quizzes.map((quiz, index) => {
+            return <QuizCard onClick={() => {}} quiz={quiz} key={index} />;
           })}
       </PhoneView>
     </MyView>

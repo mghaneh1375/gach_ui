@@ -5,7 +5,7 @@ import {style} from './style';
 import {dispatchStateContext, globalStateContext} from '../../../../App';
 import FilterItem from './FilterItem';
 
-function Filter(props) {
+function Filter() {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -19,22 +19,25 @@ function Filter(props) {
   const [filters, setFilters] = useState();
   const [allActive, setAllActive] = useState(true);
   const [selected, setSelected] = useState();
+  const [allAvailable, setAllAvailable] = useState(false);
 
   const toggleSelected = idx => {
     let tmpIdx = selected.indexOf(idx);
     let tmp = selected;
     if (tmpIdx === -1) tmp.push(idx);
     else tmp.splice(tmpIdx, 1);
-    if (allActive && tmp.length !== filters.length) setAllActive(false);
+    if (allAvailable && allActive && tmp.length !== filters.length)
+      setAllActive(false);
     setSelected(tmp);
     state.onChangeFilter(tmp);
   };
 
   const setAllFilter = React.useCallback(() => {
     if (filters === undefined) return;
-    if (allActive) setSelected([]);
-    dispatch({allFilter: allActive});
-  }, [dispatch, allActive, filters]);
+
+    if (!allAvailable || allActive) setSelected([]);
+    dispatch({allFilter: allAvailable && allActive});
+  }, [dispatch, allActive, filters, allAvailable]);
 
   React.useEffect(() => {
     setAllFilter();
@@ -42,13 +45,25 @@ function Filter(props) {
 
   React.useEffect(() => {
     if (state.filters === undefined) return;
+    if (state.filters instanceof Array) {
+      setSelected(
+        state.filters.map((e, index) => {
+          return index;
+        }),
+      );
 
-    setSelected(
-      state.filters.map((e, index) => {
-        return index;
-      }),
-    );
-    setFilters(state.filters);
+      setAllAvailable(true);
+      setFilters(state.filters);
+    } else if (state.filters instanceof Object) {
+      let tmp = [];
+      for (const [key, value] of Object.entries(state.filters)) {
+        tmp.push({
+          label: key,
+          subCats: value,
+        });
+      }
+      setFilters(tmp);
+    }
   }, [state.filters]);
 
   if (isLargePage) {
@@ -65,16 +80,19 @@ function Filter(props) {
               />
             );
           })}
-        <FilterItem
-          item={{
-            label: 'همه',
-          }}
-          onPress={() => {
-            if (!allActive) setAllActive(true);
-          }}
-          status={allActive ? 'checked' : 'unchecked'}
-          isAll={true}
-        />
+
+        {allAvailable && (
+          <FilterItem
+            item={{
+              label: 'همه',
+            }}
+            onPress={() => {
+              if (!allActive) setAllActive(true);
+            }}
+            status={allActive ? 'checked' : 'unchecked'}
+            isAll={true}
+          />
+        )}
       </div>
     );
   }

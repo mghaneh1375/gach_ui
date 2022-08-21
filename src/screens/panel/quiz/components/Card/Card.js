@@ -18,7 +18,6 @@ import {
   styleFontSize15,
   styleItemsParent,
   styleItem,
-  styleFullItem,
   styleItemsGrandParent,
   styleCard,
   stylePricaPane,
@@ -195,15 +194,17 @@ function Card(props) {
             />
           </PhoneView>
         </PhoneView>
-        <MyView
-          style={{
-            ...styleDigest,
-          }}>
-          <SimpleText
-            style={{...styleFontSize13}}
-            text={'# ' + props.quiz.tags.join(' - ')}
-          />
-        </MyView>
+        {props.quiz.tags !== undefined && props.quiz.tags.length > 0 && (
+          <MyView
+            style={{
+              ...styleDigest,
+            }}>
+            <SimpleText
+              style={{...styleFontSize13}}
+              text={'# ' + props.quiz.tags.join(' - ')}
+            />
+          </MyView>
+        )}
       </MyView>
     </CommonWebBox>
   );
