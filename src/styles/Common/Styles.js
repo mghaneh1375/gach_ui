@@ -44,6 +44,9 @@ export const styles = {
   justifyContentCenter: {
     justifyContent: 'center',
   },
+  alignSelfCenter: {
+    alignSelf: 'center',
+  },
   margin25: {
     marginTop: 25,
   },
