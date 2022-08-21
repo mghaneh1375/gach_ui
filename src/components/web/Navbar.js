@@ -13,7 +13,7 @@ const Navbar = props => {
   return (
     <>
       <Nav>
-        <NavLink to="/">آزمون ها</NavLink>
+        <NavLink to="/buy">آزمون ها</NavLink>
         <NavLink to="/">رویداد ها</NavLink>
         <NavLink to="/">اخبار</NavLink>
         <NavLink to="/">رتبه بندی</NavLink>

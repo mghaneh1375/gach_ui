@@ -22,7 +22,7 @@ import {
 } from './Style';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
 import {routes} from '../../../../API/APIRoutes';
-import {showSuccess} from '../../../../services/Utility';
+import {formatPrice, showSuccess} from '../../../../services/Utility';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {faGift} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../styles/Common/Styles';
@@ -110,18 +110,30 @@ function Card(props) {
             />
           </MyView>
 
-          {props.isAdmin && (
+          {!props.isAdmin && (
             <MyView style={{...styles.justifyContentCenter}}>
               <SimpleText
                 style={{...styles.fontSize11}}
-                text={Translate.minSelect}
+                text={Translate.registrableCount}
               />
               <SimpleText
                 style={{...styles.fontSize15}}
-                text={props.package.minSelect}
+                text={props.package.registrable}
               />
             </MyView>
           )}
+
+          <MyView style={{...styles.justifyContentCenter}}>
+            <SimpleText
+              style={{...styles.fontSize11}}
+              text={Translate.minSelect}
+            />
+            <SimpleText
+              style={{...styles.fontSize15}}
+              text={props.package.minSelect}
+            />
+          </MyView>
+
           {props.isAdmin && (
             <MyView>
               <SimpleText
@@ -144,9 +156,11 @@ function Card(props) {
                 style={{
                   ...styles.textDecorRed,
                 }}
-                text={' 30.000 ' + 'تومان'}
+                text={formatPrice(props.package.totalPrice) + ' تومان '}
               />
-              <SimpleText text={' 10.000 ' + 'تومان'} />
+              <SimpleText
+                text={formatPrice(props.package.realPrice) + ' تومان '}
+              />
             </PhoneView>
           )}
         </PhoneView>

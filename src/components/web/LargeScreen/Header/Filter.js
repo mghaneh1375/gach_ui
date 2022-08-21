@@ -32,12 +32,7 @@ function Filter(props) {
 
   const setAllFilter = React.useCallback(() => {
     if (filters === undefined) return;
-    if (allActive)
-      setSelected(
-        filters.map((e, index) => {
-          return index;
-        }),
-      );
+    if (allActive) setSelected([]);
     dispatch({allFilter: allActive});
   }, [dispatch, allActive, filters]);
 
@@ -64,7 +59,7 @@ function Filter(props) {
             return (
               <FilterItem
                 item={elem}
-                status={allActive ? 'checked' : undefined}
+                status={allActive ? 'unchecked' : undefined}
                 key={index}
                 onPress={() => toggleSelected(index)}
               />

@@ -26,6 +26,7 @@ export const QuizzesProvider = ({children}) => {
   );
 
   const selectAll = React.useCallback(() => {
+    if (state.filters === undefined) return;
     let tmp = [];
     state.filters.items.forEach((e, index) => {
       tmp.push(index);

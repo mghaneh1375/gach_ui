@@ -1,5 +1,6 @@
 const Translate = {
   quizCount: 'تعداد آزمون ها',
+  registrableCount: 'تعداد آزمون های قابل ثبت نام',
   buyQuiz: 'خرید آزمون',
   mizanTakhfif: 'میزان تخفیف',
   minSelect: 'حداقل تعداد آزمون',
