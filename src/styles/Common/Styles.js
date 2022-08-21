@@ -28,6 +28,9 @@ export const styles = {
     color: 'black',
     fontFamily: 'IRANSans',
   },
+  alignItemsCenter: {
+    alignItems: 'center',
+  },
   alignSelfStart: {
     alignSelf: 'flex-start',
   },
@@ -53,6 +56,9 @@ export const styles = {
   gap50: {
     gap: 50,
   },
+  gap15: {
+    gap: 15,
+  },
   flexDirectionRow: {
     flexDirection: 'row',
   },
@@ -77,5 +83,9 @@ export const styles = {
   },
   padding10: {
     padding: 10,
+  },
+  BlueBold: {
+    color: vars.DARK_BLUE,
+    fontWeight: 600,
   },
 };

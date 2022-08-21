@@ -18,6 +18,7 @@ import {
 } from './../../card/Style';
 import commonTranslator from '../../../../../tranlates/Common';
 import {quizzesContext, dispatchQuizzesContext} from './Utility';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function Info(props) {
   const useGlobalState = () => [
@@ -50,7 +51,7 @@ function Info(props) {
                   text={Translate.quizCount}
                 />
                 <SimpleText
-                  style={{...styleFontSize15}}
+                  style={{...styleFontSize15, ...styles.alignSelfCenter}}
                   text={props.package.quizzes}
                 />
               </MyView>
@@ -64,7 +65,7 @@ function Info(props) {
                   text={Translate.minSelect}
                 />
                 <SimpleText
-                  style={{...styleFontSize15}}
+                  style={{...styleFontSize15, ...styles.alignSelfCenter}}
                   text={props.package.minSelect}
                 />
               </MyView>
@@ -78,7 +79,7 @@ function Info(props) {
                   text={Translate.buyersCount}
                 />
                 <SimpleText
-                  style={{...styleFontSize15}}
+                  style={{...styleFontSize15, ...styles.alignSelfCenter}}
                   text={props.package.buyers}
                 />
               </MyView>

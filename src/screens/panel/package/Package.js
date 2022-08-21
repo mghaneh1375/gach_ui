@@ -32,8 +32,7 @@ function Package(props) {
           navigate('/');
           return;
         }
-        setPackages(res[0]);
-
+        setPackages(res[0].packages);
         setGrades(
           res[1].map(elem => {
             return {id: elem.id, item: elem.name, lessons: elem.lessons};
