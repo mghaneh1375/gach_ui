@@ -13,26 +13,24 @@ function Dashboard(props) {
           theme={vars.ORANGE}
           subtext={31}
           btnColor={'yellow'}
-          borderRightWidth={'true'}
         />
         <DashboardCard
           text={Translate.testEnable}
           theme={vars.ORANGE_RED}
           btnColor={'orange'}
           subtext={6}
-          borderRightWidth={'true'}
         />
         <DashboardCard
           text={Translate.testAll}
           theme={vars.DARK_BLUE}
           subtext={3}
           btnColor={'blue'}
-          borderRightWidth={'true'}
         />
         <DashboardCard
           text={Translate.yourRank}
           subtext={100}
-          backgroundColor={vars.ORANGE_RED}
+          background={vars.GRADIENT}
+          padding={'38px 10px'}
         />
       </PhoneView>
     </CommonWebBox>

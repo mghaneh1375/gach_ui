@@ -45,7 +45,7 @@ function List(props) {
   let width = getWidthHeight()[0];
   return (
     // for web
-    <MyView>
+    <PhoneView>
       <CommonWebBox
         width={350}
         header={commonTranslator.configuration + ' ' + commonTranslator.web}>
@@ -229,7 +229,7 @@ function List(props) {
         </MyView>
       </CommonWebBox>
       {/* /////////////////////////////////////////////////////////////////// */}
-    </MyView>
+    </PhoneView>
   );
 }
 

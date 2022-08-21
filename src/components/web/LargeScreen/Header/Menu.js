@@ -15,32 +15,32 @@ const Menu = props => {
   return (
     <MyView>
       {state.isRightMenuVisible &&
-        props.accesses !== undefined &&
+        props.accesses !== null &&
         props.accesses.indexOf('student') !== -1 && (
           <StudentMenu navigate={props.navigate} />
         )}
       {state.isRightMenuVisible &&
-        props.accesses !== undefined &&
+        props.accesses !== null &&
         props.accesses.indexOf('teacher') !== -1 && (
           <Teacher navigate={props.navigate} />
         )}
       {state.isRightMenuVisible &&
-        props.accesses !== undefined &&
+        props.accesses !== null &&
         props.accesses.indexOf('agent') !== -1 && (
           <Agent navigate={props.navigate} />
         )}
       {state.isRightMenuVisible &&
-        props.accesses !== undefined &&
+        props.accesses !== null &&
         props.accesses.indexOf('school') !== -1 && (
           <SchoolMenu navigate={props.navigate} />
         )}
       {state.isRightMenuVisible &&
-        props.accesses !== undefined &&
+        props.accesses !== null &&
         (props.accesses.indexOf('admin') !== -1 ||
           props.accesses.indexOf('superadmin') !== -1) && (
           <AdminMenu navigate={props.navigate} />
         )}
-      {state.isFilterMenuVisible && <Filter />}
+      {!state.isRightMenuVisible && state.isFilterMenuVisible && <Filter />}
     </MyView>
   );
 };

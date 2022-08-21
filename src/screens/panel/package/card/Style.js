@@ -3,9 +3,11 @@ import vars from '../../../../styles/root';
 export const styleCard = {
   paddingLeft: 0,
   paddingRight: 0,
-  paddingBottom: 5,
+  paddingBottom: 0,
   paddingTopRight: 10,
   width: 390,
+  boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
+  borderRadius: 10,
 };
 
 export const styleCommonWebBoxView = {
@@ -16,6 +18,7 @@ export const styleCommonWebBoxView = {
   marginTop: 7,
   borderRadius: 5,
   alignItems: 'center',
+  boxShadow: '1px 1px 8px -3px',
 };
 export const styleTitle = {
   width: '93%',
@@ -96,6 +99,8 @@ export const styleGiftIconParent = {
 };
 export const styleGiftIcon = {
   color: vars.ORANGE_RED,
+  width: 38,
+  height: 38,
 };
 export const styleColorWhite = {
   color: 'white',

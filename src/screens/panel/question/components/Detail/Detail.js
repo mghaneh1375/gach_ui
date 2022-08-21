@@ -27,6 +27,7 @@ import Level from './Filter/Level';
 import Report from './Report';
 import Type from './Filter/Type';
 import {styleYellowMarginTop7} from './style';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function Detail(props) {
   const [selectingQuiz, setSelectingQuiz] = useState(false);
@@ -189,14 +190,16 @@ function Detail(props) {
     <MyView>
       {!selectingQuiz && state.allowShow && (
         <MyView>
-          <FontIcon
-            kind={'normal'}
-            theme={'rect'}
-            icon={faAngleLeft}
-            onPress={() => props.setMode('list')}
-            parentStyle={{alignSelf: 'flex-end', margin: 20}}
-            back={'yellow'}
-          />
+          <PhoneView style={{...styles.alignSelfEnd}}>
+            <FontIcon
+              kind={'normal'}
+              theme={'rect'}
+              icon={faAngleLeft}
+              onPress={() => props.setMode('list')}
+              parentStyle={{alignSelf: 'flex-end', margin: 20}}
+              back={'yellow'}
+            />
+          </PhoneView>
           <CommonWebBox style={{gap: 20}}>
             <EqualTwoTextInputs style={{marginTop: -15}}>
               <BigBoldBlueText text={'فیلتر سوالات'} />
@@ -204,7 +207,7 @@ function Detail(props) {
                 onPress={() => setShowFilters(!showFilters)}
                 parentStyle={{alignSelf: 'flex-end'}}
                 style={{...styleYellowMarginTop7}}
-                kind={'small'}
+                kind={'normall'}
                 icon={showFilters ? faAngleDoubleDown : faAngleDoubleUp}
               />
             </EqualTwoTextInputs>
@@ -224,7 +227,7 @@ function Detail(props) {
                 onPress={() => setShowReports(!showReports)}
                 parentStyle={{alignSelf: 'flex-end'}}
                 style={{...styleYellowMarginTop7}}
-                kind={'small'}
+                kind={'normal'}
                 icon={showReports ? faAngleDoubleDown : faAngleDoubleUp}
               />
             </EqualTwoTextInputs>

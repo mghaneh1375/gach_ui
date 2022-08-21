@@ -8,7 +8,7 @@ import {
   SimpleText,
 } from '../Common';
 import vars from '../root';
-import {FontIcon} from './FontIcon';
+import {FontIcon, SimpleFontIcon} from './FontIcon';
 import {styles} from './Styles';
 
 const style = {
@@ -58,6 +58,35 @@ export const TextIcon = props => {
 
       <MyView style={InnerViewStyle}>
         <FontIcon {...fontProps} />
+      </MyView>
+    </EqualTwoTextInputs>
+  );
+};
+
+export const SimpleTextIcon = props => {
+  const allStyles =
+    props.style !== undefined ? {...style, ...props.style} : style;
+
+  var fontProps = {icon: props.icon};
+  if (props.onPress !== undefined) {
+    fontProps.onPress = props.onPress;
+  }
+
+  if (props.theme !== undefined) {
+    fontProps.parentStyle = {
+      borderRadius: 7,
+      backgroundColor: vars.YELLOW,
+      width: 30,
+      height: 30,
+    };
+  }
+
+  return (
+    <EqualTwoTextInputs style={allStyles}>
+      <BigBoldBlueTextInline text={props.text} />
+
+      <MyView style={InnerViewStyle}>
+        <SimpleFontIcon {...fontProps} />
       </MyView>
     </EqualTwoTextInputs>
   );

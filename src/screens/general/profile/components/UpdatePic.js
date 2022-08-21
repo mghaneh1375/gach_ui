@@ -60,8 +60,17 @@ const UpdatePic = props => {
         </LargePopUp>
       )}
       <Image
-        resizeMode="contain"
-        style={{width: 200, height: 200, alignSelf: 'center'}}
+        resizeMode={'contain'}
+        imageStyle={{boxShadow: 'inset 4px 6px 20px 20px'}}
+        parentStyle={{boxShadow: 'inset 4px 6px 20px 20px'}}
+        style={{
+          width: 200,
+          height: 200,
+          alignSelf: 'center',
+          borderRadius: '50%',
+          border: '8px solid rgb(255, 255, 255)',
+          boxShadow: 'rgb(0 0 0 / 16%) 0px 1px 20px',
+        }}
         source={{uri: pic}}
       />
       {/* {props.accesses.indexOf('student') !== -1 && ( */}

@@ -6,6 +6,7 @@ import {MyView, PhoneView} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import Basket from './Basket';
 import {dispatchStateContext} from '../../App';
+import {styles} from '../../styles/Common/Styles';
 
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState();
@@ -33,6 +34,21 @@ function Quizzes(props) {
     setQuizzes(
       quizzes.map(elem => {
         elem.isSelected = selectedItems.indexOf(elem.id) !== -1;
+        return elem;
+      }),
+    );
+  };
+
+  const selectAll = () => {
+    let allSelectedItems = quizzes.map(elem => {
+      return elem.id;
+    });
+
+    setSelectedItems(allSelectedItems);
+    props.setSelectedQuizzes(allSelectedItems);
+    setQuizzes(
+      quizzes.map(elem => {
+        elem.isSelected = true;
         return elem;
       }),
     );
@@ -78,7 +94,7 @@ function Quizzes(props) {
   }, [props, isWorking, quizzes, dispatch]);
 
   return (
-    <MyView style={{padding: 10, marginBottom: 120}}>
+    <MyView style={{padding: 10, marginBottom: 120, ...styles.alignItemsStart}}>
       {props.onBackClicked !== undefined && (
         <FontIcon
           icon={faAngleLeft}
@@ -98,6 +114,8 @@ function Quizzes(props) {
       </PhoneView>
       <Basket
         total={quizzes === undefined ? 0 : quizzes.length}
+        fullWidth={props.fullWidth}
+        selectAll={() => selectAll()}
         selectedLength={selectedItems.length}>
         {props.children}
       </Basket>

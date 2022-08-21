@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '../../../App';
+import {dispatchStateContext} from '../../../App';
 import List from './components/List/List';
 import {fetchAllPackages} from './components/Utility';
 import {addItem, editItem, removeItems} from '../../../services/Utility';
@@ -32,8 +32,7 @@ function Package(props) {
           navigate('/');
           return;
         }
-        setPackages(res[0]);
-
+        setPackages(res[0].items);
         setGrades(
           res[1].map(elem => {
             return {id: elem.id, item: elem.name, lessons: elem.lessons};

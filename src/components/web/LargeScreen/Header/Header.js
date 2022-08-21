@@ -133,13 +133,13 @@ const Header = props => {
               style={{
                 width: 30,
                 height: 30,
-                marginTop: 5,
+                marginTop: 10,
                 marginRight: 5,
                 right: 0,
                 visibility: showProfilePane ? 'hidden' : 'visible',
               }}>
               <SimpleFontIcon
-                kind={'small'}
+                kind={'normal'}
                 onPress={() => {
                   changeShow(!showProfilePane);
                   showNotif ? setShowNotif(!showNotif) : '';

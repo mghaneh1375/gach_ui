@@ -30,42 +30,6 @@ const CommonDataTable = props => {
   const [showRemovePopUp, setShowRemovePopUp] = useState(false);
   const [selectedOp, setSelectedOp] = useState();
 
-  let columns = [];
-
-  if (props.show_row_no === undefined || props.show_row_no)
-    columns[0] = {
-      name: 'ردیف',
-      cell: (row, index, column, id) => {
-        return <p>{index + 1}</p>;
-      },
-    };
-
-  if (props.handleOp !== undefined)
-    columns[columns.length === 0 ? 0 : columns.length - 1] = {
-      name: commonTranslator.operation,
-      style: {
-        cursor: 'pointer',
-      },
-      cell: (row, index, column, id) => {
-        return (
-          <p className="opCol" onClick={() => props.handleOp(index)}>
-            ...
-          </p>
-        );
-      },
-      minWidth: '70px',
-      maxWidth: '70px',
-      center: true,
-      ignoreRowClick: true,
-    };
-
-  columns = [...columns, ...props.columns];
-
-  columns.map(elem => {
-    elem.wrap = true;
-    return elem;
-  });
-
   const onChangeSelectedRows = selectedRows => {
     setSelected(selectedRows);
   };
@@ -106,12 +70,65 @@ const CommonDataTable = props => {
     data: [],
     ops: undefined,
     shouldUpdateParent: false,
+    currentPage: 1,
+    perPage: 10,
+    columns: [],
   };
 
   function reducer(state, action) {
     switch (action.type) {
       case 'set':
         return {...state, data: props.data};
+      case 'renderCols':
+        let columns = [];
+
+        if (props.show_row_no === undefined || props.show_row_no) {
+          columns[0] = {
+            name: 'ردیف',
+            cell: (row, index, column, id) => {
+              return (
+                <p>{(state.currentPage - 1) * state.perPage + index + 1}</p>
+              );
+            },
+            minWidth: '40px',
+            maxWidth: '40px',
+            center: true,
+          };
+        }
+
+        if (props.handleOp !== undefined)
+          columns[columns.length === 0 ? 0 : columns.length] = {
+            name: commonTranslator.operation,
+            style: {
+              cursor: 'pointer',
+            },
+            cell: (row, index, column, id) => {
+              return (
+                <p
+                  className="opCol"
+                  onClick={() =>
+                    props.handleOp(
+                      (state.currentPage - 1) * state.perPage + index,
+                    )
+                  }>
+                  ...
+                </p>
+              );
+            },
+            minWidth: '70px',
+            maxWidth: '70px',
+            center: true,
+            ignoreRowClick: true,
+          };
+
+        columns = [...columns, ...props.columns];
+
+        columns.map(elem => {
+          elem.wrap = true;
+          return elem;
+        });
+        return {...state, columns: columns};
+
       case 'remove':
         let data = state.data;
         let newData = data.filter(elem => {
@@ -154,6 +171,10 @@ const CommonDataTable = props => {
           ops = props.groupOps;
         }
         return {...state, ops: ops};
+      case 'changeCurrPage':
+        return {...state, currentPage: action.page};
+      case 'changePerPage':
+        return {...state, perPage: action.perPage, currentPage: action.page};
       case 'parentUpdated':
         return {...state, shouldUpdateParent: false};
       default:
@@ -173,6 +194,10 @@ const CommonDataTable = props => {
   }, [props.data, state.data]);
 
   React.useEffect(() => {
+    dispatch({type: 'renderCols'});
+  }, [state.currentPage, state.perPage]);
+
+  React.useEffect(() => {
     if (res === undefined) return;
     dispatch({type: 'remove'});
   }, [res]);
@@ -187,6 +212,12 @@ const CommonDataTable = props => {
   React.useEffect(() => {
     dispatch({type: 'op'});
   }, [props.groupOps, props.removeUrl]);
+
+  const paginationComponentOptions = {
+    selectAllRowsItem: true,
+    rowsPerPageText: 'نمایش در هر صفحه',
+    selectAllRowsItemText: 'همه',
+  };
 
   return (
     <MyView>
@@ -233,12 +264,15 @@ const CommonDataTable = props => {
           })}
         </select>
       )}
+
       <DataTable
         pagination={
           props.pagination === undefined || props.pagination ? true : false
         }
+        paginationComponentOptions={paginationComponentOptions}
+        paginationRowsPerPageOptions={[10, 25, 50, 100]}
         customStyles={customStyles}
-        columns={columns}
+        columns={state.columns}
         data={state.data}
         selectableRows={
           (state.ops !== undefined && state.ops.length > 0) ||
@@ -252,6 +286,12 @@ const CommonDataTable = props => {
         }
         clearSelectedRows={toggledClearRows}
         conditionalRowStyles={props.conditionalRowStyles}
+        onChangePage={page => {
+          dispatch({type: 'changeCurrPage', page: page});
+        }}
+        onChangeRowsPerPage={(perPage, page) => {
+          dispatch({type: 'changePerPage', perPage: perPage, page: page});
+        }}
       />
     </MyView>
   );

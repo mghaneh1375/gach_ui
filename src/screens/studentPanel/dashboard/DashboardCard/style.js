@@ -20,7 +20,6 @@ export const styleMarginRight = {
   marginRight: 15,
 };
 export const styleSubText = {
-  marginTop: 15,
   color: vars.LIGHT_SILVER,
 };
 export const styleJustifyContentCenter = {

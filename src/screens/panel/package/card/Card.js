@@ -6,6 +6,7 @@ import {
   PhoneView,
   SimpleText,
   MyView,
+  BigBoldBlueText,
 } from '../../../../styles/Common';
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';
@@ -22,9 +23,9 @@ import {
 } from './Style';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
 import {routes} from '../../../../API/APIRoutes';
-import {showSuccess} from '../../../../services/Utility';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {faGift} from '@fortawesome/free-solid-svg-icons';
+import {formatPrice, showSuccess} from '../../../../services/Utility';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {faGift, faPlug} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../styles/Common/Styles';
 
 function Card(props) {
@@ -52,7 +53,7 @@ function Card(props) {
       )}
       <CommonWebBox style={{...styleCard}}>
         <SimpleFontIcon
-          kind={'normal'}
+          kind={'large'}
           icon={faGift}
           parentStyle={{...styleGiftIconParent}}
           style={{...styleGiftIcon}}
@@ -65,6 +66,7 @@ function Card(props) {
           <SimpleText
             style={{
               ...styleTitle,
+              ...styles.BlueBold,
             }}
             text={props.package.title}
           />
@@ -74,7 +76,7 @@ function Card(props) {
             ...styleLittleView,
           }}>
           <SimpleText
-            style={{...styleColorWhite}}
+            style={{...styleColorWhite, ...styles.BlueBold}}
             text={props.package.offPercent + '%'}
           />
         </MyView>
@@ -84,55 +86,111 @@ function Card(props) {
             ...styles.justifyContentCenter,
           }}>
           <SimpleText
-            style={{...styles.fontSize13}}
+            style={{...styles.fontSize13, ...styles.BlueBold}}
             text={commonTranslator.grade + ' : ' + props.package.grade.name}
           />
           <SimpleText
-            style={{...styles.fontSize13}}
+            style={{...styles.fontSize15, ...styles.BlueBold}}
             text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
           />
         </MyView>
         <PhoneView
           style={{
-            ...styles.gap50,
+            ...styles.gap10,
             ...styles.flexWrap,
             ...styles.justifyContentSpaceAround,
             ...styles.marginTop20,
           }}>
-          <MyView style={{...styles.justifyContentCenter}}>
-            <SimpleText
-              style={{...styles.fontSize11}}
-              text={Translate.quizCount}
+          <PhoneView>
+            <FontIcon
+              kind={'small'}
+              icon={faPlug}
+              parentStyle={{marginLeft: 5}}
             />
-            <SimpleText
-              style={{...styles.fontSize15}}
-              text={props.package.quizzes}
-            />
-          </MyView>
-
-          {props.isAdmin && (
             <MyView style={{...styles.justifyContentCenter}}>
               <SimpleText
-                style={{...styles.fontSize11}}
+                style={{...styles.fontSize10, ...styles.BlueBold}}
+                text={Translate.quizCount}
+              />
+              <SimpleText
+                style={{
+                  ...styles.fontSize15,
+                  ...styles.alignSelfCenter,
+                  ...styles.BlueBold,
+                }}
+                text={props.package.quizzes}
+              />
+            </MyView>
+          </PhoneView>
+
+          {!props.isAdmin && (
+            <PhoneView>
+              <FontIcon
+                kind={'small'}
+                icon={faPlug}
+                parentStyle={{marginLeft: 5}}
+              />
+              <MyView style={{...styles.justifyContentCenter}}>
+                <SimpleText
+                  style={{...styles.fontSize10, ...styles.BlueBold}}
+                  text={Translate.registrableCount}
+                />
+                <SimpleText
+                  style={{
+                    ...styles.fontSize15,
+                    ...styles.alignSelfCenter,
+                    ...styles.BlueBold,
+                  }}
+                  text={props.package.registrable}
+                />
+              </MyView>
+            </PhoneView>
+          )}
+
+          <PhoneView>
+            <FontIcon
+              kind={'small'}
+              icon={faPlug}
+              parentStyle={{marginLeft: 5}}
+            />
+            <MyView style={{...styles.justifyContentCenter}}>
+              <SimpleText
+                style={{...styles.fontSize10, ...styles.BlueBold}}
                 text={Translate.minSelect}
               />
               <SimpleText
-                style={{...styles.fontSize15}}
+                style={{
+                  ...styles.fontSize15,
+                  ...styles.alignSelfCenter,
+                  ...styles.BlueBoldr,
+                }}
                 text={props.package.minSelect}
               />
             </MyView>
-          )}
+          </PhoneView>
+
           {props.isAdmin && (
-            <MyView>
-              <SimpleText
-                style={{...styles.fontSize11}}
-                text={Translate.buyersCount}
+            <PhoneView>
+              <FontIcon
+                kind={'small'}
+                icon={faPlug}
+                parentStyle={{marginLeft: 5}}
               />
-              <SimpleText
-                style={{...styles.fontSize15}}
-                text={props.package.buyers}
-              />
-            </MyView>
+              <MyView>
+                <SimpleText
+                  style={{...styles.fontSize10, ...styles.BlueBold}}
+                  text={Translate.buyersCount}
+                />
+                <SimpleText
+                  style={{
+                    ...styles.fontSize15,
+                    ...styles.alignSelfCenter,
+                    ...styles.BlueBold,
+                  }}
+                  text={props.package.buyers}
+                />
+              </MyView>
+            </PhoneView>
           )}
         </PhoneView>
 
@@ -143,14 +201,23 @@ function Card(props) {
               <SimpleText
                 style={{
                   ...styles.textDecorRed,
+                  ...styles.BlueBold,
                 }}
-                text={' 30.000 ' + 'تومان'}
+                text={formatPrice(props.package.totalPrice) + ' تومان '}
               />
-              <SimpleText text={' 10.000 ' + 'تومان'} />
+              <SimpleText
+                style={{...styles.BlueBold, ...styles.red}}
+                text={formatPrice(props.package.realPrice) + ' تومان '}
+              />
             </PhoneView>
           )}
         </PhoneView>
-        {!props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
+        {!props.isAdmin && (
+          <CommonButton
+            onPress={() => props.onPress()}
+            title={Translate.buyQuiz}
+          />
+        )}
         {props.isAdmin && (
           <PhoneView
             style={{
