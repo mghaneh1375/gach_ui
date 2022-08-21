@@ -23,6 +23,7 @@ import {Link} from 'react-router-dom';
 import JustBottomBorderTextInput from './Common/JustBottomBorderTextInput';
 import {FontIcon, SimpleFontIcon} from './Common/FontIcon';
 import {faArrowLeft, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {styleBorderRight} from '../screens/studentPanel/dashboard/DashboardCard/style';
 
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem
@@ -315,8 +316,7 @@ export const CommonWebBox = props => {
               : props.style.padding,
           borderRadius: 10,
           gap: props.no_gap === undefined || !props.no_gap ? 10 : 0,
-          borderRightWidth: props.borderRightWidth === 'true' ? 18 : 0,
-          borderColor: props.theme,
+          ...props.childStyle,
         }}>
         {props.header !== undefined && (
           <EqualTwoTextInputs>

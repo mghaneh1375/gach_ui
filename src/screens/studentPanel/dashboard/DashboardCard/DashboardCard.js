@@ -6,6 +6,7 @@ import {
   PhoneView,
   SimpleText,
   MyView,
+  commonStyles,
 } from '../../../../styles/Common';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import vars from '../../../../styles/root';
@@ -18,26 +19,21 @@ import {
   styleFontSize30,
 } from './style';
 
-function DashboardCard({
-  theme,
-  text,
-  background,
-  subtext,
-  btnColor,
-  counter,
-  borderRightWidth,
-}) {
+function DashboardCard({theme, text, background, subtext, btnColor, padding}) {
   return (
     <CommonWebBox
       width={250}
-      borderRightWidth={borderRightWidth}
       theme={theme}
-      style={{
-        ...styleJustifyContentCenter,
+      childStyle={{
+        ...styleBorderRight,
         ...{
           borderColor: theme,
-          backgroundImage: background !== undefined ? background : 'white',
+          background: background !== undefined ? background : 'white',
+          padding: padding !== undefined ? padding : '10px',
         },
+      }}
+      style={{
+        ...styleJustifyContentCenter,
       }}>
       <PhoneView style={{justifyContent: 'space-between'}}>
         <SimpleText
@@ -63,17 +59,12 @@ function DashboardCard({
       </PhoneView>
       {btnColor !== undefined && (
         <MyView>
-          <EqualTwoTextInputs>
+          <EqualTwoTextInputs style={{alignItems: 'end'}}>
             <SimpleText
               style={{...styleFontSize30, ...styleSubText}}
               text={subtext}
             />
-            <FontIcon
-              kind={'normal'}
-              theme={'rect'}
-              back={btnColor}
-              icon={faPlus}
-            />
+            <FontIcon theme={'rect'} back={btnColor} icon={faPlus} />
           </EqualTwoTextInputs>
         </MyView>
       )}

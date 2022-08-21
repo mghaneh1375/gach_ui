@@ -52,7 +52,7 @@ function Card(props) {
       )}
       <CommonWebBox style={{...styleCard}}>
         <SimpleFontIcon
-          kind={'normal'}
+          kind={'large'}
           icon={faGift}
           parentStyle={{...styleGiftIconParent}}
           style={{...styleGiftIcon}}
@@ -105,7 +105,7 @@ function Card(props) {
               text={Translate.quizCount}
             />
             <SimpleText
-              style={{...styles.fontSize15}}
+              style={{...styles.fontSize15, ...styles.alignSelfCenter}}
               text={props.package.quizzes}
             />
           </MyView>
@@ -117,7 +117,7 @@ function Card(props) {
                 text={Translate.registrableCount}
               />
               <SimpleText
-                style={{...styles.fontSize15}}
+                style={{...styles.fontSize15, ...styles.alignSelfCenter}}
                 text={props.package.registrable}
               />
             </MyView>
@@ -129,7 +129,7 @@ function Card(props) {
               text={Translate.minSelect}
             />
             <SimpleText
-              style={{...styles.fontSize15}}
+              style={{...styles.fontSize15, ...styles.alignSelfCenter}}
               text={props.package.minSelect}
             />
           </MyView>
@@ -141,7 +141,7 @@ function Card(props) {
                 text={Translate.buyersCount}
               />
               <SimpleText
-                style={{...styles.fontSize15}}
+                style={{...styles.fontSize15, ...styles.alignSelfCenter}}
                 text={props.package.buyers}
               />
             </MyView>

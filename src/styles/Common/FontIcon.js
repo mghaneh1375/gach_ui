@@ -1,6 +1,7 @@
+import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Platform, Pressable} from 'react-native';
-import {BigBoldBlueText, CommonButton} from '../Common';
+import {BigBoldBlueText} from '../Common';
 import vars from './../root';
 
 const FontIconStyle = {
@@ -116,8 +117,22 @@ export const FontIcon = props => {
 export const SimpleFontIcon = props => {
   let allStyles = {
     cursor: 'pointer',
-    width: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
-    height: props.kind === undefined || props.kind === 'full' ? '100%' : 30,
+    width:
+      props.kind === undefined || props.kind === 'full'
+        ? '100%'
+        : props.kind === 'large'
+        ? 38
+        : props.kind === 'small'
+        ? 11
+        : 22,
+    height:
+      props.kind === undefined || props.kind === 'full'
+        ? '100%'
+        : props.kind === 'large'
+        ? 38
+        : props.kind === 'small'
+        ? 11
+        : 22,
     alignSelf: 'center',
     color: vars.LIGHT_SILVER,
     justifyContent: 'center',
@@ -133,7 +148,6 @@ export const SimpleFontIcon = props => {
           Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
           {
             color: vars.LIGHT_SILVER,
-            width: props.kind !== undefined && props.kind === 'small' ? 11 : 22,
           },
           props.style ? props.style : {},
         ]}
