@@ -54,7 +54,11 @@ function Detail(props) {
 
       {!state.selectingQuiz && (
         <MyView>
-          <Info setMode={props.setMode} package={props.package} />
+          <Info
+            isAdmin={true}
+            setMode={props.setMode}
+            package={props.package}
+          />
           {state.quizzes !== undefined && (
             <List
               token={props.token}

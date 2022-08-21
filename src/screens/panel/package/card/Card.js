@@ -212,7 +212,12 @@ function Card(props) {
             </PhoneView>
           )}
         </PhoneView>
-        {!props.isAdmin && <CommonButton title={Translate.buyQuiz} />}
+        {!props.isAdmin && (
+          <CommonButton
+            onPress={() => props.onPress()}
+            title={Translate.buyQuiz}
+          />
+        )}
         {props.isAdmin && (
           <PhoneView
             style={{

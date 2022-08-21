@@ -15,8 +15,6 @@ import {MyView} from '../../../styles/Common';
 
 const Quiz = props => {
   const [mode, setMode] = useState();
-  const [quizzes, setQuizzes] = useState([]);
-
   const navigate = props.navigate;
 
   const useGlobalState = () => [
