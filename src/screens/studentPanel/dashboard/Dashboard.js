@@ -32,8 +32,7 @@ function Dashboard(props) {
         <DashboardCard
           text={Translate.yourRank}
           subtext={100}
-          background={vars.GRADIENT}
-          borderRightWidth={'true'}
+          backgroundColor={vars.ORANGE_RED}
         />
       </PhoneView>
     </CommonWebBox>

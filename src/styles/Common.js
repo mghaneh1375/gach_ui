@@ -8,7 +8,6 @@ import {
   chooseTheme,
   CommonButtonTextStyleAndroid,
   CommonButtonTextStyleWeb,
-  TransparentButtonStyle,
 } from './Common/Button';
 import BlueTextInlineElem from './Common/BlueTextInline';
 
@@ -22,7 +21,11 @@ import {Link} from 'react-router-dom';
 
 import JustBottomBorderTextInput from './Common/JustBottomBorderTextInput';
 import {FontIcon, SimpleFontIcon} from './Common/FontIcon';
-import {faArrowLeft, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faPlus,
+  faVenusMars,
+} from '@fortawesome/free-solid-svg-icons';
 
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem
@@ -307,14 +310,15 @@ export const CommonWebBox = props => {
     <MyView style={allStyle}>
       <MyView
         style={{
-          backgroundColor: vars.WHITE,
+          backgroundColor:
+            props.backgroundColor !== undefined &&
+            props.backgroundColor === vars.ORANGE_RED
+              ? props.backgroundColor
+              : vars.WHITE,
           boxShadow: '0px 3px 6px #00000029',
-          padding:
-            props.style === undefined || props.style.padding === undefined
-              ? 10
-              : props.style.padding,
+          padding: props.backgroundColor !== undefined ? '46px 15px' : 15,
           borderRadius: 10,
-          gap: props.no_gap === undefined || !props.no_gap ? 10 : 0,
+          gap: props.no_gap === undefined || !props.no_gap ? 15 : 0,
           borderRightWidth: props.borderRightWidth === 'true' ? 18 : 0,
           borderColor: props.theme,
         }}>

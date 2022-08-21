@@ -26,11 +26,13 @@ function DashboardCard({
   btnColor,
   counter,
   borderRightWidth,
+  backgroundColor,
 }) {
   return (
     <CommonWebBox
       width={250}
       borderRightWidth={borderRightWidth}
+      backgroundColor={backgroundColor}
       theme={theme}
       style={{
         ...styleJustifyContentCenter,
@@ -45,7 +47,8 @@ function DashboardCard({
             ...styleFontSize25,
             ...styleMarginRight,
             ...{
-              color: background !== undefined ? vars.WHITE : vars.DARK_BLUE,
+              color:
+                backgroundColor !== undefined ? vars.WHITE : vars.DARK_BLUE,
               width: 'max-content',
             },
           }}
