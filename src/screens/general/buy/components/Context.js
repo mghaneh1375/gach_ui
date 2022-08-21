@@ -1,19 +1,16 @@
 import React from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../../../App';
-
+import {globalStateContext, dispatchStateContext} from '../../../../App';
 const defaultGlobalState = {
-  selectingQuiz: false,
-  quizzes: undefined,
   allItems: undefined,
-  selectableQuizzes: undefined,
+  selectableItems: undefined,
   filters: undefined,
   checkedFilterIndices: undefined,
   needUpdateFilters: false,
 };
-export const quizzesContext = React.createContext(defaultGlobalState);
-export const dispatchQuizzesContext = React.createContext(undefined);
+export const packagesContext = React.createContext(defaultGlobalState);
+export const dispatchPackagesContext = React.createContext(undefined);
 
-export const QuizzesProvider = ({children}) => {
+export const PackageProvider = ({children}) => {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -29,7 +26,7 @@ export const QuizzesProvider = ({children}) => {
     if (state.filters === undefined) return;
 
     dispatch({
-      selectableQuizzes: state.allItems,
+      selectableItems: state.allItems,
       checkedFilterIndices: [],
     });
   }, [state.allItems, state.filters]);
@@ -38,10 +35,20 @@ export const QuizzesProvider = ({children}) => {
     if (
       state.checkedFilterIndices === undefined ||
       state.filters === undefined ||
-      state.selectableQuizzes === undefined ||
+      state.selectableItems === undefined ||
       state.allItems === undefined
     )
       return;
+
+    let allFilters =
+      state.filters.items instanceof Array ? state.filters.items : [];
+    if (state.filters.items instanceof Object) {
+      for (const [key, value] of Object.entries(state.filters.items)) {
+        value.forEach(str => {
+          allFilters.push(str);
+        });
+      }
+    }
 
     let newItems = [];
     state.allItems.forEach(elem => {
@@ -57,14 +64,14 @@ export const QuizzesProvider = ({children}) => {
     });
 
     dispatch({
-      selectableQuizzes: newItems,
+      selectableItems: newItems,
       needUpdateFilters: false,
     });
   }, [
     state.filters,
     state.checkedFilterIndices,
     state.allItems,
-    state.selectableQuizzes,
+    state.selectableItems,
   ]);
 
   const setFilters = React.useCallback(() => {
@@ -75,25 +82,13 @@ export const QuizzesProvider = ({children}) => {
       isFilterMenuVisible: true,
       filters: state.filters.items,
       onChangeFilter: state.filters.onChangeFilter,
+      allFilter: true,
     });
   }, [globalDispatch, state.filters]);
 
-  const unSetFilters = React.useCallback(() => {
-    globalDispatch({
-      isRightMenuVisible: true,
-      isFilterMenuVisible: false,
-      filters: undefined,
-      needUpdateFilters: false,
-    });
-  }, [globalDispatch]);
-
   React.useEffect(() => {
-    if (state.selectingQuiz === undefined || !state.selectingQuiz) {
-      unSetFilters();
-      return;
-    }
     setFilters();
-  }, [state.selectingQuiz, state.filters, setFilters, unSetFilters]);
+  }, [state.filters, setFilters]);
 
   React.useEffect(() => {
     if (state.needUpdateFilters === undefined || !state.needUpdateFilters)
@@ -107,10 +102,10 @@ export const QuizzesProvider = ({children}) => {
   }, [globalState.allFilter, selectAll]);
 
   return (
-    <quizzesContext.Provider value={state}>
-      <dispatchQuizzesContext.Provider value={dispatch}>
+    <packagesContext.Provider value={state}>
+      <dispatchPackagesContext.Provider value={dispatch}>
         {children}
-      </dispatchQuizzesContext.Provider>
-    </quizzesContext.Provider>
+      </dispatchPackagesContext.Provider>
+    </packagesContext.Provider>
   );
 };

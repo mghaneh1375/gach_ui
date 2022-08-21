@@ -11,10 +11,10 @@ function FilterItem(props) {
     setStatus(props.status);
   }, [props.status]);
 
-  const changeStatus = () => {
+  const changeStatus = label => {
     if (props.isAll !== undefined && status === 'checked') return;
     setStatus(status === 'checked' ? 'unchecked' : 'checked');
-    props.onPress();
+    props.onPress(label);
   };
   const [expand, setExpand] = useState(false);
   const [subCats, setSubCats] = useState();
@@ -33,21 +33,23 @@ function FilterItem(props) {
   if (props.item.subCats === undefined)
     return (
       <CommonRadioButton
-        onPress={() => changeStatus()}
+        onPress={() => changeStatus(props.item.label)}
         status={status}
         text={props.item.label}
       />
     );
 
   const changeSubCatStatus = idx => {
+    let currLabel = '';
     setSubCats(
       subCats.map((elem, index) => {
         if (index !== idx) return elem;
+        currLabel = elem.label;
         elem.status = elem.status === 'checked' ? 'unchecked' : 'checked';
         return elem;
       }),
     );
-    props.onPress();
+    props.onPress(currLabel);
   };
 
   return (

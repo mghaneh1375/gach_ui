@@ -21,10 +21,10 @@ function Filter() {
   const [selected, setSelected] = useState();
   const [allAvailable, setAllAvailable] = useState(false);
 
-  const toggleSelected = idx => {
-    let tmpIdx = selected.indexOf(idx);
+  const toggleSelected = lbl => {
+    let tmpIdx = selected.indexOf(lbl);
     let tmp = selected;
-    if (tmpIdx === -1) tmp.push(idx);
+    if (tmpIdx === -1) tmp.push(lbl);
     else tmp.splice(tmpIdx, 1);
     if (allAvailable && allActive && tmp.length !== filters.length)
       setAllActive(false);
@@ -76,7 +76,7 @@ function Filter() {
                 item={elem}
                 status={allActive ? 'unchecked' : undefined}
                 key={index}
-                onPress={() => toggleSelected(index)}
+                onPress={label => toggleSelected(label)}
               />
             );
           })}

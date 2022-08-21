@@ -21,7 +21,7 @@ function Add(props) {
   const [state, dispatch] = useGlobalState();
 
   React.useEffect(() => {
-    if (isWorking || state.registrableQuizzes !== undefined) return;
+    if (isWorking || state.allItems !== undefined) return;
 
     setIsWorking(true);
     props.setLoading(true);
@@ -42,9 +42,7 @@ function Add(props) {
         return;
       }
 
-      state.checkedFilterIndices = [];
       let filtersTmp = res[0].tags.map((elem, index) => {
-        state.checkedFilterIndices.push(index);
         return {
           label: elem,
           index: index,
@@ -52,7 +50,7 @@ function Add(props) {
       });
 
       dispatch({
-        registrableQuizzes: res[0].items,
+        allItems: res[0].items,
         filters: {
           items: filtersTmp,
           onChangeFilter: selectedIndices => {
