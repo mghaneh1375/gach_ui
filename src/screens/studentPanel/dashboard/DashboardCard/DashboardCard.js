@@ -25,11 +25,11 @@ function DashboardCard({theme, text, background, subtext, btnColor, padding}) {
       width={250}
       theme={theme}
       childStyle={{
-        ...styleBorderRight,
         ...{
           borderColor: theme,
           background: background !== undefined ? background : 'white',
           padding: padding !== undefined ? padding : '10px',
+          borderRightWidth: btnColor !== undefined ? 18 : '',
         },
       }}
       style={{

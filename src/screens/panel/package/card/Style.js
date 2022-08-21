@@ -3,9 +3,11 @@ import vars from '../../../../styles/root';
 export const styleCard = {
   paddingLeft: 0,
   paddingRight: 0,
-  paddingBottom: 5,
+  paddingBottom: 0,
   paddingTopRight: 10,
   width: 390,
+  boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
+  borderRadius: 10,
 };
 
 export const styleCommonWebBoxView = {
