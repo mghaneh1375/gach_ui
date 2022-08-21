@@ -12,11 +12,12 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
 
   return (
-    <MyView style={{padding: 10}}>
+    <MyView style={{padding: 10, alignSelf: 'start'}}>
       <BigBoldBlueText text={'sa'} />
 
       {state.package !== undefined && state.package.quizzesDoc !== undefined && (
         <Quizzes
+          fullWidth={props.isRightMenuVisible ? false : true}
           setSelectedQuizzes={setSelectedQuizzes}
           quizzes={state.package.quizzesDoc}>
           {/* <CommonButton

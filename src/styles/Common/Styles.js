@@ -9,6 +9,9 @@ export const styles = {
     fontWeight: 'bold',
     fontSize: 30,
   },
+  cursor_pointer: {
+    cursor: 'pointer',
+  },
   red: {
     color: 'red',
   },
@@ -55,6 +58,9 @@ export const styles = {
   },
   alignItemsEnd: {
     alignItems: 'end',
+  },
+  alignItemsStart: {
+    alignItems: 'start',
   },
   margin25: {
     marginTop: 25,

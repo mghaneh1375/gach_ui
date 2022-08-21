@@ -36,7 +36,11 @@ function Detail(props) {
   return (
     <MyView>
       <Info isAdmin={false} setMode={props.setMode} package={state.package} />
-      <List token={props.token} setLoading={props.setLoading} />
+      <List
+        isRightMenuVisible={props.isRightMenuVisible}
+        token={props.token}
+        setLoading={props.setLoading}
+      />
     </MyView>
   );
 }

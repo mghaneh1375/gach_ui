@@ -11,31 +11,24 @@ import {
   PhoneView,
   SimpleText,
 } from '../../styles/Common';
-import {
-  dark_blue_color,
-  yellow_color,
-  fontSize17,
-} from '../../styles/Common/Styles';
+import {styles} from '../../styles/Common/Styles';
 
 import commonTranslator from '../../tranlates/Common';
-import {globalStateContext} from '../../App';
 
 function Basket(props) {
-  // const useGlobalState = () => [React.useContext(globalStateContext)];
-  // const [state] = useGlobalState();
+  const [width, setWidth] = useState('calc(100% - 240px)');
 
-  // const [width, setWidth] = useState('calc(100% - 240px)');
-
-  // React.useEffect(() => {
-  //   if (state.isRightMenuVisible) setWidth('calc(100% - 240px)');
-  //   else setWidth('calc(100% - 40px)');
-  // }, [state.isRightMenuVisible]);
+  React.useEffect(() => {
+    if (props.fullWidth === undefined) return;
+    if (props.fullWidth) setWidth('calc(100% - 40px)');
+    else setWidth('calc(100% - 240px)');
+  }, [props.fullWidth]);
 
   return (
     <CommonWebBox
       style={{
         ...basketBox,
-        ...{width: 'calc(100% - 240px)'},
+        ...{width: width},
       }}>
       <EqualTwoTextInputs>
         <MyView>
@@ -43,19 +36,21 @@ function Basket(props) {
             <SimpleText
               style={{
                 ...{fontWeight: 600},
-                ...dark_blue_color,
-                ...fontSize17,
+                ...styles.dark_blue_color,
+                ...styles.fontSize17,
               }}
               text={'تعداد آزمون'}
             />
             <SimpleText
+              onPress={() => props.selectAll()}
               style={{
                 ...{
                   marginTop: 5,
                   marginRight: 5,
                 },
-                ...yellow_color,
+                ...styles.yellow_color,
                 ...styleFontSize13,
+                ...styles.cursor_pointer,
               }}
               text={commonTranslator.selectAll}
             />
@@ -64,14 +59,14 @@ function Basket(props) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...yellow_color,
+                  ...styles.yellow_color,
                   ...styleFontSize15,
                 }}
                 text={props.selectedLength}
               />
               <SimpleText
                 style={{
-                  ...dark_blue_color,
+                  ...styles.dark_blue_color,
                   ...styleFontSize15,
                 }}
                 text={' از ' + props.total + ' آزمون موجود '}

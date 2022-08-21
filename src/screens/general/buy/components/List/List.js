@@ -46,7 +46,7 @@ function List(props) {
   }, [dispatch, props, isWorking, state.allItems]);
 
   return (
-    <PhoneView style={{gap: 15, padding: 10}}>
+    <PhoneView style={{gap: 15, padding: 20}}>
       {state.selectableItems !== undefined &&
         state.selectableItems.map((item, index) => {
           if (item.type === 'package')

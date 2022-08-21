@@ -11,7 +11,7 @@ const Navbar = props => {
   }, [props.user]);
 
   return (
-    <>
+    <div style={{width: '100%'}}>
       <Nav>
         <NavLink to="/buy">آزمون ها</NavLink>
         <NavLink to="/">رویداد ها</NavLink>
@@ -44,7 +44,7 @@ const Navbar = props => {
           />
         )}
       </Nav>
-    </>
+    </div>
   );
 };
 
