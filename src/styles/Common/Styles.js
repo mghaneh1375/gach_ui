@@ -53,6 +53,9 @@ export const styles = {
   margin25: {
     marginTop: 25,
   },
+  gap30: {
+    gap: 30,
+  },
   gap50: {
     gap: 50,
   },
