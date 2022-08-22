@@ -12,44 +12,26 @@ import {
   styleCommonWebBoxView,
   styleTitle,
   styleDigest,
-  styleFontSize11,
-  styleFontSize15,
   styleItemsParent,
   styleItem,
   styleItemsGrandParent,
   styleCard,
   stylePricaPane,
+  styleYellowBox,
 } from './../../../package/card/Style';
 import {convertTimestamp} from '../../../../../services/Utility';
 import {launchModeKeyVals, kindQuizKeyVals} from '../KeyVals';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faPlug} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../../styles/Common/Styles';
+import QuizItemCard from '../../../../../components/web/QuizItemCard';
 
 function Card(props) {
-  const CardItem = (lbl, val, icon) => {
-    return (
-      <PhoneView style={{...styles.alignItemsCenter}}>
-        <FontIcon kind={'small'} icon={icon} parentStyle={{marginLeft: 5}} />
-        <MyView>
-          <SimpleText
-            style={{...styleFontSize11, ...styles.BlueBold}}
-            text={lbl}
-          />
-          <SimpleText
-            style={{...styleFontSize11, ...styles.BlueBold}}
-            text={val}
-          />
-        </MyView>
-      </PhoneView>
-    );
-  };
-
   return (
     <CommonWebBox style={{...styleCard, ...styles.BlueBold}}>
       <MyView
         style={{
-          ...styleCommonWebBoxView,
+          ...styleYellowBox,
           ...styles.BlueBold,
         }}>
         <SimpleText
@@ -60,164 +42,90 @@ function Card(props) {
           text={props.quiz.title}
         />
       </MyView>
-
       <MyView style={{...styleItemsGrandParent}}>
-        <PhoneView style={{...styleItemsParent}}>
+        <PhoneView style={{...styleItemsParent, ...styles.gap15}}>
           {props.quiz.reminder !== undefined && (
-            <PhoneView style={{...styleItem, ...styles.alignItemsCenter}}>
-              <FontIcon
-                kind={'small'}
-                icon={faPlug}
-                parentStyle={{marginLeft: 5}}
-              />
-              <MyView>
-                <SimpleText
-                  style={{...styleFontSize11, ...styles.BlueBold}}
-                  text={Translate.reminder}
-                />
-                <SimpleText
-                  style={{...styleFontSize15, ...styles.BlueBold}}
-                  text={props.quiz.reminder}
-                />
-              </MyView>
-            </PhoneView>
+            <QuizItemCard
+              text={Translate.reminder}
+              val={props.quiz.reminder}
+              icon={faPlug}
+              textFontSize={11}
+              valFontSize={15}
+            />
           )}
-          <PhoneView style={{...styleItem, ...styles.alignItemsCenter}}>
-            <FontIcon
-              kind={'small'}
-              icon={faPlug}
-              parentStyle={{marginLeft: 5}}
-            />
-            <MyView>
-              <SimpleText
-                style={{...styleFontSize11, ...styles.BlueBold}}
-                text={Translate.kind}
-              />
-              <SimpleText
-                style={{...styles.fontSize15, ...styles.BlueBold}}
-                text={
-                  kindQuizKeyVals.find(elem => elem.id === props.quiz.mode).item
-                }
-              />
-            </MyView>
-          </PhoneView>
-          <PhoneView style={{...styleItem, ...styles.alignItemsCenter}}>
-            <FontIcon
-              kind={'small'}
-              icon={faPlug}
-              parentStyle={{marginLeft: 5}}
-            />
-            <MyView>
-              <SimpleText
-                style={{...styleFontSize11, ...styles.BlueBold}}
-                text={Translate.isOnline}
-              />
-              <SimpleText
-                style={{...styles.fontSize15, ...styles.BlueBold}}
-                text={
-                  launchModeKeyVals.find(
-                    elem => elem.id === props.quiz.launchMode,
-                  ).item
-                }
-              />
-            </MyView>
-          </PhoneView>
+          <QuizItemCard
+            text={Translate.kind}
+            val={kindQuizKeyVals.find(elem => elem.id === props.quiz.mode).item}
+            icon={faPlug}
+            textFontSize={11}
+            valFontSize={15}
+          />
+          <QuizItemCard
+            text={Translate.isOnline}
+            val={
+              launchModeKeyVals.find(elem => elem.id === props.quiz.launchMode)
+                .item
+            }
+            icon={faPlug}
+            textFontSize={11}
+            valFontSize={15}
+          />
           {props.quiz.studentsCount !== undefined && (
-            <PhoneView style={{...styleItem, ...styles.alignItemsCenter}}>
-              <FontIcon
-                kind={'small'}
-                icon={faPlug}
-                parentStyle={{marginLeft: 5}}
-              />
-              <MyView>
-                <SimpleText
-                  style={{...styleFontSize11, ...styles.BlueBold}}
-                  text={Translate.studentsCount}
-                />
-                <SimpleText
-                  style={{...styleFontSize15, ...styles.BlueBold}}
-                  text={props.quiz.studentsCount}
-                />
-              </MyView>
-            </PhoneView>
+            <QuizItemCard
+              text={Translate.studentsCount}
+              val={props.quiz.studentsCount}
+              icon={faPlug}
+              textFontSize={11}
+              valFontSize={15}
+            />
           )}
           {props.quiz.visibility !== undefined && (
-            <PhoneView style={{...styleItem, ...styles.alignItemsCenter}}>
-              <FontIcon
-                kind={'small'}
-                icon={faPlug}
-                parentStyle={{marginLeft: 5}}
-              />
-              <MyView>
-                <SimpleText
-                  style={{...styleFontSize11, ...styles.BlueBold}}
-                  text={commonTranslator.visibility + ':'}
-                />
-                <SimpleText
-                  style={{...styles.fontSize15, ...styles.BlueBold}}
-                  text={props.quiz.visibility ? 'قابل رویت' : 'مخفی'}
-                />
-              </MyView>
-            </PhoneView>
-          )}
-          <PhoneView style={{...styles.alignItemsCenter}}>
-            <FontIcon
-              kind={'small'}
+            <QuizItemCard
+              text={commonTranslator.visibility + ':'}
+              val={props.quiz.visibility ? 'قابل رویت' : 'مخفی'}
               icon={faPlug}
-              parentStyle={{marginLeft: 5}}
+              textFontSize={11}
+              valFontSize={15}
             />
-            <MyView>
-              <SimpleText
-                style={{...styleFontSize11, ...styles.BlueBold}}
-                text={Translate.startLaunching}
-              />
-              <SimpleText
-                style={{...styleFontSize11, ...styles.BlueBold}}
-                text={convertTimestamp(props.quiz.start)}
-              />
-            </MyView>
-          </PhoneView>
-          <PhoneView style={{...styles.alignItemsCenter}}>
-            <FontIcon
-              kind={'small'}
-              icon={faPlug}
-              parentStyle={{marginLeft: 5}}
-            />
-            <MyView>
-              <SimpleText
-                style={{...styleFontSize11, ...styles.BlueBold}}
-                text={Translate.endLaunching}
-              />
-              <SimpleText
-                style={{...styleFontSize11, ...styles.BlueBold}}
-                text={convertTimestamp(props.quiz.end)}
-              />
-            </MyView>
-          </PhoneView>
-          <PhoneView style={{...styles.alignItemsCenter}}>
-            <FontIcon
-              kind={'small'}
-              icon={faPlug}
-              parentStyle={{marginLeft: 5}}
-            />
-            <MyView>
-              <SimpleText
-                style={{...styleFontSize11, ...styles.BlueBold}}
-                text={Translate.startRegistery}
-              />
-              <SimpleText
-                style={{...styleFontSize11, ...styles.BlueBold}}
-                text={convertTimestamp(props.quiz.startRegistry)}
-              />
-            </MyView>
-          </PhoneView>
-
-          {CardItem(
-            Translate.endRegistery,
-            convertTimestamp(props.quiz.endRegistry),
-            faPlug,
           )}
         </PhoneView>
+        <MyView>
+          <PhoneView
+            style={{
+              ...styleItemsParent,
+              ...styles.gap15,
+              ...styles.marginTop20,
+            }}>
+            <QuizItemCard
+              text={Translate.startLaunching}
+              val={convertTimestamp(props.quiz.start)}
+              icon={faPlug}
+              textFontSize={11}
+              valFontSize={11}
+            />
+            <QuizItemCard
+              text={Translate.endLaunching}
+              val={convertTimestamp(props.quiz.end)}
+              icon={faPlug}
+              textFontSize={11}
+              valFontSize={11}
+            />
+            <QuizItemCard
+              text={Translate.startRegistery}
+              val={convertTimestamp(props.quiz.startRegistry)}
+              icon={faPlug}
+              textFontSize={11}
+              valFontSize={11}
+            />
+            <QuizItemCard
+              text={Translate.endRegistery}
+              val={convertTimestamp(props.quiz.endRegistry)}
+              icon={faPlug}
+              textFontSize={11}
+              valFontSize={11}
+            />
+          </PhoneView>
+        </MyView>
       </MyView>
 
       <MyView>

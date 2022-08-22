@@ -6,11 +6,10 @@ const width = getWidthHeight()[0];
 export const styleCard = {
   padding: 0,
   width: width > 768 ? 390 : 320,
-  boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
   borderRadius: 10,
 };
 
-export const styleCommonWebBoxView = {
+export const styleYellowBox = {
   width: 'calc(100% - 30px)',
   marginLeft: 15,
   marginRight: 15,
@@ -29,7 +28,7 @@ export const styleTitle = {
   height: '100%',
   display: 'flex',
 };
-export const styleLittleView = {
+export const styleCircleBox = {
   width: 60,
   color: 'white',
   height: 60,
@@ -42,7 +41,7 @@ export const styleLittleView = {
   alignItems: 'center',
 };
 export const styleDigest = {
-  width: 325,
+  width: 'calc(100% - 30px)',
   marginRight: 20,
 };
 export const styleFontSize13 = {fontSize: 13};
