@@ -77,7 +77,7 @@ const Login = props => {
           <MyView>
             <LoginModule
               navigate={navigate}
-              style={{marginTop: 20}}
+              // style={{marginTop: 20}}
               setLoading={setLoading}
               toPath={home}
             />

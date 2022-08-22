@@ -40,7 +40,7 @@ const Login = props => {
   };
 
   return (
-    <MyView style={props.style}>
+    <MyView style={{paddingLeft: 50}}>
       <CommonTextInput
         placeholder={translator.phoneOrMail}
         subText={translator.phoneOrMail}
