@@ -27,6 +27,24 @@ import {faPlug} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../../styles/Common/Styles';
 
 function Card(props) {
+  const CardItem = (lbl, val, icon) => {
+    return (
+      <PhoneView style={{...styles.alignItemsCenter}}>
+        <FontIcon kind={'small'} icon={icon} parentStyle={{marginLeft: 5}} />
+        <MyView>
+          <SimpleText
+            style={{...styleFontSize11, ...styles.BlueBold}}
+            text={lbl}
+          />
+          <SimpleText
+            style={{...styleFontSize11, ...styles.BlueBold}}
+            text={val}
+          />
+        </MyView>
+      </PhoneView>
+    );
+  };
+
   return (
     <CommonWebBox style={{...styleCard, ...styles.BlueBold}}>
       <MyView
@@ -193,23 +211,12 @@ function Card(props) {
               />
             </MyView>
           </PhoneView>
-          <PhoneView style={{...styles.alignItemsCenter}}>
-            <FontIcon
-              kind={'small'}
-              icon={faPlug}
-              parentStyle={{marginLeft: 5}}
-            />
-            <MyView>
-              <SimpleText
-                style={{...styleFontSize11, ...styles.BlueBold}}
-                text={Translate.endRegistery}
-              />
-              <SimpleText
-                style={{...styleFontSize11, ...styles.BlueBold}}
-                text={convertTimestamp(props.quiz.endRegistry)}
-              />
-            </MyView>
-          </PhoneView>
+
+          {CardItem(
+            Translate.endRegistery,
+            convertTimestamp(props.quiz.endRegistry),
+            faPlug,
+          )}
         </PhoneView>
       </MyView>
 
