@@ -143,4 +143,5 @@ export const routes = {
   removeTarazLevels: 'admin/config/tarazLevel/remove',
   getAllStudent: 'admin/user/getStudents',
   addStudents: 'admin/user/addStudent',
+  checkOffCode: 'general/checkOffCode',
 };

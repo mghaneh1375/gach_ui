@@ -30,7 +30,9 @@ function Quizzes(props) {
     else allSelectedItems.splice(idx, 1);
 
     setSelectedItems(allSelectedItems);
+
     props.setSelectedQuizzes(allSelectedItems);
+
     setQuizzes(
       quizzes.map(elem => {
         elem.isSelected = selectedItems.indexOf(elem.id) !== -1;

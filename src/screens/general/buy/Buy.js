@@ -24,7 +24,11 @@ function Buy(props) {
       dispatch({
         isFilterMenuVisible: false,
       });
-    }
+    } else
+      dispatch({
+        isRightMenuVisible: false,
+        isFilterMenuVisible: true,
+      });
   }, [mode, dispatch]);
 
   return (
