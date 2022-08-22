@@ -17,15 +17,12 @@ import {
   styleItemsParent,
 } from './../../card/Style';
 import commonTranslator from '../../../../../tranlates/Common';
-import {quizzesContext, dispatchQuizzesContext} from './Utility';
+import {dispatchQuizzesContext} from './Utility';
 import {styles} from '../../../../../styles/Common/Styles';
 
 function Info(props) {
-  const useGlobalState = () => [
-    React.useContext(quizzesContext),
-    React.useContext(dispatchQuizzesContext),
-  ];
-  const [state, dispatch] = useGlobalState();
+  const useGlobalState = () => [React.useContext(dispatchQuizzesContext)];
+  const [dispatch] = useGlobalState();
 
   return (
     <CommonWebBox

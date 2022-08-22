@@ -4,6 +4,9 @@ import translator from '../../tranlates/Common';
 import {TextIcon} from './TextIcon';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {styles} from './Styles';
+import {getWidthHeight} from '../../services/Utility';
+
+const width = getWidthHeight()[0];
 
 const modal = {
   container: {
@@ -19,8 +22,8 @@ const modal = {
   },
   box: {
     position: 'absolute',
-    left: 0,
-    right: 200,
+    left: width > 768 ? 30 : 10,
+    right: width > 768 ? 200 : 10,
     top: 90,
   },
   marginBottom20: {
