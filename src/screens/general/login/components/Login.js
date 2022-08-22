@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {routes} from '../../../../API/APIRoutes';
-import {setCacheItem, signIn} from '../../../../API/User';
+import {setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {CommonButton, MyView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
@@ -53,7 +53,6 @@ const Login = props => {
         onChangeText={e => changeInput('password', e)}
         style={{marginTop: 20}}
       />
-
       <MyView>
         <CommonButton
           style={{marginTop: 50}}

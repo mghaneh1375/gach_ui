@@ -7,7 +7,7 @@ import {commonStyles, MyView, TextWithLink} from '../../../styles/Common';
 import translator from './translate';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 import {Device} from '../../../models/Device';
-import {ImageBackground, View} from 'react-native';
+import {ImageBackground} from 'react-native';
 import {globalStateContext, dispatchStateContext} from './../../../App';
 import ForgetPassModule from './components/ForgetPass';
 import ResetPassModule from './components/ResetPass';
@@ -62,7 +62,7 @@ const Login = props => {
     <ImageBackground
       style={{minHeight: height}}
       resizeMode="contain"
-      source={require('./../../../images/back2.png')}>
+      source={require('./../../../images/back3.png')}>
       <MyView style={commonStyles.ContentView}>
         <TextIcon
           style={{marginTop: 20}}
@@ -72,7 +72,6 @@ const Login = props => {
             mode === 'login' ? redirectToHome() : changeMode('login')
           }
         />
-
         {mode === 'login' && (
           <MyView style={{paddingLeft: 50}}>
             <LoginModule
