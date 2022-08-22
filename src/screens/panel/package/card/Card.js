@@ -206,7 +206,11 @@ function Card(props) {
                 text={formatPrice(props.package.totalPrice) + ' تومان '}
               />
               <SimpleText
-                style={{...styles.BlueBold, ...styles.red}}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.red,
+                  ...styles.marginRight15,
+                }}
                 text={formatPrice(props.package.realPrice) + ' تومان '}
               />
             </PhoneView>
