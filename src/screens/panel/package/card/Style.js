@@ -26,6 +26,8 @@ export const styleTitle = {
   alignItems: 'center',
   alignSelf: 'start',
   paddingRight: 10,
+  height: '100%',
+  display: 'flex',
 };
 export const styleLittleView = {
   width: 60,
@@ -46,8 +48,8 @@ export const styleDigest = {
 export const styleFontSize13 = {fontSize: 13};
 
 export const styleItemsGrandParent = {
-  width: '100%',
-  marginTop: 15,
+  padding: 10,
+  marginTop: 5,
 };
 export const styleItemsParent = {
   flexWrap: 'wrap',

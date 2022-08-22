@@ -310,6 +310,11 @@ export const CommonWebBox = props => {
     <MyView style={allStyle}>
       <MyView
         style={{
+          backgroundColor: vars.WHITE,
+          padding:
+            props.style === undefined || props.style.padding === undefined
+              ? 10
+              : props.style.padding,
           ...props.childStyle,
           boxShadow: '0px 3px 6px #00000029',
           borderRadius: 10,
