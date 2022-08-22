@@ -62,6 +62,9 @@ export const styles = {
   alignItemsStart: {
     alignItems: 'start',
   },
+  marginRight15: {
+    marginRight: 15,
+  },
   margin25: {
     marginTop: 25,
   },
@@ -99,7 +102,7 @@ export const styles = {
     fontSize: 10,
   },
   textDecorRed: {
-    textDecoration: 'line-through',
+    textDecoration: 'line-through 2px',
     textDecorationColor: 'red',
   },
   padding10: {

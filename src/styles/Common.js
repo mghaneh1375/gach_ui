@@ -310,17 +310,10 @@ export const CommonWebBox = props => {
     <MyView style={allStyle}>
       <MyView
         style={{
-          backgroundColor:
-            props.backgroundColor !== undefined &&
-            props.backgroundColor === vars.ORANGE_RED
-              ? props.backgroundColor
-              : vars.WHITE,
+          ...props.childStyle,
           boxShadow: '0px 3px 6px #00000029',
-          padding: props.backgroundColor !== undefined ? '46px 15px' : 15,
           borderRadius: 10,
           gap: props.no_gap === undefined || !props.no_gap ? 15 : 0,
-          borderRightWidth: props.borderRightWidth === 'true' ? 18 : 0,
-          borderColor: props.theme,
         }}>
         {props.header !== undefined && (
           <EqualTwoTextInputs>

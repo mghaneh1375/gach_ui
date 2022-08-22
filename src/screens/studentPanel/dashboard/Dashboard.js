@@ -13,18 +13,21 @@ function Dashboard(props) {
           theme={vars.ORANGE}
           subtext={31}
           btnColor={'yellow'}
+          borderRight={true}
         />
         <DashboardCard
           text={Translate.testEnable}
           theme={vars.ORANGE_RED}
           btnColor={'orange'}
           subtext={6}
+          borderRight={true}
         />
         <DashboardCard
           text={Translate.testAll}
           theme={vars.DARK_BLUE}
           subtext={3}
           btnColor={'blue'}
+          borderRight={true}
         />
         <DashboardCard
           text={Translate.yourRank}

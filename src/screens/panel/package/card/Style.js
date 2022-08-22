@@ -1,10 +1,7 @@
 import vars from '../../../../styles/root';
 
 export const styleCard = {
-  paddingLeft: 0,
-  paddingRight: 0,
-  paddingBottom: 0,
-  paddingTopRight: 10,
+  padding: 0,
   width: 390,
   boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
   borderRadius: 10,
@@ -18,7 +15,6 @@ export const styleCommonWebBoxView = {
   marginTop: 7,
   borderRadius: 5,
   alignItems: 'center',
-  boxShadow: '1px 1px 8px -3px',
 };
 export const styleTitle = {
   width: '93%',
@@ -36,7 +32,7 @@ export const styleLittleView = {
   position: 'absolute',
   backgroundColor: 'orange',
   left: 26,
-  top: 5,
+  top: 12,
   justifyContent: 'center',
   alignItems: 'center',
 };
