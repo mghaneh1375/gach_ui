@@ -19,18 +19,24 @@ import {
   styleFontSize30,
 } from './style';
 
-function DashboardCard({theme, text, background, subtext, btnColor, padding}) {
+function DashboardCard({
+  theme,
+  text,
+  background,
+  subtext,
+  btnColor,
+  padding,
+  borderRight,
+}) {
   return (
     <CommonWebBox
       width={250}
       theme={theme}
       childStyle={{
-        ...{
-          borderColor: theme,
-          background: background !== undefined ? background : 'white',
-          padding: padding !== undefined ? padding : '10px',
-          borderRightWidth: btnColor !== undefined ? 18 : '',
-        },
+        borderColor: theme,
+        background: background !== undefined ? background : 'white',
+        padding: padding !== undefined ? padding : '10px',
+        borderRightWidth: 18,
       }}
       style={{
         ...styleJustifyContentCenter,
