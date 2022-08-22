@@ -45,6 +45,7 @@ export const styleDigest = {
   marginRight: 20,
 };
 export const styleFontSize13 = {fontSize: 13};
+export const styleFontSize17 = {fontSize: 17};
 
 export const styleItemsGrandParent = {
   padding: 10,

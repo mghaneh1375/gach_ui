@@ -74,7 +74,7 @@ const Login = props => {
         />
 
         {mode === 'login' && (
-          <MyView>
+          <MyView style={{paddingLeft: 50}}>
             <LoginModule
               navigate={navigate}
               // style={{marginTop: 20}}

@@ -1,4 +1,10 @@
-const translator = {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var translator = {
   username: 'نام کاربری',
   password: 'رمزعبور',
   confirm: 'تایید',
@@ -27,7 +33,7 @@ const translator = {
   priceUnit: 'تومان',
   advisors: 'مشاوران',
   entrance: 'ورود',
-  continue: 'ادامه',
+  "continue": 'ادامه',
   support: 'پشتیبانی',
   email: 'آدرس ایمیل',
   home: 'خانه',
@@ -82,7 +88,7 @@ const translator = {
   fileAdressFor: 'آدرس فایل آپلود شده برای',
   copyLink: 'کپی کردن لینک',
   copied: 'کپی شد!',
-  delete: 'حذف',
+  "delete": 'حذف',
   upload: 'بارگذاری فایل',
   notChooseFile: 'هنوز فایلی انتخاب نشده است',
   maxSize: 'حداکثر حجم ',
@@ -178,6 +184,7 @@ const translator = {
   print: 'چاپ',
   tarazLevels: 'سطوح تراز',
   level: 'مقطع',
-  successOffCode: 'کد تخفیف موردنظر با موفقیت اعمال گردید',
+  successOffCode: 'کد تخفیف موردنظر با موفقیت اعمال گردید'
 };
-export default translator;
+var _default = translator;
+exports["default"] = _default;

@@ -77,7 +77,7 @@ const ForgetPass = props => {
     <MyView style={props.style !== undefined ? props.style : {}}>
       <BlueTextFromStart text={translator.forgetPass} />
       {step === 'forget' && (
-        <MyView>
+        <MyView style={{paddingLeft: 50}}>
           <CommonTextInput
             style={{marginTop: 20}}
             value={props.username}
@@ -97,7 +97,7 @@ const ForgetPass = props => {
       )}
 
       {step === 'chooseAuthMethod' && (
-        <MyView>
+        <MyView style={{paddingLeft: 50}}>
           <CommonRadioButton
             text={translator.viaSMS}
             value="sms"

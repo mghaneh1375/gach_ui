@@ -97,15 +97,17 @@ function Quizzes(props) {
 
   return (
     <MyView style={{padding: 10, marginBottom: 120, ...styles.alignItemsStart}}>
-      {props.onBackClicked !== undefined && (
-        <FontIcon
-          icon={faAngleLeft}
-          theme={'rect'}
-          kind={'normal'}
-          parentStyle={{alignSelf: 'flex-end', margin: 20}}
-          onPress={props.onBackClicked}
-        />
-      )}
+      <PhoneView style={{...styles.alignSelfEnd}}>
+        {props.onBackClicked !== undefined && (
+          <FontIcon
+            icon={faAngleLeft}
+            theme={'rect'}
+            kind={'normal'}
+            parentStyle={{alignSelf: 'flex-end', margin: 20}}
+            onPress={props.onBackClicked}
+          />
+        )}
+      </PhoneView>
       <PhoneView style={{gap: 15}}>
         {quizzes !== undefined &&
           quizzes.map((quiz, index) => {

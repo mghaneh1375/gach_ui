@@ -11,7 +11,7 @@ import Translate from '../../Translate';
 import {
   styleFontSize11,
   styleFontSize13,
-  styleFontSize15,
+  styleFontSize17,
   styleItem,
   styleItemsGrandParent,
   styleItemsParent,
@@ -19,6 +19,9 @@ import {
 import commonTranslator from '../../../../../tranlates/Common';
 import {dispatchQuizzesContext} from './Utility';
 import {styles} from '../../../../../styles/Common/Styles';
+import {FontIcon} from '../../../../../styles/Common/FontIcon';
+import {icon} from '@fortawesome/fontawesome-svg-core';
+import {faQuestion} from '@fortawesome/free-solid-svg-icons';
 
 function Info(props) {
   const useGlobalState = () => [React.useContext(dispatchQuizzesContext)];
@@ -31,66 +34,98 @@ function Info(props) {
       backBtn={true}>
       <MyView style={{marginTop: 20}}>
         <SimpleText
-          style={{...styleFontSize13}}
+          style={{...styleFontSize13, ...styles.BlueBold}}
           text={commonTranslator.grade + ' : ' + props.package.grade.name}
         />
         <SimpleText
-          style={{...styleFontSize13}}
+          style={{...styleFontSize13, ...styles.BlueBold}}
           text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
         />
         <MyView style={{...styleItemsGrandParent}}>
           <PhoneView style={{...styleItemsParent}}>
             <PhoneView style={{...styleItem}}>
-              <TinyTextIcon />
+              <FontIcon
+                kind={'small'}
+                icon={faQuestion}
+                parentStyle={{marginLeft: 5}}
+              />
               <MyView>
                 <SimpleText
-                  style={{...styleFontSize11}}
+                  style={{...styleFontSize11, ...styles.BlueBold}}
                   text={Translate.quizCount}
                 />
                 <SimpleText
-                  style={{...styleFontSize15, ...styles.alignSelfCenter}}
+                  style={{
+                    ...styleFontSize17,
+                    ...styles.alignSelfCenter,
+                    ...styles.BlueBold,
+                  }}
                   text={props.package.quizzes}
                 />
               </MyView>
             </PhoneView>
 
             <PhoneView style={{...styleItem}}>
-              <TinyTextIcon />
+              <FontIcon
+                kind={'small'}
+                icon={faQuestion}
+                parentStyle={{marginLeft: 5}}
+              />
               <MyView>
                 <SimpleText
-                  style={{...styleFontSize11}}
+                  style={{...styleFontSize11, ...styles.BlueBold}}
                   text={Translate.minSelect}
                 />
                 <SimpleText
-                  style={{...styleFontSize15, ...styles.alignSelfCenter}}
+                  style={{
+                    ...styleFontSize17,
+                    ...styles.alignSelfCenter,
+                    ...styles.BlueBold,
+                  }}
                   text={props.package.minSelect}
                 />
               </MyView>
             </PhoneView>
 
             <PhoneView style={{...styleItem}}>
-              <TinyTextIcon />
+              <FontIcon
+                kind={'small'}
+                icon={faQuestion}
+                parentStyle={{marginLeft: 5}}
+              />
               <MyView>
                 <SimpleText
-                  style={{...styleFontSize11}}
+                  style={{...styleFontSize11, ...styles.BlueBold}}
                   text={Translate.mizanTakhfif}
                 />
                 <SimpleText
-                  style={{...styleFontSize15, ...styles.alignSelfCenter}}
+                  style={{
+                    ...styleFontSize17,
+                    ...styles.alignSelfCenter,
+                    ...styles.BlueBold,
+                  }}
                   text={props.package.offPercent + ' درصد '}
                 />
               </MyView>
             </PhoneView>
 
             <PhoneView style={{...styleItem}}>
-              <TinyTextIcon />
+              <FontIcon
+                kind={'small'}
+                icon={faQuestion}
+                parentStyle={{marginLeft: 5}}
+              />
               <MyView>
                 <SimpleText
-                  style={{...styleFontSize11}}
+                  style={{...styleFontSize11, ...styles.BlueBold}}
                   text={Translate.buyersCount}
                 />
                 <SimpleText
-                  style={{...styleFontSize15, ...styles.alignSelfCenter}}
+                  style={{
+                    ...styleFontSize17,
+                    ...styles.alignSelfCenter,
+                    ...styles.BlueBold,
+                  }}
                   text={props.package.buyers}
                 />
               </MyView>

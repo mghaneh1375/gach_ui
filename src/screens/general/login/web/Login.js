@@ -4,8 +4,10 @@ import {
   BigBoldBlueText,
   BlueTextInline,
   CommonButton,
+  EqualTwoTextInputs,
   InlineTextContainer,
   MyView,
+  PhoneView,
   ScreenScroll,
   TextLink,
 } from '../../../../styles/Common';
@@ -72,9 +74,9 @@ const Login = props => {
         <MyView
           style={{
             position: 'absolute',
-            width: 40,
-            height: 40,
-            left: 50,
+            width: 30,
+            height: 30,
+            left: 40,
             top: 40,
             zIndex: 100,
           }}>
@@ -164,29 +166,30 @@ const Login = props => {
               />
             </InlineTextContainer>
 
-            <MyView style={{marginTop: 10, flexDirection: 'row'}}>
-              <BlueTextInline
-                style={{alignSelf: 'center'}}
-                text={translator.notSubscribeYet}
-              />
-
-              <CommonButton
-                style={{marginRight: 'auto'}}
-                title={commonTranlator.signUp}
-                onPress={() => changeMode('signUp')}
-              />
-            </MyView>
-
-            <MyView style={{marginTop: 10, flexDirection: 'row'}}>
-              <BlueTextInline
-                style={{alignSelf: 'center'}}
-                text={translator.ifHaveProblem}
-              />
-
-              <CommonButton
-                style={{marginRight: 'auto', backgroundColor: vars.DARK_BLUE}}
-                title={commonTranlator.support}
-              />
+            <MyView style={{paddingLeft: 50}}>
+              <PhoneView
+                style={{marginTop: 10, justifyContent: 'space-between'}}>
+                <BlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={translator.notSubscribeYet}
+                />
+                <CommonButton
+                  style={{marginRight: 'auto'}}
+                  title={commonTranlator.signUp}
+                  onPress={() => changeMode('signUp')}
+                />
+              </PhoneView>
+              <PhoneView
+                style={{marginTop: 10, justifyContent: 'space-between'}}>
+                <BlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={translator.ifHaveProblem}
+                />
+                <CommonButton
+                  style={{marginRight: 'auto', backgroundColor: vars.DARK_BLUE}}
+                  title={commonTranlator.support}
+                />
+              </PhoneView>
             </MyView>
           </BlurLoginBack>
         </div>

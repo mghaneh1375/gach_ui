@@ -23,10 +23,21 @@ import {
 } from './Style';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
 import {routes} from '../../../../API/APIRoutes';
-import {formatPrice, showSuccess} from '../../../../services/Utility';
+import {
+  formatPrice,
+  getWidthHeight,
+  showSuccess,
+} from '../../../../services/Utility';
 import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {faGift, faPlug} from '@fortawesome/free-solid-svg-icons';
+import {
+  faFaucet,
+  faGift,
+  faJar,
+  faPlaceOfWorship,
+  faPlug,
+} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../styles/Common/Styles';
+import QuizItemCard from '../../../../components/web/QuizItemCard';
 
 function Card(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);
@@ -37,7 +48,7 @@ function Card(props) {
     props.afterRemove(res.doneIds);
     setShowRemovePane(false);
   };
-
+  let width = getWidthHeight()[0];
   return (
     <MyView>
       {showRemovePane && (
@@ -99,112 +110,61 @@ function Card(props) {
           style={{
             ...styles.gap10,
             ...styles.flexWrap,
-            ...styles.justifyContentSpaceAround,
             ...styles.marginTop20,
+            justifyContent: width > 768 ? 'space-around' : 'flex-start',
+            margin: width < 768 ? '0 10px' : 0,
           }}>
-          <PhoneView>
-            <FontIcon
-              kind={'small'}
-              icon={faPlug}
-              parentStyle={{marginLeft: 5}}
-            />
-            <MyView style={{...styles.justifyContentCenter}}>
-              <SimpleText
-                style={{...styles.fontSize10, ...styles.BlueBold}}
-                text={Translate.quizCount}
-              />
-              <SimpleText
-                style={{
-                  ...styles.fontSize15,
-                  ...styles.alignSelfCenter,
-                  ...styles.BlueBold,
-                }}
-                text={props.package.quizzes}
-              />
-            </MyView>
-          </PhoneView>
-
+          <QuizItemCard
+            text={Translate.quizCount}
+            val={props.package.quizzes}
+            icon={faPlaceOfWorship}
+            textFontSize={10}
+            valFontSize={15}
+          />
           {!props.isAdmin && (
-            <PhoneView>
-              <FontIcon
-                kind={'small'}
-                icon={faPlug}
-                parentStyle={{marginLeft: 5}}
-              />
-              <MyView style={{...styles.justifyContentCenter}}>
-                <SimpleText
-                  style={{...styles.fontSize10, ...styles.BlueBold}}
-                  text={Translate.registrableCount}
-                />
-                <SimpleText
-                  style={{
-                    ...styles.fontSize15,
-                    ...styles.alignSelfCenter,
-                    ...styles.BlueBold,
-                  }}
-                  text={props.package.registrable}
-                />
-              </MyView>
-            </PhoneView>
+            <QuizItemCard
+              text={Translate.registrableCount}
+              val={props.package.registrable}
+              icon={faFaucet}
+              textFontSize={10}
+              valFontSize={15}
+            />
           )}
 
-          <PhoneView>
-            <FontIcon
-              kind={'small'}
-              icon={faPlug}
-              parentStyle={{marginLeft: 5}}
-            />
-            <MyView style={{...styles.justifyContentCenter}}>
-              <SimpleText
-                style={{...styles.fontSize10, ...styles.BlueBold}}
-                text={Translate.minSelect}
-              />
-              <SimpleText
-                style={{
-                  ...styles.fontSize15,
-                  ...styles.alignSelfCenter,
-                  ...styles.BlueBoldr,
-                }}
-                text={props.package.minSelect}
-              />
-            </MyView>
-          </PhoneView>
-
+          <QuizItemCard
+            text={Translate.minSelect}
+            val={props.package.minSelect}
+            icon={faJar}
+            textFontSize={10}
+            valFontSize={15}
+          />
           {props.isAdmin && (
-            <PhoneView>
-              <FontIcon
-                kind={'small'}
-                icon={faPlug}
-                parentStyle={{marginLeft: 5}}
-              />
-              <MyView>
-                <SimpleText
-                  style={{...styles.fontSize10, ...styles.BlueBold}}
-                  text={Translate.buyersCount}
-                />
-                <SimpleText
-                  style={{
-                    ...styles.fontSize15,
-                    ...styles.alignSelfCenter,
-                    ...styles.BlueBold,
-                  }}
-                  text={props.package.buyers}
-                />
-              </MyView>
-            </PhoneView>
+            <QuizItemCard
+              text={Translate.buyersCount}
+              val={props.package.buyers}
+              icon={faFaucet}
+              textFontSize={10}
+              valFontSize={15}
+            />
           )}
         </PhoneView>
 
         <PhoneView style={{...stylePricaPane}}>
           {!props.isAdmin && (
             <PhoneView>
-              <SimpleText style={{...styles.BlueBold}} text={'قیمت : '} />
+              <SimpleText
+                style={{...styles.BlueBold}}
+                text={commonTranslator.price}
+              />
               <SimpleText
                 style={{
                   ...styles.textDecorRed,
                   ...styles.BlueBold,
                 }}
-                text={formatPrice(props.package.totalPrice) + ' تومان '}
+                text={
+                  formatPrice(props.package.totalPrice) +
+                  commonTranslator.priceUnit
+                }
               />
               <SimpleText
                 style={{
@@ -212,7 +172,10 @@ function Card(props) {
                   ...styles.red,
                   ...styles.marginRight15,
                 }}
-                text={formatPrice(props.package.realPrice) + ' تومان '}
+                text={
+                  formatPrice(props.package.realPrice) +
+                  commonTranslator.priceUnit
+                }
               />
             </PhoneView>
           )}

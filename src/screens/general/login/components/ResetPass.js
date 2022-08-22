@@ -49,7 +49,7 @@ const ResetPass = props => {
   };
 
   return (
-    <MyView>
+    <MyView style={{paddingLeft: 50}}>
       <CommonTextInput
         placeholder={translator.password}
         subText={translator.passwordFilter}

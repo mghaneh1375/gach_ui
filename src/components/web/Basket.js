@@ -38,8 +38,9 @@ function Basket(props) {
                 ...{fontWeight: 600},
                 ...styles.dark_blue_color,
                 ...styles.fontSize17,
+                ...styles.BlueBold,
               }}
-              text={'تعداد آزمون'}
+              text={commonTranslator.center + ' ' + commonTranslator.quiz}
             />
             <SimpleText
               onPress={() => props.selectAll()}
@@ -51,6 +52,7 @@ function Basket(props) {
                 ...styles.yellow_color,
                 ...styleFontSize13,
                 ...styles.cursor_pointer,
+                ...styles.BlueBold,
               }}
               text={commonTranslator.selectAll}
             />
@@ -61,15 +63,23 @@ function Basket(props) {
                 style={{
                   ...styles.yellow_color,
                   ...styleFontSize15,
+                  ...styles.BlueBold,
                 }}
-                text={props.selectedLength}
+                text={props.selectedLength + ' '}
               />
               <SimpleText
                 style={{
                   ...styles.dark_blue_color,
                   ...styleFontSize15,
+                  ...styles.BlueBold,
                 }}
-                text={' از ' + props.total + ' آزمون موجود '}
+                text={
+                  commonTranslator.from +
+                  ' ' +
+                  props.total +
+                  ' ' +
+                  commonTranslator.haveQuiz
+                }
               />
             </PhoneView>
           )}

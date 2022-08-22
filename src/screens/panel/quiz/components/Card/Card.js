@@ -155,17 +155,28 @@ function Card(props) {
             />
           </PhoneView>
         </PhoneView>
-        {props.quiz.tags !== undefined && props.quiz.tags.length > 0 && (
-          <MyView
-            style={{
-              ...styleDigest,
-            }}>
-            <SimpleText
-              style={{...styles.fontSize15, ...styles.BlueBold}}
-              text={'# ' + props.quiz.tags.join(' - ')}
-            />
-          </MyView>
-        )}
+
+        <MyView
+          style={{
+            ...styleDigest,
+          }}>
+          <SimpleText
+            style={
+              props.quiz.tags !== undefined && props.quiz.tags.length > 0
+                ? {...styles.fontSize15, ...styles.BlueBold}
+                : {
+                    ...styles.fontSize15,
+                    ...styles.BlueBold,
+                    ...{visibility: 'hidden'},
+                  }
+            }
+            text={
+              props.quiz.tags !== undefined && props.quiz.tags.length > 0
+                ? '# ' + props.quiz.tags.join(' - ')
+                : 'salam'
+            }
+          />
+        </MyView>
       </MyView>
     </CommonWebBox>
   );

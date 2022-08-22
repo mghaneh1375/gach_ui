@@ -290,7 +290,6 @@ export const TextWithLink = props => {
   return (
     <InlineTextContainer style={props.style !== undefined ? props.style : {}}>
       <BlueTextInline text={props.text} />
-
       <TextLink onPress={props.onPress} href={props.href} text={props.link} />
     </InlineTextContainer>
   );

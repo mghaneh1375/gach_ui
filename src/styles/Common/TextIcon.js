@@ -45,7 +45,7 @@ export const TextIcon = props => {
 
   if (props.theme !== undefined) {
     fontProps.parentStyle = {
-      borderRadius: 7,
+      borderRadius: '50%',
       backgroundColor: vars.YELLOW,
       width: 30,
       height: 30,

@@ -90,7 +90,7 @@ const Verification = props => {
   };
 
   return (
-    <MyView>
+    <MyView style={{paddingLeft: 50}}>
       <BlueTextInline
         style={{marginTop: 20}}
         text={translator.enterVerification}

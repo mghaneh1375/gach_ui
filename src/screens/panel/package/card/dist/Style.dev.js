@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.basketBox = exports.styleTextDecorRed = exports.styleColorWhite = exports.styleGiftIcon = exports.styleGiftIconParent = exports.styleJustifyContentEnd = exports.stylePricaPane = exports.styleFontSize15 = exports.styleJustifyContentBetween = exports.styleFontSize11 = exports.styleTinyTextIcon = exports.styleFullItem = exports.styleItem = exports.styleItemsParent = exports.styleItemsGrandParent = exports.styleFontSize13 = exports.styleDigest = exports.styleCircleBox = exports.styleTitle = exports.styleYellowBox = exports.styleCard = void 0;
+exports.basketBox = exports.styleTextDecorRed = exports.styleColorWhite = exports.styleGiftIcon = exports.styleGiftIconParent = exports.styleJustifyContentEnd = exports.stylePricaPane = exports.styleFontSize15 = exports.styleJustifyContentBetween = exports.styleFontSize11 = exports.styleTinyTextIcon = exports.styleFullItem = exports.styleItem = exports.styleItemsParent = exports.styleItemsGrandParent = exports.styleFontSize17 = exports.styleFontSize13 = exports.styleDigest = exports.styleCircleBox = exports.styleTitle = exports.styleYellowBox = exports.styleCard = void 0;
 
 var _Utility = require("../../../../services/Utility");
 
@@ -61,6 +61,10 @@ var styleFontSize13 = {
   fontSize: 13
 };
 exports.styleFontSize13 = styleFontSize13;
+var styleFontSize17 = {
+  fontSize: 17
+};
+exports.styleFontSize17 = styleFontSize17;
 var styleItemsGrandParent = {
   padding: 10,
   marginTop: 5
@@ -72,7 +76,7 @@ var styleItemsParent = {
 };
 exports.styleItemsParent = styleItemsParent;
 var styleItem = {
-  width: 'calc(33% - 15px)',
+  width: width < 768 ? 'calc(50% - 15px)' : 'calc(25% - 15px)',
   flexWrap: 'wrap'
 };
 exports.styleItem = styleItem;
