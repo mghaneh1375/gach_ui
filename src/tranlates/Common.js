@@ -175,5 +175,6 @@ const translator = {
   print: 'چاپ',
   tarazLevels: 'سطوح تراز',
   level: 'مقطع',
+  successOffCode: 'کد تخفیف موردنظر با موفقیت اعمال گردید',
 };
 export default translator;

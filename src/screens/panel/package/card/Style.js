@@ -56,7 +56,7 @@ export const styleItemsParent = {
   gap: 15,
 };
 export const styleItem = {
-  width: 'calc(33% - 15px)',
+  width: 'calc(25% - 15px)',
   flexWrap: 'wrap',
 };
 export const styleFullItem = {

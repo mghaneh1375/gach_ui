@@ -16,6 +16,7 @@ function List(props) {
   const [price, setPrice] = useState(0);
   const [off, setOff] = useState(0);
   const [shouldPay, setShouldPay] = useState(0);
+  const [shouldPayAfterOff, setShouldPayAfterOff] = useState();
   const [quizzes, setQuizzes] = useState();
   const [showOffCodePane, setShowOffCodePane] = useState(false);
 
@@ -58,9 +59,26 @@ function List(props) {
     setShowOffCodePane(!showOffCodePane);
   };
 
+  const setOffCodeResult = (amount, type) => {
+    let p =
+      type === 'value'
+        ? shouldPay - amount
+        : shouldPay * ((100.0 - amount) / 100.0);
+    if (p < 0) p = 0;
+
+    setShouldPayAfterOff(p);
+  };
+
   return (
     <MyView>
-      {showOffCodePane && <OffCode toggleShowPopUp={toggleShowOffCodePane} />}
+      {showOffCodePane && (
+        <OffCode
+          token={props.token}
+          setLoading={props.setLoading}
+          setResult={setOffCodeResult}
+          toggleShowPopUp={toggleShowOffCodePane}
+        />
+      )}
       {quizzes !== undefined && !showOffCodePane && (
         <MyView style={{padding: 10, alignSelf: 'start'}}>
           <BigBoldBlueText text={'sa'} />
@@ -104,13 +122,21 @@ function List(props) {
                   </PhoneView>
                   <PhoneView>
                     <SimpleText
-                      style={{...styles.dark_blue_color}}
+                      style={{
+                        ...styles.dark_blue_color,
+                        ...styles.textDecorRed,
+                      }}
                       text={formatPrice(price) + ' تومان '}
                     />
-                    {shouldPay !== price && (
+                    {(shouldPay !== price ||
+                      shouldPayAfterOff !== undefined) && (
                       <SimpleText
                         style={{...{marginRight: 15}, ...styles.red}}
-                        text={formatPrice(shouldPay) + ' تومان '}
+                        text={
+                          shouldPayAfterOff !== undefined
+                            ? formatPrice(shouldPayAfterOff) + ' تومان '
+                            : formatPrice(shouldPay) + ' تومان '
+                        }
                       />
                     )}
                   </PhoneView>
