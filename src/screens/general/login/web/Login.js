@@ -67,156 +67,161 @@ const Login = props => {
 
   return (
     <ScreenScroll>
-      <ImageBackground
-        resizeMode="cover"
-        style={{minHeight: '100vh'}}
-        source={require('./../../../../images/back3.png')}>
-        <MyView
-          style={{
-            position: 'absolute',
-            width: 30,
-            height: 30,
-            left: 40,
-            top: 40,
-            zIndex: 100,
-          }}>
-          <FontIcon
-            icon={faClose}
-            onPress={() =>
-              mode === 'login' ? redirectToHome() : changeMode('login')
-            }
-          />
-        </MyView>
-        <div
-          style={{
-            width: '35%',
-            position: 'absolute',
-            right: 0,
-            top: '40px',
-            zIndex: 100000,
-            bottom: '50px',
-          }}>
-          <BlurLoginBack>
-            {mode === 'login' && (
-              <LoginModule
-                toPath={'/profile'}
-                navigate={navigate}
-                setLoading={setLoading}
-              />
-            )}
-            {mode === 'forgetPass' && (
-              <ForgetPassModule
-                setUsername={setUsername}
-                username={username}
-                setMode={setMode}
-                setLoading={setLoading}
-                setReminder={setReminder}
-                setToken={setToken}
-              />
-            )}
-            {mode === 'resetPass' && (
-              <ResetPassModule
-                username={username}
-                token={token}
-                code={code}
-                setLoading={setLoading}
-                setMode={setMode}
-              />
-            )}
-            {mode === 'verification' && (
-              <VerificationModule
-                setLoading={setLoading}
-                setReminder={setReminder}
-                setToken={setToken}
-                reminder={reminder}
-                token={token}
-                setCode={setCode}
-                setMode={setMode}
-                username={username}
-                mode={isSignUp ? 'signUp' : 'forgetPass'}
-              />
-            )}
-            {mode === 'signUp' && (
-              <SignupModule
-                setLoading={setLoading}
-                setToken={setToken}
-                setReminder={setReminder}
-                setMode={setMode}
-                isInLargeScreen={true}
-                username={username}
-                setUsername={setUsername}
-              />
-            )}
-            {mode === 'roleForm' && (
-              <RoleFormModule
-                signUp={true}
-                token={token}
-                setLoading={setLoading}
-                navigate={navigate}
-                redirectTo={'/'}
-              />
-            )}
-          </BlurLoginBack>
-          <BlurLoginBack style={{marginTop: '20px'}}>
-            <InlineTextContainer>
-              <BlueTextInline text={translator.ifForget} />
-              <TextLink
-                text={translator.forgetAction}
-                onPress={() => changeMode('forgetPass')}
-              />
-            </InlineTextContainer>
+      <MyView
+        style={{
+          minHeight: '100vh',
+          position: 'fixed',
+          zIndex: '-100',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          background: 'url(./assets/images/back3.png)',
+        }}
+      />
+      <MyView
+        style={{
+          position: 'absolute',
+          width: 30,
+          height: 30,
+          left: 70,
+          top: 70,
+          zIndex: 100,
+        }}>
+        <FontIcon
+          icon={faClose}
+          onPress={() =>
+            mode === 'login' ? redirectToHome() : changeMode('login')
+          }
+        />
+      </MyView>
+      <MyView
+        style={{
+          width: '35%',
+          position: 'absolute',
+          right: 0,
+          top: '80px',
+          zIndex: 100000,
+          bottom: '50px',
+        }}>
+        <BlurLoginBack style={{zIndex: 110000}}>
+          {mode === 'login' && (
+            <LoginModule
+              toPath={'/profile'}
+              navigate={navigate}
+              setLoading={setLoading}
+            />
+          )}
+          {mode === 'forgetPass' && (
+            <ForgetPassModule
+              setUsername={setUsername}
+              username={username}
+              setMode={setMode}
+              setLoading={setLoading}
+              setReminder={setReminder}
+              setToken={setToken}
+            />
+          )}
+          {mode === 'resetPass' && (
+            <ResetPassModule
+              username={username}
+              token={token}
+              code={code}
+              setLoading={setLoading}
+              setMode={setMode}
+            />
+          )}
+          {mode === 'verification' && (
+            <VerificationModule
+              setLoading={setLoading}
+              setReminder={setReminder}
+              setToken={setToken}
+              reminder={reminder}
+              token={token}
+              setCode={setCode}
+              setMode={setMode}
+              username={username}
+              mode={isSignUp ? 'signUp' : 'forgetPass'}
+            />
+          )}
+          {mode === 'signUp' && (
+            <SignupModule
+              setLoading={setLoading}
+              setToken={setToken}
+              setReminder={setReminder}
+              setMode={setMode}
+              isInLargeScreen={true}
+              username={username}
+              setUsername={setUsername}
+            />
+          )}
+          {mode === 'roleForm' && (
+            <RoleFormModule
+              signUp={true}
+              token={token}
+              setLoading={setLoading}
+              navigate={navigate}
+              redirectTo={'/'}
+            />
+          )}
+        </BlurLoginBack>
+        <BlurLoginBack style={{marginTop: '20px'}}>
+          <InlineTextContainer>
+            <BlueTextInline text={translator.ifForget} />
+            <TextLink
+              text={translator.forgetAction}
+              onPress={() => changeMode('forgetPass')}
+            />
+          </InlineTextContainer>
 
-            <MyView style={{paddingLeft: 50}}>
-              <PhoneView
-                style={{marginTop: 10, justifyContent: 'space-between'}}>
-                <BlueTextInline
-                  style={{alignSelf: 'center'}}
-                  text={translator.notSubscribeYet}
-                />
-                <CommonButton
-                  style={{marginRight: 'auto'}}
-                  title={commonTranlator.signUp}
-                  onPress={() => changeMode('signUp')}
-                />
-              </PhoneView>
-              <PhoneView
-                style={{marginTop: 10, justifyContent: 'space-between'}}>
-                <BlueTextInline
-                  style={{alignSelf: 'center'}}
-                  text={translator.ifHaveProblem}
-                />
-                <CommonButton
-                  style={{marginRight: 'auto', backgroundColor: vars.DARK_BLUE}}
-                  title={commonTranlator.support}
-                />
-              </PhoneView>
-            </MyView>
-          </BlurLoginBack>
-        </div>
-        <Container
-          style={{
-            marginTop: '50px',
-            width: '100%',
-          }}>
-          <Row>
-            <Col style={{padding: '20px'}} sm={6}></Col>
-            <Col sm={6} style={{padding: '20px'}}>
-              <img
-                style={{height: '100px', display: 'block'}}
-                src={require('./../../../../images/irysc.png')}
-              />
-              <BigBoldBlueText
-                style={{marginTop: '10px'}}
-                text={'سامانه آموزشی آیریسک'}
-              />
+          <MyView style={{paddingLeft: 50}}>
+            <PhoneView style={{marginTop: 10, justifyContent: 'space-between'}}>
               <BlueTextInline
-                style={{display: 'block'}}
-                text={translator.sliderDesc}
+                style={{alignSelf: 'center'}}
+                text={translator.notSubscribeYet}
               />
-            </Col>
-          </Row>
-        </Container>
-      </ImageBackground>
+              <CommonButton
+                style={{marginRight: 'auto'}}
+                title={commonTranlator.signUp}
+                onPress={() => changeMode('signUp')}
+              />
+            </PhoneView>
+            <PhoneView style={{marginTop: 10, justifyContent: 'space-between'}}>
+              <BlueTextInline
+                style={{alignSelf: 'center'}}
+                text={translator.ifHaveProblem}
+              />
+              <CommonButton
+                style={{marginRight: 'auto', backgroundColor: vars.DARK_BLUE}}
+                title={commonTranlator.support}
+              />
+            </PhoneView>
+          </MyView>
+        </BlurLoginBack>
+      </MyView>
+      <Container
+        style={{
+          marginTop: '50px',
+          width: '100%',
+        }}>
+        <Row>
+          <Col style={{padding: '20px'}} sm={6}></Col>
+          <Col sm={6} style={{padding: '20px'}}>
+            <img
+              style={{height: '100px', display: 'block'}}
+              src={require('./../../../../images/irysc.png')}
+            />
+            <BigBoldBlueText
+              style={{marginTop: '10px'}}
+              text={'سامانه آموزشی آیریسک'}
+            />
+            <BlueTextInline
+              style={{display: 'block'}}
+              text={translator.sliderDesc}
+            />
+          </Col>
+        </Row>
+      </Container>
     </ScreenScroll>
   );
 };

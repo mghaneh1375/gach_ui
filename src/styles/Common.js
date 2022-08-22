@@ -246,14 +246,19 @@ export const ErrorText = props => {
 };
 
 export const CommonRadioButton = props => (
-  <PhoneView style={props.style !== undefined ? props.style : {}}>
+  <PhoneView
+    style={
+      (props.style !== undefined ? props.style : {},
+      {height: 60, alignItems: 'center'})
+    }>
     <RadioButton
+      color={vars.ORANGE}
       value={props.value}
       status={props.status}
       onPress={props.onPress}
     />
     {(props.type === undefined || props.type === 'simple') && (
-      <SimpleText text={props.text} style={{marginTop: 4}} />
+      <SimpleText text={props.text} />
     )}
     {props.type !== undefined && props.type === 'textInput' && (
       <JustBottomBorderTextInput
