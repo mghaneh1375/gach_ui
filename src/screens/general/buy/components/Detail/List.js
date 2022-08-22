@@ -8,7 +8,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
-import {dispatchPackagesContext, packagesContext} from '../Context';
+import {packagesContext} from '../Context';
 import Translate from './../../Translate';
 import {styles} from '../../../../../styles/Common/Styles';
 import OffCode from '../OffCode';
@@ -21,20 +21,19 @@ function List(props) {
   const [showOffCodePane, setShowOffCodePane] = useState(false);
   const [offs, setOffs] = useState([]);
 
-  const [accountOff, setAccountOff] = useState();
+  const [userOff, setUserOff] = useState();
 
   const useGlobalState = () => [React.useContext(packagesContext)];
   const [state] = useGlobalState();
-  const [selectedQuizzes, setSelectedQuizzes] = useState();
+  const [wantedQuizzes, setWantedQuizzes] = useState();
 
-  const calc = useCallback(() => {
-    if (selectedQuizzes === undefined) return;
-
+  const calc = (ids, accountOff) => {
     let off = 0;
     let totalPrice = 0;
     let totalQuizzes = 0;
+    setWantedQuizzes(ids);
 
-    selectedQuizzes.forEach(elem => {
+    ids.forEach(elem => {
       let quiz = state.package.quizzesDoc.find(itr => itr.id === elem);
       if (quiz === undefined) return;
       totalQuizzes++;
@@ -48,6 +47,8 @@ function List(props) {
       allOffs.push(state.package.offPercent + ' درصد بابت بسته آزمونی');
     }
 
+    let shouldPayTmp = totalPrice - off;
+
     if (shouldPayTmp > 0 && accountOff !== undefined) {
       if (accountOff.type === 'percent') {
         off += (shouldPayTmp * accountOff.amount) / 100.0;
@@ -58,13 +59,13 @@ function List(props) {
       }
     }
 
-    let shouldPayTmp = totalPrice - off;
+    shouldPayTmp = totalPrice - off;
 
     setOffs(allOffs);
     setOff(off);
     setPrice(totalPrice);
     setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 0);
-  }, [selectedQuizzes, accountOff, state.package]);
+  };
 
   React.useEffect(() => {
     setQuizzes(
@@ -76,7 +77,7 @@ function List(props) {
   }, [state.package]);
 
   React.useEffect(() => {
-    setAccountOff(state.off);
+    setUserOff();
   }, [state.off]);
 
   const toggleShowOffCodePane = () => {
@@ -84,7 +85,8 @@ function List(props) {
   };
 
   const setOffCodeResult = (amount, type) => {
-    setAccountOff({type: type, amount: amount});
+    setUserOff({type: type, amount: amount});
+    calc(wantedQuizzes, {type: type, amount: amount});
     // let p =
     //   type === 'value'
     //     ? shouldPay - amount
@@ -93,10 +95,6 @@ function List(props) {
 
     // setShouldPayAfterOff(p);
   };
-
-  React.useEffect(() => {
-    calc();
-  }, [accountOff, selectedQuizzes, calc]);
 
   return (
     <MyView>
@@ -108,12 +106,12 @@ function List(props) {
           toggleShowPopUp={toggleShowOffCodePane}
         />
       )}
-      {quizzes !== undefined && !showOffCodePane && (
+      {quizzes !== undefined && (
         <MyView style={{padding: 10, alignSelf: 'start'}}>
           <BigBoldBlueText text={'sa'} />
           <Quizzes
             fullWidth={props.isRightMenuVisible ? false : true}
-            setSelectedQuizzes={setSelectedQuizzes}
+            setSelectedQuizzes={ids => calc(ids, userOff)}
             quizzes={quizzes}>
             <PhoneView
               style={{
@@ -151,10 +149,14 @@ function List(props) {
                   </PhoneView>
                   <PhoneView>
                     <SimpleText
-                      style={{
-                        ...styles.dark_blue_color,
-                        ...styles.textDecorRed,
-                      }}
+                      style={
+                        shouldPay !== price
+                          ? {
+                              ...styles.dark_blue_color,
+                              ...styles.textDecorRed,
+                            }
+                          : {...styles.dark_blue_color}
+                      }
                       text={formatPrice(price) + ' تومان '}
                     />
                     {(shouldPay !== price ||

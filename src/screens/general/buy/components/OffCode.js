@@ -13,7 +13,8 @@ function OffCode(props) {
   const checkCode = async () => {
     if (1 == 1) {
       showSuccess(commonTranslator.successOffCode);
-      props.setResult(20, 'percent');
+      if (offcode == 'c') props.setResult(15000, 'value');
+      else props.setResult(offcode === 'a' ? 20 : 10, 'percent');
       props.toggleShowPopUp();
       return;
     }
