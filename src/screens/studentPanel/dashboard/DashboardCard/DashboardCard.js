@@ -41,8 +41,7 @@ function DashboardCard({theme, text, background, subtext, btnColor, padding}) {
             ...styleFontSize25,
             ...styleMarginRight,
             ...{
-              color:
-                backgroundColor !== undefined ? vars.WHITE : vars.DARK_BLUE,
+              color: background !== undefined ? vars.WHITE : vars.DARK_BLUE,
               width: 'max-content',
             },
           }}
