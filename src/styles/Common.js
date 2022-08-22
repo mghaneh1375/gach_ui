@@ -316,7 +316,7 @@ export const CommonWebBox = props => {
               ? 10
               : props.style.padding,
           ...props.childStyle,
-          boxShadow: '0px 3px 6px #00000029',
+          boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
           borderRadius: 10,
           gap: props.no_gap === undefined || !props.no_gap ? 15 : 0,
         }}>

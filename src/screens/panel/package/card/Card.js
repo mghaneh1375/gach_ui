@@ -11,8 +11,7 @@ import {
 import Translate from '../Translate';
 import commonTranslator from '../../../../tranlates/Common';
 import {
-  styleCommonWebBoxView,
-  styleLittleView,
+  styleCircleBox,
   styleTitle,
   styleDigest,
   styleGiftIcon,
@@ -20,6 +19,7 @@ import {
   styleColorWhite,
   styleCard,
   stylePricaPane,
+  styleYellowBox,
 } from './Style';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
 import {routes} from '../../../../API/APIRoutes';
@@ -61,7 +61,7 @@ function Card(props) {
 
         <MyView
           style={{
-            ...styleCommonWebBoxView,
+            ...styleYellowBox,
           }}>
           <SimpleText
             style={{
@@ -72,7 +72,7 @@ function Card(props) {
           />
           <MyView
             style={{
-              ...styleLittleView,
+              ...styleCircleBox,
             }}>
             <SimpleText
               style={{...styleColorWhite, ...styles.BlueBold}}
