@@ -1,28 +1,31 @@
+import {getWidthHeight} from '../../../../services/Utility';
 import vars from '../../../../styles/root';
+
+const width = getWidthHeight()[0];
 
 export const styleCard = {
   padding: 0,
-  width: 390,
+  width: width > 768 ? 390 : 320,
   boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
   borderRadius: 10,
 };
 
 export const styleCommonWebBoxView = {
-  width: 360,
+  width: 'calc(100% - 30px)',
+  marginLeft: 15,
+  marginRight: 15,
   backgroundColor: '#FFEFCE',
   alignSelf: 'center',
   marginBottom: 7,
-  marginTop: 7,
+  marginTop: 25,
   borderRadius: 5,
+  height: 40,
   alignItems: 'center',
 };
 export const styleTitle = {
-  width: '93%',
-  height: 40,
   alignItems: 'center',
-  marginRight: 0,
-  display: 'flex',
-  alignSelf: 'center',
+  alignSelf: 'start',
+  paddingRight: 10,
 };
 export const styleLittleView = {
   width: 60,
@@ -32,7 +35,7 @@ export const styleLittleView = {
   position: 'absolute',
   backgroundColor: 'orange',
   left: 26,
-  top: 12,
+  top: -10,
   justifyContent: 'center',
   alignItems: 'center',
 };

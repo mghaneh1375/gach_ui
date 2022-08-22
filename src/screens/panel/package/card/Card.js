@@ -70,16 +70,17 @@ function Card(props) {
             }}
             text={props.package.title}
           />
+          <MyView
+            style={{
+              ...styleLittleView,
+            }}>
+            <SimpleText
+              style={{...styleColorWhite, ...styles.BlueBold}}
+              text={props.package.offPercent + '%'}
+            />
+          </MyView>
         </MyView>
-        <MyView
-          style={{
-            ...styleLittleView,
-          }}>
-          <SimpleText
-            style={{...styleColorWhite, ...styles.BlueBold}}
-            text={props.package.offPercent + '%'}
-          />
-        </MyView>
+
         <MyView
           style={{
             ...styleDigest,
