@@ -73,6 +73,20 @@ function Info(props) {
               <MyView>
                 <SimpleText
                   style={{...styleFontSize11}}
+                  text={Translate.mizanTakhfif}
+                />
+                <SimpleText
+                  style={{...styleFontSize15, ...styles.alignSelfCenter}}
+                  text={props.package.offPercent + ' درصد '}
+                />
+              </MyView>
+            </PhoneView>
+
+            <PhoneView style={{...styleItem}}>
+              <TinyTextIcon />
+              <MyView>
+                <SimpleText
+                  style={{...styleFontSize11}}
                   text={Translate.buyersCount}
                 />
                 <SimpleText

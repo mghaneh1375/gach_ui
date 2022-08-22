@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
+import {showError, showSuccess} from '../../../../services/Utility';
 import {CommonButton} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
@@ -10,7 +11,38 @@ function OffCode(props) {
   const [offcode, setOffcode] = useState();
 
   const checkCode = async () => {
-    let res = await generalRequest(routes.checkOffCode);
+    if (1 == 1) {
+      showSuccess(commonTranslator.successOffCode);
+      props.setResult(20, 'percent');
+      props.toggleShowPopUp();
+      return;
+    }
+    props.setLoading(true);
+    try {
+      let res = await generalRequest(
+        routes.checkOffCode,
+        'post',
+        {
+          code: offcode,
+          for: props.for,
+        },
+        'data',
+        props.token,
+        ['code', 'for'],
+      );
+      props.setLoading(false);
+      if (res !== null) {
+        if (res.data.msg === 'ok') {
+          showSuccess(commonTranslator.successOffCode);
+          props.setResult(res.data.amount, res.data.type);
+          props.toggleShowPopUp();
+        } else {
+          showError(res.data.msg);
+        }
+      }
+    } catch (e) {
+      props.setLoading(false);
+    }
   };
 
   return (
