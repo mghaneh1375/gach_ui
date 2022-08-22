@@ -29,6 +29,7 @@ function List(props) {
       }
 
       dispatch({
+        off: res[0].off,
         allItems: res[0].items,
         filters: {
           items: res[0].tags,

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Quizzes from '../../../../../components/web/Quizzes';
 import {formatPrice} from '../../../../../services/Utility';
 import {
@@ -19,15 +19,18 @@ function List(props) {
   const [shouldPayAfterOff, setShouldPayAfterOff] = useState();
   const [quizzes, setQuizzes] = useState();
   const [showOffCodePane, setShowOffCodePane] = useState(false);
+  const [offs, setOffs] = useState([]);
 
-  const useGlobalState = () => [
-    React.useContext(packagesContext),
-    React.useContext(dispatchPackagesContext),
-  ];
-  const [state, dispatch] = useGlobalState();
+  const [accountOff, setAccountOff] = useState();
 
-  const calc = selectedQuizzes => {
-    let offPercent = 0;
+  const useGlobalState = () => [React.useContext(packagesContext)];
+  const [state] = useGlobalState();
+  const [selectedQuizzes, setSelectedQuizzes] = useState();
+
+  const calc = useCallback(() => {
+    if (selectedQuizzes === undefined) return;
+
+    let off = 0;
     let totalPrice = 0;
     let totalQuizzes = 0;
 
@@ -38,13 +41,30 @@ function List(props) {
       totalPrice += quiz.price;
     });
 
-    if (state.package.minSelect <= totalQuizzes && totalPrice > 0)
-      offPercent = state.package.offPercent;
+    let allOffs = [];
 
-    setOff(offPercent);
+    if (state.package.minSelect <= totalQuizzes && totalPrice > 0) {
+      off += (totalPrice * state.package.offPercent) / 100;
+      allOffs.push(state.package.offPercent + ' درصد بابت بسته آزمونی');
+    }
+
+    if (shouldPayTmp > 0 && accountOff !== undefined) {
+      if (accountOff.type === 'percent') {
+        off += (shouldPayTmp * accountOff.amount) / 100.0;
+        allOffs.push(accountOff.amount + ' درصد بابت کد تخفیف');
+      } else {
+        off += accountOff.amount;
+        allOffs.push(accountOff.amount + ' تومان بابت کد تخفیف');
+      }
+    }
+
+    let shouldPayTmp = totalPrice - off;
+
+    setOffs(allOffs);
+    setOff(off);
     setPrice(totalPrice);
-    setShouldPay(totalPrice * ((100.0 - offPercent) / 100.0));
-  };
+    setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 0);
+  }, [selectedQuizzes, accountOff, state.package]);
 
   React.useEffect(() => {
     setQuizzes(
@@ -55,19 +75,28 @@ function List(props) {
     );
   }, [state.package]);
 
+  React.useEffect(() => {
+    setAccountOff(state.off);
+  }, [state.off]);
+
   const toggleShowOffCodePane = () => {
     setShowOffCodePane(!showOffCodePane);
   };
 
   const setOffCodeResult = (amount, type) => {
-    let p =
-      type === 'value'
-        ? shouldPay - amount
-        : shouldPay * ((100.0 - amount) / 100.0);
-    if (p < 0) p = 0;
+    setAccountOff({type: type, amount: amount});
+    // let p =
+    //   type === 'value'
+    //     ? shouldPay - amount
+    //     : shouldPay * ((100.0 - amount) / 100.0);
+    // if (p < 0) p = 0;
 
-    setShouldPayAfterOff(p);
+    // setShouldPayAfterOff(p);
   };
+
+  React.useEffect(() => {
+    calc();
+  }, [accountOff, selectedQuizzes, calc]);
 
   return (
     <MyView>
@@ -84,7 +113,7 @@ function List(props) {
           <BigBoldBlueText text={'sa'} />
           <Quizzes
             fullWidth={props.isRightMenuVisible ? false : true}
-            setSelectedQuizzes={calc}
+            setSelectedQuizzes={setSelectedQuizzes}
             quizzes={quizzes}>
             <PhoneView
               style={{
@@ -102,7 +131,7 @@ function List(props) {
                     {off > 0 && (
                       <PhoneView style={styles.alignItemsCenter}>
                         <SimpleText
-                          text={off}
+                          text={formatPrice(off)}
                           style={{
                             ...{marginRight: 10},
                             ...styles.yellow_color,

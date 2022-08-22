@@ -4,6 +4,7 @@ import {FontIcon} from '../../styles/Common/FontIcon';
 import {styles} from '../../styles/Common/Styles';
 
 function QuizItemCard({text, val, icon, textFontSize, valFontSize}) {
+  if (val === undefined || val === '' || val === '...') return <></>;
   return (
     <PhoneView style={{...styles.alignItemsCenter}}>
       <FontIcon kind={'small'} icon={icon} parentStyle={{marginLeft: 5}} />
