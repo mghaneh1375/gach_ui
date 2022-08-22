@@ -35,12 +35,11 @@ function Basket(props) {
           <PhoneView>
             <SimpleText
               style={{
-                ...{fontWeight: 600},
                 ...styles.dark_blue_color,
                 ...styles.fontSize17,
-                ...styles.BlueBold,
+                ...styles.bold,
               }}
-              text={commonTranslator.center + ' ' + commonTranslator.quiz}
+              text={commonTranslator.counter + ' ' + commonTranslator.quiz}
             />
             <SimpleText
               onPress={() => props.selectAll()}
@@ -52,7 +51,7 @@ function Basket(props) {
                 ...styles.yellow_color,
                 ...styleFontSize13,
                 ...styles.cursor_pointer,
-                ...styles.BlueBold,
+                ...styles.bold,
               }}
               text={commonTranslator.selectAll}
             />
@@ -63,9 +62,9 @@ function Basket(props) {
                 style={{
                   ...styles.yellow_color,
                   ...styleFontSize15,
-                  ...styles.BlueBold,
+                  ...styles.bold,
                 }}
-                text={props.selectedLength + ' '}
+                text={' ' + props.selectedLength}
               />
               <SimpleText
                 style={{
@@ -75,7 +74,6 @@ function Basket(props) {
                 }}
                 text={
                   commonTranslator.from +
-                  ' ' +
                   props.total +
                   ' ' +
                   commonTranslator.haveQuiz

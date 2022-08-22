@@ -163,6 +163,7 @@ function Card(props) {
                 }}
                 text={
                   formatPrice(props.package.totalPrice) +
+                  ' ' +
                   commonTranslator.priceUnit
                 }
               />
@@ -174,6 +175,7 @@ function Card(props) {
                 }}
                 text={
                   formatPrice(props.package.realPrice) +
+                  ' ' +
                   commonTranslator.priceUnit
                 }
               />

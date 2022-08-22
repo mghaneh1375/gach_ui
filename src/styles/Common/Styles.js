@@ -112,4 +112,7 @@ export const styles = {
     color: vars.DARK_BLUE,
     fontWeight: 600,
   },
+  bold: {
+    fontWeight: 600,
+  },
 };
