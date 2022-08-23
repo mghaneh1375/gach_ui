@@ -18,7 +18,6 @@ function SpecificRoleForm(props) {
     <PhoneView style={{gap: 20}}>
       {obj !== undefined && obj.keyVals !== undefined && (
         <JustBottomBorderSelect
-          isHalf={false}
           setter={setData}
           afterSetter={props.setFormUserData}
           args={obj.key}
@@ -31,7 +30,6 @@ function SpecificRoleForm(props) {
 
       {obj !== undefined && obj.keyVals === undefined && props.signUp && (
         <CommonTextInput
-          isHalf={false}
           placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
           subText={obj.help === undefined ? obj.title : obj.help}
           justNum={obj.isJustNum ? true : undefined}
@@ -46,7 +44,6 @@ function SpecificRoleForm(props) {
 
       {obj !== undefined && obj.keyVals === undefined && !props.signUp && (
         <JustBottomBorderTextInput
-          isHalf={false}
           placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
           subText={obj.help === undefined ? obj.title : obj.help}
           justNum={obj.isJustNum ? true : undefined}

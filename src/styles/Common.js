@@ -388,7 +388,7 @@ export const PhoneContentConianerStyle = {
 };
 
 export const LargeContentConianerStyle = {
-  width: 'calc(100% - 200px)',
+  width: 'calc(100% - ' + vars.RIGHT_MENU_WIDTH + 'px)',
   minHeight: 'calc(100vh - 60px)',
 };
 

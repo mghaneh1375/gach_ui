@@ -95,14 +95,12 @@ function Create(props) {
         <MyView>
           <PhoneView style={{gap: 20}}>
             <JustBottomBorderTextInput
-              isHalf={false}
               value={name}
               subText={commonTranslate.name}
               onChangeText={e => setName(e)}
               placeholder={commonTranslate.name}
             />
             <JustBottomBorderSelect
-              isHalf={false}
               placeholder={commonTranslate.grade}
               subText={commonTranslate.grade}
               setter={setGrade}
@@ -112,7 +110,6 @@ function Create(props) {
               values={props.grades}
             />
             <JustBottomBorderSelect
-              isHalf={false}
               placeholder={commonTranslate.lesson}
               subText={commonTranslate.lesson}
               setter={setLesson}
@@ -127,7 +124,6 @@ function Create(props) {
             />
 
             <JustBottomBorderTextInput
-              isHalf={false}
               value={easyPrice}
               subText={Translate.easyPrice}
               onChangeText={e => setEasyPrice(e)}
@@ -135,7 +131,6 @@ function Create(props) {
               placeholder={Translate.easyPrice}
             />
             <JustBottomBorderTextInput
-              isHalf={false}
               value={midPrice}
               subText={Translate.midPrice}
               onChangeText={e => setMidPrice(e)}
@@ -143,7 +138,6 @@ function Create(props) {
               placeholder={Translate.midPrice}
             />
             <JustBottomBorderTextInput
-              isHalf={false}
               value={hardPrice}
               subText={Translate.hardPrice}
               onChangeText={e => setHarPrice(e)}
@@ -151,7 +145,6 @@ function Create(props) {
               placeholder={Translate.hardPrice}
             />
             <JustBottomBorderTextInput
-              isHalf={false}
               value={schoolEasyPrice}
               subText={Translate.schoolEasyPrice}
               onChangeText={e => setSchoolEasyPrice(e)}
@@ -159,7 +152,6 @@ function Create(props) {
               placeholder={Translate.schoolEasyPrice}
             />
             <JustBottomBorderTextInput
-              isHalf={false}
               value={schoolMidPrice}
               subText={Translate.schoolMidPrice}
               onChangeText={e => setSchoolMidPrice(e)}
@@ -167,7 +159,6 @@ function Create(props) {
               placeholder={Translate.schoolMidPrice}
             />
             <JustBottomBorderTextInput
-              isHalf={false}
               value={schoolHardPrice}
               subText={Translate.schoolHardPrice}
               onChangeText={e => setSchoolHarPrice(e)}
@@ -177,7 +168,6 @@ function Create(props) {
           </PhoneView>
 
           <JustBottomBorderTextInput
-            isHalf={false}
             value={description}
             onChangeText={e => setDescription(e)}
             multiline={true}

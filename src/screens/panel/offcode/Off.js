@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '../../../App';
+import {dispatchStateContext} from '../../../App';
 import {MyView} from '../../../styles/Common';
 import Create from './components/Create';
 import List from './components/List/List';
@@ -12,12 +12,9 @@ const Off = props => {
   const [selectedOff, setSelectedOff] = useState();
   const navigate = props.navigate;
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
 
-  const [state, dispatch] = useGlobalState();
+  const [dispatch] = useGlobalState();
 
   const setLoading = status => {
     dispatch({loading: status});

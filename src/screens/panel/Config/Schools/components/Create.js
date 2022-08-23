@@ -46,13 +46,11 @@ function Create(props) {
         <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
             onChangeText={e => changeText(e, setName)}
-            isHalf={false}
             value={name}
             placeholder={translator.name}
             subText={translator.name}
           />
           <JustBottomBorderSelect
-            isHalf={false}
             values={grades}
             setter={setGrade}
             value={grades.find(elem => elem.id === grade)}
@@ -60,7 +58,6 @@ function Create(props) {
             subText={translator.grade}
           />
           <JustBottomBorderSelect
-            isHalf={false}
             values={kindSchools}
             setter={setKind}
             value={kindSchools.find(elem => elem.id === kind)}

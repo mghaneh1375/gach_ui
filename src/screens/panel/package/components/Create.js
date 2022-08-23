@@ -52,14 +52,12 @@ function Create(props) {
       onBackClick={() => props.setMode('list')}>
       <PhoneView style={{gap: 15}}>
         <JustBottomBorderTextInput
-          isHalf={false}
           placeholder={commonTranslator.title}
           subText={commonTranslator.title}
           value={title}
           onChangeText={text => changeText(text, setTitle)}
         />
         <JustBottomBorderTextInput
-          isHalf={false}
           placeholder={Translate.minSelect}
           subText={Translate.minSelect}
           value={minSelect}
@@ -67,7 +65,6 @@ function Create(props) {
           onChangeText={text => changeText(text, setMinSelect)}
         />
         <JustBottomBorderTextInput
-          isHalf={false}
           placeholder={Translate.mizanTakhfif}
           subText={Translate.mizanTakhfif}
           value={offPercent}
@@ -75,7 +72,6 @@ function Create(props) {
           onChangeText={text => changeText(text, setOffPercent)}
         />
         <JustBottomBorderSelect
-          isHalf={false}
           placeholder={commonTranslator.grade}
           subText={commonTranslator.grade}
           setter={setGrade}
@@ -85,7 +81,6 @@ function Create(props) {
           values={props.grades}
         />
         <JustBottomBorderSelect
-          isHalf={false}
           placeholder={commonTranslator.lesson}
           subText={commonTranslator.lesson}
           setter={setLesson}
@@ -101,7 +96,6 @@ function Create(props) {
       </PhoneView>
       <MyView>
         <JustBottomBorderTextInput
-          isHalf={false}
           multiline={true}
           subText={commonTranslator.desc}
           placeholder={commonTranslator.desc}

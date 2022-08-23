@@ -21,6 +21,12 @@ const columns = [
     center: true,
   },
   {
+    name: translator.code,
+    selector: row => row.code,
+    grow: 1,
+    center: true,
+  },
+  {
     name: commonTranslator.createdAt,
     selector: row => row.createdAt,
     grow: 2,

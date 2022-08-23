@@ -118,7 +118,6 @@ function ChangeLevel(props) {
               }
             />
             <JustBottomBorderSelect
-              isHalf={false}
               setter={setNewLevel}
               values={levelKeyVals}
               value={levelKeyVals.find(elem => elem.id === newLevel)}
@@ -156,7 +155,6 @@ function ChangeLevel(props) {
           title={Translator.chooseSchool}
           toggleShowPopUp={() => setShowChooseSchool(false)}>
           <JustBottomBorderTextInput
-            isHalf={false}
             style={{maxWidth: 'unset'}}
             placeholder={commonTranslator.school}
             resultPane={true}

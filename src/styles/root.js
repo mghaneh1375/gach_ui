@@ -1,6 +1,10 @@
 import {Platform} from 'react-native';
+import {getWidthHeight} from './../services/Utility';
+
+let width = getWidthHeight()[0];
 
 const vars = {
+  RIGHT_MENU_WIDTH: width > 1500 ? 250 : 200,
   NAV_BAR_H: '55px',
   YELLOW: '#FFAA00',
   ORANGE: '#FFAA00',

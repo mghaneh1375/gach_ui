@@ -57,7 +57,6 @@ function Create(props) {
       <MyView>
         <PhoneView style={{gap: 9}}>
           <JustBottomBorderSelect
-            isHalf={false}
             placeholder={Translate.giftType}
             subText={Translate.giftType}
             setter={setGiftType}
@@ -68,7 +67,6 @@ function Create(props) {
           />
           <JustBottomBorderTextInput
             justNum={true}
-            isHalf={false}
             placeholder={Translate.amount}
             subText={Translate.amount}
             onChangeText={text => changeText(text, setAmount)}
@@ -77,7 +75,6 @@ function Create(props) {
           />
           <JustBottomBorderTextInput
             justNum={true}
-            isHalf={false}
             placeholder={commonTranslator.counter}
             subText={commonTranslator.counter}
             onChangeText={text => changeText(text, setCounter)}
@@ -85,7 +82,6 @@ function Create(props) {
           />
           <JustBottomBorderTextInput
             justNum={true}
-            isHalf={false}
             placeholder={commonTranslator.priority}
             subText={commonTranslator.priority}
             onChangeText={text => changeText(text, setPriority)}
@@ -94,7 +90,6 @@ function Create(props) {
           <JustBottomBorderTextInput
             float={true}
             justNum={true}
-            isHalf={false}
             placeholder={commonTranslator.prob}
             subText={commonTranslator.prob}
             onChangeText={text => changeText(text, setProb)}
@@ -102,7 +97,6 @@ function Create(props) {
           />
           <JustBottomBorderSelect
             justNum={true}
-            isHalf={false}
             placeholder={Translate.siteApp}
             subText={Translate.siteApp}
             setter={setSiteApp}
@@ -113,7 +107,6 @@ function Create(props) {
           />
           {giftType === 'offcode' && (
             <JustBottomBorderSelect
-              isHalf={false}
               placeholder={Translate.useItem}
               subText={Translate.useItem}
               setter={setUseFor}
@@ -125,7 +118,6 @@ function Create(props) {
           )}
           {giftType === 'offcode' && (
             <JustBottomBorderSelect
-              isHalf={false}
               placeholder={Translate.typeOffCode}
               subText={Translate.typeOffCode}
               setter={setTypeOffCode}
@@ -141,7 +133,6 @@ function Create(props) {
               subText={commonTranslate.dateExpire}
               setter={setDateExpire}
               value={dateExpire}
-              isHalf={false}
             />
           )}
         </PhoneView>

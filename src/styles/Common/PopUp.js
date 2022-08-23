@@ -5,6 +5,7 @@ import {TextIcon} from './TextIcon';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {styles} from './Styles';
 import {getWidthHeight} from '../../services/Utility';
+import vars from '../root';
 
 const width = getWidthHeight()[0];
 
@@ -23,7 +24,7 @@ const modal = {
   box: {
     position: 'absolute',
     left: width > 768 ? 30 : 10,
-    right: width > 768 ? 200 : 10,
+    right: width > 768 ? vars.RIGHT_MENU_WIDTH : 10,
     top: 90,
   },
   marginBottom20: {

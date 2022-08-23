@@ -25,7 +25,6 @@ function Filter(props) {
     <MyView>
       <PhoneView style={{gap: 15}}>
         <JustBottomBorderSelect
-          isHalf={false}
           setter={setKindSchool}
           values={kindSchools}
           value={kindSchools.find(elem => elem.id === kindSchool)}
@@ -33,7 +32,6 @@ function Filter(props) {
           subText={translator.kind}
         />
         <JustBottomBorderSelect
-          isHalf={false}
           setter={setGrade}
           values={grades}
           value={grades.find(elem => elem.id === grade)}
@@ -50,7 +48,6 @@ function Filter(props) {
         />
         <CommonButton
           onPress={() => doFilter()}
-          isHalf={false}
           title={commonTranslator.show}
           style={{alignSelf: 'flex-start'}}
         />

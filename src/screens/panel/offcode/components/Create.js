@@ -11,9 +11,10 @@ import {typeKeyVals, mandatoryFields} from './Utility';
 import {changeText} from '../../../../services/Utility';
 
 const Create = props => {
-  const [amount, setAmount] = useState(1000000);
-  const [type, setType] = useState('value');
-  const [expireAt, setExpireAt] = useState('1657092720000');
+  const [amount, setAmount] = useState();
+  const [type, setType] = useState();
+  const [expireAt, setExpireAt] = useState();
+  const [code, setCode] = useState();
   const [additionalData, setAdditionalData] = useState({});
 
   React.useEffect(() => {
@@ -21,8 +22,9 @@ const Create = props => {
       amount: amount,
       type: type,
       expireAt: expireAt,
+      code: code,
     });
-  }, [amount, type, expireAt]);
+  }, [amount, type, expireAt, code]);
 
   return (
     <CommonWebBox
@@ -35,7 +37,6 @@ const Create = props => {
       onBackClick={() => props.setMode('list')}>
       <PhoneView style={{gap: 15}}>
         <JustBottomBorderTextInput
-          isHalf={false}
           placeholder={translator.amount}
           subText={translator.amount}
           justNum={true}
@@ -43,7 +44,6 @@ const Create = props => {
           value={amount}
         />
         <JustBottomBorderSelect
-          isHalf={false}
           placeholder={translator.type}
           subText={translator.type}
           setter={setType}
@@ -51,11 +51,16 @@ const Create = props => {
           value={typeKeyVals.find(elem => elem.id === type)}
         />
         <JustBottomBorderDatePicker
-          isHalf={false}
           value={expireAt}
           setter={setExpireAt}
           placeholder={translator.expire}
           subText={translator.expire}
+        />
+        <JustBottomBorderTextInput
+          placeholder={translator.code}
+          subText={translator.code + ' ' + commonTranslator.optionalField}
+          onChangeText={text => changeText(text, setCode)}
+          value={code}
         />
       </PhoneView>
       <ExcelComma

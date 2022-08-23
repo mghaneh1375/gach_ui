@@ -10,7 +10,6 @@ const SelectFile = () => {
   return (
     <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
       <JustBottomBorderTextInput
-        isHalf={false}
         subText={certTranslator.formate}
         placeholder={certTranslator.fileNotSelect}
       />

@@ -75,7 +75,6 @@ const Signup = props => {
           placeholder={commonTranslator.firstname}
           subText={commonTranslator.firstname}
           value={firstname}
-          isHalf={false}
           onChangeText={e => changeInput('firstname', e)}
           style={{minWidth: '48%'}}
         />
@@ -84,7 +83,6 @@ const Signup = props => {
           subText={commonTranslator.lastname}
           style={{minWidth: '48%'}}
           value={lastname}
-          isHalf={false}
           onChangeText={e => changeInput('lastname', e)}
         />
       </EqualTwoTextInputs>

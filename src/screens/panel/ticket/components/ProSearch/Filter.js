@@ -90,7 +90,6 @@ function Filter(props) {
               answerDateSolarEndLimit,
             )
           }
-          isHalf={false}
           title={commonTranslator.show}
           style={{alignSelf: 'flex-start'}}
         />

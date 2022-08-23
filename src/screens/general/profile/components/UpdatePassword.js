@@ -14,12 +14,10 @@ const UpdatePassword = props => {
       <BigBoldBlueText text={translator.yourInfo} />
       <EqualTwoTextInputs>
         <JustBottomBorderTextInput
-          isHalf={false}
           placeholder={commonTranslator.firstname}
           subText={commonTranslator.firstname}
         />
         <JustBottomBorderTextInput
-          isHalf={false}
           placeholder={commonTranslator.lastname}
           subText={commonTranslator.lastname}
         />

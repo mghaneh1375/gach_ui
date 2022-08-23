@@ -1,4 +1,4 @@
-import {Platform, Pressable, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {getWidthHeight} from '../../../../services/Utility';
 import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
@@ -6,7 +6,7 @@ import vars from '../../../../styles/root';
 
 export const style = {
   LogoJustLarge: {
-    width: 200,
+    width: vars.RIGHT_MENU_WIDTH,
     marginRight: 5,
   },
   LogoJustPhone: {
@@ -43,7 +43,7 @@ export const style = {
     bottom: 0,
   },
   HeaderJustLarge: {
-    width: 'calc(100% - 230px)',
+    width: 'calc(100% - ' + vars.RIGHT_MENU_WIDTH + 'px - 30px)',
     marginLeft: 10,
     marginRight: 10,
     borderBottomRightRadius: 10,
@@ -134,7 +134,7 @@ export const style = {
   MenuJustLarge: {
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
-    width: 200,
+    width: vars.RIGHT_MENU_WIDTH,
     height: 'calc(100vh - 60px - 10px)',
   },
   MenuJustPhone: {

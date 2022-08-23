@@ -50,7 +50,6 @@ function List(props) {
       <MyView>
         <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
-            isHalf={false}
             placeholder={commonTranslator.tag}
             subText={commonTranslator.tag}
             value={tag}

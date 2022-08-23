@@ -150,7 +150,6 @@ function List(props) {
                 subText={Translate.newDate}
                 setter={setAppNewDate}
                 value={appNewDate}
-                isHalf={false}
               />
             </PhoneView>
 
@@ -179,7 +178,6 @@ function List(props) {
             justNum={true}
             onChangeText={text => setAppMaxSlot(text)}
             value={appMaxSlot}
-            isHalf={false}
           />
         </PhoneView>
         <PhoneView style={{gap: 15}}>

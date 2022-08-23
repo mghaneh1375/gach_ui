@@ -17,6 +17,12 @@ export const allTypeKeyVals = [
   {item: commonTranslator.all, id: 'all'},
 ];
 
+export const withCodeKeyVals = [
+  {item: translator.withCode, id: 'withCode'},
+  {item: translator.withoutCode, id: 'withoutCode'},
+  {item: commonTranslator.all, id: 'all'},
+];
+
 export const usedKeyVals = [
   {item: translator.used, id: true},
   {item: translator.notUsed, id: false},
@@ -34,6 +40,7 @@ export const filter = (
   props,
   used,
   type,
+  withCode,
   createdAt,
   createdAtEndLimit,
   expiredAt,
@@ -44,6 +51,9 @@ export const filter = (
   if (type !== undefined && type !== 'all') query.append('type', type);
 
   if (used !== undefined && used !== 'all') query.append('used', used);
+
+  if (withCode !== undefined && withCode !== 'all')
+    query.append('withCode', withCode);
 
   if (createdAt !== undefined && createdAt.length > 0)
     query.append('createdAt', createdAt);

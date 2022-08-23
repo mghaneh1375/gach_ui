@@ -45,7 +45,6 @@ function Create(props) {
           <PhoneView style={{gap: 15}}>
             <JustBottomBorderTextInput
               onChangeText={text => changeText(text, setPhone)}
-              isHalf={false}
               placeholder={Translate.phone}
               subText={Translate.phone}
               value={phone}
@@ -53,7 +52,6 @@ function Create(props) {
             />
             <JustBottomBorderTextInput
               onChangeText={text => changeText(text, setNid)}
-              isHalf={false}
               placeholder={commonTranslator.NID}
               subText={commonTranslator.NID}
               value={nid}
@@ -83,21 +81,18 @@ function Create(props) {
           <PhoneView style={{gap: 15}}>
             <JustBottomBorderTextInput
               onChangeText={text => changeText(text, setName)}
-              isHalf={false}
               placeholder={Translate.name}
               subText={Translate.name}
               value={name}
             />
             <JustBottomBorderTextInput
               onChangeText={text => changeText(text, setManager)}
-              isHalf={false}
               placeholder={Translate.manager}
               subText={Translate.manager}
               value={manager}
             />
             <JustBottomBorderTextInput
               onChangeText={text => changeText(text, setTel)}
-              isHalf={false}
               placeholder={Translate.tel}
               subText={Translate.tel}
               justNum={true}
@@ -105,20 +100,17 @@ function Create(props) {
             />
             <JustBottomBorderTextInput
               onChangeText={text => changeText(text, setAddress)}
-              isHalf={false}
               placeholder={Translate.address}
               subText={Translate.address}
               value={address}
             />
             <JustBottomBorderSelect
-              isHalf={false}
               values={grades}
               setter={setGrade}
               value={grades.find(elem => elem.id === grade)}
               placeholder={commonTranslator.grade}
             />
             <JustBottomBorderSelect
-              isHalf={false}
               values={sexKeyVals}
               setter={setSex}
               value={sexKeyVals.find(elem => elem.id === sex)}
@@ -132,14 +124,12 @@ function Create(props) {
                 <PhoneView style={{gap: 15}}>
                   <JustBottomBorderTextInput
                     onChangeText={text => changeText(text, setLiableName)}
-                    isHalf={false}
                     placeholder={Translate.liableName}
                     subText={Translate.liableName}
                     value={liableName}
                   />
                   <JustBottomBorderTextInput
                     onChangeText={text => changeText(text, setLiableFamily)}
-                    isHalf={false}
                     placeholder={Translate.liableFamily}
                     subText={Translate.liableFamily}
                     value={liableFamily}
@@ -148,7 +138,6 @@ function Create(props) {
                     <PhoneView>
                       <JustBottomBorderTextInput
                         onChangeText={text => changeText(text, setPassword)}
-                        isHalf={false}
                         type={'password'}
                         placeholder={commonTranslator.password}
                         subText={commonTranslator.password}
@@ -158,7 +147,6 @@ function Create(props) {
                         onChangeText={text =>
                           changeText(text, setRepeatPassword)
                         }
-                        isHalf={false}
                         type={'password'}
                         placeholder={
                           commonTranslator.repeat +

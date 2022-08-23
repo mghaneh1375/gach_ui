@@ -27,7 +27,6 @@ function CreateTransaction(props) {
             placeholder={Translate.amount}
             subText={Translate.amount}
             value={amount}
-            isHalf={false}
             justNum={true}
             onChangeText={text => setAmount(text)}
           />
@@ -35,13 +34,11 @@ function CreateTransaction(props) {
             placeholder={commonTranslator.date}
             subText={commonTranslator.date}
             value={date}
-            isHalf={false}
             setter={setDate}
           />
           <JustBottomBorderTextInput
             placeholder={commonTranslator.desc}
             value={description}
-            isHalf={false}
             subText={
               commonTranslator.desc + ':' + ' ' + commonTranslator.notNecessary
             }

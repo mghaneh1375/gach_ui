@@ -35,14 +35,12 @@ function Create(props) {
       <MyView>
         <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
-            isHalf={false}
             value={name}
             onChangeText={e => setName(e)}
             placeholder={commonTranslate.name}
             subText={commonTranslate.name}
           />
           <JustBottomBorderSelect
-            isHalf={false}
             placeholder={Translate.level}
             subText={commonTranslate.grade}
             setter={setGrade}
@@ -54,7 +52,6 @@ function Create(props) {
         </PhoneView>
 
         <JustBottomBorderTextInput
-          isHalf={false}
           value={description}
           onChangeText={e => setDescription(e)}
           multiline={true}

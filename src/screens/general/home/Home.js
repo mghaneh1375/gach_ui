@@ -7,6 +7,7 @@ import {getDevice, getWidthHeight} from './../../../services/Utility';
 
 import {ScreenScroll} from '../../../styles/Common';
 import {ImageBackground} from 'react-native';
+import vars from '../../../styles/root';
 
 const device = getDevice();
 
@@ -67,7 +68,7 @@ const Home = props => {
             idx: 2,
           },
         ]}
-        width={isRightMenuVisible ? width - 200 : width}
+        width={isRightMenuVisible ? width - vars.RIGHT_MENU_WIDTH : width}
         height={device.indexOf(Device.Large) !== -1 ? height : 'auto'}
         imgHeight={300}
         inJustImage={false}
