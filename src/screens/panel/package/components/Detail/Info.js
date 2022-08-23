@@ -6,7 +6,6 @@ import {
   SimpleText,
   MyView,
 } from '../../../../../styles/Common';
-import {TinyTextIcon} from '../../../../../styles/Common/TextIcon';
 import Translate from '../../Translate';
 import {
   styleFontSize11,
@@ -109,27 +108,29 @@ function Info(props) {
               </MyView>
             </PhoneView>
 
-            <PhoneView style={{...styleItem}}>
-              <FontIcon
-                kind={'small'}
-                icon={faQuestion}
-                parentStyle={{marginLeft: 5}}
-              />
-              <MyView>
-                <SimpleText
-                  style={{...styleFontSize11, ...styles.BlueBold}}
-                  text={Translate.buyersCount}
+            {props.isAdmin && (
+              <PhoneView style={{...styleItem}}>
+                <FontIcon
+                  kind={'small'}
+                  icon={faQuestion}
+                  parentStyle={{marginLeft: 5}}
                 />
-                <SimpleText
-                  style={{
-                    ...styleFontSize17,
-                    ...styles.alignSelfCenter,
-                    ...styles.BlueBold,
-                  }}
-                  text={props.package.buyers}
-                />
-              </MyView>
-            </PhoneView>
+                <MyView>
+                  <SimpleText
+                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    text={Translate.buyersCount}
+                  />
+                  <SimpleText
+                    style={{
+                      ...styleFontSize17,
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                    }}
+                    text={props.package.buyers}
+                  />
+                </MyView>
+              </PhoneView>
+            )}
           </PhoneView>
         </MyView>
 
