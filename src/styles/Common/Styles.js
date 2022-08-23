@@ -115,4 +115,37 @@ export const styles = {
   bold: {
     fontWeight: 600,
   },
+  overFlowHidden: {
+    overflow: 'hidden',
+  },
+  circleBoxUp: {
+    width: 84,
+    height: 86,
+    backgroundColor: vars.ORANGE_LIGHT,
+    top: '-30px',
+    right: '-30px',
+    position: 'absolute',
+    borderRadius: '50%',
+  },
+  circleNumberBox: {
+    position: 'absolute',
+    fontSize: 15,
+    bottom: 20,
+    left: 20,
+    backgroundColor: vars.ORANGE,
+    color: vars.WHITE,
+    opacity: 1,
+    borderRadius: '50%',
+    paddingRight: 10,
+    paddingLeft: 10,
+  },
+  circleBoxDown: {
+    width: 84,
+    height: 86,
+    backgroundColor: vars.ORANGE_LIGHT,
+    bottom: '-30px',
+    left: '-30px',
+    position: 'absolute',
+    borderRadius: '50%',
+  },
 };

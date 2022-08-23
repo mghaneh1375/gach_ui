@@ -26,6 +26,7 @@ import {
   faPlus,
   faVenusMars,
 } from '@fortawesome/free-solid-svg-icons';
+import {styles} from './Common/Styles';
 
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem
@@ -173,7 +174,7 @@ export const CommonButton = props => {
       </Link>
     </Button>
   ) : (
-    <MyView className={('hoverable', 'flex-end')}>
+    <div className={'hoverable flex-end'}>
       <Button style={allStyles} onClick={props.onPress}>
         {props.icon !== undefined &&
           (props.iconDir === undefined || props.iconDir === 'right') && (
@@ -207,7 +208,7 @@ export const CommonButton = props => {
             />
           )}
       </Button>
-    </MyView>
+    </div>
   );
 };
 
@@ -314,6 +315,7 @@ export const CommonWebBox = props => {
     <MyView style={allStyle}>
       <MyView
         style={{
+          overflow: props.rowId ? 'hidden' : 'visible',
           backgroundColor: vars.WHITE,
           padding:
             props.style === undefined || props.style.padding === undefined
@@ -324,10 +326,32 @@ export const CommonWebBox = props => {
           borderRadius: 10,
           gap: props.no_gap === undefined || !props.no_gap ? 15 : 0,
         }}>
+        {props.rowId !== undefined && (
+          <>
+            <PhoneView
+              style={{
+                ...styles.circleBoxUp,
+              }}>
+              <SimpleText
+                style={{
+                  ...styles.circleNumberBox,
+                }}
+                text={props.rowId}
+              />
+            </PhoneView>
+            <PhoneView
+              style={{
+                ...styles.circleBoxDown,
+              }}></PhoneView>
+          </>
+        )}
         {props.header !== undefined && (
           <EqualTwoTextInputs>
             <BigBoldBlueTextInline
-              style={{alignSelf: 'center'}}
+              style={{
+                // alignSelf: 'center',
+                marginRight: props.rowId !== undefined ? 45 : 0,
+              }}
               text={props.header}
             />
             {props.btn !== undefined && props.btn}

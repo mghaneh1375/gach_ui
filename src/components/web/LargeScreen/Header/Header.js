@@ -83,7 +83,7 @@ const Header = props => {
               ? {...style.Header_Profile, ...style.Header_Profile_Large}
               : {...style.Header_Profile, ...style.Header_Profile_Phone}
           }>
-          <PhoneView style={{paddingRight: 20}}>
+          <PhoneView style={{paddingRight: 15}}>
             <UserTinyPic
               onPress={() => {
                 changeShow(!showProfilePane);
@@ -98,6 +98,7 @@ const Header = props => {
                   : {
                       ...style.Header_Profile_Image,
                       ...style.Header_Profile_Image_Web,
+                      marginRight: showProfilePane ? 0 : -15,
                     }
               }
               pic={pic}

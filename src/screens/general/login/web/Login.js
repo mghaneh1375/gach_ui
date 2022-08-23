@@ -26,6 +26,7 @@ import vars from '../../../../styles/root';
 import {globalStateContext, dispatchStateContext} from './../../../../App';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import {getToken} from '../../../../API/User';
+import {styles} from '../../../../styles/Common/Styles';
 
 const Login = props => {
   const [mode, setMode] = useState('login');
@@ -66,7 +67,7 @@ const Login = props => {
   };
 
   return (
-    <ScreenScroll>
+    <ScreenScroll style={{...styles.overFlowHidden}}>
       <MyView
         style={{
           minHeight: '100vh',
