@@ -1,12 +1,12 @@
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 
-export const fetchRegistrablePackages = async () => {
+export const goToPay = async (token, data) => {
   return await generalRequest(
-    routes.fetchAllPackages,
-    'get',
-    undefined,
-    'data',
-    undefined,
+    routes.buyQuiz,
+    'post',
+    data,
+    ['action', 'url'],
+    token,
   );
 };

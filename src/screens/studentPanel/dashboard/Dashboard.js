@@ -9,9 +9,9 @@ function Dashboard(props) {
     <CommonWebBox header={Translate.youSee}>
       <PhoneView>
         <DashboardCard
-          text={Translate.balance}
+          text={Translate.money}
           theme={vars.ORANGE}
-          subtext={31}
+          subtext={props.user.user.money}
           btnColor={'yellow'}
           borderRight={true}
         />

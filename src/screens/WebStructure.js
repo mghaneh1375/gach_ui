@@ -230,7 +230,7 @@ const WebStructue = props => {
                 />
               )}
               {props.page === 'buy' && (
-                <Buy token={token} navigate={navigate} />
+                <Buy user={user} token={token} navigate={navigate} />
               )}
               {props.page === 'acceptInvite' && (
                 <AcceptInvite token={token} navigate={navigate} />

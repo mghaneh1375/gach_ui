@@ -39,7 +39,9 @@ function Detail(props) {
       <List
         isRightMenuVisible={props.isRightMenuVisible}
         token={props.token}
+        user={props.user}
         setLoading={props.setLoading}
+        navigate={props.navigate}
       />
     </MyView>
   );

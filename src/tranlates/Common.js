@@ -179,5 +179,8 @@ const translator = {
   tarazLevels: 'سطوح تراز',
   level: 'مقطع',
   successOffCode: 'کد تخفیف موردنظر با موفقیت اعمال گردید',
+  shouldLogin: 'لطفا ابتدا لاگین کنید',
+  transactionResult: 'نتیجه تراکنش',
+  successTransaction: 'تراکنش موردنظر با موفقیت انجام شد.',
 };
 export default translator;

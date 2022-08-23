@@ -20,7 +20,13 @@ function List(props) {
     setIsWorking(true);
     props.setLoading(true);
 
-    Promise.all([fetchAllPackages(undefined)]).then(res => {
+    Promise.all([
+      fetchAllPackages(
+        props.token === null || props.token === undefined || props.token === ''
+          ? undefined
+          : props.token,
+      ),
+    ]).then(res => {
       props.setLoading(false);
 
       if (res[0] === null) {

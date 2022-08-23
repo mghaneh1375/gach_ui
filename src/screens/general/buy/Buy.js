@@ -46,7 +46,9 @@ function Buy(props) {
           setMode={setMode}
           isRightMenuVisible={state.isRightMenuVisible}
           setLoading={setLoading}
+          user={props.user}
           token={props.token}
+          navigate={navigate}
         />
       )}
     </PackageProvider>
