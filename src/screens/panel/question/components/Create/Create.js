@@ -355,7 +355,7 @@ function Create(props) {
             </PhoneView>
           )}
 
-          <PhoneView style={{width: '100%'}}>
+          <PhoneView>
             <QuestionFile
               setFile={setQuestionFile}
               label={translator.questionFile}

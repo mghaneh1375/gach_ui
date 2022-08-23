@@ -129,7 +129,7 @@ function Filter(props) {
               value={criticalThresh}
               isHalf={false}
             />
-            <MyView style={{marginTop: 10}}>
+            <MyView>
               <RadioButtonYesOrNo
                 label={translator.justCriticals}
                 selected={justCriticals}

@@ -24,7 +24,7 @@ function QuestionFile(props) {
   }, [props, filesContent]);
 
   return (
-    <MyView style={{width: 200}}>
+    <MyView>
       <CommonButton
         theme={'dark'}
         style={{alignSelf: 'flex-start'}}

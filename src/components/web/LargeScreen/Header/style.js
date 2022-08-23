@@ -58,12 +58,12 @@ export const style = {
     justifyContent: 'space-between',
     zIndex: 2,
   },
-  Header_Profile_Phone: {
-    marginRight: 40,
-  },
-  Header_Profile_Large: {
-    marginRight: 80,
-  },
+  // Header_Profile_Phone: {
+  //   marginRight: 40,
+  // },
+  // Header_Profile_Large: {
+  //   marginRight: 40,
+  // },
   Header_Profile: {
     marginTop: 10,
     backgroundColor: vars.WHITE,
