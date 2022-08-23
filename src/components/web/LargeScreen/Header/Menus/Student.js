@@ -30,10 +30,10 @@ function StudentMenu(props) {
           selected={props.selected === 'dashboard'}
         />
         <MenuItem
-          onClick={() => navigate('/buy')}
+          onClick={() => navigate('/myQuizzes')}
           text={translator.myQuizes}
           icon={faShoppingCart}
-          selected={props.selected === 'buy'}
+          selected={props.selected === 'myQuizzes'}
         />
         <MenuItem
           onClick={() => navigate('/buy')}

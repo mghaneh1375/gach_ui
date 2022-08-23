@@ -6,6 +6,8 @@ const translate = {
   reminder: 'ظرفیت باقی مانده: ',
   price: 'قیمت : ',
   studentsCount: 'تعداد ثبت نامی: ',
+  duration: 'مدت آزمون',
+  questionsCount: 'تعداد سوالات آزمون',
   isOnline: 'نوع اجرا: ',
   kind: 'نوع آزمون: ',
   mark: 'نمره: ',

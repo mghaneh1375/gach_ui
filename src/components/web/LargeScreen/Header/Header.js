@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {
   MyView,
@@ -25,7 +25,6 @@ const Header = props => {
   const [showNotif, setShowNotif] = useState(false);
   const [pic, setPic] = useState('url(../../../../images/slider.png)');
   const [newAlerts, setNewAlerts] = useState();
-  const [headerClick, setHeaderClick] = useState();
 
   React.useEffect(() => {
     setNewAlerts(props.newAlerts);
@@ -34,9 +33,21 @@ const Header = props => {
     setShowNotif(false);
   }, [props.navigate]);
 
-  const changeShow = newStatus => {
-    setShowProfilePane(newStatus);
-  };
+  React.useEffect(() => {
+    if (wrapperRef === undefined || wrapperRef.current === undefined) return;
+    function handleClickOutside(event) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        if (showProfilePane) setShowProfilePane(false);
+      }
+    }
+
+    if (showProfilePane) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [wrapperRef, showProfilePane]);
 
   const callLogout = async () => {
     props.setLoading(true);
@@ -48,14 +59,9 @@ const Header = props => {
   const changeShowNotif = newStatus => {
     setShowNotif(newStatus);
   };
-  // React.useEffect(() => {
-  //   document.ready(function () {
-  //     document.click(function () {
-  //       setShowNotif(showNotif);
-  //       setShowProfilePane(false);
-  //     });
-  //   });
-  // });
+
+  const wrapperRef = useRef(null);
+
   React.useEffect(() => {
     setPic(props.pic);
   }, [props.pic]);
@@ -83,10 +89,17 @@ const Header = props => {
               ? {...style.Header_Profile, ...style.Header_Profile_Large}
               : {...style.Header_Profile, ...style.Header_Profile_Phone}
           }>
-          <PhoneView style={{paddingRight: 15}}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'stretch',
+              flexFlow: 'row wrap',
+              flexShrink: 1,
+            }}
+            ref={wrapperRef}>
             <UserTinyPic
               onPress={() => {
-                changeShow(!showProfilePane);
+                setShowProfilePane(!showProfilePane);
                 showNotif ? setShowNotif(!showNotif) : '';
               }}
               style={
@@ -98,7 +111,7 @@ const Header = props => {
                   : {
                       ...style.Header_Profile_Image,
                       ...style.Header_Profile_Image_Web,
-                      marginRight: showProfilePane ? 0 : -15,
+                      marginRight: showProfilePane ? 'calc(50% - 25px)' : -15,
                     }
               }
               pic={pic}
@@ -107,7 +120,7 @@ const Header = props => {
             {!showProfilePane && (
               <SimpleText
                 onPress={() => {
-                  changeShow(!showProfilePane);
+                  setShowProfilePane(!showProfilePane);
                   showNotif ? setShowNotif(!showNotif) : '';
                 }}
                 style={
@@ -142,46 +155,46 @@ const Header = props => {
               <SimpleFontIcon
                 kind={'normal'}
                 onPress={() => {
-                  changeShow(!showProfilePane);
+                  setShowProfilePane(!showProfilePane);
                   showNotif ? setShowNotif(!showNotif) : '';
                 }}
                 icon={faAngleUp}
               />
             </MyView>
-          </PhoneView>
 
-          {showProfilePane && (
-            <MyView style={style.Header_Profile_MENU}>
-              <SimpleText
-                style={
-                  isApp
-                    ? {
-                        ...style.Header_Profile_Text,
-                        ...style.Header_Profile_Text_App,
-                      }
-                    : {
-                        ...style.Header_Profile_Text,
-                        ...style.Header_Profile_Text_Web,
-                      }
-                }
-                text={commonTranslator.hello + ' - ' + props.name}
-              />
-              <TouchableOpacity
-                onPress={() => {
-                  setShowProfilePane(false);
-                  props.navigate('/profile');
-                }}>
-                <SimpleText text={commonTranslator.profile} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={async () => {
-                  changeShowNotif(!showNotif);
-                  callLogout();
-                }}>
-                <SimpleText text={commonTranslator.logout} />
-              </TouchableOpacity>
-            </MyView>
-          )}
+            {showProfilePane && (
+              <MyView style={style.Header_Profile_MENU}>
+                <SimpleText
+                  style={
+                    isApp
+                      ? {
+                          ...style.Header_Profile_Text,
+                          ...style.Header_Profile_Text_App,
+                        }
+                      : {
+                          ...style.Header_Profile_Text,
+                          ...style.Header_Profile_Text_Web,
+                        }
+                  }
+                  text={commonTranslator.hello + ' - ' + props.name}
+                />
+                <TouchableOpacity
+                  onPress={() => {
+                    setShowProfilePane(false);
+                    props.navigate('/profile');
+                  }}>
+                  <SimpleText text={commonTranslator.profile} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={async () => {
+                    changeShowNotif(!showNotif);
+                    callLogout();
+                  }}>
+                  <SimpleText text={commonTranslator.logout} />
+                </TouchableOpacity>
+              </MyView>
+            )}
+          </div>
         </MyView>
 
         <MyView style={style.Header_NOTIF}>

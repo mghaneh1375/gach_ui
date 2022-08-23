@@ -97,8 +97,6 @@ export const style = {
   },
   Header_Profile_MENU: {
     width: '100%',
-    // position: 'absolute',
-    // top: 45,
     height: 120,
     overflow: 'auto',
     backgroundColor: vars.WHITE,
@@ -106,11 +104,9 @@ export const style = {
     borderBottomLeftRadius: 10,
     boxShadow: '0px 3px 6px #00000029',
     minWidth: 140,
-    // left: 0,
-    // zIndex: 10000,
     zIndex: 0,
     padding: 10,
-    marginTop: 40,
+    // marginTop: 40,
     alignItems: 'center',
   },
   Header_Profile_Notif: {

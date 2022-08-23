@@ -52,6 +52,7 @@ export const routes = {
   fetchSchoolQuiz: 'quiz/manage/get/school/',
   editQuiz: 'quiz/manage/edit/',
   buyQuiz: 'quiz/public/buy',
+  fetchMyQuizzes: 'quiz/public/myQuizzes',
   fetchAuthorReport: 'quiz/manage/authorReport/',
   fetchSchoolReport: 'quiz/manage/schoolReport/',
   fetchCityReport: 'quiz/manage/cityReport/',

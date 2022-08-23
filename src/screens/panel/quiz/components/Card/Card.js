@@ -9,11 +9,9 @@ import {
 import Translate from './Translate';
 import commonTranslator from '../../../../../tranlates/Common';
 import {
-  styleCommonWebBoxView,
   styleTitle,
   styleDigest,
   styleItemsParent,
-  styleItem,
   styleItemsGrandParent,
   styleCard,
   stylePricaPane,
@@ -21,7 +19,6 @@ import {
 } from './../../../package/card/Style';
 import {convertTimestamp} from '../../../../../services/Utility';
 import {launchModeKeyVals, kindQuizKeyVals} from '../KeyVals';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faPlug} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../../styles/Common/Styles';
 import QuizItemCard from '../../../../../components/web/QuizItemCard';
@@ -88,6 +85,24 @@ function Card(props) {
               valFontSize={15}
             />
           )}
+          {props.quiz.duration !== undefined && (
+            <QuizItemCard
+              text={Translate.duration + ':'}
+              val={props.quiz.duration}
+              icon={faPlug}
+              textFontSize={11}
+              valFontSize={15}
+            />
+          )}
+          {props.quiz.questionsCount !== undefined && (
+            <QuizItemCard
+              text={Translate.questionsCount + ':'}
+              val={props.quiz.questionsCount}
+              icon={faPlug}
+              textFontSize={11}
+              valFontSize={15}
+            />
+          )}
         </PhoneView>
         <MyView>
           <PhoneView
@@ -129,32 +144,37 @@ function Card(props) {
       </MyView>
 
       <MyView>
-        <PhoneView style={{...stylePricaPane}}>
-          {!props.isAdmin && (
+        {props.price !== undefined && (
+          <PhoneView style={{...stylePricaPane}}>
+            {!props.isAdmin && (
+              <PhoneView>
+                <SimpleText
+                  style={{...styles.BlueBold}}
+                  text={Translate.price}
+                />
+                <SimpleText
+                  style={{...styles.BlueBold}}
+                  text={props.quiz.price + ' تومان'}
+                />
+              </PhoneView>
+            )}
             <PhoneView>
-              <SimpleText style={{...styles.BlueBold}} text={Translate.price} />
-              <SimpleText
-                style={{...styles.BlueBold}}
-                text={props.quiz.price + ' تومان'}
+              <CommonButton
+                onPress={() => props.onClick(props.quiz.id)}
+                theme={
+                  props.quiz.isSelected !== undefined && props.quiz.isSelected
+                    ? 'yellow'
+                    : 'yellow-transparent'
+                }
+                title={
+                  props.quiz.isSelected !== undefined && props.quiz.isSelected
+                    ? commonTranslator.selected
+                    : commonTranslator.select
+                }
               />
             </PhoneView>
-          )}
-          <PhoneView>
-            <CommonButton
-              onPress={() => props.onClick(props.quiz.id)}
-              theme={
-                props.quiz.isSelected !== undefined && props.quiz.isSelected
-                  ? 'yellow'
-                  : 'yellow-transparent'
-              }
-              title={
-                props.quiz.isSelected !== undefined && props.quiz.isSelected
-                  ? commonTranslator.selected
-                  : commonTranslator.select
-              }
-            />
           </PhoneView>
-        </PhoneView>
+        )}
 
         <MyView
           style={{

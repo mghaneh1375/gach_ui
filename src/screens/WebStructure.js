@@ -57,6 +57,7 @@ import Teachers from './teacher/teachers/Teachers';
 import TeacherAccess from './schoolPanel/teachers/Teachers';
 import TarazLevels from './panel/Config/TarazLevels/TarazLevels';
 import Buy from './general/buy/Buy';
+import MyQuizzes from './studentPanel/MyQuizzes/MyQuizzes';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -231,6 +232,9 @@ const WebStructue = props => {
               )}
               {props.page === 'buy' && (
                 <Buy user={user} token={token} navigate={navigate} />
+              )}
+              {props.page === 'myQuizzes' && (
+                <MyQuizzes token={token} navigate={navigate} />
               )}
               {props.page === 'acceptInvite' && (
                 <AcceptInvite token={token} navigate={navigate} />
