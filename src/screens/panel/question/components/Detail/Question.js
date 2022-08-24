@@ -30,10 +30,17 @@ import {
   styleMaxHeight300,
 } from './style';
 import {levelKeyVals, statusKeyVals, typeOfQuestionKeyVals} from '../KeyVals';
+import vars from '../../../../../styles/root';
+import {styles} from '../../../../../styles/Common/Styles';
+import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 
 function Question(props) {
   const [showMore, setShowMore] = useState(false);
+  const [combo, setCombo] = useState(false);
 
+  // const toggleCombo = () => {
+  //   setCombo(!combo);
+  // };
   const toggleShowMore = () => {
     setShowMore(!showMore);
   };
@@ -46,18 +53,19 @@ function Question(props) {
           text={translator.organizationCode + props.question.organizationId}
         />
         <PhoneView>
-          <SimpleText
-            onPress={() => toggleShowMore()}
-            text={!showMore ? commonTranslator.more : commonTranslator.less}
-            style={{...YellowFont13}}
-          />
-          <SimpleFontIcon
-            onPress={() => toggleShowMore()}
-            kind={'normal'}
-            icon={!showMore ? faAngleDoubleDown : faAngleDoubleUp}
-            style={{...styleYellowMarginTop7}}
-          />
+          <JustBottomBorderSelect placeholder={props.counter} />
         </PhoneView>
+        <SimpleText
+          onPress={() => toggleShowMore()}
+          text={!showMore ? commonTranslator.more : commonTranslator.less}
+          style={{...YellowFont13, width: 65}}
+        />
+        <SimpleFontIcon
+          onPress={() => toggleShowMore()}
+          kind={'normal'}
+          icon={!showMore ? faAngleDoubleDown : faAngleDoubleUp}
+          style={{...styleYellowMarginTop7}}
+        />
       </EqualTwoTextInputs>
       <PhoneView
         style={{

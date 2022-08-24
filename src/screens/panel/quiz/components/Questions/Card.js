@@ -40,6 +40,7 @@ function Card(props) {
         <Question
           needOps={false}
           question={props.question}
+          counter={props.counter}
           btns={[
             {
               theme: 'dark',
