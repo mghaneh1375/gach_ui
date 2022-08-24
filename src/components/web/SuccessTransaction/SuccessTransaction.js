@@ -22,7 +22,7 @@ function SuccessTransaction(props) {
               ...styles.colorGreen,
               marginTop: -15,
             }}
-            icon={faSmile}
+            icon={'url(../../../images/SvgSymbol/1F600.svg)'}
             kind={'large'}
           />
         </MyView>
