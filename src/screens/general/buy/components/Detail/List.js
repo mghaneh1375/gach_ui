@@ -15,7 +15,8 @@ import {styles} from '../../../../../styles/Common/Styles';
 import OffCode from '../OffCode';
 import {goToPay} from '../Utility';
 import {setCacheItem} from '../../../../../API/User';
-import SuccessTransaction from '../../../../../components/web/SuccessTransaction';
+import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
+
 function List(props) {
   const [price, setPrice] = useState(0);
   const [off, setOff] = useState(0);
