@@ -25,25 +25,51 @@ import {
   styleJustifyContentEnd,
   styleYellowMarginTop7,
   YellowFont13,
-  styleJustifyContentBetween,
   styleMarginRight25,
   styleMaxHeight300,
 } from './style';
 import {levelKeyVals, statusKeyVals, typeOfQuestionKeyVals} from '../KeyVals';
-import vars from '../../../../../styles/root';
-import {styles} from '../../../../../styles/Common/Styles';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
+import {
+  quizContext,
+  dispatchQuizContext,
+} from '../../../quiz/components/Context';
 
 function Question(props) {
   const [showMore, setShowMore] = useState(false);
-  const [combo, setCombo] = useState(false);
 
-  // const toggleCombo = () => {
-  //   setCombo(!combo);
-  // };
+  const useGlobalState = () => [
+    React.useContext(quizContext),
+    React.useContext(dispatchQuizContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
   const toggleShowMore = () => {
     setShowMore(!showMore);
   };
+  const [keyVals, setKeyVals] = useState();
+
+  const [questionNo, setQuestionNo] = useState();
+
+  React.useEffect(() => {
+    let tmp = [];
+    for (let i = 1; i <= props.totalQuestions; i++)
+      tmp.push({id: i, item: i + ''});
+
+    setKeyVals(tmp);
+  }, [props.totalQuestions]);
+
+  const changeQNo = id => {
+    dispatch({
+      needSorting: true,
+      selectedQuestionId: props.question.id,
+      newWantedNo: id,
+    });
+  };
+
+  React.useEffect(() => {
+    setQuestionNo(props.question.no);
+  }, [props.question.no]);
 
   return (
     <CommonWebBox>
@@ -53,7 +79,16 @@ function Question(props) {
           text={translator.organizationCode + props.question.organizationId}
         />
         <PhoneView>
-          <JustBottomBorderSelect placeholder={props.counter} />
+          {keyVals !== undefined && (
+            <JustBottomBorderSelect
+              values={keyVals}
+              value={keyVals.find(elem => elem.id === questionNo)}
+              setter={id => {
+                changeQNo(id);
+              }}
+              placeholder={props.counter}
+            />
+          )}
         </PhoneView>
         <SimpleText
           onPress={() => toggleShowMore()}

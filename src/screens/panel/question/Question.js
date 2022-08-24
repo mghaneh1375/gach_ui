@@ -19,12 +19,9 @@ const Question = props => {
 
   const navigate = props.navigate;
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
 
-  const [state, dispatch] = useGlobalState();
+  const [dispatch] = useGlobalState();
 
   const setLoading = status => {
     dispatch({loading: status});

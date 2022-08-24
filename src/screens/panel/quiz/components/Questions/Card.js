@@ -1,4 +1,3 @@
-import {View} from 'react-native';
 import {
   CommonRadioButton,
   PhoneView,
@@ -40,7 +39,7 @@ function Card(props) {
         <Question
           needOps={false}
           question={props.question}
-          counter={props.counter}
+          totalQuestions={props.totalQuestions}
           btns={[
             {
               theme: 'dark',

@@ -21,7 +21,6 @@ const Questions = props => {
   const [selectedQuestion, setSelectedQuestion] = useState();
   const [showEditPane, setShowEditPane] = useState(false);
   const [showRemovePane, setShowRemovePane] = useState(false);
-  const [counter, setCounter] = useState(0);
 
   const toggleShowRemovePopUp = () => {
     setShowRemovePane(!showRemovePane);
@@ -59,11 +58,6 @@ const Questions = props => {
   React.useEffect(() => {
     if (isWorking) return;
     if (state.selectedQuiz.questions !== undefined) {
-      setCounter(
-        state.selectedQuiz.questions.map((elem, index) => {
-          return {id: index + 1, item: index + 1};
-        }),
-      );
       dispatch({selectedIds: []});
       return;
     }
@@ -80,6 +74,7 @@ const Questions = props => {
 
       if (res[0] !== null) {
         state.selectedQuiz.questions = res[0];
+
         dispatch({
           selectedQuiz: state.selectedQuiz,
           needUpdate: true,
@@ -189,8 +184,7 @@ const Questions = props => {
                     setLoading={props.setLoading}
                     token={props.token}
                     question={element}
-                    counter={index + 1}
-                    setCounter={setCounter}
+                    totalQuestions={state.selectedQuiz.questions.length}
                     setSelectedQuestion={setSelectedQuestion}
                   />
                 );
