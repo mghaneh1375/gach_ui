@@ -3,12 +3,19 @@ import {CommonButton, PhoneView, MyView} from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
-import {allTypeKeyVals, filter, usedKeyVals, withCodeKeyVals} from '../Utility';
+import {
+  allTypeKeyVals,
+  filter,
+  usedKeyVals,
+  allWithCodeKeyVals,
+} from '../Utility';
+import {allTrueFalseValues} from '../../../../../services/Utility';
 
 const Filter = props => {
   const [used, setUsed] = useState();
   const [type, setType] = useState();
   const [withCode, setWithCode] = useState();
+  const [isPublic, setIsPublic] = useState();
   const [createdAt, setCreatedAt] = useState();
   const [expiredAt, setExpiredAt] = useState();
   const [createdAtEndLimit, setCreatedAtEndLimit] = useState();
@@ -32,10 +39,17 @@ const Filter = props => {
       />
       <JustBottomBorderSelect
         setter={setWithCode}
-        values={withCodeKeyVals}
-        value={withCodeKeyVals.find(elem => elem.id === withCode)}
+        values={allWithCodeKeyVals}
+        value={allWithCodeKeyVals.find(elem => elem.id === withCode)}
         placeholder={translator.withOrWithOutCode}
         subText={translator.withOrWithOutCode}
+      />
+      <JustBottomBorderSelect
+        setter={setIsPublic}
+        values={allTrueFalseValues}
+        value={allTrueFalseValues.find(elem => elem.id === isPublic)}
+        placeholder={translator.isPublicFilter}
+        subText={translator.isPublicFilter}
       />
       <CommonButton
         onPress={() =>
@@ -43,6 +57,7 @@ const Filter = props => {
             props,
             used,
             type,
+            isPublic,
             withCode,
             createdAt,
             createdAtEndLimit,

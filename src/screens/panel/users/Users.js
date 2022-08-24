@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '../../../App';
+import {dispatchStateContext} from '../../../App';
 import {filter} from './components/Utility';
 import List from './components/List/List';
 import {CommonWebBox, MyView} from '../../../styles/Common';
@@ -9,18 +9,15 @@ import {editItem, removeItems} from '../../../services/Utility';
 import {useParams} from 'react-router';
 
 const Users = props => {
-  const [mode, setMode] = useState('list');
+  const [mode, setMode] = useState();
   const [selectedUser, setSelectedUser] = useState();
   const [users, setUsers] = useState([]);
 
   const navigate = props.navigate;
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
 
-  const [state, dispatch] = useGlobalState();
+  const [dispatch] = useGlobalState();
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -47,7 +44,7 @@ const Users = props => {
 
   return (
     <MyView>
-      {mode === 'list' && (
+      {mode === 'list' && users !== undefined && (
         <List
           users={users}
           setData={setUsers}

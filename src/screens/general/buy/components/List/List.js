@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {PhoneView} from '../../../../../styles/Common';
+import {MyView, PhoneView} from '../../../../../styles/Common';
 import Card from '../../../../panel/package/card/Card';
 import {packagesContext, dispatchPackagesContext} from '../Context';
 import {fetchAllPackages} from '../../../../panel/package/components/Utility';
-import QuizCard from '../../../../panel/quiz/components/Card/Card';
+import QuizList from './../Detail/List';
 
 function List(props) {
   const useGlobalState = () => [
@@ -13,6 +13,16 @@ function List(props) {
 
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
+  const [quizzes, setQuizzes] = useState();
+
+  React.useEffect(() => {
+    if (state.selectableItems === undefined) return;
+    setQuizzes(
+      state.selectableItems.filter(elem => {
+        return elem.type !== 'package';
+      }),
+    );
+  }, [state.selectableItems]);
 
   React.useEffect(() => {
     if (isWorking || state.allItems !== undefined) return;
@@ -53,25 +63,40 @@ function List(props) {
   }, [dispatch, props, isWorking, state.allItems]);
 
   return (
-    <PhoneView style={{gap: 15, padding: 20}}>
-      {state.selectableItems !== undefined &&
-        state.selectableItems.map((item, index) => {
-          if (item.type === 'package')
-            return (
-              <Card
-                isAdmin={false}
-                key={index}
-                package={item}
-                onPress={() => {
-                  dispatch({package: item});
-                  props.setMode('detail');
-                }}
-              />
-            );
-
-          return <QuizCard onClick={() => {}} quiz={item} key={index} />;
-        })}
-    </PhoneView>
+    <MyView>
+      <PhoneView style={{gap: 15, padding: 20}}>
+        {state.selectableItems !== undefined &&
+          state.selectableItems.map((item, index) => {
+            if (item.type === 'package')
+              return (
+                <Card
+                  isAdmin={false}
+                  key={index}
+                  package={item}
+                  onPress={() => {
+                    dispatch({package: item});
+                    props.setMode('detail');
+                  }}
+                />
+              );
+          })}
+      </PhoneView>
+      {quizzes !== undefined && quizzes.length > 0 && (
+        <QuizList
+          isRightMenuVisible={true}
+          token={props.token}
+          user={props.user}
+          setLoading={props.setLoading}
+          navigate={props.navigate}
+          package={{
+            id: undefined,
+            offPercent: 0,
+            quizzesDoc: quizzes,
+            minSelect: 0,
+          }}
+        />
+      )}
+    </MyView>
   );
 }
 

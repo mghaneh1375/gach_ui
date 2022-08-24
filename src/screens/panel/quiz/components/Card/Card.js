@@ -144,7 +144,7 @@ function Card(props) {
       </MyView>
 
       <MyView>
-        {props.price !== undefined && (
+        {props.quiz.price !== undefined && (
           <PhoneView style={{...stylePricaPane}}>
             {!props.isAdmin && (
               <PhoneView>
@@ -154,7 +154,11 @@ function Card(props) {
                 />
                 <SimpleText
                   style={{...styles.BlueBold}}
-                  text={props.quiz.price + ' تومان'}
+                  text={
+                    props.quiz.price > 0
+                      ? props.quiz.price + ' تومان'
+                      : 'رایگان'
+                  }
                 />
               </PhoneView>
             )}

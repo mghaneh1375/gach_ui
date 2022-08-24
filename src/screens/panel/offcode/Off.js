@@ -3,12 +3,12 @@ import {dispatchStateContext} from '../../../App';
 import {MyView} from '../../../styles/Common';
 import Create from './components/Create';
 import List from './components/List/List';
-import Update from './components/Update';
 import {filter} from './components/Utility';
+import {editItem} from './../../../services/Utility';
 
 const Off = props => {
   const [mode, setMode] = useState('list');
-  const [offs, setOffs] = useState([]);
+  const [offs, setOffs] = useState();
   const [selectedOff, setSelectedOff] = useState();
   const navigate = props.navigate;
 
@@ -26,19 +26,6 @@ const Off = props => {
     items.forEach(element => {
       allOffs.unshift(element);
     });
-    setOffs(allOffs);
-  };
-
-  const updateOff = item => {
-    if (item === undefined) return;
-    let allOffs = offs;
-    for (let i = 0; i < offs.length; i++) {
-      if (offs[i].id === item.id) {
-        offs[i] = item;
-        break;
-      }
-    }
-
     setOffs(allOffs);
   };
 
@@ -62,7 +49,7 @@ const Off = props => {
 
   return (
     <MyView>
-      {mode === 'list' && (
+      {mode === 'list' && offs !== undefined && (
         <List
           offs={offs}
           setMode={setMode}
@@ -83,9 +70,9 @@ const Off = props => {
         />
       )}
       {mode === 'update' && (
-        <Update
+        <Create
           setMode={setMode}
-          updateOff={updateOff}
+          updateOff={item => editItem(offs, setOffs, item)}
           setLoading={setLoading}
           token={props.token}
           off={selectedOff}

@@ -9,6 +9,7 @@ import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorde
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
 import {launchModeKeyVals} from '../KeyVals';
+import {trueFalseValues} from '../../../../../services/Utility';
 
 const QuizRunInfo = props => {
   const [start, setStart] = useState();
@@ -21,11 +22,6 @@ const QuizRunInfo = props => {
   React.useEffect(() => {
     setEnd(props.end);
   }, [props.end]);
-
-  const trueFalseValues = [
-    {item: commonTranslator.yes, id: true},
-    {item: commonTranslator.no, id: false},
-  ];
 
   const changeLen = val => {
     props.setLen(val);

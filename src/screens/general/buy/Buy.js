@@ -35,10 +35,11 @@ function Buy(props) {
     <PackageProvider>
       {mode === 'list' && (
         <List
-          navigate={navigate}
           setMode={setMode}
           setLoading={setLoading}
           token={props.token}
+          user={props.user}
+          navigate={navigate}
         />
       )}
       {mode === 'detail' && (
@@ -46,8 +47,8 @@ function Buy(props) {
           setMode={setMode}
           isRightMenuVisible={state.isRightMenuVisible}
           setLoading={setLoading}
-          user={props.user}
           token={props.token}
+          user={props.user}
           navigate={navigate}
         />
       )}

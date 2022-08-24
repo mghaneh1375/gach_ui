@@ -12,6 +12,7 @@ function Detail(props) {
     React.useContext(dispatchPackagesContext),
   ];
   const [state, dispatch] = useGlobalState();
+  const [showInfo, setShowInfo] = useState(true);
   const [isWorking, setIsWorking] = useState(false);
 
   // React.useEffect(() => {
@@ -35,13 +36,16 @@ function Detail(props) {
 
   return (
     <MyView>
-      <Info isAdmin={false} setMode={props.setMode} package={state.package} />
+      {showInfo && (
+        <Info isAdmin={false} setMode={props.setMode} package={state.package} />
+      )}
       <List
         isRightMenuVisible={props.isRightMenuVisible}
         token={props.token}
         user={props.user}
         setLoading={props.setLoading}
         navigate={props.navigate}
+        setShowInfo={setShowInfo}
       />
     </MyView>
   );

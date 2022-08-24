@@ -1,21 +1,13 @@
 import React, {useState} from 'react';
 import Quizzes from '../../../../../components/web/Quizzes';
-import {formatPrice, showError} from '../../../../../services/Utility';
-import {
-  BigBoldBlueText,
-  CommonButton,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
+import {showError} from '../../../../../services/Utility';
+import {BigBoldBlueText, MyView} from '../../../../../styles/Common';
 import {packagesContext} from '../Context';
-import Translate from './../../Translate';
 import commonTranslator from '../../../../../tranlates/Common';
-import {styles} from '../../../../../styles/Common/Styles';
 import OffCode from '../OffCode';
-import {goToPay} from '../Utility';
-import {setCacheItem} from '../../../../../API/User';
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction';
+import BuyBasket from '../BuyBasket';
+
 function List(props) {
   const [price, setPrice] = useState(0);
   const [off, setOff] = useState(0);
@@ -42,7 +34,7 @@ function List(props) {
     setWantedQuizzes(ids);
 
     ids.forEach(elem => {
-      let quiz = state.package.quizzesDoc.find(itr => itr.id === elem);
+      let quiz = props.package.quizzesDoc.find(itr => itr.id === elem);
       if (quiz === undefined) return;
       totalQuizzes++;
       totalPrice += quiz.price;
@@ -50,9 +42,13 @@ function List(props) {
 
     let allOffs = [];
 
-    if (state.package.minSelect <= totalQuizzes && totalPrice > 0) {
-      off += (totalPrice * state.package.offPercent) / 100;
-      allOffs.push(state.package.offPercent + ' درصد بابت بسته آزمونی');
+    if (
+      props.package.offPercent > 0 &&
+      props.package.minSelect <= totalQuizzes &&
+      totalPrice > 0
+    ) {
+      off += (totalPrice * props.package.offPercent) / 100;
+      allOffs.push(props.package.offPercent + ' درصد بابت بسته آزمونی');
     }
 
     let shouldPayTmp = totalPrice - off;
@@ -81,12 +77,12 @@ function List(props) {
 
   React.useEffect(() => {
     setQuizzes(
-      state.package.quizzesDoc.map(elem => {
+      props.package.quizzesDoc.map(elem => {
         elem.isSelected = false;
         return elem;
       }),
     );
-  }, [state.package]);
+  }, [props.package]);
 
   React.useEffect(() => {
     setUserOff(state.off);
@@ -108,42 +104,12 @@ function List(props) {
     calc(wantedQuizzes, {type: type, amount: amount, code: code});
   };
 
-  const goToPayLocal = async () => {
-    if (
-      props.token === null ||
-      props.token === undefined ||
-      props.token === ''
-    ) {
-      showError(commonTranslator.shouldLogin);
-      return;
-    }
-
-    let data = {
-      ids: wantedQuizzes,
-      packageId: state.package.id,
-    };
-    if (userOff !== undefined && userOff.code !== undefined)
-      data.offcode = userOff.code;
-
-    props.setLoading(true);
-    let res = await goToPay(props.token, data);
-
-    props.setLoading(false);
-    if (res !== null) {
-      if (res.action === 'success') {
-        let user = props.user;
-        user.user.money = res.url;
-        await setCacheItem('user', JSON.stringify(user));
-        setShowSuccessTransaction(true);
-      }
-    }
-  };
-
   return (
     <MyView>
       {showOffCodePane && (
         <OffCode
           token={props.token}
+          for={'gach_exam'}
           setLoading={props.setLoading}
           setResult={setOffCodeResult}
           toggleShowPopUp={toggleShowOffCodePane}
@@ -158,113 +124,26 @@ function List(props) {
       )}
       {quizzes !== undefined && !showSuccessTransaction && (
         <MyView style={{padding: 10, alignSelf: 'start'}}>
-          <BigBoldBlueText text={'sa'} />
+          <BigBoldBlueText text={'لیست آزمون ها'} />
           <Quizzes
             fullWidth={props.isRightMenuVisible ? false : true}
             setSelectedQuizzes={ids => calc(ids, userOff)}
             quizzes={quizzes}>
-            <PhoneView
-              style={{
-                ...{alignSelf: 'flex-end', gap: 5},
-                ...styles.alignItemsCenter,
-              }}>
-              {price > 0 && (
-                <MyView>
-                  <PhoneView>
-                    <BigBoldBlueText
-                      style={{marginTop: 5}}
-                      text={Translate.amount}
-                    />
-
-                    {(off > 0 || usedFromWallet > 0) && (
-                      <MyView>
-                        {off > 0 && (
-                          <PhoneView style={styles.alignItemsCenter}>
-                            <SimpleText
-                              text={formatPrice(off)}
-                              style={{
-                                ...{marginRight: 10},
-                                ...styles.yellow_color,
-                                ...styles.fontSize13,
-                              }}
-                            />
-                            <SimpleText
-                              style={{
-                                ...{marginRight: 5},
-                                ...styles.dark_blue_color,
-                                ...styles.fontSize13,
-                              }}
-                              text={Translate.off}
-                            />
-                          </PhoneView>
-                        )}
-                        {usedFromWallet > 0 && (
-                          <PhoneView style={styles.alignItemsCenter}>
-                            <SimpleText
-                              text={formatPrice(usedFromWallet)}
-                              style={{
-                                ...{marginRight: 10},
-                                ...styles.yellow_color,
-                                ...styles.fontSize13,
-                              }}
-                            />
-                            <SimpleText
-                              style={{
-                                ...{marginRight: 5},
-                                ...styles.dark_blue_color,
-                                ...styles.fontSize13,
-                              }}
-                              text={Translate.wallet}
-                            />
-                          </PhoneView>
-                        )}
-                      </MyView>
-                    )}
-                  </PhoneView>
-                  <PhoneView>
-                    <SimpleText
-                      style={
-                        shouldPay !== price
-                          ? {
-                              ...styles.dark_blue_color,
-                              ...styles.textDecorRed,
-                            }
-                          : {...styles.dark_blue_color}
-                      }
-                      text={formatPrice(price) + ' تومان '}
-                    />
-                    {shouldPay !== price && (
-                      <SimpleText
-                        style={{...{marginRight: 15}, ...styles.red}}
-                        text={formatPrice(shouldPay) + ' تومان '}
-                      />
-                    )}
-                  </PhoneView>
-                </MyView>
-              )}
-
-              {price > 0 && (
-                <MyView
-                  style={{...{marginRight: 40}, ...styles.alignItemsCenter}}>
-                  <CommonButton
-                    theme={'dark'}
-                    title={shouldPay > 0 ? Translate.goToPay : Translate.buy}
-                    onPress={() => goToPayLocal()}
-                  />
-                  {shouldPay > 0 && (
-                    <SimpleText
-                      style={{
-                        ...styles.yellow_color,
-                        ...styles.fontSize13,
-                        ...styles.cursor_pointer,
-                      }}
-                      text={Translate.enterOff}
-                      onPress={() => toggleShowOffCodePane()}
-                    />
-                  )}
-                </MyView>
-              )}
-            </PhoneView>
+            <BuyBasket
+              packageId={props.package.id}
+              price={price}
+              shouldPay={shouldPay}
+              wantedQuizzes={wantedQuizzes}
+              off={off}
+              userOff={userOff}
+              setLoading={props.setLoading}
+              token={props.token}
+              user={props.user}
+              setShowInfo={props.setShowInfo}
+              usedFromWallet={usedFromWallet}
+              toggleShowOffCodePane={toggleShowOffCodePane}
+              setShowSuccessTransaction={setShowSuccessTransaction}
+            />
           </Quizzes>
         </MyView>
       )}

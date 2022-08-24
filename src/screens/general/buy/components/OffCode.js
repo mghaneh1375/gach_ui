@@ -11,13 +11,6 @@ function OffCode(props) {
   const [offcode, setOffcode] = useState();
 
   const checkCode = async () => {
-    if (1 == 1) {
-      showSuccess(commonTranslator.successOffCode);
-      if (offcode == 'c') props.setResult(15000, 'value', offcode);
-      else props.setResult(offcode === 'a' ? 20 : 10, 'percent', offcode);
-      props.toggleShowPopUp();
-      return;
-    }
     props.setLoading(true);
     try {
       let res = await generalRequest(
@@ -33,13 +26,9 @@ function OffCode(props) {
       );
       props.setLoading(false);
       if (res !== null) {
-        if (res.data.msg === 'ok') {
-          showSuccess(commonTranslator.successOffCode);
-          props.setResult(res.data.amount, res.data.type);
-          props.toggleShowPopUp();
-        } else {
-          showError(res.data.msg);
-        }
+        showSuccess(commonTranslator.successOffCode);
+        props.setResult(res.amount, res.type, offcode);
+        props.toggleShowPopUp();
       }
     } catch (e) {
       props.setLoading(false);

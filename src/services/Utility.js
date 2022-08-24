@@ -164,6 +164,17 @@ export const sexKeyVals = [
   {item: 'خانم', id: 'female'},
 ];
 
+export const trueFalseValues = [
+  {item: commonTranslator.yes, id: true},
+  {item: commonTranslator.no, id: false},
+];
+
+export const allTrueFalseValues = [
+  {item: commonTranslator.yes, id: true},
+  {item: commonTranslator.no, id: false},
+  {item: commonTranslator.all, id: 'all'},
+];
+
 export function formatPrice(Number) {
   Number += '';
   Number = Number.replace(',', '');

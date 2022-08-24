@@ -3,6 +3,13 @@ import commonTranslator from '../../../../../tranlates/Common';
 
 const columns = [
   {
+    name: translator.isPublic,
+    selector: row =>
+      row.isPublic ? commonTranslator.yes : commonTranslator.no,
+    grow: 2,
+    center: true,
+  },
+  {
     name: commonTranslator.nameAndLast,
     selector: row => row.user,
     grow: 2,
@@ -19,6 +26,11 @@ const columns = [
     selector: row => (row.type === 'value' ? 'مقداری' : 'درصدی'),
     grow: 1,
     center: true,
+  },
+  {
+    name: translator.section,
+    selector: row => row.sectionFa,
+    grow: 1,
   },
   {
     name: translator.code,
@@ -45,6 +57,13 @@ const columns = [
     sortFunction: (a, b) => {
       return a.expireAtTs - b.expireAtTs;
     },
+  },
+  {
+    name: translator.usedCount,
+    selector: row => row.usedCount,
+    minWidth: 80,
+    maxWidth: 80,
+    center: true,
   },
   {
     name: translator.useAt,

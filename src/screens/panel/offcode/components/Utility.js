@@ -17,10 +17,15 @@ export const allTypeKeyVals = [
   {item: commonTranslator.all, id: 'all'},
 ];
 
-export const withCodeKeyVals = [
+export const allWithCodeKeyVals = [
   {item: translator.withCode, id: 'withCode'},
   {item: translator.withoutCode, id: 'withoutCode'},
   {item: commonTranslator.all, id: 'all'},
+];
+
+export const withCodeKeyVals = [
+  {item: translator.withCode, id: 'withCode'},
+  {item: translator.withoutCode, id: 'withoutCode'},
 ];
 
 export const usedKeyVals = [
@@ -28,8 +33,18 @@ export const usedKeyVals = [
   {item: translator.notUsed, id: false},
   {item: commonTranslator.all, id: 'all'},
 ];
-export const update = (url, off, setLoading, token, afterUpdate) => {
-  generalUpdate(url, off, setLoading, token, afterUpdate, mandatoryFields);
+
+export const sectionKeyVals = [
+  {item: translator.gachExam, id: 'gach_exam'},
+  {item: translator.bankExam, id: 'bank_exam'},
+  {item: translator.book, id: 'book'},
+  {item: translator.classes, id: 'classes'},
+  {item: translator.ravanExam, id: 'ravan_exam'},
+  {item: translator.counseling, id: 'counseling'},
+  {item: commonTranslator.all, id: 'all'},
+];
+export const update = async (url, off, token) => {
+  return await generalRequest(url, 'put', off, 'data', token);
 };
 
 export const backToList = setMode => {
@@ -40,6 +55,7 @@ export const filter = (
   props,
   used,
   type,
+  isPublic,
   withCode,
   createdAt,
   createdAtEndLimit,
@@ -51,6 +67,9 @@ export const filter = (
   if (type !== undefined && type !== 'all') query.append('type', type);
 
   if (used !== undefined && used !== 'all') query.append('used', used);
+
+  if (isPublic !== undefined && isPublic !== 'all')
+    query.append('isPublic', isPublic);
 
   if (withCode !== undefined && withCode !== 'all')
     query.append('withCode', withCode);
