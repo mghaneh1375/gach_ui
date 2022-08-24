@@ -5,7 +5,8 @@ import {BigBoldBlueText, MyView} from '../../../../../styles/Common';
 import {packagesContext} from '../Context';
 import commonTranslator from '../../../../../tranlates/Common';
 import OffCode from '../OffCode';
-import SuccessTransaction from '../../../../../components/web/SuccessTransaction';
+
+import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import BuyBasket from '../BuyBasket';
 
 function List(props) {

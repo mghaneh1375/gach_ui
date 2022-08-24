@@ -80,6 +80,7 @@ var translator = {
   no: 'خیر',
   hide: 'عدم نمایش',
   show: 'نمایش',
+  optionalField: '(این فیلد اختیاری است)',
   optionalFalseDefault: 'اختیاری(پیش فرض این فیلد خیر است)',
   optionalTrueDefault: 'اختیاری(پیش فرض این فیلد بله است)',
   chooseFile: 'انتخاب فایل',
@@ -184,7 +185,10 @@ var translator = {
   print: 'چاپ',
   tarazLevels: 'سطوح تراز',
   level: 'مقطع',
-  successOffCode: 'کد تخفیف موردنظر با موفقیت اعمال گردید'
+  successOffCode: 'کد تخفیف موردنظر با موفقیت اعمال گردید',
+  shouldLogin: 'لطفا ابتدا لاگین کنید',
+  transactionResult: 'نتیجه تراکنش',
+  successTransaction: 'تراکنش موردنظر با موفقیت انجام شد.'
 };
 var _default = translator;
 exports["default"] = _default;

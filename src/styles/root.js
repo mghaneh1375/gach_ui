@@ -16,6 +16,7 @@ const vars = {
   DARK_BLUE: '#013243',
   LIGHT_SILVER: '#707070',
   RED: '#FF0000',
+  GREEN: '#307E42',
   ORANGE_LIGHT: '#FFAA0073',
   GRADIENT: 'linear-gradient(to left, #FFAA00, #FF6600)',
   alignSelf: Platform.OS === 'web' ? 'flex-start' : 'flex-end',

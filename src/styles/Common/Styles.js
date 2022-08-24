@@ -21,11 +21,26 @@ export const styles = {
   dark_blue_color: {
     color: vars.DARK_BLUE,
   },
+  colorOrange: {
+    color: vars.ORANGE,
+  },
+  colorGreen: {
+    color: vars.GREEN,
+  },
+  colorRed: {
+    color: vars.RED,
+  },
   fontSize11: {
     fontSize: 11,
   },
   fontSize17: {
     fontSize: 17,
+  },
+  fontSize20: {
+    fontSize: 20,
+  },
+  FontWeight600: {
+    fontWeight: 600,
   },
   blackColor: {
     color: 'black',
@@ -43,6 +58,21 @@ export const styles = {
   },
   marginTop20: {
     marginTop: 20,
+  },
+  marginTop50: {
+    marginTop: 50,
+  },
+  marginRight15: {
+    marginRight: 15,
+  },
+  marginRight25: {
+    marginRight: 25,
+  },
+  margin25: {
+    marginTop: 25,
+  },
+  padding0: {
+    padding: 0,
   },
   justifyContentSpaceAround: {
     justifyContent: 'space-around',
@@ -62,11 +92,8 @@ export const styles = {
   alignItemsStart: {
     alignItems: 'start',
   },
-  marginRight15: {
-    marginRight: 15,
-  },
-  margin25: {
-    marginTop: 25,
+  gap0: {
+    gap: 0,
   },
   gap10: {
     gap: 10,
@@ -100,6 +127,11 @@ export const styles = {
   },
   fontSize10: {
     fontSize: 10,
+  },
+  largeIcon: {
+    padding: 0,
+    width: 38,
+    height: 38,
   },
   textDecorRed: {
     textDecoration: 'line-through 2px',

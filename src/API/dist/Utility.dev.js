@@ -353,7 +353,7 @@ var preProcess = function preProcess(data) {
 
     if (value === undefined || value.length === 0) continue;
     if (typeof value === 'boolean') newData[key] = value;else if (_typeof(value) !== 'object' && !isNaN(value)) {
-      if (typeof value === 'string' && value[0] == '0' && value[1] !== '.') newData[key] = value;else if (key === 'password' || key === 'rPassword') newData[key] = value.toString();else newData[key] = Number(value);
+      if (typeof value === 'string' && value[0] == '0' && value[1] !== '.') newData[key] = value;else if (key === 'password' || key === 'rPassword' || key === 'code') newData[key] = value.toString();else newData[key] = Number(value);
     } else newData[key] = value;
   }
 
