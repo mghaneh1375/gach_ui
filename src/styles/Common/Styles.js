@@ -80,6 +80,9 @@ export const styles = {
   justifyContentCenter: {
     justifyContent: 'center',
   },
+  justifyContentEnd: {
+    justifyContent: 'flex-end',
+  },
   alignSelfCenter: {
     alignSelf: 'center',
   },

@@ -6,6 +6,7 @@ import {styles} from '../../../styles/Common/Styles';
 import Translate from './Translate';
 
 function AccountCharge(props) {
+  //آقای عادلی گفتن این پاپ آپ هم میتونه باشه
   return (
     <CommonWebBox
       width={390}

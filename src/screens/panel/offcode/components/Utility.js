@@ -10,6 +10,10 @@ export const typeKeyVals = [
   {item: translator.value, id: 'value'},
   {item: translator.percent, id: 'percent'},
 ];
+export const expiredKeyVals = [
+  {item: commonTranslator.yes, id: 'true'},
+  {item: commonTranslator.no, id: 'false'},
+];
 
 export const allTypeKeyVals = [
   {item: translator.value, id: 'value'},

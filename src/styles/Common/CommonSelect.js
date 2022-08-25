@@ -47,9 +47,11 @@ export const CommonSelect = props => {
     selectedItemStyle: {
       fontFamily: 'IRANSans',
       color: vars.LIGHT_SILVER,
-      paddingRight: 0,
+      // paddingRight: 0,
       fontSize: 13,
       paddingBottom: 1,
+      paddingLeft: props.paddingLeft !== undefined ? props.paddingLeft : 0,
+      // paddingRight: 15,
       // width: '100%',
       // height: '100%',
     },
