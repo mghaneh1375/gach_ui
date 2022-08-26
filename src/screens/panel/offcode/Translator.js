@@ -5,7 +5,6 @@ const translator = {
   amount: 'مقدار کد تخفیف',
   code: 'کد',
   type: 'نوع کد تخفیف',
-  section: 'مورد استفاده',
   withOrWithOutCode: 'با/بدون کد',
   withCode: 'با کد',
   withoutCode: 'بدون کد',

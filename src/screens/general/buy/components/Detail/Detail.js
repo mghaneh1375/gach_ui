@@ -46,6 +46,7 @@ function Detail(props) {
         setLoading={props.setLoading}
         navigate={props.navigate}
         setShowInfo={setShowInfo}
+        package={state.package}
       />
     </MyView>
   );

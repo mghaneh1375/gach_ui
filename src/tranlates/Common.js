@@ -183,5 +183,6 @@ const translator = {
   shouldLogin: 'لطفا ابتدا لاگین کنید',
   transactionResult: 'نتیجه تراکنش',
   successTransaction: 'تراکنش موردنظر با موفقیت انجام شد.',
+  section: 'مورد استفاده',
 };
 export default translator;

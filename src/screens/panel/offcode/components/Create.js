@@ -143,8 +143,8 @@ const Create = props => {
           setter={setSection}
           values={sectionKeyVals}
           value={sectionKeyVals.find(elem => elem.id === section)}
-          placeholder={translator.section}
-          subText={translator.section}
+          placeholder={commonTranslator.section}
+          subText={commonTranslator.section}
         />
         <JustBottomBorderDatePicker
           value={expireAt}

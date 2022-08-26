@@ -146,4 +146,5 @@ export const routes = {
   getAllStudent: 'admin/user/getStudents',
   addStudents: 'admin/user/addStudent',
   checkOffCode: 'general/checkOffCode',
+  getTransactions: 'admin/transaction/get?',
 };

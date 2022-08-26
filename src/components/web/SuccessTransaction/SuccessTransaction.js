@@ -1,6 +1,5 @@
 import {faSmile} from '@fortawesome/free-solid-svg-icons';
 import {
-  BigBoldBlueText,
   CommonButton,
   CommonWebBox,
   MyView,
@@ -35,12 +34,14 @@ function SuccessTransaction(props) {
             }}
             text={Translate.successPay}
           />
-          <SimpleText
-            style={{...styles.BlueBold, ...styles.marginTop15}}
-            text={Translate.refCode + ' : ' + props.refCode}
-          />
+          {props.refCode !== undefined && (
+            <SimpleText
+              style={{...styles.BlueBold, ...styles.marginTop15}}
+              text={Translate.refCode + ' : ' + props.refCode}
+            />
+          )}
           <PhoneView>
-            <CommonButton title={Translate.payGive} theme={'dark'} />
+            <CommonButton title={Translate.printRecp} theme={'dark'} />
           </PhoneView>
         </MyView>
         <SimpleText
@@ -48,13 +49,6 @@ function SuccessTransaction(props) {
           style={{...styles.BlueBold, ...styles.marginTop50}}
         />
         {props.link !== undefined && props.link}
-        {props.onBack !== undefined && (
-          <SimpleText
-            onPress={() => props.onBack()}
-            style={{...styles.colorOrange, ...styles.FontWeight600}}
-            text={Translate.showHome}
-          />
-        )}
 
         <SimpleText
           onPress={() => props.navigate('/')}

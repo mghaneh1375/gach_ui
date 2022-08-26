@@ -28,7 +28,7 @@ const columns = [
     center: true,
   },
   {
-    name: translator.section,
+    name: commonTranslator.section,
     selector: row => row.sectionFa,
     grow: 1,
   },

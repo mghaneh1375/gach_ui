@@ -5,7 +5,7 @@ const Translate = {
   successTransaction: 'تراکنش موردنظر با موفقیت انجام شد.',
   backSuccessTransaction: 'بازگشت از درگاه',
   successPay: 'پرداخت شما با موفقیت انجام گردید',
-  payGive: 'دریافت رسید',
+  printRecp: 'دریافت رسید',
   buyerName: 'نام خرید',
   back: 'برای بازگشت به خانه اینجا را کلیک کنید.',
   refCode: 'شماره پیگیری',

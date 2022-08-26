@@ -1,13 +1,18 @@
 import React, {useState} from 'react';
 import Quizzes from '../../../../../components/web/Quizzes';
 import {showError} from '../../../../../services/Utility';
-import {BigBoldBlueText, MyView} from '../../../../../styles/Common';
+import {
+  BigBoldBlueText,
+  MyView,
+  SimpleText,
+} from '../../../../../styles/Common';
 import {packagesContext} from '../Context';
 import commonTranslator from '../../../../../tranlates/Common';
 import OffCode from '../OffCode';
 
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import BuyBasket from '../BuyBasket';
+import vars from '../../../../../styles/root';
 
 function List(props) {
   const [price, setPrice] = useState(0);
@@ -65,13 +70,14 @@ function List(props) {
     }
 
     shouldPayTmp = totalPrice - off;
+
     if (shouldPayTmp > 0) {
       setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
       shouldPayTmp -= userMoney;
-    }
+    } else setUsedFromWallet(0);
 
     setOffs(allOffs);
-    setOff(off);
+    setOff(Math.min(off, totalPrice));
     setPrice(totalPrice);
     setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 0);
   };
@@ -118,9 +124,14 @@ function List(props) {
       )}
       {showSuccessTransaction && (
         <SuccessTransaction
-          back={() => {
-            props.navigate('/myQuizzes');
-          }}
+          navigate={props.navigate}
+          link={
+            <SimpleText
+              onPress={() => props.navigate('/myQuizzes')}
+              style={{color: vars.DARK_BLUE}}
+              text={'برای مشاهده آزمون های من اینجا را کلیک کنید.'}
+            />
+          }
         />
       )}
       {quizzes !== undefined && !showSuccessTransaction && (
