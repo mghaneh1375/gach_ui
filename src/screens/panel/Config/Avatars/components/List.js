@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   CommonWebBox,
   MyView,
@@ -8,6 +9,7 @@ import Show from './Show/Show';
 import translator from '../Translator';
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import FailTransaction from '../../../../../components/web/FailTransaction/FailTransaction';
+import AccountCharge from '../../../../../components/web/AccountCharge/AccountCharge';
 
 function List(props) {
   const setDefaultAvatar = avatarId => {
@@ -29,6 +31,7 @@ function List(props) {
 
   return (
     <MyView>
+      <AccountCharge accountBalance={100} />
       <SuccessTransaction
         buyerName={'ahmad'}
         link={

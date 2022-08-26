@@ -1,4 +1,4 @@
-import {faSmile} from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 import {
   CommonButton,
   CommonWebBox,
@@ -6,24 +6,16 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 import {styles} from '../../../styles/Common/Styles';
 import Translate from './Translate';
+import Smile from '../../../images/SvgSymbol/1F600.svg';
 
 function SuccessTransaction(props) {
   return (
     <CommonWebBox header={Translate.backSuccessTransaction}>
       <MyView style={{...styles.marginRight25}}>
         <MyView style={{...styles.flexDirectionRow}}>
-          <SimpleFontIcon
-            style={{
-              ...styles.padding0,
-              ...styles.colorGreen,
-              marginTop: -15,
-            }}
-            icon={faSmile}
-            kind={'large'}
-          />
+          <img src={Smile} />
         </MyView>
         <MyView style={{...styles.gap15}}>
           <SimpleText

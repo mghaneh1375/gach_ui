@@ -1,5 +1,5 @@
 import {Platform} from 'react-native';
-import {MyView} from '../Common';
+import {EqualTwoTextInputs, MyView} from '../Common';
 import {
   calcInputWidth,
   CommonHalfTextInputStyleWeb,
@@ -8,6 +8,7 @@ import {
 } from './CommonText';
 
 import SubInputText from './SubInputText';
+import SubInputTextTwo from './SubInputTextTwo';
 
 export const CommonTextInput = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
@@ -79,9 +80,14 @@ export const CommonTextInput = props => {
   return (
     <MyView style={parentAllStyles}>
       <CommonTextInputElem {...inputProps} />
-      {props.subText !== undefined ? (
-        <SubInputText>{props.subText}</SubInputText>
-      ) : null}
+      <EqualTwoTextInputs>
+        {props.subText !== undefined ? (
+          <SubInputText>{props.subText}</SubInputText>
+        ) : null}
+        {props.subTextTwo !== undefined ? (
+          <SubInputTextTwo>{props.subTextTwo}</SubInputTextTwo>
+        ) : null}
+      </EqualTwoTextInputs>
     </MyView>
   );
 };

@@ -1,5 +1,10 @@
-import {useState} from 'react';
-import {CommonButton, PhoneView, MyView} from '../../../../../styles/Common';
+import React, {useState} from 'react';
+import {
+  CommonButton,
+  PhoneView,
+  MyView,
+  SimpleText,
+} from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
@@ -8,8 +13,16 @@ import {
   filter,
   usedKeyVals,
   allWithCodeKeyVals,
+  expiredKeyVals,
 } from '../Utility';
 import {allTrueFalseValues} from '../../../../../services/Utility';
+import {
+  faAngleDoubleDown,
+  faAngleDoubleUp,
+} from '@fortawesome/free-solid-svg-icons';
+import {styles} from '../../../../../styles/Common/Styles';
+import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 
 const Filter = props => {
   const [used, setUsed] = useState();
@@ -20,55 +33,120 @@ const Filter = props => {
   const [expiredAt, setExpiredAt] = useState();
   const [createdAtEndLimit, setCreatedAtEndLimit] = useState();
   const [expiredAtEndLimit, setExpiredAtEndLimit] = useState();
+  const [showProSearch, setShowProSearch] = useState(false);
+  const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
+  const [expired, setExpired] = useState(commonTranslator.no);
+  const [startOffCode, setStartOffCode] = useState();
+  const [endOffCode, setEndOffCode] = useState();
+
+  const toggleShowProSearch = () => {
+    if (showProSearch) setWantedIcon(faAngleDoubleDown);
+    else setWantedIcon(faAngleDoubleUp);
+    setShowProSearch(!showProSearch);
+  };
 
   return (
-    <PhoneView style={{gap: 15}}>
-      <JustBottomBorderSelect
-        setter={setUsed}
-        values={usedKeyVals}
-        value={usedKeyVals.find(elem => elem.id === used)}
-        placeholder={translator.usedAndNotUsed}
-        subText={translator.used}
-      />
-      <JustBottomBorderSelect
-        setter={setType}
-        values={allTypeKeyVals}
-        value={allTypeKeyVals.find(elem => elem.id === type)}
-        placeholder={translator.type}
-        subText={translator.type}
-      />
-      <JustBottomBorderSelect
-        setter={setWithCode}
-        values={allWithCodeKeyVals}
-        value={allWithCodeKeyVals.find(elem => elem.id === withCode)}
-        placeholder={translator.withOrWithOutCode}
-        subText={translator.withOrWithOutCode}
-      />
-      <JustBottomBorderSelect
-        setter={setIsPublic}
-        values={allTrueFalseValues}
-        value={allTrueFalseValues.find(elem => elem.id === isPublic)}
-        placeholder={translator.isPublicFilter}
-        subText={translator.isPublicFilter}
-      />
-      <CommonButton
-        onPress={() =>
-          filter(
-            props,
-            used,
-            type,
-            isPublic,
-            withCode,
-            createdAt,
-            createdAtEndLimit,
-            expiredAt,
-            expiredAtEndLimit,
-          )
-        }
-        title={commonTranslator.show}
-        style={{alignSelf: 'flex-start'}}
-      />
-    </PhoneView>
+    <MyView>
+      <PhoneView style={{gap: 15}}>
+        <JustBottomBorderSelect
+          setter={setUsed}
+          values={usedKeyVals}
+          value={usedKeyVals.find(elem => elem.id === used)}
+          placeholder={translator.usedAndNotUsed}
+          subText={translator.used}
+        />
+        <JustBottomBorderSelect
+          setter={setType}
+          values={allTypeKeyVals}
+          value={allTypeKeyVals.find(elem => elem.id === type)}
+          placeholder={translator.type}
+          subText={translator.type}
+        />
+        <JustBottomBorderSelect
+          setter={setWithCode}
+          values={allWithCodeKeyVals}
+          value={allWithCodeKeyVals.find(elem => elem.id === withCode)}
+          placeholder={translator.withOrWithOutCode}
+          subText={translator.withOrWithOutCode}
+        />
+        <JustBottomBorderSelect
+          setter={setIsPublic}
+          values={allTrueFalseValues}
+          value={allTrueFalseValues.find(elem => elem.id === isPublic)}
+          placeholder={translator.isPublicFilter}
+          subText={translator.isPublicFilter}
+        />
+        <CommonButton
+          onPress={() =>
+            filter(
+              props,
+              used,
+              type,
+              isPublic,
+              withCode,
+              createdAt,
+              createdAtEndLimit,
+              expiredAt,
+              expiredAtEndLimit,
+            )
+          }
+          title={commonTranslator.show}
+          style={{alignSelf: 'flex-start'}}
+        />
+      </PhoneView>
+      <PhoneView>
+        <SimpleText
+          onPress={() => toggleShowProSearch()}
+          style={{
+            paddingTop: 15,
+            paddingrRight: 15,
+            paddingBottom: 15,
+            cursor: 'pointer',
+            ...styles.dark_blue_color,
+          }}
+          text={commonTranslator.advancedSearch}
+        />
+        <PhoneView
+          style={{
+            width: 20,
+            height: 20,
+            alignSelf: 'center',
+          }}>
+          <SimpleFontIcon
+            onPress={() => toggleShowProSearch()}
+            style={{
+              ...styles.dark_blue_color,
+            }}
+            icon={wantedIcon}
+          />
+        </PhoneView>
+      </PhoneView>
+      {showProSearch && (
+        <MyView>
+          <PhoneView style={{gap: 15}}>
+            <JustBottomBorderSelect
+              setter={setExpired}
+              values={expiredKeyVals}
+              value={expiredKeyVals.find(elem => elem.id === expired)}
+              placeholder={translator.expired}
+              subText={translator.expired}
+            />
+            <JustBottomBorderDatePicker
+              placeholder={translator.startOffCode}
+              subText={translator.startOffCode}
+              setter={setStartOffCode}
+              value={startOffCode}
+            />
+            <JustBottomBorderDatePicker
+              placeholder={translator.endOffCode}
+              subText={translator.endOffCode}
+              setter={setEndOffCode}
+              value={endOffCode}
+            />
+          </PhoneView>
+        </MyView>
+      )}
+    </MyView>
   );
 };
 

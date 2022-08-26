@@ -34,6 +34,7 @@ import {
   quizContext,
   dispatchQuizContext,
 } from '../../../quiz/components/Context';
+import vars from '../../../../../styles/root';
 
 function Question(props) {
   const [showMore, setShowMore] = useState(false);
@@ -79,28 +80,34 @@ function Question(props) {
           text={translator.organizationCode + props.question.organizationId}
         />
         <PhoneView>
-          {keyVals !== undefined && (
-            <JustBottomBorderSelect
-              values={keyVals}
-              value={keyVals.find(elem => elem.id === questionNo)}
-              setter={id => {
-                changeQNo(id);
-              }}
-              placeholder={props.counter}
-            />
-          )}
+          <PhoneView
+            style={{top: -10, right: -15, backgroundColor: vars.ORANGE}}>
+            {keyVals !== undefined && (
+              <JustBottomBorderSelect
+                values={keyVals}
+                value={keyVals.find(elem => elem.id === questionNo)}
+                setter={id => {
+                  changeQNo(id);
+                }}
+                placeholder={props.counter}
+                style={{width: 100}}
+                parentStyle={{backgroundColor: vars.ORANGE}}
+                paddingLeft={5}
+              />
+            )}
+          </PhoneView>
+          <SimpleText
+            onPress={() => toggleShowMore()}
+            text={!showMore ? commonTranslator.more : commonTranslator.less}
+            style={{...YellowFont13, width: 65}}
+          />
+          <SimpleFontIcon
+            onPress={() => toggleShowMore()}
+            kind={'normal'}
+            icon={!showMore ? faAngleDoubleDown : faAngleDoubleUp}
+            style={{...styleYellowMarginTop7}}
+          />
         </PhoneView>
-        <SimpleText
-          onPress={() => toggleShowMore()}
-          text={!showMore ? commonTranslator.more : commonTranslator.less}
-          style={{...YellowFont13, width: 65}}
-        />
-        <SimpleFontIcon
-          onPress={() => toggleShowMore()}
-          kind={'normal'}
-          icon={!showMore ? faAngleDoubleDown : faAngleDoubleUp}
-          style={{...styleYellowMarginTop7}}
-        />
       </EqualTwoTextInputs>
       <PhoneView
         style={{

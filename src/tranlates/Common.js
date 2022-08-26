@@ -53,6 +53,7 @@ const translator = {
   necessaryField: 'این فیلد ضروری است.',
   notNecessary: 'این فیلد ضروری نیست',
   cancel: 'انصراف',
+  sort: 'تغییر ترتیب سوالات',
   sex: 'جنسیت',
   state: 'استان',
   city: 'شهر',

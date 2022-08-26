@@ -7,6 +7,7 @@ import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextI
 import commonTranslator from '../../tranlates/Common';
 import UploadFile from './UploadFile';
 import {showSuccess} from '../../services/Utility';
+import {styles} from '../../styles/Common/Styles';
 
 const ExcelComma = props => {
   const [codes, setCodes] = useState('');
@@ -146,12 +147,19 @@ const ExcelComma = props => {
           icon={faPlus}
         />
       </PhoneView>
-      <CommonButton
-        onPress={() => toggleShowUploadPopUp()}
-        style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
-        title={commonTranslator.upload}
-        theme={'dark'}
-      />
+      <PhoneView style={styles.justifyContentEnd}>
+        <CommonButton
+          style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
+          title={commonTranslator.sort}
+          theme={'dark'}
+        />
+        <CommonButton
+          onPress={() => toggleShowUploadPopUp()}
+          style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
+          title={commonTranslator.upload}
+          theme={'dark'}
+        />
+      </PhoneView>
     </MyView>
   );
 };
