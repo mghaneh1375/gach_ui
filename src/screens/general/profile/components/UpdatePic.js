@@ -7,6 +7,7 @@ import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import Avatar from './Avatar';
 import {fetchAvatars} from './Utility';
+import {styles} from '../../../../styles/Common/Styles';
 
 const UpdatePic = props => {
   const [pic, setPic] = useState(undefined);
@@ -74,12 +75,13 @@ const UpdatePic = props => {
         source={{uri: pic}}
       />
       {/* {props.accesses.indexOf('student') !== -1 && ( */}
-      <CommonButton
-        theme={'dark'}
-        onPress={() => toggleShowChooseAvatar()}
-        title={translator.chooseAvatar}
-      />
-      {/* )} */}
+      <MyView style={{...styles.marginAuto}}>
+        <CommonButton
+          theme={'dark'}
+          onPress={() => toggleShowChooseAvatar()}
+          title={translator.chooseAvatar}
+        />
+      </MyView>
     </MyView>
   );
 };

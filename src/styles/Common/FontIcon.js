@@ -59,7 +59,7 @@ export const FontIcon = props => {
 
   if (Platform.OS === 'web') {
     return (
-      <div className={'hoverable'}>
+      <div className={'hoverable '}>
         <Pressable style={allStyles} onPress={props.onPress}>
           {props.icon !== undefined && (
             <FontAwesomeIcon
@@ -159,34 +159,3 @@ export const SimpleFontIcon = props => {
     </Pressable>
   );
 };
-export const SimpleFontIcon0 = props => (
-  <Pressable
-    style={{
-      cursor: 'pointer',
-      width:
-        props.kind === undefined || props.kind === 'full'
-          ? '100%'
-          : props.kind === 'normal'
-          ? 30
-          : 20,
-      height:
-        props.kind === undefined || props.kind === 'full'
-          ? '100%'
-          : props.kind === 'normal'
-          ? 30
-          : 20,
-      alignSelf: 'center',
-      color: vars.LIGHT_SILVER,
-      justifyContent: 'center',
-    }}
-    onPress={props.onPress}>
-    <FontAwesomeIcon
-      icon={props.icon}
-      style={[
-        Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
-        {color: vars.LIGHT_SILVER},
-        props.style ? props.style : {},
-      ]}
-    />
-  </Pressable>
-);

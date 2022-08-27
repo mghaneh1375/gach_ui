@@ -71,6 +71,9 @@ export const styles = {
   margin25: {
     marginTop: 25,
   },
+  marginAuto: {
+    margin: 'auto',
+  },
   padding0: {
     padding: 0,
   },

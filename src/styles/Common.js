@@ -204,6 +204,42 @@ export const CommonButton = props => {
         <Text style={textStyle}>{props.title}</Text>
       </Link>
     </Button>
+  ) : props.theme === 'transparent' ? (
+    <div className={'transparent flex-end'}>
+      <Button style={allStyles} onClick={props.onPress}>
+        {props.icon !== undefined &&
+          (props.iconDir === undefined || props.iconDir === 'right') && (
+            <SimpleFontIcon
+              kind={'normal'}
+              style={{color: vars.WHITE}}
+              icon={props.icon}
+              onPress={props.onPress}
+            />
+          )}
+        <Text style={textStyle}>{props.title}</Text>
+        {props.icon !== undefined &&
+          props.iconDir !== undefined &&
+          props.iconTheme === undefined &&
+          props.iconDir === 'left' && (
+            <SimpleFontIcon
+              kind={'normal'}
+              style={{color: vars.WHITE}}
+              icon={props.icon}
+              onPress={props.onPress}
+            />
+          )}
+        {props.icon !== undefined &&
+          props.iconDir !== undefined &&
+          props.iconTheme !== undefined &&
+          props.iconDir === 'left' && (
+            <FontIcon
+              kind={'small'}
+              icon={props.icon}
+              onPress={props.onPress}
+            />
+          )}
+      </Button>
+    </div>
   ) : (
     <div className={'hoverable flex-end'}>
       <Button style={allStyles} onClick={props.onPress}>

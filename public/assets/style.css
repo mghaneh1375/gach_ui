@@ -376,6 +376,11 @@ button:hover {
   display: flex !important;
   justify-content: flex-end !important;
 }
+.transparent > * :hover{
+  background-color: #707070;
+  display: flex !important;
+  justify-content: flex-end !important;
+}
 .flex-end {
   align-self: flex-end !important;
   justify-content: flex-end !important;
