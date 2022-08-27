@@ -134,7 +134,12 @@ const ExcelComma = props => {
             kind={'normal'}
             theme={'rect'}
             back={'orange'}
-            parentStyle={{gap: 15, marginTop: 31, marginLeft: 10}}
+            parentStyle={{
+              gap: 15,
+              marginTop: 15,
+              marginLeft: 10,
+              marginRight: 15,
+            }}
             icon={faSearch}
           />
         )}

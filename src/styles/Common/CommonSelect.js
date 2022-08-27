@@ -26,8 +26,8 @@ export const CommonSelect = props => {
       backgroundColor: vars.transparent,
       paddingRight: 7,
       paddingLeft: 10,
-      paddingBottom: 2,
-      paddingTop: 9,
+      paddingBottom: props.paddingLeft !== undefined ? 6 : 2,
+      paddingTop: props.paddingLeft !== undefined ? 5 : 9,
       borderBottomWidth: 1,
       borderColor: vars.LIGHT_SILVER,
     },
@@ -56,10 +56,7 @@ export const CommonSelect = props => {
     optionsLabelStyle: {
       fontFamily: 'IRANSans',
       fontSize: 13,
-      color:
-        props.style !== undefined && props.style.color !== undefined
-          ? props.style.color
-          : vars.LIGHT_SILVER,
+      color: vars.LIGHT_SILVER,
       minWidth: 170,
     },
     hideInputFilter: true,

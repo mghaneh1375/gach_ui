@@ -35,9 +35,7 @@ const Filter = props => {
   const [expiredAtEndLimit, setExpiredAtEndLimit] = useState();
   const [showProSearch, setShowProSearch] = useState(false);
   const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
-  const [expired, setExpired] = useState(commonTranslator.no);
-  const [startOffCode, setStartOffCode] = useState();
-  const [endOffCode, setEndOffCode] = useState();
+  const [hasExpired, setHasExpired] = useState(false);
 
   const toggleShowProSearch = () => {
     if (showProSearch) setWantedIcon(faAngleDoubleDown);
@@ -63,13 +61,6 @@ const Filter = props => {
           subText={translator.type}
         />
         <JustBottomBorderSelect
-          setter={setWithCode}
-          values={allWithCodeKeyVals}
-          value={allWithCodeKeyVals.find(elem => elem.id === withCode)}
-          placeholder={translator.withOrWithOutCode}
-          subText={translator.withOrWithOutCode}
-        />
-        <JustBottomBorderSelect
           setter={setIsPublic}
           values={allTrueFalseValues}
           value={allTrueFalseValues.find(elem => elem.id === isPublic)}
@@ -84,6 +75,7 @@ const Filter = props => {
               type,
               isPublic,
               withCode,
+              hasExpired,
               createdAt,
               createdAtEndLimit,
               expiredAt,
@@ -123,25 +115,32 @@ const Filter = props => {
       </PhoneView>
       {showProSearch && (
         <MyView>
-          <PhoneView style={{gap: 15}}>
+          <PhoneView style={{...styles.gap15}}>
             <JustBottomBorderSelect
-              setter={setExpired}
+              setter={setWithCode}
+              values={allWithCodeKeyVals}
+              value={allWithCodeKeyVals.find(elem => elem.id === withCode)}
+              placeholder={translator.withOrWithOutCode}
+              subText={translator.withOrWithOutCode}
+            />
+            <JustBottomBorderSelect
+              setter={setHasExpired}
               values={expiredKeyVals}
-              value={expiredKeyVals.find(elem => elem.id === expired)}
+              value={expiredKeyVals.find(elem => elem.id === hasExpired)}
               placeholder={translator.expired}
               subText={translator.expired}
             />
             <JustBottomBorderDatePicker
               placeholder={translator.startOffCode}
               subText={translator.startOffCode}
-              setter={setStartOffCode}
-              value={startOffCode}
+              setter={setExpiredAt}
+              value={expiredAt}
             />
             <JustBottomBorderDatePicker
               placeholder={translator.endOffCode}
               subText={translator.endOffCode}
-              setter={setEndOffCode}
-              value={endOffCode}
+              setter={setExpiredAtEndLimit}
+              value={expiredAtEndLimit}
             />
           </PhoneView>
         </MyView>

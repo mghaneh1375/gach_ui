@@ -11,8 +11,8 @@ export const typeKeyVals = [
   {item: translator.percent, id: 'percent'},
 ];
 export const expiredKeyVals = [
-  {item: commonTranslator.yes, id: 'true'},
-  {item: commonTranslator.no, id: 'false'},
+  {item: commonTranslator.no, id: false},
+  {item: commonTranslator.yes, id: true},
 ];
 
 export const allTypeKeyVals = [
@@ -47,6 +47,10 @@ export const sectionKeyVals = [
   {item: translator.counseling, id: 'counseling'},
   {item: commonTranslator.all, id: 'all'},
 ];
+export const usedOffKeyVals = [
+  {item: commonTranslator.no, id: false},
+  {item: commonTranslator.yes, id: true},
+];
 export const update = async (url, off, token) => {
   return await generalRequest(url, 'put', off, 'data', token);
 };
@@ -61,6 +65,7 @@ export const filter = (
   type,
   isPublic,
   withCode,
+  hasExpired,
   createdAt,
   createdAtEndLimit,
   expiredAt,
@@ -78,13 +83,16 @@ export const filter = (
   if (withCode !== undefined && withCode !== 'all')
     query.append('withCode', withCode);
 
+  if (hasExpired !== undefined && hasExpired !== 'all')
+    query.append('hasExpired', hasExpired);
+
   if (createdAt !== undefined && createdAt.length > 0)
     query.append('createdAt', createdAt);
 
   if (createdAtEndLimit !== undefined && createdAtEndLimit.length > 0)
     query.append('createdAtEndLimit', createdAtEndLimit);
 
-  if (expiredAt !== undefined && expiredAt.length > 0)
+  if (expiredAt !== undefined && expiredAt > 0)
     query.append('expiredAt', expiredAt);
 
   if (expiredAtEndLimit !== undefined && expiredAtEndLimit > 0)
