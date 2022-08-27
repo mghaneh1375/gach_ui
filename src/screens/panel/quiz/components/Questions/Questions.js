@@ -163,6 +163,11 @@ const Questions = props => {
               }
               afterAddingCallBack={refresh}
             />
+            <CommonButton
+              style={{alignSelf: 'center'}}
+              title={commonTranslator.sort}
+              theme={'dark'}
+            />
             {state.selectedIds !== undefined &&
               state.selectedIds.length > 0 && (
                 <CommonButton

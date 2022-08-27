@@ -154,11 +154,6 @@ const ExcelComma = props => {
       </PhoneView>
       <PhoneView style={styles.justifyContentEnd}>
         <CommonButton
-          style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
-          title={commonTranslator.sort}
-          theme={'dark'}
-        />
-        <CommonButton
           onPress={() => toggleShowUploadPopUp()}
           style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
           title={commonTranslator.upload}

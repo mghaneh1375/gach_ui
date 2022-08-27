@@ -21,7 +21,7 @@ function Transaction(props) {
     dispatch({loading: true});
     Promise.all([getTransactions(props.token)]).then(res => {
       dispatch({loading: false});
-      console.log(res[0]);
+
       if (res[0] === null) {
         navigate('/');
         return;
@@ -33,7 +33,12 @@ function Transaction(props) {
   return (
     <MyView>
       {mode === 'list' && transactions !== undefined && (
-        <List transactions={transactions} />
+        <List
+          token={props.token}
+          setTransactions={setTransactions}
+          setLoading={setLoading}
+          transactions={transactions}
+        />
       )}
     </MyView>
   );
