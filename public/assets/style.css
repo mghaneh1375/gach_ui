@@ -334,6 +334,10 @@ textarea:focus-visible {
   background: white;
   box-shadow: 1px 3px 6px 4px #00000029;
   border-radius: 0px 0px 10px 10px;
+  -webkit-border-radius: 0px 0px 10px 10px;
+  -moz-border-radius: 0px 0px 10px 10px;
+  -ms-border-radius: 0px 0px 10px 10px;
+  -o-border-radius: 0px 0px 10px 10px;
 }
 .mySelect > .myView > .r-transform-1sncvnh > div > :hover {
   background-color: #efefef !important;
@@ -376,10 +380,10 @@ button:hover {
   align-self: flex-end !important;
   justify-content: flex-end !important;
 }
-/* scorolBar */
+
 /* width */
 ::-webkit-scrollbar {
-  width: px;
+  width: 10px;
 }
 /* Track */
 ::-webkit-scrollbar-track {
@@ -387,9 +391,9 @@ button:hover {
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #555; 
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #ffaa00; 
 }

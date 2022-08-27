@@ -81,7 +81,11 @@ function Question(props) {
         />
         <PhoneView>
           <PhoneView
-            style={{top: -10, right: -15, backgroundColor: vars.ORANGE}}>
+            style={{
+              top: -10,
+              right: -15,
+              backgroundColor: vars.ORANGE,
+            }}>
             {keyVals !== undefined && (
               <JustBottomBorderSelect
                 values={keyVals}
@@ -90,8 +94,13 @@ function Question(props) {
                   changeQNo(id);
                 }}
                 placeholder={props.counter}
-                style={{width: 100, color: 'white'}}
-                parentStyle={{backgroundColor: vars.ORANGE}}
+                style={{color: 'white'}}
+                parentStyle={{
+                  backgroundColor: vars.ORANGE,
+                  paddingTop: 0,
+                }}
+                paddingLeft={5}
+                onHover={true}
               />
             )}
           </PhoneView>

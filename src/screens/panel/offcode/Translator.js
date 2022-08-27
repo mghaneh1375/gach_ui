@@ -24,9 +24,9 @@ const translator = {
   classes: 'فروش دوره و کلاس',
   ravanExam: 'آزمون های روان شناسی',
   counseling: 'مشاوره',
-  expired: 'منقضی شده ؟',
-  startOffCode: 'شروع بازه کد تخفیف',
-  endOffCode: 'اتمام بازه کد تخفیف',
+  expired: 'منقضی شده',
+  startOffCode: 'شروع بازه استفاده کد تخفیف',
+  endOffCode: 'اتمام بازه استفاده کد تخفیف',
 };
 
 export default translator;

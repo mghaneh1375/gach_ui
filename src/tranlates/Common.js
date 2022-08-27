@@ -184,6 +184,7 @@ const translator = {
   shouldLogin: 'لطفا ابتدا لاگین کنید',
   transactionResult: 'نتیجه تراکنش',
   successTransaction: 'تراکنش موردنظر با موفقیت انجام شد.',
+  transactionFinantial: 'تراکنش های مالی',
   section: 'مورد استفاده',
   recp: 'رسید پرداخت',
   downloadRecp: 'دریافت رسید پرداخت',
