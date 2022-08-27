@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import {set} from 'react-native-reanimated';
-import Quizzes from '../../../../components/web/Quizzes';
 import {MyView, PhoneView} from '../../../../styles/Common';
 import Card from '../../../panel/quiz/components/Card/Card';
 import {
   quizContext,
   dispatchQuizContext,
 } from '../../../panel/quiz/components/Context';
+import Ops from './Ops';
 import {fetchMyQuizze} from './Utility';
 
 function List(props) {
@@ -18,6 +17,7 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [quizzes, setQuizzes] = useState();
+  const [showOpPane, setShowOpPane] = useState(false);
 
   React.useEffect(() => {
     if (isWorking) return;
@@ -43,13 +43,37 @@ function List(props) {
     });
   }, [props, dispatch, state.quizzes, isWorking]);
 
+  const openOpBox = quiz => {
+    dispatch({selectedQuiz: quiz});
+    setShowOpPane(true);
+  };
+
   return (
-    <PhoneView style={{gap: 15, padding: 15}}>
-      {quizzes !== undefined &&
-        quizzes.map((quiz, index) => {
-          return <Card onClick={() => {}} quiz={quiz} key={index} />;
-        })}
-    </PhoneView>
+    <MyView>
+      {showOpPane && (
+        <Ops
+          setRecp={props.setRecp}
+          setLoading={props.setLoading}
+          token={props.token}
+          setMode={props.setMode}
+          user={props.user}
+          toggleShowPopUp={() => setShowOpPane(false)}
+        />
+      )}
+      <PhoneView style={{gap: 15, padding: 15}}>
+        {quizzes !== undefined &&
+          quizzes.map((quiz, index) => {
+            return (
+              <Card
+                quizOp={() => openOpBox(quiz)}
+                onClick={() => {}}
+                quiz={quiz}
+                key={index}
+              />
+            );
+          })}
+      </PhoneView>
+    </MyView>
   );
 }
 

@@ -52,11 +52,7 @@ function Ranking(props) {
     setIsWorking(true);
 
     Promise.all([
-      getRanking(
-        props.token,
-        state.selectedQuiz.id,
-        state.selectedQuiz.generalMode,
-      ),
+      getRanking(state.selectedQuiz.id, state.selectedQuiz.generalMode),
     ]).then(res => {
       props.setLoading(false);
 

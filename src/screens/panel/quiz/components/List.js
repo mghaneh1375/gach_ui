@@ -33,8 +33,8 @@ const List = props => {
       dispatch({quizzes: res[0]});
       setIsWorking(false);
 
-      dispatch({selectedQuiz: res[0][0]});
-      props.setMode('question');
+      // dispatch({selectedQuiz: res[0][0]});
+      // props.setMode('question');
     });
   }, [props, dispatch, isWorking, state.quizzes]);
 

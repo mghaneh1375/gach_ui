@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import CreateQuiz from './components/CreateQuiz';
 import List from './components/List';
-import {globalStateContext, dispatchStateContext} from '../../../App';
+import {dispatchStateContext} from '../../../App';
 import Students from './components/Students/Students';
 import Questions from './components/Questions/Questions';
 import CV from './components/CV/CV';
@@ -92,6 +92,7 @@ const Quiz = props => {
         {mode === 'karname' && (
           <Karname
             setLoading={setLoading}
+            user={props.user}
             setMode={setMode}
             token={props.token}
             quizMode={params.mode}

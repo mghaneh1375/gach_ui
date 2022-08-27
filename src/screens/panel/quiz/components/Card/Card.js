@@ -147,10 +147,17 @@ function Card(props) {
                     props.quiz.status === 'waitForResult'
                       ? Translate.waitForResult
                       : props.quiz.status === 'notStart'
-                      ? Translate.waitForResult
+                      ? Translate.notStart
                       : ''
                   }
                   valFontSize={11}
+                />
+              )}
+            {props.quiz.status !== undefined &&
+              props.quiz.status === 'finished' && (
+                <CommonButton
+                  title={commonTranslator.op}
+                  onPress={() => props.quizOp()}
                 />
               )}
           </PhoneView>

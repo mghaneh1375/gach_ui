@@ -18,3 +18,23 @@ export const fetchMyQuizze = async (
     token,
   );
 };
+
+export const getMyAnswerSheet = async (quizId, generalMode, token) => {
+  return await generalRequest(
+    routes.fetchMyAnswerSheet + generalMode + '/' + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const getRecpForQuiz = async (quizId, generalMode, token) => {
+  return await generalRequest(
+    routes.getRecpForQuiz + generalMode + '/' + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};

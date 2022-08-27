@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
 import {getAnswerSheets} from '../Utility';
 import Card from './Card';
@@ -77,6 +76,7 @@ function CV(props) {
         <StudentAnswerSheet
           selectedAnswerSheetIdx={selectedAnswerSheetIdx}
           onBackClick={setShowAnswerSheet(false)}
+          token={props.token}
         />
       )}
       {!showAnswerSheet && (

@@ -121,13 +121,12 @@ export const getQuestions = async (token, quizId, quizMode) => {
   );
 };
 
-export const getRanking = async (token, quizId, quizMode) => {
+export const getRanking = async (quizId, quizMode) => {
   return await generalRequest(
     routes.fetchQuizRanking + quizMode + '/' + quizId,
     'get',
     undefined,
     'data',
-    token,
   );
 };
 

@@ -4,6 +4,8 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
+  MyViewWithRef,
+  PhoneView,
 } from '../../../../../styles/Common';
 import AnswerSheet from './AnswerSheet';
 import React, {useState, useRef, useCallback} from 'react';
@@ -14,6 +16,8 @@ import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
 import {styles} from '../../../../../styles/Common/Styles';
+import commonTranslator from '../../../../../tranlates/Common';
+import {showError} from '../../../../../services/Utility';
 
 function StudentAnswerSheet(props) {
   const useGlobalState = () => [
@@ -26,7 +30,6 @@ function StudentAnswerSheet(props) {
   React.useEffect(() => {
     dispatch({
       showAnswers: !stdChangingMode,
-      allowChangeStdAns: stdChangingMode,
     });
   }, [stdChangingMode, dispatch]);
 
@@ -53,6 +56,8 @@ function StudentAnswerSheet(props) {
       })
       .catch(err => {
         console.log(err);
+        showError(commonTranslator.err);
+        props.setLoading(false);
       });
   }, [ref, props]);
 
@@ -62,33 +67,41 @@ function StudentAnswerSheet(props) {
         backBtn={true}
         onBackClick={() => props.onBackClick()}
         header={
-          state.selectedQuiz.answer_sheets[props.selectedAnswerSheetIdx].student
-            .name
+          state.selectedQuiz.answer_sheets !== undefined &&
+          props.selectedAnswerSheetIdx !== undefined &&
+          state.selectedQuiz.answer_sheets.length > props.selectedAnswerSheetIdx
+            ? state.selectedQuiz.answer_sheets[props.selectedAnswerSheetIdx]
+                .student.name
+            : ''
         }>
         <EqualTwoTextInputs>
           <MyView>
-            <ToggleSwitch
-              isOn={stdChangingMode}
-              onColor="green"
-              offColor="red"
-              label="تغییر پاسخ دانش آموز"
-              labelStyle={styles.blackColor}
-              size="medium"
-              onToggle={isOn => {
-                setStdChangingMode(isOn);
-              }}
-            />
+            {state.allowChangeStdAns && (
+              <PhoneView>
+                <ToggleSwitch
+                  isOn={stdChangingMode}
+                  onColor="green"
+                  offColor="red"
+                  label="تغییر پاسخ دانش آموز"
+                  labelStyle={styles.blackColor}
+                  size="medium"
+                  onToggle={isOn => {
+                    setStdChangingMode(isOn);
+                  }}
+                />
+                <SimpleFontIcon
+                  parentStyle={styles.margin20}
+                  kind={'normal'}
+                  icon={stdChangingMode ? faUnlock : faLock}
+                />
+              </PhoneView>
+            )}
             <CommonButton
               style={styles.alignSelfStart}
-              title={'پرینت'}
+              title={commonTranslator.print}
               onPress={() => print()}
             />
           </MyView>
-          <SimpleFontIcon
-            parentStyle={styles.margin20}
-            kind={'normal'}
-            icon={stdChangingMode ? faUnlock : faLock}
-          />
         </EqualTwoTextInputs>
         {stdChangingMode && (
           <CommonButton
@@ -124,13 +137,13 @@ function StudentAnswerSheet(props) {
           />
         )}
       </CommonWebBox>
-      <MyView ref={ref}>
+      <MyViewWithRef ref={ref}>
         <AnswerSheet
           answer_sheet={state.wanted_answer_sheet}
           setLoading={props.setLoading}
           token={props.token}
         />
-      </MyView>
+      </MyViewWithRef>
     </MyView>
   );
 }

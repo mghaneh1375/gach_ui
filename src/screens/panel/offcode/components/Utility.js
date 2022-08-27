@@ -70,6 +70,8 @@ export const filter = (
   createdAtEndLimit,
   expiredAt,
   expiredAtEndLimit,
+  usedAt,
+  usedAtEndLimit,
 ) => {
   let query = new URLSearchParams();
 
@@ -97,6 +99,11 @@ export const filter = (
 
   if (expiredAtEndLimit !== undefined && expiredAtEndLimit > 0)
     query.append('expiredAtEndLimit', expiredAtEndLimit);
+
+  if (usedAt !== undefined && usedAt > 0) query.append('usedAt', usedAt);
+
+  if (usedAtEndLimit !== undefined && usedAtEndLimit > 0)
+    query.append('usedAtEndLimit', usedAtEndLimit);
 
   props.setLoading(true);
   Promise.all([

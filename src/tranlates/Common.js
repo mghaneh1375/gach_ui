@@ -187,5 +187,7 @@ const translator = {
   successTransaction: 'تراکنش موردنظر با موفقیت انجام شد.',
   transactionFinantial: 'تراکنش های مالی',
   section: 'مورد استفاده',
+  recp: 'رسید پرداخت',
+  downloadRecp: 'دریافت رسید پرداخت',
 };
 export default translator;

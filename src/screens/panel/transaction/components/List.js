@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {CommonWebBox} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import commonTranslator from '../../../../tranlates/Common';
@@ -8,7 +8,11 @@ import Filter from './Fliter/Filter';
 function List(props) {
   return (
     <CommonWebBox header={commonTranslator.transactionFinantial}>
-      <Filter />
+      <Filter
+        token={props.token}
+        setLoading={props.setLoading}
+        setTransactions={props.setTransactions}
+      />
       <CommonDataTable
         columns={columns}
         data={props.transactions}
