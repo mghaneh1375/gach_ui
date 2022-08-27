@@ -41,7 +41,11 @@ function StudentMenu(props) {
           text={translator.buyQuiz}
           icon={faBasketShopping}
         />
-        <MenuItem text={translator.charge} icon={faCreditCard} />
+        <MenuItem
+          onClick={() => navigate('/charge')}
+          text={translator.charge}
+          icon={faCreditCard}
+        />
         <MenuItem text={translator.history} icon={faHistory} />
         <MenuItem text={translator.support} icon={faQuestion} />
         <MenuItem

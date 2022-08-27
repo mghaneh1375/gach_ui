@@ -183,4 +183,7 @@ export const styles = {
     position: 'absolute',
     borderRadius: '50%',
   },
+  boxShadow: {
+    boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
+  },
 };

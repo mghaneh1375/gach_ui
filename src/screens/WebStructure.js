@@ -59,6 +59,8 @@ import TarazLevels from './panel/Config/TarazLevels/TarazLevels';
 import Buy from './general/buy/Buy';
 import MyQuizzes from './studentPanel/MyQuizzes/MyQuizzes';
 import Transaction from './panel/transaction/Transaction';
+import ChargeAccount from './studentPanel/ChargeAccount/ChargeAccount';
+import RunQuiz from './studentPanel/RunQuiz/RunQuiz';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -348,6 +350,9 @@ const WebStructue = props => {
               {props.page === 'author' && (
                 <Author token={token} user={user} navigate={navigate} />
               )}
+              {props.page === 'charge' && (
+                <ChargeAccount token={token} user={user} navigate={navigate} />
+              )}
               {/* {props.page === 'gift' && (
                 <SpinGift token={token} user={user} navigate={navigate} />
               )} */}
@@ -374,6 +379,9 @@ const WebStructue = props => {
               )}
               {props.page === 'teachers' && (
                 <Teachers token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'runQuiz' && (
+                <RunQuiz token={token} user={user} navigate={navigate} />
               )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </MyView>
