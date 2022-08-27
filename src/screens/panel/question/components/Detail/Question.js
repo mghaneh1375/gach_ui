@@ -90,9 +90,8 @@ function Question(props) {
                   changeQNo(id);
                 }}
                 placeholder={props.counter}
-                style={{width: 100}}
+                style={{width: 100, color: 'white'}}
                 parentStyle={{backgroundColor: vars.ORANGE}}
-                paddingLeft={5}
               />
             )}
           </PhoneView>

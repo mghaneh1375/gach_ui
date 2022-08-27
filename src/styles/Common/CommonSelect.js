@@ -5,11 +5,9 @@ import {calcInputWidth, CommonSelectElem} from './CommonText';
 import vars from '../root';
 import SubInputText from './SubInputText';
 import {MyView} from '../Common';
-import {getWidthHeight} from '../../services/Utility';
 
 export const CommonSelect = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
-  const isApp = Platform.OS !== 'web';
 
   const inputProps = {
     options: props.values,
@@ -46,20 +44,22 @@ export const CommonSelect = props => {
     },
     selectedItemStyle: {
       fontFamily: 'IRANSans',
-      color: vars.LIGHT_SILVER,
-      // paddingRight: 0,
+      color:
+        props.style !== undefined && props.style.color !== undefined
+          ? props.style.color
+          : vars.LIGHT_SILVER,
       fontSize: 13,
       paddingBottom: 1,
       paddingLeft: props.paddingLeft !== undefined ? props.paddingLeft : 0,
-      // paddingRight: 15,
-      // width: '100%',
-      // height: '100%',
     },
     arrowIconColor: vars.LIGHT_SILVER,
     optionsLabelStyle: {
       fontFamily: 'IRANSans',
       fontSize: 13,
-      color: vars.LIGHT_SILVER,
+      color:
+        props.style !== undefined && props.style.color !== undefined
+          ? props.style.color
+          : vars.LIGHT_SILVER,
       minWidth: 170,
     },
     hideInputFilter: true,

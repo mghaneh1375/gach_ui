@@ -7,7 +7,9 @@ function QuizItemCard({text, val, icon, textFontSize, valFontSize}) {
   if (val === undefined || val === '' || val === '...') return <></>;
   return (
     <PhoneView style={{...styles.alignItemsCenter}}>
-      <FontIcon kind={'small'} icon={icon} parentStyle={{marginLeft: 5}} />
+      {icon !== undefined && (
+        <FontIcon kind={'small'} icon={icon} parentStyle={{marginLeft: 5}} />
+      )}
       <MyView>
         <SimpleText
           style={{

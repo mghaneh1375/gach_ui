@@ -15,6 +15,8 @@ const translate = {
   oldWhite: 'تعداد نزده: ',
   oldCorrect: 'تعداد درست: ',
   oldIncorrect: 'تعداد نادرست: ',
+  waitForResult: 'در انتظار صدور کارنامه باشید.',
+  notStart: 'این آزمون هنوز شروع نشده است.',
 };
 
 export default translate;

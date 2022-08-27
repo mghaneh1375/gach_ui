@@ -139,6 +139,20 @@ function Card(props) {
               textFontSize={11}
               valFontSize={11}
             />
+            {props.quiz.status !== undefined &&
+              props.quiz.status !== 'finished' && (
+                <QuizItemCard
+                  text={''}
+                  val={
+                    props.quiz.status === 'waitForResult'
+                      ? Translate.waitForResult
+                      : props.quiz.status === 'notStart'
+                      ? Translate.waitForResult
+                      : ''
+                  }
+                  valFontSize={11}
+                />
+              )}
           </PhoneView>
         </MyView>
       </MyView>
