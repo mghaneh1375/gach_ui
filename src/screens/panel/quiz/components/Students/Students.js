@@ -7,7 +7,6 @@ import {
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../tranlates/Common';
-import {View} from 'react-native';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
@@ -141,7 +140,7 @@ const Students = props => {
         dispatch({
           showAnswers: true,
           showStdAnswers: true,
-          allowChangeStdAns: false,
+          allowChangeStdAns: true,
           allowChangeAns: false,
           wanted_answer_sheet: data,
           new_std_answer_sheet: state.selectedQuiz.answer_sheets[
@@ -164,6 +163,7 @@ const Students = props => {
           selectedAnswerSheetIdx={studentIdx}
           setLoading={props.setLoading}
           onBackClick={() => setShowAnswerSheet(false)}
+          token={props.token}
         />
       )}
       {showOpPopUp && (

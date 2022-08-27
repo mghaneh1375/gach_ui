@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useCallback} from 'react';
 import {
   CommonButton,
   BigBoldBlueTextInline,
@@ -6,6 +6,7 @@ import {
   EqualTwoTextInputs,
   PhoneView,
   MyView,
+  MyViewWithRef,
 } from '../../../../../../styles/Common';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
@@ -32,6 +33,7 @@ import StudentCard from '../../../../../../components/web/StudentCard';
 import CopyBox from '../../../../../../components/CopyBox';
 import {BASE_SITE_NAME} from '../../../../../../API/Utility';
 import {showError} from '../../../../../../services/Utility';
+import {getMyAnswerSheet} from '../../../../../studentPanel/MyQuizzes/components/Utility';
 
 function Karname(props) {
   const useGlobalState = () => [
@@ -42,6 +44,24 @@ function Karname(props) {
 
   const [isWorking, setIsWorking] = useState(false);
   const [karname, setKarname] = useState();
+
+  const fetchAnswerSheet = useCallback(async () => {
+    if (props.user === undefined) return 'ok';
+
+    if (props.user.accesses.indexOf('student') !== -1)
+      return await getMyAnswerSheet(
+        state.selectedQuiz.id,
+        state.selectedQuiz.generalMode,
+        props.token,
+      );
+
+    return await fetchStudentAnswerSheet(
+      state.selectedQuiz.id,
+      state.selectedQuiz.generalMode,
+      state.selectedStudentId,
+      props.token,
+    );
+  }, [props, state.selectedQuiz, state.selectedStudentId]);
 
   React.useEffect(() => {
     if (state.selectedQuiz === undefined) {
@@ -78,12 +98,7 @@ function Karname(props) {
         state.selectedQuiz.id,
         state.selectedQuiz.generalMode,
       ),
-      fetchStudentAnswerSheet(
-        state.selectedQuiz.id,
-        state.selectedQuiz.generalMode,
-        state.selectedStudentId,
-        props.token,
-      ),
+      fetchAnswerSheet(),
     ]).then(res => {
       props.setLoading(false);
 
@@ -96,7 +111,7 @@ function Karname(props) {
       else state.selectedQuiz.allKarname.push(res[0]);
 
       dispatch({
-        wanted_answer_sheet: res[1],
+        wanted_answer_sheet: res[1] === 'ok' ? undefined : res[1],
         showAnswers: true,
         showStdAnswers: true,
         allowChangeStdAns: false,
@@ -106,7 +121,14 @@ function Karname(props) {
       setKarname(res[0]);
       setIsWorking(false);
     });
-  }, [dispatch, props, state.selectedQuiz, state.selectedStudentId, isWorking]);
+  }, [
+    dispatch,
+    props,
+    state.selectedQuiz,
+    state.selectedStudentId,
+    isWorking,
+    fetchAnswerSheet,
+  ]);
 
   const ref = useRef();
   const ref2 = useRef();
@@ -194,7 +216,11 @@ function Karname(props) {
             : 'کارنامه آزمون '
         }
         backBtn={true}
-        onBackClick={() => props.setMode('ranking')}>
+        onBackClick={() =>
+          props.onBackClick !== undefined
+            ? props.onBackClick()
+            : props.setMode('ranking')
+        }>
         <EqualTwoTextInputs>
           {karname !== undefined && <StudentCard std={karname} />}
           {karname !== undefined && (
@@ -225,202 +251,200 @@ function Karname(props) {
         </EqualTwoTextInputs>
       </CommonWebBox>
 
-      <div ref={ref}>
-        <MyView>
-          <PhoneView>
-            <CommonWebBox
-              width={'55%'}
-              style={{
-                paddingLeft: 5,
-                paddingTop: 10,
-                paddingBottom: 10,
-                paddingRight: 5,
-              }}>
-              <EqualTwoTextInputs>
-                <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
-                  text={'جدول شماره 1 - نتایج دروس'}
-                />
-                {/* <SimpleFontIcon
+      <MyViewWithRef ref={ref}>
+        <PhoneView>
+          <CommonWebBox
+            width={'55%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
+            <EqualTwoTextInputs>
+              <BigBoldBlueTextInline
+                style={{alignSelf: 'center'}}
+                text={'جدول شماره 1 - نتایج دروس'}
+              />
+              {/* <SimpleFontIcon
                 kind={'normal'}
                 onPress={() => setShowLessonChart(!showLessonChart)}
                 icon={showLessonChart ? faAngleUp : faAngleDown}
               /> */}
-              </EqualTwoTextInputs>
-              {karname !== undefined && (
-                <MyView>
-                  {karname !== undefined && (
-                    <CommonDataTable
-                      columns={lessonCols}
-                      data={karname.lessons}
-                      show_row_no={false}
-                      pagination={false}
-                      groupOps={[]}
-                      conditionalRowStyles={conditionalRowStyles}
-                    />
-                  )}
-                </MyView>
-              )}
-            </CommonWebBox>
-            <CommonWebBox
-              width={'45%'}
-              style={{
-                paddingLeft: 5,
-                paddingTop: 10,
-                paddingBottom: 10,
-                paddingRight: 5,
-              }}>
-              <EqualTwoTextInputs>
-                <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
-                  text={'جدول شماره 2 - نتایج آماری دروس'}
-                />
-              </EqualTwoTextInputs>
+            </EqualTwoTextInputs>
+            {karname !== undefined && (
               <MyView>
                 {karname !== undefined && (
                   <CommonDataTable
-                    columns={generalStatTableStructure}
+                    columns={lessonCols}
                     data={karname.lessons}
                     show_row_no={false}
                     pagination={false}
                     groupOps={[]}
-                  />
-                )}
-              </MyView>
-            </CommonWebBox>
-
-            <CommonWebBox
-              width={'55%'}
-              style={{
-                paddingLeft: 5,
-                paddingTop: 10,
-                paddingBottom: 10,
-                paddingRight: 5,
-              }}>
-              <EqualTwoTextInputs>
-                <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
-                  text={'جدول شماره 3 - نتایج حیطه ها'}
-                />
-                {/* <SimpleFontIcon
-                kind={'normal'}
-                onPress={() => setShowSubjectChart(!showSubjectChart)}
-                icon={showSubjectChart ? faAngleUp : faAngleDown}
-              /> */}
-              </EqualTwoTextInputs>
-              <MyView>
-                {karname !== undefined && (
-                  <CommonDataTable
-                    columns={subjectCols}
-                    show_row_no={false}
-                    pagination={false}
-                    groupOps={[]}
-                    data={karname.subjects}
                     conditionalRowStyles={conditionalRowStyles}
                   />
                 )}
               </MyView>
-            </CommonWebBox>
+            )}
+          </CommonWebBox>
+          <CommonWebBox
+            width={'45%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
+            <EqualTwoTextInputs>
+              <BigBoldBlueTextInline
+                style={{alignSelf: 'center'}}
+                text={'جدول شماره 2 - نتایج آماری دروس'}
+              />
+            </EqualTwoTextInputs>
+            <MyView>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={generalStatTableStructure}
+                  data={karname.lessons}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                />
+              )}
+            </MyView>
+          </CommonWebBox>
 
-            <CommonWebBox
-              width={'45%'}
-              style={{
-                paddingLeft: 5,
-                paddingTop: 10,
-                paddingBottom: 10,
-                paddingRight: 5,
-              }}>
+          <CommonWebBox
+            width={'55%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
+            <EqualTwoTextInputs>
+              <BigBoldBlueTextInline
+                style={{alignSelf: 'center'}}
+                text={'جدول شماره 3 - نتایج حیطه ها'}
+              />
+              {/* <SimpleFontIcon
+                kind={'normal'}
+                onPress={() => setShowSubjectChart(!showSubjectChart)}
+                icon={showSubjectChart ? faAngleUp : faAngleDown}
+              /> */}
+            </EqualTwoTextInputs>
+            <MyView>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={subjectCols}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                  data={karname.subjects}
+                  conditionalRowStyles={conditionalRowStyles}
+                />
+              )}
+            </MyView>
+          </CommonWebBox>
+
+          <CommonWebBox
+            width={'45%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
+            <EqualTwoTextInputs>
+              <BigBoldBlueTextInline
+                style={{alignSelf: 'center'}}
+                text={'جدول شماره 4 - نتایج آماری حیطه ها'}
+              />
+            </EqualTwoTextInputs>
+            <MyView>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={generalStatTableStructure}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                  data={karname.subjects}
+                />
+              )}
+            </MyView>
+          </CommonWebBox>
+
+          <CommonWebBox
+            width={'50%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
+            <EqualTwoTextInputs>
+              <BigBoldBlueTextInline
+                style={{alignSelf: 'center'}}
+                text={'جدول شماره 5 - نتایج رتبه بندی دروس'}
+              />
+            </EqualTwoTextInputs>
+            <MyView style={{gap: 20}}>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={lessonRankingCols}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                  data={karname.lessons}
+                />
+              )}
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
                   style={{alignSelf: 'center'}}
-                  text={'جدول شماره 4 - نتایج آماری حیطه ها'}
+                  text={'جدول شماره 6 - نتایج کلی'}
                 />
               </EqualTwoTextInputs>
-              <MyView>
-                {karname !== undefined && (
-                  <CommonDataTable
-                    columns={generalStatTableStructure}
-                    show_row_no={false}
-                    pagination={false}
-                    groupOps={[]}
-                    data={karname.subjects}
-                  />
-                )}
-              </MyView>
-            </CommonWebBox>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={totalRankCols}
+                  data={[karname.rank]}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
+                />
+              )}
+            </MyView>
+          </CommonWebBox>
 
-            <CommonWebBox
-              width={'50%'}
-              style={{
-                paddingLeft: 5,
-                paddingTop: 10,
-                paddingBottom: 10,
-                paddingRight: 5,
-              }}>
-              <EqualTwoTextInputs>
-                <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
-                  text={'جدول شماره 5 - نتایج رتبه بندی دروس'}
+          <CommonWebBox
+            width={'50%'}
+            style={{
+              paddingLeft: 5,
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingRight: 5,
+            }}>
+            <EqualTwoTextInputs>
+              <BigBoldBlueTextInline
+                style={{alignSelf: 'center'}}
+                text={'جدول شماره 6 - نتایج رتبه بندی حیطه ها'}
+              />
+            </EqualTwoTextInputs>
+            <MyView>
+              {karname !== undefined && (
+                <CommonDataTable
+                  columns={subjectRankingCols}
+                  data={karname.subjects}
+                  show_row_no={false}
+                  pagination={false}
+                  groupOps={[]}
                 />
-              </EqualTwoTextInputs>
-              <MyView style={{gap: 20}}>
-                {karname !== undefined && (
-                  <CommonDataTable
-                    columns={lessonRankingCols}
-                    show_row_no={false}
-                    pagination={false}
-                    groupOps={[]}
-                    data={karname.lessons}
-                  />
-                )}
-                <EqualTwoTextInputs>
-                  <BigBoldBlueTextInline
-                    style={{alignSelf: 'center'}}
-                    text={'جدول شماره 6 - نتایج کلی'}
-                  />
-                </EqualTwoTextInputs>
-                {karname !== undefined && (
-                  <CommonDataTable
-                    columns={totalRankCols}
-                    data={[karname.rank]}
-                    show_row_no={false}
-                    pagination={false}
-                    groupOps={[]}
-                  />
-                )}
-              </MyView>
-            </CommonWebBox>
-
-            <CommonWebBox
-              width={'50%'}
-              style={{
-                paddingLeft: 5,
-                paddingTop: 10,
-                paddingBottom: 10,
-                paddingRight: 5,
-              }}>
-              <EqualTwoTextInputs>
-                <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
-                  text={'جدول شماره 6 - نتایج رتبه بندی حیطه ها'}
-                />
-              </EqualTwoTextInputs>
-              <MyView>
-                {karname !== undefined && (
-                  <CommonDataTable
-                    columns={subjectRankingCols}
-                    data={karname.subjects}
-                    show_row_no={false}
-                    pagination={false}
-                    groupOps={[]}
-                  />
-                )}
-              </MyView>
-            </CommonWebBox>
-          </PhoneView>
-        </MyView>
-      </div>
-      <div style={{display: 'flex', justifyContent: 'center'}} ref={ref2}>
+              )}
+            </MyView>
+          </CommonWebBox>
+        </PhoneView>
+      </MyViewWithRef>
+      <MyViewWithRef style={{justifyContent: 'center'}} ref={ref2}>
         <CommonWebBox width={'90%'}>
           <MyView>
             {karname !== undefined && (
@@ -524,12 +548,12 @@ function Karname(props) {
             )}
           </MyView>
         </CommonWebBox>
-      </div>
-      <div ref={ref3}>
+      </MyViewWithRef>
+      <MyViewWithRef ref={ref3}>
         {karname !== undefined && state.wanted_answer_sheet !== undefined && (
           <AnswerSheet answer_sheet={state.wanted_answer_sheet} />
         )}
-      </div>
+      </MyViewWithRef>
     </MyView>
   );
 }

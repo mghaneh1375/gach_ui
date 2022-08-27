@@ -47,12 +47,42 @@ export const BlueTextInline = props => (
   </BlueTextInlineElem>
 );
 
+export const MyViewWithRef = React.forwardRef((props, ref) => {
+  if (Platform.OS === 'web') {
+    let style = props.style;
+    if (props.style instanceof Array) style = undefined;
+
+    if (style !== undefined) {
+      return (
+        <div
+          ref={ref}
+          className={props.className === undefined ? 'myView' : props.className}
+          style={style}>
+          {props.children}
+        </div>
+      );
+    }
+
+    return (
+      <div ref={ref} className={'myView'}>
+        {props.children}
+      </div>
+    );
+  }
+
+  return (
+    <View ref={ref} style={props.style}>
+      {props.children}
+    </View>
+  );
+});
+
 export const MyView = props => {
   if (Platform.OS === 'web') {
     let style = props.style;
     if (props.style instanceof Array) style = undefined;
 
-    if (style !== undefined)
+    if (style !== undefined) {
       return (
         <div
           className={props.className === undefined ? 'myView' : props.className}
@@ -60,6 +90,7 @@ export const MyView = props => {
           {props.children}
         </div>
       );
+    }
 
     return <div className={'myView'}>{props.children}</div>;
   }
