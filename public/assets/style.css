@@ -362,29 +362,27 @@ textarea:focus-visible {
   z-index: unset;
 }
 
-button:hover {
+/* button:hover {
   box-shadow: inset 0px 0px 1px 3px #f1f1f180;
   transition: 0.5s ease-in-out;
-}
+} */
 /* .hoverable-fonticon:nth-child(1):hover {
   box-shadow: inset 0px 0px 1px 3px #f1f1f180;
   transition: 0.5s ease-in-out;
   opacity: 0.7;
 } */
-.hoverable > *:hover {
+.myBtn > *:hover {
   box-shadow: inset 0px 0px 1px 3px #efefef80;
   display: flex !important;
   justify-content: flex-end !important;
 }
-.transparent > *:hover {
-  /* background-color: #707070; */
-  box-shadow: inset 0px 0px 10px 10px red;
+.myBtn-Transparent > *:hover {
+  box-shadow: inset 0px 0px 10px 20px #ababab4f;
 }
 .flex-end {
   align-self: flex-end !important;
   justify-content: flex-end !important;
 }
-
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

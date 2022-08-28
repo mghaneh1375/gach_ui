@@ -24,6 +24,7 @@ const FontIconStyleWeb = {
 };
 
 export const FontIcon = props => {
+  let className = props.theme === 'transparent' ? 'myBtn-Transparent' : 'myBtn';
   const style1 = {
     backgroundColor:
       props.back === undefined || props.back === 'orange'
@@ -59,7 +60,7 @@ export const FontIcon = props => {
 
   if (Platform.OS === 'web') {
     return (
-      <div className={'hoverable '}>
+      <div className={className}>
         <Pressable style={allStyles} onPress={props.onPress}>
           {props.icon !== undefined && (
             <FontAwesomeIcon

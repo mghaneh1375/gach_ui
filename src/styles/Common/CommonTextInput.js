@@ -1,4 +1,5 @@
 import {Platform} from 'react-native';
+import {Background} from 'victory-core';
 import {EqualTwoTextInputs, MyView} from '../Common';
 import {
   calcInputWidth,
