@@ -98,6 +98,10 @@ export const styles = {
   alignItemsStart: {
     alignItems: 'start',
   },
+  flexEnd: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
   gap0: {
     gap: 0,
   },
@@ -188,5 +192,9 @@ export const styles = {
   },
   boxShadow: {
     boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
+  },
+  symbol: {
+    width: 50,
+    height: 50,
   },
 };

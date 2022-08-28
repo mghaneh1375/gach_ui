@@ -47,6 +47,9 @@ export const CommonButtonTextStyleWeb = {
   fontSize: 14,
   fontFamily: 'IRANSans',
 };
+export const justifyContentEnd = {
+  justifyContent: 'end',
+};
 
 export const Button =
   Platform.OS === 'android' || Platform.OS === 'ios'

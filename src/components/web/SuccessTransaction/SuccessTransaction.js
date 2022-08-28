@@ -1,4 +1,5 @@
 import React from 'react';
+import {Image} from 'react-native';
 import {
   CommonButton,
   CommonWebBox,
@@ -8,14 +9,18 @@ import {
 } from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
 import Translate from './Translate';
-import Smile from '../../../images/SvgSymbol/1F600.svg';
+// import Smile from '../../../images/SvgSymbol/1F600.svg';
 
 function SuccessTransaction(props) {
   return (
     <CommonWebBox header={Translate.backSuccessTransaction}>
       <MyView style={{...styles.marginRight25}}>
         <MyView style={{...styles.flexDirectionRow}}>
-          <img src={Smile} />
+          {/* <img src={Smile} /> */}
+          <Image
+            style={{...styles.symbol}}
+            source={require('../../../images/PngSymbol/1F600.png')}
+          />
         </MyView>
         <MyView style={{...styles.gap15}}>
           <SimpleText
