@@ -1,4 +1,8 @@
-import {faBookmark} from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleLeft,
+  faAngleRight,
+  faBookmark,
+} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import {
   CommonWebBox,
@@ -6,36 +10,55 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {styles} from '../../../../styles/Common/Styles';
 import commonTranslator from '../../../../tranlates/Common';
 import Translate from '../Translate';
+import {doQuizContext, dispatchDoQuizContext} from './Context';
 
-function Bookmark() {
+function Bookmark(props) {
+  const useGlobalState = () => [
+    React.useContext(doQuizContext),
+    React.useContext(dispatchDoQuizContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
+
   return (
     <CommonWebBox>
       <EqualTwoTextInputs>
         <SimpleText
           style={{...styles.BlueBold}}
-          text={commonTranslator.question + ' ' + Translate.number}
+          text={
+            commonTranslator.question +
+            ' ' +
+            Translate.number +
+            ' ' +
+            (state.currIdx + 1)
+          }
         />
-        <PhoneView
-          style={{...styles.justifyContentCenter, ...styles.alignItemsCenter}}>
-          <SimpleText
-            style={{...styles.colorOrange, ...styles.FontWeight600}}
-            text={Translate.addBookmark}
-            // onPress={() => toggleBookmark()}
-          />
-          <PhoneView>
+
+        {!props.isInReviewMode && (
+          <PhoneView
+            style={{
+              ...styles.justifyContentCenter,
+              ...styles.alignItemsCenter,
+            }}>
+            <SimpleText
+              style={{...styles.colorOrange, ...styles.FontWeight600}}
+              text={Translate.addBookmark}
+              // onPress={() => toggleBookmark()}
+            />
             <SimpleFontIcon
               //   onPress={() => toggleBookmark()}
+              kind={'normal'}
               style={{
                 ...styles.colorOrange,
               }}
               icon={faBookmark}
             />
           </PhoneView>
-        </PhoneView>
+        )}
       </EqualTwoTextInputs>
     </CommonWebBox>
   );

@@ -422,25 +422,28 @@ export const CommonWebBox = props => {
               text={props.header}
             />
             {props.btn !== undefined && props.btn}
-            <PhoneView style={{gap: 10, marginBottom: 10, text: 'center'}}>
-              {props.addBtn !== undefined && props.addBtn && (
-                <FontIcon
-                  onPress={props.onAddClick}
-                  theme="rect"
-                  kind="normal"
-                  back={'yellow'}
-                  icon={faPlus}
-                />
-              )}
-              {props.backBtn !== undefined && props.backBtn && (
-                <FontIcon
-                  onPress={props.onBackClick}
-                  theme="rect"
-                  kind="normal"
-                  icon={faArrowLeft}
-                />
-              )}
-            </PhoneView>
+            {props.addBtn !== undefined ||
+              (props.backBtn !== undefined && (
+                <PhoneView style={{gap: 10, marginBottom: 10, text: 'center'}}>
+                  {props.addBtn !== undefined && props.addBtn && (
+                    <FontIcon
+                      onPress={props.onAddClick}
+                      theme="rect"
+                      kind="normal"
+                      back={'yellow'}
+                      icon={faPlus}
+                    />
+                  )}
+                  {props.backBtn !== undefined && props.backBtn && (
+                    <FontIcon
+                      onPress={props.onBackClick}
+                      theme="rect"
+                      kind="normal"
+                      icon={faArrowLeft}
+                    />
+                  )}
+                </PhoneView>
+              ))}
           </EqualTwoTextInputs>
         )}
         {props.child !== undefined && props.child}

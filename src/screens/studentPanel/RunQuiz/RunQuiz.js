@@ -43,7 +43,7 @@ function RunQuiz(props) {
           isInReviewMode={props.isInReviewMode}
           token={props.token}
           quizId={params.quizId}
-          quizGeneralMode={params.quizId}
+          quizGeneralMode={params.quizMode}
           navigate={props.navigate}
           setLoading={setLoading}
           setMode={setMode}
@@ -54,7 +54,7 @@ function RunQuiz(props) {
           isInReviewMode={props.isInReviewMode}
           token={props.token}
           quizId={params.quizId}
-          quizGeneralMode={params.quizId}
+          quizGeneralMode={params.quizMode}
           navigate={props.navigate}
           setLoading={setLoading}
           setMode={setMode}
