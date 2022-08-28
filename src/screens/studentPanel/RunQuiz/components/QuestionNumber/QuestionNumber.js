@@ -32,7 +32,7 @@ function QuestionNumber(props) {
             icon={faBookmark}
             style={{
               padding: 0,
-              color: props.bookmark === 1 ? vars.ORANGE_RED : vars.DARK_WHITE,
+              color: props.bookmarkColor ? vars.ORANGE_RED : vars.DARK_WHITE,
             }}
             onPress={() => toggleBookMark()}
           />

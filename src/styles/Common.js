@@ -159,7 +159,7 @@ export const ScreenScroll =
 // contentContainerStyle={ScreenContentContainerStyle}
 
 export const CommonButton = props => {
-  let allStyles = props.style !== undefined ? props.style : {};
+  let allStyles = props.style !== undefined ? props.style : {...styles.flexEnd};
   let className = props.theme === 'transparent' ? 'myBtn-Transparent' : 'myBtn';
 
   let textStyle =
