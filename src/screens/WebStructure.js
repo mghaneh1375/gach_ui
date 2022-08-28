@@ -239,6 +239,19 @@ const WebStructue = props => {
               {props.page === 'myQuizzes' && (
                 <MyQuizzes user={user} token={token} navigate={navigate} />
               )}
+
+              {props.page === 'runQuiz' && (
+                <RunQuiz token={token} user={user} navigate={navigate} />
+              )}
+
+              {props.page === 'reviewQuiz' && (
+                <RunQuiz
+                  isInReviewMode={true}
+                  token={token}
+                  user={user}
+                  navigate={navigate}
+                />
+              )}
               {props.page === 'acceptInvite' && (
                 <AcceptInvite token={token} navigate={navigate} />
               )}
@@ -379,9 +392,6 @@ const WebStructue = props => {
               )}
               {props.page === 'teachers' && (
                 <Teachers token={token} user={user} navigate={navigate} />
-              )}
-              {props.page === 'runQuiz' && (
-                <RunQuiz token={token} user={user} navigate={navigate} />
               )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </MyView>

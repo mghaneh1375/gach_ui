@@ -57,6 +57,7 @@ function List(props) {
           token={props.token}
           setMode={props.setMode}
           user={props.user}
+          navigate={props.navigate}
           toggleShowPopUp={() => setShowOpPane(false)}
         />
       )}

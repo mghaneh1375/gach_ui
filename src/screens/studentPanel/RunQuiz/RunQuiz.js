@@ -1,115 +1,66 @@
-import {faBookmark, faExpand} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {Image} from 'react-native';
-import {
-  CommonRadioButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../styles/Common';
-import {CommonTextInput} from '../../../styles/Common/CommonTextInput';
-import {FontIcon} from '../../../styles/Common/FontIcon';
-import {styles} from '../../../styles/Common/Styles';
-import commonTranslator from '../../../tranlates/Common';
-import Bookmark from './Bookmark/Bookmark';
-import Translate from './Translate';
+import {useParams} from 'react-router';
+import {MyView} from '../../../styles/Common';
+import Splash from './components/Splash';
+import {dispatchStateContext} from '../../../App';
+import {DoQuizProvider} from './components/Context';
+import Quiz from './components/Quiz';
 
 function RunQuiz(props) {
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+
+  const [dispatch] = useGlobalState();
+
+  const params = useParams();
+  const [mode, setMode] = useState();
+
+  const getParams = React.useCallback(() => {
+    if (
+      params.quizMode === undefined ||
+      params.quizId === undefined ||
+      props.token === undefined ||
+      props.token === null ||
+      props.token === ''
+    ) {
+      props.navigate('/');
+      return;
+    }
+    setMode('splash');
+  }, [props, params]);
+
+  React.useEffect(() => {
+    getParams();
+  }, [params, getParams]);
+
+  const setLoading = status => {
+    dispatch({loading: status});
+  };
+
   return (
-    <MyView>
-      <Bookmark />
-      <CommonWebBox header={Translate.description} style={{padding: 15}}>
-        <Image
-          style={{
-            width: '100%',
-            height: 200,
-            ...styles.boxShadow,
-            borderRadius: 5,
-          }}
-          source={require('./../../../images/slider.jpg')}></Image>
-        <FontIcon
-          icon={faExpand}
-          style={{
-            ...styles.colorOrange,
-            position: 'absolute',
-            bottom: 20,
-            left: 15,
-          }}
+    <DoQuizProvider>
+      {mode !== undefined && mode === 'splash' && (
+        <Splash
+          isInReviewMode={props.isInReviewMode}
+          token={props.token}
+          quizId={params.quizId}
+          quizGeneralMode={params.quizId}
+          navigate={props.navigate}
+          setLoading={setLoading}
+          setMode={setMode}
         />
-      </CommonWebBox>
-      <CommonWebBox header={Translate.res}>
-        <MyView>
-          <PhoneView
-            style={{
-              ...styles.gap50,
-            }}>
-            <PhoneView
-              style={{
-                ...styles.justifyContentCenter,
-                ...styles.alignItemsCenter,
-              }}>
-              <CommonRadioButton />
-              <SimpleText text={Translate.frist} />
-            </PhoneView>
-            <PhoneView
-              style={{
-                ...styles.justifyContentCenter,
-                ...styles.alignItemsCenter,
-              }}>
-              <CommonRadioButton />
-              <SimpleText text={Translate.two} />
-            </PhoneView>
-            <PhoneView
-              style={{
-                ...styles.justifyContentCenter,
-                ...styles.alignItemsCenter,
-              }}>
-              <CommonRadioButton />
-              <SimpleText text={Translate.three} />
-            </PhoneView>
-            <PhoneView
-              style={{
-                ...styles.justifyContentCenter,
-                ...styles.alignItemsCenter,
-              }}>
-              <CommonRadioButton />
-              <SimpleText text={Translate.four} />
-            </PhoneView>
-            <PhoneView
-              style={{
-                ...styles.justifyContentCenter,
-                ...styles.alignItemsCenter,
-              }}>
-              <CommonRadioButton />
-              <SimpleText text={Translate.five} />
-            </PhoneView>
-          </PhoneView>
-          <CommonTextInput
-            placeholder={Translate.resInput}
-            subText={Translate.resInput}
-            // value={title}
-            // onChangeText={e => changeText(e, setTitle)}
-            parentStyle={{width: '100%'}}
-            style={{backgroundColor: '#efefef', border: 0}}
-          />
-          <CommonTextInput
-            multiline={true}
-            placeholder={Translate.resInput}
-            subText={Translate.resInput}
-            //   value={desc}
-            //   onChangeText={text => setDesc(text)}
-            parentStyle={{width: '100%'}}
-            style={{
-              height: 200,
-              maxWidth: '100%',
-              backgroundColor: '#efefef',
-              border: 0,
-            }}
-          />
-        </MyView>
-      </CommonWebBox>
-    </MyView>
+      )}
+      {mode !== undefined && mode === 'doQuiz' && (
+        <Quiz
+          isInReviewMode={props.isInReviewMode}
+          token={props.token}
+          quizId={params.quizId}
+          quizGeneralMode={params.quizId}
+          navigate={props.navigate}
+          setLoading={setLoading}
+          setMode={setMode}
+        />
+      )}
+    </DoQuizProvider>
   );
 }
 

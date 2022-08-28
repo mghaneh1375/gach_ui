@@ -32,6 +32,7 @@ function MyQuizzes(props) {
           user={props.user}
           setLoading={setLoading}
           token={props.token}
+          navigate={props.navigate}
         />
       )}
       {mode === 'answerSheet' && (

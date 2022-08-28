@@ -376,10 +376,9 @@ button:hover {
   display: flex !important;
   justify-content: flex-end !important;
 }
-.transparent > * :hover{
-  background-color: #707070;
-  display: flex !important;
-  justify-content: flex-end !important;
+.transparent > *:hover {
+  /* background-color: #707070; */
+  box-shadow: inset 0px 0px 10px 10px red;
 }
 .flex-end {
   align-self: flex-end !important;

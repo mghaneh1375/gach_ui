@@ -205,7 +205,7 @@ export const CommonButton = props => {
       </Link>
     </Button>
   ) : props.theme === 'transparent' ? (
-    <div className={'transparent flex-end'}>
+    <div className={'myBtn-transparent flex-end'}>
       <Button style={allStyles} onClick={props.onPress}>
         {props.icon !== undefined &&
           (props.iconDir === undefined || props.iconDir === 'right') && (

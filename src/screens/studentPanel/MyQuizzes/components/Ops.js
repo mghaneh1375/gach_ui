@@ -123,7 +123,20 @@ function Ops(props) {
     props.setRecp(res);
   };
 
-  const prepareReview = () => {};
+  const prepareReview = () => {
+    console.log(
+      '/reviewQuiz/' +
+        state.selectedQuiz.generalMode +
+        '/' +
+        state.selectedQuiz.id,
+    );
+    props.navigate(
+      '/reviewQuiz/' +
+        state.selectedQuiz.generalMode +
+        '/' +
+        state.selectedQuiz.id,
+    );
+  };
 
   return (
     <LargePopUp toggleShowPopUp={props.toggleShowPopUp}>
