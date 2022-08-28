@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {CommonButton, MyView} from '../../../../styles/Common';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import {doQuiz, reviewQuiz} from './Utility';
@@ -10,28 +10,27 @@ function Splash(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
-  //   const [isWorking, setIsWorking] = useState(false);
+  const [isWorking, setIsWorking] = useState(false);
 
-  const fetchQuiz = React.useCallback(() => {
-    console.log('sq');
-    if (state.questions !== undefined) return;
+  React.useEffect(() => {
+    if (isWorking || state.questions !== undefined) return;
+    setIsWorking(true);
+    props.setLoading(true);
+    console.log('As ' + props.quizGeneralMode);
     Promise.all([
       props.isInReviewMode
         ? reviewQuiz(props.quizId, props.quizGeneralMode, props.token)
         : doQuiz(props.quizId, props.quizGeneralMode, props.token),
     ]).then(res => {
-      if (res[0] === null) {
+      props.setLoading(false);
+      if (res === null) {
         props.navigate('/');
         return;
       }
-      dispatch({questions: res[0].questions, quizInfo: res[0].info});
+      dispatch({questions: res[0].questions, quizInfo: res[0].quizInfo});
+      setIsWorking(false);
     });
-  }, [dispatch, props, state.questions]);
-
-  React.useEffect(() => {
-    console.log('Asd');
-    fetchQuiz();
-  }, [fetchQuiz]);
+  }, [dispatch, props, isWorking, state.questions]);
 
   return (
     <MyView>
