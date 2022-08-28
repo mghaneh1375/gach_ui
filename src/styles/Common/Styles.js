@@ -24,11 +24,17 @@ export const styles = {
   colorOrange: {
     color: vars.ORANGE,
   },
+  colorOrangeRed: {
+    color: vars.ORANGE_RED,
+  },
   colorGreen: {
     color: vars.GREEN,
   },
   colorRed: {
     color: vars.RED,
+  },
+  colorWhite: {
+    color: vars.WHITE,
   },
   fontSize11: {
     fontSize: 11,
@@ -85,6 +91,9 @@ export const styles = {
   },
   justifyContentEnd: {
     justifyContent: 'flex-end',
+  },
+  justifySelfCenter: {
+    justifySelf: 'center',
   },
   alignSelfCenter: {
     alignSelf: 'center',
@@ -196,5 +205,19 @@ export const styles = {
   symbol: {
     width: 50,
     height: 50,
+  },
+  questionNo: {
+    width: 35,
+    height: 35,
+    backgroundColor: vars.QUESTION_GREEN,
+    borderRadius: 6,
+  },
+  bookMarkWrapper: {
+    position: 'absolute',
+    top: -2,
+    right: 18,
+  },
+  transparentItem: {
+    border: '2px solid #000',
   },
 };

@@ -10,6 +10,7 @@ import translator from '../Translator';
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import FailTransaction from '../../../../../components/web/FailTransaction/FailTransaction';
 import AccountCharge from '../../../../../components/web/AccountCharge/AccountCharge';
+import QuestionNo from '../../../../studentPanel/RunQuiz/components/QuestionNo';
 
 function List(props) {
   const setDefaultAvatar = avatarId => {
@@ -31,6 +32,7 @@ function List(props) {
 
   return (
     <MyView>
+      <QuestionNo />
       <AccountCharge accountBalance={100} />
       <SuccessTransaction
         buyerName={'ahmad'}

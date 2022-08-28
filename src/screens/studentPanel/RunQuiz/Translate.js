@@ -11,6 +11,9 @@ const Translate = {
   four: 'گزینه 4',
   five: 'گزینه 5',
   resInput: 'ورود پاسخ',
+  status: 'وضعیت کلی',
+  questionRes: 'سوالات پاسخ داده شده ',
+  questionNoAnswer: 'سوالات بدون پاسخ',
 };
 
 export default Translate;

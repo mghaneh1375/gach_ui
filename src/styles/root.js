@@ -17,6 +17,7 @@ const vars = {
   LIGHT_SILVER: '#707070',
   RED: '#FF0000',
   GREEN: '#307E42',
+  QUESTION_GREEN: '#1D8100',
   ORANGE_LIGHT: '#FFAA0073',
   GRADIENT: 'linear-gradient(to left, #FFAA00, #FF6600)',
   alignSelf: Platform.OS === 'web' ? 'flex-start' : 'flex-end',
