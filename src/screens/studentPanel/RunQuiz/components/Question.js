@@ -268,47 +268,49 @@ function Question(props) {
           )}
         </MyView>
       )}
-      <CommonWebBox
+      <MyView
         style={{
           ...basketBox,
-          ...{width: 'calc(100% - 240px)', padding: 0, height: 'unset'},
+          ...{width: vars.BASKET_WIDTH_WITH_OPEN_MENU},
         }}>
-        <EqualTwoTextInputs>
-          {!props.isInReviewMode && (
-            <CommonButton
-              onPress={() => {
-                dispatch({currIdx: state.currIdx - 1});
-              }}
-              title={Translate.finish}
-              theme={'orangeRed'}
-            />
-          )}
-          {props.isInReviewMode && <></>}
-          <PhoneView
-            style={{
-              ...styles.justifyContentCenter,
-              ...styles.alignItemsCenter,
-            }}>
-            {state.currIdx > 0 && (
+        <CommonWebBox style={{padding: 0}}>
+          <EqualTwoTextInputs>
+            {!props.isInReviewMode && (
               <CommonButton
                 onPress={() => {
                   dispatch({currIdx: state.currIdx - 1});
                 }}
-                title={Translate.prev}
+                title={Translate.finish}
+                theme={'orangeRed'}
               />
             )}
-            {state.currIdx < state.questions.length - 1 && (
-              <CommonButton
-                onPress={() => {
-                  dispatch({currIdx: state.currIdx + 1});
-                }}
-                theme={'dark'}
-                title={Translate.next}
-              />
-            )}
-          </PhoneView>
-        </EqualTwoTextInputs>
-      </CommonWebBox>
+            {props.isInReviewMode && <PhoneView></PhoneView>}
+            <PhoneView
+              style={{
+                ...styles.justifyContentCenter,
+                ...styles.alignItemsCenter,
+              }}>
+              {state.currIdx > 0 && (
+                <CommonButton
+                  onPress={() => {
+                    dispatch({currIdx: state.currIdx - 1});
+                  }}
+                  title={Translate.prev}
+                />
+              )}
+              {state.currIdx < state.questions.length - 1 && (
+                <CommonButton
+                  onPress={() => {
+                    dispatch({currIdx: state.currIdx + 1});
+                  }}
+                  theme={'dark'}
+                  title={Translate.next}
+                />
+              )}
+            </PhoneView>
+          </EqualTwoTextInputs>
+        </CommonWebBox>
+      </MyView>
     </MyView>
   );
 }

@@ -189,5 +189,6 @@ const translator = {
   section: 'مورد استفاده',
   recp: 'رسید پرداخت',
   downloadRecp: 'دریافت رسید پرداخت',
+  start: 'شروع',
 };
 export default translator;
