@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {MyView} from 'react-native-multi-selectbox';
+import {CommonWebBox, PhoneView, SimpleText} from '../../../../styles/Common';
+import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
 import Translate from '../Translate';
-import QuestionNumber from './QuestionNumber/QuestionNumber';
+import QuestionNumber from './questionComponents/QuestionNumber';
+import Timer from './Timer/Timer';
 
 function QuestionNo(props) {
   return (
     <CommonWebBox width={vars.RIGHT_MENU_WIDTH}>
+      <Timer time={'15:30'} />
       <PhoneView style={{gap: 5}}>
         <QuestionNumber
           number={1}
