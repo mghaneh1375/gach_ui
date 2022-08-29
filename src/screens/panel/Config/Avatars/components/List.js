@@ -33,10 +33,11 @@ function List(props) {
     <MyView>
       <MyOffs
         text={'تخفیف'}
-        theme={'#efefef'}
+        theme={'orange'}
         subtext={'props.user.user.money'}
         btnColor={'yellow'}
         borderRight={true}
+        background={'orange'}
       />
       <SuccessTransaction
         buyerName={'ahmad'}

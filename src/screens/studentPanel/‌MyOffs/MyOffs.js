@@ -1,5 +1,7 @@
 import React from 'react';
 import {CommonWebBox, PhoneView, SimpleText} from '../../../styles/Common';
+import {FontIcon} from '../../../styles/Common/FontIcon';
+import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
 import {
   styleFontSize25,
@@ -15,17 +17,19 @@ function MyOffs(props) {
       childStyle={{
         borderColor: props.theme,
         background: props.background !== undefined ? props.background : 'white',
-        padding: props.padding !== undefined ? props.padding : '10px',
-        borderRightWidth: 18,
+        // borderRightWidth: 18,
+        // borderLeftWidth: 18,
+        borderLeftColor: 'white',
       }}
       style={{
         ...styleJustifyContentCenter,
       }}>
-      <PhoneView style={{justifyContent: 'space-between'}}>
+      <PhoneView style={{...styles.justifyContentSpaceBetween}}>
         <SimpleText
           style={{
-            ...styleFontSize25,
+            ...styles.fontSize17,
             ...styleMarginRight,
+            ...styles.BlueBold,
             ...{
               color:
                 props.background !== undefined ? vars.WHITE : vars.DARK_BLUE,
@@ -34,15 +38,9 @@ function MyOffs(props) {
           }}
           text={props.text}
         />
-        {props.btnColor === undefined && (
-          <SimpleText
-            style={{
-              ...styleFontSize25,
-              ...{color: vars.WHITE, width: 'max-content'},
-            }}
-            text={'test'}
-          />
-        )}
+        <FontIcon kind={'large'} icon={'circle'}>
+          <SimpleText text={17} />
+        </FontIcon>
       </PhoneView>
     </CommonWebBox>
   );
