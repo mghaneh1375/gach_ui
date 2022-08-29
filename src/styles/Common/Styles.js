@@ -36,6 +36,9 @@ export const styles = {
   colorWhite: {
     color: vars.WHITE,
   },
+  colorDarkBlue: {
+    color: vars.DARK_BLUE,
+  },
   fontSize11: {
     fontSize: 11,
   },
@@ -57,6 +60,9 @@ export const styles = {
   },
   alignSelfStart: {
     alignSelf: 'flex-start',
+  },
+  textCenter: {
+    textAlign: 'center',
   },
   margin20: {
     marginLeft: 20,

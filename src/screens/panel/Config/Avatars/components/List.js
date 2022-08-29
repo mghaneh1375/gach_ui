@@ -9,6 +9,7 @@ import Show from './Show/Show';
 import translator from '../Translator';
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import FailTransaction from '../../../../../components/web/FailTransaction/FailTransaction';
+import QuestionNo from '../../../../studentPanel/RunQuiz/components/QuestionNo';
 
 function List(props) {
   const setDefaultAvatar = avatarId => {
@@ -30,6 +31,7 @@ function List(props) {
 
   return (
     <MyView>
+      <QuestionNo></QuestionNo>
       <SuccessTransaction
         buyerName={'ahmad'}
         link={
