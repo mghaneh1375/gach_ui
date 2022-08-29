@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import {removeGrade} from '../Utility';
 
 function Ops(props) {

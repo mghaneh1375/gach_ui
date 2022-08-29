@@ -3,7 +3,7 @@ import {PhoneView, MyView} from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../Translator';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {kindQuizKeyVals} from '../KeyVals';
 import {dispatchQuizContext, quizContext} from './../Context';
 

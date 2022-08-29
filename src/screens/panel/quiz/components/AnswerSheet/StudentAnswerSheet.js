@@ -16,7 +16,7 @@ import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
 import {styles} from '../../../../../styles/Common/Styles';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {showError} from '../../../../../services/Utility';
 
 function StudentAnswerSheet(props) {

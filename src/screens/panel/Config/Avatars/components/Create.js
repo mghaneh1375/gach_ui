@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {routes} from '../../../../../API/APIRoutes';
 import UploadFile from '../../../../../components/web/UploadFile';
 import {showSuccess} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 
 function Create(props) {
   const [showPopUp, setShowPopUp] = useState(true);

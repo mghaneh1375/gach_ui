@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import {showError} from '../services/Utility';
-import commonTranslator from './../tranlates/Common';
+import commonTranslator from './../translator/Common';
 import {removeAuthCache} from './User';
 
 export const BASE_SITE_NAME = 'http://localhost:3000/';

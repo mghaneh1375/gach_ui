@@ -4,7 +4,7 @@ import {generalRequest} from '../../API/Utility';
 import {CommonButton, MyView, PhoneView} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../tranlates/Common';
+import commonTranslator from '../../translator/Common';
 import UploadFile from './UploadFile';
 import {showSuccess} from '../../services/Utility';
 import {styles} from '../../styles/Common/Styles';

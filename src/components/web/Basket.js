@@ -13,7 +13,7 @@ import {
 } from '../../styles/Common';
 import {styles} from '../../styles/Common/Styles';
 
-import commonTranslator from '../../tranlates/Common';
+import commonTranslator from '../../translator/Common';
 
 function Basket(props) {
   const [width, setWidth] = useState('calc(100% - 240px)');

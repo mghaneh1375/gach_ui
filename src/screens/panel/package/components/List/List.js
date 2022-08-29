@@ -1,7 +1,7 @@
 import React from 'react';
 import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
 import Card from '../../card/Card';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 
 function List(props) {
   return (

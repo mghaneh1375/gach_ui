@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {View} from 'react-native';
 import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 import translator from '../../Translator';

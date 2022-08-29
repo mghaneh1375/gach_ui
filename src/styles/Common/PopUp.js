@@ -1,6 +1,6 @@
 import React from 'react';
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '../Common';
-import translator from '../../tranlates/Common';
+import translator from '../../translator/Common';
 import {TextIcon} from './TextIcon';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {styles} from './Styles';

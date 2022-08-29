@@ -9,7 +9,7 @@ import {
   MyView,
 } from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import commonTranslator from './../../../../tranlates/Common';
+import commonTranslator from './../../../../translator/Common';
 import translator from './../translate';
 
 const ForgetPass = props => {

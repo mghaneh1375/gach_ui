@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {routes} from '../../../../../API/APIRoutes';
 import columns from './TableStructure';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import Ops from '../Ops';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {CommonWebBox, MyView} from '../../../../../styles/Common';

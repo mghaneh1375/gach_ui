@@ -11,7 +11,7 @@ import translator from './Translator';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import {showSuccess} from '../../../../services/Utility';
 
 function General(props) {

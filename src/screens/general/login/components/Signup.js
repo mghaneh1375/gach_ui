@@ -10,7 +10,7 @@ import {
 
 import {generalRequest} from '../../../../API/Utility';
 import translator from '../translate';
-import commonTranslator from './../../../../tranlates/Common';
+import commonTranslator from './../../../../translator/Common';
 import {routes} from '../../../../API/APIRoutes';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import {showError} from '../../../../services/Utility';

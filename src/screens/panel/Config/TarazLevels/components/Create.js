@@ -8,7 +8,7 @@ import {
 } from '../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../Translator';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {create, update} from './Utility';
 import {changeText} from '../../../../../services/Utility';
 import {HexColorPicker} from 'react-colorful';

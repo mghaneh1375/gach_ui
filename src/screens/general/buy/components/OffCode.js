@@ -5,7 +5,7 @@ import {showError, showSuccess} from '../../../../services/Utility';
 import {CommonButton} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 
 function OffCode(props) {
   const [offcode, setOffcode] = useState();

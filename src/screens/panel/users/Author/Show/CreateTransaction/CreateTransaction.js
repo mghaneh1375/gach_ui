@@ -8,7 +8,7 @@ import {
 } from '../../../../../../styles/Common';
 import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../../../tranlates/Common';
+import commonTranslator from '../../../../../../translator/Common';
 import {createTransaction} from '../../List/Utility';
 import Translate from '../../Translator';
 

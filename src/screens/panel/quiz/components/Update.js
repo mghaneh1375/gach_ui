@@ -9,7 +9,7 @@ import QuizAnswerSheetInfo from './Create/QuizAnswerSheetInfo';
 import QuizGeneralInfo from './Create/QuizGeneralInfo';
 import QuizRegistryInfo from './Create/QuizRegistryInfo';
 import QuizRunInfo from './Create/QuizRunInfo';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import translator from '../Translator';
 import {CallAPI} from './Create/CallAPI';
 import {routes} from '../../../../API/APIRoutes';

@@ -3,7 +3,7 @@ import {routes} from '../../API/APIRoutes';
 import {generalRequest} from '../../API/Utility';
 import {EqualTwoTextInputs} from '../../styles/Common';
 import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../tranlates/Common';
+import commonTranslator from '../../translator/Common';
 
 function StateAndCity(props) {
   const [fetchedStates, setFetchedStates] = useState(

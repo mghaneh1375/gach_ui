@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useParams} from 'react-router';
 import {CommonButton, PhoneView} from '../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {filter} from '../Utility';
 
 function Filter(props) {

@@ -7,7 +7,7 @@ import {
   BigBoldBlueText,
 } from '../../../../styles/Common';
 import certTranslator from '../Translator';
-import translator from '../../../../tranlates/Common';
+import translator from '../../../../translator/Common';
 // import './Style.css';
 
 const DynamicParameters = () => {

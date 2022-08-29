@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import StateAndCity from '../../../../../../components/web/StateAndCity';
 import {CommonButton, PhoneView, MyView} from '../../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
-import commonTranslator from '../../../../../../tranlates/Common';
+import commonTranslator from '../../../../../../translator/Common';
 import translator from '../../Translator';
 import {grades, kindSchools} from '../KeyVals';
 import {filter} from '../Utility';

@@ -9,7 +9,7 @@ import {
   MyView,
 } from '../../../../styles/Common';
 import translator from './Translator';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import {showSuccess} from '../../../../services/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';

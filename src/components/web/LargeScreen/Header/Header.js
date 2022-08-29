@@ -12,7 +12,7 @@ import {faAngleUp, faBell} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import {logout} from '../../../../API/User';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import newAlertsKeyVals from './NewAlertsKeyVals';
 import UserTinyPic from '../UserTinyPic';
 

@@ -6,7 +6,7 @@ import {
   MyView,
 } from '../../../../../../styles/Common';
 import translator from '../../Translator';
-import commonTranslator from '../../../../../../tranlates/Common';
+import commonTranslator from '../../../../../../translator/Common';
 import style from './Style';
 import {remove, setAsDefault} from '../Utility';
 

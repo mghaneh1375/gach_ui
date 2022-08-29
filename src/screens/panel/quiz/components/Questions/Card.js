@@ -5,7 +5,7 @@ import {
 } from '../../../../../styles/Common';
 import Question from '../../../question/components/Detail/Question';
 import React, {useState} from 'react';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {dispatchQuizContext, quizContext} from '../Context';
 
 function Card(props) {

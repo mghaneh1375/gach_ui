@@ -7,7 +7,7 @@ import {
 } from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../../Translator';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {
   allTypeKeyVals,
   filter,

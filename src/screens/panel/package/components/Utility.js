@@ -1,7 +1,7 @@
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {showError, showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 
 export const fetchAllPackages = async token => {
   return await generalRequest(

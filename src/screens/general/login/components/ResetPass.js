@@ -6,7 +6,7 @@ import {showError, showSuccess} from '../../../../services/Utility';
 import {CommonButton, MyView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import translator from '..//translate';
-import commonTranslator from './../../../../tranlates/Common';
+import commonTranslator from './../../../../translator/Common';
 
 const ResetPass = props => {
   const [password, setPassword] = useState('Ghhy@112');

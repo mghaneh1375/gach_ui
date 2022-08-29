@@ -4,7 +4,7 @@ import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorde
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import vars from '../../../../styles/root';
 import translator from '../translate';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import Verification from '../../login/components/Verification';
 import {removeAuthCache} from '../../../../API/User';
 import {getDevice, showSuccess} from '../../../../services/Utility';

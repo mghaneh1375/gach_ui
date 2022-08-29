@@ -7,7 +7,7 @@ import {
 } from '../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import Translate from '../Translator';
-import commonTranslate from '../../../../../tranlates/Common';
+import commonTranslate from '../../../../../translator/Common';
 import {createAuthor, editAuthor} from '../List/Utility';
 import {changeText} from '../../../../../services/Utility';
 

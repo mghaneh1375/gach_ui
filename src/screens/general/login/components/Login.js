@@ -4,7 +4,7 @@ import {setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {CommonButton, MyView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import commonTranlator from './../../../../tranlates/Common';
+import commonTranlator from './../../../../translator/Common';
 import translator from './../translate';
 
 const Login = props => {

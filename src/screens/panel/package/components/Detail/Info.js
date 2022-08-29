@@ -15,7 +15,7 @@ import {
   styleItemsGrandParent,
   styleItemsParent,
 } from './../../card/Style';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {dispatchQuizzesContext} from './Utility';
 import {styles} from '../../../../../styles/Common/Styles';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';

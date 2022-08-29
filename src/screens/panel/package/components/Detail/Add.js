@@ -4,7 +4,7 @@ import Quizzes from '../../../../../components/web/Quizzes';
 import {CommonButton} from '../../../../../styles/Common';
 import {addQuizzesToPackage} from '../Utility';
 import Translate from '../../Translate';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {showSuccess} from '../../../../../services/Utility';
 import {dispatchQuizzesContext, quizzesContext} from './Utility';
 import {generalRequest} from '../../../../../API/Utility';

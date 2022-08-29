@@ -2,14 +2,15 @@ import {faBookmark} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import {PhoneView, SimpleText} from '../../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import {styles} from '../../../../../styles/Common/Styles';
+import {style} from '../../style';
 import vars from '../../../../../styles/root';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function QuestionNumber(props) {
   return (
     <PhoneView
       style={{
-        ...styles.questionNo,
+        ...style.questionNo,
         borderWidth:
           props.selected !== undefined && props.selected
             ? 2
@@ -31,8 +32,8 @@ function QuestionNumber(props) {
           style={
             (props.theme !== undefined && props.theme === 'transparent') ||
             (props.selected !== undefined && props.selected)
-              ? {...styles.bookMarkWrapperWithBorder}
-              : {...styles.bookMarkWrapper}
+              ? {...style.bookMarkWrapperWithBorder}
+              : {...style.bookMarkWrapper}
           }>
           <SimpleFontIcon
             kind={'small'}

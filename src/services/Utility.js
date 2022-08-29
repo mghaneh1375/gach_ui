@@ -3,7 +3,7 @@ import {Device} from '../models/Device';
 import moment from 'moment-jalaali';
 import {Store} from 'react-notifications-component';
 import {generalRequest} from '../API/Utility';
-import commonTranslator from '../tranlates/Common';
+import commonTranslator from '../translator/Common';
 
 export function getDevice() {
   const device = [];

@@ -2,7 +2,7 @@ import React, {useReducer, useState} from 'react';
 import DataTable from 'react-data-table-component';
 import ConfirmationBatchOpPane from '../../components/web/ConfirmationBatchOpPane';
 import {showSuccess} from '../../services/Utility';
-import commonTranslator from '../../tranlates/Common';
+import commonTranslator from '../../translator/Common';
 import {MyView} from '../Common';
 
 const CommonDataTable = props => {

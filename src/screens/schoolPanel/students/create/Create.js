@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, CommonButton} from '../../../../styles/Common';
 import Translate from '../Translate';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {changeText} from '../../../../services/Utility';
 import {addStudents} from '../Utility';
-import translator from '../../../../tranlates/Common';
+import translator from '../../../../translator/Common';
 
 function Create(props) {
   const [name, setName] = useState('testsadsa');

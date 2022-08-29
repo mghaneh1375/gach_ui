@@ -1,5 +1,5 @@
 import {CommonWebBox, MyView} from '../../../../styles/Common';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 
 function Students(props) {
   return (

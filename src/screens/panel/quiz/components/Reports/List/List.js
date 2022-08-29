@@ -10,7 +10,7 @@ import {View} from 'react-native';
 import Participants from '../Participants/Participants';
 
 import translator from './Translator';
-import commonTranslator from '../../../../../../tranlates/Common';
+import commonTranslator from '../../../../../../translator/Common';
 import {
   fetchCityReportLocal,
   fetchGenderReportLocal,

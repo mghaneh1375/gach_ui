@@ -1,7 +1,7 @@
 import {routes} from '../../../../API/APIRoutes';
 import {downloadRequest, generalRequest} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 
 export const getQuizzes = async token => {
   return await generalRequest(

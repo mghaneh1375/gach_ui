@@ -1,6 +1,6 @@
 import {generalUpdate} from '../../../../services/Utility';
 import translator from '../Translator';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 

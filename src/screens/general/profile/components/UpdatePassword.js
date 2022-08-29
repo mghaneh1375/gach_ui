@@ -1,7 +1,7 @@
 import React from 'react';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../translate';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import {
   BigBoldBlueText,
   EqualTwoTextInputs,

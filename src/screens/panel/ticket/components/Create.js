@@ -8,7 +8,7 @@ import {
   MyView,
 } from '../../../../styles/Common';
 import translator from '../Translator';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import React, {useState} from 'react';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';

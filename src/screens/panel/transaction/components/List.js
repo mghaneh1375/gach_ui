@@ -1,7 +1,7 @@
 import React from 'react';
 import {CommonWebBox} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import columns from './TableStructure';
 import Filter from './Fliter/Filter';
 

@@ -10,7 +10,7 @@ import Translate from '../Translate';
 import {styles} from '../../../../styles/Common/Styles';
 import {goToPay} from './Utility';
 import {setCacheItem} from '../../../../API/User';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 
 function BuyBasket(props) {
   const goToPayLocal = async () => {
