@@ -15,6 +15,11 @@ const Translate = {
   review: 'مرور آزمون',
   continue: 'ادامه آزمون',
   start: 'شروع آزمون',
+  quizList: 'لیست سوالات',
+  help: 'راهنما',
+  answered: 'پاسخ داده شده',
+  quizNoneRes: 'بدون پاسخ',
+  bookmarked: 'نشان شده',
 };
 
 export default Translate;
