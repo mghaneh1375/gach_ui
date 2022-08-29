@@ -101,6 +101,9 @@ export const styles = {
   justifyContentSpaceAround: {
     justifyContent: 'space-around',
   },
+  justifyContentSpaceBetween: {
+    justifyContent: 'space-between',
+  },
   justifyContentCenter: {
     justifyContent: 'center',
   },
