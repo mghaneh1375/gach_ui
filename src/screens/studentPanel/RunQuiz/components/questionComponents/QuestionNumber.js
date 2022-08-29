@@ -24,15 +24,20 @@ function QuestionNumber(props) {
             ? vars.WHITE
             : vars.GREEN,
       }}>
-      {props.bookmark !== 0 && (
-        <PhoneView style={{...styles.bookMarkWrapper}}>
+      {props.bookmark !== 'hidden' && (
+        <PhoneView
+          style={
+            props.bookmark === 'fill'
+              ? {...styles.bookMarkWrapper}
+              : {...styles.bookMarkWrapperWithBorder}
+          }>
           <FontIcon
             kind={'tiny'}
             back={'transparent'}
             icon={faBookmark}
             style={{
               padding: 0,
-              color: props.bookmarkColor ? vars.ORANGE_RED : vars.DARK_WHITE,
+              color: props.bookmark === 'fill' ? vars.ORANGE_RED : '#CCCCCC',
             }}
             onPress={() => toggleBookMark()}
           />

@@ -41,6 +41,10 @@ const Menu = props => {
           <AdminMenu navigate={props.navigate} />
         )}
       {!state.isRightMenuVisible && state.isFilterMenuVisible && <Filter />}
+      {/* state.selfFilter === undefined && */}
+      {/* {!state.isRightMenuVisible &&
+        state.isFilterMenuVisible &&
+        state.selfFilter !== undefined && <Filter />} */}
     </MyView>
   );
 };

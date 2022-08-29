@@ -37,9 +37,11 @@ function SuccessTransaction(props) {
               text={Translate.refCode + ' : ' + props.refCode}
             />
           )}
-          <PhoneView>
-            <CommonButton title={Translate.printRecp} theme={'dark'} />
-          </PhoneView>
+          <CommonButton
+            style={{justifyContent: 'flex-start'}}
+            title={Translate.printRecp}
+            theme={'dark'}
+          />
         </MyView>
         <SimpleText
           text={Translate.buyerName + ' ' + props.buyerName}

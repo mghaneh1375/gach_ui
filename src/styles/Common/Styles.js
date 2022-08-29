@@ -214,7 +214,12 @@ export const styles = {
   },
   bookMarkWrapper: {
     position: 'absolute',
-    top: -2,
+    top: -1,
+    right: 18,
+  },
+  bookMarkWrapperWithBorder: {
+    position: 'absolute',
+    top: -6,
     right: 18,
   },
   transparentItem: {

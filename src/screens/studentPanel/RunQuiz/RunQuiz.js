@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {MyView} from '../../../styles/Common';
+import {MyView, PhoneView} from '../../../styles/Common';
 import Splash from './components/Splash';
 import {dispatchStateContext} from '../../../App';
 import {DoQuizProvider} from './components/Context';
 import Quiz from './components/Quiz';
+import {triangleDown} from 'victory-core/lib/victory-util/point-path-helpers';
+import Filter from './components/Filter';
 
 function RunQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -29,6 +31,12 @@ function RunQuiz(props) {
   }, [props, params]);
 
   React.useEffect(() => {
+    dispatch({
+      isRightMenuVisible: false,
+    });
+  }, [dispatch]);
+
+  React.useEffect(() => {
     getParams();
   }, [params, getParams]);
 
@@ -37,30 +45,35 @@ function RunQuiz(props) {
   };
 
   return (
-    <DoQuizProvider>
-      {mode !== undefined && mode === 'splash' && (
-        <Splash
-          isInReviewMode={props.isInReviewMode}
-          token={props.token}
-          quizId={params.quizId}
-          quizGeneralMode={params.quizMode}
-          navigate={props.navigate}
-          setLoading={setLoading}
-          setMode={setMode}
-        />
-      )}
-      {mode !== undefined && mode === 'doQuiz' && (
-        <Quiz
-          isInReviewMode={props.isInReviewMode}
-          token={props.token}
-          quizId={params.quizId}
-          quizGeneralMode={params.quizMode}
-          navigate={props.navigate}
-          setLoading={setLoading}
-          setMode={setMode}
-        />
-      )}
-    </DoQuizProvider>
+    <PhoneView>
+      <DoQuizProvider>
+        <Filter />
+        <MyView style={{width: 'calc(100% - 200px)'}}>
+          {mode !== undefined && mode === 'splash' && (
+            <Splash
+              isInReviewMode={props.isInReviewMode}
+              token={props.token}
+              quizId={params.quizId}
+              quizGeneralMode={params.quizMode}
+              navigate={props.navigate}
+              setLoading={setLoading}
+              setMode={setMode}
+            />
+          )}
+          {mode !== undefined && mode === 'doQuiz' && (
+            <Quiz
+              isInReviewMode={props.isInReviewMode}
+              token={props.token}
+              quizId={params.quizId}
+              quizGeneralMode={params.quizMode}
+              navigate={props.navigate}
+              setLoading={setLoading}
+              setMode={setMode}
+            />
+          )}
+        </MyView>
+      </DoQuizProvider>
+    </PhoneView>
   );
 }
 
