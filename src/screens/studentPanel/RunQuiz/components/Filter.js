@@ -17,6 +17,7 @@ import Timer from './Timer';
 import {faAngleDown, faBookmark} from '@fortawesome/free-solid-svg-icons';
 import Translate from '../Translate';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
+import ProgressBar from '../../../../styles/Common/ProgressBar';
 
 function Filter(props) {
   const useGlobalState = () => [
@@ -55,7 +56,10 @@ function Filter(props) {
               marginLeft: 5,
             }}
           />
-          <SimpleText text={Translate.answered} style={{...styles.BlueBold}} />
+          <SimpleText
+            text={Translate.answered}
+            style={{...styles.colorGray, ...styles.fontSize12}}
+          />
         </PhoneView>
         <PhoneView>
           <FontIcon
@@ -69,24 +73,26 @@ function Filter(props) {
           />
           <SimpleText
             text={Translate.bookmarked}
-            style={{...styles.BlueBold}}
+            style={{...styles.colorGray, ...styles.fontSize12}}
           />
         </PhoneView>
         <PhoneView>
           <FontIcon
-            kind={'circle'}
-            icon={faBookmark}
+            kind={'small'}
+            icon={'circle'}
             back={'dark'}
             parentStyle={{
               marginLeft: 5,
+              ...styles.boxShadow,
             }}
           />
           <SimpleText
             text={Translate.notAnswered}
-            style={{...styles.BlueBold}}
+            style={{...styles.colorGray, ...styles.fontSize12}}
           />
         </PhoneView>
       </MyView>
+      <ProgressBar bar={'30%'}></ProgressBar>
       <PhoneView
         style={{
           ...styles.gap7,

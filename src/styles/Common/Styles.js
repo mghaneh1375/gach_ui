@@ -24,6 +24,9 @@ export const styles = {
   colorOrange: {
     color: vars.ORANGE,
   },
+  colorGray: {
+    color: vars.DARK_SILVER,
+  },
   colorOrangeRed: {
     color: vars.ORANGE_RED,
   },
@@ -149,6 +152,9 @@ export const styles = {
   },
   flexNoWrap: {
     flexWrap: 'nowrap',
+  },
+  fontSize12: {
+    fontSize: 12,
   },
   fontSize13: {
     fontSize: 13,

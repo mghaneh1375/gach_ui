@@ -30,6 +30,9 @@ function List(props) {
 
   return (
     <MyView>
+      <CommonWebBox header={'tets'}>
+        <MyView className={'progress'}></MyView>
+      </CommonWebBox>
       <SuccessTransaction
         buyerName={'ahmad'}
         link={
