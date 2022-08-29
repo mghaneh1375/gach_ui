@@ -10,22 +10,13 @@ import vars from '../../../../styles/root';
 import React from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import QuestionNumber from './questionComponents/QuestionNumber';
-import {SimpleTextIcon, TextIcon} from '../../../../styles/Common/TextIcon';
-<<<<<<< HEAD
-import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
+import {SimpleTextIcon} from '../../../../styles/Common/TextIcon';
+
 import Timer from './Timer';
-=======
-import {
-  faAngleDown,
-  faBookmark,
-  faCircle,
-  faCircleCheck,
-  faCircleDot,
-} from '@fortawesome/free-solid-svg-icons';
+
+import {faAngleDown, faBookmark} from '@fortawesome/free-solid-svg-icons';
 import Translate from '../Translate';
-import QuizItemCard from '../../../../components/web/QuizItemCard';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
->>>>>>> 04dfe76253198b0f8e8afec0fd5e948f81370f80
 
 function Filter(props) {
   const useGlobalState = () => [
@@ -91,7 +82,7 @@ function Filter(props) {
             }}
           />
           <SimpleText
-            text={Translate.quizNoneRes}
+            text={Translate.notAnswered}
             style={{...styles.BlueBold}}
           />
         </PhoneView>

@@ -15,18 +15,15 @@ const Translate = {
   review: 'مرور آزمون',
   continue: 'ادامه آزمون',
   start: 'شروع آزمون',
-<<<<<<< HEAD
   next: 'بعدی',
   prev: 'قبلی',
   finish: 'اتمام ارزیابی',
   totalTime: 'زمان کل آزمون',
-=======
   quizList: 'لیست سوالات',
   help: 'راهنما',
   answered: 'پاسخ داده شده',
-  quizNoneRes: 'بدون پاسخ',
+  notAnswered: 'بدون پاسخ',
   bookmarked: 'نشان شده',
->>>>>>> 04dfe76253198b0f8e8afec0fd5e948f81370f80
 };
 
 export default Translate;
