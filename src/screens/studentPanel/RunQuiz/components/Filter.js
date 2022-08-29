@@ -11,8 +11,21 @@ import React from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import QuestionNumber from './questionComponents/QuestionNumber';
 import {SimpleTextIcon, TextIcon} from '../../../../styles/Common/TextIcon';
+<<<<<<< HEAD
 import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import Timer from './Timer';
+=======
+import {
+  faAngleDown,
+  faBookmark,
+  faCircle,
+  faCircleCheck,
+  faCircleDot,
+} from '@fortawesome/free-solid-svg-icons';
+import Translate from '../Translate';
+import QuizItemCard from '../../../../components/web/QuizItemCard';
+import {FontIcon} from '../../../../styles/Common/FontIcon';
+>>>>>>> 04dfe76253198b0f8e8afec0fd5e948f81370f80
 
 function Filter(props) {
   const useGlobalState = () => [
@@ -32,15 +45,57 @@ function Filter(props) {
       )}
       <EqualTwoTextInputs
         style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
-        <SimpleText style={styles.dark_blue_color} text={'لیست سوالات'} />
+        <SimpleText style={styles.dark_blue_color} text={Translate.quizList} />
         <SimpleTextIcon
           icon={faAngleDown}
           textStyle={{...styles.colorOrangeRed, ...{marginLeft: -5}}}
           iconStyle={{...styles.colorOrangeRed}}
           iconKind={'normal'}
-          text={'راهنما'}
+          text={Translate.help}
         />
       </EqualTwoTextInputs>
+      <MyView>
+        <PhoneView>
+          <FontIcon
+            kind={'small'}
+            icon={'circle'}
+            back={'blue'}
+            parentStyle={{
+              marginLeft: 5,
+            }}
+          />
+          <SimpleText text={Translate.answered} style={{...styles.BlueBold}} />
+        </PhoneView>
+        <PhoneView>
+          <FontIcon
+            kind={'small'}
+            icon={faBookmark}
+            style={{color: vars.ORANGE_RED}}
+            parentStyle={{
+              marginLeft: 5,
+              backgroundColor: 'transparent',
+            }}
+          />
+          <SimpleText
+            text={Translate.bookmarked}
+            style={{...styles.BlueBold}}
+          />
+        </PhoneView>
+        <PhoneView>
+          <FontIcon
+            kind={'circle'}
+            icon={faBookmark}
+            back={'dark'}
+            parentStyle={{
+              marginLeft: 5,
+            }}
+          />
+          <SimpleText
+            text={Translate.quizNoneRes}
+            style={{...styles.BlueBold}}
+          />
+        </PhoneView>
+      </MyView>
       <PhoneView
         style={{
           ...styles.gap7,
