@@ -171,6 +171,9 @@ export const styles = {
   padding10: {
     padding: 10,
   },
+  margin5: {
+    margin: 5,
+  },
   margin15: {
     margin: 10,
   },

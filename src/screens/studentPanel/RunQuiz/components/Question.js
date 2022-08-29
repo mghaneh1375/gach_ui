@@ -274,13 +274,16 @@ function Question(props) {
           ...{width: 'calc(100% - 240px)', padding: 0, height: 'unset'},
         }}>
         <EqualTwoTextInputs>
-          <CommonButton
-            onPress={() => {
-              dispatch({currIdx: state.currIdx - 1});
-            }}
-            title={Translate.finish}
-            theme={'orangeRed'}
-          />
+          {!props.isInReviewMode && (
+            <CommonButton
+              onPress={() => {
+                dispatch({currIdx: state.currIdx - 1});
+              }}
+              title={Translate.finish}
+              theme={'orangeRed'}
+            />
+          )}
+          {props.isInReviewMode && <></>}
           <PhoneView
             style={{
               ...styles.justifyContentCenter,

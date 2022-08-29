@@ -18,6 +18,7 @@ const Translate = {
   next: 'بعدی',
   prev: 'قبلی',
   finish: 'اتمام ارزیابی',
+  totalTime: 'زمان کل آزمون',
 };
 
 export default Translate;

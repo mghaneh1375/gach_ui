@@ -1,9 +1,9 @@
 import React from 'react';
 import CountDown from 'react-native-countdown-component';
-import {MyView, PhoneView, SimpleText} from '../../../../../styles/Common';
-import {MyCountDown} from '../../../../../styles/Common/MyCountDown';
-import {styles} from '../../../../../styles/Common/Styles';
-import vars from '../../../../../styles/root';
+import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
+import {styles} from '../../../../styles/Common/Styles';
+import vars from '../../../../styles/root';
+import Translate from '../Translate';
 
 function Timer(props) {
   return (
@@ -20,7 +20,7 @@ function Timer(props) {
             paddingTop: 2,
             marginLeft: 1,
           }}
-          text={'زمان کل آزمون'}
+          text={Translate.totalTime}
         />
         <SimpleText
           style={{
@@ -31,13 +31,14 @@ function Timer(props) {
             ...styles.textCenter,
             backgroundColor: vars.ORANGE_RED,
           }}
-          text={props.time}
+          text={props.totalTime}
         />
       </PhoneView>
       <CountDown
         until={props.reminder}
         onFinish={() => {}}
         timeToShow={['M', 'S']}
+        style={{direction: 'ltr', marginTop: 20}}
         digitStyle={{
           backgroundColor: 'blue',
           height: 0,
@@ -47,16 +48,17 @@ function Timer(props) {
         digitTxtStyle={{
           ...styles.colorOrangeRed,
           width: 20,
+          fontFamily: 'IRANSans',
           ...styles.fontSize15,
         }}
         timeLabelStyle={{
           color: 'red',
-
           fontWeight: 'bold',
         }}
         separatorStyle={{
           ...styles.colorOrangeRed,
           ...styles.fontSize15,
+          ...styles.margin5,
         }}
         showSeparator
         timeLabels={{s: '', m: ''}}

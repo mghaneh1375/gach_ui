@@ -12,6 +12,7 @@ import {doQuizContext, dispatchDoQuizContext} from './Context';
 import QuestionNumber from './questionComponents/QuestionNumber';
 import {SimpleTextIcon, TextIcon} from '../../../../styles/Common/TextIcon';
 import {faAngleDown} from '@fortawesome/free-solid-svg-icons';
+import Timer from './Timer';
 
 function Filter(props) {
   const useGlobalState = () => [
@@ -26,6 +27,9 @@ function Filter(props) {
       childStyle={{padding: 5}}
       style={{padding: 0}}
       width={vars.RIGHT_MENU_WIDTH}>
+      {props.isInReviewMode && props.mode !== 'splash' && (
+        <Timer totalTime={213} reminder={300} />
+      )}
       <EqualTwoTextInputs
         style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
         <SimpleText style={styles.dark_blue_color} text={'لیست سوالات'} />
