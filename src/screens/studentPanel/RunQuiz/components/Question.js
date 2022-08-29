@@ -1,10 +1,17 @@
 import {
   faAngleLeft,
   faAngleRight,
+  faClose,
   faExpand,
 } from '@fortawesome/free-solid-svg-icons';
 import {Image} from 'react-native';
-import {CommonWebBox, MyView, PhoneView} from '../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  EqualTwoTextInputs,
+  MyView,
+  PhoneView,
+} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import Translate from '../Translate';
@@ -13,6 +20,8 @@ import React, {useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import MultiChoice from './questionComponents/MultiChoice';
 import vars from '../../../../styles/root';
+import {getWidthHeight} from '../../../../services/Utility';
+import {basketBox} from '../../../panel/package/card/Style';
 
 function Question(props) {
   const useGlobalState = () => [
@@ -51,13 +60,40 @@ function Question(props) {
   const [isInZoomMode, setIsInZoomMode] = useState();
   const [zoomImg, setZoomImg] = useState();
 
+  const [zoomW, setZoomW] = useState();
+  const [zoomH, setZoomH] = useState();
+
+  const [totalWidth, totalHeight] = getWidthHeight();
+
   React.useEffect(() => {
     if (zoomImg === undefined) {
       setIsInZoomMode(false);
       return;
     }
+    Image.getSize(zoomImg, (width, height) => {
+      let h = (height * 0.75 * totalWidth) / width;
+
+      if (h < totalHeight) {
+        setZoomW(totalWidth - 20);
+        setZoomH(h);
+      } else {
+        let w = (width * (totalHeight - 100)) / height;
+        setZoomW(w);
+        setZoomH(totalHeight - 100);
+      }
+    });
+  }, [zoomImg, totalWidth, totalHeight]);
+
+  React.useEffect(() => {
+    if (zoomH === undefined) return;
     setIsInZoomMode(true);
-  }, [zoomImg]);
+  }, [zoomH]);
+
+  const closeZoom = () => {
+    setZoomImg(undefined);
+    setZoomH(undefined);
+    setZoomW(undefined);
+  };
 
   return (
     <MyView>
@@ -74,15 +110,13 @@ function Question(props) {
           }}>
           <CommonWebBox
             header={''}
-            width={'100%'}
-            backBtn={true}
-            onBackClick={() => setZoomImg(undefined)}
-            style={{marginTop: 30, height: '100%'}}>
+            btn={<FontIcon icon={faClose} onPress={() => closeZoom()} />}
+            style={{margin: 20, padding: 5}}>
             <Image
               resizeMode="contain"
               style={{
-                width: '100%',
-                height: 200,
+                width: zoomW,
+                height: zoomH,
                 borderRadius: 5,
               }}
               source={zoomImg}
@@ -91,32 +125,8 @@ function Question(props) {
         </MyView>
       )}
       {question !== undefined && (
-        <MyView>
-          <CommonWebBox
-            btn={
-              <PhoneView
-                style={{
-                  ...styles.justifyContentCenter,
-                  ...styles.alignItemsCenter,
-                }}>
-                <SimpleFontIcon
-                  onPress={() => {
-                    dispatch({currIdx: state.currIdx + 1});
-                  }}
-                  kind={'large'}
-                  icon={faAngleRight}
-                />
-                <SimpleFontIcon
-                  onPress={() => {
-                    dispatch({currIdx: state.currIdx - 1});
-                  }}
-                  kind={'large'}
-                  icon={faAngleLeft}
-                />
-              </PhoneView>
-            }
-            header={Translate.description}
-            style={{padding: 15}}>
+        <MyView style={{marginBottom: 70}}>
+          <CommonWebBox header={Translate.description} style={{padding: 15}}>
             {question.questionFile !== undefined && (
               <Image
                 resizeMode="contain"
@@ -258,6 +268,44 @@ function Question(props) {
           )}
         </MyView>
       )}
+      <CommonWebBox
+        style={{
+          ...basketBox,
+          ...{width: 'calc(100% - 240px)', padding: 0, height: 'unset'},
+        }}>
+        <EqualTwoTextInputs>
+          <CommonButton
+            onPress={() => {
+              dispatch({currIdx: state.currIdx - 1});
+            }}
+            title={Translate.finish}
+            theme={'orangeRed'}
+          />
+          <PhoneView
+            style={{
+              ...styles.justifyContentCenter,
+              ...styles.alignItemsCenter,
+            }}>
+            {state.currIdx > 0 && (
+              <CommonButton
+                onPress={() => {
+                  dispatch({currIdx: state.currIdx - 1});
+                }}
+                title={Translate.prev}
+              />
+            )}
+            {state.currIdx < state.questions.length - 1 && (
+              <CommonButton
+                onPress={() => {
+                  dispatch({currIdx: state.currIdx + 1});
+                }}
+                theme={'dark'}
+                title={Translate.next}
+              />
+            )}
+          </PhoneView>
+        </EqualTwoTextInputs>
+      </CommonWebBox>
     </MyView>
   );
 }

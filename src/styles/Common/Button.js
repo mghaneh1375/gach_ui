@@ -71,6 +71,8 @@ export const chooseTheme = (theme, allStyles, textStyle) => {
       ? 'transparent'
       : theme === 'yellow'
       ? vars.YELLOW
+      : theme === 'orangeRed'
+      ? vars.ORANGE_RED
       : vars.DARK_BLUE;
 
   if (theme === 'transparent') {

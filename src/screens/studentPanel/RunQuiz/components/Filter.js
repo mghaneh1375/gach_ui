@@ -64,7 +64,9 @@ function Filter(props) {
                 key={index}
                 number={index + 1}
                 bookmark={
-                  elem.bookmark === undefined || !elem.bookmark
+                  props.isInReviewMode
+                    ? 'hidden'
+                    : elem.bookmark === undefined || !elem.bookmark
                     ? 'unfill'
                     : 'fill'
                 }

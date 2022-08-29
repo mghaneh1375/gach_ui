@@ -15,6 +15,9 @@ const Translate = {
   review: 'مرور آزمون',
   continue: 'ادامه آزمون',
   start: 'شروع آزمون',
+  next: 'بعدی',
+  prev: 'قبلی',
+  finish: 'اتمام ارزیابی',
 };
 
 export default Translate;

@@ -1,7 +1,7 @@
 import {faBookmark} from '@fortawesome/free-solid-svg-icons';
-import React, {useState} from 'react';
+import React from 'react';
 import {PhoneView, SimpleText} from '../../../../../styles/Common';
-import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {styles} from '../../../../../styles/Common/Styles';
 import vars from '../../../../../styles/root';
 
@@ -29,7 +29,8 @@ function QuestionNumber(props) {
       {props.bookmark !== 'hidden' && (
         <PhoneView
           style={
-            props.theme !== undefined && props.theme === 'transparent'
+            (props.theme !== undefined && props.theme === 'transparent') ||
+            (props.selected !== undefined && props.selected)
               ? {...styles.bookMarkWrapperWithBorder}
               : {...styles.bookMarkWrapper}
           }>
