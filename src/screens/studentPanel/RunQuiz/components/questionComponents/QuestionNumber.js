@@ -1,50 +1,52 @@
 import {faBookmark} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {PhoneView, SimpleText} from '../../../../../styles/Common';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {styles} from '../../../../../styles/Common/Styles';
 import vars from '../../../../../styles/root';
 
 function QuestionNumber(props) {
-  const [bookMark, setBookMark] = useState();
-  const toggleBookMark = () => {
-    setBookMark(!bookMark);
-  };
-
   return (
     <PhoneView
       style={{
         ...styles.questionNo,
-        border:
-          props.theme !== undefined && props.theme === 'transparent'
-            ? '2px solid #000'
-            : {},
+        borderWidth:
+          props.selected !== undefined && props.selected
+            ? 2
+            : props.theme !== undefined && props.theme === 'transparent'
+            ? 1
+            : 0,
+        borderType: 'solid',
+        borderColor:
+          props.selected !== undefined && props.selected
+            ? vars.ORANGE_RED
+            : vars.DARK_SILVER,
         backgroundColor:
           props.theme !== undefined && props.theme === 'transparent'
             ? vars.WHITE
-            : vars.GREEN,
+            : vars.DARK_BLUE,
       }}>
       {props.bookmark !== 'hidden' && (
         <PhoneView
           style={
-            props.bookmark === 'fill'
-              ? {...styles.bookMarkWrapper}
-              : {...styles.bookMarkWrapperWithBorder}
+            props.theme !== undefined && props.theme === 'transparent'
+              ? {...styles.bookMarkWrapperWithBorder}
+              : {...styles.bookMarkWrapper}
           }>
-          <FontIcon
-            kind={'tiny'}
-            back={'transparent'}
+          <SimpleFontIcon
+            kind={'small'}
             icon={faBookmark}
             style={{
               padding: 0,
               color: props.bookmark === 'fill' ? vars.ORANGE_RED : '#CCCCCC',
             }}
-            onPress={() => toggleBookMark()}
+            onPress={() => props.onChange()}
           />
         </PhoneView>
       )}
       <SimpleText
         style={{
+          ...styles.cursor_pointer,
           ...styles.colorWhite,
           ...styles.marginAuto,
           color:
@@ -53,6 +55,7 @@ function QuestionNumber(props) {
               : vars.WHITE,
         }}
         text={props.number}
+        onPress={() => props.jump()}
       />
     </PhoneView>
   );

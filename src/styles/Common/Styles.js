@@ -114,6 +114,12 @@ export const styles = {
   gap0: {
     gap: 0,
   },
+  gap5: {
+    gap: 5,
+  },
+  gap7: {
+    gap: 7,
+  },
   gap10: {
     gap: 10,
   },
@@ -158,6 +164,9 @@ export const styles = {
   },
   padding10: {
     padding: 10,
+  },
+  margin15: {
+    margin: 10,
   },
   BlueBold: {
     color: vars.DARK_BLUE,
@@ -214,7 +223,7 @@ export const styles = {
   },
   bookMarkWrapper: {
     position: 'absolute',
-    top: -1,
+    top: -4,
     right: 18,
   },
   bookMarkWrapperWithBorder: {

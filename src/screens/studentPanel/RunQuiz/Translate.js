@@ -1,5 +1,4 @@
 const Translate = {
-  test: 'تست',
   number: 'شماره',
   addBookmark: 'نشان کردن سوال',
   deleteBookmark: 'حذف نشان کردن سوال',
@@ -13,6 +12,9 @@ const Translate = {
   status: 'وضعیت کلی',
   questionRes: 'سوالات پاسخ داده شده ',
   questionNoAnswer: 'سوالات بدون پاسخ',
+  review: 'مرور آزمون',
+  continue: 'ادامه آزمون',
+  start: 'شروع آزمون',
 };
 
 export default Translate;

@@ -12,6 +12,7 @@ import {styles} from '../../../../styles/Common/Styles';
 import React, {useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import MultiChoice from './questionComponents/MultiChoice';
+import vars from '../../../../styles/root';
 
 function Question(props) {
   const useGlobalState = () => [
@@ -47,9 +48,48 @@ function Question(props) {
 
   const [height, setHeight] = useState(200);
   const [answerHeight, setAnswerHeight] = useState(200);
+  const [isInZoomMode, setIsInZoomMode] = useState();
+  const [zoomImg, setZoomImg] = useState();
+
+  React.useEffect(() => {
+    if (zoomImg === undefined) {
+      setIsInZoomMode(false);
+      return;
+    }
+    setIsInZoomMode(true);
+  }, [zoomImg]);
 
   return (
     <MyView>
+      {isInZoomMode && (
+        <MyView
+          style={{
+            width: '100%',
+            height: '100%',
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            zIndex: 20,
+            backgroundColor: vars.darkTransparent,
+          }}>
+          <CommonWebBox
+            header={''}
+            width={'100%'}
+            backBtn={true}
+            onBackClick={() => setZoomImg(undefined)}
+            style={{marginTop: 30, height: '100%'}}>
+            <Image
+              resizeMode="contain"
+              style={{
+                width: '100%',
+                height: 200,
+                borderRadius: 5,
+              }}
+              source={zoomImg}
+            />
+          </CommonWebBox>
+        </MyView>
+      )}
       {question !== undefined && (
         <MyView>
           <CommonWebBox
@@ -83,13 +123,13 @@ function Question(props) {
                 style={{
                   width: '100%',
                   height: height,
-                  //   ...styles.boxShadow,
                   borderRadius: 5,
                 }}
                 source={question.questionFile}
               />
             )}
             <FontIcon
+              onPress={() => setZoomImg(question.questionFile)}
               icon={faExpand}
               style={{
                 ...styles.colorOrange,
@@ -200,12 +240,12 @@ function Question(props) {
                 style={{
                   width: '100%',
                   height: answerHeight,
-                  //   ...styles.boxShadow,
                   borderRadius: 5,
                 }}
                 source={question.answerFile}
               />
               <FontIcon
+                onPress={() => setZoomImg(question.answerFile)}
                 icon={faExpand}
                 style={{
                   ...styles.colorOrange,
