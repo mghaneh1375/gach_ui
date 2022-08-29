@@ -7,7 +7,7 @@ export const Loader = props => (
     style={{
       flex: 1,
       justifyContent: 'center',
-      backgroundColor: 'rgba(230,230,230,0.8)',
+      backgroundColor: vars.darkTransparent,
       color: vars.ORANGE_RED,
       height: '100%',
       top: 0,

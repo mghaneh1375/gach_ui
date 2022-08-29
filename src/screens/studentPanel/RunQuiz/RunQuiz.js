@@ -47,7 +47,9 @@ function RunQuiz(props) {
   return (
     <PhoneView>
       <DoQuizProvider>
-        <Filter />
+        {mode !== undefined && (
+          <Filter isInReviewMode={props.isInReviewMode} mode={mode} />
+        )}
         <MyView style={{width: 'calc(100% - 200px)'}}>
           {mode !== undefined && mode === 'splash' && (
             <Splash

@@ -68,22 +68,14 @@ export const SimpleTextIcon = props => {
     props.style !== undefined ? {...style, ...props.style} : style;
 
   var fontProps = {icon: props.icon};
-  if (props.onPress !== undefined) {
-    fontProps.onPress = props.onPress;
-  }
+  if (props.onPress !== undefined) fontProps.onPress = props.onPress;
 
-  if (props.theme !== undefined) {
-    fontProps.parentStyle = {
-      borderRadius: 7,
-      backgroundColor: vars.YELLOW,
-      width: 30,
-      height: 30,
-    };
-  }
+  if (props.iconStyle !== undefined) fontProps.style = props.iconStyle;
+  if (props.iconKind !== undefined) fontProps.kind = props.iconKind;
 
   return (
     <EqualTwoTextInputs style={allStyles}>
-      <BigBoldBlueTextInline text={props.text} />
+      <SimpleText style={props.textStyle} text={props.text} />
 
       <MyView style={InnerViewStyle}>
         <SimpleFontIcon {...fontProps} />
