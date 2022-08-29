@@ -10,7 +10,7 @@ import {
 } from '../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslate from '../../../../../tranlates/Common';
+import commonTranslate from '../../../../../translator/Common';
 import Translate from '../../Translate';
 import {createSubject, editSubject, getSubjects} from '../../Utility';
 

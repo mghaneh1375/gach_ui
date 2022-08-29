@@ -1,7 +1,7 @@
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
 import {MenuItem, style, MenuItemPhone} from '../style';
-import translator from '../../../../../tranlates/Common';
+import translator from '../../../../../translator/Common';
 import {
   faHome,
   faBasketShopping,

@@ -18,7 +18,7 @@ import {
   totalRankCols,
 } from './LessonRankingTableStructure';
 import generalStatTableStructure from './GeneralStatTableStructure';
-import commonTranslator from '../../../../../../tranlates/Common';
+import commonTranslator from '../../../../../../translator/Common';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
 import {

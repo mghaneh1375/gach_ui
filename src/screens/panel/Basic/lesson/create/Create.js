@@ -7,7 +7,7 @@ import {
 } from '../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import Translate from '../../Translate';
-import commonTranslate from '../../../../../tranlates/Common';
+import commonTranslate from '../../../../../translator/Common';
 import {editLesson, createLesson} from '../../Utility';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import {styles} from '../../../../../styles/Common/Styles';

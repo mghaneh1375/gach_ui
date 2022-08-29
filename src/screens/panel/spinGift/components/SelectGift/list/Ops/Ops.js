@@ -1,7 +1,7 @@
 import {View} from 'react-native-web';
 import {PhoneView, MyView} from '../../../../../../../styles/Common';
 import {LargePopUp} from '../../../../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../../../../tranlates/Common';
+import commonTranslator from '../../../../../../../translator/Common';
 import {CommonButton} from '../../../../../../../styles/Common';
 import {showSuccess} from '../../../../../../../services/Utility';
 import {useState} from 'react';

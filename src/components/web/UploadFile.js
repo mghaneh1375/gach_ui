@@ -1,6 +1,6 @@
 import {CommonButton, MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {LargePopUp} from '../../styles/Common/PopUp';
-import commonTranslator from '../../tranlates/Common';
+import commonTranslator from '../../translator/Common';
 import {useFilePicker} from 'use-file-picker';
 import {fileRequest} from '../../API/Utility';
 import React, {useState} from 'react';

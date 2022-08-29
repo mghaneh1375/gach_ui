@@ -12,7 +12,7 @@ import {
 } from '../../../../styles/Common';
 import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {styles} from '../../../../styles/Common/Styles';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import Translate from '../Translate';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 

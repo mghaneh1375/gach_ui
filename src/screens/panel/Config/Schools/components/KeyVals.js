@@ -1,4 +1,4 @@
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 
 export const kindSchools = [
   {item: commonTranslator.sampad, id: 'sampad'},

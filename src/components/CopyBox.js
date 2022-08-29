@@ -1,6 +1,6 @@
 import {CommonButton, PhoneView, SimpleText} from '../styles/Common';
 import {useState} from 'react';
-import commonTranslator from '../tranlates/Common';
+import commonTranslator from '../translator/Common';
 
 const CopyBox = props => {
   const [copying, setCopying] = useState(false);

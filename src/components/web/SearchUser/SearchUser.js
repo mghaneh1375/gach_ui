@@ -11,7 +11,7 @@ import {
 import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
 import {LargePopUp} from '../../../styles/Common/PopUp';
 import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import commonTranslator from '../../../tranlates/Common';
+import commonTranslator from '../../../translator/Common';
 import {search} from './Utility';
 import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';

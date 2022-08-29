@@ -1,4 +1,4 @@
-import commonTranslator from '../../../../../../tranlates/Common';
+import commonTranslator from '../../../../../../translator/Common';
 import Translate from '../../../Translate';
 
 export const typeGiftKeyVals = [

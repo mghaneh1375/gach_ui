@@ -6,7 +6,7 @@ import {
   MyView,
 } from '../../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../../../tranlates/Common';
+import commonTranslator from '../../../../../../translator/Common';
 import Translate from '../../../Translate';
 import React, {useState} from 'react';
 import {Platform, View} from 'react-native';

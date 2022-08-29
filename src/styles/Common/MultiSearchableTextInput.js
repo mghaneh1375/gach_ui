@@ -9,7 +9,7 @@ import {
   CommonTextInputStyleWeb,
 } from './CommonText';
 
-import translator from '../../tranlates/Common';
+import translator from '../../translator/Common';
 import SubInputText from './SubInputText';
 import MultiBox from '../../components/web/MultiBox/MultiBox';
 

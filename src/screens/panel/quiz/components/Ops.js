@@ -1,7 +1,7 @@
 import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../Translator';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import vars from '../../../../styles/root';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';

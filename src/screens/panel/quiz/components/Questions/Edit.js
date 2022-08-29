@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {updateQuestionMark} from '../Utility';
 import translator from '../../Translator';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';

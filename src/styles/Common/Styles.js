@@ -24,6 +24,9 @@ export const styles = {
   colorOrange: {
     color: vars.ORANGE,
   },
+  colorGray: {
+    color: vars.DARK_SILVER,
+  },
   colorOrangeRed: {
     color: vars.ORANGE_RED,
   },
@@ -86,8 +89,14 @@ export const styles = {
   marginAuto: {
     margin: 'auto',
   },
+  marginLeft5: {
+    marginLeft: 5,
+  },
   padding0: {
     padding: 0,
+  },
+  padding5: {
+    padding: 5,
   },
   justifyContentSpaceAround: {
     justifyContent: 'space-around',
@@ -150,6 +159,9 @@ export const styles = {
   flexNoWrap: {
     flexWrap: 'nowrap',
   },
+  fontSize12: {
+    fontSize: 12,
+  },
   fontSize13: {
     fontSize: 13,
   },
@@ -187,6 +199,17 @@ export const styles = {
   overFlowHidden: {
     overflow: 'hidden',
   },
+  boxShadow: {
+    boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
+  },
+  symbol: {
+    width: 50,
+    height: 50,
+  },
+  transparentItem: {
+    border: '2px solid #000',
+  },
+  //For commonWeb Box
   circleBoxUp: {
     width: 84,
     height: 86,
@@ -216,31 +239,5 @@ export const styles = {
     left: '-30px',
     position: 'absolute',
     borderRadius: '50%',
-  },
-  boxShadow: {
-    boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
-  },
-  symbol: {
-    width: 50,
-    height: 50,
-  },
-  questionNo: {
-    width: 35,
-    height: 35,
-    backgroundColor: vars.QUESTION_GREEN,
-    borderRadius: 6,
-  },
-  bookMarkWrapper: {
-    position: 'absolute',
-    top: -4,
-    right: 18,
-  },
-  bookMarkWrapperWithBorder: {
-    position: 'absolute',
-    top: -6,
-    right: 18,
-  },
-  transparentItem: {
-    border: '2px solid #000',
   },
 };

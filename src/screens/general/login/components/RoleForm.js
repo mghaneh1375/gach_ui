@@ -8,7 +8,7 @@ import {
   PhoneView,
 } from '../../../../styles/Common';
 import {RoleCard} from '../../../../styles/Common/RoleCard';
-import commonTranslator from './../../../../tranlates/Common';
+import commonTranslator from './../../../../translator/Common';
 import vars from '../../../../styles/root';
 import {checkSendRoleForm, getRoleForms} from './Utility';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';

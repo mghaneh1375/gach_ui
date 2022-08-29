@@ -20,7 +20,7 @@ import {
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {changeText, showError} from '../../../../../services/Utility';
 import {styleGap10Wrap} from '../Detail/style';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import MultiSentenceType from './MultiSentenceType';
 import {
   addQuestion,

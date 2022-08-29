@@ -8,7 +8,7 @@ import {
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../Translator';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {grades, kindSchools} from './KeyVals';
 import StateAndCity from '../../../../../components/web/StateAndCity';
 import {create, update} from './Utility';

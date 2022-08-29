@@ -2,7 +2,7 @@ import {View} from 'react-native-web';
 import {useState} from 'react';
 import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
 import {routes} from '../../../../API/APIRoutes';
 import {showSuccess} from '../../../../services/Utility';

@@ -1,4 +1,4 @@
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 
 const columns = [
   {

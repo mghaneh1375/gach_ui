@@ -6,7 +6,7 @@ import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorde
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
 import translator from '../Translator';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import {
   typeKeyVals,
   mandatoryFields,

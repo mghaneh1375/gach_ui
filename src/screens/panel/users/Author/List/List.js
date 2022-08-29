@@ -11,7 +11,7 @@ import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import columns from './AuthorTableStructure';
 import {routes} from '../../../../../API/APIRoutes';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {changeText} from '../../../../../services/Utility';
 
 function List(props) {

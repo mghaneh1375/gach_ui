@@ -14,7 +14,7 @@ import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../../ticket/Translator';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {
   sectionKeyVals,
   usedOffKeyVals,

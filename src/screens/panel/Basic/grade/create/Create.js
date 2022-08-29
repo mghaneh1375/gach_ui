@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Translate from '../../Translate';
-import commonTranslate from '../../../../../tranlates/Common';
+import commonTranslate from '../../../../../translator/Common';
 import {createGrade, editGrade} from '../../Utility';
 import {
   CommonButton,

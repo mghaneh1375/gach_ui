@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../Translator';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {sectionKeyVals, priorityKeyVals} from '../KeyVals';
 import {fetchDetail} from './Utility';
 import Chat from './Chat';

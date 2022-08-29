@@ -3,7 +3,7 @@ import {CommonWebBox, MyView} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import {columnsForAdmin, columnsForAgent} from './TableStructure';
 import Ops from './Ops/Ops';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import {routes} from '../../../../API/APIRoutes';
 
 function List(props) {

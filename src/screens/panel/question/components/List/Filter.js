@@ -14,7 +14,7 @@ import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import vars from '../../../../../styles/root';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import translator from '../../Translator';
 import {filter} from '../Utility';
 

@@ -5,7 +5,7 @@ import {
   MyViewWithRef,
   SimpleText,
 } from '../../styles/Common';
-import commonTranslator from '../../tranlates/Common';
+import commonTranslator from '../../translator/Common';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
 import {showError} from '../../services/Utility';

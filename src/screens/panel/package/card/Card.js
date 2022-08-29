@@ -9,7 +9,7 @@ import {
   BigBoldBlueText,
 } from '../../../../styles/Common';
 import Translate from '../Translate';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import {
   styleCircleBox,
   styleTitle,

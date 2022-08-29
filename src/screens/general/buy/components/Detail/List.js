@@ -7,7 +7,7 @@ import {
   SimpleText,
 } from '../../../../../styles/Common';
 import {packagesContext} from '../Context';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import OffCode from '../OffCode';
 
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';

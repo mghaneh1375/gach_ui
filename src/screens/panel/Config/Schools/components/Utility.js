@@ -1,7 +1,7 @@
 import {routes} from '../../../../../API/APIRoutes';
 import {generalRequest} from '../../../../../API/Utility';
 import {showSuccess} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 
 export const filter = async (token, kind, grade, state, city) => {
   let query = new URLSearchParams();

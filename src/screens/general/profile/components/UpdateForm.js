@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CommonButton, SimpleText, MyView} from '../../../../styles/Common';
 import translator from '../translate';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import {updateForm} from './Utility';
 import {fetchUser, setCacheItem} from '../../../../API/User';
 import {showSuccess} from '../../../../services/Utility';

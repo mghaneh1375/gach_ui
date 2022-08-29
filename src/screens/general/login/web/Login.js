@@ -19,7 +19,7 @@ import VerificationModule from './../components/Verification';
 import SignupModule from './../components/Signup';
 import ResetPassModule from './../components/ResetPass';
 import RoleFormModule from './../components/RoleForm';
-import commonTranlator from './../../../../tranlates/Common';
+import commonTranlator from './../../../../translator/Common';
 import translator from './../translate';
 import {Container, Row, Col} from 'react-grid-system';
 import vars from '../../../../styles/root';

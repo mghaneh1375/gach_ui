@@ -4,7 +4,7 @@ import {removeItems} from '../../../../../../services/Utility';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import Ops from '../Ops';
 import columns from './TableStructure';
-import commonTranslator from '../../../../../../tranlates/Common';
+import commonTranslator from '../../../../../../translator/Common';
 import {CommonWebBox} from '../../../../../../styles/Common';
 
 function List(props) {

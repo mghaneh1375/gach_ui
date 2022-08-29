@@ -4,7 +4,7 @@ import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationB
 import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import Translator from '../../../../panel/users/Translator';
 import Translate from '../../Translate';
 

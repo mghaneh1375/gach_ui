@@ -3,7 +3,7 @@ import {fetchUser, removeAuthCache, setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {Device} from '../../../../models/Device';
 import {getDevice, showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../tranlates/Common';
+import commonTranslator from '../../../../translator/Common';
 import translator from '../translate';
 
 const changePassMandatoryFields = ['oldPass', 'newPass', 'confirmNewPass'];

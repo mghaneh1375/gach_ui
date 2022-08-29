@@ -8,14 +8,14 @@ import {
 import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
 import Translate from '../../../Translate';
-import commonTranslate from '../../../../../../tranlates/Common';
+import commonTranslate from '../../../../../../translator/Common';
 import {
   typeGiftKeyVals,
   offCodeKeyVals,
   typeOffCodeKeyVals,
   siteAppKeyVals,
 } from './keyVals';
-import commonTranslator from '../../../../../../tranlates/Common';
+import commonTranslator from '../../../../../../translator/Common';
 import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBottomBorderDatePicker';
 import {addGift, editGift} from '../../configGift/Utility';
 import {changeText} from '../../../../../../services/Utility';

@@ -17,6 +17,8 @@ import Timer from './Timer';
 import {faAngleDown, faBookmark} from '@fortawesome/free-solid-svg-icons';
 import Translate from '../Translate';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
+import ProgressBar from '../../../../styles/Common/ProgressBar';
+import commonTranslator from '../../../../translator/Common';
 
 function Filter(props) {
   const useGlobalState = () => [
@@ -28,8 +30,8 @@ function Filter(props) {
 
   return (
     <CommonWebBox
-      childStyle={{padding: 5}}
-      style={{padding: 0}}
+      childStyle={{...styles.padding5}}
+      style={{...styles.padding0}}
       width={vars.RIGHT_MENU_WIDTH}>
       {props.isInReviewMode && props.mode !== 'splash' && (
         <Timer totalTime={213} reminder={300} />
@@ -52,10 +54,13 @@ function Filter(props) {
             icon={'circle'}
             back={'blue'}
             parentStyle={{
-              marginLeft: 5,
+              ...styles.marginLeft5,
             }}
           />
-          <SimpleText text={Translate.answered} style={{...styles.BlueBold}} />
+          <SimpleText
+            text={Translate.answered}
+            style={{...styles.colorGray, ...styles.fontSize12}}
+          />
         </PhoneView>
         <PhoneView>
           <FontIcon
@@ -63,30 +68,32 @@ function Filter(props) {
             icon={faBookmark}
             style={{color: vars.ORANGE_RED}}
             parentStyle={{
-              marginLeft: 5,
+              ...styles.marginLeft5,
               backgroundColor: 'transparent',
             }}
           />
           <SimpleText
             text={Translate.bookmarked}
-            style={{...styles.BlueBold}}
+            style={{...styles.colorGray, ...styles.fontSize12}}
           />
         </PhoneView>
         <PhoneView>
           <FontIcon
-            kind={'circle'}
-            icon={faBookmark}
+            kind={'small'}
+            icon={'circle'}
             back={'dark'}
             parentStyle={{
-              marginLeft: 5,
+              ...styles.marginLeft5,
+              ...styles.boxShadow,
             }}
           />
           <SimpleText
             text={Translate.notAnswered}
-            style={{...styles.BlueBold}}
+            style={{...styles.colorGray, ...styles.fontSize12}}
           />
         </PhoneView>
       </MyView>
+      <ProgressBar bar={'30%'}></ProgressBar>
       <PhoneView
         style={{
           ...styles.gap7,
@@ -138,7 +145,10 @@ function Filter(props) {
       </PhoneView>
       {state.quizInfo !== undefined && state.quizInfo.attaches !== undefined && (
         <MyView>
-          <SimpleText style={styles.dark_blue_color} text="فایل های ضروری" />
+          <SimpleText
+            style={styles.dark_blue_color}
+            text={commonTranslator.nesFile}
+          />
 
           {state.quizInfo.attaches.map((elem, index) => {
             return '';

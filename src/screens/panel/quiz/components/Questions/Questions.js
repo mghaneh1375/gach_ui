@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {routes} from '../../../../../API/APIRoutes';
 import {CommonButton, CommonWebBox, MyView} from '../../../../../styles/Common';
 import translator from '../../Translator';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import ExcelComma from '../../../../../components/web/ExcelCommaInput';
 import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
 import {getQuestions} from '../Utility';

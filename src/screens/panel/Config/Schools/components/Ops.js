@@ -4,7 +4,7 @@ import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationB
 import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton, PhoneView, MyView} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 
 function Ops(props) {
   const changeMode = newMode => {

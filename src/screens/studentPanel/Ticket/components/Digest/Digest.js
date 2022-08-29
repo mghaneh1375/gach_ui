@@ -11,7 +11,7 @@ import {
 import {TinyTextIcon} from '../../../../../styles/Common/TextIcon';
 import {Translate} from '../../Translate';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
-import commonTranslator from '../../../../../tranlates/Common';
+import commonTranslator from '../../../../../translator/Common';
 import {styleFontSize15, styleFontSize11} from '../List/style';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {callRemoveTicket} from '../Utility';
