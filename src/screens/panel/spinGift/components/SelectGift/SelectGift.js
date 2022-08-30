@@ -20,7 +20,6 @@ function SelectGift(props) {
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
   const [selectedGift, setSelectedGift] = useState({});
-  const [gifts, setGifts] = useState();
 
   const setLoading = status => {
     dispatch({loading: status});

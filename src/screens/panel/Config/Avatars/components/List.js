@@ -32,12 +32,10 @@ function List(props) {
   return (
     <MyView>
       <MyOffs
-        text={'تخفیف'}
-        theme={'orange'}
-        subtext={'props.user.user.money'}
-        btnColor={'yellow'}
-        borderRight={true}
-        background={'orange'}
+        placeUse={'درخانع'}
+        expiredAt={'03/02/1401'}
+        percent={'10%'}
+        price={50000}
       />
       <SuccessTransaction
         buyerName={'ahmad'}

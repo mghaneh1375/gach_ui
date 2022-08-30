@@ -61,6 +61,7 @@ import MyQuizzes from './studentPanel/MyQuizzes/MyQuizzes';
 import Transaction from './panel/transaction/Transaction';
 import ChargeAccount from './studentPanel/ChargeAccount/ChargeAccount';
 import RunQuiz from './studentPanel/RunQuiz/RunQuiz';
+import MyOffs from './studentPanel/‌MyOffs/MyOffs';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -392,6 +393,9 @@ const WebStructue = props => {
               )}
               {props.page === 'teachers' && (
                 <Teachers token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'myOffs' && (
+                <MyOffs token={token} user={user} navigate={navigate} />
               )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </MyView>

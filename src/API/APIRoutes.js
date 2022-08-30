@@ -151,4 +151,5 @@ export const routes = {
   addStudents: 'admin/user/addStudent',
   checkOffCode: 'general/checkOffCode',
   getTransactions: 'admin/transaction/get?',
+  getMyOffs: 'general/myOffs',
 };

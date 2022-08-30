@@ -92,11 +92,23 @@ export const styles = {
   marginLeft5: {
     marginLeft: 5,
   },
+  marginBottom20: {
+    marginBottom: 20,
+  },
+  marginTop0: {
+    marginTop: 0,
+  },
   padding0: {
     padding: 0,
   },
+  margin0: {
+    margin: 0,
+  },
   padding5: {
     padding: 5,
+  },
+  paddingRight15: {
+    paddingRight: 15,
   },
   justifyContentSpaceAround: {
     justifyContent: 'space-around',
@@ -205,9 +217,30 @@ export const styles = {
   boxShadow: {
     boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
   },
+  borderRadius10: {
+    borderRadius: 10,
+  },
+  borderRadius50: {
+    borderRadius: '50%',
+  },
+  top0: {
+    top: 0,
+  },
+  bottom0: {
+    bottom: 0,
+  },
+  right0: {
+    right: 0,
+  },
+  left0: {
+    left: 0,
+  },
   symbol: {
     width: 50,
     height: 50,
+  },
+  positionAbsolute: {
+    position: 'absolute',
   },
   transparentItem: {
     border: '2px solid #000',

@@ -130,6 +130,8 @@ export const SimpleFontIcon = props => {
         ? '100%'
         : props.kind === 'large'
         ? 38
+        : props.kind === 'normal'
+        ? 28
         : props.kind === 'small'
         ? 11
         : 22,
@@ -138,6 +140,8 @@ export const SimpleFontIcon = props => {
         ? '100%'
         : props.kind === 'large'
         ? 38
+        : props.kind === 'normal'
+        ? 28
         : props.kind === 'small'
         ? 11
         : 22,
