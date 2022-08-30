@@ -1,9 +1,4 @@
-import {
-  faAngleLeft,
-  faAngleRight,
-  faClose,
-  faExpand,
-} from '@fortawesome/free-solid-svg-icons';
+import {faClose, faExpand} from '@fortawesome/free-solid-svg-icons';
 import {Image} from 'react-native';
 import {
   CommonButton,
@@ -13,7 +8,7 @@ import {
   PhoneView,
 } from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {FontIcon} from '../../../../styles/Common/FontIcon';
 import Translate from '../Translate';
 import {styles} from '../../../../styles/Common/Styles';
 import React, {useState} from 'react';
@@ -164,7 +159,7 @@ function Question(props) {
                         ? undefined
                         : idx => {
                             let tmp = question;
-                            tmp.answer = idx;
+                            tmp.stdAns = idx;
                             dispatch({question: tmp, needUpdate: true});
                           }
                     }

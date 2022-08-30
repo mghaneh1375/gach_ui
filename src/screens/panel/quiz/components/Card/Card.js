@@ -17,7 +17,10 @@ import {
   stylePricaPane,
   styleYellowBox,
 } from './../../../package/card/Style';
-import {convertTimestamp} from '../../../../../services/Utility';
+import {
+  convertSecToMin,
+  convertTimestamp,
+} from '../../../../../services/Utility';
 import {launchModeKeyVals, kindQuizKeyVals} from '../KeyVals';
 import {faPlug} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../../styles/Common/Styles';
@@ -88,7 +91,7 @@ function Card(props) {
           {props.quiz.duration !== undefined && (
             <QuizItemCard
               text={Translate.duration + ':'}
-              val={props.quiz.duration}
+              val={convertSecToMin(props.quiz.duration)}
               icon={faPlug}
               textFontSize={11}
               valFontSize={15}

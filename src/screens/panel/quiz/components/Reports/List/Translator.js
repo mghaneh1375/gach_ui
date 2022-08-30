@@ -6,6 +6,7 @@ const translator = {
   A1: 'نمای کلی',
   participationReport: 'لیست حضور و غیاب',
   authorReport: 'مولفین آزمون',
+  resetTime: 'باز کردن مجدد آزمون',
 };
 
 export default translator;

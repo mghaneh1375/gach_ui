@@ -1,5 +1,6 @@
 import React, {useReducer, useState} from 'react';
 import DataTable from 'react-data-table-component';
+import DataTableExtensions from 'react-data-table-component-extensions';
 import ConfirmationBatchOpPane from '../../components/web/ConfirmationBatchOpPane';
 import {showSuccess} from '../../services/Utility';
 import commonTranslator from '../../translator/Common';
@@ -67,9 +68,10 @@ const CommonDataTable = props => {
   };
 
   const initialState = {
-    data: [],
+    data: undefined,
     ops: undefined,
     shouldUpdateParent: false,
+    handleOpRender: false,
     currentPage: 1,
     perPage: 10,
     columns: [],
@@ -78,7 +80,18 @@ const CommonDataTable = props => {
   function reducer(state, action) {
     switch (action.type) {
       case 'set':
-        return {...state, data: props.data};
+        if (
+          action.data === undefined ||
+          (action.data.length === 0 &&
+            (state.data === undefined || state.data.length === 0))
+        )
+          return {...state, data: []};
+
+        return {...state, data: [], handleOpRender: true, tmpData: action.data};
+
+      case 'updateData':
+        return {...state, data: state.tmpData};
+
       case 'renderCols':
         let columns = [];
 
@@ -178,20 +191,26 @@ const CommonDataTable = props => {
       case 'parentUpdated':
         return {...state, shouldUpdateParent: false};
       default:
-        throw new Error();
+        return {...state};
     }
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
   React.useEffect(() => {
-    if (
-      props.data === undefined ||
-      (props.data.length === 0 && state.data.length === 0)
-    )
-      return;
-    dispatch({type: 'set'});
-  }, [props.data, state.data]);
+    if (props.data === undefined) return;
+    dispatch({type: 'set', data: props.data});
+  }, [props.data]);
+
+  React.useEffect(() => {
+    if (state.tmpData === undefined) return;
+    dispatch({type: 'updateData'});
+  }, [state.tmpData]);
+
+  React.useEffect(() => {
+    if (state.handleOpRender === undefined || state.handleOpRender) return;
+    dispatch({type: 'op'});
+  }, [state.handleOpRender]);
 
   React.useEffect(() => {
     dispatch({type: 'renderCols'});
@@ -209,9 +228,9 @@ const CommonDataTable = props => {
     dispatch({type: 'parentUpdated'});
   }, [props, state.data, state.shouldUpdateParent]);
 
-  React.useEffect(() => {
-    dispatch({type: 'op'});
-  }, [props.groupOps, props.removeUrl]);
+  // React.useEffect(() => {
+  //   dispatch({type: 'op'});
+  // }, [props.groupOps, props.removeUrl]);
 
   const paginationComponentOptions = {
     selectAllRowsItem: true,
@@ -264,35 +283,42 @@ const CommonDataTable = props => {
           })}
         </select>
       )}
-
-      <DataTable
-        pagination={
-          props.pagination === undefined || props.pagination ? true : false
-        }
-        paginationComponentOptions={paginationComponentOptions}
-        paginationRowsPerPageOptions={[10, 25, 50, 100]}
-        customStyles={customStyles}
-        columns={state.columns}
-        data={state.data}
-        selectableRows={
-          (state.ops !== undefined && state.ops.length > 0) ||
-          props.onRowSelect !== undefined
-        }
-        persistTableHead={true}
-        onSelectedRowsChange={
-          props.onRowSelect === undefined
-            ? ({selectedRows}) => onChangeSelectedRows(selectedRows)
-            : ({selectedRows}) => props.onRowSelect(selectedRows)
-        }
-        clearSelectedRows={toggledClearRows}
-        conditionalRowStyles={props.conditionalRowStyles}
-        onChangePage={page => {
-          dispatch({type: 'changeCurrPage', page: page});
-        }}
-        onChangeRowsPerPage={(perPage, page) => {
-          dispatch({type: 'changePerPage', perPage: perPage, page: page});
-        }}
-      />
+      {state.data !== undefined && (
+        // <DataTableExtensions
+        //   filter={false}
+        //   exportHeaders={true}
+        //   print={false}
+        //   export={true}>
+        <DataTable
+          columns={state.columns}
+          data={state.data}
+          pagination={
+            props.pagination === undefined || props.pagination ? true : false
+          }
+          paginationComponentOptions={paginationComponentOptions}
+          paginationRowsPerPageOptions={[10, 25, 50, 100]}
+          customStyles={customStyles}
+          selectableRows={
+            (state.ops !== undefined && state.ops.length > 0) ||
+            props.onRowSelect !== undefined
+          }
+          persistTableHead={true}
+          onSelectedRowsChange={
+            props.onRowSelect === undefined
+              ? ({selectedRows}) => onChangeSelectedRows(selectedRows)
+              : ({selectedRows}) => props.onRowSelect(selectedRows)
+          }
+          clearSelectedRows={toggledClearRows}
+          conditionalRowStyles={props.conditionalRowStyles}
+          onChangePage={page => {
+            dispatch({type: 'changeCurrPage', page: page});
+          }}
+          onChangeRowsPerPage={(perPage, page) => {
+            dispatch({type: 'changePerPage', perPage: perPage, page: page});
+          }}
+        />
+        // </DataTableExtensions>
+      )}
     </MyView>
   );
 };

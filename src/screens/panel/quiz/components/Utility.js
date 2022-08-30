@@ -61,6 +61,38 @@ export const fetchSchoolReport = async (quizId, token) => {
   );
 };
 
+export const resetStudentQuizEntryTime = async (
+  quizId,
+  quizMode,
+  studentId,
+  token,
+) => {
+  let res = await generalRequest(
+    routes.resetStudentQuizEntryTime +
+      quizMode +
+      '/' +
+      quizId +
+      '/' +
+      studentId,
+    'put',
+    undefined,
+    undefined,
+    token,
+  );
+  if (res !== null) showSuccess();
+  return res;
+};
+
+export const fetchParticipantReport = async (quizId, token) => {
+  return await generalRequest(
+    routes.fetchParticipantReport + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const fetchAuthorReport = async (quizId, token) => {
   return await generalRequest(
     routes.fetchAuthorReport + quizId,

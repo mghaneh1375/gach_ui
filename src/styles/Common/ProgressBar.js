@@ -13,7 +13,7 @@ function ProgressBar(props) {
       }}>
       <MyView
         style={{
-          width: props.percent,
+          width: props.percent + '%',
           display: 'block',
           height: 7,
           backgroundColor: '#ffaa00',

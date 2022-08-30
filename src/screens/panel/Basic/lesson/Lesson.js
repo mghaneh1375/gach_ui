@@ -1,6 +1,5 @@
-import {View} from 'react-native';
 import {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
+import {dispatchStateContext} from '../../../../App';
 import List from './List/List';
 import React from 'react';
 import {getGradesOnly, getLessons} from '../Utility';
@@ -15,11 +14,8 @@ function Lesson(props) {
   const [lessons, setLessons] = useState();
   const [grades, setGrades] = useState();
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
-  const [state, dispatch] = useGlobalState();
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const [dispatch] = useGlobalState();
   const setLoading = status => {
     dispatch({loading: status});
   };
@@ -44,7 +40,7 @@ function Lesson(props) {
   }, [navigate, props.token, dispatch]);
   return (
     <MyView>
-      {mode === 'list' && (
+      {mode === 'list' && lessons !== undefined && (
         <List
           lessons={lessons}
           setLessons={setLessons}
