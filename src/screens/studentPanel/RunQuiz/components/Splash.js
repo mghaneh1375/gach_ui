@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, MyView} from '../../../../styles/Common';
+import vars from '../../../../styles/root';
 import {basketBox} from '../../../panel/package/card/Style';
 import Translate from '../Translate';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
@@ -40,7 +41,11 @@ function Splash(props) {
         <CommonWebBox
           style={{
             ...basketBox,
-            ...{width: 'calc(100% - 240px)', padding: 0, height: 'unset'},
+            ...{
+              width: vars.BASKET_WIDTH_WITH_OPEN_MENU,
+              padding: 0,
+              height: 'unset',
+            },
           }}>
           <CommonButton
             title={

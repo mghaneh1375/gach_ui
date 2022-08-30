@@ -18,7 +18,6 @@ export const DoQuizProvider = ({children}) => {
   );
 
   const updateQuestion = React.useCallback(() => {
-    console.log('asd');
     if (state.question === undefined || state.questions === undefined) {
       dispatch({questions: newQuestions, needUpdate: false});
       return;

@@ -241,8 +241,13 @@ const WebStructue = props => {
                 <MyQuizzes user={user} token={token} navigate={navigate} />
               )}
 
-              {props.page === 'runQuiz' && (
-                <RunQuiz token={token} user={user} navigate={navigate} />
+              {props.page === 'startQuiz' && (
+                <RunQuiz
+                  isInReviewMode={false}
+                  token={token}
+                  user={user}
+                  navigate={navigate}
+                />
               )}
 
               {props.page === 'reviewQuiz' && (

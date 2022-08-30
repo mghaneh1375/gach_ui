@@ -6,7 +6,6 @@ import {
 } from '../../../../../../styles/Common';
 import React, {useState} from 'react';
 import {quizContext, dispatchQuizContext} from '../../Context';
-import {View} from 'react-native';
 import Participants from '../Participants/Participants';
 
 import translator from './Translator';
@@ -17,8 +16,10 @@ import {
   fetchSchoolReportLocal,
   fetchStateReportLocal,
   fetchAuthorReportLocal,
+  fetchParticipantReportLocal,
 } from './Utility';
 import AuthorReport from '../Author/AuthorReport';
+import ParticipantReport from '../Participant/ParticipantReport';
 
 function List(props) {
   const useGlobalState = () => [
@@ -85,7 +86,18 @@ function List(props) {
             title={translator.genderReport}
           />
           <CommonButton title={translator.A1} />
-          <CommonButton title={translator.participationReport} />
+          <CommonButton
+            onPress={() =>
+              fetchParticipantReportLocal(
+                props.setLoading,
+                state.selectedQuiz,
+                dispatch,
+                setSelectedReport,
+                props.token,
+              )
+            }
+            title={translator.participationReport}
+          />
           <CommonButton
             onPress={() =>
               fetchAuthorReportLocal(
@@ -120,6 +132,24 @@ function List(props) {
       {selectedReport === 'author' &&
         state.selectedQuiz.authorReport !== undefined && (
           <AuthorReport data={state.selectedQuiz.authorReport} />
+        )}
+      {selectedReport === 'participant' &&
+        state.selectedQuiz.participantReport !== undefined && (
+          <ParticipantReport
+            quizId={state.selectedQuiz.id}
+            quizMode={state.selectedQuiz.generalMode}
+            token={props.token}
+            setLoading={props.setLoading}
+            data={state.selectedQuiz.participantReport}
+            setData={newData => {
+              state.selectedQuiz.participantReport = newData;
+
+              dispatch({
+                selectedQuiz: state.selectedQuiz,
+                needUpdate: true,
+              });
+            }}
+          />
         )}
     </MyView>
   );

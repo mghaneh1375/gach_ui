@@ -2,6 +2,7 @@ import {
   fetchAuthorReport,
   fetchCityReport,
   fetchGenderReport,
+  fetchParticipantReport,
   fetchSchoolReport,
   fetchStateReport,
 } from '../../Utility';
@@ -119,4 +120,27 @@ export const fetchAuthorReportLocal = async (
   quiz.authorReport = res;
   dispatch({selectedQuiz: quiz, needUpdate: true});
   setSelectedReport('author');
+};
+
+export const fetchParticipantReportLocal = async (
+  setLoading,
+  quiz,
+  dispatch,
+  setSelectedReport,
+  token,
+) => {
+  if (quiz.participantReport !== undefined) {
+    setSelectedReport('participant');
+    return;
+  }
+
+  setLoading(true);
+  let res = await fetchParticipantReport(quiz.id, token);
+  setLoading(false);
+
+  if (res === null) return;
+
+  quiz.participantReport = res;
+  dispatch({selectedQuiz: quiz, needUpdate: true});
+  setSelectedReport('participant');
 };

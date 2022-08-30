@@ -124,12 +124,6 @@ function Ops(props) {
   };
 
   const prepareReview = () => {
-    console.log(
-      '/reviewQuiz/' +
-        state.selectedQuiz.generalMode +
-        '/' +
-        state.selectedQuiz.id,
-    );
     props.navigate(
       '/reviewQuiz/' +
         state.selectedQuiz.generalMode +

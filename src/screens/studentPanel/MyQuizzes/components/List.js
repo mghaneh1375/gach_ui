@@ -66,7 +66,13 @@ function List(props) {
           quizzes.map((quiz, index) => {
             return (
               <Card
-                quizOp={() => openOpBox(quiz)}
+                quizOp={() =>
+                  quiz.status !== 'inProgress'
+                    ? openOpBox(quiz)
+                    : props.navigate(
+                        '/startQuiz/' + quiz.generalMode + '/' + quiz.id,
+                      )
+                }
                 onClick={() => {}}
                 quiz={quiz}
                 key={index}

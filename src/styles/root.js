@@ -5,6 +5,10 @@ let width = getWidthHeight()[0];
 
 const vars = {
   RIGHT_MENU_WIDTH: width > 1500 ? 250 : 200,
+  LEFT_SECTION_WIDTH:
+    width > 1500 ? 'calc(100% - 250px)' : 'calc(100% - 200px)',
+  BASKET_WIDTH_WITH_OPEN_MENU:
+    width > 1500 ? 'calc(100% - 290px)' : 'calc(100% - 240px)',
   NAV_BAR_H: '55px',
   YELLOW: '#FFAA00',
   ORANGE: '#FFAA00',

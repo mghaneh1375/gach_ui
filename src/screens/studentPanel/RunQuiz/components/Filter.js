@@ -17,7 +17,6 @@ import Timer from './Timer';
 import {faAngleDown, faBookmark} from '@fortawesome/free-solid-svg-icons';
 import Translate from '../Translate';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
-import ProgressBar from '../../../../styles/Common/ProgressBar';
 import commonTranslator from '../../../../translator/Common';
 
 function Filter(props) {
@@ -33,9 +32,15 @@ function Filter(props) {
       childStyle={{...styles.padding5}}
       style={{...styles.padding0}}
       width={vars.RIGHT_MENU_WIDTH}>
-      {props.isInReviewMode && props.mode !== 'splash' && (
-        <Timer totalTime={213} reminder={300} />
-      )}
+      {!props.isInReviewMode &&
+        state.quizInfo !== undefined &&
+        props.mode !== 'splash' && (
+          <Timer
+            duration={state.quizInfo.duration}
+            reminder={state.quizInfo.reminder}
+          />
+        )}
+
       <EqualTwoTextInputs
         style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
         <SimpleText style={styles.dark_blue_color} text={Translate.quizList} />
@@ -93,7 +98,7 @@ function Filter(props) {
           />
         </PhoneView>
       </MyView>
-      <ProgressBar bar={'30%'}></ProgressBar>
+
       <PhoneView
         style={{
           ...styles.gap7,

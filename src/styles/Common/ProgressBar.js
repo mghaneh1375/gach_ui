@@ -1,11 +1,8 @@
 import React from 'react';
-import {MyView} from 'react-native-multi-selectbox';
+import {MyView} from '../Common';
 
 function ProgressBar(props) {
   return (
-    // <div className={'progress'}>
-    //   <div className={'bars'} style={{width: props.bar}}></div>
-    // </div>
     <MyView
       style={{
         display: 'block',
@@ -16,11 +13,12 @@ function ProgressBar(props) {
       }}>
       <MyView
         style={{
-          width: props.bar,
+          width: props.percent + '%',
           display: 'block',
           height: 7,
           backgroundColor: '#ffaa00',
-        }}></MyView>
+        }}
+      />
     </MyView>
   );
 }
