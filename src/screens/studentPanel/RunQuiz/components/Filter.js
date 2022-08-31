@@ -46,10 +46,7 @@ function Filter(props) {
 
       <EqualTwoTextInputs
         style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
-        <SimpleText
-          style={styles.dark_blue_color}
-          text={Translate.quizList}
-        />
+        <SimpleText style={styles.dark_blue_color} text={Translate.quizList} />
         <SimpleTextIcon
           onPress={() => toggleHelp()}
           icon={faAngleDown}

@@ -60,7 +60,11 @@ function RunQuiz(props) {
               navigate={props.navigate}
               setLoading={setLoading}
               setMode={setMode}
-              // onBack={() => props.user  props.navigate('/myQuizzes')}
+              onBack={() =>
+                props.user.accesses.indexOf('student') !== -1
+                  ? props.navigate('/myQuizzes')
+                  : props.navigate('/quiz/list')
+              }
             />
           )}
           {mode !== undefined && mode === 'doQuiz' && (
@@ -72,7 +76,11 @@ function RunQuiz(props) {
               navigate={props.navigate}
               setLoading={setLoading}
               setMode={setMode}
-              onBack={() => props.navigate('/myQuizzes')}
+              onBack={() =>
+                props.user.accesses.indexOf('student') !== -1
+                  ? props.navigate('/myQuizzes')
+                  : props.navigate('/quiz/list')
+              }
             />
           )}
         </MyView>
