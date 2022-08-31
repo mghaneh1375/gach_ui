@@ -17,6 +17,7 @@ import MultiChoice from './questionComponents/MultiChoice';
 import vars from '../../../../styles/root';
 import {getWidthHeight} from '../../../../services/Utility';
 import {basketBox} from '../../../panel/package/card/Style';
+import commonTranslator from '../../../../translator/Common';
 
 function Question(props) {
   const useGlobalState = () => [
@@ -276,6 +277,13 @@ function Question(props) {
                   dispatch({currIdx: state.currIdx - 1});
                 }}
                 title={Translate.finish}
+                theme={'orangeRed'}
+              />
+            )}
+            {props.isInReviewMode && (
+              <CommonButton
+                onPress={props.onBack}
+                title={commonTranslator.back}
                 theme={'orangeRed'}
               />
             )}

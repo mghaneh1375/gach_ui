@@ -120,7 +120,7 @@ function Filter(props) {
         style={{
           ...styles.gap7,
           ...styles.margin15,
-          ...styles.justifyContentCenter,
+          ...styles.justifyContentStart,
           ...{
             marginBottom: 0,
             paddingBottom: 50,

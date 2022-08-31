@@ -131,6 +131,9 @@ export const styles = {
   justifyContentEnd: {
     justifyContent: 'flex-end',
   },
+  justifyContentStart: {
+    justifyContent: 'flex-start',
+  },
   justifySelfCenter: {
     justifySelf: 'center',
   },

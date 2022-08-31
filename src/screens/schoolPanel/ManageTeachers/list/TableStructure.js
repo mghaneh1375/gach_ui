@@ -3,24 +3,24 @@ import commonTranslator from '../../../../translator/Common';
 const columns = [
   {
     name: commonTranslator.name + ' و ' + commonTranslator.lastname,
-    selector: row => row.student.name,
+    selector: row => row.name,
     grow: 1,
   },
   {
     name: commonTranslator.NID,
-    selector: row => row.student.NID,
+    selector: row => row.NID,
     grow: 1,
     center: true,
   },
   {
     name: commonTranslator.tel,
-    selector: row => row.student.phone,
+    selector: row => row.phone,
     grow: 1,
     center: true,
   },
   {
     name: commonTranslator.email,
-    selector: row => row.student.mail,
+    selector: row => row.mail,
     grow: 1,
   },
 ];

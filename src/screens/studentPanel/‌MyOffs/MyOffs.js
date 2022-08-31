@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {MyView} from 'react-native-multi-selectbox';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import {formatPrice} from '../../../services/Utility';
-import {CommonWebBox, PhoneView, SimpleText} from '../../../styles/Common';
+import {CommonWebBox, PhoneView} from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
 import OffsCard from './OffsCard/OffsCard';

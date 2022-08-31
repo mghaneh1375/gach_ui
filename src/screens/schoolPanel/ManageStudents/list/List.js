@@ -41,7 +41,7 @@ function List(props) {
           setData={props.setData}
           handleOp={handleOp}
           setLoading={props.setLoading}
-          removeUrl={routes.removeGift}
+          removeUrl={routes.removeStudents}
           token={props.token}
         />
       </CommonWebBox>

@@ -80,9 +80,10 @@ const WebStructue = props => {
   const [user, setUser] = useState(undefined);
   const [allowRenderPage, setAllowRenderPage] = useState(false);
   const [newAlerts, setNewAlerts] = useState();
+  const includeFilterMenu = ['buy'];
 
   React.useEffect(() => {
-    const excludeRightMenu = ['login', 'home'];
+    const excludeRightMenu = ['login', 'home', 'reviewQuiz'];
     const excludeTopNav = ['login', 'profile'];
     const excludeBottomNav = ['login'];
     const excludeAuthRoutes = ['login', 'home', 'buy'];
@@ -198,6 +199,7 @@ const WebStructue = props => {
             )}
 
             <Menu
+              isFilterAvailable={includeFilterMenu.indexOf(props.page) !== -1}
               toggleRightMenuVisibility={toggleRightMenuVisibility}
               navigate={navigate}
               selected={props.page}
