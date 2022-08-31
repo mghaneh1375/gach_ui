@@ -33,8 +33,7 @@ export const CommonTextInput = props => {
       : style1;
 
   if (props.disable !== undefined && props.disable) {
-    allStyle.backgroundColor = vars.LIGHT_SILVER;
-    allStyle.color = vars.WHITE;
+    allStyle.backgroundColor = '#d1d1d1';
   }
 
   const inputProps = {

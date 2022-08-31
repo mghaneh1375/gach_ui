@@ -75,10 +75,14 @@ export const SimpleTextIcon = props => {
 
   return (
     <EqualTwoTextInputs style={allStyles}>
-      <SimpleText style={props.textStyle} text={props.text} />
+      <SimpleText
+        onPress={props.onPress}
+        style={props.textStyle}
+        text={props.text}
+      />
 
       <MyView style={InnerViewStyle}>
-        <SimpleFontIcon {...fontProps} />
+        <SimpleFontIcon onPress={props.onPress} {...fontProps} />
       </MyView>
     </EqualTwoTextInputs>
   );
