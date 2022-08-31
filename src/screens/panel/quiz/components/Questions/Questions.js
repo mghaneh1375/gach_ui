@@ -5,7 +5,7 @@ import translator from '../../Translator';
 import commonTranslator from '../../../../../translator/Common';
 import ExcelComma from '../../../../../components/web/ExcelCommaInput';
 import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
-import {getQuestions} from '../Utility';
+import {changeQuestionsArrangeInQuiz, getQuestions} from '../Utility';
 import Edit from './Edit';
 import {dispatchQuizContext, quizContext} from '../Context';
 import Card from './Card';
@@ -86,6 +86,30 @@ const Questions = props => {
     });
   }, [props, isWorking, state.selectedQuiz, dispatch]);
 
+  const changeSort = React.useCallback(() => {
+    props.setLoading(true);
+    Promise.all([
+      changeQuestionsArrangeInQuiz(
+        state.selectedQuiz.id,
+        state.selectedQuiz.generalMode,
+        {
+          questionIds: state.selectedQuiz.questions.map(elem => {
+            return elem.id;
+          }),
+        },
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res !== null) {
+        if (state.selectedQuiz.answer_sheet !== undefined) {
+          state.selectedQuiz.answer_sheet = undefined;
+          dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+        }
+      }
+    });
+  }, [props, state.selectedQuiz, dispatch]);
+
   React.useEffect(() => {
     if (selectedQuestion !== undefined) setShowEditPane(true);
   }, [selectedQuestion]);
@@ -165,7 +189,8 @@ const Questions = props => {
             />
             <CommonButton
               style={{alignSelf: 'center'}}
-              title={commonTranslator.sort}
+              onPress={() => changeSort()}
+              title={translator.changeSort}
               theme={'dark'}
             />
             {state.selectedIds !== undefined &&
