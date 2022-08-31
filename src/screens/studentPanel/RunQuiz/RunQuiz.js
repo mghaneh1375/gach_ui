@@ -60,7 +60,7 @@ function RunQuiz(props) {
               navigate={props.navigate}
               setLoading={setLoading}
               setMode={setMode}
-              onBack={() => props.navigate('/myQuizzes')}
+              // onBack={() => props.user  props.navigate('/myQuizzes')}
             />
           )}
           {mode !== undefined && mode === 'doQuiz' && (
