@@ -49,7 +49,6 @@ function Filter(props) {
         <SimpleText
           style={styles.dark_blue_color}
           text={Translate.quizList}
-          onPress={() => toggleHelp()}
         />
         <SimpleTextIcon
           onPress={() => toggleHelp()}
