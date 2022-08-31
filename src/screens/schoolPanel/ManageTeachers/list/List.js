@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, MyView} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import columns from '../../teachers/list/TableStructure';
-import Ops from '../../teachers/list/Ops/Ops';
+import columns from '../../ManageTeachers/list/TableStructure';
+import Ops from '../list/Ops/Ops';
 import Translate from '../Translate';
 import MiniCard from '../../../panel/quiz/components/CV/MiniCard';
 

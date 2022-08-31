@@ -52,9 +52,7 @@ import Upgrade from './studentPanel/Upgrade/Upgrade';
 import ConfigGift from './panel/spinGift/components/configGift/configGift';
 import SchoolUsers from './agentPanel/schools/schools';
 import AcceptInvite from './SinglePages/AcceptInvite';
-import Students from './schoolPanel/students/students';
 import Teachers from './teacher/teachers/Teachers';
-import TeacherAccess from './schoolPanel/teachers/Teachers';
 import TarazLevels from './panel/Config/TarazLevels/TarazLevels';
 import Buy from './general/buy/Buy';
 import MyQuizzes from './studentPanel/MyQuizzes/MyQuizzes';
@@ -62,6 +60,8 @@ import Transaction from './panel/transaction/Transaction';
 import ChargeAccount from './studentPanel/ChargeAccount/ChargeAccount';
 import RunQuiz from './studentPanel/RunQuiz/RunQuiz';
 import MyOffs from './studentPanel/‌MyOffs/MyOffs';
+import ManageStudents from './schoolPanel/ManageStudents/ManageStudents';
+import ManageTeachers from './schoolPanel/ManageTeachers/ManageTeachers';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -392,11 +392,11 @@ const WebStructue = props => {
               {props.page === 'schoolUsers' && (
                 <SchoolUsers token={token} user={user} navigate={navigate} />
               )}
-              {props.page === 'schoolAccess' && (
-                <Students token={token} user={user} navigate={navigate} />
+              {props.page === 'manageStudent' && (
+                <ManageStudents token={token} user={user} navigate={navigate} />
               )}
-              {props.page === 'teacherAccess' && (
-                <TeacherAccess token={token} user={user} navigate={navigate} />
+              {props.page === 'manageTeacher' && (
+                <ManageTeachers token={token} user={user} navigate={navigate} />
               )}
               {props.page === 'teachers' && (
                 <Teachers token={token} user={user} navigate={navigate} />

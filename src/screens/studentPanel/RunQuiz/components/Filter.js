@@ -7,7 +7,7 @@ import {
 } from '../../../../styles/Common';
 import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
-import React from 'react';
+import React, {useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import QuestionNumber from './questionComponents/QuestionNumber';
 import {SimpleTextIcon} from '../../../../styles/Common/TextIcon';
@@ -16,8 +16,9 @@ import Timer from './Timer';
 
 import {faAngleDown, faBookmark} from '@fortawesome/free-solid-svg-icons';
 import Translate from '../Translate';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import commonTranslator from '../../../../translator/Common';
+import Circle from '../../../../components/web/Circle';
 
 function Filter(props) {
   const useGlobalState = () => [
@@ -26,6 +27,10 @@ function Filter(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
+  const [help, setHelp] = useState(false);
+  const toggleHelp = () => {
+    setHelp(!help);
+  };
 
   return (
     <CommonWebBox
@@ -43,61 +48,73 @@ function Filter(props) {
 
       <EqualTwoTextInputs
         style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
-        <SimpleText style={styles.dark_blue_color} text={Translate.quizList} />
+        <SimpleText
+          style={styles.dark_blue_color}
+          text={Translate.quizList}
+          onPress={() => toggleHelp()}
+        />
         <SimpleTextIcon
+          onPress={() => toggleHelp()}
           icon={faAngleDown}
           textStyle={{...styles.colorOrangeRed, ...{marginLeft: -5}}}
           iconStyle={{...styles.colorOrangeRed}}
-          iconKind={'normal'}
+          iconKind={'midSize'}
           text={Translate.help}
         />
       </EqualTwoTextInputs>
-      <MyView>
-        <PhoneView>
-          <FontIcon
-            kind={'small'}
-            icon={'circle'}
-            back={'blue'}
-            parentStyle={{
-              ...styles.marginLeft5,
-            }}
-          />
-          <SimpleText
-            text={Translate.answered}
-            style={{...styles.colorGray, ...styles.fontSize12}}
-          />
-        </PhoneView>
-        <PhoneView>
-          <FontIcon
-            kind={'small'}
-            icon={faBookmark}
-            style={{color: vars.ORANGE_RED}}
-            parentStyle={{
-              ...styles.marginLeft5,
-              backgroundColor: 'transparent',
-            }}
-          />
-          <SimpleText
-            text={Translate.bookmarked}
-            style={{...styles.colorGray, ...styles.fontSize12}}
-          />
-        </PhoneView>
-        <PhoneView>
-          <FontIcon
-            kind={'small'}
-            icon={'circle'}
-            back={'dark'}
-            parentStyle={{
-              ...styles.marginLeft5,
-              ...styles.boxShadow,
-            }}
-          />
-          <SimpleText
-            text={Translate.notAnswered}
-            style={{...styles.colorGray, ...styles.fontSize12}}
-          />
-        </PhoneView>
-      </MyView>
+      {help && (
+        <MyView>
+          <PhoneView>
+            <Circle
+              style={{...styles.alignSelfCenter, marginRight: 3}}
+              diameter={14}
+              backgroundColor={vars.DARK_BLUE}
+            />
+            <SimpleText
+              text={Translate.answered}
+              style={{
+                ...styles.colorGray,
+                ...styles.fontSize12,
+                ...styles.paddingRight15,
+              }}
+            />
+          </PhoneView>
+          <PhoneView>
+            <FontIcon
+              kind={'small'}
+              icon={faBookmark}
+              style={{color: vars.ORANGE_RED}}
+              parentStyle={{
+                ...styles.marginLeft5,
+                backgroundColor: 'transparent',
+              }}
+            />
+            <SimpleText
+              text={Translate.bookmarked}
+              style={{
+                ...styles.colorGray,
+                ...styles.fontSize12,
+                ...styles.paddingRight5,
+              }}
+            />
+          </PhoneView>
+          <PhoneView>
+            <Circle
+              style={{...styles.alignSelfCenter, marginRight: 3}}
+              diameter={14}
+              backgroundColor={vars.DARK_WHITE}
+            />
+            <SimpleText
+              text={Translate.notAnswered}
+              style={{
+                ...styles.colorGray,
+                ...styles.fontSize12,
+                ...styles.paddingRight15,
+              }}
+            />
+          </PhoneView>
+        </MyView>
+      )}
 
       <PhoneView
         style={{

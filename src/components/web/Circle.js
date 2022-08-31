@@ -5,6 +5,7 @@ function Circle(props) {
   return (
     <PhoneView
       style={{
+        ...props.style,
         ...styles.justifyContentCenter,
         ...styles.alignItemsCenter,
         overflow: 'hidden',
