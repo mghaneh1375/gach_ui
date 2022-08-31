@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import {View} from 'react-native';
 import {
   CommonButton,
   CommonRadioButton,
@@ -58,7 +57,12 @@ const SearchUser = props => {
         justifyContent: 'end',
       },
       cell: (row, index, column, id) => {
-        if (selected.indexOf(users[index]) === -1) return <></>;
+        if (
+          selected === undefined ||
+          users === undefined ||
+          selected.indexOf(users[index]) === -1
+        )
+          return <></>;
 
         return (
           <SimpleFontIcon

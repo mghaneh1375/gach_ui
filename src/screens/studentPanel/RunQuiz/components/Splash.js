@@ -1,10 +1,16 @@
 import React, {useState} from 'react';
-import {CommonButton, CommonWebBox, MyView} from '../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  EqualTwoTextInputs,
+  MyView,
+} from '../../../../styles/Common';
 import vars from '../../../../styles/root';
 import {basketBox} from '../../../panel/package/card/Style';
 import Translate from '../Translate';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import {doQuiz, reviewQuiz} from './Utility';
+import commonTranslator from '../../../../translator/Common';
 
 function Splash(props) {
   const useGlobalState = () => [
@@ -47,16 +53,24 @@ function Splash(props) {
               height: 'unset',
             },
           }}>
-          <CommonButton
-            title={
-              props.isInReviewMode
-                ? Translate.review
-                : state.quizInfo.isNewPerson
-                ? Translate.start
-                : Translate.continue
-            }
-            onPress={() => props.setMode('doQuiz')}
-          />
+          <EqualTwoTextInputs>
+            <CommonButton
+              onPress={props.onBack}
+              title={commonTranslator.back}
+              theme={'orangeRed'}
+            />
+
+            <CommonButton
+              title={
+                props.isInReviewMode
+                  ? Translate.review
+                  : state.quizInfo.isNewPerson
+                  ? Translate.start
+                  : Translate.continue
+              }
+              onPress={() => props.setMode('doQuiz')}
+            />
+          </EqualTwoTextInputs>
         </CommonWebBox>
       )}
     </MyView>

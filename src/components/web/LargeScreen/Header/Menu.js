@@ -40,11 +40,9 @@ const Menu = props => {
           props.accesses.indexOf('superadmin') !== -1) && (
           <AdminMenu navigate={props.navigate} />
         )}
-      {!state.isRightMenuVisible && state.isFilterMenuVisible && <Filter />}
-      {/* state.selfFilter === undefined && */}
-      {/* {!state.isRightMenuVisible &&
-        state.isFilterMenuVisible &&
-        state.selfFilter !== undefined && <Filter />} */}
+      {props.isFilterAvailable &&
+        !state.isRightMenuVisible &&
+        state.isFilterMenuVisible && <Filter />}
     </MyView>
   );
 };

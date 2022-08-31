@@ -8,6 +8,7 @@ import {routes} from '../../../../API/APIRoutes';
 import {createTaraz, generateQuestionPDF, removeQuiz} from './Utility';
 import {dispatchQuizContext, quizContext} from './Context';
 import React from 'react';
+import Translate from '../../../studentPanel/RunQuiz/Translate';
 
 const Ops = props => {
   const useGlobalState = () => [
@@ -125,9 +126,23 @@ const Ops = props => {
           onPress={() => toggleVisibility()}
           title={
             state.selectedQuiz.visibility
-              ? commonTranslator.hide
-              : commonTranslator.show
+              ? commonTranslator.toHide
+              : commonTranslator.toShow
           }
+        />
+        <CommonButton
+          dir={'rtl'}
+          theme={'transparent'}
+          onPress={() =>
+            window.open(
+              '/reviewQuiz/' +
+                state.selectedQuiz.generalMode +
+                '/' +
+                state.selectedQuiz.id,
+              '_blank',
+            )
+          }
+          title={Translate.review}
         />
         <CommonButton
           dir={'rtl'}

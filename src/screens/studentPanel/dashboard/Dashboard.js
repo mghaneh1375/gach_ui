@@ -1,41 +1,85 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {CommonWebBox, PhoneView} from '../../../styles/Common';
 import {Translate} from './Translate';
 import DashboardCard from './DashboardCard/DashboardCard';
 import vars from '../../../styles/root';
+import {faExchange, faEye, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {dispatchStateContext} from '../../../App';
+import {getMySummary} from './Utility';
+import commonTranslator from '../../../translator/Common';
 
 function Dashboard(props) {
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+
+  const [data, setData] = useState();
+  const [dispatch] = useGlobalState();
+  const navigate = props.navigate;
+
+  React.useEffect(() => {
+    dispatch({loading: true});
+    Promise.all([getMySummary(props.token)]).then(res => {
+      dispatch({loading: false});
+      if (res[0] === null) {
+        navigate('/');
+        return;
+      }
+      setData(res[0]);
+    });
+  }, [navigate, props.token, dispatch]);
+
   return (
     <CommonWebBox header={Translate.youSee}>
-      <PhoneView>
-        <DashboardCard
-          text={Translate.money}
-          theme={vars.ORANGE}
-          subtext={props.user.user.money}
-          btnColor={'yellow'}
-          borderRight={true}
-        />
-        <DashboardCard
-          text={Translate.testEnable}
-          theme={vars.ORANGE_RED}
-          btnColor={'orange'}
-          subtext={6}
-          borderRight={true}
-        />
-        <DashboardCard
-          text={Translate.testAll}
-          theme={vars.DARK_BLUE}
-          subtext={3}
-          btnColor={'blue'}
-          borderRight={true}
-        />
-        <DashboardCard
-          text={Translate.yourRank}
-          subtext={100}
-          background={vars.GRADIENT}
-          padding={'38px 10px'}
-        />
-      </PhoneView>
+      {data !== undefined && (
+        <PhoneView>
+          <DashboardCard
+            text={Translate.money}
+            theme={vars.ORANGE}
+            subtext={data.money}
+            btnColor={'yellow'}
+            borderRight={true}
+            icon={faPlus}
+            onPress={() => props.navigate('/charge')}
+            borderRightWidth={18}
+          />
+          <DashboardCard
+            text={Translate.activeQuizzes}
+            theme={vars.ORANGE_RED}
+            btnColor={'orange'}
+            subtext={data.activeQuizzes}
+            borderRight={true}
+            icon={faEye}
+            onPress={() => props.navigate('/myQuizzes')}
+            borderRightWidth={18}
+          />
+          <DashboardCard
+            text={Translate.allQuizzes}
+            theme={vars.DARK_BLUE}
+            subtext={data.totalQuizzes}
+            btnColor={'blue'}
+            borderRight={true}
+            icon={faEye}
+            onPress={() => props.navigate('/myQuizzes')}
+            borderRightWidth={18}
+          />
+          <DashboardCard
+            text={commonTranslator.coin}
+            theme={vars.GREEN}
+            subtext={data.coin}
+            btnColor={'blue'}
+            borderRight={true}
+            icon={faExchange}
+            onPress={() => props.navigate('/myQuizzes')}
+            borderRightWidth={18}
+          />
+          <DashboardCard
+            text={Translate.yourRank}
+            subtext={data.rank}
+            background={vars.GRADIENT}
+            padding={'38px 10px'}
+            borderRight={false}
+          />
+        </PhoneView>
+      )}
     </CommonWebBox>
   );
 }

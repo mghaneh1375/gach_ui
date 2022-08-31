@@ -1,18 +1,15 @@
 import React from 'react';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import {
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
   SimpleText,
   MyView,
-  commonStyles,
 } from '../../../../styles/Common';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import vars from '../../../../styles/root';
 import {
   styleFontSize25,
-  styleBorderRight,
   styleMarginRight,
   styleSubText,
   styleJustifyContentCenter,
@@ -24,9 +21,11 @@ function DashboardCard({
   text,
   background,
   subtext,
+  borderRight,
   btnColor,
   padding,
-  borderRight,
+  icon,
+  onPress,
 }) {
   return (
     <CommonWebBox
@@ -36,7 +35,7 @@ function DashboardCard({
         borderColor: theme,
         background: background !== undefined ? background : 'white',
         padding: padding !== undefined ? padding : '10px',
-        borderRightWidth: 18,
+        borderRightWidth: borderRight ? 18 : 0,
       }}
       style={{
         ...styleJustifyContentCenter,
@@ -63,14 +62,19 @@ function DashboardCard({
           />
         )}
       </PhoneView>
-      {btnColor !== undefined && (
+      {icon !== undefined && (
         <MyView>
           <EqualTwoTextInputs style={{alignItems: 'end'}}>
             <SimpleText
               style={{...styleFontSize30, ...styleSubText}}
               text={subtext}
             />
-            <FontIcon theme={'rect'} back={btnColor} icon={faPlus} />
+            <FontIcon
+              onPress={onPress}
+              theme={'rect'}
+              back={btnColor}
+              icon={icon}
+            />
           </EqualTwoTextInputs>
         </MyView>
       )}

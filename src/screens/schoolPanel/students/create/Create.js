@@ -40,6 +40,7 @@ function Create(props) {
           placeholder={commonTranslator.NID}
           subText={commonTranslator.NID}
           value={nid}
+          disable={true}
           justNum={true}
         />
         <JustBottomBorderTextInput

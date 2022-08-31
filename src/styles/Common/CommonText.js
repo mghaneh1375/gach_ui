@@ -21,9 +21,7 @@ const CommonTextInputStyleAndroid = {
 export const CommonTextInputStyleWeb = {
   ...CommonTextInputStyle,
   direction: 'rtl',
-  // width: 'calc(100% - 20px)',
   display: 'block',
-  // maxWidth: '300px',
   flexDirection: 'row',
 };
 

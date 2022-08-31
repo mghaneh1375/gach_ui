@@ -75,6 +75,8 @@ const translator = {
   no: 'خیر',
   hide: 'عدم نمایش',
   show: 'نمایش',
+  toHide: 'تغییر وضعیت نمایش به عدم نمایش',
+  toShow: 'تغییر وضعیت نمایش به نمایش',
   optionalField: '(این فیلد اختیاری است)',
   optionalFalseDefault: 'اختیاری(پیش فرض این فیلد خیر است)',
   optionalTrueDefault: 'اختیاری(پیش فرض این فیلد بله است)',
