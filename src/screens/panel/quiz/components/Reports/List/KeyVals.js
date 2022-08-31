@@ -2,11 +2,11 @@ import translator from './Translator';
 
 export const typeOfReportKeyVals = [
   {
-    id: 'cirtReport',
+    id: 'cityReport',
     item: translator.cirtReport,
   },
   {
-    id: 'stateReprt',
+    id: 'stateReport',
     item: translator.stateReprt,
   },
   {

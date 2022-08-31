@@ -33,6 +33,29 @@ function List(props) {
   const [selectedReport, setSelectedReport] = useState('');
   const [type, setType] = useState();
 
+  let fetchWantedReport = React.useCallback(() => {
+    if (type === undefined) {
+      return;
+    }
+
+    let func;
+    if (type === 'cityReport') func = fetchCityReportLocal;
+    if (type === 'stateReport') func = fetchStateReportLocal;
+    if (type === 'genderReport') func = fetchGenderReportLocal;
+    if (type === 'schoolReport') func = fetchSchoolReportLocal;
+    if (type === 'participationReport') func = fetchParticipantReportLocal;
+    if (type === 'authorReport') func = fetchAuthorReportLocal;
+    if (type === 'A1') func = fetchParticipantReportLocal;
+
+    func(
+      props.setLoading,
+      state.selectedQuiz,
+      dispatch,
+      setSelectedReport,
+      props.token,
+    );
+  }, [props, type, state.selectedQuiz, dispatch]);
+
   return (
     <MyView>
       <CommonWebBox
@@ -47,79 +70,9 @@ function List(props) {
             values={typeOfReportKeyVals}
             value={typeOfReportKeyVals.find(elem => elem.id === type)}
           />
-          <CommonButton title={translator.show} />
           <CommonButton
-            onPress={() =>
-              fetchSchoolReportLocal(
-                props.setLoading,
-                state.selectedQuiz,
-                dispatch,
-                setSelectedReport,
-                props.token,
-              )
-            }
-            title={translator.schoolReport}
-          />
-          <CommonButton
-            onPress={() =>
-              fetchStateReportLocal(
-                props.setLoading,
-                state.selectedQuiz,
-                dispatch,
-                setSelectedReport,
-                props.token,
-              )
-            }
-            title={translator.stateReprt}
-          />
-          <CommonButton
-            onPress={() =>
-              fetchCityReportLocal(
-                props.setLoading,
-                state.selectedQuiz,
-                dispatch,
-                setSelectedReport,
-                props.token,
-              )
-            }
-            title={translator.cirtReport}
-          />
-          <CommonButton
-            onPress={() =>
-              fetchGenderReportLocal(
-                props.setLoading,
-                state.selectedQuiz,
-                dispatch,
-                setSelectedReport,
-                props.token,
-              )
-            }
-            title={translator.genderReport}
-          />
-          <CommonButton title={translator.A1} />
-          <CommonButton
-            onPress={() =>
-              fetchParticipantReportLocal(
-                props.setLoading,
-                state.selectedQuiz,
-                dispatch,
-                setSelectedReport,
-                props.token,
-              )
-            }
-            title={translator.participationReport}
-          />
-          <CommonButton
-            onPress={() =>
-              fetchAuthorReportLocal(
-                props.setLoading,
-                state.selectedQuiz,
-                dispatch,
-                setSelectedReport,
-                props.token,
-              )
-            }
-            title={translator.authorReport}
+            onPress={() => fetchWantedReport()}
+            title={translator.show}
           />
         </PhoneView>
       </CommonWebBox>
