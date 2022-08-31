@@ -37,14 +37,12 @@ function Filter(props) {
       childStyle={{...styles.padding5}}
       style={{...styles.padding0}}
       width={vars.RIGHT_MENU_WIDTH}>
-      {!props.isInReviewMode &&
-        state.quizInfo !== undefined &&
-        props.mode !== 'splash' && (
-          <Timer
-            duration={state.quizInfo.duration}
-            reminder={state.quizInfo.reminder}
-          />
-        )}
+      {!props.isInReviewMode && state.quizInfo !== undefined && (
+        <Timer
+          duration={state.quizInfo.duration}
+          reminder={state.quizInfo.reminder}
+        />
+      )}
 
       <EqualTwoTextInputs
         style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>

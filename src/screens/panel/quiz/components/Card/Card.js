@@ -165,16 +165,6 @@ function Card(props) {
               )}
             {props.quiz.status !== undefined &&
               props.quiz.status === 'inProgress' && (
-                <SimpleText
-                  text={
-                    'شما تا ' +
-                    convertTimestamp(props.quiz.end) +
-                    ' فرصت دارید تا در آزمون شرکت کنید'
-                  }
-                />
-              )}
-            {props.quiz.status !== undefined &&
-              props.quiz.status === 'inProgress' && (
                 <CommonButton
                   title={commonTranslator.start}
                   onPress={() => props.quizOp()}
