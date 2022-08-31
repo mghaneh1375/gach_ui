@@ -7,6 +7,8 @@ const translator = {
   participationReport: 'لیست حضور و غیاب',
   authorReport: 'مولفین آزمون',
   resetTime: 'باز کردن مجدد آزمون',
+  typeOfReport: 'گزارش خود را انتخاب کنید',
+  show: 'نمایش',
 };
 
 export default translator;

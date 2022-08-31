@@ -40,7 +40,7 @@ function ProgressCard(props) {
               text={props.header}
             />
             <Circle
-              text={10}
+              text={props.circleText}
               color={vars.WHITE}
               diameter={25}
               backgroundColor={vars.DARK_BLUE}

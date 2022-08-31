@@ -16,6 +16,7 @@ import {
 import Translate from '../Translate';
 
 function OffsCard(props) {
+  console.log(props.dataLength);
   return (
     <CommonWebBox
       style={{...styleCard, ...styles.BlueBold, ...styles.padding10}}>
@@ -27,25 +28,27 @@ function OffsCard(props) {
         }}
         text={props.code === '' ? Translate.intelOffs : Translate.offsCode}
       />
-      <PhoneView style={{...styles.gap50}}>
-        <QuizItemCard
-          text={Translate.placeUse}
-          val={props.placeUse}
-          icon={faBuilding}
-          background={false}
-          textFontSize={11}
-          valFontSize={15}
-          color={'orange'}
-        />
-        <QuizItemCard
-          text={Translate.expiredAt}
-          val={props.expiredAt}
-          icon={faTimesCircle}
-          background={false}
-          textFontSize={11}
-          valFontSize={15}
-          color={'orange'}
-        />
+      <PhoneView>
+        <EqualTwoTextInputs style={{...styles.gap30}}>
+          <QuizItemCard
+            text={Translate.placeUse}
+            val={props.placeUse}
+            icon={faBuilding}
+            background={false}
+            textFontSize={11}
+            valFontSize={15}
+            color={'orange'}
+          />
+          <QuizItemCard
+            text={Translate.expiredAt}
+            val={props.expiredAt}
+            icon={faTimesCircle}
+            background={false}
+            textFontSize={11}
+            valFontSize={15}
+            color={'orange'}
+          />
+        </EqualTwoTextInputs>
       </PhoneView>
       <EqualTwoTextInputs style={{width: '100%', gap: 0}}>
         <PhoneView
@@ -56,23 +59,17 @@ function OffsCard(props) {
             boxShadow: '1px 1px 20px 0px #bebebe',
             width: props.code !== '' ? '60%' : '100%',
           }}>
-          {props.code !== '' ? (
-            <SimpleText
-              style={{
-                ...styleTitle,
-                ...styles.BlueBold,
-              }}
-              text={Translate.amount + ' : ' + props.amount + Translate.price}
-            />
-          ) : (
-            <SimpleText
-              style={{
-                ...styleTitle,
-                ...styles.BlueBold,
-              }}
-              text={Translate.percent + ' ' + props.amount}
-            />
-          )}
+          <SimpleText
+            style={{
+              ...styleTitle,
+              ...styles.BlueBold,
+            }}
+            text={
+              props.type === 'value'
+                ? Translate.amount + ' : ' + props.amount + Translate.price
+                : ' ' + props.amount + ' ' + Translate.percent
+            }
+          />
         </PhoneView>
         {props.code && (
           <PhoneView

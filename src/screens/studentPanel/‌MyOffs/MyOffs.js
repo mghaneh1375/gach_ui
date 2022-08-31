@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {MyView} from 'react-native-multi-selectbox';
 import {dispatchStateContext, globalStateContext} from '../../../App';
+import {formatPrice} from '../../../services/Utility';
 import {CommonWebBox, PhoneView, SimpleText} from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
@@ -11,11 +12,20 @@ import {getMyOffs} from './Utility';
 
 function MyOffs(props) {
   const [discount, setDiscount] = useState(false);
+  const [bonus, setBonus] = useState(false);
 
   const [data, setData] = useState();
-  const [selectedMyOffs, setSelectedMyOffs] = useState({});
   const toggleDiscount = () => {
     setDiscount(!discount);
+    if (bonus) {
+      setBonus(!bonus);
+    }
+  };
+  const toggleBonus = () => {
+    setBonus(!bonus);
+    if (discount === true) {
+      setDiscount(!discount);
+    }
   };
   // const queryString = require('query-string');
   const navigate = props.navigate;
@@ -37,62 +47,36 @@ function MyOffs(props) {
       setData(res[0]);
     });
   }, [navigate, props.token, dispatch]);
-  console.log(data);
+
   return (
     <MyView>
       <PhoneView>
         <ProgressCard
           header={Translate.off}
-          theme={'orange'}
+          theme={vars.ORANGE}
           color={discount ? vars.WHITE : vars.DARK_BLUE}
           width={250}
           percent={discount ? '90%' : '10%'}
           onPress={() => toggleDiscount()}
           style={{...styles.cursor_pointer}}
-        />
-      </PhoneView>
-      {/* <ProgressCard
-          header={Translate.off}
-          theme={vars.DARK_BLUE}
-          color={'#000'}
-          width={250}
-          percent={'20%'}
+          circleText={data === undefined ? 0 : data.length}
         />
         <ProgressCard
-          header={'هر چیزی'}
+          header={Translate.bonus}
           theme={vars.ORANGE_RED}
-          color={vars.WHITE}
-          width={180}
-          percent={'90%'}
+          color={bonus ? vars.WHITE : vars.DARK_BLUE}
+          width={250}
+          percent={bonus ? '90%' : '10%'}
+          onPress={() => toggleBonus()}
+          style={{...styles.cursor_pointer}}
+          circleText={0}
         />
-      
-      <ProgressCard
-        header={'تخفیف'}
-        theme={'orange'}
-        color={vars.WHITE}
-        width={250}
-        percent={'50%'}
-      />
-      <ProgressCard
-        header={'تخفیف'}
-        theme={vars.DARK_BLUE}
-        color={'#000'}
-        width={250}
-        percent={'20%'}
-      />
-      <ProgressCard
-        header={'هر چیزی'}
-        theme={vars.ORANGE_RED}
-        color={vars.WHITE}
-        width={180}
-        percent={'90%'}
-      /> */}
+      </PhoneView>
 
       {discount && (
         <PhoneView>
           {data !== undefined &&
             data.map((elem, index) => {
-              // return <OffsCard key={index} text="sad" />;
               return (
                 <OffsCard
                   key={index}
@@ -100,11 +84,36 @@ function MyOffs(props) {
                   code={elem.code}
                   placeUse={elem.sectionFa}
                   expiredAt={elem.expireAt}
-                  // percent={'10%'}
-                  amount={elem.amount}
+                  amount={
+                    elem.type === 'value'
+                      ? formatPrice(elem.amount)
+                      : elem.amount
+                  }
                 />
               );
             })}
+        </PhoneView>
+      )}
+      {bonus && (
+        <PhoneView>
+          {/* {data !== undefined &&
+            data.map((elem, index) => {
+              return (
+                <OffsCard
+                  key={index}
+                  type={elem.type}
+                  code={elem.code}
+                  placeUse={elem.sectionFa}
+                  expiredAt={elem.expireAt}
+                  amount={
+                    elem.type === 'value'
+                      ? formatPrice(elem.amount)
+                      : elem.amount
+                  }
+                />
+              );
+            })} */}
+          <CommonWebBox header={Translate.bonus}></CommonWebBox>
         </PhoneView>
       )}
     </MyView>

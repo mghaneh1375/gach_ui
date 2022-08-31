@@ -1,10 +1,11 @@
 const Translate = {
   test: 'تست',
   off: 'تخفیف ها',
+  bonus: 'جایزه ها',
   intelOffs: 'تخفیف هوشمند',
   offsCode: 'کد تخفیف',
   placeUse: 'محل استفاده ',
-  expiredAt: 'آخرین مهلت تاریخ',
+  expiredAt: 'آخرین مهلت ',
   amount: ' مبلغ ',
   percent: ' درصد ',
   price: ' تومان ',

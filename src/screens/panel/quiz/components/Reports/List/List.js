@@ -20,6 +20,8 @@ import {
 } from './Utility';
 import AuthorReport from '../Author/AuthorReport';
 import ParticipantReport from '../Participant/ParticipantReport';
+import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
+import {typeOfReportKeyVals} from './KeyVals';
 
 function List(props) {
   const useGlobalState = () => [
@@ -29,6 +31,7 @@ function List(props) {
 
   const [state, dispatch] = useGlobalState();
   const [selectedReport, setSelectedReport] = useState('');
+  const [type, setType] = useState();
 
   return (
     <MyView>
@@ -37,6 +40,14 @@ function List(props) {
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
         <PhoneView>
+          <JustBottomBorderSelect
+            placeholder={translator.typeOfReport}
+            subText={translator.typeOfReport}
+            setter={setType}
+            values={typeOfReportKeyVals}
+            value={typeOfReportKeyVals.find(elem => elem.id === type)}
+          />
+          <CommonButton title={translator.show} />
           <CommonButton
             onPress={() =>
               fetchSchoolReportLocal(
