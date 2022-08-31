@@ -67,6 +67,9 @@ export const styles = {
   textCenter: {
     textAlign: 'center',
   },
+  placeSelfCenter: {
+    placeSelfCenter: 'center',
+  },
   margin20: {
     marginLeft: 20,
     marginTop: 20,
@@ -109,6 +112,12 @@ export const styles = {
   },
   paddingRight15: {
     paddingRight: 15,
+  },
+  paddingRight5: {
+    paddingRight: 5,
+  },
+  paddingLeft15: {
+    paddingLeft15: 15,
   },
   justifyContentSpaceAround: {
     justifyContent: 'space-around',

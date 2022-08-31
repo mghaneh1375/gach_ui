@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import columns from '../../teachers/list/TableStructure';
-import Ops from '../../teachers/list/Ops/Ops';
+import columns from '../../ManageTeachers/list/TableStructure';
+import Ops from '../../ManageTeachers/list/Ops/Ops';
 import Translate from '../Translate';
 import {routes} from '../../../../API/APIRoutes';
 

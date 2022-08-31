@@ -83,12 +83,12 @@ export default function WebRouter() {
             element={<WebStructue page="schoolUsers" />}
           />
           <Route
-            path="/schoolAccess"
-            element={<WebStructue page="schoolAccess" />}
+            path="/manageStudent"
+            element={<WebStructue page="manageStudent" />}
           />
           <Route
-            path="/teacherAccess"
-            element={<WebStructue page="teacherAccess" />}
+            path="/manageTeacher"
+            element={<WebStructue page="manageTeacher" />}
           />
           <Route path="/teachers" element={<WebStructue page="teachers" />} />
           <Route path="/charge" element={<WebStructue page="charge" />} />

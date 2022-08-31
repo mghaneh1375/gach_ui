@@ -15,16 +15,16 @@ function SchoolMenu(props) {
     return (
       <div className="menu-item-container" style={style.MenuJustLarge}>
         <MenuItem
-          onClick={() => navigate('/schoolAccess')}
+          onClick={() => navigate('/manageStudent')}
           text={translator.management + ' ' + translator.students}
           icon={faSchool}
-          selected={props.selected === 'schoolAccess'}
+          selected={props.selected === 'manageStudent'}
         />
         <MenuItem
-          onClick={() => navigate('/teacherAccess')}
+          onClick={() => navigate('/manageTeacher')}
           text={translator.management + ' ' + translator.teachers}
           icon={faSchool}
-          selected={props.selected === 'teacherAccess'}
+          selected={props.selected === 'manageTeacher'}
         />
       </div>
     );
