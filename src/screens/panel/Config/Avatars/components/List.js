@@ -10,6 +10,7 @@ import translator from '../Translator';
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import FailTransaction from '../../../../../components/web/FailTransaction/FailTransaction';
 import MyOffs from '../../../../studentPanel/‌MyOffs/MyOffs';
+import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
 
 function List(props) {
   const setDefaultAvatar = avatarId => {
@@ -37,6 +38,7 @@ function List(props) {
         percent={'10%'}
         price={50000}
       />
+      <SearchUser></SearchUser>
       <SuccessTransaction
         buyerName={'ahmad'}
         link={

@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
+
 import {
   CommonButton,
   CommonRadioButton,
@@ -14,6 +15,7 @@ import commonTranslator from '../../../translator/Common';
 import {search} from './Utility';
 import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {styles} from '../../../styles/Common/Styles';
 
 const SearchUser = props => {
   const [users, setUsers] = useState(undefined);
@@ -109,7 +111,7 @@ const SearchUser = props => {
       </PhoneView>
       <MyView style={{marginTop: 30, marginBottom: 30}}>
         {mode === 'name' && (
-          <PhoneView>
+          <PhoneView style={{...styles.gap15}}>
             <JustBottomBorderTextInput
               onChangeText={e => setName(e)}
               placeholder={commonTranslator.firstname}
