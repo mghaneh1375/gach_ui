@@ -272,3 +272,20 @@ export const fetchStudentAnswerSheet = async (
     token,
   );
 };
+
+export const changeQuestionsArrangeInQuiz = async (
+  quizId,
+  generalMode,
+  data,
+  token,
+) => {
+  let res = await generalRequest(
+    routes.changeArrangeQuestions + generalMode + '/' + quizId,
+    'put',
+    data,
+    undefined,
+    token,
+  );
+  if (res !== null) showSuccess();
+  return res;
+};

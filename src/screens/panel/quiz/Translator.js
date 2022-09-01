@@ -49,6 +49,7 @@ const translator = {
   correntAnswerSheets: 'تصحیح پاسخ برگ های اسکن شده',
   keySheet: 'کلید آزمون',
   seeRanking: 'مشاهده نتایج',
+  changeSort: 'تغییر ترتیب سوالات',
 };
 
 export default translator;
