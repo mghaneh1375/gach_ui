@@ -156,4 +156,5 @@ export const routes = {
   checkOffCode: 'general/checkOffCode',
   getTransactions: 'admin/transaction/get?',
   getMyOffs: 'general/myOffs',
+  chargeAccount: 'general/preparePay',
 };
