@@ -1,11 +1,49 @@
-import React from 'react';
-import {MyView} from 'react-native-multi-selectbox';
-import {CommonButton, CommonWebBox, SimpleText} from '../../../styles/Common';
+import React, {useRef, useState} from 'react';
+import {
+  CommonButton,
+  CommonWebBox,
+  MyView,
+  SimpleText,
+} from '../../../styles/Common';
 import {CommonTextInput} from '../../../styles/Common/CommonTextInput';
 import {styles} from '../../../styles/Common/Styles';
 import Translate from './Translate';
+import {chargeAccout} from './Utility';
+import {generalRequest} from '../../../API/Utility';
 
 function AccountCharge(props) {
+  const [refId, setRefId] = useState();
+
+  const charge = async () => {
+    let res = await chargeAccout();
+    console.log(res);
+    if (res !== null) {
+      console.log(res);
+      setRefId(res);
+      // if (1 == 1) return;
+
+      // let res = await generalRequest(
+      //   'https://bpm.shaparak.ir/pgwchannel/startpay.mellat',
+      //   'post',
+      //   {
+      //     RefId: refId,
+      //   },
+      //   undefined,
+      //   undefined,
+      // );
+    }
+  };
+
+  const ref = useRef();
+
+  React.useEffect(() => {
+    if (refId === undefined) return;
+    console.log('Salam');
+    setTimeout(() => {
+      ref.current.submit();
+    }, 1000);
+  }, [refId]);
+
   //آقای عادلی گفتن این پاپ آپ هم میتونه باشه
   return (
     <CommonWebBox
@@ -32,7 +70,20 @@ function AccountCharge(props) {
           justNum={true}
         />
       </MyView>
-      <CommonButton title={Translate.moneyPort} theme={'dark'} onPress />
+      <CommonButton
+        title={Translate.moneyPort}
+        theme={'dark'}
+        onPress={() => charge()}
+      />
+      {refId !== undefined && (
+        <form
+          ref={ref}
+          action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat"
+          method="post"
+          target="_blank">
+          <input type={'hidden'} value={refId} name="RefId" />
+        </form>
+      )}
     </CommonWebBox>
   );
 }
