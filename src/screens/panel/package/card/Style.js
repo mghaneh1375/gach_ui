@@ -5,7 +5,11 @@ const width = getWidthHeight()[0];
 
 export const styleCard = {
   padding: 0,
-  width: width > 768 ? 390 : 320,
+  width: width > 768 ? 390 : '100%',
+  borderRadius: 10,
+};
+export const styleCard100Percent = {
+  width: width > 900 ? '50%' : '100%',
   borderRadius: 10,
 };
 

@@ -164,7 +164,8 @@ const Header = props => {
             </MyView>
 
             {showProfilePane && (
-              <MyView style={style.Header_Profile_MENU}>
+              <MyView
+                style={{...style.Header_Profile_MENU, ...styles.boxShadow}}>
                 <SimpleText
                   style={
                     isApp
