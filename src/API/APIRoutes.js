@@ -46,6 +46,7 @@ export const routes = {
   uploadQuizAttaches: 'ckeditor/quiz',
   fetchIRYSCRegistrableQuizzes: 'quiz/public/get/irysc',
   createQuiz: 'quiz/manage/store/',
+  changeArrangeQuestions: 'quiz/manage/arrangeQuestions/',
   fetchAllQuiz: 'quiz/manage/getAll/regular',
   fetchQuiz: 'quiz/manage/get/',
   fetchQuizTags: 'quiz/manage/getDistinctTags',
@@ -156,4 +157,5 @@ export const routes = {
   checkOffCode: 'general/checkOffCode',
   getTransactions: 'admin/transaction/get?',
   getMyOffs: 'general/myOffs',
+  chargeAccount: 'general/preparePay',
 };

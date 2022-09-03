@@ -83,7 +83,7 @@ const WebStructue = props => {
   const includeFilterMenu = ['buy'];
 
   React.useEffect(() => {
-    const excludeRightMenu = ['login', 'home', 'reviewQuiz'];
+    const excludeRightMenu = ['login', 'home', 'reviewQuiz', 'startQuiz'];
     const excludeTopNav = ['login', 'profile'];
     const excludeBottomNav = ['login'];
     const excludeAuthRoutes = ['login', 'home', 'buy'];

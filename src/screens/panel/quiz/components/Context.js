@@ -33,13 +33,23 @@ export const QuizProvider = ({children}) => {
       elem => elem.id === state.selectedQuestionId,
     );
     const oldQNo = wantedQuestion.no;
-
-    let newQuestions = state.selectedQuiz.questions.map(elem => {
-      if (elem.no > oldQNo && elem.no <= state.newWantedNo) {
-        elem.no = elem.no - 1;
-      }
-      return elem;
-    });
+    if (oldQNo === state.newWantedNo) return;
+    let newQuestions;
+    if (oldQNo < state.newWantedNo) {
+      newQuestions = state.selectedQuiz.questions.map(elem => {
+        if (elem.no > oldQNo && elem.no <= state.newWantedNo) {
+          elem.no = elem.no - 1;
+        }
+        return elem;
+      });
+    } else {
+      newQuestions = state.selectedQuiz.questions.map(elem => {
+        if (elem.no < oldQNo && elem.no >= state.newWantedNo) {
+          elem.no = elem.no + 1;
+        }
+        return elem;
+      });
+    }
 
     wantedQuestion.no = state.newWantedNo;
 

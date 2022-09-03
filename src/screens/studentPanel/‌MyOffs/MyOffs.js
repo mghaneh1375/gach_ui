@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {MyView} from 'react-native-multi-selectbox';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {dispatchStateContext} from '../../../App';
 import {formatPrice} from '../../../services/Utility';
 import {CommonWebBox, PhoneView} from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
@@ -29,12 +29,9 @@ function MyOffs(props) {
   };
   // const queryString = require('query-string');
   const navigate = props.navigate;
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
 
-  const [state, dispatch] = useGlobalState();
+  const [dispatch] = useGlobalState();
 
   React.useEffect(() => {
     dispatch({loading: true});

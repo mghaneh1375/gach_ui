@@ -14,7 +14,7 @@ const Translate = {
   questionNoAnswer: 'سوالات بدون پاسخ',
   review: 'مرور آزمون',
   continue: 'ادامه آزمون',
-  start: 'شروع آزمون',
+  start: 'مشاهده سوالات',
   next: 'بعدی',
   prev: 'قبلی',
   finish: 'اتمام ارزیابی',

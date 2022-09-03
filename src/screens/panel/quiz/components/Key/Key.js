@@ -1,6 +1,5 @@
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState, useRef, useCallback} from 'react';
-import {View} from 'react-native';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import AnswerSheet from '../AnswerSheet/AnswerSheet';
 import {dispatchQuizContext, quizContext} from '../Context';
