@@ -11,6 +11,7 @@ function QuizItemCard({
   textFontSize,
   valFontSize,
   background,
+  iconFontSize,
   color,
 }) {
   if (val === undefined || val === '' || val === '...') return <></>;
@@ -18,7 +19,7 @@ function QuizItemCard({
     <PhoneView style={{...styles.alignItemsCenter}}>
       {icon !== undefined && (background === undefined || background) && (
         <FontIcon
-          kind={'small'}
+          kind={iconFontSize !== undefined ? iconFontSize : 'small'}
           icon={icon}
           back={color === undefined ? 'blue' : color}
           parentStyle={{
