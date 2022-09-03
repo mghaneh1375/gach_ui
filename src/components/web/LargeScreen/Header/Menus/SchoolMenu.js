@@ -1,10 +1,21 @@
+import React from 'react';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
 import {MenuItem, style, MenuItemPhone} from '../style';
 import translator from '../../../../../translator/Common';
-import {faSchool, faUsers} from '@fortawesome/free-solid-svg-icons';
-import {View} from 'react-native';
-import {MyView} from '../../../../../styles/Common';
+import {
+  faSchool,
+  faUsers,
+  faHome,
+  faShoppingCart,
+  faBasketShopping,
+  faCreditCard,
+  faHistory,
+  faQuestion,
+  faCog,
+} from '@fortawesome/free-solid-svg-icons';
+import {MyView, PhoneView} from '../../../../../styles/Common';
+import MenuItemRepeat from './MenuItemRepeat';
 
 function SchoolMenu(props) {
   const device = getDevice();
@@ -13,20 +24,26 @@ function SchoolMenu(props) {
 
   if (isLargePage) {
     return (
-      <div className="menu-item-container" style={style.MenuJustLarge}>
-        <MenuItem
-          onClick={() => navigate('/manageStudent')}
-          text={translator.management + ' ' + translator.students}
-          icon={faSchool}
-          selected={props.selected === 'manageStudent'}
-        />
-        <MenuItem
-          onClick={() => navigate('/manageTeacher')}
-          text={translator.management + ' ' + translator.teachers}
-          icon={faSchool}
-          selected={props.selected === 'manageTeacher'}
-        />
-      </div>
+      <MenuItemRepeat
+        navigate={props.navigate}
+        selected={props.selected}
+        child={
+          <>
+            <MenuItem
+              onClick={() => navigate('/manageStudent')}
+              text={translator.management + ' ' + translator.students}
+              icon={faSchool}
+              selected={props.selected === 'manageStudent'}
+            />
+            <MenuItem
+              onClick={() => navigate('/manageTeacher')}
+              text={translator.management + ' ' + translator.teachers}
+              icon={faSchool}
+              selected={props.selected === 'manageTeacher'}
+            />
+          </>
+        }
+      />
     );
   }
 

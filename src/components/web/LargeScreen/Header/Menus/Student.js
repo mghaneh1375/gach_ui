@@ -1,6 +1,7 @@
+import React from 'react';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
-import {MenuItem, style, MenuItemPhone} from '../style';
+import {style, MenuItemPhone} from '../style';
 import translator from '../../../../../translator/Common';
 import {
   faHome,
@@ -12,8 +13,8 @@ import {
   faCog,
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
-import {View} from 'react-native';
 import {MyView} from '../../../../../styles/Common';
+import MenuItemRepeat from './MenuItemRepeat';
 
 function StudentMenu(props) {
   const device = getDevice();
@@ -22,39 +23,7 @@ function StudentMenu(props) {
 
   if (isLargePage) {
     return (
-      <div className="menu-item-container" style={style.MenuJustLarge}>
-        <MenuItem
-          onClick={() => navigate('/dashboard')}
-          text={translator.home}
-          icon={faHome}
-          selected={props.selected === 'dashboard'}
-        />
-        <MenuItem
-          onClick={() => navigate('/myQuizzes')}
-          text={translator.myQuizes}
-          icon={faShoppingCart}
-          selected={props.selected === 'myQuizzes'}
-        />
-        <MenuItem
-          onClick={() => navigate('/buy')}
-          selected={props.selected === 'buy'}
-          text={translator.buyQuiz}
-          icon={faBasketShopping}
-        />
-        <MenuItem
-          onClick={() => navigate('/charge')}
-          text={translator.charge}
-          icon={faCreditCard}
-        />
-        <MenuItem text={translator.history} icon={faHistory} />
-        <MenuItem text={translator.support} icon={faQuestion} />
-        <MenuItem
-          onClick={() => navigate('/ticket')}
-          text={translator.requests}
-          icon={faCog}
-          selected={props.selected === 'ticket'}
-        />
-      </div>
+      <MenuItemRepeat navigate={props.navigate} selected={props.selected} />
     );
   }
 

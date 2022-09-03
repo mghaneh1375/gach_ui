@@ -280,11 +280,6 @@ input:focus-visible {
   border-color: #ffaa00 !important;
   background-color: #e8e8e8 !important;
 }
-input:read-only:focus-visible {
-  outline-style: none;
-  border-color: red !important;
-  background-color: red !important;
-}
 textarea:focus-visible {
   outline-style: none;
   border-color: #ffaa00 !important;

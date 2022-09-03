@@ -90,14 +90,15 @@ export const style = {
     marginRight: 0,
   },
   Header_Profile_Text_Web: {
-    marginRight: 0,
+    margin: 'auto',
   },
   Header_Profile_Text: {
-    marginTop: 9,
+    // marginTop: 9,
+    margin: 'auto',
   },
   Header_Profile_MENU: {
     width: '100%',
-    height: 120,
+    height: 150,
     overflow: 'auto',
     backgroundColor: vars.WHITE,
     borderBottomRightRadius: 10,
@@ -106,8 +107,6 @@ export const style = {
     minWidth: 140,
     zIndex: 0,
     padding: 10,
-    // marginTop: 40,
-    alignItems: 'center',
   },
   Header_Profile_Notif: {
     width: '100%',

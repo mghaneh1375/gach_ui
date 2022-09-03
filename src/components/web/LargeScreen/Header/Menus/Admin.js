@@ -1,3 +1,4 @@
+import React from 'react';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
 import {MenuItem, style, MenuItemPhone} from '../style';
@@ -10,9 +11,7 @@ import {
   faMoneyBill,
   faQuestion,
   faGift,
-  faManatSign,
 } from '@fortawesome/free-solid-svg-icons';
-import {View} from 'react-native';
 import {SuperMenuItem} from './SuperMenuItem';
 import {MyView} from '../../../../../styles/Common';
 

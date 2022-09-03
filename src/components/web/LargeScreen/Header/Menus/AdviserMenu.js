@@ -16,28 +16,16 @@ import {
 import {MyView} from '../../../../../styles/Common';
 import MenuItemRepeat from './MenuItemRepeat';
 
-function Agent(props) {
+function AdviserMenu(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
   const navigate = props.navigate;
 
   if (isLargePage) {
     return (
-      <MenuItemRepeat
-        navigate={props.navigate}
-        selected={props.selected}
-        child={
-          <MenuItem
-            onClick={() => navigate('/schoolUsers')}
-            text={translator.schools}
-            icon={faUsers}
-            selected={props.selected === 'schools'}
-          />
-        }
-      />
+      <MenuItemRepeat navigate={props.navigate} selected={props.selected} />
     );
   }
-
   return (
     <MyView
       style={{
@@ -57,4 +45,4 @@ function Agent(props) {
   );
 }
 
-export default Agent;
+export default AdviserMenu;

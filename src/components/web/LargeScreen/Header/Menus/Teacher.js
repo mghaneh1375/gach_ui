@@ -1,9 +1,21 @@
+import React from 'react';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
 import {MenuItem, style, MenuItemPhone} from '../style';
 import translator from '../../../../../translator/Common';
-import {faSchool, faUsers} from '@fortawesome/free-solid-svg-icons';
+import {
+  faBasketShopping,
+  faCog,
+  faCreditCard,
+  faHistory,
+  faHome,
+  faQuestion,
+  faSchool,
+  faShoppingCart,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '../../../../../styles/Common';
+import MenuItemRepeat from './MenuItemRepeat';
 
 function Teacher(props) {
   const device = getDevice();
@@ -12,14 +24,7 @@ function Teacher(props) {
 
   if (isLargePage) {
     return (
-      <div className="menu-item-container" style={style.MenuJustLarge}>
-        <MenuItem
-          onClick={() => navigate('/teachers')}
-          text={translator.access + ' ' + translator.teacher}
-          icon={faSchool}
-          selected={props.selected === 'teachers'}
-        />
-      </div>
+      <MenuItemRepeat navigate={props.navigate} selected={props.selected} />
     );
   }
 

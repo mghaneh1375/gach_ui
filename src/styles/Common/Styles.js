@@ -119,6 +119,10 @@ export const styles = {
   paddingLeft15: {
     paddingLeft15: 15,
   },
+  paddingBottomUp5: {
+    paddingBottom: 5,
+    paddingTop: 5,
+  },
   justifyContentSpaceAround: {
     justifyContent: 'space-around',
   },
@@ -234,6 +238,9 @@ export const styles = {
   },
   borderRadius50: {
     borderRadius: '50%',
+  },
+  borderBottom1: {
+    borderBottom: '1px solid #a6a6a6',
   },
   top0: {
     top: 0,
