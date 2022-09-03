@@ -81,6 +81,7 @@ const translator = {
   optionalTrueDefault: 'اختیاری(پیش فرض این فیلد بله است)',
   chooseFile: 'انتخاب فایل',
   uploading: 'در حال آپلود',
+  offsBonus: 'تخفیف و جایزه',
   pleaseWait: 'لطفا شکیبا باشید',
   fileAdressFor: 'آدرس فایل آپلود شده برای',
   nesFile: 'فایل های ضروری',

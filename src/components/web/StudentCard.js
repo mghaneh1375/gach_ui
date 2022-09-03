@@ -1,3 +1,4 @@
+import React from 'react';
 import MiniCard from '../../screens/panel/quiz/components/CV/MiniCard';
 
 function StudentCard(props) {

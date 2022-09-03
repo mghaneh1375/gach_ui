@@ -34,6 +34,7 @@ import CopyBox from '../../../../../../components/CopyBox';
 import {BASE_SITE_NAME} from '../../../../../../API/Utility';
 import {showError} from '../../../../../../services/Utility';
 import {getMyAnswerSheet} from '../../../../../studentPanel/MyQuizzes/components/Utility';
+import {styleCard100Percent} from '../../../../package/card/Style';
 
 function Karname(props) {
   const useGlobalState = () => [
@@ -254,12 +255,13 @@ function Karname(props) {
       <MyViewWithRef ref={ref}>
         <PhoneView>
           <CommonWebBox
-            width={'55%'}
+            width={'50%'}
             style={{
               paddingLeft: 5,
               paddingTop: 10,
               paddingBottom: 10,
               paddingRight: 5,
+              ...styleCard100Percent,
             }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
@@ -294,6 +296,7 @@ function Karname(props) {
               paddingTop: 10,
               paddingBottom: 10,
               paddingRight: 5,
+              ...styleCard100Percent,
             }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
@@ -321,6 +324,7 @@ function Karname(props) {
               paddingTop: 10,
               paddingBottom: 10,
               paddingRight: 5,
+              ...styleCard100Percent,
             }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
@@ -354,6 +358,7 @@ function Karname(props) {
               paddingTop: 10,
               paddingBottom: 10,
               paddingRight: 5,
+              ...styleCard100Percent,
             }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
@@ -381,6 +386,7 @@ function Karname(props) {
               paddingTop: 10,
               paddingBottom: 10,
               paddingRight: 5,
+              ...styleCard100Percent,
             }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
@@ -423,6 +429,7 @@ function Karname(props) {
               paddingTop: 10,
               paddingBottom: 10,
               paddingRight: 5,
+              ...styleCard100Percent,
             }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
@@ -445,7 +452,7 @@ function Karname(props) {
         </PhoneView>
       </MyViewWithRef>
       <MyViewWithRef style={{justifyContent: 'center'}} ref={ref2}>
-        <CommonWebBox width={'90%'}>
+        <CommonWebBox width={'100%'}>
           <MyView>
             {karname !== undefined && (
               <VictoryChart
@@ -460,10 +467,10 @@ function Karname(props) {
                   orientation="horizontal"
                   gutter={40}
                   style={{
-                    data: {fontSize: 30, fontFamily: 'IRANSans'},
-                    labels: {fontSize: 30, fontFamily: 'IRANSans', dx: 100},
+                    data: {fontSize: 20, fontFamily: 'IRANSans'},
+                    labels: {fontSize: 20, fontFamily: 'IRANSans', dx: 100},
                     border: {stroke: 'black'},
-                    title: {fontSize: 30, fontFamily: 'IRANSans'},
+                    title: {fontSize: 20, fontFamily: 'IRANSans'},
                   }}
                   data={[
                     {name: 'درصد شما', symbol: {fill: '#c43a31'}},

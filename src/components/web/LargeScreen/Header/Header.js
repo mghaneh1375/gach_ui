@@ -15,6 +15,7 @@ import {logout} from '../../../../API/User';
 import commonTranslator from '../../../../translator/Common';
 import newAlertsKeyVals from './NewAlertsKeyVals';
 import UserTinyPic from '../UserTinyPic';
+import {styles} from '../../../../styles/Common/Styles';
 
 const Header = props => {
   const device = getDevice();
@@ -163,7 +164,8 @@ const Header = props => {
             </MyView>
 
             {showProfilePane && (
-              <MyView style={style.Header_Profile_MENU}>
+              <MyView
+                style={{...style.Header_Profile_MENU, ...styles.boxShadow}}>
                 <SimpleText
                   style={
                     isApp
@@ -178,20 +180,46 @@ const Header = props => {
                   }
                   text={commonTranslator.hello + ' - ' + props.name}
                 />
-                <TouchableOpacity
-                  onPress={() => {
-                    setShowProfilePane(false);
-                    props.navigate('/profile');
-                  }}>
-                  <SimpleText text={commonTranslator.profile} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={async () => {
-                    changeShowNotif(!showNotif);
-                    callLogout();
-                  }}>
-                  <SimpleText text={commonTranslator.logout} />
-                </TouchableOpacity>
+                <MyView>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setShowProfilePane(false);
+                      props.navigate('/profile');
+                    }}>
+                    <SimpleText
+                      style={{
+                        ...styles.borderBottom1,
+                        ...styles.paddingBottomUp5,
+                      }}
+                      text={commonTranslator.profile}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={async () => {
+                      setShowProfilePane(false);
+                      props.navigate('/myOffs');
+                    }}>
+                    <SimpleText
+                      style={{
+                        ...styles.borderBottom1,
+                        ...styles.paddingBottomUp5,
+                      }}
+                      text={commonTranslator.offsBonus}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={async () => {
+                      changeShowNotif(!showNotif);
+                      callLogout();
+                    }}>
+                    <SimpleText
+                      style={{
+                        ...styles.paddingBottomUp5,
+                      }}
+                      text={commonTranslator.logout}
+                    />
+                  </TouchableOpacity>
+                </MyView>
               </MyView>
             )}
           </div>

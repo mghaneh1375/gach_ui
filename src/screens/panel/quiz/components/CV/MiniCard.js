@@ -10,7 +10,9 @@ import {
   MyView,
 } from '../../../../../styles/Common';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
+import {styles} from '../../../../../styles/Common/Styles';
 import vars from '../../../../../styles/root';
+import {styleCard100Percent} from '../../../package/card/Style';
 
 function MiniCard(props) {
   const [src, setSrc] = useState();
@@ -20,7 +22,8 @@ function MiniCard(props) {
   }, [props.src]);
 
   return (
-    <CommonWebBox width={280} style={{padding: 0}}>
+    <CommonWebBox
+      style={{...styleCard100Percent, padding: 0, ...styles.overFlowHidden}}>
       <MyView>
         <PhoneView>
           {src !== undefined && (

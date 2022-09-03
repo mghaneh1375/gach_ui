@@ -14,7 +14,11 @@ import {SimpleTextIcon} from '../../../../styles/Common/TextIcon';
 
 import Timer from './Timer';
 
-import {faAngleDown, faBookmark} from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleDown,
+  faAngleUp,
+  faBookmark,
+} from '@fortawesome/free-solid-svg-icons';
 import Translate from '../Translate';
 import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import commonTranslator from '../../../../translator/Common';
@@ -49,8 +53,12 @@ function Filter(props) {
         <SimpleText style={styles.dark_blue_color} text={Translate.quizList} />
         <SimpleTextIcon
           onPress={() => toggleHelp()}
-          icon={faAngleDown}
-          textStyle={{...styles.colorOrangeRed, ...{marginLeft: -5}}}
+          icon={help ? faAngleUp : faAngleDown}
+          textStyle={{
+            ...styles.colorOrangeRed,
+            ...{marginLeft: -5},
+            ...styles.cursor_pointer,
+          }}
           iconStyle={{...styles.colorOrangeRed}}
           iconKind={'midSize'}
           text={Translate.help}
