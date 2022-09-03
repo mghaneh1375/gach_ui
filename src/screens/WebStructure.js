@@ -62,6 +62,7 @@ import RunQuiz from './studentPanel/RunQuiz/RunQuiz';
 import MyOffs from './studentPanel/‌MyOffs/MyOffs';
 import ManageStudents from './schoolPanel/ManageStudents/ManageStudents';
 import ManageTeachers from './schoolPanel/ManageTeachers/ManageTeachers';
+import Invoice from './schoolPanel/Invoice/Invoice';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -235,6 +236,9 @@ const WebStructue = props => {
                   user={user}
                   navigate={navigate}
                 />
+              )}
+              {props.page === 'invoice' && (
+                <Invoice user={user} token={token} navigate={navigate} />
               )}
               {props.page === 'buy' && (
                 <Buy user={user} token={token} navigate={navigate} />

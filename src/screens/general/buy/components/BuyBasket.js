@@ -11,8 +11,11 @@ import {styles} from '../../../../styles/Common/Styles';
 import {goToPay} from './Utility';
 import {setCacheItem} from '../../../../API/User';
 import commonTranslator from '../../../../translator/Common';
+import React, {useState, useRef} from 'react';
 
 function BuyBasket(props) {
+  const [refId, setRefId] = useState();
+
   const goToPayLocal = async () => {
     if (
       props.token === null ||
@@ -37,13 +40,25 @@ function BuyBasket(props) {
     if (res !== null) {
       if (res.action === 'success') {
         let user = props.user;
-        user.user.money = res.url;
+        user.user.money = res.refId;
         await setCacheItem('user', JSON.stringify(user));
         if (props.setShowInfo !== undefined) props.setShowInfo(false);
         props.setShowSuccessTransaction(true);
+      } else if (res.action === 'pay') {
+        setRefId(res.refId);
       }
     }
   };
+
+  const ref = useRef();
+
+  React.useEffect(() => {
+    if (refId === undefined) return;
+    console.log('Salam');
+    setTimeout(() => {
+      ref.current.submit();
+    }, 1000);
+  }, [refId]);
 
   return (
     <PhoneView
@@ -142,6 +157,16 @@ function BuyBasket(props) {
             />
           )}
         </MyView>
+      )}
+
+      {refId !== undefined && (
+        <form
+          ref={ref}
+          action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat"
+          method="post"
+          target="_blank">
+          <input type={'hidden'} value={refId} name="RefId" />
+        </form>
       )}
     </PhoneView>
   );
