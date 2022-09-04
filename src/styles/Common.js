@@ -184,11 +184,19 @@ export const CommonButton = props => {
 
   allStyles.alignSelf =
     props.dir !== undefined && props.dir === 'rtl' ? 'flex-start' : 'flex-end';
-
-  allStyles.padding =
-    props.padding !== undefined && props.padding === 'unset'
-      ? '9px 15px'
-      : '5px 30px';
+  let hrefStyle = {textDecoration: 'none'};
+  if (props.href === undefined) {
+    allStyles.padding =
+      props.padding !== undefined && props.padding === 'unset'
+        ? '9px 15px'
+        : '5px 30px';
+  } else {
+    allStyles.padding = '5px 0';
+    hrefStyle.padding =
+      props.padding !== undefined && props.padding === 'unset'
+        ? '9px 15px'
+        : '5px 30px';
+  }
 
   if (props.icon !== undefined) {
     allStyles.display = 'flex';
@@ -202,9 +210,7 @@ export const CommonButton = props => {
     </Button>
   ) : props.href !== undefined ? (
     <Button style={allStyles}>
-      <Link
-        to={props.href !== undefined ? props.href : '/'}
-        style={{textDecoration: 'none'}}>
+      <Link to={props.href !== undefined ? props.href : '/'} style={hrefStyle}>
         <Text style={textStyle}>{props.title}</Text>
       </Link>
     </Button>

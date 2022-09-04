@@ -1,3 +1,4 @@
+import React from 'react';
 import {faXmark} from '@fortawesome/free-solid-svg-icons';
 import {CommonWebBox, MyView, SimpleText} from '../../../styles/Common';
 import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
