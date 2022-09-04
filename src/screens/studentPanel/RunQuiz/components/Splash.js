@@ -22,14 +22,11 @@ import commonTranslator from '../../../../translator/Common';
 import {styles} from '../../../../styles/Common/Styles';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import {
-  faArrowLeft,
-  faBacon,
-  faCake,
-  faChartBar,
+  faBusinessTime,
   faHardHat,
+  faMessage,
   faQuestion,
-  faTimeline,
-  faTimesCircle,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
 
@@ -96,19 +93,29 @@ function Splash(props) {
                     marginLeft: 10,
                     marginRight: 15,
                   }}
-                  icon={faArrowLeft}
+                  icon={faTimes}
                 />
               </PhoneView>
             </EqualTwoTextInputs>
             <PhoneView style={{...styles.gap50}}>
               <QuizItemCard
-                icon={faHardHat}
-                iconFontSize={'normal'}
+                icon={faBusinessTime}
+                iconFontSize={'large'}
                 color={vars.ORANGE}
-                textFontSize={11}
-                valFontSize={15}
+                textFontSize={10}
+                valFontSize={16}
                 text={'مدت زمان '}
                 val={'25 دقیقه'}
+              />
+              <QuizItemCard
+                icon={faMessage}
+                iconFontSize={'large'}
+                background={false}
+                color={vars.ORANGE}
+                textFontSize={10}
+                valFontSize={16}
+                text={'تعداد سوال'}
+                val={'70000'}
               />
               <QuizItemCard
                 icon={faQuestion}
@@ -116,17 +123,8 @@ function Splash(props) {
                 color={vars.ORANGE}
                 textFontSize={11}
                 valFontSize={15}
-                text={'مدت زمان '}
-                val={'25 دقیقه'}
-              />
-              <QuizItemCard
-                icon={faChartBar}
-                iconFontSize={'normal'}
-                color={vars.ORANGE}
-                textFontSize={11}
-                valFontSize={15}
-                text={'مدت زمان '}
-                val={'25 دقیقه'}
+                text={'نوع آزمون تستی'}
+                val={'بسیار دشوار'}
               />
             </PhoneView>
           </CommonWebBox>

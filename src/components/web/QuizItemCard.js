@@ -29,7 +29,7 @@ function QuizItemCard({
       )}
       {icon !== undefined && background !== undefined && !background && (
         <SimpleFontIcon
-          kind={'normal'}
+          kind={iconFontSize !== undefined ? iconFontSize : 'small'}
           icon={icon}
           style={{color: color === undefined ? 'blue' : color}}
           parentStyle={{
