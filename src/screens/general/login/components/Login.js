@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
-import {CommonButton, MyView} from '../../../../styles/Common';
+import {CommonButton, MyView, MyViewWithRef} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import commonTranlator from './../../../../translator/Common';
 import translator from './../translate';
@@ -10,13 +10,14 @@ import translator from './../translate';
 const Login = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isWorking, setIsWorking] = useState(false);
 
   const changeInput = (label, value) => {
     if (label === 'username') setUsername(value);
     else if (label === 'password') setPassword(value);
   };
 
-  const requestLogin = () => {
+  const requestLogin = React.useCallback(() => {
     props.setLoading(true);
 
     Promise.all([
@@ -37,10 +38,39 @@ const Login = props => {
         props.navigate(props.toPath);
       }
     });
-  };
+  }, [props, username, password]);
+
+  const EnterLogin = useRef(null);
+  const [first, setFirst] = useState(true);
+  React.useEffect(() => {
+    if (EnterLogin === undefined || EnterLogin.current === undefined) return;
+    console.log('====================================');
+    console.log('asd');
+    console.log('====================================');
+    function handleKeyUp(event) {
+      if (EnterLogin.current) {
+        var charCode = event.which ? event.which : event.keyCode;
+        if (charCode === 13 && !isWorking) {
+          setIsWorking(true);
+          requestLogin();
+        }
+      }
+    }
+    if (first) {
+      setFirst(false);
+    }
+  }, [first, isWorking, requestLogin]);
+
+  // React.useEffect(() => {
+  //   if (first) return;
+  //   document.addEventListener('keyup', handleKeyUp);
+  //   return () => {
+  //     document.addEventListener('keyup', handleKeyUp);
+  //   };
+  // }, [first]);
 
   return (
-    <MyView style={{paddingLeft: 50}}>
+    <MyViewWithRef ref={EnterLogin} style={{paddingLeft: 50}}>
       <CommonTextInput
         placeholder={translator.phoneOrMail}
         subText={translator.phoneOrMail}
@@ -60,7 +90,7 @@ const Login = props => {
           title={commonTranlator.entrance}
         />
       </MyView>
-    </MyView>
+    </MyViewWithRef>
   );
 };
 

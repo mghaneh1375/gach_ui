@@ -45,11 +45,11 @@ export const CommonTextInput = props => {
   if (props.value !== undefined) inputProps.value = props.value;
   if (props.type !== undefined && props.type === 'password')
     inputProps.secureTextEntry = true;
-
   if (props.justNum !== undefined && props.justNum && Platform.OS === 'web') {
     inputProps.onKeyPress = e => {
       var charCode = e.which ? e.which : e.keyCode;
-
+      if (charCode === 13) {
+      }
       if (charCode === 190) {
         if (props.float === undefined || !props.float) e.preventDefault();
       } else if (
@@ -57,6 +57,16 @@ export const CommonTextInput = props => {
         charCode !== 8 &&
         charCode !== 37 &&
         charCode !== 39 &&
+        charCode !== 96 &&
+        charCode !== 97 &&
+        charCode !== 98 &&
+        charCode !== 99 &&
+        charCode !== 100 &&
+        charCode !== 101 &&
+        charCode !== 102 &&
+        charCode !== 103 &&
+        charCode !== 104 &&
+        charCode !== 105 &&
         String.fromCharCode(charCode).match(/[^0-9]/g)
       )
         e.preventDefault();
