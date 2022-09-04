@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {routes} from '../../../../../API/APIRoutes';
+import {BASE_SITE_NAME} from '../../../../../API/Utility';
 import UploadFile from '../../../../../components/web/UploadFile';
 import {showSuccess} from '../../../../../services/Utility';
 import {
@@ -82,6 +83,12 @@ function Create(props) {
           toggleShow={() => setShowUploadPane(false)}
           maxFileSize={2}
           accept={['.xls', '.xlsx']}
+          helps={[
+            {
+              link: BASE_SITE_NAME + 'assets/add_subject_sample.xlsx',
+              text: 'دانلود فایل نمونه حیطه ها',
+            },
+          ]}
         />
       )}
       <CommonWebBox

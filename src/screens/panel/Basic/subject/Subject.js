@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {addItem, editItem} from '../../../../services/Utility';
 import {getGradeLessons, getSubjects} from '../Utility';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
+import {dispatchStateContext} from '../../../../App';
 import Create from './components/Create';
 import List from './components/List/List';
 import {MyView} from '../../../../styles/Common';
@@ -13,11 +13,8 @@ function Subject(props) {
   const [grades, setGrades] = useState();
   const [selectedSubject, setSelectedSubject] = useState();
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
-  const [state, dispatch] = useGlobalState();
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const [dispatch] = useGlobalState();
   const setLoading = status => {
     dispatch({loading: status});
   };

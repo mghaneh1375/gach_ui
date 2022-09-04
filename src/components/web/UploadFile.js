@@ -9,6 +9,8 @@ import {SimpleFontIcon} from '../../styles/Common/FontIcon';
 import {faFolder, faTrash} from '@fortawesome/free-solid-svg-icons';
 import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
 import vars from '../../styles/root';
+import {Link} from 'react-router-native';
+import {styles} from '../../styles/Common/Styles';
 
 const UploadFile = props => {
   const [isWorking, setIsWorking] = useState(false);
@@ -59,6 +61,7 @@ const UploadFile = props => {
       });
     }
   };
+
   return (
     <LargePopUp
       toggleShowPopUp={props.toggleShow}
@@ -74,38 +77,55 @@ const UploadFile = props => {
       title={props.title}>
       <PhoneView style={{marginBottom: 20}}>
         {canUpload && (
-          <PhoneView>
-            <JustBottomBorderTextInput
-              style={{minWidth: 250}}
-              disable={true}
-              placeholder={
-                filesContent.length > 0
-                  ? filesContent[filesContent.length - 1].name
-                  : commonTranslator.notChooseFile
-              }
-              subText={
-                commonTranslator.maxSize +
-                props.maxFileSize +
-                '  مگابایت   - ' +
-                commonTranslator.format +
-                ' ' +
-                props.accept
-              }
-            />
-            <MyView style={{width: 40, height: 40, marginRight: 10}}>
-              <SimpleFontIcon
-                onPress={() => openFileSelector()}
-                icon={faFolder}
+          <MyView style={styles.gap15}>
+            <PhoneView>
+              <JustBottomBorderTextInput
+                style={{minWidth: 250}}
+                disable={true}
+                placeholder={
+                  filesContent.length > 0
+                    ? filesContent[filesContent.length - 1].name
+                    : commonTranslator.notChooseFile
+                }
+                subText={
+                  commonTranslator.maxSize +
+                  props.maxFileSize +
+                  '  مگابایت   - ' +
+                  commonTranslator.format +
+                  ' ' +
+                  props.accept
+                }
               />
+              <MyView style={{width: 40, height: 40, marginRight: 10}}>
+                <SimpleFontIcon
+                  onPress={() => openFileSelector()}
+                  icon={faFolder}
+                />
+              </MyView>
+              <MyView style={{width: 40, height: 40}}>
+                <SimpleFontIcon
+                  onPress={() => clear()}
+                  style={{color: vars.ORANGE_RED}}
+                  icon={faTrash}
+                />
+              </MyView>
+            </PhoneView>
+            <MyView>
+              {props.helps !== undefined &&
+                props.helps.map((elem, index) => {
+                  return (
+                    <a
+                      style={{fontFamily: 'IRANSans'}}
+                      key={index}
+                      target="_blank"
+                      href={elem.link}
+                      download>
+                      {elem.text}
+                    </a>
+                  );
+                })}
             </MyView>
-            <MyView style={{width: 40, height: 40}}>
-              <SimpleFontIcon
-                onPress={() => clear()}
-                style={{color: vars.ORANGE_RED}}
-                icon={faTrash}
-              />
-            </MyView>
-          </PhoneView>
+          </MyView>
         )}
 
         {errors.length > 0 &&
