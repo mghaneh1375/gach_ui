@@ -33,7 +33,7 @@ const Login = props => {
   const [token, setToken] = useState('');
   const [code, setCode] = useState('');
   const [reminder, setReminder] = useState(0);
-  const [username, setUsername] = useState('0018914373'); //0018914373
+  const [username, setUsername] = useState();
   const [isSignUp, setIsSignUp] = useState(false);
 
   const useGlobalState = () => [
@@ -87,7 +87,7 @@ const Login = props => {
           height: 30,
           left: 70,
           top: 70,
-          zIndex: 100,
+          zIndex: 8,
         }}>
         <FontIcon
           icon={faClose}
@@ -102,10 +102,10 @@ const Login = props => {
           position: 'absolute',
           right: 0,
           top: '80px',
-          zIndex: 100000,
+          zIndex: 9,
           bottom: '50px',
         }}>
-        <BlurLoginBack style={{zIndex: 110000}}>
+        <BlurLoginBack style={{zIndex: 10}}>
           {mode === 'login' && (
             <LoginModule
               toPath={'/profile'}
