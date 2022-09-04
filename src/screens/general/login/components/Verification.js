@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import CodeInput from 'react-native-confirmation-code-input';
 import {routes} from '../../../../API/APIRoutes';
 import {fetchUser, setCacheItem} from '../../../../API/User';
@@ -12,6 +12,7 @@ import {
   MyView,
 } from '../../../../styles/Common';
 import {MyCountDown} from '../../../../styles/Common/MyCountDown';
+import {MyScrollView} from '../../../../styles/Common/ScrollView';
 import vars from './../../../../styles/root';
 import translator from './../translate';
 
@@ -89,6 +90,26 @@ const Verification = props => {
     });
   };
 
+  const RefCodeInput = useRef(null);
+
+  React.useEffect(() => {
+    if (RefCodeInput === undefined || RefCodeInput.current === undefined)
+      return;
+
+    let activeInputIdx = 0;
+    function handleKeyUp(event) {
+      if (RefCodeInput.current) {
+        var inputs = document.getElementsByTagName('input');
+        inputs[activeInputIdx + 1].focus();
+        activeInputIdx++;
+      }
+    }
+    document.addEventListener('keyup', handleKeyUp);
+    return () => {
+      document.addEventListener('keyup', handleKeyUp);
+    };
+  }, [RefCodeInput]);
+
   return (
     <MyView style={{paddingLeft: 50}}>
       <BlueTextInline
@@ -97,16 +118,16 @@ const Verification = props => {
       />
       <MyView style={{direction: 'ltr'}}>
         <CodeInput
+          ref={RefCodeInput}
           activeColor="rgba(49, 180, 4, 1)"
           inactiveColor="rgba(49, 180, 4, 1.3)"
           keyboardType="numeric"
-          autoFocus={false}
+          autoFocus={true}
           codeLength={6}
           onFulfill={code => onFinishCheckingCode(code)}
           containerStyle={{marginTop: 30}}
           codeInputStyle={{borderWidth: 1.5}}
         />
-
         {props.reminder > 0 && (
           <MyCountDown
             until={props.reminder}
