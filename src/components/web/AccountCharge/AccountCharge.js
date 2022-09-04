@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import {changeText, showError} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -9,29 +10,20 @@ import {CommonTextInput} from '../../../styles/Common/CommonTextInput';
 import {styles} from '../../../styles/Common/Styles';
 import Translate from './Translate';
 import {chargeAccout} from './Utility';
-import {generalRequest} from '../../../API/Utility';
 
 function AccountCharge(props) {
   const [refId, setRefId] = useState();
+  const [amount, setAmount] = useState();
 
   const charge = async () => {
-    let res = await chargeAccout();
-    console.log(res);
-    if (res !== null) {
-      console.log(res);
-      setRefId(res);
-      // if (1 == 1) return;
-
-      // let res = await generalRequest(
-      //   'https://bpm.shaparak.ir/pgwchannel/startpay.mellat',
-      //   'post',
-      //   {
-      //     RefId: refId,
-      //   },
-      //   undefined,
-      //   undefined,
-      // );
+    if (amount === undefined) {
+      showError('لطفا مبلغ موردنظر خود را وارد نمایید.');
+      return;
     }
+
+    let res = await chargeAccout(amount, props.token);
+    console.log(res);
+    if (res !== null && res.action === 'pay') setRefId(res.refId);
   };
 
   const ref = useRef();
@@ -68,6 +60,8 @@ function AccountCharge(props) {
           subText={Translate.moneyUnit}
           subTextTwo={Translate.moneyStr}
           justNum={true}
+          value={amount}
+          onChangeText={e => changeText(e, setAmount)}
         />
       </MyView>
       <CommonButton

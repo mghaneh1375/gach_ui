@@ -6,7 +6,7 @@ export const goToPay = async (token, data) => {
     routes.buyQuiz,
     'post',
     data,
-    ['action', 'url'],
+    ['action', 'refId'],
     token,
   );
 };

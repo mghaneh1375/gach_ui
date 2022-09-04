@@ -12,16 +12,17 @@ import {
   SimpleText,
 } from '../../styles/Common';
 import {styles} from '../../styles/Common/Styles';
+import vars from '../../styles/root';
 
 import commonTranslator from '../../translator/Common';
 
 function Basket(props) {
-  const [width, setWidth] = useState('calc(100% - 240px)');
+  const [width, setWidth] = useState(vars.BASKET_WIDTH_WITH_OPEN_MENU);
 
   React.useEffect(() => {
     if (props.fullWidth === undefined) return;
-    if (props.fullWidth) setWidth('calc(100% - 40px)');
-    else setWidth('calc(100% - 240px)');
+    if (props.fullWidth) setWidth(vars.LEFT_SECTION_WIDTH);
+    else setWidth(vars.BASKET_WIDTH_WITH_OPEN_MENU);
   }, [props.fullWidth]);
 
   return (
