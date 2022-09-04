@@ -1,16 +1,7 @@
 import React from 'react';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
+import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
 import Show from './Show/Show';
 import translator from '../Translator';
-import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
-import FailTransaction from '../../../../../components/web/FailTransaction/FailTransaction';
-import MyOffs from '../../../../studentPanel/‌MyOffs/MyOffs';
-import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
 
 function List(props) {
   const setDefaultAvatar = avatarId => {
@@ -32,20 +23,6 @@ function List(props) {
 
   return (
     <MyView>
-      <MyOffs
-        placeUse={'درخانع'}
-        expiredAt={'03/02/1401'}
-        percent={'10%'}
-        price={50000}
-      />
-      <SearchUser></SearchUser>
-      <SuccessTransaction
-        buyerName={'ahmad'}
-        link={
-          <SimpleText text="salam" onPress={() => console.log('success')} />
-        }
-      />
-      <FailTransaction></FailTransaction>
       <CommonWebBox
         header={translator.avatars}
         addBtn={true}
