@@ -3,6 +3,7 @@ import {MyView, PhoneView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import vars from '../../../../styles/root';
 
 function SpecificRoleForm(props) {
   const [obj, setObj] = useState();
@@ -49,6 +50,7 @@ function SpecificRoleForm(props) {
           justNum={obj.isJustNum ? true : undefined}
           type={obj.type}
           value={data}
+          style={{backgroundColor: vars.transparent}}
           onChangeText={e => {
             setData(e);
             props.setFormUserData(obj.key, data);

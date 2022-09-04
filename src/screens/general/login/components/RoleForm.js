@@ -139,7 +139,6 @@ const RoleForm = props => {
           {roleForms
             .find(elem => elem.role === role)
             .data.map(function (obj, i) {
-              console.log(obj);
               return (
                 <SpecificRoleForm
                   key={i}

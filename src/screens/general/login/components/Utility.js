@@ -15,6 +15,14 @@ export const checkSendRoleForm = async (
   token,
   userId = undefined,
 ) => {
+  if (
+    userRoleFormData['role'] === 'student' &&
+    Object.keys(userRoleFormData).length === 1
+  ) {
+    if (redirectTo !== undefined) navigate(redirectTo);
+    return;
+  }
+
   setLoading(true);
   Promise.all([
     generalRequest(

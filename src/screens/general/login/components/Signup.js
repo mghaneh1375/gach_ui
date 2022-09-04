@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useDebugValue, useState} from 'react';
 import {
   CommonButton,
   CommonRadioButton,
@@ -6,6 +6,7 @@ import {
   SilverTextInline,
   TextWithLink,
   MyView,
+  PhoneView,
 } from '../../../../styles/Common';
 
 import {generalRequest} from '../../../../API/Utility';
@@ -13,13 +14,14 @@ import translator from '../translate';
 import commonTranslator from './../../../../translator/Common';
 import {routes} from '../../../../API/APIRoutes';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import {showError} from '../../../../services/Utility';
+import {changeText, showError} from '../../../../services/Utility';
 
 const Signup = props => {
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
   const [NID, setNID] = useState();
   const [password, setPassword] = useState();
+  const [rPassword, setRPassword] = useState();
   const [authVia, setAuthVia] = useState('sms');
 
   const changeAuthVia = newMode => {
@@ -36,6 +38,16 @@ const Signup = props => {
   };
 
   const submit = () => {
+    if (password === undefined || rPassword === useDebugValue) {
+      showError(commonTranslator.pleaseFillAllFields);
+      return;
+    }
+
+    if (password !== rPassword) {
+      showError('رمزعبور و تکرار آن مطابقت ندارد.');
+      return;
+    }
+
     var data = {
       username: props.username,
       password: password,
@@ -96,42 +108,57 @@ const Signup = props => {
         onChangeText={e => changeInput('NID', e)}
       />
 
-      <CommonRadioButton
-        text={translator.viaSMS}
-        value="sms"
-        status={authVia === 'sms' ? 'checked' : 'unchecked'}
-        onPress={() => changeAuthVia('sms')}
-      />
+      <PhoneView>
+        <CommonRadioButton
+          text={translator.viaSMS}
+          value="sms"
+          status={authVia === 'sms' ? 'checked' : 'unchecked'}
+          onPress={() => changeAuthVia('sms')}
+        />
 
-      <CommonTextInput
-        justNum="true"
-        placeholder={commonTranslator.phone}
-        subText={commonTranslator.phone}
-        value={authVia === 'sms' ? props.username : ''}
-        onChangeText={e => changeInput('username', e)}
-      />
+        <CommonRadioButton
+          text={translator.viaMail}
+          value="mail"
+          status={authVia === 'mail' ? 'checked' : 'unchecked'}
+          onPress={() => changeAuthVia('mail')}
+        />
+      </PhoneView>
 
-      <CommonRadioButton
-        text={translator.viaMail}
-        value="mail"
-        status={authVia === 'mail' ? 'checked' : 'unchecked'}
-        onPress={() => changeAuthVia('mail')}
-      />
-
-      <CommonTextInput
-        placeholder={commonTranslator.mail}
-        subText={commonTranslator.mail}
-        value={authVia === 'mail' ? props.username : ''}
-        onChangeText={e => changeInput('username', e)}
-      />
+      {authVia === 'sms' && (
+        <CommonTextInput
+          justNum="true"
+          placeholder={commonTranslator.phone}
+          subText={commonTranslator.phone}
+          value={authVia === 'sms' ? props.username : ''}
+          onChangeText={e => changeInput('username', e)}
+        />
+      )}
+      {authVia === 'mail' && (
+        <CommonTextInput
+          placeholder={commonTranslator.mail}
+          subText={commonTranslator.mail}
+          value={authVia === 'mail' ? props.username : ''}
+          onChangeText={e => changeInput('username', e)}
+        />
+      )}
 
       <CommonTextInput
         placeholder={commonTranslator.password}
         subText={commonTranslator.password}
         value={password}
+        style={{marginTop: 40}}
         type="password"
         onChangeText={e => changeInput('password', e)}
       />
+
+      <CommonTextInput
+        placeholder={commonTranslator.rPassword}
+        subText={commonTranslator.rPassword}
+        value={rPassword}
+        type="password"
+        onChangeText={e => changeText(e, setRPassword)}
+      />
+
       <SilverTextInline style={{marginTop: 20}} text={translator.acceptTerms} />
 
       <CommonButton

@@ -1,6 +1,7 @@
 const translator = {
   username: 'نام کاربری',
   password: 'رمزعبور',
+  rPassword: 'تکرار رمزعبور',
   confirm: 'تایید',
   phone: 'شماره تلفن همراه',
   mail: 'ایمیل',
