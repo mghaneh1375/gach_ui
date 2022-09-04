@@ -42,14 +42,21 @@ export const CommonTextInput = props => {
     style: allStyle,
     editable: !props.disable,
   };
+
+  if (props.onEnter !== undefined) {
+    inputProps.onKeyPress = e => {
+      var charCode = e.which ? e.which : e.keyCode;
+      if (charCode === 13) props.onEnter();
+    };
+  }
+
   if (props.value !== undefined) inputProps.value = props.value;
   if (props.type !== undefined && props.type === 'password')
     inputProps.secureTextEntry = true;
   if (props.justNum !== undefined && props.justNum && Platform.OS === 'web') {
     inputProps.onKeyPress = e => {
       var charCode = e.which ? e.which : e.keyCode;
-      if (charCode === 13) {
-      }
+
       if (charCode === 190) {
         if (props.float === undefined || !props.float) e.preventDefault();
       } else if (

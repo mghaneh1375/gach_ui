@@ -10,7 +10,6 @@ import translator from './../translate';
 const Login = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isWorking, setIsWorking] = useState(false);
 
   const changeInput = (label, value) => {
     if (label === 'username') setUsername(value);
@@ -40,37 +39,8 @@ const Login = props => {
     });
   }, [props, username, password]);
 
-  const EnterLogin = useRef(null);
-  const [first, setFirst] = useState(true);
-  React.useEffect(() => {
-    if (EnterLogin === undefined || EnterLogin.current === undefined) return;
-    console.log('====================================');
-    console.log('asd');
-    console.log('====================================');
-    function handleKeyUp(event) {
-      if (EnterLogin.current) {
-        var charCode = event.which ? event.which : event.keyCode;
-        if (charCode === 13 && !isWorking) {
-          setIsWorking(true);
-          requestLogin();
-        }
-      }
-    }
-    if (first) {
-      setFirst(false);
-    }
-  }, [first, isWorking, requestLogin]);
-
-  // React.useEffect(() => {
-  //   if (first) return;
-  //   document.addEventListener('keyup', handleKeyUp);
-  //   return () => {
-  //     document.addEventListener('keyup', handleKeyUp);
-  //   };
-  // }, [first]);
-
   return (
-    <MyViewWithRef ref={EnterLogin} style={{paddingLeft: 50}}>
+    <MyView style={{paddingLeft: 50}}>
       <CommonTextInput
         placeholder={translator.phoneOrMail}
         subText={translator.phoneOrMail}
@@ -80,6 +50,7 @@ const Login = props => {
         placeholder={commonTranlator.password}
         subText={translator.passwordFilter}
         type={'password'}
+        onEnter={() => requestLogin()}
         onChangeText={e => changeInput('password', e)}
         style={{marginTop: 20}}
       />
@@ -90,7 +61,7 @@ const Login = props => {
           title={commonTranlator.entrance}
         />
       </MyView>
-    </MyViewWithRef>
+    </MyView>
   );
 };
 
