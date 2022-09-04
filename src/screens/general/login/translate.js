@@ -8,8 +8,8 @@ const translator = {
   enterVerification:
     'به ایمیل و یا تلفن همراه شما کد شش رقمی ارسال گردیده است. لطفا آن را در کادر زیر وارد نمایید.',
   resend: 'ارسال مجدد',
-  reminderUntilResend: 'دقیقه تا امکان درخواست دوباره',
-  ifWrongData: 'آیا اطلاعات خود را اشتباه',
+  reminderUntilResend: ' دقیقه تا امکان درخواست دوباره ',
+  ifWrongData: 'آیا اطلاعات خود را اشتباه ',
   ifWrongDataHref: 'وارد کرده اید؟',
   schoolName: 'نام مدرسه',
   schoolPhone: 'شماره تماس مدرسه',
