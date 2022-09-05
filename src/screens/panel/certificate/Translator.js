@@ -11,13 +11,19 @@ const certTranslator = {
   selectParameters: 'انتخاب پارامتر',
   fontType: 'نوع فونت',
   fontSize: 'سایز فونت',
-  rightDistance: 'فاصله از راست:',
-  offset: 'آفست',
+  rightDistance: 'فاصله از راست عدد',
+  offset: 'آفست*',
   normalOrBold: 'معمولی یا بولد',
   matchingWord: 'word مطابق سایز',
   fileNotSelect: 'هنوز فایلی انتخاب نشده است',
   formate: 'فرمت:',
   fortyPercent: '40%',
+  haveCertificate: 'گواهی های موجود ',
+  createDate: 'تاریخ ایجاد',
+  receiver: 'دریافت کننده',
+  vertical: 'عمودی',
+  horizontal: 'افقی',
+  center: 'مرکز',
 };
 
 export default certTranslator;

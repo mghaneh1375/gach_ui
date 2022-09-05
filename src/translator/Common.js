@@ -13,6 +13,7 @@ const translator = {
   congratulations: 'تبریک',
   chooseOne: 'لطفا یکی از گزینه های زیر را انتخاب کنید',
   student: 'دانش آموز',
+  Certificat: 'گواهی',
   students: 'دانش آموزان',
   teacher: 'دبیر',
   teachers: 'دبیران',

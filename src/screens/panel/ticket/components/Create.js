@@ -22,6 +22,7 @@ import {changeText} from '../../../../services/Utility';
 import AttachBox from './Show/AttachBox/AttachBox';
 import {useFilePicker} from 'use-file-picker';
 import UserTinyPic from '../../../../components/web/LargeScreen/UserTinyPic';
+import AddBatchFiles from '../../question/components/Create/AddBatchFiles';
 
 function Create(props) {
   const [showSearchUser, setShowSearchUser] = useState(false);
@@ -204,11 +205,10 @@ function Create(props) {
           <PhoneView style={{marginTop: 20}}>
             {filesContent.map((file, index) => {
               return (
-                <AttachBox
-                  key={index}
-                  filename={file.name}
-                  fileContent={file.content}
-                  removeAttach={() => removeAttach(index)}
+                <AddBatchFiles
+                // toggleShowPopUp={toggleShowAddBatchFilesPopUp}
+                // token={props.token}
+                // setLoading={props.setLoading}
                 />
               );
             })}

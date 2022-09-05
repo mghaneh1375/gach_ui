@@ -9,10 +9,8 @@ function List(props) {
       elem.isDefault = elem.id === avatarId;
       return elem;
     });
-
     props.setAvatars(allAvatars);
   };
-
   const removeAvatar = avatarId => {
     let allAvatars = props.avatars.filter(elem => {
       return elem.id !== avatarId;
@@ -20,7 +18,6 @@ function List(props) {
 
     props.setAvatars(allAvatars);
   };
-
   return (
     <MyView>
       <CommonWebBox

@@ -11,6 +11,7 @@ import {
   faMoneyBill,
   faQuestion,
   faGift,
+  faCertificate,
 } from '@fortawesome/free-solid-svg-icons';
 import {SuperMenuItem} from './SuperMenuItem';
 import {MyView} from '../../../../../styles/Common';
@@ -70,6 +71,12 @@ function AdminMenu(props) {
           text={translator.requests}
           icon={faCog}
           selected={props.selected === 'ticket'}
+        />
+        <MenuItem
+          onClick={() => navigate('/cert')}
+          text={translator.Certificat}
+          icon={faCertificate}
+          selected={props.selected === 'cert'}
         />
         <MenuItem
           onClick={() => navigate('/question')}
