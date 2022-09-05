@@ -14,7 +14,7 @@ import {useParams} from 'react-router';
 import {MyView} from '../../../styles/Common';
 
 const Quiz = props => {
-  const [mode, setMode] = useState();
+  const [mode, setMode] = useState('karname');
   const navigate = props.navigate;
 
   const useGlobalState = () => [React.useContext(dispatchStateContext)];

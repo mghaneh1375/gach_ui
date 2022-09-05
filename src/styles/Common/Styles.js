@@ -74,6 +74,9 @@ export const styles = {
     marginLeft: 20,
     marginTop: 20,
   },
+  marginTop10: {
+    marginTop: 10,
+  },
   marginTop20: {
     marginTop: 20,
   },
@@ -174,6 +177,9 @@ export const styles = {
   },
   gap50: {
     gap: 50,
+  },
+  gap100: {
+    gap: 100,
   },
   gap15: {
     gap: 15,

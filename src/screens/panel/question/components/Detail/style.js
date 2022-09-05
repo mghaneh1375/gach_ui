@@ -21,7 +21,7 @@ export const styleJustifyContentEnd = {
 };
 export const styleYellowMarginTop7 = {
   color: vars.YELLOW,
-  marginTop: -11,
+  marginTop: -15,
   marginRight: 5,
   width: 20,
   height: 20,

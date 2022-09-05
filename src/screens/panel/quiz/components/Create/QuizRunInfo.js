@@ -71,10 +71,10 @@ const QuizRunInfo = props => {
         <JustBottomBorderSelect
           values={trueFalseValues}
           value={
-            props.permute === undefined
+            props.permuteEn === undefined
               ? {}
               : trueFalseValues.filter(element => {
-                  return element.id === props.permute;
+                  return element.id === props.permuteEn;
                 })[0]
           }
           setter={props.setPermuteEn}

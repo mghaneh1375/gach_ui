@@ -207,7 +207,7 @@ function Detail(props) {
                 onPress={() => setShowFilters(!showFilters)}
                 parentStyle={{alignSelf: 'flex-end'}}
                 style={{...styleYellowMarginTop7}}
-                kind={'normall'}
+                kind={'normal'}
                 icon={showFilters ? faAngleDoubleDown : faAngleDoubleUp}
               />
             </EqualTwoTextInputs>

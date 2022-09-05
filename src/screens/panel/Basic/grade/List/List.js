@@ -1,5 +1,4 @@
-import {useState} from 'react';
-import {View} from 'react-native';
+import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {routes} from '../../../../../API/APIRoutes';
@@ -16,10 +15,6 @@ function List(props) {
     setShowOpPopUp(!showOpPopUp);
   };
 
-  const changeMode = newMode => {
-    props.setMode(newMode);
-  };
-
   const handleOp = idx => {
     props.setSelectedGrade(props.grades[idx]);
     setSelected(props.grades[idx]);
@@ -33,7 +28,7 @@ function List(props) {
           grade={selected}
           token={props.token}
           setLoading={props.setLoading}
-          changeMode={changeMode}
+          setMode={props.setMode}
           toggleShowPopUp={toggleShowOpPopUp}
           afterDelete={ids => {
             removeItems(props.grades, props.setGrades, ids);

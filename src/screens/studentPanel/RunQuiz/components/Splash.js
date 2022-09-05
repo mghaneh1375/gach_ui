@@ -10,8 +10,6 @@ import {
 import vars from '../../../../styles/root';
 import {
   basketBox,
-  styleCircleBox,
-  styleColorWhite,
   styleTitle,
   styleYellowBox,
 } from '../../../panel/package/card/Style';
@@ -22,11 +20,12 @@ import commonTranslator from '../../../../translator/Common';
 import {styles} from '../../../../styles/Common/Styles';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import {
+  faArrowLeft,
   faBusinessTime,
+  faClock,
   faHardHat,
   faMessage,
   faQuestion,
-  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
 
@@ -83,25 +82,26 @@ function Splash(props) {
               </PhoneView>
               <PhoneView style={{marginTop: -10}}>
                 <FontIcon
-                  // onPress={() => props.back}
+                  // onPress={() => props.onBack}
                   kind={'normal'}
                   theme={'rect'}
                   back={'orange'}
                   parentStyle={{
-                    gap: 15,
-                    marginTop: 15,
-                    marginLeft: 10,
-                    marginRight: 15,
+                    marginTop: 8,
+                    marginLeft: 0,
+                    marginRight: 0,
                   }}
-                  icon={faTimes}
+                  onPress={() => props.onBack(0)}
+                  icon={faArrowLeft}
                 />
               </PhoneView>
             </EqualTwoTextInputs>
-            <PhoneView style={{...styles.gap50}}>
+            <PhoneView style={{...styles.gap100}}>
               <QuizItemCard
-                icon={faBusinessTime}
+                icon={faClock}
                 iconFontSize={'large'}
                 color={vars.ORANGE}
+                background={false}
                 textFontSize={10}
                 valFontSize={16}
                 text={'مدت زمان '}
@@ -123,7 +123,7 @@ function Splash(props) {
                 color={vars.ORANGE}
                 textFontSize={11}
                 valFontSize={15}
-                text={'نوع آزمون تستی'}
+                text={'نوع آزمون '}
                 val={'بسیار دشوار'}
               />
             </PhoneView>

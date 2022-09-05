@@ -8,6 +8,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../../styles/Common';
+import {styles} from '../../../../../../styles/Common/Styles';
 import {questionContext, dispatchQuestionContext} from '../Context';
 
 function Author(props) {
@@ -42,7 +43,9 @@ function Author(props) {
         {state.authors !== undefined &&
           state.authors.map((elem, index) => {
             return (
-              <PhoneView style={{minWidth: 200, marginLeft: 40}} key={index}>
+              <PhoneView
+                style={{...styles.minWidth200, ...styles.alignItemsCenter}}
+                key={index}>
                 <CommonRadioButton
                   value={elem.author}
                   status={elem.selected ? 'checked' : 'unchecked'}

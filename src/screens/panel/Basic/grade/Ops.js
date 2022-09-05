@@ -28,7 +28,7 @@ function Ops(props) {
           <CommonButton
             dir={'rtl'}
             theme={'transparent'}
-            onPress={() => props.changeMode('edit')}
+            onPress={() => props.setMode('edit')}
             title={commonTranslator.edit}
           />
         </PhoneView>

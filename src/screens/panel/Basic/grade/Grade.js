@@ -36,7 +36,7 @@ function Grade(props) {
 
   return (
     <MyView>
-      {mode === 'list' && (
+      {mode === 'list' && grades !== undefined && (
         <List
           grades={grades}
           setGrades={setGrades}

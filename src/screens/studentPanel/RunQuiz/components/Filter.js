@@ -39,7 +39,7 @@ function Filter(props) {
   return (
     <CommonWebBox
       childStyle={{...styles.padding5}}
-      style={{...styles.padding0}}
+      style={{...styles.padding0, ...styles.marginTop10}}
       width={vars.RIGHT_MENU_WIDTH}>
       {!props.isInReviewMode && state.quizInfo !== undefined && (
         <Timer

@@ -40,7 +40,7 @@ function Subject(props) {
 
   return (
     <MyView>
-      {mode === 'list' && (
+      {mode === 'list' && subjects !== undefined && (
         <List
           subjects={subjects}
           setSubjects={setSubjects}

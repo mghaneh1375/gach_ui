@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {routes} from '../../../../../API/APIRoutes';
 import columns from './TableStructure';
 import commonTranslator from '../../../../../translator/Common';

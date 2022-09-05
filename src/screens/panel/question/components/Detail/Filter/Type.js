@@ -8,6 +8,7 @@ import {
 } from '../../../../../../styles/Common';
 import {questionContext, dispatchQuestionContext} from '../Context';
 import {View} from 'react-native';
+import {styles} from '../../../../../../styles/Common/Styles';
 
 function Type(props) {
   const useGlobalState = () => [
@@ -52,7 +53,7 @@ function Type(props) {
     <MyView>
       <BigBoldBlueText text={'نوع سوال'} />
       <PhoneView style={{gap: 50}}>
-        <PhoneView style={{minWidth: 200}}>
+        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
           <CommonRadioButton
             value="test"
             status={state.showTest ? 'checked' : 'unchecked'}
@@ -68,7 +69,7 @@ function Type(props) {
           </MyView>
         </PhoneView>
 
-        <PhoneView style={{minWidth: 200}}>
+        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
           <CommonRadioButton
             value="short_answer"
             status={state.showShortAnswer ? 'checked' : 'unchecked'}
@@ -84,7 +85,7 @@ function Type(props) {
           </MyView>
         </PhoneView>
 
-        <PhoneView style={{minWidth: 200}}>
+        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
           <CommonRadioButton
             value="multi_sentence"
             status={state.showMultiSentence ? 'checked' : 'unchecked'}
@@ -100,7 +101,7 @@ function Type(props) {
           </MyView>
         </PhoneView>
 
-        <PhoneView style={{minWidth: 200}}>
+        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
           <CommonRadioButton
             value="tashrihi"
             status={state.showTashrihi ? 'checked' : 'unchecked'}

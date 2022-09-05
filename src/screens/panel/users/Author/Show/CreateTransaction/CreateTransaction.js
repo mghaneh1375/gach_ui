@@ -8,6 +8,7 @@ import {
 } from '../../../../../../styles/Common';
 import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
+import {styles} from '../../../../../../styles/Common/Styles';
 import commonTranslator from '../../../../../../translator/Common';
 import {createTransaction} from '../../List/Utility';
 import Translate from '../../Translator';
@@ -22,7 +23,7 @@ function CreateTransaction(props) {
       backBtn={true}
       onBackClick={() => props.setMode('show')}>
       <MyView>
-        <PhoneView>
+        <PhoneView style={{...styles.gap15}}>
           <JustBottomBorderTextInput
             placeholder={Translate.amount}
             subText={Translate.amount}

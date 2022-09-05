@@ -7,6 +7,7 @@ import {DoQuizProvider} from './components/Context';
 import Quiz from './components/Quiz';
 import {triangleDown} from 'victory-core/lib/victory-util/point-path-helpers';
 import Filter from './components/Filter';
+import vars from '../../../styles/root';
 
 function RunQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -50,7 +51,7 @@ function RunQuiz(props) {
         {mode !== undefined && (
           <Filter isInReviewMode={props.isInReviewMode} mode={mode} />
         )}
-        <MyView style={{width: 'calc(100% - 200px)'}}>
+        <MyView style={{width: vars.LEFT_SECTION_WIDTH}}>
           {mode !== undefined && mode === 'splash' && (
             <Splash
               isInReviewMode={props.isInReviewMode}
@@ -59,7 +60,7 @@ function RunQuiz(props) {
               quizGeneralMode={params.quizMode}
               navigate={props.navigate}
               setLoading={setLoading}
-              setMode={setMode}
+              setMode={props.setMode}
               onBack={() =>
                 props.user.accesses.indexOf('student') !== -1
                   ? props.navigate('/myQuizzes')

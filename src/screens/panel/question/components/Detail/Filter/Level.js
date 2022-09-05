@@ -50,7 +50,7 @@ function Level(props) {
       <BigBoldBlueText text={translator.levelQuestion} />
 
       <PhoneView style={styles.gap50}>
-        <PhoneView style={styles.minWidth200}>
+        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
           <CommonRadioButton
             value="easy"
             status={state.showEasy ? 'checked' : 'unchecked'}
@@ -66,7 +66,7 @@ function Level(props) {
           </MyView>
         </PhoneView>
 
-        <PhoneView style={styles.minWidth200}>
+        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
           <CommonRadioButton
             value="mid"
             status={state.showMid ? 'checked' : 'unchecked'}
@@ -82,7 +82,7 @@ function Level(props) {
           </MyView>
         </PhoneView>
 
-        <PhoneView style={styles.minWidth200}>
+        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
           <CommonRadioButton
             value="hard"
             status={state.showHard ? 'checked' : 'unchecked'}
