@@ -160,10 +160,7 @@ export const routes = {
   chargeAccount: 'general/chargeAccount',
   fetchInvoice: 'general/fetchInvoice/',
   getQuestionTagsExcel: 'general/getQuestionTagsExcel',
-<<<<<<< HEAD
   addCertificate: 'certificate/admin/store',
   setCertificateImg: 'certificate/admin/setImg/',
-=======
   getSubjectCodesExcel: 'general/getSubjectCodesExcel',
->>>>>>> 0c3d0fe4e93c5436cb30209e53d429d9a273d880
 };
