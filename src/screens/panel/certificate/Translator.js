@@ -1,8 +1,8 @@
 const certTranslator = {
   certName: 'نام گواهی',
   certType: 'نوع گواهی:',
-  transverseDistance: 'فاصله عرضی',
-  longitudinalDistance: 'فاصله طولی',
+  horizontalDistance: 'فاصله عرضی',
+  verticalDistance: 'فاصله طولی',
   qrSize: 'QR سایز',
   fromRightScreen: 'از سمت راست صفحه',
   fromTopScreen: 'از سمت بالای صفحه',
@@ -11,10 +11,10 @@ const certTranslator = {
   selectParameters: 'انتخاب پارامتر',
   fontType: 'نوع فونت',
   fontSize: 'سایز فونت',
-  rightDistance: 'فاصله از راست عدد',
+  rightDistance: 'محاسبه بر اساس فاصله از راست',
   offset: 'آفست*',
-  normalOrBold: 'معمولی یا بولد',
-  matchingWord: 'word مطابق سایز',
+  normalOrBold: 'معمولی یا Bold',
+  matchingWord: ' مطابق سایز World',
   fileNotSelect: 'هنوز فایلی انتخاب نشده است',
   formate: 'فرمت:',
   fortyPercent: '40%',
@@ -23,7 +23,10 @@ const certTranslator = {
   receiver: 'دریافت کننده',
   vertical: 'عمودی',
   horizontal: 'افقی',
-  center: 'مرکز',
+  center: 'محاسبه بر اساس مرکز',
+  param: 'پرامتر',
+  typeOfFont: 'نوع فونت',
+  selectFiles: 'هنوز فایلی انخاب نشده است - نام فایل*',
 };
 
 export default certTranslator;

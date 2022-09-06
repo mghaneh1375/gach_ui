@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import {MyView} from 'react-native-multi-selectbox';
 import {routes} from '../../../../../API/APIRoutes';
 import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
 import {showSuccess} from '../../../../../services/Utility';
-import {CommonButton, PhoneView} from '../../../../../styles/Common';
+import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../translator/Common';
 

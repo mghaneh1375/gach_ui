@@ -4,7 +4,7 @@ import commonTranslator from '../../../../translator/Common';
 const columns = [
   {
     name: Translate.certName,
-    selector: row => row.certName,
+    selector: row => row.title,
     grow: 3,
     center: true,
   },
@@ -16,7 +16,7 @@ const columns = [
   },
   {
     name: commonTranslator.counter + ' ' + Translate.receiver,
-    selector: row => row.receiver,
+    selector: row => row.count,
     grow: 1,
     center: true,
   },

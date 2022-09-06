@@ -11,6 +11,7 @@ const CommonDataTable = props => {
     rows: {
       style: {
         fontFamily: 'IRANSans',
+        zIndex: 'unset',
       },
     },
     headCells: {
