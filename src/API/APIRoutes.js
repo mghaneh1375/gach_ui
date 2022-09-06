@@ -160,4 +160,5 @@ export const routes = {
   chargeAccount: 'general/chargeAccount',
   fetchInvoice: 'general/fetchInvoice/',
   getQuestionTagsExcel: 'general/getQuestionTagsExcel',
+  getSubjectCodesExcel: 'general/getSubjectCodesExcel',
 };

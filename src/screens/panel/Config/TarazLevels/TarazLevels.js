@@ -2,19 +2,16 @@ import React, {useState} from 'react';
 import {addItem, editItem, removeItems} from '../../../../services/Utility';
 import Create from './components/Create';
 import List from './components/List';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
+import {dispatchStateContext} from '../../../../App';
 import {MyView} from 'react-native-multi-selectbox';
 import {fetchData} from './components/Utility';
 
 function TarazLevels(props) {
   const navigate = props.navigate;
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
 
-  const [state, dispatch] = useGlobalState();
+  const [dispatch] = useGlobalState();
 
   const setLoading = status => {
     dispatch({loading: status});

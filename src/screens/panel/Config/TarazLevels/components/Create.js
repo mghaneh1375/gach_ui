@@ -73,9 +73,10 @@ function Create(props) {
               priority: priority,
             };
             props.setLoading(true);
-            let res = (await (props.selectedLevel === undefined))
-              ? create(data, props.token)
-              : update(props.selectedLevel.id, data, props.token);
+            let res =
+              props.selectedLevel === undefined
+                ? await create(data, props.token)
+                : await update(props.selectedLevel.id, data, props.token);
             props.setLoading(false);
             if (res !== null) {
               data.id =
@@ -85,6 +86,9 @@ function Create(props) {
 
               if (props.selectedLevel === undefined) props.addLevel(data);
               else props.editLevel(data);
+
+              console.log(data);
+
               props.setMode('list');
             }
           }}

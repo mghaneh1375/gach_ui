@@ -14,11 +14,7 @@ import {
   sectionKeyVals,
   update,
 } from './Utility';
-import {
-  changeText,
-  simpleConvertTimestamp,
-  trueFalseValues,
-} from '../../../../services/Utility';
+import {changeText, trueFalseValues} from '../../../../services/Utility';
 import {generalRequest} from '../../../../API/Utility';
 
 const Create = props => {
@@ -174,7 +170,7 @@ const Create = props => {
           mandatoryFields={mandatoryFields}
         />
       )}
-      {isPublic && (
+      {(isPublic || props.off !== undefined) && (
         <CommonButton
           theme={'dark'}
           title={commonTranslator.confirm}
