@@ -3,8 +3,8 @@ import {showError} from '../services/Utility';
 import commonTranslator from './../translator/Common';
 import {removeAuthCache} from './User';
 
-export const BASE_SITE_NAME = 'http://localhost:3000/';
-// export const BASE_SITE_NAME = 'https://e.irysc.com/';
+// export const BASE_SITE_NAME = 'http://localhost:3000/';
+export const BASE_SITE_NAME = 'https://e.irysc.com/';
 
 // export const BASE_URL = 'http://192.168.1.103:8080/api/';
 export const BASE_URL = 'http://192.168.0.106:8080/api/';
@@ -73,9 +73,7 @@ export const generalRequest = async (
     headers:
       token !== null && token !== undefined
         ? COMMON_HEADER_AUTH(token)
-        : url.indexOf('https:') === -1 || 1 == 1
-        ? COMMON_HEADER
-        : {},
+        : COMMON_HEADER,
     data: data,
   })
     .then(function (response) {

@@ -170,7 +170,7 @@ const CommonDataTable = props => {
               if (props.groupOps[i].afterFunc === undefined) {
                 props.groupOps[i] = {
                   label: commonTranslator.deleteAll,
-                  url: props.groupOps[i],
+                  url: props.groupOps[i].url,
                   key: 'removeAll',
                   method: 'delete',
                   warning: commonTranslator.sureRemove,

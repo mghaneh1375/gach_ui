@@ -1,6 +1,10 @@
-import {View} from 'react-native-web';
 import {useState} from 'react';
-import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
+import {
+  CommonButton,
+  PhoneView,
+  MyView,
+  SimpleText,
+} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../translator/Common';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
@@ -43,18 +47,27 @@ const Ops = props => {
           title={commonTranslator.opMenu}
           toggleShowPopUp={props.toggleShowPopUp}>
           <PhoneView>
-            <CommonButton
-              onPress={() => props.setMode('update')}
-              dir={'rtl'}
-              theme={'transparent'}
-              title={commonTranslator.edit}
-            />
-            <CommonButton
-              dir={'rtl'}
-              onPress={() => toggleShowRemovePane()}
-              theme={'transparent'}
-              title={commonTranslator.delete}
-            />
+            {!props.off.used && (
+              <CommonButton
+                onPress={() => props.setMode('update')}
+                dir={'rtl'}
+                theme={'transparent'}
+                title={commonTranslator.edit}
+              />
+            )}
+            {!props.off.used && (
+              <CommonButton
+                dir={'rtl'}
+                onPress={() => toggleShowRemovePane()}
+                theme={'transparent'}
+                title={commonTranslator.delete}
+              />
+            )}
+            {props.off.used && (
+              <SimpleText
+                text={'این کد استفاده شده است و عملیاتی وجود ندارد'}
+              />
+            )}
           </PhoneView>
         </LargePopUp>
       )}

@@ -27,17 +27,15 @@ function List(props) {
         header={translator.levels}
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
-        <MyView>
-          <CommonDataTable
-            columns={columns}
-            data={props.levels}
-            handleOp={handleOp}
-            setData={props.setData}
-            removeUrl={routes.removeTarazLevels}
-            token={props.token}
-            setLoading={props.setLoading}
-          />
-        </MyView>
+        <CommonDataTable
+          columns={columns}
+          data={props.levels}
+          handleOp={handleOp}
+          setData={props.setData}
+          removeUrl={routes.removeTarazLevels}
+          token={props.token}
+          setLoading={props.setLoading}
+        />
       </CommonWebBox>
     </MyView>
   );

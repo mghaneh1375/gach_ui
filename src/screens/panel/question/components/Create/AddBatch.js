@@ -34,6 +34,10 @@ const AddBatch = props => {
           link: BASE_URL + routes.getQuestionTagsExcel,
           text: 'دانلود فایل آی دی تگ ها',
         },
+        {
+          link: BASE_URL + routes.getSubjectCodesExcel,
+          text: 'دانلود فایل کد حیطه ها',
+        },
       ]}
     />
   );
