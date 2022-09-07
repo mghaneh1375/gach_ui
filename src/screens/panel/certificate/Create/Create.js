@@ -1,118 +1,340 @@
+import {
+  faPaperclip,
+  faPlus,
+  faRotateRight,
+} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import RadioButtonYesOrNo from '../../../../components/web/RadioButtonYesOrNo';
-import {changeText} from '../../../../services/Utility';
-import {CommonWebBox, MyView, PhoneView} from '../../../../styles/Common';
+import {
+  changeText,
+  showError,
+  trueFalseValues,
+} from '../../../../services/Utility';
+import {
+  CommonButton,
+  CommonRadioButton,
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../../styles/Common';
+import CommonDataTable from '../../../../styles/Common/CommonDataTable';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {styles} from '../../../../styles/Common/Styles';
-import certTranslator from '../Translator';
+import AttachBox from '../../ticket/components/Show/AttachBox/AttachBox';
+import Translate from '../Translator';
+import columns from './TableStructure';
+import {useFilePicker} from 'use-file-picker';
+import {addCertificate} from '../Utility';
+import NextButtons from '../components/NextButtons';
+import commonTranslator from '../../../../translator/Common';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import QuizGeneralInfo from '../../quiz/components/Create/QuizGeneralInfo';
+import {fileRequest} from '../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
 
 function Create(props) {
-  const [certName, setCertName] = useState();
-  const [qrSize, setQrSize] = useState();
-  const [transverseDistance, setTransverseDistance] = useState();
-  const [longitudinalDistance, setLongitudinalDistance] = useState();
-  const [radioCert, setRadioCert] = useState();
-  const [selectParameters, setSelectParameters] = useState();
-  const [normalOrBold, setNormalOrBold] = useState();
-  const [matchingWord, setMatchingWord] = useState();
-  const [fromRightScreen, setFromRightScreen] = useState();
-  const [fromTopScreen, setFromTopScreen] = useState();
-  const [offset, setOffset] = useState();
-  const [radioOffset, setRadioOffset] = useState();
+  const [certName, setCertName] = useState('گواهی تست');
+  const [qrSize, setQrSize] = useState(30);
+  const [qrHorizontalDistance, setQrHorizontalDistance] = useState(500);
+  const [qrVerticalDistance, setQrVerticalDistance] = useState(200);
+  const [isLandscape, setIsLandscape] = useState('vertical');
+  const [paramName, setParamName] = useState('ارامتر عجیب');
+  const [fontSize, setFontSize] = useState(30);
+  const [isBold, setIsBold] = useState(true);
+  const [fromRightScreen, setFromRightScreen] = useState(150);
+  const [fromTopScreen, setFromTopScreen] = useState(150);
+  const [offset, setOffset] = useState(123);
+  const [isCenter, setIsCenter] = useState('yes');
+  const [xMode, setXMode] = useState('fromRight');
+  const [tableData, setTableData] = useState([]);
+
+  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
+    useFilePicker({
+      maxFileSize: 6,
+      accept: ['image/*'],
+      readAs: 'DataURL',
+      multiple: false,
+    });
+
+  const removeAttach = index => {
+    remove(index);
+  };
+
+  const addToData = React.useCallback(() => {
+    let data = {
+      fontSize: fontSize,
+      paramName: paramName,
+      isBold: isBold,
+      fromRightScreen: fromRightScreen,
+      fromTopScreen: fromTopScreen,
+      offset: offset,
+      isCenter: isCenter,
+      xMode: xMode,
+    };
+    setParamName('');
+    setFontSize('');
+    setIsBold(false);
+    setFromRightScreen('');
+    setFromTopScreen('');
+    setOffset('');
+    setIsCenter('');
+    setXMode('fromRight');
+    let tableDataTmp = [];
+
+    tableDataTmp.push(data);
+    tableData.forEach(elem => {
+      tableDataTmp.push(elem);
+    });
+
+    setTableData(tableDataTmp);
+  }, [
+    paramName,
+    offset,
+    isBold,
+    xMode,
+    isCenter,
+    fromRightScreen,
+    fromTopScreen,
+    fontSize,
+    tableData,
+  ]);
 
   return (
     <MyView>
-      <CommonWebBox header={certTranslator.createNewCert}>
+      <CommonWebBox
+        header={Translate.createNewCert}
+        backBtn={true}
+        onBackClick={() => props.setMode('list')}>
         <PhoneView style={{...styles.gap15}}>
           <JustBottomBorderTextInput
             onChangeText={text => changeText(text, setCertName)}
-            placeholder={certTranslator.certName}
-            subText={certTranslator.certName}
+            placeholder={Translate.certName}
+            subText={Translate.certName}
             value={certName}
           />
-          <RadioButtonYesOrNo
-            label={certTranslator.certType}
-            text1={certTranslator.vertical}
-            text2={certTranslator.horizontal}
-            selected={radioCert}
-            setSelected={setRadioCert}
+          <SimpleText
+            style={{...styles.alignSelfCenter}}
+            text={Translate.certType}
           />
+          <CommonRadioButton
+            status={isLandscape === 'vertical' ? 'checked' : 'unchecked'}
+            onPress={() => setIsLandscape('vertical')}
+            text={Translate.vertical}
+          />
+          <CommonRadioButton
+            status={isLandscape === 'horizontal' ? 'checked' : 'unchecked'}
+            onPress={() => setIsLandscape('horizontal')}
+            text={Translate.horizontal}
+          />
+          {/* <RadioButtonYesOrNo
+            label={Translate.certType}
+            text1={Translate.vertical}
+            text2={Translate.horizontal}
+            selected={isLandscape}
+            setSelected={setIsLandscape}
+          /> */}
         </PhoneView>
         <MyView>
           <PhoneView style={{...styles.gap15}}>
             <JustBottomBorderTextInput
-              placeholder={certTranslator.qrSize}
-              subText={certTranslator.qrSize}
+              placeholder={Translate.qrSize}
+              subText={Translate.qrSize}
               value={qrSize}
               onChangeText={text => changeText(text, setQrSize)}
             />
             <JustBottomBorderTextInput
-              placeholder={certTranslator.transverseDistance}
-              subText={certTranslator.transverseDistance}
-              value={transverseDistance}
-              onChangeText={text => changeText(text, setTransverseDistance)}
+              placeholder={Translate.horizontalDistance}
+              subText={Translate.horizontalDistance}
+              value={qrHorizontalDistance}
+              justNum={true}
+              onChangeText={text => changeText(text, setQrHorizontalDistance)}
             />
             <JustBottomBorderTextInput
-              placeholder={certTranslator.longitudinalDistance}
-              subText={certTranslator.longitudinalDistance}
-              value={longitudinalDistance}
-              onChangeText={text => changeText(text, setLongitudinalDistance)}
+              placeholder={Translate.verticalDistance}
+              subText={Translate.verticalDistance}
+              value={qrVerticalDistance}
+              justNum={true}
+              onChangeText={text => changeText(text, setQrVerticalDistance)}
             />
           </PhoneView>
         </MyView>
       </CommonWebBox>
-      <CommonWebBox header={certTranslator.dynamicParameters}>
+      <CommonWebBox header={Translate.dynamicParameters}>
         <PhoneView style={{...styles.gap15}}>
-          <JustBottomBorderTextInput
-            placeholder={certTranslator.selectParameters}
-            subText={certTranslator.selectParameters}
-            value={selectParameters}
-            onChangeText={text => changeText(text, setSelectParameters)}
+          <CommonRadioButton
+            status={xMode === 'fromRight' ? 'checked' : 'unchecked'}
+            onPress={() => setXMode('fromRight')}
+            text={Translate.rightDistance}
+          />
+          <CommonRadioButton
+            status={xMode === 'center' ? 'checked' : 'unchecked'}
+            onPress={() => setXMode('center')}
+            text={Translate.center}
           />
           <JustBottomBorderTextInput
-            placeholder={certTranslator.normalOrBold}
-            subText={certTranslator.normalOrBold}
-            value={normalOrBold}
-            onChangeText={text => changeText(text, setNormalOrBold)}
+            placeholder={Translate.paramName}
+            subText={Translate.paramName}
+            value={paramName}
+            onChangeText={text => changeText(text, setParamName)}
+          />
+          <JustBottomBorderSelect
+            placeholder={Translate.isBold}
+            subText={Translate.normalOrBold}
+            value={trueFalseValues.find(elem => elem.id === isBold)}
+            values={trueFalseValues}
+            setter={setIsBold}
           />
           <JustBottomBorderTextInput
-            placeholder={certTranslator.matchingWord}
-            subText={certTranslator.matchingWord}
-            value={matchingWord}
-            onChangeText={text => changeText(text, setMatchingWord)}
+            placeholder={Translate.fontSize}
+            subText={Translate.matchingWord}
+            value={fontSize}
+            onChangeText={text => changeText(text, setFontSize)}
           />
+          {xMode === 'fromRight' && (
+            <JustBottomBorderTextInput
+              placeholder={Translate.horizontalDistance}
+              subText={Translate.fromRightScreen}
+              value={fromRightScreen}
+              onChangeText={text => changeText(text, setFromRightScreen)}
+            />
+          )}
+
           <JustBottomBorderTextInput
-            placeholder={certTranslator.fromRightScreen}
-            subText={certTranslator.fromRightScreen}
-            value={fromRightScreen}
-            onChangeText={text => changeText(text, setFromRightScreen)}
-          />
-          <JustBottomBorderTextInput
-            placeholder={certTranslator.fromTopScreen}
-            subText={certTranslator.fromTopScreen}
+            placeholder={Translate.verticalDistance}
+            subText={Translate.fromTopScreen}
             value={fromTopScreen}
             onChangeText={text => changeText(text, setFromTopScreen)}
           />
-          <JustBottomBorderTextInput
-            placeholder={certTranslator.selectParameters}
-            subText={certTranslator.selectParameters}
-            value={selectParameters}
-            onChangeText={text => changeText(text, setSelectParameters)}
+
+          {xMode === 'center' && (
+            <JustBottomBorderTextInput
+              onChangeText={props.onChangeText}
+              justNum={true}
+              placeholder={Translate.offset}
+              subText={Translate.offset}
+              value={props.offset}
+              setOffset={props.setOffset}
+            />
+          )}
+        </PhoneView>
+        <MyView style={{...styles.alignItemsEnd}}>
+          <PhoneView style={{...styles.gap15}}>
+            <FontIcon
+              theme="rect"
+              type={'rect'}
+              kind={'normal'}
+              icon={faRotateRight}
+            />
+            <FontIcon
+              theme="rect"
+              type={'rect'}
+              kind={'normal'}
+              back={'yellow'}
+              onPress={() => addToData()}
+              icon={faPlus}
+            />
+          </PhoneView>
+        </MyView>
+        <CommonDataTable
+          onRowSelect={selectedRows => {}}
+          columns={columns}
+          data={tableData}
+          groupOps={[]}
+        />
+      </CommonWebBox>
+      <CommonWebBox>
+        <PhoneView style={{...styles.gap15}}>
+          <SimpleText
+            style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+            text={Translate.selectFiles}
           />
-          <RadioButtonYesOrNo
-            text1={certTranslator.rightDistance}
-            text2={certTranslator.center}
-            text={certTranslator.rightDistance}
-            selected={radioOffset}
-            setSelected={setRadioOffset}
-            textInput={true}
-            inputText={certTranslator.offset}
-            onChangeText={text => changeText(text, setOffset)}
-            subText={certTranslator.offset}
-            value={certTranslator.offset}
+          <SimpleFontIcon
+            onPress={() => openFileSelector()}
+            kind={'normal'}
+            icon={faPaperclip}
           />
+          {filesContent !== undefined && filesContent.length > 0 && (
+            <PhoneView style={{marginTop: 20}}>
+              {filesContent.map((file, index) => {
+                return (
+                  <AttachBox
+                    filename={file.name}
+                    fileContent={file.content}
+                    removeAttach={removeAttach}
+                  />
+                );
+              })}
+            </PhoneView>
+          )}
         </PhoneView>
       </CommonWebBox>
+      <NextButtons
+        onNext={async () => {
+          //   props.setLoading(true);
+          if (
+            tableData === undefined ||
+            tableData.length === 0 ||
+            filesContent === undefined ||
+            filesContent.length === 0
+          ) {
+            showError(commonTranslator.pleaseFillAllFields);
+            return;
+          }
+
+          let data = {
+            title: certName,
+            isLandscape: isLandscape === 'yes',
+            qrX: qrHorizontalDistance,
+            qrY: qrVerticalDistance,
+            qrSize: qrSize,
+            params: tableData.map(elem => {
+              elem.isCenter = undefined;
+              elem.title = elem.paramName;
+              elem.y = elem.fromTopScreen;
+              if (elem.xMode === 'fromRight') {
+                elem.x = elem.fromRightScreen;
+              } else {
+                elem.isCenter = true;
+                elem.centerOffset = elem.offset;
+              }
+
+              elem.paramName = undefined;
+              elem.xMode = undefined;
+              elem.offset = undefined;
+              elem.fromRightScreen = undefined;
+              elem.fromTopScreen = undefined;
+              return elem;
+            }),
+          };
+
+          let res = await addCertificate(data, props.token);
+          if (res !== null) {
+            let formData = new FormData();
+            var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
+            formData.append('file', myblob, filesContent[0].name);
+
+            res = await fileRequest(
+              routes.setCertificateImg + res,
+              'put',
+              formData,
+              'url',
+              props.token,
+            );
+
+            if (res !== null) {
+              data.img = res;
+              props.addItem(data);
+              props.setMode('list');
+            }
+          }
+
+          //   props.setLoading(false);
+          //   props.addItem(res);
+          //   props.setMode('list');
+        }}
+      />
     </MyView>
   );
 }

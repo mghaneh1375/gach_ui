@@ -161,5 +161,7 @@ export const routes = {
   chargeAccount: 'general/chargeAccount',
   fetchInvoice: 'general/fetchInvoice/',
   getQuestionTagsExcel: 'general/getQuestionTagsExcel',
+  addCertificate: 'certificate/admin/store',
+  setCertificateImg: 'certificate/admin/setImg/',
   getSubjectCodesExcel: 'general/getSubjectCodesExcel',
 };

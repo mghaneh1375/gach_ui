@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '../../../styles/Common';
 import DynamicParameters from './components/DynamicParameters';
 import SelectFile from './components/SelectFile';
-import Buttons from './components/Buttons';
+import NextButtons from './components/NextButtons';
 import certTranslator from './Translator';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import List from './List/List';
@@ -18,7 +18,7 @@ const Certificate = props => {
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-  const [mode, setMode] = useState('list');
+  const [mode, setMode] = useState('create');
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState([
     {certName: 'asdasdasd', createDate: 'asdasd'},
@@ -42,7 +42,7 @@ const Certificate = props => {
   // }, [navigate, props.token, dispatch]);
 
   return (
-    <MyView>
+    <MyView style={{zIndex: 'unset'}}>
       {mode === 'list' && (
         <List
           setMode={setMode}
@@ -64,25 +64,16 @@ const Certificate = props => {
           token={props.token}
         />
       )}
-      {/*
       {mode === 'update' && (
         <Create
           user={props.user}
           setMode={setMode}
-          gift={selectedGift}
+          selectedCertificate={selectedCertificate}
           update={item => editItem(data, setData, item)}
           setLoading={setLoading}
           token={props.token}
         />
-      )} */}
-      <CommonWebBox>
-        <AttachBox
-        // filename={file.name}
-        // fileContent={file.content}
-        // removeAttach={() => removeAttac()}
-        />
-      </CommonWebBox>
-      <CommonWebBox child={<Buttons />} />
+      )}
     </MyView>
   );
 };
