@@ -156,22 +156,26 @@ const Ops = props => {
           theme={'transparent'}
           title={translator.createTaraz}
         />
-        <CommonButton
-          dir={'rtl'}
-          theme={'transparent'}
-          title={translator.gift}
-        />
+        {state.selectedQuiz.reportStatus === 'ready' && (
+          <CommonButton
+            dir={'rtl'}
+            theme={'transparent'}
+            title={translator.gift}
+          />
+        )}
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
           title={translator.transferToOpenQuiz}
         />
-        <CommonButton
-          onPress={() => props.setMode('ranking')}
-          dir={'rtl'}
-          theme={'transparent'}
-          title={translator.seeRanking}
-        />
+        {state.selectedQuiz.reportStatus === 'ready' && (
+          <CommonButton
+            onPress={() => props.setMode('ranking')}
+            dir={'rtl'}
+            theme={'transparent'}
+            title={translator.seeRanking}
+          />
+        )}
         <CommonButton
           onPress={() => props.setMode('report')}
           dir={'rtl'}

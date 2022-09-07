@@ -31,20 +31,24 @@ export const MultiSearchableTextInput = props => {
   }, [props.reset]);
 
   React.useEffect(() => {
+    if (selectedItems.length > 0) return;
+
     if (props.value === undefined || props.value.length === 0) {
       setSelectFromChoices(true);
       return;
     }
 
     setSelectedItems(props.value);
-  }, [props.value]);
+  }, [props.value, selectedItems]);
 
   const select = item => {
     setUserInput('');
     setShowResultPane(false);
     setSelectFromChoices(true);
     let items = selectedItems;
+
     if (items.find(elem => elem.id === item.id) === undefined) items.push(item);
+
     props.setSelectedItem(items);
   };
 
@@ -72,6 +76,7 @@ export const MultiSearchableTextInput = props => {
 
   const SuggestListItems = () => {
     if (suggests.length === 0) return <SimpleText text={translator.noResult} />;
+
     return suggests.map(suggest => (
       <Pressable
         onFocus={() => setSelectingStatue(true)}

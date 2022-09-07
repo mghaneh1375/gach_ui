@@ -21,7 +21,7 @@ import {
 import AuthorReport from '../Author/AuthorReport';
 import ParticipantReport from '../Participant/ParticipantReport';
 import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
-import {typeOfReportKeyVals} from './KeyVals';
+import {typeOfReportBeforeFinishKeyVals, typeOfReportKeyVals} from './KeyVals';
 
 function List(props) {
   const useGlobalState = () => [
@@ -67,7 +67,11 @@ function List(props) {
             placeholder={translator.typeOfReport}
             subText={translator.typeOfReport}
             setter={setType}
-            values={typeOfReportKeyVals}
+            values={
+              state.selectedQuiz.reportStatus === 'ready'
+                ? typeOfReportKeyVals
+                : typeOfReportBeforeFinishKeyVals
+            }
             value={typeOfReportKeyVals.find(elem => elem.id === type)}
           />
           <CommonButton

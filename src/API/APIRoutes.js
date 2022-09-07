@@ -36,6 +36,7 @@ export const routes = {
   editSubject: 'admin/content/updateSubject/',
   fetchSubjects: 'admin/content/all',
   getSubjectsKeyVals: 'admin/content/getSubjectsKeyVals',
+  getTagsKeyVals: 'general/getTagsKeyVals',
   fetchGradesAndBranches: 'admin/content/gradesAndBranches',
   removeGrades: 'admin/content/deleteGrades',
   addGrade: 'admin/content/addGrade',

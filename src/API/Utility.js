@@ -6,6 +6,9 @@ import {removeAuthCache} from './User';
 // export const BASE_SITE_NAME = 'http://localhost:3000/';
 export const BASE_SITE_NAME = 'https://e.irysc.com/';
 
+// export const CV_BASE_URL = 'http://192.168.0.106:8090/api/';
+export const CV_BASE_URL = 'https://cv.irysc.com/api/';
+
 // export const BASE_URL = 'http://192.168.1.103:8080/api/';
 export const BASE_URL = 'http://192.168.0.106:8080/api/';
 // export const BASE_URL = 'http://192.168.0.145:8080/api/';
@@ -47,6 +50,12 @@ export const COMMON_DOWNLOAD_HEADER = () => {
 export const COMMON_DOWNLOAD_HEADER_AUTH = token => {
   return {
     'content-type': 'application/json',
+    Authorization: 'Bearer ' + token,
+  };
+};
+
+export const COMMON_FILE_REQUEST_DOWNLOAD_RES_HEADER_AUTH = token => {
+  return {
     Authorization: 'Bearer ' + token,
   };
 };
@@ -140,6 +149,45 @@ export const downloadRequest = async (
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', 'file.pdf');
+      document.body.appendChild(link);
+      link.click();
+      return 'ok';
+    })
+    .catch(function (error) {
+      console.log(error);
+      showError(commonTranslator.opErr);
+      return null;
+    });
+
+  return res;
+};
+
+export const fileRequestWithDownloadResponse = async (
+  url,
+  method,
+  data,
+  token = null,
+) => {
+  let res = await Axios({
+    url: url,
+    method: method,
+    baseURL: BASE_URL,
+    headers:
+      token !== null && token !== undefined
+        ? COMMON_FILE_REQUEST_DOWNLOAD_RES_HEADER_AUTH(token)
+        : [],
+    responseType: 'blob',
+    data: data,
+  })
+    .then(async function (response) {
+      if (response === undefined || response === null) {
+        showError(data.msg);
+        return null;
+      }
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'file.xlsx');
       document.body.appendChild(link);
       link.click();
       return 'ok';
