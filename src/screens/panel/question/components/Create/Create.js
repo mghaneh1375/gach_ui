@@ -27,9 +27,13 @@ import {
   editQuestion,
   getAuthorsKeyVals,
   getSubjectsKeyVals,
+  getTagsKeyVals,
 } from '../Utility';
 import QuestionFile from './QuestionFile';
 import {dispatchQuestionContext, questionContext} from '../Detail/Context';
+import UploadFile from '../../../../../components/web/UploadFile';
+import {CV_BASE_URL} from '../../../../../API/Utility';
+import RenderHTML from 'react-native-render-html';
 
 function Create(props) {
   const useGlobalState = () => [
@@ -44,6 +48,8 @@ function Create(props) {
       setType(state.selectedQuestion.kindQuestion);
       setAnswer(state.selectedQuestion.answer);
       setLevel(state.selectedQuestion.level);
+      setYear(state.selectedQuestion.year);
+      setTags(state.selectedQuestion.tags);
       setVisibility(state.selectedQuestion.visibility);
       setOrganizationId(state.selectedQuestion.organizationId);
 
@@ -63,7 +69,25 @@ function Create(props) {
     }
   }, [state.selectedQuestion, props.isInEditMode]);
 
+  const [finalMsg, setFinalMsg] = useState();
+
+  const setResult = res => {
+    console.log(res);
+    setFinalMsg(
+      <RenderHTML
+        contentWidth={'100%'}
+        source={{
+          html:
+            "<a href='" +
+            res +
+            "'>دانلود فایل اکسل اسامی فایل های بارگذاری شده</a>",
+        }}
+      />,
+    );
+  };
+
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
+  const [showAddPDFPopUp, setShowAddPDFPopUp] = useState(false);
   const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
   const [type, setType] = useState();
   const [neededTime, setNeededTime] = useState();
@@ -77,6 +101,8 @@ function Create(props) {
   const [sentencesCount, setSentencesCount] = useState();
   const [subject, setSubject] = useState();
   const [choices, setChoices] = useState();
+  const [tags, setTags] = useState([]);
+  const [year, setYear] = useState();
   const [organizationId, setOrganizationId] = useState();
 
   const [questionFile, setQuestionFile] = useState();
@@ -92,14 +118,19 @@ function Create(props) {
     Promise.all([
       getAuthorsKeyVals(props.token),
       getSubjectsKeyVals(props.token),
+      getTagsKeyVals(props.token),
     ]).then(res => {
       props.setLoading(false);
-      if (res[0] === null || res[1] === null) {
+      if (res[0] === null || res[1] === null || res[2] === null) {
         props.setMode('list');
         return;
       }
 
-      dispatch({authorsKeyVals: res[0], subjectsKeyVals: res[1]});
+      dispatch({
+        authorsKeyVals: res[0],
+        subjectsKeyVals: res[1],
+        tagsKeyVals: res[2],
+      });
       setIsWorking(false);
     });
   }, [props, state, isWorking, dispatch]);
@@ -120,6 +151,10 @@ function Create(props) {
 
   const toggleShowAddBatchFilesPopUp = () => {
     setShowAddBatchFilesPopUp(!showAddBatchFilesPopUp);
+  };
+
+  const toggleShowAddPDFFilePopUp = () => {
+    setShowAddPDFPopUp(!showAddPDFPopUp);
   };
 
   const sendData = async () => {
@@ -149,6 +184,9 @@ function Create(props) {
     if (props.isAdmin && author.id !== author.name) data.authorId = author.id;
 
     if (props.isInEditMode) data.subjectId = subject.id;
+
+    if (tags !== undefined && tags.length > 0) data.tags = tags;
+    if (year !== undefined) data.year = year;
 
     props.setLoading(true);
     let res = props.isInEditMode
@@ -203,6 +241,21 @@ function Create(props) {
             setLoading={props.setLoading}
           />
         )}
+        {showAddPDFPopUp && (
+          <UploadFile
+            toggleShow={toggleShowAddPDFFilePopUp}
+            token={props.token}
+            maxFileSize={5}
+            accepts={['pdf']}
+            expectedRes={'url'}
+            setResult={setResult}
+            finalMsg={finalMsg}
+            multi={false}
+            title={translator.uploadPDFFile}
+            url={CV_BASE_URL + 'cropPDF'}
+            setLoading={props.setLoading}
+          />
+        )}
         <PhoneView style={{...styleGap10Wrap}}>
           <CommonButton
             onPress={() => toggleShowAddBatchPopUp()}
@@ -213,6 +266,11 @@ function Create(props) {
             onPress={() => toggleShowAddBatchFilesPopUp()}
             theme={'dark'}
             title={translator.uploadZipFile}
+          />
+          <CommonButton
+            onPress={() => toggleShowAddPDFFilePopUp()}
+            theme={'dark'}
+            title={translator.uploadPDFFile}
           />
         </PhoneView>
         <PhoneView style={{gap: 15}}>
@@ -330,7 +388,13 @@ function Create(props) {
               initSentencesCount={sentencesCount}
             />
           )}
-
+          <JustBottomBorderTextInput
+            placeholder={translator.year}
+            subText={translator.year}
+            value={year}
+            justNum={true}
+            onChangeText={e => changeText(e, setYear)}
+          />
           {type === 'tashrihi' && (
             <JustBottomBorderSelect
               placeholder={translator.neededLine}
@@ -351,6 +415,42 @@ function Create(props) {
                 multiline={true}
                 style={{minWidth: 400}}
                 onChangeText={e => changeText(e, setAnswer)}
+              />
+            </PhoneView>
+          )}
+
+          {state.tagsKeyVals !== undefined && (
+            <PhoneView style={{width: '100%'}}>
+              <JustBottomBorderTextInput
+                multi={true}
+                addNotFound={true}
+                resultPane={true}
+                setSelectedItem={item => {
+                  setTags(
+                    item.map(elem => {
+                      return elem.name;
+                    }),
+                  );
+                  if (item.length > 0) {
+                    let tmp = state.tagsKeyVals;
+                    item.forEach(itr => {
+                      if (
+                        state.tagsKeyVals.find(elem => elem.id === itr.id) ===
+                        undefined
+                      ) {
+                        tmp.push(itr);
+                      }
+                    });
+                    dispatch({tagsKeyVals: tmp});
+                  }
+                }}
+                values={state.tagsKeyVals}
+                value={tags.map((elem, index) => {
+                  return {id: index, title: elem};
+                })}
+                reset={false}
+                placeholder={translator.tag}
+                subText={translator.tag}
               />
             </PhoneView>
           )}

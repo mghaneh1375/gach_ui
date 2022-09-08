@@ -30,3 +30,14 @@ export const typeOfReportKeyVals = [
     item: translator.A1,
   },
 ];
+
+export const typeOfReportBeforeFinishKeyVals = [
+  {
+    id: 'participationReport',
+    item: translator.participationReport,
+  },
+  {
+    id: 'authorReport',
+    item: translator.authorReport,
+  },
+];

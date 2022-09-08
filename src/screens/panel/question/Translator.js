@@ -1,6 +1,7 @@
 const translator = {
   uploadExcelFile: 'بارگذاری فایل اکسل سوالات',
   uploadZipFile: 'بارگذاری فایل زیپ سوالات',
+  uploadPDFFile: 'بارگذاری فایل PDF سوالات',
   addBatch: 'افزودن دسته ای سوالات',
   addBatchFiles: 'افزودن دسته ای فایل صورت/پاسخ سوالات',
   qNo: 'تعداد سوالات',
@@ -8,6 +9,7 @@ const translator = {
   subject: 'مبحث',
   lesson: 'درس',
   grade: 'مقطع',
+  tag: 'تگ ها',
   addQuestions: 'افزودن سوالات',
   criticalThresh: 'حد آستانه کمبود سوالات',
   justCriticals: 'تنها مباحث دارای کمبود سوال را نمایش بده',
@@ -18,6 +20,7 @@ const translator = {
   level: ' درجه سختی : ',
   choicesCount: ' تعداد گزینه :  ',
   telorance: ' تلورانس پاسخ : ',
+  year: ' سال : ',
   answer: 'پاسخ صحیح  : ',
   typeOfQuestion: ' نوع سوال : ',
   minuts: ' دقیقه ',

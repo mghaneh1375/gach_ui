@@ -97,6 +97,16 @@ export const getSubjectsKeyVals = async token => {
   );
 };
 
+export const getTagsKeyVals = async token => {
+  return await generalRequest(
+    routes.getTagsKeyVals,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const addQuestion = async (
   subjectId,
   data,

@@ -2,14 +2,13 @@ import {CommonButton, MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {LargePopUp} from '../../styles/Common/PopUp';
 import commonTranslator from '../../translator/Common';
 import {useFilePicker} from 'use-file-picker';
-import {fileRequest} from '../../API/Utility';
+import {fileRequest, fileRequestWithDownloadResponse} from '../../API/Utility';
 import React, {useState} from 'react';
 import CopyBox from '../CopyBox';
 import {SimpleFontIcon} from '../../styles/Common/FontIcon';
 import {faFolder, faTrash} from '@fortawesome/free-solid-svg-icons';
 import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
 import vars from '../../styles/root';
-import {Link} from 'react-router-native';
 import {styles} from '../../styles/Common/Styles';
 
 const UploadFile = props => {

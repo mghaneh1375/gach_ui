@@ -79,9 +79,7 @@ const Question = props => {
                   return elem;
                 }),
               );
-              setSelected(
-                subjects.find(elem => elem.subject.id === selected.subject.id),
-              );
+              setSelected(subjects.find(elem => elem.subject.id === id));
             }}
           />
         )}
