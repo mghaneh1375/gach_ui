@@ -9,6 +9,8 @@ import List from './List/List';
 import {addItem, editItem, removeItems} from '../../../services/Utility';
 import Create from './Create/Create';
 import AttachBox from '../ticket/components/Show/AttachBox/AttachBox';
+import AddStudent from './AddStudent/AddStudent';
+import {getCertificate, getCertificates} from './Utility';
 
 const Certificate = props => {
   const queryString = require('query-string');
@@ -18,32 +20,32 @@ const Certificate = props => {
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-  const [mode, setMode] = useState('create');
+  const [mode, setMode] = useState('list');
   const [state, dispatch] = useGlobalState();
-  const [data, setData] = useState([
-    {certName: 'asdasdasd', createDate: 'asdasd'},
-  ]);
-  const [selectedCertificate, setSelectedCertificate] = useState({});
+  const [data, setData] = useState();
+  const [addStudent, setAddStudent] = useState();
+  const [selectedCertificate, setSelectedCertificate] = useState();
+
+  React.useEffect(() => {}, [selectedCertificate]);
 
   const setLoading = status => {
     dispatch({loading: status});
   };
-  // React.useEffect(() => {
-  //   dispatch({loading: true});
-  //   Promise.all([getCertificat(props.token)]).then(res => {
-  //     dispatch({loading: false});
-  //     if (res[0] === null) {
-  //       navigate('/');
-  //       return;
-  //     }
-  //     setData(res[0]);
-  //     setMode('list');
-  //   });
-  // }, [navigate, props.token, dispatch]);
+  React.useEffect(() => {
+    dispatch({loading: true});
+    Promise.all([getCertificates(props.token)]).then(res => {
+      dispatch({loading: false});
+      if (res[0] === null) {
+        navigate('/');
+        return;
+      }
+      setData(res[0]);
+    });
+  }, [navigate, props.token, dispatch]);
 
   return (
     <MyView style={{zIndex: 'unset'}}>
-      {mode === 'list' && (
+      {mode === 'list' && data !== undefined && (
         <List
           setMode={setMode}
           setLoading={setLoading}
@@ -71,6 +73,19 @@ const Certificate = props => {
           selectedCertificate={selectedCertificate}
           update={item => editItem(data, setData, item)}
           setLoading={setLoading}
+          token={props.token}
+        />
+      )}
+      {mode === 'addStudent' && (
+        <AddStudent
+          setMode={setMode}
+          addItem={i => addItem(data, setData, i)}
+          setLoading={setLoading}
+          update={item => {
+            editItem(data, setData, item);
+            setSelectedCertificate(item);
+          }}
+          selectedCertificate={selectedCertificate}
           token={props.token}
         />
       )}

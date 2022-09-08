@@ -5,6 +5,7 @@ import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../translator/Common';
+import certTranslator from '../../Translator';
 
 function Ops(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);
@@ -42,6 +43,11 @@ function Ops(props) {
               onPress={() => props.setMode('update')}
               title={commonTranslator.edit}
               theme={'transparent'}
+            />
+            <CommonButton
+              onPress={() => props.setMode('addStudent')}
+              theme={'transparent'}
+              title={certTranslator.addStudent}
             />
             <CommonButton
               onPress={() => toggleShowRemovePane()}

@@ -8,7 +8,7 @@ const certTranslator = {
   fromTopScreen: 'از سمت بالای صفحه',
   createNewCert: 'ایجاد گواهی جدید',
   dynamicParameters: 'پارامترهای دینامیک',
-  selectParameters: 'انتخاب پارامتر',
+  paramName: 'انتخاب پارامتر',
   fontType: 'نوع فونت',
   fontSize: 'سایز فونت',
   rightDistance: 'محاسبه بر اساس فاصله از راست',
@@ -27,6 +27,7 @@ const certTranslator = {
   param: 'پرامتر',
   typeOfFont: 'نوع فونت',
   selectFiles: 'هنوز فایلی انخاب نشده است - نام فایل*',
+  addStudent: 'افزودن نفرات به گواهی',
 };
 
 export default certTranslator;

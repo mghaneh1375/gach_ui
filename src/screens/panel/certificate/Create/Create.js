@@ -35,18 +35,18 @@ import {fileRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 
 function Create(props) {
-  const [certName, setCertName] = useState('گواهی تست');
-  const [qrSize, setQrSize] = useState(30);
-  const [qrHorizontalDistance, setQrHorizontalDistance] = useState(500);
-  const [qrVerticalDistance, setQrVerticalDistance] = useState(200);
-  const [isLandscape, setIsLandscape] = useState('vertical');
-  const [paramName, setParamName] = useState('ارامتر عجیب');
-  const [fontSize, setFontSize] = useState(30);
+  const [certName, setCertName] = useState();
+  const [qrSize, setQrSize] = useState();
+  const [qrHorizontalDistance, setQrHorizontalDistance] = useState();
+  const [qrVerticalDistance, setQrVerticalDistance] = useState();
+  const [isLandscape, setIsLandscape] = useState(true);
+  const [paramName, setParamName] = useState();
+  const [fontSize, setFontSize] = useState();
   const [isBold, setIsBold] = useState(true);
-  const [fromRightScreen, setFromRightScreen] = useState(150);
-  const [fromTopScreen, setFromTopScreen] = useState(150);
-  const [offset, setOffset] = useState(123);
-  const [isCenter, setIsCenter] = useState('yes');
+  const [fromRightScreen, setFromRightScreen] = useState();
+  const [fromTopScreen, setFromTopScreen] = useState();
+  const [offset, setOffset] = useState();
+  const [isCenter, setIsCenter] = useState(true);
   const [xMode, setXMode] = useState('fromRight');
   const [tableData, setTableData] = useState([]);
 
@@ -61,8 +61,38 @@ function Create(props) {
   const removeAttach = index => {
     remove(index);
   };
+  const clearData = React.useCallback(() => {
+    setParamName('');
+    setFontSize('');
+    setIsBold(false);
+    setFromRightScreen('');
+    setFromTopScreen('');
+    setOffset('');
+    setIsCenter('');
+    setXMode('fromRight');
+  }, []);
 
   const addToData = React.useCallback(() => {
+    if (
+      ((fontSize === undefined || fontSize.length === '') &&
+        paramName === undefined) ||
+      (paramName.length === '' && fromTopScreen === undefined)
+    ) {
+      showError(commonTranslator.pleaseFillAllFields);
+      return;
+    }
+
+    if (
+      xMode === 'fromRight' &&
+      (fromRightScreen === undefined || fromRightScreen === '')
+    ) {
+      showError(commonTranslator.pleaseFillAllFields);
+      return;
+    }
+
+    if (xMode !== 'fromRight' && (offset === undefined || offset === ''))
+      setOffset(0);
+
     let data = {
       fontSize: fontSize,
       paramName: paramName,
@@ -73,14 +103,9 @@ function Create(props) {
       isCenter: isCenter,
       xMode: xMode,
     };
-    setParamName('');
-    setFontSize('');
-    setIsBold(false);
-    setFromRightScreen('');
-    setFromTopScreen('');
-    setOffset('');
-    setIsCenter('');
-    setXMode('fromRight');
+
+    clearData();
+
     let tableDataTmp = [];
 
     tableDataTmp.push(data);
@@ -99,6 +124,7 @@ function Create(props) {
     fromTopScreen,
     fontSize,
     tableData,
+    clearData,
   ]);
 
   return (
@@ -119,22 +145,15 @@ function Create(props) {
             text={Translate.certType}
           />
           <CommonRadioButton
-            status={isLandscape === 'vertical' ? 'checked' : 'unchecked'}
-            onPress={() => setIsLandscape('vertical')}
+            status={isLandscape === true ? 'checked' : 'unchecked'}
+            onPress={() => setIsLandscape(true)}
             text={Translate.vertical}
           />
           <CommonRadioButton
-            status={isLandscape === 'horizontal' ? 'checked' : 'unchecked'}
-            onPress={() => setIsLandscape('horizontal')}
+            status={isLandscape === false ? 'checked' : 'unchecked'}
+            onPress={() => setIsLandscape(false)}
             text={Translate.horizontal}
           />
-          {/* <RadioButtonYesOrNo
-            label={Translate.certType}
-            text1={Translate.vertical}
-            text2={Translate.horizontal}
-            selected={isLandscape}
-            setSelected={setIsLandscape}
-          /> */}
         </PhoneView>
         <MyView>
           <PhoneView style={{...styles.gap15}}>
@@ -226,6 +245,7 @@ function Create(props) {
               type={'rect'}
               kind={'normal'}
               icon={faRotateRight}
+              onPress={() => clearData()}
             />
             <FontIcon
               theme="rect"
@@ -285,7 +305,7 @@ function Create(props) {
 
           let data = {
             title: certName,
-            isLandscape: isLandscape === 'yes',
+            isLandscape: isLandscape,
             qrX: qrHorizontalDistance,
             qrY: qrVerticalDistance,
             qrSize: qrSize,
@@ -311,6 +331,8 @@ function Create(props) {
 
           let res = await addCertificate(data, props.token);
           if (res !== null) {
+            data.id = res;
+
             let formData = new FormData();
             var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
             formData.append('file', myblob, filesContent[0].name);
@@ -325,6 +347,7 @@ function Create(props) {
 
             if (res !== null) {
               data.img = res;
+
               props.addItem(data);
               props.setMode('list');
             }
