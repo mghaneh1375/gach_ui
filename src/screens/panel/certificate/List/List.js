@@ -13,12 +13,6 @@ function List(props) {
     setShowOpPopUp(!showOpPopUp);
   };
   const handleOp = idx => {
-    console.log('====================================');
-    console.log(props.data);
-    console.log('====================================');
-    console.log('====================================');
-    console.log(idx);
-    console.log('====================================');
     props.setSelectedCertificate(props.data[idx]);
     setSelectedId(props.data[idx].id);
     toggleShowOpPopUp();

@@ -78,3 +78,18 @@ export const getLastTransaction = async (authorId, token) => {
     token,
   );
 };
+export const removeAuthor = async (setLoading, token, authorId, afterFunc) => {
+  setLoading(true);
+  let res = await generalRequest(
+    routes.removeAuthors,
+    'delete',
+    {items: [authorId]},
+    ['excepts', 'doneIds'],
+    token,
+  );
+  setLoading(false);
+  if (res !== null) {
+    showSuccess(res.excepts);
+    afterFunc(res.doneIds);
+  }
+};

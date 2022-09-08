@@ -12,7 +12,7 @@ import columns from './AuthorTableStructure';
 import {routes} from '../../../../../API/APIRoutes';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../../../../translator/Common';
-import {changeText} from '../../../../../services/Utility';
+import {changeText, removeItems} from '../../../../../services/Utility';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -44,6 +44,10 @@ function List(props) {
             setLoading={props.setLoading}
             changeMode={changeMode}
             toggleShowPopUp={toggleShowOpPopUp}
+            afterDelete={ids => {
+              removeItems(props.authors, props.setAuthors, ids);
+              toggleShowOpPopUp();
+            }}
           />
         )}
       </MyView>
