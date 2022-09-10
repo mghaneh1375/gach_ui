@@ -24,8 +24,10 @@ function List(props) {
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
+  const [selectedUserId, setSelectedUserId] = useState();
   const handleOp = idx => {
     props.setSelectedUser(props.authors[idx]);
+    setSelectedUserId(props.authors[idx].id);
     toggleShowOpPopUp();
   };
 
@@ -37,7 +39,7 @@ function List(props) {
       <MyView>
         {showOpPopUp && (
           <Ops
-            author={props.selectedUser}
+            authorId={selectedUserId}
             updateAuthor={props.updateAuthor}
             token={props.token}
             setMode={props.setMode}
