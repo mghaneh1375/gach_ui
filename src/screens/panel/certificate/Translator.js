@@ -28,6 +28,7 @@ const certTranslator = {
   typeOfFont: 'نوع فونت',
   selectFiles: 'هنوز فایلی انخاب نشده است - نام فایل*',
   addStudent: 'افزودن نفرات به گواهی',
+  addStudents: 'افزودن دانش آموز',
 };
 
 export default certTranslator;

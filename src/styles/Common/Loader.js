@@ -1,6 +1,8 @@
 import {ActivityIndicator} from 'react-native';
-import {MyView} from '../Common';
+import commonTranslator from '../../translator/Common';
+import {MyView, PhoneView, SimpleText} from '../Common';
 import vars from '../root';
+import {styles} from './Styles';
 
 export const Loader = props => (
   <MyView
@@ -17,6 +19,22 @@ export const Loader = props => (
       position: 'fixed',
       zIndex: 2,
     }}>
-    <ActivityIndicator color={vars.ORANGE_RED} size="large" />
+    <MyView>
+      <ActivityIndicator color={vars.ORANGE_RED} size="large" />
+      <SimpleText
+        style={{
+          ...styles.marginAuto,
+          ...styles.BlueBold,
+          ...styles.fontSize20,
+          ...styles.colorOrangeRed,
+          ...styles.marginTop20,
+        }}
+        text={
+          props.text !== undefined
+            ? props.text
+            : commonTranslator.pleaseWait + ' ' + commonTranslator.processRunnig
+        }
+      />
+    </MyView>
   </MyView>
 );

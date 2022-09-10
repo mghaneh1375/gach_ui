@@ -85,6 +85,7 @@ const translator = {
   uploading: 'در حال آپلود',
   offsBonus: 'تخفیف و جایزه',
   pleaseWait: 'لطفا شکیبا باشید',
+  processRunnig: 'پروسه در حال اجرا',
   fileAdressFor: 'آدرس فایل آپلود شده برای',
   nesFile: 'فایل های ضروری',
   copyLink: 'کپی کردن لینک',

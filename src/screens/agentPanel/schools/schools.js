@@ -39,7 +39,7 @@ function Schools(props) {
 
   return (
     <MyView>
-      {mode === 'list' && (
+      {mode === 'list' && data !== undefined && (
         <List
           setMode={setMode}
           user={props.user}

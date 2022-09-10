@@ -11,7 +11,7 @@ export default function WebRouter() {
 
   return (
     <MyView style={{flex: 1, height: '100%'}}>
-      {state.loading && <Loader />}
+      {state.loading && <Loader text={state.loadingText} />}
 
       <Router>
         <Routes>

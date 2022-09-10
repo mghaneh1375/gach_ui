@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-import {MyView, PhoneView} from '../../../../styles/Common';
+import {FlipInEasyX} from 'react-native-reanimated';
+import {PhoneView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
 
 function SpecificRoleForm(props) {
@@ -16,7 +18,10 @@ function SpecificRoleForm(props) {
   }, [props.obj]);
 
   return (
-    <PhoneView style={{gap: 20}}>
+    <PhoneView
+      style={{
+        ...styles.gap15,
+      }}>
       {obj !== undefined && obj.keyVals !== undefined && (
         <JustBottomBorderSelect
           setter={setData}
