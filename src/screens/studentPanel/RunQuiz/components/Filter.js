@@ -20,7 +20,7 @@ import {
   faBookmark,
 } from '@fortawesome/free-solid-svg-icons';
 import Translate from '../Translate';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {FontIcon} from '../../../../styles/Common/FontIcon';
 import commonTranslator from '../../../../translator/Common';
 import Circle from '../../../../components/web/Circle';
 
@@ -41,12 +41,7 @@ function Filter(props) {
       childStyle={{...styles.padding5}}
       style={{...styles.padding0, ...styles.marginTop10}}
       width={vars.RIGHT_MENU_WIDTH}>
-      {!props.isInReviewMode && state.quizInfo !== undefined && (
-        <Timer
-          duration={state.quizInfo.duration}
-          reminder={state.quizInfo.reminder}
-        />
-      )}
+      {!props.isInReviewMode && state.quizInfo !== undefined && <Timer />}
 
       <EqualTwoTextInputs
         style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>

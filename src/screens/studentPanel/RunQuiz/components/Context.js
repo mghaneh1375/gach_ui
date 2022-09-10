@@ -1,4 +1,5 @@
 import React from 'react';
+import {doSaveAnswers} from './Utility';
 
 const defaultGlobalState = {
   questions: undefined,
@@ -34,6 +35,31 @@ export const DoQuizProvider = ({children}) => {
     if (!state.needUpdate) return;
     updateQuestion();
   }, [state.needUpdate, updateQuestion]);
+
+  React.useEffect(() => {
+    if (!state.needStore) return;
+    saveAnswers();
+  }, [state.needStore, saveAnswers]);
+
+  const saveAnswers = React.useCallback(() => {
+    state.setLoadingWithText(true);
+
+    Promise.all([
+      doSaveAnswers(
+        {
+          answers: state.questions.map(elem => {
+            return elem.stdAns;
+          }),
+        },
+        state.quizInfo.id,
+        state.quizInfo.generalMode,
+        state.token,
+      ),
+    ]).then(res => {
+      state.setLoadingWithText(false);
+      return 'ok';
+    });
+  }, [state]);
 
   return (
     <doQuizContext.Provider value={state}>

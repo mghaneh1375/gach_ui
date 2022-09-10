@@ -49,11 +49,16 @@ function Splash(props) {
         : doQuiz(props.quizId, props.quizGeneralMode, props.token),
     ]).then(res => {
       props.setLoading(false);
-      if (res === null) {
+      if (res[0] === null) {
         props.navigate('/');
         return;
       }
-      dispatch({questions: res[0].questions, quizInfo: res[0].quizInfo});
+      dispatch({
+        token: props.token,
+        questions: res[0].questions,
+        quizInfo: res[0].quizInfo,
+        setLoadingWithText: props.setLoadingWithText,
+      });
       setIsWorking(false);
     });
   }, [dispatch, props, isWorking, state.questions]);

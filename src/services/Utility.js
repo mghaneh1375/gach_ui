@@ -39,6 +39,21 @@ export function convertSecToMin(sec) {
   return new Date(sec * 1000).toISOString().substr(11, 8);
 }
 
+export function convertSecToMinWithOutSec(sec) {
+  const d = new Date(sec * 1000).toISOString();
+
+  let h = d.substr(11, 2);
+
+  if (h[0] == 0) h = h[1];
+
+  let m = d.substr(14, 2);
+  if (m[0] == 0) m = m[1];
+
+  if (h[0] > 0) return h + ' ساعت ' + m + ' دقیقه ';
+
+  return +m + ' دقیقه ';
+}
+
 export function convertTimestamp(unix_timestamp) {
   if (unix_timestamp === undefined || unix_timestamp === '') return '...';
   return moment
