@@ -57,7 +57,15 @@ function Splash(props) {
       dispatch({
         token: props.token,
         questions: res[0].questions,
+        answers: res[0].questions.map(elem => {
+          return elem.stdAns;
+        }),
+        bookmarks: res[0].questions.map(() => {
+          return false;
+        }),
         quizInfo: res[0].quizInfo,
+        reminder: res[0].quizInfo.reminder,
+        refresh: res[0].quizInfo.refresh,
         setLoadingWithText: props.setLoadingWithText,
       });
       setIsWorking(false);

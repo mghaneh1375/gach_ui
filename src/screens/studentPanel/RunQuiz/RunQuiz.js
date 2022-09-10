@@ -7,6 +7,7 @@ import {DoQuizProvider} from './components/Context';
 import Quiz from './components/Quiz';
 import Filter from './components/Filter';
 import vars from '../../../styles/root';
+import {useEffectOnce} from 'usehooks-ts';
 
 function RunQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -28,7 +29,7 @@ function RunQuiz(props) {
       return;
     }
     setMode('splash');
-  }, [props, params]);
+  }, [params, props]);
 
   React.useEffect(() => {
     dispatch({
@@ -36,9 +37,9 @@ function RunQuiz(props) {
     });
   }, [dispatch]);
 
-  React.useEffect(() => {
+  useEffectOnce(() => {
     getParams();
-  }, [params, getParams]);
+  });
 
   const setLoading = status => {
     dispatch({loading: status});

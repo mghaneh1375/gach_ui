@@ -41,7 +41,9 @@ function Filter(props) {
       childStyle={{...styles.padding5}}
       style={{...styles.padding0, ...styles.marginTop10}}
       width={vars.RIGHT_MENU_WIDTH}>
-      {!props.isInReviewMode && state.quizInfo !== undefined && <Timer />}
+      {!props.isInReviewMode &&
+        state.quizInfo !== undefined &&
+        !state.clearTimer && <Timer />}
 
       <EqualTwoTextInputs
         style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
@@ -131,9 +133,9 @@ function Filter(props) {
               <QuestionNumber
                 selected={props.mode !== 'splash' && state.currIdx === index}
                 theme={
-                  elem.stdAns === undefined ||
-                  elem.stdAns === '' ||
-                  elem.stdAns === 0
+                  state.answers[index] === undefined ||
+                  state.answers[index] === '' ||
+                  state.answers[index] === 0
                     ? 'transparent'
                     : 'green'
                 }
@@ -142,7 +144,8 @@ function Filter(props) {
                 bookmark={
                   props.isInReviewMode
                     ? 'hidden'
-                    : elem.bookmark === undefined || !elem.bookmark
+                    : state.bookmarks[index] === undefined ||
+                      !state.bookmarks[index]
                     ? 'unfill'
                     : 'fill'
                 }
@@ -150,14 +153,15 @@ function Filter(props) {
                   if (props.mode === 'splash') return;
                   dispatch({currIdx: index});
                 }}
-                onChange={() => {
-                  if (props.mode === 'splash') return;
-                  elem.bookmark =
-                    elem.bookmark === undefined || !elem.bookmark
-                      ? true
-                      : false;
-                  dispatch({question: elem, needUpdate: true});
-                }}
+                // onChange={() => {
+                //   if (props.mode === 'splash') return;
+                //   let b =
+                //     state.bookmarks[index] === undefined ||
+                //     !state.bookmarks[index]
+                //       ? true
+                //       : false;
+                //   dispatch({bookmarkStatus: b, needUpdateBookmarks: true});
+                // }}
               />
             );
           })}

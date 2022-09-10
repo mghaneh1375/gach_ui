@@ -12,6 +12,8 @@ import ProgressBar from '../../../../styles/Common/ProgressBar';
 import {useEffectOnce} from 'usehooks-ts';
 import {dispatchDoQuizContext, doQuizContext} from './Context';
 
+let timerVar;
+
 function Timer() {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
@@ -19,28 +21,37 @@ function Timer() {
   ];
 
   const [state, dispatch] = useGlobalState();
+  const startAt = Date.now();
 
-  const [reminder, setReminder] = useState(parseInt(state.reminder));
-  const [counter, setCounter] = useState(0);
   const [progress, setProgress] = useState(
-    ((state.duration - state.reminder) * 100) / state.duration,
+    ((state.quizInfo.duration - state.reminder) * 100) /
+      state.quizInfo.duration,
   );
 
-  const timer = () => {
-    setTimeout(() => {
-      setProgress(((state.duration - state.reminder) * 100) / state.duration);
-      timer(state.reminder - 60);
-      setReminder(state.reminder - 60);
+  const timer = React.useCallback(() => {
+    console.log('salam ' + state.refresh);
 
-      if (counter + 1 < state.refresh) {
-        setCounter(counter + 1);
+    timerVar = setTimeout(() => {
+      setProgress(
+        ((state.quizInfo.duration - state.reminder) * 100) /
+          state.quizInfo.duration,
+      );
+
+      if ((Date.now() - startAt) / 60000 < state.refresh) {
         dispatch({reminder: state.reminder - 60});
+        timer();
       } else {
-        setCounter(0);
         dispatch({needStore: true});
+        clearTimeout(timerVar);
       }
     }, [60000]);
-  };
+  }, [
+    dispatch,
+    state.quizInfo.duration,
+    state.refresh,
+    state.reminder,
+    startAt,
+  ]);
 
   useEffectOnce(() => {
     timer();
@@ -71,14 +82,14 @@ function Timer() {
             ...styles.textCenter,
             backgroundColor: vars.ORANGE_RED,
           }}
-          text={convertSecToMin(state.duration)}
+          text={convertSecToMin(state.quizInfo.duration)}
         />
       </PhoneView>
       <ProgressBar percent={progress} />
 
-      {reminder !== undefined && reminder < 300 && (
+      {state.reminder !== undefined && state.reminder < 300 && (
         <CountDown
-          until={reminder}
+          until={state.reminder}
           onFinish={() => {}}
           timeToShow={['H', 'M', 'S']}
           style={{direction: 'ltr', marginTop: 20}}
@@ -109,8 +120,8 @@ function Timer() {
         />
       )}
 
-      {reminder !== undefined && reminder > 300 && (
-        <SimpleText text={convertSecToMinWithOutSec(reminder)} />
+      {state.reminder !== undefined && state.reminder > 300 && (
+        <SimpleText text={convertSecToMinWithOutSec(state.reminder)} />
       )}
     </MyView>
   );
