@@ -4,6 +4,7 @@ import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {styles} from '../../../../styles/Common/Styles';
 import commonTranslator from '../../../../translator/Common';
+import certTranslator from '../Translator';
 import {addUserToCert, getCertificate} from '../Utility';
 
 function AddStudent(props) {
@@ -35,7 +36,7 @@ function AddStudent(props) {
   }, [props, isWorking]);
   return (
     <CommonWebBox
-      header={'AddStudent'}
+      header={certTranslator.addStudents}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <PhoneView style={{...styles.gap15}}>
@@ -63,7 +64,7 @@ function AddStudent(props) {
           })}
       </PhoneView>
       <CommonButton
-        title="تایید"
+        title={commonTranslator.confirm}
         onPress={async () => {
           let res = await addUserToCert(
             {params: userData},
@@ -71,9 +72,9 @@ function AddStudent(props) {
             nid,
             props.token,
           );
-          console.log('====================================');
-          console.log(res);
-          console.log('====================================');
+          // console.log('====================================');
+          // console.log(res);
+          // console.log('====================================');
         }}
       />
     </CommonWebBox>

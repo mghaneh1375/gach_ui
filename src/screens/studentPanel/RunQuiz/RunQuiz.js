@@ -5,7 +5,6 @@ import Splash from './components/Splash';
 import {dispatchStateContext} from '../../../App';
 import {DoQuizProvider} from './components/Context';
 import Quiz from './components/Quiz';
-import {triangleDown} from 'victory-core/lib/victory-util/point-path-helpers';
 import Filter from './components/Filter';
 import vars from '../../../styles/root';
 

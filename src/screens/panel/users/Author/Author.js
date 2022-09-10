@@ -10,7 +10,7 @@ import {MyView} from '../../../../styles/Common';
 
 function Author(props) {
   const [mode, setMode] = useState('list');
-  const [authors, setAuthors] = useState([]);
+  const [authors, setAuthors] = useState();
   const [selectedUser, setSelectedUser] = useState();
   const [tag, setTag] = useState();
   const navigate = props.navigate;
@@ -37,7 +37,7 @@ function Author(props) {
   }, [navigate, props.token, dispatch, tag]);
   return (
     <MyView>
-      {mode === 'list' && (
+      {mode === 'list' && authors !== undefined && (
         <List
           authors={authors}
           setAuthors={setAuthors}

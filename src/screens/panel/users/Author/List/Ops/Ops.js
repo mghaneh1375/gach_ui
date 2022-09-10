@@ -26,14 +26,14 @@ function Ops(props) {
           <CommonButton
             theme={'transparent'}
             title={commonTranslator.delete}
-            onPress={() =>
+            onPress={() => {
               removeAuthor(
                 props.setLoading,
                 props.token,
-                props.authors.id,
+                props.authorId,
                 props.afterDelete,
-              )
-            }
+              );
+            }}
           />
         </PhoneView>
       </LargePopUp>

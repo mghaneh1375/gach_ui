@@ -1,7 +1,13 @@
 import RoleForm from '../../general/login/components/RoleForm';
+import RoleFormForSelect from '../../general/login/components/RoleFormForSelect';
 import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
-import {CommonWebBox, MyView} from '../../../styles/Common';
+import {
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../styles/Common';
 import {useParams} from 'react-router';
 import {generalRequest} from '../../../API/Utility';
 import {routes} from '../../../API/APIRoutes';
@@ -13,7 +19,7 @@ function Upgrade(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
-
+  const [user, setUser] = useState();
   const setLoading = status => {
     dispatch({loading: status});
   };
@@ -68,7 +74,7 @@ function Upgrade(props) {
 
   return (
     <CommonWebBox>
-      <MyView style={{width: 400}}>
+      {/* <MyView style={{width: 400}}>
         <RoleForm
           forms={forms}
           userId={userId}
@@ -77,7 +83,17 @@ function Upgrade(props) {
           setLoading={setLoading}
           navigate={props.navigate}
         />
-      </MyView>
+      </MyView> */}
+
+      <RoleFormForSelect
+        forms={forms}
+        userId={userId}
+        signUp={false}
+        token={props.token}
+        setLoading={setLoading}
+        navigate={props.navigate}
+        step={'form'}
+      />
     </CommonWebBox>
   );
 }

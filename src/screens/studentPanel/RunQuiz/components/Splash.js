@@ -28,6 +28,7 @@ import {
   faQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
+import {convertSecToMin} from '../../../../services/Utility';
 
 function Splash(props) {
   const useGlobalState = () => [
@@ -81,7 +82,7 @@ function Splash(props) {
                       ...styleTitle,
                       ...styles.BlueBold,
                     }}
-                    text={'مطابق Ui به اندازه متن title کش میاد'}
+                    text={state.quizInfo.title}
                   />
                 </MyView>
               </PhoneView>
@@ -110,7 +111,7 @@ function Splash(props) {
                 textFontSize={10}
                 valFontSize={16}
                 text={'مدت زمان '}
-                val={'25 دقیقه'}
+                val={convertSecToMin(state.quizInfo.duration)}
               />
               <QuizItemCard
                 icon={faMessage}
@@ -120,7 +121,7 @@ function Splash(props) {
                 textFontSize={10}
                 valFontSize={16}
                 text={'تعداد سوال'}
-                val={'70000'}
+                val={state.quizInfo.questionsNo}
               />
               <QuizItemCard
                 icon={faQuestion}
@@ -129,7 +130,15 @@ function Splash(props) {
                 textFontSize={11}
                 valFontSize={15}
                 text={'نوع آزمون '}
-                val={'بسیار دشوار'}
+                val={
+                  state.quizInfo.mode === 'regular'
+                    ? 'تستی'
+                    : 'tashrihi'
+                    ? 'تشریحی'
+                    : 'hybrid'
+                    ? 'تشریحی و تستی'
+                    : {}
+                }
               />
             </PhoneView>
           </CommonWebBox>
