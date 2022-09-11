@@ -7,6 +7,7 @@ import {DoQuizProvider} from './components/Context';
 import Quiz from './components/Quiz';
 import Filter from './components/Filter';
 import vars from '../../../styles/root';
+import {useEffectOnce} from 'usehooks-ts';
 
 function RunQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -28,7 +29,7 @@ function RunQuiz(props) {
       return;
     }
     setMode('splash');
-  }, [props, params]);
+  }, [params, props]);
 
   React.useEffect(() => {
     dispatch({
@@ -36,30 +37,42 @@ function RunQuiz(props) {
     });
   }, [dispatch]);
 
-  React.useEffect(() => {
+  useEffectOnce(() => {
     getParams();
-  }, [params, getParams]);
+  });
 
   const setLoading = status => {
     dispatch({loading: status});
+  };
+
+  const setLoadingWithText = status => {
+    dispatch({
+      loading: status,
+      loadingText: 'در حال ذخیره کردن پاسخ ها. لطفا شکیبا باشید.',
+    });
   };
 
   return (
     <PhoneView>
       <DoQuizProvider>
         {mode !== undefined && (
-          <Filter isInReviewMode={props.isInReviewMode} mode={mode} />
+          <Filter
+            isInReviewMode={props.isInReviewMode}
+            mode={mode}
+            token={props.token}
+          />
         )}
         <MyView style={{width: vars.LEFT_SECTION_WIDTH}}>
           {mode !== undefined && mode === 'splash' && (
             <Splash
+              setLoadingWithText={setLoadingWithText}
               isInReviewMode={props.isInReviewMode}
               token={props.token}
               quizId={params.quizId}
               quizGeneralMode={params.quizMode}
               navigate={props.navigate}
               setLoading={setLoading}
-              setMode={props.setMode}
+              setMode={setMode}
               onBack={() =>
                 props.user.accesses.indexOf('student') !== -1
                   ? props.navigate('/myQuizzes')

@@ -1,30 +1,60 @@
 import React, {useState} from 'react';
 import CountDown from 'react-native-countdown-component';
-import {convertSecToMin} from '../../../../services/Utility';
+import {
+  convertSecToMin,
+  convertSecToMinWithOutSec,
+} from '../../../../services/Utility';
 import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
 import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
 import Translate from '../Translate';
 import ProgressBar from '../../../../styles/Common/ProgressBar';
 import {useEffectOnce} from 'usehooks-ts';
+import {dispatchDoQuizContext, doQuizContext} from './Context';
 
-function Timer(props) {
-  const [reminder, setReminder] = useState(parseInt(props.reminder));
+let timerVar;
+
+function Timer() {
+  const useGlobalState = () => [
+    React.useContext(doQuizContext),
+    React.useContext(dispatchDoQuizContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
+  const startAt = Date.now();
+
   const [progress, setProgress] = useState(
-    ((props.duration - props.reminder) * 100) / props.duration,
+    ((state.quizInfo.duration - state.reminder) * 100) /
+      state.quizInfo.duration,
   );
 
-  const timer = r => {
-    setTimeout(() => {
-      console.log(r);
-      console.log(((props.duration - r) * 100) / props.duration);
-      setProgress(((props.duration - r) * 100) / props.duration);
-      timer(r - 140);
-    }, [120000]);
-  };
+  const timer = React.useCallback(() => {
+    console.log('salam ' + state.refresh);
+
+    timerVar = setTimeout(() => {
+      setProgress(
+        ((state.quizInfo.duration - state.reminder) * 100) /
+          state.quizInfo.duration,
+      );
+
+      if ((Date.now() - startAt) / 60000 < state.refresh) {
+        dispatch({reminder: state.reminder - 60});
+        timer();
+      } else {
+        dispatch({needStore: true});
+        clearTimeout(timerVar);
+      }
+    }, [60000]);
+  }, [
+    dispatch,
+    state.quizInfo.duration,
+    state.refresh,
+    state.reminder,
+    startAt,
+  ]);
 
   useEffectOnce(() => {
-    timer(props.reminder - 130);
+    timer();
   });
 
   return (
@@ -52,14 +82,14 @@ function Timer(props) {
             ...styles.textCenter,
             backgroundColor: vars.ORANGE_RED,
           }}
-          text={convertSecToMin(props.duration)}
+          text={convertSecToMin(state.quizInfo.duration)}
         />
       </PhoneView>
       <ProgressBar percent={progress} />
 
-      {reminder !== undefined && (
+      {state.reminder !== undefined && state.reminder < 300 && (
         <CountDown
-          until={props.reminder}
+          until={state.reminder}
           onFinish={() => {}}
           timeToShow={['H', 'M', 'S']}
           style={{direction: 'ltr', marginTop: 20}}
@@ -88,6 +118,10 @@ function Timer(props) {
           timeLabels={{h: '', s: '', m: ''}}
           size={20}
         />
+      )}
+
+      {state.reminder !== undefined && state.reminder > 300 && (
+        <SimpleText text={convertSecToMinWithOutSec(state.reminder)} />
       )}
     </MyView>
   );

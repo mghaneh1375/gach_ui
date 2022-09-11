@@ -1,7 +1,7 @@
 const Translate = {
   number: 'شماره',
   addBookmark: 'نشان کردن سوال',
-  deleteBookmark: 'حذف نشان کردن سوال',
+  deleteBookmark: 'حذف نشان سوال',
   description: 'شرح سوال',
   answerFile: 'پاسخ تشریحی',
   res: 'انتخاب پاسخ',

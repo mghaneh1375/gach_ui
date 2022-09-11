@@ -20,3 +20,13 @@ export const doQuiz = async (quizId, generalMode, token) => {
     token,
   );
 };
+
+export const doSaveAnswers = async (answers, quizId, generalMode, token) => {
+  return await generalRequest(
+    routes.storeStudentAnswers + generalMode + '/' + quizId,
+    'put',
+    answers,
+    ['refresh', 'reminder'],
+    token,
+  );
+};

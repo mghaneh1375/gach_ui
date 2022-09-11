@@ -154,14 +154,12 @@ function Question(props) {
                 {question.kindQuestion === 'test' && (
                   <MultiChoice
                     choicesCount={question.choicesCount}
-                    selected={question.stdAns}
+                    selected={state.answers[state.currIdx]}
                     onChange={
                       props.isInReviewMode
                         ? undefined
                         : idx => {
-                            let tmp = question;
-                            tmp.stdAns = idx;
-                            dispatch({question: tmp, needUpdate: true});
+                            dispatch({answer: idx, needUpdateAnswer: true});
                           }
                     }
                   />
