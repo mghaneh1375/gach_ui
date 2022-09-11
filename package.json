@@ -69,6 +69,7 @@
     "react-router-dom": "^6.3.0",
     "react-router-native": "^5.3.2",
     "react-scripts": "^5.0.1",
+    "react-wheel-of-prizes": "^1.0.9",
     "styled-components": "^5.3.5",
     "toggle-switch-react-native": "^3.3.0",
     "use-file-picker": "^1.4.2",

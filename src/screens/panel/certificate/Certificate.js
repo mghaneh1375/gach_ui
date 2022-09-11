@@ -92,6 +92,7 @@ const Certificate = props => {
       )}
       {mode === 'report' && (
         <Report
+          data={data}
           setMode={setMode}
           setLoading={setLoading}
           selectedCertificate={selectedCertificate}

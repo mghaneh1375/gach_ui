@@ -7,9 +7,12 @@ import certTranslator from '../Translator';
 import {getCertificate} from '../Utility';
 import columns from './TableStructure';
 import {routes} from '../../../../API/APIRoutes';
+import {Ops} from './Ops';
+
 function Report(props) {
   const [cert, setCert] = useState();
   const [isWorking, setIsWorking] = useState(false);
+  const [selectedId, setSelectedId] = useState();
 
   React.useEffect(() => {
     if (cert !== undefined || isWorking) {
@@ -41,6 +44,7 @@ function Report(props) {
 
   const handleOp = idx => {
     setSelectedUser(props.data[idx]);
+    // setSelectedId(props.data[idx].id);
     toggleShowOpPopUp();
   };
 
@@ -49,6 +53,18 @@ function Report(props) {
       header={'لیست'}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
+      {showOpPopUp && (
+        <Ops
+          id={selectedUser}
+          Certificate={props.setSelectedCertificate}
+          toggleShowPopUp={toggleShowOpPopUp}
+          token={props.token}
+          setLoading={props.setLoading}
+          remove={props.remove}
+          update={props.update}
+          setMode={props.setMode}
+        />
+      )}
       {cert !== undefined && (
         <CommonDataTable
           handleOp={handleOp}

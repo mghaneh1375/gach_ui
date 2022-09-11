@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {CommonButton} from '../../styles/Common';
+import {styles} from '../../styles/Common/Styles';
 import vars from '../../styles/root';
 import {Nav, NavLink} from '../../styles/web/NavbarElement';
 
@@ -13,13 +14,27 @@ const Navbar = props => {
   return (
     <div style={{width: '100%'}}>
       <Nav>
-        <NavLink to="/buy">آزمون ها</NavLink>
-        <NavLink to="/">رویداد ها</NavLink>
-        <NavLink to="/">اخبار</NavLink>
-        <NavLink to="/">رتبه بندی</NavLink>
-        <NavLink to="/">همکاران</NavLink>
-        <NavLink to="/">راهنما</NavLink>
-        <NavLink to="/">تماس با ما</NavLink>
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/buy">
+          آزمون ها
+        </NavLink>
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
+          رویداد ها
+        </NavLink>
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
+          اخبار
+        </NavLink>
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
+          رتبه بندی
+        </NavLink>
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
+          همکاران
+        </NavLink>
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
+          راهنما
+        </NavLink>
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
+          تماس با ما
+        </NavLink>
         <CommonButton
           style={{
             backgroundColor: vars.DARK_BLUE,

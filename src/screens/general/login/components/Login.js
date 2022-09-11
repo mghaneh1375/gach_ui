@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
+import {getWidthHeight} from '../../../../services/Utility';
 import {CommonButton, MyView, MyViewWithRef} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import commonTranlator from './../../../../translator/Common';
@@ -38,9 +39,15 @@ const Login = props => {
       }
     });
   }, [props, username, password]);
+  const width = getWidthHeight()[0];
 
   return (
-    <MyView style={{paddingLeft: 50}}>
+    <MyView
+      style={{
+        paddingLeft: 50,
+        paddingRight: width > 768 ? 0 : 50,
+        paddingTop: width > 768 ? 0 : 15,
+      }}>
       <CommonTextInput
         placeholder={translator.phoneOrMail}
         subText={translator.phoneOrMail}

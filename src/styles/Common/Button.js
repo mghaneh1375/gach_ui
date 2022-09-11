@@ -46,6 +46,7 @@ export const CommonButtonTextStyleWeb = {
   color: vars.WHITE,
   fontSize: 14,
   fontFamily: 'IRANSans',
+  whiteSpace: 'nowrap',
 };
 export const justifyContentEnd = {
   justifyContent: 'end',

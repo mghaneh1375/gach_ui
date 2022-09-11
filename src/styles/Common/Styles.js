@@ -190,8 +190,14 @@ export const styles = {
   flexWrap: {
     flexWrap: 'wrap',
   },
+  whiteSpaceNoWrap: {
+    whiteSpace: 'nowrap',
+  },
   minWidth200: {
     minWidth: 200,
+  },
+  width100: {
+    width: '100%',
   },
   flexNoWrap: {
     flexWrap: 'nowrap',

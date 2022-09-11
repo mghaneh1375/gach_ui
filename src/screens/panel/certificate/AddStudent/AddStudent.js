@@ -49,6 +49,11 @@ function AddStudent(props) {
       setIsWorking(false);
     });
   }, [props, isWorking]);
+
+  console.log('====================================');
+  console.log(params);
+  console.log('====================================');
+
   return (
     <CommonWebBox
       header={certTranslator.addStudents}
@@ -62,22 +67,20 @@ function AddStudent(props) {
           value={nid}
           justNum={true}
         />
-        {userData !== undefined &&
-          params !== undefined &&
-          params.map((elem, index) => {
-            return (
-              <JustBottomBorderTextInput
-                value={userData[index]}
-                onChangeText={e => {
-                  let tmp = userData;
-                  tmp[index] = e;
-                  setUserData(tmp);
-                }}
-                key={index}
-                subText={elem.title}
-              />
-            );
-          })}
+        {params.map((elem, index) => {
+          return (
+            <JustBottomBorderTextInput
+              value={userData[index]}
+              onChangeText={e => {
+                let tmp = userData;
+                tmp[index] = e;
+                setUserData(tmp);
+              }}
+              key={index}
+              subText={elem.title}
+            />
+          );
+        })}
       </PhoneView>
       <CommonButton
         title={commonTranslator.confirm}

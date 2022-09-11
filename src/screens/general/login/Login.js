@@ -14,6 +14,7 @@ import ResetPassModule from './components/ResetPass';
 import VerificationModule from './components/Verification';
 import SignupModule from './components/Signup';
 import RoleFormModule from './components/RoleForm';
+import {style} from '../../../components/web/LargeScreen/Header/style';
 
 const Login = props => {
   const device = getDevice();
@@ -65,7 +66,7 @@ const Login = props => {
       source={require('./../../../images/back3.png')}>
       <MyView style={{...commonStyles.ContentView}}>
         <TextIcon
-          style={{marginTop: 20}}
+          style={{marginTop: 20, marginRight: 10, marginLeft: 10}}
           text={translator.entryText}
           icon={faClose}
           onPress={() =>
@@ -73,7 +74,7 @@ const Login = props => {
           }
         />
         {mode === 'login' && (
-          <MyView style={{paddingLeft: 50}}>
+          <MyView style={{...style.ParentLoginModule}}>
             <LoginModule
               navigate={navigate}
               // style={{marginTop: 20}}

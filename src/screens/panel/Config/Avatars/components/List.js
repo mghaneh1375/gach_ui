@@ -2,6 +2,7 @@ import React from 'react';
 import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
 import Show from './Show/Show';
 import translator from '../Translator';
+// import WheelsOfPrizes from '../../../../../components/web/WheelsOfPrizes/WheelsOfPrizes';
 
 function List(props) {
   const setDefaultAvatar = avatarId => {
@@ -20,6 +21,7 @@ function List(props) {
   };
   return (
     <MyView>
+      {/* <WheelsOfPrizes /> */}
       <CommonWebBox
         header={translator.avatars}
         addBtn={true}

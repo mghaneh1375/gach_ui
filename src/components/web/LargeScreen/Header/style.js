@@ -4,6 +4,8 @@ import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import vars from '../../../../styles/root';
 
+const width = getWidthHeight()[0];
+
 export const style = {
   LogoJustLarge: {
     width: vars.RIGHT_MENU_WIDTH,
@@ -70,7 +72,11 @@ export const style = {
     height: 40,
     zIndex: 2,
     alignItems: 'center',
+    width: width < 768 ? '85%' : 'unset',
   },
+  // Header_Profile_Div: {
+  //   width: width < 768 ? '100%' : '100%',
+  // },
   Header_Profile_Image_App: {
     left: -10,
   },
@@ -98,7 +104,7 @@ export const style = {
   },
   Header_Profile_MENU: {
     width: '100%',
-    height: 150,
+    height: width < 768 ? 175 : 150,
     overflow: 'auto',
     backgroundColor: vars.WHITE,
     borderBottomRightRadius: 10,
@@ -107,20 +113,24 @@ export const style = {
     minWidth: 140,
     zIndex: 0,
     padding: 10,
+    marginTop: width < 768 ? -175 : 0,
   },
   Header_Profile_Notif: {
     width: '100%',
     height: 120,
     overflow: 'auto',
     backgroundColor: vars.WHITE,
-    borderBottomRightRadius: 10,
-    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: width < 768 ? 0 : 10,
+    borderBottomLeftRadius: width < 768 ? 0 : 10,
+    borderTopRightRadius: width < 768 ? 10 : 0,
+    borderTopLeftRadius: width < 768 ? 10 : 0,
     boxShadow: '0px 3px 6px #00000029',
     minWidth: 140,
     left: 100,
     zIndex: 0,
     padding: 10,
-    marginTop: 0,
+    marginTop: width < 768 ? -161 : 'unset',
+
     alignItems: 'center',
   },
   Header_NOTIF: {
@@ -136,8 +146,11 @@ export const style = {
     width: vars.RIGHT_MENU_WIDTH,
     height: 'calc(100vh - 60px - 10px)',
   },
+  width100: {
+    width: width < 768 ? '100%' : 'unset',
+  },
   MenuJustPhone: {
-    width: '98%',
+    width: '96%',
     height: getWidthHeight()[1] - 70,
   },
   Menu: {
@@ -145,6 +158,8 @@ export const style = {
     paddingTop: 20,
     backgroundColor: vars.WHITE,
     boxShadow: '0px 3px 6px #00000029',
+    marginRight: width < 768 ? 10 : 'unset',
+    marginLeft: width < 768 ? 10 : 'unset',
   },
   MenuItem: {
     cursor: 'pointer',
@@ -163,6 +178,9 @@ export const style = {
   },
   MenuItemFontContainerSelected: {
     backgroundColor: vars.YELLOW,
+  },
+  ParentLoginModule: {
+    paddingLeft: width < 768 ? 0 : 50,
   },
 };
 

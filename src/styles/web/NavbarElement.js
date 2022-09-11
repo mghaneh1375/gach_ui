@@ -16,7 +16,7 @@ export const Nav = styled.nav`
   align-items: center;
   justify-content: center;
   z-index: 12;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 900px) {
     display: none;
   }
 `;

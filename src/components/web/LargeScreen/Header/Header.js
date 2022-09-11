@@ -9,7 +9,7 @@ import {
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
 import {faAngleUp, faBell} from '@fortawesome/free-solid-svg-icons';
-import {getDevice} from '../../../../services/Utility';
+import {getDevice, getWidthHeight} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import {logout} from '../../../../API/User';
 import commonTranslator from '../../../../translator/Common';
@@ -67,6 +67,8 @@ const Header = props => {
     setPic(props.pic);
   }, [props.pic]);
   if (isLargePage || props.isRightMenuVisible) {
+    const width = getWidthHeight()[0];
+
     return (
       <PhoneView
         style={
@@ -84,18 +86,14 @@ const Header = props => {
                 ...style.HeaderJustWebPhone,
               }
         }>
-        <MyView
-          style={
-            isLargePage
-              ? {...style.Header_Profile, ...style.Header_Profile_Large}
-              : {...style.Header_Profile, ...style.Header_Profile_Phone}
-          }>
+        <MyView style={{...style.Header_Profile}}>
           <div
             style={{
               display: 'flex',
               alignItems: 'stretch',
               flexFlow: 'row wrap',
               flexShrink: 1,
+              width: '100%',
             }}
             ref={wrapperRef}>
             <UserTinyPic
@@ -112,7 +110,13 @@ const Header = props => {
                   : {
                       ...style.Header_Profile_Image,
                       ...style.Header_Profile_Image_Web,
-                      marginRight: showProfilePane ? 'calc(50% - 25px)' : -15,
+                      marginRight:
+                        width < 768 && showProfilePane
+                          ? 10
+                          : width > 768 && showProfilePane
+                          ? 'calc(50% - 25px)'
+                          : -15,
+                      marginTop: width < 768 && showProfilePane ? -121 : -5,
                     }
               }
               pic={pic}
@@ -165,7 +169,10 @@ const Header = props => {
 
             {showProfilePane && (
               <MyView
-                style={{...style.Header_Profile_MENU, ...styles.boxShadow}}>
+                style={{
+                  ...style.Header_Profile_MENU,
+                  ...styles.boxShadow,
+                }}>
                 <SimpleText
                   style={
                     isApp
