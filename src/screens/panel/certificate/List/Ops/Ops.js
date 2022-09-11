@@ -54,6 +54,11 @@ function Ops(props) {
               theme={'transparent'}
               title={commonTranslator.delete}
             />
+            <CommonButton
+              onPress={() => props.setMode('report')}
+              theme={'transparent'}
+              title={'لیست نفرات دریافت کننده'}
+            />
           </PhoneView>
         </LargePopUp>
       )}

@@ -10,10 +10,24 @@ import {addUserToCert, getCertificate} from '../Utility';
 function AddStudent(props) {
   const [nid, setNid] = useState();
   const [userData, setUserData] = useState();
+  const [params, setParams] = useState();
   const [isWorking, setIsWorking] = useState(false);
 
   React.useEffect(() => {
-    if (props.selectedCertificate.params !== undefined || isWorking) return;
+    if (isWorking) {
+      // if (props.selectedCertificate.params !== undefined || isWorking) {
+      //   if (props.selectedCertificate.params !== undefined) {
+      //     let tmp = [];
+      //     console.log('====================================');
+      //     console.log(props.selectedCertificate.params);
+      //     console.log('====================================');
+      //     props.selectedCertificate.params.forEach(element => {
+      //       tmp.push(undefined);
+      //     });
+      //     setUserData(tmp);
+      //   }
+      return;
+    }
     setIsWorking(true);
     props.setLoading(true);
 
@@ -30,7 +44,8 @@ function AddStudent(props) {
         tmp.push(undefined);
       });
       setUserData(tmp);
-      props.update(res[0]);
+      setParams(res[0]);
+      // props.update(res[0]);
       setIsWorking(false);
     });
   }, [props, isWorking]);
@@ -45,9 +60,11 @@ function AddStudent(props) {
           placeholder={commonTranslator.NID}
           subText={commonTranslator.NID}
           value={nid}
+          justNum={true}
         />
-        {props.selectedCertificate.params !== undefined &&
-          props.selectedCertificate.params.map((elem, index) => {
+        {userData !== undefined &&
+          params !== undefined &&
+          params.map((elem, index) => {
             return (
               <JustBottomBorderTextInput
                 value={userData[index]}
@@ -57,7 +74,6 @@ function AddStudent(props) {
                   setUserData(tmp);
                 }}
                 key={index}
-                placeholder={elem.title}
                 subText={elem.title}
               />
             );
@@ -72,9 +88,7 @@ function AddStudent(props) {
             nid,
             props.token,
           );
-          // console.log('====================================');
-          // console.log(res);
-          // console.log('====================================');
+          if (res !== null) props.setMode('list');
         }}
       />
     </CommonWebBox>

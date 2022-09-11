@@ -11,6 +11,7 @@ import Create from './Create/Create';
 import AttachBox from '../ticket/components/Show/AttachBox/AttachBox';
 import AddStudent from './AddStudent/AddStudent';
 import {getCertificate, getCertificates} from './Utility';
+import Report from './Report/Report';
 
 const Certificate = props => {
   const queryString = require('query-string');
@@ -79,12 +80,20 @@ const Certificate = props => {
       {mode === 'addStudent' && (
         <AddStudent
           setMode={setMode}
-          addItem={i => addItem(data, setData, i)}
+          // addItem={i => addItem(data, setData, i)}
           setLoading={setLoading}
-          update={item => {
-            editItem(data, setData, item);
-            setSelectedCertificate(item);
-          }}
+          // update={item => {
+          //   editItem(data, setData, item);
+          //   setSelectedCertificate(item);
+          // }}
+          selectedCertificate={selectedCertificate}
+          token={props.token}
+        />
+      )}
+      {mode === 'report' && (
+        <Report
+          setMode={setMode}
+          setLoading={setLoading}
           selectedCertificate={selectedCertificate}
           token={props.token}
         />

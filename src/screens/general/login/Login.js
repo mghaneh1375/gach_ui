@@ -63,7 +63,7 @@ const Login = props => {
       style={{minHeight: height}}
       resizeMode="contain"
       source={require('./../../../images/back3.png')}>
-      <MyView style={commonStyles.ContentView}>
+      <MyView style={{...commonStyles.ContentView}}>
         <TextIcon
           style={{marginTop: 20}}
           text={translator.entryText}
