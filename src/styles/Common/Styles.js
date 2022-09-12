@@ -92,6 +92,9 @@ export const styles = {
   margin25: {
     marginTop: 25,
   },
+  margin30: {
+    margin: 30,
+  },
   marginAuto: {
     margin: 'auto',
   },

@@ -15,6 +15,7 @@ import VerificationModule from './components/Verification';
 import SignupModule from './components/Signup';
 import RoleFormModule from './components/RoleForm';
 import {style} from '../../../components/web/LargeScreen/Header/style';
+import {styles} from '../../../styles/Common/Styles';
 
 const Login = props => {
   const device = getDevice();
@@ -84,14 +85,13 @@ const Login = props => {
 
             <TextWithLink
               onPress={() => changeMode('signUp')}
-              style={{marginTop: 30}}
+              style={{...styles.margin30}}
               link={translator.subscrible}
               text={translator.ifNotSubscribe}
             />
-
             <TextWithLink
               onPress={() => changeMode('forget')}
-              style={{marginTop: 130}}
+              style={{...styles.margin30}}
               text={translator.ifForget}
               link={translator.forgetAction}
             />

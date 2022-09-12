@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
+import {style} from '../../../../components/web/LargeScreen/Header/style';
 import {showError, showSuccess} from '../../../../services/Utility';
 import {CommonButton, MyView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
@@ -49,7 +50,7 @@ const ResetPass = props => {
   };
 
   return (
-    <MyView style={{paddingLeft: 50}}>
+    <MyView style={{paddingLeft: 50, ...style.paddingRight40}}>
       <CommonTextInput
         placeholder={translator.password}
         subText={translator.passwordFilter}

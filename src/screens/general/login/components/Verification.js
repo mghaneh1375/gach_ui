@@ -3,6 +3,7 @@ import CodeInput from 'react-native-confirmation-code-input';
 import {routes} from '../../../../API/APIRoutes';
 import {fetchUser, setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
+import {style} from '../../../../components/web/LargeScreen/Header/style';
 import {showError} from '../../../../services/Utility';
 import {
   TextLink,
@@ -111,7 +112,7 @@ const Verification = props => {
   }, [RefCodeInput]);
 
   return (
-    <MyView style={{paddingLeft: 50}}>
+    <MyView style={{paddingLeft: 50, ...style.paddingRight50}}>
       <BlueTextInline
         style={{marginTop: 20}}
         text={translator.enterVerification}

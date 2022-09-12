@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
+import {style} from '../../../../components/web/LargeScreen/Header/style';
 import {showError} from '../../../../services/Utility';
 import {
   BlueTextFromStart,
@@ -77,7 +78,7 @@ const ForgetPass = props => {
     <MyView style={props.style !== undefined ? props.style : {}}>
       <BlueTextFromStart text={translator.forgetPass} />
       {step === 'forget' && (
-        <MyView style={{paddingLeft: 50}}>
+        <MyView style={{paddingLeft: 50, ...style.paddingRight50}}>
           <CommonTextInput
             style={{marginTop: 20}}
             value={props.username}

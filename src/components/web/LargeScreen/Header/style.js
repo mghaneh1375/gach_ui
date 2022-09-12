@@ -182,6 +182,9 @@ export const style = {
   ParentLoginModule: {
     paddingLeft: width < 768 ? 0 : 50,
   },
+  paddingRight50: {
+    paddingRight: width > 768 ? 0 : 50,
+  },
 };
 
 export const MenuItem = props => {

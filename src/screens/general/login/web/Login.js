@@ -175,7 +175,7 @@ const Login = props => {
             />
           </InlineTextContainer>
 
-          <MyView style={{paddingLeft: 50}}>
+          <MyView style={{paddingLeft: 30}}>
             <PhoneView style={{marginTop: 10, justifyContent: 'space-between'}}>
               <BlueTextInline
                 style={{alignSelf: 'center'}}

@@ -15,6 +15,8 @@ import commonTranslator from './../../../../translator/Common';
 import {routes} from '../../../../API/APIRoutes';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import {changeText, showError} from '../../../../services/Utility';
+import {style} from '../../../../components/web/LargeScreen/Header/style';
+import {styles} from '../../../../styles/Common/Styles';
 
 const Signup = props => {
   const [firstname, setFirstname] = useState();
@@ -80,7 +82,14 @@ const Signup = props => {
   return (
     <MyView
       style={
-        props.style !== undefined ? props.style : {gap: 5, paddingLeft: 50}
+        props.style !== undefined
+          ? {
+              ...props.style,
+              paddingLeft: 50,
+              ...style.paddingRight50,
+              ...styles.marginBottom20,
+            }
+          : {gap: 5, paddingLeft: 50, ...style.paddingRight50}
       }>
       <EqualTwoTextInputs>
         <CommonTextInput
@@ -88,12 +97,12 @@ const Signup = props => {
           subText={commonTranslator.firstname}
           value={firstname}
           onChangeText={e => changeInput('firstname', e)}
-          style={{minWidth: '48%'}}
+          style={{minWidth: '40%'}}
         />
         <CommonTextInput
           placeholder={commonTranslator.lastname}
           subText={commonTranslator.lastname}
-          style={{minWidth: '48%'}}
+          style={{minWidth: '40%'}}
           value={lastname}
           onChangeText={e => changeInput('lastname', e)}
         />
