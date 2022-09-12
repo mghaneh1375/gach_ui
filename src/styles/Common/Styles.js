@@ -51,6 +51,9 @@ export const styles = {
   fontSize20: {
     fontSize: 20,
   },
+  fontSize25: {
+    fontSize: 25,
+  },
   FontWeight600: {
     fontWeight: 600,
   },
@@ -228,6 +231,9 @@ export const styles = {
   },
   padding10: {
     padding: 10,
+  },
+  padding20: {
+    padding: 20,
   },
   margin5: {
     margin: 5,

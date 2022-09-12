@@ -35,8 +35,6 @@ function AccountCharge(props) {
       ref.current.submit();
     }, 1000);
   }, [refId]);
-
-  //آقای عادلی گفتن این پاپ آپ هم میتونه باشه
   return (
     <CommonWebBox
       width={390}
