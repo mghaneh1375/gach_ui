@@ -22,7 +22,7 @@ const columns = [
   },
   {
     name: Translate.horizontalDistance,
-    selector: row => row.fromRightScreen,
+    selector: row => row.qrHorizontalDistance,
     grow: 1,
     center: true,
   },
@@ -34,7 +34,7 @@ const columns = [
   },
   {
     name: Translate.rightDistance,
-    selector: row => row.offset,
+    selector: row => row.centerOffset,
     grow: 1,
     center: true,
   },

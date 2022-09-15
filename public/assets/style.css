@@ -295,8 +295,18 @@ textarea:focus-visible {
 .rdt_Pagination {
   direction: ltr !important;
   justify-content: flex-start !important;
+  font-family: IRANSans;
+  flex-direction: row-reverse;
 }
-
+option {
+  font-family: IRANSans;
+}
+.sc-cOFTSb {
+  font-family: IRANSans;
+}
+.rdt_Pagination > div:nth-child(2) {
+  margin-left: auto;
+}
 .rdt_TableHeadRow {
   background-color: #013243 !important;
   color: white !important;
