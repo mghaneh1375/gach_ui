@@ -162,6 +162,7 @@ function Create(props) {
               subText={Translate.qrSize}
               value={qrSize}
               onChangeText={text => changeText(text, setQrSize)}
+              justNum={true}
             />
             <JustBottomBorderTextInput
               placeholder={Translate.horizontalDistance}
@@ -192,6 +193,16 @@ function Create(props) {
             onPress={() => setXMode('center')}
             text={Translate.center}
           />
+          {xMode === 'center' && (
+            <JustBottomBorderTextInput
+              onChangeText={props.onChangeText}
+              justNum={true}
+              placeholder={Translate.offset}
+              subText={Translate.offset}
+              value={props.offset}
+              setOffset={props.setOffset}
+            />
+          )}
           <JustBottomBorderTextInput
             placeholder={Translate.paramName}
             subText={Translate.paramName}
@@ -204,12 +215,14 @@ function Create(props) {
             value={trueFalseValues.find(elem => elem.id === isBold)}
             values={trueFalseValues}
             setter={setIsBold}
+            justNum={true}
           />
           <JustBottomBorderTextInput
             placeholder={Translate.fontSize}
             subText={Translate.matchingWord}
             value={fontSize}
             onChangeText={text => changeText(text, setFontSize)}
+            justNum={true}
           />
           {xMode === 'fromRight' && (
             <JustBottomBorderTextInput
@@ -217,6 +230,7 @@ function Create(props) {
               subText={Translate.fromRightScreen}
               value={fromRightScreen}
               onChangeText={text => changeText(text, setFromRightScreen)}
+              justNum={true}
             />
           )}
 
@@ -225,18 +239,8 @@ function Create(props) {
             subText={Translate.fromTopScreen}
             value={fromTopScreen}
             onChangeText={text => changeText(text, setFromTopScreen)}
+            justNum={true}
           />
-
-          {xMode === 'center' && (
-            <JustBottomBorderTextInput
-              onChangeText={props.onChangeText}
-              justNum={true}
-              placeholder={Translate.offset}
-              subText={Translate.offset}
-              value={props.offset}
-              setOffset={props.setOffset}
-            />
-          )}
         </PhoneView>
         <MyView style={{...styles.alignItemsEnd}}>
           <PhoneView style={{...styles.gap15}}>
@@ -279,11 +283,7 @@ function Create(props) {
             <PhoneView style={{marginTop: 20}}>
               {filesContent.map((file, index) => {
                 return (
-                  <AttachBox
-                    filename={file.name}
-                    fileContent={file.content}
-                    removeAttach={removeAttach}
-                  />
+                  <AttachBox filename={file.name} fileContent={file.content} />
                 );
               })}
             </PhoneView>
