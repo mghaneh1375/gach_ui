@@ -285,40 +285,40 @@ const CommonDataTable = props => {
         </select>
       )}
       {state.data !== undefined && (
-        // <DataTableExtensions
-        //   filter={false}
-        //   exportHeaders={true}
-        //   print={false}
-        //   export={true}>
-        <DataTable
-          columns={state.columns}
+        <DataTableExtensions
+          filter={false}
+          exportHeaders={true}
+          print={false}
           data={state.data}
-          pagination={
-            props.pagination === undefined || props.pagination ? true : false
-          }
-          paginationComponentOptions={paginationComponentOptions}
-          paginationRowsPerPageOptions={[10, 25, 50, 100]}
-          customStyles={customStyles}
-          selectableRows={
-            (state.ops !== undefined && state.ops.length > 0) ||
-            props.onRowSelect !== undefined
-          }
-          persistTableHead={true}
-          onSelectedRowsChange={
-            props.onRowSelect === undefined
-              ? ({selectedRows}) => onChangeSelectedRows(selectedRows)
-              : ({selectedRows}) => props.onRowSelect(selectedRows)
-          }
-          clearSelectedRows={toggledClearRows}
-          conditionalRowStyles={props.conditionalRowStyles}
-          onChangePage={page => {
-            dispatch({type: 'changeCurrPage', page: page});
-          }}
-          onChangeRowsPerPage={(perPage, page) => {
-            dispatch({type: 'changePerPage', perPage: perPage, page: page});
-          }}
-        />
-        // </DataTableExtensions>
+          columns={state.columns}
+          export={true}>
+          <DataTable
+            pagination={
+              props.pagination === undefined || props.pagination ? true : false
+            }
+            paginationComponentOptions={paginationComponentOptions}
+            paginationRowsPerPageOptions={[10, 25, 50, 100]}
+            customStyles={customStyles}
+            selectableRows={
+              (state.ops !== undefined && state.ops.length > 0) ||
+              props.onRowSelect !== undefined
+            }
+            persistTableHead={true}
+            onSelectedRowsChange={
+              props.onRowSelect === undefined
+                ? ({selectedRows}) => onChangeSelectedRows(selectedRows)
+                : ({selectedRows}) => props.onRowSelect(selectedRows)
+            }
+            clearSelectedRows={toggledClearRows}
+            conditionalRowStyles={props.conditionalRowStyles}
+            onChangePage={page => {
+              dispatch({type: 'changeCurrPage', page: page});
+            }}
+            onChangeRowsPerPage={(perPage, page) => {
+              dispatch({type: 'changePerPage', perPage: perPage, page: page});
+            }}
+          />
+        </DataTableExtensions>
       )}
     </MyView>
   );

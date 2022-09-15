@@ -1,30 +1,21 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../styles/Common';
-import DynamicParameters from './components/DynamicParameters';
-import SelectFile from './components/SelectFile';
-import NextButtons from './components/NextButtons';
-import certTranslator from './Translator';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {MyView} from '../../../styles/Common';
+
+import {dispatchStateContext} from '../../../App';
 import List from './List/List';
 import {addItem, editItem, removeItems} from '../../../services/Utility';
 import Create from './Create/Create';
-import AttachBox from '../ticket/components/Show/AttachBox/AttachBox';
 import AddStudent from './AddStudent/AddStudent';
-import {getCertificate, getCertificates} from './Utility';
-import Report from './Report/Report';
+import {getCertificates} from './Utility';
+import Students from './Students/List';
 
 const Certificate = props => {
-  const queryString = require('query-string');
   const navigate = props.navigate;
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [mode, setMode] = useState('list');
-  const [state, dispatch] = useGlobalState();
+  const [dispatch] = useGlobalState();
   const [data, setData] = useState();
-  const [addStudent, setAddStudent] = useState();
   const [selectedCertificate, setSelectedCertificate] = useState();
 
   React.useEffect(() => {}, [selectedCertificate]);
@@ -80,19 +71,13 @@ const Certificate = props => {
       {mode === 'addStudent' && (
         <AddStudent
           setMode={setMode}
-          // addItem={i => addItem(data, setData, i)}
           setLoading={setLoading}
-          // update={item => {
-          //   editItem(data, setData, item);
-          //   setSelectedCertificate(item);
-          // }}
           selectedCertificate={selectedCertificate}
           token={props.token}
         />
       )}
       {mode === 'report' && (
-        <Report
-          data={data}
+        <Students
           setMode={setMode}
           setLoading={setLoading}
           selectedCertificate={selectedCertificate}

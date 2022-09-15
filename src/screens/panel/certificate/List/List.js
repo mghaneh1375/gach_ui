@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {routes} from '../../../../API/APIRoutes';
 import {CommonWebBox} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import certTranslator from '../Translator';
@@ -39,7 +40,7 @@ function List(props) {
         data={props.data}
         setData={props.setData}
         handleOp={handleOp}
-        //   removeUrl={routes.removeCertificate}
+        removeUrl={routes.removeCertificate}
         token={props.token}
         setLoading={props.setLoading}
       />

@@ -45,3 +45,15 @@ export const addUserToCert = async (data, id, nid, token) => {
 
   return res;
 };
+export const editUserInCert = async (data, id, nid, token) => {
+  let res = await generalRequest(
+    routes.editUserInCert + id + '/' + nid,
+    'put',
+    data,
+    undefined,
+    token,
+  );
+  if (res !== null) showSuccess();
+
+  return res;
+};

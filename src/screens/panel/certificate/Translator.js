@@ -29,6 +29,7 @@ const certTranslator = {
   selectFiles: 'هنوز فایلی انخاب نشده است - نام فایل*',
   addStudent: 'افزودن نفرات به گواهی',
   addStudents: 'افزودن دانش آموز',
+  downloadAt: 'تاریخ دانلود',
 };
 
 export default certTranslator;

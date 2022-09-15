@@ -4,14 +4,12 @@ import {
   faRotateRight,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import RadioButtonYesOrNo from '../../../../components/web/RadioButtonYesOrNo';
 import {
   changeText,
   showError,
   trueFalseValues,
 } from '../../../../services/Utility';
 import {
-  CommonButton,
   CommonRadioButton,
   CommonWebBox,
   MyView,
@@ -30,7 +28,6 @@ import {addCertificate} from '../Utility';
 import NextButtons from '../components/NextButtons';
 import commonTranslator from '../../../../translator/Common';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import QuizGeneralInfo from '../../quiz/components/Create/QuizGeneralInfo';
 import {fileRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 
