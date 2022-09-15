@@ -62,7 +62,7 @@ const Certificate = props => {
         <Create
           user={props.user}
           setMode={setMode}
-          selectedCertificate={selectedCertificate}
+          certId={selectedCertificate.id}
           update={item => editItem(data, setData, item)}
           setLoading={setLoading}
           token={props.token}

@@ -1,4 +1,3 @@
-import React from 'react';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {showSuccess} from '../../../services/Utility';
@@ -15,6 +14,20 @@ export const addCertificate = async (data, token) => {
 
   return res;
 };
+
+export const editCertificate = async (id, data, token) => {
+  let res = await generalRequest(
+    routes.editCertificate + id,
+    'post',
+    data,
+    'id',
+    token,
+  );
+  if (res !== null) showSuccess();
+
+  return res;
+};
+
 export const getCertificates = async token => {
   return await generalRequest(
     routes.fetchAllCertificate,

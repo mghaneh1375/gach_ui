@@ -24,7 +24,7 @@ import AttachBox from '../../ticket/components/Show/AttachBox/AttachBox';
 import Translate from '../Translator';
 import columns from './TableStructure';
 import {useFilePicker} from 'use-file-picker';
-import {addCertificate} from '../Utility';
+import {addCertificate, editCertificate, getCertificate} from '../Utility';
 import NextButtons from '../components/NextButtons';
 import commonTranslator from '../../../../translator/Common';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
@@ -55,9 +55,6 @@ function Create(props) {
       multiple: false,
     });
 
-  const removeAttach = index => {
-    remove(index);
-  };
   const clearData = React.useCallback(() => {
     setParamName('');
     setFontSize('');
@@ -123,6 +120,47 @@ function Create(props) {
     tableData,
     clearData,
   ]);
+
+  const [data, setData] = useState();
+  const [isWorking, setIsWorking] = useState(false);
+
+  React.useEffect(() => {
+    if (props.certId === undefined || data !== undefined || isWorking) return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+
+    Promise.all([getCertificate(props.certId, props.token)]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null) {
+        props.setMode('list');
+        return;
+      }
+      setData(res[0]);
+      setCertName(res[0].title);
+      setTableData(
+        res[0].params.map(elem => {
+          let tmp = {
+            paramName: elem.title,
+            fromTopScreen: elem.y,
+            xMode: elem.x === undefined ? 'center' : 'fromRight',
+            isCenter: elem.x === undefined ? true : false,
+            isBold: elem.isBold,
+            fontSize: elem.fontSize,
+          };
+          if (tmp.xMode === 'fromRight') tmp['fromRightScreen'] = elem.x;
+          else tmp['offset'] = elem.centerOffset;
+          return tmp;
+        }),
+      );
+      setQrSize(res[0].qrSize);
+      setIsLandscape(res[0].isLandscape);
+      setQrHorizontalDistance(res[0].qrX);
+      setQrVerticalDistance(res[0].qrY);
+
+      setIsWorking(false);
+    });
+  }, [props, isWorking, data]);
 
   return (
     <MyView>
@@ -278,29 +316,31 @@ function Create(props) {
           />
           {filesContent !== undefined && filesContent.length > 0 && (
             <PhoneView style={{marginTop: 20}}>
-              {filesContent.map((file, index) => {
-                return (
-                  <AttachBox filename={file.name} fileContent={file.content} />
-                );
-              })}
+              <AttachBox
+                filename={filesContent[0].name}
+                fileContent={filesContent[0].content}
+              />
             </PhoneView>
+          )}
+          {filesContent === undefined && data !== undefined && (
+            <AttachBox filename={data.img} />
           )}
         </PhoneView>
       </CommonWebBox>
       <NextButtons
+        onCancel={() => props.setMode('list')}
         onNext={async () => {
-          //   props.setLoading(true);
           if (
             tableData === undefined ||
             tableData.length === 0 ||
-            filesContent === undefined ||
-            filesContent.length === 0
+            (props.certId === undefined &&
+              (filesContent === undefined || filesContent.length === 0))
           ) {
             showError(commonTranslator.pleaseFillAllFields);
             return;
           }
 
-          let data = {
+          let certData = {
             title: certName,
             isLandscape: isLandscape,
             qrX: qrHorizontalDistance,
@@ -325,34 +365,42 @@ function Create(props) {
               return elem;
             }),
           };
+          props.setLoading(true);
 
-          let res = await addCertificate(data, props.token);
+          let res =
+            props.certId === undefined
+              ? await addCertificate(certData, props.token)
+              : await editCertificate(props.certId, certData, props.token);
+
+          props.setLoading(false);
+
           if (res !== null) {
-            data.id = res;
+            certData.id = props.certId === undefined ? res : props.certId;
 
-            let formData = new FormData();
-            var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
-            formData.append('file', myblob, filesContent[0].name);
+            if (filesContent !== undefined && filesContent.length > 0) {
+              let formData = new FormData();
+              var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
+              formData.append('file', myblob, filesContent[0].name);
 
-            res = await fileRequest(
-              routes.setCertificateImg + res,
-              'put',
-              formData,
-              'url',
-              props.token,
-            );
+              res = await fileRequest(
+                routes.setCertificateImg + res,
+                'put',
+                formData,
+                'url',
+                props.token,
+              );
 
-            if (res !== null) {
-              data.img = res;
-
-              props.addItem(data);
-              props.setMode('list');
+              if (res !== null) {
+                certData.img = res;
+                props.addItem(certData);
+              }
+            } else {
+              certData.img = data.img;
+              props.update(certData);
             }
-          }
 
-          //   props.setLoading(false);
-          //   props.addItem(res);
-          //   props.setMode('list');
+            props.setMode('list');
+          }
         }}
       />
     </MyView>

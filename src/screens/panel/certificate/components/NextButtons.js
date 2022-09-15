@@ -11,7 +11,7 @@ const NextButtons = props => {
   return (
     <CommonWebBox>
       <EqualTwoTextInputs>
-        <CommonButton title={translator.cancel} />
+        <CommonButton onPress={props.onCancel} title={translator.cancel} />
         <CommonButton
           style={{backgroundColor: vars.DARK_BLUE}}
           title={translator.nextStep}

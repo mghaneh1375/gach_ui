@@ -55,6 +55,8 @@ function List(props) {
       )}
       <CommonWebBox
         header={''}
+        addBtn={true}
+        onAddClick={() => props.setMode('addStudent')}
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
         {data !== undefined && (
