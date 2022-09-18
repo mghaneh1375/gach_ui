@@ -1,6 +1,8 @@
 import vars from './../root';
 import {Platform, Pressable} from 'react-native';
 import styled from 'styled-components';
+import {getDevice} from '../../services/Utility';
+import {Device} from '../../models/Device';
 
 const style = {
   textAlign: 'center',
@@ -38,15 +40,19 @@ const CommonButtonStyleWeb = {
 export const CommonButtonTextStyleAndroid = {
   textAlign: 'center',
   color: vars.WHITE,
-  fontSize: 24,
+  fontSize: 20,
 };
+
+const device = getDevice();
 
 export const CommonButtonTextStyleWeb = {
   textAlign: 'center',
   color: vars.WHITE,
-  fontSize: 14,
+  fontSize: device.indexOf(Device.WebPort) !== -1 ? 18 : 14,
   fontFamily: 'IRANSans',
   whiteSpace: 'nowrap',
+  paddingLeft: device.indexOf(Device.WebPort) !== -1 ? 40 : undefined,
+  paddingRight: device.indexOf(Device.WebPort) !== -1 ? 40 : undefined,
 };
 export const justifyContentEnd = {
   justifyContent: 'end',

@@ -176,7 +176,7 @@ const Login = props => {
           </InlineTextContainer>
 
           <MyView style={{paddingLeft: 30}}>
-            <PhoneView style={{marginTop: 10, justifyContent: 'space-between'}}>
+            <EqualTwoTextInputs style={{marginTop: 10}}>
               <BlueTextInline
                 style={{alignSelf: 'center'}}
                 text={translator.notSubscribeYet}
@@ -186,7 +186,7 @@ const Login = props => {
                 title={commonTranlator.signUp}
                 onPress={() => changeMode('signUp')}
               />
-            </PhoneView>
+            </EqualTwoTextInputs>
             <PhoneView style={{marginTop: 10, justifyContent: 'space-between'}}>
               <BlueTextInline
                 style={{alignSelf: 'center'}}

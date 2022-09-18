@@ -180,10 +180,17 @@ export const style = {
     backgroundColor: vars.YELLOW,
   },
   ParentLoginModule: {
-    paddingLeft: width < 768 ? 0 : 50,
+    paddingLeft: width < 768 ? 25 : 50,
+    paddingRight: width < 768 ? 25 : 0,
+  },
+  marginTop25: {
+    marginTop: width < 768 ? 25 : 0,
   },
   paddingRight50: {
-    paddingRight: width > 768 ? 0 : 50,
+    paddingRight: width < 768 ? 50 : 25,
+  },
+  paddingLeft50: {
+    paddingLeft: width > 768 ? 50 : 0,
   },
 };
 

@@ -74,6 +74,7 @@ export const CommonTextInput = props => {
         charCode !== 103 &&
         charCode !== 104 &&
         charCode !== 105 &&
+        charCode !== 46 &&
         String.fromCharCode(charCode).match(/[^0-9]/g)
       )
         e.preventDefault();

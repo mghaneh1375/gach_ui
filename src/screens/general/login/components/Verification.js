@@ -112,7 +112,7 @@ const Verification = props => {
   }, [RefCodeInput]);
 
   return (
-    <MyView style={{paddingLeft: 50, ...style.paddingRight50}}>
+    <MyView style={{...style.ParentLoginModule}}>
       <BlueTextInline
         style={{marginTop: 20}}
         text={translator.enterVerification}

@@ -1,5 +1,5 @@
-import {Text, View, Image, Pressable} from 'react-native';
-
+import {Text, Image, Pressable} from 'react-native';
+import React from 'react';
 import {
   NavItemStyle,
   NavItemContainerStyle,

@@ -81,32 +81,27 @@ const Signup = props => {
   };
   return (
     <MyView
-      style={
-        props.style !== undefined
-          ? {
-              ...props.style,
-              paddingLeft: 50,
-              ...style.paddingRight50,
-              ...styles.marginBottom20,
-            }
-          : {gap: 5, paddingLeft: 50, ...style.paddingRight50}
-      }>
-      <EqualTwoTextInputs>
+      style={{
+        ...props.style,
+        ...style.ParentLoginModule,
+        ...styles.marginBottom20,
+      }}>
+      <PhoneView style={{...styles.gap15}}>
         <CommonTextInput
+          isHalf={true}
           placeholder={commonTranslator.firstname}
           subText={commonTranslator.firstname}
           value={firstname}
           onChangeText={e => changeInput('firstname', e)}
-          style={{minWidth: '40%'}}
         />
         <CommonTextInput
+          isHalf={true}
           placeholder={commonTranslator.lastname}
           subText={commonTranslator.lastname}
-          style={{minWidth: '40%'}}
           value={lastname}
           onChangeText={e => changeInput('lastname', e)}
         />
-      </EqualTwoTextInputs>
+      </PhoneView>
 
       <CommonTextInput
         placeholder={commonTranslator.NID}

@@ -10,6 +10,7 @@ import {
   MyView,
 } from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
+import {styles} from '../../../../components/web/LargeScreen/Header/style';
 import commonTranslator from './../../../../translator/Common';
 import translator from './../translate';
 
@@ -78,7 +79,7 @@ const ForgetPass = props => {
     <MyView style={props.style !== undefined ? props.style : {}}>
       <BlueTextFromStart text={translator.forgetPass} />
       {step === 'forget' && (
-        <MyView style={{paddingLeft: 50, ...style.paddingRight50}}>
+        <MyView style={{...style.ParentLoginModule}}>
           <CommonTextInput
             style={{marginTop: 20}}
             value={props.username}

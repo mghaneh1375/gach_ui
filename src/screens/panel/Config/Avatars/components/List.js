@@ -3,6 +3,8 @@ import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
 import Show from './Show/Show';
 import translator from '../Translator';
 import MakeQuiz from '../../../../studentPanel/MakeQuiz/MakeQuiz';
+import {RoleCard} from '../../../../../styles/Common/RoleCard';
+import vars from '../../../../../styles/root';
 // import WheelsOfPrizes from '../../../../../components/web/WheelsOfPrizes/WheelsOfPrizes';
 
 function List(props) {
@@ -22,6 +24,12 @@ function List(props) {
   };
   return (
     <MyView>
+      <RoleCard
+        text={translator.avatars}
+        style={{marginTop: 20}}
+        color={vars.ORANGE}
+        source={require('../../../../../images/student.png')}
+      />
       <MakeQuiz />
       <CommonWebBox
         header={translator.avatars}

@@ -13,7 +13,7 @@ import {
 
 export default function BottomNavBar() {
   return (
-    <MyView style={NavContainerStyle}>
+    <MyView style={{...NavContainerStyle, justifyContent: 'center'}}>
       <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/login">
           <img

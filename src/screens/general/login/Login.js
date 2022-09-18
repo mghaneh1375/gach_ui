@@ -75,7 +75,7 @@ const Login = props => {
           }
         />
         {mode === 'login' && (
-          <MyView style={{...style.ParentLoginModule}}>
+          <MyView>
             <LoginModule
               navigate={navigate}
               // style={{marginTop: 20}}
@@ -146,6 +146,7 @@ const Login = props => {
         )}
         {mode === 'roleForm' && (
           <RoleFormModule
+            style={{...style.paddingLeft50}}
             signUp={true}
             token={token}
             setLoading={setLoading}
