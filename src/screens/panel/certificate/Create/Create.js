@@ -2,6 +2,7 @@ import {
   faPaperclip,
   faPlus,
   faRotateRight,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {
@@ -22,7 +23,6 @@ import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorde
 import {styles} from '../../../../styles/Common/Styles';
 import AttachBox from '../../ticket/components/Show/AttachBox/AttachBox';
 import Translate from '../Translator';
-import columns from './TableStructure';
 import {useFilePicker} from 'use-file-picker';
 import {addCertificate, editCertificate, getCertificate} from '../Utility';
 import NextButtons from '../components/NextButtons';
@@ -162,6 +162,74 @@ function Create(props) {
     });
   }, [props, isWorking, data]);
 
+  const columns = [
+    {
+      name: Translate.param,
+      selector: row => row.paramName,
+      grow: 1,
+      center: true,
+    },
+    {
+      name: Translate.typeOfFont,
+      selector: row => (row.isBold === true ? 'بولد' : 'عادی'),
+      grow: 1,
+      center: true,
+    },
+    {
+      name: Translate.fontSize,
+      selector: row => row.fontSize,
+      grow: 1,
+      center: true,
+    },
+    {
+      name: Translate.calcBased,
+      selector: row => (row.xMode === 'center' ? 'مرکز' : 'فاصله از راست'),
+      grow: 1,
+      center: true,
+    },
+    {
+      name: Translate.horizontalDistanceOrOffser,
+      selector: row =>
+        row.xMode === 'center' ? row.offset : row.fromRightScreen,
+      grow: 1,
+      center: true,
+    },
+    {
+      name: Translate.verticalDistance,
+      selector: row => row.fromTopScreen,
+      grow: 1,
+      center: true,
+    },
+    {
+      name: '',
+      style: {
+        justifyContent: 'end',
+      },
+      cell: (row, index, column, id) => {
+        return (
+          <SimpleFontIcon
+            onPress={() => {
+              console.log(tableData);
+              console.log(index);
+              console.log(id);
+              console.log(column);
+              console.log(row);
+              let tmp = tableData.filter((elem, idx) => {
+                console.log(idx + ' ' + index);
+                return index === idx;
+              });
+              setTableData(tmp);
+            }}
+            kind={'normal'}
+            style={{marginLeft: 100, alignSelf: 'center'}}
+            icon={faTrash}
+          />
+        );
+      },
+      grow: 1,
+    },
+  ];
+
   return (
     <MyView>
       <CommonWebBox
@@ -230,7 +298,7 @@ function Create(props) {
           />
           {xMode === 'center' && (
             <JustBottomBorderTextInput
-              onChangeText={props.onChangeText}
+              onChangeText={e => changeText(e, setOffset)}
               justNum={true}
               placeholder={Translate.offset}
               subText={Translate.offset}
@@ -296,12 +364,7 @@ function Create(props) {
             />
           </PhoneView>
         </MyView>
-        <CommonDataTable
-          onRowSelect={selectedRows => {}}
-          columns={columns}
-          data={tableData}
-          groupOps={[]}
-        />
+        <CommonDataTable groupOps={[]} columns={columns} data={tableData} />
       </CommonWebBox>
       <CommonWebBox>
         <PhoneView style={{...styles.gap15}}>
