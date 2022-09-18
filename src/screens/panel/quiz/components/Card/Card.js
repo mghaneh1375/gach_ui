@@ -53,23 +53,31 @@ function Card(props) {
               valFontSize={15}
             />
           )}
-          <QuizItemCard
-            text={Translate.kind}
-            val={kindQuizKeyVals.find(elem => elem.id === props.quiz.mode).item}
-            icon={faPlug}
-            textFontSize={11}
-            valFontSize={15}
-          />
-          <QuizItemCard
-            text={Translate.isOnline}
-            val={
-              launchModeKeyVals.find(elem => elem.id === props.quiz.launchMode)
-                .item
-            }
-            icon={faPlug}
-            textFontSize={11}
-            valFontSize={15}
-          />
+          {props.quiz.mode !== undefined && (
+            <QuizItemCard
+              text={Translate.kind}
+              val={
+                kindQuizKeyVals.find(elem => elem.id === props.quiz.mode).item
+              }
+              icon={faPlug}
+              textFontSize={11}
+              valFontSize={15}
+            />
+          )}
+          {props.quiz.launchMode !== undefined && (
+            <QuizItemCard
+              text={Translate.isOnline}
+              val={
+                launchModeKeyVals.find(
+                  elem => elem.id === props.quiz.launchMode,
+                ).item
+              }
+              icon={faPlug}
+              textFontSize={11}
+              valFontSize={15}
+            />
+          )}
+
           {props.quiz.studentsCount !== undefined && (
             <QuizItemCard
               text={Translate.studentsCount}

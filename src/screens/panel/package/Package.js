@@ -23,6 +23,14 @@ function Package(props) {
   const [grades, setGrades] = useState();
   const [selected, setSelected] = useState();
 
+  const showRightMenu = () => {
+    dispatch({
+      allFilter: true,
+      isFilterMenuVisible: true,
+      isRightMenuVisible: false,
+    });
+  };
+
   React.useEffect(() => {
     dispatch({loading: true});
     Promise.all([fetchAllPackages(props.token), getGradeLessons()]).then(
@@ -66,6 +74,7 @@ function Package(props) {
             setMode={setMode}
             setLoading={setLoading}
             token={props.token}
+            showRightMenu={showRightMenu}
           />
         </QuizzesProvider>
       )}

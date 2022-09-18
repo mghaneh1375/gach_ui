@@ -31,6 +31,8 @@ import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSe
 import {fileRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 
+let inc = 1;
+
 function Create(props) {
   const [certName, setCertName] = useState();
   const [qrSize, setQrSize] = useState();
@@ -96,6 +98,7 @@ function Create(props) {
       offset: offset,
       isCenter: isCenter,
       xMode: xMode,
+      id: inc++,
     };
 
     clearData();
@@ -142,6 +145,7 @@ function Create(props) {
         res[0].params.map(elem => {
           let tmp = {
             paramName: elem.title,
+            id: inc++,
             fromTopScreen: elem.y,
             xMode: elem.x === undefined ? 'center' : 'fromRight',
             isCenter: elem.x === undefined ? true : false,
@@ -209,16 +213,8 @@ function Create(props) {
         return (
           <SimpleFontIcon
             onPress={() => {
-              console.log(tableData);
-              console.log(index);
-              console.log(id);
-              console.log(column);
-              console.log(row);
-              let tmp = tableData.filter((elem, idx) => {
-                console.log(idx + ' ' + index);
-                return index === idx;
-              });
-              setTableData(tmp);
+              console.log(row.id);
+              setSelectedIdxForRemove(row.id);
             }}
             kind={'normal'}
             style={{marginLeft: 100, alignSelf: 'center'}}
@@ -229,6 +225,21 @@ function Create(props) {
       grow: 1,
     },
   ];
+
+  const [selectedIdxForRemove, setSelectedIdxForRemove] = useState();
+
+  React.useEffect(() => {
+    if (selectedIdxForRemove === undefined) return;
+    removeFromTable();
+  }, [selectedIdxForRemove, removeFromTable]);
+
+  const removeFromTable = React.useCallback(() => {
+    let tmp = tableData.filter(elem => {
+      return selectedIdxForRemove !== elem.id;
+    });
+    setTableData(tmp);
+    setSelectedIdxForRemove(undefined);
+  }, [tableData, selectedIdxForRemove]);
 
   return (
     <MyView>
@@ -385,9 +396,8 @@ function Create(props) {
               />
             </PhoneView>
           )}
-          {filesContent === undefined && data !== undefined && (
-            <AttachBox filename={data.img} />
-          )}
+          {(filesContent === undefined || filesContent.length === 0) &&
+            data !== undefined && <AttachBox filename={data.img} />}
         </PhoneView>
       </CommonWebBox>
       <NextButtons
@@ -425,6 +435,7 @@ function Create(props) {
               elem.offset = undefined;
               elem.fromRightScreen = undefined;
               elem.fromTopScreen = undefined;
+              elem.id = undefined;
               return elem;
             }),
           };
@@ -441,29 +452,32 @@ function Create(props) {
             certData.id = props.certId === undefined ? res : props.certId;
 
             if (filesContent !== undefined && filesContent.length > 0) {
-              let formData = new FormData();
-              var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
-              formData.append('file', myblob, filesContent[0].name);
+              await fetch(filesContent[0].content)
+                .then(res => res.blob())
+                .then(async blob => {
+                  let formData = new FormData();
+                  formData.append('file', blob, filesContent[0].name);
 
-              res = await fileRequest(
-                routes.setCertificateImg + res,
-                'put',
-                formData,
-                'url',
-                props.token,
-              );
+                  res = await fileRequest(
+                    routes.setCertificateImg + certData.id,
+                    'post',
+                    formData,
+                    'url',
+                    props.token,
+                  );
 
-              if (res !== null) {
-                certData.img = res;
-                props.addItem(certData);
-              }
+                  if (res !== null) {
+                    certData.img = res;
+                    if (props.certId === undefined) props.addItem(certData);
+                    else props.update(certData);
+                  }
+                });
             } else {
               certData.img = data.img;
               props.update(certData);
             }
-
-            props.setMode('list');
           }
+          props.setMode('list');
         }}
       />
     </MyView>

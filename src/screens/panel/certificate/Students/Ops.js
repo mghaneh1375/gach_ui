@@ -5,7 +5,7 @@ import {showSuccess} from '../../../../services/Utility';
 import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
-import {editUserInCert} from '../Utility';
+import {downloadCert, editUserInCert} from '../Utility';
 
 function Ops(props) {
   const [userData, setUserData] = useState(props.user.params);
@@ -61,6 +61,11 @@ function Ops(props) {
                 onPress={() => toggleShowRemovePane()}
                 theme={'orangeRed'}
                 title={'حذف'}
+              />
+              <CommonButton
+                onPress={() => downloadCert(props.certId, props.user.NID)}
+                theme={'transparent'}
+                title={'دانلود'}
               />
             </PhoneView>
           }

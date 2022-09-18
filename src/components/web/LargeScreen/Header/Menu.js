@@ -8,7 +8,6 @@ import {globalStateContext} from '../../../../App';
 import Filter from './Filter';
 import {MyView} from '../../../../styles/Common';
 import AdviserMenu from './Menus/AdviserMenu';
-import {styles} from '../../../../styles/Common/Styles';
 import {style} from './style';
 
 const Menu = props => {

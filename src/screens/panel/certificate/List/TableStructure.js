@@ -10,19 +10,20 @@ const columns = [
   },
   {
     name: Translate.createDate,
-    selector: row => row.createDate,
+    selector: row => row.createdAt,
     grow: 2,
     center: true,
   },
   {
     name: commonTranslator.counter + ' ' + Translate.receiver,
-    selector: row => row.count,
+    selector: row => row.studentsCount,
     grow: 1,
     center: true,
   },
   {
     name: commonTranslator.visibility,
-    selector: row => row.visibility,
+    selector: row =>
+      row.visibility ? commonTranslator.show : commonTranslator.hide,
     grow: 1,
     center: true,
   },

@@ -1,5 +1,5 @@
 import {routes} from '../../../../../API/APIRoutes';
-import {fileRequest, generalRequest} from '../../../../../API/Utility';
+import {generalRequest} from '../../../../../API/Utility';
 import {showSuccess} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../translator/Common';
 

@@ -8,7 +8,6 @@ import commonTranslator from '../../../../../translator/Common';
 import {showSuccess} from '../../../../../services/Utility';
 import {dispatchQuizzesContext, quizzesContext} from './Utility';
 import {generalRequest} from '../../../../../API/Utility';
-import {filter} from '../../../question/components/Utility';
 
 function Add(props) {
   const [selectedQuizzes, setSelectedQuizzes] = useState([]);
@@ -48,6 +47,8 @@ function Add(props) {
           index: index,
         };
       });
+
+      console.log(res[0].items);
 
       dispatch({
         allItems: res[0].items,

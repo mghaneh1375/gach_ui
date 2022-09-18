@@ -1,5 +1,5 @@
 import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
+import {downloadRequest, generalRequest} from '../../../API/Utility';
 import {showSuccess} from '../../../services/Utility';
 
 export const addCertificate = async (data, token) => {
@@ -69,4 +69,8 @@ export const editUserInCert = async (data, id, nid, token) => {
   if (res !== null) showSuccess();
 
   return res;
+};
+
+export const downloadCert = async (certId, NID) => {
+  await downloadRequest(routes.issueMyCert + certId + '/' + NID, undefined);
 };

@@ -81,7 +81,7 @@ const WebStructue = props => {
   const [user, setUser] = useState(undefined);
   const [allowRenderPage, setAllowRenderPage] = useState(false);
   const [newAlerts, setNewAlerts] = useState();
-  const includeFilterMenu = ['buy'];
+  const includeFilterMenu = ['buy', 'quiz'];
 
   React.useEffect(() => {
     const excludeRightMenu = ['login', 'home', 'reviewQuiz', 'startQuiz'];

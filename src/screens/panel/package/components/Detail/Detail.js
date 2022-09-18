@@ -40,6 +40,16 @@ function Detail(props) {
     );
   }, [props, isWorking, dispatch, state.quizzes]);
 
+  const [isFilterMenuActive, setIsFilterMenuActive] = useState(false);
+
+  React.useEffect(() => {
+    if (isFilterMenuActive) return;
+    if (state.selectingQuiz) {
+      props.showRightMenu();
+      setIsFilterMenuActive(true);
+    }
+  }, [state.selectingQuiz, isFilterMenuActive, props]);
+
   return (
     <MyView>
       {state.selectingQuiz && (
