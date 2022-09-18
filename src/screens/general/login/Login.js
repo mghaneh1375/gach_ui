@@ -122,7 +122,6 @@ const Login = props => {
             mode={isSignUp ? 'signUp' : 'forgetPass'}
           />
         )}
-
         {mode === 'resetPass' && (
           <ResetPassModule
             username={username}

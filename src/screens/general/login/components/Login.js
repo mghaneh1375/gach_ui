@@ -44,7 +44,7 @@ const Login = props => {
   return (
     <MyView
       style={{
-        paddingLeft: 50,
+        paddingLeft: width < 768 ? 25 : 50,
         paddingRight: width > 768 ? 0 : 50,
         paddingTop: width > 768 ? 0 : 15,
       }}>
