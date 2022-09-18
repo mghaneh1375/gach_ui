@@ -163,9 +163,13 @@ export const routes = {
   fetchInvoice: 'general/fetchInvoice/',
   getQuestionTagsExcel: 'general/getQuestionTagsExcel',
   addCertificate: 'certificate/admin/store',
+  editCertificate: 'certificate/admin/update/',
   setCertificateImg: 'certificate/admin/setImg/',
   getSubjectCodesExcel: 'general/getSubjectCodesExcel',
   addUserToCert: 'certificate/admin/addUserToCert/',
+  editUserInCert: 'certificate/admin/editUserInCert/',
   getCertificate: 'certificate/admin/get/',
   fetchAllCertificate: 'certificate/admin/getAll',
+  removeCertificate: 'certificate/admin/remove',
+  removeStudentsFromCertificate: 'certificate/admin/removeStudents/',
 };

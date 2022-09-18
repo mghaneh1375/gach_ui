@@ -14,20 +14,8 @@ function AddStudent(props) {
   const [isWorking, setIsWorking] = useState(false);
 
   React.useEffect(() => {
-    if (isWorking) {
-      // if (props.selectedCertificate.params !== undefined || isWorking) {
-      //   if (props.selectedCertificate.params !== undefined) {
-      //     let tmp = [];
-      //     console.log('====================================');
-      //     console.log(props.selectedCertificate.params);
-      //     console.log('====================================');
-      //     props.selectedCertificate.params.forEach(element => {
-      //       tmp.push(undefined);
-      //     });
-      //     setUserData(tmp);
-      //   }
-      return;
-    }
+    if (params !== undefined || isWorking) return;
+
     setIsWorking(true);
     props.setLoading(true);
 
@@ -44,15 +32,10 @@ function AddStudent(props) {
         tmp.push(undefined);
       });
       setUserData(tmp);
-      setParams(res[0]);
-      // props.update(res[0]);
+      setParams(res[0].params);
       setIsWorking(false);
     });
-  }, [props, isWorking]);
-
-  console.log('====================================');
-  console.log(params);
-  console.log('====================================');
+  }, [props, isWorking, params]);
 
   return (
     <CommonWebBox
@@ -67,20 +50,21 @@ function AddStudent(props) {
           value={nid}
           justNum={true}
         />
-        {params.map((elem, index) => {
-          return (
-            <JustBottomBorderTextInput
-              value={userData[index]}
-              onChangeText={e => {
-                let tmp = userData;
-                tmp[index] = e;
-                setUserData(tmp);
-              }}
-              key={index}
-              subText={elem.title}
-            />
-          );
-        })}
+        {params !== undefined &&
+          params.map((elem, index) => {
+            return (
+              <JustBottomBorderTextInput
+                value={userData[index]}
+                onChangeText={e => {
+                  let tmp = userData;
+                  tmp[index] = e;
+                  setUserData(tmp);
+                }}
+                key={index}
+                subText={elem.title}
+              />
+            );
+          })}
       </PhoneView>
       <CommonButton
         title={commonTranslator.confirm}

@@ -27,7 +27,7 @@ function Ops(props) {
         <ConfirmationBatchOpPane
           setLoading={props.setLoading}
           token={props.token}
-          // url={routes.removeCertificate}
+          url={routes.removeCertificate}
           expected={['excepts', 'doneIds']}
           data={{items: [props.id]}}
           afterFunc={afterRemove}
