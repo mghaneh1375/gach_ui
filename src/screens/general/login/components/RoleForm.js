@@ -15,6 +15,7 @@ import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import SpecificRoleForm from './SpecificRoleForm';
 import {styles} from '../../../../styles/Common/Styles';
+import {style} from '../../../../components/web/LargeScreen/Header/style';
 
 const RoleForm = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});
@@ -67,7 +68,7 @@ const RoleForm = props => {
   };
 
   return (
-    <MyView>
+    <MyView style={{...style.paddingLeft50}}>
       {step === 'role' && (
         <MyView>
           {props.signUp && (

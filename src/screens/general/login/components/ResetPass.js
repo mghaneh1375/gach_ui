@@ -50,7 +50,7 @@ const ResetPass = props => {
   };
 
   return (
-    <MyView style={{paddingLeft: 50, ...style.paddingRight40}}>
+    <MyView style={{...style.ParentLoginModule}}>
       <CommonTextInput
         placeholder={translator.password}
         subText={translator.passwordFilter}

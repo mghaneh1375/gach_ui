@@ -181,7 +181,6 @@ const WebStructue = props => {
               isLogin={user !== undefined}
               toggleRightMenuVisibility={toggleRightMenuVisibility}
             />
-
             {user === undefined && device.indexOf(Device.Large) !== -1 && (
               <Navbar user={user} />
             )}

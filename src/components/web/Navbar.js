@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {CommonButton} from '../../styles/Common';
+import {CommonButton, MyView} from '../../styles/Common';
 import {styles} from '../../styles/Common/Styles';
 import vars from '../../styles/root';
 import {Nav, NavLink} from '../../styles/web/NavbarElement';
@@ -12,7 +12,7 @@ const Navbar = props => {
   }, [props.user]);
 
   return (
-    <div style={{width: '100%'}}>
+    <MyView style={{width: '100%'}}>
       <Nav>
         <NavLink style={{...styles.whiteSpaceNoWrap}} to="/buy">
           آزمون ها
@@ -59,7 +59,7 @@ const Navbar = props => {
           />
         )}
       </Nav>
-    </div>
+    </MyView>
   );
 };
 

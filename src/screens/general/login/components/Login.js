@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
+import {style} from '../../../../components/web/LargeScreen/Header/style';
 import {getWidthHeight} from '../../../../services/Utility';
 import {CommonButton, MyView, MyViewWithRef} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
@@ -42,12 +43,7 @@ const Login = props => {
   const width = getWidthHeight()[0];
 
   return (
-    <MyView
-      style={{
-        paddingLeft: 50,
-        paddingRight: width > 768 ? 0 : 50,
-        paddingTop: width > 768 ? 0 : 15,
-      }}>
+    <MyView style={{...style.ParentLoginModule, ...style.marginTop25}}>
       <CommonTextInput
         placeholder={translator.phoneOrMail}
         subText={translator.phoneOrMail}

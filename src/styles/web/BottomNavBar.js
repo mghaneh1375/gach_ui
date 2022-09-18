@@ -8,7 +8,7 @@ export const NavContainerStyle = {
   alignContent: 'center',
   alignItems: 'center',
   position: 'fixed',
-  backgroundColor: '#cccccc',
+  backgroundColor: '#FFFFFFE6',
 };
 
 export const NavItemContainerStyle = {
@@ -34,6 +34,7 @@ export const NavItemStyle = {
   backgroundColor: 'rgba(255, 255, 255, 1.0)',
   alignContent: 'center',
   alignItems: 'center',
+  boxShadow: '0px 3px 6px #818181a8',
 };
 
 export const NavItemImageStyle = {
@@ -43,4 +44,6 @@ export const NavItemImageStyle = {
 
 export const NavTextStyle = {
   fontSize: '12px',
+  fontFamily: 'IRANSans',
+  color: '#707070',
 };
