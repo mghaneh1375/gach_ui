@@ -23,6 +23,7 @@ function Buy(props) {
     if (mode !== 'list') {
       dispatch({
         isFilterMenuVisible: false,
+        isRightMenuVisible: true,
       });
     } else
       dispatch({

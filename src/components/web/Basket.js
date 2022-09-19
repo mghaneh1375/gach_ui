@@ -21,7 +21,7 @@ function Basket(props) {
 
   React.useEffect(() => {
     if (props.fullWidth === undefined) return;
-    if (props.fullWidth) setWidth(vars.LEFT_SECTION_WIDTH);
+    if (props.fullWidth) setWidth(vars.BASKET_WIDTH_WITH_CLOSE_MENU);
     else setWidth(vars.BASKET_WIDTH_WITH_OPEN_MENU);
   }, [props.fullWidth]);
 

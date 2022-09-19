@@ -248,11 +248,15 @@ const CommonDataTable = props => {
           <ConfirmationBatchOpPane
             setLoading={props.setLoading}
             token={props.token}
-            data={{
-              items: selected.map(element => {
-                return element.id;
-              }),
-            }}
+            data={
+              selectedOp.url !== undefined
+                ? {
+                    items: selected.map(element => {
+                      return element.id;
+                    }),
+                  }
+                : selected
+            }
             expected={['excepts', 'doneIds']}
             afterFunc={localAfterFunc}
             url={selectedOp.url}
@@ -284,7 +288,7 @@ const CommonDataTable = props => {
           })}
         </select>
       )}
-      {state.data !== undefined && (
+      {state.data !== undefined && (props.excel === undefined || props.excel) && (
         <DataTableExtensions
           filter={false}
           exportHeaders={true}
@@ -319,6 +323,36 @@ const CommonDataTable = props => {
             }}
           />
         </DataTableExtensions>
+      )}
+      {state.data !== undefined && props.excel !== undefined && !props.excel && (
+        <DataTable
+          data={state.data}
+          columns={state.columns}
+          pagination={
+            props.pagination === undefined || props.pagination ? true : false
+          }
+          paginationComponentOptions={paginationComponentOptions}
+          paginationRowsPerPageOptions={[10, 25, 50, 100]}
+          customStyles={customStyles}
+          selectableRows={
+            (state.ops !== undefined && state.ops.length > 0) ||
+            props.onRowSelect !== undefined
+          }
+          persistTableHead={true}
+          onSelectedRowsChange={
+            props.onRowSelect === undefined
+              ? ({selectedRows}) => onChangeSelectedRows(selectedRows)
+              : ({selectedRows}) => props.onRowSelect(selectedRows)
+          }
+          clearSelectedRows={toggledClearRows}
+          conditionalRowStyles={props.conditionalRowStyles}
+          onChangePage={page => {
+            dispatch({type: 'changeCurrPage', page: page});
+          }}
+          onChangeRowsPerPage={(perPage, page) => {
+            dispatch({type: 'changePerPage', perPage: perPage, page: page});
+          }}
+        />
       )}
     </MyView>
   );

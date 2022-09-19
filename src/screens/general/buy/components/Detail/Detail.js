@@ -13,26 +13,10 @@ function Detail(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [showInfo, setShowInfo] = useState(true);
-  const [isWorking, setIsWorking] = useState(false);
 
-  // React.useEffect(() => {
-
-  //   setIsWorking(true);
-  //   props.setLoading(true);
-  //   Promise.all([fetchPackageQuizzes(props.token, props.package.id)]).then(
-  //     res => {
-  //       props.setLoading(false);
-  //       if (res[0] === null) {
-  //         props.setMode('list');
-  //         return;
-  //       }
-  //       dispatch({quizzes: res[0]});
-  //       props.package.quizzesDoc = res[0];
-  //       props.setPackage(props.package);
-  //       setIsWorking(false);
-  //     },
-  //   );
-  // }, [props, isWorking, dispatch, state.quizzes]);
+  React.useEffect(() => {
+    dispatch({isRightMenuVisible: props.isRightMenuVisible});
+  }, [props.isRightMenuVisible, dispatch]);
 
   return (
     <MyView>
@@ -40,7 +24,6 @@ function Detail(props) {
         <Info isAdmin={false} setMode={props.setMode} package={state.package} />
       )}
       <List
-        isRightMenuVisible={props.isRightMenuVisible}
         token={props.token}
         user={props.user}
         setLoading={props.setLoading}

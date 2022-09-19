@@ -3,7 +3,9 @@ import Quizzes from '../../../../../components/web/Quizzes';
 import {showError} from '../../../../../services/Utility';
 import {
   BigBoldBlueText,
+  CommonWebBox,
   MyView,
+  PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
 import {packagesContext} from '../Context';
@@ -13,6 +15,10 @@ import OffCode from '../OffCode';
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import BuyBasket from '../BuyBasket';
 import vars from '../../../../../styles/root';
+import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
+import {FontIcon} from '../../../../../styles/Common/FontIcon';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import StudentList from './StudentList';
 
 function List(props) {
   const [price, setPrice] = useState(0);
@@ -20,6 +26,7 @@ function List(props) {
   const [shouldPay, setShouldPay] = useState(0);
   const [quizzes, setQuizzes] = useState();
   const [showOffCodePane, setShowOffCodePane] = useState(false);
+  const [showStudenListPane, setShowStudenListPane] = useState(false);
   const [offs, setOffs] = useState([]);
 
   const [userOff, setUserOff] = useState();
@@ -32,6 +39,7 @@ function List(props) {
   );
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
+  const [selectedStudents, setSelectedStudents] = useState([]);
 
   const calc = (ids, accountOff) => {
     let off = 0;
@@ -122,6 +130,16 @@ function List(props) {
           toggleShowPopUp={toggleShowOffCodePane}
         />
       )}
+      {showStudenListPane && (
+        <StudentList
+          token={props.token}
+          setLoading={props.setLoading}
+          setSelectedStudents={setSelectedStudents}
+          toggleShowPopUp={() => {
+            setShowStudenListPane(false);
+          }}
+        />
+      )}
       {showSuccessTransaction && (
         <SuccessTransaction
           navigate={props.navigate}
@@ -134,11 +152,12 @@ function List(props) {
           }
         />
       )}
+
       {quizzes !== undefined && !showSuccessTransaction && (
-        <MyView style={{padding: 10, alignSelf: 'start'}}>
+        <MyView style={{padding: 10, alignSelf: 'start', minHeight: '100vh'}}>
           <BigBoldBlueText text={'لیست آزمون ها'} />
           <Quizzes
-            fullWidth={props.isRightMenuVisible ? false : true}
+            fullWidth={!state.isRightMenuVisible}
             setSelectedQuizzes={ids => calc(ids, userOff)}
             quizzes={quizzes}>
             <BuyBasket
@@ -157,6 +176,20 @@ function List(props) {
               setShowSuccessTransaction={setShowSuccessTransaction}
             />
           </Quizzes>
+          {props.user.accesses.indexOf('student') === -1 && (
+            <CommonWebBox>
+              <PhoneView style={{gap: 20}}>
+                <SimpleText text="لیست دانش آموزان" />
+                <FontIcon
+                  onPress={() => setShowStudenListPane(true)}
+                  back={'yellow'}
+                  theme={'rect'}
+                  icon={faPlus}
+                />
+              </PhoneView>
+              {/* <CommonDataTable data={selectedStudents} /> */}
+            </CommonWebBox>
+          )}
         </MyView>
       )}
     </MyView>
