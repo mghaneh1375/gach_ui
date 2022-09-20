@@ -3,7 +3,6 @@ import {
   BigBoldBlueText,
   CommonButton,
   MyView,
-  MyViewWithRef,
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
@@ -13,10 +12,8 @@ import {goToPay} from './Utility';
 import {setCacheItem} from '../../../../API/User';
 import commonTranslator from '../../../../translator/Common';
 import React, {useState, useRef} from 'react';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
 
-import {useHover} from 'react-native-web-hooks';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import vars from '../../../../styles/root';
 
