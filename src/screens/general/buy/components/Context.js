@@ -6,6 +6,8 @@ const defaultGlobalState = {
   filters: undefined,
   checkedFilterIndices: undefined,
   needUpdateFilters: false,
+  selectedStudents: undefined,
+  wantedQuizzes: undefined,
 };
 export const packagesContext = React.createContext(defaultGlobalState);
 export const dispatchPackagesContext = React.createContext(undefined);

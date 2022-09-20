@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
-import {MyView} from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import {getAllStudent} from '../../../../schoolPanel/ManageStudents/Utility';
 import {dispatchPackagesContext, packagesContext} from '../Context';
-import columns from './../../../../schoolPanel/ManageStudents/list/TableStructure';
+import columns from '../../../../schoolPanel/ManageStudents/list/TableStructure';
 import commonTranslator from '../../../../../translator/Common';
-import {routes} from '../../../../../API/APIRoutes';
 
 function StudentList(props) {
   const useGlobalState = () => [
@@ -30,16 +28,42 @@ function StudentList(props) {
   }, [state.myStudents, fetchStudents]);
 
   return (
-    <LargePopUp>
+    <LargePopUp
+      toggleShowPopUp={props.toggleShowPopUp}
+      title={'افزودن دانش آموز/دانش آموزان به آزمون'}>
       {state.myStudents !== undefined && (
         <CommonDataTable
           groupOps={[
             {
-              key: 'selectAll',
+              key: 'select',
               label: commonTranslator.select,
-              afterFunc: res => {
-                console.log(res);
-                props.setSelectedStudents(res);
+              warning: 'آیا از انتخاب دانش آموزان انتخاب شده اطمینان دارید؟',
+              afterFunc: arr => {
+                if (state.selectedStudents !== undefined) {
+                  let tmp = [];
+                  arr.forEach(elem => {
+                    if (
+                      state.selectedStudents.find(e => e.id === elem.id) ===
+                      undefined
+                    )
+                      tmp.push(elem);
+                  });
+
+                  let tmp2 = [];
+                  state.selectedStudents.forEach(elem => {
+                    tmp2.push(elem);
+                  });
+
+                  tmp.forEach(e => {
+                    tmp2.push(e);
+                  });
+
+                  dispatch({selectedStudents: tmp2});
+                } else {
+                  dispatch({selectedStudents: arr});
+                }
+
+                props.toggleShowPopUp();
               },
             },
           ]}

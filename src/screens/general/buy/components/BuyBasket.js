@@ -3,6 +3,7 @@ import {
   BigBoldBlueText,
   CommonButton,
   MyView,
+  MyViewWithRef,
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
@@ -12,6 +13,12 @@ import {goToPay} from './Utility';
 import {setCacheItem} from '../../../../API/User';
 import commonTranslator from '../../../../translator/Common';
 import React, {useState, useRef} from 'react';
+import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {faQuestion} from '@fortawesome/free-solid-svg-icons';
+
+import {useHover} from 'react-native-web-hooks';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import vars from '../../../../styles/root';
 
 function BuyBasket(props) {
   const [refId, setRefId] = useState();
@@ -51,10 +58,15 @@ function BuyBasket(props) {
   };
 
   const ref = useRef();
+  const [isShown, setIsShown] = useState(false);
+
+  React.useEffect(() => {
+    console.log(isShown);
+  }, [isShown]);
 
   React.useEffect(() => {
     if (refId === undefined) return;
-    console.log('Salam');
+
     setTimeout(() => {
       ref.current.submit();
     }, 1000);
@@ -91,6 +103,33 @@ function BuyBasket(props) {
                       }}
                       text={Translate.off}
                     />
+                    {props.offs !== undefined && (
+                      <button
+                        onClick={() =>
+                          isShown ? setIsShown(false) : setIsShown(true)
+                        }>
+                        <FontAwesomeIcon icon={faQuestion} />
+                      </button>
+                    )}
+
+                    {props.offs !== undefined && isShown && (
+                      <SimpleText
+                        style={{
+                          position: 'absolute',
+                          top: -100,
+                          zIndex: 3,
+                          backgroundColor: vars.DARK_BLUE,
+                          padding: 8,
+                          borderRadius: 10,
+                          left: 'calc(50% * -1)',
+                          width: 200,
+                          color: 'white',
+                        }}
+                        text={props.offs.map(elem => {
+                          return (elem += '\n');
+                        })}
+                      />
+                    )}
                   </PhoneView>
                 )}
                 {props.usedFromWallet > 0 && (

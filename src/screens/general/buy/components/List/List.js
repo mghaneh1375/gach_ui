@@ -46,6 +46,7 @@ function List(props) {
 
       dispatch({
         off: res[0].off,
+        groupRegistrationOff: res[0].groupRegistrationOff,
         allItems: res[0].items,
         filters: {
           items: res[0].tags,

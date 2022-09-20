@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Quizzes from '../../../../../components/web/Quizzes';
+import Quizzes from './Quizzes';
 import {showError} from '../../../../../services/Utility';
 import {
   BigBoldBlueText,
@@ -18,16 +18,18 @@ import vars from '../../../../../styles/root';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import StudentList from './MyStudenstList';
 import columns from './../../../../schoolPanel/ManageStudents/list/TableStructure';
 
-function List(props) {
+function SchoolList(props) {
   const [price, setPrice] = useState(0);
   const [off, setOff] = useState(0);
   const [shouldPay, setShouldPay] = useState(0);
   const [quizzes, setQuizzes] = useState();
   const [showOffCodePane, setShowOffCodePane] = useState(false);
+  const [showStudenListPane, setShowStudenListPane] = useState(false);
+  const [quizzesTotalPrice, setQuizzesTotalPrice] = useState(0);
   const [offs, setOffs] = useState([]);
-
   const [userOff, setUserOff] = useState();
 
   const useGlobalState = () => [
@@ -35,25 +37,31 @@ function List(props) {
     React.useContext(dispatchPackagesContext),
   ];
   const [state, dispatch] = useGlobalState();
-  const [wantedQuizzes, setWantedQuizzes] = useState();
   const [userMoney, setUserMoney] = useState(
     props.user === undefined ? 0 : props.user.user.money,
   );
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
 
-  const calc = (ids, accountOff) => {
+  const calc2 = React.useCallback(() => {
     let off = 0;
     let totalPrice = 0;
     let totalQuizzes = 0;
-    setWantedQuizzes(ids);
+    let quizzesTotalPriceTmp = 0;
 
-    ids.forEach(elem => {
-      let quiz = props.package.quizzesDoc.find(itr => itr.id === elem);
-      if (quiz === undefined) return;
-      totalQuizzes++;
-      totalPrice += quiz.price;
-    });
+    if (
+      state.selectedStudents !== undefined &&
+      state.selectedStudents.length > 0 &&
+      state.wantedQuizzes !== undefined
+    ) {
+      state.wantedQuizzes.forEach(elem => {
+        let quiz = props.package.quizzesDoc.find(itr => itr.id === elem);
+        if (quiz === undefined) return;
+        totalQuizzes++;
+        quizzesTotalPriceTmp += quiz.price;
+        totalPrice += quiz.price * state.selectedStudents.length;
+      });
+    }
 
     let allOffs = [];
 
@@ -68,13 +76,19 @@ function List(props) {
 
     let shouldPayTmp = totalPrice - off;
 
-    if (shouldPayTmp > 0 && accountOff !== undefined) {
-      if (accountOff.type === 'percent') {
-        off += (shouldPayTmp * accountOff.amount) / 100.0;
-        allOffs.push(accountOff.amount + ' درصد بابت کد تخفیف');
+    if (state.groupRegistrationOff > 0 && shouldPayTmp > 0) {
+      off += (shouldPayTmp * state.groupRegistrationOff) / 100;
+      allOffs.push(state.groupRegistrationOff + ' درصد بابت ثبت نام دست جمعی');
+      shouldPayTmp = totalPrice - off;
+    }
+
+    if (shouldPayTmp > 0 && userOff !== undefined) {
+      if (userOff.type === 'percent') {
+        off += (shouldPayTmp * userOff.amount) / 100.0;
+        allOffs.push(userOff.amount + ' درصد بابت کد تخفیف');
       } else {
-        off += accountOff.amount;
-        allOffs.push(accountOff.amount + ' تومان بابت کد تخفیف');
+        off += userOff.amount;
+        allOffs.push(userOff.amount + ' تومان بابت کد تخفیف');
       }
     }
 
@@ -85,11 +99,19 @@ function List(props) {
       shouldPayTmp -= userMoney;
     } else setUsedFromWallet(0);
 
+    setQuizzesTotalPrice(quizzesTotalPriceTmp);
     setOffs(allOffs);
     setOff(Math.min(off, totalPrice));
     setPrice(totalPrice);
     setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 0);
-  };
+  }, [
+    userOff,
+    state.groupRegistrationOff,
+    state.selectedStudents,
+    state.wantedQuizzes,
+    props.package,
+    userMoney,
+  ]);
 
   React.useEffect(() => {
     setQuizzes(
@@ -117,8 +139,16 @@ function List(props) {
 
   const setOffCodeResult = (amount, type, code) => {
     setUserOff({type: type, amount: amount, code: code});
-    calc(wantedQuizzes, {type: type, amount: amount, code: code});
   };
+
+  React.useEffect(() => {
+    if (
+      state.wantedQuizzes === undefined &&
+      state.selectedStudents === undefined
+    )
+      return;
+    calc2();
+  }, [state.wantedQuizzes, state.selectedStudents, userOff, calc2]);
 
   return (
     <MyView>
@@ -129,6 +159,15 @@ function List(props) {
           setLoading={props.setLoading}
           setResult={setOffCodeResult}
           toggleShowPopUp={toggleShowOffCodePane}
+        />
+      )}
+      {showStudenListPane && (
+        <StudentList
+          token={props.token}
+          setLoading={props.setLoading}
+          toggleShowPopUp={() => {
+            setShowStudenListPane(false);
+          }}
         />
       )}
       {showSuccessTransaction && (
@@ -148,15 +187,24 @@ function List(props) {
         <MyView style={{padding: 10, alignSelf: 'start', minHeight: '100vh'}}>
           <BigBoldBlueText text={'لیست آزمون ها'} />
           <Quizzes
+            marginBottom={30}
             fullWidth={!state.isRightMenuVisible}
-            setSelectedQuizzes={ids => calc(ids, userOff)}
+            noSelectAll={true}
+            label={'دانش آموزان'}
+            calculation={quizzesTotalPrice + ' تومان'}
+            selectedItemsCount={
+              state.selectedStudents === undefined
+                ? 0
+                : state.selectedStudents.length
+            }
             quizzes={quizzes}>
             <BuyBasket
               packageId={props.package.id}
               price={price}
               shouldPay={shouldPay}
-              wantedQuizzes={wantedQuizzes}
+              wantedQuizzes={state.wantedQuizzes}
               off={off}
+              offs={offs}
               userOff={userOff}
               setLoading={props.setLoading}
               token={props.token}
@@ -167,10 +215,46 @@ function List(props) {
               setShowSuccessTransaction={setShowSuccessTransaction}
             />
           </Quizzes>
+
+          <CommonWebBox style={{marginTop: 20, marginBottom: 100}}>
+            <PhoneView style={{gap: 20}}>
+              <SimpleText text="لیست دانش آموزان" />
+              <FontIcon
+                onPress={() => setShowStudenListPane(true)}
+                back={'yellow'}
+                theme={'rect'}
+                icon={faPlus}
+              />
+            </PhoneView>
+            <CommonDataTable
+              excel={false}
+              columns={columns}
+              data={
+                state.selectedStudents === undefined
+                  ? []
+                  : state.selectedStudents
+              }
+              pagination={false}
+              groupOps={[
+                {
+                  key: 'remove',
+                  label: commonTranslator.delete,
+                  warning: 'آیا از حذف دانش آموزان انتخاب شده اطمینان دارید؟',
+                  needData: true,
+                  afterFunc: (res, data) => {
+                    let tmp = data.filter(elem => {
+                      return res.find(e => e.id === elem.id) === undefined;
+                    });
+                    dispatch({selectedStudents: tmp});
+                  },
+                },
+              ]}
+            />
+          </CommonWebBox>
         </MyView>
       )}
     </MyView>
   );
 }
 
-export default List;
+export default SchoolList;

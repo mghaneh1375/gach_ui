@@ -57,8 +57,12 @@ const CommonDataTable = props => {
 
   const localAfterFunc = res => {
     toggleShowRemovePopUp();
-    showSuccess(res.excepts);
-    selectedOp.afterFunc(res);
+
+    if (selectedOp.url !== undefined) showSuccess(res.excepts);
+
+    if (selectedOp.needData !== undefined && selectedOp.needData)
+      selectedOp.afterFunc(res, state.data);
+    else selectedOp.afterFunc(res);
     setSelected([]);
     setSelectedOp(undefined);
     handleClearRows();
@@ -244,7 +248,8 @@ const CommonDataTable = props => {
       {showRemovePopUp &&
         state.ops !== undefined &&
         selectedOp !== undefined &&
-        props.token !== undefined && (
+        ((selectedOp.url !== undefined && props.token !== undefined) ||
+          selectedOp.url === undefined) && (
           <ConfirmationBatchOpPane
             setLoading={props.setLoading}
             token={props.token}

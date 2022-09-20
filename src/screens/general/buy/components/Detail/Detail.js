@@ -5,6 +5,7 @@ import {dispatchPackagesContext, packagesContext} from '../Context';
 import {MyView} from '../../../../../styles/Common';
 import Info from '../../../../panel/package/components/Detail/Info';
 import List from './List';
+import SchoolList from './SchoolList';
 
 function Detail(props) {
   const useGlobalState = () => [
@@ -23,14 +24,26 @@ function Detail(props) {
       {showInfo && (
         <Info isAdmin={false} setMode={props.setMode} package={state.package} />
       )}
-      <List
-        token={props.token}
-        user={props.user}
-        setLoading={props.setLoading}
-        navigate={props.navigate}
-        setShowInfo={setShowInfo}
-        package={state.package}
-      />
+      {props.user.accesses.indexOf('student') === -1 && (
+        <SchoolList
+          token={props.token}
+          user={props.user}
+          setLoading={props.setLoading}
+          navigate={props.navigate}
+          setShowInfo={setShowInfo}
+          package={state.package}
+        />
+      )}
+      {props.user.accesses.indexOf('student') !== -1 && (
+        <List
+          token={props.token}
+          user={props.user}
+          setLoading={props.setLoading}
+          navigate={props.navigate}
+          setShowInfo={setShowInfo}
+          package={state.package}
+        />
+      )}
     </MyView>
   );
 }

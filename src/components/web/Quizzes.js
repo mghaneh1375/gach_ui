@@ -96,7 +96,13 @@ function Quizzes(props) {
   }, [props, isWorking, quizzes, dispatch]);
 
   return (
-    <MyView style={{padding: 10, marginBottom: 120, ...styles.alignItemsStart}}>
+    <MyView
+      style={{
+        padding: 10,
+        marginBottom:
+          props.marginBottom !== undefined ? props.marginBottom : 120,
+        ...styles.alignItemsStart,
+      }}>
       <PhoneView style={{...styles.alignSelfEnd}}>
         {props.onBackClicked !== undefined && (
           <FontIcon
@@ -117,10 +123,26 @@ function Quizzes(props) {
           })}
       </PhoneView>
       <Basket
-        total={quizzes === undefined ? 0 : quizzes.length}
+        total={
+          props.noSelectAll !== undefined && props.noSelectAll
+            ? undefined
+            : quizzes === undefined
+            ? 0
+            : quizzes.length
+        }
         fullWidth={props.fullWidth}
-        selectAll={() => selectAll()}
-        selectedLength={selectedItems.length}>
+        label={props.label}
+        calculation={props.calculation}
+        selectAll={() =>
+          props.noSelectAll !== undefined && props.noSelectAll
+            ? undefined
+            : selectAll()
+        }
+        selectedLength={
+          props.noSelectAll !== undefined && props.noSelectAll
+            ? props.selectedItemsCount
+            : selectedItems.length
+        }>
         {props.children}
       </Basket>
     </MyView>
