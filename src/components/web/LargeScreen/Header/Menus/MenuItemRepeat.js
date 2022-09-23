@@ -23,10 +23,10 @@ function MenuItemRepeat(props) {
         selected={props.selected === 'dashboard'}
       />
       <MenuItem
-        onClick={() => navigate('/myQuizzes')}
+        onClick={() => navigate('/myIRYSCQuizzes')}
         text={translator.myQuizes}
         icon={faShoppingCart}
-        selected={props.selected === 'myQuizzes'}
+        selected={props.selected === 'myIRYSCQuizzes'}
       />
       <MenuItem
         onClick={() => navigate('/buy')}

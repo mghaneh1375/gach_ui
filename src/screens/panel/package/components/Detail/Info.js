@@ -132,6 +132,14 @@ function Info(props) {
               </PhoneView>
             )}
           </PhoneView>
+
+          {props.package.description !== undefined &&
+            props.package.description !== '' && (
+              <SimpleText
+                style={{marginTop: 20}}
+                text={props.package.description}
+              />
+            )}
         </MyView>
 
         {props.isAdmin && (

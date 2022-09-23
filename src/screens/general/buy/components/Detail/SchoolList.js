@@ -43,7 +43,7 @@ function SchoolList(props) {
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
 
-  const calc2 = React.useCallback(() => {
+  const calc = React.useCallback(() => {
     let off = 0;
     let totalPrice = 0;
     let totalQuizzes = 0;
@@ -71,21 +71,21 @@ function SchoolList(props) {
       totalPrice > 0
     ) {
       off += (totalPrice * props.package.offPercent) / 100;
-      allOffs.push(props.package.offPercent + ' درصد بابت بسته آزمونی');
+      allOffs.push(props.package.offPercent + ' % بابت بسته آزمونی');
     }
 
     let shouldPayTmp = totalPrice - off;
 
     if (state.groupRegistrationOff > 0 && shouldPayTmp > 0) {
       off += (shouldPayTmp * state.groupRegistrationOff) / 100;
-      allOffs.push(state.groupRegistrationOff + ' درصد بابت ثبت نام دست جمعی');
+      allOffs.push(state.groupRegistrationOff + ' % بابت ثبت نام دست جمعی');
       shouldPayTmp = totalPrice - off;
     }
 
     if (shouldPayTmp > 0 && userOff !== undefined) {
       if (userOff.type === 'percent') {
         off += (shouldPayTmp * userOff.amount) / 100.0;
-        allOffs.push(userOff.amount + ' درصد بابت کد تخفیف');
+        allOffs.push(userOff.amount + ' % بابت کد تخفیف');
       } else {
         off += userOff.amount;
         allOffs.push(userOff.amount + ' تومان بابت کد تخفیف');
@@ -147,8 +147,8 @@ function SchoolList(props) {
       state.selectedStudents === undefined
     )
       return;
-    calc2();
-  }, [state.wantedQuizzes, state.selectedStudents, userOff, calc2]);
+    calc();
+  }, [state.wantedQuizzes, state.selectedStudents, userOff, calc]);
 
   return (
     <MyView>
@@ -184,7 +184,13 @@ function SchoolList(props) {
       )}
 
       {quizzes !== undefined && !showSuccessTransaction && (
-        <MyView style={{padding: 10, alignSelf: 'start', minHeight: '100vh'}}>
+        <MyView
+          style={{
+            padding: 10,
+            alignSelf: 'start',
+            width: '100%',
+            minHeight: '100vh',
+          }}>
           <BigBoldBlueText text={'لیست آزمون ها'} />
           <Quizzes
             marginBottom={30}
@@ -200,6 +206,13 @@ function SchoolList(props) {
             quizzes={quizzes}>
             <BuyBasket
               packageId={props.package.id}
+              students={
+                state.selectedStudents !== undefined
+                  ? state.selectedStudents.map(elem => {
+                      return elem.id;
+                    })
+                  : []
+              }
               price={price}
               shouldPay={shouldPay}
               wantedQuizzes={state.wantedQuizzes}

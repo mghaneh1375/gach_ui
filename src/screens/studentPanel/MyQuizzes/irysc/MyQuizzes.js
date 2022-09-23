@@ -1,11 +1,12 @@
 import List from './components/List';
-import {dispatchStateContext} from '../../../App';
+import {dispatchStateContext} from '../../../../App';
 import React, {useState} from 'react';
-import {QuizProvider} from '../../panel/quiz/components/Context';
-import StudentAnswerSheet from '../../panel/quiz/components/AnswerSheet/StudentAnswerSheet';
-import Ranking from '../../panel/quiz/components/Reports/Ranking/Ranking';
-import Karname from '../../panel/quiz/components/Reports/Karname/Karname';
-import Recp from '../../../components/web/Recp';
+import {QuizProvider} from '../../../panel/quiz/components/Context';
+import StudentAnswerSheet from '../../../panel/quiz/components/AnswerSheet/StudentAnswerSheet';
+import Ranking from '../../../panel/quiz/components/Reports/Ranking/Ranking';
+import Recp from '../../../../components/web/Recp';
+import Karname from '../../../panel/quiz/components/Reports/Karname/Karname';
+import ParticipantReport from '../../../panel/quiz/components/Reports/Participant/ParticipantReport';
 
 function MyQuizzes(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -13,6 +14,7 @@ function MyQuizzes(props) {
   const [dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
   const [recp, setRecp] = useState();
+  const [wantedQuizId, setWantedQuizId] = useState();
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -31,6 +33,7 @@ function MyQuizzes(props) {
           setMode={setMode}
           user={props.user}
           setLoading={setLoading}
+          setWantedQuizId={setWantedQuizId}
           token={props.token}
           navigate={props.navigate}
         />
@@ -40,6 +43,14 @@ function MyQuizzes(props) {
           selectedAnswerSheetIdx={0}
           setLoading={setLoading}
           onBackClick={() => setMode('list')}
+          token={props.token}
+        />
+      )}
+      {mode === 'students' && (
+        <ParticipantReport
+          setLoading={setLoading}
+          onBackClick={() => setMode('list')}
+          quizId={wantedQuizId}
           token={props.token}
         />
       )}

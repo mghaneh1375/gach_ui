@@ -8,7 +8,7 @@ import {
 } from '../../../../styles/Common';
 import Translate from '../Translate';
 import {styles} from '../../../../styles/Common/Styles';
-import {goToPay} from './Utility';
+import {goToPay, goToPayGroup} from './Utility';
 import {setCacheItem} from '../../../../API/User';
 import commonTranslator from '../../../../translator/Common';
 import React, {useState, useRef} from 'react';
@@ -33,12 +33,19 @@ function BuyBasket(props) {
     let data = {
       ids: props.wantedQuizzes,
     };
+
+    if (props.students !== undefined) data.studentIds = props.students;
+
     if (props.userOff !== undefined && props.userOff.code !== undefined)
       data.code = props.userOff.code;
     if (props.packageId !== undefined) data.packageId = props.packageId;
 
     props.setLoading(true);
-    let res = await goToPay(props.token, data);
+
+    let res =
+      props.students === undefined
+        ? await goToPay(props.token, data)
+        : await goToPayGroup(props.token, data);
 
     props.setLoading(false);
     if (res !== null) {
@@ -102,31 +109,49 @@ function BuyBasket(props) {
                     />
                     {props.offs !== undefined && (
                       <button
+                        style={{
+                          backgroundColor: vars.DARK_BLUE,
+                          borderColor: vars.DARK_BLUE,
+                          rotateY: 'transform: rotateY(181deg)',
+                          borderRadius: 3,
+                          cursor: 'pointer',
+                          margin: 5,
+                        }}
                         onClick={() =>
                           isShown ? setIsShown(false) : setIsShown(true)
                         }>
-                        <FontAwesomeIcon icon={faQuestion} />
+                        <FontAwesomeIcon
+                          style={{color: 'white', padding: 3}}
+                          icon={faQuestion}
+                        />
                       </button>
                     )}
 
-                    {props.offs !== undefined && isShown && (
-                      <SimpleText
-                        style={{
-                          position: 'absolute',
-                          top: -100,
-                          zIndex: 3,
-                          backgroundColor: vars.DARK_BLUE,
-                          padding: 8,
-                          borderRadius: 10,
-                          left: 'calc(50% * -1)',
-                          width: 200,
-                          color: 'white',
-                        }}
-                        text={props.offs.map(elem => {
-                          return (elem += '\n');
-                        })}
-                      />
-                    )}
+                    {props.offs !== undefined &&
+                      props.offs.length > 0 &&
+                      isShown && (
+                        <SimpleText
+                          style={{
+                            position: 'absolute',
+                            zIndex: 3,
+                            backgroundColor: vars.DARK_BLUE,
+                            padding: 8,
+                            borderRadius: 10,
+                            left: 'calc(50% * -1)',
+                            top:
+                              props.offs.length === 1
+                                ? -45
+                                : props.offs.length === 2
+                                ? -65
+                                : -85,
+                            width: 200,
+                            color: 'white',
+                          }}
+                          text={props.offs.map(elem => {
+                            return (elem += '\n');
+                          })}
+                        />
+                      )}
                   </PhoneView>
                 )}
                 {props.usedFromWallet > 0 && (

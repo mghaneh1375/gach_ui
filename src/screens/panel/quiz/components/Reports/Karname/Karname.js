@@ -33,7 +33,7 @@ import StudentCard from '../../../../../../components/web/StudentCard';
 import CopyBox from '../../../../../../components/CopyBox';
 import {BASE_SITE_NAME} from '../../../../../../API/Utility';
 import {showError} from '../../../../../../services/Utility';
-import {getMyAnswerSheet} from '../../../../../studentPanel/MyQuizzes/components/Utility';
+import {getMyAnswerSheet} from '../../../../../studentPanel/MyQuizzes/irysc/components/Utility';
 import {styleCard100Percent} from '../../../../package/card/Style';
 
 function Karname(props) {

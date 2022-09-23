@@ -55,7 +55,8 @@ import AcceptInvite from './SinglePages/AcceptInvite';
 import Teachers from './teacher/teachers/Teachers';
 import TarazLevels from './panel/Config/TarazLevels/TarazLevels';
 import Buy from './general/buy/Buy';
-import MyQuizzes from './studentPanel/MyQuizzes/MyQuizzes';
+import MyIRYSCQuizzes from './studentPanel/MyQuizzes/irysc/MyQuizzes';
+import MySchoolQuizzes from './studentPanel/MyQuizzes/school/MyQuizzes';
 import Transaction from './panel/transaction/Transaction';
 import ChargeAccount from './studentPanel/ChargeAccount/ChargeAccount';
 import RunQuiz from './studentPanel/RunQuiz/RunQuiz';
@@ -242,8 +243,15 @@ const WebStructue = props => {
               {props.page === 'buy' && (
                 <Buy user={user} token={token} navigate={navigate} />
               )}
-              {props.page === 'myQuizzes' && (
-                <MyQuizzes user={user} token={token} navigate={navigate} />
+              {props.page === 'myIRYSCQuizzes' && (
+                <MyIRYSCQuizzes user={user} token={token} navigate={navigate} />
+              )}
+              {props.page === 'mySchoolQuizzes' && (
+                <MySchoolQuizzes
+                  user={user}
+                  token={token}
+                  navigate={navigate}
+                />
               )}
 
               {props.page === 'startQuiz' && (

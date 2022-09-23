@@ -10,3 +10,13 @@ export const goToPay = async (token, data) => {
     token,
   );
 };
+
+export const goToPayGroup = async (token, data) => {
+  return await generalRequest(
+    routes.groupBuyQuiz,
+    'post',
+    data,
+    ['action', 'refId'],
+    token,
+  );
+};
