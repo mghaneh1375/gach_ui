@@ -283,6 +283,7 @@ function Karname(props) {
                     show_row_no={false}
                     pagination={false}
                     groupOps={[]}
+                    excel={false}
                     conditionalRowStyles={conditionalRowStyles}
                   />
                 )}
@@ -345,6 +346,7 @@ function Karname(props) {
                   pagination={false}
                   groupOps={[]}
                   data={karname.subjects}
+                  excel={false}
                   conditionalRowStyles={conditionalRowStyles}
                 />
               )}
@@ -372,6 +374,7 @@ function Karname(props) {
                   columns={generalStatTableStructure}
                   show_row_no={false}
                   pagination={false}
+                  excel={false}
                   groupOps={[]}
                   data={karname.subjects}
                 />
@@ -400,6 +403,7 @@ function Karname(props) {
                   columns={lessonRankingCols}
                   show_row_no={false}
                   pagination={false}
+                  excel={false}
                   groupOps={[]}
                   data={karname.lessons}
                 />
@@ -407,7 +411,7 @@ function Karname(props) {
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
                   style={{alignSelf: 'center'}}
-                  text={'جدول شماره 6 - نتایج کلی'}
+                  text={'جدول شماره 7 - نتایج کلی'}
                 />
               </EqualTwoTextInputs>
               {karname !== undefined && (
@@ -416,6 +420,7 @@ function Karname(props) {
                   data={[karname.rank]}
                   show_row_no={false}
                   pagination={false}
+                  excel={false}
                   groupOps={[]}
                 />
               )}
@@ -444,6 +449,7 @@ function Karname(props) {
                   data={karname.subjects}
                   show_row_no={false}
                   pagination={false}
+                  excel={false}
                   groupOps={[]}
                 />
               )}

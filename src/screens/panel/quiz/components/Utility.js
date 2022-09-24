@@ -93,6 +93,16 @@ export const fetchParticipantReport = async (quizId, token) => {
   );
 };
 
+export const fetchA1Report = async (quizId, mode, token) => {
+  return await generalRequest(
+    routes.fetchA1Report + mode + '/' + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const fetchAuthorReport = async (quizId, token) => {
   return await generalRequest(
     routes.fetchAuthorReport + quizId,

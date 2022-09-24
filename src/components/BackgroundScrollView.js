@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Image} from 'react-native';
+import {Image, Pressable} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
 
@@ -14,14 +14,25 @@ import {
   ArrowStyleRight,
 } from '../styles/Common/ScrollView';
 import {Device} from './../models/Device';
-import {BlueTextInline, MyView} from '../styles/Common';
-
-const delay = 7000;
-const scrollable = 3;
+import {BlueTextInline, CommonButton, MyView} from '../styles/Common';
+import {FontIcon, SimpleFontIcon} from '../styles/Common/FontIcon';
 
 function BackgroundScrollView(props) {
-  const scrollView = useRef();
   const [items, setItems] = useState();
+  const [currentNode, setCurrentNode] = useState();
+  const [active, setActive] = useState(0);
+
+  React.useEffect(() => {
+    console.log(active);
+    const timeout = setTimeout(() => setActive((active + 1 + 3) % 3), 7000);
+
+    return () => clearTimeout(timeout);
+  }, [active]);
+
+  React.useEffect(() => {
+    if (items === undefined) return;
+    setCurrentNode(items[active]);
+  }, [active, items]);
 
   const isJustImage = props.isJustImage;
 
@@ -47,42 +58,9 @@ function BackgroundScrollView(props) {
 
   const imgHeight = props.imgHeight;
 
-  const [scrollValue, setScrollValue] = useState();
-  const [currentNode, setCurrentNode] = useState();
-
-  // let calcScrollValue = React.useCallback(() => {
-  //   if (scrollView === undefined || scrollView === null) return;
-
-  //   if (scrollValue >= width * (scrollable - 1)) setScrollValue(0);
-  //   else setScrollValue(scrollValue + width);
-  // }, [scrollView, scrollValue, width]);
-
-  // const _scroll_ = React.useCallback(() => {
-  //   if (
-  //     scrollView === undefined ||
-  //     scrollView === null ||
-  //     scrollView.current === undefined
-  //   )
-  //     return;
-  //   console.log('scrollValue is ' + scrollValue);
-  //   // console.log(scrollView.current);
-  //   scrollView.current.scrollTo({x: scrollValue});
-  // }, [scrollView, scrollValue]);
-
-  let setCurrNod = React.useCallback(() => {
-    if (items === undefined) return;
-
-    setCurrentNode(items[scrollValue]);
-
-    // setTimeout(() => {
-    //   setScrollValue(scrollValue === scrollable - 1 ? 0 : scrollValue + 1);
-    // }, delay);
-  }, [items, scrollValue]);
-
   React.useEffect(() => {
-    if (scrollValue === undefined) return;
-    setCurrNod();
-  }, [scrollValue, setCurrNod]);
+    if (items === undefined) return;
+  }, [items]);
 
   const buildItems = React.useCallback(() => {
     let tmp = isJustImage
@@ -95,8 +73,25 @@ function BackgroundScrollView(props) {
             key={i.idx}
             style={{height: height, width}}>
             <ScrollViewTextContainer style={{width: widthText}}>
-              <FontAwesomeIcon icon={faAngleLeft} style={ArrowStyleLeft} />
-              <FontAwesomeIcon icon={faAngleRight} style={ArrowStyleRight} />
+              <Pressable style={ArrowStyleLeft}>
+                <SimpleFontIcon
+                  kind="full"
+                  style={{color: 'white'}}
+                  parentStyle={{padding: 5}}
+                  onPress={() => setActive(active == 0 ? 2 : active - 1)}
+                  icon={faAngleLeft}
+                />
+              </Pressable>
+              <Pressable style={ArrowStyleRight}>
+                <SimpleFontIcon
+                  kind="full"
+                  style={{color: 'white'}}
+                  parentStyle={{padding: 5}}
+                  onPress={() => setActive((active + 1 + 3) % 3)}
+                  icon={faAngleRight}
+                />
+              </Pressable>
+
               <ScrollViewTitle isPhonePortSize={isPhonePortSize}>
                 {i.title}
               </ScrollViewTitle>
@@ -120,7 +115,6 @@ function BackgroundScrollView(props) {
         ));
 
     setItems(tmp);
-    setScrollValue(0);
   }, [
     isJustImage,
     props.images,
@@ -130,6 +124,7 @@ function BackgroundScrollView(props) {
     width,
     widthImage,
     widthText,
+    active,
   ]);
 
   React.useEffect(() => {
@@ -147,6 +142,7 @@ function BackgroundScrollView(props) {
       }}>
       {currentNode !== undefined && (
         <MyView>{currentNode}</MyView>
+        // <MyView>{currentNode}</MyView>
         // <ScrollView
         //   contentContainerStyle={{flexGrow: 1}}
         //   ref={scrollView}

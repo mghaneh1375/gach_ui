@@ -189,6 +189,8 @@ export const CommonButton = props => {
     allStyles.padding =
       props.padding !== undefined && props.padding === 'unset'
         ? '9px 15px'
+        : props.padding !== undefined
+        ? props.padding
         : '5px 30px';
   } else {
     allStyles.padding = '5px 0';

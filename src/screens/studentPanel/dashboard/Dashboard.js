@@ -41,21 +41,34 @@ function Dashboard(props) {
             onPress={() => props.navigate('/charge')}
             borderRightWidth={18}
           />
+
           <DashboardCard
-            text={Translate.activeQuizzes}
-            theme={vars.ORANGE_RED}
-            btnColor={'orange'}
-            subtext={data.activeQuizzes}
+            text={Translate.allQuizzes}
+            theme={vars.DARK_BLUE}
+            subtext={data.registrableQuizzes}
+            btnColor={'blue'}
+            borderRight={true}
+            icon={faEye}
+            onPress={() => props.navigate('/buy')}
+            borderRightWidth={18}
+          />
+
+          <DashboardCard
+            text={Translate.passedQuizzes}
+            theme={vars.DARK_BLUE}
+            subtext={data.passedQuizzes}
+            btnColor={'blue'}
             borderRight={true}
             icon={faEye}
             onPress={() => props.navigate('/myQuizzes')}
             borderRightWidth={18}
           />
+
           <DashboardCard
-            text={Translate.allQuizzes}
-            theme={vars.DARK_BLUE}
-            subtext={data.totalQuizzes}
-            btnColor={'blue'}
+            text={Translate.activeQuizzes}
+            theme={vars.ORANGE_RED}
+            btnColor={'orange'}
+            subtext={data.activeQuizzes}
             borderRight={true}
             icon={faEye}
             onPress={() => props.navigate('/myQuizzes')}
@@ -73,6 +86,20 @@ function Dashboard(props) {
           />
           <DashboardCard
             text={Translate.yourRank}
+            subtext={data.rank}
+            background={vars.GRADIENT}
+            padding={'38px 10px'}
+            borderRight={false}
+          />
+          <DashboardCard
+            text={Translate.yourBranchRank}
+            subtext={data.rank}
+            background={vars.GRADIENT}
+            padding={'38px 10px'}
+            borderRight={false}
+          />
+          <DashboardCard
+            text={Translate.yourGradeRank}
             subtext={data.rank}
             background={vars.GRADIENT}
             padding={'38px 10px'}

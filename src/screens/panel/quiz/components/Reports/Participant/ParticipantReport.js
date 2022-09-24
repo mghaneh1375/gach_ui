@@ -64,7 +64,10 @@ function ParticipantReport(props) {
           }}
         />
       )}
-      <CommonWebBox>
+      <CommonWebBox
+        header={''}
+        backBtn={props.onBackClick !== undefined}
+        onBackClick={props.onBackClick}>
         {data !== undefined && (
           <CommonDataTable
             columns={columns}

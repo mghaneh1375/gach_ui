@@ -94,6 +94,7 @@ const WebStructue = props => {
     dispatch({
       showTopNav: excludeTopNav.indexOf(props.page) === -1,
       showBottonNav: excludeBottomNav.indexOf(props.page) === -1,
+      page: props.page,
       isRightMenuVisible:
         d.indexOf(Device.Large) !== -1 &&
         excludeRightMenu.indexOf(props.page) === -1,

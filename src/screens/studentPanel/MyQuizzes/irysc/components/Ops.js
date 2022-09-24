@@ -176,20 +176,29 @@ function Ops(props) {
             }}
             title={translator.studentsList}
           />
+
           {state.selectedQuiz.reportStatus === 'ready' && (
+            // <CommonButton
+            //   onPress={() => props.setMode('ranking')}
+            //   dir={'rtl'}
+            //   theme={'transparent'}
+            //   title={translator.seeRanking}
+            // />
             <CommonButton
-              onPress={() => props.setMode('ranking')}
-              dir={'rtl'}
+              onPress={() => prepareShowRanking()}
+              title={Translate.ranking}
               theme={'transparent'}
-              title={translator.seeRanking}
             />
           )}
-          <CommonButton
-            onPress={() => props.setMode('report')}
-            dir={'rtl'}
-            theme={'transparent'}
-            title={commonTranslator.report}
-          />
+
+          {state.selectedQuiz.reportStatus === 'ready' && (
+            <CommonButton
+              onPress={() => props.setMode('report')}
+              dir={'rtl'}
+              theme={'transparent'}
+              title={commonTranslator.report}
+            />
+          )}
         </PhoneView>
       )}
     </LargePopUp>

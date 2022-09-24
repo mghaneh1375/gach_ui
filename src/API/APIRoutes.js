@@ -62,6 +62,7 @@ export const routes = {
   storeStudentAnswers: 'quiz/public/storeAnswers/',
   resetStudentQuizEntryTime: 'quiz/manage/resetStudentQuizEntryTime/',
   fetchParticipantReport: 'quiz/report/participantReport/',
+  fetchA1Report: 'quiz/report/A1/',
   fetchAuthorReport: 'quiz/report/authorReport/',
   fetchSchoolReport: 'quiz/report/schoolReport/',
   fetchCityReport: 'quiz/report/cityReport/',
