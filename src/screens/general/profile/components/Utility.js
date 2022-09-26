@@ -11,8 +11,6 @@ const changeUsernameMandatoryFields = ['username', 'mode'];
 const changeInfoMandatoryFields = [
   'firstName',
   'lastName',
-  'schoolId',
-  'gradeId',
   'cityId',
   'NID',
   'sex',
@@ -138,27 +136,31 @@ export const getPreRequirements = async (
 export const updateInfo = async (setLoading, token, userId, data) => {
   setLoading(true);
 
-  let res = await generalRequest(
-    userId !== undefined ? routes.updateInfo + userId : routes.updateInfo,
-    'post',
-    data,
-    undefined,
-    token,
-    changeInfoMandatoryFields,
-  );
+  try {
+    let res = await generalRequest(
+      userId !== undefined ? routes.updateInfo + userId : routes.updateInfo,
+      'post',
+      data,
+      undefined,
+      token,
+      changeInfoMandatoryFields,
+    );
 
-  if (res !== null) {
-    if (userId === undefined) {
-      setCacheItem('user', undefined);
-      fetchUser(token, user => {
+    if (res !== null) {
+      if (userId === undefined) {
+        setCacheItem('user', undefined);
+        fetchUser(token, user => {
+          setLoading(false);
+          showSuccess(commonTranslator.success);
+        });
+      } else {
         setLoading(false);
         showSuccess(commonTranslator.success);
-      });
-    } else {
-      setLoading(false);
-      showSuccess(commonTranslator.success);
-    }
-  } else setLoading(false);
+      }
+    } else setLoading(false);
+  } catch (e) {
+    setLoading(false);
+  }
 };
 
 export const updateForm = async (token, userId, data) => {
