@@ -64,6 +64,7 @@ import MyOffs from './studentPanel/‌MyOffs/MyOffs';
 import ManageStudents from './schoolPanel/ManageStudents/ManageStudents';
 import ManageTeachers from './schoolPanel/ManageTeachers/ManageTeachers';
 import Invoice from './schoolPanel/Invoice/Invoice';
+import RankingList from './general/RankingList/RankingList';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -262,6 +263,10 @@ const WebStructue = props => {
                   user={user}
                   navigate={navigate}
                 />
+              )}
+
+              {props.page === 'rankingList' && (
+                <RankingList navigate={navigate} />
               )}
 
               {props.page === 'reviewQuiz' && (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import BackgroundScrollView from './../../../components/BackgroundScrollView';
 import translator from './translator';
 import {Device} from './../../../models/Device';
@@ -8,6 +8,9 @@ import {getDevice, getWidthHeight} from './../../../services/Utility';
 import {ScreenScroll} from '../../../styles/Common';
 import {ImageBackground} from 'react-native';
 import vars from '../../../styles/root';
+import {globalStateContext, dispatchStateContext} from '../../../App';
+import {generalRequest} from '../../../API/Utility';
+import {routes} from '../../../API/APIRoutes';
 
 const device = getDevice();
 
@@ -17,6 +20,40 @@ const Home = props => {
   const height = wH[1];
   const navigator = props.navigator;
   const isRightMenuVisible = props.isRightMenuVisible;
+
+  const [isWorking, setIsWorking] = useState(false);
+  const [data, setData] = useState();
+
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
+  React.useEffect(() => {
+    if (isWorking || data !== undefined) return;
+
+    setIsWorking(true);
+    dispatch({loading: true});
+
+    Promise.all([
+      generalRequest(
+        routes.fetchSiteStats,
+        'get',
+        undefined,
+        'data',
+        undefined,
+      ),
+    ]).then(res => {
+      dispatch({loading: false});
+
+      if (res[0] === null) return;
+
+      setData(res[0]);
+      console.log(res[0]);
+      setIsWorking(false);
+    });
+  }, [dispatch, props, isWorking, data]);
 
   return (
     <ScreenScroll style={{background: 'transparent'}}>

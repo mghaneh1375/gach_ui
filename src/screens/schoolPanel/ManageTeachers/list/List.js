@@ -4,7 +4,6 @@ import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import columns from '../../ManageTeachers/list/TableStructure';
 import Ops from '../list/Ops/Ops';
 import Translate from '../Translate';
-import MiniCard from '../../../panel/quiz/components/CV/MiniCard';
 
 function List(props) {
   const [selectedId, setSelectedId] = useState();

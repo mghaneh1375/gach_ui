@@ -122,6 +122,11 @@ export default function WebRouter() {
             path="/acceptInvite/:reqId"
             element={<WebStructue page="acceptInvite" />}
           />
+
+          <Route
+            path="/rankingList"
+            element={<WebStructue page="rankingList" />}
+          />
           <Route path="*" element={<WebStructue page="404" />} />
         </Routes>
       </Router>

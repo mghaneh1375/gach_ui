@@ -93,14 +93,14 @@ function Dashboard(props) {
           />
           <DashboardCard
             text={Translate.yourBranchRank}
-            subtext={data.rank}
+            subtext={data.branchRank}
             background={vars.GRADIENT}
             padding={'38px 10px'}
             borderRight={false}
           />
           <DashboardCard
             text={Translate.yourGradeRank}
-            subtext={data.rank}
+            subtext={data.gradeRank}
             background={vars.GRADIENT}
             padding={'38px 10px'}
             borderRight={false}
