@@ -174,9 +174,9 @@ const WebStructue = props => {
   };
 
   const params = useParams();
-
+  //, backgroundColor: vars.DARK_WHITE
   return (
-    <MyView style={{flex: 1, height: '100%', backgroundColor: vars.DARK_WHITE}}>
+    <MyView style={{flex: 1, height: '100%'}}>
       {allowRenderPage && (
         <MinFullHeightView>
           <MyView style={{flexDirection: 'row', flexWrap: 'wrap'}}>
