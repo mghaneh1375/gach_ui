@@ -1,4 +1,3 @@
-import {transform} from '@babel/core';
 import React from 'react';
 import {
   CommonWebBox,
@@ -12,7 +11,7 @@ import translator from '../translator';
 
 function HomeBox(props) {
   return (
-    <CommonWebBox width={300} style={{...styles.overFlowHidden, height: 137}}>
+    <CommonWebBox width={300} style={{height: 137}}>
       <PhoneView
         style={{
           width: 33,
@@ -35,7 +34,7 @@ function HomeBox(props) {
           style={{...styles.BlueBold, ...styles.fontSize25}}
           text={translator.more}
         />
-        {/* <SimpleText
+        <SimpleText
           style={{
             ...styles.colorOrange,
             ...styles.bold,
@@ -50,7 +49,7 @@ function HomeBox(props) {
             ...styles.fontSize25,
           }}
           text={props.text}
-        /> */}
+        />
       </MyView>
     </CommonWebBox>
   );

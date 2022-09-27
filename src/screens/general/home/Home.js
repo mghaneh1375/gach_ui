@@ -22,6 +22,7 @@ import {TextIcon} from '../../../styles/Common/TextIcon';
 import {styles} from '../../../styles/Common/Styles';
 import DashboardCard from '../../studentPanel/dashboard/DashboardCard/DashboardCard';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import HomeBox from './HomeBox/HomeBox';
 
 const device = getDevice();
 
@@ -198,36 +199,9 @@ const Home = props => {
           }}>
           <PhoneView
             style={{...styles.gap30, ...styles.justifyContentSpaceAround}}>
-            <DashboardCard
-              text={'پول'}
-              theme={vars.ORANGE}
-              subtext={100}
-              btnColor={'yellow'}
-              borderRight={true}
-              icon={faPlus}
-              onPress={() => {}}
-              borderRightWidth={18}
-            />
-            <DashboardCard
-              text={'پول'}
-              theme={vars.ORANGE}
-              subtext={100}
-              btnColor={'yellow'}
-              borderRight={true}
-              icon={faPlus}
-              onPress={() => {}}
-              borderRightWidth={18}
-            />
-            <DashboardCard
-              text={'پول'}
-              theme={vars.ORANGE}
-              subtext={100}
-              btnColor={'yellow'}
-              borderRight={true}
-              icon={faPlus}
-              onPress={() => {}}
-              borderRightWidth={18}
-            />
+            <HomeBox color="red" text="تست" number={200} />
+            <HomeBox color="red" text="تست" number={200} />
+            <HomeBox color="red" text="تست" number={200} />
           </PhoneView>
         </MyView>
         <div
@@ -341,68 +315,6 @@ const Home = props => {
           </MyView>
         </div>
       </div>
-
-      {/* <div
-        style={{
-          position: 'absolute',
-          zIndex: 1,
-          bottom: -60,
-          left: 0,
-          width: '100%',
-          height: 320,
-          background: 'url(./assets/images/whitedevider.svg)',
-          backgroundSize: 'contain',
-          backgroundPosition: 'left',
-          backgroundRepeat: 'no-repeat',
-        }}></div> */}
-      {/* <div
-        style={{
-          position: 'absolute',
-          zIndex: 2,
-          bottom: -80,
-          left: 0,
-          width: '100%',
-          height: 340,
-          background: 'url(./assets/images/orangelineup.svg)',
-          backgroundSize: 'contain',
-          backgroundPosition: 'left',
-          backgroundRepeat: 'no-repeat',
-        }}></div>
-      <div
-        style={{
-          backgroundColor: 'white',
-          position: 'absolute',
-          bottom: -250,
-          height: 200,
-          width: '100%',
-          zIndex: 2,
-        }}></div>
-      <div
-        style={{
-          position: 'absolute',
-          zIndex: 3,
-          bottom: -260,
-          left: 0,
-          width: '100%',
-          height: 280,
-          background: 'url(./assets/images/orangelinedown.svg)',
-          backgroundSize: 'contain',
-          backgroundPosition: 'left',
-          backgroundRepeat: 'no-repeat',
-        }}></div>
-      <div
-        style={{
-          position: 'absolute',
-          zIndex: 2,
-          bottom: -260,
-          left: 0,
-          width: '100%',
-          height: 300,
-          background: 'url(./assets/images/footergray.svg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'left',
-          backgroundRepeat: 'no-repeat',
-        }}></div> */}
     </ScreenScroll>
   );
 };
