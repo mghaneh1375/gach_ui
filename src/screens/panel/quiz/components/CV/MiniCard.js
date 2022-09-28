@@ -23,7 +23,11 @@ function MiniCard(props) {
 
   return (
     <CommonWebBox
-      style={{...styleCard100Percent, padding: 0, ...styles.overFlowHidden}}>
+      style={
+        props.styleCard100Percent
+          ? {...styleCard100Percent, padding: 0, ...styles.overFlowHidden}
+          : {padding: 0, ...styles.overFlowHidden}
+      }>
       <MyView>
         <PhoneView>
           {src !== undefined && (
@@ -61,6 +65,7 @@ function MiniCard(props) {
           <MyView style={{width: 160, justifyContent: 'center'}}>
             {props.subTexts !== undefined &&
               props.subTexts.map((elem, index) => {
+                if (elem === undefined) return <></>;
                 return (
                   <PhoneView key={index} style={{padding: 0, paddingRight: 10}}>
                     <SimpleText style={{fontSize: 11}} text={elem.label} />

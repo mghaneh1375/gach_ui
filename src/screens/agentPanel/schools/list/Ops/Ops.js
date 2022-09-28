@@ -5,7 +5,7 @@ import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../translator/Common';
-import Translator from '../../../../panel/users/Translator';
+import {login} from '../../../../panel/users/components/Utility';
 import Translate from '../../Translate';
 
 function Ops(props) {
@@ -21,6 +21,7 @@ function Ops(props) {
   const toggleShowRemovePane = () => {
     setShowRemovePane(!showRemovePane);
   };
+
   return (
     <MyView>
       {showRemovePane && (
@@ -29,7 +30,7 @@ function Ops(props) {
           token={props.token}
           //   url={routes.}
           expected={['excepts', 'doneIds']}
-          data={{items: [props.id]}}
+          data={{items: [props.selectedId]}}
           afterFunc={afterRemove}
           toggleShowPopUp={toggleShowRemovePane}
         />
@@ -39,6 +40,31 @@ function Ops(props) {
           title={commonTranslator.opMenu}
           toggleShowPopUp={props.toggleShowPopUp}>
           <PhoneView>
+            {props.isAdmin && (
+              <CommonButton
+                title={commonTranslator.seeInfo}
+                onPress={() => window.open('/profile/' + props.selectedId)}
+                theme={'transparent'}
+              />
+            )}
+            {props.isAdmin && (
+              <CommonButton
+                title={commonTranslator.entrance}
+                onPress={async () => {
+                  let res = await login(
+                    props.setLoading,
+                    props.token,
+                    props.selectedId,
+                  );
+                  if (res) {
+                    props.toggleShowPopUp();
+                    window.location.href = '/';
+                  }
+                }}
+                theme={'transparent'}
+              />
+            )}
+
             <CommonButton
               theme={'transparent'}
               title={commonTranslator.view + ' ' + commonTranslator.students}

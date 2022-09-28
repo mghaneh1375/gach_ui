@@ -3,18 +3,8 @@ import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
 import {MenuItem, style, MenuItemPhone} from '../style';
 import translator from '../../../../../translator/Common';
-import {
-  faSchool,
-  faUsers,
-  faHome,
-  faShoppingCart,
-  faBasketShopping,
-  faCreditCard,
-  faHistory,
-  faQuestion,
-  faCog,
-} from '@fortawesome/free-solid-svg-icons';
-import {MyView, PhoneView} from '../../../../../styles/Common';
+import {faSchool, faUsers} from '@fortawesome/free-solid-svg-icons';
+import {MyView} from '../../../../../styles/Common';
 import MenuItemRepeat from './MenuItemRepeat';
 
 function SchoolMenu(props) {
@@ -29,6 +19,12 @@ function SchoolMenu(props) {
         selected={props.selected}
         child={
           <>
+            <MenuItem
+              onClick={() => navigate('/mySchoolQuizzes')}
+              text={'آزمون های مدرسه ای من'}
+              icon={faSchool}
+              selected={props.selected === 'mySchoolQuizzes'}
+            />
             <MenuItem
               onClick={() => navigate('/manageStudent')}
               text={translator.management + ' ' + translator.students}

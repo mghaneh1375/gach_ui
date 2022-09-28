@@ -3,16 +3,22 @@ import Quizzes from '../../../../../components/web/Quizzes';
 import {showError} from '../../../../../services/Utility';
 import {
   BigBoldBlueText,
+  CommonWebBox,
   MyView,
+  PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
-import {packagesContext} from '../Context';
+import {dispatchPackagesContext, packagesContext} from '../Context';
 import commonTranslator from '../../../../../translator/Common';
 import OffCode from '../OffCode';
 
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import BuyBasket from '../BuyBasket';
 import vars from '../../../../../styles/root';
+import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
+import {FontIcon} from '../../../../../styles/Common/FontIcon';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import columns from './../../../../schoolPanel/ManageStudents/list/TableStructure';
 
 function List(props) {
   const [price, setPrice] = useState(0);
@@ -24,8 +30,11 @@ function List(props) {
 
   const [userOff, setUserOff] = useState();
 
-  const useGlobalState = () => [React.useContext(packagesContext)];
-  const [state] = useGlobalState();
+  const useGlobalState = () => [
+    React.useContext(packagesContext),
+    React.useContext(dispatchPackagesContext),
+  ];
+  const [state, dispatch] = useGlobalState();
   const [wantedQuizzes, setWantedQuizzes] = useState();
   const [userMoney, setUserMoney] = useState(
     props.user === undefined ? 0 : props.user.user.money,
@@ -134,11 +143,12 @@ function List(props) {
           }
         />
       )}
+
       {quizzes !== undefined && !showSuccessTransaction && (
-        <MyView style={{padding: 10, alignSelf: 'start'}}>
+        <MyView style={{padding: 10, alignSelf: 'start', minHeight: '100vh'}}>
           <BigBoldBlueText text={'لیست آزمون ها'} />
           <Quizzes
-            fullWidth={props.isRightMenuVisible ? false : true}
+            fullWidth={!state.isRightMenuVisible}
             setSelectedQuizzes={ids => calc(ids, userOff)}
             quizzes={quizzes}>
             <BuyBasket

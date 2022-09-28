@@ -1,13 +1,15 @@
 import React from 'react';
-import {CommonButton, PhoneView} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
+import {CommonButton, PhoneView} from '../../../../../styles/Common';
+import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import {
   quizContext,
   dispatchQuizContext,
-} from '../../../panel/quiz/components/Context';
-import {getRanking} from '../../../panel/quiz/components/Utility';
-import Translate from '../Translate';
+} from '../../../../panel/quiz/components/Context';
+import {getRanking} from '../../../../panel/quiz/components/Utility';
+import Translate from '../../Translate';
 import {getMyAnswerSheet, getRecpForQuiz} from './Utility';
+import translator from '../../../../panel/quiz/Translator';
+import commonTranslator from '../../../../../translator/Common';
 
 function Ops(props) {
   const useGlobalState = () => [
@@ -161,6 +163,42 @@ function Ops(props) {
             title={Translate.review}
             theme={'transparent'}
           />
+        </PhoneView>
+      )}
+      {props.user.accesses.indexOf('student') === -1 && (
+        <PhoneView style={{gap: 10}}>
+          <CommonButton
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => {
+              props.setWantedQuizId(state.selectedQuiz.id);
+              props.setMode('students');
+            }}
+            title={translator.studentsList}
+          />
+
+          {state.selectedQuiz.reportStatus === 'ready' && (
+            // <CommonButton
+            //   onPress={() => props.setMode('ranking')}
+            //   dir={'rtl'}
+            //   theme={'transparent'}
+            //   title={translator.seeRanking}
+            // />
+            <CommonButton
+              onPress={() => prepareShowRanking()}
+              title={Translate.ranking}
+              theme={'transparent'}
+            />
+          )}
+
+          {state.selectedQuiz.reportStatus === 'ready' && (
+            <CommonButton
+              onPress={() => props.setMode('report')}
+              dir={'rtl'}
+              theme={'transparent'}
+              title={commonTranslator.report}
+            />
+          )}
         </PhoneView>
       )}
     </LargePopUp>

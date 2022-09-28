@@ -11,7 +11,6 @@ import {
 import React from 'react';
 import translator from '../../../../../translator/Common';
 import {MenuItem, style} from '../style';
-import {MyView} from '../../../../../styles/Common';
 
 function MenuItemRepeat(props) {
   const navigate = props.navigate;
@@ -24,10 +23,10 @@ function MenuItemRepeat(props) {
         selected={props.selected === 'dashboard'}
       />
       <MenuItem
-        onClick={() => navigate('/myQuizzes')}
+        onClick={() => navigate('/myIRYSCQuizzes')}
         text={translator.myQuizes}
         icon={faShoppingCart}
-        selected={props.selected === 'myQuizzes'}
+        selected={props.selected === 'myIRYSCQuizzes'}
       />
       <MenuItem
         onClick={() => navigate('/buy')}
@@ -35,19 +34,19 @@ function MenuItemRepeat(props) {
         text={translator.buyQuiz}
         icon={faBasketShopping}
       />
-      <MenuItem
+      {/* <MenuItem
         onClick={() => navigate('/schoolUsers')}
         text={translator.schools}
         icon={faUsers}
         selected={props.selected === 'schools'}
-      />
+      /> */}
       <MenuItem
         onClick={() => navigate('/charge')}
         text={translator.charge}
         icon={faCreditCard}
       />
       <MenuItem text={translator.history} icon={faHistory} />
-      <MenuItem text={translator.support} icon={faQuestion} />
+      {/* <MenuItem text={translator.support} icon={faQuestion} /> */}
       <MenuItem
         onClick={() => navigate('/ticket')}
         text={translator.requests}

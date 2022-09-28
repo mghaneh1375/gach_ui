@@ -89,9 +89,16 @@ const ArrowStyleAndroid = {
   top: 0,
 };
 
+// const ArrowStyleWeb = {
+//   padding: 10,
+//   top: 'calc(50% - 18px + 80px)',
+// };
+
 const ArrowStyleWeb = {
-  padding: 10,
-  top: 'calc(50% - 18px + 80px)',
+  // padding: 10,
+  zIndex: 3,
+  top: vars.HalfVert,
+  width: 40,
 };
 
 export const ArrowStyleLeft =

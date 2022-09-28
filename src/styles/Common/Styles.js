@@ -51,6 +51,9 @@ export const styles = {
   fontSize20: {
     fontSize: 20,
   },
+  fontSize22: {
+    fontSize: 22,
+  },
   fontSize25: {
     fontSize: 25,
   },
@@ -126,7 +129,10 @@ export const styles = {
     paddingRight: 5,
   },
   paddingLeft15: {
-    paddingLeft15: 15,
+    paddingLeft: 15,
+  },
+  paddingRight30: {
+    paddingRight: 30,
   },
   paddingBottomUp5: {
     paddingBottom: 5,

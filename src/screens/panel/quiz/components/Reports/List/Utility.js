@@ -1,4 +1,5 @@
 import {
+  fetchA1Report,
   fetchAuthorReport,
   fetchCityReport,
   fetchGenderReport,
@@ -143,4 +144,27 @@ export const fetchParticipantReportLocal = async (
   quiz.participantReport = res;
   dispatch({selectedQuiz: quiz, needUpdate: true});
   setSelectedReport('participant');
+};
+
+export const fetchA1ReportLocal = async (
+  setLoading,
+  quiz,
+  dispatch,
+  setSelectedReport,
+  token,
+) => {
+  if (quiz.A1Report !== undefined) {
+    setSelectedReport('A1');
+    return;
+  }
+
+  setLoading(true);
+  let res = await fetchA1Report(quiz.id, quiz.generalMode, token);
+  setLoading(false);
+
+  if (res === null) return;
+
+  quiz.A1Report = res;
+  dispatch({selectedQuiz: quiz, needUpdate: true});
+  setSelectedReport('A1');
 };

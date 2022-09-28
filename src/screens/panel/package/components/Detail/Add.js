@@ -48,8 +48,6 @@ function Add(props) {
         };
       });
 
-      console.log(res[0].items);
-
       dispatch({
         allItems: res[0].items,
         filters: {
@@ -90,6 +88,12 @@ function Add(props) {
             props.package.quizzesDoc = res;
             props.package.quizzes = res.length;
             props.setPackage(props.package);
+            dispatch({
+              selectableQuizzes: state.selectableQuizzes.map(elem => {
+                elem.isSelected = false;
+                return elem;
+              }),
+            });
             setSelectedQuizzes([]);
           }
         }}

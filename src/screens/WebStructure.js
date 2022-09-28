@@ -55,7 +55,8 @@ import AcceptInvite from './SinglePages/AcceptInvite';
 import Teachers from './teacher/teachers/Teachers';
 import TarazLevels from './panel/Config/TarazLevels/TarazLevels';
 import Buy from './general/buy/Buy';
-import MyQuizzes from './studentPanel/MyQuizzes/MyQuizzes';
+import MyIRYSCQuizzes from './studentPanel/MyQuizzes/irysc/MyQuizzes';
+import MySchoolQuizzes from './studentPanel/MyQuizzes/school/MyQuizzes';
 import Transaction from './panel/transaction/Transaction';
 import ChargeAccount from './studentPanel/ChargeAccount/ChargeAccount';
 import RunQuiz from './studentPanel/RunQuiz/RunQuiz';
@@ -63,6 +64,7 @@ import MyOffs from './studentPanel/‌MyOffs/MyOffs';
 import ManageStudents from './schoolPanel/ManageStudents/ManageStudents';
 import ManageTeachers from './schoolPanel/ManageTeachers/ManageTeachers';
 import Invoice from './schoolPanel/Invoice/Invoice';
+import RankingList from './general/RankingList/RankingList';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -93,6 +95,7 @@ const WebStructue = props => {
     dispatch({
       showTopNav: excludeTopNav.indexOf(props.page) === -1,
       showBottonNav: excludeBottomNav.indexOf(props.page) === -1,
+      page: props.page,
       isRightMenuVisible:
         d.indexOf(Device.Large) !== -1 &&
         excludeRightMenu.indexOf(props.page) === -1,
@@ -171,9 +174,9 @@ const WebStructue = props => {
   };
 
   const params = useParams();
-
+  //, backgroundColor: vars.DARK_WHITE
   return (
-    <MyView style={{flex: 1, height: '100%', backgroundColor: vars.DARK_WHITE}}>
+    <MyView style={{flex: 1, height: '100%'}}>
       {allowRenderPage && (
         <MinFullHeightView>
           <MyView style={{flexDirection: 'row', flexWrap: 'wrap'}}>
@@ -242,8 +245,15 @@ const WebStructue = props => {
               {props.page === 'buy' && (
                 <Buy user={user} token={token} navigate={navigate} />
               )}
-              {props.page === 'myQuizzes' && (
-                <MyQuizzes user={user} token={token} navigate={navigate} />
+              {props.page === 'myIRYSCQuizzes' && (
+                <MyIRYSCQuizzes user={user} token={token} navigate={navigate} />
+              )}
+              {props.page === 'mySchoolQuizzes' && (
+                <MySchoolQuizzes
+                  user={user}
+                  token={token}
+                  navigate={navigate}
+                />
               )}
 
               {props.page === 'startQuiz' && (
@@ -253,6 +263,10 @@ const WebStructue = props => {
                   user={user}
                   navigate={navigate}
                 />
+              )}
+
+              {props.page === 'rankingList' && (
+                <RankingList navigate={navigate} />
               )}
 
               {props.page === 'reviewQuiz' && (

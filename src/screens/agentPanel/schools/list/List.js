@@ -22,13 +22,16 @@ function List(props) {
       {showOpPopUp && (
         <Ops
           selectedId={selectedId}
-          data={props.data}
           toggleShowPopUp={toggleShowOpPopUp}
           token={props.token}
           setLoading={props.setLoading}
           edit={props.edit}
           remove={props.remove}
           setMode={props.setMode}
+          isAdmin={
+            props.user.accesses.indexOf('admin') !== -1 ||
+            props.user.accesses.indexOf('superadmin') !== -1
+          }
         />
       )}
       <CommonWebBox
@@ -54,7 +57,7 @@ function List(props) {
               warning: commonTranslator.sureRemove,
               method: 'delete',
               afterFunc: res => {
-                props.data = props.data.map(elem => {
+                props.data = props.selectedStudents.map(elem => {
                   if (res.doneIds.indexOf(elem.id) === -1) return elem;
                   elem.agent = '';
                   return elem;

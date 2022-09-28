@@ -21,7 +21,7 @@ function Basket(props) {
 
   React.useEffect(() => {
     if (props.fullWidth === undefined) return;
-    if (props.fullWidth) setWidth(vars.LEFT_SECTION_WIDTH);
+    if (props.fullWidth) setWidth(vars.BASKET_WIDTH_WITH_CLOSE_MENU);
     else setWidth(vars.BASKET_WIDTH_WITH_OPEN_MENU);
   }, [props.fullWidth]);
 
@@ -40,24 +40,30 @@ function Basket(props) {
                 ...styles.fontSize17,
                 ...styles.bold,
               }}
-              text={commonTranslator.counter + ' ' + commonTranslator.quiz}
+              text={
+                props.label === undefined
+                  ? commonTranslator.counter + ' ' + commonTranslator.quiz
+                  : commonTranslator.counter + ' ' + props.label
+              }
             />
-            <SimpleText
-              onPress={() => props.selectAll()}
-              style={{
-                ...{
-                  marginTop: 5,
-                  marginRight: 5,
-                },
-                ...styles.yellow_color,
-                ...styleFontSize13,
-                ...styles.cursor_pointer,
-                ...styles.bold,
-              }}
-              text={commonTranslator.selectAll}
-            />
+            {props.total !== undefined && (
+              <SimpleText
+                onPress={() => props.selectAll()}
+                style={{
+                  ...{
+                    marginTop: 5,
+                    marginRight: 5,
+                  },
+                  ...styles.yellow_color,
+                  ...styleFontSize13,
+                  ...styles.cursor_pointer,
+                  ...styles.bold,
+                }}
+                text={commonTranslator.selectAll}
+              />
+            )}
           </PhoneView>
-          {props.total > 0 && (
+          {props.total !== undefined && props.total > 0 && (
             <PhoneView>
               <SimpleText
                 style={{
@@ -78,6 +84,30 @@ function Basket(props) {
                   props.total +
                   ' ' +
                   commonTranslator.haveQuiz
+                }
+              />
+            </PhoneView>
+          )}
+          {props.total === undefined && (
+            <PhoneView>
+              <SimpleText
+                style={{
+                  ...styles.yellow_color,
+                  ...styleFontSize15,
+                  ...styles.bold,
+                }}
+                text={' ' + props.selectedLength}
+              />
+              <SimpleText
+                style={{
+                  ...styles.dark_blue_color,
+                  ...styleFontSize15,
+                  ...styles.BlueBold,
+                }}
+                text={
+                  props.label === undefined
+                    ? commonTranslator.haveQuiz
+                    : props.label + '  *  ' + props.calculation
                 }
               />
             </PhoneView>

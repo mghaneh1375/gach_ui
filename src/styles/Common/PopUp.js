@@ -26,6 +26,8 @@ const modal = {
     left: width > 768 ? 30 : 10,
     right: width > 768 ? vars.RIGHT_MENU_WIDTH : 10,
     top: 90,
+    maxHeight: 'calc(100vh - 150px)',
+    overflow: 'auto',
   },
   marginBottom20: {
     marginBottom: 20,

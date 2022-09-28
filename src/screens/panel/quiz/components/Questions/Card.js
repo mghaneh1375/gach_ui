@@ -30,25 +30,31 @@ function Card(props) {
 
   return (
     <PhoneView>
-      <CommonRadioButton
-        status={isSelected ? 'checked' : 'unchecked'}
-        onPress={() => toggleSelected()}
-        text={''}
-      />
+      {(props.needUpdate === undefined || props.needUpdate) && (
+        <CommonRadioButton
+          status={isSelected ? 'checked' : 'unchecked'}
+          onPress={() => toggleSelected()}
+          text={''}
+        />
+      )}
       <MyView style={{width: '90%'}}>
         <Question
           needOps={false}
           question={props.question}
           totalQuestions={props.totalQuestions}
-          btns={[
-            {
-              theme: 'dark',
-              title: commonTranslator.edit,
-              onPress: question => {
-                props.setSelectedQuestion(question);
-              },
-            },
-          ]}
+          btns={
+            props.needUpdate !== undefined && !props.needUpdate
+              ? []
+              : [
+                  {
+                    theme: 'dark',
+                    title: commonTranslator.edit,
+                    onPress: question => {
+                      props.setSelectedQuestion(question);
+                    },
+                  },
+                ]
+          }
         />
       </MyView>
     </PhoneView>

@@ -144,14 +144,14 @@ const UpdateInfo = props => {
           updateInfo(props.setLoading, props.token, props.userId, {
             firstName: firstname,
             lastName: lastname,
-            schoolId: school.id,
+            schoolId: school === undefined ? undefined : school.id,
             branches:
               branch !== undefined
                 ? branch.map(function (element) {
                     return element.id;
                   })
                 : [],
-            gradeId: grade.id,
+            gradeId: grade === undefined ? undefined : grade.id,
             cityId: city.id,
             NID: NID,
             sex: sex,

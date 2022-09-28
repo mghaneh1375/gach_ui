@@ -35,6 +35,7 @@ import {
   dispatchQuizContext,
 } from '../../../quiz/components/Context';
 import vars from '../../../../../styles/root';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function Question(props) {
   const [showMore, setShowMore] = useState(false);
@@ -74,36 +75,53 @@ function Question(props) {
 
   return (
     <CommonWebBox>
-      <EqualTwoTextInputs>
-        <BigBoldBlueTextInline
-          style={{...styleFont16}}
-          text={translator.organizationCode + props.question.organizationId}
-        />
-        <PhoneView>
-          <PhoneView
-            style={{
-              top: -10,
-              right: -15,
-              backgroundColor: vars.ORANGE,
-            }}>
-            {keyVals !== undefined && (
-              <JustBottomBorderSelect
-                values={keyVals}
-                value={keyVals.find(elem => elem.id === questionNo)}
-                setter={id => {
-                  changeQNo(id);
-                }}
-                placeholder={props.counter}
-                style={{color: 'white'}}
-                parentStyle={{
-                  backgroundColor: vars.ORANGE,
-                  paddingTop: 0,
-                }}
-                paddingLeft={5}
-                onHover={true}
-              />
-            )}
+      {props.question.organizationId !== undefined && (
+        <EqualTwoTextInputs>
+          <BigBoldBlueTextInline
+            style={{...styleFont16}}
+            text={translator.organizationCode + props.question.organizationId}
+          />
+          <PhoneView>
+            <PhoneView
+              style={{
+                top: -10,
+                right: -15,
+                backgroundColor: vars.ORANGE,
+              }}>
+              {keyVals !== undefined && (
+                <JustBottomBorderSelect
+                  values={keyVals}
+                  value={keyVals.find(elem => elem.id === questionNo)}
+                  setter={id => {
+                    changeQNo(id);
+                  }}
+                  placeholder={props.counter}
+                  style={{color: 'white'}}
+                  parentStyle={{
+                    backgroundColor: vars.ORANGE,
+                    paddingTop: 0,
+                  }}
+                  paddingLeft={5}
+                  onHover={true}
+                />
+              )}
+            </PhoneView>
+            <SimpleText
+              onPress={() => toggleShowMore()}
+              text={!showMore ? commonTranslator.more : commonTranslator.less}
+              style={{...YellowFont13, width: 65}}
+            />
+            <SimpleFontIcon
+              onPress={() => toggleShowMore()}
+              kind={'normal'}
+              icon={!showMore ? faAngleDoubleDown : faAngleDoubleUp}
+              style={{...styleYellowMarginTop7}}
+            />
           </PhoneView>
+        </EqualTwoTextInputs>
+      )}
+      {props.question.organizationId === undefined && (
+        <PhoneView style={{...styles.flexEnd}}>
           <SimpleText
             onPress={() => toggleShowMore()}
             text={!showMore ? commonTranslator.more : commonTranslator.less}
@@ -116,7 +134,8 @@ function Question(props) {
             style={{...styleYellowMarginTop7}}
           />
         </PhoneView>
-      </EqualTwoTextInputs>
+      )}
+
       <PhoneView
         style={{
           ...styleFlexSpaceBetween,
@@ -137,16 +156,19 @@ function Question(props) {
             }
           />
         </PhoneView>
-        <PhoneView>
-          <BlueTextInline
-            style={{...styleFont14}}
-            text={translator.neededTime}
-          />
-          <SimpleText
-            style={{...styleMarginRight25}}
-            text={' ' + props.question.neededTime + translator.second}
-          />
-        </PhoneView>
+        {props.question.neededTime !== undefined && (
+          <PhoneView>
+            <BlueTextInline
+              style={{...styleFont14}}
+              text={translator.neededTime}
+            />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={' ' + props.question.neededTime + translator.second}
+            />
+          </PhoneView>
+        )}
+
         <PhoneView>
           <BlueTextInline style={{...styleFont14}} text={translator.level} />
           <SimpleText
@@ -164,20 +186,24 @@ function Question(props) {
             text={' ' + props.question.author}
           />
         </PhoneView>
-        <PhoneView>
-          <BlueTextInline
-            style={{...styleFont14}}
-            text={translator.visibility}
-          />
-          <SimpleText
-            style={{...styleMarginRight25}}
-            text={
-              ' ' +
-              statusKeyVals.find(elem => elem.id === props.question.visibility)
-                .item
-            }
-          />
-        </PhoneView>
+        {props.question.visibility !== undefined && (
+          <PhoneView>
+            <BlueTextInline
+              style={{...styleFont14}}
+              text={translator.visibility}
+            />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={
+                ' ' +
+                statusKeyVals.find(
+                  elem => elem.id === props.question.visibility,
+                ).item
+              }
+            />
+          </PhoneView>
+        )}
+
         {props.question.answer !== undefined && (
           <PhoneView>
             <BlueTextInline style={{...styleFont14}} text={translator.answer} />
@@ -275,7 +301,7 @@ function Question(props) {
           <PhoneView>
             <BlueTextInline
               style={{...styleFont14}}
-              text={translate.oldWhite + ' : '}
+              text={translate.oldWhite}
             />
             <SimpleText
               style={{...styleMarginRight25}}
@@ -287,7 +313,7 @@ function Question(props) {
           <PhoneView>
             <BlueTextInline
               style={{...styleFont14}}
-              text={translate.oldCorrect + ' : '}
+              text={translate.oldCorrect}
             />
             <SimpleText
               style={{...styleMarginRight25}}
@@ -299,7 +325,7 @@ function Question(props) {
           <PhoneView>
             <BlueTextInline
               style={{...styleFont14}}
-              text={translate.oldIncorrect + ' : '}
+              text={translate.oldIncorrect}
             />
             <SimpleText
               style={{...styleMarginRight25}}

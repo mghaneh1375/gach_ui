@@ -5,6 +5,10 @@ import commonTranslator from '../../translator/Common';
 
 const ConfirmationBatchOpPane = props => {
   const doOp = () => {
+    if (props.url === undefined || props.url === null) {
+      props.afterFunc(props.data);
+      return;
+    }
     props.setLoading(true);
 
     Promise.all([

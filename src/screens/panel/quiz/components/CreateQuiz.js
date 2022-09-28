@@ -42,6 +42,8 @@ const CreateQuiz = props => {
     setPrice(state.selectedQuiz.price);
     setRanking(state.selectedQuiz.topStudentsCount);
     setStart(state.selectedQuiz.start);
+    setDescAfter(state.selectedQuiz.descAfter);
+    setDescBefore(state.selectedQuiz.descBefore);
     setEnd(state.selectedQuiz.end === undefined ? '' : state.selectedQuiz.end);
     setStartRegistry(state.selectedQuiz.startRegistry);
     setEndRegistry(

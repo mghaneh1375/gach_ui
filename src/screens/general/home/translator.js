@@ -1,4 +1,5 @@
 const translator = {
+  more: 'بیش از',
   slider1Title: 'سامانه آموزشی آیریسک',
   slider1SubTitle: 'پشتیبانی بیست و چهار ساعته',
   slider1Text:

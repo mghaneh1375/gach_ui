@@ -413,3 +413,15 @@ option {
 ::-webkit-scrollbar-thumb:hover {
   background: #ffaa00;
 }
+
+.data-table-extensions .download {
+  display: none;
+}
+
+.data-table-extensions .dropdown > button {
+  background-color: #013243;
+  color: white;
+  margin: 10px;
+  font-family: IRANSans;
+  cursor: pointer;
+}

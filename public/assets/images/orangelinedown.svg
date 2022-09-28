@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1918" height="336.708" viewBox="0 0 1918 336.708">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="1.961" gradientTransform="translate(0.408 0.043) scale(0.184 0.92)" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fa0"/>
+      <stop offset="0.15" stop-color="#fa0" stop-opacity="0.961"/>
+      <stop offset="0.42" stop-color="#fa0" stop-opacity="0.839"/>
+      <stop offset="0.77" stop-color="#fa0" stop-opacity="0.639"/>
+      <stop offset="1" stop-color="#fa0" stop-opacity="0.502"/>
+    </radialGradient>
+  </defs>
+  <g id="ORANGE" transform="translate(1918 336.708) rotate(180)">
+    <g id="Layer_2" data-name="Layer 2" transform="translate(0 0)">
+      <path id="Path_1" data-name="Path 1" d="M1866.06,157.323s-414.74-354.31-907.91.5c-51.92,37.36-125.51,24.66-165.3-11.22-41.54-37.44-92.38-65-146.85-23.28C384.38,323.823,192.29,354,0,306.113v7.67c189.71,51.37,381.9,25,647.65-167.8,55.67-40.4,105.69-11.56,146.12,26.88,38.74,36.84,111.93,51.35,164.92,15.28,503.31-342.57,907.6,21.8,907.6,21.8L1918,255.666V201.123Z" fill="url(#radial-gradient)"/>
+    </g>
+  </g>
+</svg>

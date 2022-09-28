@@ -17,11 +17,17 @@ import {
   fetchStateReportLocal,
   fetchAuthorReportLocal,
   fetchParticipantReportLocal,
+  fetchA1ReportLocal,
 } from './Utility';
 import AuthorReport from '../Author/AuthorReport';
 import ParticipantReport from '../Participant/ParticipantReport';
 import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
-import {typeOfReportBeforeFinishKeyVals, typeOfReportKeyVals} from './KeyVals';
+import {
+  typeOfReportBeforeFinishKeyVals,
+  typeOfReportKeyVals,
+  typeOfReportKeyValsSchoolAccess,
+} from './KeyVals';
+import A1Report from '../A1Report';
 
 function List(props) {
   const useGlobalState = () => [
@@ -45,7 +51,7 @@ function List(props) {
     if (type === 'schoolReport') func = fetchSchoolReportLocal;
     if (type === 'participationReport') func = fetchParticipantReportLocal;
     if (type === 'authorReport') func = fetchAuthorReportLocal;
-    if (type === 'A1') func = fetchParticipantReportLocal;
+    if (type === 'A1') func = fetchA1ReportLocal;
 
     func(
       props.setLoading,
@@ -61,7 +67,11 @@ function List(props) {
       <CommonWebBox
         header={commonTranslator.report}
         backBtn={true}
-        onBackClick={() => props.setMode('list')}>
+        onBackClick={() =>
+          props.onBackClick !== undefined
+            ? props.onBackClick()
+            : props.setMode('list')
+        }>
         <PhoneView>
           <JustBottomBorderSelect
             placeholder={translator.typeOfReport}
@@ -69,7 +79,12 @@ function List(props) {
             setter={setType}
             values={
               state.selectedQuiz.reportStatus === 'ready'
-                ? typeOfReportKeyVals
+                ? props.accesses === undefined
+                  ? typeOfReportKeyVals
+                  : props.accesses.indexOf('school') !== -1 ||
+                    props.accesses.indexOf('agent') !== -1
+                  ? typeOfReportKeyValsSchoolAccess
+                  : typeOfReportBeforeFinishKeyVals
                 : typeOfReportBeforeFinishKeyVals
             }
             value={typeOfReportKeyVals.find(elem => elem.id === type)}
@@ -101,6 +116,9 @@ function List(props) {
         state.selectedQuiz.authorReport !== undefined && (
           <AuthorReport data={state.selectedQuiz.authorReport} />
         )}
+      {selectedReport === 'A1' && state.selectedQuiz.A1Report !== undefined && (
+        <A1Report />
+      )}
       {selectedReport === 'participant' &&
         state.selectedQuiz.participantReport !== undefined && (
           <ParticipantReport

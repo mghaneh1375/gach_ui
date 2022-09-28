@@ -1,5 +1,5 @@
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
+import {routes} from '../../../../../API/APIRoutes';
+import {generalRequest} from '../../../../../API/Utility';
 
 export const fetchMyQuizze = async (
   token,

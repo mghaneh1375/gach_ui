@@ -9,6 +9,8 @@ const vars = {
     width > 1500 ? 'calc(100% - 250px)' : 'calc(100% - 200px)',
   BASKET_WIDTH_WITH_OPEN_MENU:
     width > 1500 ? 'calc(100% - 290px)' : 'calc(100% - 240px)',
+  BASKET_WIDTH_WITH_CLOSE_MENU: 'calc(100% - 40px)',
+  HalfVert: width > 440 ? 'calc(50% - 50px)' : 'calc(50% - 20px)',
   NAV_BAR_H: '55px',
   YELLOW: '#FFAA00',
   ORANGE: '#FFAA00',

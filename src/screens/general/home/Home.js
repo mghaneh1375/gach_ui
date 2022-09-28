@@ -1,13 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import BackgroundScrollView from './../../../components/BackgroundScrollView';
 import translator from './translator';
 import {Device} from './../../../models/Device';
+import {Image} from 'react-native';
 
 import {getDevice, getWidthHeight} from './../../../services/Utility';
 
-import {ScreenScroll} from '../../../styles/Common';
+import {
+  MyView,
+  PhoneView,
+  ScreenScroll,
+  SimpleText,
+} from '../../../styles/Common';
 import {ImageBackground} from 'react-native';
 import vars from '../../../styles/root';
+import {globalStateContext, dispatchStateContext} from '../../../App';
+import {generalRequest} from '../../../API/Utility';
+import {routes} from '../../../API/APIRoutes';
+import {useEffectOnce} from 'usehooks-ts';
+import {TextIcon} from '../../../styles/Common/TextIcon';
+import {styles} from '../../../styles/Common/Styles';
+import DashboardCard from '../../studentPanel/dashboard/DashboardCard/DashboardCard';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import HomeBox from './HomeBox/HomeBox';
 
 const device = getDevice();
 
@@ -17,6 +32,86 @@ const Home = props => {
   const height = wH[1];
   const navigator = props.navigator;
   const isRightMenuVisible = props.isRightMenuVisible;
+
+  const [grayFooterW, setGrayFooterW] = useState('100%');
+  const [grayFooterH, setGrayFooterH] = useState('100%');
+
+  const [orangelineupW, setorangelineupW] = useState('100%');
+  const [orangelineupH, setorangelineupH] = useState('100%');
+
+  const [orangelineupDownW, setorangelineupDownW] = useState('100%');
+  const [orangelineupDownH, setorangelineupDownH] = useState('100%');
+
+  const [whiteDividerW, setWhiteDividerW] = useState('100%');
+  const [whiteDividerH, setWhiteDividerH] = useState('100%');
+
+  const [isWorking, setIsWorking] = useState(false);
+  const [data, setData] = useState();
+
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+  const [wantedImg, setWantedImg] = useState(300);
+
+  useEffectOnce(() => {
+    Image.getSize(
+      'https://e.irysc.com/assets/images/footergray.svg',
+      (width, height) => {
+        setGrayFooterW(width);
+        setGrayFooterH(height);
+        const wh = getWidthHeight();
+        setWantedImg((wh[0] * (height - 20)) / width);
+      },
+    );
+    Image.getSize(
+      'https://e.irysc.com/assets/images/orangelineup.svg',
+      (width, height) => {
+        setorangelineupW(width);
+        setorangelineupH(height);
+      },
+    );
+    Image.getSize(
+      'https://e.irysc.com/assets/images/orangelinedown.svg',
+      (width, height) => {
+        setorangelineupDownW(width);
+        setorangelineupDownH(height);
+      },
+    );
+    Image.getSize(
+      'https://e.irysc.com/assets/images/whitedevider.svg',
+      (width, height) => {
+        setWhiteDividerW(width);
+        setWhiteDividerH(height);
+      },
+    );
+  });
+
+  // React.useEffect(() => {
+  //   if (isWorking || data !== undefined) return;
+
+  //   setIsWorking(true);
+  //   dispatch({loading: true});
+
+  //   Promise.all([
+  //     generalRequest(
+  //       routes.fetchSiteStats,
+  //       'get',
+  //       undefined,
+  //       'data',
+  //       undefined,
+  //     ),
+  //   ]).then(res => {
+  //     dispatch({loading: false});
+
+  //     if (res[0] === null) return;
+
+  //     setData(res[0]);
+  //     console.log(res[0]);
+  //     setIsWorking(false);
+  //   });
+  // }, [dispatch, props, isWorking, data]);
 
   return (
     <ScreenScroll style={{background: 'transparent'}}>
@@ -80,6 +175,146 @@ const Home = props => {
         }
         device={device}
       />
+      <div
+        style={{
+          position: 'absolute',
+          zIndex: 2,
+          bottom: -grayFooterH,
+          left: 0,
+          width: '100%',
+          height: grayFooterH,
+          backgroundColor: 'white',
+        }}>
+        <MyView
+          style={{
+            background: '#ffffffcc',
+            zIndex: 20,
+            paddingLeft: 50,
+            paddingRight: 50,
+            paddingTop: 20,
+            paddingBottom: 20,
+            position: 'absolute',
+            top: -100,
+            width: '100%',
+          }}>
+          <PhoneView
+            style={{...styles.gap30, ...styles.justifyContentSpaceAround}}>
+            <HomeBox color="red" text="تست" number={200} />
+            <HomeBox color="red" text="تست" number={200} />
+            <HomeBox color="red" text="تست" number={200} />
+          </PhoneView>
+        </MyView>
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: 2,
+            top: '-100%',
+            right: 0,
+            maxWidth: '100%',
+            width: whiteDividerW,
+            height: whiteDividerH,
+            background: 'url(./assets/images/whitedevider.svg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'right',
+            backgroundRepeat: 'no-repeat',
+          }}></div>
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: 2,
+            top: 'calc(-100% + 30px)',
+            right: 0,
+            maxWidth: '100%',
+            width: orangelineupW,
+            height: orangelineupH,
+            background: 'url(./assets/images/orangelineup.svg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'right',
+            backgroundRepeat: 'no-repeat',
+          }}></div>
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: 3,
+            top: -50,
+            right: 0,
+            maxWidth: '100%',
+            width: orangelineupDownW,
+            height: orangelineupDownH,
+            background: 'url(./assets/images/orangelinedown.svg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'right',
+            backgroundRepeat: 'no-repeat',
+          }}></div>
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: 2,
+            right: 0,
+            maxWidth: '100%',
+            width: grayFooterW,
+            height: grayFooterH,
+            top: 0,
+            background: 'url(./assets/images/footergray.svg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'right',
+            backgroundRepeat: 'no-repeat',
+          }}></div>
+
+        <div
+          style={{
+            zIndex: 10,
+            position: 'absolute',
+            paddingLeft: 50,
+            paddingRight: 50,
+            bottom: 0,
+            width: '100%',
+          }}>
+          <img src="./assets/images/irysc.png" width={200} />
+          <MyView style={{...styles.gap10, ...styles.marginTop10}}>
+            <PhoneView style={{...styles.gap10}}>
+              <img src="./assets/images/address.svg" height={30} />
+              <SimpleText
+                style={{
+                  ...styles.alignSelfCenter,
+                  ...styles.BlueBold,
+                }}
+                text={
+                  'تهران، میدان انقلاب، ابتدای خیابان آزادی، بن بست قائم مقام ، پلاک 5'
+                }
+              />
+            </PhoneView>
+            <PhoneView style={{...styles.gap10}}>
+              <img src="./assets/images/phone.svg" height={25} />
+              <SimpleText
+                style={{
+                  ...styles.alignSelfCenter,
+                  ...styles.BlueBold,
+                }}
+                text={'02166917230'}
+              />
+            </PhoneView>
+            <PhoneView style={{...styles.gap10}}>
+              <img src="./assets/images/email.svg" height={25} />
+              <SimpleText
+                style={{
+                  ...styles.alignSelfCenter,
+                  ...styles.BlueBold,
+                }}
+                text={'info@irysc.com'}
+              />
+            </PhoneView>
+            <SimpleText
+              style={{
+                ...styles.dark_blue_color,
+              }}
+              text={
+                'تمام حقوق این وبسایت، مطالب، سوالات و دوره های موجود در آن متعلق به کانون دانش پژوهان ایران (آیریسک) است. هر گونه استفاده بدون مجوز از مطالب می تواند پیگرد قانونی داشته باشد.'
+              }
+            />
+          </MyView>
+        </div>
+      </div>
     </ScreenScroll>
   );
 };

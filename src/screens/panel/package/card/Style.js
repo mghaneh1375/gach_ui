@@ -122,4 +122,5 @@ export const basketBox = {
   height: 100,
   justifyContent: 'flex-end',
   paddingBottom: 0,
+  zIndex: 3,
 };

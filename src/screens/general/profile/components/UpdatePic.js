@@ -1,6 +1,12 @@
 import React, {useState} from 'react';
 import translator from '../translate';
-import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
+import {
+  CommonButton,
+  PhoneView,
+  MyView,
+  SimpleText,
+  EqualTwoTextInputs,
+} from '../../../../styles/Common';
 import {Image, View} from 'react-native';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import {generalRequest} from '../../../../API/Utility';
@@ -81,6 +87,10 @@ const UpdatePic = props => {
           onPress={() => toggleShowChooseAvatar()}
           title={translator.chooseAvatar}
         />
+        <EqualTwoTextInputs>
+          <SimpleText text={'کد معرفی شما:   '} />
+          <SimpleText text={props.user.invitationCode} />
+        </EqualTwoTextInputs>
       </MyView>
     </MyView>
   );

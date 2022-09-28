@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {MyView, PhoneView} from '../../../../styles/Common';
-import Card from '../../../panel/quiz/components/Card/Card';
+import {MyView, PhoneView} from '../../../../../styles/Common';
+import Card from '../../../../panel/quiz/components/Card/Card';
 import {
   quizContext,
   dispatchQuizContext,
-} from '../../../panel/quiz/components/Context';
+} from '../../../../panel/quiz/components/Context';
 import Ops from './Ops';
 import {fetchMyQuizze} from './Utility';
 
@@ -52,6 +52,7 @@ function List(props) {
     <MyView>
       {showOpPane && (
         <Ops
+          setWantedQuizId={props.setWantedQuizId}
           setRecp={props.setRecp}
           setLoading={props.setLoading}
           token={props.token}
@@ -73,6 +74,7 @@ function List(props) {
                         '/startQuiz/' + quiz.generalMode + '/' + quiz.id,
                       )
                 }
+                isStudent={props.user.accesses.indexOf('student') !== -1}
                 onClick={() => {}}
                 quiz={quiz}
                 key={index}
