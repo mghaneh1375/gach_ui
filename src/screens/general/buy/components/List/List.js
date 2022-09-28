@@ -72,6 +72,7 @@ function List(props) {
               return (
                 <Card
                   isAdmin={false}
+                  isStudent={props.user.accesses.indexOf('student') !== -1}
                   key={index}
                   package={item}
                   onPress={() => {

@@ -17,6 +17,7 @@ function List(props) {
                 <Card
                   afterRemove={props.afterRemove}
                   isAdmin={props.isAdmin}
+                  isStudent={!props.isAdmin}
                   key={index}
                   package={package_}
                   setLoading={props.setLoading}

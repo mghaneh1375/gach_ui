@@ -148,9 +148,8 @@ function Card(props) {
             />
           )}
         </PhoneView>
-
-        <PhoneView style={{...stylePricaPane}}>
-          {!props.isAdmin && (
+        {(props.isStudent === undefined || props.isStudent) && (
+          <PhoneView style={{...stylePricaPane}}>
             <PhoneView>
               <SimpleText
                 style={{...styles.BlueBold}}
@@ -180,8 +179,8 @@ function Card(props) {
                 }
               />
             </PhoneView>
-          )}
-        </PhoneView>
+          </PhoneView>
+        )}
         {!props.isAdmin && (
           <CommonButton
             onPress={() => props.onPress()}

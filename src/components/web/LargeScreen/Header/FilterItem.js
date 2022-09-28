@@ -1,7 +1,13 @@
 import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {CommonRadioButton, MyView} from '../../../../styles/Common';
-import {SimpleTextIcon} from '../../../../styles/Common/TextIcon';
+import {
+  CommonRadioButton,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../../styles/Common';
+import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import vars from '../../../../styles/root';
 
 function FilterItem(props) {
   const [status, setStatus] = useState();
@@ -54,11 +60,24 @@ function FilterItem(props) {
 
   return (
     <MyView>
-      <SimpleTextIcon
-        onPress={() => setExpand(!expand)}
-        text={props.item.label}
-        icon={expand ? faMinus : faPlus}
-      />
+      <PhoneView>
+        <SimpleFontIcon
+          onPress={() => setExpand(!expand)}
+          theme="full"
+          parentStyle={{width: 20, heigth: 20}}
+          style={{color: vars.DARK_SILVER}}
+          icon={expand ? faMinus : faPlus}
+        />
+        <SimpleText
+          style={{
+            color: vars.DARK_SILVER,
+            alignSelf: 'center',
+            paddingRight: 10,
+          }}
+          text={props.item.label}
+          onPress={() => setExpand(!expand)}
+        />
+      </PhoneView>
       {expand && (
         <MyView style={{paddingRight: 20}}>
           {subCats !== undefined &&
@@ -68,7 +87,9 @@ function FilterItem(props) {
                   onPress={() => changeSubCatStatus(index)}
                   status={elem.status}
                   text={elem.label}
+                  style={{color: vars.DARK_SILVER}}
                   key={index}
+                  isCheckBox={true}
                 />
               );
             })}

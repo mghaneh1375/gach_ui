@@ -107,6 +107,9 @@ export const styles = {
   marginLeft5: {
     marginLeft: 5,
   },
+  marginLeft15: {
+    marginLeft: 15,
+  },
   marginBottom20: {
     marginBottom: 20,
   },

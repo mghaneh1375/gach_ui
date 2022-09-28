@@ -15,6 +15,8 @@ export const checkSendRoleForm = async (
   token,
   userId = undefined,
 ) => {
+  console.log(userRoleFormData);
+  console.log(Object.keys(userRoleFormData).length);
   if (
     userRoleFormData['role'] === 'student' &&
     Object.keys(userRoleFormData).length === 1
@@ -35,9 +37,12 @@ export const checkSendRoleForm = async (
   ]).then(res => {
     setLoading(false);
     if (res[0] != null) {
-      showSuccess(
-        'فرم شما با موفقیت ثبت گردید و در انتظار تایید ادمین قرار گرفته است.',
-      );
+      if (userRoleFormData['role'] === 'student')
+        showSuccess('کد معرف به درستی ثبت گردید.');
+      else
+        showSuccess(
+          'فرم شما با موفقیت ثبت گردید و در انتظار تایید ادمین قرار گرفته است.',
+        );
       if (redirectTo !== undefined) navigate(redirectTo);
     }
   });

@@ -64,7 +64,6 @@ export const PackageProvider = ({children}) => {
       }
       if (hasWantedTag) newItems.push(elem);
     });
-
     dispatch({
       selectableItems: newItems,
       needUpdateFilters: false,
@@ -83,10 +82,13 @@ export const PackageProvider = ({children}) => {
       isRightMenuVisible: false,
       isFilterMenuVisible: true,
       filters: state.filters.items,
+      allItems: state.allItems === undefined ? 0 : state.allItems.length,
+      selectableItems:
+        state.selectableItems === undefined ? 0 : state.selectableItems.length,
       onChangeFilter: state.filters.onChangeFilter,
       allFilter: true,
     });
-  }, [globalDispatch, state.filters]);
+  }, [globalDispatch, state.filters, state.selectableItems, state.allItems]);
 
   React.useEffect(() => {
     setFilters();

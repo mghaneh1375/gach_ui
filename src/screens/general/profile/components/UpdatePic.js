@@ -7,10 +7,8 @@ import {
   SimpleText,
   EqualTwoTextInputs,
 } from '../../../../styles/Common';
-import {Image, View} from 'react-native';
+import {Image} from 'react-native';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
 import Avatar from './Avatar';
 import {fetchAvatars} from './Utility';
 import {styles} from '../../../../styles/Common/Styles';
@@ -91,6 +89,10 @@ const UpdatePic = props => {
           <SimpleText text={'کد معرفی شما:   '} />
           <SimpleText text={props.user.invitationCode} />
         </EqualTwoTextInputs>
+        <CommonButton
+          onPress={() => props.navigate('/upgrade')}
+          title={'درخواست ارتفا سطح'}
+        />
       </MyView>
     </MyView>
   );

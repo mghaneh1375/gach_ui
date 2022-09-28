@@ -254,6 +254,7 @@ const Profile = props => {
                   token={props.token}
                   user={user}
                   isAdmin={isAdmin}
+                  navigate={navigate}
                   setLoading={setLoading}
                   updateUserPic={newFilePath =>
                     updateUserPic(

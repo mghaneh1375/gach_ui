@@ -293,16 +293,34 @@ export const CommonRadioButton = props => (
   <PhoneView
     style={
       (props.style !== undefined ? props.style : {},
-      {height: 60, alignItems: 'center'})
+      {height: props.isCheckBox ? 20 : 60, alignItems: 'center'})
     }>
-    <RadioButton
-      color={vars.ORANGE}
-      value={props.value}
-      status={props.status}
-      onPress={props.onPress}
-    />
+    {props.isCheckBox === undefined && (
+      <RadioButton
+        color={vars.ORANGE}
+        value={props.value}
+        status={props.status}
+        onPress={props.onPress}
+      />
+    )}
+    {props.isCheckBox !== undefined && (
+      <input
+        type="checkbox"
+        onChange={props.onPress}
+        checked={props.status === 'checked'}
+      />
+    )}
+
     {(props.type === undefined || props.type === 'simple') && (
-      <SimpleText text={props.text} />
+      <SimpleText
+        style={{
+          color:
+            props.style === undefined || props.style.color === undefined
+              ? 'black'
+              : props.style.color,
+        }}
+        text={props.text}
+      />
     )}
     {props.type !== undefined && props.type === 'textInput' && (
       <JustBottomBorderTextInput

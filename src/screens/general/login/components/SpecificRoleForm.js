@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
-import {FlipInEasyX} from 'react-native-reanimated';
-import {PhoneView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
 
 function SpecificRoleForm(props) {
@@ -17,52 +14,48 @@ function SpecificRoleForm(props) {
       setData(props.obj.value);
   }, [props.obj]);
 
+  if (obj === undefined) return <></>;
+  if (obj.keyVals !== undefined)
+    return (
+      <JustBottomBorderSelect
+        setter={setData}
+        afterSetter={props.setFormUserData}
+        args={obj.key}
+        values={obj.keyVals}
+        value={obj.keyVals.find(elem => {
+          return elem.id === data;
+        })}
+      />
+    );
+  if (props.signUp) {
+    return (
+      <CommonTextInput
+        placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
+        subText={obj.help === undefined ? obj.title : obj.help}
+        justNum={obj.isJustNum ? true : undefined}
+        type={obj.type}
+        value={data}
+        onChangeText={e => {
+          setData(e);
+          props.setFormUserData(obj.key, e);
+        }}
+      />
+    );
+  }
+
   return (
-    <PhoneView
-      style={{
-        ...styles.gap15,
-      }}>
-      {obj !== undefined && obj.keyVals !== undefined && (
-        <JustBottomBorderSelect
-          setter={setData}
-          afterSetter={props.setFormUserData}
-          args={obj.key}
-          values={obj.keyVals}
-          value={obj.keyVals.find(elem => {
-            return elem.id === data;
-          })}
-        />
-      )}
-
-      {obj !== undefined && obj.keyVals === undefined && props.signUp && (
-        <CommonTextInput
-          placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
-          subText={obj.help === undefined ? obj.title : obj.help}
-          justNum={obj.isJustNum ? true : undefined}
-          type={obj.type}
-          value={data}
-          onChangeText={e => {
-            setData(e);
-            props.setFormUserData(obj.key, e);
-          }}
-        />
-      )}
-
-      {obj !== undefined && obj.keyVals === undefined && !props.signUp && (
-        <JustBottomBorderTextInput
-          placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
-          subText={obj.help === undefined ? obj.title : obj.help}
-          justNum={obj.isJustNum ? true : undefined}
-          type={obj.type}
-          value={data}
-          style={{backgroundColor: vars.transparent}}
-          onChangeText={e => {
-            setData(e);
-            props.setFormUserData(obj.key, data);
-          }}
-        />
-      )}
-    </PhoneView>
+    <JustBottomBorderTextInput
+      placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
+      subText={obj.help === undefined ? obj.title : obj.help}
+      justNum={obj.isJustNum ? true : undefined}
+      type={obj.type}
+      value={data}
+      style={{backgroundColor: vars.transparent}}
+      onChangeText={e => {
+        setData(e);
+        props.setFormUserData(obj.key, e);
+      }}
+    />
   );
 }
 

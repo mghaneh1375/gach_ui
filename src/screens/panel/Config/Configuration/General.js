@@ -134,6 +134,7 @@ function General(props) {
             value={initCoin}
             onChangeText={e => setInitCoin(e)}
             justNum={true}
+            float={true}
           />
           <JustBottomBorderTextInput
             placeholder={translator.inviteMoney}
@@ -148,6 +149,7 @@ function General(props) {
             value={inviteCoin}
             onChangeText={e => setInviteCoin(e)}
             justNum={true}
+            float={true}
           />
           <JustBottomBorderTextInput
             placeholder={translator.completeInfoMoney}
@@ -162,6 +164,7 @@ function General(props) {
             value={completeInfoCoin}
             onChangeText={e => setCompleteInfoCoin(e)}
             justNum={true}
+            float={true}
           />
           <JustBottomBorderTextInput
             placeholder={translator.quizMoney}
@@ -176,6 +179,7 @@ function General(props) {
             value={quizCoin}
             onChangeText={e => setQuizCoin(e)}
             justNum={true}
+            float={true}
           />
           <JustBottomBorderTextInput
             placeholder={translator.agentOffPercent}

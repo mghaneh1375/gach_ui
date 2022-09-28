@@ -4,6 +4,9 @@ import {getDevice} from '../../../../services/Utility';
 import {style} from './style';
 import {dispatchStateContext, globalStateContext} from '../../../../App';
 import FilterItem from './FilterItem';
+import {MyView, SimpleText} from '../../../../styles/Common';
+import {styles} from '../../../../styles/Common/Styles';
+import vars from '../../../../styles/root';
 
 function Filter() {
   const useGlobalState = () => [
@@ -69,17 +72,69 @@ function Filter() {
   if (isLargePage) {
     return (
       <div className="menu-item-container filter" style={style.MenuJustLarge}>
-        {filters !== undefined &&
-          filters.map((elem, index) => {
-            return (
-              <FilterItem
-                item={elem}
-                status={allActive ? 'unchecked' : undefined}
-                key={index}
-                onPress={label => toggleSelected(label)}
-              />
-            );
-          })}
+        <SimpleText
+          style={{
+            ...styles.padding10,
+            ...styles.margin15,
+            ...styles.BlueBold,
+            ...{
+              borderBottomWidth: 2,
+              borderColor: vars.DARK_BLUE,
+            },
+          }}
+          text={'نتایج را بهینه کنید'}
+        />
+
+        {state.selectableItems !== undefined && state.allItems !== undefined && (
+          <SimpleText
+            style={{
+              ...styles.padding10,
+              ...styles.margin15,
+              ...styles.BlueBold,
+              ...{
+                borderBottomWidth: 2,
+                borderColor: vars.DARK_BLUE,
+              },
+            }}
+            text={
+              'نمایش ' +
+              state.selectableItems +
+              ' مورد از ' +
+              state.allItems +
+              ' مورد'
+            }
+          />
+        )}
+
+        <SimpleText
+          style={{
+            ...styles.padding10,
+            ...styles.marginLeft15,
+            ...styles.marginRight15,
+            ...styles.BlueBold,
+          }}
+          text={'رشته'}
+        />
+        <MyView
+          style={{
+            ...styles.padding10,
+            ...styles.marginLeft15,
+            ...styles.marginRight15,
+            ...styles.marginTop0,
+            ...styles.gap10,
+          }}>
+          {filters !== undefined &&
+            filters.map((elem, index) => {
+              return (
+                <FilterItem
+                  item={elem}
+                  status={allActive ? 'unchecked' : undefined}
+                  key={index}
+                  onPress={label => toggleSelected(label)}
+                />
+              );
+            })}
+        </MyView>
 
         {allAvailable && (
           <FilterItem

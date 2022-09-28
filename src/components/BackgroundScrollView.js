@@ -23,7 +23,6 @@ function BackgroundScrollView(props) {
   const [active, setActive] = useState(0);
 
   React.useEffect(() => {
-    console.log(active);
     const timeout = setTimeout(() => setActive((active + 1 + 3) % 3), 7000);
 
     return () => clearTimeout(timeout);
@@ -139,20 +138,9 @@ function BackgroundScrollView(props) {
         marginTop: props.margins[1],
         marginBottom: props.margins[3],
         overflow: 'hidden',
+        minHeight: '80vh',
       }}>
-      {currentNode !== undefined && (
-        <MyView>{currentNode}</MyView>
-        // <MyView>{currentNode}</MyView>
-        // <ScrollView
-        //   contentContainerStyle={{flexGrow: 1}}
-        //   ref={scrollView}
-        //   horizontal={true}
-        //   scrollEnabled={false}
-        //   style={{overflow: 'hidden'}}
-        //   pagingEnabled={true}>
-        //   {items}
-        // </ScrollView>
-      )}
+      {currentNode !== undefined && <MyView>{currentNode}</MyView>}
     </MyView>
   );
 }

@@ -18,10 +18,7 @@ import {globalStateContext, dispatchStateContext} from '../../../App';
 import {generalRequest} from '../../../API/Utility';
 import {routes} from '../../../API/APIRoutes';
 import {useEffectOnce} from 'usehooks-ts';
-import {TextIcon} from '../../../styles/Common/TextIcon';
 import {styles} from '../../../styles/Common/Styles';
-import DashboardCard from '../../studentPanel/dashboard/DashboardCard/DashboardCard';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import HomeBox from './HomeBox/HomeBox';
 
 const device = getDevice();
@@ -53,7 +50,6 @@ const Home = props => {
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
-  const [wantedImg, setWantedImg] = useState(300);
 
   useEffectOnce(() => {
     Image.getSize(
@@ -61,8 +57,6 @@ const Home = props => {
       (width, height) => {
         setGrayFooterW(width);
         setGrayFooterH(height);
-        const wh = getWidthHeight();
-        setWantedImg((wh[0] * (height - 20)) / width);
       },
     );
     Image.getSize(
@@ -88,30 +82,30 @@ const Home = props => {
     );
   });
 
-  // React.useEffect(() => {
-  //   if (isWorking || data !== undefined) return;
+  React.useEffect(() => {
+    if (isWorking || data !== undefined) return;
 
-  //   setIsWorking(true);
-  //   dispatch({loading: true});
+    setIsWorking(true);
+    dispatch({loading: true});
 
-  //   Promise.all([
-  //     generalRequest(
-  //       routes.fetchSiteStats,
-  //       'get',
-  //       undefined,
-  //       'data',
-  //       undefined,
-  //     ),
-  //   ]).then(res => {
-  //     dispatch({loading: false});
+    Promise.all([
+      generalRequest(
+        routes.fetchSiteStats,
+        'get',
+        undefined,
+        'data',
+        undefined,
+      ),
+    ]).then(res => {
+      dispatch({loading: false});
 
-  //     if (res[0] === null) return;
+      if (res[0] === null) return;
 
-  //     setData(res[0]);
-  //     console.log(res[0]);
-  //     setIsWorking(false);
-  //   });
-  // }, [dispatch, props, isWorking, data]);
+      setData(res[0]);
+      console.log(res[0]);
+      setIsWorking(false);
+    });
+  }, [dispatch, props, isWorking, data]);
 
   return (
     <ScreenScroll style={{background: 'transparent'}}>
@@ -179,7 +173,7 @@ const Home = props => {
         style={{
           position: 'absolute',
           zIndex: 2,
-          bottom: -grayFooterH,
+          bottom: -1.5 * grayFooterH,
           left: 0,
           width: '100%',
           height: grayFooterH,
@@ -189,19 +183,40 @@ const Home = props => {
           style={{
             background: '#ffffffcc',
             zIndex: 20,
-            paddingLeft: 50,
-            paddingRight: 50,
-            paddingTop: 20,
-            paddingBottom: 20,
             position: 'absolute',
-            top: -100,
+            top: -170,
             width: '100%',
+            maxWidth: '100%',
+            overflow: 'auto',
           }}>
           <PhoneView
-            style={{...styles.gap30, ...styles.justifyContentSpaceAround}}>
-            <HomeBox color="red" text="تست" number={200} />
-            <HomeBox color="red" text="تست" number={200} />
-            <HomeBox color="red" text="تست" number={200} />
+            style={{
+              ...styles.gap100,
+              ...styles.alignSelfCenter,
+              ...{
+                paddingLeft: 50,
+                paddingRight: 50,
+                paddingTop: 20,
+                paddingBottom: 20,
+                flexWrap: 'no-wrap',
+                width: 'fit-content',
+              },
+            }}>
+            <HomeBox
+              color="blue"
+              text="سوالات"
+              number={data !== undefined ? data.questions : ''}
+            />
+            <HomeBox
+              color="orangered"
+              text="مدارس"
+              number={data !== undefined ? data.schools : ''}
+            />
+            <HomeBox
+              color="orange"
+              text="دانش آموز"
+              number={data !== undefined ? data.students : ''}
+            />
           </PhoneView>
         </MyView>
         <div
@@ -265,10 +280,10 @@ const Home = props => {
           style={{
             zIndex: 10,
             position: 'absolute',
-            paddingLeft: 50,
             paddingRight: 50,
+            paddingLeft: 50,
             bottom: 0,
-            width: '100%',
+            width: 'calc(100% - 100px)',
           }}>
           <img src="./assets/images/irysc.png" width={200} />
           <MyView style={{...styles.gap10, ...styles.marginTop10}}>
