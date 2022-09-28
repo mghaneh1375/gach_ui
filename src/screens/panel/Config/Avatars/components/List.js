@@ -5,6 +5,8 @@ import translator from '../Translator';
 import MakeQuiz from '../../../../studentPanel/MakeQuiz/MakeQuiz';
 import {RoleCard} from '../../../../../styles/Common/RoleCard';
 import vars from '../../../../../styles/root';
+import BoxRanking from '../../../../general/BoxRanking/BoxRanking';
+import {Circle} from 'victory-core';
 // import WheelsOfPrizes from '../../../../../components/web/WheelsOfPrizes/WheelsOfPrizes';
 
 function List(props) {
@@ -24,6 +26,38 @@ function List(props) {
   };
   return (
     <MyView>
+      <PhoneView style={{marginRight: 70, marginTop: 20, gap: 50}}>
+        <BoxRanking
+          school={'بیذسیب'}
+          grade={'دبیرستان'}
+          name={'البرز منشی زادگان'}
+          city={'تعران'}
+          valScore={'30 امتیاز'}
+          valQuiz={'9000  آزمون'}
+          field={'نرمییی'}
+          rank={'1000'}
+        />
+        <BoxRanking
+          school={'بیذسیب'}
+          grade={'دبیرستان'}
+          name={'البرز منشی زادگان'}
+          city={'تعران'}
+          valScore={'30 امتیاز'}
+          valQuiz={'9000  آزمون'}
+          field={'نرمییی'}
+          rank={'1000'}
+        />
+        <BoxRanking
+          school={'بیذسیب'}
+          grade={'دبیرستان'}
+          name={'البرز منشی زادگان'}
+          city={'تعران'}
+          valScore={'30 امتیاز'}
+          valQuiz={'9000  آزمون'}
+          field={'نرمییی'}
+          rank={'1000'}
+        />
+      </PhoneView>
       <RoleCard
         text={translator.avatars}
         style={{marginTop: 20}}
