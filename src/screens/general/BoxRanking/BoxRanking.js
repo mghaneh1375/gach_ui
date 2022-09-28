@@ -31,7 +31,7 @@ function BoxRanking(props) {
           pic !== undefined && (
             <Image
               style={{
-                width: 100,
+                width: 140,
                 height: 140,
                 borderRadius: 11,
                 objectFit: 'cover',
