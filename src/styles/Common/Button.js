@@ -13,7 +13,6 @@ const style = {
   paddingBottom: 5,
   paddingLeft: 15,
   paddingRight: 15,
-  // minWidth: 150,
   alignSelf: vars.alignSelfRev,
 };
 

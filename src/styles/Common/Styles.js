@@ -86,6 +86,9 @@ export const styles = {
   marginTop20: {
     marginTop: 20,
   },
+  marginTop40: {
+    marginTop: 40,
+  },
   marginTop50: {
     marginTop: 50,
   },

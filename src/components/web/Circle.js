@@ -14,6 +14,7 @@ function Circle(props) {
         ...styles.borderRadius50,
         backgroundColor: props.backgroundColor,
       }}>
+      {props.child}
       <SimpleText text={props.text} style={{color: props.color}} />
     </PhoneView>
   );

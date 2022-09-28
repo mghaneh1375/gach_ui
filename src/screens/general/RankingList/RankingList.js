@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '../../../App';
-import StudentCard from '../../../components/web/StudentCard';
-import {CommonWebBox, PhoneView} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+import {CommonWebBox, MyView, PhoneView} from '../../../styles/Common';
+import BoxRanking from '../BoxRanking/BoxRanking';
+import Filter from './Filter';
 import {fetchRankingList} from './Utility';
 
 function RankingList(props) {
@@ -35,14 +35,31 @@ function RankingList(props) {
   }, [dispatch, props, isWorking, navigate, data]);
 
   return (
-    <CommonWebBox>
-      <PhoneView style={{...styles.gap10}}>
+    <MyView>
+      <CommonWebBox header={'جستوجوی پیشرفته'}>
+        <Filter />
+      </CommonWebBox>
+      <PhoneView>
         {data !== undefined &&
           data.map((elem, index) => {
-            return <StudentCard key={index} std={elem} />;
+            return (
+              <PhoneView style={{marginRight: 70, marginTop: 20, gap: 50}}>
+                <BoxRanking
+                  school={elem.student.school}
+                  grade={elem.student.grade}
+                  name={elem.student.name}
+                  city={elem.student.city}
+                  valScore={elem.cumSum}
+                  valQuiz={elem.totalQuizzes}
+                  field={elem.student.branches}
+                  rank={elem.student.rank}
+                  pic={elem.student.pic}
+                />
+              </PhoneView>
+            );
           })}
       </PhoneView>
-    </CommonWebBox>
+    </MyView>
   );
 }
 
