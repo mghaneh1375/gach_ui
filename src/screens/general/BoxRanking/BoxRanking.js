@@ -33,7 +33,7 @@ function BoxRanking(props) {
               style={{
                 width: 140,
                 height: 140,
-                borderRadius: 11,
+                borderRadius: '50%',
                 objectFit: 'cover',
                 objectPosition: 'center',
               }}
@@ -91,7 +91,7 @@ function BoxRanking(props) {
             backgroundColor: vars.YELLOW_WHITE,
             borderRadius: 5,
             height: 40,
-            marginRight: -10,
+            marginRight: 0,
           }}>
           <SimpleText
             style={{...styles.BlueBold, ...styles.fontSize15}}

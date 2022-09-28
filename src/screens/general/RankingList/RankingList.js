@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '../../../App';
-import StudentCard from '../../../components/web/StudentCard';
-import {CommonWebBox, PhoneView} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+import {CommonWebBox, MyView, PhoneView} from '../../../styles/Common';
 import BoxRanking from '../BoxRanking/BoxRanking';
+import Filter from './Filter';
 import {fetchRankingList} from './Utility';
 
 function RankingList(props) {
@@ -36,8 +35,11 @@ function RankingList(props) {
   }, [dispatch, props, isWorking, navigate, data]);
 
   return (
-    <CommonWebBox>
-      <PhoneView style={{...styles.gap10}}>
+    <MyView>
+      <CommonWebBox header={'جستوجوی پیشرفته'}>
+        <Filter />
+      </CommonWebBox>
+      <PhoneView>
         {data !== undefined &&
           data.map((elem, index) => {
             return (
@@ -47,17 +49,17 @@ function RankingList(props) {
                   grade={elem.student.grade}
                   name={elem.student.name}
                   city={elem.student.city}
-                  valScore={elem.student.rank}
+                  valScore={elem.cumSum}
                   valQuiz={elem.totalQuizzes}
                   field={elem.student.branches}
-                  rank={elem.cumSum}
+                  rank={elem.student.rank}
                   pic={elem.student.pic}
                 />
               </PhoneView>
             );
           })}
       </PhoneView>
-    </CommonWebBox>
+    </MyView>
   );
 }
 
