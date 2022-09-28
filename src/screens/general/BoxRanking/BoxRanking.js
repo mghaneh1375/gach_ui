@@ -111,7 +111,7 @@ function BoxRanking(props) {
             style={{...styles.colorDarkBlue}}
             text={'پایه : ' + ' ' + props.grade}
           />
-          {props.branches !== undefined && (
+          {props.field !== undefined && props.field !== '' && (
             <SimpleText
               style={{...styles.colorDarkBlue}}
               text={'رشته : ' + ' ' + props.field}
