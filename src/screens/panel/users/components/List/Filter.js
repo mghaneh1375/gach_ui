@@ -5,7 +5,13 @@ import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBo
 import commonTranslator from '../../../../../translator/Common';
 import {filter} from '../Utility';
 
+import {dispatchUsersContext} from '../Context';
+
 function Filter(props) {
+  const useGlobalState = () => [React.useContext(dispatchUsersContext)];
+
+  const [dispatch] = useGlobalState();
+
   const [NID, setNID] = useState();
   const [phone, setPhone] = useState();
 
@@ -18,7 +24,7 @@ function Filter(props) {
     setNID(undefined);
     setPhone(undefined);
     if (res === null) return;
-    props.setData(res);
+    dispatch({users: res});
   };
 
   return (

@@ -8,8 +8,17 @@ import Ops from '../Ops';
 import {levelsKeyVals} from '../../../ticket/components/KeyVals';
 import {useParams} from 'react-router';
 import Filter from './Filter';
+import {usersContext, dispatchUsersContext} from '../Context';
+import {filter} from '../Utility';
 
 function List(props) {
+  const useGlobalState = () => [
+    React.useContext(usersContext),
+    React.useContext(dispatchUsersContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
+
   const [showOpPopUp, setShowOpPopUp] = useState(false);
 
   const toggleShowOpPopUp = () => {
@@ -20,12 +29,36 @@ function List(props) {
     props.setMode(newMode);
   };
 
-  const handleOp = idx => {
-    props.setSelectedUser(props.users[idx]);
-    toggleShowOpPopUp();
-  };
+  const handleOp = React.useCallback(
+    (idx, selectedUser) => {
+      dispatch({selectedUser: selectedUser});
+      setShowOpPopUp(true);
+    },
+    [dispatch],
+  );
 
   const currLevel = useParams().level;
+  const [isWorking, setIsWorking] = useState(false);
+
+  const fetchData = React.useCallback(() => {
+    if (state.users !== undefined || isWorking) return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+    Promise.all([filter(props.token, currLevel)]).then(res => {
+      props.setLoading(false);
+      if (res[0] == null) {
+        props.navigate('/');
+        return;
+      }
+      dispatch({users: res[0]});
+      setIsWorking(false);
+    });
+  }, [props, currLevel, dispatch, isWorking, state.users]);
+
+  React.useEffect(() => {
+    if (state.users === undefined) fetchData();
+  }, [state.users, fetchData]);
 
   return (
     <MyView>
@@ -47,20 +80,17 @@ function List(props) {
           levelsKeyVals.find(elem => elem.id === currLevel).item
         }>
         <MyView>
-          <Filter
-            setData={props.setData}
-            token={props.token}
-            setLoading={props.setLoading}
-          />
-          <CommonDataTable
-            columns={columns}
-            data={props.users}
-            setData={props.setData}
-            handleOp={handleOp}
-            removeUrl={routes.removeSchools}
-            token={props.token}
-            setLoading={props.setLoading}
-          />
+          <Filter token={props.token} setLoading={props.setLoading} />
+          {state.users !== undefined && (
+            <CommonDataTable
+              columns={columns}
+              data={state.users}
+              setData={data => dispatch({users: data})}
+              handleOp={handleOp}
+              token={props.token}
+              setLoading={props.setLoading}
+            />
+          )}
         </MyView>
       </CommonWebBox>
     </MyView>

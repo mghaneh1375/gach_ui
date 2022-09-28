@@ -16,9 +16,17 @@ import {routes} from '../../../../API/APIRoutes';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import Translator from '../Translator';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {showError} from '../../../../services/Utility';
+import {removeItems, showError} from '../../../../services/Utility';
+import {usersContext, dispatchUsersContext} from './Context';
 
 function ChangeLevel(props) {
+  const useGlobalState = () => [
+    React.useContext(usersContext),
+    React.useContext(dispatchUsersContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
+
   const [newLevel, setNewLevel] = useState();
   const [accesses, setAccesses] = useState();
   const [showChooseSchool, setShowChooseSchool] = useState(false);
@@ -27,9 +35,9 @@ function ChangeLevel(props) {
   const [isWorking, setIsWorking] = useState(false);
 
   React.useEffect(() => {
-    if (props.user !== undefined)
+    if (state.selectedUser !== undefined)
       setAccesses(
-        props.user.accesses.map(elem => {
+        state.selectedUser.accesses.map(elem => {
           return {
             id: elem,
             title: levelKeyVals.find(level => level.id === elem).item,
@@ -37,7 +45,7 @@ function ChangeLevel(props) {
         }),
       );
     else setAccesses([]);
-  }, [props.user]);
+  }, [state.selectedUser]);
 
   const setSelectedSchool = item => {
     setSchool(item);
@@ -79,7 +87,7 @@ function ChangeLevel(props) {
     let res = await addAccess(
       props.setLoading,
       props.token,
-      props.user.id,
+      state.selectedUser.id,
       newLevel,
       newAccesses => setAccesses(newAccesses),
       school.id,
@@ -92,8 +100,11 @@ function ChangeLevel(props) {
   };
 
   const back = () => {
-    if (accesses.find(elem => elem.id === currLevel) === undefined)
-      props.removeFromList([props.user.id]);
+    if (accesses.find(elem => elem.id === currLevel) === undefined) {
+      dispatch({
+        users: undefined,
+      });
+    }
     props.setMode('list');
   };
 
@@ -111,7 +122,7 @@ function ChangeLevel(props) {
                 removeAccess({
                   setLoading: props.setLoading,
                   token: props.token,
-                  userId: props.user.id,
+                  userId: state.selectedUser.id,
                   afterFunc: newAccesses => setAccesses(newAccesses),
                   access: id,
                 })
@@ -130,7 +141,7 @@ function ChangeLevel(props) {
                 let res = await addAccess(
                   props.setLoading,
                   props.token,
-                  props.user.id,
+                  state.selectedUser.id,
                   newLevel,
                   newAccesses => setAccesses(newAccesses),
                 );

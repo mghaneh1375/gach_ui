@@ -22,7 +22,7 @@ export const routes = {
   removeAccess: 'admin/user/removeAccess/',
   toggleStatus: 'admin/user/toggleStatus/',
   fetchSiteStats: 'general/getSiteStats',
-  fetchRankingList: 'general/getRankingList',
+  fetchRankingList: 'general/getRankingList/',
   fetchState: 'general/fetchStates',
   fetchNewAlerts: 'general/getNewAlerts',
   fetchSchoolsDigest: 'general/fetchSchoolsDigest',

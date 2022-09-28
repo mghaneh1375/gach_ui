@@ -127,6 +127,7 @@ const CommonDataTable = props => {
                   onClick={() =>
                     props.handleOp(
                       (state.currentPage - 1) * state.perPage + index,
+                      row,
                     )
                   }>
                   ...
@@ -232,10 +233,6 @@ const CommonDataTable = props => {
     props.setData(state.data);
     dispatch({type: 'parentUpdated'});
   }, [props, state.data, state.shouldUpdateParent]);
-
-  // React.useEffect(() => {
-  //   dispatch({type: 'op'});
-  // }, [props.groupOps, props.removeUrl]);
 
   const paginationComponentOptions = {
     selectAllRowsItem: true,
