@@ -180,15 +180,16 @@ const WebStructue = props => {
       {allowRenderPage && (
         <MinFullHeightView>
           <MyView style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-            <Logo
-              isLogin={user !== undefined}
-              toggleRightMenuVisibility={toggleRightMenuVisibility}
-            />
-            {user === undefined && device.indexOf(Device.Large) !== -1 && (
-              <Navbar user={user} />
+            {props.page !== 'home' && (
+              <Logo
+                isLogin={user !== undefined}
+                toggleRightMenuVisibility={toggleRightMenuVisibility}
+              />
             )}
+            {(props.page === 'home' || user === undefined) &&
+              device.indexOf(Device.Large) !== -1 && <Navbar user={user} />}
 
-            {user !== undefined && (
+            {user !== undefined && props.page !== 'home' && (
               <Header
                 pic={user.user.pic}
                 name={user.user.firstName + ' ' + user.user.lastName}

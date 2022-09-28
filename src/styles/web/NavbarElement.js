@@ -10,11 +10,12 @@ export const Nav = styled.nav`
   border-bottom-right-radius: 25px;
   box-shadow: 5px 5px 5px #aaaaaa;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 70vw;
+  width: 70vw;
   direction: rtl;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   z-index: 12;
   @media screen and (max-width: 900px) {
     display: none;

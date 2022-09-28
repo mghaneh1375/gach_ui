@@ -35,7 +35,7 @@ const Navbar = props => {
         <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
           تماس با ما
         </NavLink>
-        <CommonButton
+        {/* <CommonButton
           style={{
             backgroundColor: vars.DARK_BLUE,
             minWidth: 'unset',
@@ -43,7 +43,7 @@ const Navbar = props => {
           }}
           title={'پشتیبانی'}
           href="/login"
-        />
+        /> */}
         {!isLogin && (
           <CommonButton
             style={{minWidth: 'unset'}}
@@ -53,7 +53,7 @@ const Navbar = props => {
         )}
         {isLogin && (
           <CommonButton
-            style={{minWidth: 'unset'}}
+            style={{minWidth: 'unset', paddingLeft: 25, paddingRight: 25}}
             href="/profile"
             title={'پروفایل'}
           />

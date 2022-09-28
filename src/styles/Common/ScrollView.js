@@ -52,6 +52,8 @@ export const ScrollViewTitle =
       `
     : styled.p`
         font-size: 26px !important;
+        font-weight: 700;
+        color: ${vars.DARK_BLUE};
         font-family: IRANSans;
         ${props => (props.isPhonePortSize ? ScrollViewTitle_PHONE : {})};
       `;
@@ -67,20 +69,16 @@ export const ScrollViewSubTitle =
       `
     : styled.p`
         font-size: 22px !important;
+        color: ${vars.DARK_BLUE};
+        font-weight: 500;
         font-family: IRANSans;
-        ${props =>
-          props.isPhonePortSize
-            ? {
-                marginTop: '100px',
-              }
-            : {}};
       `;
 
 const ArrowStyle = {
   backgroundColor: vars.YELLOW,
   color: vars.WHITE,
   borderRadius: 7,
-  position: 'absolute',
+  // position: 'absolute',
   cursor: 'pointer',
 };
 
@@ -97,7 +95,7 @@ const ArrowStyleAndroid = {
 const ArrowStyleWeb = {
   // padding: 10,
   zIndex: 3,
-  top: vars.HalfVert,
+  // top: vars.HalfVert,
   width: 40,
 };
 
@@ -126,7 +124,3 @@ export const ArrowStyleRight =
         ...ArrowStyleWeb,
         right: 0,
       };
-
-export const MyImage = {
-  marginTop: 50,
-};

@@ -1,6 +1,5 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {Image, Pressable} from 'react-native';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAngleLeft, faAngleRight} from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -9,13 +8,12 @@ import {
   ScrollViewSubTitle,
   ScrollViewTitle,
   ScrollViewTitleAndroid,
-  MyImage,
   ArrowStyleLeft,
   ArrowStyleRight,
 } from '../styles/Common/ScrollView';
 import {Device} from './../models/Device';
-import {BlueTextInline, CommonButton, MyView} from '../styles/Common';
-import {FontIcon, SimpleFontIcon} from '../styles/Common/FontIcon';
+import {BlueTextInline, MyView, PhoneView} from '../styles/Common';
+import {SimpleFontIcon} from '../styles/Common/FontIcon';
 
 function BackgroundScrollView(props) {
   const [items, setItems] = useState();
@@ -70,27 +68,14 @@ function BackgroundScrollView(props) {
           <MyScrollView
             isPhonePortSize={isPhonePortSize}
             key={i.idx}
-            style={{height: height, width}}>
-            <ScrollViewTextContainer style={{width: widthText}}>
-              <Pressable style={ArrowStyleLeft}>
-                <SimpleFontIcon
-                  kind="full"
-                  style={{color: 'white'}}
-                  parentStyle={{padding: 5}}
-                  onPress={() => setActive(active == 0 ? 2 : active - 1)}
-                  icon={faAngleLeft}
-                />
-              </Pressable>
-              <Pressable style={ArrowStyleRight}>
-                <SimpleFontIcon
-                  kind="full"
-                  style={{color: 'white'}}
-                  parentStyle={{padding: 5}}
-                  onPress={() => setActive((active + 1 + 3) % 3)}
-                  icon={faAngleRight}
-                />
-              </Pressable>
-
+            style={{width}}>
+            <ScrollViewTextContainer
+              style={{
+                width: widthText,
+                paddingTop: width > 800 ? 50 : 10,
+                paddingLeft: width > 800 ? 30 : 0,
+                paddingRight: width > 800 ? 50 : 0,
+              }}>
               <ScrollViewTitle isPhonePortSize={isPhonePortSize}>
                 {i.title}
               </ScrollViewTitle>
@@ -98,15 +83,37 @@ function BackgroundScrollView(props) {
                 {i.subTitle}
               </ScrollViewSubTitle>
               <BlueTextInline
-                style={{fontSize: 16, marginTop: 10}}
+                style={{fontSize: 16, marginTop: 10, fontWeight: 400}}
                 text={i.text}
               />
             </ScrollViewTextContainer>
-            <Image
-              source={i.src}
-              resizeMode="contain"
-              style={[MyImage, {width: widthImage, height: imgHeight}]}
-            />
+            <MyView style={{marginTop: width > 800 ? 0 : 40}}>
+              <Image
+                source={i.src}
+                resizeMode="contain"
+                style={{width: widthImage, height: imgHeight}}
+              />
+              <PhoneView style={{gap: 10, direction: 'ltr', marginLeft: 50}}>
+                <Pressable style={ArrowStyleLeft}>
+                  <SimpleFontIcon
+                    kind="full"
+                    style={{color: 'white'}}
+                    parentStyle={{padding: 5}}
+                    onPress={() => setActive(active == 0 ? 2 : active - 1)}
+                    icon={faAngleLeft}
+                  />
+                </Pressable>
+                <Pressable style={ArrowStyleRight}>
+                  <SimpleFontIcon
+                    kind="full"
+                    style={{color: 'white'}}
+                    parentStyle={{padding: 5}}
+                    onPress={() => setActive((active + 1 + 3) % 3)}
+                    icon={faAngleRight}
+                  />
+                </Pressable>
+              </PhoneView>
+            </MyView>
             <ScrollViewTitleAndroid isPhonePortSize={isPhonePortSize}>
               {i.title}
             </ScrollViewTitleAndroid>
@@ -138,7 +145,6 @@ function BackgroundScrollView(props) {
         marginTop: props.margins[1],
         marginBottom: props.margins[3],
         overflow: 'hidden',
-        minHeight: '80vh',
       }}>
       {currentNode !== undefined && <MyView>{currentNode}</MyView>}
     </MyView>

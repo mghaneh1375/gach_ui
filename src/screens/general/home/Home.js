@@ -159,39 +159,41 @@ const Home = props => {
         ]}
         width={isRightMenuVisible ? width - vars.RIGHT_MENU_WIDTH : width}
         height={device.indexOf(Device.Large) !== -1 ? height : 'auto'}
-        imgHeight={300}
+        imgHeight={450}
         inJustImage={false}
-        textCol={4}
+        textCol={6}
         margins={
           device.indexOf(Device.Large) !== -1
-            ? [100, 50, 100, 10]
-            : [10, device.indexOf(Device.App) !== -1 ? 10 : 80, 10, 10]
+            ? [100, 20, 100, 10]
+            : [10, device.indexOf(Device.App) !== -1 ? 10 : 30, 10, 10]
         }
         device={device}
       />
       <div
         style={{
-          position: 'absolute',
-          zIndex: 2,
-          bottom: -1.5 * grayFooterH,
-          left: 0,
+          // position: 'absolute',
+          position: 'relative',
+          // zIndex: 2,
+          // bottom: -1.5 * grayFooterH,
+          // left: 0,
+          marginTop: whiteDividerH,
           width: '100%',
           height: grayFooterH,
           backgroundColor: 'white',
         }}>
         <MyView
+          className={'transparent-cards'}
           style={{
             background: '#ffffffcc',
             zIndex: 20,
             position: 'absolute',
-            top: -170,
+            top: width < 440 ? -240 : -170,
             width: '100%',
             maxWidth: '100%',
             overflow: 'auto',
           }}>
           <PhoneView
             style={{
-              ...styles.gap100,
               ...styles.alignSelfCenter,
               ...{
                 paddingLeft: 50,
@@ -199,7 +201,6 @@ const Home = props => {
                 paddingTop: 20,
                 paddingBottom: 20,
                 flexWrap: 'no-wrap',
-                width: 'fit-content',
               },
             }}>
             <HomeBox
