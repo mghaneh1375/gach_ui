@@ -37,26 +37,6 @@ function List(props) {
           field={'نرمییی'}
           rank={'1000'}
         />
-        <BoxRanking
-          school={'بیذسیب'}
-          grade={'دبیرستان'}
-          name={'البرز منشی زادگان'}
-          city={'تعران'}
-          valScore={'30 امتیاز'}
-          valQuiz={'9000  آزمون'}
-          field={'نرمییی'}
-          rank={'1000'}
-        />
-        <BoxRanking
-          school={'بیذسیب'}
-          grade={'دبیرستان'}
-          name={'البرز منشی زادگان'}
-          city={'تعران'}
-          valScore={'30 امتیاز'}
-          valQuiz={'9000  آزمون'}
-          field={'نرمییی'}
-          rank={'1000'}
-        />
       </PhoneView>
       <RoleCard
         text={translator.avatars}

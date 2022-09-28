@@ -1,5 +1,6 @@
 import {faMedal, faPlane, faQuestion} from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import React, {useState} from 'react';
+import {Image} from 'react-native';
 import Circle from '../../../components/web/Circle';
 import QuizItemCard from '../../../components/web/QuizItemCard';
 import {
@@ -12,6 +13,12 @@ import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
 
 function BoxRanking(props) {
+  const [pic, setPic] = useState();
+
+  React.useEffect(() => {
+    setPic(props.pic);
+  }, [props.pic]);
+
   return (
     <CommonWebBox width={390}>
       <Circle
@@ -20,6 +27,20 @@ function BoxRanking(props) {
           marginRight: -75,
           ...styles.marginTop20,
         }}
+        child={
+          pic !== undefined && (
+            <Image
+              style={{
+                width: 100,
+                height: 140,
+                borderRadius: 11,
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
+              source={pic}
+            />
+          )
+        }
         diameter={150}
         backgroundColor={vars.YELLOW_WHITE}></Circle>
       <PhoneView
@@ -90,10 +111,12 @@ function BoxRanking(props) {
             style={{...styles.colorDarkBlue}}
             text={'پایه : ' + ' ' + props.grade}
           />
-          <SimpleText
-            style={{...styles.colorDarkBlue}}
-            text={'رشته : ' + ' ' + props.field}
-          />
+          {props.branches !== undefined && (
+            <SimpleText
+              style={{...styles.colorDarkBlue}}
+              text={'رشته : ' + ' ' + props.field}
+            />
+          )}
         </MyView>
       </MyView>
     </CommonWebBox>

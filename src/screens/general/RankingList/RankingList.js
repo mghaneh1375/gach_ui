@@ -3,6 +3,7 @@ import {globalStateContext, dispatchStateContext} from '../../../App';
 import StudentCard from '../../../components/web/StudentCard';
 import {CommonWebBox, PhoneView} from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
+import BoxRanking from '../BoxRanking/BoxRanking';
 import {fetchRankingList} from './Utility';
 
 function RankingList(props) {
@@ -39,7 +40,21 @@ function RankingList(props) {
       <PhoneView style={{...styles.gap10}}>
         {data !== undefined &&
           data.map((elem, index) => {
-            return <StudentCard key={index} std={elem} />;
+            return (
+              <PhoneView style={{marginRight: 70, marginTop: 20, gap: 50}}>
+                <BoxRanking
+                  school={elem.student.school}
+                  grade={elem.student.grade}
+                  name={elem.student.name}
+                  city={elem.student.city}
+                  valScore={elem.student.rank}
+                  valQuiz={elem.totalQuizzes}
+                  field={elem.student.branches}
+                  rank={elem.cumSum}
+                  pic={elem.student.pic}
+                />
+              </PhoneView>
+            );
           })}
       </PhoneView>
     </CommonWebBox>
