@@ -31,7 +31,6 @@ function MakeQuizBox(props) {
         ...styles.padding10,
         width: props.width,
         position: 'relative',
-        marginBottom: 250,
       }}>
       <PhoneView
         style={{
@@ -50,6 +49,7 @@ function MakeQuizBox(props) {
             borderBottomRightRadius: 10,
             height: '100%',
             backgroundColor: vars.ORANGE,
+            ...styles.justifyContentCenter,
             // zIndex: 5,
           }}>
           <PhoneView>
@@ -62,7 +62,7 @@ function MakeQuizBox(props) {
                 ...styles.paddingRight15,
                 marginTop: 3,
               }}
-              text={1}
+              text={props.index}
             />
             <SimpleFontIcon
               onPress={() => ToggleDetail()}
@@ -77,7 +77,7 @@ function MakeQuizBox(props) {
           </PhoneView>
         </Pressable>
         {props.header !== undefined && (
-          <EqualTwoTextInputs>
+          <MyView>
             <BigBoldBlueTextInline
               style={{
                 color: props.color !== undefined ? props.color : vars.DARK_BLUE,
@@ -85,7 +85,19 @@ function MakeQuizBox(props) {
               }}
               text={props.header}
             />
-          </EqualTwoTextInputs>
+            <EqualTwoTextInputs style={{marginRight: '20%'}}>
+              <SimpleText text={'تعداد:' + props.count} />
+              <SimpleText
+                text={
+                  props.level === 'easy'
+                    ? 'سطح سختی: ساده'
+                    : props.level === 'easy'
+                    ? 'سطح سختی: متوسط'
+                    : 'سطح سختی: دشوار'
+                }
+              />
+            </EqualTwoTextInputs>
+          </MyView>
         )}
       </PhoneView>
       {detail && (

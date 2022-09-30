@@ -1,7 +1,7 @@
 import React from 'react';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
-import {style, MenuItemPhone} from '../style';
+import {style, MenuItemPhone, MenuItem} from '../style';
 import translator from '../../../../../translator/Common';
 import {
   faHome,

@@ -56,6 +56,7 @@ import Teachers from './teacher/teachers/Teachers';
 import TarazLevels from './panel/Config/TarazLevels/TarazLevels';
 import Buy from './general/buy/Buy';
 import MyIRYSCQuizzes from './studentPanel/MyQuizzes/irysc/MyQuizzes';
+import MyCustomQuizzes from './studentPanel/MyQuizzes/custom/MyQuizzes';
 import MySchoolQuizzes from './studentPanel/MyQuizzes/school/MyQuizzes';
 import Transaction from './panel/transaction/Transaction';
 import ChargeAccount from './studentPanel/ChargeAccount/ChargeAccount';
@@ -65,6 +66,7 @@ import ManageStudents from './schoolPanel/ManageStudents/ManageStudents';
 import ManageTeachers from './schoolPanel/ManageTeachers/ManageTeachers';
 import Invoice from './schoolPanel/Invoice/Invoice';
 import RankingList from './general/RankingList/RankingList';
+import MakeQuiz from './studentPanel/MakeQuiz/MakeQuiz';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -245,6 +247,16 @@ const WebStructue = props => {
               )}
               {props.page === 'buy' && (
                 <Buy user={user} token={token} navigate={navigate} />
+              )}
+              {props.page === 'makeQuiz' && (
+                <MakeQuiz user={user} token={token} navigate={navigate} />
+              )}
+              {props.page === 'myCustomQuizzes' && (
+                <MyCustomQuizzes
+                  user={user}
+                  token={token}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'myIRYSCQuizzes' && (
                 <MyIRYSCQuizzes user={user} token={token} navigate={navigate} />

@@ -3,24 +3,15 @@ import {Image, Pressable} from 'react-native';
 import {PhoneView} from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
 
-function SymbolsFace() {
-  const [first, setFirst] = useState(false);
-  const [second, setSecond] = useState(false);
-  const [third, setThird] = useState(false);
-
-  const [selected, setSelected] = useState();
-
+function SymbolsFace(props) {
   return (
     <PhoneView style={{...styles.gap5, ...styles.alignSelfCenter}}>
       {/* //frist */}
       <Pressable
         onPress={() => {
-          setFirst(!first);
-          setSecond(false);
-          setThird(false);
-          setSelected('first');
+          props.setLevel('hard');
         }}>
-        {!first && (
+        {props.level !== 'hard' && (
           <Image
             style={{width: 35, height: 35}}
             resizeMode="contain"
@@ -30,11 +21,9 @@ function SymbolsFace() {
       </Pressable>
       <Pressable
         onPress={() => {
-          setThird(false);
-          setSecond(false);
-          setFirst(false);
+          props.setLevel(undefined);
         }}>
-        {first && (
+        {props.level === 'hard' && (
           <Image
             style={{width: 35, height: 35}}
             resizeMode="contain"
@@ -45,12 +34,9 @@ function SymbolsFace() {
       {/* second */}
       <Pressable
         onPress={() => {
-          setSecond(!second);
-          setThird(false);
-          setFirst(false);
-          setSelected('second');
+          props.setLevel('mid');
         }}>
-        {!second && (
+        {props.level !== 'mid' && (
           <Image
             style={{width: 35, height: 35}}
             resizeMode="contain"
@@ -60,11 +46,9 @@ function SymbolsFace() {
       </Pressable>
       <Pressable
         onPress={() => {
-          setThird(false);
-          setSecond(false);
-          setFirst(false);
+          props.setLevel(undefined);
         }}>
-        {second && (
+        {props.level === 'mid' && (
           <Image
             style={{width: 35, height: 35}}
             resizeMode="contain"
@@ -75,12 +59,9 @@ function SymbolsFace() {
       {/* third */}
       <Pressable
         onPress={() => {
-          setThird(!third);
-          setSecond(false);
-          setFirst(false);
-          setSelected('third');
+          props.setLevel('easy');
         }}>
-        {!third && (
+        {props.level !== 'easy' && (
           <Image
             style={{width: 35, height: 35}}
             resizeMode="contain"
@@ -90,11 +71,9 @@ function SymbolsFace() {
       </Pressable>
       <Pressable
         onPress={() => {
-          setThird(false);
-          setSecond(false);
-          setFirst(false);
+          props.setLevel(undefined);
         }}>
-        {third && (
+        {props.level === 'easy' && (
           <Image
             style={{width: 35, height: 35}}
             resizeMode="contain"

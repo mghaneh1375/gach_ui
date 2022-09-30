@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {fetchPackageQuizzes} from '../Utility';
 import {dispatchPackagesContext, packagesContext} from '../Context';
 
 import {MyView} from '../../../../../styles/Common';

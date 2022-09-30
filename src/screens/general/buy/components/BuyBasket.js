@@ -65,10 +65,6 @@ function BuyBasket(props) {
   const [isShown, setIsShown] = useState(false);
 
   React.useEffect(() => {
-    console.log(isShown);
-  }, [isShown]);
-
-  React.useEffect(() => {
     if (refId === undefined) return;
 
     setTimeout(() => {

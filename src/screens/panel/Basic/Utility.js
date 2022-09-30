@@ -110,9 +110,9 @@ export const getLessons = async token => {
   return res;
 };
 
-export const editGrade = async (id, token, data, isOlympiad) => {
+export const editGrade = async (id, token, data, isOlympiadOld) => {
   let res = await generalRequest(
-    isOlympiad === 'yes' ? routes.editBranch + id : routes.editGrade + id,
+    isOlympiadOld ? routes.editBranch + id : routes.editGrade + id,
     'put',
     data,
     undefined,

@@ -65,7 +65,7 @@ export const SearchableTextInput = props => {
             borderColor: '#efefef',
             padding: 10,
           }}
-          text={suggest.name}
+          text={suggest.desc !== undefined ? suggest.desc : suggest.name}
         />
       </Pressable>
     ));

@@ -34,6 +34,19 @@ export const NavLink = styled(Link)`
     color: #4d4dff;
   }
 `;
+export const NavLinkExternal = styled.a`
+  color: ${vars.LIGHT_SILVER} !important;
+  display: flex;
+  font-family: IRANSans;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  cursor: pointer;
+  &.active {
+    color: #4d4dff;
+  }
+`;
 
 export const NavButtonY = styled(Link)`
   color: white;

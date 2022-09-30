@@ -88,7 +88,7 @@ function Basket(props) {
               />
             </PhoneView>
           )}
-          {props.total === undefined && (
+          {props.total === undefined && props.calculation !== undefined && (
             <PhoneView>
               <SimpleText
                 style={{

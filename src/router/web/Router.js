@@ -18,9 +18,14 @@ export default function WebRouter() {
           <Route exact path="/" element={<WebStructue page="home" />} />
           <Route path="dashboard" element={<WebStructue page="dashboard" />} />
           <Route path="buy" element={<WebStructue page="buy" />} />
+          <Route path="makeQuiz" element={<WebStructue page="makeQuiz" />} />
           <Route
             path="myIRYSCQuizzes"
             element={<WebStructue page="myIRYSCQuizzes" />}
+          />
+          <Route
+            path="myCustomQuizzes"
+            element={<WebStructue page="myCustomQuizzes" />}
           />
           <Route
             path="mySchoolQuizzes"

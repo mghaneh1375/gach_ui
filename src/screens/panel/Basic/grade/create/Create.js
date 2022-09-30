@@ -52,8 +52,8 @@ function Create(props) {
                 res = await editGrade(
                   props.grade.id,
                   props.token,
-                  {name: name},
-                  isOlympiad,
+                  {name: name, isOlympiad: isOlympiad === 'yes'},
+                  props.grade.isOlympiad,
                 );
               } else {
                 res = await createGrade(props.token, {name: name}, isOlympiad);

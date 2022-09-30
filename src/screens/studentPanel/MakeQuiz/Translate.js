@@ -1,6 +1,6 @@
 const Translate = {
   makeQuiz: 'آزمون خود را بسازید',
-  chooseAndAdd: 'انتخاب کنید و اضافه کنید',
+  chooseAndAdd: 'انتخاب و اضافه کنید',
   line: 'رشته',
   difficulty: 'درجه سختی : ',
   count: 'تعداد سوال',

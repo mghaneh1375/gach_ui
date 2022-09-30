@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../styles/Common';
+import {CommonWebBox, MyView, PhoneView} from '../../../styles/Common';
 import {Translate} from './Translate';
 import DashboardCard from './DashboardCard/DashboardCard';
 import vars from '../../../styles/root';
@@ -12,9 +7,6 @@ import {faExchange, faEye, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {dispatchStateContext} from '../../../App';
 import {getMySummary} from './Utility';
 import commonTranslator from '../../../translator/Common';
-import {styles} from '../../../styles/Common/Styles';
-import {styleFontSize17} from '../../panel/package/card/Style';
-import HomeBox from '../../general/home/HomeBox/HomeBox';
 
 function Dashboard(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -101,13 +93,13 @@ function Dashboard(props) {
               padding={'38px 10px'}
               borderRight={false}
             />
-            <DashboardCard
+            {/* <DashboardCard
               text={Translate.yourBranchRank}
               subtext={data.branchRank}
               background={vars.GRADIENT}
               padding={'38px 10px'}
               borderRight={false}
-            />
+            /> */}
             <DashboardCard
               text={Translate.yourGradeRank}
               subtext={data.gradeRank}

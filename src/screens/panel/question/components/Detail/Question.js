@@ -30,21 +30,15 @@ import {
 } from './style';
 import {levelKeyVals, statusKeyVals, typeOfQuestionKeyVals} from '../KeyVals';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {
-  quizContext,
-  dispatchQuizContext,
-} from '../../../quiz/components/Context';
+import {dispatchQuizContext} from '../../../quiz/components/Context';
 import vars from '../../../../../styles/root';
 import {styles} from '../../../../../styles/Common/Styles';
 
 function Question(props) {
   const [showMore, setShowMore] = useState(false);
 
-  const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
-  ];
-  const [state, dispatch] = useGlobalState();
+  const useGlobalState = () => [React.useContext(dispatchQuizContext)];
+  const [dispatch] = useGlobalState();
 
   const toggleShowMore = () => {
     setShowMore(!showMore);
@@ -54,6 +48,7 @@ function Question(props) {
   const [questionNo, setQuestionNo] = useState();
 
   React.useEffect(() => {
+    if (props.totalQuestions === undefined) return;
     let tmp = [];
     for (let i = 1; i <= props.totalQuestions; i++)
       tmp.push({id: i, item: i + ''});

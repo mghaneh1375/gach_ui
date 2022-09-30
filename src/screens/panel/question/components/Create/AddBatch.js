@@ -38,6 +38,10 @@ const AddBatch = props => {
           link: BASE_URL + routes.getSubjectCodesExcel,
           text: 'دانلود فایل کد حیطه ها',
         },
+        {
+          link: BASE_URL + routes.getAuthorCodesExcel,
+          text: 'دانلود فایل کد مولفین',
+        },
       ]}
     />
   );

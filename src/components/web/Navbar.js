@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {CommonButton, MyView} from '../../styles/Common';
 import {styles} from '../../styles/Common/Styles';
 import vars from '../../styles/root';
-import {Nav, NavLink} from '../../styles/web/NavbarElement';
+import {Nav, NavLink, NavLinkExternal} from '../../styles/web/NavbarElement';
 
 const Navbar = props => {
   const [isLogin, setIsLogin] = useState(props.user !== undefined);
@@ -17,36 +17,56 @@ const Navbar = props => {
         <NavLink style={{...styles.whiteSpaceNoWrap}} to="/buy">
           آزمون ها
         </NavLink>
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
-          رویداد ها
-        </NavLink>
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
+        <NavLinkExternal
+          rel="noopener noreferrer"
+          target="_blank"
+          style={{...styles.whiteSpaceNoWrap}}
+          href="https://irysc.com">
           اخبار
-        </NavLink>
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
+        </NavLinkExternal>
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/rankinglist">
           رتبه بندی
         </NavLink>
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
+        <NavLinkExternal
+          style={{...styles.whiteSpaceNoWrap}}
+          rel="noopener noreferrer"
+          target="_blank"
+          href="https://irysc.com">
           همکاران
+        </NavLinkExternal>
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="schools">
+          مدارس
         </NavLink>
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
+        <NavLinkExternal
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{...styles.whiteSpaceNoWrap}}
+          href="https://irysc.com">
           راهنما
-        </NavLink>
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/">
-          تماس با ما
-        </NavLink>
-        {/* <CommonButton
+        </NavLinkExternal>
+        <NavLinkExternal
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{...styles.whiteSpaceNoWrap}}
+          href="https://irysc.com">
+          تماس و پشتیبانی
+        </NavLinkExternal>
+        <CommonButton
           style={{
             backgroundColor: vars.DARK_BLUE,
             minWidth: 'unset',
             marginLeft: 0,
+            paddingLeft: 10,
+            paddingRight: 10,
           }}
-          title={'پشتیبانی'}
-          href="/login"
-        /> */}
+          title={'کلاس های المپیاد'}
+          onPress={() => {
+            window.open('https://irysc.com', '_blank');
+          }}
+        />
         {!isLogin && (
           <CommonButton
-            style={{minWidth: 'unset'}}
+            style={{minWidth: 'unset', paddingLeft: 10, paddingRight: 10}}
             href="/login"
             title={'ورود/ثبت نام'}
           />
@@ -54,7 +74,7 @@ const Navbar = props => {
         {isLogin && (
           <CommonButton
             style={{minWidth: 'unset', paddingLeft: 25, paddingRight: 25}}
-            href="/profile"
+            href="/dashboard"
             title={'پروفایل'}
           />
         )}
