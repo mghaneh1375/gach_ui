@@ -79,19 +79,18 @@ function Karname(props) {
 
     if (isWorking || state.selectedStudentId === undefined) return;
 
-    if (state.selectedQuiz.allKarname !== undefined)
-      if (
-        state.selectedQuiz.allKarname !== undefined &&
-        state.selectedQuiz.allKarname.find(
-          elem => elem.student.id === state.selectedStudentId,
-        ) !== undefined
-      ) {
-        let tmp = state.selectedQuiz.allKarname.find(
-          elem => elem.student.id === state.selectedStudentId,
-        );
-        setKarname(tmp);
-        return;
-      }
+    if (
+      state.selectedQuiz.allKarname !== undefined &&
+      state.selectedQuiz.allKarname.find(
+        elem => elem.student.id === state.selectedStudentId,
+      ) !== undefined
+    ) {
+      let tmp = state.selectedQuiz.allKarname.find(
+        elem => elem.student.id === state.selectedStudentId,
+      );
+      setKarname(tmp);
+      return;
+    }
 
     setIsWorking(true);
     props.setLoading(true);
@@ -229,7 +228,9 @@ function Karname(props) {
             : props.setMode('ranking')
         }>
         <EqualTwoTextInputs>
-          {karname !== undefined && <StudentCard std={karname} />}
+          {karname !== undefined && props.generalQuizMode === undefined && (
+            <StudentCard std={karname} />
+          )}
           {karname !== undefined && (
             <PhoneView>
               {pdf !== undefined && (
@@ -297,33 +298,35 @@ function Karname(props) {
               </MyView>
             )}
           </CommonWebBox>
-          <CommonWebBox
-            width={'45%'}
-            style={{
-              paddingLeft: 5,
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 5,
-              ...styleCard100Percent,
-            }}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 2 - نتایج آماری دروس'}
-              />
-            </EqualTwoTextInputs>
-            <MyView>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={generalStatTableStructure}
-                  data={karname.lessons}
-                  show_row_no={false}
-                  pagination={false}
-                  groupOps={[]}
+          {props.generalQuizMode === undefined && (
+            <CommonWebBox
+              width={'45%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+                ...styleCard100Percent,
+              }}>
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={'جدول شماره 2 - نتایج آماری دروس'}
                 />
-              )}
-            </MyView>
-          </CommonWebBox>
+              </EqualTwoTextInputs>
+              <MyView>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={generalStatTableStructure}
+                    data={karname.lessons}
+                    show_row_no={false}
+                    pagination={false}
+                    groupOps={[]}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
+          )}
 
           <CommonWebBox
             width={'55%'}
@@ -360,215 +363,224 @@ function Karname(props) {
             </MyView>
           </CommonWebBox>
 
-          <CommonWebBox
-            width={'45%'}
-            style={{
-              paddingLeft: 5,
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 5,
-              ...styleCard100Percent,
-            }}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 4 - نتایج آماری حیطه ها'}
-              />
-            </EqualTwoTextInputs>
-            <MyView>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={generalStatTableStructure}
-                  show_row_no={false}
-                  pagination={false}
-                  excel={false}
-                  groupOps={[]}
-                  data={karname.subjects}
-                />
-              )}
-            </MyView>
-          </CommonWebBox>
-
-          <CommonWebBox
-            width={'50%'}
-            style={{
-              paddingLeft: 5,
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 5,
-              ...styleCard100Percent,
-            }}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 5 - نتایج رتبه بندی دروس'}
-              />
-            </EqualTwoTextInputs>
-            <MyView style={{gap: 20}}>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={lessonRankingCols}
-                  show_row_no={false}
-                  pagination={false}
-                  excel={false}
-                  groupOps={[]}
-                  data={karname.lessons}
-                />
-              )}
+          {props.generalQuizMode === undefined && (
+            <CommonWebBox
+              width={'45%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+                ...styleCard100Percent,
+              }}>
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
                   style={{alignSelf: 'center'}}
-                  text={'جدول شماره 7 - نتایج کلی'}
+                  text={'جدول شماره 4 - نتایج آماری حیطه ها'}
                 />
               </EqualTwoTextInputs>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={totalRankCols}
-                  data={[karname.rank]}
-                  show_row_no={false}
-                  pagination={false}
-                  excel={false}
-                  groupOps={[]}
-                />
-              )}
-            </MyView>
-          </CommonWebBox>
+              <MyView>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={generalStatTableStructure}
+                    show_row_no={false}
+                    pagination={false}
+                    excel={false}
+                    groupOps={[]}
+                    data={karname.subjects}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
+          )}
 
-          <CommonWebBox
-            width={'50%'}
-            style={{
-              paddingLeft: 5,
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingRight: 5,
-              ...styleCard100Percent,
-            }}>
-            <EqualTwoTextInputs>
-              <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
-                text={'جدول شماره 6 - نتایج رتبه بندی حیطه ها'}
-              />
-            </EqualTwoTextInputs>
-            <MyView>
-              {karname !== undefined && (
-                <CommonDataTable
-                  columns={subjectRankingCols}
-                  data={karname.subjects}
-                  show_row_no={false}
-                  pagination={false}
-                  excel={false}
-                  groupOps={[]}
+          {props.generalQuizMode === undefined && (
+            <CommonWebBox
+              width={'50%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+                ...styleCard100Percent,
+              }}>
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={'جدول شماره 5 - نتایج رتبه بندی دروس'}
                 />
-              )}
-            </MyView>
-          </CommonWebBox>
+              </EqualTwoTextInputs>
+              <MyView style={{gap: 20}}>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={lessonRankingCols}
+                    show_row_no={false}
+                    pagination={false}
+                    excel={false}
+                    groupOps={[]}
+                    data={karname.lessons}
+                  />
+                )}
+                <EqualTwoTextInputs>
+                  <BigBoldBlueTextInline
+                    style={{alignSelf: 'center'}}
+                    text={'جدول شماره 7 - نتایج کلی'}
+                  />
+                </EqualTwoTextInputs>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={totalRankCols}
+                    data={[karname.rank]}
+                    show_row_no={false}
+                    pagination={false}
+                    excel={false}
+                    groupOps={[]}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
+          )}
+
+          {props.generalQuizMode === undefined && (
+            <CommonWebBox
+              width={'50%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+                ...styleCard100Percent,
+              }}>
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={'جدول شماره 6 - نتایج رتبه بندی حیطه ها'}
+                />
+              </EqualTwoTextInputs>
+              <MyView>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={subjectRankingCols}
+                    data={karname.subjects}
+                    show_row_no={false}
+                    pagination={false}
+                    excel={false}
+                    groupOps={[]}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
+          )}
         </PhoneView>
       </MyViewWithRef>
-      <MyViewWithRef style={{justifyContent: 'center'}} ref={ref2}>
-        <CommonWebBox width={'100%'}>
-          <MyView>
-            {karname !== undefined && (
-              <VictoryChart
-                padding={{top: 150, left: 100, bottom: 50, right: 80}}
-                height={500}
-                theme={VictoryTheme.material}>
-                <VictoryLegend
-                  x={125}
-                  y={20}
-                  title="راهنما"
-                  centerTitle
-                  orientation="horizontal"
-                  gutter={40}
-                  style={{
-                    data: {fontSize: 20, fontFamily: 'IRANSans'},
-                    labels: {fontSize: 20, fontFamily: 'IRANSans', dx: 100},
-                    border: {stroke: 'black'},
-                    title: {fontSize: 20, fontFamily: 'IRANSans'},
-                  }}
-                  data={[
-                    {name: 'درصد شما', symbol: {fill: '#c43a31'}},
-                    {name: 'میانگین', symbol: {fill: '#777777'}},
-                  ]}
-                />
+      {props.generalQuizMode === undefined && (
+        <MyViewWithRef style={{justifyContent: 'center'}} ref={ref2}>
+          <CommonWebBox width={'100%'}>
+            <MyView>
+              {karname !== undefined && (
+                <VictoryChart
+                  padding={{top: 150, left: 100, bottom: 50, right: 80}}
+                  height={500}
+                  theme={VictoryTheme.material}>
+                  <VictoryLegend
+                    x={125}
+                    y={20}
+                    title="راهنما"
+                    centerTitle
+                    orientation="horizontal"
+                    gutter={40}
+                    style={{
+                      data: {fontSize: 20, fontFamily: 'IRANSans'},
+                      labels: {fontSize: 20, fontFamily: 'IRANSans', dx: 100},
+                      border: {stroke: 'black'},
+                      title: {fontSize: 20, fontFamily: 'IRANSans'},
+                    }}
+                    data={[
+                      {name: 'درصد شما', symbol: {fill: '#c43a31'}},
+                      {name: 'میانگین', symbol: {fill: '#777777'}},
+                    ]}
+                  />
 
-                <VictoryLine
-                  categories={{
-                    x: karname.subjects.map(elem => {
-                      return elem.name;
-                    }),
-                  }}
-                  style={{
-                    data: {
-                      stroke: '#c43a31',
-                      strokeWidth: ({data}) => 4,
-                    },
-                  }}
-                  interpolation={'natural'}
-                  domain={{y: [-30, 105]}}
-                  data={[
-                    0,
-                    ...karname.subjects.map(elem => {
-                      return elem.percent;
-                    }),
-                  ]}
-                />
-                <VictoryLine
-                  categories={{
-                    x: karname.subjects.map(elem => {
-                      return elem.name;
-                    }),
-                  }}
-                  interpolation={'natural'}
-                  style={{
-                    data: {
-                      stroke: '#777777',
-                      strokeWidth: ({data}) => 4,
-                    },
-                  }}
-                  data={[
-                    0,
-                    ...karname.subjects.map(elem => {
-                      return elem.avg;
-                    }),
-                  ]}
-                />
-                <VictoryAxis
-                  style={{
-                    tickLabels: {
-                      fontFamily: 'IRANSans',
-                      fontSize: 18,
-                      dy: 10,
-                      dx: 40,
-                    },
-                    axisLabel: {
-                      fontFamily: 'IRANSans',
-                      fontSize: 19,
-                      dy: 10,
-                      dx: 40,
-                    },
-                  }}
-                />
-                <VictoryAxis
-                  dependentAxis
-                  tickFormat={x => x}
-                  style={{
-                    tickLabels: {
-                      fontFamily: 'IRANSans',
-                      fontSize: 24,
-                      dx: -30,
-                    },
-                    axisLabel: {
-                      fontFamily: 'IRANSans',
-                      fontSize: 24,
-                      dx: -30,
-                    },
-                  }}
-                />
-              </VictoryChart>
-            )}
-          </MyView>
-        </CommonWebBox>
-      </MyViewWithRef>
+                  <VictoryLine
+                    categories={{
+                      x: karname.subjects.map(elem => {
+                        return elem.name;
+                      }),
+                    }}
+                    style={{
+                      data: {
+                        stroke: '#c43a31',
+                        strokeWidth: ({data}) => 4,
+                      },
+                    }}
+                    interpolation={'natural'}
+                    domain={{y: [-30, 105]}}
+                    data={[
+                      0,
+                      ...karname.subjects.map(elem => {
+                        return elem.percent;
+                      }),
+                    ]}
+                  />
+                  <VictoryLine
+                    categories={{
+                      x: karname.subjects.map(elem => {
+                        return elem.name;
+                      }),
+                    }}
+                    interpolation={'natural'}
+                    style={{
+                      data: {
+                        stroke: '#777777',
+                        strokeWidth: ({data}) => 4,
+                      },
+                    }}
+                    data={[
+                      0,
+                      ...karname.subjects.map(elem => {
+                        return elem.avg;
+                      }),
+                    ]}
+                  />
+                  <VictoryAxis
+                    style={{
+                      tickLabels: {
+                        fontFamily: 'IRANSans',
+                        fontSize: 18,
+                        dy: 10,
+                        dx: 40,
+                      },
+                      axisLabel: {
+                        fontFamily: 'IRANSans',
+                        fontSize: 19,
+                        dy: 10,
+                        dx: 40,
+                      },
+                    }}
+                  />
+                  <VictoryAxis
+                    dependentAxis
+                    tickFormat={x => x}
+                    style={{
+                      tickLabels: {
+                        fontFamily: 'IRANSans',
+                        fontSize: 24,
+                        dx: -30,
+                      },
+                      axisLabel: {
+                        fontFamily: 'IRANSans',
+                        fontSize: 24,
+                        dx: -30,
+                      },
+                    }}
+                  />
+                </VictoryChart>
+              )}
+            </MyView>
+          </CommonWebBox>
+        </MyViewWithRef>
+      )}
+
       <MyViewWithRef ref={ref3}>
         {karname !== undefined && state.wanted_answer_sheet !== undefined && (
           <AnswerSheet answer_sheet={state.wanted_answer_sheet} />

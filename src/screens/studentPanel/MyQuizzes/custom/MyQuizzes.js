@@ -44,6 +44,7 @@ function MyQuizzes(props) {
           onBackClick={() => setMode('list')}
           token={props.token}
           generalQuizMode={'custom'}
+          user={props.user}
         />
       )}
       {mode === 'recp' && (

@@ -19,10 +19,16 @@ import {
 } from './../../../package/card/Style';
 import {
   convertSecToMin,
+  convertSecToMinWithOutSec,
   convertTimestamp,
 } from '../../../../../services/Utility';
 import {launchModeKeyVals, kindQuizKeyVals} from '../KeyVals';
-import {faPlug} from '@fortawesome/free-solid-svg-icons';
+import {
+  faClock,
+  faListNumeric,
+  faPlug,
+  faStopwatch,
+} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../../styles/Common/Styles';
 import QuizItemCard from '../../../../../components/web/QuizItemCard';
 
@@ -101,8 +107,8 @@ function Card(props) {
             {props.quiz.duration !== undefined && (
               <QuizItemCard
                 text={Translate.duration + ':'}
-                val={convertSecToMin(props.quiz.duration)}
-                icon={faPlug}
+                val={convertSecToMinWithOutSec(props.quiz.duration)}
+                icon={faClock}
                 textFontSize={11}
                 valFontSize={15}
               />
@@ -111,7 +117,7 @@ function Card(props) {
               <QuizItemCard
                 text={Translate.questionsCount + ':'}
                 val={props.quiz.questionsCount}
-                icon={faPlug}
+                icon={faListNumeric}
                 textFontSize={11}
                 valFontSize={15}
               />
@@ -120,8 +126,8 @@ function Card(props) {
             {props.quiz.timeReminder !== undefined && (
               <QuizItemCard
                 text={Translate.timeReminder}
-                val={convertSecToMin(props.quiz.timeReminder)}
-                icon={faPlug}
+                val={convertSecToMinWithOutSec(props.quiz.timeReminder)}
+                icon={faStopwatch}
                 textFontSize={11}
                 valFontSize={11}
               />
