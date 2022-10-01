@@ -52,13 +52,17 @@ function Karname(props) {
     if (props.user.accesses.indexOf('student') !== -1)
       return await getMyAnswerSheet(
         state.selectedQuiz.id,
-        state.selectedQuiz.generalMode,
+        props.generalQuizMode === undefined
+          ? state.selectedQuiz.generalMode
+          : props.generalQuizMode,
         props.token,
       );
 
     return await fetchStudentAnswerSheet(
       state.selectedQuiz.id,
-      state.selectedQuiz.generalMode,
+      props.generalQuizMode === undefined
+        ? state.selectedQuiz.generalMode
+        : props.generalQuizMode,
       state.selectedStudentId,
       props.token,
     );
@@ -97,7 +101,9 @@ function Karname(props) {
         props.token,
         state.selectedStudentId,
         state.selectedQuiz.id,
-        state.selectedQuiz.generalMode,
+        props.generalQuizMode === undefined
+          ? state.selectedQuiz.generalMode
+          : props.generalQuizMode,
       ),
       fetchAnswerSheet(),
     ]).then(res => {
@@ -233,20 +239,21 @@ function Karname(props) {
                   title={commonTranslator.print}
                 />
               )}
-              {state.selectedStudentId !== undefined && (
-                <CopyBox
-                  title={commonTranslator.copyLink}
-                  url={
-                    BASE_SITE_NAME +
-                    'result/' +
-                    state.selectedQuiz.generalMode +
-                    '/' +
-                    state.selectedQuiz.id +
-                    '/' +
-                    state.selectedStudentId
-                  }
-                />
-              )}
+              {state.selectedStudentId !== undefined &&
+                props.generalQuizMode === undefined && (
+                  <CopyBox
+                    title={commonTranslator.copyLink}
+                    url={
+                      BASE_SITE_NAME +
+                      'result/' +
+                      state.selectedQuiz.generalMode +
+                      '/' +
+                      state.selectedQuiz.id +
+                      '/' +
+                      state.selectedStudentId
+                    }
+                  />
+                )}
             </PhoneView>
           )}
         </EqualTwoTextInputs>

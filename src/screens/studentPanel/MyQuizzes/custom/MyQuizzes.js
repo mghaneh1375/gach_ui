@@ -37,12 +37,13 @@ function MyQuizzes(props) {
           token={props.token}
         />
       )}
-      {mode === 'karname' && (
+      {mode === 'result' && (
         <Karname
           setLoading={setLoading}
           setMode={setMode}
-          onBackClick={() => setMode('ranking')}
+          onBackClick={() => setMode('list')}
           token={props.token}
+          generalQuizMode={'custom'}
         />
       )}
       {mode === 'recp' && (

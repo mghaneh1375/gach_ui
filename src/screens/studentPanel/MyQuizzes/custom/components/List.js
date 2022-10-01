@@ -67,11 +67,9 @@ function List(props) {
             return (
               <Card
                 quizOp={() =>
-                  quiz.status !== 'inProgress'
+                  quiz.status !== 'inProgress' && quiz.status !== 'continue'
                     ? openOpBox(quiz)
-                    : props.navigate(
-                        '/startQuiz/' + quiz.generalMode + '/' + quiz.id,
-                      )
+                    : props.navigate('/startQuiz/custom/' + quiz.id)
                 }
                 isStudent={true}
                 onClick={() => {}}

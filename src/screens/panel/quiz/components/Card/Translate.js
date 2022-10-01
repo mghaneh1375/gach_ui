@@ -17,6 +17,7 @@ const translate = {
   oldIncorrect: 'تعداد نادرست: ',
   waitForResult: 'در انتظار صدور کارنامه باشید.',
   notStart: 'این آزمون هنوز شروع نشده است.',
+  timeReminder: 'زمان باقی مانده',
 };
 
 export default translate;

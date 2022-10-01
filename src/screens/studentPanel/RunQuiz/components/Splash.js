@@ -56,6 +56,7 @@ function Splash(props) {
       }
       dispatch({
         token: props.token,
+        navigate: props.navigate,
         questions: res[0].questions,
         answers: res[0].questions.map(elem => {
           return elem.stdAns;

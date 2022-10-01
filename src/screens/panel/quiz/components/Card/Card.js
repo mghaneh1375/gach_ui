@@ -116,6 +116,16 @@ function Card(props) {
                 valFontSize={15}
               />
             )}
+
+            {props.quiz.timeReminder !== undefined && (
+              <QuizItemCard
+                text={Translate.timeReminder}
+                val={convertSecToMin(props.quiz.timeReminder)}
+                icon={faPlug}
+                textFontSize={11}
+                valFontSize={11}
+              />
+            )}
           </PhoneView>
         )}
 
@@ -181,6 +191,13 @@ function Card(props) {
                 props.quiz.status === 'inProgress' && (
                   <CommonButton
                     title={commonTranslator.start}
+                    onPress={() => props.quizOp()}
+                  />
+                )}
+              {props.quiz.status !== undefined &&
+                props.quiz.status === 'continue' && (
+                  <CommonButton
+                    title={'ادامه آزمون'}
                     onPress={() => props.quizOp()}
                   />
                 )}

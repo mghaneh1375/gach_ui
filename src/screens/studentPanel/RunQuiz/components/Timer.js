@@ -90,7 +90,9 @@ function Timer() {
       {state.reminder !== undefined && state.reminder < 300 && (
         <CountDown
           until={state.reminder}
-          onFinish={() => {}}
+          onFinish={() => {
+            dispatch({exit: true});
+          }}
           timeToShow={['H', 'M', 'S']}
           style={{direction: 'ltr', marginTop: 20}}
           digitStyle={{

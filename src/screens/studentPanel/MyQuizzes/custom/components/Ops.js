@@ -5,11 +5,8 @@ import {
   quizContext,
   dispatchQuizContext,
 } from '../../../../panel/quiz/components/Context';
-import {getRanking} from '../../../../panel/quiz/components/Utility';
 import Translate from '../../Translate';
 import {getMyAnswerSheet, getRecpForQuiz} from './Utility';
-import translator from '../../../../panel/quiz/Translator';
-import commonTranslator from '../../../../../translator/Common';
 
 function Ops(props) {
   const useGlobalState = () => [
@@ -92,12 +89,7 @@ function Ops(props) {
   };
 
   const prepareReview = () => {
-    props.navigate(
-      '/reviewQuiz/' +
-        state.selectedQuiz.generalMode +
-        '/' +
-        state.selectedQuiz.id,
-    );
+    props.navigate('/reviewQuiz/custom/' + state.selectedQuiz.id);
   };
 
   const prepareShowResult = async () => {

@@ -102,7 +102,6 @@ const Home = props => {
       if (res[0] === null) return;
 
       setData(res[0]);
-      console.log(res[0]);
       setIsWorking(false);
     });
   }, [dispatch, props, isWorking, data]);

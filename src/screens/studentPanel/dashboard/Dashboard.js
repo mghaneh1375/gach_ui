@@ -7,6 +7,7 @@ import {faExchange, faEye, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {dispatchStateContext} from '../../../App';
 import {getMySummary} from './Utility';
 import commonTranslator from '../../../translator/Common';
+import {formatPrice} from '../../../services/Utility';
 
 function Dashboard(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -36,7 +37,7 @@ function Dashboard(props) {
             <DashboardCard
               text={Translate.money}
               theme={vars.ORANGE}
-              subtext={data.money}
+              subtext={formatPrice(data.money)}
               btnColor={'yellow'}
               borderRight={true}
               icon={faPlus}

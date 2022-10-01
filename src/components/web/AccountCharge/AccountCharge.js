@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {changeText, showError} from '../../../services/Utility';
+import {changeText, formatPrice, showError} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -22,7 +22,7 @@ function AccountCharge(props) {
     }
 
     let res = await chargeAccout(amount, props.token);
-    console.log(res);
+
     if (res !== null && res.action === 'pay') setRefId(res.refId);
   };
 
@@ -46,7 +46,13 @@ function AccountCharge(props) {
           ...styles.fontSize15,
           ...styles.FontWeight600,
         }}
-        text={Translate.accountBalance + ' ' + props.accountBalance}
+        text={
+          Translate.accountBalance +
+          ' ' +
+          formatPrice(props.user.user.money) +
+          ' ' +
+          Translate.toman
+        }
       />
       <MyView style={{...styles.marginRight25}}>
         <SimpleText

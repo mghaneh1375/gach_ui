@@ -13,6 +13,7 @@ const defaultGlobalState = {
   reminder: undefined,
   refresh: undefined,
   clearTimer: false,
+  exit: false,
 };
 
 export const doQuizContext = React.createContext(defaultGlobalState);
@@ -87,6 +88,11 @@ export const DoQuizProvider = ({children}) => {
     saveAnswers();
   }, [state.needStore, saveAnswers]);
 
+  React.useEffect(() => {
+    if (!state.exit) return;
+    saveAnswersWithExit();
+  }, [state.exit, saveAnswersWithExit]);
+
   const saveAnswers = React.useCallback(() => {
     state.setLoadingWithText(true);
 
@@ -112,6 +118,24 @@ export const DoQuizProvider = ({children}) => {
         needStore: false,
         clearTimer: true,
       });
+    });
+  }, [state]);
+
+  const saveAnswersWithExit = React.useCallback(() => {
+    state.setLoadingWithText(true);
+
+    Promise.all([
+      doSaveAnswers(
+        {
+          answers: state.answers,
+        },
+        state.quizInfo.id,
+        state.quizInfo.generalMode,
+        state.token,
+      ),
+    ]).then(res => {
+      state.setLoadingWithText(false);
+      state.navigate('/');
     });
   }, [state]);
 

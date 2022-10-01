@@ -83,12 +83,6 @@ function RunQuiz(props) {
           {mode !== undefined && mode === 'doQuiz' && (
             <Quiz
               isInReviewMode={props.isInReviewMode}
-              token={props.token}
-              quizId={params.quizId}
-              quizGeneralMode={params.quizMode}
-              navigate={props.navigate}
-              setLoading={setLoading}
-              setMode={setMode}
               onBack={() =>
                 props.user.accesses.indexOf('student') !== -1
                   ? props.navigate('/myQuizzes')

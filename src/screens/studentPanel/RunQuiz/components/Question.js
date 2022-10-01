@@ -272,7 +272,7 @@ function Question(props) {
             {!props.isInReviewMode && (
               <CommonButton
                 onPress={() => {
-                  dispatch({currIdx: state.currIdx - 1});
+                  dispatch({exit: true});
                 }}
                 title={Translate.finish}
                 theme={'orangeRed'}
