@@ -5,7 +5,12 @@ import commonTranslator from '../../../../translator/Common';
 import vars from '../../../../styles/root';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
-import {createTaraz, generateQuestionPDF, removeQuiz} from './Utility';
+import {
+  createTaraz,
+  finalizeQuizResult,
+  generateQuestionPDF,
+  removeQuiz,
+} from './Utility';
 import {dispatchQuizContext, quizContext} from './Context';
 import React from 'react';
 import Translate from '../../../studentPanel/RunQuiz/Translate';
@@ -161,6 +166,9 @@ const Ops = props => {
             dir={'rtl'}
             theme={'transparent'}
             title={translator.gift}
+            onPress={() =>
+              finalizeQuizResult(state.selectedQuiz.id, props.token)
+            }
           />
         )}
         <CommonButton

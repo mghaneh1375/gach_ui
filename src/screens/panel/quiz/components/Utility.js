@@ -299,3 +299,15 @@ export const changeQuestionsArrangeInQuiz = async (
   if (res !== null) showSuccess();
   return res;
 };
+
+export const finalizeQuizResult = async (quizId, token) => {
+  let res = await generalRequest(
+    routes.finalizeQuizResult + quizId,
+    'post',
+    undefined,
+    undefined,
+    token,
+  );
+  if (res !== null) showSuccess();
+  return res;
+};
