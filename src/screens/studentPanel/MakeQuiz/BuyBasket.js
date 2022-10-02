@@ -1,0 +1,209 @@
+import {setCacheItem} from '../../../API/User';
+import {formatPrice} from '../../../services/Utility';
+import React, {useRef, useState} from 'react';
+import {
+  BigBoldBlueText,
+  CommonButton,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../styles/Common';
+import {styles} from '../../../styles/Common/Styles';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faQuestion} from '@fortawesome/free-solid-svg-icons';
+import vars from '../../../styles/root';
+import Translate from '../../general/buy/Translate';
+import {goToPay} from './Utility';
+
+function BuyBasket(props) {
+  const [refId, setRefId] = useState();
+
+  const goToPayLocal = async () => {
+    props.setLoading(true);
+    let res = await goToPay(
+      props.token,
+      props.id,
+      props.userOff !== undefined && props.userOff.code
+        ? props.userOff.code
+        : undefined,
+    );
+    props.setLoading(false);
+    if (res.action === 'success') {
+      let user = props.user;
+      user.user.money = res.refId;
+      await setCacheItem('user', JSON.stringify(user));
+      props.setShowSuccessTransaction(true);
+    } else if (res.action === 'pay') {
+      setRefId(res.refId);
+    }
+  };
+
+  const ref = useRef();
+  const [isShown, setIsShown] = useState(false);
+
+  React.useEffect(() => {
+    if (refId === undefined) return;
+
+    setTimeout(() => {
+      ref.current.submit();
+    }, 1000);
+  }, [refId]);
+
+  return (
+    <PhoneView
+      style={{
+        ...{alignSelf: 'flex-end', gap: 5},
+        ...styles.alignItemsCenter,
+      }}>
+      {props.price > 0 && (
+        <MyView>
+          <PhoneView>
+            <BigBoldBlueText style={{marginTop: 5}} text={Translate.amount} />
+
+            {(props.off > 0 || props.usedFromWallet > 0) && (
+              <MyView>
+                {props.off > 0 && (
+                  <PhoneView style={styles.alignItemsCenter}>
+                    <SimpleText
+                      text={formatPrice(props.off)}
+                      style={{
+                        ...{marginRight: 10},
+                        ...styles.yellow_color,
+                        ...styles.fontSize13,
+                      }}
+                    />
+                    <SimpleText
+                      style={{
+                        ...{marginRight: 5},
+                        ...styles.dark_blue_color,
+                        ...styles.fontSize13,
+                      }}
+                      text={Translate.off}
+                    />
+                    {props.offs !== undefined && (
+                      <button
+                        style={{
+                          backgroundColor: vars.DARK_BLUE,
+                          borderColor: vars.DARK_BLUE,
+                          rotateY: 'transform: rotateY(181deg)',
+                          borderRadius: 3,
+                          cursor: 'pointer',
+                          margin: 5,
+                        }}
+                        onClick={() =>
+                          isShown ? setIsShown(false) : setIsShown(true)
+                        }>
+                        <FontAwesomeIcon
+                          style={{color: 'white', padding: 3}}
+                          icon={faQuestion}
+                        />
+                      </button>
+                    )}
+
+                    {props.offs !== undefined &&
+                      props.offs.length > 0 &&
+                      isShown && (
+                        <SimpleText
+                          style={{
+                            position: 'absolute',
+                            zIndex: 3,
+                            backgroundColor: vars.DARK_BLUE,
+                            padding: 8,
+                            borderRadius: 10,
+                            left: 'calc(50% * -1)',
+                            top:
+                              props.offs.length === 1
+                                ? -45
+                                : props.offs.length === 2
+                                ? -65
+                                : -85,
+                            width: 200,
+                            color: 'white',
+                          }}
+                          text={props.offs.map(elem => {
+                            return (elem += '\n');
+                          })}
+                        />
+                      )}
+                  </PhoneView>
+                )}
+                {props.usedFromWallet > 0 && (
+                  <PhoneView style={styles.alignItemsCenter}>
+                    <SimpleText
+                      text={formatPrice(props.usedFromWallet)}
+                      style={{
+                        ...{marginRight: 10},
+                        ...styles.yellow_color,
+                        ...styles.fontSize13,
+                      }}
+                    />
+                    <SimpleText
+                      style={{
+                        ...{marginRight: 5},
+                        ...styles.dark_blue_color,
+                        ...styles.fontSize13,
+                      }}
+                      text={Translate.wallet}
+                    />
+                  </PhoneView>
+                )}
+              </MyView>
+            )}
+          </PhoneView>
+          <PhoneView>
+            <SimpleText
+              style={
+                props.shouldPay !== props.price
+                  ? {
+                      ...styles.dark_blue_color,
+                      ...styles.textDecorRed,
+                    }
+                  : {...styles.dark_blue_color}
+              }
+              text={formatPrice(props.price) + ' تومان '}
+            />
+            {props.shouldPay !== props.price && (
+              <SimpleText
+                style={{...{marginRight: 15}, ...styles.red}}
+                text={formatPrice(props.shouldPay) + ' تومان '}
+              />
+            )}
+          </PhoneView>
+        </MyView>
+      )}
+
+      {props.price > 0 && (
+        <MyView style={{...{marginRight: 40}, ...styles.alignItemsCenter}}>
+          <CommonButton
+            theme={'dark'}
+            title={props.shouldPay > 0 ? Translate.goToPay : Translate.buy}
+            onPress={() => goToPayLocal()}
+          />
+          {props.shouldPay > 0 && (
+            <SimpleText
+              style={{
+                ...styles.yellow_color,
+                ...styles.fontSize13,
+                ...styles.cursor_pointer,
+              }}
+              text={Translate.enterOff}
+              onPress={() => props.toggleShowOffCodePane()}
+            />
+          )}
+        </MyView>
+      )}
+
+      {refId !== undefined && (
+        <form
+          ref={ref}
+          action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat"
+          method="post"
+          target="_blank">
+          <input type={'hidden'} value={refId} name="RefId" />
+        </form>
+      )}
+    </PhoneView>
+  );
+}
+
+export default BuyBasket;

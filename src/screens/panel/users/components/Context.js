@@ -4,6 +4,7 @@ const defaultGlobalState = {
   users: undefined,
   needUpdate: false,
   selectedUser: undefined,
+  fetched: [],
 };
 export const usersContext = React.createContext(defaultGlobalState);
 export const dispatchUsersContext = React.createContext(undefined);

@@ -4,7 +4,6 @@ import {QuizProvider} from '../../../panel/quiz/components/Context';
 import Karname from '../../../panel/quiz/components/Reports/Karname/Karname';
 import Recp from '../../../../components/web/Recp';
 import List from './components/List';
-import StudentAnswerSheet from '../../../panel/quiz/components/AnswerSheet/StudentAnswerSheet';
 
 function MyQuizzes(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -29,14 +28,7 @@ function MyQuizzes(props) {
           navigate={props.navigate}
         />
       )}
-      {mode === 'answerSheet' && (
-        <StudentAnswerSheet
-          selectedAnswerSheetIdx={0}
-          setLoading={setLoading}
-          onBackClick={() => setMode('list')}
-          token={props.token}
-        />
-      )}
+
       {mode === 'result' && (
         <Karname
           setLoading={setLoading}

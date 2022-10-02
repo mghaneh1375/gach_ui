@@ -5,6 +5,7 @@ import {
   styleFontSize15,
 } from '../../screens/panel/package/card/Style';
 import {
+  CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
@@ -34,18 +35,27 @@ function Basket(props) {
       <EqualTwoTextInputs>
         <MyView>
           <PhoneView>
-            <SimpleText
-              style={{
-                ...styles.dark_blue_color,
-                ...styles.fontSize17,
-                ...styles.bold,
-              }}
-              text={
-                props.label === undefined
-                  ? commonTranslator.counter + ' ' + commonTranslator.quiz
-                  : commonTranslator.counter + ' ' + props.label
-              }
-            />
+            {props.onBackClick !== undefined &&
+              props.backBtnTitle !== undefined && (
+                <CommonButton
+                  title={props.backBtnTitle}
+                  onPress={() => props.onBackClick()}
+                />
+              )}
+            {(props.total !== undefined || props.label !== undefined) && (
+              <SimpleText
+                style={{
+                  ...styles.dark_blue_color,
+                  ...styles.fontSize17,
+                  ...styles.bold,
+                }}
+                text={
+                  props.label === undefined
+                    ? commonTranslator.counter + ' ' + commonTranslator.quiz
+                    : commonTranslator.counter + ' ' + props.label
+                }
+              />
+            )}
             {props.total !== undefined && (
               <SimpleText
                 onPress={() => props.selectAll()}

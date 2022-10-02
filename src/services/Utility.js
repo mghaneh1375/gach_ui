@@ -31,6 +31,10 @@ export function getScreenHeight() {
   return Dimensions.get('window').height - 90;
 }
 
+export const p2e = s => {
+  return parseInt(s.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+};
+
 export function simpleConvertTimestamp(unix_timestamp) {
   return moment.unix(unix_timestamp / 1000).format('jYYYY/jM/jD - HH:mm');
 }

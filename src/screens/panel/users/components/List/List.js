@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import Translator from '../../Translator';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {routes} from '../../../../../API/APIRoutes';
 import columns from './TableStructure';
 import Ops from '../Ops';
 import {levelsKeyVals} from '../../../ticket/components/KeyVals';
@@ -10,6 +9,7 @@ import {useParams} from 'react-router';
 import Filter from './Filter';
 import {usersContext, dispatchUsersContext} from '../Context';
 import {filter} from '../Utility';
+import {useEffectOnce} from 'usehooks-ts';
 
 function List(props) {
   const useGlobalState = () => [
@@ -41,7 +41,8 @@ function List(props) {
   const [isWorking, setIsWorking] = useState(false);
 
   const fetchData = React.useCallback(() => {
-    if (state.users !== undefined || isWorking) return;
+    if ((state.fetched === currLevel && state.users !== undefined) || isWorking)
+      return;
 
     setIsWorking(true);
     props.setLoading(true);
@@ -51,14 +52,15 @@ function List(props) {
         props.navigate('/');
         return;
       }
-      dispatch({users: res[0]});
+
+      dispatch({users: res[0], fetched: currLevel});
       setIsWorking(false);
     });
-  }, [props, currLevel, dispatch, isWorking, state.users]);
+  }, [props, currLevel, dispatch, isWorking, state.users, state.fetched]);
 
   React.useEffect(() => {
-    if (state.users === undefined) fetchData();
-  }, [state.users, fetchData]);
+    if (state.fetched !== currLevel || state.users === undefined) fetchData();
+  }, [state.users, currLevel, fetchData, state.fetched]);
 
   return (
     <MyView>

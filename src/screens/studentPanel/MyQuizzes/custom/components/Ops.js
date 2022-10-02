@@ -6,7 +6,7 @@ import {
   dispatchQuizContext,
 } from '../../../../panel/quiz/components/Context';
 import Translate from '../../Translate';
-import {getMyAnswerSheet, getRecpForQuiz} from './Utility';
+import {getRecpForQuiz} from './Utility';
 
 function Ops(props) {
   const useGlobalState = () => [
@@ -15,48 +15,6 @@ function Ops(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
-
-  const prepareShowAnswerSheet = async () => {
-    if (state.selectedQuiz.answer_sheet !== undefined) {
-      dispatch({
-        showAnswers: true,
-        showStdAnswers: true,
-        allowChangeStdAns: false,
-        allowChangeAns: false,
-        wanted_answer_sheet: state.selectedQuiz.answer_sheet,
-      });
-
-      props.toggleShowPopUp();
-      props.setMode('answerSheet');
-      return;
-    }
-
-    props.setLoading(true);
-    let res = await getMyAnswerSheet(
-      state.selectedQuiz.id,
-      state.selectedQuiz.generalMode,
-      props.token,
-    );
-
-    props.setLoading(false);
-
-    if (res === null) return;
-
-    state.selectedQuiz.answer_sheet = res;
-
-    dispatch({
-      showAnswers: true,
-      showStdAnswers: true,
-      allowChangeStdAns: false,
-      allowChangeAns: false,
-      wanted_answer_sheet: res,
-      selectedQuiz: state.selectedQuiz,
-      needUpdate: true,
-    });
-
-    props.toggleShowPopUp();
-    props.setMode('answerSheet');
-  };
 
   const getRecp = async () => {
     if (state.selectedQuiz.recp !== undefined) {
@@ -104,11 +62,6 @@ function Ops(props) {
         <CommonButton
           onPress={() => prepareShowResult()}
           title={Translate.result}
-          theme={'transparent'}
-        />
-        <CommonButton
-          onPress={() => prepareShowAnswerSheet()}
-          title={Translate.answerSheet}
           theme={'transparent'}
         />
         <CommonButton

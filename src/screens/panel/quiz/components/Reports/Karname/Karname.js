@@ -11,7 +11,12 @@ import {
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
 import {fetchStudentAnswerSheet, getKarname} from '../../Utility';
-import {lessonCols, subjectCols} from './LessonTableStructure.js';
+import {
+  lessonCols,
+  lessonColsCustomQuiz,
+  subjectCols,
+  subjectColsCustomQuiz,
+} from './LessonTableStructure.js';
 import {
   lessonRankingCols,
   subjectRankingCols,
@@ -104,28 +109,35 @@ function Karname(props) {
           ? state.selectedQuiz.generalMode
           : props.generalQuizMode,
       ),
-      fetchAnswerSheet(),
     ]).then(res => {
-      props.setLoading(false);
-
-      if (res[0] === null || res[1] === null) {
+      if (res[0] === null) {
         props.setMode('list');
         return;
       }
-      if (state.selectedQuiz.allKarname === undefined)
-        state.selectedQuiz.allKarname = [res[0]];
-      else state.selectedQuiz.allKarname.push(res[0]);
 
-      dispatch({
-        wanted_answer_sheet: res[1] === 'ok' ? undefined : res[1],
-        showAnswers: true,
-        showStdAnswers: true,
-        allowChangeStdAns: false,
-        selectedQuiz: state.selectedQuiz,
-        needUpdate: true,
+      Promise.all([fetchAnswerSheet()]).then(res2 => {
+        props.setLoading(false);
+
+        if (res2[0] === null) {
+          props.setMode('list');
+          return;
+        }
+
+        if (state.selectedQuiz.allKarname === undefined)
+          state.selectedQuiz.allKarname = [res[0]];
+        else state.selectedQuiz.allKarname.push(res[0]);
+
+        dispatch({
+          wanted_answer_sheet: res2[0] === 'ok' ? undefined : res2[0],
+          showAnswers: true,
+          showStdAnswers: true,
+          allowChangeStdAns: false,
+          selectedQuiz: state.selectedQuiz,
+          needUpdate: true,
+        });
+        setKarname(res[0]);
+        setIsWorking(false);
       });
-      setKarname(res[0]);
-      setIsWorking(false);
     });
   }, [
     dispatch,
@@ -233,7 +245,7 @@ function Karname(props) {
           )}
           {karname !== undefined && (
             <PhoneView>
-              {pdf !== undefined && (
+              {pdf !== undefined && props.generalQuizMode === undefined && (
                 <CommonButton
                   theme={'dark'}
                   onPress={() => print()}
@@ -286,7 +298,11 @@ function Karname(props) {
               <MyView>
                 {karname !== undefined && (
                   <CommonDataTable
-                    columns={lessonCols}
+                    columns={
+                      props.generalQuizMode === undefined
+                        ? lessonCols
+                        : lessonColsCustomQuiz
+                    }
                     data={karname.lessons}
                     show_row_no={false}
                     pagination={false}
@@ -340,7 +356,11 @@ function Karname(props) {
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
                 style={{alignSelf: 'center'}}
-                text={'جدول شماره 3 - نتایج حیطه ها'}
+                text={
+                  props.generalQuizMode === undefined
+                    ? 'جدول شماره 3 - نتایج حیطه ها'
+                    : 'جدول شماره 2 - نتایج حیطه ها'
+                }
               />
               {/* <SimpleFontIcon
                 kind={'normal'}
@@ -351,7 +371,11 @@ function Karname(props) {
             <MyView>
               {karname !== undefined && (
                 <CommonDataTable
-                  columns={subjectCols}
+                  columns={
+                    props.generalQuizMode === undefined
+                      ? subjectCols
+                      : subjectColsCustomQuiz
+                  }
                   show_row_no={false}
                   pagination={false}
                   groupOps={[]}

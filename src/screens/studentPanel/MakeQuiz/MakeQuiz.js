@@ -1,6 +1,6 @@
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState, useRef} from 'react';
-import {changeText} from '../../../services/Utility';
+import {changeText, p2e, showError} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -18,12 +18,12 @@ import {dispatchStateContext} from '../../../App';
 import {checkExistance, fetchAllFlags, finalized, goToPay} from './Utility';
 import {FontIcon} from '../../../styles/Common/FontIcon';
 import Basket from '../../../components/web/Basket';
-import {setCacheItem} from '../../../API/User';
 import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
+import commonTranslator from '../../../translator/Common';
+import BuyBasket from './BuyBasket';
+import OffCode from '../../general/buy/components/OffCode';
 
 function MakeQuiz(props) {
-  const [count, setCount] = useState();
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();
   const [flags, setFlags] = useState();
@@ -31,13 +31,56 @@ function MakeQuiz(props) {
   const [level, setLevel] = useState();
   const [wantedFlag, setWantedFlag] = useState();
   const [total, setTotal] = useState(0);
-  const [basketBtnText, setBasketBtnText] = useState('نهایی سازی خرید');
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [refId, setRefId] = useState();
-  const [name, setName] = useState();
+  const [name, setName] = useState('test');
+  const [count, setCount] = useState(50);
+
+  const [off, setOff] = useState(0);
+  const [shouldPay, setShouldPay] = useState(0);
+  const [showOffCodePane, setShowOffCodePane] = useState(false);
+  const [offs, setOffs] = useState([]);
+  const [userMoney, setUserMoney] = useState(
+    props.user === undefined ? 0 : props.user.user.money,
+  );
+  const [userOff, setUserOff] = useState();
+  const [usedFromWallet, setUsedFromWallet] = useState(0);
 
   const ref = useRef();
   const [id, setId] = useState();
+  const [price, setPrice] = useState();
+  const [mode, setMode] = useState('choose');
+  const navigate = props.navigate;
+
+  const calc = (accountOff, totalPrice) => {
+    let off = 0;
+
+    let allOffs = [];
+
+    let shouldPayTmp = totalPrice - off;
+
+    if (shouldPayTmp > 0 && accountOff !== undefined) {
+      if (accountOff.type === 'percent') {
+        off += (shouldPayTmp * accountOff.amount) / 100.0;
+        allOffs.push(accountOff.amount + ' درصد بابت کد تخفیف');
+      } else {
+        off += accountOff.amount;
+        allOffs.push(accountOff.amount + ' تومان بابت کد تخفیف');
+      }
+    }
+
+    shouldPayTmp = totalPrice - off;
+
+    if (shouldPayTmp > 0) {
+      setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
+      shouldPayTmp -= userMoney;
+    } else setUsedFromWallet(0);
+
+    setOffs(allOffs);
+    setOff(Math.min(off, totalPrice));
+    setPrice(totalPrice);
+    setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 0);
+  };
 
   React.useEffect(() => {
     if (refId === undefined) return;
@@ -48,36 +91,30 @@ function MakeQuiz(props) {
   }, [refId]);
 
   const calcPrice = async () => {
+    if (name === undefined || name === '' || boxes.length === 0) {
+      showError(commonTranslator.pleaseFillAllFields);
+      return;
+    }
     setLoading(true);
     let res = await finalized(props.token, boxes, name);
     setLoading(false);
     if (res !== null) {
-      setBasketBtnText(res.price);
+      if (res.off !== undefined) setUserOff(res.off);
+      setPrice(res.price);
       setId(res.id);
+      calc(res.off, res.price);
     }
+  };
+
+  const setOffCodeResult = (amount, type, code) => {
+    setUserOff({type: type, amount: amount, code: code});
+    calc({type: type, amount: amount, code: code}, price);
   };
 
   React.useEffect(() => {
     if (id === undefined) return;
     setMode('pay');
   }, [id]);
-
-  const goToPayLocal = async () => {
-    setLoading(true);
-    let res = await goToPay(props.token, id, undefined);
-    setLoading(false);
-    if (res.action === 'success') {
-      let user = props.user;
-      user.user.money = res.refId;
-      await setCacheItem('user', JSON.stringify(user));
-      setShowSuccessTransaction(true);
-    } else if (res.action === 'pay') {
-      setRefId(res.refId);
-    }
-  };
-
-  const [mode, setMode] = useState('choose');
-  const navigate = props.navigate;
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -97,6 +134,17 @@ function MakeQuiz(props) {
 
   return (
     <MyView>
+      {showOffCodePane && (
+        <OffCode
+          token={props.token}
+          for={'bank_exam'}
+          setLoading={setLoading}
+          setResult={setOffCodeResult}
+          toggleShowPopUp={() => {
+            setShowOffCodePane(!showOffCodePane);
+          }}
+        />
+      )}
       {showSuccessTransaction && (
         <SuccessTransaction
           navigate={props.navigate}
@@ -135,7 +183,7 @@ function MakeQuiz(props) {
                 )}
                 <JustBottomBorderTextInput
                   text={Translate.count}
-                  onChangeText={text => changeText(text, setCount)}
+                  onChangeText={text => changeText(p2e(text), setCount)}
                   placeholder={Translate.count}
                   subText={
                     wantedFlag !== undefined
@@ -178,7 +226,7 @@ function MakeQuiz(props) {
                       setCount('');
                       setLevel(undefined);
                       setBoxes(tmp);
-                      setTotal(parseInt(total) + parseInt(count));
+                      setTotal(total + count);
                     }
                   }}
                   back={'yellow'}
@@ -198,6 +246,13 @@ function MakeQuiz(props) {
                     <MakeQuizBox
                       key={index}
                       index={index + 1}
+                      onRemove={idx => {
+                        let tmp = [];
+                        boxes.forEach((elem, index) => {
+                          if (index !== idx) tmp.push(elem);
+                        });
+                        setBoxes(tmp);
+                      }}
                       // width={290}
                       theme={vars.ORANGE}
                       header={elem.desc}
@@ -209,12 +264,33 @@ function MakeQuiz(props) {
               </PhoneView>
             </CommonWebBox>
           )}
-          <Basket label={total + ' سوال'}>
-            <CommonButton
-              onPress={() => (mode === 'choose' ? calcPrice() : goToPayLocal())}
-              title={basketBtnText}
-            />
-          </Basket>
+          {mode !== 'choose' && (
+            <Basket backBtnTitle="انصراف" onBackClick={() => setMode('choose')}>
+              <BuyBasket
+                id={id}
+                price={price}
+                shouldPay={shouldPay}
+                off={off}
+                userOff={userOff}
+                setLoading={setLoading}
+                token={props.token}
+                user={props.user}
+                usedFromWallet={usedFromWallet}
+                toggleShowOffCodePane={() => {
+                  setShowOffCodePane(!showOffCodePane);
+                }}
+                setShowSuccessTransaction={setShowSuccessTransaction}
+              />
+            </Basket>
+          )}
+          {mode === 'choose' && (
+            <Basket label={total === 0 ? undefined : total + ' سوال'}>
+              <CommonButton
+                onPress={() => calcPrice()}
+                title={'نهایی سازی خرید'}
+              />
+            </Basket>
+          )}
         </MyView>
       )}
 

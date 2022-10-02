@@ -75,7 +75,9 @@ function RunQuiz(props) {
               setMode={setMode}
               onBack={() =>
                 props.user.accesses.indexOf('student') !== -1
-                  ? props.navigate('/myQuizzes')
+                  ? params.quizMode === 'custom'
+                    ? props.navigate('/myCustomQuizzes')
+                    : props.navigate('/myQuizzes')
                   : props.navigate('/quiz/list')
               }
             />
@@ -85,7 +87,9 @@ function RunQuiz(props) {
               isInReviewMode={props.isInReviewMode}
               onBack={() =>
                 props.user.accesses.indexOf('student') !== -1
-                  ? props.navigate('/myQuizzes')
+                  ? params.quizMode === 'custom'
+                    ? props.navigate('/myCustomQuizzes')
+                    : props.navigate('/myQuizzes')
                   : props.navigate('/quiz/list')
               }
             />
