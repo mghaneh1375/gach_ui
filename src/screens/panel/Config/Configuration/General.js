@@ -39,6 +39,7 @@ function General(props) {
   const [advisorOffPercent, setAdvisorOffPercent] = useState();
   const [maxStudentQuizPerDay, setMaxStudentQuizPerDay] = useState();
   const [quizPerStudentPrice, setQuizPerStudentPrice] = useState();
+  const [minQuestionForCustomQuiz, setMinQuestionForCustomQuiz] = useState();
   const [giftPeriod, setGiftPeriod] = useState();
 
   React.useEffect(() => {
@@ -78,6 +79,7 @@ function General(props) {
       setMaxStudentQuizPerDay(data.maxStudentQuizPerDay);
       setGiftPeriod(data.giftPeriod);
       setQuizPerStudentPrice(data.quizPerStudentPrice);
+      setMinQuestionForCustomQuiz(data.minQuestionForCustomQuiz);
     });
   }, [navigate, props.token, dispatch]);
 
@@ -105,6 +107,7 @@ function General(props) {
           maxStudentQuizPerDay: maxStudentQuizPerDay,
           giftPeriod: giftPeriod,
           quizPerStudentPrice: quizPerStudentPrice,
+          minQuestionForCustomQuiz: minQuestionForCustomQuiz,
         },
         undefined,
         props.token,
@@ -245,6 +248,14 @@ function General(props) {
             subText={translator.giftPeriod}
             value={giftPeriod}
             onChangeText={e => setGiftPeriod(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.minQuestionForCustomQuiz}
+            subText={translator.minQuestionForCustomQuiz}
+            value={minQuestionForCustomQuiz}
+            onChangeText={e => setMinQuestionForCustomQuiz(e)}
             justNum={true}
           />
         </PhoneView>

@@ -33,6 +33,7 @@ const translator = {
   maxStudentQuizPerDay: 'حداکثر تعداد دانش آموز برای برگزاری آزمون در روز',
   quizPerStudentPrice: 'قیمت شرکت هر دانش آموز در آزمون های مدرسه ای',
   giftPeriod: 'بازه شرکت در گردونه شانس',
+  minQuestionForCustomQuiz: 'حد آستانه سوالات در مباحث برای آزمون های شخصی ساز',
 };
 
 export default translator;
