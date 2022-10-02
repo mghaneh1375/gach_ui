@@ -1,5 +1,10 @@
 import React from 'react';
-import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
+import {
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../../../styles/Common';
 import Show from './Show/Show';
 import translator from '../Translator';
 import MakeQuiz from '../../../../studentPanel/MakeQuiz/MakeQuiz';
@@ -7,6 +12,9 @@ import {RoleCard} from '../../../../../styles/Common/RoleCard';
 import vars from '../../../../../styles/root';
 import BoxRanking from '../../../../general/BoxRanking/BoxRanking';
 import {Circle} from 'victory-core';
+import {styles} from '../../../../../styles/Common/Styles';
+import {LoadingCommonWebBox} from '../../../../../components/LoadingCommonWebBox';
+
 // import WheelsOfPrizes from '../../../../../components/web/WheelsOfPrizes/WheelsOfPrizes';
 
 function List(props) {
@@ -26,6 +34,9 @@ function List(props) {
   };
   return (
     <MyView>
+      <CommonWebBox header={'test'} style={{height: 200}}>
+        <LoadingCommonWebBox child={<SimpleText text={'text'} />} />
+      </CommonWebBox>
       <PhoneView style={{marginRight: 70, marginTop: 20, gap: 50}}>
         <BoxRanking
           school={'بیذسیب'}
