@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {Link} from 'react-router-dom';
 import {MyView} from '../../styles/Common';
+import {styles} from '../../styles/Common/Styles';
 
 import {
   NavItemStyle,
@@ -13,7 +14,12 @@ import {
 
 export default function BottomNavBar() {
   return (
-    <MyView style={{...NavContainerStyle, justifyContent: 'center'}}>
+    <MyView
+      style={{
+        ...NavContainerStyle,
+        justifyContent: 'center',
+        ...styles.zIndex20,
+      }}>
       <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/login">
           <img

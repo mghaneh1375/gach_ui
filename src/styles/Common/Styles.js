@@ -178,6 +178,9 @@ export const styles = {
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  zIndex20: {
+    zIndex: 20,
+  },
   gap0: {
     gap: 0,
   },

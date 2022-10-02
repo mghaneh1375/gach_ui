@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {getWidthHeight} from '../../services/Utility';
 import {CommonButton, MyView} from '../../styles/Common';
 import {styles} from '../../styles/Common/Styles';
 import vars from '../../styles/root';
@@ -11,6 +12,8 @@ const Navbar = props => {
     setIsLogin(props.user !== undefined);
   }, [props.user]);
 
+  const width = getWidthHeight()[0];
+
   return (
     <MyView style={{width: '100%'}}>
       <Nav>
@@ -20,7 +23,9 @@ const Navbar = props => {
         <NavLinkExternal
           rel="noopener noreferrer"
           target="_blank"
-          style={{...styles.whiteSpaceNoWrap}}
+          style={{
+            ...styles.whiteSpaceNoWrap,
+          }}
           href="https://irysc.com">
           اخبار
         </NavLinkExternal>
@@ -47,7 +52,10 @@ const Navbar = props => {
         <NavLinkExternal
           target="_blank"
           rel="noopener noreferrer"
-          style={{...styles.whiteSpaceNoWrap}}
+          style={{
+            ...styles.whiteSpaceNoWrap,
+            display: width > 768 && width < 1100 ? 'none' : 'flex',
+          }}
           href="https://irysc.com">
           تماس و پشتیبانی
         </NavLinkExternal>
@@ -58,6 +66,7 @@ const Navbar = props => {
             marginLeft: 0,
             paddingLeft: 10,
             paddingRight: 10,
+            display: width > 768 && width < 900 ? 'none' : 'flex',
           }}
           title={'کلاس های المپیاد'}
           onPress={() => {
