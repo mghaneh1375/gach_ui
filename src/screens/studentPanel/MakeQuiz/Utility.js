@@ -18,6 +18,7 @@ export const checkExistance = async (token, section, id, qNo, level) => {
   else if (section === 'lesson') query.append('lessonId', id);
   else if (section === 'grade') query.append('gradeId', id);
   else if (section === 'tag') query.append('tag', id);
+  else if (section === 'author') query.append('author', id);
 
   if (level !== undefined) query.append('level', level);
 
@@ -47,6 +48,7 @@ export const finalized = async (token, boxes, name) => {
         };
 
         if (elem.section === 'tag') obj.tag = elem.name;
+        else if (elem.section === 'author') obj.author = elem.name;
         else if (elem.section === 'subject') obj.subjectId = elem.id;
         else if (elem.section === 'lesson') obj.lessonId = elem.id;
         else if (elem.section === 'grade') obj.gradeId = elem.id;

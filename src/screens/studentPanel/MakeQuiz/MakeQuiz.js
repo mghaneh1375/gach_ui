@@ -1,4 +1,4 @@
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState, useRef} from 'react';
 import {changeText, p2e, showError} from '../../../services/Utility';
 import {
@@ -16,12 +16,13 @@ import SymbolsFace from './SymbolsFace';
 import Translate from './Translate';
 import {dispatchStateContext} from '../../../App';
 import {checkExistance, fetchAllFlags, finalized, goToPay} from './Utility';
-import {FontIcon} from '../../../styles/Common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../styles/Common/FontIcon';
 import Basket from '../../../components/web/Basket';
 import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
 import commonTranslator from '../../../translator/Common';
 import BuyBasket from './BuyBasket';
 import OffCode from '../../general/buy/components/OffCode';
+import {LoadingCommonWebBox} from '../../../components/LoadingCommonWebBox';
 
 function MakeQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -161,6 +162,15 @@ function MakeQuiz(props) {
         <MyView>
           <CommonWebBox header={Translate.makeQuiz} />
           <CommonWebBox rowId={1} header={Translate.chooseAndAdd}>
+            {mode !== 'choose' && (
+              <LoadingCommonWebBox>
+                <SimpleFontIcon
+                  kind={'large'}
+                  style={{color: 'green', fontSize: 30}}
+                  icon={faCheck}
+                />
+              </LoadingCommonWebBox>
+            )}
             <MyView>
               <JustBottomBorderTextInput
                 placeholder={'نام'}
@@ -187,7 +197,12 @@ function MakeQuiz(props) {
                   placeholder={Translate.count}
                   subText={
                     wantedFlag !== undefined
-                      ? 'تعداد سوالات موجود در سامانه ' + wantedFlag.limit
+                      ? 'تعداد سوالات ساده: ' +
+                        wantedFlag.limitEasy +
+                        ' متوسط: ' +
+                        wantedFlag.limitMid +
+                        ' سخت: ' +
+                        wantedFlag.limitHard
                       : Translate.count
                   }
                   value={count}
@@ -208,7 +223,8 @@ function MakeQuiz(props) {
                     let res = await checkExistance(
                       props.token,
                       wantedFlag.section,
-                      wantedFlag.section === 'tag'
+                      wantedFlag.section === 'tag' ||
+                        wantedFlag.section === 'author'
                         ? wantedFlag.name
                         : wantedFlag.id,
                       count,
@@ -222,6 +238,7 @@ function MakeQuiz(props) {
                       obj.level = level;
                       obj.count = count;
                       tmp.push(obj);
+                      console.log(tmp);
                       setWantedFlag(undefined);
                       setCount('');
                       setLevel(undefined);
@@ -240,6 +257,11 @@ function MakeQuiz(props) {
           </CommonWebBox>
           {boxes.length > 0 && (
             <CommonWebBox rowId={2} header={Translate.sortQuiz}>
+              {mode !== 'choose' && (
+                <LoadingCommonWebBox>
+                  <SimpleFontIcon icon={faCheck} />
+                </LoadingCommonWebBox>
+              )}
               <PhoneView>
                 {boxes.map((elem, index) => {
                   return (

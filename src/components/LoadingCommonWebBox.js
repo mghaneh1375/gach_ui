@@ -1,10 +1,7 @@
 import React from 'react';
-import {ActivityIndicator} from 'react-native';
-import {MyView} from 'react-native-multi-selectbox';
-import {PhoneView, SimpleText} from '../styles/Common';
+
+import {MyView, PhoneView} from '../styles/Common';
 import {styles} from '../styles/Common/Styles';
-import vars from '../styles/root';
-import commonTranslator from '../translator/Common';
 
 export const LoadingCommonWebBox = props => (
   <MyView
@@ -16,7 +13,8 @@ export const LoadingCommonWebBox = props => (
       right: 0,
       backgroundColor: '#e6e6e6cc',
       borderRadius: 7,
+      zIndex: 1,
     }}>
-    <PhoneView style={{...styles.marginAuto}}>{props.child}</PhoneView>
+    <PhoneView style={{...styles.marginAuto}}>{props.children}</PhoneView>
   </MyView>
 );

@@ -29,7 +29,7 @@ function MakeQuizBox(props) {
     <MyView
       style={{
         ...styles.padding10,
-        width: props.width,
+        minWidth: 290,
         position: 'relative',
       }}>
       <PhoneView
@@ -43,7 +43,7 @@ function MakeQuizBox(props) {
             ...styles.positionAbsolute,
             ...styles.top0,
             ...styles.right0,
-            width: '18%',
+            width: 40,
             borderTopRightRadius: 10,
             borderBottomRightRadius: 10,
             height: '100%',
@@ -51,7 +51,8 @@ function MakeQuizBox(props) {
             // ...styles.justifyContentCenter,
             // zIndex: 5,
           }}>
-          <Pressable onPress={() => ToggleDetail()}>
+          <Pressable>
+            {/* onPress={() => ToggleDetail()} */}
             <PhoneView>
               <SimpleText
                 // onPress={() => ToggleDetail()}

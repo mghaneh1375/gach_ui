@@ -35,7 +35,9 @@ function List(props) {
   return (
     <MyView>
       <CommonWebBox header={'test'} style={{height: 200}}>
-        <LoadingCommonWebBox child={<SimpleText text={'text'} />} />
+        <LoadingCommonWebBox>
+          <SimpleText text={'text'} />
+        </LoadingCommonWebBox>
       </CommonWebBox>
       <PhoneView style={{marginRight: 70, marginTop: 20, gap: 50}}>
         <BoxRanking
