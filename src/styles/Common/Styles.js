@@ -116,6 +116,9 @@ export const styles = {
   marginBottom20: {
     marginBottom: 20,
   },
+  marginBottom50: {
+    marginBottom: 100,
+  },
   marginTop0: {
     marginTop: 0,
   },
@@ -161,6 +164,9 @@ export const styles = {
   },
   justifySelfCenter: {
     justifySelf: 'center',
+  },
+  justifySelfEnd: {
+    justifySelf: 'end',
   },
   alignSelfCenter: {
     alignSelf: 'center',

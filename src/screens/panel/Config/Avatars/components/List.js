@@ -34,7 +34,7 @@ function List(props) {
   };
   return (
     <MyView>
-      <CommonWebBox header={'test'} style={{height: 200}}>
+      {/* <CommonWebBox header={'test'} style={{height: 200}}>
         <LoadingCommonWebBox>
           <SimpleText text={'text'} />
         </LoadingCommonWebBox>
@@ -50,13 +50,13 @@ function List(props) {
           field={'نرمییی'}
           rank={'1000'}
         />
-      </PhoneView>
-      <RoleCard
+      </PhoneView> */}
+      {/* <RoleCard
         text={translator.avatars}
         style={{marginTop: 20}}
         color={vars.ORANGE}
         source={require('../../../../../images/student.png')}
-      />
+      /> */}
       <MakeQuiz />
       <CommonWebBox
         header={translator.avatars}

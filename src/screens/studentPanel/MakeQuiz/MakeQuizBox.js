@@ -14,6 +14,7 @@ import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTe
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
 import commonTranslator from '../../../translator/Common';
+import {style} from '../RunQuiz/style';
 import SymbolsFace from './SymbolsFace';
 import Translate from './Translate';
 
@@ -28,73 +29,49 @@ function MakeQuizBox(props) {
   return (
     <MyView
       style={{
-        ...styles.padding10,
-        minWidth: 290,
-        position: 'relative',
+        ...styles.boxShadow,
+        ...styles.borderRadius10,
       }}>
-      <PhoneView
-        style={{
-          ...styles.padding10,
-          ...styles.boxShadow,
-          ...styles.borderRadius10,
-        }}>
-        <MyView
+      {props.header !== undefined && (
+        <PhoneView
           style={{
-            ...styles.positionAbsolute,
-            ...styles.top0,
-            ...styles.right0,
-            width: 40,
-            borderTopRightRadius: 10,
-            borderBottomRightRadius: 10,
-            height: '100%',
-            backgroundColor: vars.ORANGE,
-            // ...styles.justifyContentCenter,
-            // zIndex: 5,
+            ...styles.gap15,
+            ...styles.alignItemsCenter,
+            ...styles.padding10,
+            ...styles.justifyContentSpaceBetween,
           }}>
-          <Pressable>
-            {/* onPress={() => ToggleDetail()} */}
-            <PhoneView>
-              <SimpleText
-                // onPress={() => ToggleDetail()}
-                style={{
-                  ...styles.fontSize25,
-                  color: vars.WHITE,
-                  ...styles.alignSelfCenter,
-                  ...styles.paddingRight15,
-                  marginTop: 3,
-                }}
-                text={props.index}
-              />
-              {/* <SimpleFontIcon
-                onPress={() => ToggleDetail()}
-                icon={faAngleDown}
-                kind={'midSize'}
-                style={{
-                  color: vars.WHITE,
-                  ...styles.alignSelfCenter,
-                  marginTop: 3,
-                }}
-              /> */}
-            </PhoneView>
-          </Pressable>
-          <SimpleText
-            onPress={() => {
-              props.onRemove(props.index - 1);
-            }}
-            style={{color: vars.RED, cursor: 'pointer', alignSelf: 'center'}}
-            text={commonTranslator.delete}
-          />
-        </MyView>
-        {props.header !== undefined && (
-          <MyView>
+          <PhoneView
+            style={{
+              ...styles.positionAbsolute,
+              ...styles.top0,
+              ...styles.right0,
+              width: 40,
+              borderTopRightRadius: 10,
+              borderBottomRightRadius: 10,
+              height: '100%',
+              backgroundColor: vars.ORANGE,
+            }}>
+            <SimpleText
+              // onPress={() => ToggleDetail()}
+              style={{
+                ...styles.fontSize25,
+                color: vars.WHITE,
+                ...styles.alignSelfCenter,
+                ...styles.paddingRight15,
+                marginTop: 3,
+              }}
+              text={props.index}
+            />
+          </PhoneView>
+          <EqualTwoTextInputs
+            style={{marginRight: 40, width: 'calc(100% - 40px)'}}>
             <BigBoldBlueTextInline
               style={{
                 color: props.color !== undefined ? props.color : vars.DARK_BLUE,
-                paddingRight: 50,
               }}
               text={props.header}
             />
-            <EqualTwoTextInputs style={{marginRight: '20%'}}>
+            <PhoneView style={styles.gap10}>
               <SimpleText text={'تعداد:' + props.count} />
               <SimpleText
                 text={
@@ -105,10 +82,22 @@ function MakeQuizBox(props) {
                     : 'سطح سختی: دشوار'
                 }
               />
-            </EqualTwoTextInputs>
-          </MyView>
-        )}
-      </PhoneView>
+              <SimpleText
+                onPress={() => {
+                  props.onRemove(props.index - 1);
+                }}
+                style={{
+                  color: vars.RED,
+                  cursor: 'pointer',
+                  ...styles.justifySelfEnd,
+                }}
+                text={commonTranslator.delete}
+              />
+            </PhoneView>
+          </EqualTwoTextInputs>
+        </PhoneView>
+      )}
+      {/* </Pressable> */}
       {detail && (
         <MyView
           style={{
