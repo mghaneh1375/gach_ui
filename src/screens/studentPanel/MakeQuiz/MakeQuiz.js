@@ -165,8 +165,14 @@ function MakeQuiz(props) {
             {mode !== 'choose' && (
               <LoadingCommonWebBox>
                 <SimpleFontIcon
-                  kind={'large'}
-                  style={{color: 'green', fontSize: 30}}
+                  style={{color: 'green'}}
+                  parentStyle={{
+                    border: '2px solid green',
+                    width: 60,
+                    height: 60,
+                    padding: 10,
+                    borderRadius: '50%',
+                  }}
                   icon={faCheck}
                 />
               </LoadingCommonWebBox>
@@ -259,7 +265,17 @@ function MakeQuiz(props) {
             <CommonWebBox rowId={2} header={Translate.sortQuiz}>
               {mode !== 'choose' && (
                 <LoadingCommonWebBox>
-                  <SimpleFontIcon icon={faCheck} />
+                  <SimpleFontIcon
+                    style={{color: 'green'}}
+                    parentStyle={{
+                      border: '2px solid green',
+                      width: 60,
+                      height: 60,
+                      padding: 10,
+                      borderRadius: '50%',
+                    }}
+                    icon={faCheck}
+                  />
                 </LoadingCommonWebBox>
               )}
               <PhoneView>

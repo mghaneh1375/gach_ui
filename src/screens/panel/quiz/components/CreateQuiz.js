@@ -14,7 +14,8 @@ import translator from '../Translator';
 import {CallAPI} from './Create/CallAPI';
 import {routes} from '../../../../API/APIRoutes';
 import {dispatchQuizContext, quizContext} from './Context';
-import {getTags} from './Utility';
+import {addFile, getTags, removeFile} from './Utility';
+import {useFilePicker} from 'use-file-picker';
 
 const CreateQuiz = props => {
   const useGlobalState = () => [
@@ -44,6 +45,7 @@ const CreateQuiz = props => {
     setStart(state.selectedQuiz.start);
     setDescAfter(state.selectedQuiz.descAfter);
     setDescBefore(state.selectedQuiz.descBefore);
+
     setEnd(state.selectedQuiz.end === undefined ? '' : state.selectedQuiz.end);
     setStartRegistry(state.selectedQuiz.startRegistry);
     setEndRegistry(
@@ -80,6 +82,33 @@ const CreateQuiz = props => {
   const [descBefore, setDescBefore] = useState(undefined);
   const [descAfter, setDescAfter] = useState(undefined);
   const [isWorking, setIsWorking] = useState(false);
+  const [attaches, setAttaches] = useState(
+    state.selectedQuiz === undefined ? [] : state.selectedQuiz.attaches,
+  );
+
+  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
+    useFilePicker({
+      maxFileSize: 6,
+      accept: ['image/*'],
+      readAs: 'DataURL',
+      multiple: true,
+    });
+
+  const removeAttach = index => {
+    remove(index);
+  };
+
+  const removeUploadedAttach = async filename => {
+    props.setLoading(true);
+    let res = await removeFile(props.token, filename, state.selectedQuiz.id);
+    props.setLoading(false);
+    if (res === null) return;
+    let tmp = [];
+    attaches.forEach(element => {
+      if (element !== filename) tmp.push(element);
+    });
+    setAttaches(tmp);
+  };
 
   React.useEffect(() => {
     if (isWorking || state.tags !== undefined) return;
@@ -132,11 +161,23 @@ const CreateQuiz = props => {
     );
 
     if (result !== null) {
+      let quizId = props.editMode ? state.selectedQuiz.id : result.id;
+      let files = [];
+
+      if (filesContent.length > 0) {
+        for (let i = 0; i < filesContent.length; i++) {
+          let fileRes = await addFile(props.token, filesContent[i], quizId);
+          if (fileRes !== null) files.push(fileRes);
+        }
+      }
+
       if (props.editMode) {
         data.id = state.selectedQuiz.id;
+        data.attaches = files;
         dispatch({selectedQuiz: data, needUpdate: true});
       } else {
         let allQuizzes = state.quizzes;
+        result.attaches = files;
         allQuizzes.push(result);
         dispatch({quizzes: allQuizzes});
       }
@@ -202,15 +243,10 @@ const CreateQuiz = props => {
             setRanking={setRanking}
             capacity={capacity}
             setCapacity={setCapacity}
-            // startTime={startTime}
-            // endTime={endTime}
-            // setStartDate={setStartDate}
-            // setEndDate={setEndDate}
-            // setStartTime={setStartTime}
-            // setEndTime={setEndTime}
           />
         }
       />
+
       <CommonWebBox
         header={translator.answerSheetInfo}
         child={
@@ -222,9 +258,15 @@ const CreateQuiz = props => {
             setLoading={props.setLoading}
             token={props.token}
             navigator={props.navigator}
+            openFileSelector={openFileSelector}
+            filesContent={filesContent}
+            removeAttach={removeAttach}
+            removeUploadedAttach={removeUploadedAttach}
+            attaches={attaches}
           />
         }
       />
+
       <EqualTwoTextInputs>
         <CommonButton
           onPress={() => props.setMode('list')}

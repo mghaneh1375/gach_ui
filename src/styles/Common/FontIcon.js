@@ -166,9 +166,6 @@ export const SimpleFontIcon = props => {
             color: vars.LIGHT_SILVER,
           },
           props.style ? props.style : {},
-          props.kind === undefined || props.kind === 'full'
-            ? {width: 22, height: 22}
-            : {width: '100%', height: '100%'},
         ]}
       />
     </Pressable>

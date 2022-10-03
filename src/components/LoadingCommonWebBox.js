@@ -11,7 +11,7 @@ export const LoadingCommonWebBox = props => (
       height: '100%',
       top: 0,
       right: 0,
-      backgroundColor: '#e6e6e6cc',
+      backgroundColor: 'rgba(238, 238, 238, 0.71)',
       borderRadius: 7,
       zIndex: 1,
     }}>

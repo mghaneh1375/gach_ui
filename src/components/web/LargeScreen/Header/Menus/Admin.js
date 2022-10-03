@@ -128,6 +128,10 @@ function AdminMenu(props) {
               url: '/generalConfiguration',
             },
             {
+              text: translator.certificateConfiguration,
+              url: '/certificateConfiguration',
+            },
+            {
               text: translator.ravanConfiguration,
               url: '/ravanConfiguration',
             },

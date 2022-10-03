@@ -34,6 +34,11 @@ const translator = {
   quizPerStudentPrice: 'قیمت شرکت هر دانش آموز در آزمون های مدرسه ای',
   giftPeriod: 'بازه شرکت در گردونه شانس',
   minQuestionForCustomQuiz: 'حد آستانه سوالات در مباحث برای آزمون های شخصی ساز',
+  firstRankCert: 'گواهی نفر اول',
+  secondRankCert: 'گواهی نفر دوم',
+  thirdRankCert: 'گواهی نفر سوم',
+  forthRankCert: 'گواهی نفر چهارم',
+  fifthRankCert: 'گواهی نفر پنجم',
 };
 
 export default translator;

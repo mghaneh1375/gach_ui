@@ -27,12 +27,12 @@ import Navbar from '../components/web/Navbar';
 import BottomNavBar from '../components/web/BottomNavBar';
 import Quiz from './panel/quiz/Quiz';
 import Question from './panel/question/Question';
-import vars from '../styles/root';
 import Off from './panel/offcode/Off';
 import Users from './panel/users/Users';
 import Avatar from './panel/Config/Avatars/Avatar';
 import PageNotFound from './general/404/PageNotFound';
 import General from './panel/Config/Configuration/General';
+import CertConf from './panel/Config/Configuration/Certificate';
 import Ravan from './panel/Config/Configuration/Ravan';
 import Schools from './panel/Config/Schools/Schools';
 import Grade from './panel/Basic/grade/Grade';
@@ -377,6 +377,9 @@ const WebStructue = props => {
               )}
               {props.page === 'generalConfiguration' && (
                 <General token={token} user={user} navigate={navigate} />
+              )}
+              {props.page === 'certificateConfiguration' && (
+                <CertConf token={token} user={user} navigate={navigate} />
               )}
               {props.page === 'ravanConfiguration' && (
                 <Ravan token={token} user={user} navigate={navigate} />

@@ -1,5 +1,9 @@
 import {routes} from '../../../../API/APIRoutes';
-import {downloadRequest, generalRequest} from '../../../../API/Utility';
+import {
+  downloadRequest,
+  fileRequest,
+  generalRequest,
+} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
 
@@ -309,5 +313,39 @@ export const finalizeQuizResult = async (quizId, token) => {
     token,
   );
   if (res !== null) showSuccess();
+  return res;
+};
+
+export const addFile = async (token, fileContent, quizId) => {
+  return await fetch(fileContent.content)
+    .then(res => res.blob())
+    .then(async blob => {
+      let formData = new FormData();
+      formData.append('file', blob, fileContent.name);
+
+      let res = await fileRequest(
+        routes.addFileToQuiz + 'irysc/' + quizId,
+        'put',
+        formData,
+        'filename',
+        token,
+      );
+      return res;
+    });
+};
+
+export const removeFile = async (token, filename, quizId) => {
+  let query = new URLSearchParams();
+  query.append('attach', filename);
+
+  let res = await generalRequest(
+    routes.removeFileToQuiz + 'irysc/' + quizId + '?' + query.toString(),
+    'delete',
+    undefined,
+    undefined,
+    token,
+  );
+
+  if (res !== null) showSuccess(commonTranslator.removeSuccessfully);
   return res;
 };

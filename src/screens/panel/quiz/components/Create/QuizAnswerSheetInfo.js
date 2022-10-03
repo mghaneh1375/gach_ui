@@ -12,6 +12,10 @@ import {
 import {useState} from 'react';
 import UploadFile from '../../../../../components/web/UploadFile';
 import {routes} from '../../../../../API/APIRoutes';
+import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
+import {styles} from '../../../../../styles/Common/Styles';
+import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
 
 const QuizAnswerSheetInfo = props => {
   let ckEditor = null;
@@ -23,6 +27,46 @@ const QuizAnswerSheetInfo = props => {
 
   return (
     <MyView>
+      <PhoneView style={{...styles.gap15}}>
+        <SimpleText
+          style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+          text={'فایل موردنظر خود را انتخاب کنید'}
+        />
+        <SimpleFontIcon
+          onPress={() => props.openFileSelector()}
+          kind={'normal'}
+          icon={faPaperclip}
+        />
+
+        <PhoneView style={{marginTop: 20}}>
+          {props.attaches.map((elem, index) => {
+            return (
+              <AttachBox
+                key={index}
+                filename={elem}
+                removeAttach={async () => {
+                  await props.removeUploadedAttach(elem);
+                }}
+              />
+            );
+          })}
+
+          {props.filesContent !== undefined &&
+            props.filesContent.length > 0 &&
+            props.filesContent.map((elem, index) => {
+              return (
+                <AttachBox
+                  key={index}
+                  filename={elem.name}
+                  fileContent={elem.content}
+                  removeAttach={() => {
+                    props.removeAttach(index);
+                  }}
+                />
+              );
+            })}
+        </PhoneView>
+      </PhoneView>
       {showUploadFile && (
         <UploadFile
           show={showUploadFile}

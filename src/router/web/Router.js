@@ -74,6 +74,10 @@ export default function WebRouter() {
             element={<WebStructue page="generalConfiguration" />}
           />
           <Route
+            path="/certificateConfiguration"
+            element={<WebStructue page="certificateConfiguration" />}
+          />
+          <Route
             path="/ravanConfiguration"
             element={<WebStructue page="ravanConfiguration" />}
           />
