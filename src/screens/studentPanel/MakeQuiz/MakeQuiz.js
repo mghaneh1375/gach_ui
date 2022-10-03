@@ -134,7 +134,7 @@ function MakeQuiz(props) {
   }, [navigate, props.token, dispatch]);
 
   return (
-    <MyView>
+    <MyView style={{...styles.marginBottom20}}>
       {showOffCodePane && (
         <OffCode
           token={props.token}
@@ -208,8 +208,7 @@ function MakeQuiz(props) {
                   value={count}
                   justNum={true}
                 />
-
-                <PhoneView>
+                <PhoneView style={{height: 60}}>
                   <SimpleText
                     text={Translate.difficulty}
                     style={{...styles.alignSelfCenter}}
@@ -256,13 +255,16 @@ function MakeQuiz(props) {
             </MyView>
           </CommonWebBox>
           {boxes.length > 0 && (
-            <CommonWebBox rowId={2} header={Translate.sortQuiz}>
+            <CommonWebBox
+              rowId={2}
+              header={Translate.sortQuiz}
+              style={{...styles.marginBottom20}}>
               {mode !== 'choose' && (
                 <LoadingCommonWebBox>
                   <SimpleFontIcon icon={faCheck} />
                 </LoadingCommonWebBox>
               )}
-              <PhoneView>
+              <MyView style={{...styles.padding20}}>
                 {boxes.map((elem, index) => {
                   return (
                     <MakeQuizBox
@@ -283,7 +285,7 @@ function MakeQuiz(props) {
                     />
                   );
                 })}
-              </PhoneView>
+              </MyView>
             </CommonWebBox>
           )}
           {mode !== 'choose' && (
