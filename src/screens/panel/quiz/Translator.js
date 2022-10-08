@@ -50,6 +50,10 @@ const translator = {
   keySheet: 'کلید آزمون',
   seeRanking: 'مشاهده نتایج',
   changeSort: 'تغییر ترتیب سوالات',
+  startDateFrom: 'بازه شروع',
+  startDateEnd: 'اتمام بازه شروع',
+  startRegistryDateFrom: 'بازه شروع ثبت نام',
+  startRegistryDateEnd: 'اتمام بازه شروع ثبت نام',
 };
 
 export default translator;

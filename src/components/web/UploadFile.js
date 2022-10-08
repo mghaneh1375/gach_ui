@@ -2,7 +2,7 @@ import {CommonButton, MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {LargePopUp} from '../../styles/Common/PopUp';
 import commonTranslator from '../../translator/Common';
 import {useFilePicker} from 'use-file-picker';
-import {fileRequest, fileRequestWithDownloadResponse} from '../../API/Utility';
+import {fileRequest} from '../../API/Utility';
 import React, {useState} from 'react';
 import CopyBox from '../CopyBox';
 import {SimpleFontIcon} from '../../styles/Common/FontIcon';
@@ -44,15 +44,16 @@ const UploadFile = props => {
         ),
       ]).then(res => {
         if (res[0] !== null) {
-          if (props.multi) {
+          if (props.copyLink !== undefined) {
             let urlsTmp = urls;
             urlsTmp.push({url: res[0], file: filesContent[0].name});
             setUrls(urlsTmp);
           } else {
             if (props.setResult !== undefined) props.setResult(res[0]);
             else setFinalMsg(commonTranslator.success);
-            setCanUpload(false);
           }
+
+          if (!props.multi) setCanUpload(false);
         }
 
         clear();
@@ -155,13 +156,14 @@ const UploadFile = props => {
             />
           </div>
         ))}
-      {props.multi &&
+      {props.copyLink !== undefined &&
         urls.map((url, index) => (
-          <div key={index}>
-            <SimpleText
-              text={commonTranslator.fileAdressFor + ' ' + url.file}
+          <div style={{width: 'fit-content'}} key={index}>
+            <CopyBox
+              theme="dark"
+              title={commonTranslator.copyLink}
+              url={url.url}
             />
-            <CopyBox text={url.url} url={url.url} />
           </div>
         ))}
 

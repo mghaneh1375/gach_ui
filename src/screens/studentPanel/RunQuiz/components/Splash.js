@@ -24,11 +24,14 @@ import {
   faBusinessTime,
   faClock,
   faHardHat,
+  faMagnifyingGlass,
   faMessage,
   faQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
 import {convertSecToMin} from '../../../../services/Utility';
+import RenderHTML from 'react-native-render-html';
+import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
 
 function Splash(props) {
   const useGlobalState = () => [
@@ -152,6 +155,53 @@ function Splash(props) {
             </PhoneView>
           </CommonWebBox>
 
+          {state.quizInfo.description !== undefined &&
+            state.quizInfo.description !== '' && (
+              <CommonWebBox header={'توضیحات آزمون'}>
+                <RenderHTML
+                  contentWidth={'100%'}
+                  source={{
+                    html: state.quizInfo.description,
+                  }}
+                />
+              </CommonWebBox>
+            )}
+
+          {state.quizInfo.descriptionAfter !== undefined &&
+            state.quizInfo.descriptionAfter !== '' && (
+              <CommonWebBox header={'توضیحات بعد آزمون'}>
+                <RenderHTML
+                  contentWidth={'100%'}
+                  source={{
+                    html: state.quizInfo.descriptionAfter,
+                  }}
+                />
+              </CommonWebBox>
+            )}
+
+          {state.quizInfo.attaches !== undefined &&
+            state.quizInfo.attaches.length > 0 && (
+              <CommonWebBox header={'فایل توضیحات'}>
+                <SimpleText
+                  text={'مشاهده این فایل ها برای این آزمون ضروری است.'}
+                />
+                <PhoneView>
+                  {state.quizInfo.attaches.map((elem, index) => {
+                    return (
+                      <AttachBox
+                        icon={faMagnifyingGlass}
+                        key={index}
+                        filename={elem}
+                        onClick={() => {
+                          props.setSelectedAttach(elem);
+                          props.setMode('attach');
+                        }}
+                      />
+                    );
+                  })}
+                </PhoneView>
+              </CommonWebBox>
+            )}
           <CommonWebBox
             style={{
               ...basketBox,

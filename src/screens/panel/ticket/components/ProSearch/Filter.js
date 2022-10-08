@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import commonTranslator from '../../../../../translator/Common';
-import {View} from 'react-native';
 import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 import translator from '../../Translator';
 import {
@@ -25,6 +24,7 @@ import {filter} from '../List/Utility';
 import vars from '../../../../../styles/root';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function Filter(props) {
   const [showProSearch, setShowProSearch] = useState(false);
@@ -53,7 +53,7 @@ function Filter(props) {
 
   return (
     <MyView>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView style={styles.gap15}>
         <JustBottomBorderSelect
           setter={setStatus}
           values={statusKeyVals}

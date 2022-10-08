@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
-import {styleCard100Percent} from '../../../package/card/Style';
 import Test from './Test';
 
 const perBox = 10;

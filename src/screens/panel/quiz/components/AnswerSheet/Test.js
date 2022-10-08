@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import {PhoneView, SimpleText} from '../../../../../styles/Common';
+import {Pressable} from 'react-native';
+import {MyView, PhoneView, SimpleText} from '../../../../../styles/Common';
+import vars from '../../../../../styles/root';
 import {dispatchQuizContext, quizContext} from '../Context';
 
 function Test(props) {
@@ -77,14 +79,36 @@ function Test(props) {
 
       {choicesArr !== undefined &&
         choicesArr.map((elem, idx) => {
+          if (!elem.isAnswer)
+            return (
+              <SimpleText
+                onPress={() =>
+                  state.allowChangeStdAns || state.allowChangeAns
+                    ? changeAnsSelected(idx)
+                    : {}
+                }
+                key={idx}
+                style={{
+                  width: 30,
+                  height: 25,
+                  borderRadius: 7,
+                  borderWidth: 2,
+                  borderColor: 'black',
+                  textAlign: 'center',
+                  margin: 4,
+                  cursor: 'pointer',
+                  backgroundColor: elem.choosen ? vars.CREAM : vars.WHITE,
+                }}
+                text={elem.text}
+              />
+            );
           return (
-            <SimpleText
+            <Pressable
               onPress={() =>
                 state.allowChangeStdAns || state.allowChangeAns
                   ? changeAnsSelected(idx)
                   : {}
               }
-              key={idx}
               style={{
                 width: 30,
                 height: 25,
@@ -94,17 +118,21 @@ function Test(props) {
                 textAlign: 'center',
                 margin: 4,
                 cursor: 'pointer',
-                backgroundColor:
-                  elem.choosen && elem.isAnswer
-                    ? 'black'
-                    : elem.isAnswer
-                    ? 'green'
-                    : elem.choosen
-                    ? 'red'
-                    : 'white',
-              }}
-              text={elem.text}
-            />
+                backgroundColor: elem.choosen ? vars.CREAM : vars.WHITE,
+              }}>
+              <MyView
+                style={{
+                  width: 7,
+                  height: 7,
+                  position: 'absolute',
+                  top: 1,
+                  left: 2,
+                  borderRadius: '50%',
+                  backgroundColor: vars.GREEN,
+                }}
+              />
+              <SimpleText key={idx} text={elem.text} />
+            </Pressable>
           );
         })}
 

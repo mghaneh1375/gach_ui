@@ -10,10 +10,9 @@ const IRYSCMandatoryFields = [
   'showResultsAfterCorrection',
 ];
 
-export async function CallAPI(data, url, token, setLoading, mode) {
+export async function CallAPI(data, url, token, mode) {
   const mandatoryFields = mode === 'regular' ? IRYSCMandatoryFields : [];
 
-  setLoading(true);
   let result;
   try {
     result = await generalRequest(
@@ -26,8 +25,6 @@ export async function CallAPI(data, url, token, setLoading, mode) {
     );
   } catch (err) {
     result = null;
-  } finally {
-    setLoading(false);
   }
   return result;
 }

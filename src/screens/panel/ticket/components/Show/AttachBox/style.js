@@ -11,6 +11,7 @@ export const style = {
     borderRadius: 10,
   },
   icon: {position: 'absolute', left: 8, top: 8},
+  imgIcon: {position: 'absolute', left: -15, top: -15},
   text: {
     fontWeight: 900,
     fontSize: 20,

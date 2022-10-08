@@ -111,6 +111,7 @@ function Karname(props) {
       ),
     ]).then(res => {
       if (res[0] === null) {
+        props.setLoading(false);
         props.setMode('list');
         return;
       }

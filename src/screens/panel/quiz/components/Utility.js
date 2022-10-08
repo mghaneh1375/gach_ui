@@ -7,9 +7,30 @@ import {
 import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
 
-export const getQuizzes = async token => {
+export const getQuizzes = async (
+  token,
+  name = undefined,
+  startDateSolar = undefined,
+  startDateSolarEndLimit = undefined,
+  startRegistryDateSolar = undefined,
+  startRegistrySolarEndLimit = undefined,
+) => {
+  let query = new URLSearchParams();
+  if (name !== undefined && name !== '') query.append('name', name);
+  if (startDateSolar !== undefined && startDateSolar !== '')
+    query.append('startDateSolar', startDateSolar);
+  if (startDateSolarEndLimit !== undefined && startDateSolarEndLimit !== '')
+    query.append('startDateSolarEndLimit', startDateSolarEndLimit);
+  if (startRegistryDateSolar !== undefined && startRegistryDateSolar !== '')
+    query.append('startRegistryDateSolar', startRegistryDateSolar);
+  if (
+    startRegistrySolarEndLimit !== undefined &&
+    startRegistrySolarEndLimit !== ''
+  )
+    query.append('startRegistrySolarEndLimit', startRegistrySolarEndLimit);
+
   return await generalRequest(
-    routes.fetchAllQuiz,
+    routes.fetchAllQuiz + '?' + query.toString(),
     'get',
     undefined,
     'data',
@@ -327,7 +348,7 @@ export const addFile = async (token, fileContent, quizId) => {
         routes.addFileToQuiz + 'irysc/' + quizId,
         'put',
         formData,
-        'filename',
+        'url',
         token,
       );
       return res;

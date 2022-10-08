@@ -3,7 +3,7 @@ import {generalRequest} from '../../../../../API/Utility';
 import {showSuccess} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../translator/Common';
 
-export const filter = async (token, kind, grade, state, city) => {
+export const filter = async (token, kind, grade, state, city, hasUser) => {
   let query = new URLSearchParams();
 
   if (kind !== undefined && kind !== 'all') query.append('kind', kind);
@@ -13,6 +13,9 @@ export const filter = async (token, kind, grade, state, city) => {
   if (city !== undefined) query.append('city', city.id);
 
   if (state !== undefined) query.append('state', state.id);
+
+  if (hasUser !== undefined && hasUser !== 'all')
+    query.append('hasUser', hasUser);
 
   let res = await generalRequest(
     routes.fetchSchools + '?' + query.toString(),

@@ -2,15 +2,9 @@ import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../Translator';
 import commonTranslator from '../../../../translator/Common';
-import vars from '../../../../styles/root';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
-import {
-  createTaraz,
-  finalizeQuizResult,
-  generateQuestionPDF,
-  removeQuiz,
-} from './Utility';
+import {createTaraz, finalizeQuizResult, generateQuestionPDF} from './Utility';
 import {dispatchQuizContext, quizContext} from './Context';
 import React from 'react';
 import Translate from '../../../studentPanel/RunQuiz/Translate';
@@ -54,23 +48,6 @@ const Ops = props => {
     props.setLoading(false);
   };
 
-  const remove = async () => {
-    props.setLoading(true);
-    let res = await removeQuiz(
-      state.selectedQuiz.generalMode,
-      state.selectedQuiz.id,
-      props.token,
-    );
-    props.setLoading(false);
-    if (res !== null) {
-      let newList = state.quizzes.filter(elem => {
-        return elem.id !== state.selectedQuiz.id;
-      });
-      dispatch({quizzes: newList});
-    }
-    props.toggleShowPopUp();
-  };
-
   const changeMode = newMode => {
     if (
       newMode === 'update' &&
@@ -104,13 +81,6 @@ const Ops = props => {
   return (
     <LargePopUp
       title={state.selectedQuiz.title}
-      btns={
-        <CommonButton
-          onPress={() => remove()}
-          title={commonTranslator.delete}
-          style={{backgroundColor: vars.ORANGE_RED}}
-        />
-      }
       toggleShowPopUp={props.toggleShowPopUp}>
       <PhoneView>
         <CommonButton

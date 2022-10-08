@@ -1,6 +1,6 @@
 import {useState} from 'react';
-import {View} from 'react-native';
 import StateAndCity from '../../../../../../components/web/StateAndCity';
+import {allTrueFalseValues} from '../../../../../../services/Utility';
 import {CommonButton, PhoneView, MyView} from '../../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
 import commonTranslator from '../../../../../../translator/Common';
@@ -13,10 +13,18 @@ function Filter(props) {
   const [grade, setGrade] = useState();
   const [city, setCity] = useState();
   const [state, setState] = useState();
+  const [hasUser, setHasUser] = useState('all');
 
   const doFilter = async () => {
     props.setLoading(true);
-    let res = await filter(props.token, kindSchool, grade, state, city);
+    let res = await filter(
+      props.token,
+      kindSchool,
+      grade,
+      state,
+      city,
+      hasUser,
+    );
     props.setLoading(false);
     if (res !== null) props.setData(res);
   };
@@ -24,6 +32,14 @@ function Filter(props) {
   return (
     <MyView>
       <PhoneView style={{gap: 15}}>
+        <JustBottomBorderSelect
+          setter={setHasUser}
+          values={allTrueFalseValues}
+          value={allTrueFalseValues.find(elem => elem.id === hasUser)}
+          placeholder={translator.hasUser}
+          subText={translator.hasUser}
+        />
+
         <JustBottomBorderSelect
           setter={setKindSchool}
           values={kindSchools}

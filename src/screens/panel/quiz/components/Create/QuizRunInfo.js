@@ -7,7 +7,6 @@ import {
 import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import translator from '../../Translator';
-import commonTranslator from '../../../../../translator/Common';
 import {launchModeKeyVals} from '../KeyVals';
 import {trueFalseValues} from '../../../../../services/Utility';
 

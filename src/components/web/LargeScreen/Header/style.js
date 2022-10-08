@@ -221,7 +221,11 @@ export const MenuItem = props => {
               ? 'menu-item-font-container menu-item-font-container-selected'
               : 'menu-item-font-container'
           }>
-          <SimpleFontIcon style={{color: vars.WHITE}} icon={props.icon} />
+          <SimpleFontIcon
+            parentStyle={{width: 30}}
+            style={{color: vars.WHITE}}
+            icon={props.icon}
+          />
         </div>
       )}
     </div>

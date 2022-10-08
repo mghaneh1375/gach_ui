@@ -18,11 +18,13 @@ import {
   faAngleDown,
   faAngleUp,
   faBookmark,
+  faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import Translate from '../Translate';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import commonTranslator from '../../../../translator/Common';
 import Circle from '../../../../components/web/Circle';
+import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
 
 function Filter(props) {
   const useGlobalState = () => [
@@ -172,10 +174,21 @@ function Filter(props) {
             style={styles.dark_blue_color}
             text={commonTranslator.nesFile}
           />
-
-          {state.quizInfo.attaches.map((elem, index) => {
-            return '';
-          })}
+          <PhoneView>
+            {state.quizInfo.attaches.map((elem, index) => {
+              return (
+                <AttachBox
+                  icon={faMagnifyingGlass}
+                  key={index}
+                  filename={elem}
+                  onClick={() => {
+                    props.setSelectedAttach(elem);
+                    props.setMode('attach');
+                  }}
+                />
+              );
+            })}
+          </PhoneView>
         </MyView>
       )}
     </CommonWebBox>

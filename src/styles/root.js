@@ -13,6 +13,7 @@ const vars = {
   HalfVert: width > 440 ? 'calc(50% - 50px)' : 'calc(50% - 20px)',
   NAV_BAR_H: '55px',
   YELLOW: '#FFAA00',
+  CREAM: '#FFAA0045',
   ORANGE: '#FFAA00',
   YELLOW_WHITE: '#FFEFCE',
   ORANGE_RED: '#FF6600',

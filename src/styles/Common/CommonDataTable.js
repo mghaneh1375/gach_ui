@@ -124,12 +124,18 @@ const CommonDataTable = props => {
               return (
                 <p
                   className="opCol"
-                  onClick={() =>
-                    props.handleOp(
-                      (state.currentPage - 1) * state.perPage + index,
-                      row,
-                    )
-                  }>
+                  onClick={() => {
+                    if (row.id !== undefined) {
+                      props.handleOp(
+                        props.data.findIndex(x => x.id === row.id),
+                        row,
+                      );
+                    } else
+                      props.handleOp(
+                        (state.currentPage - 1) * state.perPage + index,
+                        row,
+                      );
+                  }}>
                   ...
                 </p>
               );

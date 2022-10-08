@@ -7,6 +7,7 @@ import {routes} from '../../../../API/APIRoutes';
 import {dispatchQuizContext, quizContext} from './Context';
 import columns from './TableStructure';
 import {getQuizzes} from './Utility';
+import ProSearch from './ProSearch';
 
 const List = props => {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -63,11 +64,14 @@ const List = props => {
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         <MyView>
+          <ProSearch token={props.token} setLoading={props.setLoading} />
           {state.quizzes !== undefined && (
             <CommonDataTable
               columns={columns}
               data={state.quizzes}
-              setData={props.setQuizzes}
+              setData={newData => {
+                dispatch({quizzes: newData});
+              }}
               handleOp={handleOp}
               token={props.token}
               setLoading={props.setLoading}

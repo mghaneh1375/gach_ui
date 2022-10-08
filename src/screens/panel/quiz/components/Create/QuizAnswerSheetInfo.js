@@ -30,7 +30,7 @@ const QuizAnswerSheetInfo = props => {
       <PhoneView style={{...styles.gap15}}>
         <SimpleText
           style={{...styles.alignSelfCenter, ...styles.BlueBold}}
-          text={'فایل موردنظر خود را انتخاب کنید'}
+          text={'پیوست آزمون'}
         />
         <SimpleFontIcon
           onPress={() => props.openFileSelector()}
@@ -39,17 +39,18 @@ const QuizAnswerSheetInfo = props => {
         />
 
         <PhoneView style={{marginTop: 20}}>
-          {props.attaches.map((elem, index) => {
-            return (
-              <AttachBox
-                key={index}
-                filename={elem}
-                removeAttach={async () => {
-                  await props.removeUploadedAttach(elem);
-                }}
-              />
-            );
-          })}
+          {props.attaches !== undefined &&
+            props.attaches.map((elem, index) => {
+              return (
+                <AttachBox
+                  key={index}
+                  filename={elem}
+                  removeAttach={async () => {
+                    await props.removeUploadedAttach(elem);
+                  }}
+                />
+              );
+            })}
 
           {props.filesContent !== undefined &&
             props.filesContent.length > 0 &&
@@ -76,7 +77,8 @@ const QuizAnswerSheetInfo = props => {
           expectedRes={'url'}
           url={routes.uploadQuizAttaches}
           title={translator.uploadFile}
-          multi={true}
+          multi={false}
+          copyLink={true}
           token={props.token}
         />
       )}

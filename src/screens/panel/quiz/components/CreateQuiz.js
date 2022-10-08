@@ -16,6 +16,7 @@ import {routes} from '../../../../API/APIRoutes';
 import {dispatchQuizContext, quizContext} from './Context';
 import {addFile, getTags, removeFile} from './Utility';
 import {useFilePicker} from 'use-file-picker';
+import {showSuccess} from '../../../../services/Utility';
 
 const CreateQuiz = props => {
   const useGlobalState = () => [
@@ -39,12 +40,16 @@ const CreateQuiz = props => {
     setDesc(state.selectedQuiz.description);
     setTags(state.selectedQuiz.tags);
     setKind(state.selectedQuiz.mode);
+    setCapacity(state.selectedQuiz.capacity);
     setLaunchMode(state.selectedQuiz.launchMode);
     setPrice(state.selectedQuiz.price);
     setRanking(state.selectedQuiz.topStudentsCount);
     setStart(state.selectedQuiz.start);
     setDescAfter(state.selectedQuiz.descAfter);
     setDescBefore(state.selectedQuiz.descBefore);
+    setMinusMark(state.selectedQuiz.minusMark);
+    setPermuteEn(state.selectedQuiz.permute);
+    setBackEn(state.selectedQuiz.backEn);
 
     setEnd(state.selectedQuiz.end === undefined ? '' : state.selectedQuiz.end);
     setStartRegistry(state.selectedQuiz.startRegistry);
@@ -62,11 +67,13 @@ const CreateQuiz = props => {
   const [desc, setDesc] = useState('');
   const [kind, setKind] = useState();
   const [tags, setTags] = useState([]);
-  const [len, setLen] = useState('');
-  const [lenMode, setLenMode] = useState('question');
+  const [len, setLen] = useState(props.editMode ? state.selectedQuiz.len : '');
+  const [lenMode, setLenMode] = useState(
+    props.editMode ? state.selectedQuiz.lenMode : 'question',
+  );
   const [launchMode, setLaunchMode] = useState();
-  const [start, setStart] = useState();
-  const [end, setEnd] = useState();
+  const [start, setStart] = useState(props.editMode ? undefined : '');
+  const [end, setEnd] = useState(props.editMode ? undefined : '');
   const [price, setPrice] = useState();
   const [ranking, setRanking] = useState();
   const [capacity, setCapacity] = useState();
@@ -76,8 +83,12 @@ const CreateQuiz = props => {
     useState(true); //undefined
   const [minusMark, setMinusMark] = useState(undefined);
 
-  const [startRegistry, setStartRegistry] = useState();
-  const [endRegistry, setEndRegistry] = useState();
+  const [startRegistry, setStartRegistry] = useState(
+    props.editMode ? undefined : '',
+  );
+  const [endRegistry, setEndRegistry] = useState(
+    props.editMode ? undefined : '',
+  );
 
   const [descBefore, setDescBefore] = useState(undefined);
   const [descAfter, setDescAfter] = useState(undefined);
@@ -108,6 +119,9 @@ const CreateQuiz = props => {
       if (element !== filename) tmp.push(element);
     });
     setAttaches(tmp);
+
+    state.selectedQuiz.attaches = tmp;
+    dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
   };
 
   React.useEffect(() => {
@@ -150,39 +164,46 @@ const CreateQuiz = props => {
     };
     if (endRegistry !== undefined) data.endRegistry = endRegistry;
 
+    props.setLoading(true);
     let result = await CallAPI(
       data,
       props.editMode
         ? routes.editQuiz + state.selectedQuiz.id
         : routes.createQuiz + 'regular',
       props.token,
-      props.setLoading,
       'regular',
     );
 
     if (result !== null) {
       let quizId = props.editMode ? state.selectedQuiz.id : result.id;
-      let files = [];
 
       if (filesContent.length > 0) {
+        let files = [];
+
         for (let i = 0; i < filesContent.length; i++) {
           let fileRes = await addFile(props.token, filesContent[i], quizId);
-          if (fileRes !== null) files.push(fileRes);
+          if (fileRes !== null && fileRes !== undefined) files.push(fileRes);
         }
+
+        if (props.editMode) data.attaches = files;
+        else result.attaches = files;
+        props.setLoading(false);
+      } else {
+        if (props.editMode) data.attaches = state.selectedQuiz.attaches;
+        props.setLoading(false);
       }
 
       if (props.editMode) {
         data.id = state.selectedQuiz.id;
-        data.attaches = files;
         dispatch({selectedQuiz: data, needUpdate: true});
       } else {
         let allQuizzes = state.quizzes;
-        result.attaches = files;
-        allQuizzes.push(result);
+        allQuizzes.unshift(result);
         dispatch({quizzes: allQuizzes});
       }
+      showSuccess();
       backToList();
-    }
+    } else props.setLoading(false);
   };
 
   return (

@@ -20,6 +20,7 @@ const CopyBox = props => {
         text={props.text}
       /> */}
       <CommonButton
+        theme={props.theme !== undefined ? props.theme : 'yellow'}
         onPress={() => doCopy()}
         title={commonTranslator.copyLink}
       />

@@ -39,17 +39,15 @@ const AttachBox = props => {
 
   return (
     <MyView style={style.container}>
-      {/* {props.fileContent !== undefined && ( */}
-      <MyView style={style.close}>
-        {props.removeAttach !== undefined && (
+      {props.removeAttach !== undefined && (
+        <MyView style={style.close}>
           <SimpleFontIcon
             onPress={props.removeAttach}
             style={{color: vars.ORANGE_RED}}
             icon={faClose}
           />
-        )}
-      </MyView>
-      {/* )} */}
+        </MyView>
+      )}
 
       {!isImg && (
         <MyView
@@ -77,13 +75,39 @@ const AttachBox = props => {
           />
         </MyView>
       )}
-      {isImg && (
+      {isImg && props.icon === undefined && (
         <img
           style={{width: 100, height: 80, borderRadius: 1}}
           src={
             props.fileContent === undefined ? props.filename : props.fileContent
           }
         />
+      )}
+      {isImg && props.icon !== undefined && (
+        <MyView
+          style={{
+            ...style.box,
+            ...{
+              background: background,
+            },
+          }}>
+          <MyView style={style.imgIcon}>
+            <SimpleFontIcon
+              onPress={() => props.onClick()}
+              style={{color: textColor}}
+              kind={'normal'}
+              icon={props.icon}
+            />
+          </MyView>
+          <img
+            style={{width: 100, height: 80, borderRadius: 1}}
+            src={
+              props.fileContent === undefined
+                ? props.filename
+                : props.fileContent
+            }
+          />
+        </MyView>
       )}
       {props.fileContent !== undefined && (
         <SimpleText text={props.filename} style={style.filename} />
