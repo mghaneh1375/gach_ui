@@ -4,8 +4,6 @@ import {routes} from './APIRoutes';
 import {getDevice} from '../services/Utility';
 import {Device} from '../models/Device';
 
-const base = 'user';
-
 export const logout = async (token, navigate) => {
   await generalRequest(routes.logout, 'post', undefined, undefined, token);
 
@@ -55,7 +53,6 @@ export const getUser = async (key = 'user') => {
       return JSON.parse(value);
     }
   } catch (e) {
-    console.log(e);
     return null;
   }
 };

@@ -12,7 +12,7 @@ import Login from './general/login/Login';
 import WebLogin from './general/login/web/Login';
 import WebProfile from './general/profile/web/Profile';
 import Profile from './general/profile/Profile';
-import {getDevice} from '../services/Utility';
+import {getDevice, isUserAdmin} from '../services/Utility';
 import {Device} from '../models/Device';
 
 import 'react-notifications-component/dist/theme.css';
@@ -22,7 +22,6 @@ import {globalStateContext, dispatchStateContext} from '../App';
 import Logo from '../components/web/LargeScreen/Header/Logo';
 import Header from '../components/web/LargeScreen/Header/Header';
 import Menu from '../components/web/LargeScreen/Header/Menu';
-import {fetchUser, getToken, getUser} from '../API/User';
 import Navbar from '../components/web/Navbar';
 import BottomNavBar from '../components/web/BottomNavBar';
 import Quiz from './panel/quiz/Quiz';
@@ -35,9 +34,8 @@ import General from './panel/Config/Configuration/General';
 import CertConf from './panel/Config/Configuration/Certificate';
 import Ravan from './panel/Config/Configuration/Ravan';
 import Schools from './panel/Config/Schools/Schools';
+import AllSchools from './general/Schools/Schools';
 import Grade from './panel/Basic/grade/Grade';
-import {generalRequest} from '../API/Utility';
-import {routes} from '../API/APIRoutes';
 import Lesson from './panel/Basic/lesson/Lesson';
 import Package from './panel/package/Package';
 import Subject from './panel/Basic/subject/Subject';
@@ -81,86 +79,46 @@ const WebStructue = props => {
 
   const [state, dispatch] = useGlobalState();
 
-  const [token, setToken] = useState(undefined);
-  const [user, setUser] = useState(undefined);
   const [allowRenderPage, setAllowRenderPage] = useState(false);
   const [newAlerts, setNewAlerts] = useState();
   const includeFilterMenu = ['buy', 'quiz'];
 
   React.useEffect(() => {
-    const excludeRightMenu = ['login', 'home', 'reviewQuiz', 'startQuiz'];
-    const excludeTopNav = ['login', 'profile'];
-    const excludeBottomNav = ['login'];
-    const excludeAuthRoutes = ['login', 'home', 'buy'];
-    const d = getDevice();
+    setAllowRenderPage(state.user !== undefined);
+  }, [state.user]);
 
-    dispatch({
-      showTopNav: excludeTopNav.indexOf(props.page) === -1,
-      showBottonNav: excludeBottomNav.indexOf(props.page) === -1,
-      page: props.page,
-      isRightMenuVisible:
-        d.indexOf(Device.Large) !== -1 &&
-        excludeRightMenu.indexOf(props.page) === -1,
-    });
+  // if (
+  //   newAlerts === undefined &&
+  //   token !== null &&
+  //   token !== undefined &&
+  //   userTmp !== null &&
+  //   userTmp !== undefined &&
+  //   (userTmp.accesses.indexOf('admin') !== -1 ||
+  //     userTmp.accesses.indexOf('superadmin') !== -1)
+  // ) {
+  //   let res = await generalRequest(
+  //     routes.fetchNewAlerts,
+  //     'get',
+  //     undefined,
+  //     'data',
+  //     token,
+  //   );
+  //   if (res !== null) setNewAlerts(res);
+  //   else setNewAlerts([]);
+  // }
 
-    Promise.all([getToken(), getUser()]).then(async res => {
-      setToken(res[0]);
-      let token = res[0];
-      let waitForGetUser = false;
+  React.useEffect(() => {
+    console.log(props.page);
+    setCurrPage(props.page);
+  }, [props.page, setCurrPage]);
 
-      if (token !== null && token !== undefined) {
-        if (res[1] !== null && res[1] !== undefined) setUser(res[1]);
-        else waitForGetUser = true;
-      }
-
-      if (!waitForGetUser) {
-        if (
-          (res[1] === null || res[1] === undefined) &&
-          excludeAuthRoutes.indexOf(props.page) === -1
-        ) {
-          navigate('/login');
-          return;
-        }
-      } else {
-        fetchUser(token, user => {
-          setUser(user);
-          if (
-            (user === null || user === undefined) &&
-            excludeAuthRoutes.indexOf(props.page) === -1
-          ) {
-            navigate('/login');
-            return;
-          }
-        });
-      }
-
-      let userTmp = res[1];
-
-      // setCacheItem('token', undefined);
-      // setCacheItem('user', undefined);
-      setAllowRenderPage(true);
-
-      if (
-        newAlerts === undefined &&
-        token !== null &&
-        token !== undefined &&
-        userTmp !== null &&
-        userTmp !== undefined &&
-        (userTmp.accesses.indexOf('admin') !== -1 ||
-          userTmp.accesses.indexOf('superadmin') !== -1)
-      ) {
-        let res = await generalRequest(
-          routes.fetchNewAlerts,
-          'get',
-          undefined,
-          'data',
-          token,
-        );
-        if (res !== null) setNewAlerts(res);
-        else setNewAlerts([]);
-      }
-    });
-  }, [dispatch, props.page, navigate, newAlerts]);
+  const setCurrPage = React.useCallback(
+    param => {
+      console.log('dispatching');
+      dispatch({page: param});
+    },
+    [dispatch],
+  );
 
   const setLoading = status => {
     dispatch({
@@ -171,7 +129,7 @@ const WebStructue = props => {
   const toggleRightMenuVisibility = () => {
     dispatch({
       isRightMenuVisible:
-        user === undefined ? false : !state.isRightMenuVisible,
+        state.user === null ? false : !state.isRightMenuVisible,
     });
   };
 
@@ -184,22 +142,26 @@ const WebStructue = props => {
           <MyView style={{flexDirection: 'row', flexWrap: 'wrap'}}>
             {props.page !== 'home' && (
               <Logo
-                isLogin={user !== undefined}
+                isLogin={state.user !== null}
                 toggleRightMenuVisibility={toggleRightMenuVisibility}
               />
             )}
-            {(props.page === 'home' || user === undefined) &&
-              device.indexOf(Device.Large) !== -1 && <Navbar user={user} />}
+            {(props.page === 'home' || state.user === null) &&
+              device.indexOf(Device.Large) !== -1 && (
+                <Navbar user={state.user} />
+              )}
 
-            {user !== undefined && props.page !== 'home' && (
+            {state.user !== null && props.page !== 'home' && (
               <Header
-                pic={user.user.pic}
-                name={user.user.firstName + ' ' + user.user.lastName}
-                token={token}
+                pic={state.user.user.pic}
+                name={
+                  state.user.user.firstName + ' ' + state.user.user.lastName
+                }
+                token={state.token}
                 isRightMenuVisible={state.isRightMenuVisible}
                 setLoading={setLoading}
                 navigate={navigate}
-                setUser={setUser}
+                // setUser={setUser}
                 newAlerts={newAlerts}
               />
             )}
@@ -209,7 +171,13 @@ const WebStructue = props => {
               toggleRightMenuVisibility={toggleRightMenuVisibility}
               navigate={navigate}
               selected={props.page}
-              accesses={user !== undefined ? user.accesses : null}
+              accesses={
+                state.user !== undefined &&
+                state.user !== null &&
+                state.user.accesses !== undefined
+                  ? state.user.accesses
+                  : null
+              }
             />
 
             <MyView
@@ -228,43 +196,62 @@ const WebStructue = props => {
               {/* {props.page === 'home' && <Gift navigate={navigate} />} */}
               {props.page === 'profile' && isInLargeMode && (
                 <WebProfile
-                  setUser={setUser}
-                  token={token}
-                  user={user}
+                  // setUser={setUser}
+                  token={state.token}
+                  user={state.user}
                   navigate={navigate}
                 />
               )}
               {props.page === 'dashboard' && (
                 <Dashboard
-                  setUser={setUser}
-                  token={token}
-                  user={user}
+                  // setUser={setUser}
+                  token={state.token}
+                  user={state.user}
                   navigate={navigate}
                 />
               )}
               {props.page === 'invoice' && (
-                <Invoice user={user} token={token} navigate={navigate} />
+                <Invoice
+                  user={state.user}
+                  token={state.token}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'buy' && (
-                <Buy user={user} token={token} navigate={navigate} />
+                <Buy
+                  user={state.user}
+                  token={state.token}
+                  navigate={navigate}
+                />
+              )}
+              {props.page === 'allSchools' && (
+                <AllSchools navigate={navigate} />
               )}
               {props.page === 'makeQuiz' && (
-                <MakeQuiz user={user} token={token} navigate={navigate} />
+                <MakeQuiz
+                  user={state.user}
+                  token={state.token}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'myCustomQuizzes' && (
                 <MyCustomQuizzes
-                  user={user}
-                  token={token}
+                  user={state.user}
+                  token={state.token}
                   navigate={navigate}
                 />
               )}
               {props.page === 'myIRYSCQuizzes' && (
-                <MyIRYSCQuizzes user={user} token={token} navigate={navigate} />
+                <MyIRYSCQuizzes
+                  user={state.user}
+                  token={state.token}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'mySchoolQuizzes' && (
                 <MySchoolQuizzes
-                  user={user}
-                  token={token}
+                  user={state.user}
+                  token={state.token}
                   navigate={navigate}
                 />
               )}
@@ -272,8 +259,8 @@ const WebStructue = props => {
               {props.page === 'startQuiz' && (
                 <RunQuiz
                   isInReviewMode={false}
-                  token={token}
-                  user={user}
+                  token={state.token}
+                  user={state.user}
                   navigate={navigate}
                 />
               )}
@@ -285,47 +272,59 @@ const WebStructue = props => {
               {props.page === 'reviewQuiz' && (
                 <RunQuiz
                   isInReviewMode={true}
-                  token={token}
-                  user={user}
+                  token={state.token}
+                  user={state.user}
                   navigate={navigate}
                 />
               )}
               {props.page === 'acceptInvite' && (
-                <AcceptInvite token={token} navigate={navigate} />
+                <AcceptInvite token={state.token} navigate={navigate} />
               )}
               {props.page === 'upgrade' && (
-                <Upgrade token={token} user={user} navigate={navigate} />
+                <Upgrade
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'profile' && !isInLargeMode && (
                 <Profile
-                  setUser={setUser}
-                  token={token}
-                  user={user}
+                  // setUser={setUser}
+                  token={state.token}
+                  user={state.user}
                   navigate={navigate}
                 />
               )}
               {props.page === 'cert' && (
-                <Certificate token={token} user={user} navigate={navigate} />
+                <Certificate
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'quiz' &&
                 params !== undefined &&
                 params.mode !== undefined &&
                 params.mode === 'list' && (
-                  <Quiz token={token} user={user} navigate={navigate} />
+                  <Quiz
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
                 )}
               {props.page === 'ranking' && params !== undefined && (
                 <Quiz
                   mode={'ranking'}
-                  token={token}
-                  user={user}
+                  token={state.token}
+                  user={state.user}
                   navigate={navigate}
                 />
               )}
               {props.page === 'karname' && params !== undefined && (
                 <Quiz
                   mode={'karname'}
-                  token={token}
-                  user={user}
+                  token={state.token}
+                  user={state.user}
                   navigate={navigate}
                 />
               )}
@@ -333,109 +332,205 @@ const WebStructue = props => {
                 params !== undefined &&
                 params.mode !== undefined &&
                 params.mode === 'package' && (
-                  <Package token={token} user={user} navigate={navigate} />
+                  <Package
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
                 )}
               {props.page === 'question' && (
-                <Question token={token} user={user} navigate={navigate} />
+                <Question
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'offs' && (
-                <Off token={token} user={user} navigate={navigate} />
+                <Off
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
-              {props.page === 'ticket' &&
-                (user.accesses.indexOf('admin') !== -1 ||
-                  user.accesses.indexOf('superadmin') !== -1) && (
-                  <Ticket token={token} user={user} navigate={navigate} />
-                )}
-              {props.page === 'ticket' &&
-                user.accesses.indexOf('admin') === -1 &&
-                user.accesses.indexOf('superadmin') === -1 && (
-                  <Ticketstd token={token} user={user} navigate={navigate} />
-                )}
+              {props.page === 'ticket' && isUserAdmin(state.user) && (
+                <Ticket
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
+              )}
+              {props.page === 'ticket' && !isUserAdmin(state.user) && (
+                <Ticketstd
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
+              )}
               {props.page === 'basic' &&
                 params !== undefined &&
                 params.mode !== undefined &&
                 params.mode === 'grades' && (
-                  <Grade token={token} user={user} navigate={navigate} />
+                  <Grade
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
                 )}
               {props.page === 'basic' &&
                 params !== undefined &&
                 params.mode !== undefined &&
                 params.mode === 'lessons' && (
-                  <Lesson token={token} user={user} navigate={navigate} />
+                  <Lesson
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
                 )}
               {props.page === 'basic' &&
                 params !== undefined &&
                 params.mode !== undefined &&
                 params.mode === 'subjects' && (
-                  <Subject token={token} user={user} navigate={navigate} />
+                  <Subject
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
                 )}
               {props.page === 'avatars' && (
-                <Avatar token={token} user={user} navigate={navigate} />
+                <Avatar
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'tarazLevels' && (
-                <TarazLevels token={token} user={user} navigate={navigate} />
+                <TarazLevels
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'generalConfiguration' && (
-                <General token={token} user={user} navigate={navigate} />
+                <General
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'certificateConfiguration' && (
-                <CertConf token={token} user={user} navigate={navigate} />
+                <CertConf
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'ravanConfiguration' && (
-                <Ravan token={token} user={user} navigate={navigate} />
+                <Ravan
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'schools' && (
-                <Schools token={token} user={user} navigate={navigate} />
+                <Schools
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'finantialReport' && (
-                <Transaction token={token} navigate={navigate} />
+                <Transaction token={state.token} navigate={navigate} />
               )}
               {props.page === 'users' &&
                 params.level !== undefined &&
                 params.level !== 'school' && (
-                  <Users token={token} user={user} navigate={navigate} />
+                  <Users
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
                 )}
               {props.page === 'users' &&
                 params.level !== undefined &&
                 params.level === 'school' && (
-                  <SchoolUsers token={token} user={user} navigate={navigate} />
+                  <SchoolUsers
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
                 )}
 
               {props.page === 'author' && (
-                <Author token={token} user={user} navigate={navigate} />
+                <Author
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'charge' && (
-                <ChargeAccount token={token} user={user} navigate={navigate} />
+                <ChargeAccount
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {/* {props.page === 'gift' && (
-                <SpinGift token={token} user={user} navigate={navigate} />
+                <SpinGift token={state.token} user={state.user} navigate={navigate} />
               )} */}
               {props.page === 'gift' &&
                 params !== undefined &&
                 params.mode !== undefined &&
                 params.mode === 'selectGift' && (
-                  <SelectGift token={token} user={user} navigate={navigate} />
+                  <SelectGift
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
                 )}
               {props.page === 'gift' &&
                 params !== undefined &&
                 params.mode !== undefined &&
                 params.mode === 'configuration' && (
-                  <ConfigGift token={token} user={user} navigate={navigate} />
+                  <ConfigGift
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
                 )}
               {props.page === 'schoolUsers' && (
-                <SchoolUsers token={token} user={user} navigate={navigate} />
+                <SchoolUsers
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'manageStudent' && (
-                <ManageStudents token={token} user={user} navigate={navigate} />
+                <ManageStudents
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'manageTeacher' && (
-                <ManageTeachers token={token} user={user} navigate={navigate} />
+                <ManageTeachers
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'teachers' && (
-                <Teachers token={token} user={user} navigate={navigate} />
+                <Teachers
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === 'myOffs' && (
-                <MyOffs token={token} user={user} navigate={navigate} />
+                <MyOffs
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
               )}
               {props.page === '404' && <PageNotFound navigate={navigate} />}
             </MyView>
@@ -448,7 +543,7 @@ const WebStructue = props => {
             <Login navigate={navigate} />
           )}
 
-          {device.indexOf(Device.WebPort) !== -1 && user === undefined && (
+          {device.indexOf(Device.WebPort) !== -1 && state.user === null && (
             <BottomNavBar />
           )}
 

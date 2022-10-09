@@ -26,7 +26,7 @@ const Verification = props => {
     const data = {
       token: props.token,
       code: code,
-      username: props.username,
+      NID: props.username,
     };
 
     Promise.all([

@@ -1,32 +1,22 @@
-import RoleForm from '../../general/login/components/RoleForm';
 import RoleFormForSelect from '../../general/login/components/RoleFormForSelect';
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../styles/Common';
+import {dispatchStateContext} from '../../../App';
+import {CommonWebBox} from '../../../styles/Common';
 import {useParams} from 'react-router';
 import {generalRequest} from '../../../API/Utility';
 import {routes} from '../../../API/APIRoutes';
+import {isUserAdmin} from '../../../services/Utility';
 
 function Upgrade(props) {
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
 
-  const [state, dispatch] = useGlobalState();
-  const [user, setUser] = useState();
+  const [dispatch] = useGlobalState();
+
   const setLoading = status => {
     dispatch({loading: status});
   };
 
-  const isAdmin =
-    props.user.accesses.indexOf('admin') !== -1 ||
-    props.user.accesses.indexOf('superadmin') !== -1;
+  const isAdmin = isUserAdmin(props.user);
 
   const params = useParams();
   const userId = isAdmin ? params.userId : undefined;

@@ -16,11 +16,16 @@ import commonTranslator from '../../../../translator/Common';
 import newAlertsKeyVals from './NewAlertsKeyVals';
 import UserTinyPic from '../UserTinyPic';
 import {styles} from '../../../../styles/Common/Styles';
+import {dispatchStateContext} from '../../../../App';
 
 const Header = props => {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
   const isApp = device.indexOf(Device.App) !== -1;
+
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+
+  const [dispatch] = useGlobalState();
 
   const [showProfilePane, setShowProfilePane] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
@@ -53,7 +58,7 @@ const Header = props => {
   const callLogout = async () => {
     props.setLoading(true);
     await logout(props.token, props.navigate);
-    props.setUser(undefined);
+    dispatch({user: null});
     props.setLoading(false);
   };
 

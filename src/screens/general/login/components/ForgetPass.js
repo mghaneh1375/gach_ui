@@ -10,7 +10,6 @@ import {
   MyView,
 } from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import {styles} from '../../../../components/web/LargeScreen/Header/style';
 import commonTranslator from './../../../../translator/Common';
 import translator from './../translate';
 
@@ -43,7 +42,7 @@ const ForgetPass = props => {
         else if (via === 'both') setStep('chooseAuthMethod');
         else {
           setAuthVia(via);
-          requestForgetPass();
+          requestForgetPass(via);
           return;
         }
       }
@@ -52,10 +51,10 @@ const ForgetPass = props => {
     });
   };
 
-  const requestForgetPass = () => {
+  const requestForgetPass = (via = undefined) => {
     var data = {
       NID: props.username,
-      authVia: authVia,
+      authVia: via !== undefined ? via : authVia,
     };
 
     props.setLoading(true);

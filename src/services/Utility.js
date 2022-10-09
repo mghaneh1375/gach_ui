@@ -171,7 +171,7 @@ export const editItem = (items, setItems, item) => {
 };
 
 export const isUserAdmin = user => {
-  if (user === undefined) return false;
+  if (user === undefined || user === null) return false;
 
   if (
     user.accesses.indexOf('admin') === -1 &&

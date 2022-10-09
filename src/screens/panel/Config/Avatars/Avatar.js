@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
+import {dispatchStateContext} from '../../../../App';
 import {MyView} from '../../../../styles/Common';
 import Create from './components/Create';
 import List from './components/List';
@@ -10,12 +10,9 @@ import Update from './components/Update';
 function Avatar(props) {
   const navigate = props.navigate;
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
 
-  const [state, dispatch] = useGlobalState();
+  const [dispatch] = useGlobalState();
   const [avatars, setAvatars] = useState();
   const [mode, setMode] = useState('list');
   const [selected, setSelected] = useState();

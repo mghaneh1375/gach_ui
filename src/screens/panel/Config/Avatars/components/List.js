@@ -1,19 +1,8 @@
 import React from 'react';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
+import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
 import Show from './Show/Show';
 import translator from '../Translator';
 import MakeQuiz from '../../../../studentPanel/MakeQuiz/MakeQuiz';
-import {RoleCard} from '../../../../../styles/Common/RoleCard';
-import vars from '../../../../../styles/root';
-import BoxRanking from '../../../../general/BoxRanking/BoxRanking';
-import {Circle} from 'victory-core';
-import {styles} from '../../../../../styles/Common/Styles';
-import {LoadingCommonWebBox} from '../../../../../components/LoadingCommonWebBox';
 
 // import WheelsOfPrizes from '../../../../../components/web/WheelsOfPrizes/WheelsOfPrizes';
 
@@ -34,30 +23,6 @@ function List(props) {
   };
   return (
     <MyView>
-      {/* <CommonWebBox header={'test'} style={{height: 200}}>
-        <LoadingCommonWebBox>
-          <SimpleText text={'text'} />
-        </LoadingCommonWebBox>
-      </CommonWebBox>
-      <PhoneView style={{marginRight: 70, marginTop: 20, gap: 50}}>
-        <BoxRanking
-          school={'بیذسیب'}
-          grade={'دبیرستان'}
-          name={'البرز منشی زادگان'}
-          city={'تعران'}
-          valScore={'30 امتیاز'}
-          valQuiz={'9000  آزمون'}
-          field={'نرمییی'}
-          rank={'1000'}
-        />
-      </PhoneView> */}
-      {/* <RoleCard
-        text={translator.avatars}
-        style={{marginTop: 20}}
-        color={vars.ORANGE}
-        source={require('../../../../../images/student.png')}
-      /> */}
-      <MakeQuiz />
       <CommonWebBox
         header={translator.avatars}
         addBtn={true}

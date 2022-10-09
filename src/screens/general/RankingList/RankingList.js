@@ -59,7 +59,9 @@ function RankingList(props) {
         {data !== undefined &&
           data.map((elem, index) => {
             return (
-              <PhoneView style={{marginRight: 70, marginTop: 20, gap: 50}}>
+              <PhoneView
+                key={index}
+                style={{marginRight: 70, marginTop: 20, gap: 50}}>
                 <BoxRanking
                   school={elem.student.school}
                   grade={elem.student.grade}

@@ -9,6 +9,7 @@ import Filter from './Filter';
 import {MyView} from '../../../../styles/Common';
 import AdviserMenu from './Menus/AdviserMenu';
 import {style} from './style';
+import {isUserAdmin} from '../../../../services/Utility';
 
 const Menu = props => {
   const useGlobalState = () => [React.useContext(globalStateContext)];
@@ -41,12 +42,9 @@ const Menu = props => {
         props.accesses.indexOf('advisor') !== -1 && (
           <AdviserMenu navigate={props.navigate} />
         )}
-      {state.isRightMenuVisible &&
-        props.accesses !== null &&
-        (props.accesses.indexOf('admin') !== -1 ||
-          props.accesses.indexOf('superadmin') !== -1) && (
-          <AdminMenu navigate={props.navigate} />
-        )}
+      {state.isRightMenuVisible && isUserAdmin(state.user) && (
+        <AdminMenu navigate={props.navigate} />
+      )}
       {props.isFilterAvailable &&
         !state.isRightMenuVisible &&
         state.isFilterMenuVisible && <Filter />}

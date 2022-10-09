@@ -28,7 +28,7 @@ function List(props) {
   const [state] = useGlobalState();
   const [wantedQuizzes, setWantedQuizzes] = useState();
   const [userMoney, setUserMoney] = useState(
-    props.user === undefined ? 0 : props.user.user.money,
+    props.user === null ? 0 : props.user.user.money,
   );
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);

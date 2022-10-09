@@ -15,7 +15,7 @@ const Profile = props => {
   const isApp = getDevice().indexOf(Device.App) !== -1;
 
   React.useEffect(() => {
-    if (props.user === undefined) {
+    if (props.user === null) {
       // navigate(isApp ? 'Home' : '/');
       return;
     }

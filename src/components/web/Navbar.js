@@ -6,10 +6,10 @@ import vars from '../../styles/root';
 import {Nav, NavLink, NavLinkExternal} from '../../styles/web/NavbarElement';
 
 const Navbar = props => {
-  const [isLogin, setIsLogin] = useState(props.user !== undefined);
+  const [isLogin, setIsLogin] = useState(props.user !== null);
 
   React.useEffect(() => {
-    setIsLogin(props.user !== undefined);
+    setIsLogin(props.user !== null);
   }, [props.user]);
 
   const width = getWidthHeight()[0];
@@ -26,7 +26,7 @@ const Navbar = props => {
           style={{
             ...styles.whiteSpaceNoWrap,
           }}
-          href="https://irysc.com">
+          href="https://www.irysc.com/category/irysc-news/gachesefid/">
           اخبار
         </NavLinkExternal>
         <NavLink style={{...styles.whiteSpaceNoWrap}} to="/rankinglist">
@@ -36,17 +36,17 @@ const Navbar = props => {
           style={{...styles.whiteSpaceNoWrap}}
           rel="noopener noreferrer"
           target="_blank"
-          href="https://irysc.com">
+          href="https://www.irysc.com/%d9%87%d9%85%da%a9%d8%a7%d8%b1%d8%a7%d9%86-%d8%a2%db%8c%d8%b1%db%8c%d8%b3%da%a9/">
           همکاران
         </NavLinkExternal>
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="schools">
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/showAllSchools">
           مدارس
         </NavLink>
         <NavLinkExternal
           target="_blank"
           rel="noopener noreferrer"
           style={{...styles.whiteSpaceNoWrap}}
-          href="https://irysc.com">
+          href="https://www.irysc.com/%d8%b1%d8%a7%d9%87%d9%86%d9%85%d8%a7%db%8c-%da%af%da%86-%d8%b3%d9%81%db%8c%d8%af-%d8%a2%db%8c%d8%b1%db%8c%d8%b3%da%a9/">
           راهنما
         </NavLinkExternal>
         <NavLinkExternal
@@ -56,7 +56,7 @@ const Navbar = props => {
             ...styles.whiteSpaceNoWrap,
             display: width > 768 && width < 1100 ? 'none' : 'flex',
           }}
-          href="https://irysc.com">
+          href="https://www.irysc.com/contact-us/">
           تماس و پشتیبانی
         </NavLinkExternal>
         <CommonButton
@@ -70,7 +70,10 @@ const Navbar = props => {
           }}
           title={'کلاس های المپیاد'}
           onPress={() => {
-            window.open('https://irysc.com', '_blank');
+            window.open(
+              'https://www.irysc.com/%DA%A9%D9%84%D8%A7%D8%B3-%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%D8%A7%D9%84%D9%85%D9%BE%DB%8C%D8%A7%D8%AF%D9%87%D8%A7%DB%8C-%D8%B9%D9%84%D9%85%DB%8C/',
+              '_blank',
+            );
           }}
         />
         {!isLogin && (

@@ -1,5 +1,5 @@
 import {faCheck, faPlus} from '@fortawesome/free-solid-svg-icons';
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {changeText, p2e, showError} from '../../../services/Utility';
 import {
   CommonButton,
@@ -33,21 +33,19 @@ function MakeQuiz(props) {
   const [wantedFlag, setWantedFlag] = useState();
   const [total, setTotal] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
-  const [refId, setRefId] = useState();
-  const [name, setName] = useState('test');
-  const [count, setCount] = useState(50);
+  const [name, setName] = useState();
+  const [count, setCount] = useState();
 
   const [off, setOff] = useState(0);
   const [shouldPay, setShouldPay] = useState(0);
   const [showOffCodePane, setShowOffCodePane] = useState(false);
   const [offs, setOffs] = useState([]);
   const [userMoney, setUserMoney] = useState(
-    props.user === undefined ? 0 : props.user.user.money,
+    props.user === null ? 0 : props.user.user.money,
   );
   const [userOff, setUserOff] = useState();
   const [usedFromWallet, setUsedFromWallet] = useState(0);
 
-  const ref = useRef();
   const [id, setId] = useState();
   const [price, setPrice] = useState();
   const [mode, setMode] = useState('choose');
@@ -82,14 +80,6 @@ function MakeQuiz(props) {
     setPrice(totalPrice);
     setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 0);
   };
-
-  React.useEffect(() => {
-    if (refId === undefined) return;
-
-    setTimeout(() => {
-      ref.current.submit();
-    }, 1000);
-  }, [refId]);
 
   const calcPrice = async () => {
     if (name === undefined || name === '' || boxes.length === 0) {
@@ -332,16 +322,6 @@ function MakeQuiz(props) {
             </Basket>
           )}
         </MyView>
-      )}
-
-      {refId !== undefined && (
-        <form
-          ref={ref}
-          action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat"
-          method="post"
-          target="_blank">
-          <input type={'hidden'} value={refId} name="RefId" />
-        </form>
       )}
     </MyView>
   );

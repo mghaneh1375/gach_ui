@@ -59,6 +59,10 @@ export default function WebRouter() {
           />
           <Route path="/avatars" element={<WebStructue page="avatars" />} />
           <Route path="/schools" element={<WebStructue page="schools" />} />
+          <Route
+            path="/showAllSchools"
+            element={<WebStructue page="allSchools" />}
+          />
 
           <Route
             path="/invoice/:refId"

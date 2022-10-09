@@ -61,7 +61,7 @@ const Profile = props => {
     if (user !== undefined || isWorking) return;
     const isApp = getDevice().indexOf(Device.App) !== -1;
 
-    if (props.user === undefined) {
+    if (props.user === null) {
       navigate(isApp ? 'Home' : '/');
       return;
     }

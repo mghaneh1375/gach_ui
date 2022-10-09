@@ -5,6 +5,7 @@ import {columnsForAdmin, columnsForAgent} from './TableStructure';
 import Ops from './Ops/Ops';
 import commonTranslator from '../../../../translator/Common';
 import {routes} from '../../../../API/APIRoutes';
+import {isUserAdmin} from '../../../../services/Utility';
 
 function List(props) {
   const [selectedId, setSelectedId] = useState();
@@ -28,10 +29,7 @@ function List(props) {
           edit={props.edit}
           remove={props.remove}
           setMode={props.setMode}
-          isAdmin={
-            props.user.accesses.indexOf('admin') !== -1 ||
-            props.user.accesses.indexOf('superadmin') !== -1
-          }
+          isAdmin={isUserAdmin(props.user)}
         />
       )}
       <CommonWebBox
@@ -39,12 +37,7 @@ function List(props) {
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         <CommonDataTable
-          columns={
-            props.user.accesses.indexOf('admin') !== -1 ||
-            props.user.accesses.indexOf('superadmin') !== -1
-              ? columnsForAdmin
-              : columnsForAgent
-          }
+          columns={isUserAdmin(props.user) ? columnsForAdmin : columnsForAgent}
           data={props.data}
           token={props.token}
           setLoading={props.setLoading}

@@ -84,10 +84,15 @@ export const generalRequest = async (
         : COMMON_HEADER,
     data: data,
   })
-    .then(function (response) {
+    .then(async function (response) {
       var data = response.data;
       if (data.status === 'nok') {
-        if (data.msg === 'Token is not valid') removeAuthCache();
+        if (data.msg === 'Token is not valid') {
+          await removeAuthCache();
+          // showError(data.msg);
+          // window.location.href = '/';
+          return undefined;
+        }
 
         showError(data.msg);
         return null;
@@ -153,7 +158,6 @@ export const downloadRequest = async (
       return 'ok';
     })
     .catch(function (error) {
-      console.log(error);
       showError(commonTranslator.opErr);
       return null;
     });

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
-import {getUser} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';

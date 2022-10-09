@@ -52,7 +52,7 @@ function Karname(props) {
   const [karname, setKarname] = useState();
 
   const fetchAnswerSheet = useCallback(async () => {
-    if (props.user === undefined) return 'ok';
+    if (props.user === null) return 'ok';
 
     if (props.user.accesses.indexOf('student') !== -1)
       return await getMyAnswerSheet(
