@@ -1,10 +1,17 @@
 import React, {useState, useRef, useCallback} from 'react';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {getQuiz, getRanking} from '../../Utility';
-import {CommonWebBox} from '../../../../../../styles/Common';
+import {CommonWebBox, PhoneView} from '../../../../../../styles/Common';
 import {quizContext, dispatchQuizContext} from '../../Context';
-import {SimpleFontIcon} from '../../../../../../styles/Common/FontIcon';
-import {faEye} from '@fortawesome/free-solid-svg-icons';
+import {
+  FontIcon,
+  SimpleFontIcon,
+} from '../../../../../../styles/Common/FontIcon';
+import {faArrowLeft, faEye} from '@fortawesome/free-solid-svg-icons';
+import CopyBox from '../../../../../../components/CopyBox';
+import commonTranslator from '../../../Translator';
+import {BASE_SITE_NAME} from '../../../../../../API/Utility';
+import {styles} from '../../../../../../styles/Common/Styles';
 
 function Ranking(props) {
   const useGlobalState = () => [
@@ -144,8 +151,26 @@ function Ranking(props) {
   return (
     <CommonWebBox
       header={'نتایج'}
-      backBtn={true}
-      onBackClick={() => props.setMode('list')}>
+      btn={
+        <PhoneView style={styles.alignItemsCenter}>
+          <CopyBox
+            title={commonTranslator.copyLink}
+            url={
+              BASE_SITE_NAME +
+              'ranking/' +
+              state.selectedQuiz.generalMode +
+              '/' +
+              state.selectedQuiz.id
+            }
+          />
+          <FontIcon
+            onPress={() => props.setMode('list')}
+            theme="rect"
+            kind="normal"
+            icon={faArrowLeft}
+          />
+        </PhoneView>
+      }>
       {state.selectedQuiz !== undefined &&
         state.selectedQuiz.ranking !== undefined && (
           <CommonDataTable

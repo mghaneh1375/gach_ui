@@ -4,7 +4,7 @@ import {routes} from '../../../../API/APIRoutes';
 import {fetchUser, setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {style} from '../../../../components/web/LargeScreen/Header/style';
-import {showError} from '../../../../services/Utility';
+import {showError, showSuccess} from '../../../../services/Utility';
 import {
   TextLink,
   BlueTextInline,
@@ -20,7 +20,7 @@ import translator from './../translate';
 const Verification = props => {
   const [canResend, setCanResend] = useState(false);
 
-  const onFinishCheckingCode = code => {
+  const onFinishCheckingCode = async code => {
     props.setLoading(true);
 
     const data = {
@@ -29,41 +29,42 @@ const Verification = props => {
       NID: props.username,
     };
 
-    Promise.all([
-      generalRequest(
-        props.mode === 'signUp'
-          ? routes.activate
-          : props.mode === 'forgetPass'
-          ? routes.checkCode
-          : routes.setUsername,
-        'post',
-        data,
-        props.mode === 'signUp' ? 'token' : undefined,
-        props.mode === 'changeUsername' ? props.authToken : undefined,
-      ),
-    ]).then(async res => {
-      if (res[0] != null) {
-        if (props.mode === 'signUp') {
-          props.setToken(res[0]);
-          props.setCode(code);
-          await setCacheItem('user', undefined);
-          await fetchUser(res[0], async user => {
-            props.setLoading(false);
-            await setCacheItem('token', res[0]);
-            props.setMode('roleForm');
-          });
-        } else if (props.mode === 'changeUsername') {
-          props.setMode('finish');
+    let res = await generalRequest(
+      props.mode === 'signUp'
+        ? routes.activate
+        : props.mode === 'forgetPass'
+        ? routes.checkCode
+        : routes.setUsername,
+      'post',
+      data,
+      props.mode === 'signUp' ? 'token' : undefined,
+      props.mode === 'changeUsername' ? props.authToken : undefined,
+    );
+
+    if (res != null) {
+      if (props.mode === 'signUp') {
+        props.setToken(res);
+        props.setCode(code);
+        await setCacheItem('user', undefined);
+        await fetchUser(res, async user => {
           props.setLoading(false);
-        } else {
-          props.setMode('resetPass');
-          props.setCode(code);
-          props.setLoading(false);
-        }
+          await setCacheItem('token', res);
+          props.setMode('roleForm');
+        });
+      } else if (props.mode === 'changeUsername') {
+        props.setLoading(false);
+        showSuccess(
+          'عملیات موردنظر با موفقیت انجام شد و باید مجددا به سیستم ورود کنید',
+        );
+        props.setMode('finish');
       } else {
+        props.setMode('resetPass');
+        props.setCode(code);
         props.setLoading(false);
       }
-    });
+    } else {
+      props.setLoading(false);
+    }
   };
 
   const requestResendCode = () => {

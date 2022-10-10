@@ -1,11 +1,7 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView, MyView} from '../../../styles/Common';
+import {CommonWebBox, PhoneView} from '../../../styles/Common';
 
-import ChangePass from './components/ChangePass';
 import UpdateInfo from './components/UpdateInfo';
-import UpdatePic from './components/UpdatePic';
-import UpdatePassword from './components/UpdatePassword';
-import UpdateUsername from './components/UpdateUsername';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import {getDevice, getWidthHeight} from '../../../services/Utility';
 import {Device} from '../../../models/Device';

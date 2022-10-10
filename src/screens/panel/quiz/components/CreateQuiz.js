@@ -61,6 +61,9 @@ const CreateQuiz = props => {
     setShowResultsAfterCorrection(
       state.selectedQuiz.showResultsAfterCorrection,
     );
+    setShowResultsAfterCorrectionNotLoginUsers(
+      state.selectedQuiz.showResultsAfterCorrectionNotLoginUsers,
+    );
   }, [state.selectedQuiz, props.editMode, backToList]);
 
   const [name, setName] = useState('');
@@ -80,7 +83,11 @@ const CreateQuiz = props => {
   const [backEn, setBackEn] = useState(undefined);
   const [permuteEn, setPermuteEn] = useState(undefined);
   const [showResultsAfterCorrection, setShowResultsAfterCorrection] =
-    useState(true); //undefined
+    useState(true);
+  const [
+    showResultsAfterCorrectionNotLoginUsers,
+    setShowResultsAfterCorrectionNotLoginUsers,
+  ] = useState(false);
   const [minusMark, setMinusMark] = useState(undefined);
 
   const [startRegistry, setStartRegistry] = useState(
@@ -158,6 +165,8 @@ const CreateQuiz = props => {
       minusMark: minusMark,
       backEn: backEn,
       showResultsAfterCorrection: showResultsAfterCorrection,
+      showResultsAfterCorrectionNotLoginUsers:
+        showResultsAfterCorrectionNotLoginUsers,
       topStudentsCount: ranking,
       descAfter: descAfter,
       desc: descBefore,
@@ -245,6 +254,12 @@ const CreateQuiz = props => {
             setPermuteEn={setPermuteEn}
             minusMark={minusMark}
             setMinusMark={setMinusMark}
+            showResultsAfterCorrectionNotLoginUsers={
+              showResultsAfterCorrectionNotLoginUsers
+            }
+            setShowResultsAfterCorrectionNotLoginUsers={
+              setShowResultsAfterCorrectionNotLoginUsers
+            }
             showResultsAfterCorrection={showResultsAfterCorrection}
             setShowResultsAfterCorrection={setShowResultsAfterCorrection}
           />

@@ -3,8 +3,8 @@ import {showError} from '../services/Utility';
 import commonTranslator from './../translator/Common';
 import {removeAuthCache} from './User';
 
-// export const BASE_SITE_NAME = 'http://localhost:3000/';
-export const BASE_SITE_NAME = 'https://e.irysc.com/';
+export const BASE_SITE_NAME = 'http://localhost:3000/';
+// export const BASE_SITE_NAME = 'https://e.irysc.com/';
 
 // export const CV_BASE_URL = 'http://192.168.0.106:8090/api/';
 export const CV_BASE_URL = 'https://cv.irysc.com/api/';

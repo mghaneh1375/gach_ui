@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
+import Circle from '../../../../../components/web/Circle';
+import {
+  CommonWebBox,
+  PhoneView,
+  MyView,
+  SimpleText,
+} from '../../../../../styles/Common';
+import {styles} from '../../../../../styles/Common/Styles';
+import vars from '../../../../../styles/root';
 import Test from './Test';
 
 const perBox = 10;
@@ -24,7 +32,22 @@ function AnswerSheet(props) {
   }, [props.answer_sheet]);
 
   return (
-    <MyView>
+    <MyView style={styles.marginTop20}>
+      <PhoneView style={styles.gap15}>
+        <SimpleText text={'راهنما'} />
+        <Circle
+          style={styles.alignSelfCenter}
+          diameter={13}
+          backgroundColor={vars.CREAM}
+        />
+        <SimpleText text={'پاسخ دانش آموز'} />
+        <Circle
+          style={styles.alignSelfCenter}
+          diameter={13}
+          backgroundColor={vars.GREEN}
+        />
+        <SimpleText text={'پاسخ صحیح'} />
+      </PhoneView>
       <PhoneView
         style={{
           justifyContent: 'start',

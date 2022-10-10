@@ -65,6 +65,7 @@ import ManageTeachers from './schoolPanel/ManageTeachers/ManageTeachers';
 import Invoice from './schoolPanel/Invoice/Invoice';
 import RankingList from './general/RankingList/RankingList';
 import MakeQuiz from './studentPanel/MakeQuiz/MakeQuiz';
+import History from './studentPanel/History/History';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -108,13 +109,11 @@ const WebStructue = props => {
   // }
 
   React.useEffect(() => {
-    console.log(props.page);
     setCurrPage(props.page);
   }, [props.page, setCurrPage]);
 
   const setCurrPage = React.useCallback(
     param => {
-      console.log('dispatching');
       dispatch({page: param});
     },
     [dispatch],
@@ -223,6 +222,9 @@ const WebStructue = props => {
                   token={state.token}
                   navigate={navigate}
                 />
+              )}
+              {props.page === 'financeHistory' && (
+                <History navigate={navigate} />
               )}
               {props.page === 'allSchools' && (
                 <AllSchools navigate={navigate} />

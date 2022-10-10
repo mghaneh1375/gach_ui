@@ -20,6 +20,11 @@ export default function WebRouter() {
           <Route path="buy" element={<WebStructue page="buy" />} />
           <Route path="makeQuiz" element={<WebStructue page="makeQuiz" />} />
           <Route
+            path="financeHistory"
+            element={<WebStructue page="financeHistory" />}
+          />
+
+          <Route
             path="myIRYSCQuizzes"
             element={<WebStructue page="myIRYSCQuizzes" />}
           />

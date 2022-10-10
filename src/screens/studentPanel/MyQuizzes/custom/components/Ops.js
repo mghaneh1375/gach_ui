@@ -5,8 +5,8 @@ import {
   quizContext,
   dispatchQuizContext,
 } from '../../../../panel/quiz/components/Context';
+import {getRecpForQuiz} from '../../irysc/components/Utility';
 import Translate from '../../Translate';
-import {getRecpForQuiz} from './Utility';
 
 function Ops(props) {
   const useGlobalState = () => [
@@ -27,7 +27,7 @@ function Ops(props) {
     props.setLoading(true);
     let res = await getRecpForQuiz(
       state.selectedQuiz.id,
-      state.selectedQuiz.generalMode,
+      'custom',
       props.token,
     );
 

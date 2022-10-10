@@ -24,6 +24,8 @@ const translator = {
   minusMark: 'آیا آزمون نمره منفی داشته باشد؟',
   showResultAfterCorrection:
     'آیا نتایج بعد از صدور تراز به دانش آموزان نمایش داده شود؟',
+  showResultsAfterCorrectionNotLoginUsers:
+    'آیا نتایج بعد از صدور تراز به کاربران ورود نکرده نمایش داده شود؟',
   descBefore: 'توضیحات قبل از آزمون (این فیلد اختیاری است)',
   descAfter: 'توضیحات بعد از آزمون (این فیلد اختیاری است)',
   uploadFile: 'بارگذاری فایل جهت درج در ckeditor (اختیاری)',

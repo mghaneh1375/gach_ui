@@ -56,7 +56,11 @@ function MenuItemRepeat(props) {
         text={translator.charge}
         icon={faCreditCard}
       />
-      <MenuItem text={translator.history} icon={faHistory} />
+      <MenuItem
+        onClick={() => navigate('/financeHistory')}
+        text={translator.history}
+        icon={faHistory}
+      />
       {/* <MenuItem text={translator.support} icon={faQuestion} /> */}
       <MenuItem
         onClick={() => navigate('/ticket')}

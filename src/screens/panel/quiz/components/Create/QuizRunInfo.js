@@ -121,6 +121,22 @@ const QuizRunInfo = props => {
           placeholder={translator.showResultAfterCorrection}
         />
 
+        <JustBottomBorderSelect
+          values={trueFalseValues}
+          value={
+            props.showResultsAfterCorrectionNotLoginUsers === undefined
+              ? {}
+              : trueFalseValues.filter(element => {
+                  return (
+                    element.id === props.showResultsAfterCorrectionNotLoginUsers
+                  );
+                })[0]
+          }
+          setter={props.setShowResultsAfterCorrectionNotLoginUsers}
+          subText={translator.showResultsAfterCorrectionNotLoginUsers}
+          placeholder={translator.showResultsAfterCorrectionNotLoginUsers}
+        />
+
         {start !== undefined && (
           <JustBottomBorderDatePicker
             placeholder={translator.startDate}

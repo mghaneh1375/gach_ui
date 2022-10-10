@@ -27,7 +27,15 @@ const excludeTopNav = ['login', 'profile'];
 const excludeBottomNav = ['login'];
 const d = getDevice();
 
-const excludeAuthRoutes = ['login', 'home', 'buy', 'allSchools', 'rankingList'];
+const excludeAuthRoutes = [
+  'login',
+  'home',
+  'buy',
+  'allSchools',
+  'rankingList',
+  'karname',
+  'ranking',
+];
 
 const GlobalStateProvider = ({children}) => {
   const [state, dispatch] = React.useReducer(
@@ -60,7 +68,6 @@ const GlobalStateProvider = ({children}) => {
 
   React.useEffect(() => {
     if (state.page === undefined || state.user === undefined) return;
-    console.log(state.page);
     if (state.user === null && excludeAuthRoutes.indexOf(state.page) === -1) {
       window.location.href = '/login';
       return;

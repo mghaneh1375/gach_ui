@@ -15,13 +15,11 @@ export const checkSendRoleForm = async (
   token,
   userId = undefined,
 ) => {
-  console.log(userRoleFormData);
-  console.log(Object.keys(userRoleFormData).length);
   if (
     userRoleFormData['role'] === 'student' &&
     Object.keys(userRoleFormData).length === 1
   ) {
-    if (redirectTo !== undefined) navigate(redirectTo);
+    if (redirectTo !== undefined) window.location.href = redirectTo;
     return;
   }
 
@@ -43,7 +41,7 @@ export const checkSendRoleForm = async (
         showSuccess(
           'فرم شما با موفقیت ثبت گردید و در انتظار تایید ادمین قرار گرفته است.',
         );
-      if (redirectTo !== undefined) navigate(redirectTo);
+      if (redirectTo !== undefined) window.location.href = redirectTo;
     }
   });
 };

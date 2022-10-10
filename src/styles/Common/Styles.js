@@ -226,6 +226,9 @@ export const styles = {
   width100: {
     width: '100%',
   },
+  width50: {
+    width: '50%',
+  },
   flexNoWrap: {
     flexWrap: 'nowrap',
   },

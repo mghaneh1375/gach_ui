@@ -137,7 +137,7 @@ function StudentAnswerSheet(props) {
           />
         )}
       </CommonWebBox>
-      <MyViewWithRef ref={ref}>
+      <MyViewWithRef style={styles.margin15} ref={ref}>
         <AnswerSheet
           answer_sheet={state.wanted_answer_sheet}
           setLoading={props.setLoading}

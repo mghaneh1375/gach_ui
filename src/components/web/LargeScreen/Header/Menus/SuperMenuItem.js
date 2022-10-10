@@ -45,7 +45,7 @@ export const SuperMenuItem = props => {
           {props.items.map((elem, index) => {
             return (
               <SimpleText
-                onPress={() => props.navigate(elem.url)}
+                onPress={() => (window.location.href = elem.url)}
                 key={index}
                 style={{
                   padding: 3,

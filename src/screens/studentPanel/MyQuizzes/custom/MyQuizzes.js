@@ -16,6 +16,11 @@ function MyQuizzes(props) {
     dispatch({loading: status});
   };
 
+  React.useEffect(() => {
+    if (recp === undefined) return;
+    setMode('recp');
+  }, [recp]);
+
   return (
     <QuizProvider>
       {mode === 'list' && (

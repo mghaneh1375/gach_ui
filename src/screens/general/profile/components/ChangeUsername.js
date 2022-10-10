@@ -17,17 +17,18 @@ const ChangeUsername = props => {
   const [token, setToken] = useState('');
   const [reminder, setReminder] = useState(0);
 
-  const navigate = props.navigate;
+  // const navigate = props.navigate;
 
   React.useEffect(() => {
     if (step === 'finish') {
-      removeAuthCache();
       const isApp = getDevice().indexOf(Device.App) !== -1;
+
       setTimeout(function () {
-        navigate(isApp ? 'Login' : '/login');
-      }, 2000);
+        removeAuthCache();
+        window.location.href = '/login';
+      }, 5000);
     }
-  }, [step, navigate]);
+  }, [step]); //, navigate
 
   const changeNewUsername = text => {
     setNewUsername(text);
