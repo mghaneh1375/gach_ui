@@ -114,6 +114,7 @@ const Profile = props => {
           token={props.token}
           setLoading={setLoading}
           userId={isAdmin ? user.id : undefined}
+          NID={user.NID}
           updateUser={(key, val) => {
             let u = user;
             u[key] = val;

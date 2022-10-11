@@ -23,17 +23,21 @@ function Detail(props) {
       {showInfo && (
         <Info isAdmin={false} setMode={props.setMode} package={state.package} />
       )}
-      {props.user.accesses.indexOf('student') === -1 && (
-        <SchoolList
-          token={props.token}
-          user={props.user}
-          setLoading={props.setLoading}
-          navigate={props.navigate}
-          setShowInfo={setShowInfo}
-          package={state.package}
-        />
-      )}
-      {props.user.accesses.indexOf('student') !== -1 && (
+      {props.user !== undefined &&
+        props.user !== null &&
+        props.user.accesses.indexOf('student') === -1 && (
+          <SchoolList
+            token={props.token}
+            user={props.user}
+            setLoading={props.setLoading}
+            navigate={props.navigate}
+            setShowInfo={setShowInfo}
+            package={state.package}
+          />
+        )}
+      {(props.user === null ||
+        props.user === undefined ||
+        props.user.accesses.indexOf('student') !== -1) && (
         <List
           token={props.token}
           user={props.user}

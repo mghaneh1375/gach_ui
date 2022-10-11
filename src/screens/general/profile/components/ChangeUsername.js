@@ -100,7 +100,7 @@ const ChangeUsername = props => {
             authToken={props.token}
             mode={'changeUsername'}
             setMode={setStep}
-            username={newUsername}
+            username={props.NID}
           />
         )}
         {step === 'finish' && (

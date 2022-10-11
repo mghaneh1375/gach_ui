@@ -13,12 +13,12 @@ import {
   MyView,
 } from '../../../../styles/Common';
 import {MyCountDown} from '../../../../styles/Common/MyCountDown';
-import {MyScrollView} from '../../../../styles/Common/ScrollView';
 import vars from './../../../../styles/root';
 import translator from './../translate';
 
 const Verification = props => {
   const [canResend, setCanResend] = useState(false);
+  const [reminder, setReminder] = useState(props.reminder);
 
   const onFinishCheckingCode = async code => {
     props.setLoading(true);
@@ -85,10 +85,14 @@ const Verification = props => {
     Promise.all([
       generalRequest(routes.resendCode, 'post', data, 'reminder'),
     ]).then(res => {
-      props.setLoading(false);
       if (res[0] != null) {
         setCanResend(false);
-      }
+        setReminder(undefined);
+        setTimeout(() => {
+          setReminder(res[0]);
+          props.setLoading(false);
+        }, 500);
+      } else props.setLoading(false);
     });
   };
 
@@ -130,11 +134,8 @@ const Verification = props => {
           containerStyle={{marginTop: 30}}
           codeInputStyle={{borderWidth: 1.5}}
         />
-        {props.reminder > 0 && (
-          <MyCountDown
-            until={props.reminder}
-            onFinish={() => setCanResend(true)}
-          />
+        {reminder !== undefined && reminder > 0 && (
+          <MyCountDown until={reminder} onFinish={() => setCanResend(true)} />
         )}
       </MyView>
       {props.reminder > 0 && (
@@ -158,7 +159,7 @@ const Verification = props => {
       <InlineTextContainer style={{marginTop: 50}}>
         <BlueTextInline text={translator.ifWrongData} />
         <TextLink
-          // 'forgetPsas' 'signUp'
+          // 'forgetPass' 'signUp'
           onPress={() => props.setMode(props.mode)}
           text={translator.ifWrongDataHref}
         />

@@ -138,31 +138,39 @@ function Ops(props) {
     <LargePopUp toggleShowPopUp={props.toggleShowPopUp}>
       {props.user.accesses.indexOf('student') !== -1 && (
         <PhoneView style={{gap: 10}}>
-          <CommonButton
-            onPress={() => prepareShowResult()}
-            title={Translate.result}
-            theme={'transparent'}
-          />
-          <CommonButton
-            onPress={() => prepareShowAnswerSheet()}
-            title={Translate.answerSheet}
-            theme={'transparent'}
-          />
-          <CommonButton
-            onPress={() => prepareShowRanking()}
-            title={Translate.ranking}
-            theme={'transparent'}
-          />
+          {state.selectedQuiz.status === 'finished' && (
+            <CommonButton
+              onPress={() => prepareShowResult()}
+              title={Translate.result}
+              theme={'transparent'}
+            />
+          )}
+          {state.selectedQuiz.status === 'finished' && (
+            <CommonButton
+              onPress={() => prepareShowAnswerSheet()}
+              title={Translate.answerSheet}
+              theme={'transparent'}
+            />
+          )}
+          {state.selectedQuiz.status === 'finished' && (
+            <CommonButton
+              onPress={() => prepareShowRanking()}
+              title={Translate.ranking}
+              theme={'transparent'}
+            />
+          )}
           <CommonButton
             onPress={() => getRecp()}
             title={Translate.recp}
             theme={'transparent'}
           />
-          <CommonButton
-            onPress={() => prepareReview()}
-            title={Translate.review}
-            theme={'transparent'}
-          />
+          {state.selectedQuiz.status === 'finished' && (
+            <CommonButton
+              onPress={() => prepareReview()}
+              title={Translate.review}
+              theme={'transparent'}
+            />
+          )}
         </PhoneView>
       )}
       {props.user.accesses.indexOf('student') === -1 && (

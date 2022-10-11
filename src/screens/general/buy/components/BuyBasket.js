@@ -199,8 +199,18 @@ function BuyBasket(props) {
         <MyView style={{...{marginRight: 40}, ...styles.alignItemsCenter}}>
           <CommonButton
             theme={'dark'}
-            title={props.shouldPay > 0 ? Translate.goToPay : Translate.buy}
-            onPress={() => goToPayLocal()}
+            title={
+              props.user === null || props.user === undefined
+                ? 'برای خرید باید ورود کنید'
+                : props.shouldPay > 0
+                ? Translate.goToPay
+                : Translate.buy
+            }
+            onPress={() =>
+              props.user === null || props.user === undefined
+                ? (window.location.href = '/login')
+                : goToPayLocal()
+            }
           />
           {props.shouldPay > 0 && (
             <SimpleText

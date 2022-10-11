@@ -185,8 +185,10 @@ function Card(props) {
                     valFontSize={11}
                   />
                 )}
+
               {((props.quiz.status !== undefined &&
-                props.quiz.status === 'finished') ||
+                props.quiz.status !== 'inProgress' &&
+                props.quiz.status !== 'continue') ||
                 (props.isStudent !== undefined && !props.isStudent)) && (
                 <CommonButton
                   title={commonTranslator.op}

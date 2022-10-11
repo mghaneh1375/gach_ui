@@ -204,12 +204,12 @@ const Home = props => {
             }}>
             <HomeBox
               color="blue"
-              text="سوالات"
+              text="سوال"
               number={data !== undefined ? data.questions : ''}
             />
             <HomeBox
               color="orangered"
-              text="مدارس"
+              text="مدرسه"
               number={data !== undefined ? data.schools : ''}
             />
             <HomeBox

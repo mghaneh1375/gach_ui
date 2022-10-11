@@ -146,11 +146,7 @@ const Header = props => {
                         marginRight: !showProfilePane ? 40 : 0,
                       }
                 }
-                text={
-                  !showProfilePane
-                    ? commonTranslator.hello + ' - ' + props.name
-                    : ' '
-                }
+                text={!showProfilePane ? props.name : ' '}
               />
             )}
             <MyView
@@ -190,7 +186,7 @@ const Header = props => {
                           ...style.Header_Profile_Text_Web,
                         }
                   }
-                  text={commonTranslator.hello + ' - ' + props.name}
+                  text={props.name}
                 />
                 <MyView>
                   <TouchableOpacity

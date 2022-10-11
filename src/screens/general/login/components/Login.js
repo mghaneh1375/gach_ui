@@ -1,10 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {style} from '../../../../components/web/LargeScreen/Header/style';
-import {getWidthHeight} from '../../../../services/Utility';
-import {CommonButton, MyView, MyViewWithRef} from '../../../../styles/Common';
+import {getWidthHeight, showError} from '../../../../services/Utility';
+import {CommonButton, MyView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import commonTranlator from './../../../../translator/Common';
 import translator from './../translate';
@@ -19,6 +19,15 @@ const Login = props => {
   };
 
   const requestLogin = React.useCallback(() => {
+    if (
+      username === undefined ||
+      password === undefined ||
+      username === '' ||
+      password === ''
+    ) {
+      showError(commonTranlator.pleaseFillAllFields);
+      return;
+    }
     props.setLoading(true);
 
     Promise.all([
@@ -31,16 +40,15 @@ const Login = props => {
         },
         ['user', 'token'],
       ),
-    ]).then(res => {
+    ]).then(async res => {
       props.setLoading(false);
       if (res[0] !== null) {
-        setCacheItem('token', res[0].token);
-        setCacheItem('user', JSON.stringify(res[0].user));
-        props.navigate(props.toPath);
+        await setCacheItem('token', res[0].token);
+        await setCacheItem('user', JSON.stringify(res[0].user));
+        window.location.href = props.toPath;
       }
     });
   }, [props, username, password]);
-  const width = getWidthHeight()[0];
 
   return (
     <MyView style={{...style.ParentLoginModule, ...style.marginTop25}}>
