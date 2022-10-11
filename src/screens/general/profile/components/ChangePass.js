@@ -47,6 +47,7 @@ const ChangePass = props => {
         <CommonButton
           style={{backgroundColor: vars.DARK_BLUE}}
           title={commonTranslator.change}
+          padding={'5px 50px'}
           onPress={() =>
             changePass(
               props.setLoading,
