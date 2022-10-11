@@ -1,7 +1,7 @@
 import React from 'react';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
-import {style, MenuItemPhone, MenuItem} from '../style';
+import {style, MenuItemPhone} from '../style';
 import translator from '../../../../../translator/Common';
 import {
   faHome,
@@ -11,7 +11,6 @@ import {
   faCreditCard,
   faCheckSquare,
   faCog,
-  faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '../../../../../styles/Common';
 import MenuItemRepeat from './MenuItemRepeat';

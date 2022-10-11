@@ -87,6 +87,7 @@ const Quiz = props => {
             token={props.token}
             quizMode={params.mode}
             quizId={params.quizId}
+            quizName={params.quizName}
           />
         )}
         {mode === 'karname' && (

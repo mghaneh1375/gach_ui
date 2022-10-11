@@ -22,8 +22,15 @@ const defaultGlobalState = {
 export const globalStateContext = React.createContext(defaultGlobalState);
 export const dispatchStateContext = React.createContext(undefined);
 
-const excludeRightMenu = ['login', 'home', 'reviewQuiz', 'startQuiz'];
-const excludeTopNav = ['login', 'profile'];
+const excludeRightMenu = [
+  'login',
+  'home',
+  'reviewQuiz',
+  'startQuiz',
+  'rankingList',
+  'allSchools',
+];
+const excludeTopNav = ['login', 'profile', 'rankingList', 'allSchools'];
 const excludeBottomNav = ['login'];
 const d = getDevice();
 

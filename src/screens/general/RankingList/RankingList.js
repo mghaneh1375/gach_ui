@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext} from '../../../App';
+import {dispatchStateContext, globalStateContext} from '../../../App';
 import {CommonWebBox, MyView, PhoneView} from '../../../styles/Common';
+import {styles} from '../../../styles/Common/Styles';
+import vars from '../../../styles/root';
+import Card from '../../panel/quiz/components/Card/Card';
+import ProgressCard from '../../studentPanel/‌MyOffs/ProgressCard/ProgressCard';
 import BoxRanking from '../BoxRanking/BoxRanking';
 import Filter from './Filter';
-import {fetchRankingList} from './Utility';
+import {fetchFinishedQuizzes, fetchRankingList} from './Utility';
 
 function RankingList(props) {
   const navigate = props.navigate;
@@ -14,8 +18,14 @@ function RankingList(props) {
   const [grades, setGrades] = useState();
   const [useFilter, setUseFilter] = useState(false);
 
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
-  const [dispatch] = useGlobalState();
+  const useGlobalState = () => [
+    React.useContext(dispatchStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
+  const [mode, setMode] = useState('generalRanking');
+  const [quizzes, setQuizzes] = useState();
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -44,40 +54,125 @@ function RankingList(props) {
     });
   }, [dispatch, props, isWorking, navigate, data]);
 
+  const prepareIRYSCQuizzes = React.useCallback(() => {
+    if (quizzes !== undefined) {
+      setMode('quizRanking');
+      return;
+    }
+
+    dispatch({loading: true});
+
+    Promise.all([fetchFinishedQuizzes()]).then(res => {
+      dispatch({loading: false});
+
+      if (res[0] === null) {
+        setQuizzes([]);
+        setMode('quizRanking');
+        return;
+      }
+
+      setQuizzes(res[0]);
+      setMode('quizRanking');
+    });
+  }, [dispatch, quizzes]);
+
   return (
     <MyView>
-      <CommonWebBox>
-        <Filter
-          setUseFilter={setUseFilter}
-          useFilter={useFilter}
-          setLoading={setLoading}
-          setData={setData}
-          grades={grades}
+      <div
+        style={{
+          position: 'fixed',
+          zIndex: -1,
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          background: 'url(./assets/images/back3.png)',
+        }}></div>
+
+      <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
+        <ProgressCard
+          header={'رتبه بندی کلی'}
+          theme={vars.ORANGE}
+          color={mode === 'generalRanking' ? vars.WHITE : vars.DARK_BLUE}
+          width={250}
+          percent={mode === 'generalRanking' ? '90%' : '10%'}
+          onPress={() => {
+            if (mode === 'generalRanking') return;
+            setMode('generalRanking');
+          }}
+          style={{...styles.cursor_pointer}}
         />
-      </CommonWebBox>
-      <PhoneView>
-        {data !== undefined &&
-          data.map((elem, index) => {
-            return (
-              <PhoneView
-                key={index}
-                style={{marginRight: 70, marginTop: 20, gap: 50}}>
-                <BoxRanking
-                  school={elem.student.school}
-                  grade={elem.student.grade}
-                  name={elem.student.name}
-                  city={elem.student.city}
-                  valScore={elem.cumSum}
-                  valQuiz={elem.totalQuizzes}
-                  field={elem.student.branches}
-                  rank={elem.student.rank}
-                  pic={elem.student.pic}
-                  useFilter={useFilter}
-                />
-              </PhoneView>
-            );
-          })}
+        <ProgressCard
+          header={'رتبه بندی آزمون ها'}
+          theme={vars.ORANGE_RED}
+          color={mode === 'quizRanking' ? vars.WHITE : vars.DARK_BLUE}
+          width={250}
+          percent={mode === 'quizRanking' ? '90%' : '10%'}
+          onPress={() => {
+            if (mode === 'quizRanking') return;
+            prepareIRYSCQuizzes();
+          }}
+          style={{...styles.cursor_pointer}}
+        />
       </PhoneView>
+      {mode === 'quizRanking' && (
+        <PhoneView style={{...styles.gap30, ...styles.justifyContentCenter}}>
+          {quizzes !== undefined &&
+            quizzes.map((elem, index) => {
+              return (
+                <Card
+                  onSelect={quizId => {
+                    window.open(
+                      '/ranking/irysc/' + quizId + '/' + elem.title,
+                      '_blank',
+                    );
+                  }}
+                  selectText={'مشاهده رتبه بندی'}
+                  key={index}
+                  quiz={elem}
+                />
+              );
+            })}
+        </PhoneView>
+      )}
+      {mode === 'generalRanking' && (
+        <MyView>
+          <CommonWebBox
+            style={styles.alignSelfCenter}
+            width={state.isRightMenuVisible ? '100%' : vars.LEFT_SECTION_WIDTH}>
+            <Filter
+              setUseFilter={setUseFilter}
+              useFilter={useFilter}
+              setLoading={setLoading}
+              setData={setData}
+              grades={grades}
+            />
+          </CommonWebBox>
+          <PhoneView style={styles.justifyContentCenter}>
+            {data !== undefined &&
+              data.map((elem, index) => {
+                return (
+                  <PhoneView
+                    key={index}
+                    style={{marginRight: 70, marginTop: 20, gap: 50}}>
+                    <BoxRanking
+                      school={elem.student.school}
+                      grade={elem.student.grade}
+                      name={elem.student.name}
+                      city={elem.student.city}
+                      valScore={elem.cumSum}
+                      valQuiz={elem.totalQuizzes}
+                      field={elem.student.branches}
+                      rank={elem.student.rank}
+                      pic={elem.student.pic}
+                      useFilter={useFilter}
+                    />
+                  </PhoneView>
+                );
+              })}
+          </PhoneView>
+        </MyView>
+      )}
     </MyView>
   );
 }

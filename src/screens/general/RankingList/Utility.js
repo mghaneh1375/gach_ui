@@ -12,3 +12,13 @@ export const fetchRankingList = async (gradeId = undefined) => {
     undefined,
   );
 };
+
+export const fetchFinishedQuizzes = async () => {
+  return await generalRequest(
+    routes.fetchFinishedQuizzes,
+    'get',
+    undefined,
+    'data',
+    undefined,
+  );
+};

@@ -30,20 +30,20 @@ function MenuItemRepeat(props) {
         navigate={navigate}
         items={[
           {
-            text: translator.myQuizes,
-            url: '/myIRYSCQuizzes',
-          },
-          {
-            text: translator.myCustomQuizess,
-            url: '/myCustomQuizzes',
-          },
-          {
             text: translator.buyQuiz,
             url: '/buy',
           },
           {
             text: translator.makeQuiz,
             url: '/makeQuiz',
+          },
+          {
+            text: translator.myQuizes,
+            url: '/myIRYSCQuizzes',
+          },
+          {
+            text: translator.myCustomQuizess,
+            url: '/myCustomQuizzes',
           },
           {
             text: translator.schools,

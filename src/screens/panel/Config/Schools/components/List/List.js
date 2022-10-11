@@ -3,9 +3,10 @@ import {CommonWebBox, MyView} from '../../../../../../styles/Common';
 import translator from '../../Translator';
 import Filter from './Filter';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
-import columns from './TableStruture';
+import columns, {columnsForUsers} from './TableStruture';
 import {routes} from '../../../../../../API/APIRoutes';
 import Ops from '../Ops';
+import vars from '../../../../../../styles/root';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -21,7 +22,7 @@ function List(props) {
 
   return (
     <MyView>
-      {showOpPopUp && (
+      {showOpPopUp && props.isAdmin && (
         <Ops
           school={props.selectedSchool}
           toggleShowPopUp={toggleShowOpPopUp}
@@ -42,13 +43,15 @@ function List(props) {
             token={props.token}
             setLoading={props.setLoading}
             states={props.states}
+            isAdmin={props.isAdmin}
           />
           <CommonDataTable
-            columns={columns}
+            columns={props.isAdmin ? columns : columnsForUsers}
             data={props.schools}
-            setData={props.setData}
-            handleOp={handleOp}
-            removeUrl={routes.removeSchools}
+            excel={props.isAdmin}
+            setData={props.isAdmin ? props.setData : undefined}
+            handleOp={props.isAdmin ? handleOp : undefined}
+            removeUrl={props.isAdmin ? routes.removeSchools : undefined}
             token={props.token}
             setLoading={props.setLoading}
           />

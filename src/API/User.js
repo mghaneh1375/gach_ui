@@ -8,7 +8,8 @@ export const logout = async (token, navigate) => {
   await generalRequest(routes.logout, 'post', undefined, undefined, token);
 
   await removeAuthCache();
-  navigate(getDevice().indexOf(Device.App) !== -1 ? 'Home' : '/');
+  // navigate(getDevice().indexOf(Device.App) !== -1 ? 'Home' : '/');
+  window.location.href = '/';
 };
 
 export const removeAuthCache = async () => {

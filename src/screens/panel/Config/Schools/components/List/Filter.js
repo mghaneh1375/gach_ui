@@ -3,6 +3,7 @@ import StateAndCity from '../../../../../../components/web/StateAndCity';
 import {allTrueFalseValues} from '../../../../../../services/Utility';
 import {CommonButton, PhoneView, MyView} from '../../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
+import vars from '../../../../../../styles/root';
 import commonTranslator from '../../../../../../translator/Common';
 import translator from '../../Translator';
 import {grades, kindSchools} from '../KeyVals';
@@ -32,13 +33,15 @@ function Filter(props) {
   return (
     <MyView>
       <PhoneView style={{gap: 15}}>
-        <JustBottomBorderSelect
-          setter={setHasUser}
-          values={allTrueFalseValues}
-          value={allTrueFalseValues.find(elem => elem.id === hasUser)}
-          placeholder={translator.hasUser}
-          subText={translator.hasUser}
-        />
+        {props.isAdmin && (
+          <JustBottomBorderSelect
+            setter={setHasUser}
+            values={allTrueFalseValues}
+            value={allTrueFalseValues.find(elem => elem.id === hasUser)}
+            placeholder={translator.hasUser}
+            subText={translator.hasUser}
+          />
+        )}
 
         <JustBottomBorderSelect
           setter={setKindSchool}

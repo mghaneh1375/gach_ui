@@ -288,6 +288,17 @@ function Card(props) {
             </PhoneView>
           </PhoneView>
         )}
+        {props.onSelect !== undefined && (
+          <CommonButton
+            onPress={() => props.onSelect(props.quiz.id)}
+            theme={
+              props.quiz.isSelected !== undefined && props.quiz.isSelected
+                ? 'yellow'
+                : 'yellow-transparent'
+            }
+            title={props.selectText}
+          />
+        )}
 
         <MyView
           style={{

@@ -23,17 +23,27 @@ function Buy(props) {
     if (mode !== 'list') {
       dispatch({
         isFilterMenuVisible: false,
-        isRightMenuVisible: true,
+        isRightMenuVisible: state.user !== null,
       });
     } else
       dispatch({
         isRightMenuVisible: false,
         isFilterMenuVisible: true,
       });
-  }, [mode, dispatch]);
+  }, [mode, dispatch, state.user]);
 
   return (
     <PackageProvider>
+      <div
+        style={{
+          position: 'fixed',
+          zIndex: -1,
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          background: 'url(./assets/images/back3.png)',
+        }}></div>
       {mode === 'list' && (
         <List
           setMode={setMode}

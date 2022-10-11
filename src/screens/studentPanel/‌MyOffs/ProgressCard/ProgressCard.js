@@ -39,12 +39,14 @@ function ProgressCard(props) {
               }}
               text={props.header}
             />
-            <Circle
-              text={props.circleText}
-              color={vars.WHITE}
-              diameter={25}
-              backgroundColor={vars.DARK_BLUE}
-            />
+            {props.circleText !== undefined && (
+              <Circle
+                text={props.circleText}
+                color={vars.WHITE}
+                diameter={25}
+                backgroundColor={vars.DARK_BLUE}
+              />
+            )}
           </EqualTwoTextInputs>
         )}
       </Pressable>

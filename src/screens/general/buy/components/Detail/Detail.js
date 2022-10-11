@@ -5,6 +5,7 @@ import {MyView} from '../../../../../styles/Common';
 import Info from '../../../../panel/package/components/Detail/Info';
 import List from './List';
 import SchoolList from './SchoolList';
+import vars from '../../../../../styles/root';
 
 function Detail(props) {
   const useGlobalState = () => [
@@ -19,7 +20,12 @@ function Detail(props) {
   }, [props.isRightMenuVisible, dispatch]);
 
   return (
-    <MyView>
+    <MyView
+      style={
+        !props.isRightMenuVisible
+          ? {maxWidth: vars.LEFT_SECTION_WIDTH, alignSelf: 'center'}
+          : {}
+      }>
       {showInfo && (
         <Info isAdmin={false} setMode={props.setMode} package={state.package} />
       )}

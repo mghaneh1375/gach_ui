@@ -139,7 +139,11 @@ function List(props) {
         <MyView style={{padding: 10, alignSelf: 'start', minHeight: '100vh'}}>
           <BigBoldBlueText text={'لیست آزمون ها'} />
           <Quizzes
-            fullWidth={!state.isRightMenuVisible}
+            fullWidth={
+              props.user === null ||
+              props.user === undefined ||
+              !state.isRightMenuVisible
+            }
             setSelectedQuizzes={ids => calc(ids, userOff)}
             quizzes={quizzes}>
             <BuyBasket

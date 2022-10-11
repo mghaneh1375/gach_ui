@@ -34,7 +34,6 @@ import General from './panel/Config/Configuration/General';
 import CertConf from './panel/Config/Configuration/Certificate';
 import Ravan from './panel/Config/Configuration/Ravan';
 import Schools from './panel/Config/Schools/Schools';
-import AllSchools from './general/Schools/Schools';
 import Grade from './panel/Basic/grade/Grade';
 import Lesson from './panel/Basic/lesson/Lesson';
 import Package from './panel/package/Package';
@@ -139,31 +138,39 @@ const WebStructue = props => {
       {allowRenderPage && (
         <MinFullHeightView>
           <MyView style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-            {props.page !== 'home' && (
-              <Logo
-                isLogin={state.user !== null}
-                toggleRightMenuVisibility={toggleRightMenuVisibility}
-              />
-            )}
-            {(props.page === 'home' || state.user === null) &&
+            {props.page !== 'home' &&
+              props.page !== 'allSchools' &&
+              props.page !== 'rankingList' && (
+                <Logo
+                  isLogin={state.user !== null}
+                  toggleRightMenuVisibility={toggleRightMenuVisibility}
+                />
+              )}
+            {(props.page === 'home' ||
+              props.page === 'allSchools' ||
+              props.page === 'rankingList' ||
+              state.user === null) &&
               device.indexOf(Device.Large) !== -1 && (
                 <Navbar user={state.user} />
               )}
 
-            {state.user !== null && props.page !== 'home' && (
-              <Header
-                pic={state.user.user.pic}
-                name={
-                  state.user.user.firstName + ' ' + state.user.user.lastName
-                }
-                token={state.token}
-                isRightMenuVisible={state.isRightMenuVisible}
-                setLoading={setLoading}
-                navigate={navigate}
-                // setUser={setUser}
-                newAlerts={newAlerts}
-              />
-            )}
+            {state.user !== null &&
+              props.page !== 'home' &&
+              props.page !== 'allSchools' &&
+              props.page !== 'rankingList' && (
+                <Header
+                  pic={state.user.user.pic}
+                  name={
+                    state.user.user.firstName + ' ' + state.user.user.lastName
+                  }
+                  token={state.token}
+                  isRightMenuVisible={state.isRightMenuVisible}
+                  setLoading={setLoading}
+                  navigate={navigate}
+                  // setUser={setUser}
+                  newAlerts={newAlerts}
+                />
+              )}
 
             <Menu
               isFilterAvailable={includeFilterMenu.indexOf(props.page) !== -1}
@@ -226,9 +233,7 @@ const WebStructue = props => {
               {props.page === 'financeHistory' && (
                 <History navigate={navigate} />
               )}
-              {props.page === 'allSchools' && (
-                <AllSchools navigate={navigate} />
-              )}
+              {props.page === 'allSchools' && <Schools navigate={navigate} />}
               {props.page === 'makeQuiz' && (
                 <MakeQuiz
                   user={state.user}
@@ -433,13 +438,7 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-              {props.page === 'schools' && (
-                <Schools
-                  token={state.token}
-                  user={state.user}
-                  navigate={navigate}
-                />
-              )}
+              {props.page === 'schools' && <Schools navigate={navigate} />}
               {props.page === 'finantialReport' && (
                 <Transaction token={state.token} navigate={navigate} />
               )}

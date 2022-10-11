@@ -1,6 +1,6 @@
-import React, {useState, useRef, useCallback} from 'react';
+import React, {useState} from 'react';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
-import {getQuiz, getRanking} from '../../Utility';
+import {getRanking} from '../../Utility';
 import {CommonWebBox, PhoneView} from '../../../../../../styles/Common';
 import {quizContext, dispatchQuizContext} from '../../Context';
 import {
@@ -95,31 +95,6 @@ function Ranking(props) {
     },
   ];
 
-  // const fetchQuiz = React.useCallback(async () => {
-  //   props.setLoading(true);
-
-  //   let res = await getQuiz(props.quizId, props.quizMode, props.token);
-
-  //   if (res === null) {
-  //     props.setLoading(false);
-  //     props.navigate('/');
-  //     setIsWorking(false);
-  //     return;
-  //   }
-
-  //   dispatch({selectedQuiz: res, needUpdate: true});
-  // }, [props, dispatch]);
-
-  // React.useEffect(() => {
-  //   if (isWorking) return;
-
-  //   if (state.quizzes === undefined) {
-  //     setIsWorking(true);
-  //     fetchQuiz();
-  //     return;
-  //   }
-  // }, [state.quizzes, fetchQuiz, isWorking]);
-
   React.useEffect(() => {
     if (state.selectedQuiz === undefined) {
       dispatch({
@@ -150,25 +125,49 @@ function Ranking(props) {
 
   return (
     <CommonWebBox
-      header={'نتایج'}
+      header={
+        state.selectedQuiz.title !== undefined
+          ? 'نتایج ' + state.selectedQuiz.title
+          : props.quizName !== undefined
+          ? 'نتایج ' + props.quizName
+          : 'نتایج'
+      }
       btn={
         <PhoneView style={styles.alignItemsCenter}>
           <CopyBox
             title={commonTranslator.copyLink}
             url={
-              BASE_SITE_NAME +
-              'ranking/' +
-              state.selectedQuiz.generalMode +
-              '/' +
-              state.selectedQuiz.id
+              state.selectedQuiz.title !== undefined
+                ? BASE_SITE_NAME +
+                  'ranking/' +
+                  state.selectedQuiz.generalMode +
+                  '/' +
+                  state.selectedQuiz.id +
+                  '/' +
+                  state.selectedQuiz.title
+                : props.quizName !== undefined
+                ? BASE_SITE_NAME +
+                  'ranking/' +
+                  state.selectedQuiz.generalMode +
+                  '/' +
+                  state.selectedQuiz.id +
+                  '/' +
+                  props.quizName
+                : BASE_SITE_NAME +
+                  'ranking/' +
+                  state.selectedQuiz.generalMode +
+                  '/' +
+                  state.selectedQuiz.id
             }
           />
-          <FontIcon
-            onPress={() => props.setMode('list')}
-            theme="rect"
-            kind="normal"
-            icon={faArrowLeft}
-          />
+          {state.selectedQuiz.title !== undefined && (
+            <FontIcon
+              onPress={() => props.setMode('list')}
+              theme="rect"
+              kind="normal"
+              icon={faArrowLeft}
+            />
+          )}
         </PhoneView>
       }>
       {state.selectedQuiz !== undefined &&
@@ -179,6 +178,7 @@ function Ranking(props) {
             show_row_no={false}
             pagination={false}
             groupOps={[]}
+            excel={state.selectedQuiz.title !== undefined}
           />
         )}
     </CommonWebBox>

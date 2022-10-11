@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, Pressable} from 'react-native';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
 import {faClose, faNavicon} from '@fortawesome/free-solid-svg-icons';

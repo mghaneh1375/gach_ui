@@ -24,6 +24,7 @@ export const routes = {
   toggleStatus: 'admin/user/toggleStatus/',
   fetchSiteStats: 'general/getSiteStats',
   fetchRankingList: 'general/getRankingList/',
+  fetchFinishedQuizzes: 'quiz/public/getFinishedQuizzes',
   fetchState: 'general/fetchStates',
   fetchNewAlerts: 'general/getNewAlerts',
   fetchSchoolsDigest: 'general/fetchSchoolsDigest',

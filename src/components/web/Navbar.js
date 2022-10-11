@@ -79,7 +79,7 @@ const Navbar = props => {
         {!isLogin && (
           <CommonButton
             style={{minWidth: 'unset', paddingLeft: 10, paddingRight: 10}}
-            href="/login"
+            onPress={() => (window.location.href = '/login')}
             title={'ورود/ثبت نام'}
           />
         )}

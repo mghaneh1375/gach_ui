@@ -41,4 +41,27 @@ const columns = [
   },
 ];
 
+export const columnsForUsers = [
+  {
+    name: translator.name,
+    selector: row => row.name,
+    grow: 1,
+  },
+  {
+    name: commonTranslator.city,
+    selector: row => row.city.name,
+    grow: 1,
+  },
+  {
+    name: translator.kind,
+    selector: row => row.kindStr,
+    grow: 1,
+  },
+  {
+    name: commonTranslator.grade,
+    selector: row => row.gradeStr,
+    grow: 1,
+  },
+];
+
 export default columns;
