@@ -18,7 +18,7 @@ function MenuItemRepeat(props) {
   return (
     <div className="menu-item-container" style={style.MenuJustLarge}>
       <MenuItem
-        onClick={() => navigate('/dashboard')}
+        onClick={() => navigate('/')}
         text={translator.home}
         icon={faHome}
         selected={props.selected === 'dashboard'}

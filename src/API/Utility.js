@@ -10,9 +10,9 @@ export const BASE_SITE_NAME = 'http://localhost:3000/';
 export const CV_BASE_URL = 'https://cv.irysc.com/api/';
 
 // export const BASE_URL = 'http://192.168.1.103:8080/api/';
-// export const BASE_URL = 'http://192.168.0.106:8080/api/';
+export const BASE_URL = 'http://192.168.0.106:8080/api/';
 // export const BASE_URL = 'http://185.239.106.26:8087/api/';
-export const BASE_URL = 'https://e.irysc.com/api/';
+// export const BASE_URL = 'https://e.irysc.com/api/';
 
 export const COMMON_HEADER = {
   'content-type': 'application/json',

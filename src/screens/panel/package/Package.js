@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {dispatchStateContext} from '../../../App';
 import List from './components/List/List';
-import {fetchAllPackages} from './components/Utility';
+import {fetchAllPackages, fetchAllPackagesDigest} from './components/Utility';
 import {addItem, editItem, removeItems} from '../../../services/Utility';
 import Create from './components/Create';
 import {getGradeLessons} from '../Basic/Utility';
@@ -33,7 +33,7 @@ function Package(props) {
 
   React.useEffect(() => {
     dispatch({loading: true});
-    Promise.all([fetchAllPackages(props.token), getGradeLessons()]).then(
+    Promise.all([fetchAllPackagesDigest(props.token), getGradeLessons()]).then(
       res => {
         dispatch({loading: false});
         if (res[0] === null || res[1] === null) {

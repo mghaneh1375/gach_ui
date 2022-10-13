@@ -44,6 +44,8 @@ const excludeAuthRoutes = [
   'ranking',
 ];
 
+const hasLeftFilterRoutes = ['buy', 'package'];
+
 const GlobalStateProvider = ({children}) => {
   const [state, dispatch] = React.useReducer(
     (state, newValue) => ({...state, ...newValue}),
@@ -82,6 +84,7 @@ const GlobalStateProvider = ({children}) => {
     dispatch({
       showTopNav: excludeTopNav.indexOf(state.page) === -1,
       showBottonNav: excludeBottomNav.indexOf(state.page) === -1,
+      isFilterMenuVisible: hasLeftFilterRoutes.indexOf(state.page) !== -1,
       isRightMenuVisible:
         d.indexOf(Device.Large) !== -1 &&
         excludeRightMenu.indexOf(state.page) === -1 &&

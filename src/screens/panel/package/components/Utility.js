@@ -13,6 +13,16 @@ export const fetchAllPackages = async token => {
   );
 };
 
+export const fetchAllPackagesDigest = async token => {
+  return await generalRequest(
+    routes.fetchAllPackagesDigest,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const fetchPackageQuizzes = async (token, id) => {
   return await generalRequest(
     routes.fetchPackageQuizzes + id,

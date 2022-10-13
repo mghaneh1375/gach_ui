@@ -101,6 +101,7 @@ export const routes = {
   addBatchQuestionsToQuiz: 'quiz/manage/addBatchQuestionsToQuiz/',
   addQuestionToQuizzes: 'quiz/manage/addQuestionToQuizzes/',
   fetchAllPackages: 'quiz/manage/getPackages',
+  fetchAllPackagesDigest: 'quiz/manage/getPackagesDigest',
   fetchPackageQuizzes: 'quiz/manage/getPackageQuizzes/',
   removePackages: 'quiz/manage/removePackages',
   createPackage: 'quiz/manage/createPackage',
