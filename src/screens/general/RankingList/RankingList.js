@@ -39,7 +39,7 @@ function RankingList(props) {
 
     Promise.all([
       fetchRankingList(),
-      generalRequest(routes.fetchGrades, 'get', undefined, 'data'),
+      generalRequest(routes.fetchBranches, 'get', undefined, 'data'),
     ]).then(res => {
       dispatch({loading: false});
 

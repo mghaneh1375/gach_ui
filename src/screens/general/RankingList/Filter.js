@@ -9,6 +9,7 @@ function Filter(props) {
   const [grade, setGrade] = useState();
 
   const setSelectedGrade = async item => {
+    if (item === undefined) return;
     setGrade(item);
     props.setLoading(true);
     let res = await fetchRankingList(item.id);

@@ -12,7 +12,7 @@ import ChangeUsername from '../components/ChangeUsername';
 import UpdateInfo from '../components/UpdateInfo';
 import UpdatePic from '../components/UpdatePic';
 import UpdateUsername from '../components/UpdateUsername';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
+import {dispatchStateContext} from '../../../../App';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import translator from '../translate';
@@ -31,12 +31,9 @@ const Profile = props => {
   const navigate = props.navigate;
   const params = useParams();
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
 
-  const [state, dispatch] = useGlobalState();
+  const [dispatch] = useGlobalState();
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -96,8 +93,8 @@ const Profile = props => {
     getPreRequirements(
       status => dispatch({loading: status}),
       setStates,
-      setGrades,
       setBranches,
+      setGrades,
       setSchools,
     );
   }, [fetchedStates, dispatch]);

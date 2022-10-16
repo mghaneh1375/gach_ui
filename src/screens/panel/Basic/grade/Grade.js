@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
+import {dispatchStateContext} from '../../../../App';
 import {getGrades} from '../Utility';
 import List from './List/List';
 import Create from './create/Create';
@@ -13,11 +13,8 @@ function Grade(props) {
   const [grades, setGrades] = useState();
   const navigate = props.navigate;
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
-  const [state, dispatch] = useGlobalState();
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const [dispatch] = useGlobalState();
   const setLoading = status => {
     dispatch({loading: status});
   };

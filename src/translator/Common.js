@@ -151,7 +151,7 @@ const translator = {
   profile: 'پروفایل',
   hello: 'سلام',
   seeInfo: 'مشاهده اطلاعات',
-  isOlympiad: 'آیا جز رشته های المپیادی است؟',
+  isOlympiad: 'آیا جز مقاطع تحصیلی است؟',
   listQuiz: 'لیست آزمون ها',
   packageQuiz: 'بسته های آزمون',
   haveQuiz: 'آزمون های موجود',
