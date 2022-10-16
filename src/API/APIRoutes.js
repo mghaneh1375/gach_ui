@@ -5,6 +5,7 @@ export const routes = {
   signIn: 'user/signIn',
   signup: 'user/signUp',
   getMySummary: 'general/getMySummary',
+  exchange: 'general/exchange',
   activate: 'user/activate',
   resendCode: 'user/resendCode',
   updateInfo: 'user/updateInfo/',

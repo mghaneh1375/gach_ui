@@ -11,6 +11,7 @@ const translator = {
   schoolOffPercent: 'تخفیف ثبت نام مدارس',
   minRequestMoney: 'حداقل پول قابل برداشت',
   coinRateCoef: 'نرخ تبدیل سکه به پول',
+  moneyRateCoef: 'نرخ تبدیل پول به سکه',
   topInQuizForCert: 'تعداد نفرات برتر برای صدور گواهی',
   advisorOffPercent: 'تخفیف ثبت نام مشاوران',
   hermans: ' قیمت آزمون هرمنس',

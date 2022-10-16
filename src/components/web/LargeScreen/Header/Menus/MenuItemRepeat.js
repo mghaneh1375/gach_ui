@@ -45,10 +45,10 @@ function MenuItemRepeat(props) {
             text: translator.myCustomQuizess,
             url: '/myCustomQuizzes',
           },
-          {
-            text: translator.schools,
-            url: '/schoolUsers',
-          },
+          // {
+          //   text: translator.schools,
+          //   url: '/schoolUsers',
+          // },
         ]}
       />
       <MenuItem

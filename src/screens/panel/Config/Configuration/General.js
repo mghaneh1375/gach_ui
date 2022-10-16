@@ -32,6 +32,7 @@ function General(props) {
   const [schoolOffPercent, setSchoolOffPercent] = useState();
   const [minRequestMoney, setMinRequestMoney] = useState();
   const [coinRateCoef, setCoinRateCoef] = useState();
+  const [moneyRateCoef, setMoneyRateCoef] = useState();
   const [topInQuizForCert, setTopInQuizForCert] = useState();
   const [advisorOffPercent, setAdvisorOffPercent] = useState();
   const [maxStudentQuizPerDay, setMaxStudentQuizPerDay] = useState();
@@ -71,6 +72,7 @@ function General(props) {
       setSchoolOffPercent(data.schoolOffPercent);
       setMinRequestMoney(data.minRequestMoney);
       setCoinRateCoef(data.coinRateCoef);
+      setMoneyRateCoef(data.moneyRateCoef);
       setTopInQuizForCert(data.topInQuizForCert);
       setAdvisorOffPercent(data.advisorOffPercent);
       setMaxStudentQuizPerDay(data.maxStudentQuizPerDay);
@@ -99,6 +101,7 @@ function General(props) {
           schoolOffPercent: schoolOffPercent,
           minRequestMoney: minRequestMoney,
           coinRateCoef: coinRateCoef,
+          moneyRateCoef: moneyRateCoef,
           topInQuizForCert: topInQuizForCert,
           advisorOffPercent: advisorOffPercent,
           maxStudentQuizPerDay: maxStudentQuizPerDay,
@@ -208,6 +211,14 @@ function General(props) {
             value={coinRateCoef}
             float={true}
             onChangeText={e => setCoinRateCoef(e)}
+            justNum={true}
+          />
+          <JustBottomBorderTextInput
+            placeholder={translator.moneyRateCoef}
+            subText={translator.moneyRateCoef}
+            value={moneyRateCoef}
+            float={true}
+            onChangeText={e => setMoneyRateCoef(e)}
             justNum={true}
           />
           <JustBottomBorderTextInput
