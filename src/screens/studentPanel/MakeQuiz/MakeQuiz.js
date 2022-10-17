@@ -49,6 +49,7 @@ function MakeQuiz(props) {
   const [id, setId] = useState();
   const [price, setPrice] = useState();
   const [mode, setMode] = useState('choose');
+  const [transactionId, setTransactionId] = useState();
   const navigate = props.navigate;
 
   const calc = (accountOff, totalPrice) => {
@@ -139,12 +140,36 @@ function MakeQuiz(props) {
       {showSuccessTransaction && (
         <SuccessTransaction
           navigate={props.navigate}
+          transactionId={transactionId}
           link={
-            <SimpleText
-              onPress={() => props.navigate('/myQuizzes')}
-              style={{color: vars.DARK_BLUE}}
-              text={'برای مشاهده آزمون های من اینجا را کلیک کنید.'}
-            />
+            <PhoneView>
+              <SimpleText
+                style={{
+                  ...styles.dark_blue_color,
+                  ...styles.fontSize13,
+                  ...styles.marginLeft5,
+                }}
+                text={commonTranslator.forView}
+              />
+              <SimpleText
+                onPress={() => props.navigate('/myCustomQuizzes')}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.FontWeight600,
+                  ...styles.fontSize13,
+                  ...styles.marginLeft5,
+                  ...styles.cursor_pointer,
+                }}
+                text={commonTranslator.myCustomQuizess}
+              />
+              <SimpleText
+                style={{
+                  ...styles.dark_blue_color,
+                  ...styles.fontSize13,
+                }}
+                text={commonTranslator.clickHere}
+              />
+            </PhoneView>
           }
         />
       )}
@@ -233,7 +258,6 @@ function MakeQuiz(props) {
                       obj.level = level;
                       obj.count = count;
                       tmp.push(obj);
-                      console.log(tmp);
                       setWantedFlag(undefined);
                       setCount('');
                       setLevel(undefined);
@@ -280,6 +304,7 @@ function MakeQuiz(props) {
                         let tmp = [];
                         boxes.forEach((elem, index) => {
                           if (index !== idx) tmp.push(elem);
+                          else setTotal(total - elem.count);
                         });
                         setBoxes(tmp);
                       }}
@@ -306,6 +331,7 @@ function MakeQuiz(props) {
                 token={props.token}
                 user={props.user}
                 usedFromWallet={usedFromWallet}
+                setTransactionId={setTransactionId}
                 toggleShowOffCodePane={() => {
                   setShowOffCodePane(!showOffCodePane);
                 }}

@@ -70,7 +70,7 @@ export const goToPay = async (token, id, offcode) => {
       : {
           offcode: offcode,
         },
-    ['action', 'refId'],
+    ['action', 'refId', 'transactionId'],
     token,
   );
 };

@@ -123,7 +123,9 @@ function Timer() {
       )}
 
       {state.reminder !== undefined && state.reminder > 300 && (
-        <SimpleText text={convertSecToMinWithOutSec(state.reminder)} />
+        <SimpleText
+          text={convertSecToMinWithOutSec(state.reminder) + Translate.reminder}
+        />
       )}
     </MyView>
   );

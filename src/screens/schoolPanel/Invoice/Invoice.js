@@ -52,7 +52,13 @@ function Invoice(props) {
 
   return (
     <MyView>
-      {invoice !== undefined && <Recp recp={invoice} user={props.user.user} />}
+      {invoice !== undefined && (
+        <Recp
+          setLoading={status => dispatch({loading: status})}
+          recp={invoice}
+          user={props.user.user}
+        />
+      )}
     </MyView>
   );
 }

@@ -90,12 +90,14 @@ function Recp(props) {
               kind="normal"
               icon={faPrint}
             />
-            <FontIcon
-              onPress={() => props.onBackClick()}
-              theme="rect"
-              kind="normal"
-              icon={faArrowLeft}
-            />
+            {props.onBackClick !== undefined && (
+              <FontIcon
+                onPress={() => props.onBackClick()}
+                theme="rect"
+                kind="normal"
+                icon={faArrowLeft}
+              />
+            )}
           </PhoneView>
         }>
         <MyViewWithRef

@@ -33,9 +33,15 @@ function Question(props) {
     Image.getSize(
       state.questions[state.currIdx].questionFile,
       (width, height) => {
-        if (width / height < 2) setHeight(400);
-        else if (width / height < 2.5) setHeight(300);
-        else setHeight(200);
+        setImgWidth(totalWidth > 1500 ? totalWidth - 300 : totalWidth - 250);
+        setImgHeight(
+          totalWidth > 1500
+            ? ((totalWidth - 300) * height) / width
+            : ((totalWidth - 250) * height) / width,
+        );
+        // if (width / height < 2) setHeight(400);
+        // else if (width / height < 2.5) setHeight(300);
+        // else setHeight(200);
       },
     );
     if (state.questions[state.currIdx].answerFile !== undefined) {
@@ -44,14 +50,15 @@ function Question(props) {
         (width, height) => {
           if (width / height < 2) setAnswerHeight(400);
           else if (width / height < 2.5) setAnswerHeight(300);
-          else setHeight(200);
+          else setImgHeight(200);
         },
       );
     }
     setQuestion(state.questions[state.currIdx]);
-  }, [state.questions, state.currIdx]);
+  }, [state.questions, state.currIdx, totalWidth]);
 
-  const [height, setHeight] = useState(200);
+  const [imgWidth, setImgWidth] = useState(200);
+  const [imgHeight, setImgHeight] = useState(200);
   const [answerHeight, setAnswerHeight] = useState(200);
   const [isInZoomMode, setIsInZoomMode] = useState();
   const [zoomImg, setZoomImg] = useState();
@@ -122,13 +129,13 @@ function Question(props) {
       )}
       {question !== undefined && (
         <MyView style={{marginBottom: 70}}>
-          <CommonWebBox header={Translate.description} style={{padding: 15}}>
+          <CommonWebBox style={{padding: 15}}>
             {question.questionFile !== undefined && (
               <Image
                 resizeMode="contain"
                 style={{
-                  width: '100%',
-                  height: height,
+                  width: imgWidth,
+                  height: imgHeight,
                   borderRadius: 5,
                 }}
                 source={question.questionFile}

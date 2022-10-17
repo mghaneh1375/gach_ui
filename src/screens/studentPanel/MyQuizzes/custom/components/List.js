@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
-import {MyView, PhoneView} from '../../../../../styles/Common';
+import {
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../../../styles/Common';
 import Card from '../../../../panel/quiz/components/Card/Card';
 import {
   quizContext,
@@ -7,6 +12,7 @@ import {
 } from '../../../../panel/quiz/components/Context';
 import Ops from './Ops';
 import {fetchMyQuizzes} from './Utility';
+import commonTranslator from '../../../../../translator/Common';
 
 function List(props) {
   const useGlobalState = () => [
@@ -61,9 +67,9 @@ function List(props) {
           toggleShowPopUp={() => setShowOpPane(false)}
         />
       )}
-      <PhoneView style={{gap: 15, padding: 15}}>
-        {customQuizzes !== undefined &&
-          customQuizzes.map((quiz, index) => {
+      {customQuizzes !== undefined && customQuizzes.length > 0 && (
+        <PhoneView style={{gap: 15, padding: 15}}>
+          {customQuizzes.map((quiz, index) => {
             return (
               <Card
                 quizOp={() =>
@@ -78,7 +84,16 @@ function List(props) {
               />
             );
           })}
-      </PhoneView>
+        </PhoneView>
+      )}
+      {customQuizzes !== undefined && customQuizzes.length === 0 && (
+        <CommonWebBox
+          header={''}
+          addBtn={true}
+          onAddClick={() => (window.location.href = '/makeQuiz')}>
+          <SimpleText text={commonTranslator.noQuiz} />
+        </CommonWebBox>
+      )}
     </MyView>
   );
 }

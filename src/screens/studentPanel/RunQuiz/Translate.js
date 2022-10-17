@@ -1,6 +1,6 @@
 const Translate = {
   number: 'شماره',
-  addBookmark: 'نشان کردن سوال',
+  addBookmark: 'بعد فکر می کنم',
   deleteBookmark: 'حذف نشان سوال',
   description: 'شرح سوال',
   answerFile: 'پاسخ تشریحی',
@@ -17,13 +17,14 @@ const Translate = {
   start: 'مشاهده سوالات',
   next: 'بعدی',
   prev: 'قبلی',
-  finish: 'اتمام ارزیابی',
+  finish: 'پایان آزمون',
   totalTime: 'زمان کل آزمون',
-  quizList: 'لیست سوالات',
+  quizList: 'نقشه آزمون',
   help: 'راهنما',
-  answered: 'پاسخ داده شده',
-  notAnswered: 'بدون پاسخ',
-  bookmarked: 'نشان شده',
+  answered: 'جواب دادی',
+  notAnswered: 'جواب ندادی',
+  bookmarked: 'می خوای فکر کنی',
+  reminder: ' وقت داری ',
 };
 
 export default Translate;

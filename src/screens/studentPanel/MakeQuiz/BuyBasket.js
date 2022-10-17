@@ -32,6 +32,7 @@ function BuyBasket(props) {
       let user = props.user;
       user.user.money = res.refId;
       await setCacheItem('user', JSON.stringify(user));
+      props.setTransactionId(res.transactionId);
       props.setShowSuccessTransaction(true);
     } else if (res.action === 'pay') {
       setRefId(res.refId);

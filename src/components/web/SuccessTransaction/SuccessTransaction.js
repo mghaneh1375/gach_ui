@@ -4,15 +4,17 @@ import {
   CommonButton,
   CommonWebBox,
   MyView,
+  PhoneView,
   SimpleText,
 } from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
 import Translate from './Translate';
+import commonTranslator from '../../../translator/Common';
 
 function SuccessTransaction(props) {
   return (
     <CommonWebBox header={Translate.backSuccessTransaction}>
-      <MyView style={{...styles.marginRight25}}>
+      <MyView style={{...styles.marginRight25, ...styles.gap10}}>
         <MyView style={{...styles.flexDirectionRow}}>
           <Image
             style={{...styles.symbol}}
@@ -34,36 +36,81 @@ function SuccessTransaction(props) {
               text={Translate.refCode + ' : ' + props.refCode}
             />
           )}
-          <CommonButton
-            style={{justifyContent: 'flex-start'}}
-            title={Translate.printRecp}
-            theme={'dark'}
-          />
+          {props.transactionId !== undefined && (
+            <CommonButton
+              style={{justifyContent: 'flex-start'}}
+              title={Translate.printRecp}
+              onPress={() =>
+                (window.location.href = '/invoice/' + props.transactionId)
+              }
+              theme={'dark'}
+            />
+          )}
         </MyView>
-        <SimpleText
-          text={Translate.buyerName + ' ' + props.buyerName}
-          style={{...styles.BlueBold, ...styles.marginTop50}}
-        />
+
         {props.link !== undefined && props.link}
 
-        <SimpleText
-          onPress={() => props.navigate('/')}
-          style={{
-            ...styles.BlueBold,
-            ...styles.FontWeight600,
-            ...styles.fontSize13,
-          }}
-          text={Translate.back}
-        />
-        <SimpleText
-          onPress={() => props.navigate('/finantialHistory')}
-          style={{
-            ...styles.colorOrange,
-            ...styles.FontWeight600,
-            ...styles.fontSize13,
-          }}
-          text={Translate.showPay}
-        />
+        <PhoneView>
+          <SimpleText
+            style={{
+              ...styles.BlueBold,
+              ...styles.FontWeight600,
+              ...styles.fontSize13,
+              ...styles.marginLeft5,
+            }}
+            text={Translate.back}
+          />
+          <SimpleText
+            onPress={() => (window.location.href = '/')}
+            style={{
+              ...styles.colorOrange,
+              ...styles.FontWeight600,
+              ...styles.fontSize13,
+              ...styles.marginLeft5,
+              ...styles.cursor_pointer,
+            }}
+            text={commonTranslator.home}
+          />
+          <SimpleText
+            style={{
+              ...styles.BlueBold,
+              ...styles.FontWeight600,
+              ...styles.fontSize13,
+            }}
+            text={commonTranslator.clickHere}
+          />
+        </PhoneView>
+
+        <PhoneView>
+          <SimpleText
+            style={{
+              ...styles.colorOrange,
+              ...styles.FontWeight600,
+              ...styles.fontSize13,
+              ...styles.marginLeft5,
+            }}
+            text={Translate.showPay}
+          />
+          <SimpleText
+            onPress={() => props.navigate('/financeHistory')}
+            style={{
+              ...styles.dark_blue_color,
+              ...styles.FontWeight600,
+              ...styles.fontSize13,
+              ...styles.marginLeft5,
+              ...styles.cursor_pointer,
+            }}
+            text={commonTranslator.finantialHistory}
+          />
+          <SimpleText
+            style={{
+              ...styles.colorOrange,
+              ...styles.FontWeight600,
+              ...styles.fontSize13,
+            }}
+            text={commonTranslator.go}
+          />
+        </PhoneView>
       </MyView>
     </CommonWebBox>
   );
