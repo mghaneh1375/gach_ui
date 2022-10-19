@@ -135,7 +135,14 @@ export const DoQuizProvider = ({children}) => {
       ),
     ]).then(res => {
       state.setLoadingWithText(false);
-      state.navigate('/');
+
+      if (res[0] !== null)
+        window.location.href =
+          state.quizInfo.generalMode === 'custom'
+            ? '/myCustomQuizzes'
+            : '/myIRYSCQuizzes';
+
+      // state.navigate('/');
     });
   }, [state]);
 

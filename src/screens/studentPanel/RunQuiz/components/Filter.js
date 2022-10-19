@@ -168,29 +168,84 @@ function Filter(props) {
             );
           })}
       </PhoneView>
-      {state.quizInfo !== undefined && state.quizInfo.attaches !== undefined && (
-        <MyView>
-          <SimpleText
-            style={styles.dark_blue_color}
-            text={commonTranslator.nesFile}
-          />
-          <PhoneView>
-            {state.quizInfo.attaches.map((elem, index) => {
-              return (
-                <AttachBox
-                  icon={faMagnifyingGlass}
-                  key={index}
-                  filename={elem}
-                  onClick={() => {
-                    props.setSelectedAttach(elem);
-                    props.setMode('attach');
-                  }}
+      {state.quizInfo !== undefined &&
+        state.quizInfo.attaches !== undefined &&
+        state.quizInfo.attaches.length > 0 && (
+          <MyView>
+            <SimpleText
+              style={styles.dark_blue_color}
+              text={commonTranslator.nesFile}
+            />
+            <PhoneView>
+              {state.quizInfo.attaches.map((elem, index) => {
+                return (
+                  <AttachBox
+                    icon={faMagnifyingGlass}
+                    key={index}
+                    filename={elem}
+                    onClick={() => {
+                      props.setSelectedAttach(elem);
+                      props.setMode('attach');
+                    }}
+                  />
+                );
+              })}
+            </PhoneView>
+          </MyView>
+        )}
+      {props.isInReviewMode &&
+        state.questions !== undefined &&
+        props.mode !== 'splash' && (
+          <MyView style={{padding: 20}}>
+            <EqualTwoTextInputs>
+              <SimpleText text={'مبحث: '} />
+              <SimpleText text={state.questions[state.currIdx].subject.name} />
+            </EqualTwoTextInputs>
+            <EqualTwoTextInputs>
+              <SimpleText text={'سطح سختی: '} />
+              <SimpleText text={state.questions[state.currIdx].levelFa} />
+            </EqualTwoTextInputs>
+            <EqualTwoTextInputs>
+              <SimpleText text={'طراح سوال: '} />
+              <SimpleText text={state.questions[state.currIdx].author} />
+            </EqualTwoTextInputs>
+            <EqualTwoTextInputs>
+              <SimpleText text={'پاسخ دانش آموز: '} />
+              {state.questions[state.currIdx].kindQuestion === 'test' && (
+                <SimpleText
+                  text={'گزینه ' + state.questions[state.currIdx].stdAns}
                 />
-              );
-            })}
-          </PhoneView>
-        </MyView>
-      )}
+              )}
+              {state.questions[state.currIdx].kindQuestion ===
+                'short_answer' && (
+                <SimpleText text={state.questions[state.currIdx].stdAns} />
+              )}
+            </EqualTwoTextInputs>
+            <EqualTwoTextInputs>
+              <SimpleText text={'پاسخ صحیح: '} />
+              {state.questions[state.currIdx].kindQuestion === 'test' && (
+                <SimpleText
+                  text={'گزینه ' + state.questions[state.currIdx].answer}
+                />
+              )}
+              {state.questions[state.currIdx].kindQuestion ===
+                'short_answer' && (
+                <SimpleText text={state.questions[state.currIdx].answer} />
+              )}
+            </EqualTwoTextInputs>
+            <EqualTwoTextInputs>
+              <SimpleText text={'درصد پاسخگویی در کل: '} />
+              <SimpleText
+                text={Math.round(
+                  (state.questions[state.currIdx].oldCorrect * 100.0) /
+                    (state.questions[state.currIdx].oldCorrect +
+                      state.questions[state.currIdx].oldIncorrect +
+                      state.questions[state.currIdx].oldWhite),
+                )}
+              />
+            </EqualTwoTextInputs>
+          </MyView>
+        )}
     </CommonWebBox>
   );
 }

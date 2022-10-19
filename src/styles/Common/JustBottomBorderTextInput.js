@@ -31,6 +31,7 @@ const JustBottomBorderTextInput = props => {
         isHalf={props.isHalf}
         onPress={props.onPress}
         type={props.type}
+        backgroundColor={props.backgroundColor}
         placeholder={props.placeholder}
         subText={props.subText}
         disable={props.disable}

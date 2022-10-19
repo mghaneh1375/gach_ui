@@ -8,8 +8,6 @@ import Quiz from './components/Quiz';
 import Filter from './components/Filter';
 import vars from '../../../styles/root';
 import {useEffectOnce} from 'usehooks-ts';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import AttachBox from '../../panel/ticket/components/Show/AttachBox/AttachBox';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {FontIcon} from '../../../styles/Common/FontIcon';
 import {Image} from 'react-native';
@@ -121,9 +119,9 @@ function RunQuiz(props) {
               onBack={() =>
                 props.user.accesses.indexOf('student') !== -1
                   ? params.quizMode === 'custom'
-                    ? props.navigate('/myCustomQuizzes')
-                    : props.navigate('/myIRYSCQuizzes')
-                  : props.navigate('/quiz/list')
+                    ? (window.location.href = '/myCustomQuizzes')
+                    : (window.location.href = '/myIRYSCQuizzes')
+                  : (window.location.href = '/quiz/list')
               }
             />
           )}
@@ -133,9 +131,9 @@ function RunQuiz(props) {
               onBack={() =>
                 props.user.accesses.indexOf('student') !== -1
                   ? params.quizMode === 'custom'
-                    ? props.navigate('/myCustomQuizzes')
-                    : props.navigate('/myIRYSCQuizzes')
-                  : props.navigate('/quiz/list')
+                    ? (window.location.href = '/myCustomQuizzes')
+                    : (window.location.href = '/myIRYSCQuizzes')
+                  : (window.location.href = '/quiz/list')
               }
             />
           )}

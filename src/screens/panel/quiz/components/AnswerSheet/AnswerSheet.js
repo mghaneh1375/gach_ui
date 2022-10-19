@@ -8,6 +8,7 @@ import {
 } from '../../../../../styles/Common';
 import {styles} from '../../../../../styles/Common/Styles';
 import vars from '../../../../../styles/root';
+import ShortAnswer from './ShortAnswer';
 import Test from './Test';
 
 const perBox = 10;
@@ -62,6 +63,15 @@ function AnswerSheet(props) {
                   if (elem.type === 'test')
                     return (
                       <Test
+                        setLoading={props.setLoading}
+                        token={props.token}
+                        index={idx + index * perBox}
+                        key={idx}
+                      />
+                    );
+                  else if (elem.type === 'short_answer')
+                    return (
+                      <ShortAnswer
                         setLoading={props.setLoading}
                         token={props.token}
                         index={idx + index * perBox}

@@ -48,9 +48,17 @@ function Question(props) {
       Image.getSize(
         state.questions[state.currIdx].answerFile,
         (width, height) => {
-          if (width / height < 2) setAnswerHeight(400);
-          else if (width / height < 2.5) setAnswerHeight(300);
-          else setImgHeight(200);
+          setAnswerWidth(
+            totalWidth > 1500 ? totalWidth - 300 : totalWidth - 250,
+          );
+          setAnswerHeight(
+            totalWidth > 1500
+              ? ((totalWidth - 300) * height) / width
+              : ((totalWidth - 250) * height) / width,
+          );
+          // if (width / height < 2) setAnswerHeight(400);
+          // else if (width / height < 2.5) setAnswerHeight(300);
+          // else setImgHeight(200);
         },
       );
     }
@@ -59,6 +67,7 @@ function Question(props) {
 
   const [imgWidth, setImgWidth] = useState(200);
   const [imgHeight, setImgHeight] = useState(200);
+  const [answerWidth, setAnswerWidth] = useState(200);
   const [answerHeight, setAnswerHeight] = useState(200);
   const [isInZoomMode, setIsInZoomMode] = useState();
   const [zoomImg, setZoomImg] = useState();
@@ -175,8 +184,12 @@ function Question(props) {
                   <CommonTextInput
                     placeholder={Translate.resInput}
                     subText={Translate.resInput}
-                    // value={title}
-                    // onChangeText={e => changeText(e, setTitle)}
+                    justNum={true}
+                    float={true}
+                    value={state.answers[state.currIdx]}
+                    onChangeText={e =>
+                      dispatch({answer: e, needUpdateAnswer: true})
+                    }
                     parentStyle={{width: '100%'}}
                     style={{backgroundColor: '#efefef', border: 0}}
                   />
