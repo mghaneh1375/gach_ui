@@ -18,6 +18,7 @@ import vars from '../../../../styles/root';
 import {getWidthHeight} from '../../../../services/Utility';
 import {basketBox} from '../../../panel/package/card/Style';
 import commonTranslator from '../../../../translator/Common';
+import MultiSentence from './questionComponents/MultiSentence';
 
 function Question(props) {
   const useGlobalState = () => [
@@ -176,6 +177,23 @@ function Question(props) {
                         ? undefined
                         : idx => {
                             dispatch({answer: idx, needUpdateAnswer: true});
+                          }
+                    }
+                  />
+                )}
+                {question.kindQuestion === 'multi_sentence' && (
+                  <MultiSentence
+                    sentencesCount={question.sentencesCount}
+                    selected={state.answers[state.currIdx]}
+                    onChange={
+                      props.isInReviewMode
+                        ? undefined
+                        : newStatus => {
+                            console.log(newStatus);
+                            dispatch({
+                              answer: newStatus,
+                              needUpdateAnswer: true,
+                            });
                           }
                     }
                   />

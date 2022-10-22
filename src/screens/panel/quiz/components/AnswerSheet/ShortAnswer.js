@@ -60,7 +60,7 @@ function ShortAnswer(props) {
   //   };
 
   return (
-    <PhoneView style={{direction: 'ltr'}}>
+    <PhoneView style={{direction: 'ltr', marginBottom: 10}}>
       <SimpleText
         style={{alignSelf: 'center', width: 25}}
         text={index + 1 + ' - '}
@@ -68,21 +68,44 @@ function ShortAnswer(props) {
 
       <EqualTwoTextInputs style={{width: 180}}>
         {stdAns !== undefined && (
-          <JustBottomBorderTextInput
-            isHalf={true}
-            backgroundColor={vars.CREAM}
-            placeholder={stdAns}
-            disable={true}
-          />
+          <MyView style={{width: '45%'}}>
+            <JustBottomBorderTextInput
+              style={{textAlign: 'center'}}
+              backgroundColor={vars.WHITE}
+              placeholder={stdAns}
+              disable={true}
+            />
+            <div
+              style={{
+                width: 7,
+                height: 7,
+                position: 'absolute',
+                top: 8,
+                left: 4,
+                borderRadius: '50%',
+                backgroundColor: vars.DARK_CREAM,
+              }}></div>
+          </MyView>
         )}
         {answer !== undefined && (
-          <JustBottomBorderTextInput
-            isHalf={true}
-            backgroundColor={vars.GREEN}
-            style={{color: 'white', fontWeight: 900}}
-            placeholder={answer}
-            disable={true}
-          />
+          <MyView style={{width: '45%'}}>
+            <JustBottomBorderTextInput
+              style={{textAlign: 'center'}}
+              backgroundColor={vars.WHITE}
+              placeholder={answer}
+              disable={true}
+            />
+            <div
+              style={{
+                width: 7,
+                height: 7,
+                position: 'absolute',
+                top: 8,
+                left: 4,
+                borderRadius: '50%',
+                backgroundColor: vars.GREEN,
+              }}></div>
+          </MyView>
         )}
       </EqualTwoTextInputs>
 

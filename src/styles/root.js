@@ -14,6 +14,7 @@ const vars = {
   NAV_BAR_H: '55px',
   YELLOW: '#FFAA00',
   CREAM: '#FFAA0045',
+  DARK_CREAM: '#FFAA0085',
   ORANGE: '#FFAA00',
   YELLOW_WHITE: '#FFEFCE',
   ORANGE_RED: '#FF6600',

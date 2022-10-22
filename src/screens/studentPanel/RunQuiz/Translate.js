@@ -8,6 +8,7 @@ const Translate = {
   yourAnswer: 'پاسخ شما',
   answer: 'پاسخ صحیح',
   choice: 'گزینه ',
+  sentence: 'گزاره ',
   resInput: 'ورود پاسخ',
   status: 'وضعیت کلی',
   questionRes: 'سوالات پاسخ داده شده ',
