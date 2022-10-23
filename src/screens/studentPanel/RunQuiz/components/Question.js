@@ -189,7 +189,6 @@ function Question(props) {
                       props.isInReviewMode
                         ? undefined
                         : newStatus => {
-                            console.log(newStatus);
                             dispatch({
                               answer: newStatus,
                               needUpdateAnswer: true,

@@ -1,7 +1,12 @@
 import React, {useState} from 'react';
-import {PhoneView} from '../../../../../styles/Common';
+import {
+  CommonRadioButton,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../../../styles/Common';
 import {styles} from '../../../../../styles/Common/Styles';
-import MultiSentenceYesOrNo from '../../../../panel/question/components/Create/MultiSentenceYesOrNo';
+import commonTranslator from '../../../../../translator/Common';
 
 function MultiSentence(props) {
   const [choices, setChoices] = useState();
@@ -12,13 +17,13 @@ function MultiSentence(props) {
     for (let i = 0; i < props.sentencesCount; i++) {
       let a = '_';
       if (
-        (i < props.selected.length && props.selected[i] === '1') ||
-        props.selected[i] === 'yes'
+        i < props.selected.length &&
+        (props.selected[i] === '1' || props.selected[i] === 'yes')
       )
         a = 'yes';
       else if (
-        (i < props.selected.length && props.selected[i] === '0') ||
-        props.selected === 'no'
+        i < props.selected.length &&
+        (props.selected[i] === '0' || props.selected[i] === 'no')
       )
         a = 'no';
 
@@ -27,7 +32,7 @@ function MultiSentence(props) {
         idx: i,
       });
     }
-    console.log(tmp);
+
     setChoices(tmp);
   }, [props.sentencesCount, props.selected]);
 
@@ -61,22 +66,40 @@ function MultiSentence(props) {
   };
 
   return (
-    <PhoneView
+    <MyView
       style={{
-        ...styles.gap50,
+        ...styles.gap5,
       }}>
       {choices !== undefined &&
         choices.map((elem, index) => {
           return (
-            <MultiSentenceYesOrNo
-              index={elem.idx}
-              key={index}
-              update={props.onChange === undefined ? undefined : onChange}
-              status={elem.selected}
-            />
+            <PhoneView key={index}>
+              <SimpleText
+                style={{alignSelf: 'center'}}
+                text={'گزاره ' + (index + 1) + ':'}
+              />
+
+              <CommonRadioButton
+                status={elem.selected === 'yes' ? 'checked' : 'unchecked'}
+                onPress={() => onChange(index, 'yes')}
+                text={commonTranslator.yes}
+              />
+
+              <CommonRadioButton
+                status={elem.selected === 'no' ? 'checked' : 'unchecked'}
+                onPress={() => onChange(index, 'no')}
+                text={commonTranslator.no}
+              />
+
+              <CommonRadioButton
+                status={elem.selected === '_' ? 'checked' : 'unchecked'}
+                onPress={() => onChange(index, '_')}
+                text={commonTranslator.nullAns}
+              />
+            </PhoneView>
           );
         })}
-    </PhoneView>
+    </MyView>
   );
 }
 

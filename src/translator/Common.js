@@ -77,6 +77,7 @@ const translator = {
   nextStep: 'مرحله بعد',
   desc: 'توضیحات',
   optional: 'اختیاری',
+  nullAns: 'نزده',
   yes: 'بله',
   no: 'خیر',
   hide: 'عدم نمایش',
