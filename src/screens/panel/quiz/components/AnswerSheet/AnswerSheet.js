@@ -8,6 +8,7 @@ import {
 } from '../../../../../styles/Common';
 import {styles} from '../../../../../styles/Common/Styles';
 import vars from '../../../../../styles/root';
+import MultiSentence from './MultiSentence';
 import ShortAnswer from './ShortAnswer';
 import Test from './Test';
 
@@ -60,6 +61,7 @@ function AnswerSheet(props) {
             return (
               <CommonWebBox no_gap={true} style={{padding: 5}} key={index}>
                 {box.map((elem, idx) => {
+                  console.log(elem.type);
                   if (elem.type === 'test')
                     return (
                       <Test
@@ -72,6 +74,15 @@ function AnswerSheet(props) {
                   else if (elem.type === 'short_answer')
                     return (
                       <ShortAnswer
+                        setLoading={props.setLoading}
+                        token={props.token}
+                        index={idx + index * perBox}
+                        key={idx}
+                      />
+                    );
+                  else if (elem.type === 'MULTI_SENTENCE')
+                    return (
+                      <MultiSentence
                         setLoading={props.setLoading}
                         token={props.token}
                         index={idx + index * perBox}

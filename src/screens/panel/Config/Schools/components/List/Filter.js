@@ -3,10 +3,9 @@ import StateAndCity from '../../../../../../components/web/StateAndCity';
 import {allTrueFalseValues} from '../../../../../../services/Utility';
 import {CommonButton, PhoneView, MyView} from '../../../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
-import vars from '../../../../../../styles/root';
 import commonTranslator from '../../../../../../translator/Common';
 import translator from '../../Translator';
-import {grades, kindSchools} from '../KeyVals';
+import {gradesForFilter, kindSchoolsForFilter} from '../KeyVals';
 import {filter} from '../Utility';
 
 function Filter(props) {
@@ -30,9 +29,23 @@ function Filter(props) {
     if (res !== null) props.setData(res);
   };
 
+  const [school, setSchool] = useState();
+
   return (
     <MyView>
       <PhoneView style={{gap: 15}}>
+        <JustBottomBorderTextInput
+          isHalf={true}
+          style={{maxWidth: 'unset'}}
+          placeholder={commonTranslator.school}
+          subText={commonTranslator.school}
+          resultPane={true}
+          setSelectedItem={setSchool}
+          values={props.schools}
+          value={school !== undefined ? school.name : ''}
+          reset={false}
+        />
+
         {props.isAdmin && (
           <JustBottomBorderSelect
             setter={setHasUser}
@@ -45,15 +58,15 @@ function Filter(props) {
 
         <JustBottomBorderSelect
           setter={setKindSchool}
-          values={kindSchools}
-          value={kindSchools.find(elem => elem.id === kindSchool)}
+          values={kindSchoolsForFilter}
+          value={kindSchoolsForFilter.find(elem => elem.id === kindSchool)}
           placeholder={translator.kind}
           subText={translator.kind}
         />
         <JustBottomBorderSelect
           setter={setGrade}
-          values={grades}
-          value={grades.find(elem => elem.id === grade)}
+          values={gradesForFilter}
+          value={gradesForFilter.find(elem => elem.id === grade)}
           placeholder={translator.grade}
           subText={translator.grade}
         />

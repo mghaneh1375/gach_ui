@@ -33,6 +33,7 @@ function Schools(props) {
   const [mode, setMode] = useState('');
   const [states, setStates] = useState();
   const [isAdmin, setIsAdmin] = useState(isUserAdmin(state.user));
+  const [allSchools, setAllSchools] = useState();
 
   React.useEffect(() => {
     if (states !== undefined) return;
@@ -40,6 +41,7 @@ function Schools(props) {
     Promise.all([
       filter(state.token, undefined, undefined, undefined, undefined),
       generalRequest(routes.fetchState, 'get', undefined, 'data'),
+      generalRequest(routes.fetchSchoolsDigest, 'get', undefined, 'data'),
     ]).then(res => {
       dispatch({loading: false});
       if (res[0] === null) {

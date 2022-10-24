@@ -80,25 +80,27 @@ function Filter(props) {
               }}
             />
           </PhoneView>
-          <PhoneView>
-            <FontIcon
-              kind={'small'}
-              icon={faBookmark}
-              style={{color: vars.ORANGE_RED}}
-              parentStyle={{
-                ...styles.marginLeft5,
-                backgroundColor: 'transparent',
-              }}
-            />
-            <SimpleText
-              text={Translate.bookmarked}
-              style={{
-                ...styles.colorGray,
-                ...styles.fontSize12,
-                ...styles.paddingRight5,
-              }}
-            />
-          </PhoneView>
+          {!props.isInReviewMode && (
+            <PhoneView>
+              <FontIcon
+                kind={'small'}
+                icon={faBookmark}
+                style={{color: vars.ORANGE_RED}}
+                parentStyle={{
+                  ...styles.marginLeft5,
+                  backgroundColor: 'transparent',
+                }}
+              />
+              <SimpleText
+                text={Translate.bookmarked}
+                style={{
+                  ...styles.colorGray,
+                  ...styles.fontSize12,
+                  ...styles.paddingRight5,
+                }}
+              />
+            </PhoneView>
+          )}
           <PhoneView>
             <Circle
               style={{...styles.alignSelfCenter, marginRight: 3}}
@@ -220,6 +222,15 @@ function Filter(props) {
                 'short_answer' && (
                 <SimpleText text={state.questions[state.currIdx].stdAns} />
               )}
+              {state.questions[state.currIdx].kindQuestion ===
+                'multi_sentence' && (
+                <SimpleText
+                  text={state.questions[state.currIdx].stdAns
+                    .replaceAll('1', 'ص ')
+                    .replaceAll('0', 'غ ')
+                    .replaceAll('_', 'ن')}
+                />
+              )}
             </EqualTwoTextInputs>
             <EqualTwoTextInputs>
               <SimpleText text={'پاسخ صحیح: '} />
@@ -232,16 +243,27 @@ function Filter(props) {
                 'short_answer' && (
                 <SimpleText text={state.questions[state.currIdx].answer} />
               )}
+              {state.questions[state.currIdx].kindQuestion ===
+                'multi_sentence' && (
+                <SimpleText
+                  text={state.questions[state.currIdx].answer
+                    .replaceAll('1', 'ص ')
+                    .replaceAll('0', 'غ ')}
+                />
+              )}
             </EqualTwoTextInputs>
             <EqualTwoTextInputs>
-              <SimpleText text={'درصد پاسخگویی در کل: '} />
+              <SimpleText text={'پاسخ صحیح در کل: '} />
               <SimpleText
-                text={Math.round(
-                  (state.questions[state.currIdx].oldCorrect * 100.0) /
-                    (state.questions[state.currIdx].oldCorrect +
-                      state.questions[state.currIdx].oldIncorrect +
-                      state.questions[state.currIdx].oldWhite),
-                )}
+                text={
+                  '%' +
+                  Math.round(
+                    (state.questions[state.currIdx].oldCorrect * 100.0) /
+                      (state.questions[state.currIdx].oldCorrect +
+                        state.questions[state.currIdx].oldIncorrect +
+                        state.questions[state.currIdx].oldWhite),
+                  )
+                }
               />
             </EqualTwoTextInputs>
           </MyView>

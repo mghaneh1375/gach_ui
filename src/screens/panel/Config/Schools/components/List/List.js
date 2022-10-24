@@ -6,7 +6,6 @@ import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import columns, {columnsForUsers} from './TableStruture';
 import {routes} from '../../../../../../API/APIRoutes';
 import Ops from '../Ops';
-import vars from '../../../../../../styles/root';
 
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);

@@ -115,7 +115,7 @@ const UpdateInfo = props => {
         <JustBottomBorderTextInput
           isHalf={true}
           placeholder={commonTranslator.grade}
-          subText={commonTranslator.grade}
+          subText={'نام مقطع خود را به شکل فارسی سرچ کنید مثلا: یازدهم تجربی'}
           resultPane={true}
           setSelectedItem={setSelectedGrade}
           values={props.grades}
@@ -127,7 +127,7 @@ const UpdateInfo = props => {
           isHalf={true}
           resultPane={true}
           placeholder={commonTranslator.branch}
-          subText={commonTranslator.branch}
+          subText={'نام رشته المپیادی خود را به شکل فارسی سرچ کنید مثلا: شیمی'}
           setSelectedItem={setSelectedBranch}
           reset={false}
           values={props.branches}

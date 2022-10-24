@@ -67,7 +67,7 @@ const translator = {
   lesson: 'درس',
   subject: 'حیطه',
   tel: 'شماره تماس',
-  branch: 'گروه آموزشی',
+  branch: 'رشته',
   change: 'تغییر',
   doChange: 'اعمال تغییر',
   confirmChanges: 'ثبت تغییرات',

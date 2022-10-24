@@ -91,16 +91,6 @@ const commonColsCustomQuiz = [
     minWidth: '55px',
     center: true,
   },
-  {
-    name: 'درصد',
-    selector: row => row.percent,
-    maxWidth: '55px',
-    minWidth: '55px',
-    center: true,
-    style: {
-      direction: 'ltr',
-    },
-  },
 ];
 
 export const lessonCols = [
@@ -113,6 +103,16 @@ export const lessonCols = [
     style: {wordBreak: 'normal'},
   },
   ...commonCols,
+  {
+    name: 'درصد',
+    selector: row => row.percent,
+    maxWidth: '55px',
+    minWidth: '55px',
+    center: true,
+    style: {
+      direction: 'ltr',
+    },
+  },
 ];
 
 export const lessonColsCustomQuiz = [
@@ -137,6 +137,16 @@ export const subjectCols = [
     style: {wordBreak: 'normal'},
   },
   ...commonCols,
+  {
+    name: 'درصد',
+    selector: row => row.percent,
+    maxWidth: '55px',
+    minWidth: '55px',
+    center: true,
+    style: {
+      direction: 'ltr',
+    },
+  },
 ];
 
 export const subjectColsCustomQuiz = [
