@@ -156,6 +156,7 @@ const translator = {
   seeInfo: 'مشاهده اطلاعات',
   isOlympiad: 'آیا جز مقاطع تحصیلی است؟',
   listQuiz: 'لیست آزمون ها',
+  openQuiz: 'لیست آزمون های باز',
   packageQuiz: 'بسته های آزمون',
   haveQuiz: 'آزمون های موجود',
   name: 'نام',
@@ -208,5 +209,6 @@ const translator = {
   start: 'شروع',
   go: 'بروید',
   clickHere: 'اینجا را کلیک کنید',
+  filter: 'اعمال فیلتر',
 };
 export default translator;

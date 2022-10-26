@@ -5,8 +5,16 @@ import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton, PhoneView, MyView} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../translator/Common';
+import {dispatchSchoolContext, schoolContext} from './Context';
 
 function Ops(props) {
+  const useGlobalState = () => [
+    React.useContext(schoolContext),
+    React.useContext(dispatchSchoolContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
+
   const changeMode = newMode => {
     props.setMode(newMode);
   };
@@ -21,8 +29,11 @@ function Ops(props) {
     setShowRemovePane(false);
     showSuccess(res.excepts);
 
-    if (res.doneIds.indexOf(props.school.id) !== -1)
-      props.removeSchools([props.school.id]);
+    if (res.doneIds.indexOf(state.selectedSchool.id) !== -1) {
+      let allItems = state.schools;
+      allItems = allItems.filter(elem => state.selectedSchool.id !== elem.id);
+      dispatch({schools: allItems, data: allItems});
+    }
 
     props.setMode('list');
     props.toggleShowPopUp();
@@ -36,7 +47,7 @@ function Ops(props) {
           token={props.token}
           url={routes.removeSchools}
           expected={['excepts', 'doneIds']}
-          data={{items: [props.school.id]}}
+          data={{items: [state.selectedSchool.id]}}
           afterFunc={afterRemove}
           toggleShowPopUp={toggleShowRemovePane}
         />

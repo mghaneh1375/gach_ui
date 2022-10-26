@@ -5,8 +5,8 @@ import React, {useState} from 'react';
 import Ops from './Ops';
 import {routes} from '../../../../API/APIRoutes';
 import {dispatchQuizContext, quizContext} from './Context';
-import columns from './TableStructure';
-import {getQuizzes} from './Utility';
+import columns, {columnsForOpenQuiz} from './TableStructure';
+import {getOpenQuizzes, getQuizzes} from './Utility';
 import ProSearch from './ProSearch';
 
 const List = props => {
@@ -25,7 +25,11 @@ const List = props => {
     props.setLoading(true);
     setIsWorking(true);
 
-    Promise.all([getQuizzes(props.token)]).then(res => {
+    Promise.all([
+      props.generalMode !== undefined && props.generalMode === 'openQuiz'
+        ? getOpenQuizzes(props.token)
+        : getQuizzes(props.token),
+    ]).then(res => {
       props.setLoading(false);
       if (res[0] == null) {
         props.navigate('/');
@@ -33,9 +37,6 @@ const List = props => {
       }
       dispatch({quizzes: res[0]});
       setIsWorking(false);
-
-      // dispatch({selectedQuiz: res[0][0]});
-      // props.setMode('question');
     });
   }, [props, dispatch, isWorking, state.quizzes]);
 
@@ -64,10 +65,19 @@ const List = props => {
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         <MyView>
-          <ProSearch token={props.token} setLoading={props.setLoading} />
+          <ProSearch
+            generalMode={props.generalMode}
+            token={props.token}
+            setLoading={props.setLoading}
+          />
           {state.quizzes !== undefined && (
             <CommonDataTable
-              columns={columns}
+              columns={
+                props.generalMode !== undefined &&
+                props.generalMode === 'openQuiz'
+                  ? columnsForOpenQuiz
+                  : columns
+              }
               data={state.quizzes}
               setData={newData => {
                 dispatch({quizzes: newData});
@@ -75,7 +85,12 @@ const List = props => {
               handleOp={handleOp}
               token={props.token}
               setLoading={props.setLoading}
-              removeUrl={routes.removeIRYSCQuiz}
+              removeUrl={
+                props.generalMode === undefined ||
+                props.generalMode !== 'openQuiz'
+                  ? routes.removeIRYSCQuiz
+                  : routes.removeOpenQuiz
+              }
             />
           )}
         </MyView>

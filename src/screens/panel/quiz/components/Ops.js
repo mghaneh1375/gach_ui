@@ -4,7 +4,12 @@ import translator from '../Translator';
 import commonTranslator from '../../../../translator/Common';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
-import {createTaraz, finalizeQuizResult, generateQuestionPDF} from './Utility';
+import {
+  createTaraz,
+  finalizeQuizResult,
+  generateQuestionPDF,
+  transferToOpenQuiz,
+} from './Utility';
 import {dispatchQuizContext, quizContext} from './Context';
 import React from 'react';
 import Translate from '../../../studentPanel/RunQuiz/Translate';
@@ -35,6 +40,13 @@ const Ops = props => {
         dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
       }
     });
+  };
+
+  const transferToOpenQuizLocal = async () => {
+    props.setLoading(true);
+
+    await transferToOpenQuiz(state.selectedQuiz.id, props.token);
+    props.setLoading(false);
   };
 
   const createTarazLocal = async () => {
@@ -145,6 +157,7 @@ const Ops = props => {
           dir={'rtl'}
           theme={'transparent'}
           title={translator.transferToOpenQuiz}
+          onPress={() => transferToOpenQuizLocal()}
         />
         {state.selectedQuiz.reportStatus === 'ready' && (
           <CommonButton

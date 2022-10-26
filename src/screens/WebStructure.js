@@ -65,6 +65,7 @@ import Invoice from './schoolPanel/Invoice/Invoice';
 import RankingList from './general/RankingList/RankingList';
 import MakeQuiz from './studentPanel/MakeQuiz/MakeQuiz';
 import History from './studentPanel/History/History';
+import OpenQuiz from './panel/quiz/OpenQuiz';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -318,6 +319,12 @@ const WebStructue = props => {
                     user={state.user}
                     navigate={navigate}
                   />
+                )}
+              {props.page === 'quiz' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'open' && (
+                  <OpenQuiz token={state.token} navigate={navigate} />
                 )}
               {props.page === 'ranking' && params !== undefined && (
                 <Quiz

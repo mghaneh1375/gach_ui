@@ -4,7 +4,7 @@ import {styles} from '../../../../styles/Common/Styles';
 import translator from '../Translator';
 import React, {useState} from 'react';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {getQuizzes} from './Utility';
+import {getOpenQuizzes, getQuizzes} from './Utility';
 import commonTranslator from '../../../../translator/Common';
 import {dispatchQuizContext} from './Context';
 
@@ -28,41 +28,60 @@ function ProSearch(props) {
           onChangeText={e => setName(e)}
           value={name}
         />
-        <JustBottomBorderDatePicker
-          placeholder={translator.startDateFrom}
-          subText={translator.startDateFrom}
-          setter={setStartDateSolar}
-          value={startDateSolar}
-        />
-        <JustBottomBorderDatePicker
-          placeholder={translator.startDateEnd}
-          subText={translator.startDateEnd}
-          setter={setStartDateSolarEndLimit}
-          value={startDateSolarEndLimit}
-        />
-        <JustBottomBorderDatePicker
-          placeholder={translator.startRegistryDateFrom}
-          subText={translator.startRegistryDateFrom}
-          setter={setStartRegistryDateSolar}
-          value={startRegistryDateSolar}
-        />
-        <JustBottomBorderDatePicker
-          placeholder={translator.startRegistryDateEnd}
-          subText={translator.startRegistryDateEnd}
-          setter={setStartRegistrySolarEndLimit}
-          value={startRegistrySolarEndLimit}
-        />
+        {(props.generalMode === undefined ||
+          props.generalMode !== 'openQuiz') && (
+          <JustBottomBorderDatePicker
+            placeholder={translator.startDateFrom}
+            subText={translator.startDateFrom}
+            setter={setStartDateSolar}
+            value={startDateSolar}
+          />
+        )}
+
+        {(props.generalMode === undefined ||
+          props.generalMode !== 'openQuiz') && (
+          <JustBottomBorderDatePicker
+            placeholder={translator.startDateEnd}
+            subText={translator.startDateEnd}
+            setter={setStartDateSolarEndLimit}
+            value={startDateSolarEndLimit}
+          />
+        )}
+
+        {(props.generalMode === undefined ||
+          props.generalMode !== 'openQuiz') && (
+          <JustBottomBorderDatePicker
+            placeholder={translator.startRegistryDateFrom}
+            subText={translator.startRegistryDateFrom}
+            setter={setStartRegistryDateSolar}
+            value={startRegistryDateSolar}
+          />
+        )}
+
+        {(props.generalMode === undefined ||
+          props.generalMode !== 'openQuiz') && (
+          <JustBottomBorderDatePicker
+            placeholder={translator.startRegistryDateEnd}
+            subText={translator.startRegistryDateEnd}
+            setter={setStartRegistrySolarEndLimit}
+            value={startRegistrySolarEndLimit}
+          />
+        )}
         <CommonButton
           onPress={async () => {
             props.setLoading(true);
-            let res = await getQuizzes(
-              props.token,
-              name,
-              startDateSolar,
-              startDateSolarEndLimit,
-              startRegistryDateSolar,
-              startRegistrySolarEndLimit,
-            );
+            let res =
+              props.generalMode === undefined ||
+              props.generalMode !== 'openQuiz'
+                ? await getQuizzes(
+                    props.token,
+                    name,
+                    startDateSolar,
+                    startDateSolarEndLimit,
+                    startRegistryDateSolar,
+                    startRegistrySolarEndLimit,
+                  )
+                : await getOpenQuizzes(props.token, name);
             props.setLoading(false);
             if (res !== null) dispatch({quizzes: res});
           }}

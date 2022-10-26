@@ -77,7 +77,6 @@ export const update = (id, tableData, data, setLoading, token, afterUpdate) => {
     .then(res => {
       setLoading(false);
       if (res[0] !== null) {
-        console.log(tableData);
         afterUpdate(tableData);
         showSuccess(commonTranslator.success);
       }

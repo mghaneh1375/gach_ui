@@ -108,6 +108,7 @@ const ExcelComma = props => {
           setResult={localAfterCallBack}
           title={props.popUpHeader}
           additionalData={additionalData}
+          helps={props.helps}
           mandatoryFields={props.mandatoryFields}
         />
       )}

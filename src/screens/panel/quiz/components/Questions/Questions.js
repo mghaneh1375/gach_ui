@@ -9,6 +9,7 @@ import {changeQuestionsArrangeInQuiz, getQuestions} from '../Utility';
 import Edit from './Edit';
 import {dispatchQuizContext, quizContext} from '../Context';
 import Card from './Card';
+import {BASE_SITE_NAME} from '../../../../../API/Utility';
 
 const Questions = props => {
   const useGlobalState = () => [
@@ -171,6 +172,12 @@ const Questions = props => {
               header={translator.questions}
               placeholder={translator.organizationId}
               help={translator.organizationIdHelp}
+              helps={[
+                {
+                  link: BASE_SITE_NAME + 'assets/add_quesstion_to_quiz.xlsx',
+                  text: 'دانلود فایل نمونه ',
+                },
+              ]}
               setLoading={props.setLoading}
               token={props.token}
               url={

@@ -13,6 +13,7 @@ import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import {MyView} from '../../../../styles/Common';
 import vars from '../../../../styles/root';
+import {SchoolProvider} from './components/Context';
 
 function Schools(props) {
   const navigate = props.navigate;
@@ -30,34 +31,9 @@ function Schools(props) {
 
   const [schools, setSchools] = useState();
   const [selectedSchool, setSelectedSchool] = useState();
-  const [mode, setMode] = useState('');
+  const [mode, setMode] = useState('list');
   const [states, setStates] = useState();
   const [isAdmin, setIsAdmin] = useState(isUserAdmin(state.user));
-  const [allSchools, setAllSchools] = useState();
-
-  React.useEffect(() => {
-    if (states !== undefined) return;
-    dispatch({loading: true});
-    Promise.all([
-      filter(state.token, undefined, undefined, undefined, undefined),
-      generalRequest(routes.fetchState, 'get', undefined, 'data'),
-      generalRequest(routes.fetchSchoolsDigest, 'get', undefined, 'data'),
-    ]).then(res => {
-      dispatch({loading: false});
-      if (res[0] === null) {
-        navigate('/');
-        return;
-      }
-      setSchools(res[0]);
-      if (res[1] !== null) {
-        setStates(res[1]);
-        setMode('list');
-      } else {
-        navigate('/');
-        return;
-      }
-    });
-  }, [navigate, state.token, dispatch, states]);
 
   return (
     <MyView
@@ -78,47 +54,32 @@ function Schools(props) {
             background: 'url(./assets/images/back3.png)',
           }}></div>
       )}
-      {mode === 'list' && (
-        <List
-          schools={schools}
-          isAdmin={isAdmin}
-          setMode={isAdmin ? setMode : {}}
-          setData={setSchools}
-          setLoading={setLoading}
-          token={state.token}
-          states={states}
-          setSelectedSchool={isAdmin ? setSelectedSchool : {}}
-          selectedSchool={selectedSchool}
-          removeSchools={
-            isAdmin
-              ? removedIds => {
-                  removeItems(schools, setSchools, removedIds);
-                }
-              : {}
-          }
-        />
-      )}
-      {mode === 'create' && isAdmin && (
-        <Create
-          setMode={setMode}
-          addSchool={item => {
-            addItem(schools, setSchools, item);
-          }}
-          setLoading={setLoading}
-          token={props.token}
-        />
-      )}
-      {mode === 'update' && isAdmin && (
-        <Create
-          setMode={setMode}
-          editSchool={item => {
-            editItem(schools, setSchools, item);
-          }}
-          setLoading={setLoading}
-          selectedSchool={selectedSchool}
-          token={props.token}
-        />
-      )}
+      <SchoolProvider>
+        {mode === 'list' && (
+          <List
+            isAdmin={isAdmin}
+            setMode={isAdmin ? setMode : {}}
+            setLoading={setLoading}
+            token={state.token}
+          />
+        )}
+        {mode === 'create' && isAdmin && (
+          <Create
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
+            isInEditMode={false}
+          />
+        )}
+        {mode === 'update' && isAdmin && (
+          <Create
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
+            isInEditMode={true}
+          />
+        )}
+      </SchoolProvider>
     </MyView>
   );
 }

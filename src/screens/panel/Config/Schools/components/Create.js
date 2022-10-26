@@ -13,8 +13,16 @@ import {grades, kindSchools} from './KeyVals';
 import StateAndCity from '../../../../../components/web/StateAndCity';
 import {create, update} from './Utility';
 import {changeText} from '../../../../../services/Utility';
+import {dispatchSchoolContext, schoolContext} from './Context';
 
 function Create(props) {
+  const useGlobalState = () => [
+    React.useContext(schoolContext),
+    React.useContext(dispatchSchoolContext),
+  ];
+
+  const [globalState, dispatch] = useGlobalState();
+
   const [id, setId] = useState();
   const [city, setCity] = useState();
   const [name, setName] = useState();
@@ -24,20 +32,20 @@ function Create(props) {
   const [state, setState] = useState();
 
   React.useState(() => {
-    if (props.selectedSchool === undefined) return;
-    setName(props.selectedSchool.name);
-    setId(props.selectedSchool.id);
-    setGrade(props.selectedSchool.grade);
-    setKind(props.selectedSchool.kind);
-    setCity(props.selectedSchool.city);
-    setAddress(props.selectedSchool.address);
-  }, [props.selectedSchool]);
+    if (!props.isInEditMode || globalState.selectedSchool === undefined) return;
+    setName(globalState.selectedSchool.name);
+    setId(globalState.selectedSchool.id);
+    setGrade(globalState.selectedSchool.grade);
+    setKind(globalState.selectedSchool.kind);
+    setCity(globalState.selectedSchool.city);
+    setAddress(globalState.selectedSchool.address);
+  }, [globalState.selectedSchool, props.isInEditMode]);
 
   return (
     <MyView>
       <CommonWebBox
         header={
-          props.editSchool !== undefined
+          !props.isInEditMode
             ? commonTranslator.add + ' ' + commonTranslator.school
             : commonTranslator.edit
         }
@@ -68,11 +76,7 @@ function Create(props) {
 
         <PhoneView style={{gap: 15}}>
           <StateAndCity
-            state={
-              props.selectedSchool !== undefined
-                ? props.selectedSchool.state
-                : undefined
-            }
+            state={props.isInEditMode ? state.selectedSchool.state : undefined}
             city={city}
             setter={setCity}
             stateSetter={setState}
@@ -90,7 +94,7 @@ function Create(props) {
         />
         <CommonButton
           onPress={() =>
-            props.selectedSchool === undefined
+            !props.isInEditMode
               ? create(
                   {
                     name: name,
@@ -101,7 +105,11 @@ function Create(props) {
                   },
                   props.setLoading,
                   props.token,
-                  props.addSchool,
+                  newItem => {
+                    let allItems = state.schools;
+                    allItems.push(newItem);
+                    dispatch({data: allItems, schools: allItems});
+                  },
                 )
               : update(
                   id,
@@ -125,7 +133,15 @@ function Create(props) {
                   },
                   props.setLoading,
                   props.token,
-                  props.editSchool,
+                  item => {
+                    let allItems = state.schools;
+
+                    allItems = allItems.map(elem => {
+                      if (elem.id === item.id) return item;
+                      return elem;
+                    });
+                    dispatch({schools: allItems, data: allItems});
+                  },
                 )
           }
           theme={'dark'}

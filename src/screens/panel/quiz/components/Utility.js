@@ -30,7 +30,20 @@ export const getQuizzes = async (
     query.append('startRegistrySolarEndLimit', startRegistrySolarEndLimit);
 
   return await generalRequest(
-    routes.fetchAllQuiz + '?' + query.toString(),
+    routes.fetchAllQuiz + 'IRYSC?' + query.toString(),
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const getOpenQuizzes = async (token, name = undefined) => {
+  let query = new URLSearchParams();
+  if (name !== undefined && name !== '') query.append('name', name);
+
+  return await generalRequest(
+    routes.fetchAllQuiz + 'OPEN?' + query.toString(),
     'get',
     undefined,
     'data',
@@ -264,6 +277,18 @@ export const createTaraz = async (quizId, generalMode, token) => {
   let res = await generalRequest(
     routes.createTaraz + generalMode + '/' + quizId,
     'put',
+    undefined,
+    undefined,
+    token,
+  );
+
+  if (res !== null) showSuccess();
+};
+
+export const transferToOpenQuiz = async (quizId, token) => {
+  let res = await generalRequest(
+    routes.transferToOpenQuiz + quizId,
+    'post',
     undefined,
     undefined,
     token,
