@@ -53,48 +53,113 @@ const QuizRunInfo = props => {
           textValue={props.len}
         />
       </PhoneView>
-      <PhoneView style={{gap: 15}}>
-        <JustBottomBorderSelect
-          values={launchModeKeyVals}
-          value={
-            props.launchMode === undefined
-              ? {}
-              : launchModeKeyVals.filter(element => {
-                  return element.id === props.launchMode;
-                })[0]
-          }
-          setter={props.setLaunchMode}
-          placeholder={translator.isOnline}
-          subText={translator.isOnline}
-        />
-        <JustBottomBorderSelect
-          values={trueFalseValues}
-          value={
-            props.permuteEn === undefined
-              ? {}
-              : trueFalseValues.filter(element => {
-                  return element.id === props.permuteEn;
-                })[0]
-          }
-          setter={props.setPermuteEn}
-          subText={translator.permute}
-          placeholder={translator.permute}
-        />
-        <JustBottomBorderSelect
-          values={trueFalseValues}
-          value={
-            props.backEn === undefined
-              ? {}
-              : trueFalseValues.filter(element => {
-                  return element.id === props.backEn;
-                })[0]
-          }
-          setter={props.setBackEn}
-          placeholder={translator.backEn}
-          subText={translator.backEn}
-        />
+      {props.quizGeneralMode !== 'open' && (
+        <PhoneView style={{gap: 15}}>
+          <JustBottomBorderSelect
+            values={launchModeKeyVals}
+            value={
+              props.launchMode === undefined
+                ? {}
+                : launchModeKeyVals.filter(element => {
+                    return element.id === props.launchMode;
+                  })[0]
+            }
+            setter={props.setLaunchMode}
+            placeholder={translator.isOnline}
+            subText={translator.isOnline}
+          />
+          <JustBottomBorderSelect
+            values={trueFalseValues}
+            value={
+              props.permuteEn === undefined
+                ? {}
+                : trueFalseValues.filter(element => {
+                    return element.id === props.permuteEn;
+                  })[0]
+            }
+            setter={props.setPermuteEn}
+            subText={translator.permute}
+            placeholder={translator.permute}
+          />
+          <JustBottomBorderSelect
+            values={trueFalseValues}
+            value={
+              props.backEn === undefined
+                ? {}
+                : trueFalseValues.filter(element => {
+                    return element.id === props.backEn;
+                  })[0]
+            }
+            setter={props.setBackEn}
+            placeholder={translator.backEn}
+            subText={translator.backEn}
+          />
 
+          <JustBottomBorderSelect
+            values={trueFalseValues}
+            value={
+              props.minusMark === undefined
+                ? {}
+                : trueFalseValues.filter(element => {
+                    return element.id === props.minusMark;
+                  })[0]
+            }
+            setter={props.setMinusMark}
+            subText={translator.minusMark}
+            placeholder={translator.minusMark}
+          />
+          <JustBottomBorderSelect
+            values={trueFalseValues}
+            value={
+              props.showResultsAfterCorrection === undefined
+                ? {}
+                : trueFalseValues.filter(element => {
+                    return element.id === props.showResultsAfterCorrection;
+                  })[0]
+            }
+            setter={props.setShowResultsAfterCorrection}
+            subText={translator.showResultAfterCorrection}
+            placeholder={translator.showResultAfterCorrection}
+          />
+
+          <JustBottomBorderSelect
+            values={trueFalseValues}
+            value={
+              props.showResultsAfterCorrectionNotLoginUsers === undefined
+                ? {}
+                : trueFalseValues.filter(element => {
+                    return (
+                      element.id ===
+                      props.showResultsAfterCorrectionNotLoginUsers
+                    );
+                  })[0]
+            }
+            setter={props.setShowResultsAfterCorrectionNotLoginUsers}
+            subText={translator.showResultsAfterCorrectionNotLoginUsers}
+            placeholder={translator.showResultsAfterCorrectionNotLoginUsers}
+          />
+
+          {start !== undefined && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.startDate}
+              value={start}
+              setter={props.setStart}
+              subText={translator.startDate}
+            />
+          )}
+          {end !== undefined && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.endDate}
+              value={end}
+              setter={props.setEnd}
+              subText={translator.endDate}
+            />
+          )}
+        </PhoneView>
+      )}
+      {props.quizGeneralMode === 'open' && (
         <JustBottomBorderSelect
+          isHalf={true}
           values={trueFalseValues}
           value={
             props.minusMark === undefined
@@ -107,53 +172,7 @@ const QuizRunInfo = props => {
           subText={translator.minusMark}
           placeholder={translator.minusMark}
         />
-        <JustBottomBorderSelect
-          values={trueFalseValues}
-          value={
-            props.showResultsAfterCorrection === undefined
-              ? {}
-              : trueFalseValues.filter(element => {
-                  return element.id === props.showResultsAfterCorrection;
-                })[0]
-          }
-          setter={props.setShowResultsAfterCorrection}
-          subText={translator.showResultAfterCorrection}
-          placeholder={translator.showResultAfterCorrection}
-        />
-
-        <JustBottomBorderSelect
-          values={trueFalseValues}
-          value={
-            props.showResultsAfterCorrectionNotLoginUsers === undefined
-              ? {}
-              : trueFalseValues.filter(element => {
-                  return (
-                    element.id === props.showResultsAfterCorrectionNotLoginUsers
-                  );
-                })[0]
-          }
-          setter={props.setShowResultsAfterCorrectionNotLoginUsers}
-          subText={translator.showResultsAfterCorrectionNotLoginUsers}
-          placeholder={translator.showResultsAfterCorrectionNotLoginUsers}
-        />
-
-        {start !== undefined && (
-          <JustBottomBorderDatePicker
-            placeholder={translator.startDate}
-            value={start}
-            setter={props.setStart}
-            subText={translator.startDate}
-          />
-        )}
-        {end !== undefined && (
-          <JustBottomBorderDatePicker
-            placeholder={translator.endDate}
-            value={end}
-            setter={props.setEnd}
-            subText={translator.endDate}
-          />
-        )}
-      </PhoneView>
+      )}
     </MyView>
   );
 };

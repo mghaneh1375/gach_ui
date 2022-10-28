@@ -4,6 +4,7 @@ import {showError} from '../../../../../services/Utility';
 import {
   BigBoldBlueText,
   MyView,
+  PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
 import {packagesContext} from '../Context';
@@ -13,6 +14,7 @@ import OffCode from '../OffCode';
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import BuyBasket from '../BuyBasket';
 import vars from '../../../../../styles/root';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function List(props) {
   const [price, setPrice] = useState(0);
@@ -126,11 +128,34 @@ function List(props) {
         <SuccessTransaction
           navigate={props.navigate}
           link={
-            <SimpleText
-              onPress={() => props.navigate('/myQuizzes')}
-              style={{color: vars.DARK_BLUE}}
-              text={'برای مشاهده آزمون های من اینجا را کلیک کنید.'}
-            />
+            <PhoneView>
+              <SimpleText
+                style={{
+                  ...styles.dark_blue_color,
+                  ...styles.fontSize13,
+                  ...styles.marginLeft5,
+                }}
+                text={commonTranslator.forView}
+              />
+              <SimpleText
+                onPress={() => props.navigate('/myIRYSCQuizzes')}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.FontWeight600,
+                  ...styles.fontSize13,
+                  ...styles.marginLeft5,
+                  ...styles.cursor_pointer,
+                }}
+                text={commonTranslator.myGeneralQuizes}
+              />
+              <SimpleText
+                style={{
+                  ...styles.dark_blue_color,
+                  ...styles.fontSize13,
+                }}
+                text={commonTranslator.clickHere}
+              />
+            </PhoneView>
           }
         />
       )}

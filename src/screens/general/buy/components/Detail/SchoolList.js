@@ -20,6 +20,7 @@ import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import StudentList from './MyStudenstList';
 import columns from './../../../../schoolPanel/ManageStudents/list/TableStructure';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function SchoolList(props) {
   const [price, setPrice] = useState(0);
@@ -174,11 +175,34 @@ function SchoolList(props) {
         <SuccessTransaction
           navigate={props.navigate}
           link={
-            <SimpleText
-              onPress={() => props.navigate('/myQuizzes')}
-              style={{color: vars.DARK_BLUE}}
-              text={'برای مشاهده آزمون های من اینجا را کلیک کنید.'}
-            />
+            <PhoneView>
+              <SimpleText
+                style={{
+                  ...styles.dark_blue_color,
+                  ...styles.fontSize13,
+                  ...styles.marginLeft5,
+                }}
+                text={commonTranslator.forView}
+              />
+              <SimpleText
+                onPress={() => props.navigate('/myIRYSCQuizzes')}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.FontWeight600,
+                  ...styles.fontSize13,
+                  ...styles.marginLeft5,
+                  ...styles.cursor_pointer,
+                }}
+                text={commonTranslator.myGeneralQuizes}
+              />
+              <SimpleText
+                style={{
+                  ...styles.dark_blue_color,
+                  ...styles.fontSize13,
+                }}
+                text={commonTranslator.clickHere}
+              />
+            </PhoneView>
           }
         />
       )}

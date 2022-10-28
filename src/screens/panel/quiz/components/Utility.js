@@ -63,7 +63,7 @@ export const getQuiz = async (quizId, quizMode, token) => {
 
 export const removeQuiz = async (generalMode, quizId, token) => {
   let res = await generalRequest(
-    generalMode === 'IRYSC'
+    generalMode === 'irysc'
       ? routes.removeIRYSCQuiz + quizId
       : routes.removeSchoolQuiz + quizId,
     'delete',
@@ -201,12 +201,13 @@ export const getQuestions = async (token, quizId, quizMode) => {
   );
 };
 
-export const getRanking = async (quizId, quizMode) => {
+export const getRanking = async (quizId, quizMode, token = undefined) => {
   return await generalRequest(
     routes.fetchQuizRanking + quizMode + '/' + quizId,
     'get',
     undefined,
     'data',
+    token,
   );
 };
 

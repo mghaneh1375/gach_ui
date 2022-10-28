@@ -121,6 +121,8 @@ function RunQuiz(props) {
                   ? params.quizMode === 'custom'
                     ? (window.location.href = '/myCustomQuizzes')
                     : (window.location.href = '/myIRYSCQuizzes')
+                  : params.quizMode === 'open'
+                  ? (window.location.href = '/quiz/open')
                   : (window.location.href = '/quiz/list')
               }
             />

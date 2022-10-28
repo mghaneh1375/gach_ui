@@ -83,9 +83,7 @@ function Karname(props) {
     }
 
     if (isWorking || state.selectedStudentId === undefined) return;
-
     console.log(state.selectedQuiz.allKarname);
-
     if (
       state.selectedQuiz.allKarname !== undefined &&
       state.selectedQuiz.allKarname.find(
@@ -256,6 +254,7 @@ function Karname(props) {
                 />
               )}
               {state.selectedStudentId !== undefined &&
+                state.selectedQuiz.generalMode !== 'open' &&
                 props.generalQuizMode === undefined && (
                   <CopyBox
                     title={commonTranslator.copyLink}
@@ -340,6 +339,7 @@ function Karname(props) {
                     data={karname.lessons}
                     show_row_no={false}
                     pagination={false}
+                    excel={false}
                     groupOps={[]}
                   />
                 )}
@@ -512,8 +512,7 @@ function Karname(props) {
                   <VictoryLegend
                     x={125}
                     y={20}
-                    title="راهنما"
-                    centerTitle
+                    title=""
                     orientation="horizontal"
                     gutter={40}
                     style={{

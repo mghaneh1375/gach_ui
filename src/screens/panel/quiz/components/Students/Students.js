@@ -78,9 +78,10 @@ const Students = props => {
 
     Promise.all([
       generalRequest(
-        state.selectedQuiz.generalMode === 'IRYSC'
-          ? routes.getIRYSCParticipants + state.selectedQuiz.id
-          : routes.getSchoolParticipants + state.selectedQuiz.id,
+        routes.getParticipants +
+          state.selectedQuiz.generalMode +
+          '/' +
+          state.selectedQuiz.id,
         'get',
         undefined,
         'students',

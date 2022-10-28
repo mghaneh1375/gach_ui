@@ -72,6 +72,7 @@ function Ops(props) {
     let res = await getRanking(
       state.selectedQuiz.id,
       state.selectedQuiz.generalMode,
+      state.selectedQuiz.generalMode === 'open' ? props.token : undefined,
     );
 
     props.setLoading(false);

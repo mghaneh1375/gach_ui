@@ -27,20 +27,24 @@ const QuizRegistryInfo = props => {
           onChangeText={text => changeText(text, props.setPrice)}
           justNum={true}
         />
-        <JustBottomBorderTextInput
-          placeholder={translator.ranking}
-          subText={translator.ranking}
-          value={props.ranking}
-          onChangeText={text => changeText(text, props.setRanking)}
-          justNum={true}
-        />
-        <JustBottomBorderTextInput
-          subText={translator.capacity}
-          placeholder={translator.capacity}
-          value={props.capacity}
-          onChangeText={text => changeText(text, props.setCapacity)}
-          justNum={true}
-        />
+        {props.quizGeneralMode !== 'open' && (
+          <JustBottomBorderTextInput
+            placeholder={translator.ranking}
+            subText={translator.ranking}
+            value={props.ranking}
+            onChangeText={text => changeText(text, props.setRanking)}
+            justNum={true}
+          />
+        )}
+        {props.quizGeneralMode !== 'open' && (
+          <JustBottomBorderTextInput
+            subText={translator.capacity}
+            placeholder={translator.capacity}
+            value={props.capacity}
+            onChangeText={text => changeText(text, props.setCapacity)}
+            justNum={true}
+          />
+        )}
       </PhoneView>
       {start !== undefined && end !== undefined && (
         <PhoneView style={{gap: 10, marginBottom: 10}}>

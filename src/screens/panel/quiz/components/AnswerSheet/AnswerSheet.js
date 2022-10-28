@@ -36,7 +36,6 @@ function AnswerSheet(props) {
   return (
     <MyView style={styles.marginTop20}>
       <PhoneView style={styles.gap15}>
-        <SimpleText text={'راهنما'} />
         <Circle
           style={styles.alignSelfCenter}
           diameter={13}

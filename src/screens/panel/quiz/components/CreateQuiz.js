@@ -177,10 +177,10 @@ const CreateQuiz = props => {
     let result = await CallAPI(
       data,
       props.editMode
-        ? routes.editQuiz + state.selectedQuiz.id
-        : routes.createQuiz + 'regular',
+        ? routes.editQuiz + props.quizGeneralMode + '/' + state.selectedQuiz.id
+        : routes.createQuiz + props.quizGeneralMode,
       props.token,
-      'regular',
+      props.quizGeneralMode,
     );
 
     if (result !== null) {
@@ -238,6 +238,7 @@ const CreateQuiz = props => {
         header={translator.runInfo}
         child={
           <QuizRunInfo
+            quizGeneralMode={props.quizGeneralMode}
             start={start}
             end={end}
             setStart={setStart}
@@ -273,6 +274,7 @@ const CreateQuiz = props => {
             end={endRegistry}
             setStart={setStartRegistry}
             setEnd={setEndRegistry}
+            quizGeneralMode={props.quizGeneralMode}
             price={price}
             setPrice={setPrice}
             ranking={ranking}

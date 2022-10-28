@@ -50,6 +50,7 @@ const OpenQuiz = props => {
             setMode={setMode}
             token={props.token}
             editMode={false}
+            quizGeneralMode={'open'}
           />
         )}
         {mode === 'update' && (
@@ -58,6 +59,7 @@ const OpenQuiz = props => {
             setMode={setMode}
             token={props.token}
             editMode={true}
+            quizGeneralMode={'open'}
           />
         )}
         {mode === 'key' && (

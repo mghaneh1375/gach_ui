@@ -50,6 +50,7 @@ const Quiz = props => {
             setMode={setMode}
             token={props.token}
             editMode={false}
+            quizGeneralMode={'irysc'}
           />
         )}
         {mode === 'update' && (
@@ -58,6 +59,7 @@ const Quiz = props => {
             setMode={setMode}
             token={props.token}
             editMode={true}
+            quizGeneralMode={'irysc'}
           />
         )}
         {mode === 'key' && (

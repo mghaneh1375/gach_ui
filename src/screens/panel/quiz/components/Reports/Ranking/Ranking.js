@@ -109,7 +109,11 @@ function Ranking(props) {
     setIsWorking(true);
 
     Promise.all([
-      getRanking(state.selectedQuiz.id, state.selectedQuiz.generalMode),
+      getRanking(
+        state.selectedQuiz.id,
+        state.selectedQuiz.generalMode,
+        state.selectedQuiz.generalMode === 'open' ? props.token : undefined,
+      ),
     ]).then(res => {
       props.setLoading(false);
 
@@ -134,32 +138,34 @@ function Ranking(props) {
       }
       btn={
         <PhoneView style={styles.alignItemsCenter}>
-          <CopyBox
-            title={commonTranslator.copyLink}
-            url={
-              state.selectedQuiz.title !== undefined
-                ? BASE_SITE_NAME +
-                  'ranking/' +
-                  state.selectedQuiz.generalMode +
-                  '/' +
-                  state.selectedQuiz.id +
-                  '/' +
-                  state.selectedQuiz.title
-                : props.quizName !== undefined
-                ? BASE_SITE_NAME +
-                  'ranking/' +
-                  state.selectedQuiz.generalMode +
-                  '/' +
-                  state.selectedQuiz.id +
-                  '/' +
-                  props.quizName
-                : BASE_SITE_NAME +
-                  'ranking/' +
-                  state.selectedQuiz.generalMode +
-                  '/' +
-                  state.selectedQuiz.id
-            }
-          />
+          {state.selectedQuiz.generalMode !== 'open' && (
+            <CopyBox
+              title={commonTranslator.copyLink}
+              url={
+                state.selectedQuiz.title !== undefined
+                  ? BASE_SITE_NAME +
+                    'ranking/' +
+                    state.selectedQuiz.generalMode +
+                    '/' +
+                    state.selectedQuiz.id +
+                    '/' +
+                    state.selectedQuiz.title
+                  : props.quizName !== undefined
+                  ? BASE_SITE_NAME +
+                    'ranking/' +
+                    state.selectedQuiz.generalMode +
+                    '/' +
+                    state.selectedQuiz.id +
+                    '/' +
+                    props.quizName
+                  : BASE_SITE_NAME +
+                    'ranking/' +
+                    state.selectedQuiz.generalMode +
+                    '/' +
+                    state.selectedQuiz.id
+              }
+            />
+          )}
           {state.selectedQuiz.title !== undefined && (
             <FontIcon
               onPress={() => props.setMode('list')}

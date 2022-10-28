@@ -68,9 +68,10 @@ const Ops = props => {
       props.setLoading(true);
       Promise.all([
         generalRequest(
-          state.selectedQuiz.generalMode === 'IRYSC'
-            ? routes.fetchIRYSCQuiz + state.selectedQuiz.id
-            : routes.fetchIRYSCQuiz + state.selectedQuiz.id,
+          routes.fetchQuiz +
+            state.selectedQuiz.generalMode +
+            '/' +
+            state.selectedQuiz.id,
           'get',
           undefined,
           'data',
@@ -107,16 +108,18 @@ const Ops = props => {
           theme={'transparent'}
           title={translator.editQuestions}
         />
-        <CommonButton
-          dir={'rtl'}
-          theme={'transparent'}
-          onPress={() => toggleVisibility()}
-          title={
-            state.selectedQuiz.visibility
-              ? commonTranslator.toHide
-              : commonTranslator.toShow
-          }
-        />
+        {state.selectedQuiz.generalMode === 'irysc' && (
+          <CommonButton
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => toggleVisibility()}
+            title={
+              state.selectedQuiz.visibility
+                ? commonTranslator.toHide
+                : commonTranslator.toShow
+            }
+          />
+        )}
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
@@ -143,22 +146,25 @@ const Ops = props => {
           theme={'transparent'}
           title={translator.createTaraz}
         />
-        {state.selectedQuiz.reportStatus === 'ready' && (
+        {state.selectedQuiz.reportStatus === 'ready' &&
+          state.selectedQuiz.generalMode === 'irysc' && (
+            <CommonButton
+              dir={'rtl'}
+              theme={'transparent'}
+              title={translator.gift}
+              onPress={() =>
+                finalizeQuizResult(state.selectedQuiz.id, props.token)
+              }
+            />
+          )}
+        {state.selectedQuiz.generalMode === 'irysc' && (
           <CommonButton
             dir={'rtl'}
             theme={'transparent'}
-            title={translator.gift}
-            onPress={() =>
-              finalizeQuizResult(state.selectedQuiz.id, props.token)
-            }
+            title={translator.transferToOpenQuiz}
+            onPress={() => transferToOpenQuizLocal()}
           />
         )}
-        <CommonButton
-          dir={'rtl'}
-          theme={'transparent'}
-          title={translator.transferToOpenQuiz}
-          onPress={() => transferToOpenQuizLocal()}
-        />
         {state.selectedQuiz.reportStatus === 'ready' && (
           <CommonButton
             onPress={() => props.setMode('ranking')}

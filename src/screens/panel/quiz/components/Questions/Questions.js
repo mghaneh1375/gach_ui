@@ -10,6 +10,7 @@ import Edit from './Edit';
 import {dispatchQuizContext, quizContext} from '../Context';
 import Card from './Card';
 import {BASE_SITE_NAME} from '../../../../../API/Utility';
+import {showSuccess} from '../../../../../services/Utility';
 
 const Questions = props => {
   const useGlobalState = () => [
@@ -33,6 +34,7 @@ const Questions = props => {
 
   const afterRemove = res => {
     toggleShowRemovePopUp();
+    showSuccess(res.excepts);
 
     state.selectedQuiz.questions = state.selectedQuiz.questions.filter(
       element => {
@@ -127,6 +129,7 @@ const Questions = props => {
           afterFunc={afterRemove}
           setLoading={props.setLoading}
           token={props.token}
+          expected={['doneIds', 'excepts']}
           data={{
             items: state.selectedIds.map(idx => {
               return state.selectedQuiz.questions[idx].id;
