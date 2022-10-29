@@ -211,7 +211,7 @@ const Login = props => {
             />
             <BigBoldBlueText
               style={{marginTop: '10px'}}
-              text={'سامانه آموزشی آیریسک'}
+              text={'سامانه آموزش و آزمون آیریسک'}
             />
             <BlueTextInline
               style={{display: 'block'}}
