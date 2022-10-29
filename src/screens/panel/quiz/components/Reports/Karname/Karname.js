@@ -242,7 +242,7 @@ function Karname(props) {
         }>
         <EqualTwoTextInputs>
           {karname !== undefined && props.generalQuizMode === undefined && (
-            <StudentCard std={karname} />
+            <StudentCard width={200} std={karname} />
           )}
           {karname !== undefined && (
             <PhoneView>

@@ -5,6 +5,7 @@ function StudentCard(props) {
   return (
     <MiniCard
       styleCard100Percent={props.std.rank !== undefined}
+      infoWidth={props.infoWidth}
       text={
         props.std.rank !== undefined
           ? 'رتبه: ' + props.std.rank.countryRank
@@ -32,7 +33,9 @@ function StudentCard(props) {
         props.std.student.branches !== undefined
           ? {label: 'رشته: ', value: props.std.student.branches}
           : undefined,
-        {label: 'رتبه کل در آیریسک: ', value: props.std.student.rank},
+        props.std.student.rank === -1
+          ? undefined
+          : {label: 'رتبه کل در آیریسک: ', value: props.std.student.rank},
       ]}
       header={props.std.student.name}
       ops={false}

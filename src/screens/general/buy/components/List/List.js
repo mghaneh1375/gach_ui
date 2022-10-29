@@ -44,8 +44,6 @@ function List(props) {
         return;
       }
 
-      console.log(res[0]);
-
       dispatch({
         off: res[0].off,
         groupRegistrationOff: res[0].groupRegistrationOff,
