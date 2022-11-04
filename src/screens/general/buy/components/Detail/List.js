@@ -80,8 +80,8 @@ function List(props) {
 
     setOffs(allOffs);
     setOff(Math.min(off, totalPrice));
-    setPrice(totalPrice);
-    setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 0);
+    setPrice(totalPrice === 0 ? 10 : totalPrice);
+    setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 10);
   };
 
   React.useEffect(() => {

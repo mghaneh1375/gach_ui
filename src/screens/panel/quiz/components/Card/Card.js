@@ -140,7 +140,7 @@ function Card(props) {
             <PhoneView
               style={{
                 ...styleItemsParent,
-                ...styles.gap15,
+                ...styles.gap10,
               }}>
               <QuizItemCard
                 text={Translate.startLaunching}

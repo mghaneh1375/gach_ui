@@ -78,7 +78,7 @@ function BuyBasket(props) {
         ...{alignSelf: 'flex-end', gap: 5},
         ...styles.alignItemsCenter,
       }}>
-      {props.price > 0 && (
+      {props.price > 10 && (
         <MyView>
           <PhoneView>
             <BigBoldBlueText style={{marginTop: 5}} text={Translate.amount} />
