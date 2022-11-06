@@ -74,6 +74,7 @@ export const routes = {
   fetchA1Report: 'quiz/report/A1/',
   fetchAuthorReport: 'quiz/report/authorReport/',
   fetchSchoolReport: 'quiz/report/schoolReport/',
+  fetchKarnameReport: 'quiz/report/karnameReport/',
   fetchCityReport: 'quiz/report/cityReport/',
   fetchStateReport: 'quiz/report/stateReport/',
   fetchGenderReport: 'quiz/report/genderReport/',

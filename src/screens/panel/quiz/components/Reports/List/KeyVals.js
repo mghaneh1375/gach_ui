@@ -18,6 +18,10 @@ export const typeOfReportKeyVals = [
     item: translator.schoolReport,
   },
   {
+    id: 'karnameReport',
+    item: translator.karnameReport,
+  },
+  {
     id: 'participationReport',
     item: translator.participationReport,
   },
@@ -47,6 +51,10 @@ export const typeOfReportKeyValsSchoolAccess = [
   {
     id: 'schoolReport',
     item: translator.schoolReport,
+  },
+  {
+    id: 'karnameReport',
+    item: translator.karnameReport,
   },
   {
     id: 'participationReport',

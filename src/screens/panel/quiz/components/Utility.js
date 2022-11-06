@@ -89,9 +89,9 @@ export const getAnswerSheets = async (quizId, quizMode, token) => {
   );
 };
 
-export const fetchSchoolReport = async (quizId, token) => {
+export const fetchSchoolReport = async (quizId, generalMode, token) => {
   return await generalRequest(
-    routes.fetchSchoolReport + quizId,
+    routes.fetchSchoolReport + generalMode + '/' + quizId,
     'get',
     undefined,
     'data',
@@ -121,9 +121,9 @@ export const resetStudentQuizEntryTime = async (
   return res;
 };
 
-export const fetchParticipantReport = async (quizId, token) => {
+export const fetchParticipantReport = async (quizId, generalMode, token) => {
   return await generalRequest(
-    routes.fetchParticipantReport + quizId,
+    routes.fetchParticipantReport + generalMode + '/' + quizId,
     'get',
     undefined,
     'data',
@@ -141,9 +141,9 @@ export const fetchA1Report = async (quizId, mode, token) => {
   );
 };
 
-export const fetchAuthorReport = async (quizId, token) => {
+export const fetchAuthorReport = async (quizId, generalMode, token) => {
   return await generalRequest(
-    routes.fetchAuthorReport + quizId,
+    routes.fetchAuthorReport + generalMode + '/' + quizId,
     'get',
     undefined,
     'data',
@@ -151,9 +151,9 @@ export const fetchAuthorReport = async (quizId, token) => {
   );
 };
 
-export const fetchCityReport = async (quizId, token) => {
+export const fetchCityReport = async (quizId, generalMode, token) => {
   return await generalRequest(
-    routes.fetchCityReport + quizId,
+    routes.fetchCityReport + generalMode + '/' + quizId,
     'get',
     undefined,
     'data',
@@ -161,9 +161,9 @@ export const fetchCityReport = async (quizId, token) => {
   );
 };
 
-export const fetchStateReport = async (quizId, token) => {
+export const fetchKarnameReport = async (quizId, generalMode, token) => {
   return await generalRequest(
-    routes.fetchStateReport + quizId,
+    routes.fetchKarnameReport + generalMode + '/' + quizId,
     'get',
     undefined,
     'data',
@@ -171,9 +171,19 @@ export const fetchStateReport = async (quizId, token) => {
   );
 };
 
-export const fetchGenderReport = async (quizId, token) => {
+export const fetchStateReport = async (quizId, quizMode, token) => {
   return await generalRequest(
-    routes.fetchGenderReport + quizId,
+    routes.fetchStateReport + quizMode + '/' + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const fetchGenderReport = async (quizId, quizMode, token) => {
+  return await generalRequest(
+    routes.fetchGenderReport + quizMode + '/' + quizId,
     'get',
     undefined,
     'data',
