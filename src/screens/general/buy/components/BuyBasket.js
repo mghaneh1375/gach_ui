@@ -185,10 +185,16 @@ function BuyBasket(props) {
               }
               text={formatPrice(props.price) + ' تومان '}
             />
-            {props.shouldPay !== props.price && (
+            {props.shouldPay !== props.price && props.shouldPay > 10 && (
               <SimpleText
                 style={{...{marginRight: 15}, ...styles.red}}
                 text={formatPrice(props.shouldPay) + ' تومان '}
+              />
+            )}
+            {props.shouldPay !== props.price && props.shouldPay <= 10 && (
+              <SimpleText
+                style={{...{marginRight: 15}, ...styles.red}}
+                text={0 + ' تومان '}
               />
             )}
           </PhoneView>
@@ -202,7 +208,7 @@ function BuyBasket(props) {
             title={
               props.user === null || props.user === undefined
                 ? 'برای خرید باید ورود کنید'
-                : props.shouldPay > 0
+                : props.shouldPay > 10
                 ? Translate.goToPay
                 : Translate.buy
             }

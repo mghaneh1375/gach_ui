@@ -156,7 +156,7 @@ function Dashboard(props) {
           <EqualTwoTextInputs>
             <SimpleText
               text={
-                'نرخ تبدیل هر 1000 تومان به  ' +
+                'نرخ تبدیل هر 10000 تومان به  ' +
                 commonTranslator.coin +
                 ' معادل است با ' +
                 formatPrice(exchangeMoneyToCoinRate)

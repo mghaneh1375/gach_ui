@@ -18,9 +18,9 @@ import {
   styleYellowBox,
 } from './../../../package/card/Style';
 import {
-  convertSecToMin,
   convertSecToMinWithOutSec,
   convertTimestamp,
+  formatPrice,
 } from '../../../../../services/Utility';
 import {launchModeKeyVals, kindQuizKeyVals} from '../KeyVals';
 import {
@@ -265,7 +265,7 @@ function Card(props) {
                   style={{...styles.BlueBold}}
                   text={
                     props.quiz.price > 0
-                      ? props.quiz.price + ' تومان'
+                      ? formatPrice(props.quiz.price) + ' تومان'
                       : 'رایگان'
                   }
                 />
