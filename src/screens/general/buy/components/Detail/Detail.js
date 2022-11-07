@@ -22,7 +22,13 @@ function Detail(props) {
   return (
     <MyView
       style={
-        !props.isRightMenuVisible
+        props.user === null || props.user === undefined
+          ? {
+              maxWidth: vars.LEFT_SECTION_WIDTH,
+              marginRight: vars.RIGHT_MENU_WIDTH / 2,
+              alignSelf: 'unset',
+            }
+          : !props.isRightMenuVisible
           ? {maxWidth: vars.LEFT_SECTION_WIDTH, alignSelf: 'center'}
           : {}
       }>

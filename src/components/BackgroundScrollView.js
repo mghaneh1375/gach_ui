@@ -42,10 +42,12 @@ function BackgroundScrollView(props) {
     props.device.indexOf(Device.WebPort) !== -1 ||
     props.device.indexOf(Device.AppPort) !== -1;
 
-  const widthImage =
-    isJustImage || isPhonePortSize
-      ? width
-      : (width * (12 - props.textCol)) / 12;
+  // const widthImage =
+  //   isJustImage || isPhonePortSize
+  //     ? width
+  //     : (width * (12 - props.textCol)) / 12;
+
+  const widthImage = isPhonePortSize ? 350 : 450;
 
   const widthText = isJustImage
     ? 0

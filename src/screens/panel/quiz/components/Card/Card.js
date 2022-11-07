@@ -16,6 +16,8 @@ import {
   styleCard,
   stylePricaPane,
   styleYellowBox,
+  styleCircleBox,
+  styleColorWhite,
 } from './../../../package/card/Style';
 import {
   convertSecToMinWithOutSec,
@@ -41,6 +43,18 @@ function Card(props) {
           ...styleYellowBox,
           ...styles.BlueBold,
         }}>
+        {props.quiz.launchMode === undefined && (
+          <MyView
+            style={{
+              ...styleCircleBox,
+            }}>
+            <SimpleText
+              style={{...styleColorWhite, ...styles.BlueBold}}
+              text={'آزمون باز'}
+            />
+          </MyView>
+        )}
+
         <SimpleText
           style={{
             ...styleTitle,
