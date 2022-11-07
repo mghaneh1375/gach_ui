@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import CreateQuiz from './components/CreateQuiz';
+import CreateQuiz from './components/CreateOpenQuiz';
 import List from './components/List';
 import {dispatchStateContext} from '../../../App';
 import Students from './components/Students/Students';

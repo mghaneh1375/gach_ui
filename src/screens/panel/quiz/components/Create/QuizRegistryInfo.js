@@ -46,22 +46,25 @@ const QuizRegistryInfo = props => {
           />
         )}
       </PhoneView>
-      {start !== undefined && end !== undefined && (
-        <PhoneView style={{gap: 10, marginBottom: 10}}>
-          <JustBottomBorderDatePicker
-            placeholder={translator.startRegistryDate}
-            subText={translator.startRegistryDate}
-            value={start}
-            setter={props.setStart}
-          />
-          <JustBottomBorderDatePicker
-            placeholder={translator.endRegistryDate}
-            subText={translator.endRegistryDate}
-            value={end}
-            setter={props.setEnd}
-          />
-        </PhoneView>
-      )}
+
+      {start !== undefined &&
+        end !== undefined &&
+        props.quizGeneralMode !== 'open' && (
+          <PhoneView style={{gap: 10, marginBottom: 10}}>
+            <JustBottomBorderDatePicker
+              placeholder={translator.startRegistryDate}
+              subText={translator.startRegistryDate}
+              value={start}
+              setter={props.setStart}
+            />
+            <JustBottomBorderDatePicker
+              placeholder={translator.endRegistryDate}
+              subText={translator.endRegistryDate}
+              value={end}
+              setter={props.setEnd}
+            />
+          </PhoneView>
+        )}
     </MyView>
   );
 };

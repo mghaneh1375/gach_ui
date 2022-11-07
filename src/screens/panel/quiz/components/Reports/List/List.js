@@ -11,6 +11,7 @@ import Participants from '../Participants/Participants';
 import translator from './Translator';
 import commonTranslator from '../../../../../../translator/Common';
 import {
+  fetchKarnameReportLocal,
   fetchCityReportLocal,
   fetchGenderReportLocal,
   fetchSchoolReportLocal,
@@ -28,6 +29,7 @@ import {
   typeOfReportKeyValsSchoolAccess,
 } from './KeyVals';
 import A1Report from '../A1Report';
+import KarnameReport from '../KarnameReport';
 
 function List(props) {
   const useGlobalState = () => [
@@ -46,6 +48,7 @@ function List(props) {
 
     let func;
     if (type === 'cityReport') func = fetchCityReportLocal;
+    if (type === 'karnameReport') func = fetchKarnameReportLocal;
     if (type === 'stateReport') func = fetchStateReportLocal;
     if (type === 'genderReport') func = fetchGenderReportLocal;
     if (type === 'schoolReport') func = fetchSchoolReportLocal;
@@ -119,6 +122,8 @@ function List(props) {
       {selectedReport === 'A1' && state.selectedQuiz.A1Report !== undefined && (
         <A1Report />
       )}
+      {selectedReport === 'karnameReport' &&
+        state.selectedQuiz.karnameReport !== undefined && <KarnameReport />}
       {selectedReport === 'participant' &&
         state.selectedQuiz.participantReport !== undefined && (
           <ParticipantReport

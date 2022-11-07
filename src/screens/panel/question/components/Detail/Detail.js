@@ -104,7 +104,7 @@ function Detail(props) {
         return;
       }
 
-      setQuizzes(res[0]);
+      setQuizzes(res[0].items);
       setIsWorking(false);
     });
   }, [props, isWorking, quizzes, selectingQuiz]);
@@ -318,6 +318,12 @@ function Detail(props) {
                 showSuccess(res.excepts);
                 setSelectingQuiz(false);
                 setSelectedQuizzes([]);
+                setQuizzes(
+                  quizzes.map(elem => {
+                    elem.isSelected = false;
+                    return elem;
+                  }),
+                );
               }
             }}
           />

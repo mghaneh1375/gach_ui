@@ -83,7 +83,7 @@ function Karname(props) {
     }
 
     if (isWorking || state.selectedStudentId === undefined) return;
-    console.log(state.selectedQuiz.allKarname);
+
     if (
       state.selectedQuiz.allKarname !== undefined &&
       state.selectedQuiz.allKarname.find(
