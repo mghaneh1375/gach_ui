@@ -79,7 +79,7 @@ function FilterItem(props) {
         />
       </PhoneView>
       {expand && (
-        <MyView style={{paddingRight: 20}}>
+        <MyView style={{paddingRight: 20, minWidth: 200}}>
           {subCats !== undefined &&
             subCats.map((elem, index) => {
               return (
