@@ -26,7 +26,9 @@ function Create(props) {
     props.package !== undefined ? props.package.offPercent : '',
   );
   const [lesson, setLesson] = useState(
-    props.package !== undefined ? props.package.lesson.id : undefined,
+    props.package !== undefined && props.package.lesson !== undefined
+      ? props.package.lesson.id
+      : undefined,
   );
   const [grade, setGrade] = useState(
     props.package !== undefined ? props.package.grade.id : undefined,
@@ -122,7 +124,11 @@ function Create(props) {
             props.setLoading(false);
             if (res !== null) {
               let selectedGrade = props.grades.find(elem => elem.id === grade);
-              let selectedLesson = lessons.find(elem => elem.id === lesson);
+
+              let selectedLesson =
+                lesson === undefined
+                  ? undefined
+                  : lessons.find(elem => elem.id === lesson);
 
               props.afterFunc({
                 title: title,
@@ -133,7 +139,10 @@ function Create(props) {
                 quizzes:
                   props.package !== undefined ? props.package.quizzes : 0,
                 grade: {id: selectedGrade.id, name: selectedGrade.item},
-                lesson: {id: selectedLesson.id, name: selectedLesson.item},
+                lesson:
+                  selectedLesson === undefined
+                    ? undefined
+                    : {id: selectedLesson.id, name: selectedLesson.item},
                 id: props.package !== undefined ? props.package.id : res,
               });
               props.setMode('list');

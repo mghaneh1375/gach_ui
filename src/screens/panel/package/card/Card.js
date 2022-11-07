@@ -28,13 +28,12 @@ import {
   getWidthHeight,
   showSuccess,
 } from '../../../../services/Utility';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {
   faFaucet,
   faGift,
   faJar,
   faPlaceOfWorship,
-  faPlug,
 } from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../styles/Common/Styles';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
@@ -101,10 +100,12 @@ function Card(props) {
             style={{...styles.fontSize13, ...styles.BlueBold}}
             text={commonTranslator.grade + ' : ' + props.package.grade.name}
           />
-          <SimpleText
-            style={{...styles.fontSize15, ...styles.BlueBold}}
-            text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
-          />
+          {props.package.lesson !== undefined && (
+            <SimpleText
+              style={{...styles.fontSize15, ...styles.BlueBold}}
+              text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
+            />
+          )}
         </MyView>
         <PhoneView
           style={{

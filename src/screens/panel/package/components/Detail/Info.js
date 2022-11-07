@@ -19,7 +19,6 @@ import commonTranslator from '../../../../../translator/Common';
 import {dispatchQuizzesContext} from './Utility';
 import {styles} from '../../../../../styles/Common/Styles';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import {icon} from '@fortawesome/fontawesome-svg-core';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
 
 function Info(props) {
@@ -36,10 +35,12 @@ function Info(props) {
           style={{...styleFontSize13, ...styles.BlueBold}}
           text={commonTranslator.grade + ' : ' + props.package.grade.name}
         />
-        <SimpleText
-          style={{...styleFontSize13, ...styles.BlueBold}}
-          text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
-        />
+        {props.package.lesson !== undefined && (
+          <SimpleText
+            style={{...styleFontSize13, ...styles.BlueBold}}
+            text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
+          />
+        )}
         <MyView style={{...styleItemsGrandParent}}>
           <PhoneView style={{...styleItemsParent}}>
             <PhoneView style={{...styleItem}}>
