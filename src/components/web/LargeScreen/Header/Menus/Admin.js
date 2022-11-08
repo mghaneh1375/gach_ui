@@ -12,6 +12,7 @@ import {
   faQuestion,
   faGift,
   faCertificate,
+  faDashboard,
 } from '@fortawesome/free-solid-svg-icons';
 import {SuperMenuItem} from './SuperMenuItem';
 import {MyView} from '../../../../../styles/Common';
@@ -29,6 +30,12 @@ function AdminMenu(props) {
           text={translator.home}
           icon={faHome}
           selected={props.selected === 'home'}
+        />
+        <MenuItem
+          onClick={() => navigate('/dashboard')}
+          text={translator.dashboard}
+          icon={faDashboard}
+          selected={props.selected === 'dashboard'}
         />
         <SuperMenuItem
           text={translator.basicDefinition}

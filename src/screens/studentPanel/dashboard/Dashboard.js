@@ -212,7 +212,7 @@ function Dashboard(props) {
               btnColor={'blue'}
               borderRight={true}
               icon={faEye}
-              onPress={() => props.navigate('/myQuizzes')}
+              onPress={() => props.navigate('/myIRYSCQuizzes')}
               borderRightWidth={18}
             />
 
@@ -223,7 +223,7 @@ function Dashboard(props) {
               subtext={data.activeQuizzes}
               borderRight={true}
               icon={faEye}
-              onPress={() => props.navigate('/myQuizzes')}
+              onPress={() => props.navigate('/myIRYSCQuizzes')}
               borderRightWidth={18}
             />
             <DashboardCard

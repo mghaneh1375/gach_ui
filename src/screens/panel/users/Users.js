@@ -6,6 +6,7 @@ import ChangePass from '../../general/profile/components/ChangePass';
 import ChangeLevel from './components/ChangeLevel';
 import {useParams} from 'react-router';
 import {UsersProvider} from './components/Context';
+import ChangePassByAdmin from './components/ChangePassByAdmin';
 
 const Users = props => {
   const [mode, setMode] = useState();
@@ -40,16 +41,11 @@ const Users = props => {
             token={props.token}
           />
         )}
-
         {mode === 'changePass' && (
-          <CommonWebBox
-            child={
-              <ChangePass
-                setLoading={setLoading}
-                setMode={setMode}
-                token={props.token}
-              />
-            }
+          <ChangePassByAdmin
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
           />
         )}
         {mode === 'changeLevel' && (

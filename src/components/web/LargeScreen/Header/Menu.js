@@ -20,30 +20,30 @@ const Menu = props => {
       {state.isRightMenuVisible &&
         props.accesses !== null &&
         props.accesses.indexOf('student') !== -1 && (
-          <StudentMenu navigate={props.navigate} />
+          <StudentMenu selected={props.selected} navigate={props.navigate} />
         )}
       {state.isRightMenuVisible &&
         props.accesses !== null &&
         props.accesses.indexOf('teacher') !== -1 && (
-          <Teacher navigate={props.navigate} />
+          <Teacher selected={props.selected} navigate={props.navigate} />
         )}
       {state.isRightMenuVisible &&
         props.accesses !== null &&
         props.accesses.indexOf('agent') !== -1 && (
-          <Agent navigate={props.navigate} />
+          <Agent selected={props.selected} navigate={props.navigate} />
         )}
       {state.isRightMenuVisible &&
         props.accesses !== null &&
         props.accesses.indexOf('school') !== -1 && (
-          <SchoolMenu navigate={props.navigate} />
+          <SchoolMenu selected={props.selected} navigate={props.navigate} />
         )}
       {state.isRightMenuVisible &&
         props.accesses !== null &&
         props.accesses.indexOf('advisor') !== -1 && (
-          <AdviserMenu navigate={props.navigate} />
+          <AdviserMenu selected={props.selected} navigate={props.navigate} />
         )}
       {state.isRightMenuVisible && isUserAdmin(state.user) && (
-        <AdminMenu navigate={props.navigate} />
+        <AdminMenu selected={props.selected} navigate={props.navigate} />
       )}
       {props.isFilterAvailable &&
         !state.isRightMenuVisible &&

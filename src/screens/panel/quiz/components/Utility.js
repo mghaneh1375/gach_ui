@@ -373,7 +373,7 @@ export const finalizeQuizResult = async (quizId, token) => {
   return res;
 };
 
-export const addFile = async (token, fileContent, quizId) => {
+export const addFile = async (token, fileContent, quizId, quizMode) => {
   return await fetch(fileContent.content)
     .then(res => res.blob())
     .then(async blob => {
@@ -381,7 +381,7 @@ export const addFile = async (token, fileContent, quizId) => {
       formData.append('file', blob, fileContent.name);
 
       let res = await fileRequest(
-        routes.addFileToQuiz + 'irysc/' + quizId,
+        routes.addFileToQuiz + quizMode + '/' + quizId,
         'put',
         formData,
         'url',

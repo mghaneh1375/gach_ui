@@ -79,11 +79,18 @@ const UpdatePic = props => {
         source={{uri: pic}}
       />
       {/* {props.accesses.indexOf('student') !== -1 && ( */}
-      <MyView style={{...styles.marginAuto}}>
+      <MyView
+        style={{
+          ...styles.marginAuto,
+          ...styles.alignItemsCenter,
+          ...styles.gap10,
+          ...styles.marginTop10,
+        }}>
         <CommonButton
           theme={'dark'}
           onPress={() => toggleShowChooseAvatar()}
           title={translator.chooseAvatar}
+          style={{justifyContent: 'center'}}
         />
         <EqualTwoTextInputs>
           <SimpleText text={'کد معرفی شما:   '} />

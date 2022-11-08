@@ -2,6 +2,7 @@ import {
   faBasketShopping,
   faCog,
   faCreditCard,
+  faDashboard,
   faHistory,
   faHome,
   faQuestion,
@@ -21,6 +22,12 @@ function MenuItemRepeat(props) {
         onClick={() => navigate('/')}
         text={translator.home}
         icon={faHome}
+        selected={props.selected === '/'}
+      />
+      <MenuItem
+        onClick={() => navigate('/dashboard')}
+        text={translator.dashboard}
+        icon={faDashboard}
         selected={props.selected === 'dashboard'}
       />
       <SuperMenuItem
@@ -55,11 +62,13 @@ function MenuItemRepeat(props) {
         onClick={() => navigate('/charge')}
         text={translator.charge}
         icon={faCreditCard}
+        selected={props.selected === 'charge'}
       />
       <MenuItem
         onClick={() => navigate('/financeHistory')}
         text={translator.history}
         icon={faHistory}
+        selected={props.selected === 'financeHistory'}
       />
       {/* <MenuItem text={translator.support} icon={faQuestion} /> */}
       <MenuItem

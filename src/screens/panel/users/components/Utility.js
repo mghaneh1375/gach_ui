@@ -10,11 +10,15 @@ export const filter = async (
   level,
   NID = undefined,
   phone = undefined,
+  name = undefined,
+  lastname = undefined,
 ) => {
   let query = new URLSearchParams();
   query.append('level', level);
   if (NID !== undefined) query.append('NID', NID);
   if (phone !== undefined) query.append('phone', phone);
+  if (name !== undefined) query.append('name', name);
+  if (lastname !== undefined) query.append('lastname', lastname);
 
   let res = await generalRequest(
     routes.fetchAllUsers + '?' + query.toString(),

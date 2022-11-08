@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {style} from '../../../../components/web/LargeScreen/Header/style';
@@ -10,8 +9,8 @@ import translator from '..//translate';
 import commonTranslator from './../../../../translator/Common';
 
 const ResetPass = props => {
-  const [password, setPassword] = useState('Ghhy@112');
-  const [rp, setRp] = useState('Ghhy@112');
+  const [password, setPassword] = useState('');
+  const [rp, setRp] = useState('');
 
   const changeInput = (label, text) => {
     if (label === 'password') setPassword(text);

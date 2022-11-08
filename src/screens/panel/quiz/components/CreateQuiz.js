@@ -190,7 +190,12 @@ const CreateQuiz = props => {
         let files = [];
 
         for (let i = 0; i < filesContent.length; i++) {
-          let fileRes = await addFile(props.token, filesContent[i], quizId);
+          let fileRes = await addFile(
+            props.token,
+            filesContent[i],
+            quizId,
+            'irysc',
+          );
           if (fileRes !== null && fileRes !== undefined) files.push(fileRes);
         }
 

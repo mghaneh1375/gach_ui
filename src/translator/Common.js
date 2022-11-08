@@ -33,6 +33,7 @@ const translator = {
   support: 'پشتیبانی',
   email: 'آدرس ایمیل',
   home: 'خانه',
+  dashboard: 'داشبورد',
   myGeneralQuizes: 'آزمون های من',
   myQuizes: 'آزمون های آیریسکی من',
   myCustomQuizess: 'آزمون های شخصی من',

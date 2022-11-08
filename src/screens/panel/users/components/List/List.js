@@ -9,7 +9,6 @@ import {useParams} from 'react-router';
 import Filter from './Filter';
 import {usersContext, dispatchUsersContext} from '../Context';
 import {filter} from '../Utility';
-import {useEffectOnce} from 'usehooks-ts';
 
 function List(props) {
   const useGlobalState = () => [
