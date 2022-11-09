@@ -13,6 +13,7 @@ import {
   faGift,
   faCertificate,
   faDashboard,
+  faBox,
 } from '@fortawesome/free-solid-svg-icons';
 import {SuperMenuItem} from './SuperMenuItem';
 import {MyView} from '../../../../../styles/Common';
@@ -169,6 +170,18 @@ function AdminMenu(props) {
             {
               text: translator.packageQuiz,
               url: '/quiz/package',
+            },
+          ]}
+        />
+        <SuperMenuItem
+          text={translator.contents}
+          icon={faBox}
+          selected={props.selected === 'contents'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.listContents,
+              url: '/contents',
             },
           ]}
         />

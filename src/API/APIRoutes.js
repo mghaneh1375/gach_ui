@@ -191,4 +191,13 @@ export const routes = {
   fetchAllCertificate: 'certificate/admin/getAll',
   removeCertificate: 'certificate/admin/remove',
   removeStudentsFromCertificate: 'certificate/admin/removeStudents/',
+  fetchContents: 'package_content/manage/getAll',
+  fetchContent: 'package_content/manage/get/',
+  removeContent: 'package_content/manage/delete/',
+  storeContent: 'package_content/manage/store',
+  setImgContent: 'package_content/manage/setImg/',
+  addSessionToContent: 'package_content/manage/addSession/',
+  addٰVideoToSession: 'package_content/manage/addٰVideoToSession/',
+  addٰAttachToSession: 'package_content/manage/addٰAttachToSession/',
+  removeSessionFromContent: 'package_content/manage/removeSession/',
 };

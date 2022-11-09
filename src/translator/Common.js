@@ -212,5 +212,7 @@ const translator = {
   go: 'بروید',
   clickHere: 'اینجا را کلیک کنید',
   filter: 'اعمال فیلتر',
+  contents: 'بسته های آموزشی',
+  listContents: 'لیست بسته های آموزشی',
 };
 export default translator;

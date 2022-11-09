@@ -52,7 +52,7 @@ function BoxRanking(props) {
         }}>
         <SimpleText
           style={{...styles.colorDarkBlue, ...styles.alignSelfCenter}}
-          text={props.useFilter ? 'رتبه در پایه تحصیلی' : 'رتبه در آی ریسک'}
+          text={props.useFilter ? 'رتبه در پایه تحصیلی' : 'رتبه در آیریسک'}
         />
         <Circle
           diameter={50}

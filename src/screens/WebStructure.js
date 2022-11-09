@@ -66,6 +66,7 @@ import RankingList from './general/RankingList/RankingList';
 import MakeQuiz from './studentPanel/MakeQuiz/MakeQuiz';
 import History from './studentPanel/History/History';
 import OpenQuiz from './panel/quiz/OpenQuiz';
+import Content from './panel/Content/Content';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -305,6 +306,13 @@ const WebStructue = props => {
               )}
               {props.page === 'cert' && (
                 <Certificate
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
+              )}
+              {props.page === 'contents' && (
+                <Content
                   token={state.token}
                   user={state.user}
                   navigate={navigate}

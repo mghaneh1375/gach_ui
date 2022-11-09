@@ -94,6 +94,7 @@ export default function WebRouter() {
             path="/tarazLevels"
             element={<WebStructue page="tarazLevels" />}
           />
+          <Route path="/contents" element={<WebStructue page="contents" />} />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route
             path="/ranking/:mode/:quizId/:quizName"
