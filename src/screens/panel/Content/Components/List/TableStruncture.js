@@ -9,6 +9,12 @@ const columns = [
     center: true,
   },
   {
+    name: Translator.price,
+    selector: row => row.price,
+    grow: 2,
+    center: true,
+  },
+  {
     name: Translator.teacher,
     selector: row => row.teacher,
     grow: 2,
@@ -21,8 +27,20 @@ const columns = [
     center: true,
   },
   {
+    name: Translator.buyers,
+    selector: row => row.buyers,
+    grow: 2,
+    center: true,
+  },
+  {
     name: Translator.hasCert,
     selector: row => row.hasCert,
+    grow: 2,
+    center: true,
+  },
+  {
+    name: Translator.hasFinalExam,
+    selector: row => row.hasFinalExam,
     grow: 2,
     center: true,
   },

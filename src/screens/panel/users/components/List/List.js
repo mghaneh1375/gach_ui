@@ -9,6 +9,8 @@ import {useParams} from 'react-router';
 import Filter from './Filter';
 import {usersContext, dispatchUsersContext} from '../Context';
 import {filter} from '../Utility';
+import {routes} from '../../../../../API/APIRoutes';
+import {generalRequest} from '../../../../../API/Utility';
 
 function List(props) {
   const useGlobalState = () => [
@@ -38,6 +40,8 @@ function List(props) {
 
   const currLevel = useParams().level;
   const [isWorking, setIsWorking] = useState(false);
+  const [branches, setBranches] = useState();
+  const [grades, setGrades] = useState();
 
   const fetchData = React.useCallback(() => {
     if ((state.fetched === currLevel && state.users !== undefined) || isWorking)
@@ -45,13 +49,19 @@ function List(props) {
 
     setIsWorking(true);
     props.setLoading(true);
-    Promise.all([filter(props.token, currLevel)]).then(res => {
+    Promise.all([
+      filter(props.token, currLevel),
+      generalRequest(routes.fetchGrades, 'get', undefined, 'data'),
+      generalRequest(routes.fetchBranches, 'get', undefined, 'data'),
+    ]).then(res => {
       props.setLoading(false);
-      if (res[0] == null) {
+      if (res[0] == null || res[1] == null || res[2] == null) {
         props.navigate('/');
         return;
       }
 
+      setGrades(res[1]);
+      setBranches(res[2]);
       dispatch({users: res[0], fetched: currLevel});
       setIsWorking(false);
     });
@@ -81,7 +91,15 @@ function List(props) {
           levelsKeyVals.find(elem => elem.id === currLevel).item
         }>
         <MyView>
-          <Filter token={props.token} setLoading={props.setLoading} />
+          {grades !== undefined && (
+            <Filter
+              grades={grades}
+              branches={branches}
+              token={props.token}
+              setLoading={props.setLoading}
+            />
+          )}
+
           {state.users !== undefined && (
             <CommonDataTable
               columns={columns}

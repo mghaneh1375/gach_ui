@@ -54,7 +54,7 @@ const Login = props => {
     setMode(wantedMode);
   };
 
-  const home = device.indexOf(Device.App) !== -1 ? 'Home' : '/';
+  const home = device.indexOf(Device.App) !== -1 ? 'Home' : '/dashboard';
 
   const redirectToHome = () => {
     navigate(home);
@@ -151,7 +151,7 @@ const Login = props => {
             token={token}
             setLoading={setLoading}
             navigate={navigate}
-            redirectTo={isApp ? 'Home' : '/'}
+            redirectTo={isApp ? 'Home' : '/dashboard'}
           />
         )}
       </MyView>

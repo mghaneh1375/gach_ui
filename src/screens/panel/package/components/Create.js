@@ -88,12 +88,16 @@ function Create(props) {
           setter={setLesson}
           value={
             lessons !== undefined
-              ? lessons.find(elem => {
+              ? [{id: -1, item: 'بدون درس'}].concat(lessons).find(elem => {
                   return elem.id === lesson;
                 })
               : ''
           }
-          values={lessons !== undefined ? lessons : []}
+          values={
+            lessons !== undefined
+              ? [{id: -1, item: 'بدون درس'}].concat(lessons)
+              : []
+          }
         />
       </PhoneView>
       <MyView>
@@ -112,7 +116,7 @@ function Create(props) {
               title: title,
               description: desc,
               gradeId: grade,
-              lessonId: lesson,
+              lessonId: lesson === -1 ? undefined : lesson,
               minSelect: minSelect,
               offPercent: offPercent,
             };

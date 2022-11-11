@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {dispatchStateContext} from '../../../App';
 import {ContentProvider} from './Components/Context';
+import Create from './Components/Create';
 import List from './Components/List/List';
 function Content(props) {
   const navigate = props.navigate;
@@ -22,6 +23,9 @@ function Content(props) {
           setMode={setMode}
           navigate={navigate}
         />
+      )}
+      {mode === 'create' && (
+        <Create token={props.token} setMode={setMode} setLoading={setLoading} />
       )}
     </ContentProvider>
   );

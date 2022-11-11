@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {dispatchStateContext} from '../../../App';
 import List from './components/List/List';
-import {CommonWebBox, MyView} from '../../../styles/Common';
-import ChangePass from '../../general/profile/components/ChangePass';
+import {MyView} from '../../../styles/Common';
 import ChangeLevel from './components/ChangeLevel';
 import {useParams} from 'react-router';
 import {UsersProvider} from './components/Context';

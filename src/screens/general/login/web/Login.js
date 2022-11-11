@@ -105,7 +105,7 @@ const Login = props => {
         <BlurLoginBack style={{zIndex: 10}}>
           {mode === 'login' && (
             <LoginModule
-              toPath={'/'}
+              toPath={'/dashboard'}
               navigate={navigate}
               setLoading={setLoading}
             />
@@ -159,7 +159,7 @@ const Login = props => {
               token={token}
               setLoading={setLoading}
               navigate={navigate}
-              redirectTo={'/'}
+              redirectTo={'/dashboard'}
             />
           )}
         </BlurLoginBack>

@@ -4,10 +4,12 @@ import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import Translator from '../../Translate';
 import {contentContext, dispatchContentContext} from '../Context';
 import {fetchContents} from '../Utility';
+import columns from './TableStruncture';
 
 function List(props) {
   const useGlobalState = () => [
-    React.useContext(contentContext, dispatchContentContext),
+    React.useContext(contentContext),
+    React.useContext(dispatchContentContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
@@ -37,7 +39,7 @@ function List(props) {
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         {state.contents !== undefined && (
-          <CommonDataTable data={state.contents} />
+          <CommonDataTable columns={columns} data={state.contents} />
         )}
       </CommonWebBox>
     </MyView>

@@ -16,12 +16,23 @@ function Filter(props) {
   const [phone, setPhone] = useState();
   const [name, setName] = useState();
   const [lastName, setLastName] = useState();
+  const [grade, setGrade] = useState();
+  const [branch, setBranch] = useState();
 
   const level = useParams().level;
 
   const filterLocal = async () => {
     props.setLoading(true);
-    let res = await filter(props.token, level, NID, phone, name, lastName);
+    let res = await filter(
+      props.token,
+      level,
+      NID,
+      phone,
+      name,
+      lastName,
+      grade !== undefined ? grade.id : undefined,
+      branch !== undefined ? branch.id : undefined,
+    );
     props.setLoading(false);
     // setNID(undefined);
     // setPhone(undefined);
@@ -59,6 +70,24 @@ function Filter(props) {
           onChangeText={e => setLastName(e)}
           placeholder={commonTranslator.lastname}
           subText={commonTranslator.lastname}
+        />
+        <JustBottomBorderTextInput
+          placeholder={commonTranslator.grade}
+          subText={commonTranslator.grade}
+          resultPane={true}
+          setSelectedItem={e => setGrade(e)}
+          values={props.grades}
+          value={grade !== undefined ? grade.name : ''}
+          reset={false}
+        />
+        <JustBottomBorderTextInput
+          resultPane={true}
+          placeholder={commonTranslator.branch}
+          subText={commonTranslator.branch}
+          setSelectedItem={e => setBranch(e)}
+          reset={false}
+          values={props.branches}
+          value={branch != undefined ? branch.name : ''}
         />
       </PhoneView>
 
