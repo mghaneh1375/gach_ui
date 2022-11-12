@@ -25,7 +25,20 @@ function Content(props) {
         />
       )}
       {mode === 'create' && (
-        <Create token={props.token} setMode={setMode} setLoading={setLoading} />
+        <Create
+          isInEditMode={false}
+          token={props.token}
+          setMode={setMode}
+          setLoading={setLoading}
+        />
+      )}
+      {mode === 'update' && (
+        <Create
+          isInEditMode={true}
+          token={props.token}
+          setMode={setMode}
+          setLoading={setLoading}
+        />
       )}
     </ContentProvider>
   );

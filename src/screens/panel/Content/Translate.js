@@ -5,15 +5,21 @@ const Translator = {
   price: 'قیمت',
   sessionsCount: 'تعداد جلسات',
   hasCert: 'آیا گواهی دارد؟',
+  hasExam: 'آیا آزمون پایان دوره دارد؟',
   duration: 'مدت دوره',
   buyers: 'تعداد خریداران',
   hasFinalExam: 'آیا آزمون پایان دوره دارد؟',
+  finalExamMinMark: 'حداقل نمره قبولی آزمون پایان دوره',
+  finalExam: 'آزمون پایان ترم',
   addNewItem: 'افزودن بسته آموزشی جدید',
   description: 'درباره دوره',
   teacherBio: 'درباره استاد',
   preReq: 'پیش نیاز های دوره',
   cert: 'گواهی دوره',
   tags: 'برچسب ها',
+  seeInfo: 'مشاهده اطلاعات',
+  sessions: 'مدیریت جلسات',
+  users: 'گزارش گیری خریداران',
 };
 
 export default Translator;

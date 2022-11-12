@@ -197,6 +197,7 @@ export const routes = {
   fetchContent: 'package_content/public/get/',
   removeContent: 'package_content/manage/delete/',
   storeContent: 'package_content/manage/store',
+  updateContent: 'package_content/manage/update/',
   setImgContent: 'package_content/manage/setImg/',
   addSessionToContent: 'package_content/manage/addSession/',
   addٰVideoToSession: 'package_content/manage/addٰVideoToSession/',

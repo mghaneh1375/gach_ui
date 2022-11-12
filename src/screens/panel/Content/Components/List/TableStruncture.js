@@ -1,3 +1,4 @@
+import {formatPrice} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../translator/Common';
 import Translator from '../../Translate';
 
@@ -10,7 +11,7 @@ const columns = [
   },
   {
     name: Translator.price,
-    selector: row => row.price,
+    selector: row => formatPrice(row.price),
     grow: 2,
     center: true,
   },
@@ -34,13 +35,14 @@ const columns = [
   },
   {
     name: Translator.hasCert,
-    selector: row => row.hasCert,
+    selector: row => (row.hasCert ? commonTranslator.yes : commonTranslator.no),
     grow: 2,
     center: true,
   },
   {
     name: Translator.hasFinalExam,
-    selector: row => row.hasFinalExam,
+    selector: row =>
+      row.hasFinalExam ? commonTranslator.yes : commonTranslator.no,
     grow: 2,
     center: true,
   },
