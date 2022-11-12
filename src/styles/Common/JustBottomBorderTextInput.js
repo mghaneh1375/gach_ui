@@ -55,6 +55,9 @@ const JustBottomBorderTextInput = props => {
         value={props.value}
         reset={props.reset}
         setSelectedItem={props.setSelectedItem}
+        addNotFound={
+          props.addNotFound === undefined ? false : props.addNotFound
+        }
       />
     );
 

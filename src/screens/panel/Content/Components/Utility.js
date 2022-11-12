@@ -50,3 +50,22 @@ export const store = async (token, data) => {
     return null;
   }
 };
+
+export const update = async (token, data, id) => {
+  try {
+    let res = await generalRequest(
+      routes.updateContent + id,
+      'put',
+      data,
+      'data',
+      token,
+      mandatoryFields,
+    );
+    if (res !== null) showSuccess();
+
+    return res;
+  } catch (e) {
+    showError(commonTranslator.pleaseFillAllFields);
+    return null;
+  }
+};

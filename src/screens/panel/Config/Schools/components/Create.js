@@ -76,7 +76,9 @@ function Create(props) {
 
         <PhoneView style={{gap: 15}}>
           <StateAndCity
-            state={props.isInEditMode ? state.selectedSchool.state : undefined}
+            state={
+              props.isInEditMode ? globalState.selectedSchool.state : undefined
+            }
             city={city}
             setter={setCity}
             stateSetter={setState}
@@ -93,9 +95,9 @@ function Create(props) {
           multiline={true}
         />
         <CommonButton
-          onPress={() =>
+          onPress={async () =>
             !props.isInEditMode
-              ? create(
+              ? await create(
                   {
                     name: name,
                     address: address,
@@ -106,12 +108,13 @@ function Create(props) {
                   props.setLoading,
                   props.token,
                   newItem => {
-                    let allItems = state.schools;
+                    let allItems = globalState.schools;
                     allItems.push(newItem);
                     dispatch({data: allItems, schools: allItems});
+                    props.setMode('list');
                   },
                 )
-              : update(
+              : await update(
                   id,
                   {
                     id: id,
@@ -134,13 +137,14 @@ function Create(props) {
                   props.setLoading,
                   props.token,
                   item => {
-                    let allItems = state.schools;
+                    let allItems = globalState.schools;
 
                     allItems = allItems.map(elem => {
                       if (elem.id === item.id) return item;
                       return elem;
                     });
                     dispatch({schools: allItems, data: allItems});
+                    props.setMode('list');
                   },
                 )
           }

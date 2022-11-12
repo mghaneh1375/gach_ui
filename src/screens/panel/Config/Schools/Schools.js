@@ -67,7 +67,7 @@ function Schools(props) {
           <Create
             setMode={setMode}
             setLoading={setLoading}
-            token={props.token}
+            token={state.token}
             isInEditMode={false}
           />
         )}
@@ -75,7 +75,7 @@ function Schools(props) {
           <Create
             setMode={setMode}
             setLoading={setLoading}
-            token={props.token}
+            token={state.token}
             isInEditMode={true}
           />
         )}

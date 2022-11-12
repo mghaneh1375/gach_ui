@@ -74,7 +74,7 @@ function List(props) {
       )}
       {state.data !== undefined && (
         <CommonWebBox
-          header={translator.offs}
+          header={translator.addNewItem}
           addBtn={true}
           onAddClick={() => props.setMode('create')}>
           <MyView style={{gap: 15}}>

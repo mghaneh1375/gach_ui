@@ -32,34 +32,31 @@ export const filter = async (token, kind, grade, state, city, hasUser) => {
 
 const mandatoryFields = ['name', 'cityId', 'grade', 'kind'];
 
-export const create = (data, setLoading, token, afterAdd) => {
+export const create = async (data, setLoading, token, afterAdd) => {
   let postData = data;
   if (postData.city !== undefined) {
     postData.cityId = postData.city.id;
     postData.city = undefined;
   }
+
   setLoading(true);
-  Promise.all([
-    generalRequest(
-      routes.addSchool,
-      'post',
-      data,
-      'id',
-      token,
-      mandatoryFields,
-    ),
-  ])
-    .then(res => {
-      setLoading(false);
-      if (res[0] !== undefined) {
-        data.id = res[0];
-        afterAdd(data);
-        showSuccess(commonTranslator.success);
-      }
-    })
-    .catch(x => {
-      setLoading(false);
-    });
+
+  let res = await generalRequest(
+    routes.addSchool,
+    'post',
+    data,
+    'id',
+    token,
+    mandatoryFields,
+  );
+
+  setLoading(false);
+
+  if (res !== undefined) {
+    data.id = res;
+    showSuccess(commonTranslator.success);
+    afterAdd(data);
+  }
 };
 
 export const update = (id, tableData, data, setLoading, token, afterUpdate) => {

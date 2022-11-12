@@ -4,7 +4,6 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
-  SimpleText,
 } from '../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {statusKeyVals} from '../../question/components/KeyVals';
@@ -19,7 +18,7 @@ import {trueFalseValues} from '../../../../services/Utility';
 import {contentContext, dispatchContentContext} from './Context';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
-import {fetchContent, fetchContents, store} from './Utility';
+import {fetchContent, fetchContents, store, update} from './Utility';
 
 function Create(props) {
   let ckEditor = null;
@@ -44,13 +43,15 @@ function Create(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [certs, setCerts] = useState();
   const [tags, setTags] = useState([]);
+  const [allTags, setAllTags] = useState();
   const [quizzes, setQuizzes] = useState();
   const [hasExam, setHasExam] = useState();
   const [finalExamId, setFinalExamId] = useState();
   const [finalExamMinMark, setFinalExamMinMark] = useState();
+  const [teachers, setTeachers] = useState();
 
   const fetchCertification = React.useCallback(() => {
-    if (isWorking || state.certifications !== undefined) return;
+    if (isWorking || certs !== undefined) return;
 
     setIsWorking(true);
     props.setLoading(true);
@@ -77,15 +78,38 @@ function Create(props) {
         'data',
         props.token,
       ),
+      generalRequest(
+        routes.distinctTeachersContents,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
     ]).then(res => {
       if (!props.isInEditMode) props.setLoading(false);
 
-      if (res[0] === null || res[1] === null || res[2] === null) {
+      if (
+        res[0] === null ||
+        res[1] === null ||
+        res[2] === null ||
+        res[3] === null
+      ) {
         props.setMode('list');
         props.setLoading(false);
         return;
       }
-      dispatch({certifications: res[0], tags: res[1], quizzes: res[2]});
+
+      setAllTags(
+        res[1].map((elem, index) => {
+          return {id: index, name: elem};
+        }),
+      );
+
+      setTeachers(
+        res[3].map((elem, index) => {
+          return {id: index, name: elem};
+        }),
+      );
       setCerts(res[0]);
       setQuizzes(res[2]);
 
@@ -125,7 +149,7 @@ function Create(props) {
         );
       }
     });
-  }, [isWorking, props, state.certifications, dispatch, state.selectedContent]);
+  }, [isWorking, props, certs, state.selectedContent]);
 
   React.useEffect(() => {});
 
@@ -157,18 +181,16 @@ function Create(props) {
                 }),
               );
               if (item.length > 0) {
-                let tmp = state.tags;
+                let tmp = allTags;
                 item.forEach(itr => {
-                  if (
-                    state.tags.find(elem => elem.id === itr.id) === undefined
-                  ) {
+                  if (allTags.find(elem => elem.id === itr.id) === undefined) {
                     tmp.push(itr);
                   }
                 });
-                dispatch({tags: tmp});
+                setAllTags(tmp);
               }
             }}
-            values={state.tags}
+            values={allTags}
             value={tags.map((elem, index) => {
               return {id: index, title: elem};
             })}
@@ -183,12 +205,18 @@ function Create(props) {
             justNum={true}
             subText={Translator.price}
           />
+
           <JustBottomBorderTextInput
+            resultPane={true}
+            addNotFound={true}
+            reset={false}
+            value={teacher === undefined ? '' : teacher}
             placeholder={Translator.teacher}
-            onChangeText={e => setTeacher(e)}
-            value={teacher}
             subText={Translator.teacher}
+            setSelectedItem={item => setTeacher(item.name)}
+            values={teachers}
           />
+
           <JustBottomBorderSelect
             placeholder={commonTranslator.visibility}
             subText={commonTranslator.visibility}
@@ -354,13 +382,20 @@ function Create(props) {
             }
 
             props.setLoading(true);
-            let res = await store(props.token, data);
+            let res = props.isInEditMode
+              ? await update(props.token, data, state.selectedContent.id)
+              : await store(props.token, data);
 
             props.setLoading(false);
 
             if (res != null) {
               let contents = state.contents;
-              contents.push(res.data);
+              if (props.isInEditMode) {
+                contents = contents.map(elem => {
+                  if (elem.id === state.selectedContent.id) return res;
+                  return elem;
+                });
+              } else contents.push(res);
               dispatch({contents: contents});
               props.setMode('list');
             }

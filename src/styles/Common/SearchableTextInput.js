@@ -97,6 +97,14 @@ export const SearchableTextInput = props => {
         newSuggests.push(props.values[i]);
     }
 
+    if (
+      props.addNotFound !== undefined &&
+      props.addNotFound &&
+      newSuggests.length === 0
+    ) {
+      newSuggests.push({id: text, name: text});
+    }
+
     setSuggests(newSuggests);
     setShowResultPane(true);
   };

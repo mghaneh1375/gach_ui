@@ -6,6 +6,7 @@ const translator = {
   user: 'متولی',
   userPhone: 'شماره تماس متولی',
   hasUser: 'دارای متولی',
+  addNewItem: 'افزودن مدرسه جدید',
 };
 
 export default translator;
