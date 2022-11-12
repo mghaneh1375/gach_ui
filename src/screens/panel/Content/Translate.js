@@ -12,6 +12,8 @@ const Translator = {
   description: 'درباره دوره',
   teacherBio: 'درباره استاد',
   preReq: 'پیش نیاز های دوره',
+  cert: 'گواهی دوره',
+  tags: 'برچسب ها',
 };
 
 export default Translator;
