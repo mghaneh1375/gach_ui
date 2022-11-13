@@ -77,11 +77,13 @@ export const chooseTheme = (theme, allStyles, textStyle) => {
       ? 'transparent'
       : theme === 'yellow'
       ? vars.YELLOW
+      : theme === 'cream'
+      ? vars.CREAM
       : theme === 'orangeRed'
       ? vars.ORANGE_RED
       : vars.DARK_BLUE;
 
-  if (theme === 'transparent') {
+  if (theme === 'transparent' || theme === 'cream') {
     // className = 'myTransparentBtn';
     allStyles = {
       ...allStyles,

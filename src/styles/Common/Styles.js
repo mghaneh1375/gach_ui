@@ -15,6 +15,9 @@ export const styles = {
   red: {
     color: 'red',
   },
+  cream_back: {
+    backgroundColor: vars.CREAM,
+  },
   yellow_color: {
     color: vars.YELLOW,
   },

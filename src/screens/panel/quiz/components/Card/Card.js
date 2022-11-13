@@ -36,6 +36,7 @@ import QuizItemCard from '../../../../../components/web/QuizItemCard';
 
 function Card(props) {
   const [showMore, setShowMore] = useState(false);
+
   return (
     <CommonWebBox style={{...styleCard, ...styles.BlueBold}}>
       <MyView
@@ -43,17 +44,18 @@ function Card(props) {
           ...styleYellowBox,
           ...styles.BlueBold,
         }}>
-        {props.quiz.launchMode === undefined && (
-          <MyView
-            style={{
-              ...styleCircleBox,
-            }}>
-            <SimpleText
-              style={{...styleColorWhite, ...styles.BlueBold}}
-              text={'آزمون باز'}
-            />
-          </MyView>
-        )}
+        {props.quiz.launchMode === undefined &&
+          (props.quizMode === undefined || props.quizMode === 'open') && (
+            <MyView
+              style={{
+                ...styleCircleBox,
+              }}>
+              <SimpleText
+                style={{...styleColorWhite, ...styles.BlueBold}}
+                text={'آزمون باز'}
+              />
+            </MyView>
+          )}
 
         <SimpleText
           style={{

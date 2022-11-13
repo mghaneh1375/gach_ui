@@ -1,9 +1,10 @@
-import {faCheck, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faPlus, faSearch} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {changeText, p2e, showError} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
+  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -23,6 +24,7 @@ import commonTranslator from '../../../translator/Common';
 import BuyBasket from './BuyBasket';
 import OffCode from '../../general/buy/components/OffCode';
 import {LoadingCommonWebBox} from '../../../components/LoadingCommonWebBox';
+import Search from './Search';
 
 function MakeQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -50,6 +52,7 @@ function MakeQuiz(props) {
   const [price, setPrice] = useState();
   const [mode, setMode] = useState('choose');
   const [transactionId, setTransactionId] = useState();
+  const [showSearch, setShowSearch] = useState(false);
   const navigate = props.navigate;
 
   const calc = (accountOff, totalPrice) => {
@@ -126,6 +129,9 @@ function MakeQuiz(props) {
 
   return (
     <MyView style={{...styles.marginBottom20}}>
+      {showSearch && (
+        <Search flags={flags} toggleShowPopUp={() => setShowSearch(false)} />
+      )}
       {showOffCodePane && (
         <OffCode
           token={props.token}
@@ -201,16 +207,31 @@ function MakeQuiz(props) {
               />
               <PhoneView style={{...styles.gap15}}>
                 {flags !== undefined && (
-                  <JustBottomBorderTextInput
-                    placeholder={'رشته'}
-                    subText={'رشته'}
-                    value={wantedFlag !== undefined ? wantedFlag.name : ''}
-                    resultPane={true}
-                    setSelectedItem={item => {
-                      setWantedFlag(item);
-                    }}
-                    values={flags}
-                  />
+                  <EqualTwoTextInputs>
+                    <JustBottomBorderTextInput
+                      placeholder={'رشته'}
+                      subText={'رشته'}
+                      value={wantedFlag !== undefined ? wantedFlag.name : ''}
+                      resultPane={true}
+                      setSelectedItem={item => {
+                        setWantedFlag(item);
+                      }}
+                      values={flags}
+                    />
+                    <FontIcon
+                      onPress={() => setShowSearch(true)}
+                      parentStyle={{
+                        alignSelf: 'center',
+                        alignItems: 'center',
+                        marginTop: 20,
+                        marginRight: 20,
+                      }}
+                      kind={'normal'}
+                      theme={'rect'}
+                      icon={faSearch}
+                      back={'yellow'}
+                    />
+                  </EqualTwoTextInputs>
                 )}
                 <JustBottomBorderTextInput
                   text={Translate.count}

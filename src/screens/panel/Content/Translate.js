@@ -12,6 +12,7 @@ const Translator = {
   finalExamMinMark: 'حداقل نمره قبولی آزمون پایان دوره',
   finalExam: 'آزمون پایان ترم',
   addNewItem: 'افزودن بسته آموزشی جدید',
+  editItem: 'ویرایش بسته آموزشی',
   description: 'درباره دوره',
   teacherBio: 'درباره استاد',
   preReq: 'پیش نیاز های دوره',

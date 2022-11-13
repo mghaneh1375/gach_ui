@@ -20,7 +20,7 @@ const translator = {
   agent: 'نماینده',
   agents: 'نمایندگان',
   school: 'مدرسه',
-  author: 'مولف',
+  author: 'طراح',
   management: 'مدیریت',
   authors: 'مولفین',
   schools: 'مدارس',
@@ -214,5 +214,6 @@ const translator = {
   filter: 'اعمال فیلتر',
   contents: 'بسته های آموزشی',
   listContents: 'لیست بسته های آموزشی',
+  results: 'نتایج',
 };
 export default translator;

@@ -80,6 +80,7 @@ function List(props) {
                 isStudent={true}
                 onClick={() => {}}
                 quiz={quiz}
+                quizMode={'custom'}
                 key={index}
               />
             );

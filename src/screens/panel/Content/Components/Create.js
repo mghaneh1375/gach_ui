@@ -159,7 +159,7 @@ function Create(props) {
 
   return (
     <CommonWebBox
-      header={Translator.addNewItem}
+      header={props.isInEditMode ? Translator.editItem : Translator.addNewItem}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       {!isWorking && (
@@ -192,7 +192,7 @@ function Create(props) {
             }}
             values={allTags}
             value={tags.map((elem, index) => {
-              return {id: index, title: elem};
+              return {id: index, name: elem};
             })}
             reset={false}
             placeholder={Translator.tags}
