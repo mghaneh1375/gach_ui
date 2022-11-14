@@ -13,18 +13,27 @@ import React, {useState} from 'react';
 import Card from './Card';
 
 function Search(props) {
-  const [wantedFlag, setWantedFlag] = useState();
   const [filter, setFilter] = useState();
   const [boxes, setBoxes] = useState();
+  const [mode, setMode] = useState();
 
   React.useEffect(() => {
     if (filter === undefined) return;
-    if (filter === 'branch')
+    if (filter === 'branch') {
+      setMode('branch');
       setBoxes(
         props.flags.filter(elem => {
           return elem.section === 'grade';
         }),
       );
+    } else {
+      setMode(undefined);
+      setBoxes(
+        props.flags.filter(elem => {
+          return elem.section === 'author';
+        }),
+      );
+    }
   }, [filter, props.flags]);
 
   return (
@@ -40,12 +49,12 @@ function Search(props) {
         {props.flags !== undefined && (
           <JustBottomBorderTextInput
             isHalf={true}
-            placeholder={commonTranslator.branch}
-            subText={commonTranslator.branch}
-            value={wantedFlag !== undefined ? wantedFlag.name : ''}
+            placeholder={Translate.searchInAll}
+            subText={Translate.minChar}
+            value={props.wantedFlag !== undefined ? props.wantedFlag.name : ''}
             resultPane={true}
             setSelectedItem={item => {
-              setWantedFlag(item);
+              props.setWantedFlag(item);
             }}
             values={props.flags}
           />
@@ -77,10 +86,48 @@ function Search(props) {
                     <Card
                       key={index}
                       header={elem.name}
-                      desc={elem.desc}
+                      desc={
+                        filter === 'author' || mode === 'branch'
+                          ? undefined
+                          : elem.desc
+                      }
                       limitMid={elem.limitMid}
                       limitEasy={elem.limitEasy}
                       limitHard={elem.limitHard}
+                      nextLevel={
+                        mode === 'branch'
+                          ? Translate.lessons
+                          : mode === 'lesson'
+                          ? Translate.subjects
+                          : undefined
+                      }
+                      onSelect={() => {
+                        props.setWantedFlag(elem);
+                        props.toggleShowPopUp();
+                      }}
+                      onPress={() => {
+                        if (mode === 'branch') {
+                          setBoxes(
+                            props.flags.filter(itr => {
+                              return (
+                                itr.section === 'lesson' &&
+                                itr.gradeId === elem.id
+                              );
+                            }),
+                          );
+                          setMode('lesson');
+                        } else if (mode === 'lesson') {
+                          setBoxes(
+                            props.flags.filter(itr => {
+                              return (
+                                itr.section === 'subject' &&
+                                itr.lessonId === elem.id
+                              );
+                            }),
+                          );
+                          setMode('subject');
+                        }
+                      }}
                     />
                   );
                 })}

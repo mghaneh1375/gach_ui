@@ -60,11 +60,11 @@ function FilterItem(props) {
 
   return (
     <MyView>
-      <PhoneView>
+      <PhoneView style={{paddingBottom: expand ? 10 : 0}}>
         <SimpleFontIcon
           onPress={() => setExpand(!expand)}
           theme="full"
-          parentStyle={{width: 20, heigth: 20}}
+          parentStyle={{width: 15, heigth: 15}}
           style={{color: vars.DARK_SILVER}}
           icon={expand ? faMinus : faPlus}
         />
@@ -72,7 +72,8 @@ function FilterItem(props) {
           style={{
             color: vars.DARK_SILVER,
             alignSelf: 'center',
-            paddingRight: 10,
+            paddingRight: 5,
+            fontSize: 15,
           }}
           text={props.item.label}
           onPress={() => setExpand(!expand)}
@@ -87,7 +88,7 @@ function FilterItem(props) {
                   onPress={() => changeSubCatStatus(index)}
                   status={elem.status}
                   text={elem.label}
-                  style={{color: vars.DARK_SILVER}}
+                  textStyle={{fontSize: 13, color: vars.DARK_SILVER}}
                   key={index}
                   isCheckBox={true}
                 />

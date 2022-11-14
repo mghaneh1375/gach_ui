@@ -14,7 +14,6 @@ import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTe
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
 import commonTranslator from '../../../translator/Common';
-import {style} from '../RunQuiz/style';
 import SymbolsFace from './SymbolsFace';
 import Translate from './Translate';
 

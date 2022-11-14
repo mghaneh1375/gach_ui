@@ -98,7 +98,7 @@ function Card(props) {
           }}>
           <SimpleText
             style={{...styles.fontSize13, ...styles.BlueBold}}
-            text={commonTranslator.grade + ' : ' + props.package.grade.name}
+            text={Translate.grade + ' : ' + props.package.grade.name}
           />
           {props.package.lesson !== undefined && (
             <SimpleText
@@ -107,48 +107,52 @@ function Card(props) {
             />
           )}
         </MyView>
-        <PhoneView
+        <MyView
           style={{
             ...styles.gap10,
             ...styles.flexWrap,
             ...styles.marginTop20,
-            justifyContent: width > 768 ? 'space-around' : 'flex-start',
+            // justifyContent: width > 768 ? 'space-around' : 'flex-start',
             margin: width < 768 ? '0 10px' : 0,
           }}>
-          <QuizItemCard
-            text={Translate.quizCount}
-            val={props.package.quizzes}
-            icon={faPlaceOfWorship}
-            textFontSize={10}
-            valFontSize={15}
+          <SimpleText
+            style={{
+              ...styles.BlueBold,
+              ...styles.fontSize12,
+              ...styles.marginRight20,
+            }}
+            text={Translate.quizCount + props.package.quizzes}
           />
+
           {!props.isAdmin && (
-            <QuizItemCard
-              text={Translate.registrableCount}
-              val={props.package.registrable}
-              icon={faFaucet}
-              textFontSize={10}
-              valFontSize={15}
+            <SimpleText
+              style={{
+                ...styles.BlueBold,
+                ...styles.fontSize12,
+                ...styles.marginRight20,
+              }}
+              text={Translate.registrableCount + props.package.registrable}
             />
           )}
-
-          <QuizItemCard
-            text={Translate.minSelect}
-            val={props.package.minSelect}
-            icon={faJar}
-            textFontSize={10}
-            valFontSize={15}
+          <SimpleText
+            style={{
+              ...styles.BlueBold,
+              ...styles.fontSize12,
+              ...styles.marginRight20,
+            }}
+            text={Translate.minSelect + props.package.minSelect}
           />
           {props.isAdmin && (
-            <QuizItemCard
-              text={Translate.buyersCount}
-              val={props.package.buyers}
-              icon={faFaucet}
-              textFontSize={10}
-              valFontSize={15}
+            <SimpleText
+              style={{
+                ...styles.BlueBold,
+                ...styles.fontSize12,
+                ...styles.marginRight20,
+              }}
+              text={Translate.buyersCount + props.package.buyers}
             />
           )}
-        </PhoneView>
+        </MyView>
         {(props.isStudent === undefined || props.isStudent) && (
           <PhoneView style={{...stylePricaPane}}>
             <PhoneView>

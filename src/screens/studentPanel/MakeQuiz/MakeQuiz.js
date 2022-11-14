@@ -130,7 +130,12 @@ function MakeQuiz(props) {
   return (
     <MyView style={{...styles.marginBottom20}}>
       {showSearch && (
-        <Search flags={flags} toggleShowPopUp={() => setShowSearch(false)} />
+        <Search
+          wantedFlag={wantedFlag}
+          setWantedFlag={setWantedFlag}
+          flags={flags}
+          toggleShowPopUp={() => setShowSearch(false)}
+        />
       )}
       {showOffCodePane && (
         <OffCode
@@ -209,8 +214,8 @@ function MakeQuiz(props) {
                 {flags !== undefined && (
                   <EqualTwoTextInputs>
                     <JustBottomBorderTextInput
-                      placeholder={'رشته'}
-                      subText={'رشته'}
+                      placeholder={Translate.searchInAll}
+                      subText={Translate.searchInAllHelp}
                       value={wantedFlag !== undefined ? wantedFlag.name : ''}
                       resultPane={true}
                       setSelectedItem={item => {
@@ -315,7 +320,7 @@ function MakeQuiz(props) {
                   />
                 </LoadingCommonWebBox>
               )}
-              <MyView style={{...styles.padding20}}>
+              <MyView style={{...styles.padding20, ...styles.gap10}}>
                 {boxes.map((elem, index) => {
                   return (
                     <MakeQuizBox

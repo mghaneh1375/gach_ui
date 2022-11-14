@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {routes} from '../../../../../API/APIRoutes';
 import {BASE_SITE_NAME, BASE_URL} from '../../../../../API/Utility';
 import UploadFile from '../../../../../components/web/UploadFile';
+import {showSuccess} from '../../../../../services/Utility';
 import translator from '../../Translator';
 
 const AddBatch = props => {
@@ -10,7 +11,10 @@ const AddBatch = props => {
 
   React.useEffect(() => {
     if (result === undefined || result.length === 0) return;
-    setFinalMsg(result.excepts + '\n' + result.errs);
+    if (result.errs === undefined || result.errs.length === 0) {
+      setFinalMsg(result.excepts);
+      showSuccess();
+    } else setFinalMsg(result.excepts + '\n' + result.errs);
   }, [result]);
 
   return (

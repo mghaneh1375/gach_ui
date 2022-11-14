@@ -313,12 +313,16 @@ export const CommonRadioButton = props => (
 
     {(props.type === undefined || props.type === 'simple') && (
       <SimpleText
-        style={{
-          color:
-            props.style === undefined || props.style.color === undefined
-              ? 'black'
-              : props.style.color,
-        }}
+        style={
+          props.textStyle !== undefined
+            ? props.textStyle
+            : {
+                color:
+                  props.style === undefined || props.style.color === undefined
+                    ? 'black'
+                    : props.style.color,
+              }
+        }
         text={props.text}
       />
     )}

@@ -1,10 +1,15 @@
-import {CommonWebBox, PhoneView, SimpleText} from '../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+  SimpleText,
+} from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
 import Translate from './Translate';
 
 function Card(props) {
   return (
-    <CommonWebBox width={300}>
+    <CommonWebBox width={330}>
       <SimpleText
         style={styles.colorOrangeRed}
         text={Translate.questionCounts}
@@ -30,6 +35,16 @@ function Card(props) {
         <SimpleText style={styles.BlueBold} text={props.header} />
       </PhoneView>
       <SimpleText text={props.desc} />
+      <PhoneView>
+        <CommonButton
+          theme={'dark'}
+          onPress={props.onSelect}
+          title={Translate.choose}
+        />
+        {props.nextLevel !== undefined && (
+          <CommonButton onPress={props.onPress} title={props.nextLevel} />
+        )}
+      </PhoneView>
     </CommonWebBox>
   );
 }

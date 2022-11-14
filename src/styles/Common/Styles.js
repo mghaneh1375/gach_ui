@@ -101,6 +101,9 @@ export const styles = {
   marginRight25: {
     marginRight: 25,
   },
+  marginRight20: {
+    marginRight: 20,
+  },
   margin25: {
     marginTop: 25,
   },
