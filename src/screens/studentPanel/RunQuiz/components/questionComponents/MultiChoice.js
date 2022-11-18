@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {getDevice} from '../../../../../services/Utility';
 import {PhoneView} from '../../../../../styles/Common';
 import {styles} from '../../../../../styles/Common/Styles';
 import Translate from '../../Translate';
@@ -6,6 +7,9 @@ import Choice from './Choice';
 
 function MultiChoice(props) {
   const [choices, setChoices] = useState();
+
+  const device = getDevice();
+  const isInPhone = device.indexOf('WebPort') !== -1;
 
   const buildChoices = React.useCallback(() => {
     let tmp = [];
@@ -30,9 +34,15 @@ function MultiChoice(props) {
 
   return (
     <PhoneView
-      style={{
-        ...styles.gap50,
-      }}>
+      style={
+        isInPhone
+          ? {
+              ...styles.gap10,
+            }
+          : {
+              ...styles.gap50,
+            }
+      }>
       {choices !== undefined &&
         choices.map((elem, index) => {
           return (

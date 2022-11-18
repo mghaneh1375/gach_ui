@@ -67,6 +67,7 @@ import MakeQuiz from './studentPanel/MakeQuiz/MakeQuiz';
 import History from './studentPanel/History/History';
 import OpenQuiz from './panel/quiz/OpenQuiz';
 import Content from './panel/Content/Content';
+import ShowRecp from './studentPanel/Recp/ShowRecp';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -234,6 +235,9 @@ const WebStructue = props => {
               )}
               {props.page === 'financeHistory' && (
                 <History navigate={navigate} />
+              )}
+              {props.page === 'recp' && (
+                <ShowRecp token={state.token} navigate={navigate} />
               )}
               {props.page === 'allSchools' && <Schools navigate={navigate} />}
               {props.page === 'makeQuiz' && (

@@ -23,6 +23,10 @@ export default function WebRouter() {
             path="financeHistory"
             element={<WebStructue page="financeHistory" />}
           />
+          <Route
+            path="recp/:transactionId"
+            element={<WebStructue page="recp" />}
+          />
 
           <Route
             path="myIRYSCQuizzes"

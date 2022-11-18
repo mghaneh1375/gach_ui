@@ -161,28 +161,38 @@ function Card(props) {
                 text={commonTranslator.price}
               />
               <SimpleText
-                style={{
-                  ...styles.textDecorRed,
-                  ...styles.BlueBold,
-                }}
+                style={
+                  props.package.totalPrice !== props.package.realPrice
+                    ? {
+                        ...styles.textDecorRed,
+                        ...styles.BlueBold,
+                      }
+                    : {
+                        ...styles.BlueBold,
+                      }
+                }
                 text={
-                  formatPrice(props.package.totalPrice) +
-                  ' ' +
-                  commonTranslator.priceUnit
+                  props.package.totalPrice === 0
+                    ? commonTranslator.free
+                    : formatPrice(props.package.totalPrice) +
+                      ' ' +
+                      commonTranslator.priceUnit
                 }
               />
-              <SimpleText
-                style={{
-                  ...styles.BlueBold,
-                  ...styles.red,
-                  ...styles.marginRight15,
-                }}
-                text={
-                  formatPrice(props.package.realPrice) +
-                  ' ' +
-                  commonTranslator.priceUnit
-                }
-              />
+              {props.package.totalPrice !== props.package.realPrice && (
+                <SimpleText
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.red,
+                    ...styles.marginRight15,
+                  }}
+                  text={
+                    formatPrice(props.package.realPrice) +
+                    ' ' +
+                    commonTranslator.priceUnit
+                  }
+                />
+              )}
             </PhoneView>
           </PhoneView>
         )}

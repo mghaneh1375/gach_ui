@@ -6,29 +6,43 @@ import {style} from '../../style';
 import vars from '../../../../../styles/root';
 import {styles} from '../../../../../styles/Common/Styles';
 import {Pressable} from 'react-native';
+import {getDevice} from '../../../../../services/Utility';
 
 function QuestionNumber(props) {
+  const device = getDevice();
+  const isInPhone = device.indexOf('WebPort') !== -1;
+  const mapItem = {
+    borderWidth:
+      props.selected !== undefined && props.selected
+        ? 2
+        : props.theme !== undefined && props.theme === 'transparent'
+        ? 1
+        : 0,
+    borderType: 'solid',
+    borderColor:
+      props.selected !== undefined && props.selected
+        ? vars.ORANGE_RED
+        : vars.DARK_SILVER,
+    backgroundColor:
+      props.theme !== undefined && props.theme === 'transparent'
+        ? vars.WHITE
+        : vars.DARK_BLUE,
+  };
+
   return (
     <Pressable onPress={() => props.jump()}>
       <PhoneView
-        style={{
-          ...style.questionNo,
-          borderWidth:
-            props.selected !== undefined && props.selected
-              ? 2
-              : props.theme !== undefined && props.theme === 'transparent'
-              ? 1
-              : 0,
-          borderType: 'solid',
-          borderColor:
-            props.selected !== undefined && props.selected
-              ? vars.ORANGE_RED
-              : vars.DARK_SILVER,
-          backgroundColor:
-            props.theme !== undefined && props.theme === 'transparent'
-              ? vars.WHITE
-              : vars.DARK_BLUE,
-        }}>
+        style={
+          isInPhone
+            ? {
+                ...style.questionNoPhone,
+                ...mapItem,
+              }
+            : {
+                ...style.questionNo,
+                ...mapItem,
+              }
+        }>
         {props.bookmark !== 'hidden' && (
           <PhoneView
             style={

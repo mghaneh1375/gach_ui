@@ -15,8 +15,8 @@ import React, {useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import MultiChoice from './questionComponents/MultiChoice';
 import vars from '../../../../styles/root';
-import {getWidthHeight} from '../../../../services/Utility';
-import {basketBox} from '../../../panel/package/card/Style';
+import {getDevice, getWidthHeight} from '../../../../services/Utility';
+import {basketBox, basketBoxInPhone} from '../../../panel/package/card/Style';
 import commonTranslator from '../../../../translator/Common';
 import MultiSentence from './questionComponents/MultiSentence';
 
@@ -26,6 +26,9 @@ function Question(props) {
     React.useContext(dispatchDoQuizContext),
   ];
 
+  const device = getDevice();
+  const isInPhone = device.indexOf('WebPort') !== -1;
+
   const [state, dispatch] = useGlobalState();
 
   const [question, setQuestion] = useState();
@@ -34,11 +37,19 @@ function Question(props) {
     Image.getSize(
       state.questions[state.currIdx].questionFile,
       (width, height) => {
-        setImgWidth(totalWidth > 1500 ? totalWidth - 300 : totalWidth - 250);
+        setImgWidth(
+          totalWidth > 1500
+            ? totalWidth - 300
+            : !isInPhone
+            ? totalWidth - 250
+            : totalWidth - 50,
+        );
         setImgHeight(
           totalWidth > 1500
             ? ((totalWidth - 300) * height) / width
-            : ((totalWidth - 250) * height) / width,
+            : !isInPhone
+            ? ((totalWidth - 250) * height) / width
+            : ((totalWidth - 50) * height) / width,
         );
         // if (width / height < 2) setHeight(400);
         // else if (width / height < 2.5) setHeight(300);
@@ -64,7 +75,7 @@ function Question(props) {
       );
     }
     setQuestion(state.questions[state.currIdx]);
-  }, [state.questions, state.currIdx, totalWidth]);
+  }, [state.questions, state.currIdx, totalWidth, isInPhone]);
 
   const [imgWidth, setImgWidth] = useState(200);
   const [imgHeight, setImgHeight] = useState(200);
@@ -84,6 +95,12 @@ function Question(props) {
       return;
     }
     Image.getSize(zoomImg, (width, height) => {
+      if (isInPhone) {
+        setZoomW(totalWidth - 50);
+        setZoomH((height * (totalWidth - 50)) / width);
+        return;
+      }
+
       let h = (height * 0.75 * totalWidth) / width;
 
       if (h < totalHeight) {
@@ -95,7 +112,7 @@ function Question(props) {
         setZoomH(totalHeight - 100);
       }
     });
-  }, [zoomImg, totalWidth, totalHeight]);
+  }, [zoomImg, totalWidth, totalHeight, isInPhone]);
 
   React.useEffect(() => {
     if (zoomH === undefined) return;
@@ -124,7 +141,7 @@ function Question(props) {
           <CommonWebBox
             header={''}
             btn={<FontIcon icon={faClose} onPress={() => closeZoom()} />}
-            style={{margin: 20, padding: 5}}>
+            style={!isInPhone ? {margin: 20, padding: 5} : {}}>
             <Image
               resizeMode="contain"
               style={{
@@ -300,10 +317,17 @@ function Question(props) {
         </MyView>
       )}
       <MyView
-        style={{
-          ...basketBox,
-          ...{width: vars.BASKET_WIDTH_WITH_OPEN_MENU},
-        }}>
+        style={
+          isInPhone
+            ? {
+                ...basketBoxInPhone,
+                ...{width: '100%'},
+              }
+            : {
+                ...basketBox,
+                ...{width: vars.BASKET_WIDTH_WITH_OPEN_MENU},
+              }
+        }>
         <CommonWebBox style={{padding: 0}}>
           <EqualTwoTextInputs>
             {!props.isInReviewMode && (
@@ -311,6 +335,8 @@ function Question(props) {
                 onPress={() => {
                   dispatch({exit: true});
                 }}
+                padding={isInPhone ? '5px 5px' : undefined}
+                textStyle={isInPhone ? {fontSize: 14} : {}}
                 title={Translate.finish}
                 theme={'orangeRed'}
               />
@@ -318,6 +344,8 @@ function Question(props) {
             {props.isInReviewMode && (
               <CommonButton
                 onPress={props.onBack}
+                padding={isInPhone ? '5px 5px' : undefined}
+                textStyle={isInPhone ? {fontSize: 14} : {}}
                 title={commonTranslator.back}
                 theme={'orangeRed'}
               />
@@ -333,6 +361,8 @@ function Question(props) {
                   onPress={() => {
                     dispatch({currIdx: state.currIdx - 1});
                   }}
+                  padding={isInPhone ? '5px 5px' : undefined}
+                  textStyle={isInPhone ? {fontSize: 14} : {}}
                   title={Translate.prev}
                 />
               )}
@@ -342,6 +372,8 @@ function Question(props) {
                     dispatch({currIdx: state.currIdx + 1});
                   }}
                   theme={'dark'}
+                  padding={isInPhone ? '5px 5px' : undefined}
+                  textStyle={isInPhone ? {fontSize: 14} : {}}
                   title={Translate.next}
                 />
               )}

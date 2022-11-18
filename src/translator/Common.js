@@ -215,5 +215,6 @@ const translator = {
   contents: 'بسته های آموزشی',
   listContents: 'لیست بسته های آموزشی',
   results: 'نتایج',
+  free: 'رایگان',
 };
 export default translator;

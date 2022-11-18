@@ -124,3 +124,14 @@ export const basketBox = {
   paddingBottom: 0,
   zIndex: 3,
 };
+
+export const basketBoxInPhone = {
+  position: 'fixed',
+  bottom: 0,
+  left: 10,
+  right: 10,
+  height: 100,
+  justifyContent: 'flex-end',
+  paddingBottom: 0,
+  zIndex: 3,
+};

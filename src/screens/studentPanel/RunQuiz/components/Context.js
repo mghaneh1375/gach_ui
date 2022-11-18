@@ -50,11 +50,7 @@ export const DoQuizProvider = ({children}) => {
       return;
     }
 
-    console.log(state.currIdx);
-    console.log(state.answer);
-
     state.answers[state.currIdx] = state.answer;
-    console.log(state.answers);
 
     dispatch({answers: state.answers, needUpdateAnswer: false});
   }, [state.currIdx, state.answer, state.answers]);

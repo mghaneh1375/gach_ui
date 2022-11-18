@@ -3,8 +3,7 @@
     <script
       src="https://code.jquery.com/jquery-3.6.1.min.js"
       integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
     <style>
       body {
         margin-top: 100px;
@@ -213,9 +212,6 @@
         render_map();
         if (snakes.length === 1) {
           start = true;
-          // timer = setInterval(function () {
-          //   render_map();
-          // }, 1500);
         }
 
         return [id, color, pos];
@@ -229,9 +225,8 @@
 
         while (
           data_table[pos.x][pos.y] !== 0 ||
-          snakes.find(
-            (elem) => elem.pos.x === pos.x && elem.pos.y === pos.y
-          ) !== undefined
+          snakes.find(elem => elem.pos.x === pos.x && elem.pos.y === pos.y) !==
+            undefined
         ) {
           pos = {
             x: Math.floor(Math.random() * 9),
@@ -245,7 +240,7 @@
       }
 
       function render_map() {
-        $(".cell").removeClass("goal").removeClass("fail").removeClass("empty");
+        $('.cell').removeClass('goal').removeClass('fail').removeClass('empty');
 
         for (let i = 0; i < 10; i++) {
           for (let j = 0; j < 10; j++) {
@@ -257,12 +252,12 @@
             });
 
             if (selectedColor !== undefined)
-              $("#cell-" + i + "-" + j).css("background-color", selectedColor);
+              $('#cell-' + i + '-' + j).css('background-color', selectedColor);
             else if (data_table[i][j] === 1)
-              $("#cell-" + i + "-" + j).addClass("goal");
+              $('#cell-' + i + '-' + j).addClass('goal');
             else if (data_table[i][j] === -1)
-              $("#cell-" + i + "-" + j).addClass("fail");
-            else $("#cell-" + i + "-" + j).addClass("empty");
+              $('#cell-' + i + '-' + j).addClass('fail');
+            else $('#cell-' + i + '-' + j).addClass('empty');
           }
         }
       }
@@ -284,19 +279,19 @@
 
         var curr = new Date().getTime();
 
-        if (snake.last_move !== undefined && curr - snake.last_move < 500) {
+        if (snake.last_move !== undefined && curr - snake.last_move < 1000) {
           return false;
         }
 
         snake.last_move = curr;
 
-        console.log(snake);
-        console.log(direction);
+        // console.log(snake);
+        // console.log(direction);
 
-        if (direction === "up") snake.pos.x = snake.pos.x - 1;
-        else if (direction === "down") snake.pos.x = snake.pos.x + 1;
-        else if (direction === "left") snake.pos.y = snake.pos.y - 1;
-        else if (direction === "right") snake.pos.y = snake.pos.y + 1;
+        if (direction === 'up') snake.pos.x = snake.pos.x - 1;
+        else if (direction === 'down') snake.pos.x = snake.pos.x + 1;
+        else if (direction === 'left') snake.pos.y = snake.pos.y - 1;
+        else if (direction === 'right') snake.pos.y = snake.pos.y + 1;
 
         if (
           snake.pos.x < 0 ||
@@ -305,7 +300,7 @@
           snake.pos.y > 9
         ) {
           snakes.splice(selectedIdx, 1);
-          $("#result").append("<h1>" + snake.id + " loose</h1>");
+          $('#result').append('<h1>' + snake.id + ' loose</h1>');
           return;
         }
 
@@ -318,7 +313,7 @@
         if (fail) {
           console.log(snake.pos);
           snakes.splice(selectedIdx, 1);
-          $("#result").append("<h1>" + snake.id + " loose</h1>");
+          $('#result').append('<h1>' + snake.id + ' loose</h1>');
           return;
         }
 
@@ -332,14 +327,12 @@
       }
 
       $(document).ready(function () {
-        $("#stopBtn").on("click", function () {
-          // clearInterval(timer);
+        $('#stopBtn').on('click', function () {
           start = false;
         });
       });
     </script>
 
-    <script src="./snake_1.js"></script>
-    <script src="./BFS.js"></script>
+    <script src="./myAlgo.js"></script>
   </body>
 </html>

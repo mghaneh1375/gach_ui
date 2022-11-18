@@ -25,6 +25,7 @@ import {FontIcon} from '../../../../styles/Common/FontIcon';
 import commonTranslator from '../../../../translator/Common';
 import Circle from '../../../../components/web/Circle';
 import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
+import {getDevice} from '../../../../services/Utility';
 
 function Filter(props) {
   const useGlobalState = () => [
@@ -38,31 +39,40 @@ function Filter(props) {
     setHelp(!help);
   };
 
+  const device = getDevice();
+  const isInPhone = device.indexOf('WebPort') !== -1;
+
   return (
     <CommonWebBox
       childStyle={{...styles.padding5}}
       style={{...styles.padding0, ...styles.marginTop10}}
-      width={vars.RIGHT_MENU_WIDTH}>
+      width={isInPhone ? '100%' : vars.RIGHT_MENU_WIDTH}>
       {!props.isInReviewMode &&
         state.quizInfo !== undefined &&
         !state.clearTimer && <Timer />}
 
-      <EqualTwoTextInputs
-        style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
-        <SimpleText style={styles.dark_blue_color} text={Translate.quizList} />
-        <SimpleTextIcon
-          onPress={() => toggleHelp()}
-          icon={help ? faAngleUp : faAngleDown}
-          textStyle={{
-            ...styles.colorOrangeRed,
-            ...{marginLeft: -5},
-            ...styles.cursor_pointer,
-          }}
-          iconStyle={{...styles.colorOrangeRed}}
-          iconKind={'midSize'}
-          text={Translate.help}
-        />
-      </EqualTwoTextInputs>
+      {!isInPhone && (
+        <EqualTwoTextInputs
+          style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
+          <SimpleText
+            style={styles.dark_blue_color}
+            text={Translate.quizList}
+          />
+          <SimpleTextIcon
+            onPress={() => toggleHelp()}
+            icon={help ? faAngleUp : faAngleDown}
+            textStyle={{
+              ...styles.colorOrangeRed,
+              ...{marginLeft: -5},
+              ...styles.cursor_pointer,
+            }}
+            iconStyle={{...styles.colorOrangeRed}}
+            iconKind={'midSize'}
+            text={Translate.help}
+          />
+        </EqualTwoTextInputs>
+      )}
+
       {help && (
         <MyView>
           <PhoneView>
@@ -101,75 +111,79 @@ function Filter(props) {
               />
             </PhoneView>
           )}
-          <PhoneView>
-            <Circle
-              style={{...styles.alignSelfCenter, marginRight: 3}}
-              diameter={14}
-              backgroundColor={vars.DARK_WHITE}
-            />
-            <SimpleText
-              text={Translate.notAnswered}
-              style={{
-                ...styles.colorGray,
-                ...styles.fontSize12,
-                ...styles.paddingRight15,
-              }}
-            />
-          </PhoneView>
+          {!isInPhone && (
+            <PhoneView>
+              <Circle
+                style={{...styles.alignSelfCenter, marginRight: 3}}
+                diameter={14}
+                backgroundColor={vars.DARK_WHITE}
+              />
+              <SimpleText
+                text={Translate.notAnswered}
+                style={{
+                  ...styles.colorGray,
+                  ...styles.fontSize12,
+                  ...styles.paddingRight15,
+                }}
+              />
+            </PhoneView>
+          )}
         </MyView>
       )}
 
-      <PhoneView
-        style={{
-          ...styles.gap7,
-          ...styles.margin15,
-          ...styles.justifyContentStart,
-          ...{
-            marginBottom: 0,
-            paddingBottom: 50,
-            borderBottomWidth: 2,
-            borderColor: vars.DARK_BLUE,
-          },
-        }}>
-        {state.questions !== undefined &&
-          state.questions.map((elem, index) => {
-            return (
-              <QuestionNumber
-                selected={props.mode !== 'splash' && state.currIdx === index}
-                theme={
-                  state.answers[index] === undefined ||
-                  state.answers[index] === '' ||
-                  state.answers[index] === 0
-                    ? 'transparent'
-                    : 'green'
-                }
-                key={index}
-                number={index + 1}
-                bookmark={
-                  props.isInReviewMode
-                    ? 'hidden'
-                    : state.bookmarks[index] === undefined ||
-                      !state.bookmarks[index]
-                    ? 'unfill'
-                    : 'fill'
-                }
-                jump={() => {
-                  if (props.mode === 'splash') return;
-                  dispatch({currIdx: index});
-                }}
-                // onChange={() => {
-                //   if (props.mode === 'splash') return;
-                //   let b =
-                //     state.bookmarks[index] === undefined ||
-                //     !state.bookmarks[index]
-                //       ? true
-                //       : false;
-                //   dispatch({bookmarkStatus: b, needUpdateBookmarks: true});
-                // }}
-              />
-            );
-          })}
-      </PhoneView>
+      {!isInPhone && (
+        <PhoneView
+          style={{
+            ...styles.gap7,
+            ...styles.margin15,
+            ...styles.justifyContentStart,
+            ...{
+              marginBottom: 0,
+              paddingBottom: 50,
+              borderBottomWidth: 2,
+              borderColor: vars.DARK_BLUE,
+            },
+          }}>
+          {state.questions !== undefined &&
+            state.questions.map((elem, index) => {
+              return (
+                <QuestionNumber
+                  selected={props.mode !== 'splash' && state.currIdx === index}
+                  theme={
+                    state.answers[index] === undefined ||
+                    state.answers[index] === '' ||
+                    state.answers[index] === 0
+                      ? 'transparent'
+                      : 'green'
+                  }
+                  key={index}
+                  number={index + 1}
+                  bookmark={
+                    props.isInReviewMode
+                      ? 'hidden'
+                      : state.bookmarks[index] === undefined ||
+                        !state.bookmarks[index]
+                      ? 'unfill'
+                      : 'fill'
+                  }
+                  jump={() => {
+                    if (props.mode === 'splash') return;
+                    dispatch({currIdx: index});
+                  }}
+                  // onChange={() => {
+                  //   if (props.mode === 'splash') return;
+                  //   let b =
+                  //     state.bookmarks[index] === undefined ||
+                  //     !state.bookmarks[index]
+                  //       ? true
+                  //       : false;
+                  //   dispatch({bookmarkStatus: b, needUpdateBookmarks: true});
+                  // }}
+                />
+              );
+            })}
+        </PhoneView>
+      )}
       {state.quizInfo !== undefined &&
         state.quizInfo.attaches !== undefined &&
         state.quizInfo.attaches.length > 0 && (
