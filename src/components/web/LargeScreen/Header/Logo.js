@@ -10,7 +10,6 @@ import {globalStateContext} from '../../../../App';
 
 const Logo = props => {
   const device = getDevice();
-  const isLargePage = device.indexOf(Device.Large) !== -1;
 
   const useGlobalState = () => [React.useContext(globalStateContext)];
 
@@ -20,16 +19,16 @@ const Logo = props => {
   return (
     <PhoneView
       style={
-        isLargePage
-          ? {...style.Logo, ...style.LogoJustLarge}
-          : {...style.Logo, ...style.LogoJustPhone}
+        state.isInPhone
+          ? {...style.Logo, ...style.LogoJustPhone}
+          : {...style.Logo, ...style.LogoJustLarge}
       }>
       <Image
         resizeMode="contain"
         style={
-          isLargePage
-            ? [{...style.LogoImage, ...style.LogoImageJustLarge}]
-            : [{...style.LogoImage, ...style.LogoImageJustPhone}]
+          state.isInPhone
+            ? [{...style.LogoImage, ...style.LogoImageJustPhone}]
+            : [{...style.LogoImage, ...style.LogoImageJustLarge}]
         }
         source={require('./../../../../images/irysc.png')}
       />

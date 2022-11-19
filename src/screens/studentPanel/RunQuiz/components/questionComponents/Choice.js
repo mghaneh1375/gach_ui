@@ -31,7 +31,11 @@ function Choice(props) {
         status={isSelected ? 'checked' : 'unchecked'}
         onPress={() => change()}
         style={{height: isInPhone ? 40 : 60}}
-        textStyle={{alignSelf: 'center'}}
+        textStyle={
+          isInPhone
+            ? {alignSelf: 'center', fontSize: 12}
+            : {alignSelf: 'center'}
+        }
         text={props.text}
       />
     </PhoneView>

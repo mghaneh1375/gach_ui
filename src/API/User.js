@@ -1,8 +1,6 @@
 import {generalRequest} from './Utility';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {routes} from './APIRoutes';
-import {getDevice} from '../services/Utility';
-import {Device} from '../models/Device';
 
 export const logout = async (token, navigate) => {
   await generalRequest(routes.logout, 'post', undefined, undefined, token);

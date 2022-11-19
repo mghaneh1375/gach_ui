@@ -3,7 +3,12 @@ import {getDevice, getWidthHeight} from '../../../services/Utility';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import LoginModule from './components/Login';
 
-import {commonStyles, MyView, TextWithLink} from '../../../styles/Common';
+import {
+  commonStyles,
+  MyView,
+  ScreenScroll,
+  TextWithLink,
+} from '../../../styles/Common';
 import translator from './translate';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 import {Device} from '../../../models/Device';
@@ -61,10 +66,17 @@ const Login = props => {
   };
 
   return (
-    <ImageBackground
-      style={{minHeight: height}}
-      resizeMode="contain"
-      source={require('./../../../images/back3.png')}>
+    <ScreenScroll style={{background: 'transparent'}}>
+      <div
+        style={{
+          position: 'fixed',
+          zIndex: -1,
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          background: 'url(./assets/images/back3.png)',
+        }}></div>
       <MyView style={{...commonStyles.ContentView}}>
         <TextIcon
           style={{marginTop: 20, marginRight: 10, marginLeft: 10}}
@@ -155,7 +167,7 @@ const Login = props => {
           />
         )}
       </MyView>
-    </ImageBackground>
+    </ScreenScroll>
   );
 };
 

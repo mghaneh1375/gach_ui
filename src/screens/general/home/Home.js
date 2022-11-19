@@ -12,7 +12,6 @@ import {
   ScreenScroll,
   SimpleText,
 } from '../../../styles/Common';
-import {ImageBackground} from 'react-native';
 import vars from '../../../styles/root';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import {generalRequest} from '../../../API/Utility';
@@ -27,7 +26,6 @@ const Home = props => {
   const wH = getWidthHeight();
   const width = wH[0];
   const height = wH[1];
-  const navigator = props.navigator;
   const isRightMenuVisible = props.isRightMenuVisible;
 
   const [grayFooterW, setGrayFooterW] = useState('100%');
@@ -117,21 +115,7 @@ const Home = props => {
           width: '100%',
           height: '100vh',
           background: 'url(./assets/images/back3.png)',
-        }}>
-        {/* <ImageBackground
-        style={{
-          height: '100%',
-          // width: hideRightMenu ? '100%' : width + 200,
-          // marginRight: hideRightMenu ? 0 : -200,
-        }}
-        source={
-          device.indexOf(Device.App) !== -1
-            ? require('./../../../images/back1.png')
-            : require('./../../../images/back3.png')
-        }> */}
-
-        {/* </ImageBackground> */}
-      </div>
+        }}></div>
       <BackgroundScrollView
         images={[
           {
@@ -170,11 +154,7 @@ const Home = props => {
       />
       <div
         style={{
-          // position: 'absolute',
           position: 'relative',
-          // zIndex: 2,
-          // bottom: -1.5 * grayFooterH,
-          // left: 0,
           marginTop: whiteDividerH,
           width: '100%',
           height: grayFooterH,

@@ -68,6 +68,7 @@ import History from './studentPanel/History/History';
 import OpenQuiz from './panel/quiz/OpenQuiz';
 import Content from './panel/Content/Content';
 import ShowRecp from './studentPanel/Recp/ShowRecp';
+import TopNavBar from '../components/web/TopNavBar';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -85,6 +86,7 @@ const WebStructue = props => {
   const [allowRenderPage, setAllowRenderPage] = useState(false);
   const [newAlerts, setNewAlerts] = useState();
   const includeFilterMenu = ['buy', 'quiz'];
+  const excludeBottomNav = ['buy'];
 
   React.useEffect(() => {
     setAllowRenderPage(state.user !== undefined);
@@ -141,7 +143,14 @@ const WebStructue = props => {
       {allowRenderPage && (
         <MinFullHeightView>
           <MyView style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-            {props.page !== 'home' &&
+            {state.isInPhone && (
+              <Logo
+                isLogin={state.user !== null}
+                toggleRightMenuVisibility={toggleRightMenuVisibility}
+              />
+            )}
+            {!state.isInPhone &&
+              props.page !== 'home' &&
               props.page !== 'allSchools' &&
               props.page !== 'rankingList' && (
                 <Logo
@@ -157,7 +166,12 @@ const WebStructue = props => {
                 <Navbar user={state.user} />
               )}
 
-            {state.user !== null &&
+            {/* {device.indexOf(Device.WebPort) !== -1 && state.user === null && (
+              <TopNavBar />
+            )} */}
+
+            {!state.isInPhone &&
+              state.user !== null &&
               props.page !== 'home' &&
               props.page !== 'allSchools' &&
               props.page !== 'rankingList' && (
@@ -563,9 +577,9 @@ const WebStructue = props => {
             <Login navigate={navigate} />
           )}
 
-          {device.indexOf(Device.WebPort) !== -1 && state.user === null && (
-            <BottomNavBar />
-          )}
+          {device.indexOf(Device.WebPort) !== -1 &&
+            state.user === null &&
+            excludeBottomNav.indexOf(props.page) === -1 && <BottomNavBar />}
 
           <ReactNotifications />
         </MinFullHeightView>

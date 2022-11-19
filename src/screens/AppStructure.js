@@ -75,7 +75,6 @@ const AppStructue = props => {
   const toggleHideRightMenu = () => {
     setHideRightMenu(!hideRightMenu);
   };
-  console.log(user);
 
   return (
     <MyView style={{flex: 1, height: '100%'}}>

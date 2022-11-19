@@ -26,6 +26,10 @@
   /* animation: super-menu .7s ease-out; */
 }
 
+.super-menu-item-phone:hover {
+  background: white !important;
+}
+
 .super-menu-item:hover .super-menu-item-font-container .r-width-13qz1uu {
   background-color: #ffaa00 !important;
   overflow: hidden;
@@ -62,6 +66,14 @@
   flex-direction: row;
 }
 
+.super-menu-item-font-container-phone {
+  margin-right: auto;
+  width: 115px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+}
+
 .super-menu-item-font-container:hover {
   background-color: #ffaa00 !important;
 }
@@ -80,11 +92,13 @@
   left: 8px;
 }
 
-.super-menu-item-font-container > div:nth-child(2) {
+.super-menu-item-font-container > div:nth-child(2),
+.super-menu-item-font-container-phone > div:nth-child(2) {
   background-color: #707070;
 }
 
-.super-menu-item-font-container > div:nth-child(1) {
+.super-menu-item-font-container > div:nth-child(1),
+.super-menu-item-font-container-phone > div:nth-child(1) {
   margin-left: 10px;
 }
 

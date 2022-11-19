@@ -17,6 +17,7 @@ const defaultGlobalState = {
   allowRenderPage: false,
   token: undefined,
   user: undefined,
+  isInPhone: false,
 };
 
 export const globalStateContext = React.createContext(defaultGlobalState);
@@ -81,15 +82,18 @@ const GlobalStateProvider = ({children}) => {
       window.location.href = '/login';
       return;
     }
+    const isInPhoneTmp = getDevice().indexOf('WebPort') !== -1;
+
     dispatch({
       showTopNav: excludeTopNav.indexOf(state.page) === -1,
       showBottonNav: excludeBottomNav.indexOf(state.page) === -1,
       isFilterMenuVisible: hasLeftFilterRoutes.indexOf(state.page) !== -1,
       isRightMenuVisible:
-        d.indexOf(Device.Large) !== -1 &&
+        !isInPhoneTmp &&
         excludeRightMenu.indexOf(state.page) === -1 &&
         state.user !== null &&
         state.user !== undefined,
+      isInPhone: isInPhoneTmp,
     });
   }, [state.page, state.user]);
 

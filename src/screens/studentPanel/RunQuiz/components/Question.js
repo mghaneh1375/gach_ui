@@ -1,4 +1,9 @@
-import {faClose, faExpand} from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faArrowRight,
+  faClose,
+  faExpand,
+} from '@fortawesome/free-solid-svg-icons';
 import {Image} from 'react-native';
 import {
   CommonButton,
@@ -321,7 +326,7 @@ function Question(props) {
           isInPhone
             ? {
                 ...basketBoxInPhone,
-                ...{width: '100%'},
+                ...{width: 'calc(100% - 20px)'},
               }
             : {
                 ...basketBox,
@@ -336,48 +341,86 @@ function Question(props) {
                   dispatch({exit: true});
                 }}
                 padding={isInPhone ? '5px 5px' : undefined}
-                textStyle={isInPhone ? {fontSize: 14} : {}}
+                textStyle={
+                  isInPhone
+                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    : {}
+                }
                 title={Translate.finish}
-                theme={'orangeRed'}
+                theme={isInPhone ? 'dark' : 'orangeRed'}
               />
             )}
             {props.isInReviewMode && (
               <CommonButton
                 onPress={props.onBack}
                 padding={isInPhone ? '5px 5px' : undefined}
-                textStyle={isInPhone ? {fontSize: 14} : {}}
+                textStyle={
+                  isInPhone
+                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    : {}
+                }
                 title={commonTranslator.back}
                 theme={'orangeRed'}
               />
             )}
             {props.isInReviewMode && <PhoneView></PhoneView>}
-            <PhoneView
-              style={{
-                ...styles.justifyContentCenter,
-                ...styles.alignItemsCenter,
-              }}>
-              {state.currIdx > 0 && (
-                <CommonButton
-                  onPress={() => {
-                    dispatch({currIdx: state.currIdx - 1});
-                  }}
-                  padding={isInPhone ? '5px 5px' : undefined}
-                  textStyle={isInPhone ? {fontSize: 14} : {}}
-                  title={Translate.prev}
-                />
-              )}
-              {state.currIdx < state.questions.length - 1 && (
-                <CommonButton
-                  onPress={() => {
-                    dispatch({currIdx: state.currIdx + 1});
-                  }}
-                  theme={'dark'}
-                  padding={isInPhone ? '5px 5px' : undefined}
-                  textStyle={isInPhone ? {fontSize: 14} : {}}
-                  title={Translate.next}
-                />
-              )}
-            </PhoneView>
+            {!isInPhone && (
+              <PhoneView
+                style={{
+                  ...styles.justifyContentCenter,
+                  ...styles.alignItemsCenter,
+                }}>
+                {state.currIdx > 0 && (
+                  <CommonButton
+                    onPress={() => {
+                      dispatch({currIdx: state.currIdx - 1});
+                    }}
+                    padding={isInPhone ? '5px 5px' : undefined}
+                    textStyle={isInPhone ? {fontSize: 14} : {}}
+                    title={Translate.prev}
+                  />
+                )}
+                {state.currIdx < state.questions.length - 1 && (
+                  <CommonButton
+                    onPress={() => {
+                      dispatch({currIdx: state.currIdx + 1});
+                    }}
+                    theme={'dark'}
+                    padding={isInPhone ? '5px 5px' : undefined}
+                    textStyle={isInPhone ? {fontSize: 14} : {}}
+                    title={Translate.next}
+                  />
+                )}
+              </PhoneView>
+            )}
+            {isInPhone && (
+              <PhoneView
+                style={{
+                  ...styles.justifyContentCenter,
+                  ...styles.alignItemsCenter,
+                  ...styles.padding5,
+                  ...styles.gap5,
+                }}>
+                {state.currIdx > 0 && (
+                  <FontIcon
+                    onPress={() => {
+                      dispatch({currIdx: state.currIdx - 1});
+                    }}
+                    icon={faArrowRight}
+                    theme={'rect'}
+                  />
+                )}
+                {state.currIdx < state.questions.length - 1 && (
+                  <FontIcon
+                    onPress={() => {
+                      dispatch({currIdx: state.currIdx + 1});
+                    }}
+                    icon={faArrowLeft}
+                    theme={'rect'}
+                  />
+                )}
+              </PhoneView>
+            )}
           </EqualTwoTextInputs>
         </CommonWebBox>
       </MyView>

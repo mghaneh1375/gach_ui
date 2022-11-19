@@ -23,10 +23,15 @@ import {
   convertSecToMinWithOutSec,
   convertTimestamp,
   formatPrice,
+  getDevice,
 } from '../../../../../services/Utility';
 import {launchModeKeyVals, kindQuizKeyVals} from '../KeyVals';
 import {
   faClock,
+  faCog,
+  faHourglassEnd,
+  faHourglassStart,
+  faInfo,
   faListNumeric,
   faPlug,
   faStopwatch,
@@ -36,6 +41,12 @@ import QuizItemCard from '../../../../../components/web/QuizItemCard';
 
 function Card(props) {
   const [showMore, setShowMore] = useState(false);
+
+  const device = getDevice();
+  const isInPhone = device.indexOf('WebPort') !== -1;
+
+  const fontSize = isInPhone ? 10 : 11;
+  const valFontSize = isInPhone ? 12 : 15;
 
   return (
     <CommonWebBox style={{...styleCard, ...styles.BlueBold}}>
@@ -73,8 +84,8 @@ function Card(props) {
                 text={Translate.reminder}
                 val={props.quiz.reminder}
                 icon={faPlug}
-                textFontSize={11}
-                valFontSize={15}
+                textFontSize={fontSize}
+                valFontSize={valFontSize}
               />
             )}
             {props.quiz.mode !== undefined && (
@@ -83,9 +94,9 @@ function Card(props) {
                 val={
                   kindQuizKeyVals.find(elem => elem.id === props.quiz.mode).item
                 }
-                icon={faPlug}
-                textFontSize={11}
-                valFontSize={15}
+                icon={faInfo}
+                textFontSize={fontSize}
+                valFontSize={valFontSize}
               />
             )}
             {props.quiz.launchMode !== undefined && (
@@ -96,9 +107,9 @@ function Card(props) {
                     elem => elem.id === props.quiz.launchMode,
                   ).item
                 }
-                icon={faPlug}
-                textFontSize={11}
-                valFontSize={15}
+                icon={faCog}
+                textFontSize={fontSize}
+                valFontSize={valFontSize}
               />
             )}
 
@@ -107,8 +118,8 @@ function Card(props) {
                 text={Translate.studentsCount}
                 val={props.quiz.studentsCount}
                 icon={faPlug}
-                textFontSize={11}
-                valFontSize={15}
+                textFontSize={fontSize}
+                valFontSize={valFontSize}
               />
             )}
             {props.quiz.visibility !== undefined && (
@@ -116,8 +127,8 @@ function Card(props) {
                 text={commonTranslator.visibility + ':'}
                 val={props.quiz.visibility ? 'قابل رویت' : 'مخفی'}
                 icon={faPlug}
-                textFontSize={11}
-                valFontSize={15}
+                textFontSize={fontSize}
+                valFontSize={valFontSize}
               />
             )}
             {props.quiz.duration !== undefined && (
@@ -125,8 +136,8 @@ function Card(props) {
                 text={Translate.duration + ':'}
                 val={convertSecToMinWithOutSec(props.quiz.duration)}
                 icon={faClock}
-                textFontSize={11}
-                valFontSize={15}
+                textFontSize={fontSize}
+                valFontSize={valFontSize}
               />
             )}
             {props.quiz.questionsCount !== undefined && (
@@ -134,8 +145,8 @@ function Card(props) {
                 text={Translate.questionsCount + ':'}
                 val={props.quiz.questionsCount}
                 icon={faListNumeric}
-                textFontSize={11}
-                valFontSize={15}
+                textFontSize={fontSize}
+                valFontSize={valFontSize}
               />
             )}
 
@@ -144,8 +155,8 @@ function Card(props) {
                 text={Translate.timeReminder}
                 val={convertSecToMinWithOutSec(props.quiz.timeReminder)}
                 icon={faStopwatch}
-                textFontSize={11}
-                valFontSize={11}
+                textFontSize={fontSize}
+                valFontSize={fontSize}
               />
             )}
           </PhoneView>
@@ -161,30 +172,30 @@ function Card(props) {
               <QuizItemCard
                 text={Translate.startLaunching}
                 val={convertTimestamp(props.quiz.start)}
-                icon={faPlug}
-                textFontSize={11}
-                valFontSize={11}
+                icon={faHourglassStart}
+                textFontSize={fontSize}
+                valFontSize={fontSize}
               />
               <QuizItemCard
                 text={Translate.endLaunching}
                 val={convertTimestamp(props.quiz.end)}
-                icon={faPlug}
-                textFontSize={11}
-                valFontSize={11}
+                icon={faHourglassEnd}
+                textFontSize={fontSize}
+                valFontSize={fontSize}
               />
               <QuizItemCard
                 text={Translate.startRegistery}
                 val={convertTimestamp(props.quiz.startRegistry)}
                 icon={faPlug}
-                textFontSize={11}
-                valFontSize={11}
+                textFontSize={fontSize}
+                valFontSize={fontSize}
               />
               <QuizItemCard
                 text={Translate.endRegistery}
                 val={convertTimestamp(props.quiz.endRegistry)}
                 icon={faPlug}
-                textFontSize={11}
-                valFontSize={11}
+                textFontSize={fontSize}
+                valFontSize={fontSize}
               />
 
               {props.quiz.status !== undefined &&
@@ -198,7 +209,7 @@ function Card(props) {
                         ? Translate.notStart
                         : ''
                     }
-                    valFontSize={11}
+                    valFontSize={fontSize}
                   />
                 )}
 
@@ -207,6 +218,12 @@ function Card(props) {
                 props.quiz.status !== 'continue') ||
                 (props.isStudent !== undefined && !props.isStudent)) && (
                 <CommonButton
+                  padding={isInPhone ? '5px 5px' : undefined}
+                  textStyle={
+                    isInPhone
+                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      : {}
+                  }
                   title={commonTranslator.op}
                   onPress={() => props.quizOp()}
                 />
@@ -214,6 +231,12 @@ function Card(props) {
               {props.quiz.status !== undefined &&
                 props.quiz.status === 'inProgress' && (
                   <CommonButton
+                    padding={isInPhone ? '5px 5px' : undefined}
+                    textStyle={
+                      isInPhone
+                        ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                        : {}
+                    }
                     title={commonTranslator.start}
                     onPress={() => props.quizOp()}
                   />
@@ -221,6 +244,12 @@ function Card(props) {
               {props.quiz.status !== undefined &&
                 props.quiz.status === 'continue' && (
                   <CommonButton
+                    padding={isInPhone ? '5px 5px' : undefined}
+                    textStyle={
+                      isInPhone
+                        ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                        : {}
+                    }
                     title={'ادامه آزمون'}
                     onPress={() => props.quizOp()}
                   />
@@ -262,9 +291,8 @@ function Card(props) {
             )}
 
           {props.quiz.description !== undefined &&
-            props.quiz.description === '' && (
-              <SimpleText style={{minHeight: 62}} />
-            )}
+            props.quiz.description === '' &&
+            !isInPhone && <SimpleText style={{minHeight: 62}} />}
         </MyView>
       </MyView>
 
@@ -290,6 +318,12 @@ function Card(props) {
             <PhoneView>
               <CommonButton
                 onPress={() => props.onClick(props.quiz.id)}
+                padding={isInPhone ? '5px 5px' : undefined}
+                textStyle={
+                  isInPhone
+                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    : {}
+                }
                 theme={
                   props.quiz.isSelected !== undefined && props.quiz.isSelected
                     ? 'yellow'
@@ -307,6 +341,10 @@ function Card(props) {
         {props.onSelect !== undefined && (
           <CommonButton
             onPress={() => props.onSelect(props.quiz.id)}
+            padding={isInPhone ? '5px 5px' : undefined}
+            textStyle={
+              isInPhone ? {fontSize: 14, paddingLeft: 20, paddingRight: 20} : {}
+            }
             theme={
               props.quiz.isSelected !== undefined && props.quiz.isSelected
                 ? 'yellow'

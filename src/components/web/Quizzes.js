@@ -7,6 +7,7 @@ import {FontIcon} from '../../styles/Common/FontIcon';
 import Basket from './Basket';
 import {dispatchStateContext} from '../../App';
 import {styles} from '../../styles/Common/Styles';
+import {getDevice} from '../../services/Utility';
 
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState();
@@ -16,6 +17,9 @@ function Quizzes(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
 
   const [dispatch] = useGlobalState();
+
+  const device = getDevice();
+  const isInPhone = device.indexOf('WebPort') !== -1;
 
   React.useEffect(() => {
     if (props.quizzes !== undefined) setQuizzes(props.quizzes);
@@ -97,12 +101,22 @@ function Quizzes(props) {
 
   return (
     <MyView
-      style={{
-        padding: 10,
-        marginBottom:
-          props.marginBottom !== undefined ? props.marginBottom : 120,
-        ...styles.alignItemsStart,
-      }}>
+      style={
+        isInPhone
+          ? {
+              width: '100%',
+              padding: 10,
+              marginBottom:
+                props.marginBottom !== undefined ? props.marginBottom : 120,
+              ...styles.alignItemsStart,
+            }
+          : {
+              padding: 10,
+              marginBottom:
+                props.marginBottom !== undefined ? props.marginBottom : 120,
+              ...styles.alignItemsStart,
+            }
+      }>
       <PhoneView style={{...styles.alignSelfEnd}}>
         {props.onBackClicked !== undefined && (
           <FontIcon
@@ -114,7 +128,7 @@ function Quizzes(props) {
           />
         )}
       </PhoneView>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView style={isInPhone ? {width: '100%', gap: 10} : {gap: 15}}>
         {quizzes !== undefined &&
           quizzes.map((quiz, index) => {
             return (

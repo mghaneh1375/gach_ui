@@ -26,10 +26,11 @@ function DashboardCard({
   padding,
   icon,
   onPress,
+  width,
 }) {
   return (
     <CommonWebBox
-      width={250}
+      width={width === undefined ? 250 : width}
       theme={theme}
       childStyle={{
         borderColor: theme,

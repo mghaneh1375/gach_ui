@@ -50,11 +50,14 @@ function PhoneFilter(props) {
           />
           <PhoneView style={styles.gap10}>
             <SimpleText
-              style={{alignSelf: 'center'}}
+              style={{alignSelf: 'center', cursor: 'pointer'}}
               onPress={() => setMode('map')}
               text={'سوالات'}
             />
-            <SimpleText style={{alignSelf: 'center'}} text={'فایل ها'} />
+            <SimpleText
+              style={{alignSelf: 'center', cursor: 'pointer'}}
+              text={'فایل ها'}
+            />
             <SimpleFontIcon
               onPress={() => {
                 let b =
@@ -93,11 +96,16 @@ function PhoneFilter(props) {
               alignSelf: 'center',
             }}>
             <SimpleText style={{...styles.BlueBold}} text={'لیست سوالات'} />
-            <SimpleText onPress={() => setMode('menu')} text={'بستن'} />
+            <SimpleText
+              style={{...styles.cursor_pointer}}
+              onPress={() => setMode('menu')}
+              text={'بستن'}
+            />
           </EqualTwoTextInputs>
 
-          <PhoneView
+          <MyView
             style={{
+              height: 'calc(100vh - 50px)',
               boxShadow: 'rgb(0 0 0 / 16%) 0px 3px 16px 4px',
               padding: 10,
               background: 'white',
@@ -105,44 +113,47 @@ function PhoneFilter(props) {
               borderBottomRightRadius: 0,
               borderTopLeftRadius: 10,
               borderTopRightRadius: 10,
-              gap: 10,
               width: '100%',
-              height: 'calc(100vh - 50px)',
-              alignSelf: 'center',
             }}>
-            {state.questions !== undefined &&
-              state.questions.map((elem, index) => {
-                return (
-                  <QuestionNumber
-                    selected={
-                      props.mode !== 'splash' && state.currIdx === index
-                    }
-                    theme={
-                      state.answers[index] === undefined ||
-                      state.answers[index] === '' ||
-                      state.answers[index] === 0
-                        ? 'transparent'
-                        : 'green'
-                    }
-                    key={index}
-                    number={index + 1}
-                    bookmark={
-                      props.isInReviewMode
-                        ? 'hidden'
-                        : state.bookmarks[index] === undefined ||
-                          !state.bookmarks[index]
-                        ? 'unfill'
-                        : 'fill'
-                    }
-                    jump={() => {
-                      if (props.mode === 'splash') return;
-                      dispatch({currIdx: index});
-                      setMode('menu');
-                    }}
-                  />
-                );
-              })}
-          </PhoneView>
+            <PhoneView
+              style={{
+                gap: 10,
+                alignSelf: 'center',
+              }}>
+              {state.questions !== undefined &&
+                state.questions.map((elem, index) => {
+                  return (
+                    <QuestionNumber
+                      selected={
+                        props.mode !== 'splash' && state.currIdx === index
+                      }
+                      theme={
+                        state.answers[index] === undefined ||
+                        state.answers[index] === '' ||
+                        state.answers[index] === 0
+                          ? 'transparent'
+                          : 'green'
+                      }
+                      key={index}
+                      number={index + 1}
+                      bookmark={
+                        props.isInReviewMode
+                          ? 'hidden'
+                          : state.bookmarks[index] === undefined ||
+                            !state.bookmarks[index]
+                          ? 'unfill'
+                          : 'fill'
+                      }
+                      jump={() => {
+                        if (props.mode === 'splash') return;
+                        dispatch({currIdx: index});
+                        setMode('menu');
+                      }}
+                    />
+                  );
+                })}
+            </PhoneView>
+          </MyView>
         </MyView>
       )}
     </PhoneView>

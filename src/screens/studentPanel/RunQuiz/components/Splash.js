@@ -229,7 +229,11 @@ function Splash(props) {
             <EqualTwoTextInputs>
               <CommonButton
                 padding={isInPhone ? '5px 5px' : undefined}
-                textStyle={isInPhone ? {fontSize: 14} : {}}
+                textStyle={
+                  isInPhone
+                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    : {}
+                }
                 onPress={props.onBack}
                 title={commonTranslator.back}
                 theme={'orangeRed'}
@@ -237,7 +241,11 @@ function Splash(props) {
 
               <CommonButton
                 padding={isInPhone ? '5px 5px' : undefined}
-                textStyle={isInPhone ? {fontSize: 14} : {}}
+                textStyle={
+                  isInPhone
+                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    : {}
+                }
                 title={
                   props.isInReviewMode
                     ? Translate.review

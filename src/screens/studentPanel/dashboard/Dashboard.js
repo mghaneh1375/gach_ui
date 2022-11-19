@@ -10,8 +10,8 @@ import {
 import {Translate} from './Translate';
 import DashboardCard from './DashboardCard/DashboardCard';
 import vars from '../../../styles/root';
-import {faExchange, faEye, faPlus} from '@fortawesome/free-solid-svg-icons';
-import {dispatchStateContext} from '../../../App';
+import {faExchange, faEye} from '@fortawesome/free-solid-svg-icons';
+import {dispatchStateContext, globalStateContext} from '../../../App';
 import {getMySummary} from './Utility';
 import commonTranslator from '../../../translator/Common';
 import {formatPrice, showSuccess} from '../../../services/Utility';
@@ -22,17 +22,20 @@ import {routes} from '../../../API/APIRoutes';
 import {fetchUser, setCacheItem} from '../../../API/User';
 
 function Dashboard(props) {
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
 
   const [data, setData] = useState();
   const [exchangeCoinToMoneyRate, setExchangeCoinToMoneyRate] = useState();
   const [exchangeMoneyToCoinRate, setExchangeMoneyToCoinRate] = useState();
-  const [dispatch] = useGlobalState();
+  const [state, dispatch] = useGlobalState();
   const navigate = props.navigate;
 
   React.useEffect(() => {
     dispatch({loading: true});
-    Promise.all([getMySummary(props.token)]).then(res => {
+    Promise.all([getMySummary(state.token)]).then(res => {
       dispatch({loading: false});
       if (res[0] === null) {
         navigate('/');
@@ -42,7 +45,7 @@ function Dashboard(props) {
       setExchangeCoinToMoneyRate(res[0].coinToMoneyExchange);
       setExchangeMoneyToCoinRate(res[0].moneyToCoinExchange);
     });
-  }, [navigate, props.token, dispatch]);
+  }, [navigate, state.token, dispatch]);
 
   const [showExchangeCoinToMoneyPopup, setShowExchangeCoinToMoneyPopup] =
     useState(false);
@@ -71,11 +74,11 @@ function Dashboard(props) {
                     mode: 'coin_to_money',
                   },
                   undefined,
-                  props.token,
+                  state.token,
                 );
                 if (res !== null) {
                   await setCacheItem('user', undefined);
-                  await fetchUser(props.token, user => {
+                  await fetchUser(state.token, user => {
                     dispatch({loading: false});
                     showSuccess();
                     let tmp = data;
@@ -133,11 +136,11 @@ function Dashboard(props) {
                     mode: 'money_to_coin',
                   },
                   undefined,
-                  props.token,
+                  state.token,
                 );
                 if (res !== null) {
                   await setCacheItem('user', undefined);
-                  await fetchUser(props.token, user => {
+                  await fetchUser(state.token, user => {
                     dispatch({loading: false});
                     showSuccess();
                     let tmp = data;
@@ -184,6 +187,7 @@ function Dashboard(props) {
         {data !== undefined && (
           <PhoneView>
             <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
               text={Translate.money}
               theme={vars.ORANGE}
               subtext={formatPrice(data.money)}
@@ -195,6 +199,7 @@ function Dashboard(props) {
             />
 
             <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
               text={Translate.allQuizzes}
               theme={vars.DARK_BLUE}
               subtext={data.registrableQuizzes}
@@ -206,6 +211,7 @@ function Dashboard(props) {
             />
 
             <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
               text={Translate.passedQuizzes}
               theme={vars.DARK_BLUE}
               subtext={data.passedQuizzes}
@@ -217,6 +223,7 @@ function Dashboard(props) {
             />
 
             <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
               text={Translate.activeQuizzes}
               theme={vars.ORANGE_RED}
               btnColor={'orange'}
@@ -227,6 +234,7 @@ function Dashboard(props) {
               borderRightWidth={18}
             />
             <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
               text={commonTranslator.coin}
               theme={vars.GREEN}
               subtext={data.coin}
@@ -237,6 +245,7 @@ function Dashboard(props) {
               borderRightWidth={18}
             />
             <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
               text={Translate.yourRank}
               subtext={data.rank}
               background={vars.GRADIENT}
@@ -251,6 +260,7 @@ function Dashboard(props) {
               borderRight={false}
             /> */}
             <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
               text={Translate.yourGradeRank}
               subtext={data.gradeRank}
               background={vars.GRADIENT}

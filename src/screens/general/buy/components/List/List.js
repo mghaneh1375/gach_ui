@@ -4,6 +4,7 @@ import Card from '../../../../panel/package/card/Card';
 import {packagesContext, dispatchPackagesContext} from '../Context';
 import {fetchAllPackages} from '../../../../panel/package/components/Utility';
 import QuizList from './../Detail/List';
+import {getDevice, getWidthHeight} from '../../../../../services/Utility';
 
 function List(props) {
   const useGlobalState = () => [
@@ -63,9 +64,17 @@ function List(props) {
     });
   }, [dispatch, props, isWorking, state.allItems]);
 
+  const device = getDevice();
+  const isInPhone = device.indexOf('WebPort') !== -1;
+
   return (
     <MyView>
-      <PhoneView style={{gap: 15, padding: 20}}>
+      <PhoneView
+        style={
+          isInPhone
+            ? {padding: 20, width: getWidthHeight[0]}
+            : {gap: 15, padding: 20}
+        }>
         {state.selectableItems !== undefined &&
           state.selectableItems.map((item, index) => {
             if (item.type === 'package')

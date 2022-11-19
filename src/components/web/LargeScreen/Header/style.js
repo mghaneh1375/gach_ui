@@ -234,8 +234,8 @@ export const MenuItem = props => {
 
 export const MenuItemPhone = props => {
   let styles = {...style.MenuItem, ...{marginTop: 10}};
-  if (props.selected !== undefined && props.selected)
-    styles = {...styles, ...style.MenuItemSelected};
+  // if (props.selected !== undefined && props.selected)
+  //   styles = {...styles, ...style.MenuItemSelected};
   return (
     <TouchableOpacity onPress={props.onClick}>
       <PhoneView style={styles}>
@@ -245,21 +245,22 @@ export const MenuItemPhone = props => {
             paddingRight: 12,
             color:
               props.selected !== undefined && props.selected
-                ? vars.WHITE
-                : vars.LIGHT_SILVER,
+                ? vars.YELLOW
+                : vars.DARK_SILVER,
           }}
           text={props.text}
         />
         <MyView
           style={
-            props.selected !== undefined && props.selected
-              ? [
-                  {
-                    ...style.MenuItemFontContainer,
-                    ...style.MenuItemFontContainerSelected,
-                  },
-                ]
-              : style.MenuItemFontContainer
+            style.MenuItemFontContainer
+            // props.selected !== undefined && props.selected
+            //   ? [
+            //       {
+            //         ...style.MenuItemFontContainer,
+            //         ...style.MenuItemFontContainerSelected,
+            //       },
+            //     ]
+            //   :
           }>
           <SimpleFontIcon style={{color: vars.WHITE}} icon={props.icon} />
         </MyView>

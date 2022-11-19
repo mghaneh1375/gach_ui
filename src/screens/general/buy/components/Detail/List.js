@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import Quizzes from '../../../../../components/web/Quizzes';
-import {showError} from '../../../../../services/Utility';
+import {
+  getDevice,
+  getWidthHeight,
+  showError,
+} from '../../../../../services/Utility';
 import {
   BigBoldBlueText,
   MyView,
@@ -13,7 +17,6 @@ import OffCode from '../OffCode';
 
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import BuyBasket from '../BuyBasket';
-import vars from '../../../../../styles/root';
 import {styles} from '../../../../../styles/Common/Styles';
 
 function List(props) {
@@ -113,6 +116,10 @@ function List(props) {
     calc(wantedQuizzes, {type: type, amount: amount, code: code});
   };
 
+  const device = getDevice();
+  const isInPhone = device.indexOf('WebPort') !== -1;
+  const w = getWidthHeight()[0];
+
   return (
     <MyView>
       {showOffCodePane && (
@@ -161,7 +168,17 @@ function List(props) {
       )}
 
       {quizzes !== undefined && !showSuccessTransaction && (
-        <MyView style={{padding: 10, alignSelf: 'start', minHeight: '100vh'}}>
+        <MyView
+          style={
+            isInPhone
+              ? {
+                  padding: 10,
+                  width: w,
+                  alignSelf: 'start',
+                  minHeight: '100vh',
+                }
+              : {padding: 10, alignSelf: 'start', minHeight: '100vh'}
+          }>
           <BigBoldBlueText text={'لیست آزمون ها'} />
           <Quizzes
             fullWidth={
