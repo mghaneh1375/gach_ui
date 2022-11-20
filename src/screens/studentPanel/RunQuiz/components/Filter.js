@@ -186,7 +186,8 @@ function Filter(props) {
       )}
       {state.quizInfo !== undefined &&
         state.quizInfo.attaches !== undefined &&
-        state.quizInfo.attaches.length > 0 && (
+        state.quizInfo.attaches.length > 0 &&
+        !isInPhone && (
           <MyView>
             <SimpleText
               style={styles.dark_blue_color}
@@ -200,8 +201,15 @@ function Filter(props) {
                     key={index}
                     filename={elem}
                     onClick={() => {
-                      props.setSelectedAttach(elem);
-                      props.setMode('attach');
+                      if (
+                        elem.toLowerCase().indexOf('.jpg') !== -1 ||
+                        elem.toLowerCase().indexOf('.png') !== -1
+                      ) {
+                        props.setSelectedAttach(elem);
+                        props.setMode('attach');
+                      } else {
+                        window.open(elem);
+                      }
                     }}
                   />
                 );

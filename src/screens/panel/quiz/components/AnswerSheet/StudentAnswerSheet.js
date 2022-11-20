@@ -17,7 +17,7 @@ import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
 import {styles} from '../../../../../styles/Common/Styles';
 import commonTranslator from '../../../../../translator/Common';
-import {showError} from '../../../../../services/Utility';
+import {getDevice, showError} from '../../../../../services/Utility';
 
 function StudentAnswerSheet(props) {
   const useGlobalState = () => [
@@ -96,11 +96,13 @@ function StudentAnswerSheet(props) {
                 />
               </PhoneView>
             )}
-            <CommonButton
-              style={styles.alignSelfStart}
-              title={commonTranslator.print}
-              onPress={() => print()}
-            />
+            {getDevice().indexOf('WebPort') === -1 && (
+              <CommonButton
+                style={styles.alignSelfStart}
+                title={commonTranslator.print}
+                onPress={() => print()}
+              />
+            )}
           </MyView>
         </EqualTwoTextInputs>
         {stdChangingMode && (

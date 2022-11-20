@@ -2,7 +2,7 @@ const Translate = {
   quizCount: 'تعداد کل آزمون‌ها در این بسته: ',
   registrableCount: 'تعداد آزمون برگزار نشده و قابل ثبت‌نام: ',
   buyQuiz: 'اطلاعات',
-  mizanTakhfif: 'میزان تخفیف',
+  mizanTakhfif: 'میزان تخفیف: ',
   minSelect: 'با ثبت‌نام حداقل چند آزمون از این بسته تخفیف می‌گیرید؟ ',
   buyersCount: 'تعداد خریداران: ',
   showQuiz: 'مشاهده آزمون',

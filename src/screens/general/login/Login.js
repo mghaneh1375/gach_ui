@@ -12,7 +12,6 @@ import {
 import translator from './translate';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 import {Device} from '../../../models/Device';
-import {ImageBackground} from 'react-native';
 import {globalStateContext, dispatchStateContext} from './../../../App';
 import ForgetPassModule from './components/ForgetPass';
 import ResetPassModule from './components/ResetPass';
@@ -44,8 +43,6 @@ const Login = props => {
     dispatch({loading: status});
   };
 
-  const height = getWidthHeight()[1];
-
   const [isSignUp, setIsSignUp] = useState(false);
   const [mode, setMode] = useState('login'); // available values: [signUp, verification, role, form]
   const [token, setToken] = useState('');
@@ -60,9 +57,10 @@ const Login = props => {
   };
 
   const home = device.indexOf(Device.App) !== -1 ? 'Home' : '/dashboard';
+  const root = device.indexOf(Device.App) !== -1 ? 'Home' : '/';
 
-  const redirectToHome = () => {
-    navigate(home);
+  const redirectToRoot = () => {
+    navigate(root);
   };
 
   return (
@@ -83,7 +81,7 @@ const Login = props => {
           text={translator.entryText}
           icon={faClose}
           onPress={() =>
-            mode === 'login' ? redirectToHome() : changeMode('login')
+            mode === 'login' ? redirectToRoot() : changeMode('login')
           }
         />
         {mode === 'login' && (

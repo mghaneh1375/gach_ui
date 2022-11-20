@@ -10,6 +10,7 @@ import Translate from '../../Translate';
 import {
   styleFontSize11,
   styleFontSize13,
+  styleFontSize15,
   styleFontSize17,
   styleItem,
   styleItemsGrandParent,
@@ -20,10 +21,13 @@ import {dispatchQuizzesContext} from './Utility';
 import {styles} from '../../../../../styles/Common/Styles';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
+import {getDevice} from '../../../../../services/Utility';
 
 function Info(props) {
   const useGlobalState = () => [React.useContext(dispatchQuizzesContext)];
   const [dispatch] = useGlobalState();
+
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
 
   return (
     <CommonWebBox
@@ -49,20 +53,37 @@ function Info(props) {
                 icon={faQuestion}
                 parentStyle={{marginLeft: 5}}
               />
-              <MyView>
-                <SimpleText
-                  style={{...styleFontSize11, ...styles.BlueBold}}
-                  text={Translate.quizCount}
-                />
-                <SimpleText
-                  style={{
-                    ...styleFontSize17,
-                    ...styles.alignSelfCenter,
-                    ...styles.BlueBold,
-                  }}
-                  text={props.package.quizzes}
-                />
-              </MyView>
+              {!isInPhone && (
+                <MyView>
+                  <SimpleText
+                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    text={Translate.quizCount}
+                  />
+                  <SimpleText
+                    style={{
+                      ...styleFontSize17,
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                    }}
+                    text={props.package.quizzes}
+                  />
+                </MyView>
+              )}
+              {isInPhone && (
+                <PhoneView>
+                  <SimpleText
+                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    text={Translate.quizCount}
+                  />
+                  <SimpleText
+                    style={{
+                      ...styleFontSize13,
+                      ...styles.BlueBold,
+                    }}
+                    text={props.package.quizzes}
+                  />
+                </PhoneView>
+              )}
             </PhoneView>
 
             <PhoneView style={{...styleItem}}>
@@ -71,20 +92,39 @@ function Info(props) {
                 icon={faQuestion}
                 parentStyle={{marginLeft: 5}}
               />
-              <MyView>
-                <SimpleText
-                  style={{...styleFontSize11, ...styles.BlueBold}}
-                  text={Translate.minSelect}
-                />
-                <SimpleText
-                  style={{
-                    ...styleFontSize17,
-                    ...styles.alignSelfCenter,
-                    ...styles.BlueBold,
-                  }}
-                  text={props.package.minSelect}
-                />
-              </MyView>
+
+              {!isInPhone && (
+                <MyView>
+                  <SimpleText
+                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    text={Translate.minSelect}
+                  />
+                  <SimpleText
+                    style={{
+                      ...styleFontSize17,
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                    }}
+                    text={props.package.minSelect}
+                  />
+                </MyView>
+              )}
+
+              {isInPhone && (
+                <PhoneView>
+                  <SimpleText
+                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    text={Translate.minSelect}
+                  />
+                  <SimpleText
+                    style={{
+                      ...styleFontSize13,
+                      ...styles.BlueBold,
+                    }}
+                    text={props.package.minSelect}
+                  />
+                </PhoneView>
+              )}
             </PhoneView>
 
             <PhoneView style={{...styleItem}}>
@@ -93,20 +133,37 @@ function Info(props) {
                 icon={faQuestion}
                 parentStyle={{marginLeft: 5}}
               />
-              <MyView>
-                <SimpleText
-                  style={{...styleFontSize11, ...styles.BlueBold}}
-                  text={Translate.mizanTakhfif}
-                />
-                <SimpleText
-                  style={{
-                    ...styleFontSize17,
-                    ...styles.alignSelfCenter,
-                    ...styles.BlueBold,
-                  }}
-                  text={props.package.offPercent + ' درصد '}
-                />
-              </MyView>
+              {!isInPhone && (
+                <MyView>
+                  <SimpleText
+                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    text={Translate.mizanTakhfif}
+                  />
+                  <SimpleText
+                    style={{
+                      ...styleFontSize17,
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                    }}
+                    text={props.package.offPercent + ' درصد '}
+                  />
+                </MyView>
+              )}
+              {isInPhone && (
+                <PhoneView>
+                  <SimpleText
+                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    text={Translate.mizanTakhfif}
+                  />
+                  <SimpleText
+                    style={{
+                      ...styleFontSize13,
+                      ...styles.BlueBold,
+                    }}
+                    text={props.package.offPercent + ' درصد '}
+                  />
+                </PhoneView>
+              )}
             </PhoneView>
 
             {props.isAdmin && (

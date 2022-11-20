@@ -1,6 +1,7 @@
 import {faMedal, faPlane, faQuestion} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {Image} from 'react-native';
+import {globalStateContext} from '../../../App';
 import Circle from '../../../components/web/Circle';
 import QuizItemCard from '../../../components/web/QuizItemCard';
 import {
@@ -19,20 +20,24 @@ function BoxRanking(props) {
     setPic(props.pic);
   }, [props.pic]);
 
+  const useGlobalState = () => [React.useContext(globalStateContext)];
+
+  const [state] = useGlobalState();
+
   return (
-    <CommonWebBox width={390}>
+    <CommonWebBox width={state.isInPhone ? 320 : 390}>
       <Circle
         style={{
           ...styles.positionAbsolute,
-          marginRight: -75,
+          marginRight: state.isInPhone ? -45 : -75,
           ...styles.marginTop20,
         }}
         child={
           pic !== undefined && (
             <Image
               style={{
-                width: 140,
-                height: 140,
+                width: state.isInPhone ? 90 : 140,
+                height: state.isInPhone ? 90 : 140,
                 borderRadius: '50%',
                 objectFit: 'cover',
                 objectPosition: 'center',
@@ -41,7 +46,7 @@ function BoxRanking(props) {
             />
           )
         }
-        diameter={150}
+        diameter={state.isInPhone ? 100 : 150}
         backgroundColor={vars.YELLOW_WHITE}></Circle>
       <PhoneView
         style={{

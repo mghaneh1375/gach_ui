@@ -8,6 +8,7 @@ import {
   chooseTheme,
   CommonButtonTextStyleAndroid,
   CommonButtonTextStyleWeb,
+  CommonButtonTextStyleWebPhone,
 } from './Common/Button';
 import BlueTextInlineElem from './Common/BlueTextInline';
 
@@ -16,7 +17,7 @@ import {
   BigBoldBlueTextInlineElem,
 } from './Common/BigBoldTextElem';
 
-import {getScreenHeight} from '../services/Utility';
+import {getDevice, getScreenHeight} from '../services/Utility';
 import {Link} from 'react-router-dom';
 
 import JustBottomBorderTextInput from './Common/JustBottomBorderTextInput';
@@ -165,9 +166,14 @@ export const CommonButton = props => {
   if (props.style === undefined || props.style.justifyContent === undefined)
     className += ' flex-end';
 
+  const isInWebPhone =
+    Platform.OS === 'web' && getDevice().indexOf('WebPort') !== -1;
+
   let textStyle =
     Platform.OS === 'web'
-      ? CommonButtonTextStyleWeb
+      ? isInWebPhone
+        ? CommonButtonTextStyleWebPhone
+        : CommonButtonTextStyleWeb
       : CommonButtonTextStyleAndroid;
 
   if (props.textStyle !== undefined)
@@ -188,16 +194,24 @@ export const CommonButton = props => {
   if (props.href === undefined) {
     allStyles.padding =
       props.padding !== undefined && props.padding === 'unset'
-        ? '9px 15px'
+        ? isInWebPhone
+          ? 5
+          : '9px 15px'
         : props.padding !== undefined
         ? props.padding
+        : isInWebPhone
+        ? 5
         : '5px 30px';
   } else {
-    allStyles.padding = '5px 0';
-    hrefStyle.padding =
-      props.padding !== undefined && props.padding === 'unset'
-        ? '9px 15px'
-        : '5px 30px';
+    // allStyles.padding = '5px 0';
+    // hrefStyle.padding =
+    //   props.padding !== undefined && props.padding === 'unset'
+    //     ? isInWebPhone
+    //       ? '5px 5px'
+    //       : '9px 15px'
+    //     : isInWebPhone
+    //     ? 5
+    //     : '5px 30px';
   }
 
   if (props.icon !== undefined) {

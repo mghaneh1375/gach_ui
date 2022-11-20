@@ -1,17 +1,22 @@
 import {getWidthHeight} from '../../../../../../services/Utility';
 
 let width = getWidthHeight()[0];
-width -= 200;
-let colWidth = width > 1200 || width < 768 ? '25%' : width * 0.5 - 30 - 3 * 90;
+let colWidth;
 
-let numColsWidth = '90px';
+if (width < 768) colWidth = 100;
+else {
+  width -= 200;
+  colWidth = width > 1200 || width < 768 ? '25%' : width * 0.5 - 30 - 3 * 90;
 
-if ((width > 1200 || width < 768) && colWidth > 200) {
-  colWidth = width * 0.5 - 30 - 3 * 110;
-  numColsWidth = '110px';
-} else if ((width > 1200 || width < 768) && colWidth < 90) {
-  colWidth = width * 0.5 - 30 - 3 * 70;
-  numColsWidth = '70px';
+  let numColsWidth = '90px';
+
+  if ((width > 1200 || width < 768) && colWidth > 200) {
+    colWidth = width * 0.5 - 30 - 3 * 110;
+    numColsWidth = '110px';
+  } else if ((width > 1200 || width < 768) && colWidth < 90) {
+    colWidth = width * 0.5 - 30 - 3 * 70;
+    numColsWidth = '70px';
+  }
 }
 
 const commonCols = [
@@ -103,16 +108,6 @@ export const lessonCols = [
     style: {wordBreak: 'normal'},
   },
   ...commonCols,
-  {
-    name: 'درصد',
-    selector: row => row.percent,
-    maxWidth: '55px',
-    minWidth: '55px',
-    center: true,
-    style: {
-      direction: 'ltr',
-    },
-  },
 ];
 
 export const lessonColsCustomQuiz = [
@@ -137,16 +132,6 @@ export const subjectCols = [
     style: {wordBreak: 'normal'},
   },
   ...commonCols,
-  {
-    name: 'درصد',
-    selector: row => row.percent,
-    maxWidth: '55px',
-    minWidth: '55px',
-    center: true,
-    style: {
-      direction: 'ltr',
-    },
-  },
 ];
 
 export const subjectColsCustomQuiz = [

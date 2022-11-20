@@ -1,4 +1,4 @@
-import {faBookmark} from '@fortawesome/free-solid-svg-icons';
+import {faBookmark, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {
   EqualTwoTextInputs,
@@ -10,6 +10,7 @@ import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
 import commonTranslator from '../../../../translator/Common';
+import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
 import Translate from '../Translate';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import QuestionNumber from './questionComponents/QuestionNumber';
@@ -54,29 +55,36 @@ function PhoneFilter(props) {
               onPress={() => setMode('map')}
               text={'سوالات'}
             />
-            <SimpleText
-              style={{alignSelf: 'center', cursor: 'pointer'}}
-              text={'فایل ها'}
-            />
-            <SimpleFontIcon
-              onPress={() => {
-                let b =
-                  state.bookmarks[state.currIdx] === undefined ||
-                  !state.bookmarks[state.currIdx]
-                    ? true
-                    : false;
-                dispatch({bookmarkStatus: b, needUpdateBookmarks: true});
-              }}
-              kind={'normal'}
-              style={{
-                color:
-                  state.bookmarks[state.currIdx] === undefined ||
-                  !state.bookmarks[state.currIdx]
-                    ? '#CCCCCC'
-                    : vars.ORANGE_RED,
-              }}
-              icon={faBookmark}
-            />
+            {state.quizInfo !== undefined &&
+              state.quizInfo.attaches !== undefined &&
+              state.quizInfo.attaches.length > 0 && (
+                <SimpleText
+                  style={{alignSelf: 'center', cursor: 'pointer'}}
+                  text={'فایل ها'}
+                  onPress={() => setMode('attaches')}
+                />
+              )}
+            {!props.isInReviewMode && (
+              <SimpleFontIcon
+                onPress={() => {
+                  let b =
+                    state.bookmarks[state.currIdx] === undefined ||
+                    !state.bookmarks[state.currIdx]
+                      ? true
+                      : false;
+                  dispatch({bookmarkStatus: b, needUpdateBookmarks: true});
+                }}
+                kind={'normal'}
+                style={{
+                  color:
+                    state.bookmarks[state.currIdx] === undefined ||
+                    !state.bookmarks[state.currIdx]
+                      ? '#CCCCCC'
+                      : vars.ORANGE_RED,
+                }}
+                icon={faBookmark}
+              />
+            )}
           </PhoneView>
         </EqualTwoTextInputs>
       )}
@@ -152,6 +160,69 @@ function PhoneFilter(props) {
                     />
                   );
                 })}
+            </PhoneView>
+          </MyView>
+        </MyView>
+      )}
+      {mode === 'attaches' && (
+        <MyView style={{width: '100%', height: '100%', gap: 5}}>
+          <EqualTwoTextInputs
+            style={{
+              boxShadow: 'rgb(0 0 0 / 16%) 0px 3px 16px 4px',
+              padding: 10,
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10,
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
+              width: '100%',
+              height: 50,
+              background: 'white',
+              alignSelf: 'center',
+            }}>
+            <SimpleText style={{...styles.BlueBold}} text={'فایل ها'} />
+            <SimpleText
+              style={{...styles.cursor_pointer}}
+              onPress={() => setMode('menu')}
+              text={'بستن'}
+            />
+          </EqualTwoTextInputs>
+
+          <MyView
+            style={{
+              height: 'calc(100vh - 50px)',
+              boxShadow: 'rgb(0 0 0 / 16%) 0px 3px 16px 4px',
+              padding: 10,
+              background: 'white',
+              borderBottomLeftRadius: 0,
+              borderBottomRightRadius: 0,
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+              width: '100%',
+            }}>
+            <PhoneView
+              style={{
+                gap: 10,
+              }}>
+              {state.quizInfo.attaches.map((elem, index) => {
+                return (
+                  <AttachBox
+                    icon={faMagnifyingGlass}
+                    key={index}
+                    filename={elem}
+                    onClick={() => {
+                      if (
+                        elem.toLowerCase().indexOf('.jpg') !== -1 ||
+                        elem.toLowerCase().indexOf('.png') !== -1
+                      ) {
+                        props.setSelectedAttach(elem);
+                        props.setMode('attach');
+                      } else {
+                        window.open(elem);
+                      }
+                    }}
+                  />
+                );
+              })}
             </PhoneView>
           </MyView>
         </MyView>

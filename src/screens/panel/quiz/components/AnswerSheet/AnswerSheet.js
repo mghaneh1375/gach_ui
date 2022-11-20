@@ -60,7 +60,6 @@ function AnswerSheet(props) {
             return (
               <CommonWebBox no_gap={true} style={{padding: 5}} key={index}>
                 {box.map((elem, idx) => {
-                  console.log(elem.type);
                   if (elem.type === 'test')
                     return (
                       <Test

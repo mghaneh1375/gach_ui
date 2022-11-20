@@ -63,7 +63,7 @@ function List(props) {
   }, [state.schools, fetchData]);
 
   return (
-    <MyView>
+    <MyView style={props.showBottomNav ? {marginBottom: 100} : {}}>
       {showOpPopUp && props.isAdmin && (
         <Ops
           toggleShowPopUp={toggleShowOpPopUp}
@@ -74,8 +74,8 @@ function List(props) {
       )}
       {state.data !== undefined && (
         <CommonWebBox
-          header={translator.addNewItem}
-          addBtn={true}
+          header={props.isAdmin ? translator.addNewItem : translator.list}
+          addBtn={props.isAdmin}
           onAddClick={() => props.setMode('create')}>
           <MyView style={{gap: 15}}>
             <Filter

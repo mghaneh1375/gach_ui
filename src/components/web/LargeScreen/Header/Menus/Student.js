@@ -64,10 +64,9 @@ function StudentMenu(props) {
   }
 
   const callLogout = async () => {
-    props.setLoading(true);
-    await logout(props.token, props.navigate);
-    dispatch({user: null});
-    props.setLoading(false);
+    dispatch({loading: true});
+    await logout(state.token, props.navigate);
+    dispatch({loading: false, user: null});
   };
 
   const changeShowNotif = newStatus => {
@@ -75,6 +74,7 @@ function StudentMenu(props) {
   };
   return (
     <MyView
+      className={'menu-container-in-phone'}
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
@@ -141,15 +141,6 @@ function StudentMenu(props) {
         icon={faHistory}
       />
       <MenuItemPhone text={translator.support} icon={faQuestion} />
-      <MenuItemPhone
-        text={translator.config}
-        icon={faCog}
-        isApp={isApp}
-        onClick={() => {
-          navigate(isApp ? 'Profile' : '/profile');
-          props.toggleRightMenuVisibility();
-        }}
-      />
 
       <PhoneView
         style={
@@ -294,7 +285,6 @@ function StudentMenu(props) {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={async () => {
-                    changeShowNotif(!showNotif);
                     callLogout();
                   }}>
                   <SimpleText

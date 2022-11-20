@@ -44,14 +44,24 @@ export const CommonButtonTextStyleAndroid = {
 
 const device = getDevice();
 
+export const CommonButtonTextStyleWebPhone = {
+  textAlign: 'center',
+  color: vars.WHITE,
+  fontSize: 14,
+  fontFamily: 'IRANSans',
+  whiteSpace: 'nowrap',
+  paddingLeft: 20,
+  paddingRight: 20,
+};
+
 export const CommonButtonTextStyleWeb = {
   textAlign: 'center',
   color: vars.WHITE,
-  fontSize: device.indexOf(Device.WebPort) !== -1 ? 18 : 14,
+  fontSize: 14,
   fontFamily: 'IRANSans',
   whiteSpace: 'nowrap',
-  paddingLeft: device.indexOf(Device.WebPort) !== -1 ? 40 : undefined,
-  paddingRight: device.indexOf(Device.WebPort) !== -1 ? 40 : undefined,
+  paddingLeft: undefined,
+  paddingRight: undefined,
 };
 export const justifyContentEnd = {
   justifyContent: 'end',

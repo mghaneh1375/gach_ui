@@ -48,6 +48,22 @@ export const NavLinkExternal = styled.a`
   }
 `;
 
+export const BottomLinkExternal = styled.a`
+  width: 50px;
+  height: 50px;
+  display: flex;
+  shadow-color: black;
+  shadow-opacity: 0.8;
+  shadow-radius: 10px;
+  elevation: 10;
+  border-radius: 50%;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 1);
+  align-content: center;
+  align-items: center;
+  box-shadow: 0px 3px 6px #818181a8;
+`;
+
 export const NavButtonY = styled(Link)`
   color: white;
   background-color: yellow;

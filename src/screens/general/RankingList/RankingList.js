@@ -19,7 +19,7 @@ function RankingList(props) {
   const [useFilter, setUseFilter] = useState(false);
 
   const useGlobalState = () => [
-    React.useContext(dispatchStateContext),
+    React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
 
@@ -116,7 +116,17 @@ function RankingList(props) {
         />
       </PhoneView>
       {mode === 'quizRanking' && (
-        <PhoneView style={{...styles.gap30, ...styles.justifyContentCenter}}>
+        <PhoneView
+          style={
+            state.isInPhone
+              ? {
+                  ...styles.gap30,
+                  ...styles.padding10,
+                  ...styles.justifyContentCenter,
+                  ...{marginBottom: 100},
+                }
+              : {...styles.gap30, ...styles.justifyContentCenter}
+          }>
           {quizzes !== undefined &&
             quizzes.map((elem, index) => {
               return (
@@ -136,10 +146,14 @@ function RankingList(props) {
         </PhoneView>
       )}
       {mode === 'generalRanking' && (
-        <MyView>
+        <MyView style={state.isInPhone ? {marginBottom: 100} : {}}>
           <CommonWebBox
             style={styles.alignSelfCenter}
-            width={state.isRightMenuVisible ? '100%' : vars.LEFT_SECTION_WIDTH}>
+            width={
+              state.isRightMenuVisible || state.isInPhone
+                ? '100%'
+                : vars.LEFT_SECTION_WIDTH
+            }>
             <Filter
               setUseFilter={setUseFilter}
               useFilter={useFilter}
@@ -154,7 +168,11 @@ function RankingList(props) {
                 return (
                   <PhoneView
                     key={index}
-                    style={{marginRight: 70, marginTop: 20, gap: 50}}>
+                    style={{
+                      marginRight: state.isInPhone ? 50 : 70,
+                      marginTop: 20,
+                      gap: 50,
+                    }}>
                     <BoxRanking
                       school={elem.student.school}
                       grade={elem.student.grade}

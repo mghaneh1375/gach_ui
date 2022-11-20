@@ -355,34 +355,36 @@ function Card(props) {
         )}
 
         {(props.quiz.status !== 'inProgress' ||
-          props.quiz.launchMode === undefined) && (
-          <MyView
-            style={{
-              ...styleDigest,
-            }}>
-            <SimpleText
-              style={
-                props.quiz.tags !== undefined && props.quiz.tags.length > 0
-                  ? {
-                      ...styles.fontSize15,
-                      ...styles.BlueBold,
-                      ...styles.margin5,
-                    }
-                  : {
-                      ...styles.fontSize15,
-                      ...styles.BlueBold,
-                      ...styles.margin5,
-                      ...{visibility: 'hidden'},
-                    }
-              }
-              text={
-                props.quiz.tags !== undefined && props.quiz.tags.length > 0
-                  ? '# ' + props.quiz.tags.join(' - ')
-                  : 'salam'
-              }
-            />
-          </MyView>
-        )}
+          props.quiz.launchMode === undefined) &&
+          (!isInPhone ||
+            (props.quiz.tags !== undefined && props.quiz.tags.length > 0)) && (
+            <MyView
+              style={{
+                ...styleDigest,
+              }}>
+              <SimpleText
+                style={
+                  props.quiz.tags !== undefined && props.quiz.tags.length > 0
+                    ? {
+                        ...styles.fontSize15,
+                        ...styles.BlueBold,
+                        ...styles.margin5,
+                      }
+                    : {
+                        ...styles.fontSize15,
+                        ...styles.BlueBold,
+                        ...styles.margin5,
+                        ...{visibility: 'hidden'},
+                      }
+                }
+                text={
+                  props.quiz.tags !== undefined && props.quiz.tags.length > 0
+                    ? '# ' + props.quiz.tags.join(' - ')
+                    : 'salam'
+                }
+              />
+            </MyView>
+          )}
       </MyView>
     </CommonWebBox>
   );

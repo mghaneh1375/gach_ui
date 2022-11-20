@@ -1,16 +1,24 @@
+import {
+  faCheckDouble,
+  faInfo,
+  faPeopleGroup,
+  faRankingStar,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text} from 'react-native';
 import {Link} from 'react-router-dom';
 import {MyView} from '../../styles/Common';
+import {SimpleFontIcon} from '../../styles/Common/FontIcon';
 import {styles} from '../../styles/Common/Styles';
 
 import {
   NavItemStyle,
   NavItemContainerStyle,
-  NavItemImageStyle,
   NavContainerStyle,
   NavTextStyle,
 } from '../../styles/web/BottomNavBar';
+import {BottomLinkExternal} from '../../styles/web/NavbarElement';
 
 export default function BottomNavBar() {
   return (
@@ -22,48 +30,33 @@ export default function BottomNavBar() {
       }}>
       <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/login">
-          <img
-            style={NavItemImageStyle}
-            src={require('./../../images/sign-in.png')}
-          />
+          <SimpleFontIcon kind={'large'} icon={faUser} />
         </Link>
         <Text style={NavTextStyle}>ورود/ثبت نام</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
-        <Link style={NavItemStyle} to="/">
-          <img
-            style={NavItemImageStyle}
-            src={require('./../../images/support.png')}
-          />
+        <Link style={NavItemStyle} to="/showAllSchools">
+          <SimpleFontIcon kind={'large'} icon={faPeopleGroup} />
         </Link>
-        <Text style={NavTextStyle}>پشتیبانی</Text>
+        <Text style={NavTextStyle}>مدارس</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
-        <Link style={NavItemStyle} to="/">
-          <img
-            style={NavItemImageStyle}
-            src={require('./../../images/exam.png')}
-          />
+        <Link style={NavItemStyle} to="/buy">
+          <SimpleFontIcon kind={'large'} icon={faCheckDouble} />
         </Link>
         <Text style={NavTextStyle}>آزمون ها</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
-        <Link style={NavItemStyle} to="/">
-          <img
-            style={NavItemImageStyle}
-            src={require('./../../images/rank.png')}
-          />
+        <Link style={NavItemStyle} to="/rankinglist">
+          <SimpleFontIcon kind={'large'} icon={faRankingStar} />
         </Link>
         <Text style={NavTextStyle}>رتبه بندی</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
-        <Link style={NavItemStyle} to="/">
-          <img
-            style={NavItemImageStyle}
-            src={require('./../../images/exam.png')}
-          />
-        </Link>
-        <Text style={NavTextStyle}>آزمون ها</Text>
+        <BottomLinkExternal href="https://www.irysc.com/contact-us/">
+          <SimpleFontIcon kind={'large'} icon={faInfo} />
+        </BottomLinkExternal>
+        <Text style={NavTextStyle}>پشتیبانی</Text>
       </MyView>
     </MyView>
   );

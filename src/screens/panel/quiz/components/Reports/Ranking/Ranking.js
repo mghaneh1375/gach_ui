@@ -12,6 +12,7 @@ import CopyBox from '../../../../../../components/CopyBox';
 import commonTranslator from '../../../Translator';
 import {BASE_SITE_NAME} from '../../../../../../API/Utility';
 import {styles} from '../../../../../../styles/Common/Styles';
+import {getDevice} from '../../../../../../services/Utility';
 
 function Ranking(props) {
   const useGlobalState = () => [
@@ -20,6 +21,8 @@ function Ranking(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
+
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
 
   const columns = [
     {
@@ -138,7 +141,7 @@ function Ranking(props) {
       }
       btn={
         <PhoneView style={styles.alignItemsCenter}>
-          {state.selectedQuiz.generalMode !== 'open' && (
+          {state.selectedQuiz.generalMode !== 'open' && !isInPhone && (
             <CopyBox
               title={commonTranslator.copyLink}
               url={
@@ -184,7 +187,7 @@ function Ranking(props) {
             show_row_no={false}
             pagination={false}
             groupOps={[]}
-            excel={state.selectedQuiz.title !== undefined}
+            excel={isInPhone ? false : state.selectedQuiz.title !== undefined}
           />
         )}
     </CommonWebBox>

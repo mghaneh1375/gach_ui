@@ -37,7 +37,7 @@ import AnswerSheet from '../../AnswerSheet/AnswerSheet';
 import StudentCard from '../../../../../../components/web/StudentCard';
 import CopyBox from '../../../../../../components/CopyBox';
 import {BASE_SITE_NAME} from '../../../../../../API/Utility';
-import {showError} from '../../../../../../services/Utility';
+import {getDevice, showError} from '../../../../../../services/Utility';
 import {getMyAnswerSheet} from '../../../../../studentPanel/MyQuizzes/irysc/components/Utility';
 import {styleCard100Percent} from '../../../../package/card/Style';
 
@@ -226,6 +226,8 @@ function Karname(props) {
     setConditionalRowStyles(conditions);
   }, [karname]);
 
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+
   return (
     <MyView>
       <CommonWebBox
@@ -244,7 +246,7 @@ function Karname(props) {
           {karname !== undefined && props.generalQuizMode === undefined && (
             <StudentCard width={200} std={karname} />
           )}
-          {karname !== undefined && (
+          {karname !== undefined && !isInPhone && (
             <PhoneView>
               {pdf !== undefined && props.generalQuizMode === undefined && (
                 <CommonButton
@@ -277,7 +279,7 @@ function Karname(props) {
       <MyViewWithRef ref={ref}>
         <PhoneView>
           <CommonWebBox
-            width={'50%'}
+            width={isInPhone ? '100%' : '50%'}
             style={{
               paddingLeft: 5,
               paddingTop: 10,
@@ -318,7 +320,7 @@ function Karname(props) {
           </CommonWebBox>
           {props.generalQuizMode === undefined && (
             <CommonWebBox
-              width={'45%'}
+              width={isInPhone ? '100%' : '45%'}
               style={{
                 paddingLeft: 5,
                 paddingTop: 10,
@@ -348,7 +350,7 @@ function Karname(props) {
           )}
 
           <CommonWebBox
-            width={'55%'}
+            width={isInPhone ? '100%' : '55%'}
             style={{
               paddingLeft: 5,
               paddingTop: 10,
@@ -392,7 +394,7 @@ function Karname(props) {
 
           {props.generalQuizMode === undefined && (
             <CommonWebBox
-              width={'45%'}
+              width={isInPhone ? '100%' : '45%'}
               style={{
                 paddingLeft: 5,
                 paddingTop: 10,
@@ -421,7 +423,7 @@ function Karname(props) {
             </CommonWebBox>
           )}
 
-          {props.generalQuizMode === undefined && (
+          {props.generalQuizMode === undefined && !isInPhone && (
             <CommonWebBox
               width={'50%'}
               style={{
@@ -468,9 +470,40 @@ function Karname(props) {
             </CommonWebBox>
           )}
 
+          {props.generalQuizMode === undefined && isInPhone && (
+            <CommonWebBox
+              width={'100%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+                ...styleCard100Percent,
+              }}>
+              <EqualTwoTextInputs>
+                <BigBoldBlueTextInline
+                  style={{alignSelf: 'center'}}
+                  text={'جدول شماره 5 - نتایج رتبه بندی دروس'}
+                />
+              </EqualTwoTextInputs>
+              <MyView style={{gap: 20}}>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={lessonRankingCols}
+                    show_row_no={false}
+                    pagination={false}
+                    excel={false}
+                    groupOps={[]}
+                    data={karname.lessons}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
+          )}
+
           {props.generalQuizMode === undefined && (
             <CommonWebBox
-              width={'50%'}
+              width={isInPhone ? '100%' : '50%'}
               style={{
                 paddingLeft: 5,
                 paddingTop: 10,
@@ -498,9 +531,39 @@ function Karname(props) {
               </MyView>
             </CommonWebBox>
           )}
+          {props.generalQuizMode === undefined && isInPhone && (
+            <CommonWebBox
+              width={'50%'}
+              style={{
+                paddingLeft: 5,
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingRight: 5,
+                ...styleCard100Percent,
+              }}>
+              <MyView style={{gap: 20}}>
+                <EqualTwoTextInputs>
+                  <BigBoldBlueTextInline
+                    style={{alignSelf: 'center'}}
+                    text={'جدول شماره 7 - نتایج کلی'}
+                  />
+                </EqualTwoTextInputs>
+                {karname !== undefined && (
+                  <CommonDataTable
+                    columns={totalRankCols}
+                    data={[karname.rank]}
+                    show_row_no={false}
+                    pagination={false}
+                    excel={false}
+                    groupOps={[]}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
+          )}
         </PhoneView>
       </MyViewWithRef>
-      {props.generalQuizMode === undefined && (
+      {props.generalQuizMode === undefined && !isInPhone && (
         <MyViewWithRef style={{justifyContent: 'center'}} ref={ref2}>
           <CommonWebBox width={'100%'}>
             <MyView>
@@ -540,7 +603,7 @@ function Karname(props) {
                       },
                     }}
                     interpolation={'natural'}
-                    domain={{y: [-30, 105]}}
+                    domain={{y: [-60, 120]}}
                     data={[
                       0,
                       ...karname.subjects.map(elem => {

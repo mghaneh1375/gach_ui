@@ -6,6 +6,7 @@ import Info from '../../../../panel/package/components/Detail/Info';
 import List from './List';
 import SchoolList from './SchoolList';
 import vars from '../../../../../styles/root';
+import {getDevice} from '../../../../../services/Utility';
 
 function Detail(props) {
   const useGlobalState = () => [
@@ -19,10 +20,14 @@ function Detail(props) {
     dispatch({isRightMenuVisible: props.isRightMenuVisible});
   }, [props.isRightMenuVisible, dispatch]);
 
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+
   return (
     <MyView
       style={
-        props.user === null || props.user === undefined
+        isInPhone
+          ? {}
+          : props.user === null || props.user === undefined
           ? {
               maxWidth: vars.LEFT_SECTION_WIDTH,
               marginRight: vars.RIGHT_MENU_WIDTH / 2,

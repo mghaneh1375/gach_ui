@@ -68,7 +68,6 @@ import History from './studentPanel/History/History';
 import OpenQuiz from './panel/quiz/OpenQuiz';
 import Content from './panel/Content/Content';
 import ShowRecp from './studentPanel/Recp/ShowRecp';
-import TopNavBar from '../components/web/TopNavBar';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -315,7 +314,7 @@ const WebStructue = props => {
                 />
               )}
               {props.page === 'profile' && !isInLargeMode && (
-                <Profile
+                <WebProfile
                   // setUser={setUser}
                   token={state.token}
                   user={state.user}

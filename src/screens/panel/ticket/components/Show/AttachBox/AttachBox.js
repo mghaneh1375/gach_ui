@@ -4,6 +4,7 @@ import {MyView, SimpleText} from '../../../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../../../styles/Common/FontIcon';
 import vars from '../../../../../../styles/root';
 import {style} from './style';
+import {Pressable} from 'react-native';
 
 const AttachBox = props => {
   const getFileExtension = filename => {
@@ -50,7 +51,8 @@ const AttachBox = props => {
       )}
 
       {!isImg && (
-        <MyView
+        <Pressable
+          onPress={props.onClick}
           style={{
             ...style.box,
             ...{
@@ -73,7 +75,7 @@ const AttachBox = props => {
             }}
             text={text}
           />
-        </MyView>
+        </Pressable>
       )}
       {isImg && props.icon === undefined && (
         <img

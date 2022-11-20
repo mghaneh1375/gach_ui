@@ -197,8 +197,15 @@ function Splash(props) {
                         key={index}
                         filename={elem}
                         onClick={() => {
-                          props.setSelectedAttach(elem);
-                          props.setMode('attach');
+                          if (
+                            elem.toLowerCase().indexOf('.jpg') !== -1 ||
+                            elem.toLowerCase().indexOf('.png') !== -1
+                          ) {
+                            props.setSelectedAttach(elem);
+                            props.setMode('attach');
+                          } else {
+                            window.open(elem);
+                          }
                         }}
                       />
                     );

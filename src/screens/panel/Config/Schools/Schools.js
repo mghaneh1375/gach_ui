@@ -2,22 +2,12 @@ import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '../../../../App';
 import List from './components/List/List';
 import Create from './components/Create';
-import {filter} from './components/Utility';
-import {
-  addItem,
-  editItem,
-  isUserAdmin,
-  removeItems,
-} from '../../../../services/Utility';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
+import {isUserAdmin} from '../../../../services/Utility';
 import {MyView} from '../../../../styles/Common';
 import vars from '../../../../styles/root';
 import {SchoolProvider} from './components/Context';
 
-function Schools(props) {
-  const navigate = props.navigate;
-
+function Schools() {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -29,17 +19,16 @@ function Schools(props) {
     dispatch({loading: status});
   };
 
-  const [schools, setSchools] = useState();
-  const [selectedSchool, setSelectedSchool] = useState();
   const [mode, setMode] = useState('list');
-  const [states, setStates] = useState();
-  const [isAdmin, setIsAdmin] = useState(isUserAdmin(state.user));
+  const isAdmin = isUserAdmin(state.user);
 
   return (
     <MyView
       style={
         isAdmin
           ? {}
+          : state.isInPhone
+          ? {width: '100%', alignSelf: 'center', marginTop: 20}
           : {width: vars.LEFT_SECTION_WIDTH, alignSelf: 'center', marginTop: 20}
       }>
       {!isAdmin && (
@@ -57,6 +46,7 @@ function Schools(props) {
       <SchoolProvider>
         {mode === 'list' && (
           <List
+            showBottomNav={state.isInPhone && state.showBottonNav}
             isAdmin={isAdmin}
             setMode={isAdmin ? setMode : {}}
             setLoading={setLoading}

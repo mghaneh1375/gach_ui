@@ -23,7 +23,7 @@ export const SuperMenuItem = props => {
   return (
     <div
       style={{
-        backgroundColor: isOpen ? vars.YELLOW : vars.WHITE,
+        backgroundColor: vars.WHITE,
         marginTop: state.isInPhone ? 10 : 'unset',
       }}
       className={
@@ -35,7 +35,7 @@ export const SuperMenuItem = props => {
         style={{
           padding: 3,
           paddingRight: 12,
-          color: isOpen ? vars.WHITE : vars.LIGHT_SILVER,
+          color: vars.LIGHT_SILVER,
         }}
         text={props.text}
       />
@@ -47,7 +47,7 @@ export const SuperMenuItem = props => {
         }>
         <SimpleFontIcon
           onPress={() => toggleIsOpen()}
-          style={{color: isOpen ? vars.WHITE : vars.LIGHT_SILVER}}
+          style={{color: vars.LIGHT_SILVER}}
           icon={wantedIcon}
         />
         {!isOpen && (
