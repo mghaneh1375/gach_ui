@@ -1,5 +1,6 @@
 const Translator = {
   list: 'لیست بسته های آموزشی',
+  sessionsList: 'لیست جلسات بسته های آموزشی ',
   title: 'نام بسته',
   teacher: 'نام دبیر',
   price: 'قیمت',
@@ -7,12 +8,15 @@ const Translator = {
   hasCert: 'آیا گواهی دارد؟',
   hasExam: 'آیا آزمون پایان دوره دارد؟',
   duration: 'مدت دوره',
+  sessionDuration: 'مدت جلسه',
   buyers: 'تعداد خریداران',
   hasFinalExam: 'آیا آزمون پایان دوره دارد؟',
   finalExamMinMark: 'حداقل نمره قبولی آزمون پایان دوره',
   finalExam: 'آزمون پایان ترم',
   addNewItem: 'افزودن بسته آموزشی جدید',
+  addNewSession: 'افزودن جلسه جدید',
   editItem: 'ویرایش بسته آموزشی',
+  editSession: 'ویرایش دوره ',
   description: 'درباره دوره',
   teacherBio: 'درباره استاد',
   preReq: 'پیش نیاز های دوره',
@@ -21,6 +25,7 @@ const Translator = {
   seeInfo: 'مشاهده اطلاعات',
   sessions: 'مدیریت جلسات',
   users: 'گزارش گیری خریداران',
+  image: 'تصویر شاخص',
 };
 
 export default Translator;

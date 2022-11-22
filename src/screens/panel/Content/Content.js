@@ -1,13 +1,19 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '../../../App';
+import {dispatchStateContext, globalStateContext} from '../../../App';
 import {ContentProvider} from './Components/Context';
 import Create from './Components/Create';
 import List from './Components/List/List';
+import SessionsList from './Components/Session/List';
+import CreateSession from './Components/Session/Create';
+
 function Content(props) {
   const navigate = props.navigate;
 
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
-  const [dispatch] = useGlobalState();
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+  const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
 
   const setLoading = status => {
@@ -18,7 +24,7 @@ function Content(props) {
     <ContentProvider>
       {mode === 'list' && (
         <List
-          token={props.token}
+          token={state.token}
           setLoading={setLoading}
           setMode={setMode}
           navigate={navigate}
@@ -27,7 +33,7 @@ function Content(props) {
       {mode === 'create' && (
         <Create
           isInEditMode={false}
-          token={props.token}
+          token={state.token}
           setMode={setMode}
           setLoading={setLoading}
         />
@@ -35,7 +41,31 @@ function Content(props) {
       {mode === 'update' && (
         <Create
           isInEditMode={true}
-          token={props.token}
+          token={state.token}
+          setMode={setMode}
+          setLoading={setLoading}
+        />
+      )}
+      {mode === 'sessions' && (
+        <SessionsList
+          token={state.token}
+          setLoading={setLoading}
+          setMode={setMode}
+          navigate={navigate}
+        />
+      )}
+      {mode === 'createSession' && (
+        <CreateSession
+          isInEditMode={false}
+          token={state.token}
+          setMode={setMode}
+          setLoading={setLoading}
+        />
+      )}
+      {mode === 'update' && (
+        <CreateSession
+          isInEditMode={true}
+          token={state.token}
           setMode={setMode}
           setLoading={setLoading}
         />

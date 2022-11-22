@@ -59,8 +59,13 @@ function List(props) {
           <CommonDataTable
             removeUrl={routes.removeContent}
             handleOp={handleOp}
+            setLoading={props.setLoading}
             columns={columns}
             data={state.contents}
+            token={props.token}
+            setData={newData => {
+              dispatch({contents: newData});
+            }}
           />
         )}
       </CommonWebBox>
