@@ -1,9 +1,9 @@
-import React from 'react';
 import {CommonButton, PhoneView} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import Translator from '../../Translate';
 import {contentContext, dispatchContentContext} from '../Context';
+import React, {useState} from 'react';
 import commonTranslator from '../../../../../translator/Common';
+import Translator from '../../Translate';
 import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
 

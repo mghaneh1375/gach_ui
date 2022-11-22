@@ -4,6 +4,7 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
+  SimpleText,
 } from '../../../../styles/Common';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {statusKeyVals} from '../../question/components/KeyVals';
@@ -18,7 +19,12 @@ import {trueFalseValues} from '../../../../services/Utility';
 import {contentContext, dispatchContentContext} from './Context';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
-import {fetchContent, fetchContents, store, update} from './Utility';
+import {addFile, fetchContent, removeFile, store, update} from './Utility';
+import {styles} from '../../../../styles/Common/Styles';
+import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {useFilePicker} from 'use-file-picker';
+import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
+import AttachBox from '../../ticket/components/Show/AttachBox/AttachBox';
 
 function Create(props) {
   let ckEditor = null;
@@ -49,6 +55,30 @@ function Create(props) {
   const [finalExamId, setFinalExamId] = useState();
   const [finalExamMinMark, setFinalExamMinMark] = useState();
   const [teachers, setTeachers] = useState();
+
+  const removeImg = index => {
+    remove(index);
+  };
+
+  const removeUploadedImg = async () => {
+    props.setLoading(true);
+    let res = await removeFile(props.token, state.selectedContent.id);
+    props.setLoading(false);
+    if (res === null) return;
+    setImg(undefined);
+
+    state.selectedContent.img = undefined;
+    dispatch({selectedContent: state.selectedContent, needUpdate: true});
+  };
+
+  const [img, setImg] = useState();
+  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
+    useFilePicker({
+      maxFileSize: 6,
+      accept: ['image/*'],
+      readAs: 'DataURL',
+      multiple: false,
+    });
 
   const fetchCertification = React.useCallback(() => {
     if (isWorking || certs !== undefined) return;
@@ -131,6 +161,7 @@ function Create(props) {
             setTitle(res[0].title);
             setTeacher(res[0].teacher);
             setPrice(res[0].price);
+            setImg(res[0].img);
             setSessionsCount(res[0].sessionsCount);
             setTeacherBio(res[0].teacherBio);
             setHasCert(res[0].hasCert);
@@ -150,8 +181,6 @@ function Create(props) {
       }
     });
   }, [isWorking, props, certs, state.selectedContent]);
-
-  React.useEffect(() => {});
 
   React.useEffect(() => {
     if (state.certifications === undefined) fetchCertification();
@@ -352,6 +381,44 @@ function Create(props) {
           setPreReq(editor.getData());
         }}
       />
+
+      <PhoneView style={{...styles.gap15}}>
+        <SimpleText
+          style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+          text={Translator.image}
+        />
+        <SimpleFontIcon
+          onPress={() => openFileSelector()}
+          kind={'normal'}
+          icon={faPaperclip}
+        />
+
+        <PhoneView style={{marginTop: 20}}>
+          {img !== undefined && (
+            <AttachBox
+              filename={img}
+              removeAttach={async () => {
+                await removeUploadedImg();
+              }}
+            />
+          )}
+
+          {filesContent !== undefined &&
+            filesContent.length > 0 &&
+            filesContent.map((elem, index) => {
+              return (
+                <AttachBox
+                  key={index}
+                  filename={elem.name}
+                  fileContent={elem.content}
+                  removeAttach={() => {
+                    removeImg(index);
+                  }}
+                />
+              );
+            })}
+        </PhoneView>
+      </PhoneView>
       <EqualTwoTextInputs>
         <CommonButton
           onPress={() => props.setMode('list')}
@@ -386,9 +453,28 @@ function Create(props) {
               ? await update(props.token, data, state.selectedContent.id)
               : await store(props.token, data);
 
-            props.setLoading(false);
-
             if (res != null) {
+              let contentId = props.isInEditMode
+                ? state.selectedContent.id
+                : res.id;
+
+              if (filesContent.length > 0) {
+                let img = undefined;
+
+                let fileRes = await addFile(
+                  props.token,
+                  filesContent[0],
+                  contentId,
+                );
+                if (fileRes !== null && fileRes !== undefined) img = fileRes;
+
+                res.img = img;
+                props.setLoading(false);
+              } else {
+                if (props.isInEditMode) res.img = state.selectedContent.img;
+                props.setLoading(false);
+              }
+
               let contents = state.contents;
               if (props.isInEditMode) {
                 contents = contents.map(elem => {
@@ -398,7 +484,7 @@ function Create(props) {
               } else contents.push(res);
               dispatch({contents: contents});
               props.setMode('list');
-            }
+            } else props.setLoading(false);
           }}
           title={commonTranslator.confirm}
           theme="dark"
