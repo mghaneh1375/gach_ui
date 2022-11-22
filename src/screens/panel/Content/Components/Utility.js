@@ -42,6 +42,14 @@ let mandatoryFields = [
   'visibility',
 ];
 
+let mandatoryFieldsSession = [
+  'title',
+  'description',
+  'priority',
+  'duration',
+  'visibility',
+];
+
 export const store = async (token, data) => {
   try {
     let res = await generalRequest(
@@ -61,6 +69,25 @@ export const store = async (token, data) => {
   }
 };
 
+export const addSession = async (token, data, contentId) => {
+  try {
+    let res = await generalRequest(
+      routes.addSessionToContent + contentId,
+      'post',
+      data,
+      'data',
+      token,
+      mandatoryFieldsSession,
+    );
+    if (res !== null) showSuccess();
+
+    return res;
+  } catch (e) {
+    showError(commonTranslator.pleaseFillAllFields);
+    return null;
+  }
+};
+
 export const update = async (token, data, id) => {
   try {
     let res = await generalRequest(
@@ -70,6 +97,25 @@ export const update = async (token, data, id) => {
       'data',
       token,
       mandatoryFields,
+    );
+    if (res !== null) showSuccess();
+
+    return res;
+  } catch (e) {
+    showError(commonTranslator.pleaseFillAllFields);
+    return null;
+  }
+};
+
+export const updateSession = async (token, data, contentId, sessionId) => {
+  try {
+    let res = await generalRequest(
+      routes.updateSessionContent + contentId + '/' + sessionId,
+      'put',
+      data,
+      'data',
+      token,
+      mandatoryFieldsSession,
     );
     if (res !== null) showSuccess();
 
@@ -109,4 +155,54 @@ export const addFile = async (token, fileContent, contentId) => {
       );
       return res;
     });
+};
+
+export const setSessionFile = async (
+  token,
+  fileContent,
+  contentId,
+  sessionId,
+  mode,
+) => {
+  return await fetch(fileContent.content)
+    .then(res => res.blob())
+    .then(async blob => {
+      let formData = new FormData();
+      formData.append('file', blob, fileContent.name);
+      let base =
+        mode === 'img'
+          ? routes.setImgSessionContent
+          : mode === 'attach'
+          ? routes.addٰAttachToSession
+          : routes.addٰVideoToSession;
+
+      let res = await fileRequest(
+        base + contentId + '/' + sessionId,
+        'put',
+        formData,
+        'url',
+        token,
+      );
+      return res;
+    });
+};
+
+export const removeSessionFile = async (token, contentId, sessionId, mode) => {
+  let base =
+    mode === 'img'
+      ? routes.removeSessionImgContent
+      : mode === 'attach'
+      ? routes.removeAttachFromSession
+      : routes.removeVideoFromSession;
+
+  let res = await generalRequest(
+    base + contentId + '/' + sessionId,
+    'delete',
+    undefined,
+    undefined,
+    token,
+  );
+
+  if (res !== null) showSuccess(commonTranslator.removeSuccessfully);
+  return res;
 };

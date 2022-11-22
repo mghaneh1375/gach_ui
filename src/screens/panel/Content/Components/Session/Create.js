@@ -16,12 +16,22 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {contentContext, dispatchContentContext} from './../Context';
-import {addFile, removeFile, store, update} from './../Utility';
+import {
+  addFile,
+  addSession,
+  removeFile,
+  setSessionFile,
+  store,
+  update,
+  updateSession,
+} from './../Utility';
 import {styles} from '../../../../../styles/Common/Styles';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {useFilePicker} from 'use-file-picker';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
+import {routes} from '../../../../../API/APIRoutes';
+import {generalRequest} from '../../../../../API/Utility';
 
 function Create(props) {
   let ckEditor = null;
@@ -34,20 +44,67 @@ function Create(props) {
 
   const [visibility, setVisibility] = useState();
   const [description, setDescription] = useState();
-  const [preReq, setPreReq] = useState();
   const [title, setTitle] = useState();
-  const [teacher, setTeacher] = useState();
   const [price, setPrice] = useState();
-  const [sessionsCount, setSessionsCount] = useState();
-
   const [duration, setDuration] = useState();
+  const [priority, setPriority] = useState();
+  const [hasExam, setHasExam] = useState();
+
+  const [examId, setExamId] = useState();
+  const [examMinMark, setExamMinMark] = useState();
+  const [videos, setVideos] = useState();
+  const [attaches, setAttaches] = useState();
+  const [quizzes, setQuizzes] = useState();
 
   const [isWorking, setIsWorking] = useState(false);
 
-  const [tags, setTags] = useState([]);
-  const [hasExam, setHasExam] = useState();
-  const [finalExamId, setFinalExamId] = useState();
-  const [finalExamMinMark, setFinalExamMinMark] = useState();
+  const fetchQuizzes = React.useCallback(() => {
+    if (isWorking || quizzes !== undefined) return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+
+    Promise.all([
+      generalRequest(
+        routes.getAllQuizzesDigest,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      if (!props.isInEditMode) props.setLoading(false);
+
+      if (res[0] === null) {
+        props.setMode('list');
+        props.setLoading(false);
+        return;
+      }
+
+      setQuizzes(res[0]);
+
+      if (!props.isInEditMode) setIsWorking(false);
+
+      if (props.isInEditMode !== undefined && props.isInEditMode) {
+        setVisibility(state.selectedSession.visibility);
+        setDescription(state.selectedSession.description);
+        setTitle(state.selectedSession.title);
+        setPrice(state.selectedSession.price);
+        setImg(state.selectedSession.img);
+        setAttaches(state.selectedSession.attaches);
+        setVideos(state.selectedSession.videos);
+        setDuration(state.selectedSession.duration);
+
+        setHasExam(state.selectedSession.hasExam);
+        if (state.selectedSession.hasExam) {
+          setExamId(state.selectedSession.examId);
+          setExamMinMark(state.selectedSession.minMark);
+        }
+
+        setIsWorking(false);
+      }
+    });
+  }, [isWorking, props, state.selectedSession, quizzes]);
 
   const removeUploadedImg = async () => {
     props.setLoading(true);
@@ -96,7 +153,9 @@ function Create(props) {
     multiple: true,
   });
 
-  React.useEffect(() => {}, [state.selectedSession]);
+  React.useEffect(() => {
+    fetchQuizzes();
+  }, [state.selectedSession, fetchQuizzes]);
 
   return (
     <CommonWebBox
@@ -134,8 +193,8 @@ function Create(props) {
 
           <JustBottomBorderTextInput
             placeholder={Translator.sessionDuration}
-            onChangeText={e => setSessionsDuration(e)}
-            value={sessionDuration}
+            onChangeText={e => setDuration(e)}
+            value={duration}
             justNum={true}
             subText={Translator.sessionDuration}
           />
@@ -215,7 +274,7 @@ function Create(props) {
                   key={index}
                   filename={elem}
                   removeAttach={async () => {
-                    await removeUploaded();
+                    await removeUploadedImg();
                   }}
                 />
               );
@@ -248,42 +307,44 @@ function Create(props) {
             let data = {
               visibility: visibility,
               description: description,
-              preReq: preReq,
+              priority: priority,
               title: title,
-              teacher: teacher,
-              price: price,
-              sessionsCount: sessionsCount,
-              teacherBio: teacherBio,
-              tags: tags,
+              duration: duration,
             };
 
-            if (hasCert) {
-              data.duration = duration;
-              data.certId = certId;
+            if (price !== undefined) {
+              data.price = price;
             }
 
             if (hasExam) {
-              data.finalExamId = finalExamId;
-              data.finalExamMinMark = finalExamMinMark;
+              data.examId = examId;
+              data.minMark = examMinMark;
             }
 
             props.setLoading(true);
             let res = props.isInEditMode
-              ? await update(props.token, data, state.selectedContent.id)
-              : await store(props.token, data);
+              ? await updateSession(
+                  props.token,
+                  data,
+                  state.selectedContent.id,
+                  state.selectedSession.id,
+                )
+              : await addSession(props.token, data, state.selectedContent.id);
 
             if (res != null) {
-              let contentId = props.isInEditMode
-                ? state.selectedContent.id
+              let sessionId = props.isInEditMode
+                ? state.selectedSession.id
                 : res.id;
 
-              if (filesContent.length > 0) {
+              if (filesContentImg.length > 0) {
                 let img = undefined;
 
-                let fileRes = await addFile(
+                let fileRes = await setSessionFile(
                   props.token,
-                  filesContent[0],
-                  contentId,
+                  filesContentImg[0],
+                  state.selectedContent.id,
+                  sessionId,
+                  'img',
                 );
                 if (fileRes !== null && fileRes !== undefined) img = fileRes;
 
@@ -294,15 +355,18 @@ function Create(props) {
                 props.setLoading(false);
               }
 
-              let contents = state.contents;
+              let sessions = state.selectedContent.sessions;
               if (props.isInEditMode) {
-                contents = contents.map(elem => {
-                  if (elem.id === state.selectedContent.id) return res;
+                sessions = sessions.map(elem => {
+                  if (elem.id === state.selectedSession.id) return res;
                   return elem;
                 });
-              } else contents.push(res);
-              dispatch({contents: contents});
-              props.setMode('list');
+              } else sessions.push(res);
+
+              state.selectedContent.sessions = sessions;
+
+              dispatch({selectedContent: state.selectedContent});
+              props.setMode('sessionList');
             } else props.setLoading(false);
           }}
           title={commonTranslator.confirm}
