@@ -1,5 +1,8 @@
 const Translate = {
   makeQuiz: 'آزمون خود را بسازید',
+  nameTitle: 'نام آزمون',
+  name: 'نام',
+  nameHelp: 'لطفا یک نام برای آزمون خود انتخاب کنید',
   chooseAndAdd: 'انتخاب و اضافه کنید',
   line: 'رشته',
   choose: 'انتخاب',
@@ -13,6 +16,8 @@ const Translate = {
   questionCounts: 'تعداد سوالات: ',
   minChar: 'حداقل سه کاراکتر وارد نمایید',
   search: 'جست و جو',
+  searchQuestion: 'جست و جو در سوالات',
+  goToQuiz: 'تایید و مشاهده سوالات افزوده شده',
   searchInAll: 'نام رشته و یا درس و یا مبحث و یا طراح',
   searchInAllHelp: 'برای مشاهده رشته ها بر روی آیکون جست و جو کلیک کنید',
   searchSubText:
@@ -21,6 +26,8 @@ const Translate = {
   easy: ' آسان - ',
   mid: ' متوسط - ',
   hard: ' سخت ',
+  addAndContinue: 'افزودن و ادامه ساخت آزمون',
+  addAndGoToQuiz: 'افزودن و رفتن برای پرداخت',
 };
 
 export default Translate;

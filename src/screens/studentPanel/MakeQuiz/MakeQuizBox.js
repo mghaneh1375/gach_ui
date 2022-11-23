@@ -1,11 +1,11 @@
-import {faAngleDown, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
-import {MyView} from 'react-native-multi-selectbox';
 import {changeText} from '../../../services/Utility';
 import {
   BigBoldBlueTextInline,
   EqualTwoTextInputs,
+  MyView,
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';
