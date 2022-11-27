@@ -16,7 +16,7 @@ import {routes} from '../../../../API/APIRoutes';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import Translator from '../Translator';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {removeItems, showError} from '../../../../services/Utility';
+import {showError} from '../../../../services/Utility';
 import {usersContext, dispatchUsersContext} from './Context';
 
 function ChangeLevel(props) {

@@ -1,10 +1,9 @@
-import {faCheck, faPlus, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faSearch} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {changeText, p2e, showError} from '../../../services/Utility';
+import {showError} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
-  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -13,11 +12,10 @@ import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTe
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
 import MakeQuizBox from './MakeQuizBox';
-import SymbolsFace from './SymbolsFace';
 import Translate from './Translate';
 import {dispatchStateContext} from '../../../App';
-import {checkExistance, fetchAllFlags, finalized, goToPay} from './Utility';
-import {FontIcon, SimpleFontIcon} from '../../../styles/Common/FontIcon';
+import {checkExistance, fetchAllFlags, finalized} from './Utility';
+import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 import Basket from '../../../components/web/Basket';
 import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
 import commonTranslator from '../../../translator/Common';
@@ -32,7 +30,6 @@ function MakeQuiz(props) {
   const [flags, setFlags] = useState();
   const [boxes, setBoxes] = useState([]);
   const [level, setLevel] = useState();
-  const [wantedFlag, setWantedFlag] = useState();
   const [total, setTotal] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [name, setName] = useState();
@@ -116,6 +113,14 @@ function MakeQuiz(props) {
   };
 
   React.useEffect(() => {
+    let tmp = 0;
+    boxes.forEach(elem => {
+      tmp += parseInt(elem.count);
+    });
+    setTotal(tmp);
+  }, [boxes]);
+
+  React.useEffect(() => {
     dispatch({loading: true});
     Promise.all([fetchAllFlags(props.token)]).then(res => {
       dispatch({loading: false});
@@ -131,8 +136,16 @@ function MakeQuiz(props) {
     <MyView style={{...styles.marginBottom20}}>
       {showSearch && (
         <Search
-          wantedFlag={wantedFlag}
-          setWantedFlag={setWantedFlag}
+          setSelected={items => {
+            let tmp = [];
+            boxes.forEach(elem => {
+              tmp.push(elem);
+            });
+            items.forEach(elem => {
+              tmp.push(elem);
+            });
+            setBoxes(tmp);
+          }}
           flags={flags}
           toggleShowPopUp={() => setShowSearch(false)}
         />
@@ -187,7 +200,7 @@ function MakeQuiz(props) {
       {!showSuccessTransaction && (
         <MyView>
           <CommonWebBox header={Translate.makeQuiz} />
-          <CommonWebBox rowId={1} header={Translate.chooseAndAdd}>
+          <CommonWebBox rowId={1} header={Translate.nameTitle}>
             {mode !== 'choose' && (
               <LoadingCommonWebBox>
                 <SimpleFontIcon
@@ -205,104 +218,44 @@ function MakeQuiz(props) {
             )}
             <MyView>
               <JustBottomBorderTextInput
-                placeholder={'نام'}
-                subText={'لطفا یک نام برای آزمون خود انتخاب کنید'}
+                placeholder={Translate.name}
+                subText={Translate.nameHelp}
                 value={name}
                 onChangeText={e => setName(e)}
               />
+            </MyView>
+          </CommonWebBox>
+          <CommonWebBox rowId={2} header={Translate.chooseAndAdd}>
+            {mode !== 'choose' && (
+              <LoadingCommonWebBox>
+                <SimpleFontIcon
+                  style={{color: 'green'}}
+                  parentStyle={{
+                    border: '2px solid green',
+                    width: 60,
+                    height: 60,
+                    padding: 10,
+                    borderRadius: '50%',
+                  }}
+                  icon={faCheck}
+                />
+              </LoadingCommonWebBox>
+            )}
+            <MyView>
               <PhoneView style={{...styles.gap15}}>
                 {flags !== undefined && (
-                  <EqualTwoTextInputs>
-                    <JustBottomBorderTextInput
-                      placeholder={Translate.searchInAll}
-                      subText={Translate.searchInAllHelp}
-                      value={wantedFlag !== undefined ? wantedFlag.name : ''}
-                      resultPane={true}
-                      setSelectedItem={item => {
-                        setWantedFlag(item);
-                      }}
-                      values={flags}
-                    />
-                    <FontIcon
-                      onPress={() => setShowSearch(true)}
-                      parentStyle={{
-                        alignSelf: 'center',
-                        alignItems: 'center',
-                        marginTop: 20,
-                        marginRight: 20,
-                      }}
-                      kind={'normal'}
-                      theme={'rect'}
-                      icon={faSearch}
-                      back={'yellow'}
-                    />
-                  </EqualTwoTextInputs>
-                )}
-                <JustBottomBorderTextInput
-                  text={Translate.count}
-                  onChangeText={text => changeText(p2e(text), setCount)}
-                  placeholder={Translate.count}
-                  subText={
-                    wantedFlag !== undefined
-                      ? 'تعداد سوالات ساده: ' +
-                        wantedFlag.limitEasy +
-                        ' متوسط: ' +
-                        wantedFlag.limitMid +
-                        ' سخت: ' +
-                        wantedFlag.limitHard
-                      : Translate.count
-                  }
-                  value={count}
-                  justNum={true}
-                />
-                <PhoneView style={{height: 60}}>
-                  <SimpleText
-                    text={Translate.difficulty}
-                    style={{...styles.alignSelfCenter}}
+                  <CommonButton
+                    icon={faSearch}
+                    title={Translate.searchQuestion}
+                    onPress={() => setShowSearch(true)}
                   />
-                  <SymbolsFace level={level} setLevel={setLevel} />
-                </PhoneView>
-
-                <FontIcon
-                  onPress={async () => {
-                    setLoading(true);
-                    let res = await checkExistance(
-                      props.token,
-                      wantedFlag.section,
-                      wantedFlag.section === 'tag' ||
-                        wantedFlag.section === 'author'
-                        ? wantedFlag.name
-                        : wantedFlag.id,
-                      count,
-                      level,
-                    );
-                    setLoading(false);
-                    if (res) {
-                      let tmp = [];
-                      boxes.forEach(elem => tmp.push(elem));
-                      let obj = wantedFlag;
-                      obj.level = level;
-                      obj.count = count;
-                      tmp.push(obj);
-                      setWantedFlag(undefined);
-                      setCount('');
-                      setLevel(undefined);
-                      setBoxes(tmp);
-                      setTotal(total + count);
-                    }
-                  }}
-                  back={'yellow'}
-                  kind={'normal'}
-                  theme={'rect'}
-                  icon={faPlus}
-                  parentStyle={{marginTop: 10}}
-                />
+                )}
               </PhoneView>
             </MyView>
           </CommonWebBox>
           {boxes.length > 0 && (
             <CommonWebBox
-              rowId={2}
+              rowId={3}
               header={Translate.sortQuiz}
               style={{...styles.marginBottom20}}>
               {mode !== 'choose' && (

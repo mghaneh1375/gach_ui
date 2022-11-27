@@ -131,3 +131,18 @@ export const login = async (setLoading, token, userId) => {
   }
   return false;
 };
+
+export const chargeAccount = async (coin, money, userId, token) => {
+  let res = await generalRequest(
+    routes.chargeAccount + userId,
+    'post',
+    {
+      amount: money,
+      coin: coin,
+    },
+    undefined,
+    token,
+  );
+
+  if (res !== null) showSuccess();
+};

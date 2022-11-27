@@ -44,6 +44,7 @@ export const CommonDatePickerElem = styled(DateTimePicker)`
 `;
 
 export const calcInputWidth = (padding, isHalf, style) => {
+  if (style.minWidth !== undefined) return;
   if (isHalf) {
     style.minWidth = isApp ? '50%' : 'calc(50% - ' + padding + 'px)';
     style.maxWidth = isApp ? '50%' : 'calc(50% - ' + padding + 'px)';

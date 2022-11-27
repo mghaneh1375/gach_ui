@@ -176,7 +176,7 @@ export const routes = {
   checkOffCode: 'general/checkOffCode',
   getTransactions: 'admin/transaction/get?',
   getMyOffs: 'general/myOffs',
-  chargeAccount: 'general/chargeAccount',
+  chargeAccount: 'general/chargeAccount/',
   fetchInvoice: 'general/fetchInvoice/',
   getQuestionTagsExcel: 'general/getQuestionTagsExcel',
   issueMyCert: 'certificate/issueMyCert/',
