@@ -16,7 +16,7 @@ export const filter = async (
   branch = undefined,
 ) => {
   let query = new URLSearchParams();
-  console.log(branch);
+
   query.append('level', level);
   if (NID !== undefined) query.append('NID', NID);
   if (phone !== undefined) query.append('phone', phone);

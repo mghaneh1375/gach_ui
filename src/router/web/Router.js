@@ -29,9 +29,15 @@ export default function WebRouter() {
           />
 
           <Route
+            path="myIRYSCQuizzes/:mode"
+            element={<WebStructue page="myIRYSCQuizzes" />}
+          />
+
+          <Route
             path="myIRYSCQuizzes"
             element={<WebStructue page="myIRYSCQuizzes" />}
           />
+
           <Route
             path="myCustomQuizzes"
             element={<WebStructue page="myCustomQuizzes" />}

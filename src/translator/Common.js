@@ -126,6 +126,7 @@ const translator = {
   gheyr: 'غیرانتفاعی',
   sayer: 'سایر',
   nemone: 'نمونه دولتی',
+  heyat: 'هیئت امنایی',
   dolati: 'دولتی',
   aval: 'متوسطه اول',
   dovom: 'متوسطه دوم',

@@ -25,6 +25,7 @@ function Filter(props) {
   const [grade, setGrade] = useState();
   const [lesson, setLesson] = useState();
   const [lessons, setLessons] = useState();
+  const [organizationCode, setOrganizationCode] = useState();
   const [justCriticals, setJustCriticals] = useState(false);
 
   React.useEffect(() => {
@@ -71,6 +72,13 @@ function Filter(props) {
           }
           values={lessons !== undefined ? lessons : []}
         />
+
+        <JustBottomBorderTextInput
+          placeholder={translator.organizationCode}
+          subText={translator.organizationCode}
+          onChangeText={e => setOrganizationCode(e)}
+          value={organizationCode}
+        />
         <CommonButton
           onPress={async () => {
             props.setLoading(true);
@@ -79,6 +87,7 @@ function Filter(props) {
               grade,
               lesson,
               undefined,
+              organizationCode,
               criticalThresh,
               justCriticals,
             );
