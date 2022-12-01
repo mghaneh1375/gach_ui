@@ -23,6 +23,18 @@ function Filter() {
   const [allActive, setAllActive] = useState(true);
   const [selected, setSelected] = useState();
   const [allAvailable, setAllAvailable] = useState(false);
+  const [selectedKindQuiz, setSelectedKindQuiz] = useState('all');
+  const [selectedPrice, setSelectedPrice] = useState('all');
+
+  const togglePrice = lbl => {
+    setSelectedPrice(lbl);
+    state.onChangePrice(lbl);
+  };
+
+  const toggleKindQuiz = lbl => {
+    setSelectedKindQuiz(lbl);
+    state.onChangeKindQuiz(lbl);
+  };
 
   const toggleSelected = lbl => {
     let tmpIdx = selected.indexOf(lbl);
@@ -109,6 +121,39 @@ function Filter() {
         <SimpleText
           style={{
             ...styles.padding10,
+            ...styles.BlueBold,
+            ...styles.marginRight15,
+          }}
+          text={'نوع آزمون'}
+        />
+        <MyView
+          style={{
+            ...{
+              borderBottomWidth: 2,
+              borderColor: vars.DARK_BLUE,
+              margin: 10,
+            },
+          }}>
+          <FilterItem
+            item={{label: 'آزمون باز'}}
+            status={selectedKindQuiz === 'open' ? 'checked' : 'unchecked'}
+            onPress={label => toggleKindQuiz('open')}
+          />
+          <FilterItem
+            item={{label: 'آزمون پشت میز'}}
+            status={selectedKindQuiz === 'regular' ? 'checked' : 'unchecked'}
+            onPress={label => toggleKindQuiz('regular')}
+          />
+          <FilterItem
+            item={{label: 'همه'}}
+            status={selectedKindQuiz === 'all' ? 'checked' : 'unchecked'}
+            onPress={label => toggleKindQuiz('all')}
+          />
+        </MyView>
+
+        <SimpleText
+          style={{
+            ...styles.padding10,
             ...styles.marginLeft15,
             ...styles.marginRight15,
             ...styles.BlueBold,
@@ -148,6 +193,39 @@ function Filter() {
             isAll={true}
           />
         )}
+
+        <SimpleText
+          style={{
+            ...styles.padding10,
+            ...styles.BlueBold,
+            ...styles.marginRight15,
+          }}
+          text={'قیمت آزمون'}
+        />
+        <MyView
+          style={{
+            ...{
+              borderBottomWidth: 2,
+              borderColor: vars.DARK_BLUE,
+              margin: 10,
+            },
+          }}>
+          <FilterItem
+            item={{label: 'رایگان'}}
+            status={selectedPrice === 'free' ? 'checked' : 'unchecked'}
+            onPress={label => togglePrice('free')}
+          />
+          <FilterItem
+            item={{label: 'غیر رایگان'}}
+            status={selectedPrice === 'nonFree' ? 'checked' : 'unchecked'}
+            onPress={label => togglePrice('nonFree')}
+          />
+          <FilterItem
+            item={{label: 'همه'}}
+            status={selectedPrice === 'all' ? 'checked' : 'unchecked'}
+            onPress={label => togglePrice('all')}
+          />
+        </MyView>
       </div>
     );
   }

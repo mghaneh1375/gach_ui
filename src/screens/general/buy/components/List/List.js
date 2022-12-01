@@ -57,6 +57,18 @@ function List(props) {
               needUpdateFilters: true,
             });
           },
+          onChangeKindQuiz: selectedKind => {
+            dispatch({
+              selectedKindQuiz: selectedKind,
+              needUpdateFilters: true,
+            });
+          },
+          onChangePrice: selectedPrice => {
+            dispatch({
+              selectedPrice: selectedPrice,
+              needUpdateFilters: true,
+            });
+          },
         },
       });
 
