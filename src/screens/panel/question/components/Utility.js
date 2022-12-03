@@ -18,6 +18,7 @@ export const filter = async (
   grade,
   lesson,
   subject,
+  organizationCode,
   criticalThresh,
   justCriticals,
   isQuestionsNeeded = false,
@@ -30,6 +31,9 @@ export const filter = async (
   if (lesson !== undefined) query.append('lessonId', lesson);
 
   if (subject !== undefined) query.append('subjectId', subject);
+
+  if (organizationCode !== undefined)
+    query.append('organizationCode', organizationCode);
 
   if (isQuestionsNeeded !== undefined && isQuestionsNeeded)
     query.append('isQuestionNeeded', true);

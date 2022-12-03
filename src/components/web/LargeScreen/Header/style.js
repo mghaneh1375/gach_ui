@@ -144,7 +144,8 @@ export const style = {
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
     width: vars.RIGHT_MENU_WIDTH,
-    height: 'calc(100vh - 60px - 10px)',
+    minHeight: 'calc(100vh - 60px - 10px)',
+    height: 'max-content',
   },
   width100: {
     width: width < 768 ? '100%' : 'unset',

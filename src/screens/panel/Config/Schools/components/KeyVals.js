@@ -4,6 +4,7 @@ export const kindSchools = [
   {item: commonTranslator.sampad, id: 'sampad'},
   {item: commonTranslator.gheyr, id: 'gheyr'},
   {item: commonTranslator.nemone, id: 'nemone'},
+  {item: commonTranslator.heyat, id: 'heyat'},
   {item: commonTranslator.dolati, id: 'dolati'},
   {item: commonTranslator.sayer, id: 'sayer'},
 ];

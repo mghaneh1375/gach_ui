@@ -30,8 +30,8 @@ function Filter(props) {
       phone,
       name,
       lastName,
-      grade !== undefined ? grade.id : undefined,
       branch !== undefined ? branch.id : undefined,
+      grade !== undefined ? grade.id : undefined,
     );
     props.setLoading(false);
     // setNID(undefined);

@@ -1,10 +1,9 @@
-import {faCheck, faPlus, faSearch} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faSearch} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {showError} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
-  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -15,8 +14,8 @@ import vars from '../../../styles/root';
 import MakeQuizBox from './MakeQuizBox';
 import Translate from './Translate';
 import {dispatchStateContext} from '../../../App';
-import {checkExistance, fetchAllFlags, finalized, goToPay} from './Utility';
-import {FontIcon, SimpleFontIcon} from '../../../styles/Common/FontIcon';
+import {checkExistance, fetchAllFlags, finalized} from './Utility';
+import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 import Basket from '../../../components/web/Basket';
 import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
 import commonTranslator from '../../../translator/Common';
@@ -31,7 +30,6 @@ function MakeQuiz(props) {
   const [flags, setFlags] = useState();
   const [boxes, setBoxes] = useState([]);
   const [level, setLevel] = useState();
-  const [wantedFlag, setWantedFlag] = useState();
   const [total, setTotal] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [name, setName] = useState();
@@ -148,8 +146,6 @@ function MakeQuiz(props) {
             });
             setBoxes(tmp);
           }}
-          wantedFlag={wantedFlag}
-          setWantedFlag={setWantedFlag}
           flags={flags}
           toggleShowPopUp={() => setShowSearch(false)}
         />
@@ -253,91 +249,7 @@ function MakeQuiz(props) {
                     title={Translate.searchQuestion}
                     onPress={() => setShowSearch(true)}
                   />
-                  // // <EqualTwoTextInputs>
-                  //   {/* <JustBottomBorderTextInput
-                  //     placeholder={Translate.searchInAll}
-                  //     subText={Translate.searchInAllHelp}
-                  //     value={wantedFlag !== undefined ? wantedFlag.name : ''}
-                  //     resultPane={true}
-                  //     setSelectedItem={item => {
-                  //       setWantedFlag(item);
-                  //     }}
-                  //     values={flags}
-                  //   /> */}
-                  //   {/* <FontIcon
-                  //     onPress={() => setShowSearch(true)}
-                  //     parentStyle={{
-                  //       alignSelf: 'center',
-                  //       alignItems: 'center',
-                  //       marginTop: 20,
-                  //       marginRight: 20,
-                  //     }}
-                  //     kind={'normal'}
-                  //     theme={'rect'}
-                  //     icon={faSearch}
-                  //     back={'yellow'}
-                  //   /> */}
-                  // // </EqualTwoTextInputs>
                 )}
-                {/* <JustBottomBorderTextInput
-                  text={Translate.count}
-                  onChangeText={text => changeText(p2e(text), setCount)}
-                  placeholder={Translate.count}
-                  subText={
-                    wantedFlag !== undefined
-                      ? 'تعداد سوالات ساده: ' +
-                        wantedFlag.limitEasy +
-                        ' متوسط: ' +
-                        wantedFlag.limitMid +
-                        ' سخت: ' +
-                        wantedFlag.limitHard
-                      : Translate.count
-                  }
-                  value={count}
-                  justNum={true}
-                /> */}
-                {/* <PhoneView style={{height: 60}}>
-                  <SimpleText
-                    text={Translate.difficulty}
-                    style={{...styles.alignSelfCenter}}
-                  />
-                  <SymbolsFace level={level} setLevel={setLevel} />
-                </PhoneView> */}
-
-                {/* <FontIcon
-                  onPress={async () => {
-                    setLoading(true);
-                    let res = await checkExistance(
-                      props.token,
-                      wantedFlag.section,
-                      wantedFlag.section === 'tag' ||
-                        wantedFlag.section === 'author'
-                        ? wantedFlag.name
-                        : wantedFlag.id,
-                      count,
-                      level,
-                    );
-                    setLoading(false);
-                    if (res) {
-                      let tmp = [];
-                      boxes.forEach(elem => tmp.push(elem));
-                      let obj = wantedFlag;
-                      obj.level = level;
-                      obj.count = count;
-                      tmp.push(obj);
-                      setWantedFlag(undefined);
-                      setCount('');
-                      setLevel(undefined);
-                      setBoxes(tmp);
-                      setTotal(total + count);
-                    }
-                  }}
-                  back={'yellow'}
-                  kind={'normal'}
-                  theme={'rect'}
-                  icon={faPlus}
-                  parentStyle={{marginTop: 10}}
-                /> */}
               </PhoneView>
             </MyView>
           </CommonWebBox>

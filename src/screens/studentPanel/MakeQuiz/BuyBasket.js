@@ -1,9 +1,10 @@
 import {setCacheItem} from '../../../API/User';
-import {formatPrice} from '../../../services/Utility';
+import {formatPrice, getDevice} from '../../../services/Utility';
 import React, {useRef, useState} from 'react';
 import {
   BigBoldBlueText,
   CommonButton,
+  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -50,6 +51,8 @@ function BuyBasket(props) {
     }, 1000);
   }, [refId]);
 
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+
   return (
     <PhoneView
       style={{
@@ -58,7 +61,7 @@ function BuyBasket(props) {
       }}>
       {props.price > 0 && (
         <MyView>
-          <PhoneView>
+          <PhoneView style={isInPhone ? {flexDirection: 'column'} : {}}>
             <BigBoldBlueText style={{marginTop: 5}} text={Translate.amount} />
 
             {(props.off > 0 || props.usedFromWallet > 0) && (
@@ -173,7 +176,7 @@ function BuyBasket(props) {
         </MyView>
       )}
 
-      {props.price > 0 && (
+      {props.price > 0 && !isInPhone && (
         <MyView style={{...{marginRight: 40}, ...styles.alignItemsCenter}}>
           <CommonButton
             theme={'dark'}
@@ -192,6 +195,28 @@ function BuyBasket(props) {
             />
           )}
         </MyView>
+      )}
+
+      {props.price > 0 && isInPhone && (
+        <EqualTwoTextInputs>
+          <CommonButton
+            theme={'dark'}
+            title={props.shouldPay > 0 ? Translate.goToPay : Translate.buy}
+            onPress={() => goToPayLocal()}
+          />
+          {props.shouldPay > 0 && (
+            <SimpleText
+              style={{
+                ...styles.yellow_color,
+                ...styles.fontSize13,
+                ...styles.cursor_pointer,
+                ...styles.alignSelfCenter,
+              }}
+              text={Translate.enterOff}
+              onPress={() => props.toggleShowOffCodePane()}
+            />
+          )}
+        </EqualTwoTextInputs>
       )}
 
       {refId !== undefined && (

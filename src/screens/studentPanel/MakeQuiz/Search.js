@@ -17,7 +17,7 @@ import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {showError, showSuccess} from '../../../services/Utility';
 
 function Search(props) {
-  const [filter, setFilter] = useState();
+  const [filter, setFilter] = useState('branch');
   const [boxes, setBoxes] = useState();
   const [mode, setMode] = useState();
   const [filterId, setFilterId] = useState();
@@ -176,6 +176,7 @@ function Search(props) {
             value={''}
             resultPane={true}
             setSelectedItem={item => {
+              if (item === undefined) return;
               setSelectingItem(item);
               setMode('finalize');
             }}
@@ -185,7 +186,7 @@ function Search(props) {
         {mode !== 'finalize' && (
           <SimpleText style={styles.colorDarkBlue} text={Translate.orUseCats} />
         )}
-        {mode !== 'finalize' && (
+        {/* {mode !== 'finalize' && (
           <PhoneView style={styles.gap10}>
             <CommonButton
               onPress={() => setFilter('branch')}
@@ -198,7 +199,7 @@ function Search(props) {
               title={commonTranslator.author}
             />
           </PhoneView>
-        )}
+        )} */}
 
         {mode === 'finalize' && selectingItem !== undefined && (
           <MyView>

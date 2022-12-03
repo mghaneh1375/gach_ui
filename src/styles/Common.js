@@ -468,6 +468,11 @@ export const PhoneContentConianerStyle = {
   width: '100%',
 };
 
+export const PhoneContentConianerStyle2 = {
+  width: '100%',
+  display: 'none',
+};
+
 export const LargeContentConianerStyle = {
   width: 'calc(100% - ' + vars.RIGHT_MENU_WIDTH + 'px)',
   minHeight: 'calc(100vh - 60px)',

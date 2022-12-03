@@ -1,7 +1,8 @@
-import {formatPrice, showError} from '../../../../services/Utility';
+import {formatPrice, getDevice, showError} from '../../../../services/Utility';
 import {
   BigBoldBlueText,
   CommonButton,
+  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -72,6 +73,8 @@ function BuyBasket(props) {
     }, 1000);
   }, [refId]);
 
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+
   return (
     <PhoneView
       style={{
@@ -80,7 +83,7 @@ function BuyBasket(props) {
       }}>
       {props.price > 10 && (
         <MyView>
-          <PhoneView>
+          <PhoneView style={isInPhone ? {flexDirection: 'column'} : {}}>
             <BigBoldBlueText style={{marginTop: 5}} text={Translate.amount} />
 
             {(props.off > 0 || props.usedFromWallet > 0) && (
@@ -201,7 +204,7 @@ function BuyBasket(props) {
         </MyView>
       )}
 
-      {props.price > 0 && (
+      {props.price > 0 && !isInPhone && (
         <MyView style={{...{marginRight: 40}, ...styles.alignItemsCenter}}>
           <CommonButton
             theme={'dark'}
@@ -230,6 +233,38 @@ function BuyBasket(props) {
             />
           )}
         </MyView>
+      )}
+
+      {props.price > 0 && isInPhone && (
+        <EqualTwoTextInputs>
+          <CommonButton
+            theme={'dark'}
+            title={
+              props.user === null || props.user === undefined
+                ? 'برای خرید باید ورود کنید'
+                : props.shouldPay > 10
+                ? Translate.goToPay
+                : Translate.buy
+            }
+            onPress={() =>
+              props.user === null || props.user === undefined
+                ? (window.location.href = '/login')
+                : goToPayLocal()
+            }
+          />
+          {props.shouldPay > 0 && (
+            <SimpleText
+              style={{
+                ...styles.yellow_color,
+                ...styles.fontSize13,
+                ...styles.cursor_pointer,
+                ...styles.alignSelfCenter,
+              }}
+              text={Translate.enterOff}
+              onPress={() => props.toggleShowOffCodePane()}
+            />
+          )}
+        </EqualTwoTextInputs>
       )}
 
       {refId !== undefined && (

@@ -16,7 +16,7 @@ export const filter = async (
   branch = undefined,
 ) => {
   let query = new URLSearchParams();
-  console.log(branch);
+
   query.append('level', level);
   if (NID !== undefined) query.append('NID', NID);
   if (phone !== undefined) query.append('phone', phone);
@@ -130,4 +130,19 @@ export const login = async (setLoading, token, userId) => {
     return true;
   }
   return false;
+};
+
+export const chargeAccount = async (coin, money, userId, token) => {
+  let res = await generalRequest(
+    routes.chargeAccount + userId,
+    'post',
+    {
+      amount: money,
+      coin: coin,
+    },
+    undefined,
+    token,
+  );
+
+  if (res !== null) showSuccess();
 };

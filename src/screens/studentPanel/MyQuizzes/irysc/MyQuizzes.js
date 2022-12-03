@@ -8,6 +8,7 @@ import Recp from '../../../../components/web/Recp';
 import Karname from '../../../panel/quiz/components/Reports/Karname/Karname';
 import ParticipantReport from '../../../panel/quiz/components/Reports/Participant/ParticipantReport';
 import ReportList from '../../../panel/quiz/components/Reports/List/List';
+import {useParams} from 'react-router';
 
 function MyQuizzes(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -16,6 +17,8 @@ function MyQuizzes(props) {
   const [mode, setMode] = useState('list');
   const [recp, setRecp] = useState();
   const [wantedQuizId, setWantedQuizId] = useState();
+  const params = useParams();
+  const status = params.mode !== undefined ? params.mode : 'all';
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -30,6 +33,7 @@ function MyQuizzes(props) {
     <QuizProvider>
       {mode === 'list' && (
         <List
+          status={status}
           setRecp={setRecp}
           setMode={setMode}
           user={props.user}

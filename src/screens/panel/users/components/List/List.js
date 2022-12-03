@@ -51,15 +51,14 @@ function List(props) {
     props.setLoading(true);
     Promise.all([
       filter(props.token, currLevel),
-      generalRequest(routes.fetchGrades, 'get', undefined, 'data'),
       generalRequest(routes.fetchBranches, 'get', undefined, 'data'),
+      generalRequest(routes.fetchGrades, 'get', undefined, 'data'),
     ]).then(res => {
       props.setLoading(false);
       if (res[0] == null || res[1] == null || res[2] == null) {
         props.navigate('/');
         return;
       }
-
       setGrades(res[1]);
       setBranches(res[2]);
       dispatch({users: res[0], fetched: currLevel});

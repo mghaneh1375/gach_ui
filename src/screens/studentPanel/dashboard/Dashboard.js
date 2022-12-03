@@ -197,7 +197,17 @@ function Dashboard(props) {
               onPress={() => setShowExchangeMoneyToCoinPopup(true)}
               borderRightWidth={18}
             />
-
+            <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
+              text={commonTranslator.coin}
+              theme={vars.GREEN}
+              subtext={data.coin}
+              btnColor={'blue'}
+              borderRight={true}
+              icon={faExchange}
+              onPress={() => setShowExchangeCoinToMoneyPopup(true)}
+              borderRightWidth={18}
+            />
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
               text={Translate.allQuizzes}
@@ -218,7 +228,7 @@ function Dashboard(props) {
               btnColor={'blue'}
               borderRight={true}
               icon={faEye}
-              onPress={() => props.navigate('/myIRYSCQuizzes')}
+              onPress={() => props.navigate('/myIRYSCQuizzes/passed')}
               borderRightWidth={18}
             />
 
@@ -230,20 +240,10 @@ function Dashboard(props) {
               subtext={data.activeQuizzes}
               borderRight={true}
               icon={faEye}
-              onPress={() => props.navigate('/myIRYSCQuizzes')}
+              onPress={() => props.navigate('/myIRYSCQuizzes/future')}
               borderRightWidth={18}
             />
-            <DashboardCard
-              width={state.isInPhone ? '100%' : undefined}
-              text={commonTranslator.coin}
-              theme={vars.GREEN}
-              subtext={data.coin}
-              btnColor={'blue'}
-              borderRight={true}
-              icon={faExchange}
-              onPress={() => setShowExchangeCoinToMoneyPopup(true)}
-              borderRightWidth={18}
-            />
+
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
               text={Translate.yourRank}

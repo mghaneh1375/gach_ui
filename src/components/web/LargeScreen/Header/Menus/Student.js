@@ -79,6 +79,9 @@ function StudentMenu(props) {
         ...style.Menu,
         ...style.MenuJustPhone,
         ...style.MenuJustApp,
+        ...{
+          zIndex: state.isRightMenuVisible ? 4 : 'unset',
+        },
       }}>
       <MenuItemPhone
         text={translator.home}

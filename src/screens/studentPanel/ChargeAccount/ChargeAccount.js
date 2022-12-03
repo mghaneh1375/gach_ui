@@ -1,6 +1,6 @@
 import React from 'react';
-import {MyView} from 'react-native-multi-selectbox';
 import AccountCharge from '../../../components/web/AccountCharge/AccountCharge';
+import {MyView} from '../../../styles/Common';
 
 function ChargeAccount(props) {
   return (

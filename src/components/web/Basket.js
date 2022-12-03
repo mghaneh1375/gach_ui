@@ -4,6 +4,7 @@ import {
   styleFontSize13,
   styleFontSize15,
 } from '../../screens/panel/package/card/Style';
+import {getDevice} from '../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -18,7 +19,10 @@ import vars from '../../styles/root';
 import commonTranslator from '../../translator/Common';
 
 function Basket(props) {
-  const [width, setWidth] = useState(vars.BASKET_WIDTH_WITH_OPEN_MENU);
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const [width, setWidth] = useState(
+    isInPhone ? 'calc(100% - 20px)' : vars.BASKET_WIDTH_WITH_OPEN_MENU,
+  );
 
   React.useEffect(() => {
     if (props.fullWidth === undefined) return;

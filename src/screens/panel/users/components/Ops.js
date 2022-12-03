@@ -67,6 +67,11 @@ function Ops(props) {
             onPress={() => props.changeMode('changePass')}
             title={commonTranslator.changePassword}
           />
+          <CommonButton
+            theme={'transparent'}
+            onPress={() => props.changeMode('chargeAccount')}
+            title={'شارژ حساب'}
+          />
         </PhoneView>
       </LargePopUp>
     </MyView>

@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
-exports["default"] = void 0;
+exports['default'] = void 0;
 var translator = {
   username: 'نام کاربری',
   password: 'رمزعبور',
@@ -33,7 +33,7 @@ var translator = {
   priceUnit: 'تومان',
   advisors: 'مشاوران',
   entrance: 'ورود',
-  "continue": 'ادامه',
+  continue: 'ادامه',
   support: 'پشتیبانی',
   email: 'آدرس ایمیل',
   home: 'خانه',
@@ -89,7 +89,7 @@ var translator = {
   fileAdressFor: 'آدرس فایل آپلود شده برای',
   copyLink: 'کپی کردن لینک',
   copied: 'کپی شد!',
-  "delete": 'حذف',
+  delete: 'حذف',
   upload: 'بارگذاری فایل',
   notChooseFile: 'هنوز فایلی انتخاب نشده است',
   maxSize: 'حداکثر حجم ',
@@ -117,6 +117,7 @@ var translator = {
   gheyr: 'غیرانتفاعی',
   sayer: 'سایر',
   nemone: 'نمونه دولتی',
+  heyat: 'هیئت امنایی',
   dolati: 'دولتی',
   aval: 'متوسطه اول',
   dovom: 'متوسطه دوم',
@@ -188,7 +189,7 @@ var translator = {
   successOffCode: 'کد تخفیف موردنظر با موفقیت اعمال گردید',
   shouldLogin: 'لطفا ابتدا لاگین کنید',
   transactionResult: 'نتیجه تراکنش',
-  successTransaction: 'تراکنش موردنظر با موفقیت انجام شد.'
+  successTransaction: 'تراکنش موردنظر با موفقیت انجام شد.',
 };
 var _default = translator;
-exports["default"] = _default;
+exports['default'] = _default;

@@ -1,7 +1,6 @@
 import React, {useCallback} from 'react';
 import {Platform, LogBox} from 'react-native';
 import {fetchUser, getToken, getUser} from './API/User';
-import {Device} from './models/Device';
 
 import AppRouter from './router/app/Router';
 import WebRouter from './router/web/Router';
@@ -82,7 +81,7 @@ const GlobalStateProvider = ({children}) => {
       window.location.href = '/login';
       return;
     }
-    const isInPhoneTmp = getDevice().indexOf('WebPort') !== -1;
+    const isInPhoneTmp = d.indexOf('WebPort') !== -1;
 
     dispatch({
       showTopNav: excludeTopNav.indexOf(state.page) === -1,

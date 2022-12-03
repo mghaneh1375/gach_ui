@@ -84,7 +84,7 @@ export const CommonSelect = props => {
   parentAllStyles = calcInputWidth(20, isHalf, parentAllStyles);
   return (
     <MyView className={'myView mySelect'} style={parentAllStyles}>
-      <CommonSelectElem {...inputProps} />
+      <CommonSelectElem className={'myView2'} {...inputProps} />
       {props.subText !== undefined ? (
         <SubInputText style={{width: '100%', height: '100%'}}>
           {props.subText}

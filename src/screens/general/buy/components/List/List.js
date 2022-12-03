@@ -57,6 +57,18 @@ function List(props) {
               needUpdateFilters: true,
             });
           },
+          onChangeKindQuiz: selectedKind => {
+            dispatch({
+              selectedKindQuiz: selectedKind,
+              needUpdateFilters: true,
+            });
+          },
+          onChangePrice: selectedPrice => {
+            dispatch({
+              selectedPrice: selectedPrice,
+              needUpdateFilters: true,
+            });
+          },
         },
       });
 
@@ -72,7 +84,7 @@ function List(props) {
       <PhoneView
         style={
           isInPhone
-            ? {padding: 20, width: getWidthHeight[0]}
+            ? {padding: 20, gap: 10, width: getWidthHeight[0]}
             : {gap: 15, padding: 20}
         }>
         {state.selectableItems !== undefined &&

@@ -5,6 +5,7 @@ import {
   LargeContentConianerStyle,
   PhoneContentConianerStyle,
   MyView,
+  PhoneContentConianerStyle2,
 } from '../styles/Common';
 import {useNavigate, useParams} from 'react-router-dom';
 import Home from './general/home/Home';
@@ -207,6 +208,8 @@ const WebStructue = props => {
                 (isInLargeMode && state.isRightMenuVisible) ||
                 (isInLargeMode && state.isFilterMenuVisible)
                   ? LargeContentConianerStyle
+                  : state.isInPhone && state.isRightMenuVisible
+                  ? PhoneContentConianerStyle2
                   : PhoneContentConianerStyle
               }>
               {props.page === 'home' && (

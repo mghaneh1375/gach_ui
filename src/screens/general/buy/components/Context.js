@@ -8,6 +8,8 @@ const defaultGlobalState = {
   needUpdateFilters: false,
   selectedStudents: undefined,
   wantedQuizzes: undefined,
+  selectedKindQuiz: 'all',
+  selectedPrice: 'all',
 };
 export const packagesContext = React.createContext(defaultGlobalState);
 export const dispatchPackagesContext = React.createContext(undefined);
@@ -53,16 +55,45 @@ export const PackageProvider = ({children}) => {
     }
 
     let newItems = [];
-    state.allItems.forEach(elem => {
-      let hasWantedTag = false;
 
-      for (let i = 0; i < state.checkedFilterIndices.length; i++) {
-        if (elem.tags.indexOf(state.checkedFilterIndices[i]) !== -1) {
-          hasWantedTag = true;
-          break;
+    state.allItems.forEach(elem => {
+      if (state.checkedFilterIndices.length > 0) {
+        let hasWantedTag = false;
+
+        for (let i = 0; i < state.checkedFilterIndices.length; i++) {
+          if (
+            elem.tags !== undefined &&
+            elem.tags.indexOf(state.checkedFilterIndices[i]) !== -1
+          ) {
+            hasWantedTag = true;
+            break;
+          }
         }
+
+        if (!hasWantedTag) return;
       }
-      if (hasWantedTag) newItems.push(elem);
+
+      if (
+        (state.selectedKindQuiz === 'open' &&
+          elem.type !== undefined &&
+          elem.type === 'package') ||
+        (state.selectedKindQuiz === 'regular' &&
+          elem.generalMode !== undefined &&
+          elem.generalMode === 'open')
+      )
+        return;
+
+      if (
+        (state.selectedPrice === 'free' &&
+          ((elem.realPrice !== undefined && elem.realPrice > 0) ||
+            (elem.price !== undefined && elem.price > 0))) ||
+        (state.selectedPrice === 'nonFree' &&
+          ((elem.realPrice !== undefined && elem.realPrice === 0) ||
+            (elem.price !== undefined && elem.price === 0)))
+      )
+        return;
+
+      newItems.push(elem);
     });
     dispatch({
       selectableItems: newItems,
@@ -70,6 +101,8 @@ export const PackageProvider = ({children}) => {
     });
   }, [
     state.filters,
+    state.selectedKindQuiz,
+    state.selectedPrice,
     state.checkedFilterIndices,
     state.allItems,
     state.selectableItems,
@@ -80,15 +113,23 @@ export const PackageProvider = ({children}) => {
 
     globalDispatch({
       isRightMenuVisible: false,
-      isFilterMenuVisible: true,
+      isFilterMenuVisible: globalState.isInPhone ? false : true,
       filters: state.filters.items,
       allItems: state.allItems === undefined ? 0 : state.allItems.length,
       selectableItems:
         state.selectableItems === undefined ? 0 : state.selectableItems.length,
       onChangeFilter: state.filters.onChangeFilter,
+      onChangeKindQuiz: state.filters.onChangeKindQuiz,
+      onChangePrice: state.filters.onChangePrice,
       allFilter: true,
     });
-  }, [globalDispatch, state.filters, state.selectableItems, state.allItems]);
+  }, [
+    globalDispatch,
+    state.filters,
+    state.selectableItems,
+    state.allItems,
+    globalState.isInPhone,
+  ]);
 
   React.useEffect(() => {
     setFilters();
