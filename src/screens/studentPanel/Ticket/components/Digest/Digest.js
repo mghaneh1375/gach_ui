@@ -71,7 +71,7 @@ function Digest({
         <PhoneView>
           <BigBoldBlueText text={ticket.statusFa} />
         </PhoneView>
-        <PhoneView>
+        <PhoneView style={{alignItems: 'center'}}>
           {ticket.status !== 'finish' && (
             <FontIcon
               kind={'normal'}

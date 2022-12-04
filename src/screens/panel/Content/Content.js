@@ -62,7 +62,7 @@ function Content(props) {
           setLoading={setLoading}
         />
       )}
-      {mode === 'update' && (
+      {mode === 'updateSession' && (
         <CreateSession
           isInEditMode={true}
           token={state.token}

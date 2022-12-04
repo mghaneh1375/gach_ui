@@ -20,7 +20,7 @@ const UpdateUsername = props => {
       <PhoneView style={{...styles.alignItemsStart}}>
         <JustBottomBorderTextInput
           value={props.phone}
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           disable={true}
           placeholder={commonTranslator.phone}
           subText={commonTranslator.phone}
@@ -38,7 +38,7 @@ const UpdateUsername = props => {
       </PhoneView>
       <PhoneView style={{...styles.alignItemsStart}}>
         <JustBottomBorderTextInput
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           value={props.mail}
           disable={true}
           placeholder={commonTranslator.mail}

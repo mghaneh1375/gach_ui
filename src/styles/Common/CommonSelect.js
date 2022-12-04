@@ -1,5 +1,4 @@
 import React from 'react';
-import {Platform} from 'react-native';
 import {calcInputWidth, CommonSelectElem} from './CommonText';
 
 import vars from '../root';

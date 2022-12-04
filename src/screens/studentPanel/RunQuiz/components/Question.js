@@ -198,7 +198,13 @@ function Question(props) {
                       props.isInReviewMode
                         ? undefined
                         : idx => {
-                            dispatch({answer: idx, needUpdateAnswer: true});
+                            if (state.answers[state.currIdx] == idx) {
+                              dispatch({
+                                answer: 0,
+                                needUpdateAnswer: true,
+                              });
+                            } else
+                              dispatch({answer: idx, needUpdateAnswer: true});
                           }
                     }
                   />

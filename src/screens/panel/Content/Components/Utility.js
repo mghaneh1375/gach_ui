@@ -170,11 +170,7 @@ export const setSessionFile = async (
       let formData = new FormData();
       formData.append('file', blob, fileContent.name);
       let base =
-        mode === 'img'
-          ? routes.setImgSessionContent
-          : mode === 'attach'
-          ? routes.addٰAttachToSession
-          : routes.addٰVideoToSession;
+        mode === 'attach' ? routes.addٰAttachToSession : routes.setSessionVideo;
 
       let res = await fileRequest(
         base + contentId + '/' + sessionId,

@@ -7,6 +7,7 @@ import {
   statusKeyVals,
   priorityKeyVals,
   sectionKeyValsForFilter,
+  priorityKeyValsForFilter,
 } from '../KeyVals';
 import {
   PhoneView,
@@ -63,8 +64,8 @@ function Filter(props) {
         />
         <JustBottomBorderSelect
           setter={setPriority}
-          values={priorityKeyVals}
-          value={priorityKeyVals.find(elem => elem.id === priority)}
+          values={priorityKeyValsForFilter}
+          value={priorityKeyValsForFilter.find(elem => elem.id === priority)}
           placeholder={translator.priority}
           subText={translator.priority}
         />

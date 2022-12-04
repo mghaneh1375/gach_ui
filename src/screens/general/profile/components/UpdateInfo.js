@@ -45,25 +45,26 @@ const UpdateInfo = props => {
   const setSelectedSchool = item => {
     setSchool(item);
   };
+
   return (
     <MyView>
       <PhoneView style={{gap: 15}}>
         <JustBottomBorderTextInput
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           value={firstname}
           subText={commonTranslator.firstname}
           placeholder={commonTranslator.firstname}
           onChangeText={e => setFirstname(e)}
         />
         <JustBottomBorderTextInput
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           value={lastname}
           subText={commonTranslator.lastname}
           placeholder={commonTranslator.lastname}
           onChangeText={e => setLastname(e)}
         />
         <JustBottomBorderTextInput
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           justNum={true}
           value={NID}
           onChangeText={e => setNID(e)}
@@ -71,7 +72,7 @@ const UpdateInfo = props => {
           placeholder={commonTranslator.NID}
         />
         <JustBottomBorderSelect
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           value={sexKeyVals.find(elem => elem.id === sex)}
           placeholder={commonTranslator.sex}
           subText={commonTranslator.sex}
@@ -80,7 +81,7 @@ const UpdateInfo = props => {
         />
         <JustBottomBorderTextInput
           style={{marginTop: 10}}
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           placeholder={commonTranslator.state}
           subText={commonTranslator.state}
           resultPane={true}
@@ -92,7 +93,7 @@ const UpdateInfo = props => {
 
         <JustBottomBorderTextInput
           style={{marginTop: 10}}
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           resultPane={true}
           placeholder={commonTranslator.city}
           subText={commonTranslator.city}
@@ -102,7 +103,7 @@ const UpdateInfo = props => {
           values={state !== undefined ? state.cities : []}
         />
         <JustBottomBorderTextInput
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           style={{maxWidth: 'unset'}}
           placeholder={commonTranslator.school}
           subText={commonTranslator.school}
@@ -113,7 +114,7 @@ const UpdateInfo = props => {
           reset={false}
         />
         <JustBottomBorderTextInput
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           placeholder={commonTranslator.grade}
           subText={'نام مقطع خود را به شکل فارسی سرچ کنید مثلا: یازدهم تجربی'}
           resultPane={true}
@@ -124,7 +125,7 @@ const UpdateInfo = props => {
         />
         <JustBottomBorderTextInput
           style={{marginTop: 10}}
-          isHalf={true}
+          isHalf={props.isInPhone ? undefined : true}
           resultPane={true}
           placeholder={commonTranslator.branch}
           subText={'نام رشته المپیادی خود را به شکل فارسی سرچ کنید مثلا: شیمی'}

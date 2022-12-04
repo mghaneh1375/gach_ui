@@ -17,12 +17,9 @@ import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {contentContext, dispatchContentContext} from './../Context';
 import {
-  addFile,
   addSession,
   removeFile,
   setSessionFile,
-  store,
-  update,
   updateSession,
 } from './../Utility';
 import {styles} from '../../../../../styles/Common/Styles';
@@ -32,6 +29,7 @@ import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
 import {routes} from '../../../../../API/APIRoutes';
 import {generalRequest} from '../../../../../API/Utility';
+import {trueFalseValues} from '../../../../../services/Utility';
 
 function Create(props) {
   let ckEditor = null;
@@ -52,7 +50,7 @@ function Create(props) {
 
   const [examId, setExamId] = useState();
   const [examMinMark, setExamMinMark] = useState();
-  const [videos, setVideos] = useState();
+  const [video, setVideo] = useState();
   const [attaches, setAttaches] = useState();
   const [quizzes, setQuizzes] = useState();
 
@@ -90,9 +88,9 @@ function Create(props) {
         setDescription(state.selectedSession.description);
         setTitle(state.selectedSession.title);
         setPrice(state.selectedSession.price);
-        setImg(state.selectedSession.img);
+
         setAttaches(state.selectedSession.attaches);
-        setVideos(state.selectedSession.videos);
+        setVideo(state.selectedSession.video);
         setDuration(state.selectedSession.duration);
 
         setHasExam(state.selectedSession.hasExam);
@@ -106,27 +104,35 @@ function Create(props) {
     });
   }, [isWorking, props, state.selectedSession, quizzes]);
 
-  const removeUploadedImg = async () => {
+  const removeUploadedVideo = async () => {
     props.setLoading(true);
-    let res = await removeFile(props.token, state.selectedContent.id);
+    let res = await removeFile(
+      props.token,
+      state.selectedContent.id,
+      state.selectedSession.id,
+    );
     props.setLoading(false);
     if (res === null) return;
-    setImg(undefined);
+    setVideo(undefined);
 
-    state.selectedContent.img = undefined;
-    dispatch({selectedContent: state.selectedContent, needUpdate: true});
+    state.selectedSession.video = undefined;
+    dispatch({selectedSession: state.selectedSession, needUpdateSession: true});
   };
 
-  const [img, setImg] = useState();
-  const [
-    openFileSelectorImg,
-    {filesContentImg, loadingImg, errorsImg, clearImg, removeImg},
-  ] = useFilePicker({
-    maxFileSize: 6,
-    accept: ['image/*'],
-    readAs: 'DataURL',
-    multiple: false,
-  });
+  const removeUploadedAttach = async () => {
+    props.setLoading(true);
+    let res = await removeFile(
+      props.token,
+      state.selectedContent.id,
+      state.selectedSession.id,
+    );
+    props.setLoading(false);
+    if (res === null) return;
+    setVideo(undefined);
+
+    state.selectedSession.video = undefined;
+    dispatch({selectedSession: state.selectedSession, needUpdateSession: true});
+  };
 
   const [
     openFileSelectorVideo,
@@ -169,10 +175,10 @@ function Create(props) {
       {!isWorking && (
         <PhoneView style={{gap: 10}}>
           <JustBottomBorderTextInput
-            placeholder={Translator.title}
+            placeholder={Translator.sessionTitle}
             onChangeText={e => setTitle(e)}
             value={title}
-            subText={Translator.title}
+            subText={Translator.sessionTitle}
           />
 
           <JustBottomBorderTextInput
@@ -180,7 +186,15 @@ function Create(props) {
             onChangeText={e => setPrice(e)}
             value={price}
             justNum={true}
-            subText={Translator.price}
+            subText={Translator.sessionPriceHelp}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={Translator.priority}
+            onChangeText={e => setPriority(e)}
+            value={priority}
+            justNum={true}
+            subText={Translator.priority}
           />
 
           <JustBottomBorderSelect
@@ -196,8 +210,44 @@ function Create(props) {
             onChangeText={e => setDuration(e)}
             value={duration}
             justNum={true}
-            subText={Translator.sessionDuration}
+            subText={Translator.sessionDurationHelp}
           />
+
+          <JustBottomBorderSelect
+            placeholder={Translator.hasExam}
+            subText={Translator.hasExam}
+            setter={setHasExam}
+            values={trueFalseValues}
+            value={trueFalseValues.find(elem => elem.id === hasExam)}
+          />
+
+          {hasExam !== undefined && hasExam && (
+            <JustBottomBorderTextInput
+              placeholder={Translator.finalExamMinMark}
+              subText={Translator.finalExamMinMark}
+              onChangeText={e => setExamMinMark(e)}
+              value={examMinMark}
+              justNum={true}
+            />
+          )}
+
+          {hasExam !== undefined && hasExam && quizzes !== undefined && (
+            <JustBottomBorderTextInput
+              resultPane={true}
+              reset={false}
+              value={
+                examId === undefined
+                  ? ''
+                  : quizzes.filter(element => {
+                      return element.id === examId;
+                    })[0].name
+              }
+              placeholder={Translator.finalExam}
+              subText={Translator.finalExam}
+              setSelectedItem={item => setExamId(item.id)}
+              values={quizzes}
+            />
+          )}
         </PhoneView>
       )}
 
@@ -206,7 +256,7 @@ function Create(props) {
         config={{
           customValues: {token: props.token},
           extraPlugins: [MyCustomUploadAdapterPlugin],
-          placeholder: Translator.description,
+          placeholder: Translator.sessionDescription,
         }}
         data={description === undefined ? '' : description}
         onReady={editor => {
@@ -220,34 +270,34 @@ function Create(props) {
       <PhoneView style={{...styles.gap15}}>
         <SimpleText
           style={{...styles.alignSelfCenter, ...styles.BlueBold}}
-          text={Translator.image}
+          text={Translator.video}
         />
         <SimpleFontIcon
-          onPress={() => openFileSelectorImg()}
+          onPress={() => openFileSelectorVideo()}
           kind={'normal'}
           icon={faPaperclip}
         />
 
         <PhoneView style={{marginTop: 20}}>
-          {img !== undefined && (
+          {video !== undefined && (
             <AttachBox
-              filename={img}
+              filename={video}
               removeAttach={async () => {
-                await removeUploadedImg();
+                await removeUploadedVideo();
               }}
             />
           )}
 
-          {filesContentImg !== undefined &&
-            filesContentImg.length > 0 &&
-            filesContentImg.map((elem, index) => {
+          {filesContentVideo !== undefined &&
+            filesContentVideo.length > 0 &&
+            filesContentVideo.map((elem, index) => {
               return (
                 <AttachBox
                   key={index}
                   filename={elem.name}
                   fileContent={elem.content}
                   removeAttach={() => {
-                    removeImg(index);
+                    removeVideo(index);
                   }}
                 />
               );
@@ -261,35 +311,36 @@ function Create(props) {
           text={Translator.image}
         />
         <SimpleFontIcon
-          onPress={() => openFileSelectorVideo()}
+          onPress={() => openFileSelectorAttaches()}
           kind={'normal'}
           icon={faPaperclip}
         />
 
         <PhoneView style={{marginTop: 20}}>
-          {videos !== undefined &&
-            videos.map((elem, index) => {
+          {attaches !== undefined &&
+            attaches.length > 0 &&
+            attaches.map((elem, index) => {
               return (
                 <AttachBox
                   key={index}
                   filename={elem}
                   removeAttach={async () => {
-                    await removeUploadedImg();
+                    await removeUploadedAttach();
                   }}
                 />
               );
             })}
 
-          {filesContentImg !== undefined &&
-            filesContentImg.length > 0 &&
-            filesContentImg.map((elem, index) => {
+          {filesContentAttaches !== undefined &&
+            filesContentAttaches.length > 0 &&
+            filesContentAttaches.map((elem, index) => {
               return (
                 <AttachBox
                   key={index}
                   filename={elem.name}
                   fileContent={elem.content}
                   removeAttach={() => {
-                    removeImg(index);
+                    removeAttaches(index);
                   }}
                 />
               );
@@ -336,19 +387,37 @@ function Create(props) {
                 ? state.selectedSession.id
                 : res.id;
 
-              if (filesContentImg.length > 0) {
-                let img = undefined;
+              if (filesContentVideo.length > 0) {
+                let v = undefined;
 
                 let fileRes = await setSessionFile(
                   props.token,
-                  filesContentImg[0],
+                  filesContentVideo[0],
                   state.selectedContent.id,
                   sessionId,
-                  'img',
+                  'video',
                 );
-                if (fileRes !== null && fileRes !== undefined) img = fileRes;
+                if (fileRes !== null && fileRes !== undefined) v = fileRes;
 
-                res.img = img;
+                res.video = v;
+
+                if (filesContentAttaches.length > 0) {
+                  let all_attaches = undefined;
+
+                  for (let i = 0; i < filesContentAttaches.length; i++) {
+                    let fileRes = await setSessionFile(
+                      props.token,
+                      filesContentAttaches[i],
+                      state.selectedContent.id,
+                      sessionId,
+                      'attach',
+                    );
+                    if (fileRes !== null && fileRes !== undefined)
+                      all_attaches.push(fileRes);
+                  }
+
+                  res.attaches = all_attaches;
+                }
                 props.setLoading(false);
               } else {
                 if (props.isInEditMode) res.img = state.selectedContent.img;

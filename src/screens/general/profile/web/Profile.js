@@ -12,7 +12,7 @@ import ChangeUsername from '../components/ChangeUsername';
 import UpdateInfo from '../components/UpdateInfo';
 import UpdatePic from '../components/UpdatePic';
 import UpdateUsername from '../components/UpdateUsername';
-import {dispatchStateContext} from '../../../../App';
+import {dispatchStateContext, globalStateContext} from '../../../../App';
 import {getDevice} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import translator from '../translate';
@@ -31,9 +31,12 @@ const Profile = props => {
   const navigate = props.navigate;
   const params = useParams();
 
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
 
-  const [dispatch] = useGlobalState();
+  const [state, dispatch] = useGlobalState();
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -145,6 +148,7 @@ const Profile = props => {
                   </EqualTwoTextInputs>
                   {showEditInfo && (
                     <UpdateInfo
+                      isInPhone={state.isInPhone}
                       token={props.token}
                       userId={isAdmin ? user.id : undefined}
                       user={user}
@@ -170,6 +174,7 @@ const Profile = props => {
                   </EqualTwoTextInputs>
                   {showEditUsername && (
                     <UpdateUsername
+                      isInPhone={state.isInPhone}
                       phone={user.phone}
                       mail={user.mail}
                       setMode={setUsernameModalMode}
@@ -191,6 +196,7 @@ const Profile = props => {
                   </EqualTwoTextInputs>
                   {showEditPassword && (
                     <ChangePass
+                      isInPhone={state.isInPhone}
                       userId={isAdmin ? user.id : undefined}
                       setLoading={setLoading}
                       token={props.token}

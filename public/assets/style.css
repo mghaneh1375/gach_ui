@@ -294,8 +294,11 @@
   box-shadow: 1px solid 15px;
   background-color: #e8e8e8;
 }
-.mySelect > .myView {
+/* .mySelect > .myView {
   z-index: 5;
+} */
+.mySelect > .mySelectedView {
+  z-index: 10;
 }
 .mySelect > .myView:focus {
   z-index: 10 !important;
@@ -375,7 +378,7 @@ option {
   transform: translateZ(0px);
   position: absolute;
   margin-top: 38px;
-  z-index: 10 !important;
+  /* z-index: 9 !important; */
   background: white;
   box-shadow: 1px 3px 6px 4px #00000029;
   border-radius: 0px 0px 10px 10px;
@@ -392,6 +395,11 @@ option {
   background-color: #efefef !important;
   border-radius: 10px !important;
 }
+
+.mySelectedView > .r-transform-1sncvnh {
+  z-index: 10 !important;
+}
+
 .myView {
   -moz-box-align: stretch;
   -moz-box-direction: normal;

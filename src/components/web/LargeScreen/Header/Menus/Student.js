@@ -143,7 +143,15 @@ function StudentMenu(props) {
         text={translator.history}
         icon={faHistory}
       />
-      <MenuItemPhone text={translator.support} icon={faQuestion} />
+      <MenuItemPhone
+        onClick={() => {
+          navigate(isApp ? 'Home' : '/ticket');
+          props.toggleRightMenuVisibility();
+        }}
+        selected={props.selected === 'ticket'}
+        text={translator.support}
+        icon={faQuestion}
+      />
 
       <PhoneView
         style={

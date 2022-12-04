@@ -4,11 +4,13 @@ const Translator = {
   title: 'نام بسته',
   teacher: 'نام دبیر',
   price: 'قیمت',
+  priority: 'اولویت',
   sessionsCount: 'تعداد جلسات',
   hasCert: 'آیا گواهی دارد؟',
   hasExam: 'آیا آزمون پایان دوره دارد؟',
   duration: 'مدت دوره',
   sessionDuration: 'مدت جلسه',
+  sessionDurationHelp: 'مدت جلسه (به ثانیه)',
   buyers: 'تعداد خریداران',
   hasFinalExam: 'آیا آزمون پایان دوره دارد؟',
   finalExamMinMark: 'حداقل نمره قبولی آزمون پایان دوره',
@@ -18,6 +20,7 @@ const Translator = {
   editItem: 'ویرایش بسته آموزشی',
   editSession: 'ویرایش دوره ',
   description: 'درباره دوره',
+  sessionDescription: 'درباره این جلسه',
   teacherBio: 'درباره استاد',
   preReq: 'پیش نیاز های دوره',
   cert: 'گواهی دوره',
@@ -26,6 +29,9 @@ const Translator = {
   sessions: 'مدیریت جلسات',
   users: 'گزارش گیری خریداران',
   image: 'تصویر شاخص',
+  video: 'فایل ویدیو جلسه',
+  sessionTitle: 'عنوان جلسه',
+  sessionPriceHelp: 'قیمت (این فیلد اختیاری است)',
 };
 
 export default Translator;
