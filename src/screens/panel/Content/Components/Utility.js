@@ -1,5 +1,9 @@
 import {routes} from '../../../../API/APIRoutes';
-import {fileRequest, generalRequest} from '../../../../API/Utility';
+import {
+  generalRequest,
+  videoFileRequest,
+  videoGeneralRequest,
+} from '../../../../API/Utility';
 import {showError, showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
 
@@ -14,7 +18,7 @@ export const fetchContents = async token => {
 };
 
 export const fetchSessions = async (token, id) => {
-  return await generalRequest(
+  return await videoGeneralRequest(
     routes.fetchSessionInContent + id,
     'get',
     undefined,
@@ -52,7 +56,7 @@ let mandatoryFieldsSession = [
 
 export const store = async (token, data) => {
   try {
-    let res = await generalRequest(
+    let res = await videoGeneralRequest(
       routes.storeContent,
       'post',
       data,
@@ -71,7 +75,7 @@ export const store = async (token, data) => {
 
 export const addSession = async (token, data, contentId) => {
   try {
-    let res = await generalRequest(
+    let res = await videoGeneralRequest(
       routes.addSessionToContent + contentId,
       'put',
       data,
@@ -90,7 +94,7 @@ export const addSession = async (token, data, contentId) => {
 
 export const update = async (token, data, id) => {
   try {
-    let res = await generalRequest(
+    let res = await videoGeneralRequest(
       routes.updateContent + id,
       'put',
       data,
@@ -109,7 +113,7 @@ export const update = async (token, data, id) => {
 
 export const updateSession = async (token, data, contentId, sessionId) => {
   try {
-    let res = await generalRequest(
+    let res = await videoGeneralRequest(
       routes.updateSessionContent + contentId + '/' + sessionId,
       'put',
       data,
@@ -127,7 +131,7 @@ export const updateSession = async (token, data, contentId, sessionId) => {
 };
 
 export const removeFile = async (token, contentId) => {
-  let res = await generalRequest(
+  let res = await videoGeneralRequest(
     routes.removeImgContent + contentId,
     'delete',
     undefined,
@@ -146,7 +150,7 @@ export const addFile = async (token, fileContent, contentId) => {
       let formData = new FormData();
       formData.append('file', blob, fileContent.name);
 
-      let res = await fileRequest(
+      let res = await videoFileRequest(
         routes.setImgContent + contentId,
         'put',
         formData,
@@ -157,6 +161,32 @@ export const addFile = async (token, fileContent, contentId) => {
     });
 };
 
+// export const setSessionFile = async (
+//   token,
+//   fileContent,
+//   contentId,
+//   sessionId,
+//   mode,
+// ) => {
+//   return await fetch(fileContent.content)
+//     .then(res => res.blob())
+//     .then(async blob => {
+//       let formData = new FormData();
+//       formData.append('file', blob, fileContent.name);
+//       let base =
+//         mode === 'attach' ? routes.addٰAttachToSession : routes.setSessionVideo;
+
+//       let res = await videoFileRequest(
+//         base + contentId + '/' + sessionId,
+//         'put',
+//         formData,
+//         'url',
+//         token,
+//       );
+//       return res;
+//     });
+// };
+
 export const setSessionFile = async (
   token,
   fileContent,
@@ -165,21 +195,23 @@ export const setSessionFile = async (
   mode,
 ) => {
   return await fetch(fileContent.content)
-    .then(res => res.blob())
-    .then(async blob => {
-      let formData = new FormData();
-      formData.append('file', blob, fileContent.name);
+    // .then(res => res.blob())
+    .then(async res => {
       let base =
         mode === 'attach' ? routes.addٰAttachToSession : routes.setSessionVideo;
 
-      let res = await fileRequest(
-        base + contentId + '/' + sessionId,
-        'put',
-        formData,
-        'url',
-        token,
-      );
-      return res;
+      // videoFileRequest(base + contentId + '/' + sessionId, res, token);
+      // let formData = new FormData();
+      // formData.append('file', blob, fileContent.name);
+
+      // let res = await videoFileRequest(
+      //   base + contentId + '/' + sessionId,
+      //   'put',
+      //   formData,
+      //   'url',
+      //   token,
+      // );
+      // return res;
     });
 };
 
@@ -197,7 +229,7 @@ export const removeSessionFile = async (
       ? routes.removeAttachFromSession
       : routes.removeVideoFromSession;
 
-  let res = await generalRequest(
+  let res = await videoGeneralRequest(
     filename == undefined
       ? base + contentId + '/' + sessionId
       : base + contentId + '/' + sessionId + '/' + filename,

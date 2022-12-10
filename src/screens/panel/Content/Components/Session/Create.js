@@ -30,6 +30,7 @@ import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
 import {routes} from '../../../../../API/APIRoutes';
 import {generalRequest} from '../../../../../API/Utility';
 import {trueFalseValues} from '../../../../../services/Utility';
+import ChunkUpload from '../../../../../API/ChunkUpload';
 
 function Create(props) {
   let ckEditor = null;
@@ -54,6 +55,9 @@ function Create(props) {
   const [quizzes, setQuizzes] = useState();
 
   const [isWorking, setIsWorking] = useState(false);
+  const [videoFile, setVideoFile] = useState();
+
+  const [uploadVideo, setUploadVideo] = useState(false);
 
   const fetchQuizzes = React.useCallback(() => {
     if (isWorking || quizzes !== undefined) return;
@@ -129,6 +133,10 @@ function Create(props) {
   React.useEffect(() => {
     fetchQuizzes();
   }, [state.selectedSession, fetchQuizzes]);
+
+  React.useEffect(() => {
+    if (videoFile !== undefined) setUploadVideo(true);
+  }, [videoFile]);
 
   return (
     <CommonWebBox
@@ -266,6 +274,15 @@ function Create(props) {
         </PhoneView>
       </PhoneView>
 
+      {uploadVideo && (
+        <ChunkUpload
+          contentId={state.selectedContent.id}
+          sessionId={state.selectedSession.id}
+          token={props.token}
+          file={videoFile}
+        />
+      )}
+
       <EqualTwoTextInputs>
         <CommonButton
           onPress={() => props.setMode('sessions')}
@@ -273,6 +290,13 @@ function Create(props) {
         />
         <CommonButton
           onPress={async () => {
+            await fetch(filesContent[0].content)
+              .then(res => res.blob())
+              .then(async res => {
+                setVideoFile(res);
+              });
+
+            if (1 == 1) return;
             let data = {
               visibility: visibility,
               description: description,
@@ -307,20 +331,21 @@ function Create(props) {
 
               if (filesContent.length > 0) {
                 let v = undefined;
+                res.hasVideo = true;
 
-                let fileRes = await setSessionFile(
-                  props.token,
-                  filesContent[0],
-                  state.selectedContent.id,
-                  sessionId,
-                  'video',
-                );
-                if (fileRes !== null && fileRes !== undefined) {
-                  v = fileRes;
-                  res.hasVideo = true;
-                }
+                setUploadVideo(true);
+                // let fileRes = await setSessionFile(
+                //   props.token,
+                //   filesContent[0],
+                //   state.selectedContent.id,
+                //   sessionId,
+                //   'video',
+                // );
+                // if (fileRes !== null && fileRes !== undefined) {
+                //   v = fileRes;
+                // }
 
-                res.video = v;
+                // res.video = v;
 
                 props.setLoading(false);
               } else {
