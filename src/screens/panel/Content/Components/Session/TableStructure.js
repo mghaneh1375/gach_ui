@@ -3,20 +3,14 @@ import Translator from '../../Translate';
 
 const columns = [
   {
-    name: Translator.title,
+    name: Translator.sessionTitle,
     selector: row => row.title,
     grow: 3,
     center: true,
   },
   {
-    name: Translator.teacher,
-    selector: row => row.teacher,
-    grow: 2,
-    center: true,
-  },
-  {
-    name: Translator.sessionsCount,
-    selector: row => row.sessionsCount,
+    name: Translator.attachesCount,
+    selector: row => row.attachesCount,
     grow: 2,
     center: true,
   },
@@ -27,28 +21,34 @@ const columns = [
     center: true,
   },
   {
-    name: Translator.hasCert,
-    selector: row => (row.hasCert ? commonTranslator.yes : commonTranslator.no),
-    grow: 2,
-    center: true,
-  },
-  {
-    name: Translator.hasFinalExam,
+    name: Translator.hasVideo,
     selector: row =>
-      row.hasFinalExam ? commonTranslator.yes : commonTranslator.no,
+      row.hasVideo ? commonTranslator.yes : commonTranslator.no,
     grow: 2,
     center: true,
   },
   {
-    name: Translator.duration,
+    name: Translator.hasExam,
+    selector: row => (row.hasExam ? commonTranslator.yes : commonTranslator.no),
+    grow: 2,
+    center: true,
+  },
+  {
+    name: Translator.sessionDuration,
     selector: row => row.duration,
     grow: 2,
     center: true,
   },
   {
-    name: commonTranslator.createdAt,
-    selector: row => row.createdAt,
-    grow: 1,
+    name: Translator.price,
+    selector: row => row.price,
+    grow: 2,
+    center: true,
+  },
+  {
+    name: Translator.priority,
+    selector: row => row.priority,
+    grow: 2,
     center: true,
   },
   {

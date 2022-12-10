@@ -18,7 +18,7 @@ import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBo
 import {contentContext, dispatchContentContext} from './../Context';
 import {
   addSession,
-  removeFile,
+  removeSessionFile,
   setSessionFile,
   updateSession,
 } from './../Utility';
@@ -51,7 +51,6 @@ function Create(props) {
   const [examId, setExamId] = useState();
   const [examMinMark, setExamMinMark] = useState();
   const [video, setVideo] = useState();
-  const [attaches, setAttaches] = useState();
   const [quizzes, setQuizzes] = useState();
 
   const [isWorking, setIsWorking] = useState(false);
@@ -88,8 +87,7 @@ function Create(props) {
         setDescription(state.selectedSession.description);
         setTitle(state.selectedSession.title);
         setPrice(state.selectedSession.price);
-
-        setAttaches(state.selectedSession.attaches);
+        setPriority(state.selectedSession.priority);
         setVideo(state.selectedSession.video);
         setDuration(state.selectedSession.duration);
 
@@ -99,6 +97,7 @@ function Create(props) {
           setExamMinMark(state.selectedSession.minMark);
         }
 
+        props.setLoading(false);
         setIsWorking(false);
       }
     });
@@ -106,7 +105,7 @@ function Create(props) {
 
   const removeUploadedVideo = async () => {
     props.setLoading(true);
-    let res = await removeFile(
+    let res = await removeSessionFile(
       props.token,
       state.selectedContent.id,
       state.selectedSession.id,
@@ -119,45 +118,13 @@ function Create(props) {
     dispatch({selectedSession: state.selectedSession, needUpdateSession: true});
   };
 
-  const removeUploadedAttach = async () => {
-    props.setLoading(true);
-    let res = await removeFile(
-      props.token,
-      state.selectedContent.id,
-      state.selectedSession.id,
-    );
-    props.setLoading(false);
-    if (res === null) return;
-    setVideo(undefined);
-
-    state.selectedSession.video = undefined;
-    dispatch({selectedSession: state.selectedSession, needUpdateSession: true});
-  };
-
-  const [
-    openFileSelectorVideo,
-    {filesContentVideo, loadingVideo, errorsVideo, clearVideo, removeVideo},
-  ] = useFilePicker({
-    maxFileSize: 6,
-    accept: ['video/*'],
-    readAs: 'DataURL',
-    multiple: true,
-  });
-  const [
-    openFileSelectorAttaches,
-    {
-      filesContentAttaches,
-      loadingAttaches,
-      errorsAttaches,
-      clearAttaches,
-      removeAttaches,
-    },
-  ] = useFilePicker({
-    maxFileSize: 6,
-    accept: ['image/*', 'pdf', 'docx', 'ppt', 'pptx', 'video/*', 'zip'],
-    readAs: 'DataURL',
-    multiple: true,
-  });
+  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
+    useFilePicker({
+      maxFileSize: 200,
+      accept: ['video/*'],
+      readAs: 'DataURL',
+      multiple: false,
+    });
 
   React.useEffect(() => {
     fetchQuizzes();
@@ -273,7 +240,7 @@ function Create(props) {
           text={Translator.video}
         />
         <SimpleFontIcon
-          onPress={() => openFileSelectorVideo()}
+          onPress={() => openFileSelector()}
           kind={'normal'}
           icon={faPaperclip}
         />
@@ -288,69 +255,20 @@ function Create(props) {
             />
           )}
 
-          {filesContentVideo !== undefined &&
-            filesContentVideo.length > 0 &&
-            filesContentVideo.map((elem, index) => {
-              return (
-                <AttachBox
-                  key={index}
-                  filename={elem.name}
-                  fileContent={elem.content}
-                  removeAttach={() => {
-                    removeVideo(index);
-                  }}
-                />
-              );
-            })}
-        </PhoneView>
-      </PhoneView>
-
-      <PhoneView style={{...styles.gap15}}>
-        <SimpleText
-          style={{...styles.alignSelfCenter, ...styles.BlueBold}}
-          text={Translator.image}
-        />
-        <SimpleFontIcon
-          onPress={() => openFileSelectorAttaches()}
-          kind={'normal'}
-          icon={faPaperclip}
-        />
-
-        <PhoneView style={{marginTop: 20}}>
-          {attaches !== undefined &&
-            attaches.length > 0 &&
-            attaches.map((elem, index) => {
-              return (
-                <AttachBox
-                  key={index}
-                  filename={elem}
-                  removeAttach={async () => {
-                    await removeUploadedAttach();
-                  }}
-                />
-              );
-            })}
-
-          {filesContentAttaches !== undefined &&
-            filesContentAttaches.length > 0 &&
-            filesContentAttaches.map((elem, index) => {
-              return (
-                <AttachBox
-                  key={index}
-                  filename={elem.name}
-                  fileContent={elem.content}
-                  removeAttach={() => {
-                    removeAttaches(index);
-                  }}
-                />
-              );
-            })}
+          {filesContent !== undefined && filesContent.length > 0 && (
+            <AttachBox
+              filename={filesContent[0].name}
+              removeAttach={() => {
+                remove(0);
+              }}
+            />
+          )}
         </PhoneView>
       </PhoneView>
 
       <EqualTwoTextInputs>
         <CommonButton
-          onPress={() => props.setMode('list')}
+          onPress={() => props.setMode('sessions')}
           title={commonTranslator.back}
         />
         <CommonButton
@@ -387,40 +305,29 @@ function Create(props) {
                 ? state.selectedSession.id
                 : res.id;
 
-              if (filesContentVideo.length > 0) {
+              if (filesContent.length > 0) {
                 let v = undefined;
 
                 let fileRes = await setSessionFile(
                   props.token,
-                  filesContentVideo[0],
+                  filesContent[0],
                   state.selectedContent.id,
                   sessionId,
                   'video',
                 );
-                if (fileRes !== null && fileRes !== undefined) v = fileRes;
+                if (fileRes !== null && fileRes !== undefined) {
+                  v = fileRes;
+                  res.hasVideo = true;
+                }
 
                 res.video = v;
 
-                if (filesContentAttaches.length > 0) {
-                  let all_attaches = undefined;
-
-                  for (let i = 0; i < filesContentAttaches.length; i++) {
-                    let fileRes = await setSessionFile(
-                      props.token,
-                      filesContentAttaches[i],
-                      state.selectedContent.id,
-                      sessionId,
-                      'attach',
-                    );
-                    if (fileRes !== null && fileRes !== undefined)
-                      all_attaches.push(fileRes);
-                  }
-
-                  res.attaches = all_attaches;
-                }
                 props.setLoading(false);
               } else {
-                if (props.isInEditMode) res.img = state.selectedContent.img;
+                if (props.isInEditMode) {
+                  res.video = state.selectedContent.video;
+                  res.attaches = state.selectedContent.attaches;
+                }
                 props.setLoading(false);
               }
 
@@ -434,8 +341,11 @@ function Create(props) {
 
               state.selectedContent.sessions = sessions;
 
-              dispatch({selectedContent: state.selectedContent});
-              props.setMode('sessionList');
+              dispatch({
+                selectedContent: state.selectedContent,
+                needUpdate: true,
+              });
+              props.setMode('sessions');
             } else props.setLoading(false);
           }}
           title={commonTranslator.confirm}

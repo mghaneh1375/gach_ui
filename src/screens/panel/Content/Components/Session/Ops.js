@@ -1,40 +1,13 @@
 import {CommonButton, PhoneView} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import {contentContext, dispatchContentContext} from '../Context';
-import React, {useState} from 'react';
-import commonTranslator from '../../../../../translator/Common';
+import {contentContext} from '../Context';
+import React from 'react';
 import Translator from '../../Translate';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
 
 function Ops(props) {
-  const toggleVisibility = () => {
-    props.setLoading(true);
-    Promise.all([
-      generalRequest(
-        routes.updateContent + state.selectedContent.id,
-        'post',
-        {
-          visibility: !state.selectedContent.visibility,
-        },
-        undefined,
-        props.token,
-      ),
-    ]).then(res => {
-      props.setLoading(false);
-      if (res[0] !== null) {
-        state.selectedContent.visibility = !state.selectedContent.visibility;
-        dispatch({selectedContent: state.selectedContent, needUpdate: true});
-      }
-    });
-  };
+  const useGlobalState = () => [React.useContext(contentContext)];
 
-  const useGlobalState = () => [
-    React.useContext(contentContext),
-    React.useContext(dispatchContentContext),
-  ];
-
-  const [state, dispatch] = useGlobalState();
+  const [state] = useGlobalState();
 
   return (
     <LargePopUp
@@ -42,32 +15,23 @@ function Ops(props) {
       toggleShowPopUp={props.toggleShowPopUp}>
       <PhoneView>
         <CommonButton
-          onPress={() => props.setMode('update')}
+          onPress={() => props.setMode('updateSession')}
           dir={'rtl'}
           theme={'transparent'}
           title={Translator.seeInfo}
         />
+
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
-          onPress={() => toggleVisibility()}
-          title={
-            state.selectedContent.visibility
-              ? commonTranslator.toHide
-              : commonTranslator.toShow
-          }
-        />
-        <CommonButton
-          dir={'rtl'}
-          theme={'transparent'}
-          onPress={() => props.setMode('student')}
+          onPress={() => props.setMode('sessionStudent')}
           title={Translator.users}
         />
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
-          onPress={() => props.setMode('sessions')}
-          title={Translator.sessions}
+          onPress={() => props.setMode('sessionAttaches')}
+          title={Translator.attaches}
         />
       </PhoneView>
     </LargePopUp>

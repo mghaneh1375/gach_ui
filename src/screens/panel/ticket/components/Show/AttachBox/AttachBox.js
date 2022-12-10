@@ -30,9 +30,17 @@ const AttachBox = props => {
       background = vars.ORANGE;
       textColor = vars.ORANGE;
       break;
+    case 'mp4':
+    case 'mp3':
+      text = 'Media';
+      background = vars.ORANGE;
+      textColor = vars.DARK_BLUE;
+      break;
   }
 
   const isImg =
+    props.filename.indexOf('.mp4') === -1 &&
+    props.filename.indexOf('.mp3') === -1 &&
     props.filename.indexOf('.docx') === -1 &&
     props.filename.indexOf('.xls') === -1 &&
     props.filename.indexOf('.xlsx') === -1 &&

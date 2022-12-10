@@ -73,7 +73,7 @@ export const addSession = async (token, data, contentId) => {
   try {
     let res = await generalRequest(
       routes.addSessionToContent + contentId,
-      'post',
+      'put',
       data,
       'data',
       token,
@@ -183,7 +183,13 @@ export const setSessionFile = async (
     });
 };
 
-export const removeSessionFile = async (token, contentId, sessionId, mode) => {
+export const removeSessionFile = async (
+  token,
+  contentId,
+  sessionId,
+  mode,
+  filename = undefined,
+) => {
   let base =
     mode === 'img'
       ? routes.removeSessionImgContent
@@ -192,7 +198,9 @@ export const removeSessionFile = async (token, contentId, sessionId, mode) => {
       : routes.removeVideoFromSession;
 
   let res = await generalRequest(
-    base + contentId + '/' + sessionId,
+    filename == undefined
+      ? base + contentId + '/' + sessionId
+      : base + contentId + '/' + sessionId + '/' + filename,
     'delete',
     undefined,
     undefined,

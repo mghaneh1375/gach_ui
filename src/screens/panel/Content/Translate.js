@@ -1,5 +1,5 @@
 const Translator = {
-  list: 'لیست بسته های آموزشی',
+  list: 'لیست بسته های آموزشی ',
   sessionsList: 'لیست جلسات بسته های آموزشی ',
   title: 'نام بسته',
   teacher: 'نام دبیر',
@@ -7,7 +7,7 @@ const Translator = {
   priority: 'اولویت',
   sessionsCount: 'تعداد جلسات',
   hasCert: 'آیا گواهی دارد؟',
-  hasExam: 'آیا آزمون پایان دوره دارد؟',
+  hasExam: 'آیا آزمون دارد؟',
   duration: 'مدت دوره',
   sessionDuration: 'مدت جلسه',
   sessionDurationHelp: 'مدت جلسه (به ثانیه)',
@@ -29,9 +29,12 @@ const Translator = {
   sessions: 'مدیریت جلسات',
   users: 'گزارش گیری خریداران',
   image: 'تصویر شاخص',
+  attaches: 'فایل های ضمیمه',
+  attachesCount: 'تعداد فایل های ضمیمه',
   video: 'فایل ویدیو جلسه',
   sessionTitle: 'عنوان جلسه',
   sessionPriceHelp: 'قیمت (این فیلد اختیاری است)',
+  hasVideo: 'آیا فایل ویدیو بارگذاری شده است؟',
 };
 
 export default Translator;

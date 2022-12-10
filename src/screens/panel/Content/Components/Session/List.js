@@ -59,11 +59,15 @@ function List(props) {
       )}
       <CommonWebBox
         header={Translator.list + state.selectedContent.title}
+        backBtn={true}
+        onBackClick={() => props.setMode('list')}
         addBtn={true}
         onAddClick={() => props.setMode('createSession')}>
         {state.selectedContent.sessions !== undefined && (
           <CommonDataTable
-            removeUrl={routes.removeSessionFromContent}
+            removeUrl={
+              routes.removeSessionFromContent + state.selectedContent.id
+            }
             handleOp={handleOp}
             setLoading={props.setLoading}
             columns={columns}
