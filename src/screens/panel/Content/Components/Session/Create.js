@@ -16,21 +16,21 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {contentContext, dispatchContentContext} from './../Context';
-import {
-  addSession,
-  removeSessionFile,
-  setSessionFile,
-  updateSession,
-} from './../Utility';
+import {addSession, removeSessionFile, updateSession} from './../Utility';
 import {styles} from '../../../../../styles/Common/Styles';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {useFilePicker} from 'use-file-picker';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
 import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
+import axios from 'axios';
+import {
+  generalRequest,
+  videoGeneralRequest,
+  VIDEO_BASE_URL,
+} from '../../../../../API/Utility';
 import {trueFalseValues} from '../../../../../services/Utility';
-import ChunkUpload from '../../../../../API/ChunkUpload';
+import vars from '../../../../../styles/root';
 
 function Create(props) {
   let ckEditor = null;
@@ -55,9 +55,126 @@ function Create(props) {
   const [quizzes, setQuizzes] = useState();
 
   const [isWorking, setIsWorking] = useState(false);
-  const [videoFile, setVideoFile] = useState();
 
   const [uploadVideo, setUploadVideo] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const chunkSize = 1048576 * 3;
+
+  let videoFile;
+  let sessionId;
+
+  const getFileContext = () => {
+    resetChunkProperties();
+    const _totalCount =
+      videoFile.size % chunkSize == 0
+        ? videoFile.size / chunkSize
+        : Math.floor(videoFile.size / chunkSize) + 1; // Total count of chunks will have been upload to finish the file
+
+    getGrantForUpload(_totalCount);
+  };
+
+  const getGrantForUpload = _totalCount => {
+    Promise.all([
+      videoGeneralRequest(
+        routes.setSessionVideo +
+          state.selectedContent.id +
+          '/' +
+          sessionId +
+          '/' +
+          videoFile.size,
+        'post',
+        undefined,
+        'filename',
+        props.token,
+      ),
+    ]).then(res => {
+      if (res[0] != null) {
+        fileUpload(0, _totalCount, res[0], 0, chunkSize);
+      }
+    });
+  };
+
+  const resetChunkProperties = () => {
+    setProgress(0);
+  };
+
+  const fileUpload = (
+    counter,
+    chunkCount,
+    filename,
+    beginingOfTheChunk,
+    endOfTheChunk,
+  ) => {
+    if (counter <= chunkCount) {
+      var chunk = videoFile.slice(beginingOfTheChunk, endOfTheChunk);
+      uploadChunk(counter, chunkCount, filename, endOfTheChunk, chunk);
+    }
+  };
+
+  const uploadChunk = async (
+    counter,
+    chunkCount,
+    filename,
+    endOfTheChunk,
+    chunk,
+  ) => {
+    try {
+      const response = await axios.post(
+        VIDEO_BASE_URL + routes.sessionVideoChunkFile + filename,
+        chunk,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: 'Bearer ' + props.token,
+          },
+        },
+      );
+      const data = response.data;
+      if (data.status === 'ok') {
+        if (counter == chunkCount - 1) {
+          console.log('Process is complete, counter', counter);
+          await uploadCompleted();
+        } else {
+          var percentage = Math.ceil((counter / chunkCount) * 100);
+          setProgress(percentage);
+          fileUpload(
+            counter + 1,
+            chunkCount,
+            filename,
+            endOfTheChunk,
+            endOfTheChunk + chunkSize,
+          );
+        }
+      } else {
+        console.log('Error Occurred:', data.errorMessage);
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  const uploadCompleted = async () => {
+    const response = await axios.post(
+      VIDEO_BASE_URL +
+        routes.completeUploadSessionVideo +
+        state.selectedContent.id +
+        '/' +
+        sessionId,
+      undefined,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + props.token,
+        },
+      },
+    );
+    const data = response.data;
+    if (data.status == 'ok') {
+      setProgress(100);
+    }
+  };
 
   const fetchQuizzes = React.useCallback(() => {
     if (isWorking || quizzes !== undefined) return;
@@ -126,7 +243,7 @@ function Create(props) {
     useFilePicker({
       maxFileSize: 200,
       accept: ['video/*'],
-      readAs: 'DataURL',
+      readAs: 'ArrayBuffer',
       multiple: false,
     });
 
@@ -135,7 +252,9 @@ function Create(props) {
   }, [state.selectedSession, fetchQuizzes]);
 
   React.useEffect(() => {
-    if (videoFile !== undefined) setUploadVideo(true);
+    if (videoFile !== undefined) {
+      setUploadVideo(true);
+    }
   }, [videoFile]);
 
   return (
@@ -275,108 +394,106 @@ function Create(props) {
       </PhoneView>
 
       {uploadVideo && (
-        <ChunkUpload
-          contentId={state.selectedContent.id}
-          sessionId={state.selectedSession.id}
-          token={props.token}
-          file={videoFile}
+        <SimpleText
+          style={{color: vars.DARK_BLUE, fontSize: 20, alignSelf: 'center'}}
+          text={
+            progress !== 100
+              ? ' در حال بارگذاری فایل لطفا شکیبا باشید ' + progress + '%'
+              : 'فایل با موفقیت آپلود شد'
+          }
         />
       )}
 
-      <EqualTwoTextInputs>
-        <CommonButton
-          onPress={() => props.setMode('sessions')}
-          title={commonTranslator.back}
-        />
-        <CommonButton
-          onPress={async () => {
-            await fetch(filesContent[0].content)
-              .then(res => res.blob())
-              .then(async res => {
-                setVideoFile(res);
-              });
+      {(!uploadVideo || progress === 100) && (
+        <EqualTwoTextInputs>
+          <CommonButton
+            onPress={() => props.setMode('sessions')}
+            title={commonTranslator.back}
+          />
+          {!uploadVideo && (
+            <CommonButton
+              onPress={async () => {
+                let data = {
+                  visibility: visibility,
+                  description: description,
+                  priority: priority,
+                  title: title,
+                  duration: duration,
+                };
 
-            if (1 == 1) return;
-            let data = {
-              visibility: visibility,
-              description: description,
-              priority: priority,
-              title: title,
-              duration: duration,
-            };
-
-            if (price !== undefined) {
-              data.price = price;
-            }
-
-            if (hasExam) {
-              data.examId = examId;
-              data.minMark = examMinMark;
-            }
-
-            props.setLoading(true);
-            let res = props.isInEditMode
-              ? await updateSession(
-                  props.token,
-                  data,
-                  state.selectedContent.id,
-                  state.selectedSession.id,
-                )
-              : await addSession(props.token, data, state.selectedContent.id);
-
-            if (res != null) {
-              let sessionId = props.isInEditMode
-                ? state.selectedSession.id
-                : res.id;
-
-              if (filesContent.length > 0) {
-                let v = undefined;
-                res.hasVideo = true;
-
-                setUploadVideo(true);
-                // let fileRes = await setSessionFile(
-                //   props.token,
-                //   filesContent[0],
-                //   state.selectedContent.id,
-                //   sessionId,
-                //   'video',
-                // );
-                // if (fileRes !== null && fileRes !== undefined) {
-                //   v = fileRes;
-                // }
-
-                // res.video = v;
-
-                props.setLoading(false);
-              } else {
-                if (props.isInEditMode) {
-                  res.video = state.selectedContent.video;
-                  res.attaches = state.selectedContent.attaches;
+                if (price !== undefined) {
+                  data.price = price;
                 }
+
+                if (hasExam) {
+                  data.examId = examId;
+                  data.minMark = examMinMark;
+                }
+
+                props.setLoading(true);
+                let res = props.isInEditMode
+                  ? await updateSession(
+                      props.token,
+                      data,
+                      state.selectedContent.id,
+                      state.selectedSession.id,
+                    )
+                  : await addSession(
+                      props.token,
+                      data,
+                      state.selectedContent.id,
+                    );
+
                 props.setLoading(false);
-              }
+                if (res != null) {
+                  sessionId = props.isInEditMode
+                    ? state.selectedSession.id
+                    : res.id;
 
-              let sessions = state.selectedContent.sessions;
-              if (props.isInEditMode) {
-                sessions = sessions.map(elem => {
-                  if (elem.id === state.selectedSession.id) return res;
-                  return elem;
-                });
-              } else sessions.push(res);
+                  if (filesContent.length > 0) {
+                    res.hasVideo = true;
 
-              state.selectedContent.sessions = sessions;
+                    setUploadVideo(true);
 
-              dispatch({
-                selectedContent: state.selectedContent,
-                needUpdate: true,
-              });
-              props.setMode('sessions');
-            } else props.setLoading(false);
-          }}
-          title={commonTranslator.confirm}
-          theme="dark"
-        />
-      </EqualTwoTextInputs>
+                    let buffer = filesContent[0].content;
+                    videoFile = new Blob([
+                      new Uint8Array(buffer, 0, buffer.length),
+                    ]);
+
+                    setTimeout(() => {
+                      getFileContext();
+                    }, 1000);
+                  } else {
+                    if (props.isInEditMode) {
+                      res.video = state.selectedContent.video;
+                      res.attaches = state.selectedContent.attaches;
+                    }
+                  }
+
+                  let sessions = state.selectedContent.sessions;
+                  if (props.isInEditMode) {
+                    sessions = sessions.map(elem => {
+                      if (elem.id === state.selectedSession.id) return res;
+                      return elem;
+                    });
+                  } else sessions.push(res);
+
+                  state.selectedContent.sessions = sessions;
+
+                  dispatch({
+                    selectedContent: state.selectedContent,
+                    needUpdate: true,
+                  });
+
+                  if (filesContent.length === 0) props.setMode('sessions');
+                }
+              }}
+              title={commonTranslator.confirm}
+              theme="dark"
+            />
+          )}
+        </EqualTwoTextInputs>
+      )}
     </CommonWebBox>
   );
 }

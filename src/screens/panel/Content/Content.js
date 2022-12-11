@@ -5,6 +5,7 @@ import Create from './Components/Create';
 import List from './Components/List/List';
 import SessionsList from './Components/Session/List';
 import CreateSession from './Components/Session/Create';
+import Attach from './Components/Session/Attach';
 
 function Content(props) {
   const navigate = props.navigate;
@@ -48,6 +49,14 @@ function Content(props) {
       )}
       {mode === 'sessions' && (
         <SessionsList
+          token={state.token}
+          setLoading={setLoading}
+          setMode={setMode}
+          navigate={navigate}
+        />
+      )}
+      {mode === 'attaches' && (
+        <Attach
           token={state.token}
           setLoading={setLoading}
           setMode={setMode}

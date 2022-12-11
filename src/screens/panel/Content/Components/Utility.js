@@ -1,5 +1,6 @@
 import {routes} from '../../../../API/APIRoutes';
 import {
+  fileRequest,
   generalRequest,
   videoFileRequest,
   videoGeneralRequest,
@@ -161,57 +162,25 @@ export const addFile = async (token, fileContent, contentId) => {
     });
 };
 
-// export const setSessionFile = async (
-//   token,
-//   fileContent,
-//   contentId,
-//   sessionId,
-//   mode,
-// ) => {
-//   return await fetch(fileContent.content)
-//     .then(res => res.blob())
-//     .then(async blob => {
-//       let formData = new FormData();
-//       formData.append('file', blob, fileContent.name);
-//       let base =
-//         mode === 'attach' ? routes.addٰAttachToSession : routes.setSessionVideo;
-
-//       let res = await videoFileRequest(
-//         base + contentId + '/' + sessionId,
-//         'put',
-//         formData,
-//         'url',
-//         token,
-//       );
-//       return res;
-//     });
-// };
-
 export const setSessionFile = async (
   token,
   fileContent,
   contentId,
   sessionId,
-  mode,
 ) => {
   return await fetch(fileContent.content)
-    // .then(res => res.blob())
-    .then(async res => {
-      let base =
-        mode === 'attach' ? routes.addٰAttachToSession : routes.setSessionVideo;
+    .then(res => res.blob())
+    .then(async blob => {
+      let formData = new FormData();
+      formData.append('file', blob, fileContent.name);
 
-      // videoFileRequest(base + contentId + '/' + sessionId, res, token);
-      // let formData = new FormData();
-      // formData.append('file', blob, fileContent.name);
-
-      // let res = await videoFileRequest(
-      //   base + contentId + '/' + sessionId,
-      //   'put',
-      //   formData,
-      //   'url',
-      //   token,
-      // );
-      // return res;
+      let res = await videoFileRequest(
+        routes.addٰAttachToSession + contentId + '/' + sessionId,
+        formData,
+        'link',
+        token,
+      );
+      return res;
     });
 };
 

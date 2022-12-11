@@ -211,4 +211,7 @@ export const routes = {
   removeSessionFromContent: 'package_content/manage/removeSession/',
   distinctTagsContents: 'package_content/public/distinctTags',
   distinctTeachersContents: 'package_content/public/distinctTeachers',
+  sessionVideoChunkFile: 'package_content/manage/sessionVideoChunkFile/',
+  completeUploadSessionVideo:
+    'package_content/manage/completeUploadSessionVideo/',
 };

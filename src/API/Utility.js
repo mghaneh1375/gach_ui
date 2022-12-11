@@ -8,11 +8,11 @@ export const BASE_SITE_NAME = 'https://e.irysc.com/';
 
 // export const CV_BASE_URL = 'http://192.168.0.106:8090/api/';
 export const CV_BASE_URL = 'https://cv.irysc.com/api/';
-export const VIDEO_BASE_URL = 'http://192.168.100.6:8081/api/';
+export const VIDEO_BASE_URL = 'http://192.168.0.106:8086/api/';
 
 // export const BASE_URL = 'http://192.168.43.251:8080/api/';
-export const BASE_URL = 'http://192.168.100.6:8080/api/';
-// export const BASE_URL = 'http://192.168.0.106:8080/api/';
+// export const BASE_URL = 'http://192.168.100.6:8080/api/';
+export const BASE_URL = 'http://192.168.0.106:8080/api/';
 // export const BASE_URL = 'https://e.irysc.com/api/';
 
 export const COMMON_HEADER = {
@@ -139,7 +139,7 @@ export const videoGeneralRequest = async (
   let res = await Axios({
     url: url,
     method: method,
-    baseURL: url.indexOf('https:') === -1 ? VIDEO_BASE_URL : '',
+    baseURL: VIDEO_BASE_URL,
     headers:
       token !== null && token !== undefined
         ? COMMON_HEADER_AUTH(token)
@@ -326,67 +326,50 @@ export const fileRequest = async (
   return res;
 };
 
-// export const videoFileRequest = async (url, response, token) => {
-//   const chunk = new ChunkUpload({
-//     path: response.path, // Path to the file
-//     size: 10095, // Chunk size (must be multiples of 3)
-//     fileName: response.fileName, // Original file name
-//     fileSize: response.size, // Original file size
+export const videoFileRequest = async (
+  url,
+  data,
+  dataShouldReturnKey,
+  token,
+) => {
+  let res = await Axios({
+    url: url,
+    method: 'put',
+    baseURL: VIDEO_BASE_URL,
+    headers: COMMON_FILE_HEADER_AUTH(token),
+    data: data,
+  })
+    .then(function (response) {
+      var data = response.data;
+      if (data.status === 'nok') {
+        showError(data.msg);
+        return null;
+      }
 
-//     // Errors
-//     onFetchBlobError: e => console.log(e),
-//     onWriteFileError: e => console.log(e),
-//   });
+      if (data.status === 'ok') {
+        if (dataShouldReturnKey === undefined) return true;
+        if (dataShouldReturnKey instanceof Array) {
+          var output = {};
+          var key;
+          for (var i = 0; i < dataShouldReturnKey.length; i++) {
+            key = dataShouldReturnKey[i];
+            output[key] = data[key];
+          }
 
-//   chunk.digIn((file, next, retry, unlink) => {
-//     console.log(file);
-//     const body = new FormData();
-//     body.append('file', file.blob);
+          return output;
+        }
 
-//     Axios.post(VIDEO_BASE_URL + url, body, {
-//       headers: {
-//         // "Content-Type": "multipart/form-data",
-//         Accept: 'application/json',
-//         Authorization: 'Bearer ' + token,
-//         'x-chunk-number': file.headers['x-chunk-number'],
-//         'x-chunk-total-number': file.headers['x-chunk-total-number'],
-//         'x-chunk-size': file.headers['x-chunk-size'],
-//         'x-file-name': file.headers['x-file-name'],
-//         'x-file-size': file.headers['x-file-size'],
-//         'x-file-identity': file.headers['x-file-identity'],
-//       },
-//     })
-//       .then(response => {
-//         switch (response.status) {
-//           case 200:
-//             console.log(response.data);
-//             break;
+        return data[dataShouldReturnKey];
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      showError(commonTranslator.opErr);
+      return null;
+    });
 
-//           case 201:
-//             console.log(`${response.data.progress}% uploaded...`);
-//             next();
-//             break;
-//         }
-//       })
-//       .catch(error => {
-//         if (error.response) {
-//           if ([400, 404, 415, 500, 501].includes(error.response.status)) {
-//             console.log(error.response.status, 'Failed to upload the chunk.');
-//             unlink(file.path);
-//           } else if (error.response.status === 422) {
-//             unlink(file.path);
-//           } else {
-//             console.log('Re-uploading the chunk...');
-//             retry();
-//           }
-//         } else {
-//           console.log('Re-uploading the chunk...');
-
-//           retry();
-//         }
-//       });
-//   });
-// };
+  return res;
+};
 
 export const preProcess = (data, mandatoryFields = undefined) => {
   if (mandatoryFields !== undefined) {

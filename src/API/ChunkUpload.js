@@ -1,35 +1,48 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {CommonButton, MyView, SimpleText} from '../styles/Common';
+import {videoGeneralRequest} from './Utility';
+import {routes} from './APIRoutes';
 
 function ChunkUpload(props) {
-  const [showProgress, setShowProgress] = useState(false);
-  const [counter, setCounter] = useState(1);
-  const [fileToBeUpload, setFileToBeUpload] = useState({});
   const [progress, setProgress] = useState(0);
-  const [fileGuid, setFileGuid] = useState('');
-  const [fileSize, setFileSize] = useState(0);
   const chunkSize = 1048576 * 3;
 
   const getFileContext = () => {
     resetChunkProperties();
-    const _file = props.file;
-    console.log(_file);
-    setFileSize(_file.size);
-    console.log(_file.size);
     const _totalCount =
-      _file.size % chunkSize == 0
-        ? _file.size / chunkSize
-        : Math.floor(_file.size / chunkSize) + 1; // Total count of chunks will have been upload to finish the file
-    console.log(_totalCount);
-    const _fileID = '12221321312.mp4';
-    setFileGuid(_fileID);
-    fileUpload(counter, _totalCount, _fileID, 0, chunkSize);
+      props.file.size % chunkSize == 0
+        ? props.file.size / chunkSize
+        : Math.floor(props.file.size / chunkSize) + 1; // Total count of chunks will have been upload to finish the file
+
+    getGrantForUpload(_totalCount);
+  };
+
+  const getGrantForUpload = _totalCount => {
+    Promise.all([
+      videoGeneralRequest(
+        routes.setSessionVideo +
+          props.contentId +
+          '/' +
+          props.sessionId +
+          '/' +
+          props.file.size,
+        'post',
+        undefined,
+        'filename',
+        props.token,
+      ),
+    ]).then(res => {
+      if (res[0] != null) {
+        fileUpload(0, _totalCount, res[0], 0, chunkSize);
+      }
+    });
   };
 
   const resetChunkProperties = () => {
     setProgress(0);
   };
+
   const fileUpload = (
     counter,
     chunkCount,
@@ -37,11 +50,8 @@ function ChunkUpload(props) {
     beginingOfTheChunk,
     endOfTheChunk,
   ) => {
-    console.log(counter);
-    console.log(chunkCount);
     if (counter <= chunkCount) {
       var chunk = props.file.slice(beginingOfTheChunk, endOfTheChunk);
-      console.log(chunk);
       uploadChunk(counter, chunkCount, filename, endOfTheChunk, chunk);
     }
   };
@@ -55,23 +65,20 @@ function ChunkUpload(props) {
   ) => {
     try {
       const response = await axios.post(
-        'http://localhost:8081/api/package_content/manage/setSessionVideo/' +
-          props.contentId +
-          '/' +
-          props.sessionId +
-          '/' +
-          counter,
+        'http://localhost:8086/api/package_content/manage/sessionVideoChunkFile/' +
+          filename,
         chunk,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
             Authorization: 'Bearer ' + props.token,
           },
         },
       );
       const data = response.data;
-      if (data.isSuccess) {
-        if (counter == chunkCount) {
+      if (data.status === 'ok') {
+        if (counter == chunkCount - 1) {
           console.log('Process is complete, counter', counter);
           await uploadCompleted();
         } else {
@@ -94,23 +101,22 @@ function ChunkUpload(props) {
   };
 
   const uploadCompleted = async () => {
-    var formData = new FormData();
-    formData.append('fileName', fileGuid);
     const response = await axios.post(
-      'http://localhost:8081/api/package_content/manage/setSessionVideo/' +
+      'http://localhost:8086/api/package_content/manage/completeUploadSessionVideo/' +
         props.contentId +
         '/' +
         props.sessionId,
-      {},
+      undefined,
       {
-        params: {
-          fileName: fileGuid,
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + props.token,
         },
-        data: formData,
       },
     );
     const data = response.data;
-    if (data.isSuccess) {
+    if (data.status == 'ok') {
       setProgress(100);
     }
   };

@@ -30,7 +30,7 @@ function Ops(props) {
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
-          onPress={() => props.setMode('sessionAttaches')}
+          onPress={() => props.setMode('attaches')}
           title={Translator.attaches}
         />
       </PhoneView>
