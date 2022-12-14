@@ -93,7 +93,7 @@ function List(props) {
               style={{...styles.cursor_pointer}}
             />
             <ProgressCard
-              header={'آزمونهای پیشرو'}
+              header={'آزمونهای پیش رو'}
               theme={vars.ORANGE_RED}
               color={mode === 'quizRanking' ? vars.WHITE : vars.DARK_BLUE}
               width={250}

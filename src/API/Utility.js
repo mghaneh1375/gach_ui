@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import {showError} from '../services/Utility';
 import commonTranslator from './../translator/Common';
-import {removeAuthCache} from './User';
+import {logout, removeAuthCache} from './User';
 
 // export const BASE_SITE_NAME = 'http://localhost:3000/';
 export const BASE_SITE_NAME = 'https://e.irysc.com/';
@@ -68,6 +68,12 @@ export const generalRequest = async (
   token = null,
   mandatoryFields = undefined,
 ) => {
+  if (
+    url.indexOf('fetchUser') !== -1 &&
+    (token === undefined || token === null)
+  ) {
+    return null;
+  }
   if (data !== undefined && data !== null) {
     try {
       data = preProcess(data, mandatoryFields);
@@ -113,8 +119,19 @@ export const generalRequest = async (
         return data[dataShouldReturnKey];
       }
     })
-    .catch(function (error) {
-      showError(commonTranslator.opErr);
+    .catch(async function (error) {
+      if (
+        error.response !== undefined &&
+        error.response.data !== undefined &&
+        error.response.data.msg === 'Token is not valid'
+      ) {
+        if (token !== null) await removeAuthCache();
+
+        showError('توکن شما منقضی شده است و نیاز است لاگین کنید');
+        return undefined;
+      } else {
+        showError(commonTranslator.opErr);
+      }
       return null;
     });
 

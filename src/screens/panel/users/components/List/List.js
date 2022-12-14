@@ -104,6 +104,7 @@ function List(props) {
               columns={columns}
               data={state.users}
               setData={data => dispatch({users: data})}
+              removeUrl={routes.removeUsers}
               handleOp={handleOp}
               token={props.token}
               setLoading={props.setLoading}
