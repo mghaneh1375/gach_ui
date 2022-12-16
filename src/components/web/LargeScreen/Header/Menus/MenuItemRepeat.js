@@ -8,6 +8,7 @@ import {
   faQuestion,
   faShoppingCart,
   faUsers,
+  faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import translator from '../../../../../translator/Common';
@@ -33,7 +34,7 @@ function MenuItemRepeat(props) {
       <SuperMenuItem
         text={'آزمون'}
         icon={faShoppingCart}
-        selected={props.selected === 'book'}
+        selected={props.selected === 'buy' || props.selected === 'makeQuiz'}
         navigate={navigate}
         items={[
           {
@@ -56,6 +57,24 @@ function MenuItemRepeat(props) {
           //   text: translator.schools,
           //   url: '/schoolUsers',
           // },
+        ]}
+      />
+      <SuperMenuItem
+        text={translator.packages}
+        icon={faVideo}
+        selected={
+          props.selected === 'packages' || props.selected === 'myPackages'
+        }
+        navigate={navigate}
+        items={[
+          {
+            text: translator.buyPackages,
+            url: '/packages',
+          },
+          {
+            text: translator.myPackages,
+            url: '/myPackages',
+          },
         ]}
       />
       <MenuItem

@@ -153,7 +153,6 @@ export const addFile = async (token, fileContent, contentId) => {
 
       let res = await videoFileRequest(
         routes.setImgContent + contentId,
-        'put',
         formData,
         'url',
         token,

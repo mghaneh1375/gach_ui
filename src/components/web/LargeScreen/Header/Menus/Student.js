@@ -5,15 +5,13 @@ import {style, MenuItemPhone} from '../style';
 import translator from '../../../../../translator/Common';
 import {
   faHome,
-  faBasketShopping,
   faHistory,
   faQuestion,
   faCreditCard,
-  faCheckSquare,
-  faCog,
   faDashboard,
   faAngleDown,
   faShoppingCart,
+  faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   MyView,
@@ -102,7 +100,7 @@ function StudentMenu(props) {
         icon={faDashboard}
       />
       <SuperMenuItem
-        text={'آزمون'}
+        text={translator.quiz}
         icon={faShoppingCart}
         selected={props.selected === 'book'}
         navigate={navigate}
@@ -122,6 +120,24 @@ function StudentMenu(props) {
           {
             text: translator.myCustomQuizess,
             url: '/myCustomQuizzes',
+          },
+        ]}
+      />
+      <SuperMenuItem
+        text={translator.packages}
+        icon={faVideo}
+        selected={
+          props.selected === 'packages' || props.selected === 'myPackages'
+        }
+        navigate={navigate}
+        items={[
+          {
+            text: translator.buyPackages,
+            url: '/packages',
+          },
+          {
+            text: translator.myPackages,
+            url: '/myPackages',
           },
         ]}
       />

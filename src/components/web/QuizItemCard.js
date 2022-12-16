@@ -2,7 +2,6 @@ import React from 'react';
 import {MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {FontIcon, SimpleFontIcon} from '../../styles/Common/FontIcon';
 import {styles} from '../../styles/Common/Styles';
-import vars from '../../styles/root';
 
 function QuizItemCard({
   text,

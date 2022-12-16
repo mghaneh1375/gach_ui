@@ -69,6 +69,7 @@ import History from './studentPanel/History/History';
 import OpenQuiz from './panel/quiz/OpenQuiz';
 import Content from './panel/Content/Content';
 import ShowRecp from './studentPanel/Recp/ShowRecp';
+import Packages from './general/Packages/Packages';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -249,6 +250,7 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+              {props.page === 'packages' && <Packages navigate={navigate} />}
               {props.page === 'financeHistory' && (
                 <History navigate={navigate} />
               )}
