@@ -13,6 +13,8 @@ import {getDevice} from '../../../../services/Utility';
 import {styles} from '../../../../styles/Common/Styles';
 import Card from './Card';
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {Translator} from '../Translator';
+import commonTranslator from '../../../../translator/Common';
 
 function List(props) {
   const useGlobalState = () => [
@@ -69,7 +71,7 @@ function List(props) {
       <CommonWebBox>
         <EqualTwoTextInputs>
           <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
-            <SimpleText style={styles.BlueBold} text={'خرید محتوا'} />
+            <SimpleText style={styles.BlueBold} text={Translator.buy} />
             {state.allItems !== undefined && (
               <SimpleText
                 style={{...styles.fontSize13, ...styles.dark_blue_color}}
@@ -91,13 +93,13 @@ function List(props) {
                 ...styles.cursor_pointer,
                 ...styles.colorOrangeRed,
               }}
-              text={'پاک کردن فیلترها'}
+              text={commonTranslator.clearFilters}
             />
             <CommonButton
               iconDir={'left'}
               textStyle={{...styles.fontSize17, ...styles.bold}}
               icon={faChevronRight}
-              title={'نمایش فیلتر'}
+              title={commonTranslator.showFilters}
             />
           </PhoneView>
         </EqualTwoTextInputs>

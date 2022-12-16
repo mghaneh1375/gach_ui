@@ -76,6 +76,9 @@ export const styles = {
   textCenter: {
     textAlign: 'center',
   },
+  textJustify: {
+    textAlign: 'justify',
+  },
   placeSelfCenter: {
     placeSelfCenter: 'center',
   },

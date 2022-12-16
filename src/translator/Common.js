@@ -220,5 +220,10 @@ const translator = {
   listContents: 'لیست بسته های آموزشی',
   results: 'نتایج',
   free: 'رایگان',
+  clearFilters: 'پاک کردن فیلترها',
+  showFilters: 'نمایش فیلتر',
+  has: 'دارد',
+  not_has: 'ندارد',
+  col: ': ',
 };
 export default translator;

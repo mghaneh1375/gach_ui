@@ -3,7 +3,6 @@ import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
-  MyView,
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
@@ -17,6 +16,7 @@ import {
   formatPrice,
 } from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
+import {Translator} from '../Translator';
 
 function Card(props) {
   const [img, setImg] = useState();
@@ -52,7 +52,7 @@ function Card(props) {
       </PhoneView>
       <PhoneView>
         <QuizItemCard
-          text={'مدت دوره'}
+          text={Translator.packageDuration}
           val={convertSecToMinWithOutSec(props.package.duration)}
           icon={faClock}
           color={vars.YELLOW}
@@ -60,7 +60,7 @@ function Card(props) {
           valFontSize={valFontSize}
         />
         <QuizItemCard
-          text={'تعداد جلسات'}
+          text={Translator.sessionsCount}
           val={props.package.sessionsCount}
           icon={faListSquares}
           textFontSize={fontSize}
@@ -68,8 +68,12 @@ function Card(props) {
           valFontSize={valFontSize}
         />
         <QuizItemCard
-          text={'گواهی دوره'}
-          val={props.package.hasCert ? 'دارد' : 'ندارد'}
+          text={Translator.cert}
+          val={
+            props.package.hasCert
+              ? commonTranslator.has
+              : commonTranslator.not_has
+          }
           icon={faSun}
           color={vars.YELLOW}
           textFontSize={fontSize}
@@ -78,7 +82,7 @@ function Card(props) {
       </PhoneView>
       <SimpleText
         style={styles.BlueBold}
-        text={'نام استاد: ' + props.package.teacher}
+        text={Translator.teacher + commonTranslator.col + props.package.teacher}
       />
       <EqualTwoTextInputs>
         <SimpleText
@@ -91,7 +95,10 @@ function Card(props) {
             formatPrice(props.package.price) + ' ' + commonTranslator.priceUnit
           }
         />
-        <CommonButton onPress={() => props.onClick()} title={'انتخاب دوره'} />
+        <CommonButton
+          onPress={() => props.onClick()}
+          title={Translator.select}
+        />
       </EqualTwoTextInputs>
 
       <PhoneView style={styles.gap10}>

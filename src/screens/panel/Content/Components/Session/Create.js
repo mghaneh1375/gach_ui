@@ -207,7 +207,9 @@ function Create(props) {
         setVisibility(state.selectedSession.visibility);
         setDescription(state.selectedSession.description);
         setTitle(state.selectedSession.title);
-        setPrice(state.selectedSession.price);
+        setPrice(
+          state.selectedSession.price == -1 ? 0 : state.selectedSession.price,
+        );
         setPriority(state.selectedSession.priority);
         setVideo(state.selectedSession.video);
         setDuration(state.selectedSession.duration);

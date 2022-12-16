@@ -43,6 +43,10 @@ export function convertSecToMin(sec) {
   return new Date(sec * 1000).toISOString().substr(11, 8);
 }
 
+export function convertSecToMinWithOutHour(sec) {
+  return new Date(sec * 1000).toISOString().substr(14, 5);
+}
+
 export function convertSecToMinWithOutSec(sec) {
   const d = new Date(sec * 1000).toISOString();
 
