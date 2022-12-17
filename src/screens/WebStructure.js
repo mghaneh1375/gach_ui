@@ -70,6 +70,7 @@ import Content from './panel/Content/Content';
 import ShowRecp from './studentPanel/Recp/ShowRecp';
 import Packages from './general/Packages/Packages';
 import FAQ from './panel/Content/FAQ/FAQ';
+import Video from './panel/Video';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -250,6 +251,8 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+
+              {props.page === 'video_test' && <Video />}
               {props.page === 'packages' && <Packages navigate={navigate} />}
               {props.page === 'financeHistory' && (
                 <History navigate={navigate} />

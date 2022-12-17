@@ -27,6 +27,10 @@ export default function WebRouter() {
             path="packages/:slug"
             element={<WebStructue page="packages" />}
           />
+          <Route
+            path="video_test/test"
+            element={<WebStructue page="video_test" />}
+          />
           <Route path="makeQuiz" element={<WebStructue page="makeQuiz" />} />
           <Route
             path="financeHistory"
