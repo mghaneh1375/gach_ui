@@ -44,7 +44,7 @@ function Create(props) {
   const [sessionsCount, setSessionsCount] = useState();
   const [teacherBio, setTeacherBio] = useState();
   const [hasCert, setHasCert] = useState();
-  const [duration, setDuration] = useState();
+  const [certDuration, setCertDuration] = useState();
   const [certId, setCertId] = useState();
   const [isWorking, setIsWorking] = useState(false);
   const [certs, setCerts] = useState();
@@ -55,6 +55,8 @@ function Create(props) {
   const [finalExamId, setFinalExamId] = useState();
   const [finalExamMinMark, setFinalExamMinMark] = useState();
   const [teachers, setTeachers] = useState();
+  const [slug, setSlug] = useState();
+  const [duration, setDuration] = useState();
 
   const removeImg = index => {
     remove(index);
@@ -146,38 +148,40 @@ function Create(props) {
       if (!props.isInEditMode) setIsWorking(false);
 
       if (props.isInEditMode !== undefined && props.isInEditMode) {
-        Promise.all([fetchContent(state.selectedContent.id, props.token)]).then(
-          res => {
-            props.setLoading(false);
+        Promise.all([
+          fetchContent(state.selectedContent.slug, props.token),
+        ]).then(res => {
+          props.setLoading(false);
 
-            if (res[0] === null) {
-              props.setMode('list');
-              return;
-            }
+          if (res[0] === null) {
+            props.setMode('list');
+            return;
+          }
 
-            setVisibility(res[0].visibility);
-            setDescription(res[0].description);
-            setPreReq(res[0].preReq);
-            setTitle(res[0].title);
-            setTeacher(res[0].teacher);
-            setPrice(res[0].price);
-            setImg(res[0].img);
-            setSessionsCount(res[0].sessionsCount);
-            setTeacherBio(res[0].teacherBio);
-            setHasCert(res[0].hasCert);
-            setDuration(res[0].duration);
+          setVisibility(res[0].visibility);
+          setDescription(res[0].description);
+          setPreReq(res[0].preReq);
+          setTitle(res[0].title);
+          setTeacher(res[0].teacher);
+          setPrice(res[0].price);
+          setImg(res[0].img);
+          setSessionsCount(res[0].sessionsCount);
+          setTeacherBio(res[0].teacherBio);
+          setHasCert(res[0].hasCert);
+          setDuration(res[0].duration);
+          setCertDuration(res[0].certDuration);
+          setSlug(res[0].slug);
 
-            if (res[0].hasCert) setCertId(res[0].certId);
-            setTags(res[0].tags);
-            setHasExam(res[0].hasFinalExam);
-            if (res[0].hasFinalExam) {
-              setFinalExamId(res[0].finalExamId);
-              setFinalExamMinMark(res[0].finalExamMinMark);
-            }
+          if (res[0].hasCert) setCertId(res[0].certId);
+          setTags(res[0].tags);
+          setHasExam(res[0].hasFinalExam);
+          if (res[0].hasFinalExam) {
+            setFinalExamId(res[0].finalExamId);
+            setFinalExamMinMark(res[0].finalExamMinMark);
+          }
 
-            setIsWorking(false);
-          },
-        );
+          setIsWorking(false);
+        });
       }
     });
   }, [isWorking, props, certs, state.selectedContent]);
@@ -236,6 +240,20 @@ function Create(props) {
           />
 
           <JustBottomBorderTextInput
+            placeholder={Translator.slug}
+            onChangeText={e => setSlug(e)}
+            value={slug}
+            subText={Translator.slug}
+          />
+          <JustBottomBorderTextInput
+            placeholder={Translator.duration}
+            subText={Translator.duration}
+            onChangeText={e => setDuration(e)}
+            value={duration}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
             resultPane={true}
             addNotFound={true}
             reset={false}
@@ -272,10 +290,10 @@ function Create(props) {
 
           {hasCert !== undefined && hasCert && (
             <JustBottomBorderTextInput
-              placeholder={Translator.duration}
-              subText={Translator.duration}
-              onChangeText={e => setDuration(e)}
-              value={duration}
+              placeholder={Translator.certDuration}
+              subText={Translator.certDuration}
+              onChangeText={e => setCertDuration(e)}
+              value={certDuration}
               justNum={true}
             />
           )}
@@ -436,10 +454,12 @@ function Create(props) {
               sessionsCount: sessionsCount,
               teacherBio: teacherBio,
               tags: tags,
+              slug: slug,
+              duration: duration,
             };
 
             if (hasCert) {
-              data.duration = duration;
+              data.certDuration = certDuration;
               data.certId = certId;
             }
 

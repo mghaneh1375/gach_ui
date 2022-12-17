@@ -218,6 +218,7 @@ const translator = {
   filter: 'اعمال فیلتر',
   contents: 'بسته های آموزشی',
   listContents: 'لیست بسته های آموزشی',
+  faqContents: 'سوالات متداول',
   results: 'نتایج',
   free: 'رایگان',
   clearFilters: 'پاک کردن فیلترها',

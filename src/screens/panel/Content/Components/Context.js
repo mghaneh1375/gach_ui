@@ -5,6 +5,7 @@ const defaultGlobalState = {
   needUpdate: false,
   selectedContent: undefined,
   tags: [],
+  allFaq: undefined,
 };
 export const contentContext = React.createContext(defaultGlobalState);
 export const dispatchContentContext = React.createContext(undefined);

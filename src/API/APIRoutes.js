@@ -215,4 +215,8 @@ export const routes = {
   sessionVideoChunkFile: 'package_content/manage/sessionVideoChunkFile/',
   completeUploadSessionVideo:
     'package_content/manage/completeUploadSessionVideo/',
+  addFAQ: 'package_content/faq/store',
+  updateFAQ: 'package_content/faq/update/',
+  removeFAQ: 'package_content/faq/remove/',
+  getFAQ: 'package_content/faq/get/',
 };

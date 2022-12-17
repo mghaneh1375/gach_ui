@@ -8,12 +8,13 @@ export const BASE_SITE_NAME = 'https://e.irysc.com/';
 
 // export const CV_BASE_URL = 'http://192.168.0.106:8090/api/';
 export const CV_BASE_URL = 'https://cv.irysc.com/api/';
-export const VIDEO_BASE_URL = 'http://192.168.100.6:8086/api/';
+
+export const VIDEO_BASE_URL = 'http://192.168.0.106:8086/video_api/';
 // export const VIDEO_BASE_URL = 'https://e.irysc.com/video_api/';
 
 // export const BASE_URL = 'http://192.168.43.251:8080/api/';
-export const BASE_URL = 'http://192.168.100.6:8080/api/';
-// export const BASE_URL = 'http://192.168.0.106:8080/api/';
+// export const BASE_URL = 'http://192.168.100.6:8080/api/';
+export const BASE_URL = 'http://192.168.0.106:8080/api/';
 // export const BASE_URL = 'https://e.irysc.com/api/';
 
 export const COMMON_HEADER = {

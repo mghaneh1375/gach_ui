@@ -32,13 +32,16 @@ const Navbar = props => {
         <NavLink style={{...styles.whiteSpaceNoWrap}} to="/rankinglist">
           رتبه بندی
         </NavLink>
-        <NavLinkExternal
+        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/packages">
+          بسته های آموزشی
+        </NavLink>
+        {/* <NavLinkExternal
           style={{...styles.whiteSpaceNoWrap}}
           rel="noopener noreferrer"
           target="_blank"
           href="https://www.irysc.com/%d9%87%d9%85%da%a9%d8%a7%d8%b1%d8%a7%d9%86-%d8%a2%db%8c%d8%b1%db%8c%d8%b3%da%a9/">
           همکاران
-        </NavLinkExternal>
+        </NavLinkExternal> */}
         <NavLink style={{...styles.whiteSpaceNoWrap}} to="/showAllSchools">
           مدارس
         </NavLink>

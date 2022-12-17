@@ -12,7 +12,6 @@ import Home from './general/home/Home';
 import Login from './general/login/Login';
 import WebLogin from './general/login/web/Login';
 import WebProfile from './general/profile/web/Profile';
-import Profile from './general/profile/Profile';
 import {getDevice, isUserAdmin} from '../services/Utility';
 import {Device} from '../models/Device';
 
@@ -70,6 +69,7 @@ import OpenQuiz from './panel/quiz/OpenQuiz';
 import Content from './panel/Content/Content';
 import ShowRecp from './studentPanel/Recp/ShowRecp';
 import Packages from './general/Packages/Packages';
+import FAQ from './panel/Content/FAQ/FAQ';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -333,6 +333,13 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+              {props.page === 'seop-contents' && (
+                <Content token={state.token} navigate={navigate} />
+              )}
+              {props.page === 'advs-contents' && (
+                <Content token={state.token} navigate={navigate} />
+              )}
+              {props.page === 'faq-contents' && <FAQ navigate={navigate} />}
               {props.page === 'contents' && (
                 <Content
                   token={state.token}

@@ -9,4 +9,6 @@ export const Translator = {
   preReq: 'پیش نیازهای دوره',
   desc: 'توضیحات دوره',
   sessions: 'جلسات',
+  loginForBuy: 'ورود به سامانه برای خرید',
+  faq: 'پرسش و پاسخ های متداول',
 };

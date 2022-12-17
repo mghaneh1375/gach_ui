@@ -11,9 +11,9 @@ export const fetchAllPackages = async (token = undefined) => {
   );
 };
 
-export const fetchPackage = async (packageId, token) => {
+export const fetchPackage = async (slug, token) => {
   return await generalRequest(
-    routes.fetchContent + packageId,
+    routes.fetchContent + slug,
     'get',
     undefined,
     'data',

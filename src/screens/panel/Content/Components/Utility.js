@@ -45,6 +45,8 @@ let mandatoryFields = [
   'price',
   'sessionsCount',
   'visibility',
+  'duration',
+  'slug',
 ];
 
 let mandatoryFieldsSession = [

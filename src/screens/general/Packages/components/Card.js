@@ -96,15 +96,16 @@ function Card(props) {
           }
         />
         <CommonButton
-          onPress={() => props.onClick()}
+          href={'/packages/' + props.package.slug}
           title={Translator.select}
         />
       </EqualTwoTextInputs>
 
       <PhoneView style={styles.gap10}>
-        {props.package.tags.map((elem, index) => {
-          return <SimpleText key={index} text={'#' + elem} />;
-        })}
+        {props.package.tags !== undefined &&
+          props.package.tags.map((elem, index) => {
+            return <SimpleText key={index} text={'#' + elem} />;
+          })}
       </PhoneView>
     </CommonWebBox>
   );

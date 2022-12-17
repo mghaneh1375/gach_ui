@@ -67,7 +67,11 @@ function List(props) {
   const isInPhone = device.indexOf('WebPort') !== -1;
 
   return (
-    <MyView>
+    <MyView
+      style={{
+        alignSelf: 'center',
+        width: props.token === undefined && !isInPhone ? '80%' : '100%',
+      }}>
       <CommonWebBox>
         <EqualTwoTextInputs>
           <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
@@ -107,14 +111,7 @@ function List(props) {
       <PhoneView style={styles.gap10}>
         {state.allItems !== undefined &&
           state.allItems.map((elem, index) => {
-            return (
-              <Card
-                onClick={() => dispatch({selectedPackage: elem})}
-                isInPhone={isInPhone}
-                package={elem}
-                key={index}
-              />
-            );
+            return <Card isInPhone={isInPhone} package={elem} key={index} />;
           })}
       </PhoneView>
     </MyView>

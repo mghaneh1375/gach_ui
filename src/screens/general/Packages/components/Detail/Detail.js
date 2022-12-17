@@ -14,7 +14,6 @@ import {
 } from '../../../../../styles/Common';
 import RenderHTML from 'react-native-render-html';
 import {styles} from '../../../../../styles/Common/Styles';
-import {dispatchPackagesContext, packagesContext} from '../Context';
 import {fetchPackage} from '../Utility';
 import QuizItemCard from '../../../../../components/web/QuizItemCard';
 import {Translator} from '../../Translator';
@@ -24,20 +23,15 @@ import {
   faClock,
   faListSquares,
   faSun,
-  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import vars from '../../../../../styles/root';
 import commonTranslator from '../../../../../translator/Common';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import Session from './Session';
+import {useEffectOnce} from 'usehooks-ts';
+import FAQ from './FAQ';
 
 function Detail(props) {
-  const useGlobalState = () => [
-    React.useContext(packagesContext),
-    React.useContext(dispatchPackagesContext),
-  ];
-
-  const [state, dispatch] = useGlobalState();
   const [item, setItem] = useState();
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
@@ -47,41 +41,27 @@ function Detail(props) {
   const [showPreReqMore, setShowPreReqMore] = useState(false);
   const [showPreReq, setShowPreReq] = useState(true);
   const [showSession, setShowSession] = useState(false);
-
-  const back = React.useCallback(() => {
-    props.setMode('list');
-  }, [props]);
+  const [showFAQ, setShowFAQ] = useState(false);
 
   const fetchPackageLocal = React.useCallback(() => {
     if (isWorking || item !== undefined) return;
     props.setLoading(true);
     setIsWorking(true);
-    Promise.all([fetchPackage(state.selectedPackage.id, props.token)]).then(
-      res => {
-        props.setLoading(false);
-        if (res[0] === null) return;
-        setItem(res[0]);
-        setIsWorking(false);
-      },
-    );
-  }, [props, isWorking, item, state.selectedPackage]);
-
-  React.useEffect(() => {
-    if (state.selectedPackage !== undefined) return;
-    back();
-  }, [back, state.selectedPackage]);
+    Promise.all([fetchPackage(props.slug, props.token)]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null) return;
+      setItem(res[0]);
+      setIsWorking(false);
+    });
+  }, [props, isWorking, item]);
 
   React.useEffect(() => {
     if (item !== undefined) setImg(item.img);
   }, [item]);
 
-  React.useEffect(() => {
-    if (state.selectedPackage.description !== undefined) {
-      setItem(state.selectedPackage);
-      return;
-    }
+  useEffectOnce(() => {
     fetchPackageLocal();
-  }, [state.selectedPackage, fetchPackageLocal]);
+  }, [props.slug]);
 
   const fontSize = props.isInPhone ? 10 : 11;
   const valFontSize = props.isInPhone ? 12 : 15;
@@ -102,13 +82,17 @@ function Detail(props) {
     <>
       {item === undefined && <></>}
       {item !== undefined && (
-        <MyView>
+        <MyView
+          style={{
+            alignSelf: 'center',
+            width: props.token === undefined && !isInPhone ? '80%' : '100%',
+          }}>
           <CommonWebBox
             header={item.title}
-            onBackClick={() => dispatch({selectedPackage: undefined})}
+            onBackClick={() => props.navigate('/packages')}
             backBtn={true}></CommonWebBox>
           <PhoneView>
-            <CommonWebBox width={isInPhone ? '100%' : '70%'}>
+            <CommonWebBox width={isInPhone ? '100%' : 'calc(70% - 10px)'}>
               <PhoneView>
                 <Image
                   source={img}
@@ -155,7 +139,7 @@ function Detail(props) {
             <MyView
               style={{
                 position: 'fixed',
-                left: 0,
+                left: props.token === undefined && !isInPhone ? '10%' : 0,
                 top: scrollPosition > 100 ? 20 : 140 - scrollPosition,
                 width: isInPhone ? '100%' : '25%',
               }}>
@@ -191,18 +175,26 @@ function Detail(props) {
 
                 <EqualTwoTextInputs>
                   <MyView></MyView>
-                  <MyView>
-                    <CommonButton title={Translator.buy} />
-                    <SimpleText
-                      style={{
-                        ...styles.dark_blue_color,
-                        ...styles.cursor_pointer,
-                        ...styles.alignSelfCenter,
-                        ...styles.fontSize12,
-                      }}
-                      text={'کد تخفیف دارید؟'}
+                  {props.token !== undefined && (
+                    <MyView>
+                      <CommonButton title={Translator.buy} />
+                      <SimpleText
+                        style={{
+                          ...styles.dark_blue_color,
+                          ...styles.cursor_pointer,
+                          ...styles.alignSelfCenter,
+                          ...styles.fontSize12,
+                        }}
+                        text={'کد تخفیف دارید؟'}
+                      />
+                    </MyView>
+                  )}
+                  {props.token === undefined && (
+                    <CommonButton
+                      onPress={() => props.navigate('/login')}
+                      title={Translator.loginForBuy}
                     />
-                  </MyView>
+                  )}
                 </EqualTwoTextInputs>
               </CommonWebBox>
               <CommonWebBox header={Translator.teacherBio}>
@@ -259,7 +251,7 @@ function Detail(props) {
                     />
                   )
                 }
-                width={'70%'}
+                width={isInPhone ? '100%' : 'calc(70% - 10px)'}
                 header={Translator.preReq}>
                 {showPreReq && (
                   <MyView>
@@ -296,7 +288,7 @@ function Detail(props) {
               </CommonWebBox>
             )}
           <CommonWebBox
-            width={isInPhone ? '100%' : '70%'}
+            width={isInPhone ? '100%' : 'calc(70% - 10px)'}
             btn={
               showSession ? (
                 <SimpleFontIcon
@@ -314,12 +306,38 @@ function Detail(props) {
             }
             header={Translator.sessions}></CommonWebBox>
           {showSession && (
-            <MyView style={{width: isInPhone ? '100%' : '70%'}}>
+            <MyView style={{width: isInPhone ? '100%' : 'calc(70% - 10px)'}}>
               {item.sessions.map((elem, index) => {
                 return <Session session={elem} key={index} />;
               })}
             </MyView>
           )}
+          <CommonWebBox
+            width={isInPhone ? '100%' : 'calc(70% - 10px)'}
+            btn={
+              showFAQ ? (
+                <SimpleFontIcon
+                  onPress={() => setShowFAQ(!showFAQ)}
+                  kind="midSize"
+                  icon={faAngleDown}
+                />
+              ) : (
+                <SimpleFontIcon
+                  onPress={() => setShowFAQ(!showFAQ)}
+                  kind="midSize"
+                  icon={faAngleUp}
+                />
+              )
+            }
+            header={Translator.faq}>
+            {showFAQ && (
+              <MyView style={styles.gap10}>
+                {item.faqs.map((elem, index) => {
+                  return <FAQ elem={elem} key={index} />;
+                })}
+              </MyView>
+            )}
+          </CommonWebBox>
         </MyView>
       )}
     </>
