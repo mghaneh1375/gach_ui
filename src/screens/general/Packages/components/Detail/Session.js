@@ -1,4 +1,5 @@
 import {
+  CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
@@ -16,6 +17,7 @@ import RenderHTML from 'react-native-render-html';
 import {styles} from '../../../../../styles/Common/Styles';
 import {convertSecToMinWithOutHour} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../translator/Common';
+import Video from '../../../../panel/Video';
 
 function Session(props) {
   const [show, setShow] = useState(false);
@@ -65,17 +67,38 @@ function Session(props) {
               }}
             />
           </MyView>
-          <SimpleText
-            onPress={() => setShowMore(!showMore)}
-            style={{
-              ...styles.yellow_color,
-              ...styles.alignSelfEnd,
-              ...styles.cursor_pointer,
-            }}
-            text={
-              showMore ? commonTranslator.showLess : commonTranslator.showMore
-            }
-          />
+
+          {props.session.video !== null &&
+            props.session.video !== undefined &&
+            props.session.video !== 'null' &&
+            props.session.video !== '' && (
+              <SimpleText
+                onPress={() => props.setSelectedSession(props.session)}
+                style={{
+                  ...styles.yellow_color,
+                  ...styles.alignSelfEnd,
+                  ...styles.cursor_pointer,
+                }}
+                text={'رفتن به جلسه'}
+              />
+            )}
+
+          {(props.session.video === null ||
+            props.session.video == undefined ||
+            props.session.video === 'null' ||
+            props.session.video === '') && (
+            <SimpleText
+              onPress={() => setShowMore(!showMore)}
+              style={{
+                ...styles.yellow_color,
+                ...styles.alignSelfEnd,
+                ...styles.cursor_pointer,
+              }}
+              text={
+                showMore ? commonTranslator.showLess : commonTranslator.showMore
+              }
+            />
+          )}
         </MyView>
       )}
     </CommonWebBox>

@@ -32,16 +32,14 @@ const Navbar = props => {
         <NavLink style={{...styles.whiteSpaceNoWrap}} to="/rankinglist">
           رتبه بندی
         </NavLink>
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/packages">
-          بسته های آموزشی
-        </NavLink>
-        {/* <NavLinkExternal
+
+        <NavLinkExternal
           style={{...styles.whiteSpaceNoWrap}}
           rel="noopener noreferrer"
           target="_blank"
           href="https://www.irysc.com/%d9%87%d9%85%da%a9%d8%a7%d8%b1%d8%a7%d9%86-%d8%a2%db%8c%d8%b1%db%8c%d8%b3%da%a9/">
           همکاران
-        </NavLinkExternal> */}
+        </NavLinkExternal>
         <NavLink style={{...styles.whiteSpaceNoWrap}} to="/showAllSchools">
           مدارس
         </NavLink>
@@ -62,6 +60,9 @@ const Navbar = props => {
           href="https://www.irysc.com/contact-us/">
           تماس و پشتیبانی
         </NavLinkExternal>
+        {/* <NavLink style={{...styles.whiteSpaceNoWrap}} to="/packages">
+          بسته های آموزشی
+        </NavLink> */}
         <CommonButton
           style={{
             backgroundColor: vars.DARK_BLUE,
@@ -73,10 +74,11 @@ const Navbar = props => {
           }}
           title={'کلاس های المپیاد'}
           onPress={() => {
-            window.open(
-              'https://www.irysc.com/%DA%A9%D9%84%D8%A7%D8%B3-%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%D8%A7%D9%84%D9%85%D9%BE%DB%8C%D8%A7%D8%AF%D9%87%D8%A7%DB%8C-%D8%B9%D9%84%D9%85%DB%8C/',
-              '_blank',
-            );
+            window.location.href = '/packages';
+            // window.open(
+            //   'https://www.irysc.com/%DA%A9%D9%84%D8%A7%D8%B3-%D8%A2%D9%85%D9%88%D8%B2%D8%B4-%D8%A7%D9%84%D9%85%D9%BE%DB%8C%D8%A7%D8%AF%D9%87%D8%A7%DB%8C-%D8%B9%D9%84%D9%85%DB%8C/',
+            //   '_blank',
+            // );
           }}
         />
         {!isLogin && (

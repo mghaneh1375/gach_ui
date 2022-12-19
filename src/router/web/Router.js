@@ -24,6 +24,11 @@ export default function WebRouter() {
             element={<WebStructue page="packages" />}
           />
           <Route
+            exact
+            path="myPackages"
+            element={<WebStructue page="myPackages" />}
+          />
+          <Route
             path="packages/:slug"
             element={<WebStructue page="packages" />}
           />

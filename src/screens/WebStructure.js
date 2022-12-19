@@ -253,7 +253,12 @@ const WebStructue = props => {
               )}
 
               {props.page === 'video_test' && <Video />}
-              {props.page === 'packages' && <Packages navigate={navigate} />}
+              {props.page === 'packages' && (
+                <Packages isInMyMode={false} navigate={navigate} />
+              )}
+              {props.page === 'myPackages' && (
+                <Packages isInMyMode={true} navigate={navigate} />
+              )}
               {props.page === 'financeHistory' && (
                 <History navigate={navigate} />
               )}

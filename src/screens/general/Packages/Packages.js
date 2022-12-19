@@ -32,6 +32,7 @@ function Packages(props) {
           setMode={setMode}
           token={state.token}
           setLoading={setLoading}
+          isInMyMode={props.isInMyMode}
         />
       )}
       {mode !== undefined && mode === 'detail' && (
@@ -39,6 +40,7 @@ function Packages(props) {
           navigate={props.navigate}
           slug={params.slug}
           token={state.token}
+          user={state.user}
           setMode={setMode}
           setLoading={setLoading}
         />

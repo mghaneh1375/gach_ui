@@ -25,7 +25,6 @@ export const VideoJS = props => {
         player.hlsQualitySelector({
           displayCurrentQuality: true,
         });
-        console.log(player);
         videojs.log('player is ready');
         onReady && onReady(player);
       }));
@@ -34,9 +33,9 @@ export const VideoJS = props => {
       // on prop change, for example:
     } else {
       const player = playerRef.current;
-      player.hlsQualitySelector({
-        displayCurrentQuality: true,
-      });
+      // player.hlsQualitySelector({
+      //   displayCurrentQuality: true,
+      // });
       player.autoplay(options.autoplay);
       player.src(options.sources);
     }

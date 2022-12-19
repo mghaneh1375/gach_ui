@@ -29,6 +29,7 @@ const translator = {
   endUseOffCode: 'اتمام بازه استفاده کد تخفیف',
   startExpireOffCode: 'شروع بازه منقضی شدن کد تخفیف',
   endExpireOffCode: 'اتمام بازه منقضی شدن استفاده کد تخفیف',
+  content: 'بسته های آموزشی',
 };
 
 export default translator;

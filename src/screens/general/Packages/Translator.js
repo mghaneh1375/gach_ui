@@ -11,4 +11,6 @@ export const Translator = {
   sessions: 'جلسات',
   loginForBuy: 'ورود به سامانه برای خرید',
   faq: 'پرسش و پاسخ های متداول',
+  off: 'تخفیف',
+  wallet: 'کیف پول',
 };

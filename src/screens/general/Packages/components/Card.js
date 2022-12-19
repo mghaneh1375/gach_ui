@@ -85,16 +85,21 @@ function Card(props) {
         text={Translator.teacher + commonTranslator.col + props.package.teacher}
       />
       <EqualTwoTextInputs>
-        <SimpleText
-          style={{
-            ...styles.fontSize20,
-            ...styles.BlueBold,
-            ...styles.alignSelfCenter,
-          }}
-          text={
-            formatPrice(props.package.price) + ' ' + commonTranslator.priceUnit
-          }
-        />
+        {!props.isInMyMode && (
+          <SimpleText
+            style={{
+              ...styles.fontSize20,
+              ...styles.BlueBold,
+              ...styles.alignSelfCenter,
+            }}
+            text={
+              formatPrice(props.package.price) +
+              ' ' +
+              commonTranslator.priceUnit
+            }
+          />
+        )}
+        {props.isInMyMode && <></>}
         <CommonButton
           href={'/packages/' + props.package.slug}
           title={Translator.select}

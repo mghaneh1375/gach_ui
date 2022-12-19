@@ -1,9 +1,10 @@
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 
-export const fetchAllPackages = async (token = undefined) => {
+export const fetchAllPackages = async (isInMyMode, token = undefined) => {
+  console.log(isInMyMode);
   return await generalRequest(
-    routes.fetchContents,
+    isInMyMode ? routes.fetchMyContents : routes.fetchContents,
     'get',
     undefined,
     'data',
@@ -17,6 +18,16 @@ export const fetchPackage = async (slug, token) => {
     'get',
     undefined,
     'data',
+    token,
+  );
+};
+
+export const goToPay = async (token, data, id) => {
+  return await generalRequest(
+    routes.buyContent + id,
+    'post',
+    data,
+    ['action', 'refId'],
     token,
   );
 };
