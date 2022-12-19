@@ -18,7 +18,24 @@ export default function WebRouter() {
           <Route exact path="/" element={<WebStructue page="home" />} />
           <Route path="dashboard" element={<WebStructue page="dashboard" />} />
           <Route path="buy" element={<WebStructue page="buy" />} />
-          <Route path="packages" element={<WebStructue page="packages" />} />
+          <Route
+            exact
+            path="packages"
+            element={<WebStructue page="packages" />}
+          />
+          <Route
+            exact
+            path="myPackages"
+            element={<WebStructue page="myPackages" />}
+          />
+          <Route
+            path="packages/:slug"
+            element={<WebStructue page="packages" />}
+          />
+          <Route
+            path="video_test/test"
+            element={<WebStructue page="video_test" />}
+          />
           <Route path="makeQuiz" element={<WebStructue page="makeQuiz" />} />
           <Route
             path="financeHistory"
@@ -106,6 +123,19 @@ export default function WebRouter() {
             element={<WebStructue page="tarazLevels" />}
           />
           <Route path="/contents" element={<WebStructue page="contents" />} />
+          <Route
+            path="/faq-contents"
+            element={<WebStructue page="faq-contents" />}
+          />
+          <Route
+            path="/adv-contents"
+            element={<WebStructue page="adv-contents" />}
+          />
+          <Route
+            path="/seo-contents"
+            element={<WebStructue page="seo-contents" />}
+          />
+
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route
             path="/ranking/:mode/:quizId/:quizName"

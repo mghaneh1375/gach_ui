@@ -195,6 +195,7 @@ export const routes = {
   removeCertificate: 'certificate/admin/remove',
   removeStudentsFromCertificate: 'certificate/admin/removeStudents/',
   fetchContents: 'package_content/public/getAll',
+  fetchMyContents: 'package_content/public/getMy',
   fetchContent: 'package_content/public/get/',
   removeContent: 'package_content/manage/remove/',
   storeContent: 'package_content/manage/store',
@@ -211,8 +212,13 @@ export const routes = {
   removeAttachFromSession: 'package_content/manage/removeAttachFromSession/',
   removeSessionFromContent: 'package_content/manage/removeSession/',
   distinctTagsContents: 'package_content/public/distinctTags',
+  buyContent: 'package_content/public/buy/',
   distinctTeachersContents: 'package_content/public/distinctTeachers',
   sessionVideoChunkFile: 'package_content/manage/sessionVideoChunkFile/',
   completeUploadSessionVideo:
     'package_content/manage/completeUploadSessionVideo/',
+  addFAQ: 'package_content/faq/store',
+  updateFAQ: 'package_content/faq/update/',
+  removeFAQ: 'package_content/faq/remove/',
+  getFAQ: 'package_content/faq/get/',
 };

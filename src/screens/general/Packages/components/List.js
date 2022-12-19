@@ -33,6 +33,7 @@ function List(props) {
 
     Promise.all([
       fetchAllPackages(
+        props.isInMyMode,
         props.token === null || props.token === undefined || props.token === ''
           ? undefined
           : props.token,
@@ -67,49 +68,55 @@ function List(props) {
   const isInPhone = device.indexOf('WebPort') !== -1;
 
   return (
-    <MyView>
-      <CommonWebBox>
-        <EqualTwoTextInputs>
-          <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
-            <SimpleText style={styles.BlueBold} text={Translator.buy} />
-            {state.allItems !== undefined && (
+    <MyView
+      style={{
+        alignSelf: 'center',
+        width: props.token === undefined && !isInPhone ? '80%' : '100%',
+      }}>
+      {!props.isInMyMode && (
+        <CommonWebBox>
+          <EqualTwoTextInputs>
+            <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
+              <SimpleText style={styles.BlueBold} text={Translator.buy} />
+              {state.allItems !== undefined && (
+                <SimpleText
+                  style={{...styles.fontSize13, ...styles.dark_blue_color}}
+                  text={
+                    'نمایش ' +
+                    state.selectableItems.length +
+                    ' مورد از ' +
+                    state.allItems.length +
+                    ' مورد '
+                  }
+                />
+              )}
+            </PhoneView>
+            <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
               <SimpleText
-                style={{...styles.fontSize13, ...styles.dark_blue_color}}
-                text={
-                  'نمایش ' +
-                  state.selectableItems.length +
-                  ' مورد از ' +
-                  state.allItems.length +
-                  ' مورد '
-                }
+                style={{
+                  ...styles.alignSelfCenter,
+                  ...styles.gap10,
+                  ...styles.cursor_pointer,
+                  ...styles.colorOrangeRed,
+                }}
+                text={commonTranslator.clearFilters}
               />
-            )}
-          </PhoneView>
-          <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
-            <SimpleText
-              style={{
-                ...styles.alignSelfCenter,
-                ...styles.gap10,
-                ...styles.cursor_pointer,
-                ...styles.colorOrangeRed,
-              }}
-              text={commonTranslator.clearFilters}
-            />
-            <CommonButton
-              iconDir={'left'}
-              textStyle={{...styles.fontSize17, ...styles.bold}}
-              icon={faChevronRight}
-              title={commonTranslator.showFilters}
-            />
-          </PhoneView>
-        </EqualTwoTextInputs>
-      </CommonWebBox>
+              <CommonButton
+                iconDir={'left'}
+                textStyle={{...styles.fontSize17, ...styles.bold}}
+                icon={faChevronRight}
+                title={commonTranslator.showFilters}
+              />
+            </PhoneView>
+          </EqualTwoTextInputs>
+        </CommonWebBox>
+      )}
       <PhoneView style={styles.gap10}>
         {state.allItems !== undefined &&
           state.allItems.map((elem, index) => {
             return (
               <Card
-                onClick={() => dispatch({selectedPackage: elem})}
+                isInMyMode={props.isInMyMode}
                 isInPhone={isInPhone}
                 package={elem}
                 key={index}

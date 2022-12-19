@@ -35,6 +35,11 @@ const Translator = {
   sessionTitle: 'عنوان جلسه',
   sessionPriceHelp: 'قیمت (این فیلد اختیاری است)',
   hasVideo: 'آیا فایل ویدیو بارگذاری شده است؟',
+  question: 'سوال',
+  answer: 'پاسخ',
+  manageFAQ: 'مدیریت پرسش و پاسخ متداول',
+  slug: 'نامک',
+  certDuration: 'مهلت پایان دوره برای اخذ گواهی',
 };
 
 export default Translator;

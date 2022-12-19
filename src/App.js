@@ -38,6 +38,7 @@ const excludeAuthRoutes = [
   'login',
   'home',
   'buy',
+  'packages',
   'allSchools',
   'rankingList',
   'karname',

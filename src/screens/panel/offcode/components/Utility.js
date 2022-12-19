@@ -45,6 +45,7 @@ export const sectionKeyVals = [
   {item: translator.classes, id: 'classes'},
   {item: translator.ravanExam, id: 'ravan_exam'},
   {item: translator.counseling, id: 'counseling'},
+  {item: translator.content, id: 'content'},
   {item: commonTranslator.all, id: 'all'},
 ];
 export const usedOffKeyVals = [
