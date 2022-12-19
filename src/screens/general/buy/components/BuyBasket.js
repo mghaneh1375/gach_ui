@@ -271,8 +271,7 @@ function BuyBasket(props) {
         <form
           ref={ref}
           action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat"
-          method="post"
-          target="_blank">
+          method="post">
           <input type={'hidden'} value={refId} name="RefId" />
         </form>
       )}
