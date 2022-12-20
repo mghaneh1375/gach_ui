@@ -59,6 +59,7 @@ function Detail(props) {
   const [off, setOff] = useState();
   const [shouldPay, setShouldPay] = useState();
   const [selectedSession, setSelectedSession] = useState();
+  const [showTeacher, setShowTeacher] = useState(false);
 
   const ref = React.useRef();
 
@@ -180,6 +181,18 @@ function Detail(props) {
           toggleShow={() => setSelectedSession(undefined)}
         />
       )}
+      {showTeacher && (
+        <CommonWebBox
+          backBtn={true}
+          onBackClick={() => setShowTeacher(false)}
+          header={item.teacher}>
+          <RenderHTML
+            source={{
+              html: item.teacherBio,
+            }}
+          />
+        </CommonWebBox>
+      )}
       {showOffCodePane && (
         <OffCode
           token={props.token}
@@ -189,45 +202,44 @@ function Detail(props) {
           toggleShowPopUp={toggleShowOffCodePane}
         />
       )}
-      {item !== undefined &&
-        showSuccessTransaction &&
-        selectedSession === undefined && (
-          <SuccessTransaction
-            navigate={props.navigate}
-            link={
-              <PhoneView>
-                <SimpleText
-                  style={{
-                    ...styles.dark_blue_color,
-                    ...styles.fontSize13,
-                    ...styles.marginLeft5,
-                  }}
-                  text={commonTranslator.forView}
-                />
-                <SimpleText
-                  onPress={() => props.navigate('/myPackages')}
-                  style={{
-                    ...styles.BlueBold,
-                    ...styles.FontWeight600,
-                    ...styles.fontSize13,
-                    ...styles.marginLeft5,
-                    ...styles.cursor_pointer,
-                  }}
-                  text={commonTranslator.myPackages}
-                />
-                <SimpleText
-                  style={{
-                    ...styles.dark_blue_color,
-                    ...styles.fontSize13,
-                  }}
-                  text={commonTranslator.clickHere}
-                />
-              </PhoneView>
-            }
-          />
-        )}
+      {item !== undefined && showSuccessTransaction && (
+        <SuccessTransaction
+          navigate={props.navigate}
+          link={
+            <PhoneView>
+              <SimpleText
+                style={{
+                  ...styles.dark_blue_color,
+                  ...styles.fontSize13,
+                  ...styles.marginLeft5,
+                }}
+                text={commonTranslator.forView}
+              />
+              <SimpleText
+                onPress={() => props.navigate('/myPackages')}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.FontWeight600,
+                  ...styles.fontSize13,
+                  ...styles.marginLeft5,
+                  ...styles.cursor_pointer,
+                }}
+                text={commonTranslator.myPackages}
+              />
+              <SimpleText
+                style={{
+                  ...styles.dark_blue_color,
+                  ...styles.fontSize13,
+                }}
+                text={commonTranslator.clickHere}
+              />
+            </PhoneView>
+          }
+        />
+      )}
       {item !== undefined &&
         !showSuccessTransaction &&
+        !showTeacher &&
         selectedSession === undefined && (
           <MyView
             style={{
@@ -236,7 +248,11 @@ function Detail(props) {
             }}>
             <CommonWebBox
               header={item.title}
-              onBackClick={() => props.navigate('/packages')}
+              onBackClick={() =>
+                item.afterBuy !== undefined && item.afterBuy
+                  ? props.navigate('/myPackages')
+                  : props.navigate('/packages')
+              }
               backBtn={true}></CommonWebBox>
             <PhoneView>
               <CommonWebBox width={isInPhone ? '100%' : 'calc(70% - 10px)'}>
@@ -426,7 +442,7 @@ function Detail(props) {
                           />
                         </MyView>
                         <SimpleText
-                          onPress={() => {}}
+                          onPress={() => setShowTeacher(true)}
                           style={{
                             ...styles.yellow_color,
                             ...styles.alignSelfEnd,
