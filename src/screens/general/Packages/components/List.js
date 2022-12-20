@@ -15,6 +15,7 @@ import Card from './Card';
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {Translator} from '../Translator';
 import commonTranslator from '../../../../translator/Common';
+import Filter from './Filter';
 
 function List(props) {
   const useGlobalState = () => [
@@ -24,6 +25,9 @@ function List(props) {
 
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
+  const [min, setMin] = useState();
+  const [max, setMax] = useState();
+  const [tags, setTags] = useState();
 
   React.useEffect(() => {
     if (isWorking || state.allItems !== undefined) return;
@@ -46,9 +50,17 @@ function List(props) {
         return;
       }
 
+      setMin(res[0].min);
+      setMax(res[0].max);
+      setTags(
+        res[0].tags.map(elem => {
+          return {id: elem, item: elem};
+        }),
+      );
+
       dispatch({
-        allItems: res[0],
-        selectableItems: res[0],
+        allItems: res[0].data,
+        selectableItems: res[0].data,
       });
 
       setIsWorking(false);
@@ -109,8 +121,11 @@ function List(props) {
               />
             </PhoneView>
           </EqualTwoTextInputs>
+
+          {min !== undefined && <Filter min={min} max={max} tags={tags} />}
         </CommonWebBox>
       )}
+
       <PhoneView style={styles.gap10}>
         {state.allItems !== undefined &&
           state.allItems.map((elem, index) => {

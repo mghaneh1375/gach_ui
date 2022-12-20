@@ -7,7 +7,7 @@ export const fetchAllPackages = async (isInMyMode, token = undefined) => {
     isInMyMode ? routes.fetchMyContents : routes.fetchContents,
     'get',
     undefined,
-    'data',
+    ['data', 'min', 'max', 'tags'],
     token,
   );
 };
