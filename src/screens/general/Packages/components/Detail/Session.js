@@ -17,7 +17,6 @@ import RenderHTML from 'react-native-render-html';
 import {styles} from '../../../../../styles/Common/Styles';
 import {convertSecToMinWithOutHour} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../translator/Common';
-import Video from '../../../../panel/Video';
 
 function Session(props) {
   const [show, setShow] = useState(false);
