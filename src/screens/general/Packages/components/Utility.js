@@ -2,12 +2,13 @@ import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 
 export const fetchAllPackages = async (isInMyMode, token = undefined) => {
-  console.log(isInMyMode);
   return await generalRequest(
     isInMyMode ? routes.fetchMyContents : routes.fetchContents,
     'get',
     undefined,
-    ['data', 'min', 'max', 'tags'],
+    isInMyMode
+      ? 'data'
+      : ['data', 'min', 'max', 'tags', 'minDuration', 'maxDuration'],
     token,
   );
 };
@@ -28,6 +29,39 @@ export const goToPay = async (token, data, id) => {
     'post',
     data,
     ['action', 'refId'],
+    token,
+  );
+};
+
+export const filter = async (
+  tag,
+  min,
+  max,
+  minDuration,
+  maxDuration,
+  hasCert,
+  token,
+) => {
+  let query = new URLSearchParams();
+
+  if (tag !== undefined && tag !== 'all') query.append('tag', tag);
+
+  if (min !== undefined) query.append('minPrice', min);
+
+  if (max !== undefined) query.append('maxPrice', max);
+
+  if (minDuration !== undefined) query.append('minDuration', minDuration);
+
+  if (maxDuration !== undefined) query.append('maxDuration', maxDuration);
+
+  if (hasCert !== undefined && hasCert !== 'all')
+    query.append('hasCert', hasCert);
+
+  return await generalRequest(
+    routes.fetchContents + '?' + query.toString(),
+    'get',
+    undefined,
+    'data',
     token,
   );
 };

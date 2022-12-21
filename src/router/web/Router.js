@@ -110,6 +110,12 @@ export default function WebRouter() {
             path="/generalConfiguration"
             element={<WebStructue page="generalConfiguration" />}
           />
+
+          <Route
+            path="/checkCert:certId"
+            element={<WebStructue page="checkCert" />}
+          />
+
           <Route
             path="/certificateConfiguration"
             element={<WebStructue page="certificateConfiguration" />}

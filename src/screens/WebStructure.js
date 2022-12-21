@@ -71,6 +71,7 @@ import ShowRecp from './studentPanel/Recp/ShowRecp';
 import Packages from './general/Packages/Packages';
 import FAQ from './panel/Content/FAQ/FAQ';
 import Video from './panel/Video';
+import CheckCert from './general/CheckCert/CheckCert';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -244,6 +245,11 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+
+              {props.page === 'checkCert' && params.certId !== undefined && (
+                <CheckCert navigate={navigate} />
+              )}
+
               {props.page === 'buy' && (
                 <Buy
                   user={state.user}
