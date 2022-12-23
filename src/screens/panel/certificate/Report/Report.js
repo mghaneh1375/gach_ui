@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import commonTranslator from '../../../../translator/Common';
+import {CommonWebBox} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import certTranslator from '../Translator';
 import {getCertificate} from '../Utility';
 import columns from './TableStructure';
 import {routes} from '../../../../API/APIRoutes';

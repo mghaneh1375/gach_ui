@@ -15,6 +15,7 @@ import Card from './Card';
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {Translator} from '../Translator';
 import commonTranslator from '../../../../translator/Common';
+import Filter from './Filter';
 
 function List(props) {
   const useGlobalState = () => [
@@ -24,6 +25,13 @@ function List(props) {
 
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
+  const [min, setMin] = useState();
+  const [max, setMax] = useState();
+  const [minDuration, setMinDuration] = useState();
+  const [maxDuration, setMaxDuration] = useState();
+  const [tags, setTags] = useState();
+  const [showFilter, setShowFilter] = useState(false);
+  const [clearFilter, setClearFilter] = useState(false);
 
   React.useEffect(() => {
     if (isWorking || state.allItems !== undefined) return;
@@ -46,9 +54,23 @@ function List(props) {
         return;
       }
 
+      setMin(res[0].min);
+      setMax(res[0].max);
+
+      setMinDuration(res[0].minDuration);
+      setMaxDuration(res[0].maxDuration);
+
+      if (res[0].tags !== undefined) {
+        let tmp = res[0].tags.map(elem => {
+          return {id: elem, item: elem};
+        });
+        tmp.push({id: 'all', item: 'همه'});
+        setTags(tmp);
+      }
+
       dispatch({
-        allItems: res[0],
-        selectableItems: res[0],
+        allItems: res[0].data,
+        selectableItems: res[0].data,
       });
 
       setIsWorking(false);
@@ -99,21 +121,41 @@ function List(props) {
                   ...styles.cursor_pointer,
                   ...styles.colorOrangeRed,
                 }}
+                onPress={() => setClearFilter(true)}
                 text={commonTranslator.clearFilters}
               />
               <CommonButton
                 iconDir={'left'}
                 textStyle={{...styles.fontSize17, ...styles.bold}}
                 icon={faChevronRight}
+                onPress={() => setShowFilter(!showFilter)}
                 title={commonTranslator.showFilters}
               />
             </PhoneView>
           </EqualTwoTextInputs>
+
+          {showFilter &&
+            min !== undefined &&
+            max !== undefined &&
+            maxDuration !== undefined &&
+            minDuration !== undefined && (
+              <Filter
+                min={min}
+                max={max}
+                minDuration={minDuration}
+                maxDuration={maxDuration}
+                tags={tags}
+                token={props.token}
+                setClearFilter={setClearFilter}
+                clearFilter={clearFilter}
+              />
+            )}
         </CommonWebBox>
       )}
+
       <PhoneView style={styles.gap10}>
-        {state.allItems !== undefined &&
-          state.allItems.map((elem, index) => {
+        {state.selectableItems !== undefined &&
+          state.selectableItems.map((elem, index) => {
             return (
               <Card
                 isInMyMode={props.isInMyMode}

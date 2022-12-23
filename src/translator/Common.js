@@ -47,6 +47,7 @@ const translator = {
   tag: 'تگ',
   avatars: 'مدیریت تصاویر آواتار',
   charge: 'شارژ کیف پول',
+  myCerts: 'گواهی های من',
   history: 'سابقه',
   finantialHistory: 'سوابق مالی',
   config: 'تنظیمات',

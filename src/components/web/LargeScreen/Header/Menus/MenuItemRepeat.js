@@ -7,6 +7,7 @@ import {
   faHome,
   faQuestion,
   faShoppingCart,
+  faSun,
   faUsers,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
@@ -82,6 +83,12 @@ function MenuItemRepeat(props) {
         text={translator.charge}
         icon={faCreditCard}
         selected={props.selected === 'charge'}
+      />
+      <MenuItem
+        onClick={() => navigate('/myCerts')}
+        text={translator.myCerts}
+        icon={faSun}
+        selected={props.selected === 'myCerts'}
       />
       <MenuItem
         onClick={() => navigate('/financeHistory')}

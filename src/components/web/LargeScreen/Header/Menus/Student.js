@@ -12,6 +12,7 @@ import {
   faAngleDown,
   faShoppingCart,
   faVideo,
+  faSun,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   MyView,
@@ -150,6 +151,17 @@ function StudentMenu(props) {
         text={translator.charge}
         icon={faCreditCard}
       />
+
+      <MenuItemPhone
+        onClick={() => {
+          navigate(isApp ? 'Home' : '/myCerts');
+          props.toggleRightMenuVisibility();
+        }}
+        selected={props.selected === 'myCerts'}
+        text={translator.myCerts}
+        icon={faSun}
+      />
+
       <MenuItemPhone
         onClick={() => {
           navigate(isApp ? 'Home' : '/financeHistory');
@@ -297,6 +309,7 @@ function StudentMenu(props) {
                     text={commonTranslator.profile}
                   />
                 </TouchableOpacity>
+
                 <TouchableOpacity
                   onPress={async () => {
                     setShowProfilePane(false);

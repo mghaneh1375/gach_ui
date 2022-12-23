@@ -43,6 +43,8 @@ const excludeAuthRoutes = [
   'rankingList',
   'karname',
   'ranking',
+  'validateCert',
+  'myCerts',
 ];
 
 const hasLeftFilterRoutes = ['buy', 'package'];

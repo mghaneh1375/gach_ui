@@ -57,7 +57,10 @@ export function convertSecToMinWithOutSec(sec) {
   let m = d.substr(14, 2);
   if (m[0] == 0) m = m[1];
 
-  if (h[0] > 0) return h + ' ساعت ' + m + ' دقیقه ';
+  if (h[0] > 0) {
+    if (m > 0) return h + ' ساعت ' + m + ' دقیقه ';
+    return h + ' ساعت ';
+  }
 
   return +m + ' دقیقه ';
 }

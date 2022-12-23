@@ -99,7 +99,7 @@ function Card(props) {
             }
           />
         )}
-        {props.isInMyMode && <></>}
+        {props.isInMyMode && <SimpleText />}
         <CommonButton
           href={'/packages/' + props.package.slug}
           title={Translator.select}
