@@ -73,6 +73,8 @@ import FAQ from './panel/Content/FAQ/FAQ';
 import Video from './panel/Video';
 import CheckCert from './general/CheckCert/CheckCert';
 import MyCerts from './general/CheckCert/MyCerts';
+import Seo from './panel/Content/Seo/Seo';
+import Adv from './panel/Content/Adv/Adv';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -350,11 +352,11 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-              {props.page === 'seop-contents' && (
-                <Content token={state.token} navigate={navigate} />
+              {props.page === 'seo-contents' && (
+                <Seo token={state.token} navigate={navigate} />
               )}
               {props.page === 'advs-contents' && (
-                <Content token={state.token} navigate={navigate} />
+                <Adv token={state.token} navigate={navigate} />
               )}
               {props.page === 'faq-contents' && <FAQ navigate={navigate} />}
               {props.page === 'contents' && (

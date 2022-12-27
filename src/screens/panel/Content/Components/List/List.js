@@ -45,6 +45,7 @@ function List(props) {
     <MyView>
       {showOp && (
         <Ops
+          setSelectedContentId={props.setSelectedContentId}
           setLoading={props.setLoading}
           token={props.token}
           setMode={props.setMode}

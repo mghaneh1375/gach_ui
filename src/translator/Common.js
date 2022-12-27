@@ -220,6 +220,7 @@ const translator = {
   contents: 'بسته های آموزشی',
   listContents: 'لیست بسته های آموزشی',
   faqContents: 'سوالات متداول',
+  seoContents: 'سئو',
   results: 'نتایج',
   free: 'رایگان',
   clearFilters: 'پاک کردن فیلترها',

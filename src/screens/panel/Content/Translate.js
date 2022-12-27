@@ -35,9 +35,12 @@ const Translator = {
   sessionTitle: 'عنوان جلسه',
   sessionPriceHelp: 'قیمت (این فیلد اختیاری است)',
   hasVideo: 'آیا فایل ویدیو بارگذاری شده است؟',
+  key: 'کلید تگ',
+  value: 'مقدار تگ',
   question: 'سوال',
   answer: 'پاسخ',
   manageFAQ: 'مدیریت پرسش و پاسخ متداول',
+  manageSeo: 'مدیریت تگ های سئو',
   slug: 'نامک',
   certDuration: 'مهلت پایان دوره برای اخذ گواهی',
 };

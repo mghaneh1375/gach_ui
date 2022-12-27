@@ -187,6 +187,10 @@ function AdminMenu(props) {
               text: translator.faqContents,
               url: '/faq-contents',
             },
+            {
+              text: translator.seoContents,
+              url: '/seo-contents',
+            },
           ]}
         />
         <SuperMenuItem

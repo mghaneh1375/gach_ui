@@ -66,6 +66,12 @@ function Ops(props) {
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
+          onPress={() => props.setSelectedContentId(state.selectedContent.id)}
+          title={Translator.manageSeo}
+        />
+        <CommonButton
+          dir={'rtl'}
+          theme={'transparent'}
           onPress={() => props.setMode('sessions')}
           title={Translator.sessions}
         />
