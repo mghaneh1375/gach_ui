@@ -74,6 +74,11 @@ function Detail(props) {
     setShowOffCodePane(!showOffCodePane);
   };
 
+  React.useEffect(() => {
+    if (refId === undefined) return;
+    ref.current.submit();
+  }, [refId]);
+
   const calc = accountOff => {
     let off = 0;
     let totalPrice = item.price;
@@ -160,6 +165,7 @@ function Detail(props) {
     let res = await goToPay(props.token, data, item.id);
 
     props.setLoading(false);
+
     if (res !== null) {
       if (res.action === 'success') {
         let user = props.user;
@@ -245,6 +251,7 @@ function Detail(props) {
             style={{
               alignSelf: 'center',
               width: props.token === undefined && !isInPhone ? '80%' : '100%',
+              gap: isInPhone ? 10 : 0,
             }}>
             <CommonWebBox
               header={item.title}
@@ -301,7 +308,7 @@ function Detail(props) {
               </CommonWebBox>
               <MyView
                 style={{
-                  position: 'fixed',
+                  position: isInPhone ? 'relative' : 'fixed',
                   left: props.token === undefined && !isInPhone ? '10%' : 0,
                   top: scrollPosition > 100 ? 20 : 140 - scrollPosition,
                   width: isInPhone ? '100%' : '25%',
@@ -336,46 +343,48 @@ function Detail(props) {
                     valFontSize={valFontSize}
                   />
 
-                  <EqualTwoTextInputs>
-                    <SimpleText
-                      style={{
-                        ...styles.BlueBold,
-                        ...styles.fontSize17,
-                        ...styles.alignSelfCenter,
-                      }}
-                      text={
-                        commonTranslator.price +
-                        ' ' +
-                        formatPrice(shouldPay > 10 ? shouldPay : 0) +
-                        ' ' +
-                        commonTranslator.priceUnit
-                      }
-                    />
-                    {props.token !== undefined && (
-                      <MyView>
-                        <CommonButton
-                          onPress={() => goToPayLocal()}
-                          title={Translator.buy}
-                        />
-                        <SimpleText
-                          onPress={() => setShowOffCodePane(true)}
-                          style={{
-                            ...styles.dark_blue_color,
-                            ...styles.cursor_pointer,
-                            ...styles.alignSelfCenter,
-                            ...styles.fontSize12,
-                          }}
-                          text={'کد تخفیف دارید؟'}
-                        />
-                      </MyView>
-                    )}
-                    {props.token === undefined && (
-                      <CommonButton
-                        onPress={() => props.navigate('/login')}
-                        title={Translator.loginForBuy}
+                  {(item.afterBuy === undefined || !item.afterBuy) && (
+                    <EqualTwoTextInputs>
+                      <SimpleText
+                        style={{
+                          ...styles.BlueBold,
+                          ...styles.fontSize17,
+                          ...styles.alignSelfCenter,
+                        }}
+                        text={
+                          commonTranslator.price +
+                          ' ' +
+                          formatPrice(shouldPay > 10 ? shouldPay : 0) +
+                          ' ' +
+                          commonTranslator.priceUnit
+                        }
                       />
-                    )}
-                  </EqualTwoTextInputs>
+                      {props.token !== undefined && (
+                        <MyView>
+                          <CommonButton
+                            onPress={() => goToPayLocal()}
+                            title={Translator.buy}
+                          />
+                          <SimpleText
+                            onPress={() => setShowOffCodePane(true)}
+                            style={{
+                              ...styles.dark_blue_color,
+                              ...styles.cursor_pointer,
+                              ...styles.alignSelfCenter,
+                              ...styles.fontSize12,
+                            }}
+                            text={'کد تخفیف دارید؟'}
+                          />
+                        </MyView>
+                      )}
+                      {props.token === undefined && (
+                        <CommonButton
+                          onPress={() => props.navigate('/login')}
+                          title={Translator.loginForBuy}
+                        />
+                      )}
+                    </EqualTwoTextInputs>
+                  )}
 
                   {(off > 0 || usedFromWallet > 0) && (
                     <MyView>
@@ -437,7 +446,10 @@ function Detail(props) {
                           <RenderHTML
                             contentWidth={'100%'}
                             source={{
-                              html: item.teacherBio,
+                              html:
+                                "<div style='font-family: IRANSans;'>" +
+                                item.teacherBio +
+                                '</div>',
                             }}
                           />
                         </MyView>
@@ -489,7 +501,10 @@ function Detail(props) {
                         <RenderHTML
                           contentWidth={'100%'}
                           source={{
-                            html: item.preReq,
+                            html:
+                              "<div style='font-family: IRANSans;'>" +
+                              item.preReq +
+                              '</div>',
                           }}
                         />
                       </MyView>
@@ -574,8 +589,7 @@ function Detail(props) {
         <form
           ref={ref}
           action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat"
-          method="post"
-          target="_blank">
+          method="post">
           <input type={'hidden'} value={refId} name="RefId" />
         </form>
       )}

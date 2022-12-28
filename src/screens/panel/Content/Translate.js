@@ -35,11 +35,15 @@ const Translator = {
   sessionTitle: 'عنوان جلسه',
   sessionPriceHelp: 'قیمت (این فیلد اختیاری است)',
   hasVideo: 'آیا فایل ویدیو بارگذاری شده است؟',
+  hasChunked: 'آیا فایل ویدیو تکه تکه شده است؟',
   question: 'سوال',
   answer: 'پاسخ',
   manageFAQ: 'مدیریت پرسش و پاسخ متداول',
   slug: 'نامک',
   certDuration: 'مهلت پایان دوره برای اخذ گواهی',
+  studentsList: 'لیست خریداران',
+  addStudent: 'افزودن خریدار',
+  preview: 'پیش نمایش',
 };
 
 export default Translator;

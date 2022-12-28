@@ -49,7 +49,11 @@ function Filter(props) {
       section,
     );
     props.setLoading(false);
-    if (res !== null) props.setTransactions(res);
+    if (res !== null) {
+      props.setTransactions(res.data);
+      props.setSum(res.sum);
+      props.setAccountMoneySum(res.accountMoneySum);
+    }
   };
 
   return (

@@ -6,6 +6,7 @@ import List from './Components/List/List';
 import SessionsList from './Components/Session/List';
 import CreateSession from './Components/Session/Create';
 import Attach from './Components/Session/Attach';
+import Students from './Components/StudentsList/Students';
 
 function Content(props) {
   const navigate = props.navigate;
@@ -42,6 +43,13 @@ function Content(props) {
       {mode === 'update' && (
         <Create
           isInEditMode={true}
+          token={state.token}
+          setMode={setMode}
+          setLoading={setLoading}
+        />
+      )}
+      {mode === 'studentsList' && (
+        <Students
           token={state.token}
           setMode={setMode}
           setLoading={setLoading}

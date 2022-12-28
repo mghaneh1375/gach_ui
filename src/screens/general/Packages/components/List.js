@@ -68,10 +68,16 @@ function List(props) {
         setTags(tmp);
       }
 
-      dispatch({
-        allItems: res[0].data,
-        selectableItems: res[0].data,
-      });
+      if (props.isInMyMode) {
+        dispatch({
+          allItems: res[0],
+          selectableItems: res[0],
+        });
+      } else
+        dispatch({
+          allItems: res[0].data,
+          selectableItems: res[0].data,
+        });
 
       setIsWorking(false);
     });
@@ -97,33 +103,63 @@ function List(props) {
       }}>
       {!props.isInMyMode && (
         <CommonWebBox>
-          <EqualTwoTextInputs>
-            <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
-              <SimpleText style={styles.BlueBold} text={Translator.buy} />
-              {state.allItems !== undefined && (
+          {!isInPhone && (
+            <EqualTwoTextInputs>
+              <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
+                <SimpleText style={styles.BlueBold} text={Translator.buy} />
+                {state.allItems !== undefined && (
+                  <SimpleText
+                    style={{...styles.fontSize13, ...styles.dark_blue_color}}
+                    text={
+                      'نمایش ' +
+                      state.selectableItems.length +
+                      ' مورد از ' +
+                      state.allItems.length +
+                      ' مورد '
+                    }
+                  />
+                )}
+              </PhoneView>
+              <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
                 <SimpleText
-                  style={{...styles.fontSize13, ...styles.dark_blue_color}}
-                  text={
-                    'نمایش ' +
-                    state.selectableItems.length +
-                    ' مورد از ' +
-                    state.allItems.length +
-                    ' مورد '
-                  }
+                  style={{
+                    ...styles.alignSelfCenter,
+                    ...styles.gap10,
+                    ...styles.cursor_pointer,
+                    ...styles.colorOrangeRed,
+                  }}
+                  onPress={() => setClearFilter(true)}
+                  text={commonTranslator.clearFilters}
                 />
-              )}
-            </PhoneView>
-            <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
-              <SimpleText
-                style={{
-                  ...styles.alignSelfCenter,
-                  ...styles.gap10,
-                  ...styles.cursor_pointer,
-                  ...styles.colorOrangeRed,
-                }}
-                onPress={() => setClearFilter(true)}
-                text={commonTranslator.clearFilters}
-              />
+                <CommonButton
+                  iconDir={'left'}
+                  textStyle={{...styles.fontSize17, ...styles.bold}}
+                  icon={faChevronRight}
+                  onPress={() => setShowFilter(!showFilter)}
+                  title={commonTranslator.showFilters}
+                />
+              </PhoneView>
+            </EqualTwoTextInputs>
+          )}
+
+          {isInPhone && (
+            <MyView style={{...styles.alignSelfCenter, ...styles.gap10}}>
+              <PhoneView style={{...styles.gap10}}>
+                <SimpleText style={styles.BlueBold} text={Translator.buy} />
+                {state.allItems !== undefined && (
+                  <SimpleText
+                    style={{...styles.fontSize13, ...styles.dark_blue_color}}
+                    text={
+                      'نمایش ' +
+                      state.selectableItems.length +
+                      ' مورد از ' +
+                      state.allItems.length +
+                      ' مورد '
+                    }
+                  />
+                )}
+              </PhoneView>
+
               <CommonButton
                 iconDir={'left'}
                 textStyle={{...styles.fontSize17, ...styles.bold}}
@@ -131,8 +167,20 @@ function List(props) {
                 onPress={() => setShowFilter(!showFilter)}
                 title={commonTranslator.showFilters}
               />
-            </PhoneView>
-          </EqualTwoTextInputs>
+              <SimpleText
+                style={{
+                  ...styles.alignSelfCenter,
+                  ...styles.cursor_pointer,
+                  ...styles.colorOrangeRed,
+                }}
+                onPress={() => {
+                  setClearFilter(true);
+                  dispatch({selectableItems: state.allItems});
+                }}
+                text={commonTranslator.clearFilters}
+              />
+            </MyView>
+          )}
 
           {showFilter &&
             min !== undefined &&
@@ -148,6 +196,7 @@ function List(props) {
                 token={props.token}
                 setClearFilter={setClearFilter}
                 clearFilter={clearFilter}
+                close={() => setShowFilter(false)}
               />
             )}
         </CommonWebBox>

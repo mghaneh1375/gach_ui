@@ -25,6 +25,12 @@ const columns = [
     center: true,
   },
   {
+    name: translator.accountMoney,
+    selector: row => row.accountMoney,
+    grow: 1,
+    center: true,
+  },
+  {
     name: translator.useOffCode,
     selector: row => (row.useOff ? commonTranslator.yes : commonTranslator.no),
     grow: 1,

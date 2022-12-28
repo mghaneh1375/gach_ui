@@ -22,7 +22,7 @@ export const getTransactions = async (
     routes.getTransactions + query.toString(),
     'get',
     undefined,
-    'data',
+    ['data', 'sum', 'accountMoneySum'],
     token,
   );
 };

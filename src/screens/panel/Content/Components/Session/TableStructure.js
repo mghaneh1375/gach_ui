@@ -28,6 +28,13 @@ const columns = [
     center: true,
   },
   {
+    name: Translator.hasChunked,
+    selector: row =>
+      row.hasChunked ? commonTranslator.yes : commonTranslator.no,
+    grow: 2,
+    center: true,
+  },
+  {
     name: Translator.hasExam,
     selector: row => (row.hasExam ? commonTranslator.yes : commonTranslator.no),
     grow: 2,

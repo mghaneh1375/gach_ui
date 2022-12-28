@@ -4,16 +4,17 @@ import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import Translator from '../../Translate';
 import {contentContext, dispatchContentContext} from '../Context';
 import commonTranslator from '../../../../../translator/Common';
-import {generalRequest} from '../../../../../API/Utility';
+import {videoGeneralRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
+import {showSuccess} from '../../../../../services/Utility';
 
 function Ops(props) {
   const toggleVisibility = () => {
     props.setLoading(true);
     Promise.all([
-      generalRequest(
-        routes.updateContent + state.selectedContent.id,
-        'post',
+      videoGeneralRequest(
+        routes.changeVisibility + state.selectedContent.id,
+        'put',
         {
           visibility: !state.selectedContent.visibility,
         },
@@ -23,6 +24,7 @@ function Ops(props) {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] !== null) {
+        showSuccess();
         state.selectedContent.visibility = !state.selectedContent.visibility;
         dispatch({selectedContent: state.selectedContent, needUpdate: true});
       }
@@ -60,7 +62,7 @@ function Ops(props) {
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
-          onPress={() => props.setMode('student')}
+          onPress={() => props.setMode('studentsList')}
           title={Translator.users}
         />
         <CommonButton

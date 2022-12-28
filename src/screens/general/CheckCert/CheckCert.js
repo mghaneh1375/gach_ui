@@ -8,7 +8,6 @@ import {
   CommonButton,
   CommonWebBox,
   MyView,
-  PhoneView,
   SimpleText,
 } from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';

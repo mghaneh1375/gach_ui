@@ -29,7 +29,7 @@ function Card(props) {
   const valFontSize = props.isInPhone ? 12 : 15;
 
   return (
-    <CommonWebBox width={350}>
+    <CommonWebBox width={props.isInPhone ? 320 : 350}>
       <Image
         style={{
           width: '100%',

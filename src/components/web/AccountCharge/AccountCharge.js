@@ -21,7 +21,9 @@ function AccountCharge(props) {
       return;
     }
 
+    props.setLoading(true);
     let res = await chargeAccout(amount, props.token);
+    props.setLoading(false);
 
     if (res !== null && res.action === 'pay') setRefId(res.refId);
   };
@@ -30,10 +32,7 @@ function AccountCharge(props) {
 
   React.useEffect(() => {
     if (refId === undefined) return;
-    console.log('Salam');
-    setTimeout(() => {
-      ref.current.submit();
-    }, 1000);
+    ref.current.submit();
   }, [refId]);
   return (
     <CommonWebBox

@@ -12,6 +12,7 @@ import {
   allTrueFalseValues,
   convertSecToMinWithOutSec,
   formatPrice,
+  getDevice,
 } from '../../../../services/Utility';
 import {styles} from '../../../../styles/Common/Styles';
 import commonTranslator from '../../../../translator/Common';
@@ -25,6 +26,8 @@ function Filter(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
+
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
 
   const [value, setValue] = useState([props.min, props.max]);
   const [valueDuration, setValueDuration] = useState([
@@ -60,7 +63,7 @@ function Filter(props) {
     <MyView>
       <PhoneView style={{...styles.gap30}}>
         {props.max !== props.min && (
-          <MyView style={{width: 300}}>
+          <MyView style={{width: isInPhone ? 260 : 300}}>
             <SimpleText
               style={{...styles.alignSelfCenter}}
               text={'هزینه دوره'}
@@ -93,7 +96,7 @@ function Filter(props) {
           </MyView>
         )}
         {props.maxDuration !== props.minDuration && (
-          <MyView style={{width: 300}}>
+          <MyView style={{width: isInPhone ? 260 : 300}}>
             <SimpleText style={{...styles.alignSelfCenter}} text={'مدت دوره'} />
             <Slider
               max={props.maxDuration}
@@ -145,6 +148,7 @@ function Filter(props) {
           dispatch({
             selectableItems: res,
           });
+          if (isInPhone) props.close();
         }}
         title={'اعمال فیلتر'}
       />

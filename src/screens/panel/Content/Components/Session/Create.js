@@ -60,6 +60,8 @@ function Create(props) {
   const [progress, setProgress] = useState(0);
   const chunkSize = 1048576 * 3;
 
+  const [videoFileForShow, setVideoFileForShow] = useState();
+
   let videoFile;
   let sessionId;
 
@@ -267,8 +269,15 @@ function Create(props) {
           : Translator.addNewSession
       }
       backBtn={true}
-      onBackClick={() => props.setMode('sessions')}>
-      {!isWorking && (
+      onBackClick={() =>
+        videoFileForShow === undefined
+          ? props.setMode('sessions')
+          : setVideoFileForShow(undefined)
+      }>
+      {videoFileForShow !== undefined && (
+        <video controls src={videoFileForShow} />
+      )}
+      {!isWorking && videoFileForShow === undefined && (
         <PhoneView style={{gap: 10}}>
           <JustBottomBorderTextInput
             placeholder={Translator.sessionTitle}
@@ -347,53 +356,58 @@ function Create(props) {
         </PhoneView>
       )}
 
-      <CKEditor
-        editor={ClassicEditor}
-        config={{
-          customValues: {token: props.token},
-          extraPlugins: [MyCustomUploadAdapterPlugin],
-          placeholder: Translator.sessionDescription,
-        }}
-        data={description === undefined ? '' : description}
-        onReady={editor => {
-          ckEditor = editor;
-        }}
-        onChange={(event, editor) => {
-          setDescription(editor.getData());
-        }}
-      />
-
-      <PhoneView style={{...styles.gap15}}>
-        <SimpleText
-          style={{...styles.alignSelfCenter, ...styles.BlueBold}}
-          text={Translator.video}
+      {videoFileForShow === undefined && (
+        <CKEditor
+          editor={ClassicEditor}
+          config={{
+            customValues: {token: props.token},
+            extraPlugins: [MyCustomUploadAdapterPlugin],
+            placeholder: Translator.sessionDescription,
+          }}
+          data={description === undefined ? '' : description}
+          onReady={editor => {
+            ckEditor = editor;
+          }}
+          onChange={(event, editor) => {
+            setDescription(editor.getData());
+          }}
         />
-        <SimpleFontIcon
-          onPress={() => openFileSelector()}
-          kind={'normal'}
-          icon={faPaperclip}
-        />
+      )}
 
-        <PhoneView style={{marginTop: 20}}>
-          {video !== undefined && (
-            <AttachBox
-              filename={video}
-              removeAttach={async () => {
-                await removeUploadedVideo();
-              }}
-            />
-          )}
+      {videoFileForShow === undefined && (
+        <PhoneView style={{...styles.gap15}}>
+          <SimpleText
+            style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+            text={Translator.video}
+          />
+          <SimpleFontIcon
+            onPress={() => openFileSelector()}
+            kind={'normal'}
+            icon={faPaperclip}
+          />
 
-          {filesContent !== undefined && filesContent.length > 0 && (
-            <AttachBox
-              filename={filesContent[0].name}
-              removeAttach={() => {
-                remove(0);
-              }}
-            />
-          )}
+          <PhoneView style={{marginTop: 20}}>
+            {video !== undefined && (
+              <AttachBox
+                onClick={() => setVideoFileForShow(video)}
+                filename={video}
+                removeAttach={async () => {
+                  await removeUploadedVideo();
+                }}
+              />
+            )}
+
+            {filesContent !== undefined && filesContent.length > 0 && (
+              <AttachBox
+                filename={filesContent[0].name}
+                removeAttach={() => {
+                  remove(0);
+                }}
+              />
+            )}
+          </PhoneView>
         </PhoneView>
-      </PhoneView>
+      )}
 
       {uploadVideo && (
         <SimpleText
@@ -406,7 +420,7 @@ function Create(props) {
         />
       )}
 
-      {(!uploadVideo || progress === 100) && (
+      {(!uploadVideo || progress === 100) && videoFileForShow === undefined && (
         <EqualTwoTextInputs>
           <CommonButton
             onPress={() => props.setMode('sessions')}

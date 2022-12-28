@@ -7,6 +7,8 @@ import List from './components/List';
 function Transaction(props) {
   const [mode, setMode] = useState('list');
   const [transactions, setTransactions] = useState();
+  const [sum, setSum] = useState();
+  const [accountMoneySum, setAccountMoneySum] = useState();
 
   const navigate = props.navigate;
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -26,7 +28,10 @@ function Transaction(props) {
         navigate('/');
         return;
       }
-      setTransactions(res[0]);
+
+      setTransactions(res[0].data);
+      setSum(res[0].sum);
+      setAccountMoneySum(res[0].accountMoneySum);
     });
   }, [navigate, props.token, dispatch]);
 
@@ -34,10 +39,14 @@ function Transaction(props) {
     <MyView>
       {mode === 'list' && transactions !== undefined && (
         <List
-          token={props.token}
           setTransactions={setTransactions}
+          setSum={setSum}
+          setAccountMoneySum={setAccountMoneySum}
+          token={props.token}
           setLoading={setLoading}
           transactions={transactions}
+          sum={sum}
+          accountMoneySum={accountMoneySum}
         />
       )}
     </MyView>

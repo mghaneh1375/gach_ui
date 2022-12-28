@@ -153,14 +153,16 @@ const ExcelComma = props => {
           icon={faPlus}
         />
       </PhoneView>
-      <PhoneView style={styles.justifyContentEnd}>
-        <CommonButton
-          onPress={() => toggleShowUploadPopUp()}
-          style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
-          title={commonTranslator.upload}
-          theme={'dark'}
-        />
-      </PhoneView>
+      {props.uploadUrl !== undefined && (
+        <PhoneView style={styles.justifyContentEnd}>
+          <CommonButton
+            onPress={() => toggleShowUploadPopUp()}
+            style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
+            title={commonTranslator.upload}
+            theme={'dark'}
+          />
+        </PhoneView>
+      )}
     </MyView>
   );
 };

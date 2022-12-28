@@ -1,5 +1,8 @@
 import {faClock, faPaperclip} from '@fortawesome/free-solid-svg-icons';
-import {convertSecToMinWithOutHour} from '../../../../../services/Utility';
+import {
+  convertSecToMinWithOutHour,
+  getDevice,
+} from '../../../../../services/Utility';
 import {
   CommonWebBox,
   MyView,
@@ -11,6 +14,8 @@ import {styles} from '../../../../../styles/Common/Styles';
 import Video from '../../../../panel/Video';
 
 function SessionDetail(props) {
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+
   return (
     <MyView>
       <CommonWebBox
@@ -37,7 +42,7 @@ function SessionDetail(props) {
         }
         header={props.session.title}></CommonWebBox>
       <PhoneView>
-        <CommonWebBox width={'70%'}>
+        <CommonWebBox width={isInPhone ? '100%' : '70%'}>
           <Video src={props.session.video} />
         </CommonWebBox>
       </PhoneView>
