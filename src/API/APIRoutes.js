@@ -226,4 +226,10 @@ export const routes = {
   updateFAQ: 'package_content/faq/update/',
   removeFAQ: 'package_content/faq/remove/',
   getFAQ: 'package_content/faq/get/',
+  addSeo: 'package_content/seo/store/',
+  removeSeo: 'package_content/seo/remove/',
+  getSeo: 'package_content/seo/get/',
+  addAdv: 'package_content/adv/store/',
+  removeAdv: 'package_content/adv/remove/',
+  getAdv: 'package_content/adv/get/',
 };
