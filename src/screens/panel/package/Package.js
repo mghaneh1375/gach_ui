@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {dispatchStateContext} from '../../../App';
 import List from './components/List/List';
-import {fetchAllPackages, fetchAllPackagesDigest} from './components/Utility';
+import {fetchAllPackagesDigest} from './components/Utility';
 import {addItem, editItem, removeItems} from '../../../services/Utility';
 import Create from './components/Create';
 import {getGradeLessons} from '../Basic/Utility';

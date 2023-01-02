@@ -1,0 +1,7 @@
+const Translator = {
+  list: 'لیست پیام های گروهی',
+  title: 'عنوان پیام',
+  usersCount: 'تعداد کاربران',
+};
+
+export default Translator;

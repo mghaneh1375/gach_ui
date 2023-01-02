@@ -75,6 +75,8 @@ import CheckCert from './general/CheckCert/CheckCert';
 import MyCerts from './general/CheckCert/MyCerts';
 import Seo from './panel/Content/Seo/Seo';
 import Adv from './panel/Content/Adv/Adv';
+import Notif from './panel/notifs/Notif';
+import Barcode from './panel/Barcode/Barcode';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -352,10 +354,11 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+              {props.page === 'barcodes' && <Barcode navigate={navigate} />}
               {props.page === 'seo-contents' && (
                 <Seo token={state.token} navigate={navigate} />
               )}
-              {props.page === 'advs-contents' && (
+              {props.page === 'adv-contents' && (
                 <Adv token={state.token} navigate={navigate} />
               )}
               {props.page === 'faq-contents' && <FAQ navigate={navigate} />}
@@ -538,6 +541,7 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+              {props.page === 'notifs' && <Notif navigate={navigate} />}
               {/* {props.page === 'gift' && (
                 <SpinGift token={state.token} user={state.user} navigate={navigate} />
               )} */}

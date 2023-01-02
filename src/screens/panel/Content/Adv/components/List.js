@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
 import {styles} from '../../../../../styles/Common/Styles';
@@ -16,7 +16,7 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
 
   const fetchData = React.useCallback(() => {
-    if (state.allFaq !== undefined) return;
+    if (state.allAdv !== undefined) return;
 
     props.setLoading(true);
     Promise.all([getAll(props.token)]).then(res => {
@@ -25,47 +25,63 @@ function List(props) {
         props.navigate('/');
         return;
       }
-      dispatch({allFaq: res[0]});
+      dispatch({allAdv: res[0]});
     });
-  }, [props, dispatch, state.allFaq]);
+  }, [props, dispatch, state.allAdv]);
 
   useEffectOnce(() => {
     fetchData();
   });
 
+  const [videoForShow, setVideoForShow] = useState();
+
   return (
     <MyView>
       <CommonWebBox
-        header={Translator.manageFAQ}
-        addBtn={true}
-        onAddClick={() => props.setMode('create')}
+        header={Translator.manageAdv}
+        backBtn={videoForShow === undefined ? undefined : true}
+        onBackClick={() =>
+          videoForShow === undefined ? undefined : setVideoForShow(undefined)
+        }
+        addBtn={videoForShow === undefined ? true : undefined}
+        onAddClick={() =>
+          videoForShow === undefined ? props.setMode('create') : undefined
+        }
       />
-      <PhoneView style={styles.gap10}>
-        {state.allFaq !== undefined &&
-          state.allFaq.map((elem, index) => {
-            return (
-              <Card
-                onUpdate={res => {
-                  let tmp = state.allFaq.map(itr => {
-                    if (itr.id !== elem.id) return itr;
-                    return res;
-                  });
-                  dispatch({allFaq: tmp});
-                }}
-                onDelete={() => {
-                  let tmp = state.allFaq.filter(itr => {
-                    return itr.id !== elem.id;
-                  });
-                  dispatch({allFaq: tmp});
-                }}
-                token={props.token}
-                setLoading={props.setLoading}
-                elem={elem}
-                key={index}
-              />
-            );
-          })}
-      </PhoneView>
+      {videoForShow !== undefined && (
+        <CommonWebBox>
+          <video controls src={videoForShow}></video>
+        </CommonWebBox>
+      )}
+      {videoForShow === undefined && (
+        <PhoneView style={styles.gap10}>
+          {state.allAdv !== undefined &&
+            state.allAdv.map((elem, index) => {
+              return (
+                <Card
+                  onUpdate={res => {
+                    let tmp = state.allAdv.map(itr => {
+                      if (itr.id !== elem.id) return itr;
+                      return res;
+                    });
+                    dispatch({allAdv: tmp});
+                  }}
+                  onDelete={() => {
+                    let tmp = state.allAdv.filter(itr => {
+                      return itr.id !== elem.id;
+                    });
+                    dispatch({allAdv: tmp});
+                  }}
+                  setVideoForShow={setVideoForShow}
+                  token={props.token}
+                  setLoading={props.setLoading}
+                  elem={elem}
+                  key={index}
+                />
+              );
+            })}
+        </PhoneView>
+      )}
     </MyView>
   );
 }

@@ -80,6 +80,7 @@ function Card(props) {
                   let res = await remove(props.elem.id, props.token);
                   props.setLoading(false);
                   if (res !== null) {
+                    setShow(false);
                     props.onDelete();
                   }
                 }}

@@ -41,12 +41,15 @@ const Translator = {
   question: 'سوال',
   answer: 'پاسخ',
   manageFAQ: 'مدیریت پرسش و پاسخ متداول',
+  manageAdv: 'مدیریت ویدیوهای تبلیغاتی',
   manageSeo: 'مدیریت تگ های سئو',
   slug: 'نامک',
   certDuration: 'مهلت پایان دوره برای اخذ گواهی',
   studentsList: 'لیست خریداران',
   addStudent: 'افزودن خریدار',
   preview: 'پیش نمایش',
+  adv: 'فایل ویدیو',
+  advTitle: 'عنوان ویدیو تبلیغاتی',
 };
 
 export default Translator;

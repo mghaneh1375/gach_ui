@@ -21,9 +21,9 @@ function Create(props) {
         token={props.token}
         setLoading={props.setLoading}
         onAdd={data => {
-          let tmp = state.allFaq;
+          let tmp = state.allAdv;
           tmp.push(data);
-          dispatch({allFaq: tmp});
+          dispatch({allAdv: tmp});
           props.setMode('list');
         }}
         elem={undefined}

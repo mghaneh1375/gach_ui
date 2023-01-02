@@ -14,6 +14,7 @@ import {
   faCertificate,
   faDashboard,
   faBox,
+  faMessage,
 } from '@fortawesome/free-solid-svg-icons';
 import {SuperMenuItem} from './SuperMenuItem';
 import {MyView} from '../../../../../styles/Common';
@@ -188,8 +189,24 @@ function AdminMenu(props) {
               url: '/faq-contents',
             },
             {
+              text: translator.advContents,
+              url: '/adv-contents',
+            },
+            {
               text: translator.seoContents,
               url: '/seo-contents',
+            },
+          ]}
+        />
+        <SuperMenuItem
+          text={translator.notifs}
+          icon={faMessage}
+          selected={props.selected === 'notif'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.innerNotifs,
+              url: '/notifs/site',
             },
           ]}
         />

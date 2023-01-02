@@ -32,6 +32,7 @@ export default function WebRouter() {
             path="packages/:slug"
             element={<WebStructue page="packages" />}
           />
+          <Route path="barcodes" element={<WebStructue page="barcodes" />} />
           <Route
             path="video_test/test"
             element={<WebStructue page="video_test" />}
@@ -143,7 +144,7 @@ export default function WebRouter() {
             path="/seo-contents"
             element={<WebStructue page="seo-contents" />}
           />
-
+          <Route path="/notifs/:mode" element={<WebStructue page="notifs" />} />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route
             path="/ranking/:mode/:quizId/:quizName"
