@@ -1,30 +1,57 @@
-// import {dispatchStateContext, globalStateContext} from '../../../App';
 import React, {useRef, useState} from 'react';
 import WheelComponent from 'react-wheel-of-prizes';
-import {getDevice} from '../../../../services/Utility';
-import {MyViewWithRef} from '../../../../styles/Common';
+import {useEffectOnce} from 'usehooks-ts';
+import {routes} from '../../../../API/APIRoutes';
+import {generalRequest} from '../../../../API/Utility';
+import {getDevice, getWidthHeight} from '../../../../services/Utility';
+import {MyView, MyViewWithRef, SimpleText} from '../../../../styles/Common';
+import Confetti from 'react-confetti';
+import vars from '../../../../styles/root';
+import {styles} from '../../../../styles/Common/Styles';
 // import 'react-wheel-of-prizes/dist/index.css';
-// import {SpinnerProvider} from './component/contex';
-// import List from './components/List';
-// import Create from './components/Create';
 
 function Spinner(props) {
   const ref1 = useRef();
-  const ref2 = useRef();
-  const segments = [
-    'better luck next time',
-    'won 70',
-    'won 10',
-    'better luck next time',
-    'won 2',
-    'won uber pass',
-    'better luck next time',
-    'won a voucher',
-    'mmd',
-    'ali',
-    'محمد حسین',
-    'mmd',
-  ];
+  // const ref2 = useRef();
+  const [spins, setSpins] = useState();
+  const [selectedSpin, setSelectedSpin] = useState();
+  const [showCongratulations, setShowCongratulations] = useState(false);
+  const [showWheelComponent, setShowWheelComponent] = useState(true);
+  const [award, setAward] = useState();
+
+  const fetchSpins = React.useCallback(() => {
+    props.setLoading(true);
+    Promise.all([
+      generalRequest(
+        routes.buildSpinner,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null) {
+        props.navigate('/');
+        return;
+      }
+      console.log(res[0]);
+      setSpins(
+        res[0].map(elem => {
+          return elem.label;
+        }),
+      );
+      let now = Date.now();
+      setSelectedSpin(
+        res[0].find(elem => now - elem.created_at > 300000).label,
+      );
+    });
+  }, [props]);
+
+  useEffectOnce(() => {
+    fetchSpins();
+  }, [fetchSpins]);
+
   const segColors = [
     '#EE4040',
     '#F0CF50',
@@ -36,26 +63,52 @@ function Spinner(props) {
     '#FF9000',
     '#34A24F',
   ];
-  const onFinished = winner => {
-    console.log(winner);
-  };
-  console.log(ref2.style);
 
+  const onFinished = async gift => {
+    props.setLoading(true);
+
+    let res = await generalRequest(
+      routes.giveMyGift + '?gift=' + gift,
+      'post',
+      undefined,
+      undefined,
+      props.token,
+    );
+
+    props.setLoading(false);
+    if (res[0] === null) {
+      console.log('mmd');
+      return;
+    }
+
+    setShowCongratulations(true);
+    setShowWheelComponent(false);
+    setAward(gift);
+  };
+
+  // const {width, height} = useWindowSize();
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
 
   React.useEffect(() => {
-    if (ref1 === undefined || !isInPhone) return;
+    if (ref1 === undefined || ref1.current === undefined || !isInPhone) return;
+
     ref1.current.children[0].children[0].style.width = '480px';
     ref1.current.children[0].children[0].style.marginRight = '-131px';
   }, [ref1, isInPhone]);
 
   React.useEffect(() => {
-    if (ref2 === undefined || !isInPhone) return;
-    ref2.current.style.width = '21%';
-  }, [ref2, isInPhone]);
+    if (ref1 === undefined || ref1.current === undefined) return;
+    ref1.current.children[0].children[0].style.fontSize = '11px';
+  }, [ref1]);
+
+  // React.useEffect(() => {
+  //   if (ref2 === undefined || !isInPhone) return;
+  //   ref2.current.style.width = '21%';
+  // }, [ref2, isInPhone]);
+
   return (
     <>
-      <div
+      {/* <div
         ref={ref2}
         className="divRight"
         style={{
@@ -63,23 +116,58 @@ function Spinner(props) {
           width: '30%',
           position: 'fixed',
           zIndex: '1',
-        }}></div>
-      <MyViewWithRef ref={ref1}>
-        <WheelComponent
-          segments={segments}
-          segColors={segColors}
-          winningSegment="محمد حسین"
-          onFinished={winner => onFinished(winner)}
-          primaryColor="black"
-          contrastColor="white"
-          buttonText="چرخنده"
-          isOnlyOnce={false}
-          size={260}
-          upDuration={600}
-          downDuration={10000}
-          fontFamily="IRANSans"
-        />
-      </MyViewWithRef>
+        }}></div> */}
+      {spins !== undefined && (
+        <MyViewWithRef ref={ref1}>
+          {showCongratulations && (
+            <MyView>
+              <SimpleText
+                text={`تبریک شما برنده ${award} شدید`}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.alignSelfCenter,
+                  ...styles.fontSize25,
+                  ...styles.colorGreen,
+                  ...{marginTop: '200px'},
+                }}
+              />
+              <SimpleText
+                text={' برای مشاهده جزییات کلیک کنید'}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.alignSelfCenter,
+                  ...styles.fontSize20,
+                  ...styles.colorGreen,
+                }}
+                onPress={() => props.navigate('/myOffs')}
+              />
+            </MyView>
+          )}
+          {showCongratulations && (
+            <Confetti
+              numberOfPieces={500}
+              width={getWidthHeight()[0] - vars.RIGHT_MENU_WIDTH}
+              height={'1000'}
+            />
+          )}
+          {showWheelComponent && selectedSpin !== undefined && (
+            <WheelComponent
+              segments={spins}
+              segColors={segColors}
+              winningSegment={selectedSpin}
+              onFinished={async winner => await onFinished(winner)}
+              primaryColor="black"
+              contrastColor="white"
+              buttonText="چرخنده"
+              isOnlyOnce={true}
+              size={260}
+              upDuration={600}
+              downDuration={10000}
+              fontFamily="IRANSans"
+            />
+          )}
+        </MyViewWithRef>
+      )}
     </>
   );
 }

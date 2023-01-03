@@ -356,13 +356,7 @@ const WebStructue = props => {
                 />
               )}
               {props.page === 'barcodes' && <Barcode navigate={navigate} />}
-              {props.page === 'spinner' && (
-                <Spinner
-                  token={state.token}
-                  user={state.user}
-                  navigate={navigate}
-                />
-              )}
+              {props.page === 'spinner' && <SpinGift navigate={navigate} />}
               {props.page === 'seo-contents' && (
                 <Seo token={state.token} navigate={navigate} />
               )}
