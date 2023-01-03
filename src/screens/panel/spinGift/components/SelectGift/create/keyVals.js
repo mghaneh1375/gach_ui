@@ -9,6 +9,7 @@ export const typeGiftKeyVals = [
 export const offCodeKeyVals = [
   {item: commonTranslator.all, id: 'all'},
   {item: Translate.gachQuiz, id: 'gach_exam'},
+  {item: Translate.content, id: 'content'},
   {item: Translate.personalQuiz, id: 'bank_exam'},
   {item: Translate.library, id: 'book'},
   {item: Translate.class, id: 'classes'},
