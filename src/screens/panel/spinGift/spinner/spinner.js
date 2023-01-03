@@ -10,6 +10,7 @@ import {MyViewWithRef} from '../../../../styles/Common';
 
 function Spinner(props) {
   const ref1 = useRef();
+  const ref2 = useRef();
   const segments = [
     'better luck next time',
     'won 70',
@@ -38,30 +39,48 @@ function Spinner(props) {
   const onFinished = winner => {
     console.log(winner);
   };
+  console.log(ref2.style);
 
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
 
   React.useEffect(() => {
     if (ref1 === undefined || !isInPhone) return;
-    ref1.current.children[0].children[0].style.width = '300px';
+    ref1.current.children[0].children[0].style.width = '480px';
+    ref1.current.children[0].children[0].style.marginRight = '-131px';
   }, [ref1, isInPhone]);
+
+  React.useEffect(() => {
+    if (ref2 === undefined || !isInPhone) return;
+    ref2.current.style.width = '21%';
+  }, [ref2, isInPhone]);
   return (
-    <MyViewWithRef ref={ref1}>
-      <WheelComponent
-        segments={segments}
-        segColors={segColors}
-        winningSegment="محمد حسین"
-        onFinished={winner => onFinished(winner)}
-        primaryColor="black"
-        contrastColor="white"
-        buttonText="چرخنده"
-        isOnlyOnce={true}
-        size={260}
-        upDuration={600}
-        downDuration={10000}
-        fontFamily="IRANSans"
-      />
-    </MyViewWithRef>
+    <>
+      <div
+        ref={ref2}
+        className="divRight"
+        style={{
+          height: '100%',
+          width: '30%',
+          position: 'fixed',
+          zIndex: '1',
+        }}></div>
+      <MyViewWithRef ref={ref1}>
+        <WheelComponent
+          segments={segments}
+          segColors={segColors}
+          winningSegment="محمد حسین"
+          onFinished={winner => onFinished(winner)}
+          primaryColor="black"
+          contrastColor="white"
+          buttonText="چرخنده"
+          isOnlyOnce={false}
+          size={260}
+          upDuration={600}
+          downDuration={10000}
+          fontFamily="IRANSans"
+        />
+      </MyViewWithRef>
+    </>
   );
 }
 export default Spinner;
