@@ -77,6 +77,7 @@ import Seo from './panel/Content/Seo/Seo';
 import Adv from './panel/Content/Adv/Adv';
 import Notif from './panel/notifs/Notif';
 import Barcode from './panel/Barcode/Barcode';
+import Spinner from './panel/spinGift/spinner/spinner';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -355,6 +356,13 @@ const WebStructue = props => {
                 />
               )}
               {props.page === 'barcodes' && <Barcode navigate={navigate} />}
+              {props.page === 'spinner' && (
+                <Spinner
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
+              )}
               {props.page === 'seo-contents' && (
                 <Seo token={state.token} navigate={navigate} />
               )}

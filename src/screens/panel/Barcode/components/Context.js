@@ -5,8 +5,8 @@ const defaultGlobalState = {
   needUpdate: false,
   selectedQuiz: undefined,
 };
-export const barcodeContext = React.createContext(defaultGlobalState);
-export const dispatchBarcodeContext = React.createContext(undefined);
+export const spinnerContext = React.createContext(defaultGlobalState);
+export const dispatchSpinnerContext = React.createContext(undefined);
 
 export const BarcodeProvider = ({children}) => {
   const [state, dispatch] = React.useReducer(
@@ -36,10 +36,10 @@ export const BarcodeProvider = ({children}) => {
   //   }, [state.needUpdate, state.contents, state.selectedContent, dispatch]);
 
   return (
-    <barcodeContext.Provider value={state}>
-      <dispatchBarcodeContext.Provider value={dispatch}>
+    <spinnerContext.Provider value={state}>
+      <dispatchSpinnerContext.Provider value={dispatch}>
         {children}
-      </dispatchBarcodeContext.Provider>
-    </barcodeContext.Provider>
+      </dispatchSpinnerContext.Provider>
+    </spinnerContext.Provider>
   );
 };
