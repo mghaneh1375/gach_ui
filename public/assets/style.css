@@ -418,6 +418,13 @@ option {
   position: relative;
   z-index: unset;
 }
+.divRight {
+  height: 100% !important;
+  position: fixed;
+  width: 43% !important;
+  z-index: 1;
+  /* z-index: 100000; */
+}
 
 /* button:hover {
   box-shadow: inset 0px 0px 1px 3px #f1f1f180;

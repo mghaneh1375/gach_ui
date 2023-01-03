@@ -5,6 +5,7 @@ export const routes = {
   signIn: 'user/signIn',
   signup: 'user/signUp',
   buildSpinner: 'general/buildSpinner?mode=site',
+  giveMyGift: 'general/giveMyGift',
   checkCert: 'general/checkCert/',
   getMySummary: 'general/getMySummary',
   exchange: 'general/exchange',
