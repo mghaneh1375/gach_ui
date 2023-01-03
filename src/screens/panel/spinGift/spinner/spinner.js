@@ -42,8 +42,8 @@ function Spinner(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
 
   React.useEffect(() => {
-    if (ref1 === undefined) return;
-    if (isInPhone) ref1.current.children[0].children[0].style.width = '300px';
+    if (ref1 === undefined || !isInPhone) return;
+    ref1.current.children[0].children[0].style.width = '300px';
   }, [ref1, isInPhone]);
   return (
     <MyViewWithRef ref={ref1}>

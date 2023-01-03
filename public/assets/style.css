@@ -482,14 +482,3 @@ option {
     justify-content: space-evenly;
   }
 }
-
-#wheel {
-  width: 10% !important;
-}
-
-#wheel #canvas {
-  width: 400px !important;
-}
-#canvas {
-  width: 10% !important;
-}
