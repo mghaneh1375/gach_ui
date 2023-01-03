@@ -17,6 +17,7 @@ import newAlertsKeyVals from './NewAlertsKeyVals';
 import UserTinyPic from '../UserTinyPic';
 import {styles} from '../../../../styles/Common/Styles';
 import {dispatchStateContext} from '../../../../App';
+import vars from '../../../../styles/root';
 
 const Header = props => {
   const device = getDevice();
@@ -35,6 +36,7 @@ const Header = props => {
   React.useEffect(() => {
     setNewAlerts(props.newAlerts);
   }, [props.newAlerts]);
+
   React.useEffect(() => {
     setShowNotif(false);
   }, [props.navigate]);
@@ -247,17 +249,24 @@ const Header = props => {
               {newAlerts !== undefined &&
                 newAlerts.map((elem, index) => {
                   return (
-                    <TextLink
-                      style={{fontSize: 10}}
-                      key={index}
-                      text={
-                        newAlertsKeyVals.find(itr => itr.id === elem.key)
-                          .title +
-                        ' ' +
-                        elem.value
-                      }
-                      href={'/ticket?section=upgradelevel'}
-                    />
+                    <MyView key={index}>
+                      <TextLink
+                        style={{fontSize: 10}}
+                        text={
+                          newAlertsKeyVals.find(itr => itr.id === elem.key)
+                            .title
+                        }
+                        href={
+                          elem.key === 'new_tickets'
+                            ? '/ticket?section=upgradelevel'
+                            : '/notif/' + elem.id
+                        }
+                      />
+                      <SimpleText
+                        style={{fontSize: 10, color: vars.DARK_BLUE}}
+                        text={elem.value}
+                      />
+                    </MyView>
                   );
                 })}
             </MyView>

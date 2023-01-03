@@ -78,6 +78,9 @@ import Adv from './panel/Content/Adv/Adv';
 import Notif from './panel/notifs/Notif';
 import Barcode from './panel/Barcode/Barcode';
 import Spinner from './panel/spinGift/spinner/spinner';
+import {routes} from '../API/APIRoutes';
+import {useEffectOnce} from 'usehooks-ts';
+import {generalRequest} from '../API/Utility';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -93,33 +96,45 @@ const WebStructue = props => {
   const [state, dispatch] = useGlobalState();
 
   const [allowRenderPage, setAllowRenderPage] = useState(false);
-  const [newAlerts, setNewAlerts] = useState();
   const includeFilterMenu = ['buy', 'quiz'];
   const excludeBottomNav = ['buy'];
+  const [isWorking, setIsWorking] = useState(false);
 
   React.useEffect(() => {
     setAllowRenderPage(state.user !== undefined);
   }, [state.user]);
 
-  // if (
-  //   newAlerts === undefined &&
-  //   token !== null &&
-  //   token !== undefined &&
-  //   userTmp !== null &&
-  //   userTmp !== undefined &&
-  //   (userTmp.accesses.indexOf('admin') !== -1 ||
-  //     userTmp.accesses.indexOf('superadmin') !== -1)
-  // ) {
-  //   let res = await generalRequest(
-  //     routes.fetchNewAlerts,
-  //     'get',
-  //     undefined,
-  //     'data',
-  //     token,
-  //   );
-  //   if (res !== null) setNewAlerts(res);
-  //   else setNewAlerts([]);
-  // }
+  React.useEffect(() => {
+    fetchAlerts();
+  }, [state.user, fetchAlerts]);
+
+  const fetchAlerts = React.useCallback(() => {
+    if (
+      !isWorking &&
+      state.newAlerts === undefined &&
+      state.token !== null &&
+      state.token !== undefined &&
+      state.user !== null &&
+      state.user !== undefined
+      // (userTmp.accesses.indexOf('admin') !== -1 ||
+      //   userTmp.accesses.indexOf('superadmin') !== -1)
+    ) {
+      setIsWorking(true);
+      Promise.all([
+        generalRequest(
+          routes.getMyAlerts,
+          'get',
+          undefined,
+          'data',
+          state.token,
+        ),
+      ]).then(res => {
+        if (res[0] !== null) dispatch({newAlerts: res[0]});
+        else dispatch({newAlerts: []});
+        setIsWorking(false);
+      });
+    }
+  }, [state.token, state.newAlerts, dispatch, state.user, isWorking]);
 
   React.useEffect(() => {
     setCurrPage(props.page);
@@ -193,8 +208,7 @@ const WebStructue = props => {
                   isRightMenuVisible={state.isRightMenuVisible}
                   setLoading={setLoading}
                   navigate={navigate}
-                  // setUser={setUser}
-                  newAlerts={newAlerts}
+                  newAlerts={state.newAlerts}
                 />
               )}
 
@@ -244,6 +258,7 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+              {props.page === 'notif' && <Notif navigate={navigate} />}
               {props.page === 'invoice' && (
                 <Invoice
                   user={state.user}

@@ -37,7 +37,7 @@ function Dashboard(props) {
     dispatch({loading: true});
     Promise.all([getMySummary(state.token)]).then(res => {
       dispatch({loading: false});
-      console.log(res[0]);
+
       if (res[0] === null) {
         console.log('sd');
         navigate('/');
