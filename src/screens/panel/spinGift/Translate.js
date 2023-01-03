@@ -15,8 +15,9 @@ const Translate = {
   site: 'سایت',
   app: 'اپ',
   launchDates: 'تاریخ های اجرا :',
-  personalQuiz: 'ازمون هاس شخصی',
+  personalQuiz: 'ازمون های شخصی',
   gachQuiz: 'آزمون های گچ',
+  content: 'بسته های آموزشی',
   counseling: 'مشاوره',
   newDate: 'تاریخ جدید',
 };
