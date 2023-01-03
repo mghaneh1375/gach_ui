@@ -35,7 +35,6 @@ function Spinner(props) {
         props.navigate('/');
         return;
       }
-      console.log(res[0]);
       setSpins(
         res[0].map(elem => {
           return elem.label;
@@ -97,9 +96,16 @@ function Spinner(props) {
   }, [ref1, isInPhone]);
 
   React.useEffect(() => {
-    if (ref1 === undefined || ref1.current === undefined) return;
-    ref1.current.children[0].children[0].style.fontSize = '11px';
-  }, [ref1]);
+    if (ref1 === undefined || ref1.current === undefined || isInPhone) return;
+
+    let w = getWidthHeight()[0] - vars.RIGHT_MENU_WIDTH;
+    console.log(w + 'px');
+    let h = 0.8 * w;
+
+    // ref1.current.children[0].children[0].style.width = w + 'px';
+    // ref1.current.children[0].children[0].style.height = h + 'px';
+    // ref1.current.children[0].children[0].style.marginRight = '-131px';
+  }, [ref1, isInPhone]);
 
   // React.useEffect(() => {
   //   if (ref2 === undefined || !isInPhone) return;
