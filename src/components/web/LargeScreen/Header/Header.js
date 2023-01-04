@@ -243,6 +243,17 @@ const Header = props => {
             }}
             icon={faBell}
           />
+          {newAlerts !== undefined && newAlerts.length > 0 && (
+            <SimpleText
+              style={{
+                position: 'absolute',
+                right: 3,
+                top: 3,
+                color: vars.YELLOW,
+              }}
+              text={newAlerts.length}
+            />
+          )}
 
           {showNotif && (
             <MyView style={style.Header_Profile_Notif}>

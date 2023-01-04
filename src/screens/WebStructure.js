@@ -76,10 +76,9 @@ import MyCerts from './general/CheckCert/MyCerts';
 import Seo from './panel/Content/Seo/Seo';
 import Adv from './panel/Content/Adv/Adv';
 import Notif from './panel/notifs/Notif';
+import SingleNotif from './studentPanel/Notif/Notif';
 import Barcode from './panel/Barcode/Barcode';
-import Spinner from './panel/spinGift/spinner/spinner';
 import {routes} from '../API/APIRoutes';
-import {useEffectOnce} from 'usehooks-ts';
 import {generalRequest} from '../API/Utility';
 
 const WebStructue = props => {
@@ -258,7 +257,7 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-              {props.page === 'notif' && <Notif navigate={navigate} />}
+              {props.page === 'notif' && <SingleNotif navigate={navigate} />}
               {props.page === 'invoice' && (
                 <Invoice
                   user={state.user}

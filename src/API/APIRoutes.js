@@ -237,8 +237,10 @@ export const routes = {
   updateAdv: 'package_content/adv/update/',
   removeAdv: 'package_content/adv/remove/',
   getAdv: 'package_content/adv/getAll',
-  fetchNotif: 'notifs/manage/get/',
-  fetchAllNotifs: 'notifs/manage/get',
+  fetchNotif: 'notifs/get/',
+  setSeenNotif: 'notifs/setSeen/',
+  myNotifs: 'notifs/myNotifs',
+  fetchAllNotifs: 'notifs/manage/getAll',
   storeNotif: 'notifs/manage/store',
   removeNotif: 'notifs/manage/remove/',
 };

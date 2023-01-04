@@ -100,7 +100,8 @@ export const generalRequest = async (
           await removeAuthCache();
           // showError(data.msg);
           // window.location.href = '/';
-          return undefined;
+          // return undefined;
+          return null;
         }
 
         showError(data.msg);

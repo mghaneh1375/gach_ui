@@ -32,6 +32,7 @@ export default function WebRouter() {
             path="packages/:slug"
             element={<WebStructue page="packages" />}
           />
+          <Route path="myNotifs" element={<WebStructue page="notif" />} />
           <Route path="notif/:id" element={<WebStructue page="notif" />} />
           <Route path="barcodes" element={<WebStructue page="barcodes" />} />
           <Route
