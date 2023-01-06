@@ -557,7 +557,9 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-              {props.page === 'notifs' && <Notif navigate={navigate} />}
+              {props.page === 'notifs' && (
+                <Notif sendVia={params.mode} navigate={navigate} />
+              )}
               {/* {props.page === 'gift' && (
                 <SpinGift token={state.token} user={state.user} navigate={navigate} />
               )} */}

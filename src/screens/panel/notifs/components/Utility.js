@@ -2,8 +2,14 @@ import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 
-export const fetchAllNotifs = async (token, from, to) => {
+export const fetchAllNotifs = async (
+  token,
+  sendVia,
+  from = undefined,
+  to = undefined,
+) => {
   const params = new URLSearchParams();
+  params.append('sendVia', sendVia);
 
   if (from !== null && from !== undefined) params.append('from', from);
 
@@ -73,9 +79,29 @@ export const store = async (token, data) => {
     routes.storeNotif,
     'post',
     data,
-    ['id', 'usersCount'],
+    ['id', 'usersCount', 'createdAt'],
     token,
   );
   if (res !== null) showSuccess();
   return res;
+};
+
+export const getStudents = async (token, id) => {
+  return await generalRequest(
+    routes.getNotifStudents + id,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const getNotif = async (token, id) => {
+  return await generalRequest(
+    routes.getNotif + id,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
 };

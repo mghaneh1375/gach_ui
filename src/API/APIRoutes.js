@@ -241,6 +241,8 @@ export const routes = {
   setSeenNotif: 'notifs/setSeen/',
   myNotifs: 'notifs/myNotifs',
   fetchAllNotifs: 'notifs/manage/getAll',
+  getNotif: 'notifs/manage/get/',
   storeNotif: 'notifs/manage/store',
   removeNotif: 'notifs/manage/remove/',
+  getNotifStudents: 'notifs/manage/getStudents/',
 };

@@ -67,7 +67,7 @@ function Filter(props) {
     else if (wanted === 'sex' || wanted === 'accesses') setItemType('select');
     else if (wanted === 'coin' || wanted === 'money' || wanted === 'rank')
       setItemType('minMax');
-
+    else if (wanted === 'nids' || wanted === 'phones') setItemType('multiText');
     if (wanted === 'grades') {
       setItems(state.grades);
     } else if (wanted === 'schools') setItems(state.schools);
@@ -87,7 +87,7 @@ function Filter(props) {
         selectedFilter.id === 'money' ||
         selectedFilter.id === 'rank')
     ) {
-      setSelectedVal({min: 0, max: 0});
+      setSelectedVal({min: undefined, max: undefined});
     } else setSelectedVal(undefined);
   }, [selectedFilter]);
 
@@ -121,7 +121,40 @@ function Filter(props) {
 
     let id;
 
-    if (selectedVal !== undefined)
+    if (itemType === 'minMax') {
+      if (selectedVal.min === undefined && selectedVal.max === undefined) {
+        showError(commonTranslator.pleaseFillAllFields);
+        return;
+      }
+      if (selectedVal.min !== undefined)
+        props.setFilter({
+          id: selectedFilter.id + '_min',
+          key:
+            'min' +
+            selectedFilter.id.charAt(0).toUpperCase() +
+            selectedFilter.id.slice(1),
+          value: selectedVal.min,
+          label: 'مینیمم - ' + selectedFilter.item,
+          valueText: selectedVal.min,
+        });
+      if (selectedVal.max !== undefined)
+        props.setFilter({
+          id: selectedFilter.id + '_max',
+          key:
+            'max' +
+            selectedFilter.id.charAt(0).toUpperCase() +
+            selectedFilter.id.slice(1),
+          value: selectedVal.max,
+          label: 'ماکزیمم - ' + selectedFilter.item,
+          valueText: selectedVal.max,
+        });
+
+      props.toggleShowPopUp();
+      return;
+    }
+
+    if (itemType === 'multiText') id = selectedFilter.id;
+    else if (selectedVal !== undefined)
       id = selectedFilter.id + '_' + selectedVal.id;
     else id = selectedFilter.id + '_' + allSelectedVals[0].id;
 
@@ -129,14 +162,19 @@ function Filter(props) {
       id: id,
       key: selectedFilter.id,
       value:
-        allSelectedVals !== undefined && allSelectedVals.length > 0
+        itemType === 'multiText'
+          ? selectedVal.split(',')
+          : selectedFilter.id === 'accesses'
+          ? [selectedVal.id]
+          : allSelectedVals !== undefined && allSelectedVals.length > 0
           ? allSelectedVals.map(e => {
               return e.id;
             })
           : selectedVal.id,
       label: selectedFilter.item,
       valueText:
-        allSelectedVals !== undefined && allSelectedVals.length > 1
+        itemType === 'multiText' ||
+        (allSelectedVals !== undefined && allSelectedVals.length > 1)
           ? undefined
           : allSelectedVals !== undefined && allSelectedVals.length > 0
           ? allSelectedVals[0].name
@@ -214,6 +252,18 @@ function Filter(props) {
               values={items}
             />
           )}
+        {selectedFilter !== undefined && itemType === 'multiText' && (
+          <JustBottomBorderTextInput
+            onChangeText={e => setSelectedVal(e)}
+            value={selectedVal}
+            placeholder={selectedFilter.item}
+            justNum={true}
+            acceptComma={true}
+            subText={
+              selectedFilter.item + ' (با علامت , مقادیر را از هم جدا کنید) '
+            }
+          />
+        )}
 
         {selectedFilter !== undefined &&
           selectedVal !== undefined &&

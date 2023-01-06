@@ -46,6 +46,8 @@ const translator = {
   quizes: 'آزمون ها',
   notifs: 'پیام های گروهی',
   innerNotifs: 'پیام های درون سایتی',
+  mailNotifs: 'پیام های ایمیلی',
+  smslNotifs: 'پیام های پیامکی',
   tag: 'تگ',
   avatars: 'مدیریت تصاویر آواتار',
   charge: 'شارژ کیف پول',

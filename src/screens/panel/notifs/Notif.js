@@ -4,6 +4,7 @@ import {NotifProvider} from './components/Context';
 import Create from './components/Create/Create';
 
 import List from './components/List/List';
+import Students from './components/Students';
 
 function Notif(props) {
   const navigate = props.navigate;
@@ -24,6 +25,7 @@ function Notif(props) {
     <NotifProvider>
       {mode === 'list' && (
         <List
+          sendVia={props.sendVia}
           setMode={setMode}
           setLoading={setLoading}
           navigate={navigate}
@@ -32,6 +34,26 @@ function Notif(props) {
       )}
       {mode === 'create' && (
         <Create
+          sendVia={props.sendVia}
+          setMode={setMode}
+          isInReviewMode={false}
+          token={state.token}
+          setLoading={setLoading}
+          navigate={navigate}
+        />
+      )}
+      {mode === 'info' && (
+        <Create
+          setMode={setMode}
+          isInReviewMode={true}
+          token={state.token}
+          setLoading={setLoading}
+          navigate={navigate}
+        />
+      )}
+
+      {mode === 'students' && (
+        <Students
           setMode={setMode}
           token={state.token}
           setLoading={setLoading}

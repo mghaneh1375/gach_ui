@@ -27,6 +27,7 @@ const JustBottomBorderTextInput = props => {
       <CommonTextInput
         onChangeText={props.onChangeText}
         justNum={props.justNum}
+        acceptComma={props.acceptComma}
         float={props.float}
         isHalf={props.isHalf}
         onPress={props.onPress}
