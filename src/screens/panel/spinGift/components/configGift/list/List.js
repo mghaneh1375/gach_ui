@@ -9,7 +9,6 @@ import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBotto
 import commonTranslator from '../../../../../../translator/Common';
 import Translate from '../../../Translate';
 import React, {useState} from 'react';
-import {Platform, View} from 'react-native';
 import {TextIcon} from '../../../../../../styles/Common/TextIcon';
 import {faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {
@@ -92,24 +91,25 @@ function List(props) {
         <PhoneView style={{gap: 15}}>
           <SimpleText text={Translate.launchDates} />
           <PhoneView>
-            {webDateList.map((elem, index) => {
-              return (
-                <TextIcon
-                  style={{gap: 15, marginBottom: 15}}
-                  onPress={() => {
-                    let allItems = webDateList.filter((elem, idx) => {
-                      return index !== idx;
-                    });
+            {webDateList !== undefined &&
+              webDateList.map((elem, index) => {
+                return (
+                  <TextIcon
+                    style={{gap: 15, marginBottom: 15}}
+                    onPress={() => {
+                      let allItems = webDateList.filter((elem, idx) => {
+                        return index !== idx;
+                      });
 
-                    setWebDateList(allItems);
-                  }}
-                  theme={'rect'}
-                  icon={faTrash}
-                  key={index}
-                  text={convertTimestamp(elem)}
-                />
-              );
-            })}
+                      setWebDateList(allItems);
+                    }}
+                    theme={'rect'}
+                    icon={faTrash}
+                    key={index}
+                    text={convertTimestamp(elem)}
+                  />
+                );
+              })}
             <FontIcon
               parentStyle={{alignSelf: 'flex-start', marginRight: 15}}
               theme={'rect'}

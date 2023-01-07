@@ -208,6 +208,14 @@ function AdminMenu(props) {
               text: translator.innerNotifs,
               url: '/notifs/site',
             },
+            {
+              text: translator.mailNotifs,
+              url: '/notifs/mail',
+            },
+            {
+              text: translator.smslNotifs,
+              url: '/notifs/sms',
+            },
           ]}
         />
         <SuperMenuItem

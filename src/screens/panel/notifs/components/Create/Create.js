@@ -17,6 +17,7 @@ import {
   fetchQuizDigests,
   fetchSchools,
   fetchStates,
+  getNotif,
   store,
 } from '../Utility';
 import BuiltFilter from './BuiltFilter';
@@ -24,24 +25,63 @@ import Filter from './Filter';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter';
+import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
+import RenderHTML from 'react-native-render-html';
 
 function Create(props) {
   let ckEditor = null;
 
-  const [isWorking, setIsWorking] = useState();
+  const [isWorking, setIsWorking] = useState(false);
   const useGlobalState = () => [
     React.useContext(notifContext),
     React.useContext(dispatchNotifContext),
   ];
 
   const [state, dispatch] = useGlobalState();
+  const [sendSMS, setSendSMS] = useState('no');
+  const [sendMail, setSendMail] = useState('no');
   const [showFilter, setShowFilter] = useState();
   const [filters, setFilters] = useState([]);
   const [title, setTitle] = useState();
   const [desc, setDesc] = useState();
 
+  const fetchNotif = React.useCallback(() => {
+    if (
+      !props.isInReviewMode ||
+      isWorking ||
+      state.selectedNotif === undefined ||
+      state.selectedNotif.desc !== undefined
+    )
+      return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+
+    Promise.all([getNotif(props.token, state.selectedNotif.id)]).then(res => {
+      props.setLoading(false);
+
+      if (res[0] === null) {
+        props.navigate('/');
+        return;
+      }
+
+      state.selectedNotif = res[0];
+      dispatch({
+        selectedNotif: state.selectedNotif,
+        needUpdate: true,
+      });
+      setDesc(res[0].desc);
+      setTitle(res[0].title);
+
+      setIsWorking(false);
+    });
+  }, [props, dispatch, isWorking, state]);
+
   const fetchPreReq = React.useCallback(() => {
-    if (isWorking || state.states !== undefined) return;
+    if (props.isInReviewMode || isWorking || state.states !== undefined) return;
+
+    setIsWorking(true);
+    props.setLoading(true);
 
     Promise.all([
       fetchQuizDigests(props.token),
@@ -50,6 +90,7 @@ function Create(props) {
       fetchSchools(props.token),
       fetchContentDigests(props.token),
     ]).then(res => {
+      props.setLoading(false);
       if (
         res[0] === null ||
         res[1] === null ||
@@ -75,16 +116,17 @@ function Create(props) {
           return {id: elem.id, name: elem.name};
         }),
         grades: res[2].filter(elem => {
-          return !elem.isOlympiad;
+          return elem.isOlympiad;
         }),
         branches: res[2].filter(elem => {
-          return elem.isOlympiad;
+          return !elem.isOlympiad;
         }),
         schools: res[3],
         packages: res[4].map(elem => {
           return {id: elem.id, name: elem.title};
         }),
       });
+      setIsWorking(false);
     });
   }, [props, state.states, dispatch, isWorking]);
 
@@ -92,9 +134,14 @@ function Create(props) {
     if (state.states === undefined) fetchPreReq();
   }, [state.states, fetchPreReq]);
 
+  React.useEffect(() => {
+    console.log(state.selectedNotif);
+    fetchNotif();
+  }, [state.selectedNotif, fetchNotif]);
+
   return (
     <>
-      {showFilter && state.states !== undefined && (
+      {showFilter && state.states !== undefined && !props.isInReviewMode && (
         <Filter
           setFilter={filter => filters.push(filter)}
           toggleShowPopUp={() => setShowFilter(false)}
@@ -105,19 +152,22 @@ function Create(props) {
         header={'افزودن پیام گروهی'}
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
-        <PhoneView style={{...styles.gap10}}>
-          <FontIcon
-            theme={'rect'}
-            back={'yellow'}
-            icon={faPlus}
-            kind={'normal'}
-            onPress={() => setShowFilter(true)}
-          />
-          <SimpleText
-            style={{...styles.BlueBold, ...styles.alignSelfCenter}}
-            text={'افزودن فیلتر'}
-          />
-        </PhoneView>
+        {!props.isInReviewMode && (
+          <PhoneView style={{...styles.gap10}}>
+            <FontIcon
+              theme={'rect'}
+              back={'yellow'}
+              icon={faPlus}
+              kind={'normal'}
+              onPress={() => setShowFilter(true)}
+            />
+            <SimpleText
+              style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+              text={'افزودن فیلتر'}
+            />
+          </PhoneView>
+        )}
+
         <PhoneView style={{...styles.gap10}}>
           {filters.map((elem, index) => {
             return (
@@ -135,39 +185,81 @@ function Create(props) {
           placeholder={'عنوان پیام'}
           subText={'عنوان پیام'}
           value={title}
-          onChangeText={e => setTitle(e)}
+          disable={props.isInReviewMode}
+          onChangeText={e => (props.isInReviewMode ? {} : setTitle(e))}
         />
+        {props.isInReviewMode && (
+          <RenderHTML
+            source={{
+              html: desc,
+            }}
+          />
+        )}
+        {!props.isInReviewMode && (
+          <CKEditor
+            editor={ClassicEditor}
+            config={{
+              customValues: {token: props.token},
+              extraPlugins: [MyCustomUploadAdapterPlugin],
+              placeholder: 'متن پیام',
+            }}
+            data={desc}
+            onReady={editor => {
+              ckEditor = editor;
+            }}
+            onChange={(event, editor) => {
+              setDesc(editor.getData());
+            }}
+          />
+        )}
 
-        <CKEditor
-          editor={ClassicEditor}
-          config={{
-            customValues: {token: props.token},
-            extraPlugins: [MyCustomUploadAdapterPlugin],
-            placeholder: 'متن پیام',
-          }}
-          data={desc}
-          onReady={editor => {
-            ckEditor = editor;
-          }}
-          onChange={(event, editor) => {
-            setDesc(editor.getData());
-          }}
+        <RadioButtonYesOrNo
+          label={'آیا از طریق پیامک اطلاع داده شود؟'}
+          selected={sendSMS}
+          setSelected={
+            props.isInReviewMode || props.sendVia === 'sms' ? {} : setSendSMS
+          }
         />
-        <CommonButton
-          onPress={async () => {
-            props.setLoading(true);
-
-            let data = {via: 'site', title: title, text: desc};
-            filters.map(elem => {
-              data[elem.key] = elem.value;
-            });
-
-            let res = await store(props.token, data);
-            props.setLoading(false);
-          }}
-          theme={'dark'}
-          title={'ارسال'}
+        <RadioButtonYesOrNo
+          label={'آیا از طریق ایمیل اطلاع داده شود؟'}
+          selected={sendMail}
+          setSelected={
+            props.isInReviewMode || props.sendVia === 'mail' ? {} : setSendMail
+          }
         />
+        {!props.isInReviewMode && (
+          <CommonButton
+            onPress={async () => {
+              props.setLoading(true);
+
+              let data = {
+                via: props.sendVia,
+                title: title,
+                text: desc,
+                sendMail: sendMail === 'yes',
+                sendSMS: sendSMS === 'yes',
+              };
+              filters.map(elem => {
+                data[elem.key] = elem.value;
+              });
+
+              let res = await store(props.token, data);
+              props.setLoading(false);
+              if (res !== null) {
+                state.notifs.push({
+                  id: res.id,
+                  usersCount: res.usersCount,
+                  title: title,
+                  createdAt: res.createdAt,
+                });
+                dispatch({notifs: state.notifs});
+                props.setMode('list');
+              }
+            }}
+            theme={'dark'}
+            title={'ارسال'}
+          />
+        )}
       </CommonWebBox>
     </>
   );

@@ -58,6 +58,12 @@ export const CommonTextInput = props => {
   if (props.justNum !== undefined && props.justNum && Platform.OS === 'web') {
     inputProps.onKeyPress = e => {
       var charCode = e.which ? e.which : e.keyCode;
+      if (
+        charCode === 188 &&
+        props.acceptComma !== undefined &&
+        props.acceptComma
+      )
+        return;
       if (charCode === 190) {
         if (props.float === undefined || !props.float) e.preventDefault();
       } else if (

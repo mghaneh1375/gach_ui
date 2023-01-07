@@ -24,7 +24,7 @@ function List(props) {
     setIsWorking(true);
     props.setLoading(true);
 
-    Promise.all([fetchAllNotifs(props.token)]).then(res => {
+    Promise.all([fetchAllNotifs(props.token, props.sendVia)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) return props.navigate('/');
       dispatch({notifs: res[0]});
@@ -45,8 +45,6 @@ function List(props) {
     <MyView>
       {showOp && (
         <Ops
-          setLoading={props.setLoading}
-          token={props.token}
           setMode={props.setMode}
           toggleShowPopUp={() => setShowOp(!showOp)}
         />
