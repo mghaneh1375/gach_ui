@@ -77,6 +77,10 @@ function List(props) {
   React.useEffect(() => {
     setWebDateList(props.data.webGiftDays);
     setAppDateList(props.data.appGiftDays);
+    setCoinForSecondTime(props.data.coinForSecondTime);
+    setCoinForThirdTime(props.data.coinForThirdTime);
+    setCoinForForthTime(props.data.coinForForthTime);
+    setCoinForFifthTime(props.data.coinForFifthTime);
   }, [props.data]);
 
   const items = [
@@ -147,6 +151,21 @@ function List(props) {
             subText={'مقدار سکه برای شرکت برای بار پنجم'}
           />
         </PhoneView>
+        <CommonButton
+          theme={'dark'}
+          title={commonTranslator.confirm}
+          onPress={async () => {
+            props.setLoading(true);
+            let data = {
+              coinForSecondTime: coinForSecondTime,
+              coinForThirdTime: coinForThirdTime,
+              coinForForthTime: coinForForthTime,
+              coinForFifthTime: coinForFifthTime,
+            };
+            await updateGift(data, props.token);
+            props.setLoading(false);
+          }}
+        />
       </CommonWebBox>
 
       <PhoneView>
