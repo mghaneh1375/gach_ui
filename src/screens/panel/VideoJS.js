@@ -25,6 +25,7 @@ export const VideoJS = props => {
         player.hlsQualitySelector({
           displayCurrentQuality: true,
         });
+        player.controlBar.progressControl.disable();
         videojs.log('player is ready');
         onReady && onReady(player);
       }));
@@ -33,6 +34,7 @@ export const VideoJS = props => {
       // on prop change, for example:
     } else {
       const player = playerRef.current;
+      player.controlBar.progressControl.disable();
       // player.hlsQualitySelector({
       //   displayCurrentQuality: true,
       // });

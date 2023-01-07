@@ -21,6 +21,7 @@ import {
   fetchContentDigests,
   fetchQuizDigests,
 } from '../../../../notifs/components/Utility';
+import {styles} from '../../../../../../styles/Common/Styles';
 
 function List(props) {
   const [newDate, setNewDate] = useState();
@@ -104,251 +105,308 @@ function List(props) {
     }
   };
 
-  return (
-    // for web
-    <PhoneView>
-      <CommonWebBox
-        width={350}
-        header={commonTranslator.configuration + ' ' + commonTranslator.web}>
-        {showPane && (
-          <LargePopUp
-            removeCancel={true}
-            title={commonTranslator.addDate}
-            toggleShowPopUp={toggleShowPopUpPane}>
-            <MyView style={{minHeight: 300}}>
-              <CommonDatePicker
-                isHalf={true}
-                placeholder={Translate.newDate}
-                subText={Translate.newDate}
-                setter={d => {
-                  if (d < Date.now())
-                    showError('تاریخ باید از امروز بزرگتر باشد');
-                  else setNewDate(d);
-                }}
-                value={newDate}
-              />
-              <JustBottomBorderSelect
-                placeholder={'مخاطب'}
-                isHalf={true}
-                subText={'مخاطب'}
-                values={items}
-                setter={selected => {
-                  if (selected === 'package') setChoices(contents);
-                  else if (selected === 'quiz') setChoices(quizzes);
-                  else setChoices(undefined);
-                  setTarget(selected);
-                }}
-                value={
-                  target === undefined
-                    ? undefined
-                    : items.find(elem => elem.id === target)
-                }
-              />
-              {choices !== undefined && (
-                <JustBottomBorderTextInput
-                  setSelectedItem={selected => {
-                    if (selected !== undefined) addToSelected(selected);
-                  }}
-                  isHalf={true}
-                  resultPane={true}
-                  value={
-                    allSelectedVals === undefined ||
-                    allSelectedVals.length === 0
-                      ? undefined
-                      : choices.find(elem => elem.id === allSelectedVals[0].id)
-                          .name
-                  }
-                  subText={'آیتم موردنظر'}
-                  placeholder={'آیتم موردنظر'}
-                  values={choices}
-                />
-              )}
-            </MyView>
+  const [coinForSecondTime, setCoinForSecondTime] = useState();
+  const [coinForThirdTime, setCoinForThirdTime] = useState();
+  const [coinForForthTime, setCoinForForthTime] = useState();
+  const [coinForFifthTime, setCoinForFifthTime] = useState();
 
-            <PhoneView style={{flexDirection: 'row-reverse'}}>
-              <CommonButton
-                title={commonTranslator.confirm}
-                onPress={() => {
-                  if (
-                    newDate === undefined ||
-                    target === undefined ||
-                    ((target === 'quiz' || target === 'package') &&
-                      (allSelectedVals === undefined ||
-                        allSelectedVals.length === 0))
-                  ) {
-                    showError(commonTranslator.pleaseFillAllFields);
-                    return;
+  return (
+    <MyView>
+      <CommonWebBox header={'پیکربندی کلی'}>
+        <PhoneView style={{...styles.gap10}}>
+          <JustBottomBorderTextInput
+            justNum={true}
+            float={true}
+            value={coinForSecondTime}
+            onChangeText={e => setCoinForSecondTime(e)}
+            placeholder={'مقدار سکه برای شرکت برای بار دوم'}
+            subText={'مقدار سکه برای شرکت برای بار دوم'}
+          />
+          <JustBottomBorderTextInput
+            justNum={true}
+            float={true}
+            value={coinForThirdTime}
+            onChangeText={e => setCoinForThirdTime(e)}
+            placeholder={'مقدار سکه برای شرکت برای بار سوم'}
+            subText={'مقدار سکه برای شرکت برای بار سوم'}
+          />
+          <JustBottomBorderTextInput
+            justNum={true}
+            float={true}
+            value={coinForForthTime}
+            onChangeText={e => setCoinForForthTime(e)}
+            placeholder={'مقدار سکه برای شرکت برای بار چهارم'}
+            subText={'مقدار سکه برای شرکت برای بار چهارم'}
+          />
+          <JustBottomBorderTextInput
+            justNum={true}
+            float={true}
+            value={coinForFifthTime}
+            onChangeText={e => setCoinForFifthTime(e)}
+            placeholder={'مقدار سکه برای شرکت برای بار پنجم'}
+            subText={'مقدار سکه برای شرکت برای بار پنجم'}
+          />
+        </PhoneView>
+      </CommonWebBox>
+
+      <PhoneView>
+        <CommonWebBox
+          width={350}
+          header={commonTranslator.configuration + ' ' + commonTranslator.web}>
+          {showPane && (
+            <LargePopUp
+              removeCancel={true}
+              title={commonTranslator.addDate}
+              toggleShowPopUp={toggleShowPopUpPane}>
+              <MyView style={{minHeight: 300}}>
+                <CommonDatePicker
+                  isHalf={true}
+                  placeholder={Translate.newDate}
+                  subText={Translate.newDate}
+                  setter={d => {
+                    if (d < Date.now())
+                      showError('تاریخ باید از امروز بزرگتر باشد');
+                    else setNewDate(d);
+                  }}
+                  value={newDate}
+                />
+                <JustBottomBorderSelect
+                  placeholder={'مخاطب'}
+                  isHalf={true}
+                  subText={'مخاطب'}
+                  values={items}
+                  setter={selected => {
+                    if (selected === 'package') setChoices(contents);
+                    else if (selected === 'quiz') setChoices(quizzes);
+                    else setChoices(undefined);
+                    setTarget(selected);
+                  }}
+                  value={
+                    target === undefined
+                      ? undefined
+                      : items.find(elem => elem.id === target)
                   }
-                  let allItems = webDateList;
-                  allItems.push({
-                    date: newDate,
-                    target: target,
-                    additional:
+                />
+                {choices !== undefined && (
+                  <JustBottomBorderTextInput
+                    setSelectedItem={selected => {
+                      if (selected !== undefined) addToSelected(selected);
+                    }}
+                    isHalf={true}
+                    resultPane={true}
+                    value={
                       allSelectedVals === undefined ||
                       allSelectedVals.length === 0
                         ? undefined
-                        : allSelectedVals[0],
-                  });
-                  setWebDateList(allItems);
-                  setNewDate(undefined);
-                  setTarget(undefined);
-                  toggleShowPopUpPane();
-                }}
-              />
-              <CommonButton
-                title={commonTranslator.cancel}
-                onPress={toggleShowPopUpPane}
-              />
-            </PhoneView>
-          </LargePopUp>
-        )}
-        <JustBottomBorderTextInput
-          subText={Translate.maxCut}
-          placeholder={Translate.maxCut}
-          justNum={true}
-          onChangeText={text => setMaxSlot(text)}
-          value={maxSlot}
-          isHalf={true}
-        />
-        <PhoneView style={{gap: 15}}>
-          <SimpleText text={Translate.launchDates} />
-          <PhoneView>
-            {webDateList !== undefined &&
-              webDateList.map((elem, index) => {
-                return (
-                  <TextIcon
-                    style={{gap: 15, marginBottom: 15}}
-                    onPress={() => {
-                      let allItems = webDateList.filter((elem, idx) => {
-                        return index !== idx;
-                      });
-
-                      setWebDateList(allItems);
-                    }}
-                    theme={'rect'}
-                    icon={faTrash}
-                    key={index}
-                    text={convertTimestamp(elem.date)}
+                        : choices.find(
+                            elem => elem.id === allSelectedVals[0].id,
+                          ).name
+                    }
+                    subText={'آیتم موردنظر'}
+                    placeholder={'آیتم موردنظر'}
+                    values={choices}
                   />
-                );
-              })}
-            <FontIcon
-              parentStyle={{alignSelf: 'flex-start', marginRight: 15}}
-              theme={'rect'}
-              kind={'normal'}
-              back={'yellow'}
-              icon={faPlus}
-              onPress={toggleShowPopUpPane}
-            />
-          </PhoneView>
-        </PhoneView>
-        <MyView>
-          <CommonButton
-            title={commonTranslator.confrim}
-            onPress={async () => {
-              props.setLoading(true);
-              let webData = {
-                maxWebGiftSlot: maxSlot,
-                webGiftDays: webDateList,
-              };
-              await updateGift(webData, props.token);
-              props.setLoading(false);
-            }}
-          />
-        </MyView>
-      </CommonWebBox>
-      {/* for app */}
-      <CommonWebBox
-        width={350}
-        header={commonTranslator.configuration + ' ' + commonTranslator.app}>
-        {appShowPane && (
-          <LargePopUp
-            removeCancel={true}
-            title={commonTranslator.addDate + ' ' + commonTranslator.app}
-            toggleShowPopUp={appToggleShowPopUpPane}>
-            <PhoneView>
-              <CommonDatePicker
-                placeholder={Translate.newDate}
-                subText={Translate.newDate}
-                setter={setAppNewDate}
-                value={appNewDate}
-              />
-            </PhoneView>
+                )}
+              </MyView>
 
-            <PhoneView style={{flexDirection: 'row-reverse'}}>
-              <CommonButton
-                title={commonTranslator.confirm}
-                onPress={() => {
-                  let allItems = appDateList;
-                  allItems.push(appNewDate);
-                  setAppDateList(allItems);
-                  setAppNewDate(undefined);
-                  appToggleShowPopUpPane();
-                }}
-              />
-              <CommonButton
-                title={commonTranslator.cancel}
-                onPress={appToggleShowPopUpPane}
-              />
-            </PhoneView>
-          </LargePopUp>
-        )}
-        <PhoneView>
+              <PhoneView style={{flexDirection: 'row-reverse'}}>
+                <CommonButton
+                  theme={'dark'}
+                  title={commonTranslator.confirm}
+                  onPress={() => {
+                    if (
+                      newDate === undefined ||
+                      target === undefined ||
+                      ((target === 'quiz' || target === 'package') &&
+                        (allSelectedVals === undefined ||
+                          allSelectedVals.length === 0))
+                    ) {
+                      showError(commonTranslator.pleaseFillAllFields);
+                      return;
+                    }
+                    let allItems = webDateList;
+                    allItems.push({
+                      date: newDate,
+                      target: target,
+                      additional:
+                        allSelectedVals === undefined ||
+                        allSelectedVals.length === 0
+                          ? undefined
+                          : allSelectedVals[0],
+                    });
+                    setWebDateList(allItems);
+                    setNewDate(undefined);
+                    setTarget(undefined);
+                    toggleShowPopUpPane();
+                  }}
+                />
+                <CommonButton
+                  title={commonTranslator.cancel}
+                  onPress={toggleShowPopUpPane}
+                />
+              </PhoneView>
+            </LargePopUp>
+          )}
           <JustBottomBorderTextInput
             subText={Translate.maxCut}
             placeholder={Translate.maxCut}
             justNum={true}
-            onChangeText={text => setAppMaxSlot(text)}
-            value={appMaxSlot}
+            onChangeText={text => setMaxSlot(text)}
+            value={maxSlot}
+            isHalf={true}
           />
-        </PhoneView>
-        <PhoneView style={{gap: 15}}>
-          <SimpleText text={Translate.launchDates} />
           <PhoneView style={{gap: 15}}>
-            {appDateList.map((elem, index) => {
-              return (
-                <TextIcon
-                  style={{gap: 15, marginBottom: 15}}
-                  onPress={() => {
-                    let allItems = appDateList.filter((elem, idx) => {
-                      return index !== idx;
-                    });
+            <SimpleText text={Translate.launchDates} />
+            <PhoneView>
+              {webDateList !== undefined &&
+                webDateList.map((elem, index) => {
+                  return (
+                    <MyView key={index} style={{marginBottom: 15}}>
+                      <TextIcon
+                        style={{gap: 15}}
+                        onPress={() => {
+                          let allItems = webDateList.filter((elem, idx) => {
+                            return index !== idx;
+                          });
 
-                    setAppDateList(allItems);
-                  }}
-                  theme={'rect'}
-                  icon={faTrash}
-                  key={index}
-                  text={convertTimestamp(elem)}
+                          setWebDateList(allItems);
+                        }}
+                        theme={'rect'}
+                        icon={faTrash}
+                        text={convertTimestamp(elem.date)}
+                      />
+                      <SimpleText
+                        style={{...styles.fontSize11}}
+                        text={items.find(itr => itr.id === elem.target).item}
+                      />
+                      {elem.additional !== undefined && (
+                        <SimpleText
+                          style={{...styles.fontSize11}}
+                          text={elem.additional.name}
+                        />
+                      )}
+                    </MyView>
+                  );
+                })}
+              <FontIcon
+                parentStyle={{alignSelf: 'flex-start', marginRight: 15}}
+                theme={'rect'}
+                kind={'normal'}
+                back={'yellow'}
+                icon={faPlus}
+                onPress={toggleShowPopUpPane}
+              />
+            </PhoneView>
+          </PhoneView>
+          <MyView>
+            <CommonButton
+              title={commonTranslator.confrim}
+              onPress={async () => {
+                props.setLoading(true);
+                let webData = {
+                  maxWebGiftSlot: maxSlot,
+                  webGiftDays: webDateList,
+                };
+                await updateGift(webData, props.token);
+                props.setLoading(false);
+              }}
+            />
+          </MyView>
+        </CommonWebBox>
+        {/* for app */}
+        <CommonWebBox
+          width={350}
+          header={commonTranslator.configuration + ' ' + commonTranslator.app}>
+          {appShowPane && (
+            <LargePopUp
+              removeCancel={true}
+              title={commonTranslator.addDate + ' ' + commonTranslator.app}
+              toggleShowPopUp={appToggleShowPopUpPane}>
+              <PhoneView>
+                <CommonDatePicker
+                  placeholder={Translate.newDate}
+                  subText={Translate.newDate}
+                  setter={setAppNewDate}
+                  value={appNewDate}
                 />
-              );
-            })}
-            <FontIcon
-              parentStyle={{alignSelf: 'flex-start'}}
-              theme={'rect'}
-              kind={'normal'}
-              back={'yellow'}
-              icon={faPlus}
-              onPress={appToggleShowPopUpPane}
+              </PhoneView>
+
+              <PhoneView style={{flexDirection: 'row-reverse'}}>
+                <CommonButton
+                  theme={'dark'}
+                  title={commonTranslator.confirm}
+                  onPress={() => {
+                    let allItems = appDateList;
+                    allItems.push(appNewDate);
+                    setAppDateList(allItems);
+                    setAppNewDate(undefined);
+                    appToggleShowPopUpPane();
+                  }}
+                />
+                <CommonButton
+                  title={commonTranslator.cancel}
+                  onPress={appToggleShowPopUpPane}
+                />
+              </PhoneView>
+            </LargePopUp>
+          )}
+          <PhoneView>
+            <JustBottomBorderTextInput
+              subText={Translate.maxCut}
+              placeholder={Translate.maxCut}
+              justNum={true}
+              onChangeText={text => setAppMaxSlot(text)}
+              value={appMaxSlot}
             />
           </PhoneView>
-        </PhoneView>
-        <MyView>
-          <CommonButton
-            title={commonTranslator.confrim}
-            onPress={async () => {
-              props.setLoading(true);
-              let appData = {
-                maxAppGiftSlot: appMaxSlot,
-                appGiftDays: appDateList,
-              };
-              await updateGift(appData, props.token);
-              props.setLoading(false);
-            }}
-          />
-        </MyView>
-      </CommonWebBox>
-    </PhoneView>
+          <PhoneView style={{gap: 15}}>
+            <SimpleText text={Translate.launchDates} />
+            <PhoneView style={{gap: 15}}>
+              {appDateList.map((elem, index) => {
+                return (
+                  <TextIcon
+                    style={{gap: 15, marginBottom: 15}}
+                    onPress={() => {
+                      let allItems = appDateList.filter((elem, idx) => {
+                        return index !== idx;
+                      });
+
+                      setAppDateList(allItems);
+                    }}
+                    theme={'rect'}
+                    icon={faTrash}
+                    key={index}
+                    text={convertTimestamp(elem)}
+                  />
+                );
+              })}
+              <FontIcon
+                parentStyle={{alignSelf: 'flex-start'}}
+                theme={'rect'}
+                kind={'normal'}
+                back={'yellow'}
+                icon={faPlus}
+                onPress={appToggleShowPopUpPane}
+              />
+            </PhoneView>
+          </PhoneView>
+          <MyView>
+            <CommonButton
+              title={commonTranslator.confrim}
+              onPress={async () => {
+                props.setLoading(true);
+                let appData = {
+                  maxAppGiftSlot: appMaxSlot,
+                  appGiftDays: appDateList,
+                };
+                await updateGift(appData, props.token);
+                props.setLoading(false);
+              }}
+            />
+          </MyView>
+        </CommonWebBox>
+      </PhoneView>
+    </MyView>
   );
 }
 
