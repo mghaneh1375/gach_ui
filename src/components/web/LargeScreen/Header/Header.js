@@ -247,8 +247,14 @@ const Header = props => {
             <SimpleText
               style={{
                 position: 'absolute',
-                right: 3,
-                top: 3,
+                right: -10,
+                top: -5,
+                backgroundColor: vars.RED,
+                borderRadius: '50%',
+                textAlign: 'center',
+                fontWeight: 'bolder',
+                width: 20,
+                height: 20,
                 color: vars.YELLOW,
               }}
               text={newAlerts.length}
