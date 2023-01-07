@@ -17,24 +17,7 @@ import Video from '../../../../panel/Video';
 function SessionDetail(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const [showAdvertising, setShowAdvertising] = useState(true);
-  const [showVideo, setShowVideo] = useState(false);
-  const [duration, setDuration] = useState(props.duration);
 
-  useEffect(() => {
-    if (duration === 0) {
-      setShowAdvertising(false);
-    }
-  }, [duration]);
-  console.log(duration);
-  useEffect(() => {
-    console.log(duration);
-  }, [duration]);
-
-  function mmd() {
-    console.log('mmd');
-  }
-
-  setTimeout(mmd, duration);
   return (
     <MyView>
       <CommonWebBox
@@ -62,8 +45,16 @@ function SessionDetail(props) {
         header={props.session.title}></CommonWebBox>
       <PhoneView>
         <CommonWebBox width={isInPhone ? '100%' : '70%'}>
-          {showAdvertising && <Video src={props.adv} />}
-          {showVideo && <Video src={props.session.video} />}
+          {showAdvertising && (
+            <Video
+              onFinish={() => setShowAdvertising(false)}
+              disableSeekbar={true}
+              src={props.adv}
+            />
+          )}
+          {!showAdvertising && (
+            <Video disableSeekbar={false} src={props.session.video} />
+          )}
         </CommonWebBox>
       </PhoneView>
     </MyView>

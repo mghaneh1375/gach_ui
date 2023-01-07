@@ -23,7 +23,15 @@ function Video(props) {
 
   return (
     <>
-      <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+      <VideoJS
+        myOptions={{
+          disableSeekbar: props.disableSeekbar,
+        }}
+        onFinish={props.onFinish}
+        options={videoJsOptions}
+        onReady={handlePlayerReady}
+        end={true}
+      />
     </>
   );
 }
