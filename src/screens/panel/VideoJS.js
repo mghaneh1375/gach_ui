@@ -40,7 +40,7 @@ export const VideoJS = props => {
       player.src(options.sources);
     }
   }, [options, videoRef, onReady]);
-
+  this.player.controlBar.progressControl.seekBar.disable();
   // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {
     const player = playerRef.current;
