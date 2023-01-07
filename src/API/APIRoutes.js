@@ -167,7 +167,7 @@ export const routes = {
   removeGift: 'admin/config/gift/remove',
   addGift: 'admin/config/gift/store',
   editGift: 'admin/config/gift/edit/',
-  updateGiftConfig: 'admin/config/config/update',
+  updateGiftConfig: 'admin/config/gift/updateConfig',
   checkDuplicate: 'admin/user/checkDuplicate',
   acceptInvite: 'admin/user/acceptInvite/',
   addSchoolByAgent: 'admin/user/addSchool',

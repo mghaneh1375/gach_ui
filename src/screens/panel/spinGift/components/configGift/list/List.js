@@ -11,14 +11,16 @@ import Translate from '../../../Translate';
 import React, {useState} from 'react';
 import {TextIcon} from '../../../../../../styles/Common/TextIcon';
 import {faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
-import {
-  convertTimestamp,
-  getWidthHeight,
-} from '../../../../../../services/Utility';
+import {convertTimestamp, showError} from '../../../../../../services/Utility';
 import {FontIcon} from '../../../../../../styles/Common/FontIcon';
 import {LargePopUp} from '../../../../../../styles/Common/PopUp';
 import {CommonDatePicker} from '../../../../../../styles/Common/CommonDatePicker';
 import {updateGift} from '../Utility';
+import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
+import {
+  fetchContentDigests,
+  fetchQuizDigests,
+} from '../../../../notifs/components/Utility';
 
 function List(props) {
   const [newDate, setNewDate] = useState();
@@ -36,12 +38,72 @@ function List(props) {
 
   const [webDateList, setWebDateList] = useState([]);
   const [appDateList, setAppDateList] = useState([]);
+  const [quizzes, setQuizzes] = useState();
+  const [contents, setContents] = useState();
+  const [isWorking, setIsWorking] = useState(false);
+
+  const fetchPreReq = React.useCallback(() => {
+    if (isWorking || quizzes !== undefined) return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+
+    Promise.all([
+      fetchQuizDigests(props.token),
+      fetchContentDigests(props.token),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null || res[1] === null) {
+        props.navigate('/');
+        return;
+      }
+
+      setQuizzes(res[0]);
+      setContents(
+        res[1].map(elem => {
+          return {id: elem.id, name: elem.title};
+        }),
+      );
+
+      setIsWorking(false);
+    });
+  }, [props, isWorking, quizzes]);
+
+  React.useEffect(() => {
+    fetchPreReq();
+  }, [props.data, fetchPreReq]);
 
   React.useEffect(() => {
     setWebDateList(props.data.webGiftDays);
     setAppDateList(props.data.appGiftDays);
   }, [props.data]);
-  let width = getWidthHeight()[0];
+
+  const items = [
+    {id: 'public', item: 'عمومی'},
+    {
+      id: 'all_package',
+      item: 'بسته های آموزشی(خریدار هر بسته آموزشی تعریف شده)',
+    },
+    {id: 'all_quiz', item: 'آزمونهای آیریسک(خریدار هر آزمون تعریف شده)'},
+    {id: 'package', item: 'بسته های آموزشی(خریداران یک بسته آموزشی خاص)'},
+    {id: 'quiz', item: 'آزمونهای آیریسک(خریداران یک آزمون خاص)'},
+  ];
+  const [target, setTarget] = useState();
+  const [choices, setChoices] = useState();
+  const [allSelectedVals, setAllSelectedVals] = useState();
+
+  const addToSelected = selected => {
+    if (allSelectedVals === undefined) setAllSelectedVals([selected]);
+    else {
+      let tmp = [];
+      allSelectedVals.forEach(e => {
+        tmp.push(e);
+      });
+      tmp.push(selected);
+      setAllSelectedVals(tmp);
+    }
+  };
+
   return (
     // for web
     <PhoneView>
@@ -53,23 +115,83 @@ function List(props) {
             removeCancel={true}
             title={commonTranslator.addDate}
             toggleShowPopUp={toggleShowPopUpPane}>
-            <PhoneView>
+            <MyView style={{minHeight: 300}}>
               <CommonDatePicker
+                isHalf={true}
                 placeholder={Translate.newDate}
                 subText={Translate.newDate}
-                setter={setNewDate}
+                setter={d => {
+                  if (d < Date.now())
+                    showError('تاریخ باید از امروز بزرگتر باشد');
+                  else setNewDate(d);
+                }}
                 value={newDate}
               />
-            </PhoneView>
+              <JustBottomBorderSelect
+                placeholder={'مخاطب'}
+                isHalf={true}
+                subText={'مخاطب'}
+                values={items}
+                setter={selected => {
+                  if (selected === 'package') setChoices(contents);
+                  else if (selected === 'quiz') setChoices(quizzes);
+                  else setChoices(undefined);
+                  setTarget(selected);
+                }}
+                value={
+                  target === undefined
+                    ? undefined
+                    : items.find(elem => elem.id === target)
+                }
+              />
+              {choices !== undefined && (
+                <JustBottomBorderTextInput
+                  setSelectedItem={selected => {
+                    if (selected !== undefined) addToSelected(selected);
+                  }}
+                  isHalf={true}
+                  resultPane={true}
+                  value={
+                    allSelectedVals === undefined ||
+                    allSelectedVals.length === 0
+                      ? undefined
+                      : choices.find(elem => elem.id === allSelectedVals[0].id)
+                          .name
+                  }
+                  subText={'آیتم موردنظر'}
+                  placeholder={'آیتم موردنظر'}
+                  values={choices}
+                />
+              )}
+            </MyView>
 
             <PhoneView style={{flexDirection: 'row-reverse'}}>
               <CommonButton
                 title={commonTranslator.confirm}
                 onPress={() => {
+                  if (
+                    newDate === undefined ||
+                    target === undefined ||
+                    ((target === 'quiz' || target === 'package') &&
+                      (allSelectedVals === undefined ||
+                        allSelectedVals.length === 0))
+                  ) {
+                    showError(commonTranslator.pleaseFillAllFields);
+                    return;
+                  }
                   let allItems = webDateList;
-                  allItems.push(newDate);
+                  allItems.push({
+                    date: newDate,
+                    target: target,
+                    additional:
+                      allSelectedVals === undefined ||
+                      allSelectedVals.length === 0
+                        ? undefined
+                        : allSelectedVals[0],
+                  });
                   setWebDateList(allItems);
                   setNewDate(undefined);
+                  setTarget(undefined);
                   toggleShowPopUpPane();
                 }}
               />
@@ -106,7 +228,7 @@ function List(props) {
                     theme={'rect'}
                     icon={faTrash}
                     key={index}
-                    text={convertTimestamp(elem)}
+                    text={convertTimestamp(elem.date)}
                   />
                 );
               })}
@@ -226,7 +348,6 @@ function List(props) {
           />
         </MyView>
       </CommonWebBox>
-      {/* /////////////////////////////////////////////////////////////////// */}
     </PhoneView>
   );
 }
