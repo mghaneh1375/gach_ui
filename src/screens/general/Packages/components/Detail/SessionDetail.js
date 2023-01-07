@@ -1,3 +1,4 @@
+import React, {useState, useEffect} from 'react';
 import {faClock, faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import {
   convertSecToMinWithOutHour,
@@ -15,6 +16,7 @@ import Video from '../../../../panel/Video';
 
 function SessionDetail(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const [showAdvertising, setShowAdvertising] = useState(true);
 
   return (
     <MyView>
@@ -43,7 +45,16 @@ function SessionDetail(props) {
         header={props.session.title}></CommonWebBox>
       <PhoneView>
         <CommonWebBox width={isInPhone ? '100%' : '70%'}>
-          <Video src={props.session.video} />
+          {showAdvertising && (
+            <Video
+              onFinish={() => setShowAdvertising(false)}
+              disableSeekbar={true}
+              src={props.adv}
+            />
+          )}
+          {!showAdvertising && (
+            <Video disableSeekbar={false} src={props.session.video} />
+          )}
         </CommonWebBox>
       </PhoneView>
     </MyView>

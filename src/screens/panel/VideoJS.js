@@ -10,7 +10,7 @@ videojs.registerPlugin('hlsQualitySelector', qualitySelector);
 export const VideoJS = props => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
-  const {options, onReady} = props;
+  const {myOptions, onFinish, options, onReady} = props;
 
   React.useEffect(() => {
     // Make sure Video.js player is only initialized once
@@ -22,10 +22,16 @@ export const VideoJS = props => {
       videoRef.current.appendChild(videoElement);
 
       const player = (playerRef.current = videojs(videoElement, options, () => {
+        player.on('ended', function () {
+          onFinish();
+        });
         player.hlsQualitySelector({
           displayCurrentQuality: true,
         });
-        player.controlBar.progressControl.disable();
+
+        if (myOptions.disableSeekbar)
+          player.controlBar.progressControl.disable();
+
         videojs.log('player is ready');
         onReady && onReady(player);
       }));
@@ -34,14 +40,14 @@ export const VideoJS = props => {
       // on prop change, for example:
     } else {
       const player = playerRef.current;
-      player.controlBar.progressControl.disable();
+      if (myOptions.disableSeekbar) player.controlBar.progressControl.disable();
       // player.hlsQualitySelector({
       //   displayCurrentQuality: true,
       // });
       player.autoplay(options.autoplay);
       player.src(options.sources);
     }
-  }, [options, videoRef, onReady]);
+  }, [options, videoRef, onReady, myOptions.disableSeekbar, onFinish]);
 
   // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {

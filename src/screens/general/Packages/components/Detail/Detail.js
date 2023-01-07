@@ -183,6 +183,8 @@ function Detail(props) {
       {item === undefined && <></>}
       {selectedSession !== undefined && (
         <SessionDetail
+          duration={item.duration}
+          adv={item.adv}
           session={selectedSession}
           toggleShow={() => setSelectedSession(undefined)}
         />
