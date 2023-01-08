@@ -22,16 +22,19 @@ export const VideoJS = props => {
       videoRef.current.appendChild(videoElement);
 
       const player = (playerRef.current = videojs(videoElement, options, () => {
-        player.on('ready', () => {
-          let div = document.createElement('div');
-          div.innerHTML = `<p style=" margin-top: -70px; color: wihte; font-size: 11px;
+        if (myOptions.disableSeekbar) {
+          player.on('ready', () => {
+            let div = document.createElement('div');
+            div.innerHTML = `<p style=" margin-top: -70px; color: wihte; font-size: 11px;
     position: absolute;
     padding: 5px;
     background-color: #3a3a3a;
     width: 123px;
     font-family: 'IRANSans';">نمایش ویدیو بعد از تبلیغ</p>`;
-          player.el().appendChild(div);
-        });
+            player.el().appendChild(div);
+          });
+        }
+
         player.on('ended', function () {
           onFinish();
         });

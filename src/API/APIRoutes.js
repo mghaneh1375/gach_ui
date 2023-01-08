@@ -6,6 +6,7 @@ export const routes = {
   signup: 'user/signUp',
   buildSpinner: 'general/buildSpinner/',
   giveMyGift: 'general/giveMyGift',
+  buildSpinnerAgain: 'general/buildSpinnerAgain/',
   checkCert: 'general/checkCert/',
   getMySummary: 'general/getMySummary',
   exchange: 'general/exchange',

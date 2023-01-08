@@ -18,6 +18,19 @@ function Spinner(props) {
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [showWheelComponent, setShowWheelComponent] = useState(true);
   const [award, setAward] = useState();
+  const [repeat, setRepeat] = useState('second');
+
+  function changeRepeat() {
+    if (repeat === 'second') {
+      setRepeat(repeat === 'third');
+    }
+    if (repeat === 'third') {
+      setRepeat(repeat === 'forth');
+    }
+    if (repeat === 'forth') {
+      setRepeat(repeat === 'fifth');
+    }
+  }
 
   const fetchSpins = React.useCallback(() => {
     props.setLoading(true);
@@ -47,12 +60,47 @@ function Spinner(props) {
       setSelectedSpin(
         res[0].spins.find(elem => now - elem.created_at > 300000).label,
       );
+      console.log(generalRequest);
     });
   }, [props]);
 
   useEffectOnce(() => {
     fetchSpins();
   }, [fetchSpins]);
+
+  const rotateAgain = async r => {
+    props.setLoading(true);
+    Promise.all([
+      generalRequest(
+        routes.buildSpinnerAgain + props.id + `?mode=site&repeat=${r}`,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null) {
+        props.navigate('/');
+        return;
+      }
+      setSpins(
+        res[0].spins.map(elem => {
+          return elem.label;
+        }),
+      );
+      let now = Date.now();
+      console.log(
+        res[0].spins.find(elem => now - elem.created_at > 300000).label,
+      );
+      setSelectedSpin(
+        res[0].spins.find(elem => now - elem.created_at > 300000).label,
+      );
+
+      setShowCongratulations(false);
+      setShowWheelComponent(true);
+    });
+  };
 
   const segColors = [
     '#EE4040',
@@ -146,6 +194,21 @@ function Spinner(props) {
                 }}
                 onPress={() => props.navigate('/myOffs')}
               />
+              {repeat === 'second' && 1 === 1 && (
+                <SimpleText
+                  text={` mmd `}
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.alignSelfCenter,
+                    ...styles.fontSize20,
+                    ...styles.colorGreen,
+                  }}
+                  onPress={() => {
+                    rotateAgain(repeat);
+                    changeRepeat();
+                  }}
+                />
+              )}
             </MyView>
           )}
           {showCongratulations && (
@@ -164,7 +227,7 @@ function Spinner(props) {
               primaryColor="black"
               contrastColor="white"
               buttonText="چرخنده"
-              isOnlyOnce={true}
+              isOnlyOnce={false}
               size={260}
               upDuration={600}
               downDuration={10000}
