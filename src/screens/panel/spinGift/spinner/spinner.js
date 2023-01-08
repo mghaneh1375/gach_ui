@@ -23,7 +23,7 @@ function Spinner(props) {
     props.setLoading(true);
     Promise.all([
       generalRequest(
-        routes.buildSpinner,
+        routes.buildSpinner + props.id + '?mode=site',
         'get',
         undefined,
         'data',
@@ -36,13 +36,16 @@ function Spinner(props) {
         return;
       }
       setSpins(
-        res[0].map(elem => {
+        res[0].spins.map(elem => {
           return elem.label;
         }),
       );
       let now = Date.now();
+      console.log(
+        res[0].spins.find(elem => now - elem.created_at > 300000).label,
+      );
       setSelectedSpin(
-        res[0].find(elem => now - elem.created_at > 300000).label,
+        res[0].spins.find(elem => now - elem.created_at > 300000).label,
       );
     });
   }, [props]);
@@ -65,9 +68,8 @@ function Spinner(props) {
 
   const onFinished = async gift => {
     props.setLoading(true);
-
     let res = await generalRequest(
-      routes.giveMyGift + '?gift=' + gift,
+      routes.giveMyGift + '?gift=' + props.id,
       'post',
       undefined,
       undefined,
@@ -75,10 +77,7 @@ function Spinner(props) {
     );
 
     props.setLoading(false);
-    if (res[0] === null) {
-      console.log('mmd');
-      return;
-    }
+    if (res[0] === null) return;
 
     setShowCongratulations(true);
     setShowWheelComponent(false);

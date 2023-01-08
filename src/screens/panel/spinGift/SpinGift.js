@@ -1,6 +1,7 @@
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import Spinner from './spinner/spinner';
-import React from 'react';
+import React, {useState} from 'react';
+import {useParams} from 'react-router';
 
 function SpinGift(props) {
   const navigate = props.navigate;
@@ -13,8 +14,25 @@ function SpinGift(props) {
   const setLoading = status => {
     dispatch({loading: status});
   };
+  const [id, setId] = useState();
+  const params = useParams();
+
+  React.useEffect(() => {
+    if (params.id === undefined) return;
+    setId(params.id);
+  }, [params.id]);
+
   return (
-    <Spinner setLoading={setLoading} token={state.token} navigate={navigate} />
+    <>
+      {id && (
+        <Spinner
+          setLoading={setLoading}
+          token={state.token}
+          navigate={navigate}
+          id={id}
+        />
+      )}
+    </>
   );
 }
 

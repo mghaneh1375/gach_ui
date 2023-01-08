@@ -9,7 +9,7 @@ const newAlertsKeyVals = [
   },
   {
     id: 'notif',
-    title: 'پیام جدید از طرف ادمین',
+    title: 'پیغام ها: ',
   },
 ];
 

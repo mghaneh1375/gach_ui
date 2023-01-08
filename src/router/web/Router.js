@@ -193,7 +193,7 @@ export default function WebRouter() {
             path="/acceptInvite/:reqId"
             element={<WebStructue page="acceptInvite" />}
           />
-          <Route path="/spinner" element={<WebStructue page="spinner" />} />
+          <Route path="/spinner/:id" element={<WebStructue page="spinner" />} />
           <Route
             path="/rankingList"
             element={<WebStructue page="rankingList" />}
