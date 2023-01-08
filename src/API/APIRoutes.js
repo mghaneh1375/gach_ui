@@ -4,7 +4,7 @@ export const routes = {
   resetPassword: 'user/resetPassword',
   signIn: 'user/signIn',
   signup: 'user/signUp',
-  buildSpinner: 'general/buildSpinner?mode=site',
+  buildSpinner: 'general/buildSpinner/',
   giveMyGift: 'general/giveMyGift',
   checkCert: 'general/checkCert/',
   getMySummary: 'general/getMySummary',
