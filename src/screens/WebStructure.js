@@ -107,6 +107,12 @@ const WebStructue = props => {
     fetchAlerts();
   }, [state.user, fetchAlerts]);
 
+  const [needUpdateAlerts, setNeedUpdateAlerts] = useState(false);
+
+  React.useEffect(() => {
+    setNeedUpdateAlerts(true);
+  }, [state.newAlerts]);
+
   const fetchAlerts = React.useCallback(() => {
     if (
       !isWorking &&
@@ -194,6 +200,7 @@ const WebStructue = props => {
             )} */}
 
             {!state.isInPhone &&
+              needUpdateAlerts &&
               state.user !== null &&
               props.page !== 'home' &&
               props.page !== 'allSchools' &&

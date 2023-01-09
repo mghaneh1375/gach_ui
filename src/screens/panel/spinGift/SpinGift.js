@@ -30,6 +30,9 @@ function SpinGift(props) {
           token={state.token}
           navigate={navigate}
           id={id}
+          updateAlerts={alerts => {
+            dispatch({newAlerts: alerts});
+          }}
         />
       )}
     </>

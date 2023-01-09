@@ -18,19 +18,19 @@ function Spinner(props) {
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [showWheelComponent, setShowWheelComponent] = useState(true);
   const [award, setAward] = useState();
-  const [repeat, setRepeat] = useState('second');
+  const [repeat, setRepeat] = useState();
 
-  function changeRepeat() {
-    if (repeat === 'second') {
-      setRepeat(repeat === 'third');
-    }
-    if (repeat === 'third') {
-      setRepeat(repeat === 'forth');
-    }
-    if (repeat === 'forth') {
-      setRepeat(repeat === 'fifth');
-    }
+  function incRepeat() {
+    if (repeat === undefined) setRepeat('second');
+    else if (repeat === 'second') setRepeat('third');
+    else if (repeat === 'third') setRepeat('forth');
+    else if (repeat === 'forth') setRepeat('fifth');
   }
+
+  const [coinForSecondTime, setCoinForSecondTime] = useState();
+  const [coinForThirdTime, setCoinForThirdTime] = useState();
+  const [coinForForthTime, setCoinForForthTime] = useState();
+  const [coinForFifthTime, setCoinForFifthTime] = useState();
 
   const fetchSpins = React.useCallback(() => {
     props.setLoading(true);
@@ -54,13 +54,22 @@ function Spinner(props) {
         }),
       );
       let now = Date.now();
-      console.log(
-        res[0].spins.find(elem => now - elem.created_at > 300000).label,
-      );
+
       setSelectedSpin(
         res[0].spins.find(elem => now - elem.created_at > 300000).label,
       );
-      console.log(generalRequest);
+
+      if (res[0].coinForSecondTime !== undefined)
+        setCoinForSecondTime(res[0].coinForSecondTime);
+
+      if (res[0].coinForThirdTime !== undefined)
+        setCoinForThirdTime(res[0].coinForThirdTime);
+
+      if (res[0].coinForForthTime !== undefined)
+        setCoinForForthTime(res[0].coinForForthTime);
+
+      if (res[0].coinForFifthTime !== undefined)
+        setCoinForFifthTime(res[0].coinForFifthTime);
     });
   }, [props]);
 
@@ -90,9 +99,7 @@ function Spinner(props) {
         }),
       );
       let now = Date.now();
-      console.log(
-        res[0].spins.find(elem => now - elem.created_at > 300000).label,
-      );
+
       setSelectedSpin(
         res[0].spins.find(elem => now - elem.created_at > 300000).label,
       );
@@ -117,16 +124,49 @@ function Spinner(props) {
   const onFinished = async gift => {
     props.setLoading(true);
     let res = await generalRequest(
-      routes.giveMyGift + '?gift=' + props.id,
+      repeat === undefined
+        ? routes.giveMyGift + '?id=' + props.id
+        : routes.giveMyGift + '?id=' + props.id + `&repeat=${repeat}`,
       'post',
       undefined,
-      undefined,
+      repeat === undefined ? undefined : 'data',
       props.token,
     );
 
-    props.setLoading(false);
-    if (res[0] === null) return;
+    if (res === null) {
+      props.setLoading(false);
+      return;
+    }
 
+    if (repeat !== undefined) {
+      props.setLoading(false);
+      if (res.coinForThirdTime !== undefined)
+        setCoinForThirdTime(res.coinForThirdTime);
+      else setCoinForThirdTime(undefined);
+
+      if (res.coinForForthTime !== undefined)
+        setCoinForForthTime(res.coinForForthTime);
+      else setCoinForForthTime(undefined);
+
+      if (res.coinForFifthTime !== undefined)
+        setCoinForFifthTime(res.coinForFifthTime);
+      else setCoinForFifthTime(undefined);
+    } else {
+      res = await generalRequest(
+        routes.getMyAlerts,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      );
+
+      props.setLoading(false);
+
+      if (res !== null) props.updateAlerts(res);
+      else props.updateAlerts([]);
+    }
+
+    incRepeat();
     setShowCongratulations(true);
     setShowWheelComponent(false);
     setAward(gift);
@@ -194,7 +234,10 @@ function Spinner(props) {
                 }}
                 onPress={() => props.navigate('/myOffs')}
               />
-              {repeat === 'second' && 1 === 1 && (
+              {((repeat === 'second' && coinForSecondTime !== undefined) ||
+                (repeat === 'third' && coinForThirdTime !== undefined) ||
+                (repeat === 'forth' && coinForForthTime !== undefined) ||
+                (repeat === 'fifth' && coinForFifthTime !== undefined)) && (
                 <SimpleText
                   text={` mmd `}
                   style={{
@@ -205,7 +248,6 @@ function Spinner(props) {
                   }}
                   onPress={() => {
                     rotateAgain(repeat);
-                    changeRepeat();
                   }}
                 />
               )}
@@ -223,11 +265,15 @@ function Spinner(props) {
               segments={spins}
               segColors={segColors}
               winningSegment={selectedSpin}
-              onFinished={async winner => await onFinished(winner)}
+              onFinished={winner =>
+                setTimeout(() => {
+                  onFinished(winner);
+                }, 1000)
+              }
               primaryColor="black"
               contrastColor="white"
               buttonText="چرخنده"
-              isOnlyOnce={false}
+              isOnlyOnce={true}
               size={260}
               upDuration={600}
               downDuration={10000}
