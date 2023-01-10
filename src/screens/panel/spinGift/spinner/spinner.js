@@ -239,7 +239,7 @@ function Spinner(props) {
                 (repeat === 'forth' && coinForForthTime !== undefined) ||
                 (repeat === 'fifth' && coinForFifthTime !== undefined)) && (
                 <SimpleText
-                  text={` mmd `}
+                  text={` برای شرکت مجدد در گردونه شانس کلیک کنید `}
                   style={{
                     ...styles.BlueBold,
                     ...styles.alignSelfCenter,

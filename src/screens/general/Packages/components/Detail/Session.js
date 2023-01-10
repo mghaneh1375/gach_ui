@@ -11,6 +11,7 @@ import {
   faAngleDown,
   faAngleUp,
   faClock,
+  faLock,
   faPaperclip,
 } from '@fortawesome/free-solid-svg-icons';
 import RenderHTML from 'react-native-render-html';
@@ -41,6 +42,13 @@ function Session(props) {
             style={styles.alignSelfCenter}
             text={convertSecToMinWithOutHour(props.session.duration) + '"'}
           />
+
+          {(props.session.video === null ||
+            props.session.video === undefined ||
+            props.session.video === 'null' ||
+            props.session.video === '') && (
+            <SimpleFontIcon kind={'med'} icon={faLock} />
+          )}
           <SimpleFontIcon
             onPress={() => setShow(!show)}
             kind={'med'}

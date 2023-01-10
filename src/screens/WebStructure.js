@@ -80,6 +80,8 @@ import SingleNotif from './studentPanel/Notif/Notif';
 import Barcode from './panel/Barcode/Barcode';
 import {routes} from '../API/APIRoutes';
 import {generalRequest} from '../API/Utility';
+import Report from './panel/spinGift/components/Report/Report';
+import SessionDetail from './general/Packages/components/Detail/SessionDetail';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -288,7 +290,10 @@ const WebStructue = props => {
               )}
 
               {props.page === 'video_test' && <Video />}
-              {props.page === 'packages' && (
+              {props.page === 'packages' && params.sessionId !== undefined && (
+                <SessionDetail navigate={navigate} />
+              )}
+              {props.page === 'packages' && params.sessionId === undefined && (
                 <Packages isInMyMode={false} navigate={navigate} />
               )}
               {props.page === 'myPackages' && (
@@ -585,6 +590,16 @@ const WebStructue = props => {
                 params.mode !== undefined &&
                 params.mode === 'configuration' && (
                   <ConfigGift
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
+                )}
+              {props.page === 'gift' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'report' && (
+                  <Report
                     token={state.token}
                     user={state.user}
                     navigate={navigate}

@@ -233,8 +233,8 @@ function AdminMenu(props) {
               url: '/gift/configuration',
             },
             {
-              text: translator.selectGift,
-              url: '/basic/selectgift',
+              text: translator.report,
+              url: '/gift/report',
             },
           ]}
         />

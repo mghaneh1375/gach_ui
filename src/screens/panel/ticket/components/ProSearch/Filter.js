@@ -5,7 +5,6 @@ import translator from '../../Translator';
 import {
   startWithVals,
   statusKeyVals,
-  priorityKeyVals,
   sectionKeyValsForFilter,
   priorityKeyValsForFilter,
 } from '../KeyVals';

@@ -39,10 +39,13 @@ export const VideoJS = props => {
           onFinish();
         });
 
+        player.hlsQualitySelector({
+          displayCurrentQuality: true,
+        });
+
         if (myOptions.disableSeekbar)
           player.controlBar.progressControl.disable();
 
-        videojs.log('player is ready');
         onReady && onReady(player);
       }));
 
@@ -51,9 +54,9 @@ export const VideoJS = props => {
     } else {
       const player = playerRef.current;
       if (myOptions.disableSeekbar) player.controlBar.progressControl.disable();
-      // player.hlsQualitySelector({
-      //   displayCurrentQuality: true,
-      // });
+      player.hlsQualitySelector({
+        displayCurrentQuality: true,
+      });
       player.autoplay(options.autoplay);
       player.src(options.sources);
     }

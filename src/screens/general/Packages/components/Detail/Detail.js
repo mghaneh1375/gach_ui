@@ -185,6 +185,7 @@ function Detail(props) {
         <SessionDetail
           duration={item.duration}
           adv={item.adv}
+          sessions={item.sessions}
           session={selectedSession}
           toggleShow={() => setSelectedSession(undefined)}
         />
@@ -550,7 +551,11 @@ function Detail(props) {
                 {item.sessions.map((elem, index) => {
                   return (
                     <Session
-                      setSelectedSession={s => setSelectedSession(s)}
+                      setSelectedSession={s =>
+                        props.navigate(
+                          '/packages/' + props.slug + '/' + elem.id,
+                        )
+                      }
                       session={elem}
                       key={index}
                     />
