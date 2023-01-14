@@ -133,6 +133,8 @@ function RunQuiz(props) {
                   props.user.accesses.indexOf('student') !== -1
                     ? params.quizMode === 'custom'
                       ? (window.location.href = '/myCustomQuizzes')
+                      : params.quizMode === 'content'
+                      ? (window.location.href = '/myPackages')
                       : (window.location.href = '/myIRYSCQuizzes')
                     : params.quizMode === 'open'
                     ? (window.location.href = '/quiz/open')
@@ -147,6 +149,8 @@ function RunQuiz(props) {
                   props.user.accesses.indexOf('student') !== -1
                     ? params.quizMode === 'custom'
                       ? (window.location.href = '/myCustomQuizzes')
+                      : params.quizMode === 'content'
+                      ? (window.location.href = '/myPackages')
                       : (window.location.href = '/myIRYSCQuizzes')
                     : (window.location.href = '/quiz/list')
                 }

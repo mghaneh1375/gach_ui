@@ -257,6 +257,7 @@ function Karname(props) {
               )}
               {state.selectedStudentId !== undefined &&
                 state.selectedQuiz.generalMode !== 'open' &&
+                state.selectedQuiz.generalMode !== 'content' &&
                 props.generalQuizMode === undefined && (
                   <CopyBox
                     title={commonTranslator.copyLink}
@@ -423,7 +424,7 @@ function Karname(props) {
             </CommonWebBox>
           )}
 
-          {props.generalQuizMode === undefined && !isInPhone && (
+          {props.generalQuizMode === undefined && !isInPhone && 1 === 2 && (
             <CommonWebBox
               width={'50%'}
               style={{
@@ -470,7 +471,7 @@ function Karname(props) {
             </CommonWebBox>
           )}
 
-          {props.generalQuizMode === undefined && isInPhone && (
+          {props.generalQuizMode === undefined && isInPhone && 1 === 2 && (
             <CommonWebBox
               width={'100%'}
               style={{
@@ -501,7 +502,7 @@ function Karname(props) {
             </CommonWebBox>
           )}
 
-          {props.generalQuizMode === undefined && (
+          {props.generalQuizMode === undefined && 1 === 2 && (
             <CommonWebBox
               width={isInPhone ? '100%' : '50%'}
               style={{
@@ -531,7 +532,7 @@ function Karname(props) {
               </MyView>
             </CommonWebBox>
           )}
-          {props.generalQuizMode === undefined && isInPhone && (
+          {props.generalQuizMode === undefined && isInPhone && 1 === 2 && (
             <CommonWebBox
               width={'50%'}
               style={{
@@ -563,112 +564,116 @@ function Karname(props) {
           )}
         </PhoneView>
       </MyViewWithRef>
-      {props.generalQuizMode === undefined && !isInPhone && (
-        <MyViewWithRef style={{justifyContent: 'center'}} ref={ref2}>
-          <CommonWebBox width={'100%'}>
-            <MyView>
-              {karname !== undefined && (
-                <VictoryChart
-                  padding={{top: 150, left: 100, bottom: 50, right: 80}}
-                  height={500}
-                  theme={VictoryTheme.material}>
-                  <VictoryLegend
-                    x={125}
-                    y={20}
-                    title=""
-                    orientation="horizontal"
-                    gutter={40}
-                    style={{
-                      data: {fontSize: 20, fontFamily: 'IRANSans'},
-                      labels: {fontSize: 20, fontFamily: 'IRANSans', dx: 100},
-                      border: {stroke: 'black'},
-                      title: {fontSize: 20, fontFamily: 'IRANSans'},
-                    }}
-                    data={[
-                      {name: 'درصد شما', symbol: {fill: '#c43a31'}},
-                      {name: 'میانگین', symbol: {fill: '#777777'}},
-                    ]}
-                  />
 
-                  <VictoryLine
-                    categories={{
-                      x: karname.subjects.map(elem => {
-                        return elem.name;
-                      }),
-                    }}
-                    style={{
-                      data: {
-                        stroke: '#c43a31',
-                        strokeWidth: ({data}) => 4,
-                      },
-                    }}
-                    interpolation={'natural'}
-                    domain={{y: [-60, 120]}}
-                    data={[
-                      0,
-                      ...karname.subjects.map(elem => {
-                        return elem.percent;
-                      }),
-                    ]}
-                  />
-                  <VictoryLine
-                    categories={{
-                      x: karname.subjects.map(elem => {
-                        return elem.name;
-                      }),
-                    }}
-                    interpolation={'natural'}
-                    style={{
-                      data: {
-                        stroke: '#777777',
-                        strokeWidth: ({data}) => 4,
-                      },
-                    }}
-                    data={[
-                      0,
-                      ...karname.subjects.map(elem => {
-                        return elem.avg;
-                      }),
-                    ]}
-                  />
-                  <VictoryAxis
-                    style={{
-                      tickLabels: {
-                        fontFamily: 'IRANSans',
-                        fontSize: 18,
-                        dy: 10,
-                        dx: 40,
-                      },
-                      axisLabel: {
-                        fontFamily: 'IRANSans',
-                        fontSize: 19,
-                        dy: 10,
-                        dx: 40,
-                      },
-                    }}
-                  />
-                  <VictoryAxis
-                    dependentAxis
-                    tickFormat={x => x}
-                    style={{
-                      tickLabels: {
-                        fontFamily: 'IRANSans',
-                        fontSize: 24,
-                        dx: -30,
-                      },
-                      axisLabel: {
-                        fontFamily: 'IRANSans',
-                        fontSize: 24,
-                        dx: -30,
-                      },
-                    }}
-                  />
-                </VictoryChart>
-              )}
-            </MyView>
-          </CommonWebBox>
-        </MyViewWithRef>
-      )}
+      {props.generalQuizMode === undefined &&
+        !isInPhone &&
+        (state.selectedStudentId === undefined ||
+          state.selectedQuiz.generalMode !== 'content') && (
+          <MyViewWithRef style={{justifyContent: 'center'}} ref={ref2}>
+            <CommonWebBox width={'100%'}>
+              <MyView>
+                {karname !== undefined && (
+                  <VictoryChart
+                    padding={{top: 150, left: 100, bottom: 50, right: 80}}
+                    height={500}
+                    theme={VictoryTheme.material}>
+                    <VictoryLegend
+                      x={125}
+                      y={20}
+                      title=""
+                      orientation="horizontal"
+                      gutter={40}
+                      style={{
+                        data: {fontSize: 20, fontFamily: 'IRANSans'},
+                        labels: {fontSize: 20, fontFamily: 'IRANSans', dx: 100},
+                        border: {stroke: 'black'},
+                        title: {fontSize: 20, fontFamily: 'IRANSans'},
+                      }}
+                      data={[
+                        {name: 'درصد شما', symbol: {fill: '#c43a31'}},
+                        {name: 'میانگین', symbol: {fill: '#777777'}},
+                      ]}
+                    />
+
+                    <VictoryLine
+                      categories={{
+                        x: karname.subjects.map(elem => {
+                          return elem.name;
+                        }),
+                      }}
+                      style={{
+                        data: {
+                          stroke: '#c43a31',
+                          strokeWidth: ({data}) => 4,
+                        },
+                      }}
+                      interpolation={'natural'}
+                      domain={{y: [-60, 120]}}
+                      data={[
+                        0,
+                        ...karname.subjects.map(elem => {
+                          return elem.percent;
+                        }),
+                      ]}
+                    />
+                    <VictoryLine
+                      categories={{
+                        x: karname.subjects.map(elem => {
+                          return elem.name;
+                        }),
+                      }}
+                      interpolation={'natural'}
+                      style={{
+                        data: {
+                          stroke: '#777777',
+                          strokeWidth: ({data}) => 4,
+                        },
+                      }}
+                      data={[
+                        0,
+                        ...karname.subjects.map(elem => {
+                          return elem.avg;
+                        }),
+                      ]}
+                    />
+                    <VictoryAxis
+                      style={{
+                        tickLabels: {
+                          fontFamily: 'IRANSans',
+                          fontSize: 18,
+                          dy: 10,
+                          dx: 40,
+                        },
+                        axisLabel: {
+                          fontFamily: 'IRANSans',
+                          fontSize: 19,
+                          dy: 10,
+                          dx: 40,
+                        },
+                      }}
+                    />
+                    <VictoryAxis
+                      dependentAxis
+                      tickFormat={x => x}
+                      style={{
+                        tickLabels: {
+                          fontFamily: 'IRANSans',
+                          fontSize: 24,
+                          dx: -30,
+                        },
+                        axisLabel: {
+                          fontFamily: 'IRANSans',
+                          fontSize: 24,
+                          dx: -30,
+                        },
+                      }}
+                    />
+                  </VictoryChart>
+                )}
+              </MyView>
+            </CommonWebBox>
+          </MyViewWithRef>
+        )}
 
       <MyViewWithRef ref={ref3}>
         {karname !== undefined && state.wanted_answer_sheet !== undefined && (

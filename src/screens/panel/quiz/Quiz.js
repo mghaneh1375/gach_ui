@@ -12,6 +12,7 @@ import Karname from './components/Reports/Karname/Karname';
 import ReportList from './components/Reports/List/List';
 import {useParams} from 'react-router';
 import {MyView} from '../../../styles/Common';
+import ContentQuizKarname from './components/Reports/Karname/ContentQuizKarname';
 
 const Quiz = props => {
   const [mode, setMode] = useState('karname');
@@ -92,7 +93,7 @@ const Quiz = props => {
             quizName={params.quizName}
           />
         )}
-        {mode === 'karname' && (
+        {mode === 'karname' && params.mode !== 'content' && (
           <Karname
             setLoading={setLoading}
             user={props.user}
@@ -101,6 +102,18 @@ const Quiz = props => {
             quizMode={params.mode}
             quizId={params.quizId}
             studentId={params.studentId}
+          />
+        )}
+        {mode === 'karname' && params.mode === 'content' && (
+          <ContentQuizKarname
+            setLoading={setLoading}
+            user={props.user}
+            setMode={setMode}
+            token={props.token}
+            quizMode={params.mode}
+            quizId={params.quizId}
+            studentId={params.studentId}
+            navigate={navigate}
           />
         )}
         {mode === 'report' && (

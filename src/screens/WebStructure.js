@@ -300,6 +300,14 @@ const WebStructue = props => {
               {props.page === 'myPackages' && (
                 <Packages isInMyMode={true} navigate={navigate} />
               )}
+              {props.page === 'contentFinalExam' && (
+                <RunQuiz
+                  isInReviewMode={false}
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
+              )}
               {props.page === 'financeHistory' && (
                 <History navigate={navigate} />
               )}
