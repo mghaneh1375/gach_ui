@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {MyView} from 'react-native-multi-selectbox';
+import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext} from '../../../App';
 import {formatPrice} from '../../../services/Utility';
 import {CommonWebBox, PhoneView} from '../../../styles/Common';
@@ -9,12 +10,14 @@ import OffsCard from './OffsCard/OffsCard';
 import ProgressCard from './ProgressCard/ProgressCard';
 import Translate from './Translate';
 import {getMyOffs} from './Utility';
+import {giveMyGifts} from './UtilityBonus';
 
 function MyOffs(props) {
-  const [discount, setDiscount] = useState(false);
+  const [discount, setDiscount] = useState(true);
   const [bonus, setBonus] = useState(false);
 
   const [data, setData] = useState();
+  const [dataBonus, setDataBonus] = useState();
   const toggleDiscount = () => {
     setDiscount(!discount);
     if (bonus) {
@@ -23,6 +26,7 @@ function MyOffs(props) {
   };
   const toggleBonus = () => {
     setBonus(!bonus);
+    console.log(dataBonus[1].obj.expireAtTs);
     if (discount === true) {
       setDiscount(!discount);
     }
@@ -33,7 +37,7 @@ function MyOffs(props) {
 
   const [dispatch] = useGlobalState();
 
-  React.useEffect(() => {
+  const fetchDiscount = React.useCallback(() => {
     dispatch({loading: true});
     Promise.all([getMyOffs(props.token)]).then(res => {
       dispatch({loading: false});
@@ -44,6 +48,23 @@ function MyOffs(props) {
       setData(res[0]);
     });
   }, [navigate, props.token, dispatch]);
+
+  const fetchBonus = React.useCallback(() => {
+    dispatch({loading: true});
+    Promise.all([giveMyGifts(props.token)]).then(res => {
+      dispatch({loading: false});
+      if (res[0] === null) {
+        navigate('/');
+        return;
+      }
+      setDataBonus(res[0]);
+    });
+  }, [navigate, props.token, dispatch]);
+
+  useEffectOnce(() => {
+    fetchBonus();
+    fetchDiscount();
+  }, [fetchBonus, fetchDiscount]);
 
   return (
     <MyView>
@@ -66,7 +87,7 @@ function MyOffs(props) {
           percent={bonus ? '90%' : '10%'}
           onPress={() => toggleBonus()}
           style={{...styles.cursor_pointer}}
-          circleText={0}
+          circleText={dataBonus === undefined ? 0 : dataBonus.length}
         />
       </PhoneView>
 
@@ -93,24 +114,32 @@ function MyOffs(props) {
       )}
       {bonus && (
         <PhoneView>
-          {/* {data !== undefined &&
-            data.map((elem, index) => {
+          {dataBonus !== undefined &&
+            dataBonus.map((elem, index) => {
               return (
                 <OffsCard
                   key={index}
                   type={elem.type}
-                  code={elem.code}
-                  placeUse={elem.sectionFa}
-                  expiredAt={elem.expireAt}
-                  amount={
-                    elem.type === 'value'
-                      ? formatPrice(elem.amount)
-                      : elem.amount
+                  code={elem.obj !== undefined ? elem.obj.code : undefined}
+                  placeUse={
+                    elem.obj !== undefined ? elem.obj.sectionFa : undefined
                   }
+                  // amount={elem.label}
+                  expiredAt={
+                    elem.obj !== undefined ? elem.obj.expireAt : undefined
+                  }
+                  createdAt={elem.createdAt}
+                  amount={
+                    elem.label
+                      ? elem.label
+                      : elem.type === ''
+                      ? formatPrice(elem.amount)
+                      : elem.obj.amount
+                  }
+                  title={elem.label}
                 />
               );
-            })} */}
-          <CommonWebBox header={Translate.bonus}></CommonWebBox>
+            })}
         </PhoneView>
       )}
     </MyView>
