@@ -31,6 +31,7 @@ import UserTinyPic from '../../UserTinyPic';
 import newAlertsKeyVals from '../NewAlertsKeyVals';
 import {logout} from '../../../../../API/User';
 import {SuperMenuItem} from './SuperMenuItem';
+import vars from '../../../../../styles/root';
 
 function StudentMenu(props) {
   const device = getDevice();
@@ -44,6 +45,10 @@ function StudentMenu(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
+
+  React.useEffect(() => {
+    setNewAlerts(state.newAlerts);
+  }, [state.newAlerts]);
 
   const isApp = device.indexOf(Device.App) !== -1;
   const width = getWidthHeight()[0];
@@ -348,24 +353,79 @@ function StudentMenu(props) {
             icon={faBell}
           />
 
+          {newAlerts !== undefined &&
+            newAlerts.events !== undefined &&
+            (newAlerts.events.length > 0 ||
+              newAlerts.gift_id !== undefined) && (
+              <SimpleText
+                style={{
+                  position: 'absolute',
+                  right: -10,
+                  top: -5,
+                  backgroundColor: vars.RED,
+                  borderRadius: '50%',
+                  textAlign: 'center',
+                  fontWeight: 'bolder',
+                  width: 20,
+                  height: 20,
+                  color: vars.YELLOW,
+                }}
+                text={
+                  newAlerts.gift_id !== undefined
+                    ? newAlerts.events.length + 1
+                    : newAlerts.events.length
+                }
+              />
+            )}
+
           {showNotif && (
             <MyView style={style.Header_Profile_Notif}>
-              {newAlerts !== undefined &&
-                newAlerts.map((elem, index) => {
-                  return (
-                    <TextLink
-                      style={{fontSize: 10}}
-                      key={index}
-                      text={
-                        newAlertsKeyVals.find(itr => itr.id === elem.key)
-                          .title +
-                        ' ' +
-                        elem.value
-                      }
-                      href={'/ticket?section=upgradelevel'}
-                    />
-                  );
-                })}
+              <MyView style={{...styles.gap15}}>
+                {newAlerts !== undefined &&
+                  newAlerts.events !== undefined &&
+                  newAlerts.events.map((elem, index) => {
+                    return (
+                      <MyView key={index}>
+                        <TextLink
+                          style={{...styles.fontSize12, ...styles.BlueBold}}
+                          // text={
+                          //   newAlertsKeyVals.find(itr => itr.id === elem.key)
+                          //     .title + newAlerts.events.length
+                          // }
+                          text={
+                            newAlertsKeyVals.find(itr => itr.id === elem.key)
+                              .title
+                          }
+                          href={
+                            elem.key === 'new_tickets'
+                              ? '/ticket?section=upgradelevel'
+                              : '/notif/' + elem.id
+                          }
+                        />
+                        <SimpleText
+                          style={{fontSize: 10, color: vars.DARK_BLUE}}
+                          text={elem.value}
+                        />
+                      </MyView>
+                    );
+                  })}
+                {newAlerts !== undefined && newAlerts.gift_id !== undefined && (
+                  <TextLink
+                    style={{...styles.fontSize12, ...styles.BlueBold}}
+                    text={'گردونه شانس'}
+                    href={'/spinner/' + newAlerts.gift_id}
+                  />
+                )}
+              </MyView>
+              <TextLink
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.fontSize12,
+                  ...styles.alignSelfEnd,
+                }}
+                href={'/myNotifs'}
+                text={'تمام اعلان های من'}
+              />
             </MyView>
           )}
         </MyView>

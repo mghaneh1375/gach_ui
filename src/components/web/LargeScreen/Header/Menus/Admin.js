@@ -129,7 +129,13 @@ function AdminMenu(props) {
         <SuperMenuItem
           text={translator.configuration}
           icon={faUsers}
-          selected={props.selected === 'quiz'}
+          selected={
+            props.selected === 'generalConfiguration' ||
+            props.selected === 'certificateConfiguration' ||
+            props.selected === 'ravanConfiguration' ||
+            props.selected === 'schools' ||
+            props.selected === 'tarazLevels'
+          }
           navigate={navigate}
           items={[
             {
@@ -167,6 +173,10 @@ function AdminMenu(props) {
             {
               text: translator.openQuiz,
               url: '/quiz/open',
+            },
+            {
+              text: translator.contentQuiz,
+              url: '/quiz/content',
             },
             {
               text: translator.packageQuiz,

@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {TouchableOpacity} from 'react-native';
 import {
+  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -73,6 +74,7 @@ const Header = props => {
   React.useEffect(() => {
     setPic(props.pic);
   }, [props.pic]);
+
   if (isLargePage || props.isRightMenuVisible) {
     const width = getWidthHeight()[0];
 
@@ -245,7 +247,8 @@ const Header = props => {
           />
           {newAlerts !== undefined &&
             newAlerts.events !== undefined &&
-            newAlerts.events.length > 0 && (
+            (newAlerts.events.length > 0 ||
+              newAlerts.gift_id !== undefined) && (
               <SimpleText
                 style={{
                   position: 'absolute',
@@ -269,37 +272,52 @@ const Header = props => {
 
           {showNotif && (
             <MyView style={style.Header_Profile_Notif}>
-              {newAlerts !== undefined &&
-                newAlerts.events !== undefined &&
-                newAlerts.events.map((elem, index) => {
-                  return (
-                    <MyView key={index}>
-                      <TextLink
-                        style={{...styles.fontSize12, ...styles.BlueBold}}
-                        text={
-                          newAlertsKeyVals.find(itr => itr.id === elem.key)
-                            .title + newAlerts.events.length
-                        }
-                        href={
-                          elem.key === 'new_tickets'
-                            ? '/ticket?section=upgradelevel'
-                            : '/notif/' + elem.id
-                        }
-                      />
-                      {/* <SimpleText
-                        style={{fontSize: 10, color: vars.DARK_BLUE}}
-                        text={elem.value}
-                      /> */}
-                    </MyView>
-                  );
-                })}
-              {newAlerts !== undefined && newAlerts.gift_id !== undefined && (
-                <TextLink
-                  style={{...styles.fontSize12, ...styles.BlueBold}}
-                  text={'گردونه شانس'}
-                  href={'/spinner/' + newAlerts.gift_id}
-                />
-              )}
+              <MyView style={{...styles.gap15}}>
+                {newAlerts !== undefined &&
+                  newAlerts.events !== undefined &&
+                  newAlerts.events.map((elem, index) => {
+                    return (
+                      <EqualTwoTextInputs key={index}>
+                        <TextLink
+                          style={{...styles.fontSize12, ...styles.BlueBold}}
+                          // text={
+                          //   newAlertsKeyVals.find(itr => itr.id === elem.key)
+                          //     .title + newAlerts.events.length
+                          // }
+                          text={
+                            newAlertsKeyVals.find(itr => itr.id === elem.key)
+                              .title
+                          }
+                          href={
+                            elem.key === 'new_tickets'
+                              ? '/ticket?section=upgradelevel'
+                              : '/notif/' + elem.id
+                          }
+                        />
+                        <SimpleText
+                          style={{fontSize: 10, color: vars.DARK_BLUE}}
+                          text={elem.value}
+                        />
+                      </EqualTwoTextInputs>
+                    );
+                  })}
+                {newAlerts !== undefined && newAlerts.gift_id !== undefined && (
+                  <TextLink
+                    style={{...styles.fontSize12, ...styles.BlueBold}}
+                    text={'گردونه شانس'}
+                    href={'/spinner/' + newAlerts.gift_id}
+                  />
+                )}
+              </MyView>
+              <TextLink
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.fontSize12,
+                  ...styles.alignSelfEnd,
+                }}
+                href={'/myNotifs'}
+                text={'تمام اعلان های من'}
+              />
             </MyView>
           )}
         </MyView>

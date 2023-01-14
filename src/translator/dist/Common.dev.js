@@ -175,7 +175,7 @@ var translator = {
   selectGift: 'مشخص کردن جوایز',
   priority: 'اولویت',
   used: 'استفاده شده',
-  coin: 'سکه',
+  coin: 'ایکس پول',
   money: 'پول',
   counter: 'تعداد',
   dateExpire: 'تاریخ انقضا',

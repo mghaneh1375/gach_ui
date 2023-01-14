@@ -73,4 +73,25 @@ export const columnsForOpenQuiz = [
   },
 ];
 
+export const columnsForContentQuiz = [
+  {
+    name: 'نام آزمون',
+    selector: row => row.title,
+    grow: 3,
+    minWidth: '120px',
+  },
+  {
+    name: 'تعداد سوال',
+    selector: row => row.questionsCount,
+    grow: 1,
+    center: true,
+  },
+  {
+    name: 'تعداد دانش آموزان',
+    selector: row => row.studentsCount,
+    grow: 1,
+    center: true,
+  },
+];
+
 export default columns;

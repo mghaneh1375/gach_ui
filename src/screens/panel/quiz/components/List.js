@@ -5,8 +5,11 @@ import React, {useState} from 'react';
 import Ops from './Ops';
 import {routes} from '../../../../API/APIRoutes';
 import {dispatchQuizContext, quizContext} from './Context';
-import columns, {columnsForOpenQuiz} from './TableStructure';
-import {getOpenQuizzes, getQuizzes} from './Utility';
+import columns, {
+  columnsForOpenQuiz,
+  columnsForContentQuiz,
+} from './TableStructure';
+import {getContentQuizzes, getOpenQuizzes, getQuizzes} from './Utility';
 import ProSearch from './ProSearch';
 
 const List = props => {
@@ -28,6 +31,8 @@ const List = props => {
     Promise.all([
       props.generalMode !== undefined && props.generalMode === 'openQuiz'
         ? getOpenQuizzes(props.token)
+        : props.generalMode !== undefined && props.generalMode === 'contentQuiz'
+        ? getContentQuizzes(props.token)
         : getQuizzes(props.token),
     ]).then(res => {
       props.setLoading(false);
@@ -65,17 +70,24 @@ const List = props => {
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         <MyView>
-          <ProSearch
-            generalMode={props.generalMode}
-            token={props.token}
-            setLoading={props.setLoading}
-          />
+          {(props.generalMode === undefined ||
+            props.generalMode !== 'contentQuiz') && (
+            <ProSearch
+              generalMode={props.generalMode}
+              token={props.token}
+              setLoading={props.setLoading}
+            />
+          )}
+
           {state.quizzes !== undefined && (
             <CommonDataTable
               columns={
                 props.generalMode !== undefined &&
                 props.generalMode === 'openQuiz'
                   ? columnsForOpenQuiz
+                  : props.generalMode !== undefined &&
+                    props.generalMode === 'contentQuiz'
+                  ? columnsForContentQuiz
                   : columns
               }
               data={state.quizzes}

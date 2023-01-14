@@ -8,6 +8,7 @@ import {MyView, MyViewWithRef, SimpleText} from '../../../../styles/Common';
 import Confetti from 'react-confetti';
 import vars from '../../../../styles/root';
 import {styles} from '../../../../styles/Common/Styles';
+import {style} from '../../ticket/components/Show/AttachBox/style';
 // import 'react-wheel-of-prizes/dist/index.css';
 
 function Spinner(props) {
@@ -231,6 +232,7 @@ function Spinner(props) {
                   ...styles.alignSelfCenter,
                   ...styles.fontSize20,
                   ...styles.colorGreen,
+                  ...styles.cursor_pointer,
                 }}
                 onPress={() => props.navigate('/myOffs')}
               />
@@ -238,18 +240,49 @@ function Spinner(props) {
                 (repeat === 'third' && coinForThirdTime !== undefined) ||
                 (repeat === 'forth' && coinForForthTime !== undefined) ||
                 (repeat === 'fifth' && coinForFifthTime !== undefined)) && (
-                <SimpleText
-                  text={` برای شرکت مجدد در گردونه شانس کلیک کنید `}
-                  style={{
-                    ...styles.BlueBold,
-                    ...styles.alignSelfCenter,
-                    ...styles.fontSize20,
-                    ...styles.colorGreen,
-                  }}
-                  onPress={() => {
-                    rotateAgain(repeat);
-                  }}
-                />
+                <MyView style={{...styles.marginTop50}}>
+                  <SimpleText
+                    style={{
+                      ...styles.BlueBold,
+                      ...styles.alignSelfCenter,
+                      ...styles.fontSize20,
+                      ...styles.colorGreen,
+                    }}
+                    text={'آیا می خواهید در گردونه شانس مجددا شرکت کنید؟'}
+                  />
+                  <SimpleText
+                    style={{
+                      ...styles.BlueBold,
+                      ...styles.alignSelfCenter,
+                      ...styles.fontSize20,
+                      ...styles.colorGreen,
+                    }}
+                    text={
+                      'فقط کافیه ' +
+                      (repeat === 'second'
+                        ? coinForSecondTime
+                        : repeat === 'third'
+                        ? coinForThirdTime
+                        : repeat === 'forth'
+                        ? coinForForthTime
+                        : coinForFifthTime) +
+                      ' ایکس پول بدهید'
+                    }
+                  />
+                  <SimpleText
+                    style={{
+                      ...styles.BlueBold,
+                      ...styles.alignSelfCenter,
+                      ...styles.fontSize20,
+                      ...styles.colorGreen,
+                      ...styles.cursor_pointer,
+                    }}
+                    onPress={() => {
+                      rotateAgain(repeat);
+                    }}
+                    text={'بزن بریم!!'}
+                  />
+                </MyView>
               )}
             </MyView>
           )}

@@ -30,7 +30,7 @@ function Filter(props) {
     {item: 'آزمون', id: 'quizzes'},
     {item: 'جنسیت', id: 'sex'},
     {item: 'مدرسه', id: 'schools'},
-    {item: 'سکه', id: 'coin'},
+    {item: 'ایکس پول', id: 'coin'},
     {item: 'پول', id: 'money'},
     {item: 'کدملی', id: 'nids'},
     {item: 'شماره همراه', id: 'phones'},

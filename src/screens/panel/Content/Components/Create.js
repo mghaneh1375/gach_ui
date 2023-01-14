@@ -104,7 +104,7 @@ function Create(props) {
         props.token,
       ),
       generalRequest(
-        routes.getAllQuizzesDigest,
+        routes.getAllContentQuizzesDigest,
         'get',
         undefined,
         'data',

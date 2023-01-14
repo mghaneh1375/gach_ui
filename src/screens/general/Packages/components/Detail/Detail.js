@@ -5,6 +5,7 @@ import {
   formatPrice,
   getDevice,
   showError,
+  tagsStyles,
 } from '../../../../../services/Utility';
 import {
   CommonButton,
@@ -14,7 +15,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
-import RenderHTML from 'react-native-render-html';
+import RenderHTML, {defaultSystemFonts} from 'react-native-render-html';
 import {styles} from '../../../../../styles/Common/Styles';
 import {fetchPackage, goToPay} from '../Utility';
 import QuizItemCard from '../../../../../components/web/QuizItemCard';
@@ -178,6 +179,8 @@ function Detail(props) {
     }
   };
 
+  const systemFonts = [...defaultSystemFonts, 'IRANSans'];
+
   return (
     <>
       {item === undefined && <></>}
@@ -199,6 +202,8 @@ function Detail(props) {
             source={{
               html: item.teacherBio,
             }}
+            tagsStyles={tagsStyles}
+            systemFonts={systemFonts}
           />
         </CommonWebBox>
       )}
@@ -292,6 +297,8 @@ function Detail(props) {
                       source={{
                         html: item.description,
                       }}
+                      tagsStyles={tagsStyles}
+                      systemFonts={systemFonts}
                     />
                   </MyView>
                 </PhoneView>
@@ -449,11 +456,10 @@ function Detail(props) {
                           <RenderHTML
                             contentWidth={'100%'}
                             source={{
-                              html:
-                                "<div style='font-family: IRANSans;'>" +
-                                item.teacherBio +
-                                '</div>',
+                              html: item.teacherBio,
                             }}
+                            tagsStyles={tagsStyles}
+                            systemFonts={systemFonts}
                           />
                         </MyView>
                         <SimpleText
@@ -504,11 +510,10 @@ function Detail(props) {
                         <RenderHTML
                           contentWidth={'100%'}
                           source={{
-                            html:
-                              "<div style='font-family: IRANSans;'>" +
-                              item.preReq +
-                              '</div>',
+                            html: item.preReq,
                           }}
+                          tagsStyles={tagsStyles}
+                          systemFonts={systemFonts}
                         />
                       </MyView>
                       <SimpleText

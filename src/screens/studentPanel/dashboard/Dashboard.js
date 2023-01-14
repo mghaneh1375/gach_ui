@@ -102,7 +102,7 @@ function Dashboard(props) {
                 'نرخ تبدیل ' +
                 commonTranslator.coin +
                 ' به پول: ' +
-                'هر سکه معادل است با ' +
+                'هر ایکس پول معادل است با ' +
                 formatPrice(exchangeCoinToMoneyRate) +
                 ' ' +
                 commonTranslator.priceUnit

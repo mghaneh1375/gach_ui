@@ -14,6 +14,7 @@ function List(props) {
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
+
   const handleOp = idx => {
     props.setSelectedGift(props.data[idx]);
     setSelectedId(props.data[idx].id);
@@ -38,15 +39,17 @@ function List(props) {
             setMode={props.setMode}
           />
         )}
-        <CommonDataTable
-          columns={columns}
-          data={props.data}
-          setData={props.setData}
-          handleOp={handleOp}
-          removeUrl={routes.removeGift}
-          token={props.token}
-          setLoading={props.setLoading}
-        />
+        {props.data !== undefined && (
+          <CommonDataTable
+            columns={columns}
+            data={props.data}
+            setData={props.setData}
+            handleOp={handleOp}
+            removeUrl={routes.removeGift}
+            token={props.token}
+            setLoading={props.setLoading}
+          />
+        )}
       </MyView>
     </CommonWebBox>
   );

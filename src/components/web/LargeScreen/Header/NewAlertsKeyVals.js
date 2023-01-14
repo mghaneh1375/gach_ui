@@ -9,7 +9,8 @@ const newAlertsKeyVals = [
   },
   {
     id: 'notif',
-    title: 'پیغام ها: ',
+    title: 'اعلان جدید: ',
+    // title: 'پیغام ها: ',
   },
 ];
 

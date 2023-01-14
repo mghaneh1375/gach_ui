@@ -12,9 +12,15 @@ const IRYSCMandatoryFields = [
 
 const OpenMandatoryFields = ['title', 'price'];
 
+const ContentMandatoryFields = ['title'];
+
 export async function CallAPI(data, url, token, mode) {
   const mandatoryFields =
-    mode === 'irysc' ? IRYSCMandatoryFields : OpenMandatoryFields;
+    mode === 'irysc'
+      ? IRYSCMandatoryFields
+      : 'content'
+      ? ContentMandatoryFields
+      : OpenMandatoryFields;
 
   let result;
   try {

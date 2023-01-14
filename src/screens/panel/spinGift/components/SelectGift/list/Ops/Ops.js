@@ -1,4 +1,3 @@
-import {View} from 'react-native-web';
 import {PhoneView, MyView} from '../../../../../../../styles/Common';
 import {LargePopUp} from '../../../../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../../../../translator/Common';
@@ -44,11 +43,6 @@ function Ops(props) {
               onPress={() => props.setMode('update')}
               title={commonTranslator.edit}
               theme={'transparent'}
-            />
-            <CommonButton
-              onPress={() => toggleShowRemovePane()}
-              theme={'transparent'}
-              title={commonTranslator.delete}
             />
           </PhoneView>
         </LargePopUp>

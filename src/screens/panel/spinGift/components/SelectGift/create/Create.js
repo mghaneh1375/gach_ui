@@ -164,6 +164,9 @@ function Create(props) {
               if (props.gift === undefined) props.addItem(res);
               else {
                 data.id = props.gift.id;
+                data.typeFa = typeGiftKeyVals.find(
+                  itr => itr.id === data.type,
+                ).item;
                 props.update(data);
               }
               props.setMode('list');

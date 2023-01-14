@@ -135,7 +135,6 @@ function Create(props) {
   }, [state.states, fetchPreReq]);
 
   React.useEffect(() => {
-    console.log(state.selectedNotif);
     fetchNotif();
   }, [state.selectedNotif, fetchNotif]);
 

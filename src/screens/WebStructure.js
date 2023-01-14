@@ -82,6 +82,7 @@ import {routes} from '../API/APIRoutes';
 import {generalRequest} from '../API/Utility';
 import Report from './panel/spinGift/components/Report/Report';
 import SessionDetail from './general/Packages/components/Detail/SessionDetail';
+import ContentQuiz from './panel/quiz/ContentQuiz';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -109,10 +110,10 @@ const WebStructue = props => {
     fetchAlerts();
   }, [state.user, fetchAlerts]);
 
-  const [needUpdateAlerts, setNeedUpdateAlerts] = useState(false);
+  const [myAlerts, setMyAlerts] = useState();
 
   React.useEffect(() => {
-    setNeedUpdateAlerts(true);
+    setMyAlerts(state.newAlerts);
   }, [state.newAlerts]);
 
   const fetchAlerts = React.useCallback(() => {
@@ -202,7 +203,7 @@ const WebStructue = props => {
             )} */}
 
             {!state.isInPhone &&
-              needUpdateAlerts &&
+              myAlerts !== undefined &&
               state.user !== null &&
               props.page !== 'home' &&
               props.page !== 'allSchools' &&
@@ -216,7 +217,7 @@ const WebStructue = props => {
                   isRightMenuVisible={state.isRightMenuVisible}
                   setLoading={setLoading}
                   navigate={navigate}
-                  newAlerts={state.newAlerts}
+                  newAlerts={myAlerts}
                 />
               )}
 
@@ -412,6 +413,12 @@ const WebStructue = props => {
                 params.mode !== undefined &&
                 params.mode === 'open' && (
                   <OpenQuiz token={state.token} navigate={navigate} />
+                )}
+              {props.page === 'quiz' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'content' && (
+                  <ContentQuiz navigate={navigate} />
                 )}
               {props.page === 'ranking' && params !== undefined && (
                 <Quiz

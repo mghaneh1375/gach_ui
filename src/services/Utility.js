@@ -215,3 +215,36 @@ export function formatPrice(Number) {
   while (rgx.test(y)) y = y.replace(rgx, '$1' + ',' + '$2');
   return y + z;
 }
+
+export const tagsStyles = {
+  h1: {
+    fontFamily: 'IRANSans',
+  },
+  h2: {
+    fontFamily: 'IRANSans',
+  },
+  h3: {
+    fontFamily: 'IRANSans',
+  },
+  h4: {
+    fontFamily: 'IRANSans',
+  },
+  h5: {
+    fontFamily: 'IRANSans',
+  },
+  h6: {
+    fontFamily: 'IRANSans',
+  },
+  a: {
+    fontFamily: 'IRANSans',
+  },
+  p: {
+    fontFamily: 'IRANSans',
+  },
+  span: {
+    fontFamily: 'IRANSans',
+  },
+  div: {
+    fontFamily: 'IRANSans',
+  },
+};

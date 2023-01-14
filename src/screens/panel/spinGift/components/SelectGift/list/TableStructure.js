@@ -33,8 +33,8 @@ const columns = [
     grow: 1,
   },
   {
-    name: commonTranslator.used,
-    selector: row => row.used,
+    name: Translate.reminder,
+    selector: row => row.reminder,
     grow: 1,
   },
 ];

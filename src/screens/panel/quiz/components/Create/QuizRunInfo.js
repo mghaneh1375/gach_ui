@@ -53,7 +53,7 @@ const QuizRunInfo = props => {
           textValue={props.len}
         />
       </PhoneView>
-      {props.quizGeneralMode !== 'open' && (
+      {props.quizGeneralMode !== 'open' && props.quizGeneralMode !== 'content' && (
         <PhoneView style={{gap: 15}}>
           <JustBottomBorderSelect
             values={launchModeKeyVals}
@@ -157,7 +157,8 @@ const QuizRunInfo = props => {
           )}
         </PhoneView>
       )}
-      {props.quizGeneralMode === 'open' && (
+      {(props.quizGeneralMode === 'open' ||
+        props.quizGeneralMode === 'content') && (
         <JustBottomBorderSelect
           isHalf={true}
           values={trueFalseValues}

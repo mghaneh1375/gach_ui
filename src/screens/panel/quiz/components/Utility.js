@@ -51,6 +51,19 @@ export const getOpenQuizzes = async (token, name = undefined) => {
   );
 };
 
+export const getContentQuizzes = async (token, name = undefined) => {
+  let query = new URLSearchParams();
+  if (name !== undefined && name !== '') query.append('name', name);
+
+  return await generalRequest(
+    routes.fetchAllQuiz + 'content?' + query.toString(),
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const getQuiz = async (quizId, quizMode, token) => {
   return await generalRequest(
     routes.fetchQuiz + quizMode + '/' + quizId,

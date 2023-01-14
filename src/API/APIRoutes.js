@@ -194,6 +194,7 @@ export const routes = {
   setCertificateImg: 'certificate/admin/setImg/',
   getAllCertsDigest: 'general/getAllCertsDigest',
   getAllQuizzesDigest: 'general/getAllQuizzesDigest',
+  getAllContentQuizzesDigest: 'general/getAllContentQuizzesDigest',
   getSubjectCodesExcel: 'general/getSubjectCodesExcel',
   getAuthorCodesExcel: 'general/getAuthorCodesExcel',
   addUserToCert: 'certificate/admin/addUserToCert/',

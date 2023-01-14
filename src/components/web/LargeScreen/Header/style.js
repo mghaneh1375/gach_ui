@@ -116,8 +116,9 @@ export const style = {
     marginTop: width < 768 ? -175 : 0,
   },
   Header_Profile_Notif: {
-    width: '100%',
-    height: 120,
+    width: width < 768 ? width - 20 : 500,
+    minHeight: 120,
+    maxHeight: 185,
     overflow: 'auto',
     backgroundColor: vars.WHITE,
     borderBottomRightRadius: width < 768 ? 0 : 10,
@@ -126,12 +127,11 @@ export const style = {
     borderTopLeftRadius: width < 768 ? 10 : 0,
     boxShadow: '0px 3px 6px #00000029',
     minWidth: 140,
-    left: 100,
+    left: width < 768 ? width - 60 : 460,
     zIndex: 0,
     padding: 10,
     marginTop: width < 768 ? -161 : 'unset',
-
-    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   Header_NOTIF: {
     backgroundColor: vars.WHITE,

@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
+import {useEffectOnce} from 'usehooks-ts';
+import {routes} from '../../../API/APIRoutes';
+import {generalRequest} from '../../../API/Utility';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import {PublicNotifProvider} from './components/Context';
 import Detail from './components/Detail';
@@ -39,6 +42,9 @@ function Notif(props) {
           setMode={setMode}
           token={state.token}
           setLoading={setLoading}
+          updateAlerts={alerts => {
+            dispatch({newAlerts: alerts});
+          }}
           navigate={navigate}
         />
       )}

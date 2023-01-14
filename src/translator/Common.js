@@ -168,6 +168,7 @@ const translator = {
   isOlympiad: 'آیا جز مقاطع تحصیلی است؟',
   listQuiz: 'لیست آزمون ها',
   openQuiz: 'لیست آزمون های باز',
+  contentQuiz: 'لیست آزمون های مخصوص بسته های آموزشی',
   packageQuiz: 'بسته های آزمون',
   haveQuiz: 'آزمون های موجود',
   name: 'نام',

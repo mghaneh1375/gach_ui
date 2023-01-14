@@ -20,6 +20,7 @@ const Translate = {
   content: 'بسته های آموزشی',
   counseling: 'مشاوره',
   newDate: 'تاریخ جدید',
+  reminder: 'تعداد باقی مانده',
 };
 
 export default Translate;

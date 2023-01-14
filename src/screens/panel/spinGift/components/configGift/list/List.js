@@ -123,32 +123,32 @@ function List(props) {
             float={true}
             value={coinForSecondTime}
             onChangeText={e => setCoinForSecondTime(e)}
-            placeholder={'مقدار سکه برای شرکت برای بار دوم'}
-            subText={'مقدار سکه برای شرکت برای بار دوم'}
+            placeholder={'مقدار ایکس پول برای شرکت برای بار دوم'}
+            subText={'مقدار ایکس پول برای شرکت برای بار دوم'}
           />
           <JustBottomBorderTextInput
             justNum={true}
             float={true}
             value={coinForThirdTime}
             onChangeText={e => setCoinForThirdTime(e)}
-            placeholder={'مقدار سکه برای شرکت برای بار سوم'}
-            subText={'مقدار سکه برای شرکت برای بار سوم'}
+            placeholder={'مقدار ایکس پول برای شرکت برای بار سوم'}
+            subText={'مقدار ایکس پول برای شرکت برای بار سوم'}
           />
           <JustBottomBorderTextInput
             justNum={true}
             float={true}
             value={coinForForthTime}
             onChangeText={e => setCoinForForthTime(e)}
-            placeholder={'مقدار سکه برای شرکت برای بار چهارم'}
-            subText={'مقدار سکه برای شرکت برای بار چهارم'}
+            placeholder={'مقدار ایکس پول برای شرکت برای بار چهارم'}
+            subText={'مقدار ایکس پول برای شرکت برای بار چهارم'}
           />
           <JustBottomBorderTextInput
             justNum={true}
             float={true}
             value={coinForFifthTime}
             onChangeText={e => setCoinForFifthTime(e)}
-            placeholder={'مقدار سکه برای شرکت برای بار پنجم'}
-            subText={'مقدار سکه برای شرکت برای بار پنجم'}
+            placeholder={'مقدار ایکس پول برای شرکت برای بار پنجم'}
+            subText={'مقدار ایکس پول برای شرکت برای بار پنجم'}
           />
         </PhoneView>
         <CommonButton
@@ -183,8 +183,8 @@ function List(props) {
                   placeholder={Translate.newDate}
                   subText={Translate.newDate}
                   setter={d => {
-                    if (d < Date.now())
-                      showError('تاریخ باید از امروز بزرگتر باشد');
+                    if (d < Date.now() - 86400000)
+                      showError('تاریخ باید از دیروز بزرگتر باشد');
                     else setNewDate(d);
                   }}
                   value={newDate}
