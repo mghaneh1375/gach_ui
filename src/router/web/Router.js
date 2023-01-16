@@ -154,6 +154,10 @@ export default function WebRouter() {
           <Route path="/notifs/:mode" element={<WebStructue page="notifs" />} />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route
+            path="/consultants/:mode"
+            element={<WebStructue page="consultants" />}
+          />
+          <Route
             path="/ranking/:mode/:quizId/:quizName"
             element={<WebStructue page="ranking" />}
           />

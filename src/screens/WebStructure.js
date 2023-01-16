@@ -25,6 +25,9 @@ import Menu from '../components/web/LargeScreen/Header/Menu';
 import Navbar from '../components/web/Navbar';
 import BottomNavBar from '../components/web/BottomNavBar';
 import Quiz from './panel/quiz/Quiz';
+import Consultants from './panel/consultants/Consultants';
+import Course from './panel/consultants/Course';
+import LifeStyle from './panel/consultants/LifeStyle';
 import Question from './panel/question/Question';
 import Off from './panel/offcode/Off';
 import Users from './panel/users/Users';
@@ -444,6 +447,23 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+              {props.page === 'consultants' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'course' && (
+                  <Course
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
+                )}
+              {props.page === 'consultants' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'lifestyle' && (
+                  <LifeStyle token={state.token} navigate={navigate} />
+                )}
+
               {props.page === 'quiz' &&
                 params !== undefined &&
                 params.mode !== undefined &&
