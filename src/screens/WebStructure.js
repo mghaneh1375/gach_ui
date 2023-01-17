@@ -47,6 +47,7 @@ import Dashboard from './studentPanel/dashboard/Dashboard';
 import Ticketstd from './studentPanel/Ticket/Ticket';
 import Author from './panel/users/Author/Author';
 import SpinGift from './panel/spinGift/SpinGift';
+import Psychology from './panel/Psychology/Psychology';
 import SelectGift from './panel/spinGift/components/SelectGift/SelectGift';
 import Upgrade from './studentPanel/Upgrade/Upgrade';
 import ConfigGift from './panel/spinGift/components/configGift/configGift';
@@ -395,6 +396,9 @@ const WebStructue = props => {
               )}
               {props.page === 'barcodes' && <Barcode navigate={navigate} />}
               {props.page === 'spinner' && <SpinGift navigate={navigate} />}
+              {props.page === 'psychology' && (
+                <Psychology navigate={navigate} />
+              )}
               {props.page === 'seo-contents' && (
                 <Seo token={state.token} navigate={navigate} />
               )}

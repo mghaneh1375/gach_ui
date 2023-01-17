@@ -204,6 +204,10 @@ export default function WebRouter() {
           />
           <Route path="/spinner/:id" element={<WebStructue page="spinner" />} />
           <Route
+            path="/psychology"
+            element={<WebStructue page="psychology" />}
+          />
+          <Route
             path="/rankingList"
             element={<WebStructue page="rankingList" />}
           />
