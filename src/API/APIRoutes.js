@@ -250,4 +250,10 @@ export const routes = {
   storeNotif: 'notifs/manage/store',
   removeNotif: 'notifs/manage/remove/',
   getNotifStudents: 'notifs/manage/getStudents/',
+  getAllTags: 'advisor/tag/getAllTags',
+  getAllLife: 'advisor/tag/getAllLifeTags',
+  removeTag: 'advisor/tag/removeTags',
+  removeLife: 'advisor/tag/removeLifeTags',
+  createTag: 'advisor/tag/createTag',
+  createLifeTag: 'advisor/tag/createLifeTag',
 };

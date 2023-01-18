@@ -1,8 +1,7 @@
-import React, {useReducer, useState} from 'react';
+import React from 'react';
 
 const defaultGlobalState = {
-  needUpdate: false,
-  selectedQuiz: undefined,
+  tags: undefined,
 };
 export const courseContext = React.createContext(defaultGlobalState);
 export const dispatchCourseContext = React.createContext(undefined);

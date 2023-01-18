@@ -20,7 +20,8 @@ function Create(props) {
 
     Promise.all([
       generalRequest(
-        routes.createTag,
+        routes.createLifeTag,
+
         'post',
         {
           label: title,
