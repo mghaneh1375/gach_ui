@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
-import {BarcodeProvider} from '../Barcode/components/Context';
+import {CourseProvider} from './components/Context';
 import Create from './components/Create';
 import List from './components/List';
 
@@ -18,7 +18,7 @@ function Course(props) {
     dispatch({loading: status});
   };
   return (
-    <BarcodeProvider>
+    <CourseProvider>
       {mode === 'list' && (
         <List
           setMode={setMode}
@@ -35,7 +35,7 @@ function Course(props) {
           token={state.token}
         />
       )}
-    </BarcodeProvider>
+    </CourseProvider>
   );
 }
 

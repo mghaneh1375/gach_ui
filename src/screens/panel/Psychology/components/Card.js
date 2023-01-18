@@ -15,7 +15,7 @@ import {Image, Pressable} from 'react-native';
 function Card(props) {
   const navigate = props.navigate;
 
-  const [view, setView] = useState(true);
+  const [view, setView] = useState(props.show);
 
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
 
@@ -73,22 +73,36 @@ function Card(props) {
                 />
                 <SimpleText text={` مخاطب : ${props.audience} `} />
               </PhoneView>
-              <Pressable
-                style={{
-                  backgroundColor: '#FFAA00',
-                  padding: '5px',
-                  borderRadius: '5px',
-                  ...styles.flexDirectionRow,
-                }}>
-                <SimpleText text={` ${props.price} تومان `} />
-                <SimpleText
+              {props.price === undefined && (
+                <PhoneView>
+                  <SimpleFontIcon
+                    style={{color: '#FFAA00'}}
+                    kind={'normal'}
+                    theme="rect"
+                    back={'yellow'}
+                    icon={faUser}
+                  />
+                  <SimpleText text={`مدت تقریبی : ${props.time}`} />
+                </PhoneView>
+              )}
+              {props.price !== undefined && (
+                <Pressable
                   style={{
-                    ...styles.marginRight25,
-                    ...styles.colorWhite,
-                  }}
-                  text={' مشاهده '}
-                />
-              </Pressable>
+                    backgroundColor: '#FFAA00',
+                    padding: '5px',
+                    borderRadius: '5px',
+                    ...styles.flexDirectionRow,
+                  }}>
+                  <SimpleText text={` ${props.price} تومان `} />
+                  <SimpleText
+                    style={{
+                      ...styles.marginRight25,
+                      ...styles.colorWhite,
+                    }}
+                    text={' مشاهده '}
+                  />
+                </Pressable>
+              )}
             </MyView>
           </CommonWebBox>
         )}

@@ -31,7 +31,7 @@ function Create(props) {
       <MyView>
         <JustBottomBorderTextInput
           isHalf={true}
-          placehoder={'عنوان جلسه'}
+          placehoder={'1عنوان جلسه'}
           subText={'عنوان جلسه'}
           value={title}
           onChangeText={e => setTitle(e)}

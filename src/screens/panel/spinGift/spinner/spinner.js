@@ -122,56 +122,56 @@ function Spinner(props) {
     '#34A24F',
   ];
 
-  const onFinished = async gift => {
-    props.setLoading(true);
-    let res = await generalRequest(
-      repeat === undefined
-        ? routes.giveMyGift + '?id=' + props.id
-        : routes.giveMyGift + '?id=' + props.id + `&repeat=${repeat}`,
-      'post',
-      undefined,
-      repeat === undefined ? undefined : 'data',
-      props.token,
-    );
+  // const onFinished = async gift => {
+  //   props.setLoading(true);
+  //   let res = await generalRequest(
+  //     repeat === undefined
+  //       ? routes.giveMyGift + '?id=' + props.id
+  //       : routes.giveMyGift + '?id=' + props.id + `&repeat=${repeat}`,
+  //     'post',
+  //     undefined,
+  //     repeat === undefined ? undefined : 'data',
+  //     props.token,
+  //   );
 
-    if (res === null) {
-      props.setLoading(false);
-      return;
-    }
+  //   if (res === null) {
+  //     props.setLoading(false);
+  //     return;
+  //   }
 
-    if (repeat !== undefined) {
-      props.setLoading(false);
-      if (res.coinForThirdTime !== undefined)
-        setCoinForThirdTime(res.coinForThirdTime);
-      else setCoinForThirdTime(undefined);
+  //   if (repeat !== undefined) {
+  //     props.setLoading(false);
+  //     if (res.coinForThirdTime !== undefined)
+  //       setCoinForThirdTime(res.coinForThirdTime);
+  //     else setCoinForThirdTime(undefined);
 
-      if (res.coinForForthTime !== undefined)
-        setCoinForForthTime(res.coinForForthTime);
-      else setCoinForForthTime(undefined);
+  //     if (res.coinForForthTime !== undefined)
+  //       setCoinForForthTime(res.coinForForthTime);
+  //     else setCoinForForthTime(undefined);
 
-      if (res.coinForFifthTime !== undefined)
-        setCoinForFifthTime(res.coinForFifthTime);
-      else setCoinForFifthTime(undefined);
-    } else {
-      res = await generalRequest(
-        routes.getMyAlerts,
-        'get',
-        undefined,
-        'data',
-        props.token,
-      );
+  //     if (res.coinForFifthTime !== undefined)
+  //       setCoinForFifthTime(res.coinForFifthTime);
+  //     else setCoinForFifthTime(undefined);
+  //   } else {
+  //     res = await generalRequest(
+  //       routes.getMyAlerts,
+  //       'get',
+  //       undefined,
+  //       'data',
+  //       props.token,
+  //     );
 
-      props.setLoading(false);
+  //     props.setLoading(false);
 
-      if (res !== null) props.updateAlerts(res);
-      else props.updateAlerts([]);
-    }
+  //     if (res !== null) props.updateAlerts(res);
+  //     else props.updateAlerts([]);
+  //   }
 
-    incRepeat();
-    setShowCongratulations(true);
-    setShowWheelComponent(false);
-    setAward(gift);
-  };
+  //   incRepeat();
+  //   setShowCongratulations(true);
+  //   setShowWheelComponent(false);
+  //   setAward(gift);
+  // };
 
   // const {width, height} = useWindowSize();
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
@@ -300,7 +300,7 @@ function Spinner(props) {
               winningSegment={selectedSpin}
               onFinished={winner =>
                 setTimeout(() => {
-                  onFinished(winner);
+                  // onFinished(winner);
                 }, 1000)
               }
               primaryColor="black"

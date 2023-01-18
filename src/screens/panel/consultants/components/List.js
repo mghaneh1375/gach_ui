@@ -6,20 +6,20 @@ import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorde
 function List(props) {
   const [title, setTitle] = useState();
 
-  const columns = [
-    {
-      name: 'عنوان',
-      selector: 'mmd',
-      grow: 3,
-      center: true,
-    },
-    {
-      name: 'تاریخ ایجاد',
-      selector: 'mmd',
-      grow: 2,
-      center: true,
-    },
-  ];
+  // const columns = [
+  //   {
+  //     name: 'عنوان',
+  //     selector: 'mmd',
+  //     grow: 3,
+  //     center: true,
+  //   },
+  //   {
+  //     name: 'تاریخ ایجاد',
+  //     selector: 'mmd',
+  //     grow: 2,
+  //     center: true,
+  //   },
+  // ];
   return (
     <CommonWebBox
       header={' جلسات مشاوره '}
@@ -44,10 +44,10 @@ function List(props) {
         />
       </MyView>
       <CommonDataTable
-        // removeUrl={routes.removeCertificate}
-        // handleOp={handleOp}
-        columns={columns}
-        // data={state.barcodes}
+      // removeUrl={routes.removeCertificate}
+      // handleOp={handleOp}
+      // columns={columns}
+      // data={state.barcodes}
       />
     </CommonWebBox>
   );
