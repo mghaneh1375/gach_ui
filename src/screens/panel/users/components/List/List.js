@@ -84,7 +84,9 @@ function List(props) {
       )}
       <CommonWebBox
         addBtn={true}
+        backBtn={true}
         onAddClick={() => props.setMode('create')}
+        onBackClick={() => grades === ''}
         header={
           Translator.list +
           levelsKeyVals.find(elem => elem.id === currLevel).item

@@ -266,6 +266,7 @@ function Dashboard(props) {
               text={Translate.yourGradeRank}
               subtext={data.gradeRank}
               background={vars.GRADIENT}
+              fontSize={20}
               padding={'38px 10px'}
               borderRight={false}
             />

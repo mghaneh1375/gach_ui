@@ -62,16 +62,23 @@ function Question(props) {
       },
     );
     if (state.questions[state.currIdx].answerFile !== undefined) {
+      console.log(totalWidth);
       Image.getSize(
         state.questions[state.currIdx].answerFile,
         (width, height) => {
           setAnswerWidth(
-            totalWidth > 1500 ? totalWidth - 300 : totalWidth - 250,
+            totalWidth > 1500
+              ? totalWidth - 300
+              : !isInPhone
+              ? totalWidth - 250
+              : totalWidth - 50,
           );
           setAnswerHeight(
             totalWidth > 1500
               ? ((totalWidth - 300) * height) / width
-              : ((totalWidth - 250) * height) / width,
+              : !isInPhone
+              ? ((totalWidth - 250) * height) / width
+              : ((totalWidth - 50) * height) / width,
           );
           // if (width / height < 2) setAnswerHeight(400);
           // else if (width / height < 2.5) setAnswerHeight(300);
@@ -307,7 +314,9 @@ function Question(props) {
               <Image
                 resizeMode="contain"
                 style={{
-                  width: '100%',
+                  width: imgWidth,
+                  // height: imgHeight,
+                  // borderRadius: 5,
                   height: answerHeight,
                   borderRadius: 5,
                 }}
