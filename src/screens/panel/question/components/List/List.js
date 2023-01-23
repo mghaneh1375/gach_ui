@@ -27,6 +27,7 @@ const List = props => {
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         <Filter
+          setMode={props.setMode}
           setLoading={props.setLoading}
           setData={props.setData}
           grades={props.grades}
