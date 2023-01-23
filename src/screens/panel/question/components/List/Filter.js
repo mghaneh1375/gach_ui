@@ -45,23 +45,6 @@ function Filter(props) {
     else setWantedIcon(faAngleDoubleUp);
     setShowProSearch(!showProSearch);
   };
-  // const filterbtn = React.useCallback(() => {
-  //   props.setLoading(true);
-  //   let res = filter(
-  //     props.token,
-  //     grade,
-  //     lesson,
-  //     undefined,
-  //     organizationCode,
-  //     criticalThresh,
-  //     justCriticals,
-  //   );
-
-  //   props.setLoading(false);
-  //   if (res !== null) props.setData(res);
-  // },);
-  // const filterbtn2 = () => props.setMode('detail');
-  // console.log(props.setMode);
 
   return (
     <MyView>
@@ -112,10 +95,6 @@ function Filter(props) {
             props.setLoading(false);
             if (res !== null) props.setData(res);
           }}
-          // onPress={() => {
-          //   filterbtn();
-          //   filterbtn2();
-          // }}
           title={commonTranslator.show}
           style={{alignSelf: 'flex-start'}}
         />
