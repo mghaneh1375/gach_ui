@@ -42,6 +42,7 @@ function List(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [branches, setBranches] = useState();
   const [grades, setGrades] = useState();
+  const [clearFilters, setClearFilters] = useState(false);
 
   const fetchData = React.useCallback(() => {
     if ((state.fetched === currLevel && state.users !== undefined) || isWorking)
@@ -84,7 +85,9 @@ function List(props) {
       )}
       <CommonWebBox
         addBtn={true}
+        backBtn={true}
         onAddClick={() => props.setMode('create')}
+        onBackClick={() => setClearFilters(true)}
         header={
           Translator.list +
           levelsKeyVals.find(elem => elem.id === currLevel).item
@@ -92,6 +95,8 @@ function List(props) {
         <MyView>
           {grades !== undefined && (
             <Filter
+              clearFilters={clearFilters}
+              setClearFilters={setClearFilters}
               grades={grades}
               branches={branches}
               token={props.token}

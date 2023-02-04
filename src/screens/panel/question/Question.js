@@ -28,6 +28,13 @@ const Question = props => {
   };
 
   React.useEffect(() => {
+    if (subjects !== undefined && subjects.length === 1) {
+      setSelected(subjects[0]);
+      setMode('detail');
+    }
+  }, [subjects]);
+
+  React.useEffect(() => {
     dispatch({loading: true});
 
     Promise.all([getSubjects(props.token), getGradeLessons(props.token)]).then(

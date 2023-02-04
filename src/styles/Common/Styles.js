@@ -104,6 +104,9 @@ export const styles = {
   marginRight25: {
     marginRight: 25,
   },
+  marginRight40: {
+    marginRight: 40,
+  },
   marginRight20: {
     marginRight: 20,
   },
@@ -232,11 +235,20 @@ export const styles = {
   minWidth200: {
     minWidth: 200,
   },
+  width15: {
+    width: '15%',
+  },
+  width20: {
+    width: '20%',
+  },
   width100: {
     width: '100%',
   },
   width50: {
     width: '50%',
+  },
+  width80: {
+    width: '80%',
   },
   flexNoWrap: {
     flexWrap: 'nowrap',

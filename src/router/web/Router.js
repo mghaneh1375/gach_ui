@@ -41,6 +41,7 @@ export default function WebRouter() {
             path="packages/:slug/:sessionId"
             element={<WebStructue page="packages" />}
           />
+
           <Route path="myNotifs" element={<WebStructue page="notif" />} />
           <Route path="notif/:id" element={<WebStructue page="notif" />} />
           <Route path="barcodes" element={<WebStructue page="barcodes" />} />
@@ -158,6 +159,10 @@ export default function WebRouter() {
           <Route path="/notifs/:mode" element={<WebStructue page="notifs" />} />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route
+            path="/consultants/:mode"
+            element={<WebStructue page="consultants" />}
+          />
+          <Route
             path="/ranking/:mode/:quizId/:quizName"
             element={<WebStructue page="ranking" />}
           />
@@ -203,6 +208,10 @@ export default function WebRouter() {
             element={<WebStructue page="acceptInvite" />}
           />
           <Route path="/spinner/:id" element={<WebStructue page="spinner" />} />
+          <Route
+            path="/psychology"
+            element={<WebStructue page="psychology" />}
+          />
           <Route
             path="/rankingList"
             element={<WebStructue page="rankingList" />}

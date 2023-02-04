@@ -20,6 +20,12 @@ function Filter(props) {
   const [branch, setBranch] = useState();
 
   const level = useParams().level;
+  const [isWorking, setIsWorking] = useState(false);
+
+  React.useEffect(() => {
+    if (!props.clearFilters) return;
+    clearFilters();
+  }, [props.clearFilters, clearFilters]);
 
   const filterLocal = async () => {
     props.setLoading(true);
@@ -33,6 +39,7 @@ function Filter(props) {
       branch !== undefined ? branch.id : undefined,
       grade !== undefined ? grade.id : undefined,
     );
+
     props.setLoading(false);
     // setNID(undefined);
     // setPhone(undefined);
@@ -41,6 +48,26 @@ function Filter(props) {
     if (res === null) return;
     dispatch({users: res});
   };
+
+  const clearFilters = React.useCallback(() => {
+    if (isWorking) return;
+
+    setIsWorking(true);
+    setNID('');
+    setPhone('');
+    setName('');
+    setLastName('');
+    setBranch();
+    setGrade(), props.setClearFilters(false);
+
+    props.setLoading(true);
+    Promise.all([filter(props.token, level)]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null) return;
+      dispatch({users: res[0]});
+      setIsWorking(false);
+    });
+  }, [dispatch, props, level, isWorking]);
 
   return (
     <MyView style={{gap: 20}}>

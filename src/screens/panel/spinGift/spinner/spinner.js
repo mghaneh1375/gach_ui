@@ -12,8 +12,6 @@ import {style} from '../../ticket/components/Show/AttachBox/style';
 // import 'react-wheel-of-prizes/dist/index.css';
 
 function Spinner(props) {
-  const ref1 = useRef();
-  // const ref2 = useRef();
   const [spins, setSpins] = useState();
   const [selectedSpin, setSelectedSpin] = useState();
   const [showCongratulations, setShowCongratulations] = useState(false);
@@ -173,46 +171,10 @@ function Spinner(props) {
     setAward(gift);
   };
 
-  // const {width, height} = useWindowSize();
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
-  React.useEffect(() => {
-    if (ref1 === undefined || ref1.current === undefined || !isInPhone) return;
-
-    ref1.current.children[0].children[0].style.width = '480px';
-    ref1.current.children[0].children[0].style.marginRight = '-131px';
-  }, [ref1, isInPhone]);
-
-  React.useEffect(() => {
-    if (ref1 === undefined || ref1.current === undefined || isInPhone) return;
-
-    let w = getWidthHeight()[0] - vars.RIGHT_MENU_WIDTH;
-    console.log(w + 'px');
-    let h = 0.8 * w;
-
-    // ref1.current.children[0].children[0].style.width = w + 'px';
-    // ref1.current.children[0].children[0].style.height = h + 'px';
-    // ref1.current.children[0].children[0].style.marginRight = '-131px';
-  }, [ref1, isInPhone]);
-
-  // React.useEffect(() => {
-  //   if (ref2 === undefined || !isInPhone) return;
-  //   ref2.current.style.width = '21%';
-  // }, [ref2, isInPhone]);
-
   return (
     <>
-      {/* <div
-        ref={ref2}
-        className="divRight"
-        style={{
-          height: '100%',
-          width: '30%',
-          position: 'fixed',
-          zIndex: '1',
-        }}></div> */}
       {spins !== undefined && (
-        <MyViewWithRef ref={ref1}>
+        <MyViewWithRef style={{...styles.alignItemsCenter}}>
           {showCongratulations && (
             <MyView>
               <SimpleText

@@ -323,6 +323,46 @@ function Detail(props) {
                   top: scrollPosition > 100 ? 20 : 140 - scrollPosition,
                   width: isInPhone ? '100%' : '25%',
                 }}>
+                {item.quizStatus !== undefined && (
+                  <CommonWebBox>
+                    {item.quizStatus === 'start' && (
+                      <SimpleText
+                        onPress={() =>
+                          props.navigate('/startQuiz/content/' + item.id)
+                        }
+                        text={'شرکت در آزمون پایان دوره'}
+                        style={{...styles.BlueBold, ...styles.cursor_pointer}}
+                      />
+                    )}
+                    {item.quizStatus === 'result' && (
+                      <EqualTwoTextInputs>
+                        <SimpleText
+                          onPress={() =>
+                            props.navigate('/reviewQuiz/content/' + item.id)
+                          }
+                          style={{...styles.BlueBold, ...styles.cursor_pointer}}
+                          text={' مرور آزمون پایان دوره'}
+                        />
+                        <SimpleText
+                          onPress={() =>
+                            props.navigate(
+                              '/result/content/' +
+                                item.finalExamId +
+                                '/' +
+                                props.user.user.id,
+                            )
+                          }
+                          style={{
+                            ...styles.BlueBold,
+                            ...styles.cursor_pointer,
+                            ...styles.colorOrangeRed,
+                          }}
+                          text={' مشاهده کارنامه آزمون'}
+                        />
+                      </EqualTwoTextInputs>
+                    )}
+                  </CommonWebBox>
+                )}
                 <CommonWebBox>
                   <QuizItemCard
                     text={Translator.packageDuration}

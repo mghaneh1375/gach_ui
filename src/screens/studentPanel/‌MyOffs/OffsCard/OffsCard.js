@@ -26,8 +26,19 @@ function OffsCard(props) {
           ...styles.fontSize15,
           ...styles.paddingRight15,
         }}
-        text={props.code === '' ? Translate.intelOffs : Translate.offsCode}
+        text={props.code === '' ? Translate.intelOffs : props.title}
       />
+
+      {/* {!props.code && (
+        <SimpleText
+          style={{
+            ...styles.BlueBold,
+            ...styles.fontSize15,
+            ...styles.paddingRight15,
+          }}
+          text={props.title}
+        />
+      )} */}
       <PhoneView>
         <EqualTwoTextInputs style={{...styles.gap30}}>
           <QuizItemCard
@@ -41,7 +52,16 @@ function OffsCard(props) {
           />
           <QuizItemCard
             text={Translate.expiredAt}
-            val={props.expiredAt}
+            val={props.expiredAt === undefined ? '' : props.expiredAt}
+            icon={faTimesCircle}
+            background={false}
+            textFontSize={11}
+            valFontSize={15}
+            color={'orange'}
+          />
+          <QuizItemCard
+            text={Translate.createdAt}
+            val={props.createdAt === undefined ? '' : props.createdAt}
             icon={faTimesCircle}
             background={false}
             textFontSize={11}
@@ -65,8 +85,12 @@ function OffsCard(props) {
               ...styles.BlueBold,
             }}
             text={
-              props.type === 'value'
-                ? Translate.amount + ' : ' + props.amount + Translate.price
+              props.amount === undefined
+                ? props.amount
+                : props.type === 'money'
+                ? Translate.amount + ' : ' + props.amount
+                : props.type === 'coin'
+                ? Translate.amount + ' : ' + props.amount + Translate.xMoney
                 : ' ' + props.amount + ' ' + Translate.percent
             }
           />
@@ -103,7 +127,13 @@ function OffsCard(props) {
           ...styles.fontSize10,
           marginTop: -10,
         }}
-        text={props.code === '' ? Translate.penPercent : Translate.penCode}
+        text={
+          props.code === ''
+            ? Translate.penPercent
+            : props.title
+            ? ''
+            : Translate.penCode
+        }
       />
     </CommonWebBox>
   );
