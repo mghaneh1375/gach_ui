@@ -3,9 +3,11 @@ import {generalRequest} from '../../../../API/Utility';
 import {showError, showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
 
-export const fetchAllPackages = async token => {
+export const fetchAllPackages = async (token, quizId = undefined) => {
   return await generalRequest(
-    routes.fetchAllPackages,
+    quizId === undefined
+      ? routes.fetchAllPackages
+      : routes.fetchAllPackages + '?quizId=' + quizId,
     'get',
     undefined,
     'data',

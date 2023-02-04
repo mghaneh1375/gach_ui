@@ -56,6 +56,7 @@ const translator = {
   startDateEnd: 'اتمام بازه شروع',
   startRegistryDateFrom: 'بازه شروع ثبت نام',
   startRegistryDateEnd: 'اتمام بازه شروع ثبت نام',
+  copyLink: 'کپی کردن لینک اختصاصی ثبت نام',
 };
 
 export default translator;

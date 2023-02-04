@@ -36,6 +36,7 @@ function List(props) {
         props.token === null || props.token === undefined || props.token === ''
           ? undefined
           : props.token,
+        props.quizId,
       ),
     ]).then(res => {
       props.setLoading(false);

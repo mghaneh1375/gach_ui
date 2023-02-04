@@ -69,6 +69,7 @@ export const routes = {
   fetchQuizTags: 'quiz/manage/getDistinctTags',
   editQuiz: 'quiz/manage/edit/',
   buyQuiz: 'quiz/public/buy',
+  fetchPackage: 'quiz/manage/getPackage/',
   groupBuyQuiz: 'quiz/public/groupBuy',
   fetchMyQuizzes: 'quiz/public/myQuizzes/',
   fetchMyCustomQuizzes: 'quiz/public/myCustomQuizzes/',

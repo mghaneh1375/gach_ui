@@ -2,7 +2,7 @@ import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../Translator';
 import commonTranslator from '../../../../translator/Common';
-import {generalRequest} from '../../../../API/Utility';
+import {BASE_SITE_NAME, generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import {
   createTaraz,
@@ -13,6 +13,7 @@ import {
 import {dispatchQuizContext, quizContext} from './Context';
 import React from 'react';
 import Translate from '../../../studentPanel/RunQuiz/Translate';
+import {showSuccess} from '../../../../services/Utility';
 
 const Ops = props => {
   const useGlobalState = () => [
@@ -215,6 +216,17 @@ const Ops = props => {
             onPress={() => props.setMode('key')}
           />
         )}
+        <CommonButton
+          title={translator.copyLink}
+          dir={'rtl'}
+          theme={'transparent'}
+          onPress={() => {
+            navigator.clipboard.writeText(
+              BASE_SITE_NAME + 'buy/' + state.selectedQuiz.id,
+            );
+            showSuccess('لینک کپی شد!');
+          }}
+        />
       </PhoneView>
     </LargePopUp>
   );

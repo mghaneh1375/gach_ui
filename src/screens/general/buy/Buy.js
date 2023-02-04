@@ -3,6 +3,8 @@ import {dispatchStateContext, globalStateContext} from '../../../App';
 import List from './components/List/List';
 import {PackageProvider} from './components/Context';
 import Detail from './components/Detail/Detail';
+import {useParams} from 'react-router';
+import {useEffectOnce} from 'usehooks-ts';
 
 function Buy(props) {
   const navigate = props.navigate;
@@ -17,7 +19,27 @@ function Buy(props) {
     dispatch({loading: status});
   };
 
-  const [mode, setMode] = useState('list');
+  const [packageId, setPackageId] = useState();
+  const [quizId, setQuizId] = useState();
+
+  const [mode, setMode] = useState();
+  const params = useParams();
+
+  React.useEffect(() => {
+    if (packageId == undefined) return;
+    setMode('detail');
+  }, [packageId]);
+
+  React.useEffect(() => {
+    if (quizId == undefined) return;
+    setMode('single');
+  }, [quizId]);
+
+  useEffectOnce(() => {
+    if (params.packageId !== undefined) setPackageId(params.packageId);
+    else if (params.quizId !== undefined) setQuizId(params.quizId);
+    else setMode('list');
+  }, [params]);
 
   React.useEffect(() => {
     if (mode !== 'list') {
@@ -53,6 +75,16 @@ function Buy(props) {
           navigate={navigate}
         />
       )}
+      {mode === 'single' && (
+        <List
+          setMode={setMode}
+          setLoading={setLoading}
+          token={props.token}
+          user={props.user}
+          navigate={navigate}
+          quizId={quizId}
+        />
+      )}
       {mode === 'detail' && (
         <Detail
           setMode={setMode}
@@ -61,6 +93,7 @@ function Buy(props) {
           token={props.token}
           user={props.user}
           navigate={navigate}
+          packageId={packageId}
         />
       )}
     </PackageProvider>
