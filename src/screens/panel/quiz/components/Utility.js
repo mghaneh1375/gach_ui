@@ -14,9 +14,13 @@ export const getQuizzes = async (
   startDateSolarEndLimit = undefined,
   startRegistryDateSolar = undefined,
   startRegistrySolarEndLimit = undefined,
+  kindQuiz = undefined,
 ) => {
   let query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
+  if (kindQuiz !== undefined && kindQuiz !== 'all')
+    query.append('kind', kindQuiz);
+
   if (startDateSolar !== undefined && startDateSolar !== '')
     query.append('startDateSolar', startDateSolar);
   if (startDateSolarEndLimit !== undefined && startDateSolarEndLimit !== '')
@@ -250,7 +254,23 @@ export const updateQuestionMark = async (
   quizMode,
   questionId,
   newMark,
+  newCanUpload,
 ) => {
+  if (newCanUpload === undefined)
+    return await generalRequest(
+      routes.updateQuestionMark +
+        quizMode +
+        '/' +
+        quizId +
+        '/' +
+        questionId +
+        '/' +
+        newMark,
+      'put',
+      undefined,
+      undefined,
+      token,
+    );
   return await generalRequest(
     routes.updateQuestionMark +
       quizMode +
@@ -259,7 +279,9 @@ export const updateQuestionMark = async (
       '/' +
       questionId +
       '/' +
-      newMark,
+      newMark +
+      '?canUpload=' +
+      newCanUpload,
     'put',
     undefined,
     undefined,

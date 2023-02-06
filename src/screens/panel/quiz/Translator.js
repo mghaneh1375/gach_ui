@@ -16,6 +16,9 @@ const translator = {
   isOnline: 'نوع اجرا',
   len: 'مدت آزمون (به دقیقه)',
   questionBased: 'بر اساس سوالات',
+  isRegistrable: 'آیا این آزمون توسط دانش آموزان قابل خریداری است؟',
+  isUploadable: 'آیا پاسخ توسط دانش آموز قابل بارگذاری است؟',
+
   online: 'آنلاین',
   offline: 'حضوری',
   capacity: 'ظرفیت آزمون',

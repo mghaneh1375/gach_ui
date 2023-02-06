@@ -7,6 +7,8 @@ import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorde
 import {getOpenQuizzes, getQuizzes} from './Utility';
 import commonTranslator from '../../../../translator/Common';
 import {dispatchQuizContext} from './Context';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import {kindQuizKeyValsForFilter} from './KeyVals';
 
 function ProSearch(props) {
   const [startDateSolar, setStartDateSolar] = useState('');
@@ -15,6 +17,7 @@ function ProSearch(props) {
   const [startRegistrySolarEndLimit, setStartRegistrySolarEndLimit] =
     useState('');
   const [name, setName] = useState('');
+  const [kindQuiz, setKindQuiz] = useState('all');
 
   const useGlobalState = () => [React.useContext(dispatchQuizContext)];
   const [dispatch] = useGlobalState();
@@ -28,6 +31,21 @@ function ProSearch(props) {
           onChangeText={e => setName(e)}
           value={name}
         />
+
+        <JustBottomBorderSelect
+          values={kindQuizKeyValsForFilter}
+          value={
+            kindQuiz === undefined
+              ? {}
+              : kindQuizKeyValsForFilter.filter(element => {
+                  return element.id === kindQuiz;
+                })[0]
+          }
+          setter={setKindQuiz}
+          placeholder={translator.kind}
+          subText={translator.kind}
+        />
+
         {(props.generalMode === undefined ||
           props.generalMode !== 'openQuiz') && (
           <JustBottomBorderDatePicker
@@ -80,6 +98,7 @@ function ProSearch(props) {
                     startDateSolarEndLimit,
                     startRegistryDateSolar,
                     startRegistrySolarEndLimit,
+                    kindQuiz,
                   )
                 : await getOpenQuizzes(props.token, name);
             props.setLoading(false);

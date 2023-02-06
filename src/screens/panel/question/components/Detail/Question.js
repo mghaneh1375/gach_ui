@@ -328,6 +328,22 @@ function Question(props) {
             />
           </PhoneView>
         )}
+        {props.question.canUpload !== undefined && (
+          <PhoneView>
+            <BlueTextInline
+              style={{...styleFont14}}
+              text={translate.canUpload}
+            />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={
+                props.question.canUpload
+                  ? commonTranslator.yes
+                  : commonTranslator.no
+              }
+            />
+          </PhoneView>
+        )}
       </PhoneView>
       {props.btns !== undefined && (
         <PhoneView style={{...styleMarginRight25, ...styleJustifyContentEnd}}>
