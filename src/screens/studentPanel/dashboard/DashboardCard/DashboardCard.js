@@ -27,6 +27,7 @@ function DashboardCard({
   icon,
   onPress,
   width,
+  fontSize,
 }) {
   return (
     <CommonWebBox
@@ -36,6 +37,7 @@ function DashboardCard({
         borderColor: theme,
         background: background !== undefined ? background : 'white',
         padding: padding !== undefined ? padding : '10px',
+
         borderRightWidth: borderRight ? 18 : 0,
       }}
       style={{
@@ -43,12 +45,14 @@ function DashboardCard({
       }}>
       <PhoneView style={{justifyContent: 'space-between'}}>
         <SimpleText
+          // fontSize={fontSize !== undefined ? fontSize : 25}
           style={{
             ...styleFontSize25,
             ...styleMarginRight,
             ...{
               color: background !== undefined ? vars.WHITE : vars.DARK_BLUE,
               width: 'max-content',
+              fontSize: fontSize !== undefined ? fontSize : 22,
             },
           }}
           text={text}

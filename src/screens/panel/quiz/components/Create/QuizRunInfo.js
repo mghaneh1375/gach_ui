@@ -13,6 +13,9 @@ import {trueFalseValues} from '../../../../../services/Utility';
 const QuizRunInfo = props => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
+  const [registrable, setRegistrable] = useState(props.isRigstrable);
+  const [uploadable, setUploadable] = useState(props.isUploadable);
+  const [QRNeeded, setQRNeeded] = useState(props.isQRNeeded);
 
   React.useEffect(() => {
     setStart(props.start);
@@ -31,83 +34,149 @@ const QuizRunInfo = props => {
     props.setLenMode(newMode);
   };
 
+  const changeIsRegistrable = newMode => {
+    setRegistrable(newMode);
+    if (!newMode) changeIsUploadable(false);
+    props.setIsRigstrable(newMode);
+  };
+
+  const changeIsUploadable = newMode => {
+    setUploadable(newMode);
+    if (!newMode) changeIsQRNeeded(true);
+    props.setIsUploadable(newMode);
+  };
+
+  const changeIsQRNeeded = newMode => {
+    setQRNeeded(newMode);
+    props.setIsQRNeeded(newMode);
+  };
+
   return (
     <MyView>
       <PhoneView>
-        <CommonRadioButton
-          value="question"
-          status={props.lenMode === 'question' ? 'checked' : 'unchecked'}
-          onPress={() => changeLenMode('question')}
-          text={translator.questionBased}
-        />
-        <CommonRadioButton
-          value="custom"
-          status={props.lenMode === 'custom' ? 'checked' : 'unchecked'}
-          onPress={() => changeLenMode('custom')}
-          type={'textInput'}
-          disable={props.lenMode !== 'custom'}
-          justNum={true}
-          text={translator.len}
-          subText={translator.len}
-          onChangeText={e => changeLen(e)}
-          textValue={props.len}
-        />
+        {props.kind !== undefined && props.kind === 'tashrihi' && (
+          <MyView>
+            <CommonRadioButton
+              value={true}
+              status={registrable ? 'checked' : 'unchecked'}
+              onPress={() => changeIsRegistrable(!registrable)}
+              text={translator.isRegistrable}
+            />
+
+            {registrable && (
+              <CommonRadioButton
+                value={true}
+                status={uploadable ? 'checked' : 'unchecked'}
+                onPress={() => changeIsUploadable(!uploadable)}
+                text={translator.isUploadable}
+              />
+            )}
+
+            <CommonRadioButton
+              value={true}
+              status={
+                !registrable || !uploadable
+                  ? 'checked'
+                  : QRNeeded
+                  ? 'checked'
+                  : 'unchecked'
+              }
+              onPress={() => {
+                if (registrable && uploadable) changeIsQRNeeded(!QRNeeded);
+              }}
+              text={translator.isQRNeeded}
+            />
+          </MyView>
+        )}
+        {registrable && uploadable && !QRNeeded && (
+          <>
+            <CommonRadioButton
+              value="question"
+              status={props.lenMode === 'question' ? 'checked' : 'unchecked'}
+              onPress={() => {
+                if (!QRNeeded) changeLenMode('question');
+              }}
+              text={translator.questionBased}
+            />
+            <CommonRadioButton
+              value="custom"
+              status={props.lenMode === 'custom' ? 'checked' : 'unchecked'}
+              onPress={() => changeLenMode('custom')}
+              type={'textInput'}
+              disable={props.lenMode !== 'custom'}
+              justNum={true}
+              text={translator.len}
+              subText={translator.len}
+              onChangeText={e => changeLen(e)}
+              textValue={props.len}
+            />
+          </>
+        )}
       </PhoneView>
       {props.quizGeneralMode !== 'open' && props.quizGeneralMode !== 'content' && (
         <PhoneView style={{gap: 15}}>
-          <JustBottomBorderSelect
-            values={launchModeKeyVals}
-            value={
-              props.launchMode === undefined
-                ? {}
-                : launchModeKeyVals.filter(element => {
-                    return element.id === props.launchMode;
-                  })[0]
-            }
-            setter={props.setLaunchMode}
-            placeholder={translator.isOnline}
-            subText={translator.isOnline}
-          />
-          <JustBottomBorderSelect
-            values={trueFalseValues}
-            value={
-              props.permuteEn === undefined
-                ? {}
-                : trueFalseValues.filter(element => {
-                    return element.id === props.permuteEn;
-                  })[0]
-            }
-            setter={props.setPermuteEn}
-            subText={translator.permute}
-            placeholder={translator.permute}
-          />
-          <JustBottomBorderSelect
-            values={trueFalseValues}
-            value={
-              props.backEn === undefined
-                ? {}
-                : trueFalseValues.filter(element => {
-                    return element.id === props.backEn;
-                  })[0]
-            }
-            setter={props.setBackEn}
-            placeholder={translator.backEn}
-            subText={translator.backEn}
-          />
+          {(props.kind === undefined || props.kind !== 'tashrihi') && (
+            <JustBottomBorderSelect
+              values={launchModeKeyVals}
+              value={
+                props.launchMode === undefined
+                  ? {}
+                  : launchModeKeyVals.filter(element => {
+                      return element.id === props.launchMode;
+                    })[0]
+              }
+              setter={props.setLaunchMode}
+              placeholder={translator.isOnline}
+              subText={translator.isOnline}
+            />
+          )}
 
-          <JustBottomBorderSelect
-            values={trueFalseValues}
-            value={
-              props.minusMark === undefined
-                ? {}
-                : trueFalseValues.filter(element => {
-                    return element.id === props.minusMark;
-                  })[0]
-            }
-            setter={props.setMinusMark}
-            subText={translator.minusMark}
-            placeholder={translator.minusMark}
-          />
+          {(props.kind === undefined || props.kind !== 'tashrihi') && (
+            <JustBottomBorderSelect
+              values={trueFalseValues}
+              value={
+                props.permuteEn === undefined
+                  ? {}
+                  : trueFalseValues.filter(element => {
+                      return element.id === props.permuteEn;
+                    })[0]
+              }
+              setter={props.setPermuteEn}
+              subText={translator.permute}
+              placeholder={translator.permute}
+            />
+          )}
+          {uploadable && !QRNeeded && (
+            <JustBottomBorderSelect
+              values={trueFalseValues}
+              value={
+                props.backEn === undefined
+                  ? {}
+                  : trueFalseValues.filter(element => {
+                      return element.id === props.backEn;
+                    })[0]
+              }
+              setter={props.setBackEn}
+              placeholder={translator.backEn}
+              subText={translator.backEn}
+            />
+          )}
+
+          {(props.kind === undefined || props.kind !== 'tashrihi') && (
+            <JustBottomBorderSelect
+              values={trueFalseValues}
+              value={
+                props.minusMark === undefined
+                  ? {}
+                  : trueFalseValues.filter(element => {
+                      return element.id === props.minusMark;
+                    })[0]
+              }
+              setter={props.setMinusMark}
+              subText={translator.minusMark}
+              placeholder={translator.minusMark}
+            />
+          )}
           <JustBottomBorderSelect
             values={trueFalseValues}
             value={
@@ -139,7 +208,7 @@ const QuizRunInfo = props => {
             placeholder={translator.showResultsAfterCorrectionNotLoginUsers}
           />
 
-          {start !== undefined && (
+          {start !== undefined && uploadable && (
             <JustBottomBorderDatePicker
               placeholder={translator.startDate}
               value={start}
@@ -147,7 +216,7 @@ const QuizRunInfo = props => {
               subText={translator.startDate}
             />
           )}
-          {end !== undefined && (
+          {end !== undefined && uploadable && (
             <JustBottomBorderDatePicker
               placeholder={translator.endDate}
               value={end}

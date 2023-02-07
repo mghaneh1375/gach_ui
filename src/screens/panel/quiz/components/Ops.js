@@ -2,7 +2,7 @@ import {CommonButton, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../Translator';
 import commonTranslator from '../../../../translator/Common';
-import {generalRequest} from '../../../../API/Utility';
+import {BASE_SITE_NAME, generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import {
   createTaraz,
@@ -13,6 +13,7 @@ import {
 import {dispatchQuizContext, quizContext} from './Context';
 import React from 'react';
 import Translate from '../../../studentPanel/RunQuiz/Translate';
+import {showSuccess} from '../../../../services/Utility';
 
 const Ops = props => {
   const useGlobalState = () => [
@@ -108,32 +109,39 @@ const Ops = props => {
           theme={'transparent'}
           title={translator.editQuestions}
         />
-        {state.selectedQuiz.generalMode === 'irysc' && (
+
+        {(state.selectedQuiz.mode !== 'tashrihi' ||
+          state.selectedQuiz.startRegistry !== undefined) &&
+          state.selectedQuiz.generalMode === 'irysc' && (
+            <CommonButton
+              dir={'rtl'}
+              theme={'transparent'}
+              onPress={() => toggleVisibility()}
+              title={
+                state.selectedQuiz.visibility
+                  ? commonTranslator.toHide
+                  : commonTranslator.toShow
+              }
+            />
+          )}
+
+        {(state.selectedQuiz.mode !== 'tashrihi' ||
+          state.selectedQuiz.startRegistry !== undefined) && (
           <CommonButton
             dir={'rtl'}
             theme={'transparent'}
-            onPress={() => toggleVisibility()}
-            title={
-              state.selectedQuiz.visibility
-                ? commonTranslator.toHide
-                : commonTranslator.toShow
+            onPress={() =>
+              window.open(
+                '/reviewQuiz/' +
+                  state.selectedQuiz.generalMode +
+                  '/' +
+                  state.selectedQuiz.id,
+                '_blank',
+              )
             }
+            title={Translate.review}
           />
         )}
-        <CommonButton
-          dir={'rtl'}
-          theme={'transparent'}
-          onPress={() =>
-            window.open(
-              '/reviewQuiz/' +
-                state.selectedQuiz.generalMode +
-                '/' +
-                state.selectedQuiz.id,
-              '_blank',
-            )
-          }
-          title={Translate.review}
-        />
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}
@@ -157,14 +165,15 @@ const Ops = props => {
               }
             />
           )}
-        {state.selectedQuiz.generalMode === 'irysc' && (
-          <CommonButton
-            dir={'rtl'}
-            theme={'transparent'}
-            title={translator.transferToOpenQuiz}
-            onPress={() => transferToOpenQuizLocal()}
-          />
-        )}
+        {state.selectedQuiz.generalMode === 'irysc' &&
+          state.selectedQuiz.mode !== 'tashrihi' && (
+            <CommonButton
+              dir={'rtl'}
+              theme={'transparent'}
+              title={translator.transferToOpenQuiz}
+              onPress={() => transferToOpenQuizLocal()}
+            />
+          )}
         {state.selectedQuiz.reportStatus === 'ready' && (
           <CommonButton
             onPress={() => props.setMode('ranking')}
@@ -189,8 +198,7 @@ const Ops = props => {
               title={translator.correntAnswerSheets}
             />
           )}
-        {(state.selectedQuiz.launchMode === 'physical' ||
-          state.selectedQuiz.launchMode === 'hybrid') && (
+        {state.selectedQuiz.mode === 'tashrihi' && (
           <CommonButton
             dir={'rtl'}
             theme={'transparent'}
@@ -213,6 +221,29 @@ const Ops = props => {
             dir={'rtl'}
             theme={'transparent'}
             onPress={() => props.setMode('key')}
+          />
+        )}
+        {state.selectedQuiz.mode === 'tashrihi' && (
+          <CommonButton
+            title={translator.correctors}
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => props.setMode('correctors')}
+          />
+        )}
+
+        {(state.selectedQuiz.mode !== 'tashrihi' ||
+          state.selectedQuiz.startRegistry !== undefined) && (
+          <CommonButton
+            title={translator.copyLink}
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => {
+              navigator.clipboard.writeText(
+                BASE_SITE_NAME + 'buy/' + state.selectedQuiz.id,
+              );
+              showSuccess('لینک کپی شد!');
+            }}
           />
         )}
       </PhoneView>

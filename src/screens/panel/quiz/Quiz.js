@@ -13,6 +13,7 @@ import ReportList from './components/Reports/List/List';
 import {useParams} from 'react-router';
 import {MyView} from '../../../styles/Common';
 import ContentQuizKarname from './components/Reports/Karname/ContentQuizKarname';
+import Correctors from './components/Correctors/Correctors';
 
 const Quiz = props => {
   const [mode, setMode] = useState('karname');
@@ -47,6 +48,15 @@ const Quiz = props => {
         )}
         {mode === 'create' && (
           <CreateQuiz
+            setLoading={setLoading}
+            setMode={setMode}
+            token={props.token}
+            editMode={false}
+            quizGeneralMode={'irysc'}
+          />
+        )}
+        {mode === 'correctors' && (
+          <Correctors
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}

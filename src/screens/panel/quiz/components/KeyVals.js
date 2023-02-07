@@ -4,6 +4,12 @@ export const kindQuizKeyVals = [
   {id: 'hybrid', item: 'تلفیقی(تست - کوتاه پاسخ - چند گزاره ای)'},
 ];
 
+export const kindQuizKeyValsForFilter = [
+  {id: 'regular', item: 'تستی'},
+  {id: 'tashrihi', item: 'تشریحی'},
+  {id: 'all', item: 'همه'},
+];
+
 export const launchModeKeyVals = [
   {id: 'online', item: 'آنلاین'},
   {id: 'physical', item: 'حضوری'},

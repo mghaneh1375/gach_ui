@@ -6,7 +6,6 @@ import {
   PhoneView,
   SimpleText,
   MyView,
-  BigBoldBlueText,
 } from '../../../../styles/Common';
 import Translate from '../Translate';
 import commonTranslator from '../../../../translator/Common';
@@ -29,14 +28,9 @@ import {
   showSuccess,
 } from '../../../../services/Utility';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {
-  faFaucet,
-  faGift,
-  faJar,
-  faPlaceOfWorship,
-} from '@fortawesome/free-solid-svg-icons';
+import {faGift} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../styles/Common/Styles';
-import QuizItemCard from '../../../../components/web/QuizItemCard';
+import {BASE_SITE_NAME} from '../../../../API/Utility';
 
 function Card(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);
@@ -150,6 +144,24 @@ function Card(props) {
                 ...styles.marginRight20,
               }}
               text={Translate.buyersCount + props.package.buyers}
+            />
+          )}
+
+          {props.isAdmin && (
+            <SimpleText
+              style={{
+                ...styles.red,
+                ...styles.fontSize12,
+                ...styles.marginRight20,
+                ...styles.cursor_pointer,
+              }}
+              text={'کپی کردن لینک'}
+              onPress={() => {
+                navigator.clipboard.writeText(
+                  BASE_SITE_NAME + 'buy/package/' + props.package.id,
+                );
+                showSuccess('لینک کپی شد!');
+              }}
             />
           )}
         </MyView>

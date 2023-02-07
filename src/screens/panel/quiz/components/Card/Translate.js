@@ -15,6 +15,7 @@ const translate = {
   oldWhite: 'تعداد نزده: ',
   oldCorrect: 'تعداد درست: ',
   oldIncorrect: 'تعداد نادرست: ',
+  canUpload: ' آیا پاسخ باید آپلود شود؟ ',
   waitForResult: 'در انتظار صدور کارنامه باشید.',
   notStart: 'این آزمون هنوز شروع نشده است.',
   timeReminder: 'زمان باقی مانده',

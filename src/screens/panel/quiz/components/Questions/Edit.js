@@ -6,10 +6,14 @@ import translator from '../../Translator';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton} from '../../../../../styles/Common';
+import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
 
 function Edit(props) {
   const [mark, setMark] = useState(
     props.question !== undefined ? props.question.mark : 0,
+  );
+  const [canUpload, setCanUpload] = useState(
+    props.question.canUpload ? 'yes' : 'no',
   );
 
   return (
@@ -26,11 +30,12 @@ function Edit(props) {
               props.quizGeneralMode,
               props.question.id,
               mark,
+              canUpload,
             );
             props.setLoading(false);
             if (res !== null) {
               showSuccess(commonTranslator.success);
-              props.afterFunc(mark);
+              props.afterFunc(mark, canUpload === 'yes');
             }
           }}
         />
@@ -40,8 +45,16 @@ function Edit(props) {
         value={mark}
         onChangeText={e => setMark(e)}
         justNum={true}
+        subText={translator.mark}
         placeholder={translator.mark}
       />
+      {props.question.canUpload !== undefined && (
+        <RadioButtonYesOrNo
+          label={translator.isUploadable}
+          selected={canUpload}
+          setSelected={setCanUpload}
+        />
+      )}
     </LargePopUp>
   );
 }

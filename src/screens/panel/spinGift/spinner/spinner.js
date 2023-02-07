@@ -12,8 +12,6 @@ import {style} from '../../ticket/components/Show/AttachBox/style';
 // import 'react-wheel-of-prizes/dist/index.css';
 
 function Spinner(props) {
-  const ref1 = useRef();
-  // const ref2 = useRef();
   const [spins, setSpins] = useState();
   const [selectedSpin, setSelectedSpin] = useState();
   const [showCongratulations, setShowCongratulations] = useState(false);
@@ -122,96 +120,61 @@ function Spinner(props) {
     '#34A24F',
   ];
 
-  // const onFinished = async gift => {
-  //   props.setLoading(true);
-  //   let res = await generalRequest(
-  //     repeat === undefined
-  //       ? routes.giveMyGift + '?id=' + props.id
-  //       : routes.giveMyGift + '?id=' + props.id + `&repeat=${repeat}`,
-  //     'post',
-  //     undefined,
-  //     repeat === undefined ? undefined : 'data',
-  //     props.token,
-  //   );
+  const onFinished = async gift => {
+    props.setLoading(true);
+    let res = await generalRequest(
+      repeat === undefined
+        ? routes.giveMyGift + '?id=' + props.id
+        : routes.giveMyGift + '?id=' + props.id + `&repeat=${repeat}`,
+      'post',
+      undefined,
+      repeat === undefined ? undefined : 'data',
+      props.token,
+    );
 
-  //   if (res === null) {
-  //     props.setLoading(false);
-  //     return;
-  //   }
+    if (res === null) {
+      props.setLoading(false);
+      return;
+    }
 
-  //   if (repeat !== undefined) {
-  //     props.setLoading(false);
-  //     if (res.coinForThirdTime !== undefined)
-  //       setCoinForThirdTime(res.coinForThirdTime);
-  //     else setCoinForThirdTime(undefined);
+    if (repeat !== undefined) {
+      props.setLoading(false);
+      if (res.coinForThirdTime !== undefined)
+        setCoinForThirdTime(res.coinForThirdTime);
+      else setCoinForThirdTime(undefined);
 
-  //     if (res.coinForForthTime !== undefined)
-  //       setCoinForForthTime(res.coinForForthTime);
-  //     else setCoinForForthTime(undefined);
+      if (res.coinForForthTime !== undefined)
+        setCoinForForthTime(res.coinForForthTime);
+      else setCoinForForthTime(undefined);
 
-  //     if (res.coinForFifthTime !== undefined)
-  //       setCoinForFifthTime(res.coinForFifthTime);
-  //     else setCoinForFifthTime(undefined);
-  //   } else {
-  //     res = await generalRequest(
-  //       routes.getMyAlerts,
-  //       'get',
-  //       undefined,
-  //       'data',
-  //       props.token,
-  //     );
+      if (res.coinForFifthTime !== undefined)
+        setCoinForFifthTime(res.coinForFifthTime);
+      else setCoinForFifthTime(undefined);
+    } else {
+      res = await generalRequest(
+        routes.getMyAlerts,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      );
 
-  //     props.setLoading(false);
+      props.setLoading(false);
 
-  //     if (res !== null) props.updateAlerts(res);
-  //     else props.updateAlerts([]);
-  //   }
+      if (res !== null) props.updateAlerts(res);
+      else props.updateAlerts([]);
+    }
 
-  //   incRepeat();
-  //   setShowCongratulations(true);
-  //   setShowWheelComponent(false);
-  //   setAward(gift);
-  // };
-
-  // const {width, height} = useWindowSize();
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
-  React.useEffect(() => {
-    if (ref1 === undefined || ref1.current === undefined || !isInPhone) return;
-
-    ref1.current.children[0].children[0].style.width = '480px';
-    ref1.current.children[0].children[0].style.marginRight = '-131px';
-  }, [ref1, isInPhone]);
-
-  React.useEffect(() => {
-    if (ref1 === undefined || ref1.current === undefined || isInPhone) return;
-
-    let w = getWidthHeight()[0] - vars.RIGHT_MENU_WIDTH;
-    let h = 0.8 * w;
-
-    // ref1.current.children[0].children[0].style.width = w + 'px';
-    // ref1.current.children[0].children[0].style.height = h + 'px';
-    // ref1.current.children[0].children[0].style.marginRight = '-131px';
-  }, [ref1, isInPhone]);
-
-  // React.useEffect(() => {
-  //   if (ref2 === undefined || !isInPhone) return;
-  //   ref2.current.style.width = '21%';
-  // }, [ref2, isInPhone]);
+    incRepeat();
+    setShowCongratulations(true);
+    setShowWheelComponent(false);
+    setAward(gift);
+  };
 
   return (
     <>
-      {/* <div
-        ref={ref2}
-        className="divRight"
-        style={{
-          height: '100%',
-          width: '30%',
-          position: 'fixed',
-          zIndex: '1',
-        }}></div> */}
       {spins !== undefined && (
-        <MyViewWithRef ref={ref1}>
+        <MyViewWithRef style={{...styles.alignItemsCenter}}>
           {showCongratulations && (
             <MyView>
               <SimpleText
@@ -299,7 +262,7 @@ function Spinner(props) {
               winningSegment={selectedSpin}
               onFinished={winner =>
                 setTimeout(() => {
-                  // onFinished(winner);
+                  onFinished(winner);
                 }, 1000)
               }
               primaryColor="black"

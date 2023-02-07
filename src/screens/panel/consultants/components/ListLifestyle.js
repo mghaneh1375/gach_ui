@@ -8,7 +8,7 @@ import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorde
 import {courseContext, dispatchCourseContext} from './Context';
 // import columns from './tableCourse';
 
-function List(props) {
+function ListLifestyle(props) {
   const useGlobalState = () => [
     React.useContext(courseContext),
     React.useContext(dispatchCourseContext),
@@ -29,7 +29,7 @@ function List(props) {
     props.setLoading(true);
 
     Promise.all([
-      generalRequest(routes.getAllTags, 'get', undefined, 'data', props.token),
+      generalRequest(routes.getAllLife, 'get', undefined, 'data', props.token),
     ]).then(res => {
       props.setLoading(false);
 
@@ -54,7 +54,7 @@ function List(props) {
       onAddClick={() => props.setMode('create')}>
       {state.tags && (
         <CommonDataTable
-          removeUrl={routes.removeTag}
+          removeUrl={routes.removeLife}
           columns={columns}
           data={state.tags}
           token={props.token}
@@ -65,4 +65,4 @@ function List(props) {
   );
 }
 
-export default List;
+export default ListLifestyle;

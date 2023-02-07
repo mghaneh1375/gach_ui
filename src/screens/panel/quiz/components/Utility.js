@@ -14,9 +14,13 @@ export const getQuizzes = async (
   startDateSolarEndLimit = undefined,
   startRegistryDateSolar = undefined,
   startRegistrySolarEndLimit = undefined,
+  kindQuiz = undefined,
 ) => {
   let query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
+  if (kindQuiz !== undefined && kindQuiz !== 'all')
+    query.append('kind', kindQuiz);
+
   if (startDateSolar !== undefined && startDateSolar !== '')
     query.append('startDateSolar', startDateSolar);
   if (startDateSolarEndLimit !== undefined && startDateSolarEndLimit !== '')
@@ -250,7 +254,23 @@ export const updateQuestionMark = async (
   quizMode,
   questionId,
   newMark,
+  newCanUpload,
 ) => {
+  if (newCanUpload === undefined)
+    return await generalRequest(
+      routes.updateQuestionMark +
+        quizMode +
+        '/' +
+        quizId +
+        '/' +
+        questionId +
+        '/' +
+        newMark,
+      'put',
+      undefined,
+      undefined,
+      token,
+    );
   return await generalRequest(
     routes.updateQuestionMark +
       quizMode +
@@ -259,7 +279,9 @@ export const updateQuestionMark = async (
       '/' +
       questionId +
       '/' +
-      newMark,
+      newMark +
+      '?canUpload=' +
+      newCanUpload,
     'put',
     undefined,
     undefined,
@@ -350,6 +372,38 @@ export const fetchStudentAnswerSheet = async (
 ) => {
   return await generalRequest(
     routes.fetchStudentAnswerSheet + quizMode + '/' + quizId + '/' + userId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const addCorrector = async (NID, quizId, quizMode, token) => {
+  let res = await generalRequest(
+    routes.addCorrector + quizMode + '/' + quizId + '/' + NID,
+    'post',
+    undefined,
+    'data',
+    token,
+  );
+  if (res != null) showSuccess();
+  return res;
+};
+
+export const fetchCorrectors = async (quizId, quizMode, token) => {
+  return await generalRequest(
+    routes.fetchQuizCorrectors + quizMode + '/' + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const fetchCorrector = async (quizId, quizMode, userId, token) => {
+  return await generalRequest(
+    routes.fetchQuizCorrectors + quizMode + '/' + quizId + '/' + userId,
     'get',
     undefined,
     'data',

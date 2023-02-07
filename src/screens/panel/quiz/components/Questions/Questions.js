@@ -146,21 +146,22 @@ const Questions = props => {
           quizId={state.selectedQuiz.id}
           quizGeneralMode={state.selectedQuiz.generalMode}
           question={selectedQuestion}
-          afterFunc={mark => {
+          afterFunc={(mark, canUpload = undefined) => {
             state.selectedQuiz.questions = state.selectedQuiz.questions.map(
               element => {
                 if (element.id === selectedQuestion.id) {
                   let tmp = selectedQuestion;
                   tmp.mark = mark;
+                  if (canUpload !== undefined) tmp.canUpload = canUpload;
                   return tmp;
                 }
                 return element;
               },
             );
 
-            props.updateQuiz(state.selectedQuiz);
-            setSelectedQuestion(undefined);
+            dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
             setShowEditPane(false);
+            setSelectedQuestion(undefined);
           }}
         />
       )}

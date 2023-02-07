@@ -11,12 +11,14 @@ const IRYSCMandatoryFields = [
 ];
 
 const OpenMandatoryFields = ['title', 'price'];
-
+const TashrihiMandatoryFields = ['title', 'showResultsAfterCorrection'];
 const ContentMandatoryFields = ['title'];
 
-export async function CallAPI(data, url, token, mode) {
+export async function CallAPI(data, url, token, mode, kind = 'regular') {
   const mandatoryFields =
-    mode === 'irysc'
+    kind === 'tashrihi'
+      ? TashrihiMandatoryFields
+      : mode === 'irysc'
       ? IRYSCMandatoryFields
       : 'content'
       ? ContentMandatoryFields

@@ -16,6 +16,9 @@ const translator = {
   isOnline: 'نوع اجرا',
   len: 'مدت آزمون (به دقیقه)',
   questionBased: 'بر اساس سوالات',
+  isRegistrable: 'آیا این آزمون توسط دانش آموزان قابل خریداری است؟',
+  isUploadable: 'آیا پاسخ توسط دانش آموز قابل بارگذاری است؟',
+  isQRNeeded: 'آیا فرآیند تصحیح با QR انجام میگیرد؟',
   online: 'آنلاین',
   offline: 'حضوری',
   capacity: 'ظرفیت آزمون',
@@ -50,12 +53,17 @@ const translator = {
   generateAnswerSheetPDF: 'دانلود دفترچه پاسخبرگ',
   correntAnswerSheets: 'تصحیح پاسخ برگ های اسکن شده',
   keySheet: 'کلید آزمون',
+  correctors: 'مصححین',
+  addCorrector: 'افزودن مصحح',
   seeRanking: 'مشاهده نتایج',
   changeSort: 'تغییر ترتیب سوالات',
   startDateFrom: 'بازه شروع',
   startDateEnd: 'اتمام بازه شروع',
   startRegistryDateFrom: 'بازه شروع ثبت نام',
   startRegistryDateEnd: 'اتمام بازه شروع ثبت نام',
+  copyLink: 'کپی کردن لینک اختصاصی ثبت نام',
+  seeMyTasks: 'مشاهده دانش آموزان / سوالات',
+  addTask: 'افزودن دانش آموزان / سوالات',
 };
 
 export default translator;

@@ -70,6 +70,9 @@ const CreateQuiz = props => {
   const [desc, setDesc] = useState('');
   const [kind, setKind] = useState();
   const [tags, setTags] = useState([]);
+  const [isRigstrable, setIsRigstrable] = useState(true);
+  const [isUploadable, setIsUploadable] = useState(true);
+  const [isQRNeeded, setIsQRNeeded] = useState(false);
   const [len, setLen] = useState(props.editMode ? state.selectedQuiz.len : '');
   const [lenMode, setLenMode] = useState(
     props.editMode ? state.selectedQuiz.lenMode : 'question',
@@ -149,29 +152,55 @@ const CreateQuiz = props => {
   }, [props, dispatch, state.tags, isWorking]);
 
   const submit = async () => {
-    const data = {
-      title: name,
-      description: desc,
-      start: start,
-      end: end,
-      startRegistry: startRegistry,
-      // kind: kind,
-      duration: len,
-      launchMode: launchMode,
-      tags: tags,
-      price: price,
-      permute: permuteEn,
-      capacity: capacity,
-      minusMark: minusMark,
-      backEn: backEn,
-      showResultsAfterCorrection: showResultsAfterCorrection,
-      showResultsAfterCorrectionNotLoginUsers:
-        showResultsAfterCorrectionNotLoginUsers,
-      topStudentsCount: ranking,
-      descAfter: descAfter,
-      desc: descBefore,
-    };
-    if (endRegistry !== undefined) data.endRegistry = endRegistry;
+    let data = {};
+    if (kind === 'tashrihi') {
+      data = {
+        title: name,
+        description: desc,
+        tags: tags,
+        showResultsAfterCorrection: showResultsAfterCorrection,
+        showResultsAfterCorrectionNotLoginUsers:
+          showResultsAfterCorrectionNotLoginUsers,
+        descAfter: descAfter,
+        desc: descBefore,
+        isRegistrable: isRigstrable,
+        isUploadable: isUploadable,
+        kind: kind,
+        isQRNeeded: isQRNeeded,
+      };
+      if (endRegistry !== undefined) data.endRegistry = endRegistry;
+      if (startRegistry !== undefined) data.startRegistry = startRegistry;
+      if (start !== undefined) data.start = start;
+      if (end !== undefined) data.end = end;
+      if (price !== undefined) data.price = price;
+      if (len !== undefined) data.duration = len;
+      if (capacity !== undefined) data.capacity = capacity;
+      if (backEn !== undefined) data.backEn = backEn;
+      if (ranking !== undefined) data.topStudentsCount = ranking;
+    } else {
+      data = {
+        title: name,
+        description: desc,
+        start: start,
+        end: end,
+        startRegistry: startRegistry,
+        duration: len,
+        launchMode: launchMode,
+        tags: tags,
+        price: price,
+        permute: permuteEn,
+        capacity: capacity,
+        minusMark: minusMark,
+        backEn: backEn,
+        showResultsAfterCorrection: showResultsAfterCorrection,
+        showResultsAfterCorrectionNotLoginUsers:
+          showResultsAfterCorrectionNotLoginUsers,
+        topStudentsCount: ranking,
+        descAfter: descAfter,
+        desc: descBefore,
+      };
+      if (endRegistry !== undefined) data.endRegistry = endRegistry;
+    }
 
     props.setLoading(true);
     let result = await CallAPI(
@@ -181,6 +210,7 @@ const CreateQuiz = props => {
         : routes.createQuiz + props.quizGeneralMode,
       props.token,
       props.quizGeneralMode,
+      kind !== undefined && kind === 'tashrihi' ? 'tashrihi' : undefined,
     );
 
     if (result !== null) {
@@ -246,12 +276,19 @@ const CreateQuiz = props => {
             quizGeneralMode={props.quizGeneralMode}
             start={start}
             end={end}
+            kind={kind}
             setStart={setStart}
             setEnd={setEnd}
             lenMode={lenMode}
             setLenMode={setLenMode}
             len={len}
             setLen={setLen}
+            isQRNeeded={isQRNeeded}
+            setIsQRNeeded={setIsQRNeeded}
+            isUploadable={isUploadable}
+            setIsUploadable={setIsUploadable}
+            isRigstrable={isRigstrable}
+            setIsRigstrable={setIsRigstrable}
             setLaunchMode={setLaunchMode}
             launchMode={launchMode}
             backEn={backEn}
@@ -271,24 +308,26 @@ const CreateQuiz = props => {
           />
         }
       />
-      <CommonWebBox
-        header={translator.registryInfo}
-        child={
-          <QuizRegistryInfo
-            start={startRegistry}
-            end={endRegistry}
-            setStart={setStartRegistry}
-            setEnd={setEndRegistry}
-            quizGeneralMode={props.quizGeneralMode}
-            price={price}
-            setPrice={setPrice}
-            ranking={ranking}
-            setRanking={setRanking}
-            capacity={capacity}
-            setCapacity={setCapacity}
-          />
-        }
-      />
+      {isRigstrable && (
+        <CommonWebBox
+          header={translator.registryInfo}
+          child={
+            <QuizRegistryInfo
+              start={startRegistry}
+              end={endRegistry}
+              setStart={setStartRegistry}
+              setEnd={setEndRegistry}
+              quizGeneralMode={props.quizGeneralMode}
+              price={price}
+              setPrice={setPrice}
+              ranking={ranking}
+              setRanking={setRanking}
+              capacity={capacity}
+              setCapacity={setCapacity}
+            />
+          }
+        />
+      )}
 
       <CommonWebBox
         header={translator.answerSheetInfo}

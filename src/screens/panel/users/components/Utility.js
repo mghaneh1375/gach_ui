@@ -18,12 +18,13 @@ export const filter = async (
   let query = new URLSearchParams();
 
   query.append('level', level);
-  if (NID !== undefined) query.append('NID', NID);
-  if (phone !== undefined) query.append('phone', phone);
-  if (name !== undefined) query.append('name', name);
-  if (lastname !== undefined) query.append('lastname', lastname);
-  if (grade !== undefined) query.append('gradeId', grade);
-  if (branch !== undefined) query.append('branchId', branch);
+  if (NID !== undefined && NID !== '') query.append('NID', NID);
+  if (phone !== undefined && phone !== '') query.append('phone', phone);
+  if (name !== undefined && name !== '') query.append('name', name);
+  if (lastname !== undefined && lastname !== '')
+    query.append('lastname', lastname);
+  if (grade !== undefined && grade !== '') query.append('gradeId', grade);
+  if (branch !== undefined && branch !== '') query.append('branchId', branch);
 
   let res = await generalRequest(
     routes.fetchAllUsers + '?' + query.toString(),

@@ -91,6 +91,7 @@ function Filter(props) {
               criticalThresh,
               justCriticals,
             );
+
             props.setLoading(false);
             if (res !== null) props.setData(res);
           }}
