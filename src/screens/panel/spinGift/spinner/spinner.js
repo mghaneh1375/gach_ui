@@ -187,7 +187,6 @@ function Spinner(props) {
     if (ref1 === undefined || ref1.current === undefined || isInPhone) return;
 
     let w = getWidthHeight()[0] - vars.RIGHT_MENU_WIDTH;
-    console.log(w + 'px');
     let h = 0.8 * w;
 
     // ref1.current.children[0].children[0].style.width = w + 'px';
@@ -307,7 +306,7 @@ function Spinner(props) {
               contrastColor="white"
               buttonText="چرخنده"
               isOnlyOnce={true}
-              size={260}
+              size={290}
               upDuration={600}
               downDuration={10000}
               fontFamily="IRANSans"
