@@ -89,7 +89,7 @@ function Correctors(props) {
       state.selectedCorrector.tasks = res[0];
       dispatch({selectedCorrector: state.selectedCorrector.tasks});
     });
-  }, [state.selectedCorrector, isWorking, dispatch]);
+  }, [state.selectedCorrector, isWorking, dispatch, props, state.selectedQuiz]);
 
   React.useEffect(() => {
     if (taskMode == undefined) return;

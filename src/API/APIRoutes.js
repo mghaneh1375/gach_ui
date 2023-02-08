@@ -90,6 +90,7 @@ export const routes = {
   fetchStudentAnswerSheet: 'quiz/manage/getStudentAnswerSheet/',
   addCorrector: 'quiz/manage/addCorrector/',
   fetchQuizCorrectors: 'quiz/manage/getCorrectors/',
+  fetchQuizCorrector: 'quiz/manage/getCorrector/',
   fetchMyAnswerSheet: 'quiz/public/getMyAnswerSheet/',
   fetchQuizAnswerSheets: 'quiz/manage/getQuizAnswerSheets/',
   fetchQuizRanking: 'quiz/report/showRanking/',

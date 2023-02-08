@@ -403,7 +403,7 @@ export const fetchCorrectors = async (quizId, quizMode, token) => {
 
 export const fetchCorrector = async (quizId, quizMode, userId, token) => {
   return await generalRequest(
-    routes.fetchQuizCorrectors + quizMode + '/' + quizId + '/' + userId,
+    routes.fetchQuizCorrector + quizMode + '/' + quizId + '/' + userId,
     'get',
     undefined,
     'data',
