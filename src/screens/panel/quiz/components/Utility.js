@@ -96,9 +96,21 @@ export const getTags = async () => {
   return await generalRequest(routes.fetchQuizTags, 'get', undefined, 'data');
 };
 
-export const getAnswerSheets = async (quizId, quizMode, token) => {
+export const getAnswerSheets = async (
+  quizId,
+  quizMode,
+  token,
+  studentId = undefined,
+) => {
   return await generalRequest(
-    routes.fetchQuizAnswerSheets + quizMode + '/' + quizId,
+    studentId === undefined
+      ? routes.fetchQuizAnswerSheets + quizMode + '/' + quizId
+      : routes.fetchQuizAnswerSheets +
+          quizMode +
+          '/' +
+          quizId +
+          '?studentId=' +
+          studentId,
     'get',
     undefined,
     'data',

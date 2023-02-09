@@ -113,11 +113,19 @@ const Students = props => {
   const prepareShowAnswerSheet = async () => {
     if (state.selectedQuiz.answer_sheets === undefined) {
       props.setLoading(true);
-      let res = await getAnswerSheets(
-        state.selectedQuiz.id,
-        state.selectedQuiz.generalMode,
-        props.token,
-      );
+      let res =
+        state.selectedQuiz.mode === 'tashrihi'
+          ? await getAnswerSheets(
+              state.selectedQuiz.id,
+              state.selectedQuiz.generalMode,
+              props.token,
+              selectedSudent.id,
+            )
+          : await getAnswerSheets(
+              state.selectedQuiz.id,
+              state.selectedQuiz.generalMode,
+              props.token,
+            );
 
       props.setLoading(false);
 
@@ -125,9 +133,7 @@ const Students = props => {
         state.selectedQuiz.answer_sheet = res.answers;
         state.selectedQuiz.answer_sheets = res.students;
         dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
-      } else {
-        return;
-      }
+      } else return;
     }
 
     state.selectedQuiz.answer_sheets.forEach((elem, index) => {

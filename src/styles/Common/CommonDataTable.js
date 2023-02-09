@@ -125,7 +125,7 @@ const CommonDataTable = props => {
                 <p
                   className="opCol"
                   onClick={() => {
-                    if (row.id !== undefined) {
+                    if (row.id !== undefined && props.data !== undefined) {
                       props.handleOp(
                         props.data.findIndex(x => x.id === row.id),
                         row,
