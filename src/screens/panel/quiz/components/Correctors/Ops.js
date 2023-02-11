@@ -20,7 +20,7 @@ const Ops = props => {
           title={translator.seeMyTasks}
         />
         <CommonButton
-          onPress={() => props.changeMode('create')}
+          onPress={() => props.changeMode('add')}
           dir={'rtl'}
           theme={'transparent'}
           title={translator.addTask}

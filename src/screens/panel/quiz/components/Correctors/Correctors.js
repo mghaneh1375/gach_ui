@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import {routes} from '../../../../../API/APIRoutes';
-import {CommonButton, CommonWebBox} from '../../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+} from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../Translator';
@@ -10,6 +14,8 @@ import columns from './TableStructure';
 import commonTranslator from '../../../../../translator/Common';
 import Ops from './Ops';
 import StudentCard from './StudentCard';
+import {generalRequest} from '../../../../../API/Utility';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function Correctors(props) {
   const useGlobalState = () => [
@@ -59,14 +65,10 @@ function Correctors(props) {
   const [showAddPane, setShowAddPane] = useState(false);
   const [NID, setNID] = useState();
   const [taskMode, setTaskMode] = useState();
+  const [selectedStudents, setSelectedStudents] = useState();
 
   const getCorrector = React.useCallback(() => {
-    if (
-      state.selectedCorrector.students !== undefined ||
-      state.selectedCorrector.questions !== undefined ||
-      isWorking
-    )
-      return;
+    if (state.selectedCorrector.allQuestions !== undefined || isWorking) return;
 
     setIsWorking(true);
     props.setLoading(true);
@@ -74,26 +76,67 @@ function Correctors(props) {
     Promise.all([
       fetchCorrector(
         state.selectedQuiz.id,
-        state.selectedQuiz.quizGeneralMode,
+        state.selectedQuiz.generalMode,
         state.selectedCorrector.id,
         props.token,
       ),
     ]).then(res => {
-      props.setLoading(false);
+      if (
+        taskMode !== 'add' ||
+        state.selectedQuiz.students !== undefined ||
+        res[0] === null
+      )
+        props.setLoading(false);
 
       if (res[0] === null) {
         setTaskMode(undefined);
         return;
       }
 
-      state.selectedCorrector.tasks = res[0];
-      dispatch({selectedCorrector: state.selectedCorrector.tasks});
+      state.selectedCorrector.allQuestions = res[0].allQuestions;
+      state.selectedCorrector.allMarked = res[0].allMarked;
+      dispatch({selectedCorrector: state.selectedCorrector});
+
+      if (taskMode === 'add' && state.selectedQuiz.students === undefined) {
+        Promise.all([
+          generalRequest(
+            routes.getParticipants +
+              state.selectedQuiz.generalMode +
+              '/' +
+              state.selectedQuiz.id,
+            'get',
+            undefined,
+            'students',
+            props.token,
+          ),
+        ]).then(res => {
+          props.setLoading(false);
+
+          if (res == null) {
+            setTaskMode(undefined);
+            return;
+          }
+
+          let tmp = state.selectedQuiz;
+          tmp.students = res[0];
+
+          dispatch({selectedQuiz: tmp});
+          setIsWorking(false);
+        });
+      } else setIsWorking(false);
     });
-  }, [state.selectedCorrector, isWorking, dispatch, props, state.selectedQuiz]);
+  }, [
+    state.selectedCorrector,
+    isWorking,
+    dispatch,
+    props,
+    state.selectedQuiz,
+    taskMode,
+  ]);
 
   React.useEffect(() => {
     if (taskMode == undefined) return;
-
+    setSelectedStudents([]);
     getCorrector();
   }, [taskMode, getCorrector]);
 
@@ -109,6 +152,33 @@ function Correctors(props) {
             {state.selectedCorrector.tasks.map((elem, index) => {
               return <StudentCard key={index} elem={elem} />;
             })}
+          </CommonWebBox>
+        )}
+
+      {taskMode !== undefined &&
+        taskMode == 'add' &&
+        state.selectedQuiz.students !== undefined && (
+          <CommonWebBox
+            header={state.selectedCorrector.name}
+            backBtn={true}
+            onBackClick={() => setTaskMode(undefined)}>
+            <PhoneView style={{...styles.gap10}}>
+              {state.selectedQuiz.students.map((elem, index) => {
+                return (
+                  <StudentCard
+                    onPress={() => {
+                      let tmp = [];
+                      selectedStudents.forEach(e => {
+                        tmp.push(e);
+                      });
+                      tmp.push(elem.id);
+                    }}
+                    key={index}
+                    elem={elem}
+                  />
+                );
+              })}
+            </PhoneView>
           </CommonWebBox>
         )}
       {showOpPane && (
