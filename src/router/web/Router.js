@@ -109,6 +109,12 @@ export default function WebRouter() {
             path="/showAllSchools"
             element={<WebStructue page="allSchools" />}
           />
+          <Route
+            path="/showAnswerSheet/:generalQuizMode/:quizId/:studentId"
+            element={<WebStructue page="showAnswerSheet" />}
+          />
+
+          <Route path="/myTasks" element={<WebStructue page="myTasks" />} />
 
           <Route
             path="/invoice/:refId"

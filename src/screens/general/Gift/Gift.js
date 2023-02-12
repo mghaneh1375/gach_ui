@@ -18,7 +18,6 @@ const participants = [
 function Gift(props) {
   const [winnerValue, setWinnerValue] = useState();
   const [winnerIndex, setWinnerIndex] = useState();
-  //   const child = useRef();
 
   const wheelOptions = {
     rewards: participants,
@@ -31,7 +30,6 @@ function Gift(props) {
     textAngle: 'horizontal',
     knobSource: require('./../../../images/student.png'),
     onRef: ref => ref._onPress(),
-    // (child = ref)
   };
   return (
     <MyView>

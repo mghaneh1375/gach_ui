@@ -1,19 +1,9 @@
 import React from 'react';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
-import {MenuItem, style, MenuItemPhone} from '../style';
+import {style, MenuItemPhone, MenuItem} from '../style';
 import translator from '../../../../../translator/Common';
-import {
-  faBasketShopping,
-  faCog,
-  faCreditCard,
-  faHistory,
-  faHome,
-  faQuestion,
-  faSchool,
-  faShoppingCart,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
+import {faSchool, faTasks, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '../../../../../styles/Common';
 import MenuItemRepeat from './MenuItemRepeat';
 
@@ -24,7 +14,21 @@ function Teacher(props) {
 
   if (isLargePage) {
     return (
-      <MenuItemRepeat navigate={props.navigate} selected={props.selected} />
+      <>
+        <MenuItemRepeat
+          navigate={props.navigate}
+          selected={props.selected}
+          excludes={['quiz', 'package', 'certs', 'charge']}
+          child={
+            <MenuItem
+              onClick={() => navigate('/myTasks')}
+              text={'آزمون های من'}
+              icon={faTasks}
+              selected={props.selected === 'myQuizzes'}
+            />
+          }
+        />
+      </>
     );
   }
 
@@ -34,16 +38,7 @@ function Teacher(props) {
         ...style.Menu,
         ...style.MenuJustPhone,
         ...style.MenuJustApp,
-      }}>
-      <MenuItemPhone
-        text={translator.users}
-        icon={faUsers}
-        isApp={false}
-        onClick={() => {
-          navigate('/users');
-        }}
-      />
-    </MyView>
+      }}></MyView>
   );
 }
 

@@ -87,6 +87,7 @@ import {generalRequest} from '../API/Utility';
 import Report from './panel/spinGift/components/Report/Report';
 import SessionDetail from './general/Packages/components/Detail/SessionDetail';
 import ContentQuiz from './panel/quiz/ContentQuiz';
+import AnswerSheet from './general/Corrector/AnswerSheet';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -312,6 +313,10 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+              {props.page === 'showAnswerSheet' && (
+                <AnswerSheet navigate={navigate} />
+              )}
+              {props.page === 'myTasks' && <AnswerSheet navigate={navigate} />}
               {props.page === 'financeHistory' && (
                 <History navigate={navigate} />
               )}

@@ -1,14 +1,11 @@
 import {
-  faBasketShopping,
   faCog,
   faCreditCard,
   faDashboard,
   faHistory,
   faHome,
-  faQuestion,
   faShoppingCart,
   faSun,
-  faUsers,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
@@ -32,70 +29,90 @@ function MenuItemRepeat(props) {
         icon={faDashboard}
         selected={props.selected === 'dashboard'}
       />
-      <SuperMenuItem
-        text={'آزمون'}
-        icon={faShoppingCart}
-        selected={props.selected === 'buy' || props.selected === 'makeQuiz'}
-        navigate={navigate}
-        items={[
-          {
-            text: translator.buyQuiz,
-            url: '/buy',
-          },
-          {
-            text: translator.makeQuiz,
-            url: '/makeQuiz',
-          },
-          {
-            text: translator.myQuizes,
-            url: '/myIRYSCQuizzes',
-          },
-          {
-            text: translator.myCustomQuizess,
-            url: '/myCustomQuizzes',
-          },
-          // {
-          //   text: translator.schools,
-          //   url: '/schoolUsers',
-          // },
-        ]}
-      />
-      <SuperMenuItem
-        text={translator.packages}
-        icon={faVideo}
-        selected={
-          props.selected === 'packages' || props.selected === 'myPackages'
-        }
-        navigate={navigate}
-        items={[
-          {
-            text: translator.buyPackages,
-            url: '/packages',
-          },
-          {
-            text: translator.myPackages,
-            url: '/myPackages',
-          },
-        ]}
-      />
-      <MenuItem
-        onClick={() => navigate('/charge')}
-        text={translator.charge}
-        icon={faCreditCard}
-        selected={props.selected === 'charge'}
-      />
-      <MenuItem
-        onClick={() => navigate('/myCerts')}
-        text={translator.myCerts}
-        icon={faSun}
-        selected={props.selected === 'myCerts'}
-      />
-      <MenuItem
-        onClick={() => navigate('/financeHistory')}
-        text={translator.history}
-        icon={faHistory}
-        selected={props.selected === 'financeHistory'}
-      />
+      {(props.excludes === undefined ||
+        props.excludes.indexOf('quiz') === -1) && (
+        <SuperMenuItem
+          text={'آزمون'}
+          icon={faShoppingCart}
+          selected={props.selected === 'buy' || props.selected === 'makeQuiz'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.buyQuiz,
+              url: '/buy',
+            },
+            {
+              text: translator.makeQuiz,
+              url: '/makeQuiz',
+            },
+            {
+              text: translator.myQuizes,
+              url: '/myIRYSCQuizzes',
+            },
+            {
+              text: translator.myCustomQuizess,
+              url: '/myCustomQuizzes',
+            },
+            // {
+            //   text: translator.schools,
+            //   url: '/schoolUsers',
+            // },
+          ]}
+        />
+      )}
+
+      {(props.excludes === undefined ||
+        props.excludes.indexOf('package') === -1) && (
+        <SuperMenuItem
+          text={translator.packages}
+          icon={faVideo}
+          selected={
+            props.selected === 'packages' || props.selected === 'myPackages'
+          }
+          navigate={navigate}
+          items={[
+            {
+              text: translator.buyPackages,
+              url: '/packages',
+            },
+            {
+              text: translator.myPackages,
+              url: '/myPackages',
+            },
+          ]}
+        />
+      )}
+
+      {(props.excludes === undefined ||
+        props.excludes.indexOf('charge') === -1) && (
+        <MenuItem
+          onClick={() => navigate('/charge')}
+          text={translator.charge}
+          icon={faCreditCard}
+          selected={props.selected === 'charge'}
+        />
+      )}
+
+      {(props.excludes === undefined ||
+        props.excludes.indexOf('certs') === -1) && (
+        <MenuItem
+          onClick={() => navigate('/myCerts')}
+          text={translator.myCerts}
+          icon={faSun}
+          selected={props.selected === 'myCerts'}
+        />
+      )}
+
+      {(props.excludes === undefined ||
+        props.excludes.indexOf('quiz') === -1) && (
+        <MenuItem
+          onClick={() => navigate('/financeHistory')}
+          text={translator.history}
+          icon={faHistory}
+          selected={props.selected === 'financeHistory'}
+        />
+      )}
+
       {/* <MenuItem text={translator.support} icon={faQuestion} /> */}
       <MenuItem
         onClick={() => navigate('/ticket')}

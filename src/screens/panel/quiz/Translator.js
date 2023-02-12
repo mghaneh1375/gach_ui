@@ -64,6 +64,8 @@ const translator = {
   copyLink: 'کپی کردن لینک اختصاصی ثبت نام',
   seeMyTasks: 'مشاهده دانش آموزان / سوالات',
   addTask: 'افزودن دانش آموزان / سوالات',
+  studentList: 'لیست دانش آموزان',
+  questionList: 'لیست سوالات',
 };
 
 export default translator;

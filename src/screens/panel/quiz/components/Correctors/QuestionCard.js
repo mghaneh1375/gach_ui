@@ -8,17 +8,14 @@ import {
 } from '../../../../../styles/Common';
 import {styles} from '../../../../../styles/Common/Styles';
 import vars from '../../../../../styles/root';
+import {levelKeyVals} from '../../../question/components/KeyVals';
 
-function StudentCard(props) {
+function QuestionCard(props) {
   const isInPhone = false;
   const [isSelected, setIsSelected] = useState(
     props.elem.correctorId !== undefined &&
       props.elem.correctorId === props.correctorId,
   );
-
-  const isMyTask =
-    props.elem.correctorId !== undefined &&
-    props.elem.correctorId === props.correctorId;
 
   return (
     <CommonWebBox width={isInPhone ? 320 : 390}>
@@ -34,35 +31,34 @@ function StudentCard(props) {
           }}>
           <SimpleText
             style={{...styles.BlueBold, ...styles.fontSize15}}
-            text={'نام و نام خانوادگی :' + ' ' + props.elem.student.name}
+            text={'کد سازمانی :' + props.elem.organizationId}
           />
         </MyView>
         <MyView style={{marginTop: -10, ...styles.gap5}}>
           <SimpleText
-            style={{...styles.colorDarkBlue}}
-            text={'مدرسه : ' + ' ' + props.elem.student.school}
+            style={{...styles.BlueBold, ...styles.fontSize15}}
+            text={'نمره :' + props.elem.mark}
           />
           <SimpleText
-            style={{...styles.colorDarkBlue}}
-            text={'شهر : ' + ' ' + props.elem.student.city}
+            style={{...styles.BlueBold, ...styles.fontSize15}}
+            text={'شماره سوال :' + props.elem.no}
           />
           <SimpleText
-            style={{...styles.colorDarkBlue}}
-            text={'پایه : ' + ' ' + props.elem.student.grade}
+            style={{...styles.BlueBold, ...styles.fontSize15}}
+            text={
+              'سطح سختی :' +
+              ' ' +
+              levelKeyVals.find(elem => elem.id === props.elem.level).item
+            }
           />
-          {props.elem.student.field !== undefined &&
-            props.elem.student.field !== '' && (
-              <SimpleText
-                style={{...styles.colorDarkBlue}}
-                text={'رشته : ' + ' ' + props.elem.student.field}
-              />
-            )}
+          <SimpleText
+            style={{...styles.BlueBold, ...styles.fontSize15}}
+            text={'طراح :' + props.elem.author}
+          />
           <SimpleText
             style={{...styles.colorDarkBlue}}
             text={
-              props.elem.student.allMarked
-                ? 'وضعیت : تصحیح شده'
-                : 'وضعیت : تصحیح نشده'
+              'وضعیت تصحیح: ' + props.elem.allMarked + ' / ' + props.elem.total
             }
           />
           <SimpleText
@@ -74,14 +70,13 @@ function StudentCard(props) {
             }
           />
           <EqualTwoTextInputs>
-            {isMyTask && (
+            {props.isMyTask && (
               <CommonButton
                 theme="transparent"
-                onPress={props.showAnswerSheet()}
+                onPress={() => props.showAnswerSheet()}
                 title="مشاهده پاسخ برگ"
               />
             )}
-            {!isMyTask && <></>}
             <CommonButton
               onPress={() => {
                 props.onPress(!isSelected);
@@ -97,4 +92,4 @@ function StudentCard(props) {
   );
 }
 
-export default StudentCard;
+export default QuestionCard;

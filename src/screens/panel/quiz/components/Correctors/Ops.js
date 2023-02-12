@@ -14,16 +14,16 @@ const Ops = props => {
       toggleShowPopUp={props.toggleShowPopUp}>
       <PhoneView>
         <CommonButton
-          onPress={() => props.changeMode('list')}
+          onPress={() => props.changeMode('questionList')}
           dir={'rtl'}
           theme={'transparent'}
-          title={translator.seeMyTasks}
+          title={translator.questionList}
         />
         <CommonButton
-          onPress={() => props.changeMode('add')}
+          onPress={() => props.changeMode('studentList')}
           dir={'rtl'}
           theme={'transparent'}
-          title={translator.addTask}
+          title={translator.studentList}
         />
       </PhoneView>
     </LargePopUp>
