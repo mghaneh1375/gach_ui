@@ -62,8 +62,23 @@ function Card(props) {
                 ...styleCircleBox,
               }}>
               <SimpleText
-                style={{...styleColorWhite, ...styles.BlueBold}}
-                text={'آزمون باز'}
+                style={
+                  props.quiz.mode !== undefined &&
+                  props.quiz.mode === 'tashrihi'
+                    ? {
+                        ...styleColorWhite,
+                        ...styles.BlueBold,
+                        ...styles.fontSize11,
+                        ...styles.textCenter,
+                      }
+                    : {...styleColorWhite, ...styles.BlueBold}
+                }
+                text={
+                  props.quiz.mode !== undefined &&
+                  props.quiz.mode === 'tashrihi'
+                    ? 'آزمون تشریحی'
+                    : 'آزمون باز'
+                }
               />
             </MyView>
           )}

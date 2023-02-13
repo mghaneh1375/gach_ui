@@ -79,7 +79,7 @@ function StudentCard(props) {
             {(isMyTask || props.onPress === undefined) && (
               <CommonButton
                 theme="transparent"
-                onPress={props.showAnswerSheet()}
+                onPress={() => props.showAnswerSheet()}
                 title="مشاهده پاسخ برگ"
               />
             )}

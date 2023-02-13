@@ -12,7 +12,7 @@ const columns = [
     minWidth: '200px',
   },
   {
-    name: 'تعداد سوال اختصاص داده شده',
+    name: 'تعداد سوال قابل تصحیح',
     selector: row => row.allCorrectorQuestions,
     grow: 1,
     center: true,
