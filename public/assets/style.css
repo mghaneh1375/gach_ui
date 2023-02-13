@@ -1,3 +1,7 @@
+div[data-testid='marker-box'] {
+  direction: rtl;
+  font-family: IRANSans;
+}
 .menu-item-container {
   height: calc(100vh - 60px - 10px);
   margin-top: 10px;

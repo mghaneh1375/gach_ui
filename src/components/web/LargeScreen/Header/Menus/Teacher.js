@@ -24,7 +24,7 @@ function Teacher(props) {
               onClick={() => navigate('/myTasks')}
               text={'آزمون های من'}
               icon={faTasks}
-              selected={props.selected === 'myQuizzes'}
+              selected={props.selected === 'myTasks'}
             />
           }
         />

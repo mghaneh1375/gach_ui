@@ -247,4 +247,7 @@ export const tagsStyles = {
   div: {
     fontFamily: 'IRANSans',
   },
+  li: {
+    fontFamily: 'IRANSans',
+  },
 };

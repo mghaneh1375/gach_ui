@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {routes} from '../../../../../API/APIRoutes';
+import {VIDEO_BASE_URL} from '../../../../../API/Utility';
 import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import Translator from '../../Translate';
@@ -58,7 +59,7 @@ function List(props) {
         onAddClick={() => props.setMode('create')}>
         {state.contents !== undefined && (
           <CommonDataTable
-            removeUrl={routes.removeContent}
+            removeUrl={VIDEO_BASE_URL + routes.removeContent}
             handleOp={handleOp}
             setLoading={props.setLoading}
             columns={columns}

@@ -65,16 +65,18 @@ function StudentCard(props) {
                 : 'وضعیت : تصحیح نشده'
             }
           />
-          <SimpleText
-            style={{...styles.colorDarkBlue}}
-            text={
-              props.elem.corrector !== undefined
-                ? 'مصحح فعلی : ' + props.elem.corrector
-                : 'مصحح فعلی : تعیین نشده'
-            }
-          />
+          {props.onPress !== undefined && (
+            <SimpleText
+              style={{...styles.colorDarkBlue}}
+              text={
+                props.elem.corrector !== undefined
+                  ? 'مصحح فعلی : ' + props.elem.corrector
+                  : 'مصحح فعلی : تعیین نشده'
+              }
+            />
+          )}
           <EqualTwoTextInputs>
-            {isMyTask && (
+            {(isMyTask || props.onPress === undefined) && (
               <CommonButton
                 theme="transparent"
                 onPress={props.showAnswerSheet()}
@@ -82,14 +84,16 @@ function StudentCard(props) {
               />
             )}
             {!isMyTask && <></>}
-            <CommonButton
-              onPress={() => {
-                props.onPress(!isSelected);
-                setIsSelected(!isSelected);
-              }}
-              theme={isSelected ? 'dark' : undefined}
-              title={isSelected ? 'انتخاب شده' : 'انتخاب'}
-            />
+            {props.onPress !== undefined && (
+              <CommonButton
+                onPress={() => {
+                  props.onPress(!isSelected);
+                  setIsSelected(!isSelected);
+                }}
+                theme={isSelected ? 'dark' : undefined}
+                title={isSelected ? 'انتخاب شده' : 'انتخاب'}
+              />
+            )}
           </EqualTwoTextInputs>
         </MyView>
       </MyView>
