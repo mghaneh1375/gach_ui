@@ -5,6 +5,7 @@ import {
   formatPrice,
   getDevice,
   showError,
+  systemFonts,
   tagsStyles,
 } from '../../../../../services/Utility';
 import {
@@ -178,8 +179,6 @@ function Detail(props) {
       }
     }
   };
-
-  const systemFonts = [...defaultSystemFonts, 'IRANSans'];
 
   return (
     <>

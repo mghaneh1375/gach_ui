@@ -4,6 +4,7 @@ import moment from 'moment-jalaali';
 import {Store} from 'react-notifications-component';
 import {generalRequest} from '../API/Utility';
 import commonTranslator from '../translator/Common';
+import {defaultSystemFonts} from 'react-native-render-html';
 
 export function getDevice() {
   const device = [];
@@ -250,4 +251,30 @@ export const tagsStyles = {
   li: {
     fontFamily: 'IRANSans',
   },
+};
+
+export const systemFonts = [...defaultSystemFonts, 'IRANSans'];
+
+export const setImgSize = (
+  width,
+  height,
+  widthSetter,
+  heightSetter,
+  totalWidth,
+  isInPhone,
+) => {
+  widthSetter(
+    totalWidth > 1500
+      ? totalWidth - 300
+      : !isInPhone
+      ? totalWidth - 250
+      : totalWidth - 50,
+  );
+  heightSetter(
+    totalWidth > 1500
+      ? ((totalWidth - 300) * height) / width
+      : !isInPhone
+      ? ((totalWidth - 250) * height) / width
+      : ((totalWidth - 50) * height) / width,
+  );
 };

@@ -64,6 +64,9 @@ export const routes = {
   fetchIRYSCRegistrableQuizzes: 'quiz/public/get/irysc',
   setCorrectorByStudentMode: 'quiz/manage/setCorrectorByStudentMode/',
   setCorrectorByQuestionMode: 'quiz/manage/setCorrectorByQuestionMode/',
+  getMyMarkListForSpecificStudent:
+    'quiz/school/getMyMarkListForSpecificStudent/',
+  setMark: 'quiz/school/setMark/',
   getMyTasks: 'quiz/school/getMyTasks',
   getMyMarkList: 'quiz/school/getMyMarkList/',
   createQuiz: 'quiz/manage/store/',

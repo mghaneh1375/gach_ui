@@ -85,12 +85,6 @@ const Ops = props => {
     }
   };
 
-  React.useEffect(() => {
-    if (result === undefined) return;
-    showSuccess();
-    setShowUploadPane(false);
-  }, [result]);
-
   const toggleVisibility = () => {
     props.setLoading(true);
     Promise.all([
@@ -160,9 +154,6 @@ const Ops = props => {
       props.toggleShowPopUp();
     }
   };
-
-  const [result, setResult] = useState(undefined);
-  const [finalMsg, setFinalMsg] = useState();
 
   return (
     <>
@@ -361,8 +352,12 @@ const Ops = props => {
           toggleShow={() => setShowUploadPane(false)}
           title={'آپلود پاسخ برگها'}
           multi={false}
-          setResult={setResult}
-          finalMsg={finalMsg}
+          setResult={res => {
+            if (res) {
+              showSuccess();
+              setShowUploadPane(false);
+            }
+          }}
         />
       )}
     </>

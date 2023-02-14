@@ -164,11 +164,11 @@ function MyTasks(props) {
                     showAnswerSheet={() =>
                       window.open(
                         '/showAnswerSheet/' +
-                          selectedQuiz.generalMode +
+                          selectedQuiz.mode +
                           '/' +
                           selectedQuiz.id +
-                          '/' +
-                          elem.id,
+                          '/student/' +
+                          elem.student.id,
                         '_blank',
                       )
                     }
@@ -194,10 +194,10 @@ function MyTasks(props) {
                     showAnswerSheet={() =>
                       window.open(
                         '/showAnswerSheet/' +
-                          selectedQuiz.generalMode +
+                          selectedQuiz.mode +
                           '/' +
                           selectedQuiz.id +
-                          '/' +
+                          '/question/' +
                           elem.id,
                         '_blank',
                       )

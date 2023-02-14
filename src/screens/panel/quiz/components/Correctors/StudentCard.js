@@ -60,11 +60,15 @@ function StudentCard(props) {
           <SimpleText
             style={{...styles.colorDarkBlue}}
             text={
-              props.elem.student.allMarked
-                ? 'وضعیت : تصحیح شده'
-                : 'وضعیت : تصحیح نشده'
+              props.elem.allMarked ? 'وضعیت : تصحیح شده' : 'وضعیت : تصحیح نشده'
             }
           />
+          {props.elem.allMarked && (
+            <SimpleText
+              style={{...styles.colorDarkBlue}}
+              text={'نمره کل : ' + ' ' + props.elem.totalMark}
+            />
+          )}
           {props.onPress !== undefined && (
             <SimpleText
               style={{...styles.colorDarkBlue}}

@@ -43,6 +43,7 @@ function Edit(props) {
       title={translator.editQuestion}>
       <JustBottomBorderTextInput
         value={mark}
+        float={true}
         onChangeText={e => setMark(e)}
         justNum={true}
         subText={translator.mark}

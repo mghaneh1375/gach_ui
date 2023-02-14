@@ -30,34 +30,15 @@ export const DoCorrectProvider = ({children}) => {
       return;
     }
 
-    state.marks[state.currIdx] = state.mark;
+    state.answers[state.currIdx].stdAns.mark = state.mark;
 
-    dispatch({marks: state.marks, needUpdateMark: false});
-  }, [state.currIdx, state.mark, state.marks]);
+    dispatch({answers: state.answers, needUpdateMark: false});
+  }, [state.currIdx, state.answers, state.mark]);
 
   React.useEffect(() => {
     if (!state.needUpdateMark) return;
     setMark();
   }, [state.needUpdateMark, setMark]);
-
-  // const saveMarks = React.useCallback(() => {
-  //   // Promise.all([
-  //   //   doSaveAnswers(
-  //   //     {
-  //   //       answers: state.answers,
-  //   //     },
-  //   //     state.quizInfo.id,
-  //   //     state.quizInfo.generalMode,
-  //   //     state.token,
-  //   //   ),
-  //   // ]).then(res => {
-  //   //   state.setLoadingWithText(false);
-  //   //   if (res[0] === null) {
-  //   //     state.navigate = '/';
-  //   //     return;
-  //   //   }
-  //   // });
-  // }, [state]);
 
   return (
     <doCorrectContext.Provider value={state}>

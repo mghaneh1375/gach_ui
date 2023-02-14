@@ -1,4 +1,16 @@
 import React, {useState} from 'react';
+
+import {
+  faArrowLeft,
+  faMagnifyingGlass,
+  faMessage,
+  faTasks,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
+
+import RenderHTML from 'react-native-render-html';
+import {dispatchDoCorrectContext, doCorrectContext} from './Context';
+import {getDevice, systemFonts, tagsStyles} from '../../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -7,57 +19,79 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
-import vars from '../../../../styles/root';
 import {
   basketBox,
   basketBoxInPhone,
   styleTitle,
   styleYellowBox,
 } from '../../../panel/package/card/Style';
-import Translate from '../Translate';
-import {doQuizContext, dispatchDoQuizContext} from './Context';
-import {doQuiz, reviewQuiz} from './Utility';
-import commonTranslator from '../../../../translator/Common';
-import {styles} from '../../../../styles/Common/Styles';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
-import {
-  faArrowLeft,
-  faClock,
-  faMagnifyingGlass,
-  faMessage,
-  faQuestion,
-} from '@fortawesome/free-solid-svg-icons';
+import {styles} from '../../../../styles/Common/Styles';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
-import {
-  convertSecToMin,
-  getDevice,
-  systemFonts,
-  tagsStyles,
-} from '../../../../services/Utility';
-import RenderHTML from 'react-native-render-html';
+import vars from '../../../../styles/root';
 import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
+import commonTranslator from '../../../../translator/Common';
+import {generalRequest} from '../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
+import {useParams} from 'react-router';
+import {useEffectOnce} from 'usehooks-ts';
 
 function Splash(props) {
   const useGlobalState = () => [
-    React.useContext(doQuizContext),
-    React.useContext(dispatchDoQuizContext),
+    React.useContext(doCorrectContext),
+    React.useContext(dispatchDoCorrectContext),
   ];
 
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
 
   const [state, dispatch] = useGlobalState();
+
   const [isWorking, setIsWorking] = useState(false);
 
+  const params = useParams();
+
+  const redirect = React.useCallback(() => {
+    props.navigate('/');
+  }, [props]);
+
   React.useEffect(() => {
+    if (
+      params.generalQuizMode === undefined ||
+      params.quizId === undefined ||
+      params.mode === undefined ||
+      (params.studentId === undefined && params.questionId === undefined)
+    ) {
+      redirect();
+    }
+  }, [params, redirect]);
+
+  const fetchData = React.useCallback(() => {
     if (isWorking || state.questions !== undefined) return;
+
     setIsWorking(true);
     props.setLoading(true);
 
     Promise.all([
-      props.isInReviewMode
-        ? reviewQuiz(props.quizId, props.quizGeneralMode, props.token)
-        : doQuiz(props.quizId, props.quizGeneralMode, props.token),
+      generalRequest(
+        params.studentId !== undefined
+          ? routes.getMyMarkListForSpecificStudent +
+              params.generalQuizMode +
+              '/' +
+              params.quizId +
+              '/' +
+              params.studentId
+          : routes.getMyMarkListForSpecificStudent +
+              params.generalQuizMode +
+              '/' +
+              params.quizId +
+              '/' +
+              params.questionId,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
     ]).then(res => {
       props.setLoading(false);
       if (res[0] === null) {
@@ -66,22 +100,18 @@ function Splash(props) {
       }
       dispatch({
         token: props.token,
-        navigate: props.navigate,
-        questions: res[0].questions,
-        answers: res[0].questions.map(elem => {
-          return elem.stdAns;
-        }),
-        bookmarks: res[0].questions.map(() => {
-          return false;
-        }),
+        student: res[0].student,
+        answers: res[0].answers,
         quizInfo: res[0].quizInfo,
-        reminder: res[0].quizInfo.reminder,
-        refresh: res[0].quizInfo.refresh,
-        setLoadingWithText: props.setLoadingWithText,
+        allMarked: res[0].allMarked,
       });
       setIsWorking(false);
     });
-  }, [dispatch, props, isWorking, state.questions]);
+  }, [params, props, dispatch, isWorking, state.questions]);
+
+  useEffectOnce(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
     <MyView>
@@ -125,16 +155,6 @@ function Splash(props) {
             <PhoneView
               style={isInPhone ? {...styles.gap15} : {...styles.gap100}}>
               <QuizItemCard
-                icon={faClock}
-                iconFontSize={'large'}
-                color={vars.ORANGE}
-                background={false}
-                textFontSize={10}
-                valFontSize={16}
-                text={'مدت زمان '}
-                val={convertSecToMin(state.quizInfo.duration)}
-              />
-              <QuizItemCard
                 icon={faMessage}
                 iconFontSize={'large'}
                 background={false}
@@ -144,23 +164,30 @@ function Splash(props) {
                 text={'تعداد سوال'}
                 val={state.quizInfo.questionsNo}
               />
-              <QuizItemCard
-                icon={faQuestion}
-                iconFontSize={'normal'}
-                color={vars.ORANGE}
-                textFontSize={11}
-                valFontSize={15}
-                text={'نوع آزمون '}
-                val={
-                  state.quizInfo.mode === 'regular'
-                    ? 'تستی'
-                    : 'tashrihi'
-                    ? 'تشریحی'
-                    : 'hybrid'
-                    ? 'تشریحی و تستی'
-                    : {}
-                }
-              />
+              {props.isCorrector && (
+                <QuizItemCard
+                  icon={faUser}
+                  iconFontSize={'large'}
+                  background={false}
+                  color={vars.ORANGE}
+                  textFontSize={10}
+                  valFontSize={16}
+                  text={'نام دانش آموز'}
+                  val={state.student.name}
+                />
+              )}
+              {props.isCorrector && (
+                <QuizItemCard
+                  icon={faTasks}
+                  iconFontSize={'large'}
+                  background={false}
+                  color={vars.ORANGE}
+                  textFontSize={10}
+                  valFontSize={16}
+                  text={'وضعیت تصحیح تمامی سوالات'}
+                  val={state.allMarked ? 'انجام شده' : 'انجام نشده'}
+                />
+              )}
             </PhoneView>
           </CommonWebBox>
 
@@ -262,14 +289,8 @@ function Splash(props) {
                     ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
                     : {}
                 }
-                title={
-                  props.isInReviewMode
-                    ? Translate.review
-                    : state.quizInfo.isNewPerson
-                    ? Translate.start
-                    : Translate.continue
-                }
-                onPress={() => props.setMode('doQuiz')}
+                title={'تصحیح آزمون'}
+                onPress={() => props.start()}
               />
             </EqualTwoTextInputs>
           </CommonWebBox>
