@@ -14,6 +14,7 @@ import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import ExcelComma from '../../../../../components/web/ExcelCommaInput';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import columns from './TableStructure';
+import {columnsForTashtihi} from './TableStructure';
 import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
 import {changeText, showSuccess} from '../../../../../services/Utility';
 import {getAnswerSheets, removeStudents} from '../Utility';
@@ -111,21 +112,25 @@ const Students = props => {
   const [showAnswerSheet, setShowAnswerSheet] = useState(false);
 
   const prepareShowAnswerSheet = async () => {
+    if (state.selectedQuiz.mode === 'tashrihi') {
+      window.open(
+        '/showAnswerSheet/' +
+          state.selectedQuiz.generalMode +
+          '/' +
+          state.selectedQuiz.id +
+          '/student/' +
+          selectedSudent.id,
+        '_blank',
+      );
+    }
+
     if (state.selectedQuiz.answer_sheets === undefined) {
       props.setLoading(true);
-      let res =
-        state.selectedQuiz.mode === 'tashrihi'
-          ? await getAnswerSheets(
-              state.selectedQuiz.id,
-              state.selectedQuiz.generalMode,
-              props.token,
-              selectedSudent.id,
-            )
-          : await getAnswerSheets(
-              state.selectedQuiz.id,
-              state.selectedQuiz.generalMode,
-              props.token,
-            );
+      let res = await getAnswerSheets(
+        state.selectedQuiz.id,
+        state.selectedQuiz.generalMode,
+        props.token,
+      );
 
       props.setLoading(false);
 
@@ -236,7 +241,11 @@ const Students = props => {
               </MyView>
             </ExcelComma>
             <CommonDataTable
-              columns={columns}
+              columns={
+                state.selectedQuiz.mode === 'tashrihi'
+                  ? columnsForTashtihi
+                  : columns
+              }
               data={state.selectedQuiz.students}
               handleOp={handleOp}
               setLoading={props.setLoading}

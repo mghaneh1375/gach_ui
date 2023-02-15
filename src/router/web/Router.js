@@ -110,7 +110,7 @@ export default function WebRouter() {
             element={<WebStructue page="allSchools" />}
           />
           <Route
-            path="/showAnswerSheet/:generalQuizMode/:quizId/:mode/:studentId"
+            path="/showAnswerSheet/:generalQuizMode/:quizId/:mode/:id"
             element={<WebStructue page="showAnswerSheet" />}
           />
 

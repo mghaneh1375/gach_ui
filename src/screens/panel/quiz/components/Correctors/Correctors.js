@@ -234,7 +234,7 @@ function Correctors(props) {
                           state.selectedQuiz.generalMode +
                           '/' +
                           state.selectedQuiz.id +
-                          '/' +
+                          '/student/' +
                           elem.id,
                         '_blank',
                       )
@@ -324,7 +324,7 @@ function Correctors(props) {
                               state.selectedQuiz.generalMode +
                               '/' +
                               state.selectedQuiz.id +
-                              '/' +
+                              '/question/' +
                               elem.id,
                             '_blank',
                           )

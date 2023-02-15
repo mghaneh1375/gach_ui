@@ -1,13 +1,11 @@
 import React from 'react';
 
 const defaultGlobalState = {
-  questions: undefined,
   answers: undefined,
   mark: undefined,
-  marks: undefined,
+  descMark: undefined,
   quizInfo: undefined,
   currIdx: 0,
-  needUpdate: false,
   needUpdateMark: false,
 };
 
@@ -32,8 +30,11 @@ export const DoCorrectProvider = ({children}) => {
 
     state.answers[state.currIdx].stdAns.mark = state.mark;
 
+    if (state.descMark !== undefined)
+      state.answers[state.currIdx].stdAns.descMark = state.descMark;
+
     dispatch({answers: state.answers, needUpdateMark: false});
-  }, [state.currIdx, state.answers, state.mark]);
+  }, [state.currIdx, state.answers, state.mark, state.descMark]);
 
   React.useEffect(() => {
     if (!state.needUpdateMark) return;

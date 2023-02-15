@@ -52,9 +52,6 @@ function AnswerSheet(props) {
   return (
     <MyView style={isInPhone ? {marginBottom: 20} : {}}>
       <DoCorrectProvider>
-        {/* {isInPhone && mode !== undefined && mode === 'doQuiz' && (
-          <PhoneFilter mode={mode} isInReviewMode={props.isInReviewMode} />
-        )} */}
         <PhoneView>
           {mode !== undefined && mode === 'attach' && (
             <MyView

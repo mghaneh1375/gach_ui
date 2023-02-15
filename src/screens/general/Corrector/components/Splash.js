@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import {
   faArrowLeft,
+  faListNumeric,
   faMagnifyingGlass,
   faMessage,
   faTasks,
@@ -60,7 +61,7 @@ function Splash(props) {
       params.generalQuizMode === undefined ||
       params.quizId === undefined ||
       params.mode === undefined ||
-      (params.studentId === undefined && params.questionId === undefined)
+      params.id === undefined
     ) {
       redirect();
     }
@@ -74,19 +75,19 @@ function Splash(props) {
 
     Promise.all([
       generalRequest(
-        params.studentId !== undefined
+        params.mode === 'student'
           ? routes.getMyMarkListForSpecificStudent +
               params.generalQuizMode +
               '/' +
               params.quizId +
               '/' +
-              params.studentId
-          : routes.getMyMarkListForSpecificStudent +
+              params.id
+          : routes.getMyMarkListForSpecificQuestion +
               params.generalQuizMode +
               '/' +
               params.quizId +
               '/' +
-              params.questionId,
+              params.id,
         'get',
         undefined,
         'data',
@@ -98,13 +99,22 @@ function Splash(props) {
         props.navigate('/');
         return;
       }
-      dispatch({
-        token: props.token,
-        student: res[0].student,
-        answers: res[0].answers,
-        quizInfo: res[0].quizInfo,
-        allMarked: res[0].allMarked,
-      });
+
+      if (params.mode === 'student') {
+        dispatch({
+          student: res[0].student,
+          answers: res[0].answers,
+          quizInfo: res[0].quizInfo,
+          allMarked: res[0].allMarked,
+        });
+      } else {
+        dispatch({
+          qIdx: res[0].qIdx,
+          answers: res[0].answers,
+          quizInfo: res[0].quizInfo,
+          allMarked: res[0].allMarked,
+        });
+      }
       setIsWorking(false);
     });
   }, [params, props, dispatch, isWorking, state.questions]);
@@ -154,17 +164,20 @@ function Splash(props) {
             </EqualTwoTextInputs>
             <PhoneView
               style={isInPhone ? {...styles.gap15} : {...styles.gap100}}>
-              <QuizItemCard
-                icon={faMessage}
-                iconFontSize={'large'}
-                background={false}
-                color={vars.ORANGE}
-                textFontSize={10}
-                valFontSize={16}
-                text={'تعداد سوال'}
-                val={state.quizInfo.questionsNo}
-              />
-              {props.isCorrector && (
+              {params.mode === 'student' && (
+                <QuizItemCard
+                  icon={faMessage}
+                  iconFontSize={'large'}
+                  background={false}
+                  color={vars.ORANGE}
+                  textFontSize={10}
+                  valFontSize={16}
+                  text={'تعداد سوال'}
+                  val={state.quizInfo.questionsNo}
+                />
+              )}
+
+              {props.isCorrector && state.student !== undefined && (
                 <QuizItemCard
                   icon={faUser}
                   iconFontSize={'large'}
@@ -174,6 +187,18 @@ function Splash(props) {
                   valFontSize={16}
                   text={'نام دانش آموز'}
                   val={state.student.name}
+                />
+              )}
+              {props.isCorrector && state.qIdx !== undefined && (
+                <QuizItemCard
+                  icon={faListNumeric}
+                  iconFontSize={'large'}
+                  background={false}
+                  color={vars.ORANGE}
+                  textFontSize={10}
+                  valFontSize={16}
+                  text={'شماره سوال'}
+                  val={state.qIdx}
                 />
               )}
               {props.isCorrector && (

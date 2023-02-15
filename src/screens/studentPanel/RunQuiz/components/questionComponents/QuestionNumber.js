@@ -43,7 +43,7 @@ function QuestionNumber(props) {
                 ...mapItem,
               }
         }>
-        {props.bookmark !== 'hidden' && (
+        {props.bookmark !== undefined && props.bookmark !== 'hidden' && (
           <PhoneView
             style={
               (props.theme !== undefined && props.theme === 'transparent') ||

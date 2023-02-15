@@ -64,7 +64,7 @@ function QuestionCard(props) {
           <SimpleText
             style={{...styles.colorDarkBlue}}
             text={
-              'وضعیت تصحیح: ' + props.elem.allMarked + ' / ' + props.elem.total
+              'وضعیت تصحیح: ' + props.elem.total + ' / ' + props.elem.allMarked
             }
           />
           {props.onPress !== undefined && (
