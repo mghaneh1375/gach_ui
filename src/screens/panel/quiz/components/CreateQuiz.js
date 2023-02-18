@@ -50,6 +50,9 @@ const CreateQuiz = props => {
     setMinusMark(state.selectedQuiz.minusMark);
     setPermuteEn(state.selectedQuiz.permute);
     setBackEn(state.selectedQuiz.backEn);
+    setIsQRNeeded(state.selectedQuiz.isQRNeeded);
+    setIsUploadable(state.selectedQuiz.isUploadable);
+    setIsRigstrable(state.selectedQuiz.isRegistrable);
 
     setEnd(state.selectedQuiz.end === undefined ? '' : state.selectedQuiz.end);
     setStartRegistry(state.selectedQuiz.startRegistry);

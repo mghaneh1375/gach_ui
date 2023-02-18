@@ -259,7 +259,6 @@ const WebStructue = props => {
               {/* {props.page === 'home' && <Gift navigate={navigate} />} */}
               {props.page === 'profile' && isInLargeMode && (
                 <WebProfile
-                  // setUser={setUser}
                   token={state.token}
                   user={state.user}
                   navigate={navigate}

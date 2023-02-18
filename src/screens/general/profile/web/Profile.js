@@ -5,6 +5,7 @@ import {
   EqualTwoTextInputs,
   MyView,
   CommonButton,
+  SimpleText,
 } from '../../../../styles/Common';
 
 import ChangePass from '../components/ChangePass';
@@ -13,7 +14,7 @@ import UpdateInfo from '../components/UpdateInfo';
 import UpdatePic from '../components/UpdatePic';
 import UpdateUsername from '../components/UpdateUsername';
 import {dispatchStateContext, globalStateContext} from '../../../../App';
-import {getDevice} from '../../../../services/Utility';
+import {getDevice, showSuccess} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import translator from '../translate';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
@@ -24,6 +25,7 @@ import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import {getPreRequirements, updateUserPic} from '../components/Utility';
 import UpdateForm from '../components/UpdateForm';
+import {setCacheItem} from '../../../../API/User';
 
 const Profile = props => {
   const [user, setUser] = useState();
@@ -261,16 +263,50 @@ const Profile = props => {
                   navigate={navigate}
                   setLoading={setLoading}
                   updateUserPic={newFilePath =>
-                    updateUserPic(
-                      newFilePath,
-                      isAdmin,
-                      user,
-                      props.user,
-                      props.setUser,
-                    )
+                    updateUserPic(newFilePath, isAdmin, user, props.user, u => {
+                      dispatch({user: u});
+                    })
                   }
                 />
               )}
+            </CommonWebBox>
+          )}
+          {user !== undefined && (
+            <CommonWebBox>
+              <SimpleText
+                text={
+                  user.blockNotif === undefined
+                    ? 'وضعیت ارسال هشدار ها: فعال'
+                    : 'وضعیت ارسال هشدار ها: غیرفعال'
+                }
+              />
+              <CommonButton
+                onPress={async () => {
+                  setLoading(true);
+                  let res = await generalRequest(
+                    routes.blockNotif,
+                    'put',
+                    undefined,
+                    undefined,
+                    props.token,
+                  );
+                  setLoading(false);
+                  if (res != null) {
+                    showSuccess();
+                    let u = user;
+                    u.blockNotif =
+                      user.blockNotif === undefined ? true : undefined;
+                    let newUserModel = props.user;
+                    newUserModel.user = u;
+                    await setCacheItem('user', JSON.stringify(newUserModel));
+                    dispatch({user: newUserModel});
+                  }
+                }}
+                theme="dark"
+                title={
+                  user.blockNotif !== undefined ? 'فعال کردن' : 'غیر فعال کردن'
+                }
+              />
             </CommonWebBox>
           )}
         </Col>

@@ -226,7 +226,11 @@ function Filter(props) {
                 )}
                 <CommonButton
                   parentStyle={{...styles.margin15}}
-                  onPress={() => setShowDescMarkPopUp(true)}
+                  onPress={() => {
+                    if (mark === undefined || mark.length === 0)
+                      showError('لطفا ابتدا نمره موردنظر خود را وارد نمایید');
+                    else setShowDescMarkPopUp(true);
+                  }}
                   theme={'dark'}
                   title={'اعمال نمره'}
                 />

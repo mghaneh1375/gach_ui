@@ -82,6 +82,41 @@ function Create(props) {
       multiple: false,
     });
 
+  const [fetchedTeacherBio, setFetchedTeacherBio] = useState();
+
+  const getTeacherBio = React.useCallback(() => {
+    if (isWorking || fetchedTeacherBio !== undefined) return;
+
+    props.setLoading(true);
+    setIsWorking(true);
+
+    Promise.all([
+      generalRequest(
+        routes.getTeacherBio,
+        'post',
+        {teacher: teacher},
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null) return;
+
+      setFetchedTeacherBio(res[0]);
+      setTeacherBio(res[0]);
+      setIsWorking(false);
+    });
+  }, [props, isWorking, teacher, fetchedTeacherBio]);
+
+  React.useEffect(() => {
+    setFetchedTeacherBio(undefined);
+  }, [teacher]);
+
+  React.useEffect(() => {
+    if (teacher === undefined || teacher === '') return;
+    getTeacherBio();
+  }, [teacher, getTeacherBio]);
+
   const fetchCertification = React.useCallback(() => {
     if (isWorking || certs !== undefined) return;
 

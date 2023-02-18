@@ -13,7 +13,7 @@ import {routes} from '../../../../../API/APIRoutes';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import ExcelComma from '../../../../../components/web/ExcelCommaInput';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import columns from './TableStructure';
+import columns, {columnsForQRTashtihi} from './TableStructure';
 import {columnsForTashtihi} from './TableStructure';
 import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
 import {changeText, showSuccess} from '../../../../../services/Utility';
@@ -243,7 +243,10 @@ const Students = props => {
             <CommonDataTable
               columns={
                 state.selectedQuiz.mode === 'tashrihi'
-                  ? columnsForTashtihi
+                  ? state.selectedQuiz.isQRNeeded !== undefined &&
+                    state.selectedQuiz.isQRNeeded
+                    ? columnsForQRTashtihi
+                    : columnsForTashtihi
                   : columns
               }
               data={state.selectedQuiz.students}

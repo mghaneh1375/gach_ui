@@ -30,7 +30,6 @@ function List(props) {
   const [mode, setMode] = useState();
 
   React.useEffect(() => {
-    console.log(props.status);
     setMode(props.status);
   }, [props.status]);
 

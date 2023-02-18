@@ -12,8 +12,11 @@ const AttachBox = props => {
   };
 
   let text, background, textColor;
+  let ext = getFileExtension(props.filename);
 
-  switch (getFileExtension(props.filename)[0]) {
+  if (ext === undefined || ext.length === 0) return <></>;
+
+  switch (ext[0]) {
     case 'docx':
       text = 'Word';
       background = vars.ORANGE;

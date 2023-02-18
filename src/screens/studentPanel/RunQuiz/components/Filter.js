@@ -42,16 +42,18 @@ function Filter(props) {
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
 
+  if (state.quizInfo === undefined) return <></>;
+
   return (
     <CommonWebBox
       childStyle={{...styles.padding5}}
       style={{...styles.padding0, ...styles.marginTop10}}
       width={isInPhone ? '100%' : vars.RIGHT_MENU_WIDTH}>
       {!props.isInReviewMode &&
-        state.quizInfo !== undefined &&
+        state.quizInfo.duration > 0 &&
         !state.clearTimer && <Timer />}
 
-      {!isInPhone && (
+      {!isInPhone && state.quizInfo.duration > 0 && (
         <EqualTwoTextInputs
           style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
           <SimpleText
@@ -131,7 +133,7 @@ function Filter(props) {
         </MyView>
       )}
 
-      {!isInPhone && (
+      {!isInPhone && state.quizInfo.duration > 0 && (
         <PhoneView
           style={{
             ...styles.gap7,

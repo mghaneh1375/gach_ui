@@ -3,6 +3,7 @@ import {
   faArrowRight,
   faClose,
   faExpand,
+  faFolder,
 } from '@fortawesome/free-solid-svg-icons';
 import {Image} from 'react-native';
 import {
@@ -13,17 +14,22 @@ import {
   PhoneView,
 } from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import Translate from '../Translate';
 import {styles} from '../../../../styles/Common/Styles';
 import React, {useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import MultiChoice from './questionComponents/MultiChoice';
 import vars from '../../../../styles/root';
-import {getDevice, getWidthHeight} from '../../../../services/Utility';
+import {
+  getDevice,
+  getWidthHeight,
+  setImgSize,
+} from '../../../../services/Utility';
 import {basketBox, basketBoxInPhone} from '../../../panel/package/card/Style';
 import commonTranslator from '../../../../translator/Common';
 import MultiSentence from './questionComponents/MultiSentence';
+import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
 
 function Question(props) {
   const useGlobalState = () => [
@@ -39,55 +45,35 @@ function Question(props) {
   const [question, setQuestion] = useState();
 
   React.useEffect(() => {
-    Image.getSize(
-      state.questions[state.currIdx].questionFile,
-      (width, height) => {
-        setImgWidth(
-          totalWidth > 1500
-            ? totalWidth - 300
-            : !isInPhone
-            ? totalWidth - 250
-            : totalWidth - 50,
-        );
-        setImgHeight(
-          totalWidth > 1500
-            ? ((totalWidth - 300) * height) / width
-            : !isInPhone
-            ? ((totalWidth - 250) * height) / width
-            : ((totalWidth - 50) * height) / width,
-        );
-        // if (width / height < 2) setHeight(400);
-        // else if (width / height < 2.5) setHeight(300);
-        // else setHeight(200);
-      },
-    );
-    if (state.questions[state.currIdx].answerFile !== undefined) {
-      console.log(totalWidth);
-      Image.getSize(
-        state.questions[state.currIdx].answerFile,
-        (width, height) => {
-          setAnswerWidth(
-            totalWidth > 1500
-              ? totalWidth - 300
-              : !isInPhone
-              ? totalWidth - 250
-              : totalWidth - 50,
-          );
-          setAnswerHeight(
-            totalWidth > 1500
-              ? ((totalWidth - 300) * height) / width
-              : !isInPhone
-              ? ((totalWidth - 250) * height) / width
-              : ((totalWidth - 50) * height) / width,
-          );
-          // if (width / height < 2) setAnswerHeight(400);
-          // else if (width / height < 2.5) setAnswerHeight(300);
-          // else setImgHeight(200);
-        },
+    if (question === undefined) return;
+    Image.getSize(question.questionFile, (width, height) => {
+      setImgSize(
+        width,
+        height,
+        setImgWidth,
+        setImgHeight,
+        totalWidth,
+        isInPhone,
       );
+    });
+    if (question.answerFile !== undefined) {
+      Image.getSize(question.answerFile, (width, height) => {
+        setImgSize(
+          width,
+          height,
+          setAnswerWidth,
+          setAnswerHeight,
+          totalWidth,
+          isInPhone,
+        );
+      });
     }
+  }, [question, totalWidth, isInPhone]);
+
+  React.useEffect(() => {
+    if (state.questions === undefined) return;
     setQuestion(state.questions[state.currIdx]);
-  }, [state.questions, state.currIdx, totalWidth, isInPhone]);
+  }, [state.questions, state.currIdx]);
 
   const [imgWidth, setImgWidth] = useState(200);
   const [imgHeight, setImgHeight] = useState(200);
@@ -246,13 +232,24 @@ function Question(props) {
                     style={{backgroundColor: '#efefef', border: 0}}
                   />
                 )}
-                {question.kindQuestion === 'tashrihi' && (
+                {question.kindQuestion === 'tashrihi' &&
+                  question.canUpload &&
+                  state.answers[state.currIdx] !== undefined &&
+                  state.answers[state.currIdx] !== '' && (
+                    <AttachBox filename={state.answers[state.currIdx]} />
+                  )}
+                {question.kindQuestion === 'tashrihi' && !question.canUpload && (
                   <CommonTextInput
                     multiline={true}
                     placeholder={Translate.resInput}
                     subText={Translate.resInput}
-                    //   value={desc}
-                    //   onChangeText={text => setDesc(text)}
+                    value={state.answers[state.currIdx]}
+                    onChangeText={text =>
+                      dispatch({
+                        answer: text,
+                        needUpdateAnswer: true,
+                      })
+                    }
                     parentStyle={{width: '100%'}}
                     style={{
                       height: 200,
@@ -261,6 +258,14 @@ function Question(props) {
                       border: 0,
                     }}
                   />
+                )}
+                {question.kindQuestion === 'tashrihi' && question.canUpload && (
+                  <MyView style={{width: 40, height: 40}}>
+                    <SimpleFontIcon
+                      onPress={() => dispatch({openFileSelectorFlag: true})}
+                      icon={faFolder}
+                    />
+                  </MyView>
                 )}
               </MyView>
             </CommonWebBox>

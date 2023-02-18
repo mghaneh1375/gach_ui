@@ -265,14 +265,14 @@ export const setImgSize = (
 ) => {
   widthSetter(
     totalWidth > 1500
-      ? totalWidth - 300
+      ? totalWidth - 340
       : !isInPhone
       ? totalWidth - 250
       : totalWidth - 50,
   );
   heightSetter(
     totalWidth > 1500
-      ? ((totalWidth - 300) * height) / width
+      ? ((totalWidth - 340) * height) / width
       : !isInPhone
       ? ((totalWidth - 250) * height) / width
       : ((totalWidth - 50) * height) / width,

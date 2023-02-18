@@ -13,6 +13,7 @@ import {FontIcon} from '../../../styles/Common/FontIcon';
 import {Image} from 'react-native';
 import {getDevice, getWidthHeight} from '../../../services/Utility';
 import PhoneFilter from './components/PhoneFilter';
+import Submits from './components/Submits';
 
 function RunQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -141,6 +142,9 @@ function RunQuiz(props) {
                     : (window.location.href = '/quiz/list')
                 }
               />
+            )}
+            {mode !== undefined && mode === 'submits' && (
+              <Submits setLoading={setLoading} />
             )}
             {mode !== undefined && mode === 'doQuiz' && (
               <Quiz

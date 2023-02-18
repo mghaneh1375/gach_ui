@@ -1,5 +1,6 @@
-import React from 'react';
-import {doSaveAnswers} from './Utility';
+import React, {useState} from 'react';
+import {useFilePicker} from 'use-file-picker';
+import {doSaveAnswers, doUploadAnswer, doUploadAnswerSheet} from './Utility';
 
 const defaultGlobalState = {
   questions: undefined,
@@ -14,6 +15,8 @@ const defaultGlobalState = {
   refresh: undefined,
   clearTimer: false,
   exit: false,
+  openFileSelectorFlag: undefined,
+  stdAnswerSheets: undefined,
 };
 
 export const doQuizContext = React.createContext(defaultGlobalState);
@@ -24,6 +27,88 @@ export const DoQuizProvider = ({children}) => {
     (state, newValue) => ({...state, ...newValue}),
     defaultGlobalState,
   );
+
+  const [openFileSelector, {filesContent, loading, errors, clear}] =
+    useFilePicker({
+      maxFileSize: 2,
+      accept: ['image/*', '.pdf'],
+      readAs: 'ArrayBuffer',
+    });
+
+  const [isUploading, setIsUploading] = useState(false);
+
+  const uploadAns = React.useCallback(() => {
+    if (state.quizInfo === undefined || isUploading) return;
+
+    if (state.quizInfo.isQRNeeded !== undefined && state.quizInfo.isQRNeeded) {
+      setIsUploading(true);
+      state.setLoadingWithText(true);
+
+      Promise.all([
+        doUploadAnswerSheet(
+          state.quizInfo.generalMode,
+          state.quizInfo.id,
+          filesContent,
+          state.token,
+        ),
+      ]).then(res => {
+        state.setLoadingWithText(false);
+
+        if (res[0] != null) {
+          let tmp = [];
+          tmp.push(res[0]);
+          if (state.stdAnswerSheets !== undefined) {
+            state.stdAnswerSheets.forEach(e => {
+              tmp.push(e);
+            });
+          }
+
+          dispatch({stdAnswerSheets: tmp});
+        }
+
+        clear();
+      });
+
+      return;
+    }
+
+    if (
+      state.questions[state.currIdx].canUpload === undefined ||
+      !state.questions[state.currIdx].canUpload ||
+      isUploading
+    )
+      return;
+
+    setIsUploading(true);
+    state.setLoadingWithText(true);
+
+    Promise.all([
+      doUploadAnswer(
+        state.quizInfo.generalMode,
+        state.quizInfo.id,
+        state.questions[state.currIdx].id,
+        filesContent,
+        state.token,
+      ),
+    ]).then(res => {
+      state.setLoadingWithText(false);
+      if (res[0] != null) {
+        state.answers[state.currIdx] = res[0].url;
+        dispatch({answers: state.answers, reminder: res[0].reminder});
+      }
+      clear();
+    });
+  }, [filesContent, state, isUploading, clear]);
+
+  React.useEffect(() => {
+    if (filesContent === undefined || filesContent.length === 0)
+      setIsUploading(false);
+  }, [filesContent]);
+
+  React.useEffect(() => {
+    if (filesContent === undefined || filesContent.length !== 1) return;
+    uploadAns();
+  }, [filesContent, uploadAns]);
 
   const setBookmark = React.useCallback(() => {
     if (
@@ -69,6 +154,13 @@ export const DoQuizProvider = ({children}) => {
   }, [state.question, state.questions]);
 
   React.useEffect(() => {
+    if (state.openFileSelectorFlag === undefined || !state.openFileSelectorFlag)
+      return;
+    openFileSelector();
+    dispatch({openFileSelectorFlag: false});
+  }, [state.openFileSelectorFlag, openFileSelector]);
+
+  React.useEffect(() => {
     if (!state.needUpdate) return;
     updateQuestion();
   }, [state.needUpdate, updateQuestion]);
@@ -99,7 +191,9 @@ export const DoQuizProvider = ({children}) => {
     Promise.all([
       doSaveAnswers(
         {
-          answers: state.answers,
+          answers: state.answers.filter(elem => {
+            return elem.can_upload === undefined || !elem.can_upload;
+          }),
         },
         state.quizInfo.id,
         state.quizInfo.generalMode,
@@ -114,7 +208,7 @@ export const DoQuizProvider = ({children}) => {
 
       dispatch({
         reminder: res[0].reminder,
-        refresh: 3,
+        refresh: res[0].refresh,
         needStore: false,
         clearTimer: true,
       });
@@ -127,7 +221,24 @@ export const DoQuizProvider = ({children}) => {
     Promise.all([
       doSaveAnswers(
         {
-          answers: state.answers,
+          answers: state.answers
+            .map((elem, index) => {
+              if (elem === undefined || elem.length === 0) return undefined;
+
+              if (
+                state.questions[index].canUpload === undefined ||
+                !state.questions[index].canUpload
+              )
+                return {
+                  questionId: state.questions[index].id,
+                  answer: elem,
+                };
+
+              return undefined;
+            })
+            .filter(elem => {
+              return elem !== undefined;
+            }),
         },
         state.quizInfo.id,
         state.quizInfo.generalMode,
@@ -141,8 +252,6 @@ export const DoQuizProvider = ({children}) => {
           state.quizInfo.generalMode === 'custom'
             ? '/myCustomQuizzes'
             : '/myIRYSCQuizzes';
-
-      // state.navigate('/');
     });
   }, [state]);
 

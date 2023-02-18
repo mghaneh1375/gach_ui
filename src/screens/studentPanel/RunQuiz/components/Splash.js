@@ -25,6 +25,7 @@ import {
   faClock,
   faMagnifyingGlass,
   faMessage,
+  faInfo,
   faQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
@@ -36,6 +37,8 @@ import {
 } from '../../../../services/Utility';
 import RenderHTML from 'react-native-render-html';
 import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
+import {CV_BASE_URL, downloadRequest} from '../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
 
 function Splash(props) {
   const useGlobalState = () => [
@@ -50,7 +53,12 @@ function Splash(props) {
   const [isWorking, setIsWorking] = useState(false);
 
   React.useEffect(() => {
-    if (isWorking || state.questions !== undefined) return;
+    if (
+      isWorking ||
+      state.questions !== undefined ||
+      state.stdAnswerSheets !== undefined
+    )
+      return;
     setIsWorking(true);
     props.setLoading(true);
 
@@ -64,24 +72,39 @@ function Splash(props) {
         props.navigate('/');
         return;
       }
-      dispatch({
-        token: props.token,
-        navigate: props.navigate,
-        questions: res[0].questions,
-        answers: res[0].questions.map(elem => {
-          return elem.stdAns;
-        }),
-        bookmarks: res[0].questions.map(() => {
-          return false;
-        }),
-        quizInfo: res[0].quizInfo,
-        reminder: res[0].quizInfo.reminder,
-        refresh: res[0].quizInfo.refresh,
-        setLoadingWithText: props.setLoadingWithText,
-      });
+
+      if (
+        res[0].quizInfo.isQRNeeded !== undefined &&
+        res[0].quizInfo.isQRNeeded
+      ) {
+        dispatch({
+          token: props.token,
+          navigate: props.navigate,
+          quizInfo: res[0].quizInfo,
+          stdAnswerSheets: res[0].answerSheets,
+          setLoadingWithText: props.setLoadingWithText,
+        });
+      } else {
+        dispatch({
+          token: props.token,
+          navigate: props.navigate,
+          questions: res[0].questions,
+          answers: res[0].questions.map(elem => {
+            return elem.stdAns;
+          }),
+          bookmarks: res[0].questions.map(() => {
+            return false;
+          }),
+          quizInfo: res[0].quizInfo,
+          reminder: res[0].quizInfo.reminder,
+          refresh: res[0].quizInfo.refresh,
+          setLoadingWithText: props.setLoadingWithText,
+        });
+      }
+
       setIsWorking(false);
     });
-  }, [dispatch, props, isWorking, state.questions]);
+  }, [dispatch, props, isWorking, state.questions, state.stdAnswerSheets]);
 
   return (
     <MyView>
@@ -124,16 +147,77 @@ function Splash(props) {
             </EqualTwoTextInputs>
             <PhoneView
               style={isInPhone ? {...styles.gap15} : {...styles.gap100}}>
-              <QuizItemCard
-                icon={faClock}
-                iconFontSize={'large'}
-                color={vars.ORANGE}
-                background={false}
-                textFontSize={10}
-                valFontSize={16}
-                text={'مدت زمان '}
-                val={convertSecToMin(state.quizInfo.duration)}
-              />
+              {state.quizInfo.duration > 0 && (
+                <QuizItemCard
+                  icon={faClock}
+                  iconFontSize={'large'}
+                  color={vars.ORANGE}
+                  background={false}
+                  textFontSize={10}
+                  valFontSize={16}
+                  text={'مدت زمان '}
+                  val={convertSecToMin(state.quizInfo.duration)}
+                />
+              )}
+              {state.quizInfo.isQRNeeded !== undefined &&
+                state.quizInfo.isQRNeeded && (
+                  <CommonButton
+                    onPress={async () => {
+                      props.setLoading(true);
+                      await downloadRequest(
+                        routes.getMyQuestionPDF +
+                          state.quizInfo.generalMode +
+                          '/' +
+                          state.quizInfo.id,
+                        undefined,
+                        props.token,
+                      );
+                      props.setLoading(false);
+                    }}
+                    theme={'dark'}
+                    title={'دانلود دفترچه آزمون'}
+                  />
+                )}
+              {state.quizInfo.isQRNeeded !== undefined &&
+                state.quizInfo.isQRNeeded && (
+                  <CommonButton
+                    onPress={async () => {
+                      props.setLoading(true);
+                      await downloadRequest(
+                        CV_BASE_URL +
+                          'generateMyTashrihiAnswerSheet/' +
+                          state.quizInfo.generalMode +
+                          '/' +
+                          state.quizInfo.id,
+                        undefined,
+                        props.token,
+                      );
+                      props.setLoading(false);
+                    }}
+                    title={'دانلود پاسخبرگ'}
+                  />
+                )}
+
+              {state.quizInfo.isQRNeeded !== undefined &&
+                state.quizInfo.isQRNeeded && (
+                  <QuizItemCard
+                    icon={faInfo}
+                    iconFontSize={'large'}
+                    background={false}
+                    color={vars.ORANGE}
+                    textFontSize={10}
+                    valFontSize={16}
+                    text={'وضعیت ارسال پاسخبرگ'}
+                    val={
+                      state.stdAnswerSheets !== undefined &&
+                      state.stdAnswerSheets.find(
+                        e => e.status === 'accepted',
+                      ) !== undefined
+                        ? 'ارسال شده'
+                        : 'ارسال نشده'
+                    }
+                  />
+                )}
               <QuizItemCard
                 icon={faMessage}
                 iconFontSize={'large'}
@@ -222,6 +306,7 @@ function Splash(props) {
                 </PhoneView>
               </CommonWebBox>
             )}
+
           <CommonWebBox
             style={
               isInPhone
@@ -255,22 +340,62 @@ function Splash(props) {
                 theme={'orangeRed'}
               />
 
-              <CommonButton
-                padding={isInPhone ? '5px 5px' : undefined}
-                textStyle={
-                  isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
-                    : {}
-                }
-                title={
-                  props.isInReviewMode
-                    ? Translate.review
-                    : state.quizInfo.isNewPerson
-                    ? Translate.start
-                    : Translate.continue
-                }
-                onPress={() => props.setMode('doQuiz')}
-              />
+              {(state.quizInfo.isQRNeeded === undefined ||
+                !state.quizInfo.isQRNeeded) && (
+                <CommonButton
+                  padding={isInPhone ? '5px 5px' : undefined}
+                  textStyle={
+                    isInPhone
+                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      : {}
+                  }
+                  title={
+                    props.isInReviewMode
+                      ? Translate.review
+                      : state.quizInfo.isNewPerson
+                      ? Translate.start
+                      : Translate.continue
+                  }
+                  onPress={() => props.setMode('doQuiz')}
+                />
+              )}
+
+              {state.quizInfo.isQRNeeded !== undefined &&
+                state.quizInfo.isQRNeeded && (
+                  <PhoneView>
+                    {/* {state.stdAnswerSheet !== undefined && (
+                      <a
+                        style={{
+                          fontFamily: 'IRANSans',
+                          alignSelf: 'center',
+                          marginLeft: 10,
+                        }}
+                        target={'_blank'}
+                        download={true}
+                        href={state.stdAnswerSheet}>
+                        دانلود فایل بارگذاری شده
+                      </a>
+                    )} */}
+                    {!state.isInReviewMode && (
+                      <CommonButton
+                        padding={isInPhone ? '5px 5px' : undefined}
+                        textStyle={
+                          isInPhone
+                            ? {
+                                fontSize: 14,
+                                paddingLeft: 20,
+                                paddingRight: 20,
+                              }
+                            : {}
+                        }
+                        title={'مرحله بعد'}
+                        onPress={() => {
+                          props.setMode('submits');
+                        }}
+                      />
+                    )}
+                  </PhoneView>
+                )}
             </EqualTwoTextInputs>
           </CommonWebBox>
         </MyView>

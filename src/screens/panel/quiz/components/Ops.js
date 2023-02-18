@@ -1,4 +1,4 @@
-import {CommonButton, PhoneView} from '../../../../styles/Common';
+import {CommonButton, SimpleText, PhoneView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../Translator';
 import commonTranslator from '../../../../translator/Common';
@@ -20,31 +20,17 @@ import Translate from '../../../studentPanel/RunQuiz/Translate';
 import {showSuccess} from '../../../../services/Utility';
 import UploadFile from '../../../../components/web/UploadFile';
 
+let timerVar;
+
 const Ops = props => {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
+
   const [state, dispatch] = useGlobalState();
   const [showUploadPane, setShowUploadPane] = useState(false);
-
-  const cropTashrihiAnswerSheet = async () => {
-    props.setLoading(true);
-
-    let res = await generalRequest(
-      CV_BASE_URL + 'cropTashrihiAnswerSheet/' + state.selectedQuiz.id,
-      'post',
-      undefined,
-      undefined,
-      props.token,
-    );
-
-    props.setLoading(false);
-
-    if (res != null) {
-      showSuccess();
-    }
-  };
+  const [showLogPane, setShowLogPane] = useState(false);
 
   const downloadAnswerSheet = async () => {
     props.setLoading(true);
@@ -73,13 +59,8 @@ const Ops = props => {
           link.href = url;
           link.setAttribute('download', `پاسخنامه.pdf`);
 
-          // Append to html link element page
           document.body.appendChild(link);
-
-          // Start download
           link.click();
-
-          // Clean up and remove the link
           link.parentNode.removeChild(link);
         });
     }
@@ -154,6 +135,45 @@ const Ops = props => {
       props.toggleShowPopUp();
     }
   };
+
+  const timer = React.useCallback(() => {
+    if (state.selectedQuiz.cropped) return;
+
+    timerVar = setTimeout(() => {
+      props.setLoading(true);
+      Promise.all([
+        generalRequest(
+          routes.getLogs +
+            state.selectedQuiz.generalMode +
+            '/' +
+            state.selectedQuiz.id,
+          'get',
+          undefined,
+          'data',
+          props.token,
+        ),
+      ]).then(res => {
+        props.setLoading(false);
+
+        if (res[0] != null) {
+          state.selectedQuiz.logs = res[0].logs;
+          state.selectedQuiz.cropped = res[0].cropped;
+          dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+        }
+
+        if (res[0] == null || res[0].cropped) {
+          clearTimeout(timerVar);
+          return;
+        }
+
+        timer();
+      });
+    }, [10000]);
+  }, [dispatch, props, state.selectedQuiz]);
+
+  React.useEffect(() => {
+    if (showLogPane) timer();
+  }, [showLogPane, timer]);
 
   return (
     <>
@@ -296,33 +316,36 @@ const Ops = props => {
                 onPress={() => props.setMode('correctors')}
               />
             )}
+            {state.selectedQuiz.mode === 'tashrihi' &&
+              state.selectedQuiz.isQRNeeded !== undefined &&
+              state.selectedQuiz.isQRNeeded && (
+                <CommonButton
+                  title="نمایش لاگ ها"
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  onPress={() => setShowLogPane(true)}
+                />
+              )}
 
-            {state.selectedQuiz.mode === 'tashrihi' && (
-              <CommonButton
-                title={'دانلود پاسخ برگ'}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => downloadAnswerSheet()}
-              />
-            )}
+            {state.selectedQuiz.mode === 'tashrihi' &&
+              state.selectedQuiz.isQRNeeded && (
+                <CommonButton
+                  title={'دانلود پاسخ برگ'}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  onPress={() => downloadAnswerSheet()}
+                />
+              )}
 
-            {state.selectedQuiz.mode === 'tashrihi' && (
-              <CommonButton
-                title={'برش پاسخ برگها'}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => cropTashrihiAnswerSheet()}
-              />
-            )}
-
-            {state.selectedQuiz.mode === 'tashrihi' && (
-              <CommonButton
-                title={'آپلود پاسخ برگها'}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => setShowUploadPane(true)}
-              />
-            )}
+            {state.selectedQuiz.mode === 'tashrihi' &&
+              state.selectedQuiz.isQRNeeded && (
+                <CommonButton
+                  title={'آپلود پاسخ برگها'}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  onPress={() => setShowUploadPane(true)}
+                />
+              )}
 
             {(state.selectedQuiz.mode !== 'tashrihi' ||
               state.selectedQuiz.startRegistry !== undefined) && (
@@ -341,6 +364,18 @@ const Ops = props => {
           </PhoneView>
         </LargePopUp>
       )}
+      {showLogPane && (
+        <LargePopUp
+          title={'لاگ ها'}
+          toggleShowPopUp={() => setShowLogPane(false)}>
+          {state.selectedQuiz.logs === undefined && (
+            <SimpleText text={'در حال گرفتن داده ها'} />
+          )}
+          {state.selectedQuiz.logs !== undefined && (
+            <SimpleText text={state.selectedQuiz.logs} />
+          )}
+        </LargePopUp>
+      )}
       {showUploadPane && (
         <UploadFile
           url={
@@ -354,8 +389,12 @@ const Ops = props => {
           multi={false}
           setResult={res => {
             if (res) {
+              state.selectedQuiz.logs = undefined;
+              state.selectedQuiz.cropped = false;
+              dispatch({selectedQuiz: state.selectedQuiz});
               showSuccess();
               setShowUploadPane(false);
+              setShowLogPane(true);
             }
           }}
         />
