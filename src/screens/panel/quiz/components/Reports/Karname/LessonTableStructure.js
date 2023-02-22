@@ -67,6 +67,47 @@ const commonCols = [
   },
 ];
 
+const commonColsTashrihi = [
+  {
+    name: 'تعداد سوال',
+    selector: row => row.total,
+    maxWidth: '80px',
+    minWidth: '80px',
+    center: true,
+  },
+  {
+    name: 'نمره',
+    selector: row => row.mark,
+    maxWidth: '55px',
+    minWidth: '55px',
+    center: true,
+  },
+  {
+    name: 'نمره کل',
+    selector: row => row.totalMark,
+    maxWidth: '55px',
+    minWidth: '55px',
+    center: true,
+  },
+  {
+    name: 'درصد',
+    selector: row => row.percent,
+    maxWidth: '55px',
+    minWidth: '55px',
+    center: true,
+    style: {
+      direction: 'ltr',
+    },
+  },
+  {
+    name: 'نمره تراز',
+    selector: row => row.taraz,
+    maxWidth: '60px',
+    minWidth: '60px',
+    center: true,
+  },
+];
+
 const commonColsCustomQuiz = [
   {
     name: 'تعداد سوال',
@@ -110,6 +151,18 @@ export const lessonCols = [
   ...commonCols,
 ];
 
+export const lessonColsTashrihi = [
+  {
+    name: 'نام درس',
+    selector: row => row.name,
+    grow: 1,
+    maxWidth: colWidth,
+    minWidth: colWidth,
+    style: {wordBreak: 'normal'},
+  },
+  ...commonColsTashrihi,
+];
+
 export const lessonColsCustomQuiz = [
   {
     name: 'نام درس',
@@ -132,6 +185,18 @@ export const subjectCols = [
     style: {wordBreak: 'normal'},
   },
   ...commonCols,
+];
+
+export const subjectColsTashrihi = [
+  {
+    name: 'نام مبحث',
+    selector: row => row.name,
+    grow: 1,
+    maxWidth: colWidth,
+    minWidth: colWidth,
+    style: {wordBreak: 'normal'},
+  },
+  ...commonColsTashrihi,
 ];
 
 export const subjectColsCustomQuiz = [

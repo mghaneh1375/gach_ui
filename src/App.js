@@ -26,6 +26,7 @@ const excludeRightMenu = [
   'login',
   'home',
   'reviewQuiz',
+  'showAnswerSheet',
   'startQuiz',
   'rankingList',
   'allSchools',

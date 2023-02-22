@@ -191,9 +191,28 @@ export const DoQuizProvider = ({children}) => {
     Promise.all([
       doSaveAnswers(
         {
-          answers: state.answers.filter(elem => {
-            return elem.can_upload === undefined || !elem.can_upload;
-          }),
+          answers:
+            state.quizInfo.mode === 'tashrihi'
+              ? state.answers
+                  .map((elem, index) => {
+                    if (elem === undefined || elem.length === 0)
+                      return undefined;
+
+                    if (
+                      state.questions[index].canUpload === undefined ||
+                      !state.questions[index].canUpload
+                    )
+                      return {
+                        questionId: state.questions[index].id,
+                        answer: elem,
+                      };
+
+                    return undefined;
+                  })
+                  .filter(elem => {
+                    return elem !== undefined;
+                  })
+              : state.answers,
         },
         state.quizInfo.id,
         state.quizInfo.generalMode,
@@ -221,24 +240,28 @@ export const DoQuizProvider = ({children}) => {
     Promise.all([
       doSaveAnswers(
         {
-          answers: state.answers
-            .map((elem, index) => {
-              if (elem === undefined || elem.length === 0) return undefined;
+          answers:
+            state.quizInfo.mode === 'tashrihi'
+              ? state.answers
+                  .map((elem, index) => {
+                    if (elem === undefined || elem.length === 0)
+                      return undefined;
 
-              if (
-                state.questions[index].canUpload === undefined ||
-                !state.questions[index].canUpload
-              )
-                return {
-                  questionId: state.questions[index].id,
-                  answer: elem,
-                };
+                    if (
+                      state.questions[index].canUpload === undefined ||
+                      !state.questions[index].canUpload
+                    )
+                      return {
+                        questionId: state.questions[index].id,
+                        answer: elem,
+                      };
 
-              return undefined;
-            })
-            .filter(elem => {
-              return elem !== undefined;
-            }),
+                    return undefined;
+                  })
+                  .filter(elem => {
+                    return elem !== undefined;
+                  })
+              : state.answers,
         },
         state.quizInfo.id,
         state.quizInfo.generalMode,

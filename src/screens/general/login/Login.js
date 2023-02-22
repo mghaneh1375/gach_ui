@@ -48,7 +48,7 @@ const Login = props => {
   const [token, setToken] = useState('');
   const [reminder, setReminder] = useState(0);
   const [username, setUsername] = useState();
-  const [code, setCode] = useState(111111);
+  const [code, setCode] = useState();
 
   const changeMode = wantedMode => {
     if (wantedMode === 'signUp') setIsSignUp(true);

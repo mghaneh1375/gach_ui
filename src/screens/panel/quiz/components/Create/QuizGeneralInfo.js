@@ -69,6 +69,14 @@ const QuizGeneralInfo = props => {
           placeholder={translator.tag}
           subText={translator.tag}
         />
+
+        <JustBottomBorderTextInput
+          placeholder={'اولویت'}
+          subText={'اولویت'}
+          justNum={true}
+          value={props.priority}
+          onChangeText={e => props.setPriority(e)}
+        />
       </PhoneView>
 
       <PhoneView

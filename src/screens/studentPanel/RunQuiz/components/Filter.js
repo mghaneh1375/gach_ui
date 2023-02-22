@@ -235,61 +235,108 @@ function Filter(props) {
               <SimpleText text={'طراح سوال: '} />
               <SimpleText text={state.questions[state.currIdx].author} />
             </EqualTwoTextInputs>
-            <EqualTwoTextInputs>
-              <SimpleText text={'پاسخ دانش آموز: '} />
-              {state.questions[state.currIdx].kindQuestion === 'test' && (
+            {state.quizInfo.mode !== 'tashrihi' && (
+              <EqualTwoTextInputs>
+                <SimpleText text={'پاسخ دانش آموز: '} />
+                {state.questions[state.currIdx].kindQuestion === 'test' && (
+                  <SimpleText
+                    text={'گزینه ' + state.questions[state.currIdx].stdAns}
+                  />
+                )}
+                {state.questions[state.currIdx].kindQuestion ===
+                  'short_answer' && (
+                  <SimpleText text={state.questions[state.currIdx].stdAns} />
+                )}
+                {state.questions[state.currIdx].kindQuestion ===
+                  'multi_sentence' && (
+                  <SimpleText
+                    text={state.questions[state.currIdx].stdAns
+                      .replaceAll('1', 'ص ')
+                      .replaceAll('0', 'غ ')
+                      .replaceAll('_', 'ن')}
+                  />
+                )}
+              </EqualTwoTextInputs>
+            )}
+            {state.quizInfo.mode !== 'tashrihi' && (
+              <EqualTwoTextInputs>
+                <SimpleText text={'پاسخ صحیح: '} />
+                {state.questions[state.currIdx].kindQuestion === 'test' && (
+                  <SimpleText
+                    text={'گزینه ' + state.questions[state.currIdx].answer}
+                  />
+                )}
+                {state.questions[state.currIdx].kindQuestion ===
+                  'short_answer' && (
+                  <SimpleText text={state.questions[state.currIdx].answer} />
+                )}
+                {state.questions[state.currIdx].kindQuestion ===
+                  'multi_sentence' && (
+                  <SimpleText
+                    text={state.questions[state.currIdx].answer
+                      .replaceAll('1', 'ص ')
+                      .replaceAll('0', 'غ ')}
+                  />
+                )}
+              </EqualTwoTextInputs>
+            )}
+            {state.quizInfo.mode !== 'tashrihi' &&
+              state.questions[state.currIdx].oldCorrect +
+                state.questions[state.currIdx].oldIncorrect +
+                state.questions[state.currIdx].oldWhite >
+                0 && (
+                <EqualTwoTextInputs>
+                  <SimpleText text={'پاسخ صحیح در کل: '} />
+                  <SimpleText
+                    text={
+                      '%' +
+                      Math.round(
+                        (state.questions[state.currIdx].oldCorrect * 100.0) /
+                          (state.questions[state.currIdx].oldCorrect +
+                            state.questions[state.currIdx].oldIncorrect +
+                            state.questions[state.currIdx].oldWhite),
+                      )
+                    }
+                  />
+                </EqualTwoTextInputs>
+              )}
+            {state.quizInfo.mode !== 'tashrihi' &&
+              state.questions[state.currIdx].stdMark !== undefined && (
+                <EqualTwoTextInputs>
+                  <SimpleText text={'نمره دانش آموز: '} />
+                  <SimpleText text={state.questions[state.currIdx].stdMark} />
+                </EqualTwoTextInputs>
+              )}
+            {state.quizInfo.mode !== 'tashrihi' &&
+              state.questions[state.currIdx].stdMark !== undefined && (
+                <EqualTwoTextInputs>
+                  <SimpleText text={'نمره سوال: '} />
+                  <SimpleText text={state.questions[state.currIdx].mark} />
+                </EqualTwoTextInputs>
+              )}
+            {state.quizInfo.mode === 'tashrihi' &&
+              state.questions[state.currIdx].mark !== undefined && (
+                <EqualTwoTextInputs>
+                  <SimpleText text={'نمره سوال: '} />
+                  <SimpleText text={state.questions[state.currIdx].mark} />
+                </EqualTwoTextInputs>
+              )}
+            {state.quizInfo.mode === 'tashrihi' && (
+              <EqualTwoTextInputs>
+                <SimpleText text={'نمره داده شده: '} />
                 <SimpleText
-                  text={'گزینه ' + state.questions[state.currIdx].stdAns}
+                  text={
+                    state.questions[state.currIdx].stdMark === undefined
+                      ? 'نمره داده نشده'
+                      : state.questions[state.currIdx].stdMark
+                  }
                 />
+              </EqualTwoTextInputs>
+            )}
+            {state.quizInfo.mode === 'tashrihi' &&
+              state.questions[state.currIdx].markDesc !== undefined && (
+                <SimpleText text={state.questions[state.currIdx].markDesc} />
               )}
-              {state.questions[state.currIdx].kindQuestion ===
-                'short_answer' && (
-                <SimpleText text={state.questions[state.currIdx].stdAns} />
-              )}
-              {state.questions[state.currIdx].kindQuestion ===
-                'multi_sentence' && (
-                <SimpleText
-                  text={state.questions[state.currIdx].stdAns
-                    .replaceAll('1', 'ص ')
-                    .replaceAll('0', 'غ ')
-                    .replaceAll('_', 'ن')}
-                />
-              )}
-            </EqualTwoTextInputs>
-            <EqualTwoTextInputs>
-              <SimpleText text={'پاسخ صحیح: '} />
-              {state.questions[state.currIdx].kindQuestion === 'test' && (
-                <SimpleText
-                  text={'گزینه ' + state.questions[state.currIdx].answer}
-                />
-              )}
-              {state.questions[state.currIdx].kindQuestion ===
-                'short_answer' && (
-                <SimpleText text={state.questions[state.currIdx].answer} />
-              )}
-              {state.questions[state.currIdx].kindQuestion ===
-                'multi_sentence' && (
-                <SimpleText
-                  text={state.questions[state.currIdx].answer
-                    .replaceAll('1', 'ص ')
-                    .replaceAll('0', 'غ ')}
-                />
-              )}
-            </EqualTwoTextInputs>
-            <EqualTwoTextInputs>
-              <SimpleText text={'پاسخ صحیح در کل: '} />
-              <SimpleText
-                text={
-                  '%' +
-                  Math.round(
-                    (state.questions[state.currIdx].oldCorrect * 100.0) /
-                      (state.questions[state.currIdx].oldCorrect +
-                        state.questions[state.currIdx].oldIncorrect +
-                        state.questions[state.currIdx].oldWhite),
-                  )
-                }
-              />
-            </EqualTwoTextInputs>
           </MyView>
         )}
     </CommonWebBox>

@@ -37,6 +37,7 @@ const CreateQuiz = props => {
     }
 
     setName(state.selectedQuiz.title);
+    setPriority(state.selectedQuiz.priority);
     setDesc(state.selectedQuiz.description);
     setTags(state.selectedQuiz.tags);
     setKind(state.selectedQuiz.mode);
@@ -80,6 +81,7 @@ const CreateQuiz = props => {
   const [lenMode, setLenMode] = useState(
     props.editMode ? state.selectedQuiz.lenMode : 'question',
   );
+  const [priority, setPriority] = useState();
   const [launchMode, setLaunchMode] = useState();
   const [start, setStart] = useState(props.editMode ? undefined : '');
   const [end, setEnd] = useState(props.editMode ? undefined : '');
@@ -169,6 +171,7 @@ const CreateQuiz = props => {
         isRegistrable: isRigstrable,
         isUploadable: isUploadable,
         kind: kind,
+        priority: priority,
         isQRNeeded: isQRNeeded,
       };
       if (endRegistry !== undefined) data.endRegistry = endRegistry;
@@ -191,6 +194,7 @@ const CreateQuiz = props => {
         launchMode: launchMode,
         tags: tags,
         price: price,
+        priority: priority,
         permute: permuteEn,
         capacity: capacity,
         minusMark: minusMark,
@@ -269,6 +273,8 @@ const CreateQuiz = props => {
             setTags={setTags}
             desc={desc}
             setDesc={setDesc}
+            priority={priority}
+            setPriority={setPriority}
           />
         }
       />

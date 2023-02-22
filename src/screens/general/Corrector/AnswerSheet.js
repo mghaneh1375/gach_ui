@@ -22,7 +22,7 @@ function AnswerSheet(props) {
 
   const [mode, setMode] = useState('splash');
   const [state, dispatch] = useGlobalState();
-  const [isCorrector, setIsCorrector] = useState(false);
+  const [isCorrector, setIsCorrector] = useState();
 
   React.useEffect(() => {
     if (state.user === undefined) return;
@@ -36,12 +36,6 @@ function AnswerSheet(props) {
   const setLoading = status => {
     dispatch({loading: status});
   };
-
-  React.useEffect(() => {
-    dispatch({
-      isRightMenuVisible: false,
-    });
-  }, [dispatch]);
 
   const [oldMode, setOldMode] = useState();
   const [selectedAttach, setSelectedAttach] = useState();
@@ -99,33 +93,35 @@ function AnswerSheet(props) {
             style={
               isInPhone ? {width: '100%'} : {width: vars.LEFT_SECTION_WIDTH}
             }>
-            {mode !== undefined && mode === 'splash' && (
-              <Splash
-                token={state.token}
-                navigate={props.navigate}
-                isCorrector={isCorrector}
-                setLoading={setLoading}
-                setMode={m => {
-                  setOldMode(mode);
-                  setMode(m);
-                }}
-                start={() => {
-                  setMode('doCorrect');
-                }}
-                setSelectedAttach={setSelectedAttach}
-                onBack={() =>
-                  state.user.accesses.indexOf('student') !== -1
-                    ? params.quizMode === 'custom'
-                      ? (window.location.href = '/myCustomQuizzes')
-                      : params.quizMode === 'content'
-                      ? (window.location.href = '/myPackages')
-                      : (window.location.href = '/myIRYSCQuizzes')
-                    : state.user.accesses.indexOf('teacher') !== -1
-                    ? (window.location.href = '/myTasks')
-                    : (window.location.href = '/quiz/list')
-                }
-              />
-            )}
+            {isCorrector !== undefined &&
+              mode !== undefined &&
+              mode === 'splash' && (
+                <Splash
+                  token={state.token}
+                  navigate={props.navigate}
+                  isCorrector={isCorrector}
+                  setLoading={setLoading}
+                  setMode={m => {
+                    setOldMode(mode);
+                    setMode(m);
+                  }}
+                  start={() => {
+                    setMode('doCorrect');
+                  }}
+                  setSelectedAttach={setSelectedAttach}
+                  onBack={() =>
+                    state.user.accesses.indexOf('student') !== -1
+                      ? params.quizMode === 'custom'
+                        ? (window.location.href = '/myCustomQuizzes')
+                        : params.quizMode === 'content'
+                        ? (window.location.href = '/myPackages')
+                        : (window.location.href = '/myIRYSCQuizzes')
+                      : state.user.accesses.indexOf('teacher') !== -1
+                      ? (window.location.href = '/myTasks')
+                      : (window.location.href = '/quiz/list')
+                  }
+                />
+              )}
             {mode !== undefined && mode === 'doCorrect' && (
               <Correct
                 isCorrector={isCorrector}

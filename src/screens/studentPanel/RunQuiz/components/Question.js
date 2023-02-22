@@ -278,19 +278,27 @@ function Question(props) {
                   <MultiChoice
                     choicesCount={question.choicesCount}
                     selected={question.answer}
-                    onChange={idx => {
-                      let tmp = question;
-                      tmp.answer = idx;
-                      dispatch({question: tmp, needUpdate: true});
-                    }}
+                    onChange={idx => {}}
                   />
                 )}
                 {question.kindQuestion === 'short_answer' && (
                   <CommonTextInput
                     placeholder={Translate.resInput}
                     subText={Translate.resInput}
-                    // value={title}
-                    // onChangeText={e => changeText(e, setTitle)}
+                    disable={true}
+                    value={question.answer}
+                    parentStyle={{width: '100%'}}
+                    style={{backgroundColor: '#efefef', border: 0}}
+                  />
+                )}
+                {question.kindQuestion === 'multi_sentence' && (
+                  <CommonTextInput
+                    placeholder={Translate.resInput}
+                    subText={Translate.resInput}
+                    disable={true}
+                    value={question.answer
+                      .replaceAll('1', 'ص ')
+                      .replaceAll('0', 'غ ')}
                     parentStyle={{width: '100%'}}
                     style={{backgroundColor: '#efefef', border: 0}}
                   />
@@ -300,8 +308,8 @@ function Question(props) {
                     multiline={true}
                     placeholder={Translate.resInput}
                     subText={Translate.resInput}
-                    //   value={desc}
-                    //   onChangeText={text => setDesc(text)}
+                    value={question.answer}
+                    disable={true}
                     parentStyle={{width: '100%'}}
                     style={{
                       height: 200,

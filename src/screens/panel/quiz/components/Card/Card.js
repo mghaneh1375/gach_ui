@@ -51,10 +51,20 @@ function Card(props) {
   return (
     <CommonWebBox style={{...styleCard, ...styles.BlueBold}}>
       <MyView
-        style={{
-          ...styleYellowBox,
-          ...styles.BlueBold,
-        }}>
+        style={
+          props.quiz.backColor !== undefined
+            ? {
+                ...styleYellowBox,
+                ...styles.BlueBold,
+                ...{
+                  backgroundColor: props.quiz.backColor,
+                },
+              }
+            : {
+                ...styleYellowBox,
+                ...styles.BlueBold,
+              }
+        }>
         {props.quiz.launchMode === undefined &&
           (props.quizMode === undefined || props.quizMode === 'open') && (
             <MyView

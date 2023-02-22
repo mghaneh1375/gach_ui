@@ -55,6 +55,7 @@ const Login = props => {
       <CommonTextInput
         placeholder={translator.phoneOrMail}
         subText={translator.phoneOrMail}
+        onEnter={() => requestLogin()}
         onChangeText={e => changeInput('username', e)}
       />
       <CommonTextInput

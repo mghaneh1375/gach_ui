@@ -37,6 +37,7 @@ const CreateOpenQuiz = props => {
     }
 
     setName(state.selectedQuiz.title);
+    setPriority(state.selectedQuiz.priority);
     setDesc(state.selectedQuiz.description);
     setTags(state.selectedQuiz.tags);
     setKind(state.selectedQuiz.mode);
@@ -49,6 +50,7 @@ const CreateOpenQuiz = props => {
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [kind, setKind] = useState();
+  const [priority, setPriority] = useState();
   const [tags, setTags] = useState([]);
   const [len, setLen] = useState(props.editMode ? state.selectedQuiz.len : '');
   const [lenMode, setLenMode] = useState(
@@ -114,6 +116,7 @@ const CreateOpenQuiz = props => {
       description: desc,
       duration: len,
       tags: tags,
+      priority: priority,
       price: price,
       minusMark: minusMark,
       descAfter: descAfter,
@@ -184,6 +187,8 @@ const CreateOpenQuiz = props => {
             setTags={setTags}
             desc={desc}
             setDesc={setDesc}
+            priority={priority}
+            setPriority={setPriority}
           />
         }
       />

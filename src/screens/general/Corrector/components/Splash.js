@@ -75,19 +75,21 @@ function Splash(props) {
 
     Promise.all([
       generalRequest(
-        params.mode === 'student'
-          ? routes.getMyMarkListForSpecificStudent +
+        props.isCorrector
+          ? params.mode === 'student'
+            ? routes.getMyMarkListForSpecificStudent +
               params.generalQuizMode +
               '/' +
               params.quizId +
               '/' +
               params.id
-          : routes.getMyMarkListForSpecificQuestion +
+            : routes.getMyMarkListForSpecificQuestion +
               params.generalQuizMode +
               '/' +
               params.quizId +
               '/' +
-              params.id,
+              params.id
+          : routes.getMyMarks + params.generalQuizMode + '/' + params.quizId,
         'get',
         undefined,
         'data',
@@ -101,12 +103,19 @@ function Splash(props) {
       }
 
       if (params.mode === 'student') {
-        dispatch({
-          student: res[0].student,
-          answers: res[0].answers,
-          quizInfo: res[0].quizInfo,
-          allMarked: res[0].allMarked,
-        });
+        if (props.isCorrector)
+          dispatch({
+            student: res[0].student,
+            answers: res[0].answers,
+            quizInfo: res[0].quizInfo,
+            allMarked: res[0].allMarked,
+          });
+        else
+          dispatch({
+            answers: res[0].answers,
+            quizInfo: res[0].quizInfo,
+            allMarked: res[0].allMarked,
+          });
       } else {
         dispatch({
           qIdx: res[0].qIdx,
@@ -176,7 +185,18 @@ function Splash(props) {
                   val={state.quizInfo.questionsNo}
                 />
               )}
-
+              {!props.isCorrector && state.quizInfo !== undefined && (
+                <QuizItemCard
+                  icon={faTasks}
+                  iconFontSize={'large'}
+                  background={false}
+                  color={vars.ORANGE}
+                  textFontSize={10}
+                  valFontSize={16}
+                  text={'نمره کل'}
+                  val={state.quizInfo.totalMark}
+                />
+              )}
               {props.isCorrector && state.student !== undefined && (
                 <QuizItemCard
                   icon={faUser}
@@ -314,7 +334,7 @@ function Splash(props) {
                     ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
                     : {}
                 }
-                title={'تصحیح آزمون'}
+                title={props.isCorrector ? 'تصحیح آزمون' : 'مشاهده پاسخبرگ'}
                 onPress={() => props.start()}
               />
             </EqualTwoTextInputs>

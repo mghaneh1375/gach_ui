@@ -14,8 +14,10 @@ import {fetchStudentAnswerSheet, getKarname} from '../../Utility';
 import {
   lessonCols,
   lessonColsCustomQuiz,
+  lessonColsTashrihi,
   subjectCols,
   subjectColsCustomQuiz,
+  subjectColsTashrihi,
 } from './LessonTableStructure.js';
 import {
   lessonRankingCols,
@@ -305,7 +307,9 @@ function Karname(props) {
                   <CommonDataTable
                     columns={
                       props.generalQuizMode === undefined
-                        ? lessonCols
+                        ? state.selectedQuiz.mode === 'tashrihi'
+                          ? lessonColsTashrihi
+                          : lessonCols
                         : lessonColsCustomQuiz
                     }
                     data={karname.lessons}
@@ -379,7 +383,9 @@ function Karname(props) {
                 <CommonDataTable
                   columns={
                     props.generalQuizMode === undefined
-                      ? subjectCols
+                      ? state.selectedQuiz.mode === 'tashrihi'
+                        ? subjectColsTashrihi
+                        : subjectCols
                       : subjectColsCustomQuiz
                   }
                   show_row_no={false}

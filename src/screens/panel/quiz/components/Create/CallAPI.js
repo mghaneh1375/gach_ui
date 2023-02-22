@@ -8,10 +8,15 @@ const IRYSCMandatoryFields = [
   'end',
   'launchMode',
   'showResultsAfterCorrection',
+  'priority',
 ];
 
 const OpenMandatoryFields = ['title', 'price'];
-const TashrihiMandatoryFields = ['title', 'showResultsAfterCorrection'];
+const TashrihiMandatoryFields = [
+  'title',
+  'showResultsAfterCorrection',
+  'priority',
+];
 const ContentMandatoryFields = ['title'];
 
 export async function CallAPI(data, url, token, mode, kind = 'regular') {

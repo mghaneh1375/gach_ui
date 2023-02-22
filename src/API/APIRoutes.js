@@ -66,6 +66,7 @@ export const routes = {
   setCorrectorByQuestionMode: 'quiz/manage/setCorrectorByQuestionMode/',
   getMyMarkListForSpecificStudent:
     'quiz/school/getMyMarkListForSpecificStudent/',
+  getMyMarks: 'quiz/school/getMyMarks/',
   getMyMarkListForSpecificQuestion:
     'quiz/school/getMyMarkListForSpecificQuestion/',
   setMark: 'quiz/school/setMark/',

@@ -210,6 +210,9 @@ function Filter(props) {
                 />
               </EqualTwoTextInputs>
             )}
+            {state.answers[state.currIdx].stdAns.markDesc !== undefined && (
+              <SimpleText text={state.answers[state.currIdx].stdAns.markDesc} />
+            )}
 
             {props.isCorrector && (
               <MyView style={{...styles.gap10}}>

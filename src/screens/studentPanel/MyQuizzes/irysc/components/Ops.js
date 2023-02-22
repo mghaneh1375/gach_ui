@@ -20,6 +20,18 @@ function Ops(props) {
   const [state, dispatch] = useGlobalState();
 
   const prepareShowAnswerSheet = async () => {
+    if (state.selectedQuiz.mode === 'tashrihi') {
+      props.navigate(
+        '/showAnswerSheet/' +
+          state.selectedQuiz.generalMode +
+          '/' +
+          state.selectedQuiz.id +
+          '/student/' +
+          props.user.user.id,
+      );
+      return;
+    }
+
     if (state.selectedQuiz.answer_sheet !== undefined) {
       dispatch({
         showAnswers: true,
@@ -165,13 +177,15 @@ function Ops(props) {
             title={Translate.recp}
             theme={'transparent'}
           />
-          {state.selectedQuiz.status === 'finished' && (
-            <CommonButton
-              onPress={() => prepareReview()}
-              title={Translate.review}
-              theme={'transparent'}
-            />
-          )}
+          {state.selectedQuiz.status === 'finished' &&
+            (state.selectedQuiz.isQRNeeded === undefined ||
+              !state.selectedQuiz.isQRNeeded) && (
+              <CommonButton
+                onPress={() => prepareReview()}
+                title={Translate.review}
+                theme={'transparent'}
+              />
+            )}
         </PhoneView>
       )}
       {props.user.accesses.indexOf('student') === -1 && (
