@@ -35,7 +35,6 @@ import vars from '../../../../../styles/root';
 
 function StudentMenu(props) {
   const device = getDevice();
-  const isLargePage = device.indexOf(Device.Large) !== -1;
   const navigate = props.navigate;
   const [newAlerts, setNewAlerts] = useState();
 
@@ -61,7 +60,7 @@ function StudentMenu(props) {
     setPic(state.user.user.pic);
   }, [state.user.user.pic]);
 
-  if (isLargePage) {
+  if (!state.isInPhone) {
     return (
       <MenuItemRepeat navigate={props.navigate} selected={props.selected} />
     );

@@ -63,6 +63,10 @@ const Login = props => {
     navigate(root);
   };
 
+  React.useEffect(() => {
+    if (state.token !== undefined) window.location.href = '/dashboard';
+  }, [state.token]);
+
   return (
     <ScreenScroll style={{background: 'transparent'}}>
       <div
@@ -87,10 +91,11 @@ const Login = props => {
         {mode === 'login' && (
           <MyView>
             <LoginModule
-              navigate={navigate}
+              setToken={token => {
+                dispatch({token: token});
+              }}
               // style={{marginTop: 20}}
               setLoading={setLoading}
-              toPath={home}
             />
 
             <TextWithLink

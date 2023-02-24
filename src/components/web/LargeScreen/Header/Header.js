@@ -17,17 +17,18 @@ import commonTranslator from '../../../../translator/Common';
 import newAlertsKeyVals from './NewAlertsKeyVals';
 import UserTinyPic from '../UserTinyPic';
 import {styles} from '../../../../styles/Common/Styles';
-import {dispatchStateContext} from '../../../../App';
+import {dispatchStateContext, globalStateContext} from '../../../../App';
 import vars from '../../../../styles/root';
 
 const Header = props => {
-  const device = getDevice();
-  const isLargePage = device.indexOf(Device.Large) !== -1;
-  const isApp = device.indexOf(Device.App) !== -1;
+  const isApp = getDevice().indexOf(Device.App) !== -1;
 
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
 
-  const [dispatch] = useGlobalState();
+  const [state, dispatch] = useGlobalState();
 
   const [showProfilePane, setShowProfilePane] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
@@ -75,13 +76,13 @@ const Header = props => {
     setPic(props.pic);
   }, [props.pic]);
 
-  if (isLargePage || props.isRightMenuVisible) {
+  if (!state.isInPhone || props.isRightMenuVisible) {
     const width = getWidthHeight()[0];
 
     return (
       <PhoneView
         style={
-          isLargePage
+          !state.isInPhone
             ? {...style.Header, ...style.HeaderJustLarge}
             : isApp
             ? {

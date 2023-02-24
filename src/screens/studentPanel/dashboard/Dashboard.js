@@ -39,7 +39,6 @@ function Dashboard(props) {
       dispatch({loading: false});
 
       if (res[0] === null) {
-        console.log('sd');
         navigate('/');
         return;
       }

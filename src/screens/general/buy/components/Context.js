@@ -74,6 +74,24 @@ export const PackageProvider = ({children}) => {
       }
 
       if (
+        state.checkedFilterIndicesMonth !== undefined &&
+        state.checkedFilterIndicesMonth.length > 0
+      ) {
+        let hasWantedMonth = false;
+        for (let i = 0; i < state.checkedFilterIndicesMonth.length; i++) {
+          if (
+            elem.month !== undefined &&
+            elem.month === state.checkedFilterIndicesMonth[i]
+          ) {
+            hasWantedMonth = true;
+            break;
+          }
+        }
+
+        if (!hasWantedMonth) return;
+      }
+
+      if (
         (state.selectedKindQuiz === 'open' &&
           elem.type !== undefined &&
           elem.type === 'package') ||
@@ -99,37 +117,26 @@ export const PackageProvider = ({children}) => {
       selectableItems: newItems,
       needUpdateFilters: false,
     });
-  }, [
-    state.filters,
-    state.selectedKindQuiz,
-    state.selectedPrice,
-    state.checkedFilterIndices,
-    state.allItems,
-    state.selectableItems,
-  ]);
+  }, [state]);
 
   const setFilters = React.useCallback(() => {
     if (state.filters === undefined) return;
 
     globalDispatch({
       isRightMenuVisible: false,
-      isFilterMenuVisible: globalState.isInPhone ? false : true,
+      isFilterMenuVisible: true,
       filters: state.filters.items,
+      month: state.filters.month,
       allItems: state.allItems === undefined ? 0 : state.allItems.length,
       selectableItems:
         state.selectableItems === undefined ? 0 : state.selectableItems.length,
       onChangeFilter: state.filters.onChangeFilter,
+      onChangeFilterMonth: state.filters.onChangeFilterMonth,
       onChangeKindQuiz: state.filters.onChangeKindQuiz,
       onChangePrice: state.filters.onChangePrice,
       allFilter: true,
     });
-  }, [
-    globalDispatch,
-    state.filters,
-    state.selectableItems,
-    state.allItems,
-    globalState.isInPhone,
-  ]);
+  }, [globalDispatch, state.filters, state.selectableItems, state.allItems]);
 
   React.useEffect(() => {
     setFilters();

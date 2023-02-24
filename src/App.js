@@ -1,10 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useState} from 'react';
 import {Platform, LogBox} from 'react-native';
 import {fetchUser, getToken, getUser} from './API/User';
 
 import AppRouter from './router/app/Router';
 import WebRouter from './router/web/Router';
-import {getDevice} from './services/Utility';
 
 const defaultGlobalState = {
   showBottonNav: true,
@@ -31,9 +30,8 @@ const excludeRightMenu = [
   'rankingList',
   'allSchools',
 ];
-const excludeTopNav = ['login', 'profile', 'rankingList', 'allSchools'];
+const excludeTopNav = ['login', 'profile', 'rankingList', 'allSchools', 'buy'];
 const excludeBottomNav = ['login'];
-const d = getDevice();
 
 const excludeAuthRoutes = [
   'login',
@@ -79,26 +77,61 @@ const GlobalStateProvider = ({children}) => {
     doFetchUser();
   }, [state.user, doFetchUser]);
 
+  const size = useWindowSize();
+
   React.useEffect(() => {
-    if (state.page === undefined || state.user === undefined) return;
+    dispatch({isInPhone: size.width < 768});
+  }, [size]);
+
+  // Hook
+  function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+      height: undefined,
+    });
+    React.useEffect(() => {
+      // Handler to call on window resize
+      function handleResize() {
+        // Set window width/height to state
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+      // Add event listener
+      window.addEventListener('resize', handleResize);
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+      // Remove event listener on cleanup
+      return () => window.removeEventListener('resize', handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+  }
+
+  React.useEffect(() => {
+    if (
+      state.page === undefined ||
+      state.user === undefined ||
+      state.isInPhone === undefined
+    )
+      return;
     if (state.user === null && excludeAuthRoutes.indexOf(state.page) === -1) {
       window.location.href = '/login';
       return;
     }
-    const isInPhoneTmp = d.indexOf('WebPort') !== -1;
-
     dispatch({
       showTopNav: excludeTopNav.indexOf(state.page) === -1,
       showBottonNav: excludeBottomNav.indexOf(state.page) === -1,
       isFilterMenuVisible: hasLeftFilterRoutes.indexOf(state.page) !== -1,
       isRightMenuVisible:
-        !isInPhoneTmp &&
+        !state.isInPhone &&
         excludeRightMenu.indexOf(state.page) === -1 &&
         state.user !== null &&
         state.user !== undefined,
-      isInPhone: isInPhoneTmp,
     });
-  }, [state.page, state.user]);
+  }, [state.page, state.user, state.isInPhone]);
 
   return (
     <globalStateContext.Provider value={state}>

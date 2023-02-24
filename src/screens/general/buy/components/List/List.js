@@ -52,9 +52,16 @@ function List(props) {
         allItems: res[0].items,
         filters: {
           items: res[0].tags,
+          month: res[0].month,
           onChangeFilter: selectedIndices => {
             dispatch({
               checkedFilterIndices: selectedIndices,
+              needUpdateFilters: true,
+            });
+          },
+          onChangeFilterMonth: selectedIndices => {
+            dispatch({
+              checkedFilterIndicesMonth: selectedIndices,
               needUpdateFilters: true,
             });
           },

@@ -45,14 +45,14 @@ function Buy(props) {
     if (mode !== 'list') {
       dispatch({
         isFilterMenuVisible: false,
-        isRightMenuVisible: !state.isInPhone && state.user !== null,
+        isRightMenuVisible: state.user !== null,
       });
     } else
       dispatch({
         isRightMenuVisible: false,
-        isFilterMenuVisible: !state.isInPhone,
+        isFilterMenuVisible: true,
       });
-  }, [mode, dispatch, state.user, state.isInPhone]);
+  }, [mode, dispatch, state.user]);
 
   return (
     <PackageProvider>

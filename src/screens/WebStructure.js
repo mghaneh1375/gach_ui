@@ -12,8 +12,7 @@ import Home from './general/home/Home';
 import Login from './general/login/Login';
 import WebLogin from './general/login/web/Login';
 import WebProfile from './general/profile/web/Profile';
-import {getDevice, isUserAdmin} from '../services/Utility';
-import {Device} from '../models/Device';
+import {isUserAdmin} from '../services/Utility';
 
 import 'react-notifications-component/dist/theme.css';
 import {ReactNotifications} from 'react-notifications-component';
@@ -89,12 +88,10 @@ import SessionDetail from './general/Packages/components/Detail/SessionDetail';
 import ContentQuiz from './panel/quiz/ContentQuiz';
 import AnswerSheet from './general/Corrector/AnswerSheet';
 import MyTasks from './correctorPanel/myTasks/MyTasks';
+import Filter from '../components/web/LargeScreen/Header/Filter';
 
 const WebStructue = props => {
   const navigate = useNavigate();
-
-  const device = getDevice();
-  const isInLargeMode = device.indexOf(Device.Large) !== -1;
 
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -181,7 +178,7 @@ const WebStructue = props => {
       {allowRenderPage && (
         <MinFullHeightView>
           <MyView style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-            {state.isInPhone && (
+            {state.isInPhone && state.showTopNav && (
               <Logo
                 isLogin={state.user !== null}
                 toggleRightMenuVisibility={toggleRightMenuVisibility}
@@ -200,9 +197,7 @@ const WebStructue = props => {
               props.page === 'allSchools' ||
               props.page === 'rankingList' ||
               state.user === null) &&
-              device.indexOf(Device.Large) !== -1 && (
-                <Navbar user={state.user} />
-              )}
+              !state.isInPhone && <Navbar user={state.user} />}
 
             {/* {device.indexOf(Device.WebPort) !== -1 && state.user === null && (
               <TopNavBar />
@@ -243,8 +238,8 @@ const WebStructue = props => {
 
             <MyView
               style={
-                (isInLargeMode && state.isRightMenuVisible) ||
-                (isInLargeMode && state.isFilterMenuVisible)
+                (!state.isInPhone && state.isRightMenuVisible) ||
+                (!state.isInPhone && state.isFilterMenuVisible)
                   ? LargeContentConianerStyle
                   : state.isInPhone && state.isRightMenuVisible
                   ? PhoneContentConianerStyle2
@@ -257,7 +252,7 @@ const WebStructue = props => {
                 />
               )}
               {/* {props.page === 'home' && <Gift navigate={navigate} />} */}
-              {props.page === 'profile' && isInLargeMode && (
+              {props.page === 'profile' && !state.isInPhone && (
                 <WebProfile
                   token={state.token}
                   user={state.user}
@@ -384,7 +379,7 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-              {props.page === 'profile' && !isInLargeMode && (
+              {props.page === 'profile' && state.isInPhone && (
                 <WebProfile
                   // setUser={setUser}
                   token={state.token}
@@ -688,14 +683,14 @@ const WebStructue = props => {
             </MyView>
           </MyView>
 
-          {props.page === 'login' && isInLargeMode && (
+          {props.page === 'login' && !state.isInPhone && (
             <WebLogin navigate={navigate} />
           )}
-          {props.page === 'login' && !isInLargeMode && (
+          {props.page === 'login' && state.isInPhone && (
             <Login navigate={navigate} />
           )}
 
-          {device.indexOf(Device.WebPort) !== -1 &&
+          {state.isInPhone &&
             state.user === null &&
             excludeBottomNav.indexOf(props.page) === -1 && <BottomNavBar />}
 

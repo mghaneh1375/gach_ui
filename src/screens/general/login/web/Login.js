@@ -23,7 +23,7 @@ import commonTranlator from './../../../../translator/Common';
 import translator from './../translate';
 import {Container, Row, Col} from 'react-grid-system';
 import vars from '../../../../styles/root';
-import {dispatchStateContext} from './../../../../App';
+import {dispatchStateContext, globalStateContext} from './../../../../App';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
 import {getToken} from '../../../../API/User';
 import {styles} from '../../../../styles/Common/Styles';
@@ -36,10 +36,13 @@ const Login = props => {
   const [username, setUsername] = useState();
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
 
   const navigate = props.navigate;
-  const [dispatch] = useGlobalState();
+  const [state, dispatch] = useGlobalState();
 
   React.useEffect(() => {
     if (mode === 'verification' || mode === 'roleForm') return;
@@ -62,6 +65,10 @@ const Login = props => {
   const redirectToHome = () => {
     navigate('/');
   };
+
+  React.useEffect(() => {
+    if (state.token !== undefined) window.location.href = '/dashboard';
+  }, [state.token]);
 
   return (
     <ScreenScroll style={{...styles.overFlowHidden}}>
@@ -105,8 +112,9 @@ const Login = props => {
         <BlurLoginBack style={{zIndex: 10}}>
           {mode === 'login' && (
             <LoginModule
-              toPath={'/dashboard'}
-              navigate={navigate}
+              setToken={token => {
+                dispatch({token: token});
+              }}
               setLoading={setLoading}
             />
           )}

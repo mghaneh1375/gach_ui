@@ -3,7 +3,7 @@ import {routes} from '../../../../API/APIRoutes';
 import {setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {style} from '../../../../components/web/LargeScreen/Header/style';
-import {getWidthHeight, showError} from '../../../../services/Utility';
+import {showError} from '../../../../services/Utility';
 import {CommonButton, MyView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import commonTranlator from './../../../../translator/Common';
@@ -40,12 +40,16 @@ const Login = props => {
         },
         ['user', 'token'],
       ),
-    ]).then(async res => {
-      props.setLoading(false);
+    ]).then(res => {
       if (res[0] !== null) {
-        await setCacheItem('token', res[0].token);
-        await setCacheItem('user', JSON.stringify(res[0].user));
-        window.location.href = props.toPath;
+        Promise.all([
+          setCacheItem('token', res[0].token),
+          setCacheItem('user', JSON.stringify(res[0].user)),
+        ]).then(r => {
+          props.setToken(res[0].token);
+        });
+      } else {
+        props.setLoading(false);
       }
     });
   }, [props, username, password]);

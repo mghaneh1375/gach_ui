@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import {showError} from '../services/Utility';
 import commonTranslator from './../translator/Common';
-import {logout, removeAuthCache} from './User';
+import {removeAuthCache} from './User';
 
 // export const BASE_SITE_NAME = 'http://localhost:3000/';
 export const BASE_SITE_NAME = 'https://e.irysc.com/';
@@ -132,6 +132,7 @@ export const generalRequest = async (
         if (token !== null) await removeAuthCache();
 
         showError('توکن شما منقضی شده است و نیاز است لاگین کنید');
+        window.location.href = '/login';
         return undefined;
       } else {
         showError(commonTranslator.opErr);

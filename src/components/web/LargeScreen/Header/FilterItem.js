@@ -22,7 +22,7 @@ function FilterItem(props) {
     setStatus(status === 'checked' ? 'unchecked' : 'checked');
     props.onPress(label);
   };
-  const [expand, setExpand] = useState(false);
+  const [expand, setExpand] = useState(true);
   const [subCats, setSubCats] = useState();
 
   React.useEffect(() => {
@@ -42,6 +42,7 @@ function FilterItem(props) {
         onPress={() => changeStatus(props.item.label)}
         status={status}
         text={props.item.label}
+        isCheckBox={props.checkbox !== undefined ? props.checkbox : undefined}
       />
     );
 
@@ -61,7 +62,7 @@ function FilterItem(props) {
   return (
     <MyView>
       <PhoneView style={{paddingBottom: expand ? 10 : 0}}>
-        <SimpleFontIcon
+        {/* <SimpleFontIcon
           onPress={() => setExpand(!expand)}
           theme="full"
           parentStyle={{width: 15, heigth: 15}}
@@ -77,10 +78,10 @@ function FilterItem(props) {
           }}
           text={props.item.label}
           onPress={() => setExpand(!expand)}
-        />
+        /> */}
       </PhoneView>
       {expand && (
-        <MyView style={{paddingRight: 20, minWidth: 200}}>
+        <MyView style={{minWidth: 200}}>
           {subCats !== undefined &&
             subCats.map((elem, index) => {
               return (

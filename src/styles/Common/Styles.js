@@ -155,6 +155,9 @@ export const styles = {
   paddingRight30: {
     paddingRight: 30,
   },
+  paddingTop10: {
+    paddingTop: 10,
+  },
   paddingBottomUp5: {
     paddingBottom: 5,
     paddingTop: 5,
@@ -279,6 +282,9 @@ export const styles = {
   },
   padding20: {
     padding: 20,
+  },
+  padding30: {
+    padding: 30,
   },
   margin5: {
     margin: 5,
