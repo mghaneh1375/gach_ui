@@ -15,6 +15,7 @@ import {dispatchPublicNotifContext, publicNotifContext} from './Context';
 import commonTranslator from '../../../../translator/Common';
 import {styles} from '../../../../styles/Common/Styles';
 import RenderHTML, {defaultSystemFonts} from 'react-native-render-html';
+import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
 
 function List(props) {
   const useGlobalState = () => [
@@ -162,6 +163,14 @@ function List(props) {
             }}
             systemFonts={systemFonts}
           />
+          {selectedNotif !== undefined && selectedNotif.attach !== undefined && (
+            <AttachBox
+              onClick={() => {
+                window.open(selectedNotif.attach);
+              }}
+              filename={selectedNotif.attach}
+            />
+          )}
         </CommonWebBox>
       )}
       {selectedNotif === undefined && (

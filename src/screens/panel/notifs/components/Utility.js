@@ -1,5 +1,5 @@
 import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
+import {fileRequest, generalRequest} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 
 export const fetchAllNotifs = async (
@@ -74,7 +74,25 @@ export const fetchContentDigests = async token => {
   );
 };
 
-export const store = async (token, data) => {
+export const store = async (token, data, fileContent) => {
+  if (fileContent !== undefined) {
+    var myblob = new Blob([new Uint8Array(fileContent.content)]);
+    let formData = new FormData();
+    formData.append('file', myblob, fileContent.name);
+
+    let res = await fileRequest(
+      routes.storeNotif,
+      'post',
+      formData,
+      ['id', 'usersCount', 'createdAt'],
+      token,
+      data,
+    );
+
+    if (res !== null) showSuccess();
+    return res;
+  }
+
   let res = await generalRequest(
     routes.storeNotif,
     'post',

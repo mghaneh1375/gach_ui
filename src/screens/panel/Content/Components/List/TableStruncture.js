@@ -22,6 +22,12 @@ const columns = [
     center: true,
   },
   {
+    name: Translator.priority,
+    selector: row => row.priority,
+    grow: 2,
+    center: true,
+  },
+  {
     name: Translator.sessionsCount,
     selector: row => row.sessionsCount,
     grow: 2,

@@ -47,6 +47,7 @@ let mandatoryFields = [
   'visibility',
   'duration',
   'slug',
+  'priority',
 ];
 
 let mandatoryFieldsSession = [

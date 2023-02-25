@@ -16,6 +16,9 @@ function Create(props) {
   const [title, setTitle] = useState(
     props.package !== undefined ? props.package.title : '',
   );
+  const [priority, setPriority] = useState(
+    props.package !== undefined ? props.package.priority : '',
+  );
   const [minSelect, setMinSelect] = useState(
     props.package !== undefined ? props.package.minSelect : '',
   );
@@ -58,6 +61,13 @@ function Create(props) {
           subText={commonTranslator.title}
           value={title}
           onChangeText={text => changeText(text, setTitle)}
+        />
+        <JustBottomBorderTextInput
+          placeholder={commonTranslator.priority}
+          subText={commonTranslator.priority}
+          value={priority}
+          justNum={true}
+          onChangeText={text => changeText(text, setPriority)}
         />
         <JustBottomBorderTextInput
           placeholder={Translate.minSelect}
@@ -119,6 +129,7 @@ function Create(props) {
               lessonId: lesson === -1 ? undefined : lesson,
               minSelect: minSelect,
               offPercent: offPercent,
+              priority: priority,
             };
 
             if (props.package !== undefined)

@@ -56,6 +56,7 @@ function Create(props) {
   const [finalExamMinMark, setFinalExamMinMark] = useState();
   const [teachers, setTeachers] = useState();
   const [slug, setSlug] = useState();
+  const [priority, setPriority] = useState();
   const [duration, setDuration] = useState();
 
   const removeImg = index => {
@@ -102,7 +103,7 @@ function Create(props) {
       props.setLoading(false);
       if (res[0] === null) return;
 
-      setFetchedTeacherBio(res[0]);
+      setFetchedTeacherBio(res[0] === undefined ? '' : res[0]);
       setTeacherBio(res[0]);
       setIsWorking(false);
     });
@@ -199,6 +200,7 @@ function Create(props) {
           setTitle(res[0].title);
           setTeacher(res[0].teacher);
           setPrice(res[0].price);
+          setPriority(res[0].priority);
           setImg(res[0].img);
           setSessionsCount(res[0].sessionsCount);
           setTeacherBio(res[0].teacherBio);
@@ -280,6 +282,15 @@ function Create(props) {
             value={slug}
             subText={Translator.slug}
           />
+
+          <JustBottomBorderTextInput
+            placeholder={Translator.priority}
+            onChangeText={e => setPriority(e)}
+            value={priority}
+            justNum={true}
+            subText={Translator.priority}
+          />
+
           <JustBottomBorderTextInput
             placeholder={Translator.duration}
             subText={Translator.duration}
@@ -491,6 +502,7 @@ function Create(props) {
               tags: tags,
               slug: slug,
               duration: duration,
+              priority: priority,
             };
 
             if (hasCert) {

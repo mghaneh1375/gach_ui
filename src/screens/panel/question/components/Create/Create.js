@@ -185,7 +185,6 @@ function Create(props) {
 
     if (props.isInEditMode) data.subjectId = subject.id;
 
-    console.log(tags);
     if (tags !== undefined && tags.length > 0) data.tags = tags;
     if (year !== undefined) data.year = year;
 

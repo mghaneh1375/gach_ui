@@ -10,6 +10,7 @@ import {
   SimpleText,
 } from '../../../../styles/Common';
 import {styles} from '../../../../styles/Common/Styles';
+import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
 
 function Detail(props) {
   const [notif, setNotif] = useState();
@@ -77,6 +78,14 @@ function Detail(props) {
           source={{html: notif.desc}}
           tagsStyles={tagsStyles}
           systemFonts={systemFonts}
+        />
+      )}
+      {notif !== undefined && notif.attach !== undefined && (
+        <AttachBox
+          onClick={() => {
+            window.open(notif.attach);
+          }}
+          filename={notif.attach}
         />
       )}
     </CommonWebBox>

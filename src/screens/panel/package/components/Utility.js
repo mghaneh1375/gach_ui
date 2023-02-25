@@ -35,7 +35,13 @@ export const fetchPackageQuizzes = async (token, id) => {
   );
 };
 
-const mandatoryFields = ['title', 'gradeId', 'minSelect', 'offPercent'];
+const mandatoryFields = [
+  'title',
+  'gradeId',
+  'minSelect',
+  'offPercent',
+  'priority',
+];
 
 export const editPackage = async (id, token, data) => {
   try {

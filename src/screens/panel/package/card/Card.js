@@ -91,7 +91,7 @@ function Card(props) {
             ...styles.justifyContentCenter,
           }}>
           <SimpleText
-            style={{...styles.fontSize13, ...styles.BlueBold}}
+            style={{...styles.fontSize15, ...styles.BlueBold}}
             text={Translate.grade + ' : ' + props.package.grade.name}
           />
           {props.package.lesson !== undefined && (
@@ -126,6 +126,16 @@ function Card(props) {
                 ...styles.marginRight20,
               }}
               text={Translate.registrableCount + props.package.registrable}
+            />
+          )}
+          {props.package.priority !== undefined && (
+            <SimpleText
+              style={{
+                ...styles.BlueBold,
+                ...styles.fontSize12,
+                ...styles.marginRight20,
+              }}
+              text={commonTranslator.priority + ' : ' + props.package.priority}
             />
           )}
           <SimpleText

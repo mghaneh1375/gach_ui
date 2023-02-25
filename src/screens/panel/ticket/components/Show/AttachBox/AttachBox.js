@@ -23,6 +23,7 @@ const AttachBox = props => {
       textColor = vars.ORANGE_RED;
       break;
     case 'pdf':
+    case 'zip':
       text = 'PDF';
       background = vars.ORANGE;
       textColor = vars.DARK_BLUE;
@@ -43,6 +44,7 @@ const AttachBox = props => {
 
   const isImg =
     props.filename.indexOf('.mp4') === -1 &&
+    props.filename.indexOf('.zip') === -1 &&
     props.filename.indexOf('.mp3') === -1 &&
     props.filename.indexOf('.docx') === -1 &&
     props.filename.indexOf('.xls') === -1 &&

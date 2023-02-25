@@ -1,4 +1,4 @@
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faPaperclip, faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 
 import {
@@ -7,7 +7,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {styles} from '../../../../../styles/Common/Styles';
 import {dispatchNotifContext, notifContext} from '../Context';
@@ -27,6 +27,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter';
 import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
 import RenderHTML from 'react-native-render-html';
+import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
+import {useFilePicker} from 'use-file-picker';
 
 function Create(props) {
   let ckEditor = null;
@@ -37,7 +39,34 @@ function Create(props) {
     React.useContext(dispatchNotifContext),
   ];
 
+  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
+    useFilePicker({
+      maxFileSize: 6,
+      accept: ['image/*', '.pdf', '.zip'],
+      readAs: 'ArrayBuffer',
+      multiple: false,
+    });
+
+  const removeAttach = index => {
+    remove(index);
+  };
+
+  const removeUploadedAttach = async filename => {
+    // props.setLoading(true);
+    // let res = await removeFile(props.token, filename, state.selectedQuiz.id);
+    // props.setLoading(false);
+    // if (res === null) return;
+    // let tmp = [];
+    // attaches.forEach(element => {
+    //   if (element !== filename) tmp.push(element);
+    // });
+    // setAttaches(tmp);
+    // state.selectedQuiz.attaches = tmp;
+    // dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+  };
+
   const [state, dispatch] = useGlobalState();
+  const [attaches, setAttaches] = useState();
   const [sendSMS, setSendSMS] = useState('no');
   const [sendMail, setSendMail] = useState('no');
   const [showFilter, setShowFilter] = useState();
@@ -226,6 +255,49 @@ function Create(props) {
             props.isInReviewMode || props.sendVia === 'mail' ? {} : setSendMail
           }
         />
+
+        <PhoneView style={{...styles.gap15}}>
+          <SimpleText
+            style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+            text={'پیوست'}
+          />
+          <SimpleFontIcon
+            onPress={() => openFileSelector()}
+            kind={'normal'}
+            icon={faPaperclip}
+          />
+
+          <PhoneView style={{marginTop: 20}}>
+            {attaches !== undefined &&
+              attaches.map((elem, index) => {
+                return (
+                  <AttachBox
+                    key={index}
+                    filename={elem}
+                    removeAttach={async () => {
+                      await removeUploadedAttach(elem);
+                    }}
+                  />
+                );
+              })}
+
+            {filesContent !== undefined &&
+              filesContent.length > 0 &&
+              filesContent.map((elem, index) => {
+                return (
+                  <AttachBox
+                    key={index}
+                    filename={elem.name}
+                    fileContent={elem.content}
+                    removeAttach={() => {
+                      removeAttach(index);
+                    }}
+                  />
+                );
+              })}
+          </PhoneView>
+        </PhoneView>
+
         {!props.isInReviewMode && (
           <CommonButton
             onPress={async () => {
@@ -242,8 +314,12 @@ function Create(props) {
                 data[elem.key] = elem.value;
               });
 
-              let res = await store(props.token, data);
+              let res =
+                filesContent.length > 0
+                  ? await store(props.token, data, filesContent[0])
+                  : await store(props.token, data);
               props.setLoading(false);
+
               if (res !== null) {
                 state.notifs.push({
                   id: res.id,

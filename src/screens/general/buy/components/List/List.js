@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {MyView, PhoneView} from '../../../../../styles/Common';
+import {MyView, PhoneView, SimpleText} from '../../../../../styles/Common';
 import Card from '../../../../panel/package/card/Card';
 import {packagesContext, dispatchPackagesContext} from '../Context';
 import {fetchAllPackages} from '../../../../panel/package/components/Utility';
 import QuizList from './../Detail/List';
 import {getDevice, getWidthHeight} from '../../../../../services/Utility';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function List(props) {
   const useGlobalState = () => [
@@ -15,6 +16,8 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [quizzes, setQuizzes] = useState();
+
+  const [registered, setRegistered] = useState(false);
 
   React.useEffect(() => {
     if (state.selectableItems === undefined) return;
@@ -43,6 +46,11 @@ function List(props) {
 
       if (res[0] === null) {
         props.navigate('/');
+        return;
+      }
+
+      if (props.quizId !== undefined && res[0].registered !== undefined) {
+        setRegistered(true);
         return;
       }
 
@@ -89,34 +97,36 @@ function List(props) {
 
   return (
     <MyView>
-      <PhoneView
-        style={
-          isInPhone
-            ? {padding: 20, gap: 10, width: getWidthHeight[0]}
-            : {gap: 15, padding: 20}
-        }>
-        {state.selectableItems !== undefined &&
-          state.selectableItems.map((item, index) => {
-            if (item.type === 'package')
-              return (
-                <Card
-                  isAdmin={false}
-                  isStudent={
-                    props.user === null ||
-                    props.user === undefined ||
-                    props.user.accesses.indexOf('student') !== -1
-                  }
-                  key={index}
-                  package={item}
-                  onPress={() => {
-                    dispatch({package: item});
-                    props.setMode('detail');
-                  }}
-                />
-              );
-          })}
-      </PhoneView>
-      {quizzes !== undefined && quizzes.length > 0 && (
+      {!registered && (
+        <PhoneView
+          style={
+            isInPhone
+              ? {padding: 20, gap: 10, width: getWidthHeight[0]}
+              : {gap: 15, padding: 20}
+          }>
+          {state.selectableItems !== undefined &&
+            state.selectableItems.map((item, index) => {
+              if (item.type === 'package')
+                return (
+                  <Card
+                    isAdmin={false}
+                    isStudent={
+                      props.user === null ||
+                      props.user === undefined ||
+                      props.user.accesses.indexOf('student') !== -1
+                    }
+                    key={index}
+                    package={item}
+                    onPress={() => {
+                      dispatch({package: item});
+                      props.setMode('detail');
+                    }}
+                  />
+                );
+            })}
+        </PhoneView>
+      )}
+      {!registered && quizzes !== undefined && quizzes.length > 0 && (
         <QuizList
           isRightMenuVisible={true}
           token={props.token}
@@ -129,6 +139,17 @@ function List(props) {
             quizzesDoc: quizzes,
             minSelect: 0,
           }}
+        />
+      )}
+      {registered && (
+        <SimpleText
+          style={{
+            ...styles.BlueBold,
+            ...styles.textCenter,
+            ...styles.fontSize25,
+            ...styles.marginTop50,
+          }}
+          text="شما در آزمون موردنظر ثبت نام شده اید."
         />
       )}
     </MyView>

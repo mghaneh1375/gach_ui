@@ -79,9 +79,19 @@ export const PackageProvider = ({children}) => {
       ) {
         let hasWantedMonth = false;
         for (let i = 0; i < state.checkedFilterIndicesMonth.length; i++) {
+          if (elem.month === undefined) continue;
+
           if (
-            elem.month !== undefined &&
+            typeof elem.month == 'string' &&
             elem.month === state.checkedFilterIndicesMonth[i]
+          ) {
+            hasWantedMonth = true;
+            break;
+          }
+
+          if (
+            typeof elem.month != 'string' &&
+            elem.month.indexOf(state.checkedFilterIndicesMonth[i]) !== -1
           ) {
             hasWantedMonth = true;
             break;
