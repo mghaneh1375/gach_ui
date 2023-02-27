@@ -53,12 +53,15 @@ function Create(props) {
   const [examMinMark, setExamMinMark] = useState();
   const [video, setVideo] = useState();
   const [quizzes, setQuizzes] = useState();
+  const [chapters, setChapters] = useState();
+  const [chapter, setChapter] = useState();
+  const [chapterDesc, setChapterDesc] = useState();
 
   const [isWorking, setIsWorking] = useState(false);
 
   const [uploadVideo, setUploadVideo] = useState(false);
   const [progress, setProgress] = useState(0);
-  const chunkSize = 1048576 * 3;
+  const chunkSize = 1048576;
 
   const [videoFileForShow, setVideoFileForShow] = useState();
 
@@ -192,16 +195,24 @@ function Create(props) {
         'data',
         props.token,
       ),
+      generalRequest(
+        routes.getChapters + state.selectedContent.id,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
     ]).then(res => {
       if (!props.isInEditMode) props.setLoading(false);
 
-      if (res[0] === null) {
+      if (res[0] === null || res[1] === null) {
         props.setMode('list');
         props.setLoading(false);
         return;
       }
 
       setQuizzes(res[0]);
+      setChapters(res[1]);
 
       if (!props.isInEditMode) setIsWorking(false);
 
@@ -216,6 +227,8 @@ function Create(props) {
         setVideo(state.selectedSession.video);
         setDuration(state.selectedSession.duration);
 
+        setChapter(state.selectedSession.chapter);
+        setChapterDesc(state.selectedSession.chapterDesc);
         setHasExam(state.selectedSession.hasExam);
         if (state.selectedSession.hasExam) {
           setExamId(state.selectedSession.examId);
@@ -226,7 +239,13 @@ function Create(props) {
         setIsWorking(false);
       }
     });
-  }, [isWorking, props, state.selectedSession, quizzes]);
+  }, [
+    isWorking,
+    props,
+    state.selectedSession,
+    state.selectedContent.id,
+    quizzes,
+  ]);
 
   const removeUploadedVideo = async () => {
     props.setLoading(true);
@@ -308,6 +327,33 @@ function Create(props) {
             setter={setVisibility}
             values={statusKeyVals}
             value={statusKeyVals.find(elem => elem.id === visibility)}
+          />
+
+          {chapters !== undefined && (
+            <JustBottomBorderTextInput
+              resultPane={true}
+              addNotFound={true}
+              reset={false}
+              value={chapter === undefined ? '' : chapter}
+              placeholder={Translator.chapter}
+              subText={Translator.chapter}
+              setSelectedItem={item => {
+                setChapter(item.name);
+                let chapter = chapters.find(e => e.title === item.name);
+                if (chapter !== undefined) setChapterDesc(chapter.desc);
+              }}
+              values={chapters.map(e => {
+                return {id: e.title, name: e.title};
+              })}
+            />
+          )}
+
+          <JustBottomBorderTextInput
+            placeholder={Translator.chapterDesc}
+            onChangeText={e => setChapterDesc(e)}
+            value={chapterDesc}
+            subText={Translator.chapterDesc}
+            multiple={true}
           />
 
           <JustBottomBorderTextInput
@@ -435,10 +481,15 @@ function Create(props) {
                   priority: priority,
                   title: title,
                   duration: duration,
+                  chapter: chapter,
                 };
 
                 if (price !== undefined) {
                   data.price = price;
+                }
+
+                if (chapterDesc !== undefined) {
+                  data.chapterDesc = chapterDesc;
                 }
 
                 if (hasExam) {

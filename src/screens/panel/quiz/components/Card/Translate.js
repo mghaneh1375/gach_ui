@@ -19,6 +19,7 @@ const translate = {
   waitForResult: 'در انتظار صدور کارنامه باشید.',
   notStart: 'این آزمون هنوز شروع نشده است.',
   timeReminder: 'زمان باقی مانده',
+  resultReady: 'کارنامه آزمون صادر شده است.',
 };
 
 export default translate;

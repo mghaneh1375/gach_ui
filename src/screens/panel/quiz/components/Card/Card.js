@@ -38,6 +38,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../../styles/Common/Styles';
 import QuizItemCard from '../../../../../components/web/QuizItemCard';
+import {Rating} from 'react-native-ratings';
 
 function Card(props) {
   const [showMore, setShowMore] = useState(false);
@@ -223,20 +224,38 @@ function Card(props) {
                 valFontSize={fontSize}
               />
 
-              {props.quiz.status !== undefined &&
-                props.quiz.status !== 'finished' && (
-                  <QuizItemCard
-                    text={''}
-                    val={
-                      props.quiz.status === 'waitForResult'
+              {props.afterQuiz !== undefined && props.afterQuiz && (
+                <QuizItemCard
+                  text={''}
+                  val={
+                    props.quiz.status !== undefined &&
+                    props.quiz.status !== 'finished'
+                      ? props.quiz.status === 'waitForResult'
                         ? Translate.waitForResult
                         : props.quiz.status === 'notStart'
                         ? Translate.notStart
                         : ''
-                    }
-                    valFontSize={fontSize}
+                      : Translate.resultReady
+                  }
+                  valFontSize={fontSize}
+                />
+              )}
+
+              {props.quiz.rate !== undefined && (
+                <PhoneView style={{width: '100%', direction: 'ltr'}}>
+                  <Rating
+                    type="star"
+                    readonly={true}
+                    ratingCount={5}
+                    imageSize={30}
+                    fractions={2}
+                    style={{
+                      direction: 'ltr',
+                    }}
+                    startingValue={props.quiz.rate}
                   />
-                )}
+                </PhoneView>
+              )}
 
               {((props.quiz.status !== undefined &&
                 props.quiz.status !== 'inProgress' &&

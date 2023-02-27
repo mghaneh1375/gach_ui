@@ -38,6 +38,7 @@ import {setCacheItem} from '../../../../../API/User';
 import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import OffCode from '../../../buy/components/OffCode';
 import SessionDetail from './SessionDetail';
+import Chapter from './Chapter';
 
 function Detail(props) {
   const [item, setItem] = useState();
@@ -49,6 +50,7 @@ function Detail(props) {
   const [showPreReqMore, setShowPreReqMore] = useState(false);
   const [showPreReq, setShowPreReq] = useState(true);
   const [showSession, setShowSession] = useState(false);
+  const [showChapters, setShowChapters] = useState(false);
   const [showFAQ, setShowFAQ] = useState(false);
   const [refId, setRefId] = useState();
   const [userOff, setUserOff] = useState();
@@ -62,6 +64,8 @@ function Detail(props) {
   const [shouldPay, setShouldPay] = useState();
   const [selectedSession, setSelectedSession] = useState();
   const [showTeacher, setShowTeacher] = useState(false);
+  const [selectedChapter, setSelectedChapter] = useState();
+  const [wantedSessions, setWantedSessions] = useState();
 
   const ref = React.useRef();
 
@@ -371,6 +375,15 @@ function Detail(props) {
                     textFontSize={fontSize}
                     valFontSize={valFontSize}
                   />
+
+                  <QuizItemCard
+                    text={Translator.chaptersCount}
+                    val={item.chapters.length}
+                    icon={faListSquares}
+                    textFontSize={fontSize}
+                    color={vars.YELLOW}
+                    valFontSize={valFontSize}
+                  />
                   <QuizItemCard
                     text={Translator.sessionsCount}
                     val={item.sessionsCount}
@@ -572,41 +585,76 @@ function Detail(props) {
                   )}
                 </CommonWebBox>
               )}
-            <CommonWebBox
-              width={isInPhone ? '100%' : 'calc(70% - 10px)'}
-              btn={
-                showSession ? (
-                  <SimpleFontIcon
-                    onPress={() => setShowSession(!showSession)}
-                    kind="midSize"
-                    icon={faAngleDown}
-                  />
-                ) : (
-                  <SimpleFontIcon
-                    onPress={() => setShowSession(!showSession)}
-                    kind="midSize"
-                    icon={faAngleUp}
-                  />
-                )
-              }
-              header={Translator.sessions}></CommonWebBox>
-            {showSession && (
-              <MyView style={{width: isInPhone ? '100%' : 'calc(70% - 10px)'}}>
-                {item.sessions.map((elem, index) => {
-                  return (
-                    <Session
-                      setSelectedSession={s =>
-                        props.navigate(
-                          '/packages/' + props.slug + '/' + elem.id,
-                        )
-                      }
-                      session={elem}
-                      key={index}
+            {selectedChapter === undefined && (
+              <CommonWebBox
+                width={isInPhone ? '100%' : 'calc(70% - 10px)'}
+                btn={
+                  showChapters ? (
+                    <SimpleFontIcon
+                      onPress={() => setShowChapters(!showChapters)}
+                      kind="midSize"
+                      icon={faAngleDown}
                     />
-                  );
-                })}
-              </MyView>
+                  ) : (
+                    <SimpleFontIcon
+                      onPress={() => setShowChapters(!showChapters)}
+                      kind="midSize"
+                      icon={faAngleUp}
+                    />
+                  )
+                }
+                header={Translator.chapters}>
+                {showChapters && (
+                  <MyView>
+                    {item.chapters.map((elem, index) => {
+                      return (
+                        <Chapter
+                          setSelectedChapter={s => {
+                            setSelectedChapter(elem.title);
+                            setWantedSessions(
+                              item.sessions.filter(e => {
+                                return e.chapter === elem.title;
+                              }),
+                            );
+                          }}
+                          chapter={elem}
+                          key={index}
+                        />
+                      );
+                    })}
+                  </MyView>
+                )}
+              </CommonWebBox>
             )}
+
+            {selectedChapter !== undefined && (
+              <CommonWebBox
+                width={isInPhone ? '100%' : 'calc(70% - 10px)'}
+                backBtn={true}
+                onBackClick={() => {
+                  setSelectedChapter(undefined);
+                  setShowChapters(true);
+                }}
+                header={Translator.sessions}>
+                <MyView>
+                  {wantedSessions !== undefined &&
+                    wantedSessions.map((elem, index) => {
+                      return (
+                        <Session
+                          setSelectedSession={s => {
+                            props.navigate(
+                              '/packages/' + props.slug + '/' + elem.id,
+                            );
+                          }}
+                          session={elem}
+                          key={index}
+                        />
+                      );
+                    })}
+                </MyView>
+              </CommonWebBox>
+            )}
+
             <CommonWebBox
               width={isInPhone ? '100%' : 'calc(70% - 10px)'}
               btn={
