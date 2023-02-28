@@ -18,7 +18,19 @@ const columns = [
   {
     name: 'تاریخ ثبت نام',
     selector: row => row.registerAt,
-    grow: 4,
+    grow: 2,
+    style: {
+      minWidth: '200px !important',
+    },
+  },
+  {
+    name: 'امتیاز',
+    selector: row => (row.rate === undefined ? 'امتیاز داده نشده' : row.rate),
+  },
+  {
+    name: 'تاریخ امتیاز',
+    selector: row => (row.rate === undefined ? 'امتیاز داده نشده' : row.rateAt),
+    grow: 2,
     style: {
       minWidth: '200px !important',
     },

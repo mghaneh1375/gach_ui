@@ -4,6 +4,7 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
+  CommonRadioButton,
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../translator/Common';
@@ -110,6 +111,8 @@ const Students = props => {
   const [foundUser, setFoundUser] = useState();
   const [studentIdx, setStudentIdx] = useState();
   const [showAnswerSheet, setShowAnswerSheet] = useState(false);
+  const [showJustRate, setShowJustRate] = useState(false);
+  const [data, setData] = useState(state.selectedQuiz.students);
 
   const prepareShowAnswerSheet = async () => {
     if (state.selectedQuiz.mode === 'tashrihi') {
@@ -240,27 +243,47 @@ const Students = props => {
                 />
               </MyView>
             </ExcelComma>
-            <CommonDataTable
-              columns={
-                state.selectedQuiz.mode === 'tashrihi'
-                  ? state.selectedQuiz.isQRNeeded !== undefined &&
-                    state.selectedQuiz.isQRNeeded
-                    ? columnsForQRTashtihi
-                    : columnsForTashtihi
-                  : columns
-              }
-              data={state.selectedQuiz.students}
-              handleOp={handleOp}
-              setLoading={props.setLoading}
-              token={props.token}
-              setData={setStudents}
-              removeUrl={
-                routes.forceDeportation +
-                state.selectedQuiz.generalMode +
-                '/' +
-                state.selectedQuiz.id
-              }
+            <CommonRadioButton
+              status={showJustRate ? 'checked' : 'unchecked'}
+              onPress={() => {
+                setShowJustRate(true);
+                setData(
+                  state.selectedQuiz.students.filter(e => e.rate !== undefined),
+                );
+              }}
+              text={'فقط افراد دارای امتیاز را نمایش بده'}
             />
+            <CommonRadioButton
+              status={showJustRate ? 'unchecked' : 'checked'}
+              onPress={() => {
+                setShowJustRate(false);
+                setData(state.selectedQuiz.students);
+              }}
+              text={'نمایش همه افراد'}
+            />
+            {data !== undefined && (
+              <CommonDataTable
+                columns={
+                  state.selectedQuiz.mode === 'tashrihi'
+                    ? state.selectedQuiz.isQRNeeded !== undefined &&
+                      state.selectedQuiz.isQRNeeded
+                      ? columnsForQRTashtihi
+                      : columnsForTashtihi
+                    : columns
+                }
+                data={data}
+                handleOp={handleOp}
+                setLoading={props.setLoading}
+                token={props.token}
+                setData={setStudents}
+                removeUrl={
+                  routes.forceDeportation +
+                  state.selectedQuiz.generalMode +
+                  '/' +
+                  state.selectedQuiz.id
+                }
+              />
+            )}
           </CommonWebBox>
         </MyView>
       )}
