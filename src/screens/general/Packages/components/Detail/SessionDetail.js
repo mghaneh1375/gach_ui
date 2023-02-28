@@ -63,6 +63,7 @@ function SessionDetail(props) {
       }
 
       setAllSessions(res[0].sessions);
+      if (res[0].adv === undefined) setShowAdvertising(false);
       setAdv(res[0].adv);
       setSelectedSession(res[0].sessions.find(elem => elem.selected));
     });

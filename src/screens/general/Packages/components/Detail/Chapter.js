@@ -14,10 +14,21 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import RenderHTML from 'react-native-render-html';
 import {styles} from '../../../../../styles/Common/Styles';
-import {convertSecToMinWithOutHour} from '../../../../../services/Utility';
+import {
+  convertSecToMinWithOutHour,
+  systemFonts,
+  tagsStyles,
+} from '../../../../../services/Utility';
+import Session from './Session';
 
 function Chapter(props) {
   const [show, setShow] = useState(false);
+  const [sessions, setSessions] = useState();
+  const [showSessions, setShowSessions] = useState(false);
+
+  React.useEffect(() => {
+    setSessions(props.sessions);
+  }, [props.sessions]);
 
   return (
     <CommonWebBox
@@ -54,17 +65,33 @@ function Chapter(props) {
               source={{
                 html: props.chapter.description,
               }}
+              tagsStyles={tagsStyles}
+              systemFonts={systemFonts}
             />
           </MyView>
 
+          {showSessions &&
+            sessions !== undefined &&
+            sessions.map((elem, index) => {
+              return (
+                <Session
+                  setSelectedSession={s => {
+                    props.onPressSession(elem.id);
+                  }}
+                  session={elem}
+                  key={index}
+                />
+              );
+            })}
+
           <SimpleText
-            onPress={() => props.setSelectedChapter(props.chapter)}
+            onPress={() => setShowSessions(!showSessions)}
             style={{
               ...styles.yellow_color,
               ...styles.alignSelfEnd,
               ...styles.cursor_pointer,
             }}
-            text={'مشاهده جلسات'}
+            text={showSessions ? 'بستن جلسات' : 'مشاهده جلسات'}
           />
         </MyView>
       )}

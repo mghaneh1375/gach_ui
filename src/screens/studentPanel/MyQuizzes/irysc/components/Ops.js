@@ -36,7 +36,8 @@ function Ops(props) {
   );
 
   React.useEffect(() => {
-    setRate(state.selectedQuiz.stdRate);
+    if (state.selectedQuiz.stdRate !== undefined)
+      setRate(state.selectedQuiz.stdRate);
   }, [state.selectedQuiz.stdRate]);
 
   const prepareShowAnswerSheet = async () => {
@@ -289,7 +290,7 @@ function Ops(props) {
           )}
         </>
       )}
-      {showRatePane && (
+      {showRatePane && rate !== undefined && (
         <MyView>
           <EqualTwoTextInputs
             style={{width: 300, alignItems: 'center', alignSelf: 'center'}}>

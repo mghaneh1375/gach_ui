@@ -17,6 +17,7 @@ import {
 } from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
 import {Translator} from '../Translator';
+import {Rating} from 'react-native-ratings';
 
 function Card(props) {
   const [img, setImg] = useState();
@@ -84,6 +85,23 @@ function Card(props) {
         style={styles.BlueBold}
         text={Translator.teacher + commonTranslator.col + props.package.teacher}
       />
+
+      {props.package.rate !== undefined && (
+        <PhoneView style={{width: '100%', direction: 'ltr'}}>
+          <Rating
+            type="star"
+            readonly={true}
+            ratingCount={5}
+            imageSize={30}
+            fractions={2}
+            style={{
+              direction: 'ltr',
+            }}
+            startingValue={props.package.rate}
+          />
+        </PhoneView>
+      )}
+
       <EqualTwoTextInputs>
         {!props.isInMyMode && (
           <SimpleText

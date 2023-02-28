@@ -19,7 +19,6 @@ const FontIconStyleAndroid = {
 const FontIconStyleWeb = {
   ...FontIconStyle,
   padding: 4,
-  cursor: 'pointer',
   alignSelf: 'center',
 };
 
@@ -124,7 +123,7 @@ export const FontIcon = props => {
 
 export const SimpleFontIcon = props => {
   let allStyles = {
-    cursor: 'pointer',
+    cursor: props.onPress === undefined ? 'auto' : 'pointer',
     width:
       props.kind === undefined || props.kind === 'full'
         ? '100%'
@@ -164,6 +163,7 @@ export const SimpleFontIcon = props => {
           Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
           {
             color: vars.LIGHT_SILVER,
+            cursor: props.onPress === undefined ? 'auto' : 'pointer',
           },
           props.style ? props.style : {},
         ]}

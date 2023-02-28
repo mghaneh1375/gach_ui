@@ -5,6 +5,7 @@ import {
   formatPrice,
   getDevice,
   showError,
+  showSuccess,
   systemFonts,
   tagsStyles,
 } from '../../../../../services/Utility';
@@ -39,6 +40,11 @@ import SuccessTransaction from '../../../../../components/web/SuccessTransaction
 import OffCode from '../../../buy/components/OffCode';
 import SessionDetail from './SessionDetail';
 import Chapter from './Chapter';
+import {Rating} from 'react-native-ratings';
+import {generalRequest} from '../../../../../API/Utility';
+import {routes} from '../../../../../API/APIRoutes';
+import Card from '../Card';
+import {style} from '../../../../studentPanel/RunQuiz/style';
 
 function Detail(props) {
   const [item, setItem] = useState();
@@ -49,7 +55,6 @@ function Detail(props) {
   const [showDescMore, setShowDescMore] = useState(false);
   const [showPreReqMore, setShowPreReqMore] = useState(false);
   const [showPreReq, setShowPreReq] = useState(true);
-  const [showSession, setShowSession] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
   const [showFAQ, setShowFAQ] = useState(false);
   const [refId, setRefId] = useState();
@@ -64,8 +69,7 @@ function Detail(props) {
   const [shouldPay, setShouldPay] = useState();
   const [selectedSession, setSelectedSession] = useState();
   const [showTeacher, setShowTeacher] = useState(false);
-  const [selectedChapter, setSelectedChapter] = useState();
-  const [wantedSessions, setWantedSessions] = useState();
+  const [packageRate, setPackageRate] = useState();
 
   const ref = React.useRef();
 
@@ -143,6 +147,18 @@ function Detail(props) {
     const position = window.pageYOffset;
     setScrollPosition(position);
   };
+
+  const [rate, setRate] = useState();
+  const [teacherPackages, setTeacherPackages] = useState();
+
+  React.useEffect(() => {
+    if (item !== undefined && item.rate !== undefined)
+      setPackageRate(item.rate);
+
+    if (item !== undefined && item.stdRate !== undefined) setRate(item.stdRate);
+    else if (item !== undefined && item.stdRate === undefined) setRate(0);
+  }, [item]);
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, {passive: true});
 
@@ -208,6 +224,26 @@ function Detail(props) {
             tagsStyles={tagsStyles}
             systemFonts={systemFonts}
           />
+          {teacherPackages !== undefined && teacherPackages.length > 0 && (
+            <MyView>
+              <SimpleText
+                text={'دوره های دیگر این استاد'}
+                style={{...styles.BlueBold, ...styles.fontSize22}}
+              />
+              <PhoneView style={{...styles.gap10}}>
+                {teacherPackages.map((elem, index) => {
+                  return (
+                    <Card
+                      isInMyMode={false}
+                      isInPhone={isInPhone}
+                      key={index}
+                      package={elem}
+                    />
+                  );
+                })}
+              </PhoneView>
+            </MyView>
+          )}
         </CommonWebBox>
       )}
       {showOffCodePane && (
@@ -367,43 +403,70 @@ function Detail(props) {
                   </CommonWebBox>
                 )}
                 <CommonWebBox>
-                  <QuizItemCard
-                    text={Translator.packageDuration}
-                    val={convertSecToMinWithOutSec(item.duration)}
-                    icon={faClock}
-                    color={vars.YELLOW}
-                    textFontSize={fontSize}
-                    valFontSize={valFontSize}
-                  />
+                  <EqualTwoTextInputs
+                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    <QuizItemCard
+                      text={Translator.packageDuration}
+                      val={convertSecToMinWithOutSec(item.duration)}
+                      icon={faClock}
+                      color={vars.YELLOW}
+                      textFontSize={fontSize}
+                      valFontSize={valFontSize}
+                    />
 
-                  <QuizItemCard
-                    text={Translator.chaptersCount}
-                    val={item.chapters.length}
-                    icon={faListSquares}
-                    textFontSize={fontSize}
-                    color={vars.YELLOW}
-                    valFontSize={valFontSize}
-                  />
-                  <QuizItemCard
-                    text={Translator.sessionsCount}
-                    val={item.sessionsCount}
-                    icon={faListSquares}
-                    textFontSize={fontSize}
-                    color={vars.YELLOW}
-                    valFontSize={valFontSize}
-                  />
-                  <QuizItemCard
-                    text={Translator.cert}
-                    val={
-                      item.hasCert
-                        ? commonTranslator.has
-                        : commonTranslator.not_has
-                    }
-                    icon={faSun}
-                    color={vars.YELLOW}
-                    textFontSize={fontSize}
-                    valFontSize={valFontSize}
-                  />
+                    <QuizItemCard
+                      text={Translator.chaptersCount}
+                      val={item.chapters.length}
+                      icon={faListSquares}
+                      textFontSize={fontSize}
+                      color={vars.YELLOW}
+                      valFontSize={valFontSize}
+                    />
+                  </EqualTwoTextInputs>
+                  <EqualTwoTextInputs
+                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    <QuizItemCard
+                      text={Translator.sessionsCount}
+                      val={item.sessionsCount}
+                      icon={faListSquares}
+                      textFontSize={fontSize}
+                      color={vars.YELLOW}
+                      valFontSize={valFontSize}
+                    />
+                    <QuizItemCard
+                      text={Translator.cert}
+                      val={
+                        item.hasCert
+                          ? commonTranslator.has
+                          : commonTranslator.not_has
+                      }
+                      icon={faSun}
+                      color={vars.YELLOW}
+                      textFontSize={fontSize}
+                      valFontSize={valFontSize}
+                    />
+                  </EqualTwoTextInputs>
+
+                  {packageRate !== undefined && (
+                    <PhoneView
+                      style={{
+                        width: '100%',
+                        direction: 'ltr',
+                        justifyContent: 'center',
+                      }}>
+                      <Rating
+                        type="star"
+                        readonly={true}
+                        ratingCount={5}
+                        imageSize={30}
+                        fractions={2}
+                        style={{
+                          direction: 'ltr',
+                        }}
+                        startingValue={packageRate}
+                      />
+                    </PhoneView>
+                  )}
 
                   {(item.afterBuy === undefined || !item.afterBuy) && (
                     <EqualTwoTextInputs>
@@ -491,6 +554,57 @@ function Detail(props) {
                     </MyView>
                   )}
                 </CommonWebBox>
+
+                {item.afterBuy !== undefined &&
+                  item.afterBuy &&
+                  rate !== undefined && (
+                    <CommonWebBox>
+                      <EqualTwoTextInputs
+                        style={{
+                          width: 300,
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                        }}>
+                        <SimpleText text={'امتیاز شما'} />
+                        <Rating
+                          type="star"
+                          ratingCount={5}
+                          imageSize={30}
+                          fractions={0}
+                          style={{
+                            direction: 'ltr',
+                            cursor: 'pointer',
+                          }}
+                          startingValue={rate}
+                          onFinishRating={rating => setRate(rating)}
+                        />
+                      </EqualTwoTextInputs>
+                      <CommonButton
+                        onPress={async () => {
+                          if (rate === undefined) {
+                            showError('لطفا امتیاز موردنظر خود را انتخاب کنید');
+                            return;
+                          }
+                          props.setLoading(true);
+                          let res = await generalRequest(
+                            routes.rateContent + item.id,
+                            'put',
+                            {rate: rate},
+                            'data',
+                            props.token,
+                          );
+                          props.setLoading(false);
+                          if (res != null) {
+                            setPackageRate(res);
+                            showSuccess();
+                          }
+                        }}
+                        theme={vars.DARK_BLUE}
+                        title={commonTranslator.confirm}
+                      />
+                    </CommonWebBox>
+                  )}
+
                 <CommonWebBox header={Translator.teacherBio}>
                   <SimpleText style={styles.BlueBold} text={item.teacher} />
                   {item.teacherBio !== undefined &&
@@ -515,7 +629,27 @@ function Detail(props) {
                           />
                         </MyView>
                         <SimpleText
-                          onPress={() => setShowTeacher(true)}
+                          onPress={async () => {
+                            if (teacherPackages !== undefined)
+                              setShowTeacher(true);
+                            else {
+                              let params = new URLSearchParams();
+                              params.append('teacher', item.teacher);
+
+                              let res = await generalRequest(
+                                routes.teacherPackages + params.toString(),
+                                'get',
+                                undefined,
+                                'data',
+                              );
+                              if (res !== null)
+                                setTeacherPackages(
+                                  res.filter(e => e.id !== item.id),
+                                );
+                              else setTeacherPackages([]);
+                              setShowTeacher(true);
+                            }
+                          }}
                           style={{
                             ...styles.yellow_color,
                             ...styles.alignSelfEnd,
@@ -585,75 +719,44 @@ function Detail(props) {
                   )}
                 </CommonWebBox>
               )}
-            {selectedChapter === undefined && (
-              <CommonWebBox
-                width={isInPhone ? '100%' : 'calc(70% - 10px)'}
-                btn={
-                  showChapters ? (
-                    <SimpleFontIcon
-                      onPress={() => setShowChapters(!showChapters)}
-                      kind="midSize"
-                      icon={faAngleDown}
-                    />
-                  ) : (
-                    <SimpleFontIcon
-                      onPress={() => setShowChapters(!showChapters)}
-                      kind="midSize"
-                      icon={faAngleUp}
-                    />
-                  )
-                }
-                header={Translator.chapters}>
-                {showChapters && (
-                  <MyView>
-                    {item.chapters.map((elem, index) => {
-                      return (
-                        <Chapter
-                          setSelectedChapter={s => {
-                            setSelectedChapter(elem.title);
-                            setWantedSessions(
-                              item.sessions.filter(e => {
-                                return e.chapter === elem.title;
-                              }),
-                            );
-                          }}
-                          chapter={elem}
-                          key={index}
-                        />
-                      );
-                    })}
-                  </MyView>
-                )}
-              </CommonWebBox>
-            )}
 
-            {selectedChapter !== undefined && (
-              <CommonWebBox
-                width={isInPhone ? '100%' : 'calc(70% - 10px)'}
-                backBtn={true}
-                onBackClick={() => {
-                  setSelectedChapter(undefined);
-                  setShowChapters(true);
-                }}
-                header={Translator.sessions}>
+            <CommonWebBox
+              width={isInPhone ? '100%' : 'calc(70% - 10px)'}
+              btn={
+                showChapters ? (
+                  <SimpleFontIcon
+                    onPress={() => setShowChapters(!showChapters)}
+                    kind="midSize"
+                    icon={faAngleDown}
+                  />
+                ) : (
+                  <SimpleFontIcon
+                    onPress={() => setShowChapters(!showChapters)}
+                    kind="midSize"
+                    icon={faAngleUp}
+                  />
+                )
+              }
+              header={Translator.chapters}>
+              {showChapters && (
                 <MyView>
-                  {wantedSessions !== undefined &&
-                    wantedSessions.map((elem, index) => {
-                      return (
-                        <Session
-                          setSelectedSession={s => {
-                            props.navigate(
-                              '/packages/' + props.slug + '/' + elem.id,
-                            );
-                          }}
-                          session={elem}
-                          key={index}
-                        />
-                      );
-                    })}
+                  {item.chapters.map((elem, index) => {
+                    return (
+                      <Chapter
+                        sessions={item.sessions.filter(e => {
+                          return e.chapter === elem.title;
+                        })}
+                        onPressSession={s => {
+                          props.navigate('/packages/' + props.slug + '/' + s);
+                        }}
+                        chapter={elem}
+                        key={index}
+                      />
+                    );
+                  })}
                 </MyView>
-              </CommonWebBox>
-            )}
+              )}
+            </CommonWebBox>
 
             <CommonWebBox
               width={isInPhone ? '100%' : 'calc(70% - 10px)'}

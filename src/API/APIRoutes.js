@@ -227,6 +227,8 @@ export const routes = {
   fetchAllCertificate: 'certificate/admin/getAll',
   removeCertificate: 'certificate/admin/remove',
   removeStudentsFromCertificate: 'certificate/admin/removeStudents/',
+  rateContent: 'package_content/public/rate/',
+  teacherPackages: 'package_content/public/teacherPackages?',
   fetchContents: 'package_content/public/getAll',
   fetchMyContents: 'package_content/public/getMy',
   fetchContent: 'package_content/public/get/',
