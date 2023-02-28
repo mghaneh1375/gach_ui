@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import qualitySelector from 'videojs-hls-quality-selector';
@@ -11,8 +11,14 @@ export const VideoJS = props => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
   const {myOptions, onFinish, options, onReady} = props;
+  const [init, setInit] = useState(false);
+  const [isWorking, setIsWorking] = useState();
 
   React.useEffect(() => {
+    if (isWorking || init) return;
+
+    setIsWorking(true);
+
     // Make sure Video.js player is only initialized once
     if (!playerRef.current) {
       // The Video.js player needs to be _inside_ the component el for React 18 Strict Mode.
@@ -53,14 +59,27 @@ export const VideoJS = props => {
       // on prop change, for example:
     } else {
       const player = playerRef.current;
+
       if (myOptions.disableSeekbar) player.controlBar.progressControl.disable();
+
       player.hlsQualitySelector({
         displayCurrentQuality: true,
       });
       player.autoplay(options.autoplay);
       player.src(options.sources);
     }
-  }, [options, videoRef, onReady, myOptions.disableSeekbar, onFinish]);
+
+    setInit(true);
+    setIsWorking(false);
+  }, [
+    options,
+    videoRef,
+    onReady,
+    myOptions.disableSeekbar,
+    onFinish,
+    isWorking,
+    init,
+  ]);
 
   // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {
@@ -68,7 +87,7 @@ export const VideoJS = props => {
 
     return () => {
       if (player && !player.isDisposed()) {
-        player.hlsQualitySelector({displayCurrentQuality: true});
+        // player.hlsQualitySelector({displayCurrentQuality: true});
         player.dispose();
         playerRef.current = null;
       }

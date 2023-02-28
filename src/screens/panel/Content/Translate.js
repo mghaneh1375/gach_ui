@@ -25,6 +25,8 @@ const Translator = {
   preReq: 'پیش نیاز های دوره',
   cert: 'گواهی دوره',
   tags: 'برچسب ها',
+  chapter: 'فصل',
+  chapterDesc: 'توضیحات فصل (اختیاری)',
   seeInfo: 'مشاهده اطلاعات',
   sessions: 'مدیریت جلسات',
   users: 'گزارش گیری خریداران',

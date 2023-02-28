@@ -5,6 +5,8 @@ const Translate = {
   ranking: 'مشاهده رتبه بندی',
   answerSheet: 'مشاهده پاسخ برگ',
   review: 'مرور آزمون',
+  rate: 'امتیاز بده',
+  yourRate: 'امتیاز مدنظر',
 };
 
 export default Translate;

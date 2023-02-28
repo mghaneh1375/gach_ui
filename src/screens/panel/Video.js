@@ -17,6 +17,10 @@ function Video(props) {
     ],
   };
 
+  React.useEffect(() => {
+    console.log(props.src);
+  }, [props.src]);
+
   const handlePlayerReady = player => {
     playerRef.current = player;
   };

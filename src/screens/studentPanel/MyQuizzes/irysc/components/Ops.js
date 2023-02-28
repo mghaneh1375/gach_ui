@@ -1,5 +1,10 @@
-import React from 'react';
-import {CommonButton, PhoneView} from '../../../../../styles/Common';
+import React, {useState} from 'react';
+import {
+  CommonButton,
+  EqualTwoTextInputs,
+  PhoneView,
+  SimpleText,
+} from '../../../../../styles/Common';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import {
   quizContext,
@@ -10,6 +15,12 @@ import Translate from '../../Translate';
 import {getMyAnswerSheet, getRecpForQuiz} from './Utility';
 import translator from '../../../../panel/quiz/Translator';
 import commonTranslator from '../../../../../translator/Common';
+import {MyView} from 'react-native-multi-selectbox';
+import {Rating} from 'react-native-ratings';
+import vars from '../../../../../styles/root';
+import {generalRequest} from '../../../../../API/Utility';
+import {routes} from '../../../../../API/APIRoutes';
+import {showError, showSuccess} from '../../../../../services/Utility';
 
 function Ops(props) {
   const useGlobalState = () => [
@@ -18,6 +29,16 @@ function Ops(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
+
+  const [showRatePane, setShowRatePane] = useState(false);
+  const [rate, setRate] = useState(
+    state.selectedQuiz.stdRate === undefined ? 0 : state.selectedQuiz.stdRate,
+  );
+
+  React.useEffect(() => {
+    if (state.selectedQuiz.stdRate !== undefined)
+      setRate(state.selectedQuiz.stdRate);
+  }, [state.selectedQuiz.stdRate]);
 
   const prepareShowAnswerSheet = async () => {
     if (state.selectedQuiz.mode === 'tashrihi') {
@@ -148,81 +169,146 @@ function Ops(props) {
   };
 
   return (
-    <LargePopUp toggleShowPopUp={props.toggleShowPopUp}>
-      {props.user.accesses.indexOf('student') !== -1 && (
-        <PhoneView style={{gap: 10}}>
-          {state.selectedQuiz.status === 'finished' && (
-            <CommonButton
-              onPress={() => prepareShowResult()}
-              title={Translate.result}
-              theme={'transparent'}
-            />
-          )}
-          {state.selectedQuiz.status === 'finished' && (
-            <CommonButton
-              onPress={() => prepareShowAnswerSheet()}
-              title={Translate.answerSheet}
-              theme={'transparent'}
-            />
-          )}
-          {state.selectedQuiz.status === 'finished' && (
-            <CommonButton
-              onPress={() => prepareShowRanking()}
-              title={Translate.ranking}
-              theme={'transparent'}
-            />
-          )}
+    <LargePopUp
+      toggleShowPopUp={props.toggleShowPopUp}
+      btns={
+        showRatePane ? (
           <CommonButton
-            onPress={() => getRecp()}
-            title={Translate.recp}
-            theme={'transparent'}
+            onPress={async () => {
+              if (rate === undefined) {
+                showError('لطفا امتیاز موردنظر خود را انتخاب کنید');
+                return;
+              }
+              props.setLoading(true);
+              let res = await generalRequest(
+                routes.rateQuiz +
+                  state.selectedQuiz.generalMode +
+                  '/' +
+                  state.selectedQuiz.id,
+                'put',
+                {rate: rate},
+                'data',
+                props.token,
+              );
+              props.setLoading(false);
+              if (res != null) {
+                state.selectedQuiz.stdRate = rate;
+                state.selectedQuiz.rate = res;
+                dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+                showSuccess();
+                setShowRatePane(false);
+              }
+            }}
+            theme={vars.DARK_BLUE}
+            title={commonTranslator.confirm}
           />
-          {state.selectedQuiz.status === 'finished' &&
-            (state.selectedQuiz.isQRNeeded === undefined ||
-              !state.selectedQuiz.isQRNeeded) && (
+        ) : (
+          <></>
+        )
+      }>
+      {!showRatePane && (
+        <>
+          {props.user.accesses.indexOf('student') !== -1 && (
+            <PhoneView style={{gap: 10}}>
+              {state.selectedQuiz.status === 'finished' && (
+                <CommonButton
+                  onPress={() => prepareShowResult()}
+                  title={Translate.result}
+                  theme={'transparent'}
+                />
+              )}
+              {state.selectedQuiz.status === 'finished' && (
+                <CommonButton
+                  onPress={() => prepareShowAnswerSheet()}
+                  title={Translate.answerSheet}
+                  theme={'transparent'}
+                />
+              )}
+              {state.selectedQuiz.status === 'finished' && (
+                <CommonButton
+                  onPress={() => prepareShowRanking()}
+                  title={Translate.ranking}
+                  theme={'transparent'}
+                />
+              )}
               <CommonButton
-                onPress={() => prepareReview()}
-                title={Translate.review}
+                onPress={() => getRecp()}
+                title={Translate.recp}
                 theme={'transparent'}
               />
-            )}
-        </PhoneView>
+              <CommonButton
+                onPress={() => setShowRatePane(true)}
+                title={Translate.rate}
+                theme={'transparent'}
+              />
+              {state.selectedQuiz.status === 'finished' &&
+                (state.selectedQuiz.isQRNeeded === undefined ||
+                  !state.selectedQuiz.isQRNeeded) && (
+                  <CommonButton
+                    onPress={() => prepareReview()}
+                    title={Translate.review}
+                    theme={'transparent'}
+                  />
+                )}
+            </PhoneView>
+          )}
+          {props.user.accesses.indexOf('student') === -1 && (
+            <PhoneView style={{gap: 10}}>
+              <CommonButton
+                dir={'rtl'}
+                theme={'transparent'}
+                onPress={() => {
+                  props.setWantedQuizId(state.selectedQuiz.id);
+                  props.setMode('students');
+                }}
+                title={translator.studentsList}
+              />
+
+              {state.selectedQuiz.reportStatus === 'ready' && (
+                // <CommonButton
+                //   onPress={() => props.setMode('ranking')}
+                //   dir={'rtl'}
+                //   theme={'transparent'}
+                //   title={translator.seeRanking}
+                // />
+                <CommonButton
+                  onPress={() => prepareShowRanking()}
+                  title={Translate.ranking}
+                  theme={'transparent'}
+                />
+              )}
+
+              {state.selectedQuiz.reportStatus === 'ready' && (
+                <CommonButton
+                  onPress={() => props.setMode('report')}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  title={commonTranslator.report}
+                />
+              )}
+            </PhoneView>
+          )}
+        </>
       )}
-      {props.user.accesses.indexOf('student') === -1 && (
-        <PhoneView style={{gap: 10}}>
-          <CommonButton
-            dir={'rtl'}
-            theme={'transparent'}
-            onPress={() => {
-              props.setWantedQuizId(state.selectedQuiz.id);
-              props.setMode('students');
-            }}
-            title={translator.studentsList}
-          />
-
-          {state.selectedQuiz.reportStatus === 'ready' && (
-            // <CommonButton
-            //   onPress={() => props.setMode('ranking')}
-            //   dir={'rtl'}
-            //   theme={'transparent'}
-            //   title={translator.seeRanking}
-            // />
-            <CommonButton
-              onPress={() => prepareShowRanking()}
-              title={Translate.ranking}
-              theme={'transparent'}
+      {showRatePane && rate !== undefined && (
+        <MyView>
+          <EqualTwoTextInputs
+            style={{width: 300, alignItems: 'center', alignSelf: 'center'}}>
+            <SimpleText text={Translate.yourRate} />
+            <Rating
+              type="star"
+              ratingCount={5}
+              imageSize={30}
+              fractions={0}
+              style={{
+                direction: 'ltr',
+                cursor: 'pointer',
+              }}
+              startingValue={rate}
+              onFinishRating={rating => setRate(rating)}
             />
-          )}
-
-          {state.selectedQuiz.reportStatus === 'ready' && (
-            <CommonButton
-              onPress={() => props.setMode('report')}
-              dir={'rtl'}
-              theme={'transparent'}
-              title={commonTranslator.report}
-            />
-          )}
-        </PhoneView>
+          </EqualTwoTextInputs>
+        </MyView>
       )}
     </LargePopUp>
   );

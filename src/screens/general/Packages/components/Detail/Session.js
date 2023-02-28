@@ -1,5 +1,4 @@
 import {
-  CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
@@ -13,15 +12,21 @@ import {
   faClock,
   faLock,
   faPaperclip,
+  faPlay,
 } from '@fortawesome/free-solid-svg-icons';
 import RenderHTML from 'react-native-render-html';
 import {styles} from '../../../../../styles/Common/Styles';
-import {convertSecToMinWithOutHour} from '../../../../../services/Utility';
+import {
+  convertSecToMinWithOutHour,
+  systemFonts,
+  tagsStyles,
+} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../translator/Common';
+import {SimpleTextIcon} from '../../../../../styles/Common/TextIcon';
 
 function Session(props) {
-  const [show, setShow] = useState(false);
-  const [showMore, setShowMore] = useState(false);
+  const [show, setShow] = useState(true);
+  const [showMore, setShowMore] = useState(true);
 
   return (
     <CommonWebBox
@@ -72,6 +77,8 @@ function Session(props) {
               source={{
                 html: props.session.description,
               }}
+              tagsStyles={tagsStyles}
+              systemFonts={systemFonts}
             />
           </MyView>
 
@@ -79,18 +86,26 @@ function Session(props) {
             props.session.video !== undefined &&
             props.session.video !== 'null' &&
             props.session.video !== '' && (
-              <SimpleText
+              <SimpleTextIcon
                 onPress={() => props.setSelectedSession(props.session)}
                 style={{
-                  ...styles.yellow_color,
                   ...styles.alignSelfEnd,
-                  ...styles.cursor_pointer,
+                  ...{
+                    direction: 'ltr',
+                  },
                 }}
+                iconStyle={{...styles.yellow_color}}
+                textStyle={{
+                  ...styles.yellow_color,
+                  ...styles.cursor_pointer,
+                  ...styles.fontSize22,
+                }}
+                icon={faPlay}
                 text={'رفتن به جلسه'}
               />
             )}
 
-          {(props.session.video === null ||
+          {/* {(props.session.video === null ||
             props.session.video == undefined ||
             props.session.video === 'null' ||
             props.session.video === '') && (
@@ -105,7 +120,7 @@ function Session(props) {
                 showMore ? commonTranslator.showLess : commonTranslator.showMore
               }
             />
-          )}
+          )} */}
         </MyView>
       )}
     </CommonWebBox>
