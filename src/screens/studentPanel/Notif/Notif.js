@@ -1,8 +1,5 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import {PublicNotifProvider} from './components/Context';
 import Detail from './components/Detail';
