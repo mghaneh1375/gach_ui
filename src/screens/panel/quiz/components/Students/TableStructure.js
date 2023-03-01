@@ -67,6 +67,18 @@ export const columnsForTashtihi = [
     },
   },
   {
+    name: 'امتیاز',
+    selector: row => (row.rate === undefined ? 'امتیاز داده نشده' : row.rate),
+  },
+  {
+    name: 'تاریخ امتیاز',
+    selector: row => (row.rate === undefined ? 'امتیاز داده نشده' : row.rateAt),
+    grow: 2,
+    style: {
+      minWidth: '200px !important',
+    },
+  },
+  {
     name: 'وضعیت تصحیح',
     selector: row => (row.allMarked ? 'تصحیح شده' : 'تصحیح نشده'),
   },

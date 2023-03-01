@@ -1,5 +1,5 @@
 import {
-  CommonWebBox,
+  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -21,16 +21,19 @@ import {
   systemFonts,
   tagsStyles,
 } from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
 import {SimpleTextIcon} from '../../../../../styles/Common/TextIcon';
 
 function Session(props) {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [showMore, setShowMore] = useState(true);
 
   return (
-    <CommonWebBox
-      btn={
+    <MyView style={{...styles.borderBottom1, ...styles.paddingBottomUp5}}>
+      <EqualTwoTextInputs>
+        <SimpleText
+          text={'جلسه ' + (props.index + 1) + ': ' + props.session.title}
+          style={{...styles.BlueBold}}
+        />
         <PhoneView style={styles.gap15}>
           {props.session.attachesCount !== undefined &&
             props.session.attachesCount > 0 && (
@@ -60,8 +63,7 @@ function Session(props) {
             icon={show ? faAngleDown : faAngleUp}
           />
         </PhoneView>
-      }
-      header={props.session.title}>
+      </EqualTwoTextInputs>
       {show && (
         <MyView>
           <MyView
@@ -123,7 +125,7 @@ function Session(props) {
           )} */}
         </MyView>
       )}
-    </CommonWebBox>
+    </MyView>
   );
 }
 

@@ -112,7 +112,11 @@ const Students = props => {
   const [studentIdx, setStudentIdx] = useState();
   const [showAnswerSheet, setShowAnswerSheet] = useState(false);
   const [showJustRate, setShowJustRate] = useState(false);
-  const [data, setData] = useState(state.selectedQuiz.students);
+  const [data, setData] = useState();
+
+  React.useEffect(() => {
+    setData(state.selectedQuiz.students);
+  }, [state.selectedQuiz.students]);
 
   const prepareShowAnswerSheet = async () => {
     if (state.selectedQuiz.mode === 'tashrihi') {

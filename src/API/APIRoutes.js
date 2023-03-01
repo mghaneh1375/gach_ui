@@ -276,6 +276,7 @@ export const routes = {
   fetchAllNotifs: 'notifs/manage/getAll',
   getNotif: 'notifs/manage/get/',
   storeNotif: 'notifs/manage/store',
+  simpleStoreNotif: 'notifs/manage/simpleStore',
   removeNotif: 'notifs/manage/remove/',
   getNotifStudents: 'notifs/manage/getStudents/',
   getAllTags: 'advisor/tag/getAllTags',

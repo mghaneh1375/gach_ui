@@ -104,6 +104,18 @@ export const store = async (token, data, fileContent) => {
   return res;
 };
 
+export const simpleStore = async (token, data) => {
+  let res = await generalRequest(
+    routes.simpleStoreNotif,
+    'post',
+    data,
+    ['id', 'usersCount', 'createdAt'],
+    token,
+  );
+  if (res !== null) showSuccess();
+  return res;
+};
+
 export const getStudents = async (token, id) => {
   return await generalRequest(
     routes.getNotifStudents + id,

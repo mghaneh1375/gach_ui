@@ -119,7 +119,7 @@ function Card(props) {
         )}
         {props.isInMyMode && <SimpleText />}
         <CommonButton
-          href={'/packages/' + props.package.slug}
+          onPress={() => window.open('/packages/' + props.package.slug)}
           title={Translator.select}
         />
       </EqualTwoTextInputs>

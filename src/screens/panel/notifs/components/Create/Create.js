@@ -18,6 +18,7 @@ import {
   fetchSchools,
   fetchStates,
   getNotif,
+  simpleStore,
   store,
 } from '../Utility';
 import BuiltFilter from './BuiltFilter';
@@ -317,7 +318,7 @@ function Create(props) {
               let res =
                 filesContent.length > 0
                   ? await store(props.token, data, filesContent[0])
-                  : await store(props.token, data);
+                  : await simpleStore(props.token, data);
               props.setLoading(false);
 
               if (res !== null) {

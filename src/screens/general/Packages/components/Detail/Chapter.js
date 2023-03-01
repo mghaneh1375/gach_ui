@@ -20,6 +20,7 @@ import {
   tagsStyles,
 } from '../../../../../services/Utility';
 import Session from './Session';
+import {style} from '../../../../../components/web/LargeScreen/Header/style';
 
 function Chapter(props) {
   const [show, setShow] = useState(false);
@@ -70,19 +71,22 @@ function Chapter(props) {
             />
           </MyView>
 
-          {showSessions &&
-            sessions !== undefined &&
-            sessions.map((elem, index) => {
-              return (
-                <Session
-                  setSelectedSession={s => {
-                    props.onPressSession(elem.id);
-                  }}
-                  session={elem}
-                  key={index}
-                />
-              );
-            })}
+          <MyView style={{...styles.gap15, ...styles.marginTop20}}>
+            {showSessions &&
+              sessions !== undefined &&
+              sessions.map((elem, index) => {
+                return (
+                  <Session
+                    setSelectedSession={s => {
+                      props.onPressSession(elem.id);
+                    }}
+                    session={elem}
+                    key={index}
+                    index={index}
+                  />
+                );
+              })}
+          </MyView>
 
           <SimpleText
             onPress={() => setShowSessions(!showSessions)}
@@ -90,6 +94,7 @@ function Chapter(props) {
               ...styles.yellow_color,
               ...styles.alignSelfEnd,
               ...styles.cursor_pointer,
+              ...styles.paddingTop10,
             }}
             text={showSessions ? 'بستن جلسات' : 'مشاهده جلسات'}
           />
