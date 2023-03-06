@@ -25,7 +25,7 @@ import {style} from '../../../../../components/web/LargeScreen/Header/style';
 function Chapter(props) {
   const [show, setShow] = useState(false);
   const [sessions, setSessions] = useState();
-  const [showSessions, setShowSessions] = useState(false);
+  const [showSessions, setShowSessions] = useState(true);
 
   React.useEffect(() => {
     setSessions(props.sessions);

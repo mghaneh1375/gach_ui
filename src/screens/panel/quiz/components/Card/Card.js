@@ -298,6 +298,19 @@ function Card(props) {
                     onPress={() => props.quizOp()}
                   />
                 )}
+              {props.ticketHref !== undefined && (
+                <CommonButton
+                  padding={isInPhone ? '5px 5px' : undefined}
+                  textStyle={
+                    isInPhone
+                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      : {}
+                  }
+                  theme={'dark'}
+                  title={commonTranslator.ticket}
+                  onPress={() => window.open(props.ticketHref)}
+                />
+              )}
             </PhoneView>
           )}
         </MyView>

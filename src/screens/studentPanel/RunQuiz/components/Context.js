@@ -225,6 +225,14 @@ export const DoQuizProvider = ({children}) => {
         return;
       }
 
+      if (res[0].reminder < 0) {
+        window.location.href =
+          state.quizInfo.generalMode === 'custom'
+            ? '/myCustomQuizzes'
+            : '/myIRYSCQuizzes';
+        return;
+      }
+
       dispatch({
         reminder: res[0].reminder,
         refresh: res[0].refresh,

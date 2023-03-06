@@ -51,6 +51,25 @@ function Filter(props) {
     setShowProSearch(!showProSearch);
   };
 
+  const [items, setItems] = useState();
+  const [refId, setRefId] = useState();
+
+  React.useEffect(() => {
+    if (section === undefined || props.items === undefined) {
+      setItems(undefined);
+      return;
+    }
+
+    let list = props.items.find(e => e.key === section);
+
+    if (list !== undefined) setItems(list.list);
+    else setItems(undefined);
+  }, [section, props.items]);
+
+  React.useEffect(() => {
+    if (items === undefined) setRefId(undefined);
+  }, [items]);
+
   return (
     <MyView>
       <PhoneView style={styles.gap15}>
@@ -75,6 +94,15 @@ function Filter(props) {
           placeholder={translator.section}
           subText={translator.section}
         />
+        {items !== undefined && (
+          <JustBottomBorderSelect
+            setter={setRefId}
+            values={items}
+            value={items.find(elem => elem.id === refId)}
+            placeholder={translator.item}
+            subText={translator.item}
+          />
+        )}
         <CommonButton
           onPress={() =>
             filter(
@@ -88,6 +116,7 @@ function Filter(props) {
               sendDateSolarEndLimit,
               answerDateSolar,
               answerDateSolarEndLimit,
+              refId,
             )
           }
           title={commonTranslator.show}

@@ -55,7 +55,7 @@ function Detail(props) {
   const [showDescMore, setShowDescMore] = useState(false);
   const [showPreReqMore, setShowPreReqMore] = useState(false);
   const [showPreReq, setShowPreReq] = useState(true);
-  const [showChapters, setShowChapters] = useState(false);
+  const [showChapters, setShowChapters] = useState(true);
   const [showFAQ, setShowFAQ] = useState(false);
   const [refId, setRefId] = useState();
   const [userOff, setUserOff] = useState();
@@ -579,29 +579,41 @@ function Detail(props) {
                           onFinishRating={rating => setRate(rating)}
                         />
                       </EqualTwoTextInputs>
-                      <CommonButton
-                        onPress={async () => {
-                          if (rate === undefined) {
-                            showError('لطفا امتیاز موردنظر خود را انتخاب کنید');
-                            return;
+                      <EqualTwoTextInputs>
+                        <CommonButton
+                          onPress={() =>
+                            window.open(
+                              '/ticket/class/' + item.title + '/' + item.id,
+                            )
                           }
-                          props.setLoading(true);
-                          let res = await generalRequest(
-                            routes.rateContent + item.id,
-                            'put',
-                            {rate: rate},
-                            'data',
-                            props.token,
-                          );
-                          props.setLoading(false);
-                          if (res != null) {
-                            setPackageRate(res);
-                            showSuccess();
-                          }
-                        }}
-                        theme={vars.DARK_BLUE}
-                        title={commonTranslator.confirm}
-                      />
+                          title={commonTranslator.ticket}
+                        />
+                        <CommonButton
+                          onPress={async () => {
+                            if (rate === undefined) {
+                              showError(
+                                'لطفا امتیاز موردنظر خود را انتخاب کنید',
+                              );
+                              return;
+                            }
+                            props.setLoading(true);
+                            let res = await generalRequest(
+                              routes.rateContent + item.id,
+                              'put',
+                              {rate: rate},
+                              'data',
+                              props.token,
+                            );
+                            props.setLoading(false);
+                            if (res != null) {
+                              setPackageRate(res);
+                              showSuccess();
+                            }
+                          }}
+                          theme={vars.DARK_BLUE}
+                          title={commonTranslator.confirm}
+                        />
+                      </EqualTwoTextInputs>
                     </CommonWebBox>
                   )}
 

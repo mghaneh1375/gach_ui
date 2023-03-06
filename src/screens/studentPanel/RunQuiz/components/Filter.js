@@ -51,7 +51,14 @@ function Filter(props) {
       width={isInPhone ? '100%' : vars.RIGHT_MENU_WIDTH}>
       {!props.isInReviewMode &&
         state.quizInfo.duration > 0 &&
-        !state.clearTimer && <Timer />}
+        !state.clearTimer && (
+          <Timer
+            refresh={state.refresh}
+            reminder={state.reminder}
+            duration={state.quizInfo.duration}
+            callNeedStore={() => dispatch({needStore: true})}
+          />
+        )}
 
       {!isInPhone && state.quizInfo.duration > 0 && (
         <EqualTwoTextInputs

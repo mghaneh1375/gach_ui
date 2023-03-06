@@ -24,7 +24,7 @@ import {
 import {SimpleTextIcon} from '../../../../../styles/Common/TextIcon';
 
 function Session(props) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [showMore, setShowMore] = useState(true);
 
   return (

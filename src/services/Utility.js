@@ -49,6 +49,7 @@ export function convertSecToMinWithOutHour(sec) {
 }
 
 export function convertSecToMinWithOutSec(sec) {
+  if (sec < 0) return '';
   const d = new Date(sec * 1000).toISOString();
 
   let h = d.substr(11, 2);
@@ -121,6 +122,30 @@ export function showSuccess(msg) {
       title: 'نتیجه عملیات',
       message: msg,
       type: 'success',
+      insert: 'top',
+      container: 'top-right',
+      animationIn: ['animate__animated', 'animate__fadeIn'],
+      animationOut: ['animate__animated', 'animate__fadeOut'],
+      dismiss: {
+        duration: 3000,
+        onScreen: true,
+      },
+    });
+  }
+}
+
+export function showWarnign(msg) {
+  if (Platform.OS === 'android') {
+    ToastAndroid.show(msg, ToastAndroid.SHORT);
+  }
+  //  else if (Platform.OS === 'ios') {
+  //   AlertIOS.alert(msg);
+  // }
+  else {
+    Store.addNotification({
+      title: 'هشدار',
+      message: msg,
+      type: 'warning',
       insert: 'top',
       container: 'top-right',
       animationIn: ['animate__animated', 'animate__fadeIn'],

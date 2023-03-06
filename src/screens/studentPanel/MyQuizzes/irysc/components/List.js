@@ -135,10 +135,17 @@ function List(props) {
                               '/startQuiz/' + quiz.generalMode + '/' + quiz.id,
                             )
                       }
+                      ticketHref={
+                        '/ticket/quiz/' +
+                        quiz.title +
+                        '/' +
+                        quiz.generalMode +
+                        '_' +
+                        quiz.id
+                      }
                       isStudent={props.user.accesses.indexOf('student') !== -1}
                       onClick={() => {}}
                       quiz={quiz}
-                      onRate={r => console.log(r)}
                       afterQuiz={true}
                       key={index}
                     />

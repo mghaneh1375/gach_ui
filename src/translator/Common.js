@@ -87,6 +87,7 @@ const translator = {
   nextStep: 'مرحله بعد',
   desc: 'توضیحات',
   optional: 'اختیاری',
+  ticket: 'درخواست پشتیبانی',
   nullAns: 'نزده',
   yes: 'بله',
   no: 'خیر',

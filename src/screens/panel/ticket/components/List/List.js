@@ -44,11 +44,6 @@ function List(props) {
     setShowOpPopUp(!showOpPopUp);
   };
 
-  const changeMode = newMode => {
-    props.setMode(newMode);
-    toggleShowOpPopUp();
-  };
-
   return (
     <ShrinkView>
       {showOpPopUp && (
@@ -63,19 +58,28 @@ function List(props) {
                 />
               )}
             <CommonButton
-              onPress={() => changeMode('show')}
+              onPress={() => props.setMode('show')}
               title={translator.showRequest}
               theme={'transparent'}
             />
-            {props.isAdmin && (
+            {/* {props.isAdmin && (
               <CommonButton
                 title={translator.showRecords}
                 theme={'transparent'}
               />
-            )}
+            )} */}
             {props.isAdmin && (
               <CommonButton
-                onPress={() => closeRequest()}
+                onPress={() =>
+                  closeRequest(
+                    {
+                      token: props.token,
+                      setLoading: props.setLoading,
+                    },
+                    selected.id,
+                    toggleShowOpPopUp,
+                  )
+                }
                 title={translator.closeRecords}
                 theme={'transparent'}
               />
@@ -94,6 +98,7 @@ function List(props) {
                 setIsInUpgradeMode={setIsInUpgradeMode}
                 section={section}
                 setTickets={props.setTickets}
+                items={props.items}
                 isAdmin={props.isAdmin}
                 token={props.token}
                 setLoading={props.setLoading}

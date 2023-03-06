@@ -7,6 +7,7 @@ import {sectionKeyVals, priorityKeyVals} from '../KeyVals';
 import {fetchDetail} from './Utility';
 import Chat from './Chat';
 import Add from './Add';
+import {styles} from '../../../../../styles/Common/Styles';
 
 function Show(props) {
   const [isWorking, setIsWorking] = useState(false);
@@ -45,7 +46,7 @@ function Show(props) {
             onBackClick={() => props.setMode('list')}
             child={
               <MyView>
-                <PhoneView>
+                <PhoneView style={{...styles.gap10}}>
                   {props.isAdmin && (
                     <JustBottomBorderTextInput
                       value={props.ticket.student.name}
@@ -74,8 +75,15 @@ function Show(props) {
                     placeholder={translator.section}
                     subText={translator.section}
                   />
-                </PhoneView>
-                <PhoneView>
+                  {props.ticket.ref !== undefined && (
+                    <JustBottomBorderTextInput
+                      value={props.ticket.ref}
+                      disable={true}
+                      placeholder={translator.item}
+                      subText={translator.item}
+                    />
+                  )}
+
                   <JustBottomBorderTextInput
                     value={props.ticket.statusFa}
                     disable={true}

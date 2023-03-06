@@ -22,6 +22,7 @@ import {changeText} from '../../../../services/Utility';
 import {useFilePicker} from 'use-file-picker';
 import UserTinyPic from '../../../../components/web/LargeScreen/UserTinyPic';
 import AttachBox from './Show/AttachBox/AttachBox';
+import {setRef} from '@material-ui/core';
 
 function Create(props) {
   const [showSearchUser, setShowSearchUser] = useState(false);
@@ -35,6 +36,21 @@ function Create(props) {
   const toggleShowSearchUser = () => {
     setShowSearchUser(!showSearchUser);
   };
+
+  React.useEffect(() => {
+    if (
+      props.section !== undefined &&
+      sectionKeyVals.find(elem => elem.id === props.section) !== undefined
+    )
+      setSection(props.section);
+  }, [props.section]);
+
+  React.useEffect(() => {
+    if (props.name !== undefined && props.id !== undefined) {
+      setRefs([{id: props.id, item: props.name}]);
+      setRefId(props.id);
+    }
+  }, [props.name, props.id]);
 
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
@@ -64,16 +80,24 @@ function Create(props) {
     }
 
     props.setLoading(true);
-    let res = await submit(
-      {
-        title: title,
-        description: desc,
-        section: section,
-        priority: priority,
-        userId: props.isAdmin ? foundUser[0].id : undefined,
-      },
-      props.token,
-    );
+
+    let data = {
+      title: title,
+      description: desc,
+      section: section,
+      priority: priority,
+      userId: props.isAdmin ? foundUser[0].id : undefined,
+    };
+
+    if (refId !== undefined) {
+      if (refId.indexOf('_') !== -1) {
+        let tmp = refId.split('_');
+        data.refId = tmp[1];
+        data.additional = tmp[0];
+      } else data.refId = refId;
+    }
+
+    let res = await submit(data, props.token);
 
     if (res === null || res === undefined) {
       props.setLoading(false);
@@ -99,6 +123,9 @@ function Create(props) {
     props.setLoading(false);
   };
 
+  const [refId, setRefId] = useState();
+  const [refs, setRefs] = useState();
+
   return (
     <MyView zIndex={5}>
       {props.isAdmin && (
@@ -111,7 +138,7 @@ function Create(props) {
         />
       )}
       <CommonWebBox
-        header={translator.title}
+        header={translator.create}
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
         {props.isAdmin && (
@@ -152,6 +179,15 @@ function Create(props) {
             placeholder={translator.section}
             subText={translator.section}
           />
+          {refs !== undefined && (
+            <JustBottomBorderSelect
+              setter={setRefId}
+              values={refs}
+              value={refs.find(elem => elem.id === refId)}
+              placeholder={translator.item}
+              subText={translator.item}
+            />
+          )}
         </PhoneView>
       </CommonWebBox>
       <CommonWebBox style={{marginTop: -5}}>

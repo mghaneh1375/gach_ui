@@ -6,9 +6,11 @@ import Show from '../../panel/ticket/components/Show/Show';
 import Create from '../../panel/ticket/components/Create';
 import {addItem, removeItems} from '../../../services/Utility';
 import {MyView} from '../../../styles/Common';
+import {useParams} from 'react-router';
+import {useEffectOnce} from 'usehooks-ts';
 
 function Ticketstd(props) {
-  const [mode, setMode] = useState('list');
+  const [mode, setMode] = useState();
   const [tickets, setTickets] = useState();
   const [selectedTicket, setSelectedTicket] = useState();
   const navigate = props.navigate;
@@ -45,9 +47,21 @@ function Ticketstd(props) {
     );
   }, [navigate, props.token, dispatch]);
 
+  const params = useParams();
+
+  useEffectOnce(() => {
+    if (
+      params.section === undefined ||
+      params.id === undefined ||
+      params.name === undefined
+    )
+      setMode('list');
+    else setMode('create');
+  }, [params]);
+
   return (
     <MyView>
-      {mode === 'list' && (
+      {mode !== undefined && mode === 'list' && (
         <List
           tickets={tickets}
           setTickets={setTickets}
@@ -60,7 +74,7 @@ function Ticketstd(props) {
           }
         />
       )}
-      {mode === 'show' && (
+      {mode !== undefined && mode === 'show' && (
         <Show
           setLoading={setLoading}
           token={props.token}
@@ -72,11 +86,14 @@ function Ticketstd(props) {
           setSelectedTicket={setSelectedTicket}
         />
       )}
-      {mode === 'create' && (
+      {mode !== undefined && mode === 'create' && (
         <Create
           setLoading={setLoading}
           token={props.token}
           setMode={setMode}
+          section={params.section}
+          name={params.name}
+          id={params.id}
           isAdmin={false}
           user={props.user}
           addTicket={newItem => addItem(tickets, setTickets, newItem)}

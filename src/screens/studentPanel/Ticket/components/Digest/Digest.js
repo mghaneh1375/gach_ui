@@ -20,6 +20,7 @@ import {closeRequest} from '../../../../panel/ticket/components/List/Utility';
 import {styles} from '../../../../../styles/Common/Styles';
 
 function Digest({
+  isAdmin,
   ticket,
   setSelectedTicket,
   setMode,
@@ -88,7 +89,7 @@ function Digest({
               }}
             />
           )}
-          {ticket.status !== 'finish' && (
+          {ticket.status !== 'finish' && isAdmin && (
             <CommonButton
               theme={'dark'}
               title={Translate.closeAll}

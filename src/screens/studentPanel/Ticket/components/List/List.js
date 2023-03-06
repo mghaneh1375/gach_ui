@@ -26,6 +26,7 @@ function List(props) {
         props.tickets.map((elem, index) => {
           return (
             <Digest
+              isAdmin={false}
               ticket={elem}
               setSelectedTicket={props.setSelectedTicket}
               setMode={props.setMode}

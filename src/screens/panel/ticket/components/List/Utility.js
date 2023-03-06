@@ -46,6 +46,7 @@ export const filter = (
   sendDateSolarEndLimit,
   answerDateSolar,
   answerDateSolarEndLimit,
+  refId = undefined,
 ) => {
   let query = new URLSearchParams();
 
@@ -57,6 +58,10 @@ export const filter = (
   }
   if (status !== undefined && status !== 'all') {
     query.append('status', status);
+  }
+
+  if (refId !== undefined) {
+    query.append('refId', refId);
   }
 
   if (searchArchive !== undefined && searchArchive !== '') {
@@ -101,7 +106,9 @@ export const filter = (
     ),
   ]).then(res => {
     props.setLoading(false);
-    if (res[0] !== null) props.setTickets(res[0]);
-    else props.navigate('/');
+    if (res[0] !== null) {
+      props.setTickets(res[0].tickets);
+      if (props.setItems !== undefined) props.setItems(res[0].items);
+    } else props.navigate('/');
   });
 };

@@ -22,6 +22,7 @@ function Ticket(props) {
   const [tickets, setTickets] = useState();
   const [selectedTicket, setSelectedTicket] = useState({});
   const isAdmin = isUserAdmin(props.user);
+  const [items, setItems] = useState();
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -36,6 +37,7 @@ function Ticket(props) {
         setLoading: status => dispatch({loading: status}),
         token: props.token,
         setTickets: setTickets,
+        setItems: setItems,
         navigate: navigate,
         isAdmin: isAdmin,
       },
@@ -58,6 +60,7 @@ function Ticket(props) {
           setMode={setMode}
           setLoading={setLoading}
           tickets={tickets}
+          items={items}
           isAdmin={isAdmin}
           setTickets={setTickets}
           token={props.token}
