@@ -8,7 +8,15 @@ export const fetchAllPackages = async (isInMyMode, token = undefined) => {
     undefined,
     isInMyMode
       ? 'data'
-      : ['data', 'min', 'max', 'tags', 'minDuration', 'maxDuration'],
+      : [
+          'data',
+          'min',
+          'max',
+          'tags',
+          'minDuration',
+          'maxDuration',
+          'teachers',
+        ],
     token,
   );
 };
@@ -35,6 +43,7 @@ export const goToPay = async (token, data, id) => {
 
 export const filter = async (
   tag,
+  teacher,
   min,
   max,
   minDuration,
@@ -45,6 +54,9 @@ export const filter = async (
   let query = new URLSearchParams();
 
   if (tag !== undefined && tag !== 'all') query.append('tag', tag);
+
+  if (teacher !== undefined && teacher !== 'all')
+    query.append('teacher', teacher);
 
   if (min !== undefined) query.append('minPrice', min);
 

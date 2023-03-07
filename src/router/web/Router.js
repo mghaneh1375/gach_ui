@@ -107,6 +107,10 @@ export default function WebRouter() {
             path="/basic/:mode"
             element={<WebStructue page="basic" />}
           />
+          <Route
+            path="/questionReport"
+            element={<WebStructue page="questionReport" />}
+          />
           <Route path="/avatars" element={<WebStructue page="avatars" />} />
           <Route path="/schools" element={<WebStructue page="schools" />} />
           <Route

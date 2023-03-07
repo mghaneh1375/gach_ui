@@ -88,7 +88,7 @@ export const statusKeyVals = [
 
 export const sectionKeyVals = [
   {
-    item: 'آزمون باز',
+    item: 'آزمون',
     id: 'quiz',
   },
   {

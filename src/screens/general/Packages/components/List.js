@@ -30,6 +30,7 @@ function List(props) {
   const [minDuration, setMinDuration] = useState();
   const [maxDuration, setMaxDuration] = useState();
   const [tags, setTags] = useState();
+  const [teachers, setTeachers] = useState();
   const [showFilter, setShowFilter] = useState(false);
   const [clearFilter, setClearFilter] = useState(false);
 
@@ -66,6 +67,14 @@ function List(props) {
         });
         tmp.push({id: 'all', item: 'همه'});
         setTags(tmp);
+      }
+
+      if (res[0].teachers !== undefined) {
+        let tmp = res[0].teachers.map(elem => {
+          return {id: elem, item: elem};
+        });
+        tmp.push({id: 'all', item: 'همه'});
+        setTeachers(tmp);
       }
 
       if (props.isInMyMode) {
@@ -135,7 +144,9 @@ function List(props) {
                   iconDir={'left'}
                   textStyle={{...styles.fontSize17, ...styles.bold}}
                   icon={faChevronRight}
-                  onPress={() => setShowFilter(!showFilter)}
+                  onPress={() => {
+                    setShowFilter(!showFilter);
+                  }}
                   title={commonTranslator.showFilters}
                 />
               </PhoneView>
@@ -193,6 +204,7 @@ function List(props) {
                 minDuration={minDuration}
                 maxDuration={maxDuration}
                 tags={tags}
+                teachers={teachers}
                 token={props.token}
                 setClearFilter={setClearFilter}
                 clearFilter={clearFilter}

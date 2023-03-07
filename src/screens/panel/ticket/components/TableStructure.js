@@ -1,5 +1,10 @@
 const commonColumns = [
   {
+    name: 'عنوان',
+    selector: row => row.title,
+    grow: 2,
+  },
+  {
     name: 'واحد',
     selector: row => row.sectionFa,
     grow: 2,

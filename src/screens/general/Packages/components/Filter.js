@@ -36,6 +36,7 @@ function Filter(props) {
   ]);
 
   const [tag, setTag] = useState();
+  const [teacher, setTeacher] = useState();
   const [hasCert, setHasCert] = useState();
 
   const rangeSelector = (event, newValue) => {
@@ -48,6 +49,7 @@ function Filter(props) {
 
   const clear = React.useCallback(() => {
     setTag(undefined);
+    setTeacher(undefined);
     setHasCert(undefined);
     setValue([props.min, props.max]);
     setValueDuration([props.minDuration, props.maxDuration]);
@@ -125,6 +127,20 @@ function Filter(props) {
                 : props.tags.find(elem => elem.id === tag)
             }
             placeholder={'موضوع'}
+            subText={'موضوع'}
+          />
+        )}
+        {props.teachers !== undefined && props.teachers.length > 0 && (
+          <JustBottomBorderSelect
+            values={props.teachers}
+            setter={setTeacher}
+            value={
+              teacher === undefined
+                ? undefined
+                : props.teachers.find(elem => elem.id === teacher)
+            }
+            placeholder={'استاد'}
+            subText={'استاد'}
           />
         )}
         <JustBottomBorderSelect
@@ -132,12 +148,14 @@ function Filter(props) {
           setter={setHasCert}
           value={allTrueFalseValues.find(elem => elem.id === hasCert)}
           placeholder={'گواهی داشته باشد؟'}
+          subText={'گواهی داشته باشد؟'}
         />
       </PhoneView>
       <CommonButton
         onPress={async () => {
           let res = await filter(
             tag,
+            teacher,
             value[0],
             value[1],
             valueDuration[0],

@@ -88,7 +88,7 @@ import SessionDetail from './general/Packages/components/Detail/SessionDetail';
 import ContentQuiz from './panel/quiz/ContentQuiz';
 import AnswerSheet from './general/Corrector/AnswerSheet';
 import MyTasks from './correctorPanel/myTasks/MyTasks';
-import Filter from '../components/web/LargeScreen/Header/Filter';
+import QuestionReport from './panel/questionReport/QuestionReport';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -468,6 +468,9 @@ const WebStructue = props => {
                   <LifeStyle token={state.token} navigate={navigate} />
                 )}
 
+              {props.page === 'questionReport' && (
+                <QuestionReport token={state.token} navigate={navigate} />
+              )}
               {props.page === 'quiz' &&
                 params !== undefined &&
                 params.mode !== undefined &&
