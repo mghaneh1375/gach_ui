@@ -28,7 +28,7 @@ function Card(props) {
   const [file, setFile] = useState();
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
-      maxFileSize: 6,
+      maxFileSize: 15,
       accept: ['video/*'],
       readAs: 'ArrayBuffer',
       multiple: false,
