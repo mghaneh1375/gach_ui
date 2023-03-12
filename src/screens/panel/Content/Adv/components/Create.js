@@ -14,7 +14,7 @@ function Create(props) {
 
   return (
     <CommonWebBox
-      header={Translator.manageFAQ}
+      header={Translator.manageAdv}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <Card
