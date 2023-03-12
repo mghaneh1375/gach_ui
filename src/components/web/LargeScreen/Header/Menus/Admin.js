@@ -41,8 +41,8 @@ function AdminMenu(props) {
         />
         <SuperMenuItem
           text={translator.basicDefinition}
-          icon={faContactBook}
-          selected={props.selected === 'book'}
+          icon={faCog}
+          selected={props.selected === 'basic'}
           navigate={navigate}
           items={[
             {
@@ -56,6 +56,10 @@ function AdminMenu(props) {
             {
               text: translator.subjectDefinition,
               url: '/basic/subjects',
+            },
+            {
+              text: translator.questionReportTags,
+              url: '/basic/questionReports',
             },
           ]}
         />

@@ -20,7 +20,6 @@ import {
   tagsStyles,
 } from '../../../../../services/Utility';
 import Session from './Session';
-import {style} from '../../../../../components/web/LargeScreen/Header/style';
 
 function Chapter(props) {
   const [show, setShow] = useState(false);
@@ -77,11 +76,14 @@ function Chapter(props) {
               sessions.map((elem, index) => {
                 return (
                   <Session
+                    user={props.user}
+                    navigate={props.navigate}
                     setSelectedSession={s => {
                       props.onPressSession(elem.id);
                     }}
                     session={elem}
                     key={index}
+                    isFree={props.isFree}
                     index={index}
                   />
                 );

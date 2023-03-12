@@ -36,7 +36,7 @@ function Card(props) {
           width: '100%',
           height: 200,
         }}
-        resizeMode="cover"
+        resizeMode="contain"
         source={img}
       />
       <PhoneView

@@ -1,4 +1,5 @@
 import {
+  CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
@@ -344,6 +345,13 @@ function Filter(props) {
               state.questions[state.currIdx].markDesc !== undefined && (
                 <SimpleText text={state.questions[state.currIdx].markDesc} />
               )}
+            <CommonButton
+              onPress={() => {
+                props.setQuestionId(state.questions[state.currIdx].id);
+                props.setShowReportPane(true);
+              }}
+              title={commonTranslator.questionReport}
+            />
           </MyView>
         )}
     </CommonWebBox>

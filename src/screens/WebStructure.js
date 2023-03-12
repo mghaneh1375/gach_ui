@@ -539,6 +539,12 @@ const WebStructue = props => {
                     navigate={navigate}
                   />
                 )}
+              {props.page === 'basic' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'questionReports' && (
+                  <QuestionReport navigate={navigate} />
+                )}
               {props.page === 'avatars' && (
                 <Avatar
                   token={state.token}

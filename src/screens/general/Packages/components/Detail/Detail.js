@@ -477,14 +477,16 @@ function Detail(props) {
                           ...styles.alignSelfCenter,
                         }}
                         text={
-                          commonTranslator.price +
-                          ' ' +
-                          formatPrice(shouldPay > 10 ? shouldPay : 0) +
-                          ' ' +
-                          commonTranslator.priceUnit
+                          item.price === 0
+                            ? commonTranslator.price + ' رایگان'
+                            : commonTranslator.price +
+                              ' ' +
+                              formatPrice(shouldPay > 10 ? shouldPay : 0) +
+                              ' ' +
+                              commonTranslator.priceUnit
                         }
                       />
-                      {props.token !== undefined && (
+                      {props.token !== undefined && item.price > 0 && (
                         <MyView>
                           <CommonButton
                             onPress={() => goToPayLocal()}
@@ -502,7 +504,7 @@ function Detail(props) {
                           />
                         </MyView>
                       )}
-                      {props.token === undefined && (
+                      {props.token === undefined && item.price > 0 && (
                         <CommonButton
                           onPress={() => props.navigate('/login')}
                           title={Translator.loginForBuy}
@@ -755,12 +757,15 @@ function Detail(props) {
                   {item.chapters.map((elem, index) => {
                     return (
                       <Chapter
+                        user={props.user}
+                        navigate={props.navigate}
                         sessions={item.sessions.filter(e => {
                           return e.chapter === elem.title;
                         })}
                         onPressSession={s => {
                           props.navigate('/packages/' + props.slug + '/' + s);
                         }}
+                        isFree={item.price === 0}
                         chapter={elem}
                         key={index}
                       />

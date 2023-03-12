@@ -3,6 +3,7 @@ import {dispatchStateContext, globalStateContext} from '../../../App';
 import {QuestionReportProvider} from './components/Context';
 import List from './components/List';
 import Create from './components/Create';
+import Report from './components/Report';
 
 function QuestionReport(props) {
   const navigate = props.navigate;
@@ -22,6 +23,14 @@ function QuestionReport(props) {
     <QuestionReportProvider>
       {mode === 'list' && (
         <List
+          setMode={setMode}
+          navigate={navigate}
+          setLoading={setLoading}
+          token={state.token}
+        />
+      )}
+      {mode === 'report' && (
+        <Report
           setMode={setMode}
           navigate={navigate}
           setLoading={setLoading}

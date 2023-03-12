@@ -1,6 +1,12 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {CommonWebBox, MyView, PhoneView} from '../../../styles/Common';
+import {
+  CommonButton,
+  CommonRadioButton,
+  CommonWebBox,
+  MyView,
+  PhoneView,
+} from '../../../styles/Common';
 import Splash from './components/Splash';
 import {dispatchStateContext} from '../../../App';
 import {DoQuizProvider} from './components/Context';
@@ -11,9 +17,20 @@ import {useEffectOnce} from 'usehooks-ts';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {FontIcon} from '../../../styles/Common/FontIcon';
 import {Image} from 'react-native';
-import {getDevice, getWidthHeight} from '../../../services/Utility';
+import {
+  getDevice,
+  getWidthHeight,
+  showError,
+  showSuccess,
+} from '../../../services/Utility';
 import PhoneFilter from './components/PhoneFilter';
 import Submits from './components/Submits';
+import {LargePopUp} from '../../../styles/Common/PopUp';
+import commonTranslator from '../../../translator/Common';
+import {generalRequest} from '../../../API/Utility';
+import {routes} from '../../../API/APIRoutes';
+import {styles} from '../../../styles/Common/Styles';
+import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
 
 function RunQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -60,13 +77,131 @@ function RunQuiz(props) {
 
   const [oldMode, setOldMode] = useState();
   const [selectedAttach, setSelectedAttach] = useState();
+  const [showReportPane, setShowReportPane] = useState(false);
+  const [questionId, setQuestionId] = useState();
+  const [tags, setTags] = useState();
 
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
+  const [isWorking, setIsWorking] = useState(false);
+
+  const fetchTags = React.useCallback(() => {
+    if (tags !== undefined || isWorking) return;
+
+    setIsWorking(true);
+    dispatch({loading: true});
+
+    Promise.all([
+      generalRequest(
+        routes.getVisibleQuestionReportTags,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      if (res[0] == null) {
+        setTags(null);
+        showError('خطایی در انجام عملیات موردنظر رخ داده است');
+        return;
+      }
+      setTags(res[0]);
+      setIsWorking(false);
+      dispatch({loading: false});
+    });
+  }, [dispatch, isWorking, tags, props.token]);
+
+  React.useEffect(() => {
+    if (showReportPane) {
+      fetchTags();
+    } else {
+      setSelectedQuestionReportTag(undefined);
+      setQuestionReportDesc('');
+      setQuestionId(undefined);
+    }
+  }, [showReportPane, fetchTags]);
+
+  const [selectedQuestionReportTag, setSelectedQuestionReportTag] = useState();
+  const [questionReportDesc, setQuestionReportDesc] = useState();
 
   return (
     <MyView style={isInPhone ? {marginBottom: 20} : {}}>
       <DoQuizProvider>
+        {showReportPane && tags !== undefined && (
+          <LargePopUp
+            title={commonTranslator.questionReport}
+            btns={
+              <CommonButton
+                theme={'dark'}
+                title={commonTranslator.confirm}
+                onPress={async () => {
+                  if (
+                    selectedQuestionReportTag === undefined ||
+                    (selectedQuestionReportTag.canHasDesc &&
+                      (questionReportDesc === undefined ||
+                        questionReportDesc.length === 0))
+                  ) {
+                    showError(commonTranslator.pleaseFillAllFields);
+                    return;
+                  }
+
+                  setIsWorking(true);
+                  let res = await generalRequest(
+                    routes.storeQuestionReport +
+                      selectedQuestionReportTag.id +
+                      '/' +
+                      questionId,
+                    'post',
+                    selectedQuestionReportTag.canHasDesc &&
+                      questionReportDesc !== undefined
+                      ? {desc: questionReportDesc}
+                      : undefined,
+                    undefined,
+                    props.token,
+                  );
+
+                  setIsWorking(false);
+
+                  if (res !== null) {
+                    showSuccess();
+                    setShowReportPane(false);
+                  }
+                }}
+              />
+            }
+            toggleShowPopUp={() => setShowReportPane(false)}>
+            <PhoneView style={{...styles.gap10}}>
+              {tags.map((elem, index) => {
+                return (
+                  <CommonRadioButton
+                    status={
+                      selectedQuestionReportTag !== undefined &&
+                      selectedQuestionReportTag.id === elem.id
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    onPress={() => setSelectedQuestionReportTag(elem)}
+                    text={elem.label}
+                    key={index}
+                  />
+                );
+              })}
+            </PhoneView>
+            {selectedQuestionReportTag !== undefined &&
+              selectedQuestionReportTag.canHasDesc && (
+                <JustBottomBorderTextInput
+                  placeholder={commonTranslator.desc}
+                  subText={
+                    commonTranslator.desc
+                    // commonTranslator.col +
+                    // commonTranslator.optional
+                  }
+                  onChangeText={e => setQuestionReportDesc(e)}
+                  multiline={true}
+                />
+              )}
+          </LargePopUp>
+        )}
         {isInPhone && mode !== undefined && mode === 'doQuiz' && (
           <PhoneFilter mode={mode} isInReviewMode={props.isInReviewMode} />
         )}
@@ -108,6 +243,8 @@ function RunQuiz(props) {
                 setOldMode(mode);
                 setMode(m);
               }}
+              setQuestionId={setQuestionId}
+              setShowReportPane={setShowReportPane}
               setSelectedAttach={setSelectedAttach}
               token={props.token}
             />

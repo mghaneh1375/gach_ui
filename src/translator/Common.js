@@ -162,6 +162,7 @@ const translator = {
   finantialManagement: 'مدیریت مالی',
   offcode: 'کد تخفیف',
   report: 'گزارشات',
+  questionReport: 'گزارش خرابی سوال',
   logout: 'خروج',
   profile: 'پروفایل',
   hello: 'سلام',
@@ -238,5 +239,6 @@ const translator = {
   has: 'دارد',
   not_has: 'ندارد',
   col: ': ',
+  questionReportTags: 'تگ های گزارش خرابی سوال',
 };
 export default translator;

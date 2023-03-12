@@ -6,6 +6,9 @@ import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorde
 import {questionReportContext, dispatchQuestionReportContext} from './Context';
 import commonTranslator from '../../../../translator/Common';
 import {styles} from '../../../../styles/Common/Styles';
+import {trueFalseValues} from '../../../../services/Utility';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import translator from '../Translate';
 
 function Create(props) {
   const useGlobalState = () => [
@@ -16,6 +19,8 @@ function Create(props) {
   const [state, dispatch] = useGlobalState();
   const [title, setTitle] = useState();
   const [priority, setPriority] = useState();
+  const [visibility, setVisibility] = useState();
+  const [canHasDesc, setCanHasDesc] = useState();
 
   const createData = React.useCallback(() => {
     props.setLoading(true);
@@ -27,6 +32,8 @@ function Create(props) {
         {
           label: title,
           priority: priority,
+          visibility: visibility,
+          canHasDesc: canHasDesc,
         },
         'id',
         props.token,
@@ -44,12 +51,14 @@ function Create(props) {
         id: res[0],
         label: title,
         priority: priority,
+        visibility: visibility,
+        canHasDesc: canHasDesc,
       });
 
       dispatch({tags: tmp});
       props.setMode('list');
     });
-  }, [props, title, priority, dispatch, state.tags]);
+  }, [props, title, priority, visibility, canHasDesc, dispatch, state.tags]);
   return (
     <CommonWebBox
       header={commonTranslator.add}
@@ -68,6 +77,32 @@ function Create(props) {
           justNum={true}
           value={priority}
           onChangeText={e => setPriority(e)}
+        />
+        <JustBottomBorderSelect
+          values={trueFalseValues}
+          value={
+            visibility === undefined
+              ? {}
+              : trueFalseValues.filter(element => {
+                  return element.id === visibility;
+                })[0]
+          }
+          setter={setVisibility}
+          subText={commonTranslator.visibility}
+          placeholder={commonTranslator.visibility}
+        />
+        <JustBottomBorderSelect
+          values={trueFalseValues}
+          value={
+            canHasDesc === undefined
+              ? {}
+              : trueFalseValues.filter(element => {
+                  return element.id === canHasDesc;
+                })[0]
+          }
+          setter={setCanHasDesc}
+          subText={translator.canHasDesc}
+          placeholder={translator.canHasDesc}
         />
       </PhoneView>
       <CommonButton

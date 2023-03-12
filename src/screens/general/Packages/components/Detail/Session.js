@@ -88,23 +88,48 @@ function Session(props) {
             props.session.video !== undefined &&
             props.session.video !== 'null' &&
             props.session.video !== '' && (
-              <SimpleTextIcon
-                onPress={() => props.setSelectedSession(props.session)}
-                style={{
-                  ...styles.alignSelfEnd,
-                  ...{
-                    direction: 'ltr',
-                  },
-                }}
-                iconStyle={{...styles.yellow_color}}
-                textStyle={{
-                  ...styles.yellow_color,
-                  ...styles.cursor_pointer,
-                  ...styles.fontSize22,
-                }}
-                icon={faPlay}
-                text={'رفتن به جلسه'}
-              />
+              <>
+                {props.isFree &&
+                  props.user === null &&
+                  props.session.price > 0 && (
+                    <SimpleText
+                      onPress={() => props.navigate('/login')}
+                      style={{
+                        ...styles.alignSelfEnd,
+                        ...styles.yellow_color,
+                        ...styles.cursor_pointer,
+                        ...styles.fontSize17,
+                        ...{
+                          direction: 'ltr',
+                        },
+                      }}
+                      text={
+                        'برای ورود به جلسه باید ابتدا در سامانه ورود کرده باشید'
+                      }
+                    />
+                  )}
+                {(!props.isFree ||
+                  props.user !== null ||
+                  props.session.price == 0) && (
+                  <SimpleTextIcon
+                    onPress={() => props.setSelectedSession(props.session)}
+                    style={{
+                      ...styles.alignSelfEnd,
+                      ...{
+                        direction: 'ltr',
+                      },
+                    }}
+                    iconStyle={{...styles.yellow_color}}
+                    textStyle={{
+                      ...styles.yellow_color,
+                      ...styles.cursor_pointer,
+                      ...styles.fontSize22,
+                    }}
+                    icon={faPlay}
+                    text={'رفتن به جلسه'}
+                  />
+                )}
+              </>
             )}
 
           {/* {(props.session.video === null ||
