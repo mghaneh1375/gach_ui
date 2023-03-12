@@ -313,7 +313,7 @@ function Detail(props) {
                 <PhoneView>
                   <Image
                     source={img}
-                    resizeMode={'cover'}
+                    resizeMode={'contain'}
                     style={{width: isInPhone ? '100%' : '60%', height: 300}}
                   />
                   <MyView

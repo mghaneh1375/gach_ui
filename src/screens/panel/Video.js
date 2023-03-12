@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import VideoJS from './VideoJS';
 
 function Video(props) {
   const playerRef = React.useRef(null);
 
-  const videoJsOptions = {
+  const [videoJsOptions, setVideoJsOptions] = useState({
     autoplay: false,
     controls: true,
     responsive: true,
@@ -15,10 +15,21 @@ function Video(props) {
         src: props.src,
       },
     ],
-  };
+  });
 
   React.useEffect(() => {
-    console.log(props.src);
+    setVideoJsOptions({
+      autoplay: false,
+      controls: true,
+      responsive: true,
+      fluid: true,
+      displayCurrentQuality: true,
+      sources: [
+        {
+          src: props.src,
+        },
+      ],
+    });
   }, [props.src]);
 
   const handlePlayerReady = player => {
@@ -26,17 +37,15 @@ function Video(props) {
   };
 
   return (
-    <>
-      <VideoJS
-        myOptions={{
-          disableSeekbar: props.disableSeekbar,
-        }}
-        onFinish={props.onFinish}
-        options={videoJsOptions}
-        onReady={handlePlayerReady}
-        end={true}
-      />
-    </>
+    <VideoJS
+      myOptions={{
+        disableSeekbar: props.disableSeekbar,
+      }}
+      onFinish={props.onFinish}
+      options={videoJsOptions}
+      onReady={handlePlayerReady}
+      end={true}
+    />
   );
 }
 

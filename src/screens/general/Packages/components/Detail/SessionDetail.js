@@ -32,6 +32,7 @@ function SessionDetail(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const [showAdvertising, setShowAdvertising] = useState(true);
   const [selectedSession, setSelectedSession] = useState();
+  const [nextVideo, setNextVideo] = useState();
   const [allSessions, setAllSessions] = useState();
   const [adv, setAdv] = useState();
 
@@ -76,6 +77,11 @@ function SessionDetail(props) {
     }
     fetchSessions();
   }, [fetchSessions, props.navigate]);
+
+  React.useEffect(() => {
+    if (nextVideo !== undefined && selectedSession === undefined)
+      setSelectedSession(nextVideo);
+  }, [nextVideo, selectedSession]);
 
   return (
     <MyView>
@@ -145,7 +151,8 @@ function SessionDetail(props) {
                         'برای مشاهده این جلسه باید این بسته را خریداری نمایید',
                       );
                     else {
-                      setSelectedSession(elem);
+                      setSelectedSession(undefined);
+                      setNextVideo(elem);
                     }
                   }}
                   style={{...styles.borderBottom1, ...styles.gap10}}>

@@ -111,9 +111,11 @@ function Card(props) {
               ...styles.alignSelfCenter,
             }}
             text={
-              formatPrice(props.package.price) +
-              ' ' +
-              commonTranslator.priceUnit
+              props.package.price === 0
+                ? 'رایگان'
+                : formatPrice(props.package.price) +
+                  ' ' +
+                  commonTranslator.priceUnit
             }
           />
         )}
