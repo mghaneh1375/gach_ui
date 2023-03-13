@@ -15,7 +15,7 @@ import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '../../../../services/MyUploadAdapter';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {trueFalseValues} from '../../../../services/Utility';
+import {showError, trueFalseValues} from '../../../../services/Utility';
 import {contentContext, dispatchContentContext} from './Context';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
@@ -25,6 +25,8 @@ import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {useFilePicker} from 'use-file-picker';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import AttachBox from '../../ticket/components/Show/AttachBox/AttachBox';
+import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
+import {typeKeyVals} from '../../offcode/components/Utility';
 
 function Create(props) {
   let ckEditor = null;
@@ -58,6 +60,11 @@ function Create(props) {
   const [slug, setSlug] = useState();
   const [priority, setPriority] = useState();
   const [duration, setDuration] = useState();
+
+  const [off, setOff] = useState();
+  const [offType, setOffType] = useState();
+  const [offStartAt, setOffStartAt] = useState();
+  const [offExpireAt, setOffExpireAt] = useState();
 
   const removeImg = index => {
     remove(index);
@@ -208,6 +215,10 @@ function Create(props) {
           setDuration(res[0].duration);
           setCertDuration(res[0].certDuration);
           setSlug(res[0].slug);
+          setOff(res[0].off);
+          setOffType(res[0].offType);
+          setOffExpireAt(res[0].offExpiration);
+          setOffStartAt(res[0].offStart);
 
           if (res[0].hasCert) setCertId(res[0].certId);
           setTags(res[0].tags);
@@ -268,6 +279,7 @@ function Create(props) {
             placeholder={Translator.tags}
             subText={Translator.tags}
           />
+
           <JustBottomBorderTextInput
             placeholder={Translator.price}
             onChangeText={e => setPrice(e)}
@@ -395,6 +407,38 @@ function Create(props) {
               values={quizzes}
             />
           )}
+
+          <JustBottomBorderTextInput
+            placeholder={Translator.off}
+            subText={
+              Translator.off + commonTranslator.col + commonTranslator.optional
+            }
+            justNum={true}
+            onChangeText={e => setOff(e)}
+            value={off}
+          />
+
+          <JustBottomBorderSelect
+            placeholder={Translator.offType}
+            subText={Translator.offType}
+            setter={setOffType}
+            values={typeKeyVals}
+            value={typeKeyVals.find(elem => elem.id === offType)}
+          />
+
+          <JustBottomBorderDatePicker
+            value={offStartAt}
+            setter={setOffStartAt}
+            placeholder={Translator.offStart}
+            subText={Translator.offStart}
+          />
+
+          <JustBottomBorderDatePicker
+            value={offExpireAt}
+            setter={setOffExpireAt}
+            placeholder={Translator.offExpire}
+            subText={Translator.offExpire}
+          />
         </PhoneView>
       )}
 
@@ -513,6 +557,21 @@ function Create(props) {
             if (hasExam) {
               data.finalExamId = finalExamId;
               data.finalExamMinMark = finalExamMinMark;
+            }
+
+            if (off !== undefined) {
+              if (
+                offExpireAt === undefined ||
+                offStartAt === undefined ||
+                offType === undefined
+              ) {
+                showError(commonTranslator.pleaseFillAllFields);
+                return;
+              }
+              data.off = off;
+              data.offExpiration = offExpireAt;
+              data.offStart = offStartAt;
+              data.offType = offType;
             }
 
             props.setLoading(true);

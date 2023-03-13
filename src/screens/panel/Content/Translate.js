@@ -52,6 +52,10 @@ const Translator = {
   preview: 'پیش نمایش',
   adv: 'فایل ویدیو',
   advTitle: 'عنوان ویدیو تبلیغاتی',
+  off: 'تخفیف',
+  offType: 'نوع تخفیف',
+  offStart: 'تاریخ آغاز تخفیف',
+  offExpire: 'تاریخ اتمام تخفیف',
 };
 
 export default Translator;

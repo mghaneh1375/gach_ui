@@ -91,7 +91,7 @@ function Detail(props) {
 
   const calc = accountOff => {
     let off = 0;
-    let totalPrice = item.price;
+    let totalPrice = item.afterOff !== undefined ? item.afterOff : item.price;
 
     let shouldPayTmp = totalPrice;
 
@@ -128,7 +128,8 @@ function Detail(props) {
       if (res[0] === null) return;
       setItem(res[0]);
       setIsWorking(false);
-      setShouldPay(res[0].price);
+      if (res[0].afterOff !== undefined) setShouldPay(res[0].afterOff);
+      else setShouldPay(res[0].price);
     });
   }, [props, isWorking, item]);
 
@@ -469,23 +470,49 @@ function Detail(props) {
                   )}
 
                   {(item.afterBuy === undefined || !item.afterBuy) && (
-                    <EqualTwoTextInputs>
-                      <SimpleText
-                        style={{
-                          ...styles.BlueBold,
-                          ...styles.fontSize17,
-                          ...styles.alignSelfCenter,
-                        }}
-                        text={
-                          item.price === 0
-                            ? commonTranslator.price + ' رایگان'
-                            : commonTranslator.price +
-                              ' ' +
-                              formatPrice(shouldPay > 10 ? shouldPay : 0) +
-                              ' ' +
-                              commonTranslator.priceUnit
-                        }
-                      />
+                    <EqualTwoTextInputs style={{...styles.flexNoWrap}}>
+                      <PhoneView style={{...styles.alignSelfCenter}}>
+                        <SimpleText
+                          style={{...styles.BlueBold}}
+                          text={commonTranslator.price + ' '}
+                        />
+                        <SimpleText
+                          style={
+                            shouldPay !== undefined && item.price !== shouldPay
+                              ? {
+                                  ...styles.textDecorRed,
+                                  ...styles.BlueBold,
+                                }
+                              : {
+                                  ...styles.BlueBold,
+                                }
+                          }
+                          text={
+                            item.price <= 10
+                              ? commonTranslator.free
+                              : formatPrice(item.price) +
+                                ' ' +
+                                commonTranslator.priceUnit
+                          }
+                        />
+                        {shouldPay !== undefined && item.price !== shouldPay && (
+                          <SimpleText
+                            style={{
+                              ...styles.BlueBold,
+                              ...styles.red,
+                              ...styles.marginRight15,
+                            }}
+                            text={
+                              shouldPay > 10
+                                ? formatPrice(shouldPay) +
+                                  ' ' +
+                                  commonTranslator.priceUnit
+                                : commonTranslator.free
+                            }
+                          />
+                        )}
+                      </PhoneView>
+
                       {props.token !== undefined && item.price > 0 && (
                         <MyView>
                           <CommonButton
@@ -515,6 +542,25 @@ function Detail(props) {
 
                   {(off > 0 || usedFromWallet > 0) && (
                     <MyView>
+                      {item.off !== undefined && (
+                        <PhoneView style={styles.alignItemsCenter}>
+                          <SimpleText
+                            text={formatPrice(item.price - item.afterOff)}
+                            style={{
+                              ...styles.yellow_color,
+                              ...styles.fontSize13,
+                            }}
+                          />
+                          <SimpleText
+                            style={{
+                              ...{marginRight: 5},
+                              ...styles.dark_blue_color,
+                              ...styles.fontSize13,
+                            }}
+                            text={Translator.publicOff}
+                          />
+                        </PhoneView>
+                      )}
                       {off > 0 && (
                         <PhoneView style={styles.alignItemsCenter}>
                           <SimpleText

@@ -14,5 +14,6 @@ export const Translator = {
   loginForBuy: 'ورود به سامانه برای خرید',
   faq: 'پرسش و پاسخ های متداول',
   off: 'تخفیف',
+  publicOff: 'هدیه آیریسک',
   wallet: 'کیف پول',
 };
