@@ -30,6 +30,8 @@ export const FontIcon = props => {
         ? vars.ORANGE_RED
         : props.back === 'blue'
         ? vars.DARK_BLUE
+        : props.back === 'purple'
+        ? 'purple'
         : props.back === 'transparent'
         ? vars.transparent
         : props.back === 'dark'

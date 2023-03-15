@@ -2,6 +2,7 @@ export const Translate = {
   youSee: 'شما در یک نگاه',
   money: 'کیف پول',
   passedQuizzes: 'آزمون های گذشته',
+  createOff: 'ساخت کد تخفیف',
   activeQuizzes: 'آزمون های آینده',
   allQuizzes: 'آزمون آماده ثبت نام',
   yourRank: 'رتبه آیریسکی',

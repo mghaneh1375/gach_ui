@@ -11,6 +11,7 @@ export const routes = {
   checkCert: 'general/checkCert/',
   getMySummary: 'general/getMySummary',
   exchange: 'general/exchange',
+  createOff: 'user/createOpenCardOff',
   activate: 'user/activate',
   resendCode: 'user/resendCode',
   updateInfo: 'user/updateInfo/',

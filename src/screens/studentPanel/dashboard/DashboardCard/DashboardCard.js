@@ -28,6 +28,7 @@ function DashboardCard({
   onPress,
   width,
   fontSize,
+  subFontSize,
 }) {
   return (
     <CommonWebBox
@@ -71,7 +72,11 @@ function DashboardCard({
         <MyView>
           <EqualTwoTextInputs style={{alignItems: 'end'}}>
             <SimpleText
-              style={{...styleFontSize30, ...styleSubText}}
+              style={
+                subFontSize !== undefined
+                  ? {...{fontSize: subFontSize}, ...styleSubText}
+                  : {...styleFontSize30, ...styleSubText}
+              }
               text={subtext}
             />
             <FontIcon
