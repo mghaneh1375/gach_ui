@@ -15,6 +15,7 @@ export const getQuizzes = async (
   startRegistryDateSolar = undefined,
   startRegistrySolarEndLimit = undefined,
   kindQuiz = undefined,
+  generalQuizMode = undefined,
 ) => {
   let query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
@@ -34,7 +35,9 @@ export const getQuizzes = async (
     query.append('startRegistrySolarEndLimit', startRegistrySolarEndLimit);
 
   return await generalRequest(
-    routes.fetchAllQuiz + 'IRYSC?' + query.toString(),
+    generalQuizMode === undefined
+      ? routes.fetchAllQuiz + 'IRYSC?' + query.toString()
+      : routes.fetchAllQuiz + generalQuizMode + '?' + query.toString(),
     'get',
     undefined,
     'data',
@@ -470,12 +473,24 @@ export const addFile = async (token, fileContent, quizId, quizMode) => {
     });
 };
 
-export const removeFile = async (token, filename, quizId) => {
+export const removeFile = async (
+  token,
+  filename,
+  quizId,
+  quizGeneralMode = undefined,
+) => {
   let query = new URLSearchParams();
   query.append('attach', filename);
 
   let res = await generalRequest(
-    routes.removeFileToQuiz + 'irysc/' + quizId + '?' + query.toString(),
+    quizGeneralMode === undefined
+      ? routes.removeFileToQuiz + 'irysc/' + quizId + '?' + query.toString()
+      : routes.removeFileToQuiz +
+          quizGeneralMode +
+          '/' +
+          quizId +
+          '?' +
+          query.toString(),
     'delete',
     undefined,
     undefined,

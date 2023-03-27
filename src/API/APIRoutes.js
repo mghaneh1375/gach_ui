@@ -294,4 +294,5 @@ export const routes = {
   removeLife: 'advisor/tag/removeLifeTags',
   createTag: 'advisor/tag/createTag',
   createLifeTag: 'advisor/tag/createLifeTag',
+  setPic: 'user/setPic',
 };

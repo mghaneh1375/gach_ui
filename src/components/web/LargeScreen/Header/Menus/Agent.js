@@ -3,16 +3,7 @@ import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
 import {MenuItem, style, MenuItemPhone} from '../style';
 import translator from '../../../../../translator/Common';
-import {
-  faBasketShopping,
-  faCog,
-  faCreditCard,
-  faHistory,
-  faHome,
-  faQuestion,
-  faShoppingCart,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
+import {faUsers} from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '../../../../../styles/Common';
 import MenuItemRepeat from './MenuItemRepeat';
 
@@ -24,6 +15,7 @@ function Agent(props) {
   if (isLargePage) {
     return (
       <MenuItemRepeat
+        excludes={['package', 'certs', 'quiz_makeQuiz']}
         navigate={props.navigate}
         selected={props.selected}
         child={

@@ -25,6 +25,7 @@ const translator = {
   permute: 'آیا سوالات بر زده شود؟',
   backEn: 'آیا بازگشت به سوال قبل امکان پذیر باشد؟',
   minusMark: 'آیا آزمون نمره منفی داشته باشد؟',
+  useFromDatabase: 'آیا از مجموعه سوالات آیریسک استفاده می شود؟',
   showResultAfterCorrection:
     'آیا نتایج بعد از صدور تراز به دانش آموزان نمایش داده شود؟',
   showResultsAfterCorrectionNotLoginUsers:

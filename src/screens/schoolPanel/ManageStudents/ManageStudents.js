@@ -3,7 +3,6 @@ import {dispatchStateContext, globalStateContext} from '../../../App';
 import List from './list/List';
 import Create from './create/Create';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
-import AddAll from './addAll/AddAll';
 import {MyView} from '../../../styles/Common';
 import {getAllStudent} from './Utility';
 
@@ -51,15 +50,6 @@ function ManageStudents(props) {
       )}
       {mode === 'create' && (
         <Create
-          data={data}
-          setMode={setMode}
-          setLoading={setLoading}
-          token={props.token}
-          addItem={i => addItem(data, setData, i)}
-        />
-      )}
-      {mode === 'addAll' && (
-        <AddAll
           data={data}
           setMode={setMode}
           setLoading={setLoading}

@@ -102,39 +102,54 @@ const UpdateInfo = props => {
           value={city !== undefined ? city.name : ''}
           values={state !== undefined ? state.cities : []}
         />
-        <JustBottomBorderTextInput
-          isHalf={props.isInPhone ? undefined : true}
-          style={{maxWidth: 'unset'}}
-          placeholder={commonTranslator.school}
-          subText={commonTranslator.school}
-          resultPane={true}
-          setSelectedItem={setSelectedSchool}
-          values={props.schools}
-          value={school !== undefined ? school.name : ''}
-          reset={false}
-        />
-        <JustBottomBorderTextInput
-          isHalf={props.isInPhone ? undefined : true}
-          placeholder={commonTranslator.grade}
-          subText={'نام مقطع خود را به شکل فارسی سرچ کنید مثلا: یازدهم تجربی'}
-          resultPane={true}
-          setSelectedItem={setSelectedGrade}
-          values={props.grades}
-          value={grade !== undefined ? grade.name : ''}
-          reset={false}
-        />
-        <JustBottomBorderTextInput
-          style={{marginTop: 10}}
-          isHalf={props.isInPhone ? undefined : true}
-          resultPane={true}
-          placeholder={commonTranslator.branch}
-          subText={'نام رشته المپیادی خود را به شکل فارسی سرچ کنید مثلا: شیمی'}
-          setSelectedItem={setSelectedBranch}
-          reset={false}
-          values={props.branches}
-          value={branch}
-          multi={true}
-        />
+        {props.accesses !== undefined &&
+          props.accesses.indexOf('student') !== -1 && (
+            <JustBottomBorderTextInput
+              isHalf={props.isInPhone ? undefined : true}
+              style={{maxWidth: 'unset'}}
+              placeholder={commonTranslator.school}
+              subText={commonTranslator.school}
+              resultPane={true}
+              setSelectedItem={setSelectedSchool}
+              values={props.schools}
+              value={school !== undefined ? school.name : ''}
+              reset={false}
+            />
+          )}
+
+        {props.accesses !== undefined &&
+          props.accesses.indexOf('student') !== -1 && (
+            <JustBottomBorderTextInput
+              isHalf={props.isInPhone ? undefined : true}
+              placeholder={commonTranslator.grade}
+              subText={
+                'نام مقطع خود را به شکل فارسی سرچ کنید مثلا: یازدهم تجربی'
+              }
+              resultPane={true}
+              setSelectedItem={setSelectedGrade}
+              values={props.grades}
+              value={grade !== undefined ? grade.name : ''}
+              reset={false}
+            />
+          )}
+
+        {props.accesses !== undefined &&
+          props.accesses.indexOf('student') !== -1 && (
+            <JustBottomBorderTextInput
+              style={{marginTop: 10}}
+              isHalf={props.isInPhone ? undefined : true}
+              resultPane={true}
+              placeholder={commonTranslator.branch}
+              subText={
+                'نام رشته المپیادی خود را به شکل فارسی سرچ کنید مثلا: شیمی'
+              }
+              setSelectedItem={setSelectedBranch}
+              reset={false}
+              values={props.branches}
+              value={branch}
+              multi={true}
+            />
+          )}
       </PhoneView>
       <CommonButton
         style={{

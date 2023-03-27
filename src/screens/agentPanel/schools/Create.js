@@ -17,18 +17,18 @@ import {grades} from '../../panel/Config/Schools/components/KeyVals';
 import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
 
 function Create(props) {
-  const [phone, setPhone] = useState('09224786125');
-  const [nid, setNid] = useState('0018374921');
+  const [phone, setPhone] = useState();
+  const [nid, setNid] = useState();
 
-  const [name, setName] = useState('البرز');
-  const [sex, setSex] = useState('male');
-  const [manager, setManager] = useState('علی');
-  const [address, setAddress] = useState('سه راه تهارنپاری');
-  const [tel, setTel] = useState('02177417714');
-  const [liableName, setLiableName] = useState('قلی');
-  const [liableFamily, setLiableFamily] = useState('علی');
-  const [password, setPassword] = useState('123456Al');
-  const [repeatPassword, setRepeatPassword] = useState('123456Al');
+  const [name, setName] = useState();
+  const [sex, setSex] = useState();
+  const [manager, setManager] = useState();
+  const [address, setAddress] = useState();
+  const [tel, setTel] = useState();
+  const [liableName, setLiableName] = useState();
+  const [liableFamily, setLiableFamily] = useState();
+  const [password, setPassword] = useState();
+  const [repeatPassword, setRepeatPassword] = useState();
   const [state, setState] = useState();
   const [city, setCity] = useState();
   const [grade, setGrade] = useState();

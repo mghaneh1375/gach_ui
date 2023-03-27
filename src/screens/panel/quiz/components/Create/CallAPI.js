@@ -11,6 +11,15 @@ const IRYSCMandatoryFields = [
   'priority',
 ];
 
+const SchoolMandatoryFields = [
+  'title',
+  'start',
+  'end',
+  'launchMode',
+  'showResultsAfterCorrection',
+  'database',
+];
+
 const OpenMandatoryFields = ['title', 'price'];
 const TashrihiMandatoryFields = [
   'title',
@@ -25,6 +34,8 @@ export async function CallAPI(data, url, token, mode, kind = 'regular') {
       ? TashrihiMandatoryFields
       : mode === 'irysc'
       ? IRYSCMandatoryFields
+      : mode === 'school'
+      ? SchoolMandatoryFields
       : 'content'
       ? ContentMandatoryFields
       : OpenMandatoryFields;

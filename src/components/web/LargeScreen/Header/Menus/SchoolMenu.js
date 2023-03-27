@@ -15,6 +15,7 @@ function SchoolMenu(props) {
   if (isLargePage) {
     return (
       <MenuItemRepeat
+        excludes={['certs', 'package', 'quiz_makeQuiz']}
         navigate={props.navigate}
         selected={props.selected}
         child={
@@ -28,15 +29,15 @@ function SchoolMenu(props) {
             <MenuItem
               onClick={() => navigate('/manageStudent')}
               text={translator.management + ' ' + translator.students}
-              icon={faSchool}
+              icon={faUsers}
               selected={props.selected === 'manageStudent'}
             />
-            <MenuItem
+            {/* <MenuItem
               onClick={() => navigate('/manageTeacher')}
               text={translator.management + ' ' + translator.teachers}
               icon={faSchool}
               selected={props.selected === 'manageTeacher'}
-            />
+            /> */}
           </>
         }
       />

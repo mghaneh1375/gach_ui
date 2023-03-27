@@ -159,6 +159,7 @@ const Profile = props => {
                       grades={grades}
                       branches={branches}
                       schools={schools}
+                      accesses={props.user.accesses}
                     />
                   )}
                 </CommonWebBox>

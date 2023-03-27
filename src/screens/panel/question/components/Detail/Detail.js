@@ -243,53 +243,84 @@ function Detail(props) {
                   setQuestionOrganizationId={setQuestionOrganizationId}
                   question={elem}
                   key={index}
-                  btns={[
-                    {
-                      title: commonTranslator.delete,
-                      onPress: async question => {
-                        props.setLoading(true);
-                        let res = await removeQuestion(
-                          question.id,
-                          props.token,
-                        );
-                        props.setLoading(false);
-                        if (res !== null) {
-                          showSuccess(res.excepts);
-                          props.subject.questions = undefined;
-                          props.subject.qNo =
-                            props.subject.qNo - res.doneIds.length;
-                          props.setSubject(props.subject);
-                        }
-                      },
-                    },
-                    {
-                      theme: 'transparent',
-                      title: commonTranslator.edit,
-                      onPress: async () => {
-                        elem.subject = {
-                          id: props.subject.subject.id,
-                          name:
-                            props.subject.subject.name +
-                            ' در ' +
-                            props.subject.lesson.name +
-                            ' در ' +
-                            props.subject.grade.name,
-                        };
-                        await dispatch({
-                          selectedQuestion: elem,
-                        });
-                        props.setMode('edit');
-                      },
-                    },
-                    {
-                      onPress: question => {
-                        setQuestionOrganizationId(question.organizationId);
-                        setSelectingQuiz(true);
-                      },
-                      theme: 'dark',
-                      title: translator.addQuiz,
-                    },
-                  ]}
+                  btns={
+                    props.quizMode === 'irysc'
+                      ? [
+                          {
+                            title: commonTranslator.delete,
+                            onPress: async question => {
+                              props.setLoading(true);
+                              let res = await removeQuestion(
+                                question.id,
+                                props.token,
+                              );
+                              props.setLoading(false);
+                              if (res !== null) {
+                                showSuccess(res.excepts);
+                                props.subject.questions = undefined;
+                                props.subject.qNo =
+                                  props.subject.qNo - res.doneIds.length;
+                                props.setSubject(props.subject);
+                              }
+                            },
+                          },
+                          {
+                            theme: 'transparent',
+                            title: commonTranslator.edit,
+                            onPress: async () => {
+                              elem.subject = {
+                                id: props.subject.subject.id,
+                                name:
+                                  props.subject.subject.name +
+                                  ' در ' +
+                                  props.subject.lesson.name +
+                                  ' در ' +
+                                  props.subject.grade.name,
+                              };
+                              await dispatch({
+                                selectedQuestion: elem,
+                              });
+                              props.setMode('edit');
+                            },
+                          },
+                          {
+                            onPress: question => {
+                              setQuestionOrganizationId(
+                                question.organizationId,
+                              );
+                              setSelectingQuiz(true);
+                            },
+                            theme: 'dark',
+                            title: translator.addQuiz,
+                          },
+                        ]
+                      : [
+                          {
+                            onPress: async question => {
+                              props.setLoading(true);
+                              let res = await generalRequest(
+                                routes.addQuestionToQuizzes +
+                                  'school/' +
+                                  question.organizationId +
+                                  '/3',
+                                'put',
+                                {items: [props.preSelectedQuizId]},
+                                ['doneIds', 'excepts'],
+                                props.token,
+                              );
+                              props.setLoading(false);
+                              if (
+                                res != null &&
+                                res.doneIds !== undefined &&
+                                res.doneIds.length > 0
+                              )
+                                showSuccess();
+                            },
+                            theme: 'dark',
+                            title: translator.addQuiz,
+                          },
+                        ]
+                  }
                 />
               );
             })}

@@ -24,8 +24,10 @@ const List = props => {
       )}
       <CommonWebBox
         header={translator.questions}
-        addBtn={true}
-        onAddClick={() => props.setMode('create')}>
+        addBtn={props.isAdmin ? true : undefined}
+        backBtn={props.isAdmin ? undefined : true}
+        onAddClick={() => (props.isAdmin ? props.setMode('create') : undefined)}
+        onBackClick={() => (!props.isAdmin ? props.setMode('end') : undefined)}>
         <Filter
           setMode={props.setMode}
           setLoading={props.setLoading}

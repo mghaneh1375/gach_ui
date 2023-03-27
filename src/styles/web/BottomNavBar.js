@@ -47,3 +47,12 @@ export const NavTextStyle = {
   fontFamily: 'IRANSans',
   color: '#707070',
 };
+
+export const TinyNavTextStyle = {
+  fontSize: '9px',
+  fontFamily: 'IRANSans',
+  textAlign: 'center',
+  marginTop: '3px',
+  fontWeight: 'bold',
+  color: '#707070',
+};

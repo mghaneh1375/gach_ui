@@ -57,7 +57,7 @@ import TarazLevels from './panel/Config/TarazLevels/TarazLevels';
 import Buy from './general/buy/Buy';
 import MyIRYSCQuizzes from './studentPanel/MyQuizzes/irysc/MyQuizzes';
 import MyCustomQuizzes from './studentPanel/MyQuizzes/custom/MyQuizzes';
-import MySchoolQuizzes from './studentPanel/MyQuizzes/school/MyQuizzes';
+import MySchoolQuizzes from './schoolPanel/MyQuizzes/MyQuizzes';
 import Transaction from './panel/transaction/Transaction';
 import ChargeAccount from './studentPanel/ChargeAccount/ChargeAccount';
 import RunQuiz from './studentPanel/RunQuiz/RunQuiz';
@@ -341,11 +341,7 @@ const WebStructue = props => {
                 />
               )}
               {props.page === 'mySchoolQuizzes' && (
-                <MySchoolQuizzes
-                  user={state.user}
-                  token={state.token}
-                  navigate={navigate}
-                />
+                <MySchoolQuizzes navigate={navigate} />
               )}
 
               {props.page === 'startQuiz' && (

@@ -1,9 +1,11 @@
 import {
+  faArchive,
   faCheckDouble,
   faInfo,
   faPeopleGroup,
   faRankingStar,
   faUser,
+  faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import {Text} from 'react-native';
@@ -17,6 +19,7 @@ import {
   NavItemContainerStyle,
   NavContainerStyle,
   NavTextStyle,
+  TinyNavTextStyle,
 } from '../../styles/web/BottomNavBar';
 import {BottomLinkExternal} from '../../styles/web/NavbarElement';
 
@@ -53,11 +56,17 @@ export default function BottomNavBar() {
         <Text style={NavTextStyle}>رتبه بندی</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
+        <Link style={NavItemStyle} to="/rankinglist">
+          <SimpleFontIcon kind={'large'} icon={faVideo} />
+        </Link>
+        <Text style={TinyNavTextStyle}>کلاس های المپیاد</Text>
+      </MyView>
+      {/* <MyView style={NavItemContainerStyle}>
         <BottomLinkExternal href="https://www.irysc.com/contact-us/">
           <SimpleFontIcon kind={'large'} icon={faInfo} />
         </BottomLinkExternal>
         <Text style={NavTextStyle}>پشتیبانی</Text>
-      </MyView>
+      </MyView> */}
     </MyView>
   );
 }

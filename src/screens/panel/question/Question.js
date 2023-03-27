@@ -56,6 +56,10 @@ const Question = props => {
     );
   }, [dispatch, navigate, props.token]);
 
+  React.useEffect(() => {
+    if (mode === 'end') props.toggleShow();
+  }, [mode, props]);
+
   return (
     <MyView>
       {mode === 'list' && (
@@ -67,6 +71,7 @@ const Question = props => {
           setSelected={setSelected}
           grades={grades}
           setLoading={setLoading}
+          isAdmin={isUserAdmin(props.user)}
         />
       )}
       <QuestionProvider>
@@ -125,6 +130,7 @@ const Question = props => {
         {mode === 'detail' && (
           <Detail
             subject={selected}
+            preSelectedQuizId={props.quizId}
             setSubject={newItem => {
               editItem(subjects, setSubjects, newItem);
               setSelected(newItem);

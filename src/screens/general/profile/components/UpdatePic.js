@@ -12,9 +12,12 @@ import {LargePopUp} from '../../../../styles/Common/PopUp';
 import Avatar from './Avatar';
 import {fetchAvatars} from './Utility';
 import {styles} from '../../../../styles/Common/Styles';
+import UploadFile from '../../../../components/web/UploadFile';
+import {routes} from '../../../../API/APIRoutes';
 
 const UpdatePic = props => {
   const [pic, setPic] = useState(undefined);
+  const [showUploadPane, setShowUploadPane] = useState(false);
   const [showAvatars, setShowAvatars] = useState(false);
   const [avatars, setAvatars] = useState();
   const [userId, setUserId] = useState();
@@ -31,6 +34,10 @@ const UpdatePic = props => {
     setShowAvatars(!showAvatars);
   };
 
+  const toggleShowUploadPic = async () => {
+    setShowUploadPane(!showUploadPane);
+  };
+
   React.useEffect(() => {
     if (pic === undefined) setPic(props.user.pic);
   }, [pic, props.user.pic]);
@@ -41,6 +48,17 @@ const UpdatePic = props => {
 
   return (
     <MyView>
+      {showUploadPane && (
+        <UploadFile
+          accept={['image/*']}
+          url={routes.setPic}
+          expectedRes={'file'}
+          token={props.token}
+          multi={false}
+          maxFileSize={1}
+          toggleShow={() => setShowUploadPane(false)}
+        />
+      )}
       {showAvatars && (
         <LargePopUp toggleShowPopUp={toggleShowChooseAvatar}>
           {avatars !== undefined && (
@@ -86,12 +104,20 @@ const UpdatePic = props => {
           ...styles.gap10,
           ...styles.marginTop10,
         }}>
-        <CommonButton
-          theme={'dark'}
-          onPress={() => toggleShowChooseAvatar()}
-          title={translator.chooseAvatar}
-          style={{justifyContent: 'center'}}
-        />
+        <PhoneView>
+          <CommonButton
+            theme={'dark'}
+            onPress={() => toggleShowUploadPic()}
+            title={'بارگذاری تصویر دلخواه'}
+            style={{justifyContent: 'center'}}
+          />
+          <CommonButton
+            theme={'dark'}
+            onPress={() => toggleShowChooseAvatar()}
+            title={translator.chooseAvatar}
+            style={{justifyContent: 'center'}}
+          />
+        </PhoneView>
         <EqualTwoTextInputs>
           <SimpleText text={'کد معرفی شما:   '} />
           <SimpleText text={props.user.invitationCode} />

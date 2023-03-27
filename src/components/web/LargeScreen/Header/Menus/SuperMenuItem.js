@@ -65,6 +65,7 @@ export const SuperMenuItem = props => {
       {isOpen && (
         <div className={'sub-item'}>
           {props.items.map((elem, index) => {
+            if (elem.text === undefined) return;
             return (
               <SimpleText
                 onPress={() => (window.location.href = elem.url)}

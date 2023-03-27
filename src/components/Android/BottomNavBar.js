@@ -27,7 +27,7 @@ export default function BottomNavBar(props) {
         </Pressable>
         <Text>ورود/ثبت نام</Text>
       </MyView>
-      <MyView style={NavItemContainerStyle}>
+      {/* <MyView style={NavItemContainerStyle}>
         <MyView style={NavItemStyle}>
           <Image
             style={NavItemImageStyle}
@@ -36,6 +36,16 @@ export default function BottomNavBar(props) {
           />
         </MyView>
         <Text>پشتیبانی</Text>
+      </MyView> */}
+      <MyView style={NavItemContainerStyle}>
+        <MyView style={NavItemStyle}>
+          <Image
+            style={NavItemImageStyle}
+            resizeMode="contain"
+            source={require('./../../images/support.png')}
+          />
+        </MyView>
+        <Text>کلاس های المپیاد</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
         <MyView style={NavItemStyle}>

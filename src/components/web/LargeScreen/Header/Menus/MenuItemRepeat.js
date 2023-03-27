@@ -42,7 +42,11 @@ function MenuItemRepeat(props) {
               url: '/buy',
             },
             {
-              text: translator.makeQuiz,
+              text:
+                props.excludes !== undefined &&
+                props.excludes.indexOf('quiz_makeQuiz') === -1
+                  ? translator.makeQuiz
+                  : undefined,
               url: '/makeQuiz',
             },
             {
@@ -50,7 +54,11 @@ function MenuItemRepeat(props) {
               url: '/myIRYSCQuizzes',
             },
             {
-              text: translator.myCustomQuizess,
+              text:
+                props.excludes !== undefined &&
+                props.excludes.indexOf('quiz_makeQuiz') === -1
+                  ? translator.myCustomQuizess
+                  : undefined,
               url: '/myCustomQuizzes',
             },
             // {
@@ -104,7 +112,7 @@ function MenuItemRepeat(props) {
       )}
 
       {(props.excludes === undefined ||
-        props.excludes.indexOf('quiz') === -1) && (
+        props.excludes.indexOf('financeHistory') === -1) && (
         <MenuItem
           onClick={() => navigate('/financeHistory')}
           text={translator.history}

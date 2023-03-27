@@ -28,67 +28,75 @@ const QuizGeneralInfo = props => {
           value={props.name}
           subText={translator.name}
         />
-        <JustBottomBorderSelect
-          value={
-            props.kind === undefined
-              ? {}
-              : kindQuizKeyVals.filter(element => {
-                  return element.id === props.kind;
-                })[0]
-          }
-          placeholder={translator.kind}
-          subText={translator.kind}
-          setter={props.setKind}
-          values={kindQuizKeyVals}
-        />
-        <JustBottomBorderTextInput
-          multi={true}
-          addNotFound={true}
-          resultPane={true}
-          setSelectedItem={item => {
-            props.setTags(
-              item.map(elem => {
-                return elem.name;
-              }),
-            );
-            if (item.length > 0) {
-              let tmp = state.tags;
-              item.forEach(itr => {
-                if (state.tags.find(elem => elem.id === itr.id) === undefined) {
-                  tmp.push(itr);
-                }
-              });
-              dispatch({tags: tmp});
+        {props.setKind !== undefined && (
+          <JustBottomBorderSelect
+            value={
+              props.kind === undefined
+                ? {}
+                : kindQuizKeyVals.filter(element => {
+                    return element.id === props.kind;
+                  })[0]
             }
-          }}
-          values={state.tags}
-          value={props.tags.map((elem, index) => {
-            return {id: index, title: elem};
-          })}
-          reset={false}
-          placeholder={translator.tag}
-          subText={translator.tag}
-        />
-
-        <JustBottomBorderTextInput
-          placeholder={'اولویت'}
-          subText={'اولویت'}
-          justNum={true}
-          value={props.priority}
-          onChangeText={e => props.setPriority(e)}
-        />
+            placeholder={translator.kind}
+            subText={translator.kind}
+            setter={props.setKind}
+            values={kindQuizKeyVals}
+          />
+        )}
+        {props.setTags !== undefined && (
+          <JustBottomBorderTextInput
+            multi={true}
+            addNotFound={true}
+            resultPane={true}
+            setSelectedItem={item => {
+              props.setTags(
+                item.map(elem => {
+                  return elem.name;
+                }),
+              );
+              if (item.length > 0) {
+                let tmp = state.tags;
+                item.forEach(itr => {
+                  if (
+                    state.tags.find(elem => elem.id === itr.id) === undefined
+                  ) {
+                    tmp.push(itr);
+                  }
+                });
+                dispatch({tags: tmp});
+              }
+            }}
+            values={state.tags}
+            value={props.tags.map((elem, index) => {
+              return {id: index, title: elem};
+            })}
+            reset={false}
+            placeholder={translator.tag}
+            subText={translator.tag}
+          />
+        )}
+        {props.setPriority !== undefined && (
+          <JustBottomBorderTextInput
+            placeholder={'اولویت'}
+            subText={'اولویت'}
+            justNum={true}
+            value={props.priority}
+            onChangeText={e => props.setPriority(e)}
+          />
+        )}
       </PhoneView>
-
-      <PhoneView
-        style={{marginTop: 20, marginRight: 10, flexDirection: 'column'}}>
-        <JustBottomBorderTextInput
-          placeholder={commonTranslator.desc}
-          subText={commonTranslator.desc}
-          value={props.desc}
-          onChangeText={e => changeInput('desc', e)}
-          multiline={true}
-        />
-      </PhoneView>
+      {props.setDesc !== undefined && (
+        <PhoneView
+          style={{marginTop: 20, marginRight: 10, flexDirection: 'column'}}>
+          <JustBottomBorderTextInput
+            placeholder={commonTranslator.desc}
+            subText={commonTranslator.desc}
+            value={props.desc}
+            onChangeText={e => changeInput('desc', e)}
+            multiline={true}
+          />
+        </PhoneView>
+      )}
     </MyView>
   );
 };
