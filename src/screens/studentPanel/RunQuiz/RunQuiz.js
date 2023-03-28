@@ -268,7 +268,9 @@ function RunQuiz(props) {
                 }}
                 setSelectedAttach={setSelectedAttach}
                 onBack={() =>
-                  props.user.accesses.indexOf('student') !== -1
+                  props.user.accesses.indexOf('school') !== -1
+                    ? (window.location.href = '/mySchoolQuizzes')
+                    : props.user.accesses.indexOf('student') !== -1
                     ? params.quizMode === 'custom'
                       ? (window.location.href = '/myCustomQuizzes')
                       : params.quizMode === 'content'
@@ -287,7 +289,9 @@ function RunQuiz(props) {
               <Quiz
                 isInReviewMode={props.isInReviewMode}
                 onBack={() =>
-                  props.user.accesses.indexOf('student') !== -1
+                  props.user.accesses.indexOf('school') !== -1
+                    ? '/mySchoolQuizzes'
+                    : props.user.accesses.indexOf('student') !== -1
                     ? params.quizMode === 'custom'
                       ? (window.location.href = '/myCustomQuizzes')
                       : params.quizMode === 'content'

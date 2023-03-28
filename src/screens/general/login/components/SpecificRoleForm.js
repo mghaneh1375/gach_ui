@@ -19,6 +19,7 @@ function SpecificRoleForm(props) {
     return (
       <JustBottomBorderSelect
         setter={setData}
+        subText={obj.help === undefined ? obj.title : obj.help}
         afterSetter={props.setFormUserData}
         args={obj.key}
         values={obj.keyVals}

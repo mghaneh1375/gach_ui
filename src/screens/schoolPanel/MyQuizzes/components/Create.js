@@ -37,6 +37,7 @@ const Create = props => {
 
     setName(state.selectedQuiz.title);
     setLaunchMode(state.selectedQuiz.launchMode);
+    setUseFromDatabase(state.selectedQuiz.database);
     setStart(state.selectedQuiz.start);
     setDescAfter(state.selectedQuiz.descAfter);
     setDescBefore(state.selectedQuiz.descBefore);

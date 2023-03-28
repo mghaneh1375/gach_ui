@@ -130,6 +130,7 @@ const Question = props => {
         {mode === 'detail' && (
           <Detail
             subject={selected}
+            dispatch={props.dispatch}
             preSelectedQuizId={props.quizId}
             setSubject={newItem => {
               editItem(subjects, setSubjects, newItem);

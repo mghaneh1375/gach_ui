@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
-import {MyQuizzesProvider} from './components/Context';
+import Key from '../../panel/quiz/components/Key/Key';
+import {
+  dispatchMyQuizzesContext,
+  myQuizzesContext,
+  MyQuizzesProvider,
+} from './components/Context';
 import Create from './components/Create';
 import List from './components/List';
 import Questions from './components/Questions/Questions';
@@ -32,6 +37,15 @@ function MyQuizzes(props) {
             setLoading={setLoading}
           />
         )}
+        {mode === 'update' && (
+          <Create
+            setLoading={setLoading}
+            setMode={setMode}
+            token={state.token}
+            editMode={true}
+            navigator={navigate}
+          />
+        )}
         {mode === 'create' && (
           <Create
             setMode={setMode}
@@ -53,6 +67,15 @@ function MyQuizzes(props) {
             setMode={setMode}
             user={state.user}
             navigate={navigate}
+            token={state.token}
+          />
+        )}
+        {mode === 'key' && (
+          <Key
+            stateContext={myQuizzesContext}
+            dispatchStateContext={dispatchMyQuizzesContext}
+            setLoading={setLoading}
+            setMode={setMode}
             token={state.token}
           />
         )}

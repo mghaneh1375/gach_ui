@@ -13,9 +13,13 @@ import {
 } from '../../../../../styles/Common';
 
 function Key(props) {
+  // const useGlobalState = () => [
+  //   React.useContext(quizContext),
+  //   React.useContext(dispatchQuizContext),
+  // ];
   const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
+    React.useContext(props.stateContext),
+    React.useContext(props.dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
 
@@ -100,6 +104,8 @@ function Key(props) {
             answer_sheet={state.wanted_answer_sheet}
             setLoading={props.setLoading}
             token={props.token}
+            state={state}
+            dispatch={dispatch}
           />
         )}
       </MyView>

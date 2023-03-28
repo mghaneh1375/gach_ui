@@ -96,7 +96,7 @@ const UpdatePic = props => {
         }}
         source={{uri: pic}}
       />
-      {/* {props.accesses.indexOf('student') !== -1 && ( */}
+
       <MyView
         style={{
           ...styles.marginAuto,
@@ -105,12 +105,15 @@ const UpdatePic = props => {
           ...styles.marginTop10,
         }}>
         <PhoneView>
-          <CommonButton
-            theme={'dark'}
-            onPress={() => toggleShowUploadPic()}
-            title={'بارگذاری تصویر دلخواه'}
-            style={{justifyContent: 'center'}}
-          />
+          {props.accesses.indexOf('student') === -1 && (
+            <CommonButton
+              theme={'dark'}
+              onPress={() => toggleShowUploadPic()}
+              title={'بارگذاری تصویر دلخواه'}
+              style={{justifyContent: 'center'}}
+            />
+          )}
+
           <CommonButton
             theme={'dark'}
             onPress={() => toggleShowChooseAvatar()}

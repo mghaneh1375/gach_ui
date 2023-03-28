@@ -5,30 +5,30 @@ import vars from '../../../../../styles/root';
 import {dispatchQuizContext, quizContext} from '../Context';
 
 function Test(props) {
-  const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
-  ];
-  const [state, dispatch] = useGlobalState();
+  // const useGlobalState = () => [
+  //   React.useContext(quizContext),
+  //   React.useContext(dispatchQuizContext),
+  // ];
+  // const [state, dispatch] = useGlobalState();
 
   const index = props.index;
 
-  const choicesCount = state.wanted_answer_sheet[index].choicesCount;
+  const choicesCount = props.state.wanted_answer_sheet[index].choicesCount;
   const [choicesArr, setChoicesArr] = useState();
 
   React.useEffect(() => {
     if (choicesCount === undefined) return;
 
-    let ans = state.wanted_answer_sheet[index].answer;
-    let studentAns = state.wanted_answer_sheet[index].studentAns;
+    let ans = props.state.wanted_answer_sheet[index].answer;
+    let studentAns = props.state.wanted_answer_sheet[index].studentAns;
 
     let tmp = [];
     for (let i = 0; i < choicesCount; i++)
       tmp.push({
         text: i + 1,
-        isAnswer: state.showAnswers && ans == i + 1,
+        isAnswer: props.state.showAnswers && ans == i + 1,
         choosen:
-          state.showStdAnswers &&
+          props.state.showStdAnswers &&
           studentAns !== undefined &&
           studentAns == i + 1,
       });
@@ -36,33 +36,33 @@ function Test(props) {
     setChoicesArr(tmp);
   }, [
     choicesCount,
-    state.wanted_answer_sheet,
+    props.state.wanted_answer_sheet,
     index,
-    state.showAnswers,
-    state.showStdAnswers,
+    props.state.showAnswers,
+    props.state.showStdAnswers,
   ]);
 
   const changeAnsSelected = idx => {
-    let ans = state.wanted_answer_sheet[index].answer;
-    let studentAns = state.wanted_answer_sheet[index].studentAns;
+    let ans = props.state.wanted_answer_sheet[index].answer;
+    let studentAns = props.state.wanted_answer_sheet[index].studentAns;
 
-    if (state.allowChangeAns) {
+    if (props.state.allowChangeAns) {
       ans = idx + 1;
-      state.new_answer_sheet[index] = idx + 1;
-      dispatch({new_answer_sheet: state.new_answer_sheet[index]});
-    } else if (state.allowChangeStdAns) {
+      props.state.new_answer_sheet[index] = idx + 1;
+      props.dispatch({new_answer_sheet: props.state.new_answer_sheet[index]});
+    } else if (props.state.allowChangeStdAns) {
       studentAns = idx + 1;
-      state.new_std_answer_sheet[index] = idx + 1;
-      dispatch({new_std_answer_sheet: state.new_std_answer_sheet});
+      props.state.new_std_answer_sheet[index] = idx + 1;
+      props.dispatch({new_std_answer_sheet: props.state.new_std_answer_sheet});
     }
 
     let tmp = [];
     for (let i = 0; i < choicesCount; i++)
       tmp.push({
         text: i + 1,
-        isAnswer: state.showAnswers && ans == i + 1,
+        isAnswer: props.state.showAnswers && ans == i + 1,
         choosen:
-          state.showStdAnswers &&
+          props.state.showStdAnswers &&
           studentAns !== undefined &&
           studentAns == i + 1,
       });
@@ -83,7 +83,7 @@ function Test(props) {
             return (
               <SimpleText
                 onPress={() =>
-                  state.allowChangeStdAns || state.allowChangeAns
+                  props.state.allowChangeStdAns || props.state.allowChangeAns
                     ? changeAnsSelected(idx)
                     : {}
                 }
@@ -105,7 +105,7 @@ function Test(props) {
           return (
             <Pressable
               onPress={() =>
-                state.allowChangeStdAns || state.allowChangeAns
+                props.state.allowChangeStdAns || props.state.allowChangeAns
                   ? changeAnsSelected(idx)
                   : {}
               }
@@ -136,10 +136,10 @@ function Test(props) {
           );
         })}
 
-      {state.wanted_answer_sheet[index].percent !== undefined && (
+      {props.state.wanted_answer_sheet[index].percent !== undefined && (
         <SimpleText
           style={{alignSelf: 'center', marginLeft: 3}}
-          text={'%' + state.wanted_answer_sheet[index].percent}
+          text={'%' + props.state.wanted_answer_sheet[index].percent}
         />
       )}
     </PhoneView>

@@ -30,15 +30,11 @@ import {
 } from './style';
 import {levelKeyVals, statusKeyVals, typeOfQuestionKeyVals} from '../KeyVals';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {dispatchQuizContext} from '../../../quiz/components/Context';
 import vars from '../../../../../styles/root';
 import {styles} from '../../../../../styles/Common/Styles';
 
 function Question(props) {
   const [showMore, setShowMore] = useState(false);
-
-  const useGlobalState = () => [React.useContext(dispatchQuizContext)];
-  const [dispatch] = useGlobalState();
 
   const toggleShowMore = () => {
     setShowMore(!showMore);
@@ -57,11 +53,12 @@ function Question(props) {
   }, [props.totalQuestions]);
 
   const changeQNo = id => {
-    dispatch({
-      needSorting: true,
-      selectedQuestionId: props.question.id,
-      newWantedNo: id,
-    });
+    if (props.dispatch !== undefined)
+      props.dispatch({
+        needSorting: true,
+        selectedQuestionId: props.question.id,
+        newWantedNo: id,
+      });
   };
 
   React.useEffect(() => {

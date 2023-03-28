@@ -4,7 +4,7 @@ import Question from './Question';
 import Quizzes from './../../../../../components/web/Quizzes';
 import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
-import {showSuccess} from '../../../../../services/Utility';
+import {showError, showSuccess} from '../../../../../services/Utility';
 import {
   BigBoldBlueText,
   CommonButton,
@@ -28,6 +28,7 @@ import Report from './Report';
 import Type from './Filter/Type';
 import {styleYellowMarginTop7} from './style';
 import {styles} from '../../../../../styles/Common/Styles';
+import {getQuestions} from '../../../quiz/components/Utility';
 
 function Detail(props) {
   const [selectingQuiz, setSelectingQuiz] = useState(false);
@@ -308,13 +309,31 @@ function Detail(props) {
                                 ['doneIds', 'excepts'],
                                 props.token,
                               );
-                              props.setLoading(false);
                               if (
                                 res != null &&
                                 res.doneIds !== undefined &&
                                 res.doneIds.length > 0
-                              )
+                              ) {
+                                let res2 = await getQuestions(
+                                  props.token,
+                                  props.preSelectedQuizId,
+                                  'school',
+                                );
+
+                                props.setLoading(false);
                                 showSuccess();
+
+                                if (res2 != null) {
+                                  props.dispatch({
+                                    clearQuestions: true,
+                                    selectedIds: [],
+                                    newQuestions: res2,
+                                  });
+                                }
+                              } else {
+                                props.setLoading(false);
+                                showError('این سوال در آزمون موجود است');
+                              }
                             },
                             theme: 'dark',
                             title: translator.addQuiz,

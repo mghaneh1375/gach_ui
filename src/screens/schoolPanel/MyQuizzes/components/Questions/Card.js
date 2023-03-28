@@ -39,6 +39,7 @@ function Card(props) {
       )}
       <MyView style={{width: '90%'}}>
         <Question
+          dispatch={dispatch}
           needOps={false}
           question={props.question}
           totalQuestions={props.totalQuestions}

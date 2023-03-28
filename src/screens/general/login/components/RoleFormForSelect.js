@@ -1,19 +1,12 @@
 import React, {useState} from 'react';
 import {
-  BigBoldBlueTextInline,
-  BlueTextFromStart,
   CommonButton,
-  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
-import {RoleCard} from '../../../../styles/Common/RoleCard';
 import commonTranslator from '../../../../translator/Common';
-import vars from '../../../../styles/root';
 import {checkSendRoleForm, getRoleForms} from './Utility';
-import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
 import SpecificRoleForm from './SpecificRoleForm';
 import {styles} from '../../../../styles/Common/Styles';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';

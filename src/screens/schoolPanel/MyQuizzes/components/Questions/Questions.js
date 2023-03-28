@@ -55,23 +55,16 @@ const Questions = props => {
     });
   };
 
-  const refresh = result => {
-    if (result.length > 0) {
-      result.forEach(elem => {
-        state.selectedQuiz.questions.push(elem);
-      });
-      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
-    }
-  };
-
-  React.useEffect(() => {
+  const fetchQuestions = React.useCallback(() => {
     if (isWorking) return;
     if (state.selectedQuiz.questions !== undefined) {
       dispatch({selectedIds: []});
       return;
     }
+
     setIsWorking(true);
     props.setLoading(true);
+
     Promise.all([
       getQuestions(props.token, state.selectedQuiz.id, 'school'),
     ]).then(res => {
@@ -92,6 +85,10 @@ const Questions = props => {
       setIsWorking(false);
     });
   }, [props, isWorking, state.selectedQuiz, dispatch]);
+
+  React.useEffect(() => {
+    if (state.selectedQuiz !== undefined) fetchQuestions();
+  }, [state.selectedQuiz, fetchQuestions]);
 
   const changeSort = React.useCallback(() => {
     props.setLoading(true);
@@ -187,6 +184,7 @@ const Questions = props => {
       )}
       {selectingMode && (
         <QuestionsModule
+          dispatch={dispatch}
           token={props.token}
           user={props.user}
           navigate={props.navigate}

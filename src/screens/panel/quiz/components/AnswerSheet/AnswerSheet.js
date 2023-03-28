@@ -67,6 +67,8 @@ function AnswerSheet(props) {
                         token={props.token}
                         index={idx + index * perBox}
                         key={idx}
+                        state={props.state}
+                        dispatch={props.dispatch}
                       />
                     );
                   else if (elem.type === 'short_answer')
