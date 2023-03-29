@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {ImageBackground, View} from 'react-native';
 import {
   BigBoldBlueText,
   BlueTextInline,
@@ -67,7 +66,8 @@ const Login = props => {
   };
 
   React.useEffect(() => {
-    if (state.token !== undefined) window.location.href = '/dashboard';
+    if (state.token !== undefined && state.token !== null && state.token !== '')
+      window.location.href = '/dashboard';
   }, [state.token]);
 
   return (

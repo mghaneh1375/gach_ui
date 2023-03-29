@@ -29,7 +29,8 @@ export const removeAuthCache = async () => {
 
 export const setCacheItem = async (key, val) => {
   try {
-    await AsyncStorage.setItem(key, val);
+    localStorage.setItem(key, val);
+    // await AsyncStorage.setItem(key, val);
   } catch (e) {
     console.log(e);
   }
@@ -37,7 +38,8 @@ export const setCacheItem = async (key, val) => {
 
 export const getToken = async (key = 'token') => {
   try {
-    const value = await AsyncStorage.getItem(key);
+    // const value = await AsyncStorage.getItem(key);
+    const value = localStorage.getItem(key);
     if (value !== null && value !== undefined && value != 'undefined')
       return value;
   } catch (e) {
@@ -47,7 +49,8 @@ export const getToken = async (key = 'token') => {
 
 export const getUser = async (key = 'user') => {
   try {
-    const value = await AsyncStorage.getItem(key);
+    // const value = await AsyncStorage.getItem(key);
+    const value = localStorage.getItem(key);
     if (value !== null && value !== undefined && value != 'undefined') {
       return JSON.parse(value);
     }

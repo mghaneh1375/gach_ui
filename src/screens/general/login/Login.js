@@ -34,9 +34,8 @@ const Login = props => {
   const [state, dispatch] = useGlobalState();
 
   React.useEffect(() => {
-    if (state.token !== undefined) {
+    if (state.token !== undefined && state.token !== null && state.token !== '')
       navigate(isApp ? 'Home' : '/');
-    }
   }, [state.token, isApp, state, navigate]);
 
   const setLoading = status => {
@@ -56,7 +55,6 @@ const Login = props => {
     setMode(wantedMode);
   };
 
-  const home = device.indexOf(Device.App) !== -1 ? 'Home' : '/dashboard';
   const root = device.indexOf(Device.App) !== -1 ? 'Home' : '/';
 
   const redirectToRoot = () => {
@@ -64,7 +62,8 @@ const Login = props => {
   };
 
   React.useEffect(() => {
-    if (state.token !== undefined) window.location.href = '/dashboard';
+    if (state.token !== undefined && state.token !== null && state.token !== '')
+      window.location.href = '/dashboard';
   }, [state.token]);
 
   return (

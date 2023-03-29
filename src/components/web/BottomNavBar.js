@@ -56,7 +56,7 @@ export default function BottomNavBar() {
         <Text style={NavTextStyle}>رتبه بندی</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
-        <Link style={NavItemStyle} to="/rankinglist">
+        <Link style={NavItemStyle} to="/packages">
           <SimpleFontIcon kind={'large'} icon={faVideo} />
         </Link>
         <Text style={TinyNavTextStyle}>کلاس های المپیاد</Text>
