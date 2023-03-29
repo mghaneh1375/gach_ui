@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "web": "set PORT=80 && react-scripts start",
+    "web": "react-scripts start",
     "start": "react-native start",
     "build": "react-scripts build",
     "test": "jest",

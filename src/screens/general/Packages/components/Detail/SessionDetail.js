@@ -25,8 +25,14 @@ import RenderHTML from 'react-native-render-html';
 import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext, globalStateContext} from '../../../../../App';
 import {useParams} from 'react-router';
-import {generalRequest} from '../../../../../API/Utility';
+import {
+  BASE_SITE_NAME,
+  BASE_URL,
+  downloadRequest,
+  generalRequest,
+} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
+import AttachBox from '../../../../panel/ticket/components/Show/AttachBox/AttachBox';
 
 function SessionDetail(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
@@ -131,6 +137,24 @@ function SessionDetail(props) {
                 html: selectedSession.description,
               }}
             />
+            {selectedSession.attaches !== undefined &&
+              selectedSession.attaches.map((elem, index) => {
+                return (
+                  <PhoneView>
+                    <SimpleText
+                      style={{alignSelf: 'center'}}
+                      text={'فایل ضمیمه شماره: ' + (index + 1)}
+                    />
+                    <AttachBox
+                      onClick={() =>
+                        downloadRequest(elem, undefined, undefined, undefined)
+                      }
+                      key={index}
+                      filename={elem}
+                    />
+                  </PhoneView>
+                );
+              })}
           </CommonWebBox>
         )}
 

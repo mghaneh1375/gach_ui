@@ -14,6 +14,7 @@ import {fetchAvatars} from './Utility';
 import {styles} from '../../../../styles/Common/Styles';
 import UploadFile from '../../../../components/web/UploadFile';
 import {routes} from '../../../../API/APIRoutes';
+import {fetchUser, setCacheItem} from '../../../../API/User';
 
 const UpdatePic = props => {
   const [pic, setPic] = useState(undefined);
@@ -39,12 +40,15 @@ const UpdatePic = props => {
   };
 
   React.useEffect(() => {
+    console.log(props.user.pic);
     if (pic === undefined) setPic(props.user.pic);
   }, [pic, props.user.pic]);
 
   React.useEffect(() => {
     if (userId === undefined && props.isAdmin) setUserId(props.user.id);
   }, [props.user.id, props.isAdmin, userId]);
+
+  const [finalMsg, setFinalMsg] = useState();
 
   return (
     <MyView>
@@ -53,7 +57,15 @@ const UpdatePic = props => {
           accept={['image/*']}
           url={routes.setPic}
           expectedRes={'file'}
+          finalMsg={finalMsg}
           token={props.token}
+          setResult={async e => {
+            if (e != null) {
+              await setCacheItem('user', undefined);
+              await fetchUser(props.token, user => {});
+              setFinalMsg('عملیات موردنظر با موفقیت انجام شد');
+            }
+          }}
           multi={false}
           maxFileSize={1}
           toggleShow={() => setShowUploadPane(false)}

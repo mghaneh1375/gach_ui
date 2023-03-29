@@ -9,6 +9,7 @@ import {
 import Create from './components/Create';
 import List from './components/List';
 import Questions from './components/Questions/Questions';
+import Recp from './components/Recp';
 import Students from './components/Students/Students';
 
 function MyQuizzes(props) {
@@ -69,6 +70,9 @@ function MyQuizzes(props) {
             navigate={navigate}
             token={state.token}
           />
+        )}
+        {mode === 'recp' && (
+          <Recp setLoading={setLoading} setMode={setMode} token={state.token} />
         )}
         {mode === 'key' && (
           <Key

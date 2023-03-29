@@ -3,7 +3,7 @@ import {routes} from '../../../../API/APIRoutes';
 import {CV_BASE_URL, generalRequest} from '../../../../API/Utility';
 import UploadFile from '../../../../components/web/UploadFile';
 import {showSuccess} from '../../../../services/Utility';
-import {CommonButton, PhoneView} from '../../../../styles/Common';
+import {CommonButton, PhoneView, SimpleText} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../../../panel/quiz/Translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
@@ -90,9 +90,19 @@ const Ops = props => {
     }
   };
 
+  const [showFinalizeMsg, setShowFinalizeMsg] = useState(false);
+
   return (
     <>
-      {
+      {showFinalizeMsg && (
+        <LargePopUp
+          title={translator.finalize}
+          btns={<CommonButton theme={'dark'} title={commonTranslator.yes} />}
+          toggleShowPopUp={() => setShowFinalizeMsg(false)}>
+          <SimpleText text={translator.finalizeMsg} />
+        </LargePopUp>
+      )}
+      {!showFinalizeMsg && (
         <LargePopUp
           title={state.selectedQuiz.title}
           toggleShowPopUp={props.toggleShowPopUp}>
@@ -133,18 +143,56 @@ const Ops = props => {
             />
 
             <CommonButton
-              onPress={() => createTarazLocal()}
               dir={'rtl'}
               theme={'transparent'}
-              title={translator.createTaraz}
+              onPress={() => changeMode('recp')}
+              title={translator.recp}
             />
 
-            <CommonButton
-              onPress={() => props.setMode('report')}
-              dir={'rtl'}
-              theme={'transparent'}
-              title={commonTranslator.report}
-            />
+            {state.selectedQuiz.status === 'init' && (
+              <>
+                <CommonButton
+                  dir={'rtl'}
+                  theme="transparent"
+                  onPress={() => setShowFinalizeMsg(true)}
+                  title={translator.finalize}
+                />
+              </>
+            )}
+            {state.selectedQuiz.status === 'finish' && (
+              <>
+                <CommonButton
+                  onPress={() => createTarazLocal()}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  title={translator.createTaraz}
+                />
+
+                <CommonButton
+                  onPress={() => props.setMode('report')}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  title={commonTranslator.report}
+                />
+
+                <CommonButton
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  onPress={async () => {
+                    props.setLoading(true);
+                    await generateQuestionPDF(
+                      state.selectedQuiz.id,
+                      'school',
+                      props.token,
+                    );
+
+                    props.setLoading(false);
+                  }}
+                  title={translator.generateQuestionPDF}
+                />
+              </>
+            )}
+
             {(state.selectedQuiz.launchMode === 'physical' ||
               state.selectedQuiz.launchMode === 'hybrid') &&
               state.selectedQuiz.mode === 'regular' && (
@@ -155,22 +203,6 @@ const Ops = props => {
                   title={translator.correntAnswerSheets}
                 />
               )}
-
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              onPress={async () => {
-                props.setLoading(true);
-                await generateQuestionPDF(
-                  state.selectedQuiz.id,
-                  'school',
-                  props.token,
-                );
-
-                props.setLoading(false);
-              }}
-              title={translator.generateQuestionPDF}
-            />
 
             <CommonButton
               title={translator.keySheet}
@@ -194,7 +226,7 @@ const Ops = props => {
             />
           </PhoneView>
         </LargePopUp>
-      }
+      )}
 
       {showUploadPane && (
         <UploadFile
