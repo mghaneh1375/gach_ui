@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {formatPrice} from '../../../../services/Utility';
-import {CommonWebBox} from '../../../../styles/Common';
+import {CommonWebBox, SimpleText} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import translator from '../../../panel/quiz/Translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
@@ -17,13 +17,12 @@ function Recp(props) {
   const [isWorking, setIsWorking] = useState(false);
 
   const fetchData = React.useCallback(() => {
-    if (
-      isWorking ||
-      state.selectedQuiz === undefined ||
-      state.selectedQuiz.recp !== undefined
-    )
-      return;
+    if (isWorking || state.selectedQuiz === undefined) return;
 
+    if (state.selectedQuiz.recp !== undefined) {
+      setData(state.selectedQuiz.recp);
+      return;
+    }
     setIsWorking(true);
     props.setLoading(true);
 
@@ -44,6 +43,7 @@ function Recp(props) {
       }
 
       state.selectedQuiz.recp = res[0];
+      setData(res[0]);
 
       dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
       setIsWorking(false);
@@ -51,22 +51,14 @@ function Recp(props) {
   }, [isWorking, dispatch, props, state.selectedQuiz]);
 
   React.useEffect(() => {
-    if (
-      state.selectedQuiz === undefined ||
-      state.selectedQuiz.recp !== undefined
-    )
+    if (state.selectedQuiz === undefined) return;
+
+    if (state.selectedQuiz.recp !== undefined) {
+      setData(state.selectedQuiz.recp);
       return;
+    }
     fetchData();
   }, [state.selectedQuiz, fetchData]);
-
-  React.useEffect(() => {
-    if (
-      state.selectedQuiz === undefined ||
-      state.selectedQuiz.recp === undefined
-    )
-      return;
-    setData(state.selectedQuiz.recp);
-  }, [state.selectedQuiz]);
 
   const columns = [
     {
@@ -74,6 +66,12 @@ function Recp(props) {
       selector: row => row.subject,
       grow: 3,
       minWidth: '120px',
+    },
+    {
+      name: 'تعداد سوال',
+      selector: row => row.count,
+      grow: 1,
+      center: true,
     },
     {
       name: 'سطح سختی',
@@ -95,18 +93,22 @@ function Recp(props) {
     },
   ];
 
-  if (data === undefined) return <></>;
-
   return (
     <>
       {state.selectedQuiz.status === 'init' && (
-        <CommonWebBox header={translator.recp}>
-          <CommonDataTable
-            data={data}
-            columns={columns}
-            excel={false}
-            pagination={false}
-          />
+        <CommonWebBox
+          backBtn={true}
+          onBackClick={() => props.setMode('list')}
+          header={translator.recp}>
+          <SimpleText text="وضعیت: در انتظار پرداخت" />
+          {data !== undefined && (
+            <CommonDataTable
+              data={data}
+              columns={columns}
+              excel={false}
+              pagination={false}
+            />
+          )}
         </CommonWebBox>
       )}
     </>

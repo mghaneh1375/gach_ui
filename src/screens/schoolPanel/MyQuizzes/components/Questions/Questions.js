@@ -48,6 +48,8 @@ const Questions = props => {
       },
     );
 
+    state.selectedQuiz.recp = undefined;
+
     dispatch({
       selectedQuiz: state.selectedQuiz,
       needUpdate: true,

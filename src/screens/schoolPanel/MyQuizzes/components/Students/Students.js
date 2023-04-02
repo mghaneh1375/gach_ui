@@ -30,6 +30,7 @@ const Students = props => {
   const setStudents = newList => {
     state.selectedQuiz.students = newList;
     state.selectedQuiz.studentsCount = newList.length;
+    state.selectedQuiz.recp = undefined;
     dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
   };
 
@@ -172,6 +173,7 @@ const Students = props => {
       );
 
       state.selectedQuiz.studentsCount = state.selectedQuiz.students.length;
+      state.selectedQuiz.recp = undefined;
       dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
 
       setSelectedStudents(undefined);

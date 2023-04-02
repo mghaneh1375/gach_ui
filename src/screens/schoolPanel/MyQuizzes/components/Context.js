@@ -91,6 +91,7 @@ export const MyQuizzesProvider = ({children}) => {
   const doClearQuestions = React.useCallback(() => {
     if (state.selectedQuiz === undefined) return;
     state.selectedQuiz.questions = state.newQuestions;
+    state.selectedQuiz.recp = undefined;
     dispatch({
       selectedQuiz: state.selectedQuiz,
       clearQuestions: false,
