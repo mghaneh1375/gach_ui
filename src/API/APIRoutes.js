@@ -241,6 +241,7 @@ export const routes = {
   removeContent: 'package_content/manage/remove/',
   contentBuyers: 'package_content/admin/buyers/',
   contentForceRegistry: 'package_content/admin/force_registry/',
+  contentForceFire: 'package_content/admin/forceFire/',
   storeContent: 'package_content/manage/store',
   updateContent: 'package_content/manage/update/',
   changeVisibility: 'package_content/manage/changeVisibility/',

@@ -105,7 +105,10 @@ const Students = props => {
           </ExcelComma>
           <CommonDataTable
             columns={columns}
+            setData={setStudents}
+            removeUrl={routes.contentForceFire + state.selectedContent.id}
             data={state.selectedContent.students}
+            token={props.token}
             setLoading={props.setLoading}
           />
         </CommonWebBox>
