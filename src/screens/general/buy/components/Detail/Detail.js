@@ -35,7 +35,6 @@ function Detail(props) {
     Promise.all([getPackage(props.token, props.packageId)]).then(res => {
       props.setLoading(false);
 
-      console.log(res[0]);
       if (
         res[0] === null ||
         res[0].items === undefined ||
@@ -57,10 +56,6 @@ function Detail(props) {
     if (props.packageId === undefined) return;
     localFetchPackage();
   }, [props.packageId, localFetchPackage]);
-
-  React.useEffect(() => {
-    console.log(state.package);
-  }, [state.package]);
 
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
 

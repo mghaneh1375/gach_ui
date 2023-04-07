@@ -5,6 +5,7 @@ import {PackageProvider} from './components/Context';
 import Detail from './components/Detail/Detail';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
+import {getDevice} from '../../../services/Utility';
 
 function Buy(props) {
   const navigate = props.navigate;
@@ -25,6 +26,8 @@ function Buy(props) {
   const [mode, setMode] = useState();
   const params = useParams();
 
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+
   React.useEffect(() => {
     if (packageId == undefined) return;
     setMode('detail');
@@ -42,17 +45,30 @@ function Buy(props) {
   }, [params]);
 
   React.useEffect(() => {
-    if (mode !== 'list') {
+    if (!isInPhone) {
+      if (mode !== 'list') {
+        dispatch({
+          isFilterMenuVisible: false,
+          isRightMenuVisible: state.user !== null,
+        });
+      } else
+        dispatch({
+          isRightMenuVisible: false,
+          isFilterMenuVisible: true,
+        });
+    } else if (mode === 'detail') {
       dispatch({
         isFilterMenuVisible: false,
-        isRightMenuVisible: state.user !== null,
+        isRightMenuVisible: false,
+        showTopNav: true,
       });
     } else
       dispatch({
-        isRightMenuVisible: false,
         isFilterMenuVisible: true,
+        isRightMenuVisible: false,
+        showTopNav: false,
       });
-  }, [mode, dispatch, state.user]);
+  }, [mode, isInPhone, dispatch, state.user]);
 
   return (
     <PackageProvider>
