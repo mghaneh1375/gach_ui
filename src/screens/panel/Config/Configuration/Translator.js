@@ -32,6 +32,7 @@ const translator = {
   GHQ: 'قیمت تست سلامت عمومی ( GHQ )',
   RCMAS: 'قیمت آزمون اضطراب آشکار کودکان رینولدز و ریچموند',
   maxStudentQuizPerDay: 'حداکثر تعداد دانش آموز برای برگزاری آزمون در روز',
+  maxQuestionPerQuiz: 'حداکثر تعداد سوال در هر آزمون مدرسه ای',
   quizPerStudentPrice: 'قیمت شرکت هر دانش آموز در آزمون های مدرسه ای',
   giftPeriod: 'بازه شرکت در گردونه شانس',
   minQuestionForCustomQuiz: 'حد آستانه سوالات در مباحث برای آزمون های شخصی ساز',

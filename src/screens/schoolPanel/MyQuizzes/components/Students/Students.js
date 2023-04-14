@@ -256,7 +256,9 @@ const Students = props => {
               token={props.token}
               setData={setStudents}
               removeUrl={
-                routes.forceDeportation + 'school/' + state.selectedQuiz.id
+                state.selectedQuiz.status !== 'finish'
+                  ? routes.forceDeportation + 'school/' + state.selectedQuiz.id
+                  : undefined
               }
             />
           )}

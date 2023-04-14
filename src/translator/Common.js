@@ -37,6 +37,7 @@ const translator = {
   myGeneralQuizes: 'آزمون های من',
   myQuizes: 'آزمون های آیریسکی من',
   myCustomQuizess: 'آزمون های شخصی من',
+  mySchoolQuizess: 'آزمون های مدرسه ای من',
   packages: 'بسته های آموزشی',
   myPackages: 'بسته های آموزشی من',
   buyPackages: 'خرید بسته آمورشی',

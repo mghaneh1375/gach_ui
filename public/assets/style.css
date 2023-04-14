@@ -2,6 +2,21 @@ div[data-testid='marker-box'] {
   direction: rtl;
   font-family: IRANSans;
 }
+.css-view-1dbjc4n
+  > div[data-testid='figure']
+  > div[role='presentation']
+  > div.css-view-1dbjc4n[data-testid='image-success'] {
+  max-width: 700px !important;
+  max-height: 700px !important;
+}
+
+.css-view-1dbjc4n
+  > div[data-testid='figure']
+  > div[role='presentation']
+  > div.css-view-1dbjc4n[data-testid='image-success']
+  > div {
+  background-size: contain !important;
+}
 .menu-item-container {
   height: calc(100vh - 60px - 10px);
   margin-top: 10px;
@@ -491,5 +506,15 @@ option {
 @media (min-width: 1100px) {
   .transparent-cards > .myView {
     justify-content: space-evenly;
+  }
+}
+
+@media (max-width: 500px) {
+  .css-view-1dbjc4n
+    > div[data-testid='figure']
+    > div[role='presentation']
+    > div.css-view-1dbjc4n[data-testid='image-success'] {
+    max-width: 320px !important;
+    max-height: 320px !important;
   }
 }
