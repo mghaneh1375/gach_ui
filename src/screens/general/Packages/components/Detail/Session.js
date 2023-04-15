@@ -17,6 +17,7 @@ import {
 import RenderHTML from 'react-native-render-html';
 import {styles} from '../../../../../styles/Common/Styles';
 import {
+  convertSecToMin,
   convertSecToMinWithOutHour,
   systemFonts,
   tagsStyles,
@@ -48,7 +49,11 @@ function Session(props) {
           <SimpleFontIcon kind={'med'} icon={faClock} />
           <SimpleText
             style={styles.alignSelfCenter}
-            text={convertSecToMinWithOutHour(props.session.duration) + '"'}
+            text={
+              props.session.duration > 3600
+                ? convertSecToMin(props.session.duration) + '"'
+                : convertSecToMinWithOutHour(props.session.duration) + '"'
+            }
           />
 
           {(props.session.video === null ||

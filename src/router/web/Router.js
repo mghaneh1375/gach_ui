@@ -218,6 +218,11 @@ export default function WebRouter() {
           />
 
           <Route
+            path="/checkCert/:certId/:NID"
+            element={<WebStructue page="checkCert" />}
+          />
+
+          <Route
             path="/acceptInvite/:reqId"
             element={<WebStructue page="acceptInvite" />}
           />

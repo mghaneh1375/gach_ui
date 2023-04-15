@@ -353,6 +353,8 @@ const WebStructue = props => {
                 />
               )}
 
+              {props.page === 'checkCert' && <CheckCert navigate={navigate} />}
+
               {props.page === 'rankingList' && (
                 <RankingList navigate={navigate} />
               )}

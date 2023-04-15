@@ -15,6 +15,7 @@ import {
 import RenderHTML from 'react-native-render-html';
 import {styles} from '../../../../../styles/Common/Styles';
 import {
+  convertSecToMin,
   convertSecToMinWithOutHour,
   systemFonts,
   tagsStyles,
@@ -43,7 +44,11 @@ function Chapter(props) {
           <SimpleFontIcon kind={'med'} icon={faClock} />
           <SimpleText
             style={styles.alignSelfCenter}
-            text={convertSecToMinWithOutHour(props.chapter.duration) + '"'}
+            text={
+              props.chapter.duration > 3600
+                ? convertSecToMin(props.chapter.duration) + '"'
+                : convertSecToMinWithOutHour(props.chapter.duration) + '"'
+            }
           />
 
           <SimpleFontIcon

@@ -176,6 +176,7 @@ function List(props) {
                   width: w,
                   alignSelf: 'start',
                   minHeight: '100vh',
+                  marginBottom: 60,
                 }
               : {padding: 10, alignSelf: 'start', minHeight: '100vh'}
           }>

@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {globalStateContext, dispatchStateContext} from '../../../App';
-import {getDevice} from '../../../services/Utility';
+import {getDevice, showError} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -11,65 +8,40 @@ import {
   SimpleText,
 } from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
-import {downloadCert} from '../../panel/certificate/Utility';
+import {verifyCert} from '../../panel/certificate/Utility';
+import {dispatchStateContext} from '../../../App';
 
 function CheckCert(props) {
   const params = useParams();
-  const [isWorking, setIsWorking] = useState(false);
   const [certId, setCertId] = useState();
   const [NID, setNID] = useState();
 
-  const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
-  ];
-
-  const [state, dispatch] = useGlobalState();
-  const [res, setRes] = useState();
-
-  const fetchData = React.useCallback(() => {
-    if (isWorking || res !== undefined) return;
-
-    if (params.certId === undefined) {
-      props.navigate('/');
-      return;
-    }
-
-    setIsWorking(true);
-    dispatch({loading: true});
-
-    Promise.all([
-      generalRequest(
-        routes.checkCert + params.certId,
-        'get',
-        undefined,
-        'data',
-        undefined,
-      ),
-    ]).then(r => {
-      dispatch({loading: false});
-      if (r[0] == null) {
-        setRes('گواهی موردنظر نامعتبر است.');
-        return;
-      }
-
-      setNID(r[0].NID);
-      setCertId(r[0].certId);
-      setRes(
-        'گواهی موردنظر برای کدملی ' +
-          r[0].NID +
-          ' در تاریخ ' +
-          r[0].issueAt +
-          ' صادر شده است. برای مشاهده گواهی بر روی لینک زیر کلیک کنید.',
-      );
-    });
-  }, [isWorking, res, props, params, dispatch]);
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const navigate = props.navigate;
+
+  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+
+  const [dispatch] = useGlobalState();
+
+  const setLoading = status => {
+    dispatch({loading: status});
+  };
 
   React.useEffect(() => {
-    fetchData();
-  }, [params, fetchData]);
+    if (
+      params.certId === undefined ||
+      params.certId === null ||
+      params.certId === '' ||
+      params.NID === undefined ||
+      params.NID === null ||
+      params.NID === ''
+    ) {
+      navigate('/');
+      return;
+    }
+    setCertId(params.certId);
+    setNID(params.NID);
+  }, [params, navigate]);
 
   return (
     <MyView>
@@ -88,18 +60,22 @@ function CheckCert(props) {
         width={isInPhone ? '100%' : '80%'}
         style={{...styles.alignSelfCenter}}
         header={'بررسی گواهی'}>
-        {res !== undefined && (
-          <MyView>
-            <SimpleText text={res} />
-            {NID !== undefined && certId !== undefined && (
-              <CommonButton
-                onPress={() => downloadCert(certId, NID)}
-                theme={'transparent'}
-                title={'دانلود'}
-              />
-            )}
-          </MyView>
-        )}
+        <SimpleText text="برای اطمینان از اصالت گواهی ای که در دست دارید مراحل زیر را انجام دهید." />
+        <SimpleText text="۱- اطمینان پیدا کنید که این آدرس با e.irysc.ir شروع می شود." />
+        <SimpleText text="۲- گواهی را از طریق لینک زیر دانلود کنید." />
+        <SimpleText text="۳- نسخه دانلود شده را با نسخه خودتان مطابقت دهید." />
+        <CommonButton
+          onPress={async () => {
+            setLoading(true);
+            let res = await verifyCert(certId, NID);
+
+            if (!res) showError('گواهی مدنظر نامعتبر است');
+
+            setLoading(false);
+          }}
+          title={'دانلود گواهی'}
+          theme={'dark'}
+        />
       </CommonWebBox>
     </MyView>
   );

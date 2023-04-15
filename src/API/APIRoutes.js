@@ -215,6 +215,8 @@ export const routes = {
   fetchInvoice: 'general/fetchInvoice/',
   getQuestionTagsExcel: 'general/getQuestionTagsExcel',
   issueMyCert: 'certificate/issueMyCert/',
+  issueCert: 'certificate/issueCert/',
+  verifyCert: 'certificate/verifyCert/',
   getMyCerts: 'certificate/getMyCerts/',
   addCertificate: 'certificate/admin/store',
   editCertificate: 'certificate/admin/update/',
