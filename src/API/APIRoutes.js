@@ -87,6 +87,7 @@ export const routes = {
   fetchPackage: 'quiz/manage/getPackage/',
   groupBuyQuiz: 'quiz/public/groupBuy',
   fetchMyQuizzes: 'quiz/public/myQuizzes/',
+  fetchMySchoolQuizzes: 'quiz/public/mySchoolQuizzes',
   fetchMyCustomQuizzes: 'quiz/public/myCustomQuizzes/',
   reviewQuiz: 'quiz/public/reviewQuiz/',
   rateQuiz: 'quiz/public/rate/',

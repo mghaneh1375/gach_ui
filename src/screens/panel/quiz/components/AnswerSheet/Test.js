@@ -2,15 +2,8 @@ import React, {useState} from 'react';
 import {Pressable} from 'react-native';
 import {MyView, PhoneView, SimpleText} from '../../../../../styles/Common';
 import vars from '../../../../../styles/root';
-import {dispatchQuizContext, quizContext} from '../Context';
 
 function Test(props) {
-  // const useGlobalState = () => [
-  //   React.useContext(quizContext),
-  //   React.useContext(dispatchQuizContext),
-  // ];
-  // const [state, dispatch] = useGlobalState();
-
   const index = props.index;
 
   const choicesCount = props.state.wanted_answer_sheet[index].choicesCount;

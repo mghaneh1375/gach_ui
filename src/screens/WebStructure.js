@@ -89,6 +89,7 @@ import ContentQuiz from './panel/quiz/ContentQuiz';
 import AnswerSheet from './general/Corrector/AnswerSheet';
 import MyTasks from './correctorPanel/myTasks/MyTasks';
 import QuestionReport from './panel/questionReport/QuestionReport';
+import MyQuizzes from './studentPanel/MyQuizzes/school/MyQuizzes';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -289,6 +290,8 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+
+              {props.page === 'schoolQuiz' && <MyQuizzes navigate={navigate} />}
 
               {props.page === 'video_test' && <Video />}
               {props.page === 'packages' && params.sessionId !== undefined && (

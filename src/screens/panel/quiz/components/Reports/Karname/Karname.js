@@ -259,6 +259,7 @@ function Karname(props) {
               )}
               {state.selectedStudentId !== undefined &&
                 state.selectedQuiz.generalMode !== 'open' &&
+                state.selectedQuiz.generalMode !== 'school' &&
                 state.selectedQuiz.generalMode !== 'content' &&
                 props.generalQuizMode === undefined && (
                   <CopyBox
@@ -683,7 +684,7 @@ function Karname(props) {
 
       <MyViewWithRef ref={ref3}>
         {karname !== undefined && state.wanted_answer_sheet !== undefined && (
-          <AnswerSheet answer_sheet={state.wanted_answer_sheet} />
+          <AnswerSheet state={state} answer_sheet={state.wanted_answer_sheet} />
         )}
       </MyViewWithRef>
     </MyView>

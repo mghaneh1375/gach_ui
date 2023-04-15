@@ -62,7 +62,11 @@ function StudentMenu(props) {
 
   if (!state.isInPhone) {
     return (
-      <MenuItemRepeat navigate={props.navigate} selected={props.selected} />
+      <MenuItemRepeat
+        excludes={[]}
+        navigate={props.navigate}
+        selected={props.selected}
+      />
     );
   }
 

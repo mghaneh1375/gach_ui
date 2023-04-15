@@ -273,6 +273,8 @@ function RunQuiz(props) {
                     : props.user.accesses.indexOf('student') !== -1
                     ? params.quizMode === 'custom'
                       ? (window.location.href = '/myCustomQuizzes')
+                      : params.quizMode === 'school'
+                      ? (window.location.href = '/mySchool/quiz')
                       : params.quizMode === 'content'
                       ? (window.location.href = '/myPackages')
                       : (window.location.href = '/myIRYSCQuizzes')
@@ -296,6 +298,8 @@ function RunQuiz(props) {
                       ? (window.location.href = '/myCustomQuizzes')
                       : params.quizMode === 'content'
                       ? (window.location.href = '/myPackages')
+                      : params.quizMode === 'school'
+                      ? (window.location.href = '/mySchool/quiz')
                       : (window.location.href = '/myIRYSCQuizzes')
                     : (window.location.href = '/quiz/list')
                 }

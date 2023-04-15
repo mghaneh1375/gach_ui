@@ -15,7 +15,7 @@ function SchoolMenu(props) {
   if (isLargePage) {
     return (
       <MenuItemRepeat
-        excludes={['certs', 'package', 'quiz_makeQuiz']}
+        excludes={['certs', 'package', 'quiz_makeQuiz', 'mySchool']}
         navigate={props.navigate}
         selected={props.selected}
         child={

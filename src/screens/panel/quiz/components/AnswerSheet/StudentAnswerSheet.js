@@ -144,6 +144,7 @@ function StudentAnswerSheet(props) {
           answer_sheet={state.wanted_answer_sheet}
           setLoading={props.setLoading}
           token={props.token}
+          state={state}
         />
       </MyViewWithRef>
     </MyView>

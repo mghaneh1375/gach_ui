@@ -10,6 +10,7 @@ import Create from './components/Create';
 import List from './components/List';
 import Questions from './components/Questions/Questions';
 import Recp from './components/Recp';
+import Report from './components/Report';
 import Students from './components/Students/Students';
 
 function MyQuizzes(props) {
@@ -79,6 +80,13 @@ function MyQuizzes(props) {
           <Key
             stateContext={myQuizzesContext}
             dispatchStateContext={dispatchMyQuizzesContext}
+            setLoading={setLoading}
+            setMode={setMode}
+            token={state.token}
+          />
+        )}
+        {mode === 'report' && (
+          <Report
             setLoading={setLoading}
             setMode={setMode}
             token={state.token}

@@ -4,6 +4,7 @@ import {
   faDashboard,
   faHistory,
   faHome,
+  faSchool,
   faShoppingCart,
   faSun,
   faVideo,
@@ -15,6 +16,7 @@ import {SuperMenuItem} from './SuperMenuItem';
 
 function MenuItemRepeat(props) {
   const navigate = props.navigate;
+
   return (
     <div className="menu-item-container" style={style.MenuJustLarge}>
       <MenuItem
@@ -29,12 +31,37 @@ function MenuItemRepeat(props) {
         icon={faDashboard}
         selected={props.selected === 'dashboard'}
       />
+
+      {(props.excludes === undefined ||
+        props.excludes.indexOf('mySchool') === -1) && (
+        <SuperMenuItem
+          text={translator.mySchool}
+          icon={faSchool}
+          selected={props.selected === 'schoolQuiz'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.quizes,
+              url: '/mySchool/quiz',
+            },
+            {
+              text: translator.hws,
+              url: '/mySchool/hw',
+            },
+          ]}
+        />
+      )}
       {(props.excludes === undefined ||
         props.excludes.indexOf('quiz') === -1) && (
         <SuperMenuItem
           text={'آزمون'}
           icon={faShoppingCart}
-          selected={props.selected === 'buy' || props.selected === 'makeQuiz'}
+          selected={
+            props.selected === 'buy' ||
+            props.selected === 'makeQuiz' ||
+            props.selected === 'myIRYSCQuizzes' ||
+            props.selected === 'myCustomQuizzes'
+          }
           navigate={navigate}
           items={[
             {
@@ -61,10 +88,6 @@ function MenuItemRepeat(props) {
                   : undefined,
               url: '/myCustomQuizzes',
             },
-            // {
-            //   text: translator.schools,
-            //   url: '/schoolUsers',
-            // },
           ]}
         />
       )}

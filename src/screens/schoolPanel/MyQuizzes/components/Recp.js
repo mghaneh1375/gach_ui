@@ -95,22 +95,26 @@ function Recp(props) {
 
   return (
     <>
-      {state.selectedQuiz.status === 'init' && (
-        <CommonWebBox
-          backBtn={true}
-          onBackClick={() => props.setMode('list')}
-          header={translator.recp}>
-          <SimpleText text="وضعیت: در انتظار پرداخت" />
-          {data !== undefined && (
-            <CommonDataTable
-              data={data}
-              columns={columns}
-              excel={false}
-              pagination={false}
-            />
-          )}
-        </CommonWebBox>
-      )}
+      <CommonWebBox
+        backBtn={true}
+        onBackClick={() => props.setMode('list')}
+        header={translator.recp}>
+        <SimpleText
+          text={
+            state.selectedQuiz.status === 'init'
+              ? 'وضعیت: در انتظار پرداخت'
+              : 'وضعیت: پرداخت شده'
+          }
+        />
+        {data !== undefined && (
+          <CommonDataTable
+            data={data}
+            columns={columns}
+            excel={false}
+            pagination={false}
+          />
+        )}
+      </CommonWebBox>
     </>
   );
 }

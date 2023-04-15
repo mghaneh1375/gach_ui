@@ -34,6 +34,7 @@ const List = props => {
           setData={props.setData}
           grades={props.grades}
           token={props.token}
+          setOrganizationCodeFilter={props.setOrganizationCodeFilter}
         />
         <CommonDataTable
           columns={columns}

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {
   CommonButton,
   EqualTwoTextInputs,
+  MyView,
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
@@ -15,7 +16,6 @@ import Translate from '../../Translate';
 import {getMyAnswerSheet, getRecpForQuiz} from './Utility';
 import translator from '../../../../panel/quiz/Translator';
 import commonTranslator from '../../../../../translator/Common';
-import {MyView} from 'react-native-multi-selectbox';
 import {Rating} from 'react-native-ratings';
 import vars from '../../../../../styles/root';
 import {generalRequest} from '../../../../../API/Utility';

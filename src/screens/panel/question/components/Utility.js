@@ -34,7 +34,6 @@ export const filter = async (
 
   if (organizationCode !== undefined)
     query.append('organizationCode', organizationCode);
-  console.log(organizationCode);
 
   if (isQuestionsNeeded !== undefined && isQuestionsNeeded)
     query.append('isQuestionNeeded', true);

@@ -5,7 +5,7 @@ import {getGradeLessons} from '../Basic/Utility';
 import Create from './components/Create/Create';
 import Detail from './components/Detail/Detail';
 import List from './components/List/List';
-import {getSubjects} from './components/Utility';
+import {filter, getSubjects} from './components/Utility';
 import {isUserAdmin} from '../../../services/Utility';
 import {QuestionProvider} from './components/Detail/Context';
 import {MyView} from '../../../styles/Common';
@@ -16,6 +16,7 @@ const Question = props => {
   const [grades, setGrades] = useState();
   const [selected, setSelected] = useState();
   const isAdmin = isUserAdmin(props.user);
+  const [organizationCodeFilter, setOrganizationCodeFilter] = useState();
 
   const navigate = props.navigate;
 
@@ -60,6 +61,10 @@ const Question = props => {
     if (mode === 'end') props.toggleShow();
   }, [mode, props]);
 
+  React.useEffect(() => {
+    if (mode === 'list') setOrganizationCodeFilter(undefined);
+  }, [mode]);
+
   return (
     <MyView>
       {mode === 'list' && (
@@ -70,6 +75,7 @@ const Question = props => {
           setData={setSubjects}
           setSelected={setSelected}
           grades={grades}
+          setOrganizationCodeFilter={setOrganizationCodeFilter}
           setLoading={setLoading}
           isAdmin={isUserAdmin(props.user)}
         />
@@ -139,7 +145,24 @@ const Question = props => {
             quizMode={isUserAdmin(props.user) ? 'irysc' : 'school'}
             setMode={setMode}
             token={props.token}
+            organizationCodeFilter={organizationCodeFilter}
             setLoading={setLoading}
+            onBack={async () => {
+              setLoading(true);
+              let res = await filter(
+                props.token,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+              );
+
+              setLoading(false);
+              if (res !== null) setSubjects(res);
+              setMode('list');
+            }}
           />
         )}
       </QuestionProvider>

@@ -229,7 +229,7 @@ function ContentQuizKarname(props) {
 
       <MyView>
         {karname !== undefined && state.wanted_answer_sheet !== undefined && (
-          <AnswerSheet answer_sheet={state.wanted_answer_sheet} />
+          <AnswerSheet state={state} answer_sheet={state.wanted_answer_sheet} />
         )}
       </MyView>
     </MyView>

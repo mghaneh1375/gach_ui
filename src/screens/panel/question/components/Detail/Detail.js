@@ -172,7 +172,7 @@ function Detail(props) {
         undefined,
         undefined,
         props.subject.subject.id,
-        undefined,
+        props.organizationCodeFilter,
         undefined,
         undefined,
         true,
@@ -197,7 +197,11 @@ function Detail(props) {
               kind={'normal'}
               theme={'rect'}
               icon={faAngleLeft}
-              onPress={() => props.setMode('list')}
+              onPress={() =>
+                props.onBack !== undefined
+                  ? props.onBack()
+                  : props.setMode('list')
+              }
               parentStyle={{alignSelf: 'flex-end', margin: 20}}
               back={'yellow'}
             />

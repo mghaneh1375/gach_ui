@@ -229,6 +229,8 @@ export const DoQuizProvider = ({children}) => {
         window.location.href =
           state.quizInfo.generalMode === 'custom'
             ? '/myCustomQuizzes'
+            : state.quizInfo.generalMode === 'school'
+            ? '/mySchool/quiz'
             : '/myIRYSCQuizzes';
         return;
       }
@@ -282,6 +284,8 @@ export const DoQuizProvider = ({children}) => {
         window.location.href =
           state.quizInfo.generalMode === 'custom'
             ? '/myCustomQuizzes'
+            : state.quizInfo.generalMode === 'school'
+            ? '/mySchool/quiz'
             : '/myIRYSCQuizzes';
     });
   }, [state]);

@@ -6,10 +6,7 @@ import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorde
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 
 function A1Report(props) {
-  const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
-  ];
+  const useGlobalState = () => [React.useContext(quizContext)];
 
   const columns = [
     {
@@ -75,7 +72,7 @@ function A1Report(props) {
     },
   ];
 
-  const [state, dispatch] = useGlobalState();
+  const [state] = useGlobalState();
   const [showType, setShowType] = useState('card');
 
   return (
@@ -96,7 +93,8 @@ function A1Report(props) {
         placeholder={'نحوه نمایش'}
         subText={'نحوه نمایش'}
       />
-      {state.selectedQuiz.A1Report !== undefined &&
+      {state.selectedQuiz != undefined &&
+        state.selectedQuiz.A1Report !== undefined &&
         showType === 'card' &&
         state.selectedQuiz.A1Report.map((element, index) => {
           return (
@@ -110,9 +108,36 @@ function A1Report(props) {
             />
           );
         })}
-      {state.selectedQuiz.A1Report !== undefined && showType === 'table' && (
-        <CommonDataTable data={state.selectedQuiz.A1Report} columns={columns} />
-      )}
+      {props.quiz !== undefined &&
+        props.quiz.A1Report !== undefined &&
+        showType === 'card' &&
+        props.quiz.A1Report.map((element, index) => {
+          return (
+            <Card
+              key={index}
+              idx={index}
+              setLoading={props.setLoading}
+              token={props.token}
+              question={element}
+              needUpdate={false}
+            />
+          );
+        })}
+
+      {state.selectedQuiz !== undefined &&
+        state.selectedQuiz.A1Report !== undefined &&
+        showType === 'table' && (
+          <CommonDataTable
+            data={state.selectedQuiz.A1Report}
+            columns={columns}
+          />
+        )}
+
+      {props.quiz !== undefined &&
+        props.quiz.A1Report !== undefined &&
+        showType === 'table' && (
+          <CommonDataTable data={props.quiz.A1Report} columns={columns} />
+        )}
     </CommonWebBox>
   );
 }

@@ -81,6 +81,8 @@ function Filter(props) {
         />
         <CommonButton
           onPress={async () => {
+            if (organizationCode !== undefined && organizationCode.length > 0)
+              props.setOrganizationCodeFilter(organizationCode);
             props.setLoading(true);
             let res = await filter(
               props.token,

@@ -257,7 +257,8 @@ function Card(props) {
                 </PhoneView>
               )}
 
-              {((props.quiz.status !== undefined &&
+              {((props.quizOp !== undefined &&
+                props.quiz.status !== undefined &&
                 props.quiz.status !== 'inProgress' &&
                 props.quiz.status !== 'continue') ||
                 (props.isStudent !== undefined && !props.isStudent)) && (
@@ -281,7 +282,11 @@ function Card(props) {
                         ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
                         : {}
                     }
-                    title={commonTranslator.start}
+                    title={
+                      props.quiz.startAt !== undefined
+                        ? 'ادامه آزمون'
+                        : commonTranslator.start
+                    }
                     onPress={() => props.quizOp()}
                   />
                 )}

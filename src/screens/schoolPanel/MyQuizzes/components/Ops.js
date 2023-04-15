@@ -35,7 +35,7 @@ const Ops = props => {
     props.setLoading(true);
 
     let res = await generalRequest(
-      CV_BASE_URL + 'generateTashrihiAnswerSheet/' + state.selectedQuiz.id,
+      CV_BASE_URL + 'generateSchoolAnswerSheet/' + state.selectedQuiz.id,
       'post',
       {
         mode: 1,
@@ -300,6 +300,7 @@ const Ops = props => {
 
               {(state.selectedQuiz.launchMode === 'physical' ||
                 state.selectedQuiz.launchMode === 'hybrid') &&
+                state.selectedQuiz.status === 'finish' &&
                 state.selectedQuiz.mode === 'regular' && (
                   <CommonButton
                     dir={'rtl'}
@@ -316,19 +317,23 @@ const Ops = props => {
                 onPress={() => props.setMode('key')}
               />
 
-              <CommonButton
-                title={'دانلود پاسخ برگ'}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => downloadAnswerSheet()}
-              />
+              {state.selectedQuiz.status === 'finish' && (
+                <CommonButton
+                  title={'دانلود پاسخ برگ'}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  onPress={() => downloadAnswerSheet()}
+                />
+              )}
 
-              <CommonButton
-                title={'آپلود پاسخ برگها'}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => setShowUploadPane(true)}
-              />
+              {state.selectedQuiz.status === 'finish' && (
+                <CommonButton
+                  title={'آپلود پاسخ برگها'}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  onPress={() => setShowUploadPane(true)}
+                />
+              )}
             </PhoneView>
           )}
         </LargePopUp>
