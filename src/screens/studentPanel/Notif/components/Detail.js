@@ -60,6 +60,7 @@ function Detail(props) {
   }, [fetchNotif]);
 
   const systemFonts = [...defaultSystemFonts, 'IRANSans'];
+  console.log('Asd');
 
   return (
     <CommonWebBox

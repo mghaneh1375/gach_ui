@@ -143,17 +143,21 @@ const Questions = props => {
           header={translator.questions}>
           <MyView>
             <PhoneView>
-              <CommonButton
-                style={{alignSelf: 'center'}}
-                onPress={() => changeSort()}
-                title={translator.changeSort}
-              />
-              <CommonButton
-                style={{alignSelf: 'center'}}
-                onPress={() => setSelectingMode(true)}
-                title={'انتخاب سوال'}
-                theme={'dark'}
-              />
+              {state.selectedQuiz.status != 'finish' && (
+                <CommonButton
+                  style={{alignSelf: 'center'}}
+                  onPress={() => changeSort()}
+                  title={translator.changeSort}
+                />
+              )}
+              {state.selectedQuiz.status != 'finish' && (
+                <CommonButton
+                  style={{alignSelf: 'center'}}
+                  onPress={() => setSelectingMode(true)}
+                  title={'انتخاب سوال'}
+                  theme={'dark'}
+                />
+              )}
             </PhoneView>
             {state.selectedIds !== undefined &&
               state.selectedIds.length > 0 && (
@@ -177,7 +181,12 @@ const Questions = props => {
                     token={props.token}
                     question={element}
                     totalQuestions={state.selectedQuiz.questions.length}
-                    setSelectedQuestion={setSelectedQuestion}
+                    needUpdate={state.selectedQuiz.status != 'finish'}
+                    setSelectedQuestion={
+                      state.selectedQuiz.status != 'finish'
+                        ? setSelectedQuestion
+                        : undefined
+                    }
                   />
                 );
               })}

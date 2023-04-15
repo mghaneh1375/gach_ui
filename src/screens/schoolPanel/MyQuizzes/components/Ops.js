@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {CV_BASE_URL, generalRequest} from '../../../../API/Utility';
 import UploadFile from '../../../../components/web/UploadFile';
-import {showSuccess} from '../../../../services/Utility';
-import {CommonButton, PhoneView, SimpleText} from '../../../../styles/Common';
+import {formatPrice, showSuccess} from '../../../../services/Utility';
+import {
+  CommonButton,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../../../panel/quiz/Translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
@@ -12,6 +17,10 @@ import {
   createTaraz,
   generateQuestionPDF,
 } from '../../../panel/quiz/components/Utility';
+import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import {setCacheItem} from '../../../../API/User';
+import SuccessTransaction from '../../../../components/web/SuccessTransaction/SuccessTransaction';
+import {styles} from '../../../../styles/Common/Styles';
 
 const Ops = props => {
   const useGlobalState = () => [
@@ -91,140 +100,237 @@ const Ops = props => {
   };
 
   const [showFinalizeMsg, setShowFinalizeMsg] = useState(false);
+  const [offcode, setOffcode] = useState();
+  const [priceInfo, setPriceInfo] = useState();
+  const [refId, setRefId] = useState();
+  const ref = useRef();
+  const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
+  const [transactionId, setTransactionId] = useState();
+
+  React.useEffect(() => {
+    if (refId === undefined) return;
+
+    setTimeout(() => {
+      ref.current.submit();
+    }, 1000);
+  }, [refId]);
 
   return (
     <>
       {showFinalizeMsg && (
         <LargePopUp
           title={translator.finalize}
-          btns={<CommonButton theme={'dark'} title={commonTranslator.yes} />}
+          btns={
+            <CommonButton
+              onPress={async () => {
+                props.setLoading(true);
+                let res = await generalRequest(
+                  routes.finalizeSchoolQuiz + state.selectedQuiz.id,
+                  'post',
+                  offcode === undefined ? undefined : {off: offcode},
+                  ['action', 'refId', 'transactionId'],
+                  props.token,
+                );
+                props.setLoading(false);
+                if (res.action === 'success') {
+                  let user = props.user;
+                  user.user.money = res.refId;
+                  await setCacheItem('user', JSON.stringify(user));
+                  setTransactionId(res.transactionId);
+                  setShowFinalizeMsg(false);
+                  setShowSuccessTransaction(true);
+                  state.selectedQuiz.status = 'finish';
+                  dispatch({
+                    selectedQuiz: state.selectedQuiz,
+                    needUpdate: true,
+                  });
+                } else if (res.action === 'pay') {
+                  setRefId(res.refId);
+                }
+              }}
+              theme={'dark'}
+              title={translator.finalize}
+            />
+          }
           toggleShowPopUp={() => setShowFinalizeMsg(false)}>
           <SimpleText text={translator.finalizeMsg} />
+          {priceInfo !== undefined && (
+            <MyView>
+              <SimpleText
+                text={'مبلغ آزمون: ' + formatPrice(priceInfo.total)}
+              />
+              <SimpleText
+                text={
+                  'مبلغ استفاده شده از کیف پول: ' +
+                  formatPrice(priceInfo.usedFromWallet)
+                }
+              />
+              <SimpleText text={'تخفیف: ' + formatPrice(priceInfo.off)} />
+              <SimpleText
+                text={'مبلغ قابل پرداخت: ' + formatPrice(priceInfo.shouldPay)}
+              />
+            </MyView>
+          )}
+          <JustBottomBorderTextInput
+            onChangeText={e => setOffcode(e)}
+            value={offcode}
+            subText={
+              commonTranslator.offcode + ' - ' + commonTranslator.optional
+            }
+            placeholder={commonTranslator.offcode}
+          />
         </LargePopUp>
       )}
       {!showFinalizeMsg && (
         <LargePopUp
           title={state.selectedQuiz.title}
           toggleShowPopUp={props.toggleShowPopUp}>
-          <PhoneView>
-            <CommonButton
-              onPress={() => changeMode('update')}
-              dir={'rtl'}
-              theme={'transparent'}
-              title={translator.seeInfo}
+          {showSuccessTransaction && (
+            <SuccessTransaction
+              navigate={props.navigate}
+              transactionId={transactionId}
             />
-            <CommonButton
-              dir={'rtl'}
-              onPress={() => changeMode('question')}
-              theme={'transparent'}
-              title={translator.editQuestions}
-            />
+          )}
+          {!showSuccessTransaction && (
+            <PhoneView>
+              <CommonButton
+                onPress={() => changeMode('update')}
+                dir={'rtl'}
+                theme={'transparent'}
+                title={translator.seeInfo}
+              />
+              <CommonButton
+                dir={'rtl'}
+                onPress={() => changeMode('question')}
+                theme={'transparent'}
+                title={
+                  state.selectedQuiz.status === 'finish'
+                    ? translator.seeQuestion
+                    : translator.editQuestions
+                }
+              />
 
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              onPress={() =>
-                window.open(
-                  '/reviewQuiz/' +
-                    state.selectedQuiz.generalMode +
-                    '/' +
-                    state.selectedQuiz.id,
-                  '_blank',
-                )
-              }
-              title={'مرور آزمون'}
-            />
-
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              onPress={() => changeMode('student')}
-              title={translator.studentsList}
-            />
-
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              onPress={() => changeMode('recp')}
-              title={translator.recp}
-            />
-
-            {state.selectedQuiz.status === 'init' && (
-              <>
-                <CommonButton
-                  dir={'rtl'}
-                  theme="transparent"
-                  onPress={() => setShowFinalizeMsg(true)}
-                  title={translator.finalize}
-                />
-              </>
-            )}
-            {state.selectedQuiz.status === 'finish' && (
-              <>
-                <CommonButton
-                  onPress={() => createTarazLocal()}
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  title={translator.createTaraz}
-                />
-
-                <CommonButton
-                  onPress={() => props.setMode('report')}
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  title={commonTranslator.report}
-                />
-
-                <CommonButton
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  onPress={async () => {
-                    props.setLoading(true);
-                    await generateQuestionPDF(
+              <CommonButton
+                dir={'rtl'}
+                theme={'transparent'}
+                onPress={() =>
+                  window.open(
+                    '/reviewQuiz/' +
+                      state.selectedQuiz.generalMode +
+                      '/' +
                       state.selectedQuiz.id,
-                      'school',
-                      props.token,
-                    );
+                    '_blank',
+                  )
+                }
+                title={'مرور آزمون'}
+              />
 
-                    props.setLoading(false);
-                  }}
-                  title={translator.generateQuestionPDF}
-                />
-              </>
-            )}
+              <CommonButton
+                dir={'rtl'}
+                theme={'transparent'}
+                onPress={() => changeMode('student')}
+                title={translator.studentsList}
+              />
 
-            {(state.selectedQuiz.launchMode === 'physical' ||
-              state.selectedQuiz.launchMode === 'hybrid') &&
-              state.selectedQuiz.mode === 'regular' && (
-                <CommonButton
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  onPress={() => props.setMode('CV')}
-                  title={translator.correntAnswerSheets}
-                />
+              <CommonButton
+                dir={'rtl'}
+                theme={'transparent'}
+                onPress={() => changeMode('recp')}
+                title={translator.recp}
+              />
+
+              {state.selectedQuiz.status === 'init' && (
+                <>
+                  <CommonButton
+                    dir={'rtl'}
+                    theme="transparent"
+                    onPress={async () => {
+                      props.setLoading(true);
+                      let res = await generalRequest(
+                        routes.getQuizTotalPriceForSchool +
+                          state.selectedQuiz.id,
+                        'get',
+                        undefined,
+                        'data',
+                        props.token,
+                      );
+                      props.setLoading(false);
+                      if (res != null) {
+                        setPriceInfo(res);
+                        setShowFinalizeMsg(true);
+                      }
+                    }}
+                    title={translator.finalize}
+                  />
+                </>
+              )}
+              {state.selectedQuiz.status === 'finish' && (
+                <>
+                  <CommonButton
+                    onPress={() => createTarazLocal()}
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    title={translator.createTaraz}
+                  />
+
+                  <CommonButton
+                    onPress={() => props.setMode('report')}
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    title={commonTranslator.report}
+                  />
+
+                  <CommonButton
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    onPress={async () => {
+                      props.setLoading(true);
+                      await generateQuestionPDF(
+                        state.selectedQuiz.id,
+                        'school',
+                        props.token,
+                      );
+
+                      props.setLoading(false);
+                    }}
+                    title={translator.generateQuestionPDF}
+                  />
+                </>
               )}
 
-            <CommonButton
-              title={translator.keySheet}
-              dir={'rtl'}
-              theme={'transparent'}
-              onPress={() => props.setMode('key')}
-            />
+              {(state.selectedQuiz.launchMode === 'physical' ||
+                state.selectedQuiz.launchMode === 'hybrid') &&
+                state.selectedQuiz.mode === 'regular' && (
+                  <CommonButton
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    onPress={() => props.setMode('CV')}
+                    title={translator.correntAnswerSheets}
+                  />
+                )}
 
-            <CommonButton
-              title={'دانلود پاسخ برگ'}
-              dir={'rtl'}
-              theme={'transparent'}
-              onPress={() => downloadAnswerSheet()}
-            />
+              <CommonButton
+                title={translator.keySheet}
+                dir={'rtl'}
+                theme={'transparent'}
+                onPress={() => props.setMode('key')}
+              />
 
-            <CommonButton
-              title={'آپلود پاسخ برگها'}
-              dir={'rtl'}
-              theme={'transparent'}
-              onPress={() => setShowUploadPane(true)}
-            />
-          </PhoneView>
+              <CommonButton
+                title={'دانلود پاسخ برگ'}
+                dir={'rtl'}
+                theme={'transparent'}
+                onPress={() => downloadAnswerSheet()}
+              />
+
+              <CommonButton
+                title={'آپلود پاسخ برگها'}
+                dir={'rtl'}
+                theme={'transparent'}
+                onPress={() => setShowUploadPane(true)}
+              />
+            </PhoneView>
+          )}
         </LargePopUp>
       )}
 
@@ -248,6 +354,15 @@ const Ops = props => {
             }
           }}
         />
+      )}
+
+      {refId !== undefined && (
+        <form
+          ref={ref}
+          action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat"
+          method="post">
+          <input type={'hidden'} value={refId} name="RefId" />
+        </form>
       )}
     </>
   );

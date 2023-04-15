@@ -39,6 +39,7 @@ function General(props) {
   const [quizPerStudentPrice, setQuizPerStudentPrice] = useState();
   const [minQuestionForCustomQuiz, setMinQuestionForCustomQuiz] = useState();
   const [giftPeriod, setGiftPeriod] = useState();
+  const [maxQuestionPerQuiz, setMaxQuestionPerQuiz] = useState();
 
   React.useEffect(() => {
     dispatch({loading: true});
@@ -78,6 +79,7 @@ function General(props) {
       setMaxStudentQuizPerDay(data.maxStudentQuizPerDay);
       setGiftPeriod(data.giftPeriod);
       setQuizPerStudentPrice(data.quizPerStudentPrice);
+      setMaxQuestionPerQuiz(data.maxQuestionPerQuiz);
       setMinQuestionForCustomQuiz(data.minQuestionForCustomQuiz);
     });
   }, [navigate, props.token, dispatch]);
@@ -108,6 +110,7 @@ function General(props) {
           giftPeriod: giftPeriod,
           quizPerStudentPrice: quizPerStudentPrice,
           minQuestionForCustomQuiz: minQuestionForCustomQuiz,
+          maxQuestionPerQuiz: maxQuestionPerQuiz,
         },
         undefined,
         props.token,
@@ -240,6 +243,14 @@ function General(props) {
             subText={translator.maxStudentQuizPerDay}
             value={maxStudentQuizPerDay}
             onChangeText={e => setMaxStudentQuizPerDay(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.maxQuestionPerQuiz}
+            subText={translator.maxQuestionPerQuiz}
+            value={maxQuestionPerQuiz}
+            onChangeText={e => setMaxQuestionPerQuiz(e)}
             justNum={true}
           />
 

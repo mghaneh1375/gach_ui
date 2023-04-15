@@ -64,6 +64,7 @@ const List = props => {
           setLoading={props.setLoading}
           setMode={props.setMode}
           navigate={props.navigate}
+          user={props.user}
         />
       )}
       <CommonWebBox

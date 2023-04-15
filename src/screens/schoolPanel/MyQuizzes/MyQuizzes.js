@@ -34,6 +34,7 @@ function MyQuizzes(props) {
           <List
             setMode={setMode}
             token={state.token}
+            user={state.user}
             navigator={navigate}
             setLoading={setLoading}
           />

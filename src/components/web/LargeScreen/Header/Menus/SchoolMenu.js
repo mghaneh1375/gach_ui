@@ -22,7 +22,7 @@ function SchoolMenu(props) {
           <>
             <MenuItem
               onClick={() => navigate('/mySchoolQuizzes')}
-              text={'آزمون های مدرسه ای من'}
+              text={translator.mySchoolQuizess}
               icon={faSchool}
               selected={props.selected === 'mySchoolQuizzes'}
             />
