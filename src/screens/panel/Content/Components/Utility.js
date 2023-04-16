@@ -96,6 +96,27 @@ export const addSession = async (token, data, contentId) => {
   }
 };
 
+export const copySession = async (
+  token,
+  contentId,
+  copyContentId,
+  copySessionId,
+) => {
+  let res = await videoGeneralRequest(
+    routes.copySessionInContent + contentId,
+    'put',
+    {
+      contentId: copyContentId,
+      sessionId: copySessionId,
+    },
+    'data',
+    token,
+  );
+  if (res !== null) showSuccess();
+
+  return res;
+};
+
 export const update = async (token, data, id) => {
   try {
     let res = await videoGeneralRequest(

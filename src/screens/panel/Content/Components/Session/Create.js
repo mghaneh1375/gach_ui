@@ -16,11 +16,20 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {contentContext, dispatchContentContext} from './../Context';
-import {addSession, removeSessionFile, updateSession} from './../Utility';
+import {
+  addSession,
+  copySession,
+  removeSessionFile,
+  updateSession,
+} from './../Utility';
 import {styles} from '../../../../../styles/Common/Styles';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {useFilePicker} from 'use-file-picker';
-import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faCopy,
+  faPaperclip,
+} from '@fortawesome/free-solid-svg-icons';
 import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
 import {routes} from '../../../../../API/APIRoutes';
 import axios from 'axios';
@@ -29,7 +38,7 @@ import {
   videoGeneralRequest,
   VIDEO_BASE_URL,
 } from '../../../../../API/Utility';
-import {trueFalseValues} from '../../../../../services/Utility';
+import {showError, trueFalseValues} from '../../../../../services/Utility';
 import vars from '../../../../../styles/root';
 
 function Create(props) {
@@ -280,6 +289,61 @@ function Create(props) {
     }
   }, [videoFile]);
 
+  const [showCopyPane, setShowCopyPane] = useState(false);
+  const [allContents, setAllContents] = useState();
+
+  const fetchAllContents = React.useCallback(() => {
+    if (isWorking || allContents !== undefined) return;
+
+    setIsWorking(true);
+    props.setLoading(true);
+
+    Promise.all([
+      generalRequest(
+        routes.getAllCotents,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+
+      if (res[0] === null) {
+        setAllContents(null);
+        setShowCopyPane(false);
+        return;
+      }
+
+      setAllContents(res[0]);
+      setShowCopyPane(true);
+      setIsWorking(false);
+    });
+  }, [isWorking, props, allContents]);
+
+  React.useEffect(() => {
+    if (!showCopyPane) return;
+
+    fetchAllContents();
+  }, [showCopyPane, fetchAllContents]);
+
+  const [selectedContent, setSelectedContent] = useState();
+  const [selectedSession, setSelectedSession] = useState();
+  const [resetSession, setResetSession] = useState(false);
+
+  const setWantedContent = item => {
+    setSelectedContent(item);
+    if (selectedSession !== undefined) {
+      setSelectedSession(undefined);
+      setResetSession(true);
+    }
+  };
+
+  const setWantedSession = item => {
+    setSelectedSession(item);
+    setResetSession(false);
+  };
+
   return (
     <CommonWebBox
       header={
@@ -287,16 +351,60 @@ function Create(props) {
           ? Translator.editSession + state.selectedSession.title
           : Translator.addNewSession
       }
-      backBtn={true}
-      onBackClick={() =>
-        videoFileForShow === undefined
-          ? props.setMode('sessions')
-          : setVideoFileForShow(undefined)
+      btn={
+        <PhoneView style={{gap: 10, marginBottom: 10, text: 'center'}}>
+          <FontIcon
+            onPress={() => setShowCopyPane(true)}
+            theme="rect"
+            kind="normal"
+            back={'yellow'}
+            icon={faCopy}
+          />
+
+          <FontIcon
+            onPress={() => {
+              if (showCopyPane) setShowCopyPane(false);
+              else {
+                videoFileForShow === undefined
+                  ? props.setMode('sessions')
+                  : setVideoFileForShow(undefined);
+              }
+            }}
+            theme="rect"
+            kind="normal"
+            icon={faArrowLeft}
+          />
+        </PhoneView>
       }>
       {videoFileForShow !== undefined && (
         <video controls src={videoFileForShow} />
       )}
-      {!isWorking && videoFileForShow === undefined && (
+      {!isWorking && showCopyPane && (
+        <PhoneView style={{gap: 10}}>
+          <JustBottomBorderTextInput
+            placeholder={commonTranslator.contents}
+            subText={commonTranslator.contents}
+            resultPane={true}
+            setSelectedItem={setWantedContent}
+            values={allContents}
+            value={selectedContent !== undefined ? selectedContent.name : ''}
+            reset={false}
+          />
+
+          <JustBottomBorderTextInput
+            resultPane={true}
+            placeholder={Translator.sessionsList}
+            subText={Translator.sessionsList}
+            setSelectedItem={setWantedSession}
+            reset={resetSession}
+            value={selectedSession !== undefined ? selectedSession.name : ''}
+            values={
+              selectedContent !== undefined ? selectedContent.sessions : []
+            }
+          />
+        </PhoneView>
+      )}
+      {!isWorking && videoFileForShow === undefined && !showCopyPane && (
         <PhoneView style={{gap: 10}}>
           <JustBottomBorderTextInput
             placeholder={Translator.sessionTitle}
@@ -402,7 +510,7 @@ function Create(props) {
         </PhoneView>
       )}
 
-      {videoFileForShow === undefined && (
+      {videoFileForShow === undefined && !showCopyPane && (
         <CKEditor
           editor={ClassicEditor}
           config={{
@@ -420,7 +528,7 @@ function Create(props) {
         />
       )}
 
-      {videoFileForShow === undefined && (
+      {videoFileForShow === undefined && !showCopyPane && (
         <PhoneView style={{...styles.gap15}}>
           <SimpleText
             style={{...styles.alignSelfCenter, ...styles.BlueBold}}
@@ -475,6 +583,40 @@ function Create(props) {
           {!uploadVideo && (
             <CommonButton
               onPress={async () => {
+                if (showCopyPane) {
+                  if (selectedSession === undefined) {
+                    showError('لطفا جلسه موردنظر خود را وارد نمایید');
+                    return;
+                  }
+
+                  props.setLoading(true);
+                  let res = await copySession(
+                    props.token,
+                    state.selectedContent.id,
+                    selectedContent.id,
+                    selectedSession.id,
+                  );
+
+                  props.setLoading(false);
+
+                  if (res != null) {
+                    let sessions = state.selectedContent.sessions;
+
+                    sessions.push(res);
+
+                    state.selectedContent.sessions = sessions;
+
+                    dispatch({
+                      selectedContent: state.selectedContent,
+                      needUpdate: true,
+                    });
+
+                    props.setMode('sessions');
+                  }
+
+                  return;
+                }
+
                 let data = {
                   visibility: visibility,
                   description: description,
