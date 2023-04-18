@@ -684,7 +684,13 @@ function Karname(props) {
 
       <MyViewWithRef ref={ref3}>
         {karname !== undefined && state.wanted_answer_sheet !== undefined && (
-          <AnswerSheet state={state} answer_sheet={state.wanted_answer_sheet} />
+          <AnswerSheet
+            dispatch={dispatch}
+            state={state}
+            answer_sheet={state.wanted_answer_sheet}
+            token={props.token}
+            setLoading={props.setLoading}
+          />
         )}
       </MyViewWithRef>
     </MyView>

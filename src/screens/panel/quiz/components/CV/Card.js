@@ -4,33 +4,34 @@ import UploadFile from '../../../../../components/web/UploadFile';
 import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton, SimpleText, MyView} from '../../../../../styles/Common';
 import commonTranslator from '../../../../../translator/Common';
-import {dispatchQuizContext, quizContext} from '../Context';
 import {correct} from '../Utility';
 
-function Card(props) {
+function Card({
+  index,
+  setLoading,
+  token,
+  setSelectedAnswerSheetIdx,
+  studentId,
+  state,
+  dispatch,
+}) {
   const [showUploadPane, setShowUploadPane] = useState(false);
   // const [answerSheet, setAnswerSheet] = useState();
   // const [answerSheetAfterCorrection, setAnswerSheetAfterCorrection] =
   //   useState();
 
-  const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
-  ];
-  const [state, dispatch] = useGlobalState();
-
   // React.useEffect(() => {
-  //   if (props.index === undefined) return;
-  //   setAnswerSheet(state.selectedQuiz.answer_sheets[props.index].answerSheet);
+  //   if (index === undefined) return;
+  //   setAnswerSheet(state.selectedQuiz.answer_sheets[index].answerSheet);
   //   setAnswerSheetAfterCorrection(
-  //     state.selectedQuiz.answer_sheets[props.index].answerSheetAfterCorrection,
+  //     state.selectedQuiz.answer_sheets[index].answerSheetAfterCorrection,
   //   );
-  // }, [props.index, state.selectedQuiz]);
+  // }, [index, state.selectedQuiz]);
 
   const afterAdd = res => {
     if (res !== null) {
       // setAnswerSheet(res);
-      state.selectedQuiz.answer_sheets[props.index].answerSheet = res;
+      state.selectedQuiz.answer_sheets[index].answerSheet = res;
       dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
       showSuccess(commonTranslator.success);
       setShowUploadPane(false);
@@ -41,7 +42,7 @@ function Card(props) {
     <MyView>
       {showUploadPane && (
         <UploadFile
-          token={props.token}
+          token={token}
           accept={['image/*']}
           url={
             routes.setQuizAnswerSheet +
@@ -49,38 +50,36 @@ function Card(props) {
             '/' +
             state.selectedQuiz.id +
             '/' +
-            props.answerSheet.student.id
+            studentId
           }
           expectedRes={'file'}
           setResult={afterAdd}
           multi={false}
           maxFileSize={1}
-          setLoading={props.setLoading}
+          setLoading={setLoading}
           toggleShow={() => setShowUploadPane(false)}
         />
       )}
       <SimpleText
         style={{alignSelf: 'center'}}
-        text={state.selectedQuiz.answer_sheets[props.index].student.name}
+        text={state.selectedQuiz.answer_sheets[index].student.name}
       />
-      {props.index !== undefined &&
-        state.selectedQuiz.answer_sheets[props.index].answerSheet !==
-          undefined &&
-        state.selectedQuiz.answer_sheets[props.index].answerSheet !== '' && (
+      {index !== undefined &&
+        state.selectedQuiz.answer_sheets[index].answerSheet !== undefined &&
+        state.selectedQuiz.answer_sheets[index].answerSheet !== '' && (
           <img
             style={{width: 100}}
-            src={state.selectedQuiz.answer_sheets[props.index].answerSheet}
+            src={state.selectedQuiz.answer_sheets[index].answerSheet}
           />
         )}
-      {props.index !== undefined &&
-        state.selectedQuiz.answer_sheets[props.index]
-          .answerSheetAfterCorrection !== undefined &&
-        state.selectedQuiz.answer_sheets[props.index]
-          .answerSheetAfterCorrection !== '' && (
+      {index !== undefined &&
+        state.selectedQuiz.answer_sheets[index].answerSheetAfterCorrection !==
+          undefined &&
+        state.selectedQuiz.answer_sheets[index].answerSheetAfterCorrection !==
+          '' && (
           <img
             src={
-              state.selectedQuiz.answer_sheets[props.index]
-                .answerSheetAfterCorrection
+              state.selectedQuiz.answer_sheets[index].answerSheetAfterCorrection
             }
           />
         )}
@@ -93,37 +92,37 @@ function Card(props) {
         onPress={() => {
           let data = state.selectedQuiz.answer_sheet.map((elem, index) => {
             elem.studentAns =
-              state.selectedQuiz.answer_sheets[props.index].answers[index];
+              state.selectedQuiz.answer_sheets[index].answers[index];
             return elem;
           });
           dispatch({
             wanted_answer_sheet: data,
             new_std_answer_sheet: state.selectedQuiz.answer_sheets[
-              props.index
+              index
             ].answers.map(elem => {
               return elem;
             }),
           });
-          props.setSelectedAnswerSheetIdx(props.index);
+          setSelectedAnswerSheetIdx(index);
         }}
         theme={'dark'}
         title={'وارد کردن پاسخ ها'}
       />
-      {state.selectedQuiz.answer_sheets[props.index].answerSheet !==
-        undefined &&
-        state.selectedQuiz.answer_sheets[props.index].answerSheet !== '' && (
+      {state.selectedQuiz.answer_sheets[index].answerSheet !== undefined &&
+        state.selectedQuiz.answer_sheets[index].answerSheet !== '' && (
           <CommonButton
             onPress={async () => {
-              props.setLoading(true);
+              setLoading(true);
               let res = await correct(
                 state.selectedQuiz.id,
-                props.answerSheet.student.id,
-                props.token,
+                state.selectedQuiz.generalMode,
+                studentId,
+                token,
               );
-              props.setLoading(false);
+              setLoading(false);
               if (res !== null) {
                 state.selectedQuiz.answer_sheets[
-                  props.index
+                  index
                 ].answerSheetAfterCorrection = res.path;
                 dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
               }

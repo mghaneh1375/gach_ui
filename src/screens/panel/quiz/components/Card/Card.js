@@ -273,7 +273,9 @@ function Card(props) {
                   onPress={() => props.quizOp()}
                 />
               )}
-              {props.quiz.status !== undefined &&
+              {(props.quiz.launchMode === undefined ||
+                props.quiz.launchMode !== 'physical') &&
+                props.quiz.status !== undefined &&
                 props.quiz.status === 'inProgress' && (
                   <CommonButton
                     padding={isInPhone ? '5px 5px' : undefined}
@@ -290,7 +292,9 @@ function Card(props) {
                     onPress={() => props.quizOp()}
                   />
                 )}
-              {props.quiz.status !== undefined &&
+              {(props.quiz.launchMode === undefined ||
+                props.quiz.launchMode !== 'physical') &&
+                props.quiz.status !== undefined &&
                 props.quiz.status === 'continue' && (
                   <CommonButton
                     padding={isInPhone ? '5px 5px' : undefined}

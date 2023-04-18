@@ -59,6 +59,58 @@ function Create(props) {
       props.setMode('list');
     });
   }, [props, title, priority, visibility, canHasDesc, dispatch, state.tags]);
+
+  const editData = React.useCallback(() => {
+    props.setLoading(true);
+
+    Promise.all([
+      generalRequest(
+        routes.editQuestionReportTag + state.selectedTag.id,
+        'post',
+        {
+          label: title,
+          priority: priority,
+          visibility: visibility,
+          canHasDesc: canHasDesc,
+        },
+        undefined,
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+
+      if (res[0] === null) {
+        props.navigate('/');
+        return;
+      }
+
+      state.selectedTag.label = title;
+      state.selectedTag.priority = priority;
+      state.selectedTag.visibility = visibility;
+      state.selectedTag.canHasDesc = canHasDesc;
+
+      dispatch({selectedTag: state.selectedTag, needUpdate: true});
+      props.setMode('list');
+    });
+  }, [
+    props,
+    title,
+    priority,
+    visibility,
+    canHasDesc,
+    dispatch,
+    state.selectedTag,
+  ]);
+
+  React.useEffect(() => {
+    if (props.isInEditMode && state.selectedTag !== undefined) {
+      setTitle(state.selectedTag.label);
+      setPriority(state.selectedTag.priority);
+      setVisibility(state.selectedTag.visibility);
+      setCanHasDesc(state.selectedTag.canHasDesc);
+    }
+  }, [props.isInEditMode, state.selectedTag]);
+
   return (
     <CommonWebBox
       header={commonTranslator.add}
@@ -107,7 +159,7 @@ function Create(props) {
       </PhoneView>
       <CommonButton
         title={commonTranslator.confirm}
-        onPress={() => createData()}
+        onPress={() => (props.isInEditMode ? editData() : createData())}
       />
     </CommonWebBox>
   );

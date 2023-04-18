@@ -2,18 +2,11 @@ import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
 import {getAnswerSheets} from '../Utility';
 import Card from './Card';
-import {dispatchQuizContext, quizContext} from '../Context';
 import translator from '../../Translator';
 
 import StudentAnswerSheet from '../AnswerSheet/StudentAnswerSheet';
 
-function CV(props) {
-  const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
-  ];
-  const [state, dispatch] = useGlobalState();
-
+function CV({setMode, setLoading, token, state, dispatch}) {
   const [isWorking, setIsWorking] = useState(false);
   const [showAnswerSheet, setShowAnswerSheet] = useState(false);
   const [selectedAnswerSheetIdx, setSelectedAnswerSheetIdx] = useState();
@@ -50,25 +43,25 @@ function CV(props) {
     if (isWorking || state.selectedQuiz.answer_sheets !== undefined) return;
 
     setIsWorking(true);
-    props.setLoading(true);
+    setLoading(true);
     Promise.all([
       getAnswerSheets(
         state.selectedQuiz.id,
         state.selectedQuiz.generalMode,
-        props.token,
+        token,
       ),
     ]).then(res => {
-      props.setLoading(false);
+      setLoading(false);
 
       if (res[0] !== null) {
         state.selectedQuiz.answer_sheet = res[0].answers;
         state.selectedQuiz.answer_sheets = res[0].students;
         dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
-      } else props.setMode('list');
+      } else setMode('list');
 
       setIsWorking(false);
     });
-  }, [props, isWorking, dispatch, state.selectedQuiz]);
+  }, [isWorking, dispatch, state.selectedQuiz, token, setLoading, setMode]);
 
   return (
     <MyView>
@@ -76,14 +69,16 @@ function CV(props) {
         <StudentAnswerSheet
           selectedAnswerSheetIdx={selectedAnswerSheetIdx}
           onBackClick={setShowAnswerSheet(false)}
-          token={props.token}
+          token={token}
+          state={state}
+          dispatch={dispatch}
         />
       )}
       {!showAnswerSheet && (
         <CommonWebBox
           header={translator.correntAnswerSheets}
           backBtn={true}
-          onBackClick={() => props.setMode('list')}>
+          onBackClick={() => setMode('list')}>
           <PhoneView>
             {state.selectedQuiz.answer_sheets !== undefined &&
               state.selectedQuiz.answer_sheets.map((elem, index) => {
@@ -91,9 +86,12 @@ function CV(props) {
                   <Card
                     setSelectedAnswerSheetIdx={setSelectedAnswerSheetIdx}
                     key={index}
-                    token={props.token}
-                    setLoading={props.setLoading}
+                    token={token}
+                    setLoading={setLoading}
                     index={index}
+                    state={state}
+                    dispatch={dispatch}
+                    studentId={elem.student.id}
                   />
                 );
               })}

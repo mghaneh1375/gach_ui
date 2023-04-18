@@ -39,6 +39,16 @@ function QuestionReport(props) {
       )}
       {mode === 'create' && (
         <Create
+          isInEditMode={false}
+          setMode={setMode}
+          navigate={navigate}
+          setLoading={setLoading}
+          token={state.token}
+        />
+      )}
+      {mode === 'edit' && (
+        <Create
+          isInEditMode={true}
           setMode={setMode}
           navigate={navigate}
           setLoading={setLoading}

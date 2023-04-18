@@ -11,6 +11,7 @@ import {
 } from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
+import StudentAnswerSheet from '../../../../panel/quiz/components/AnswerSheet/StudentAnswerSheet';
 import {getAnswerSheets} from '../../../../panel/quiz/components/Utility';
 import translator from '../../../../panel/quiz/Translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context';
@@ -195,14 +196,16 @@ const Students = props => {
 
   return (
     <MyView>
-      {/* {showAnswerSheet && (
+      {showAnswerSheet && (
         <StudentAnswerSheet
           selectedAnswerSheetIdx={studentIdx}
           setLoading={props.setLoading}
           onBackClick={() => setShowAnswerSheet(false)}
           token={props.token}
+          state={state}
+          dispatch={dispatch}
         />
-      )} */}
+      )}
       {showSelectStudentsPane && (
         <SelectFromMyStudents
           token={props.token}

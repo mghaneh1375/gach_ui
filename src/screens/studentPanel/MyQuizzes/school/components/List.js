@@ -116,7 +116,7 @@ function List(props) {
                   mode === 'all' ||
                   (mode === 'passed' && quiz.status === 'finished') ||
                   (mode === 'future' && quiz.status !== 'finished')
-                )
+                ) {
                   if (
                     quiz.status === 'finished' ||
                     quiz.status === 'inProgress'
@@ -142,16 +142,17 @@ function List(props) {
                     );
                   }
 
-                return (
-                  <Card
-                    quizOp={undefined}
-                    isStudent={true}
-                    onClick={() => {}}
-                    quiz={quiz}
-                    afterQuiz={true}
-                    key={index}
-                  />
-                );
+                  return (
+                    <Card
+                      quizOp={undefined}
+                      isStudent={true}
+                      onClick={() => {}}
+                      quiz={quiz}
+                      afterQuiz={true}
+                      key={index}
+                    />
+                  );
+                }
               })}
           </PhoneView>
         </MyView>

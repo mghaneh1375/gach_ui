@@ -1,5 +1,6 @@
 import {routes} from '../../../../API/APIRoutes';
 import {
+  CV_BASE_URL,
   downloadRequest,
   fileRequest,
   generalRequest,
@@ -324,9 +325,16 @@ export const removeStudents = async (quizId, quizMode, ids, token) => {
   );
 };
 
-export const correct = async (quizId, userId, token) => {
+export const correct = async (quizId, generalMode, userId, token) => {
   return await generalRequest(
-    routes.correct + quizId + '/' + userId,
+    CV_BASE_URL +
+      routes.CVCorrect +
+      quizId +
+      '/' +
+      generalMode +
+      '/' +
+      userId +
+      '/A5',
     'post',
     undefined,
     ['path', 'result'],

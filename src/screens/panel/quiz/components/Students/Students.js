@@ -183,6 +183,8 @@ const Students = props => {
           setLoading={props.setLoading}
           onBackClick={() => setShowAnswerSheet(false)}
           token={props.token}
+          state={state}
+          dispatch={dispatch}
         />
       )}
       {showOpPopUp && (

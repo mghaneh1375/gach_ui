@@ -9,7 +9,7 @@ import {
 } from '../../../../../styles/Common';
 import AnswerSheet from './AnswerSheet';
 import React, {useState, useRef, useCallback} from 'react';
-import {dispatchQuizContext, quizContext} from '../Context';
+
 import {updateStudentAnswers} from '../Utility';
 import {faLock, faUnlock} from '@fortawesome/free-solid-svg-icons';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
@@ -19,12 +19,14 @@ import {styles} from '../../../../../styles/Common/Styles';
 import commonTranslator from '../../../../../translator/Common';
 import {getDevice, showError} from '../../../../../services/Utility';
 
-function StudentAnswerSheet(props) {
-  const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
-  ];
-  const [state, dispatch] = useGlobalState();
+function StudentAnswerSheet({
+  token,
+  setLoading,
+  state,
+  dispatch,
+  selectedAnswerSheetIdx,
+  onBackClick,
+}) {
   const [stdChangingMode, setStdChangingMode] = useState();
 
   React.useEffect(() => {
@@ -40,7 +42,7 @@ function StudentAnswerSheet(props) {
       return;
     }
 
-    props.setLoading(true);
+    setLoading(true);
 
     toPng(ref.current, {cacheBust: true})
       .then(async dataUrl => {
@@ -52,26 +54,26 @@ function StudentAnswerSheet(props) {
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
         pdf.addImage(dataUrl, 'PNG', 0, 0, pdfWidth, pdfHeight);
         await pdf.save('download.pdf');
-        props.setLoading(false);
+        setLoading(false);
       })
       .catch(err => {
         console.log(err);
         showError(commonTranslator.err);
-        props.setLoading(false);
+        setLoading(false);
       });
-  }, [ref, props]);
+  }, [ref, setLoading]);
 
   return (
     <MyView>
       <CommonWebBox
         backBtn={true}
-        onBackClick={() => props.onBackClick()}
+        onBackClick={() => onBackClick()}
         header={
           state.selectedQuiz.answer_sheets !== undefined &&
-          props.selectedAnswerSheetIdx !== undefined &&
-          state.selectedQuiz.answer_sheets.length > props.selectedAnswerSheetIdx
-            ? state.selectedQuiz.answer_sheets[props.selectedAnswerSheetIdx]
-                .student.name
+          selectedAnswerSheetIdx !== undefined &&
+          state.selectedQuiz.answer_sheets.length > selectedAnswerSheetIdx
+            ? state.selectedQuiz.answer_sheets[selectedAnswerSheetIdx].student
+                .name
             : ''
         }>
         <EqualTwoTextInputs>
@@ -112,15 +114,15 @@ function StudentAnswerSheet(props) {
             onPress={async () => {
               let res = await updateStudentAnswers(
                 state.selectedQuiz.id,
-                state.selectedQuiz.answer_sheets[props.selectedAnswerSheetIdx]
-                  .student.id,
+                state.selectedQuiz.answer_sheets[selectedAnswerSheetIdx].student
+                  .id,
                 state.selectedQuiz.generalMode,
                 {answers: state.new_std_answer_sheet},
-                props.token,
+                token,
               );
               if (res !== null) {
                 state.selectedQuiz.answer_sheets[
-                  props.selectedAnswerSheetIdx
+                  selectedAnswerSheetIdx
                 ].answers = state.new_std_answer_sheet;
 
                 let data = state.selectedQuiz.answer_sheet.map(
@@ -142,9 +144,10 @@ function StudentAnswerSheet(props) {
       <MyViewWithRef style={styles.margin15} ref={ref}>
         <AnswerSheet
           answer_sheet={state.wanted_answer_sheet}
-          setLoading={props.setLoading}
-          token={props.token}
+          setLoading={setLoading}
+          token={token}
           state={state}
+          dispatch={dispatch}
         />
       </MyViewWithRef>
     </MyView>

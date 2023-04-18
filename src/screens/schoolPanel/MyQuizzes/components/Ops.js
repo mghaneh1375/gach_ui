@@ -2,7 +2,11 @@ import React, {useState, useRef} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {CV_BASE_URL, generalRequest} from '../../../../API/Utility';
 import UploadFile from '../../../../components/web/UploadFile';
-import {formatPrice, showSuccess} from '../../../../services/Utility';
+import {
+  formatPrice,
+  showError,
+  showSuccess,
+} from '../../../../services/Utility';
 import {
   CommonButton,
   MyView,
@@ -20,7 +24,8 @@ import {
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {setCacheItem} from '../../../../API/User';
 import SuccessTransaction from '../../../../components/web/SuccessTransaction/SuccessTransaction';
-import {styles} from '../../../../styles/Common/Styles';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import CV from '../../../panel/quiz/components/CV/CV';
 
 const Ops = props => {
   const useGlobalState = () => [
@@ -31,15 +36,25 @@ const Ops = props => {
   const [showUploadPane, setShowUploadPane] = useState(false);
   const [state, dispatch] = useGlobalState();
 
+  const [showChoosePageTheme, setShowChoosePageTheme] = useState(false);
+
   const downloadAnswerSheet = async () => {
+    if (theme === undefined || size === undefined) {
+      showError(commonTranslator.pleaseFillAllFields);
+      return;
+    }
     props.setLoading(true);
 
     let res = await generalRequest(
-      CV_BASE_URL + 'generateSchoolAnswerSheet/' + state.selectedQuiz.id,
+      CV_BASE_URL +
+        'generateSchoolAnswerSheet/' +
+        state.selectedQuiz.id +
+        '/' +
+        theme +
+        '/' +
+        size,
       'post',
-      {
-        mode: 1,
-      },
+      undefined,
       'data',
       props.token,
     );
@@ -115,8 +130,76 @@ const Ops = props => {
     }, 1000);
   }, [refId]);
 
+  const themes = [
+    {item: 'قرمز', id: 'RED'},
+    {item: 'آبی ', id: 'BLUE'},
+    {item: 'سبز', id: 'GREEN'},
+    {item: 'سفید', id: 'WHITE'},
+  ];
+
+  const sizes = [
+    {item: 'A5', id: 'A5'},
+    {item: 'A4', id: 'A4'},
+  ];
+
+  const [theme, setTheme] = useState();
+  const [size, setSize] = useState();
+  const [showCV, setShowCV] = useState(false);
+
+  React.useEffect(() => {
+    props.setShowList(!showCV);
+  }, [showCV, props]);
+
   return (
     <>
+      {showCV && (
+        <CV
+          state={state}
+          dispatch={dispatch}
+          setLoading={props.setLoading}
+          setMode={mode => {
+            setShowCV(false);
+          }}
+          token={props.token}
+        />
+      )}
+      {showChoosePageTheme && (
+        <LargePopUp
+          title={'دانلود پاسخ برگها'}
+          btns={
+            <CommonButton
+              onPress={() => downloadAnswerSheet()}
+              theme={'dark'}
+              title={commonTranslator.confirm}
+            />
+          }
+          toggleShowPopUp={() => setShowChoosePageTheme(false)}>
+          <PhoneView>
+            <JustBottomBorderSelect
+              placeholder={'تم موردنظر'}
+              subText={'تم موردنظر'}
+              setter={setTheme}
+              values={themes}
+              value={
+                theme === undefined
+                  ? undefined
+                  : themes.find(elem => elem.id === theme)
+              }
+            />
+            <JustBottomBorderSelect
+              placeholder={'اندازه موردنظر'}
+              subText={'اندازه موردنظر'}
+              setter={setSize}
+              values={sizes}
+              value={
+                size === undefined
+                  ? undefined
+                  : sizes.find(elem => elem.id === size)
+              }
+            />
+          </PhoneView>
+        </LargePopUp>
+      )}
       {showFinalizeMsg && (
         <LargePopUp
           title={translator.finalize}
@@ -181,7 +264,7 @@ const Ops = props => {
           />
         </LargePopUp>
       )}
-      {!showFinalizeMsg && (
+      {!showFinalizeMsg && !showCV && !showChoosePageTheme && (
         <LargePopUp
           title={state.selectedQuiz.title}
           toggleShowPopUp={props.toggleShowPopUp}>
@@ -305,7 +388,7 @@ const Ops = props => {
                   <CommonButton
                     dir={'rtl'}
                     theme={'transparent'}
-                    onPress={() => props.setMode('CV')}
+                    onPress={() => setShowCV(true)}
                     title={translator.correntAnswerSheets}
                   />
                 )}
@@ -317,14 +400,17 @@ const Ops = props => {
                 onPress={() => props.setMode('key')}
               />
 
-              {state.selectedQuiz.status === 'finish' && (
-                <CommonButton
-                  title={'دانلود پاسخ برگ'}
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  onPress={() => downloadAnswerSheet()}
-                />
-              )}
+              {(state.selectedQuiz.launchMode === 'physical' ||
+                state.selectedQuiz.launchMode === 'hybrid') &&
+                state.selectedQuiz.status === 'finish' &&
+                state.selectedQuiz.mode === 'regular' && (
+                  <CommonButton
+                    title={'دانلود پاسخ برگ'}
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    onPress={() => setShowChoosePageTheme(true)}
+                  />
+                )}
 
               {state.selectedQuiz.status === 'finish' && (
                 <CommonButton

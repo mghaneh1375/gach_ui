@@ -52,8 +52,10 @@ const List = props => {
 
   const handleOp = idx => {
     dispatch({selectedQuiz: state.quizzes[idx]});
-    toggleShowOpPopUp();
+    setShowOpPopUp(true);
   };
+
+  const [showList, setShowList] = useState(true);
 
   return (
     <MyView>
@@ -65,28 +67,31 @@ const List = props => {
           setMode={props.setMode}
           navigate={props.navigate}
           user={props.user}
+          setShowList={setShowList}
         />
       )}
-      <CommonWebBox
-        header={translator.quizes}
-        addBtn={true}
-        onAddClick={() => props.setMode('create')}>
-        <MyView>
-          {state.quizzes !== undefined && (
-            <CommonDataTable
-              columns={columns}
-              data={state.quizzes}
-              setData={newData => {
-                dispatch({quizzes: newData});
-              }}
-              handleOp={handleOp}
-              token={props.token}
-              setLoading={props.setLoading}
-              removeUrl={routes.removeSchoolQuiz}
-            />
-          )}
-        </MyView>
-      </CommonWebBox>
+      {showList && (
+        <CommonWebBox
+          header={translator.quizes}
+          addBtn={true}
+          onAddClick={() => props.setMode('create')}>
+          <MyView>
+            {state.quizzes !== undefined && (
+              <CommonDataTable
+                columns={columns}
+                data={state.quizzes}
+                setData={newData => {
+                  dispatch({quizzes: newData});
+                }}
+                handleOp={handleOp}
+                token={props.token}
+                setLoading={props.setLoading}
+                removeUrl={routes.removeSchoolQuiz}
+              />
+            )}
+          </MyView>
+        </CommonWebBox>
+      )}
     </MyView>
   );
 };

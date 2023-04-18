@@ -49,6 +49,8 @@ function MyQuizzes(props) {
           setLoading={setLoading}
           onBackClick={() => setMode('list')}
           token={state.token}
+          state={state}
+          dispatch={dispatch}
         />
       )}
     </QuizProvider>
