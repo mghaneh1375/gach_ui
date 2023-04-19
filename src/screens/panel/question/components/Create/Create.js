@@ -72,7 +72,6 @@ function Create(props) {
   const [finalMsg, setFinalMsg] = useState();
 
   const setResult = res => {
-    console.log(res);
     setFinalMsg(
       <RenderHTML
         contentWidth={'100%'}

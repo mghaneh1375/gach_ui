@@ -150,6 +150,7 @@ export const routes = {
   addQuestion: 'admin/question/store/',
   editQuestion: 'admin/question/edit/',
   addBatchQuestions: 'admin/question/addBatch',
+  addBatchSchoolQuestions: 'quiz/school/addBatchQuestions/',
   removeQuestion: 'admin/question/remove',
   getSubjectQuestions: 'admin/question/subjectQuestions',
   addBatchFiles: 'admin/general/uploadFiles/',

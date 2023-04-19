@@ -13,10 +13,15 @@ import {showSuccess} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../translator/Common';
 import translator from '../../../../panel/quiz/Translator';
 import QuestionsModule from '../../../../panel/question/Question';
+import qTranslator from '../../../../panel/question/Translator';
 import {
   changeQuestionsArrangeInQuiz,
   getQuestions,
 } from '../../../../panel/quiz/components/Utility';
+import UploadFile from '../../../../../components/web/UploadFile';
+import {CV_BASE_URL} from '../../../../../API/Utility';
+import RenderHTML from 'react-native-render-html';
+import AddBatch from './AddBatch';
 
 const Questions = props => {
   const useGlobalState = () => [
@@ -29,6 +34,8 @@ const Questions = props => {
   const [selectedQuestion, setSelectedQuestion] = useState();
   const [showRemovePane, setShowRemovePane] = useState(false);
   const [selectingMode, setSelectingMode] = useState(false);
+  const [showAddPDFPopUp, setShowAddPDFPopUp] = useState(false);
+  const [showAddExcelPopUp, setShowAddExcelPopUp] = useState();
 
   const toggleShowRemovePopUp = () => {
     setShowRemovePane(!showRemovePane);
@@ -116,6 +123,22 @@ const Questions = props => {
     });
   }, [props, state.selectedQuiz, dispatch]);
 
+  const [finalMsg, setFinalMsg] = useState();
+
+  const setResult = res => {
+    setFinalMsg(
+      <RenderHTML
+        contentWidth={'100%'}
+        source={{
+          html:
+            "<a href='" +
+            res +
+            "'>دانلود فایل اکسل اسامی فایل های بارگذاری شده</a>",
+        }}
+      />,
+    );
+  };
+
   return (
     <MyView>
       {showRemovePane && state.selectedIds !== undefined && (
@@ -136,6 +159,32 @@ const Questions = props => {
         />
       )}
 
+      {showAddExcelPopUp && (
+        <AddBatch
+          toggleShowPopUp={() => setShowAddExcelPopUp(false)}
+          token={props.token}
+          setLoading={props.setLoading}
+          setMode={props.setMode}
+          quizId={state.selectedQuiz.id}
+        />
+      )}
+
+      {showAddPDFPopUp && (
+        <UploadFile
+          toggleShow={() => setShowAddPDFPopUp(false)}
+          token={props.token}
+          maxFileSize={5}
+          accepts={['pdf']}
+          expectedRes={'url'}
+          setResult={setResult}
+          finalMsg={finalMsg}
+          multi={false}
+          title={qTranslator.uploadPDFFile}
+          url={CV_BASE_URL + 'cropPDFForSchool/' + state.selectedQuiz.id}
+          setLoading={props.setLoading}
+        />
+      )}
+
       {!showRemovePane && !selectingMode && (
         <CommonWebBox
           backBtn={true}
@@ -150,14 +199,31 @@ const Questions = props => {
                   title={translator.changeSort}
                 />
               )}
-              {state.selectedQuiz.status != 'finish' && (
-                <CommonButton
-                  style={{alignSelf: 'center'}}
-                  onPress={() => setSelectingMode(true)}
-                  title={'انتخاب سوال'}
-                  theme={'dark'}
-                />
-              )}
+              {state.selectedQuiz.status != 'finish' &&
+                state.selectedQuiz.database && (
+                  <CommonButton
+                    style={{alignSelf: 'center'}}
+                    onPress={() => setSelectingMode(true)}
+                    title={'انتخاب سوال'}
+                    theme={'dark'}
+                  />
+                )}
+
+              {state.selectedQuiz.status != 'finish' &&
+                !state.selectedQuiz.database && (
+                  <>
+                    <CommonButton
+                      onPress={() => setShowAddExcelPopUp(true)}
+                      theme={'dark'}
+                      title={qTranslator.uploadExcelFile}
+                    />
+                    <CommonButton
+                      onPress={() => setShowAddPDFPopUp(true)}
+                      theme={'dark'}
+                      title={qTranslator.uploadPDFFile}
+                    />
+                  </>
+                )}
             </PhoneView>
             {state.selectedIds !== undefined &&
               state.selectedIds.length > 0 && (
