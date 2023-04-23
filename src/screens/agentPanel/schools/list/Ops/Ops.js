@@ -41,11 +41,18 @@ function Ops(props) {
           toggleShowPopUp={props.toggleShowPopUp}>
           <PhoneView>
             {props.isAdmin && (
-              <CommonButton
-                title={commonTranslator.seeInfo}
-                onPress={() => window.open('/profile/' + props.selectedId)}
-                theme={'transparent'}
-              />
+              <>
+                <CommonButton
+                  title={commonTranslator.seeInfo}
+                  onPress={() => window.open('/profile/' + props.selectedId)}
+                  theme={'transparent'}
+                />
+                <CommonButton
+                  theme={'transparent'}
+                  onPress={() => props.setMode('chargeAccount')}
+                  title={'شارژ حساب'}
+                />
+              </>
             )}
             {props.isAdmin && (
               <CommonButton

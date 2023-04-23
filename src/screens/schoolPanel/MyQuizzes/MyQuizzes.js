@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import Key from '../../panel/quiz/components/Key/Key';
+import Ranking from '../../panel/quiz/components/Reports/Ranking/Ranking';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
@@ -64,6 +65,7 @@ function MyQuizzes(props) {
             token={state.token}
           />
         )}
+
         {mode === 'question' && (
           <Questions
             setLoading={setLoading}

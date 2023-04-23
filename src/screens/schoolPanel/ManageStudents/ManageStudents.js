@@ -5,6 +5,7 @@ import Create from './create/Create';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
 import {MyView} from '../../../styles/Common';
 import {getAllStudent} from './Utility';
+import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin';
 
 function ManageStudents(props) {
   const queryString = require('query-string');
@@ -55,6 +56,14 @@ function ManageStudents(props) {
           setLoading={setLoading}
           token={props.token}
           addItem={i => addItem(data, setData, i)}
+        />
+      )}
+      {mode === 'changePass' && selectedStudent !== undefined && (
+        <ChangePassByAdmin
+          wantedUserId={selectedStudent.id}
+          setMode={setMode}
+          setLoading={setLoading}
+          token={props.token}
         />
       )}
     </MyView>

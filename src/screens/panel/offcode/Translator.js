@@ -21,6 +21,7 @@ const translator = {
   gachExam: 'آزمون های آیریسک',
   bankExam: 'آزمون های شخصی ساز',
   book: 'فروش کتاب',
+  schoolQuiz: 'آزمون مدرسه ای',
   classes: 'فروش دوره و کلاس',
   ravanExam: 'آزمون های روان شناسی',
   counseling: 'مشاوره',

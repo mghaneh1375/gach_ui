@@ -37,15 +37,20 @@ function Ops(props) {
           title={commonTranslator.opMenu}
           toggleShowPopUp={props.toggleShowPopUp}>
           <PhoneView>
-            <CommonButton
+            {/* <CommonButton
               theme={'transparent'}
               title={commonTranslator.view + ' ' + commonTranslator.students}
               onPress={() => props.setMode('students')}
-            />
+            /> */}
             <CommonButton
               theme={'transparent'}
               title={commonTranslator.view + ' ' + Translate.info}
               onPress={() => props.setMode('details')}
+            />
+            <CommonButton
+              theme={'transparent'}
+              onPress={() => props.setMode('changePass')}
+              title={commonTranslator.changePassword}
             />
             <CommonButton
               onPress={() => props.setMode('edit')}

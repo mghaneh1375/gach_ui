@@ -30,7 +30,7 @@ const AddBatch = props => {
       finalMsg={finalMsg}
       helps={[
         {
-          link: BASE_SITE_NAME + 'assets/add_question_sample.xlsx',
+          link: BASE_SITE_NAME + 'assets/add_school_question_sample.xlsx',
           text: 'دانلود فایل نمونه سوالات',
         },
         {

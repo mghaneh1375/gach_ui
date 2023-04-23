@@ -171,13 +171,16 @@ function Question(props) {
             }
           />
         </PhoneView>
-        <PhoneView>
-          <BlueTextInline style={{...styleFont14}} text={translator.author} />
-          <SimpleText
-            style={{...styleMarginRight25}}
-            text={' ' + props.question.author}
-          />
-        </PhoneView>
+        {props.question.author !== undefined && (
+          <PhoneView>
+            <BlueTextInline style={{...styleFont14}} text={translator.author} />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={' ' + props.question.author}
+            />
+          </PhoneView>
+        )}
+
         {props.question.visibility !== undefined && (
           <PhoneView>
             <BlueTextInline

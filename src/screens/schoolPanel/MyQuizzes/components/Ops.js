@@ -26,6 +26,7 @@ import {setCacheItem} from '../../../../API/User';
 import SuccessTransaction from '../../../../components/web/SuccessTransaction/SuccessTransaction';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import CV from '../../../panel/quiz/components/CV/CV';
+import Ranking from './Ranking/Ranking';
 
 const Ops = props => {
   const useGlobalState = () => [
@@ -122,6 +123,27 @@ const Ops = props => {
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [transactionId, setTransactionId] = useState();
 
+  const toggleVisibility = () => {
+    props.setLoading(true);
+    Promise.all([
+      generalRequest(
+        routes.editQuiz + 'school/' + state.selectedQuiz.id,
+        'post',
+        {
+          visibility: !state.selectedQuiz.visibility,
+        },
+        undefined,
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] !== null) {
+        state.selectedQuiz.visibility = !state.selectedQuiz.visibility;
+        dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+      }
+    });
+  };
+
   React.useEffect(() => {
     if (refId === undefined) return;
 
@@ -145,13 +167,28 @@ const Ops = props => {
   const [theme, setTheme] = useState();
   const [size, setSize] = useState();
   const [showCV, setShowCV] = useState(false);
+  const [showRanking, setShowRanking] = useState(false);
 
   React.useEffect(() => {
     props.setShowList(!showCV);
   }, [showCV, props]);
 
+  React.useEffect(() => {
+    props.setShowList(!showRanking);
+  }, [showRanking, props]);
+
   return (
     <>
+      {showRanking && (
+        <Ranking
+          setLoading={props.setLoading}
+          setMode={props.setMode}
+          token={props.token}
+          quizMode={state.selectedQuiz.mode}
+          quizId={state.selectedQuiz.id}
+          quizName={state.selectedQuiz.name}
+        />
+      )}
       {showCV && (
         <CV
           state={state}
@@ -264,7 +301,7 @@ const Ops = props => {
           />
         </LargePopUp>
       )}
-      {!showFinalizeMsg && !showCV && !showChoosePageTheme && (
+      {!showFinalizeMsg && !showCV && !showChoosePageTheme && !showRanking && (
         <LargePopUp
           title={state.selectedQuiz.title}
           toggleShowPopUp={props.toggleShowPopUp}>
@@ -318,6 +355,17 @@ const Ops = props => {
               <CommonButton
                 dir={'rtl'}
                 theme={'transparent'}
+                onPress={() => toggleVisibility()}
+                title={
+                  state.selectedQuiz.visibility
+                    ? commonTranslator.toHide
+                    : commonTranslator.toShow
+                }
+              />
+
+              <CommonButton
+                dir={'rtl'}
+                theme={'transparent'}
                 onPress={() => changeMode('recp')}
                 title={translator.recp}
               />
@@ -362,6 +410,15 @@ const Ops = props => {
                     theme={'transparent'}
                     title={commonTranslator.report}
                   />
+
+                  {state.selectedQuiz.reportStatus === 'ready' && (
+                    <CommonButton
+                      onPress={() => setShowRanking(true)}
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      title={translator.seeRanking}
+                    />
+                  )}
 
                   <CommonButton
                     dir={'rtl'}

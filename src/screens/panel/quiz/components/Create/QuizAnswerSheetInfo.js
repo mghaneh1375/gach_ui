@@ -73,7 +73,7 @@ const QuizAnswerSheetInfo = props => {
           show={showUploadFile}
           toggleShow={toggleShowUploadFile}
           maxFileSize={20}
-          accept={['video/*', '.pdf']}
+          accept={['image/*']}
           expectedRes={'url'}
           url={routes.uploadQuizAttaches}
           title={translator.uploadFile}

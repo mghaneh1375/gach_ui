@@ -54,22 +54,22 @@ const QuizRunInfo = props => {
         </>
       </PhoneView>
       <PhoneView style={{gap: 15}}>
-        {(props.kind === undefined || props.kind !== 'tashrihi') && (
-          <JustBottomBorderSelect
-            values={launchModeKeyVals}
-            value={
-              props.launchMode === undefined
-                ? {}
-                : launchModeKeyVals.filter(element => {
-                    return element.id === props.launchMode;
-                  })[0]
-            }
-            setter={props.setLaunchMode}
-            placeholder={translator.isOnline}
-            subText={translator.isOnline}
-          />
-        )}
-
+        {(props.kind === undefined || props.kind !== 'tashrihi') &&
+          (props.editMode === undefined || !props.editMode) && (
+            <JustBottomBorderSelect
+              values={launchModeKeyVals}
+              value={
+                props.launchMode === undefined
+                  ? {}
+                  : launchModeKeyVals.filter(element => {
+                      return element.id === props.launchMode;
+                    })[0]
+              }
+              setter={props.setLaunchMode}
+              placeholder={translator.isOnline}
+              subText={translator.isOnline}
+            />
+          )}
         <JustBottomBorderSelect
           values={trueFalseValues}
           value={
@@ -83,21 +83,21 @@ const QuizRunInfo = props => {
           subText={translator.minusMark}
           placeholder={translator.minusMark}
         />
-
-        <JustBottomBorderSelect
-          values={trueFalseValues}
-          value={
-            props.useFromDatabase === undefined
-              ? {}
-              : trueFalseValues.filter(element => {
-                  return element.id === props.useFromDatabase;
-                })[0]
-          }
-          setter={props.setUseFromDatabase}
-          subText={translator.useFromDatabase}
-          placeholder={translator.useFromDatabase}
-        />
-
+        {(props.editMode === undefined || !props.editMode) && (
+          <JustBottomBorderSelect
+            values={trueFalseValues}
+            value={
+              props.useFromDatabase === undefined
+                ? {}
+                : trueFalseValues.filter(element => {
+                    return element.id === props.useFromDatabase;
+                  })[0]
+            }
+            setter={props.setUseFromDatabase}
+            subText={translator.useFromDatabase}
+            placeholder={translator.useFromDatabase}
+          />
+        )}
         <JustBottomBorderSelect
           values={trueFalseValues}
           value={
@@ -111,7 +111,6 @@ const QuizRunInfo = props => {
           subText={translator.showResultAfterCorrection}
           placeholder={translator.showResultAfterCorrection}
         />
-
         {start !== undefined && (
           <JustBottomBorderDatePicker
             placeholder={translator.startDate}

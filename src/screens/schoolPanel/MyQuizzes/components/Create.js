@@ -71,8 +71,8 @@ const Create = props => {
 
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
-      maxFileSize: 6,
-      accept: ['image/*'],
+      maxFileSize: 2,
+      accept: '.pdf',
       readAs: 'DataURL',
       multiple: true,
     });
@@ -173,6 +173,7 @@ const Create = props => {
         header={translator.runInfo}
         child={
           <QuizRunInfo
+            editMode={props.editMode}
             start={start}
             end={end}
             setStart={setStart}

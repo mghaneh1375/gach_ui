@@ -5,7 +5,6 @@ import {usersContext} from './Context';
 
 function ChangePassByAdmin(props) {
   const useGlobalState = () => [React.useContext(usersContext)];
-
   const [state] = useGlobalState();
 
   return (
@@ -13,12 +12,17 @@ function ChangePassByAdmin(props) {
       header={'تغییر رمزعبور'}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      {state.selectedUser !== undefined && (
+      {(props.wantedUserId !== undefined ||
+        state.selectedUser !== undefined) && (
         <ChangePass
           setLoading={props.setLoading}
           setMode={props.setMode}
           token={props.token}
-          userId={state.selectedUser.id}
+          userId={
+            props.wantedUserId !== undefined
+              ? props.wantedUserId
+              : state.selectedUser.id
+          }
         />
       )}
     </CommonWebBox>

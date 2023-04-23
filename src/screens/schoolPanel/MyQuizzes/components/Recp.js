@@ -93,6 +93,27 @@ function Recp(props) {
     },
   ];
 
+  const columns2 = [
+    {
+      name: 'تعداد سوال',
+      selector: row => row.count,
+      grow: 1,
+      center: true,
+    },
+    {
+      name: 'قیمت واحد (تومان)',
+      selector: row => formatPrice(row.price),
+      grow: 1,
+      center: true,
+    },
+    {
+      name: 'قیمت کل (تومان)',
+      selector: row => formatPrice(row.totalPrice),
+      grow: 1,
+      center: true,
+    },
+  ];
+
   return (
     <>
       <CommonWebBox
@@ -109,7 +130,7 @@ function Recp(props) {
         {data !== undefined && (
           <CommonDataTable
             data={data}
-            columns={columns}
+            columns={state.selectedQuiz.database ? columns : columns2}
             excel={false}
             pagination={false}
           />

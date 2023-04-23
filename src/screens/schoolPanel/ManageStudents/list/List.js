@@ -12,9 +12,16 @@ function List(props) {
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
+
+  const [data, setData] = useState();
+
+  React.useEffect(() => {
+    if (props.data !== undefined) setData(props.data);
+  }, [props.data]);
+
   const handleOp = idx => {
-    props.setSelectedStudent(props.data[idx]);
-    setSelectedId(props.data[idx].id);
+    props.setSelectedStudent(data[idx]);
+    setSelectedId(data[idx].id);
     toggleShowOpPopUp();
   };
   return (
@@ -35,15 +42,17 @@ function List(props) {
         header={Translate.managementStudents}
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
-        <CommonDataTable
-          columns={columns}
-          data={props.data}
-          setData={props.setData}
-          handleOp={handleOp}
-          setLoading={props.setLoading}
-          removeUrl={routes.removeStudents}
-          token={props.token}
-        />
+        {data !== undefined && (
+          <CommonDataTable
+            columns={columns}
+            data={data}
+            setData={setData}
+            handleOp={handleOp}
+            setLoading={props.setLoading}
+            removeUrl={routes.removeStudents}
+            token={props.token}
+          />
+        )}
       </CommonWebBox>
     </MyView>
   );

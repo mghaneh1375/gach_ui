@@ -7,6 +7,7 @@ import Students from './students/Students';
 import {removeItems, editItem, addItem} from '../../../services/Utility';
 import {getAllAgent} from './Utility';
 import {MyView} from '../../../styles/Common';
+import ChargeAccount from '../../panel/users/components/ChargeAccount';
 
 function Schools(props) {
   const queryString = require('query-string');
@@ -69,6 +70,14 @@ function Schools(props) {
           data={data}
           token={props.token}
           setSelectedAgent={setSelectedAgent}
+        />
+      )}
+      {mode === 'chargeAccount' && (
+        <ChargeAccount
+          wantedUser={selectedAgent}
+          setMode={setMode}
+          setLoading={setLoading}
+          token={props.token}
         />
       )}
       {mode === 'details' && (

@@ -6,6 +6,7 @@ import {getQuizzes} from '../../../panel/quiz/components/Utility';
 import translator from '../../../panel/quiz/Translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
 import Ops from './Ops';
+import Ranking from './Ranking/Ranking';
 import columns from './TableStructure';
 
 const List = props => {

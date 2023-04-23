@@ -18,15 +18,38 @@ function ChargeAccount(props) {
   const [money, setMoney] = useState();
   const [coin, setCoin] = useState();
 
+  const [wantedUser, setWantedUser] = useState();
+
+  const setUser = React.useCallback(() => {
+    if (props.wantedUser !== undefined && state.selectedUser === undefined)
+      dispatch({selectedUser: props.wantedUser});
+  }, [dispatch, props.wantedUser, state.selectedUser]);
+
+  React.useEffect(() => {
+    if (props.wantedUser === undefined) return;
+    setWantedUser(props.wantedUser);
+  }, [props.wantedUser]);
+
   React.useEffect(() => {
     if (state.selectedUser === undefined) return;
-    setMoney(state.selectedUser.money);
-    setCoin(state.selectedUser.coin);
+    setWantedUser(state.selectedUser);
   }, [state.selectedUser]);
 
+  React.useEffect(() => {
+    if (wantedUser == undefined) return;
+
+    setMoney(wantedUser.money === undefined ? '' : wantedUser.money);
+    setCoin(wantedUser.coin === undefined ? '' : wantedUser.coin);
+  }, [wantedUser]);
+
+  if (wantedUser === undefined) return <></>;
   return (
     <CommonWebBox
-      header={'شارژ حساب ' + state.selectedUser.name}
+      header={
+        wantedUser.name === undefined
+          ? 'شارژ حساب ' + wantedUser.firstName + ' ' + wantedUser.lastName
+          : 'شارژ حساب ' + wantedUser.name
+      }
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <PhoneView style={styles.gap10}>
@@ -34,16 +57,32 @@ function ChargeAccount(props) {
           <JustBottomBorderTextInput
             value={money}
             onChangeText={e => setMoney(e)}
-            placehoder={Translator.currMoney}
-            subText={Translator.currMoney}
+            placehoder={
+              wantedUser.name === undefined
+                ? Translator.addMoney
+                : Translator.currMoney
+            }
+            subText={
+              wantedUser.name === undefined
+                ? Translator.addMoney
+                : Translator.currMoney
+            }
           />
         )}
         {coin !== undefined && (
           <JustBottomBorderTextInput
             value={coin}
             onChangeText={e => setCoin(e)}
-            placehoder={Translator.currCoin}
-            subText={Translator.currCoin}
+            placehoder={
+              wantedUser.name === undefined
+                ? Translator.addCoin
+                : Translator.currCoin
+            }
+            subText={
+              wantedUser.name === undefined
+                ? Translator.addCoin
+                : Translator.addMoney
+            }
           />
         )}
         <CommonButton
@@ -52,14 +91,15 @@ function ChargeAccount(props) {
             let res = await chargeAccount(
               coin,
               money,
-              state.selectedUser.id,
+              wantedUser.id,
               props.token,
             );
             props.setLoading(false);
             if (res !== null) {
-              state.selectedUser.money = money;
-              state.selectedUser.coin = coin;
-              dispatch({selectedUser: state.selectedUser});
+              wantedUser.money = money;
+              wantedUser.coin = coin;
+              if (state.selectedUser !== undefined)
+                dispatch({selectedUser: state.selectedUser});
             }
           }}
           title={commonTranslator.confirm}

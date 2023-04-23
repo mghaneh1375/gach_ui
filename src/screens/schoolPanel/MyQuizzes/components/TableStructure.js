@@ -19,6 +19,18 @@ const columns = [
     },
   },
   {
+    name: 'وضعیت نمایش',
+    selector: row => (row.visibility ? 'نمایش' : 'مخفی'),
+    grow: 1,
+    center: true,
+  },
+  {
+    name: 'وضعیت پرداخت',
+    selector: row => (row.status === 'init' ? 'پرداخت نشده' : 'پرداخت شده'),
+    grow: 1,
+    center: true,
+  },
+  {
     name: 'تعداد سوال',
     selector: row => row.questionsCount,
     grow: 1,

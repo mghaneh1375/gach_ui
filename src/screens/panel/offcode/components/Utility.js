@@ -42,6 +42,7 @@ export const sectionKeyVals = [
   {item: translator.gachExam, id: 'gach_exam'},
   {item: translator.bankExam, id: 'bank_exam'},
   {item: translator.book, id: 'book'},
+  {item: translator.schoolQuiz, id: 'school_quiz'},
   {item: translator.classes, id: 'classes'},
   {item: translator.ravanExam, id: 'ravan_exam'},
   {item: translator.counseling, id: 'counseling'},
