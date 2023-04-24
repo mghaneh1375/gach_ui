@@ -8,7 +8,7 @@ import {
   MyView,
 } from '../../../../styles/Common';
 
-const UpdatePassword = props => {
+const UpdatePassword = () => {
   return (
     <MyView>
       <BigBoldBlueText text={translator.yourInfo} />

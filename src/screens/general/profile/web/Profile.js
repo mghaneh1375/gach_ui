@@ -285,7 +285,7 @@ const Profile = props => {
                 onPress={async () => {
                   setLoading(true);
                   let res = await generalRequest(
-                    routes.blockNotif,
+                    isAdmin ? routes.blockNotif + user.id : routes.blockNotif,
                     'put',
                     undefined,
                     undefined,
@@ -294,13 +294,17 @@ const Profile = props => {
                   setLoading(false);
                   if (res != null) {
                     showSuccess();
-                    let u = user;
-                    u.blockNotif =
-                      user.blockNotif === undefined ? true : undefined;
-                    let newUserModel = props.user;
-                    newUserModel.user = u;
-                    await setCacheItem('user', JSON.stringify(newUserModel));
-                    dispatch({user: newUserModel});
+                    if (!isAdmin) {
+                      let u = user;
+                      u.blockNotif =
+                        user.blockNotif === undefined ? true : undefined;
+                      let newUserModel = props.user;
+                      newUserModel.user = u;
+                      await setCacheItem('user', JSON.stringify(newUserModel));
+                      dispatch({user: newUserModel});
+                    } else {
+                      location.reload();
+                    }
                   }
                 }}
                 theme="dark"

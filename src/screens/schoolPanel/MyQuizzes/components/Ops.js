@@ -27,6 +27,7 @@ import SuccessTransaction from '../../../../components/web/SuccessTransaction/Su
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import CV from '../../../panel/quiz/components/CV/CV';
 import Ranking from './Ranking/Ranking';
+import {QuizProvider} from '../../../panel/quiz/components/Context';
 
 const Ops = props => {
   const useGlobalState = () => [
@@ -180,14 +181,16 @@ const Ops = props => {
   return (
     <>
       {showRanking && (
-        <Ranking
-          setLoading={props.setLoading}
-          setMode={props.setMode}
-          token={props.token}
-          quizMode={state.selectedQuiz.mode}
-          quizId={state.selectedQuiz.id}
-          quizName={state.selectedQuiz.name}
-        />
+        <QuizProvider>
+          <Ranking
+            setLoading={props.setLoading}
+            hide={() => {
+              setShowRanking(false);
+            }}
+            token={props.token}
+            quiz={state.selectedQuiz}
+          />
+        </QuizProvider>
       )}
       {showCV && (
         <CV
@@ -395,13 +398,41 @@ const Ops = props => {
                   />
                 </>
               )}
+              {state.selectedQuiz.status === 'finish' &&
+                !state.selectedQuiz.isStop && (
+                  <>
+                    <CommonButton
+                      onPress={() => createTarazLocal()}
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      title={translator.createTaraz}
+                    />
+
+                    <CommonButton
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      onPress={async () => {
+                        props.setLoading(true);
+                        await generateQuestionPDF(
+                          state.selectedQuiz.id,
+                          'school',
+                          props.token,
+                        );
+
+                        props.setLoading(false);
+                      }}
+                      title={translator.generateQuestionPDF}
+                    />
+                  </>
+                )}
+
               {state.selectedQuiz.status === 'finish' && (
                 <>
                   <CommonButton
-                    onPress={() => createTarazLocal()}
+                    onPress={() => props.setMode('copy')}
                     dir={'rtl'}
                     theme={'transparent'}
-                    title={translator.createTaraz}
+                    title={translator.copy}
                   />
 
                   <CommonButton
@@ -419,28 +450,13 @@ const Ops = props => {
                       title={translator.seeRanking}
                     />
                   )}
-
-                  <CommonButton
-                    dir={'rtl'}
-                    theme={'transparent'}
-                    onPress={async () => {
-                      props.setLoading(true);
-                      await generateQuestionPDF(
-                        state.selectedQuiz.id,
-                        'school',
-                        props.token,
-                      );
-
-                      props.setLoading(false);
-                    }}
-                    title={translator.generateQuestionPDF}
-                  />
                 </>
               )}
 
               {(state.selectedQuiz.launchMode === 'physical' ||
                 state.selectedQuiz.launchMode === 'hybrid') &&
                 state.selectedQuiz.status === 'finish' &&
+                !state.selectedQuiz.isStop &&
                 state.selectedQuiz.mode === 'regular' && (
                   <CommonButton
                     dir={'rtl'}
@@ -460,6 +476,7 @@ const Ops = props => {
               {(state.selectedQuiz.launchMode === 'physical' ||
                 state.selectedQuiz.launchMode === 'hybrid') &&
                 state.selectedQuiz.status === 'finish' &&
+                !state.selectedQuiz.isStop &&
                 state.selectedQuiz.mode === 'regular' && (
                   <CommonButton
                     title={'دانلود پاسخ برگ'}
@@ -469,14 +486,15 @@ const Ops = props => {
                   />
                 )}
 
-              {state.selectedQuiz.status === 'finish' && (
-                <CommonButton
-                  title={'آپلود پاسخ برگها'}
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  onPress={() => setShowUploadPane(true)}
-                />
-              )}
+              {state.selectedQuiz.status === 'finish' &&
+                !state.selectedQuiz.isStop && (
+                  <CommonButton
+                    title={'آپلود پاسخ برگها'}
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    onPress={() => setShowUploadPane(true)}
+                  />
+                )}
             </PhoneView>
           )}
         </LargePopUp>

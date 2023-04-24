@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import Key from '../../panel/quiz/components/Key/Key';
-import Ranking from '../../panel/quiz/components/Reports/Ranking/Ranking';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
   MyQuizzesProvider,
 } from './components/Context';
+import Copy from './components/Copy';
 import Create from './components/Create';
 import List from './components/List';
 import Questions from './components/Questions/Questions';
@@ -74,6 +74,9 @@ function MyQuizzes(props) {
             navigate={navigate}
             token={state.token}
           />
+        )}
+        {mode === 'copy' && (
+          <Copy setLoading={setLoading} setMode={setMode} token={state.token} />
         )}
         {mode === 'recp' && (
           <Recp setLoading={setLoading} setMode={setMode} token={state.token} />

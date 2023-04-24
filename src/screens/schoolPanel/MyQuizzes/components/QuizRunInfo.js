@@ -29,8 +29,8 @@ const QuizRunInfo = props => {
 
   return (
     <MyView>
-      <PhoneView>
-        <>
+      {(props.isEnd === undefined || !props.isEnd) && (
+        <PhoneView>
           <CommonRadioButton
             value="question"
             status={props.lenMode === 'question' ? 'checked' : 'unchecked'}
@@ -51,8 +51,9 @@ const QuizRunInfo = props => {
             onChangeText={e => changeLen(e)}
             textValue={props.len}
           />
-        </>
-      </PhoneView>
+        </PhoneView>
+      )}
+
       <PhoneView style={{gap: 15}}>
         {(props.kind === undefined || props.kind !== 'tashrihi') &&
           (props.editMode === undefined || !props.editMode) && (
@@ -111,15 +112,16 @@ const QuizRunInfo = props => {
           subText={translator.showResultAfterCorrection}
           placeholder={translator.showResultAfterCorrection}
         />
-        {start !== undefined && (
-          <JustBottomBorderDatePicker
-            placeholder={translator.startDate}
-            value={start}
-            setter={props.setStart}
-            subText={translator.startDate}
-          />
-        )}
-        {end !== undefined && (
+        {start !== undefined &&
+          (props.isStart === undefined || !props.isStart) && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.startDate}
+              value={start}
+              setter={props.setStart}
+              subText={translator.startDate}
+            />
+          )}
+        {end !== undefined && (props.isEnd === undefined || !props.isEnd) && (
           <JustBottomBorderDatePicker
             placeholder={translator.endDate}
             value={end}

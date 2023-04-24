@@ -27,9 +27,11 @@ function Avatar(props) {
     ]).then(async res => {
       props.setLoading(false);
       if (res[0] !== undefined) {
-        await props.updateUserPic(res[0]);
-        props.toggleShowChooseAvatar();
-        props.setPic(res[0]);
+        if (props.userId === undefined) {
+          await props.updateUserPic(res[0]);
+          props.toggleShowChooseAvatar();
+          props.setPic(res[0]);
+        }
         showSuccess(commonTranslator.success);
       }
     });

@@ -67,9 +67,9 @@ function Schools(props) {
         <Students
           setMode={setMode}
           setLoading={setLoading}
-          data={data}
+          navigate={navigate}
           token={props.token}
-          setSelectedAgent={setSelectedAgent}
+          wantedUser={selectedAgent}
         />
       )}
       {mode === 'chargeAccount' && (

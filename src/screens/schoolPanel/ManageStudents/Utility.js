@@ -2,9 +2,11 @@ import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {showSuccess} from '../../../services/Utility';
 
-export const getAllStudent = async token => {
+export const getAllStudent = async (token, schoolId = undefined) => {
   return await generalRequest(
-    routes.getAllStudent,
+    schoolId === undefined
+      ? routes.getAllStudent
+      : routes.getAllStudent + '/' + schoolId,
     'get',
     undefined,
     'data',

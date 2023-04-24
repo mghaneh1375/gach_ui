@@ -66,6 +66,7 @@ export const routes = {
   setCorrectorByStudentMode: 'quiz/manage/setCorrectorByStudentMode/',
   setCorrectorByQuestionMode: 'quiz/manage/setCorrectorByQuestionMode/',
   getQuizRecpForSchool: 'quiz/school/recp/',
+  copySchoolQuiz: 'quiz/school/copy/',
   getQuizTotalPriceForSchool: 'quiz/school/getTotalPrice/',
   finalizeSchoolQuiz: 'quiz/school/finalize/',
   getMyMarkListForSpecificStudent:

@@ -25,7 +25,6 @@ function Ops(props) {
         <ConfirmationBatchOpPane
           setLoading={props.setLoading}
           token={props.token}
-          //   url={routes.}
           expected={['excepts', 'doneIds']}
           data={{items: [props.id]}}
           afterFunc={afterRemove}
@@ -37,29 +36,15 @@ function Ops(props) {
           title={commonTranslator.opMenu}
           toggleShowPopUp={props.toggleShowPopUp}>
           <PhoneView>
-            {/* <CommonButton
-              theme={'transparent'}
-              title={commonTranslator.view + ' ' + commonTranslator.students}
-              onPress={() => props.setMode('students')}
-            /> */}
             <CommonButton
               theme={'transparent'}
               title={commonTranslator.view + ' ' + Translate.info}
-              onPress={() => props.setMode('details')}
+              onPress={() => window.open('/profile/' + props.selectedId)}
             />
             <CommonButton
               theme={'transparent'}
               onPress={() => props.setMode('changePass')}
               title={commonTranslator.changePassword}
-            />
-            <CommonButton
-              onPress={() => props.setMode('edit')}
-              title={commonTranslator.edit}
-              theme={'transparent'}
-            />
-            <CommonButton
-              theme={'transparent'}
-              title={commonTranslator.delete}
             />
           </PhoneView>
         </LargePopUp>

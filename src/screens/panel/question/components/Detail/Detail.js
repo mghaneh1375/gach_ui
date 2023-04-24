@@ -336,7 +336,9 @@ function Detail(props) {
                                 }
                               } else {
                                 props.setLoading(false);
-                                showError('این سوال در آزمون موجود است');
+                                showError(
+                                  'این سوال در آزمون موجود است و یا امکان اضافه شدن آن به آزمون وجود ندارد',
+                                );
                               }
                             },
                             theme: 'dark',

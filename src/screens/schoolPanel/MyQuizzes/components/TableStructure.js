@@ -31,6 +31,15 @@ const columns = [
     center: true,
   },
   {
+    name: 'وضعیت ساخت تراز',
+    selector: row =>
+      row.reportStatus !== undefined && row.reportStatus === 'ready'
+        ? 'ساخته شده'
+        : 'ساخته نشده',
+    grow: 1,
+    center: true,
+  },
+  {
     name: 'تعداد سوال',
     selector: row => row.questionsCount,
     grow: 1,

@@ -40,7 +40,6 @@ const UpdatePic = props => {
   };
 
   React.useEffect(() => {
-    console.log(props.user.pic);
     if (pic === undefined) setPic(props.user.pic);
   }, [pic, props.user.pic]);
 
@@ -117,7 +116,7 @@ const UpdatePic = props => {
           ...styles.marginTop10,
         }}>
         <PhoneView>
-          {props.accesses.indexOf('student') === -1 && (
+          {props.accesses.indexOf('student') === -1 && !props.isAdmin && (
             <CommonButton
               theme={'dark'}
               onPress={() => toggleShowUploadPic()}

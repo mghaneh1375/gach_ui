@@ -149,6 +149,10 @@ const Create = props => {
 
       if (props.editMode) {
         data.id = state.selectedQuiz.id;
+        data.status = state.selectedQuiz.status;
+        data.visibility = state.selectedQuiz.visibility;
+        data.questionsCount = state.selectedQuiz.questionsCount;
+        data.studentsCount = state.selectedQuiz.studentsCount;
         dispatch({selectedQuiz: data, needUpdate: true});
       } else {
         let allQuizzes = state.quizzes;
@@ -176,6 +180,16 @@ const Create = props => {
             editMode={props.editMode}
             start={start}
             end={end}
+            isStart={
+              state.selectedQuiz === undefined
+                ? undefined
+                : state.selectedQuiz.isStart
+            }
+            isEnd={
+              state.selectedQuiz === undefined
+                ? undefined
+                : state.selectedQuiz.isEnd
+            }
             setStart={setStart}
             setEnd={setEnd}
             lenMode={lenMode}
@@ -194,25 +208,29 @@ const Create = props => {
         }
       />
 
-      <CommonWebBox
-        header={translator.answerSheetInfo}
-        child={
-          <QuizAnswerSheetInfo
-            descBefore={descBefore}
-            setDescBefore={setDescBefore}
-            descAfter={descAfter}
-            setDescAfter={setDescAfter}
-            setLoading={props.setLoading}
-            token={props.token}
-            navigator={props.navigator}
-            openFileSelector={openFileSelector}
-            filesContent={filesContent}
-            removeAttach={removeAttach}
-            removeUploadedAttach={removeUploadedAttach}
-            attaches={attaches}
-          />
-        }
-      />
+      {(state.selectedQuiz === undefined ||
+        state.selectedQuiz.isEnd === undefined ||
+        !state.selectedQuiz.isEnd) && (
+        <CommonWebBox
+          header={translator.answerSheetInfo}
+          child={
+            <QuizAnswerSheetInfo
+              descBefore={descBefore}
+              setDescBefore={setDescBefore}
+              descAfter={descAfter}
+              setDescAfter={setDescAfter}
+              setLoading={props.setLoading}
+              token={props.token}
+              navigator={props.navigator}
+              openFileSelector={openFileSelector}
+              filesContent={filesContent}
+              removeAttach={removeAttach}
+              removeUploadedAttach={removeUploadedAttach}
+              attaches={attaches}
+            />
+          }
+        />
+      )}
 
       <EqualTwoTextInputs>
         <CommonButton
