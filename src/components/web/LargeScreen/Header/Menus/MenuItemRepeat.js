@@ -1,4 +1,5 @@
 import {
+  faBandage,
   faCog,
   faCreditCard,
   faDashboard,
@@ -87,6 +88,30 @@ function MenuItemRepeat(props) {
                   ? translator.myCustomQuizess
                   : undefined,
               url: '/myCustomQuizzes',
+            },
+          ]}
+        />
+      )}
+
+      {(props.excludes === undefined ||
+        props.excludes.indexOf('advisor') === -1) && (
+        <SuperMenuItem
+          text={'مشاور'}
+          icon={faBandage}
+          selected={props.selected === 'buy'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.myAdvisor,
+              url: '/myAdvisor',
+            },
+            {
+              text: translator.advisors,
+              url: '/advisors',
+            },
+            {
+              text: translator.requestsLog,
+              url: '/advisors',
             },
           ]}
         />

@@ -3,7 +3,10 @@ import {trueFalseValues} from '../../../../services/Utility';
 import {CommonRadioButton, MyView, PhoneView} from '../../../../styles/Common';
 import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {launchModeKeyVals} from '../../../panel/quiz/components/KeyVals';
+import {
+  justOnlineLaunchModeKeyVals,
+  launchModeKeyVals,
+} from '../../../panel/quiz/components/KeyVals';
 import translator from '../../../panel/quiz/Translator';
 
 const QuizRunInfo = props => {
@@ -58,7 +61,11 @@ const QuizRunInfo = props => {
         {(props.kind === undefined || props.kind !== 'tashrihi') &&
           (props.editMode === undefined || !props.editMode) && (
             <JustBottomBorderSelect
-              values={launchModeKeyVals}
+              values={
+                props.isAdvisor
+                  ? justOnlineLaunchModeKeyVals
+                  : launchModeKeyVals
+              }
               value={
                 props.launchMode === undefined
                   ? {}
@@ -127,6 +134,21 @@ const QuizRunInfo = props => {
             value={end}
             setter={props.setEnd}
             subText={translator.endDate}
+          />
+        )}
+        {props.isAdvisor && (
+          <JustBottomBorderSelect
+            values={trueFalseValues}
+            value={
+              props.payByStudent === undefined
+                ? {}
+                : trueFalseValues.filter(element => {
+                    return element.id === props.payByStudent;
+                  })[0]
+            }
+            setter={props.setPayByStudent}
+            subText={translator.payByStudent}
+            placeholder={translator.payByStudent}
           />
         )}
       </PhoneView>

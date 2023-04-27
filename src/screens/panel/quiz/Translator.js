@@ -74,6 +74,7 @@ const translator = {
   copyStudents: 'کپی کردن دانش آموزان',
   finalizeMsg:
     'توجه داشته باشید که بعد از نهایی سازی آزمون امکان ویرایش لیست نفرات شرکت کننده و یا سوالات وجود ندارد.',
+  payByStudent: 'آیا هزینه آزمون توسط دانش آموزان پرداخت شود؟',
 };
 
 export default translator;

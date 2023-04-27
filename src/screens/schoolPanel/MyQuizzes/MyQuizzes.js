@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
+import {isUserAdvisor} from '../../../services/Utility';
 import Key from '../../panel/quiz/components/Key/Key';
 import {
   dispatchMyQuizzesContext,
@@ -48,6 +49,7 @@ function MyQuizzes(props) {
             token={state.token}
             editMode={true}
             navigator={navigate}
+            isAdvisor={isUserAdvisor(state.user)}
           />
         )}
         {mode === 'create' && (
@@ -56,6 +58,7 @@ function MyQuizzes(props) {
             token={state.token}
             navigator={navigate}
             setLoading={setLoading}
+            isAdvisor={isUserAdvisor(state.user)}
           />
         )}
         {mode === 'student' && (

@@ -327,7 +327,7 @@ const Ops = props => {
                 onPress={() => changeMode('question')}
                 theme={'transparent'}
                 title={
-                  state.selectedQuiz.status === 'finish'
+                  state.selectedQuiz.status !== 'init'
                     ? translator.seeQuestion
                     : translator.editQuestions
                 }
@@ -390,15 +390,27 @@ const Ops = props => {
                       );
                       props.setLoading(false);
                       if (res != null) {
-                        setPriceInfo(res);
-                        setShowFinalizeMsg(true);
+                        if (
+                          res.status !== undefined &&
+                          res.status === 'ready'
+                        ) {
+                          state.selectedQuiz.status = 'semi_finish';
+                          dispatch({
+                            selectedQuiz: state.selectedQuiz,
+                            needUpdate: true,
+                          });
+                          showSuccess();
+                        } else {
+                          setPriceInfo(res);
+                          setShowFinalizeMsg(true);
+                        }
                       }
                     }}
                     title={translator.finalize}
                   />
                 </>
               )}
-              {state.selectedQuiz.status === 'finish' &&
+              {state.selectedQuiz.status !== 'init' &&
                 !state.selectedQuiz.isStop && (
                   <>
                     <CommonButton
@@ -408,25 +420,28 @@ const Ops = props => {
                       title={translator.createTaraz}
                     />
 
-                    <CommonButton
-                      dir={'rtl'}
-                      theme={'transparent'}
-                      onPress={async () => {
-                        props.setLoading(true);
-                        await generateQuestionPDF(
-                          state.selectedQuiz.id,
-                          'school',
-                          props.token,
-                        );
+                    {(state.selectedQuiz.launchMode === 'physical' ||
+                      state.selectedQuiz.launchMode === 'hybrid') && (
+                      <CommonButton
+                        dir={'rtl'}
+                        theme={'transparent'}
+                        onPress={async () => {
+                          props.setLoading(true);
+                          await generateQuestionPDF(
+                            state.selectedQuiz.id,
+                            'school',
+                            props.token,
+                          );
 
-                        props.setLoading(false);
-                      }}
-                      title={translator.generateQuestionPDF}
-                    />
+                          props.setLoading(false);
+                        }}
+                        title={translator.generateQuestionPDF}
+                      />
+                    )}
                   </>
                 )}
 
-              {state.selectedQuiz.status === 'finish' && (
+              {state.selectedQuiz.status !== 'init' && (
                 <>
                   <CommonButton
                     onPress={() => props.setMode('copy')}
@@ -455,7 +470,7 @@ const Ops = props => {
 
               {(state.selectedQuiz.launchMode === 'physical' ||
                 state.selectedQuiz.launchMode === 'hybrid') &&
-                state.selectedQuiz.status === 'finish' &&
+                state.selectedQuiz.status !== 'init' &&
                 !state.selectedQuiz.isStop &&
                 state.selectedQuiz.mode === 'regular' && (
                   <CommonButton
@@ -475,7 +490,7 @@ const Ops = props => {
 
               {(state.selectedQuiz.launchMode === 'physical' ||
                 state.selectedQuiz.launchMode === 'hybrid') &&
-                state.selectedQuiz.status === 'finish' &&
+                state.selectedQuiz.status !== 'init' &&
                 !state.selectedQuiz.isStop &&
                 state.selectedQuiz.mode === 'regular' && (
                   <CommonButton
@@ -486,7 +501,9 @@ const Ops = props => {
                   />
                 )}
 
-              {state.selectedQuiz.status === 'finish' &&
+              {state.selectedQuiz.status !== 'init' &&
+                (state.selectedQuiz.launchMode === 'physical' ||
+                  state.selectedQuiz.launchMode === 'hybrid') &&
                 !state.selectedQuiz.isStop && (
                   <CommonButton
                     title={'آپلود پاسخ برگها'}

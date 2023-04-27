@@ -26,7 +26,12 @@ const columns = [
   },
   {
     name: 'وضعیت پرداخت',
-    selector: row => (row.status === 'init' ? 'پرداخت نشده' : 'پرداخت شده'),
+    selector: row =>
+      row.status === 'init'
+        ? 'پرداخت نشده'
+        : row.status === 'finish'
+        ? 'پرداخت شده'
+        : 'آماده پرداخت توسط دانش آموزان',
     grow: 1,
     center: true,
   },

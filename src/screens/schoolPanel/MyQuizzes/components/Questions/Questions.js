@@ -165,7 +165,7 @@ const Questions = props => {
           token={props.token}
           setLoading={props.setLoading}
           setMode={props.setMode}
-          quizId={state.selectedQuiz.id}
+          quizId={state.selectedQuiz}
         />
       )}
 
@@ -192,14 +192,14 @@ const Questions = props => {
           header={translator.questions}>
           <MyView>
             <PhoneView>
-              {state.selectedQuiz.status != 'finish' && (
+              {state.selectedQuiz.status === 'init' && (
                 <CommonButton
                   style={{alignSelf: 'center'}}
                   onPress={() => changeSort()}
                   title={translator.changeSort}
                 />
               )}
-              {state.selectedQuiz.status != 'finish' &&
+              {state.selectedQuiz.status === 'init' &&
                 state.selectedQuiz.database && (
                   <CommonButton
                     style={{alignSelf: 'center'}}
@@ -209,7 +209,7 @@ const Questions = props => {
                   />
                 )}
 
-              {state.selectedQuiz.status != 'finish' &&
+              {state.selectedQuiz.status === 'init' &&
                 !state.selectedQuiz.database && (
                   <>
                     <CommonButton
@@ -247,9 +247,9 @@ const Questions = props => {
                     token={props.token}
                     question={element}
                     totalQuestions={state.selectedQuiz.questions.length}
-                    needUpdate={state.selectedQuiz.status != 'finish'}
+                    needUpdate={state.selectedQuiz.status === 'init'}
                     setSelectedQuestion={
-                      state.selectedQuiz.status != 'finish'
+                      state.selectedQuiz.status === 'init'
                         ? setSelectedQuestion
                         : undefined
                     }

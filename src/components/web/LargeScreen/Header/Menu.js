@@ -7,9 +7,9 @@ import Teacher from './Menus/Teacher';
 import {globalStateContext} from '../../../../App';
 import Filter from './Filter';
 import {MyView} from '../../../../styles/Common';
-import AdviserMenu from './Menus/AdviserMenu';
 import {style} from './style';
 import {isUserAdmin} from '../../../../services/Utility';
+import AdvisorMenu from './Menus/AdvisorMenu';
 
 const Menu = props => {
   const useGlobalState = () => [React.useContext(globalStateContext)];
@@ -40,7 +40,7 @@ const Menu = props => {
       {state.isRightMenuVisible &&
         props.accesses !== null &&
         props.accesses.indexOf('advisor') !== -1 && (
-          <AdviserMenu selected={props.selected} navigate={props.navigate} />
+          <AdvisorMenu selected={props.selected} navigate={props.navigate} />
         )}
       {state.isRightMenuVisible && isUserAdmin(state.user) && (
         <AdminMenu selected={props.selected} navigate={props.navigate} />

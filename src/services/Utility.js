@@ -215,6 +215,14 @@ export const isUserAdmin = user => {
   return true;
 };
 
+export const isUserAdvisor = user => {
+  if (user === undefined || user === null) return false;
+
+  if (user.accesses.indexOf('advisor') === -1) return false;
+
+  return true;
+};
+
 export const sexKeyVals = [
   {item: 'آقا', id: 'male'},
   {item: 'خانم', id: 'female'},

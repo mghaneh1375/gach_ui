@@ -32,12 +32,6 @@ function SchoolMenu(props) {
               icon={faUsers}
               selected={props.selected === 'manageStudent'}
             />
-            {/* <MenuItem
-              onClick={() => navigate('/manageTeacher')}
-              text={translator.management + ' ' + translator.teachers}
-              icon={faSchool}
-              selected={props.selected === 'manageTeacher'}
-            /> */}
           </>
         }
       />

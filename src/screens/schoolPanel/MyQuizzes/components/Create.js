@@ -55,6 +55,7 @@ const Create = props => {
   const [lenMode, setLenMode] = useState(
     props.editMode ? state.selectedQuiz.lenMode : 'question',
   );
+  const [payByStudent, setPayByStudent] = useState(false);
   const [launchMode, setLaunchMode] = useState();
   const [start, setStart] = useState(props.editMode ? undefined : '');
   const [end, setEnd] = useState(props.editMode ? undefined : '');
@@ -110,6 +111,7 @@ const Create = props => {
       showResultsAfterCorrection: showResultsAfterCorrection,
       descAfter: descAfter,
       desc: descBefore,
+      payByStudent: payByStudent,
     };
 
     props.setLoading(true);
@@ -177,9 +179,12 @@ const Create = props => {
         header={translator.runInfo}
         child={
           <QuizRunInfo
+            isAdvisor={props.isAdvisor}
             editMode={props.editMode}
             start={start}
             end={end}
+            payByStudent={payByStudent}
+            setPayByStudent={setPayByStudent}
             isStart={
               state.selectedQuiz === undefined
                 ? undefined

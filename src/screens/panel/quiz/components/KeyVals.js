@@ -15,3 +15,5 @@ export const launchModeKeyVals = [
   {id: 'physical', item: 'حضوری'},
   {id: 'hybrid', item: 'ترکیبی'},
 ];
+
+export const justOnlineLaunchModeKeyVals = [{id: 'online', item: 'آنلاین'}];
