@@ -107,6 +107,9 @@ export const styles = {
   marginRight40: {
     marginRight: 40,
   },
+  marginRight60: {
+    marginRight: 60,
+  },
   marginRight20: {
     marginRight: 20,
   },
@@ -219,6 +222,9 @@ export const styles = {
   },
   gap50: {
     gap: 50,
+  },
+  gap60: {
+    gap: 60,
   },
   gap100: {
     gap: 100,

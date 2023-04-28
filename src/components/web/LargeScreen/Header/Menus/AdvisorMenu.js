@@ -3,17 +3,7 @@ import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
 import {MenuItem, style, MenuItemPhone} from '../style';
 import translator from '../../../../../translator/Common';
-import {
-  faBasketShopping,
-  faCog,
-  faCreditCard,
-  faHistory,
-  faHome,
-  faQuestion,
-  faSchool,
-  faShoppingCart,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
+import {faSchool, faTicket, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '../../../../../styles/Common';
 import MenuItemRepeat from './MenuItemRepeat';
 
@@ -30,6 +20,12 @@ function AdvisorMenu(props) {
         selected={props.selected}
         child={
           <>
+            <MenuItem
+              onClick={() => navigate('/myStudentRequests')}
+              text={translator.myStudentRequests}
+              icon={faTicket}
+              selected={props.selected === 'myStudentRequests'}
+            />
             <MenuItem
               onClick={() => navigate('/mySchoolQuizzes')}
               text={translator.mySchoolQuizess}

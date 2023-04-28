@@ -111,7 +111,7 @@ function MenuItemRepeat(props) {
             },
             {
               text: translator.requestsLog,
-              url: '/advisors',
+              url: '/requestLogsForAdvisors',
             },
           ]}
         />

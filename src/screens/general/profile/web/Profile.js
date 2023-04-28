@@ -14,9 +14,15 @@ import UpdateInfo from '../components/UpdateInfo';
 import UpdatePic from '../components/UpdatePic';
 import UpdateUsername from '../components/UpdateUsername';
 import {dispatchStateContext, globalStateContext} from '../../../../App';
-import {getDevice, showSuccess} from '../../../../services/Utility';
+import {
+  getDevice,
+  isUserAdvisor,
+  showError,
+  showSuccess,
+} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import translator from '../translate';
+import commonTranslator from '../../../../translator/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import {Col, Row} from 'react-grid-system';
@@ -25,11 +31,14 @@ import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import {getPreRequirements, updateUserPic} from '../components/Utility';
 import UpdateForm from '../components/UpdateForm';
-import {setCacheItem} from '../../../../API/User';
+import {fetchUser, setCacheItem} from '../../../../API/User';
+import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 
 const Profile = props => {
   const [user, setUser] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdvisor, setIsAdvisor] = useState(false);
+  const [aboutMe, setAboutMe] = useState();
   const navigate = props.navigate;
   const params = useParams();
 
@@ -89,7 +98,11 @@ const Profile = props => {
         setIsAdmin(true);
         setIsWorking(false);
       });
-    } else setUser(props.user.user);
+    } else {
+      setUser(props.user.user);
+      setAboutMe(props.user.user.bio);
+      setIsAdvisor(isUserAdvisor(props.user));
+    }
   }, [props, isWorking, user, dispatch, navigate, params]);
 
   React.useEffect(() => {
@@ -207,6 +220,44 @@ const Profile = props => {
                   )}
                 </CommonWebBox>
 
+                {isAdvisor && (
+                  <CommonWebBox header={'درباره من'}>
+                    <JustBottomBorderTextInput
+                      multiline={true}
+                      value={aboutMe}
+                      onChangeText={e => setAboutMe(e)}
+                      placeholder={'متن درباره من'}
+                      subText={'متن درباره من'}
+                    />
+                    <CommonButton
+                      title={commonTranslator.confirm}
+                      onPress={async () => {
+                        if (aboutMe.length === 0) {
+                          showError(commonTranslator.pleaseFillAllFields);
+                          return;
+                        }
+                        setLoading(true);
+                        let res = generalRequest(
+                          routes.setAboutMe,
+                          'put',
+                          {
+                            aboutMe: aboutMe,
+                          },
+                          undefined,
+                          props.token,
+                        );
+
+                        setLoading(false);
+
+                        if (res !== null) {
+                          await setCacheItem('user', undefined);
+                          await fetchUser(props.token, user => {});
+                          showSuccess();
+                        }
+                      }}
+                    />
+                  </CommonWebBox>
+                )}
                 {user.forms !== undefined && (
                   <CommonWebBox>
                     <EqualTwoTextInputs>

@@ -79,6 +79,18 @@ export default function WebRouter() {
             element={<WebStructue page="schoolQuiz" />}
           />
 
+          <Route path="advisors" element={<WebStructue page="advisors" />} />
+
+          <Route
+            path="requestLogsForAdvisors"
+            element={<WebStructue page="requestLogsForAdvisors" />}
+          />
+
+          <Route
+            path="myStudentRequests"
+            element={<WebStructue page="myStudentRequests" />}
+          />
+
           <Route path="mySchool/hw" element={<WebStructue page="schoolHW" />} />
 
           <Route

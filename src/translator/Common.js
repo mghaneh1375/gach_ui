@@ -38,6 +38,7 @@ const translator = {
   myQuizes: 'آزمون های آیریسکی من',
   myCustomQuizess: 'آزمون های شخصی من',
   mySchoolQuizess: 'آزمون های مدرسه ای من',
+  myStudentRequests: 'درخواست های پذیرش',
   mySchool: 'مدرسه من',
   packages: 'بسته های آموزشی',
   myPackages: 'بسته های آموزشی من',

@@ -90,6 +90,9 @@ import AnswerSheet from './general/Corrector/AnswerSheet';
 import MyTasks from './correctorPanel/myTasks/MyTasks';
 import QuestionReport from './panel/questionReport/QuestionReport';
 import MyQuizzes from './studentPanel/MyQuizzes/school/MyQuizzes';
+import Advisors from './general/Advisors/Advisors';
+import RequestLogsForAdvisors from './studentPanel/RequestLogsForAdvisors/RequestLogsForAdvisors';
+import MyRequests from './advisorPanel/MyRequests/MyRequests';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -276,13 +279,10 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-
               {props.page === 'myCerts' && <MyCerts navigate={navigate} />}
-
               {props.page === 'validateCert' && params.certId !== undefined && (
                 <CheckCert navigate={navigate} />
               )}
-
               {props.page === 'buy' && (
                 <Buy
                   user={state.user}
@@ -290,9 +290,7 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-
               {props.page === 'schoolQuiz' && <MyQuizzes navigate={navigate} />}
-
               {props.page === 'video_test' && <Video />}
               {props.page === 'packages' && params.sessionId !== undefined && (
                 <SessionDetail navigate={navigate} />
@@ -346,7 +344,6 @@ const WebStructue = props => {
               {props.page === 'mySchoolQuizzes' && (
                 <MySchoolQuizzes navigate={navigate} />
               )}
-
               {props.page === 'startQuiz' && (
                 <RunQuiz
                   isInReviewMode={false}
@@ -355,13 +352,10 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-
               {props.page === 'checkCert' && <CheckCert navigate={navigate} />}
-
               {props.page === 'rankingList' && (
                 <RankingList navigate={navigate} />
               )}
-
               {props.page === 'reviewQuiz' && (
                 <RunQuiz
                   isInReviewMode={true}
@@ -400,6 +394,14 @@ const WebStructue = props => {
               {props.page === 'psychology' && (
                 <Psychology navigate={navigate} />
               )}
+              {props.page === 'advisors' && <Advisors navigate={navigate} />}
+              {props.page === 'myStudentRequests' && (
+                <MyRequests navigate={navigate} />
+              )}
+              {props.page === 'requestLogsForAdvisors' && (
+                <RequestLogsForAdvisors navigate={navigate} />
+              )}
+
               {props.page === 'seo-contents' && (
                 <Seo token={state.token} navigate={navigate} />
               )}
@@ -468,7 +470,6 @@ const WebStructue = props => {
                 params.mode === 'lifestyle' && (
                   <LifeStyle token={state.token} navigate={navigate} />
                 )}
-
               {props.page === 'questionReport' && (
                 <QuestionReport token={state.token} navigate={navigate} />
               )}
@@ -603,7 +604,6 @@ const WebStructue = props => {
                     navigate={navigate}
                   />
                 )}
-
               {props.page === 'author' && (
                 <Author
                   token={state.token}
