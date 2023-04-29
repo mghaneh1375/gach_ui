@@ -57,7 +57,7 @@ function RequestLogsForAdvisors(props) {
             title={'لغو درخواست'}
             onPress={async () => {
               dispatch({loading: true});
-              let res = generalRequest(
+              let res = await generalRequest(
                 routes.cancelAdvisorRequest + row.id,
                 'delete',
                 undefined,

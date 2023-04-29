@@ -68,7 +68,7 @@ function MyRequests(props) {
               theme={'square'}
               onPress={async () => {
                 dispatch({loading: true});
-                let res = generalRequest(
+                let res = await generalRequest(
                   routes.answerStudentRequest + row.id + '/no',
                   'post',
                   undefined,
@@ -95,7 +95,7 @@ function MyRequests(props) {
               theme={'square'}
               onPress={async () => {
                 dispatch({loading: true});
-                let res = generalRequest(
+                let res = await generalRequest(
                   routes.answerStudentRequest + row.id + '/yes',
                   'post',
                   undefined,

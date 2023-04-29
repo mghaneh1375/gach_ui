@@ -271,57 +271,59 @@ function Question(props) {
             </CommonWebBox>
           )}
 
-          {question.answerFile === undefined && question.answer !== undefined && (
-            <CommonWebBox header={Translate.answer}>
-              <MyView>
-                {question.kindQuestion === 'test' && (
-                  <MultiChoice
-                    choicesCount={question.choicesCount}
-                    selected={question.answer}
-                    onChange={idx => {}}
-                  />
-                )}
-                {question.kindQuestion === 'short_answer' && (
-                  <CommonTextInput
-                    placeholder={Translate.resInput}
-                    subText={Translate.resInput}
-                    disable={true}
-                    value={question.answer}
-                    parentStyle={{width: '100%'}}
-                    style={{backgroundColor: '#efefef', border: 0}}
-                  />
-                )}
-                {question.kindQuestion === 'multi_sentence' && (
-                  <CommonTextInput
-                    placeholder={Translate.resInput}
-                    subText={Translate.resInput}
-                    disable={true}
-                    value={question.answer
-                      .replaceAll('1', 'ص ')
-                      .replaceAll('0', 'غ ')}
-                    parentStyle={{width: '100%'}}
-                    style={{backgroundColor: '#efefef', border: 0}}
-                  />
-                )}
-                {question.kindQuestion === 'tashrihi' && (
-                  <CommonTextInput
-                    multiline={true}
-                    placeholder={Translate.resInput}
-                    subText={Translate.resInput}
-                    value={question.answer}
-                    disable={true}
-                    parentStyle={{width: '100%'}}
-                    style={{
-                      height: 200,
-                      maxWidth: '100%',
-                      backgroundColor: '#efefef',
-                      border: 0,
-                    }}
-                  />
-                )}
-              </MyView>
-            </CommonWebBox>
-          )}
+          {question.answerFile === undefined &&
+            question.answer !== undefined &&
+            question.kindQuestion !== 'tashrihi' && (
+              <CommonWebBox header={Translate.answer}>
+                <MyView>
+                  {question.kindQuestion === 'test' && (
+                    <MultiChoice
+                      choicesCount={question.choicesCount}
+                      selected={question.answer}
+                      onChange={idx => {}}
+                    />
+                  )}
+                  {question.kindQuestion === 'short_answer' && (
+                    <CommonTextInput
+                      placeholder={Translate.resInput}
+                      subText={Translate.resInput}
+                      disable={true}
+                      value={question.answer}
+                      parentStyle={{width: '100%'}}
+                      style={{backgroundColor: '#efefef', border: 0}}
+                    />
+                  )}
+                  {question.kindQuestion === 'multi_sentence' && (
+                    <CommonTextInput
+                      placeholder={Translate.resInput}
+                      subText={Translate.resInput}
+                      disable={true}
+                      value={question.answer
+                        .replaceAll('1', 'ص ')
+                        .replaceAll('0', 'غ ')}
+                      parentStyle={{width: '100%'}}
+                      style={{backgroundColor: '#efefef', border: 0}}
+                    />
+                  )}
+                  {question.kindQuestion === 'tashrihi' && (
+                    <CommonTextInput
+                      multiline={true}
+                      placeholder={Translate.resInput}
+                      subText={Translate.resInput}
+                      value={question.answer}
+                      disable={true}
+                      parentStyle={{width: '100%'}}
+                      style={{
+                        height: 200,
+                        maxWidth: '100%',
+                        backgroundColor: '#efefef',
+                        border: 0,
+                      }}
+                    />
+                  )}
+                </MyView>
+              </CommonWebBox>
+            )}
           {question.answerFile !== undefined && (
             <CommonWebBox header={Translate.answerFile} style={{padding: 15}}>
               <Image

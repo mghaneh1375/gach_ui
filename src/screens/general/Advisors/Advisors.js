@@ -96,7 +96,7 @@ function Advisors(props) {
               data={elem}
               onSelect={async () => {
                 dispatch({loading: true});
-                let res = generalRequest(
+                let res = await generalRequest(
                   routes.sendAdvisorAcceptanceRequest + elem.id,
                   'post',
                   undefined,

@@ -44,6 +44,10 @@ function Filter(props) {
 
   React.useEffect(() => {
     if (state.answers === undefined) return;
+
+    console.log(state.currIdx);
+    console.log(state.answers[state.currIdx]);
+
     setMark(
       state.answers[state.currIdx].stdAns === undefined ||
         state.answers[state.currIdx].stdAns.mark === undefined ||

@@ -28,6 +28,7 @@ function List(props) {
     <MyView>
       {showOpPopUp && (
         <Ops
+          isAdvisor={props.isAdvisor}
           selectedId={selectedId}
           data={props.data}
           toggleShowPopUp={toggleShowOpPopUp}

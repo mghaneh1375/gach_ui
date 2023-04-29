@@ -24,14 +24,41 @@ function KarnameReport(props) {
       state.selectedQuiz.karnameReport[0].lessonsStats.forEach(
         (elem, index) => {
           tmp.push({
-            name: elem.name,
+            name: (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}>
+                <span>{elem.name}</span>
+                <div style={{display: 'flex', flexDirection: 'row', gap: 10}}>
+                  <span>درست</span>
+                  <span>نادرست</span>
+                  <span>نزده</span>
+                </div>
+              </div>
+            ),
             selector: row => row.lessonsStats[index].percent,
             grow: 1,
             fontSize: 10,
             cell: d => (
-              <span style={{direction: 'ltr'}}>
-                {d.lessonsStats[index].percent}
-              </span>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}>
+                <span style={{direction: 'ltr'}}>
+                  {d.lessonsStats[index].percent}
+                </span>
+
+                <div style={{display: 'flex', flexDirection: 'row', gap: 10}}>
+                  <span>{d.lessonsStats[index].corrects}</span>
+                  <span>{d.lessonsStats[index].inCorrects}</span>
+                  <span>{d.lessonsStats[index].whites}</span>
+                </div>
+              </div>
             ),
           });
         },
@@ -53,10 +80,39 @@ function KarnameReport(props) {
       });
     }
     tmp.push({
-      name: 'تراز کل',
+      name: (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+          <span>تراز کل</span>
+          <div style={{display: 'flex', flexDirection: 'row', gap: 10}}>
+            <span>درست</span>
+            <span>نادرست</span>
+            <span>نزده</span>
+          </div>
+        </div>
+      ),
       selector: row => row.taraz,
-      minWidth: '70px',
-      maxWidth: '70px',
+      fontSize: 10,
+      cell: d => (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>
+          <span style={{direction: 'ltr'}}>{d.taraz}</span>
+
+          <div style={{display: 'flex', flexDirection: 'row', gap: 10}}>
+            <span>{d.totalCorrects}</span>
+            <span>{d.totalInCorrects}</span>
+            <span>{d.totalWhites}</span>
+          </div>
+        </div>
+      ),
       center: true,
     });
     tmp.push({

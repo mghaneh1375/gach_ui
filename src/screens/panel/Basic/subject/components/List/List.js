@@ -5,11 +5,21 @@ import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import Ops from '../Ops';
 import columns from './TableStructure';
 import commonTranslator from '../../../../../../translator/Common';
-import {CommonWebBox} from '../../../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  MyView,
+  PhoneView,
+} from '../../../../../../styles/Common';
+import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
+import {styles} from '../../../../../../styles/Common/Styles';
+import {generalRequest} from '../../../../../../API/Utility';
 
 function List(props) {
   const [showOpModel, setShowOpModel] = useState();
   const [selected, setSelected] = useState();
+  const [searchKey, setSearchKey] = useState();
+  const [code, setCode] = useState();
 
   const toggleShowOpPopUp = () => {
     setShowOpModel(!showOpModel);
@@ -20,6 +30,12 @@ function List(props) {
     setSelected(props.subjects[idx]);
     toggleShowOpPopUp();
   };
+
+  const [data, setData] = useState();
+
+  React.useEffect(() => {
+    setData(props.subjects);
+  }, [props.subjects]);
 
   return (
     <CommonWebBox
@@ -39,15 +55,56 @@ function List(props) {
           }}
         />
       )}
-      <CommonDataTable
-        columns={columns}
-        data={props.subjects}
-        setData={props.setSubjects}
-        token={props.token}
-        setLoading={props.setLoading}
-        handleOp={handleOp}
-        removeUrl={routes.removeSubjects}
-      />
+      <MyView>
+        <PhoneView style={{...styles.gap10}}>
+          <JustBottomBorderTextInput
+            value={searchKey}
+            onChangeText={e => setSearchKey(e)}
+            placeholder={'نام حیطه'}
+            subText={'نام حیطه'}
+          />
+          <JustBottomBorderTextInput
+            value={code}
+            justNum={true}
+            onChangeText={e => setCode(e)}
+            placeholder={'کد حیطه'}
+            subText={'کد حیطه'}
+          />
+        </PhoneView>
+        <CommonButton
+          onPress={async () => {
+            let query = new URLSearchParams();
+            if (searchKey !== undefined) query.append('subject', searchKey);
+            if (code !== undefined) query.append('code', code);
+
+            props.setLoading(true);
+            let res = await generalRequest(
+              routes.fetchSubjects + '?' + query.toString(),
+              'get',
+              undefined,
+              'data',
+              props.token,
+            );
+            props.setLoading(false);
+            if (res !== null) setData(res);
+          }}
+          title={commonTranslator.search}
+        />
+      </MyView>
+      {data !== undefined && (
+        <CommonDataTable
+          columns={columns}
+          data={data}
+          setData={newData => {
+            setData(newData);
+            props.setSubjects(newData);
+          }}
+          token={props.token}
+          setLoading={props.setLoading}
+          handleOp={handleOp}
+          removeUrl={routes.removeSubjects}
+        />
+      )}
     </CommonWebBox>
   );
 }

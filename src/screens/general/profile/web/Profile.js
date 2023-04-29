@@ -19,6 +19,7 @@ import {
   isUserAdvisor,
   showError,
   showSuccess,
+  trueFalseValues,
 } from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import translator from '../translate';
@@ -33,6 +34,7 @@ import {getPreRequirements, updateUserPic} from '../components/Utility';
 import UpdateForm from '../components/UpdateForm';
 import {fetchUser, setCacheItem} from '../../../../API/User';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 
 const Profile = props => {
   const [user, setUser] = useState();
@@ -67,6 +69,7 @@ const Profile = props => {
   const [showEditPassword, setShowEditPassword] = useState(true);
   const [showEditPic, setShowEditPic] = useState(true);
   const [showEditForm, setShowEditForm] = useState(true);
+  const [acceptStd, setAcceptStd] = useState();
 
   React.useEffect(() => {
     if (user !== undefined || isWorking) return;
@@ -101,6 +104,7 @@ const Profile = props => {
     } else {
       setUser(props.user.user);
       setAboutMe(props.user.user.bio);
+      setAcceptStd(props.user.user.acceptStd);
       setIsAdvisor(isUserAdvisor(props.user));
     }
   }, [props, isWorking, user, dispatch, navigate, params]);
@@ -227,7 +231,7 @@ const Profile = props => {
                       value={aboutMe}
                       onChangeText={e => setAboutMe(e)}
                       placeholder={'متن درباره من'}
-                      subText={'متن درباره من'}
+                      subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
                     />
                     <CommonButton
                       title={commonTranslator.confirm}
@@ -237,7 +241,7 @@ const Profile = props => {
                           return;
                         }
                         setLoading(true);
-                        let res = generalRequest(
+                        let res = await generalRequest(
                           routes.setAboutMe,
                           'put',
                           {
@@ -254,6 +258,39 @@ const Profile = props => {
                           await fetchUser(props.token, user => {});
                           showSuccess();
                         }
+                      }}
+                    />
+
+                    <JustBottomBorderSelect
+                      placeholder={'پذیرش دانش آموز'}
+                      subText={'پذیرش دانش آموز'}
+                      values={trueFalseValues}
+                      value={
+                        acceptStd === undefined
+                          ? undefined
+                          : trueFalseValues.find(elem => elem.id === acceptStd)
+                      }
+                      setter={async selected => {
+                        if (selected === acceptStd) return;
+
+                        setLoading(true);
+                        let res = await generalRequest(
+                          routes.toggleStdAcceptance,
+                          'post',
+                          undefined,
+                          undefined,
+                          props.token,
+                        );
+
+                        setLoading(false);
+
+                        if (res !== null) {
+                          await setCacheItem('user', undefined);
+                          await fetchUser(props.token, user => {});
+                          showSuccess();
+                        }
+
+                        setAcceptStd(selected);
                       }}
                     />
                   </CommonWebBox>

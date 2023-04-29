@@ -2,7 +2,12 @@ import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import List from './list/List';
 import Create from './create/Create';
-import {removeItems, editItem, addItem} from '../../../services/Utility';
+import {
+  removeItems,
+  editItem,
+  addItem,
+  isUserAdvisor,
+} from '../../../services/Utility';
 import {MyView} from '../../../styles/Common';
 import {getAllStudent} from './Utility';
 import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin';
@@ -35,6 +40,14 @@ function ManageStudents(props) {
       setMode('list');
     });
   }, [navigate, props.token, dispatch]);
+
+  const [isAdvisor, setIsAdvisor] = useState(false);
+
+  React.useEffect(() => {
+    if (state.user === undefined) return;
+    setIsAdvisor(isUserAdvisor(state.user));
+  }, [state.user]);
+
   return (
     <MyView>
       {mode === 'list' && (
@@ -42,6 +55,7 @@ function ManageStudents(props) {
           setMode={setMode}
           setLoading={setLoading}
           data={data}
+          isAdvisor={isAdvisor}
           setData={setData}
           token={props.token}
           remove={ids => removeItems(data, setData, ids)}

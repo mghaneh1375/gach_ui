@@ -251,7 +251,7 @@ function Question(props) {
               </CommonWebBox>
             )}
 
-          {question.answer !== undefined && (
+          {/* {question.answer !== undefined && (
             <CommonWebBox header={'پاسخ سوال'}>
               <MyView>
                 <CommonTextInput
@@ -267,7 +267,7 @@ function Question(props) {
                 />
               </MyView>
             </CommonWebBox>
-          )}
+          )} */}
           {question.answerFile !== undefined && (
             <CommonWebBox header={'پاسخ تشریحی'} style={{padding: 15}}>
               <Image

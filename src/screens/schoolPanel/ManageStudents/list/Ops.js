@@ -36,16 +36,20 @@ function Ops(props) {
           title={commonTranslator.opMenu}
           toggleShowPopUp={props.toggleShowPopUp}>
           <PhoneView>
-            <CommonButton
-              theme={'transparent'}
-              title={commonTranslator.view + ' ' + Translate.info}
-              onPress={() => window.open('/profile/' + props.selectedId)}
-            />
-            <CommonButton
-              theme={'transparent'}
-              onPress={() => props.setMode('changePass')}
-              title={commonTranslator.changePassword}
-            />
+            {!props.isAdvisor && (
+              <>
+                <CommonButton
+                  theme={'transparent'}
+                  title={commonTranslator.view + ' ' + Translate.info}
+                  onPress={() => window.open('/profile/' + props.selectedId)}
+                />
+                <CommonButton
+                  theme={'transparent'}
+                  onPress={() => props.setMode('changePass')}
+                  title={commonTranslator.changePassword}
+                />
+              </>
+            )}
           </PhoneView>
         </LargePopUp>
       )}

@@ -315,5 +315,6 @@ export const routes = {
   cancelAdvisorRequest: 'advisor/public/cancelRequest/',
   myStudentRequests: 'advisor/manage/myRequests',
   answerStudentRequest: 'advisor/manage/answerToRequest/',
+  toggleStdAcceptance: 'advisor/manage/toggleStdAcceptance',
   setPic: 'user/setPic',
 };
