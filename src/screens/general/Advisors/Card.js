@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import {faMedal, faQuestion} from '@fortawesome/free-solid-svg-icons';
 import {Image} from 'react-native';
 import {globalStateContext} from '../../../App';
 import Circle from '../../../components/web/Circle';
-import QuizItemCard from '../../../components/web/QuizItemCard';
 import {
   CommonButton,
   CommonWebBox,
@@ -81,21 +79,29 @@ function Card(props) {
             style={{...styles.BlueBold, ...styles.fontSize15}}
             text={'نام و نام خانوادگی :' + ' ' + props.data.name}
           />
+        </MyView>
+        <MyView style={{marginTop: -10, ...styles.gap5}}>
           {props.isMyAdvisor && (
             <SimpleText
               style={{...styles.BlueBold, ...styles.fontSize15, ...styles.red}}
               text={'مشاور من'}
             />
           )}
-        </MyView>
-        <MyView style={{marginTop: -10, ...styles.gap5}}>
           <SimpleText
             style={{...styles.colorDarkBlue}}
             text={'تعداد دانش آموزان : ' + ' ' + props.data.stdCount}
           />
+
           <SimpleText
-            style={{...styles.colorDarkBlue}}
-            text={'درباره مشاور : ' + ' ' + props.data.bio}
+            style={{
+              ...styles.colorDarkBlue,
+              ...{minHeight: 100, maxHeight: 100},
+            }}
+            text={
+              props.data.bio !== undefined
+                ? 'درباره مشاور : ' + ' ' + props.data.bio
+                : 'درباره مشاور : '
+            }
           />
 
           {!props.isMyAdvisor &&
@@ -108,6 +114,13 @@ function Card(props) {
                 title={'درخواست مشاوره'}
               />
             )}
+
+          {props.onRemove !== undefined && (
+            <CommonButton
+              onPress={() => props.onRemove()}
+              title={'حذف مشاور'}
+            />
+          )}
         </MyView>
       </MyView>
     </CommonWebBox>

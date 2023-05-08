@@ -93,6 +93,7 @@ import MyQuizzes from './studentPanel/MyQuizzes/school/MyQuizzes';
 import Advisors from './general/Advisors/Advisors';
 import RequestLogsForAdvisors from './studentPanel/RequestLogsForAdvisors/RequestLogsForAdvisors';
 import MyRequests from './advisorPanel/MyRequests/MyRequests';
+import MyAdvisor from './studentPanel/Advisor/MyAdvisor/MyAdvisor';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -395,6 +396,8 @@ const WebStructue = props => {
                 <Psychology navigate={navigate} />
               )}
               {props.page === 'advisors' && <Advisors navigate={navigate} />}
+              {props.page === 'myAdvisor' && <MyAdvisor navigate={navigate} />}
+
               {props.page === 'myStudentRequests' && (
                 <MyRequests navigate={navigate} />
               )}

@@ -311,10 +311,12 @@ export const routes = {
   getMyAdvisor: 'advisor/public/getMyAdvisor',
   hasOpenRequest: 'advisor/public/hasOpenRequest',
   sendAdvisorAcceptanceRequest: 'advisor/public/request/',
+  cancelAdvisor: 'advisor/public/cancel',
   myAdvisorAcceptanceRequests: 'advisor/public/myRequests',
   cancelAdvisorRequest: 'advisor/public/cancelRequest/',
   myStudentRequests: 'advisor/manage/myRequests',
   answerStudentRequest: 'advisor/manage/answerToRequest/',
   toggleStdAcceptance: 'advisor/manage/toggleStdAcceptance',
+  removeStudentsByAdvisor: 'advisor/manage/removeStudents',
   setPic: 'user/setPic',
 };
