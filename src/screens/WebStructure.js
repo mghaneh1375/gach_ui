@@ -292,6 +292,10 @@ const WebStructue = props => {
                 />
               )}
               {props.page === 'schoolQuiz' && <MyQuizzes navigate={navigate} />}
+              {props.page === 'advisorQuiz' && (
+                <MyQuizzes advisor={true} navigate={navigate} />
+              )}
+
               {props.page === 'video_test' && <Video />}
               {props.page === 'packages' && params.sessionId !== undefined && (
                 <SessionDetail navigate={navigate} />

@@ -381,27 +381,32 @@ function Card(props) {
                 />
               </PhoneView>
             )}
-            <PhoneView>
-              <CommonButton
-                onPress={() => props.onClick(props.quiz.id)}
-                padding={isInPhone ? '5px 5px' : undefined}
-                textStyle={
-                  isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
-                    : {}
-                }
-                theme={
-                  props.quiz.isSelected !== undefined && props.quiz.isSelected
-                    ? 'yellow'
-                    : 'yellow-transparent'
-                }
-                title={
-                  props.quiz.isSelected !== undefined && props.quiz.isSelected
-                    ? commonTranslator.selected
-                    : commonTranslator.select
-                }
-              />
-            </PhoneView>
+            {props.onClick !== undefined && (
+              <PhoneView>
+                <CommonButton
+                  onPress={() => props.onClick(props.quiz.id)}
+                  padding={isInPhone ? '5px 5px' : undefined}
+                  textStyle={
+                    isInPhone
+                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      : {}
+                  }
+                  theme={
+                    props.quiz.isSelected !== undefined && props.quiz.isSelected
+                      ? 'yellow'
+                      : 'yellow-transparent'
+                  }
+                  title={
+                    props.selectText !== undefined
+                      ? props.selectText
+                      : props.quiz.isSelected !== undefined &&
+                        props.quiz.isSelected
+                      ? commonTranslator.selected
+                      : commonTranslator.select
+                  }
+                />
+              </PhoneView>
+            )}
           </PhoneView>
         )}
         {props.onSelect !== undefined && (

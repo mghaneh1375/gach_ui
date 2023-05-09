@@ -1,5 +1,10 @@
-import React, {useState} from 'react';
-import {MyView, PhoneView} from '../../../../../styles/Common';
+import React, {useRef, useState} from 'react';
+import {
+  CommonButton,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../../../styles/Common';
 import Card from '../../../../panel/quiz/components/Card/Card';
 import {
   quizContext,
@@ -10,6 +15,12 @@ import {fetchMyQuizzes} from './Utility';
 import ProgressCard from '../../../‌MyOffs/ProgressCard/ProgressCard';
 import {styles} from '../../../../../styles/Common/Styles';
 import vars from '../../../../../styles/root';
+import {LargePopUp} from '../../../../../styles/Common/PopUp';
+import {generalRequest} from '../../../../../API/Utility';
+import {routes} from '../../../../../API/APIRoutes';
+import {setCacheItem} from '../../../../../API/User';
+import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
+import {formatPrice} from '../../../../../services/Utility';
 
 function List(props) {
   const useGlobalState = () => [
@@ -21,6 +32,7 @@ function List(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [quizzes, setQuizzes] = useState();
   const [showOpPane, setShowOpPane] = useState(false);
+  const [showPayPopUp, setShowPayPopUp] = useState(false);
   const [mode, setMode] = useState();
 
   React.useEffect(() => {
@@ -38,7 +50,7 @@ function List(props) {
     setIsWorking(true);
     props.setLoading(true);
 
-    Promise.all([fetchMyQuizzes(props.token)]).then(res => {
+    Promise.all([fetchMyQuizzes(props.token, props.advisor)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) {
         props.navigate('/');
@@ -56,6 +68,20 @@ function List(props) {
     setShowOpPane(true);
   };
 
+  const [selectedQuizForPay, setSelectedQuizForPay] = useState();
+  const [refId, setRefId] = useState();
+  const ref = useRef();
+  const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
+  const [transactionId, setTransactionId] = useState();
+
+  React.useEffect(() => {
+    if (refId === undefined) return;
+
+    setTimeout(() => {
+      ref.current.submit();
+    }, 1000);
+  }, [refId]);
+
   return (
     <MyView>
       {showOpPane && (
@@ -68,7 +94,72 @@ function List(props) {
           toggleShowPopUp={() => setShowOpPane(false)}
         />
       )}
-      {quizzes !== undefined && quizzes.length > 0 && (
+      {showSuccessTransaction && (
+        <SuccessTransaction
+          navigate={props.navigate}
+          transactionId={transactionId}
+        />
+      )}
+      {showPayPopUp && (
+        <LargePopUp
+          btns={
+            <CommonButton
+              theme={'dark'}
+              title={
+                Math.max(0, selectedQuizForPay.price - props.money) > 0
+                  ? 'اتصال به درگاه پرداخت'
+                  : 'نهایی سازی خرید'
+              }
+              onPress={async () => {
+                props.setLoading(true);
+                Promise.all([
+                  generalRequest(
+                    routes.buyAdvisorQuiz + selectedQuizForPay.id,
+                    'post',
+                    undefined,
+                    ['action', 'refId', 'transactionId'],
+                    props.token,
+                  ),
+                ]).then(async res => {
+                  props.setLoading(false);
+                  res = res[0];
+
+                  if (res.action === 'success') {
+                    let user = props.user;
+                    user.user.money = res.refId;
+                    await setCacheItem('user', JSON.stringify(user));
+                    setTransactionId(res.transactionId);
+                    setShowPayPopUp(false);
+                    setShowSuccessTransaction(true);
+                  } else if (res.action === 'pay') {
+                    setRefId(res.refId);
+                  }
+                });
+              }}
+            />
+          }
+          title={'نهایی سازی خرید آزمون ' + selectedQuizForPay.title}
+          toggleShowPopUp={() => setShowPayPopUp(false)}>
+          <MyView>
+            <SimpleText
+              text={'مبلغ آزمون: ' + formatPrice(selectedQuizForPay.price)}
+            />
+            <SimpleText
+              text={
+                'مبلغ استفاده شده از کیف پول: ' +
+                formatPrice(Math.min(props.money, selectedQuizForPay.price))
+              }
+            />
+            <SimpleText
+              text={
+                'مبلغ قابل پرداخت: ' +
+                formatPrice(Math.max(0, selectedQuizForPay.price - props.money))
+              }
+            />
+          </MyView>
+        </LargePopUp>
+      )}
+      {!showSuccessTransaction && (
         <MyView>
           <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
             <ProgressCard
@@ -108,53 +199,71 @@ function List(props) {
               style={{...styles.cursor_pointer}}
             />
           </PhoneView>
-          <PhoneView style={{gap: 15, padding: 15}}>
-            {quizzes !== undefined &&
-              mode !== undefined &&
-              quizzes.map((quiz, index) => {
-                if (
-                  mode === 'all' ||
-                  (mode === 'passed' && quiz.status === 'finished') ||
-                  (mode === 'future' && quiz.status !== 'finished')
-                ) {
+
+          {quizzes !== undefined && quizzes.length === 0 && (
+            <SimpleText
+              style={{
+                ...styles.textCenter,
+                ...styles.margin30,
+                ...styles.BlueBold,
+              }}
+              text="آزمونی موجود نیست"
+            />
+          )}
+
+          {quizzes !== undefined && quizzes.length > 0 && (
+            <PhoneView style={{gap: 15, padding: 15}}>
+              {quizzes !== undefined &&
+                mode !== undefined &&
+                quizzes.map((quiz, index) => {
                   if (
-                    quiz.status === 'finished' ||
-                    quiz.status === 'inProgress'
+                    mode === 'all' ||
+                    (mode === 'passed' && quiz.status === 'finished') ||
+                    (mode === 'future' && quiz.status !== 'finished')
                   ) {
+                    if (
+                      quiz.status === 'finished' ||
+                      quiz.status === 'inProgress'
+                    ) {
+                      return (
+                        <Card
+                          quizOp={() =>
+                            quiz.status === 'finished'
+                              ? openOpBox(quiz)
+                              : props.navigate(
+                                  '/startQuiz/' +
+                                    quiz.generalMode +
+                                    '/' +
+                                    quiz.id,
+                                )
+                          }
+                          isStudent={true}
+                          onClick={() => {}}
+                          quiz={quiz}
+                          afterQuiz={quiz.paid}
+                          key={index}
+                        />
+                      );
+                    }
+
                     return (
                       <Card
-                        quizOp={() =>
-                          quiz.status === 'finished'
-                            ? openOpBox(quiz)
-                            : props.navigate(
-                                '/startQuiz/' +
-                                  quiz.generalMode +
-                                  '/' +
-                                  quiz.id,
-                              )
-                        }
+                        quizOp={undefined}
                         isStudent={true}
-                        onClick={() => {}}
+                        onClick={() => {
+                          setSelectedQuizForPay(quiz);
+                          setShowPayPopUp(true);
+                        }}
+                        selectText={'پرداخت و ثبت نام در آزمون'}
                         quiz={quiz}
-                        afterQuiz={true}
+                        afterQuiz={quiz.paid}
                         key={index}
                       />
                     );
                   }
-
-                  return (
-                    <Card
-                      quizOp={undefined}
-                      isStudent={true}
-                      onClick={() => {}}
-                      quiz={quiz}
-                      afterQuiz={true}
-                      key={index}
-                    />
-                  );
-                }
-              })}
-          </PhoneView>
+                })}
+            </PhoneView>
+          )}
         </MyView>
       )}
     </MyView>

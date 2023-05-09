@@ -29,8 +29,10 @@ function MyQuizzes(props) {
           status={status}
           setMode={setMode}
           user={state.user}
+          advisor={props.advisor === undefined ? false : props.advisor}
           setLoading={setLoading}
           token={state.token}
+          money={state.user.user.money}
           navigate={props.navigate}
         />
       )}

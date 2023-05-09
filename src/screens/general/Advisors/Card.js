@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import {Image} from 'react-native';
+import {Rating} from 'react-native-ratings';
 import {globalStateContext} from '../../../App';
 import Circle from '../../../components/web/Circle';
 import {
   CommonButton,
   CommonWebBox,
+  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -114,15 +116,31 @@ function Card(props) {
                 title={'درخواست مشاوره'}
               />
             )}
-
-          {props.onRemove !== undefined && (
-            <CommonButton
-              onPress={() => props.onRemove()}
-              title={'حذف مشاور'}
-            />
-          )}
         </MyView>
       </MyView>
+
+      {props.setRate !== undefined && (
+        <EqualTwoTextInputs
+          style={{width: '100%', direction: 'ltr', alignItems: 'center'}}>
+          <Rating
+            type="star"
+            ratingCount={5}
+            imageSize={30}
+            fractions={0}
+            onFinishRating={rating => props.setRate(rating)}
+            style={{
+              direction: 'ltr',
+              cursor: 'pointer',
+            }}
+            startingValue={props.rate}
+          />
+          <SimpleText text={'امتیاز شما به مشاور'} />
+        </EqualTwoTextInputs>
+      )}
+
+      {props.onRemove !== undefined && (
+        <CommonButton onPress={() => props.onRemove()} title={'حذف مشاور'} />
+      )}
     </CommonWebBox>
   );
 }
