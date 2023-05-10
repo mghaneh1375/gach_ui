@@ -179,6 +179,8 @@ const translator = {
   course: ' درسی ',
   lifeStyle: ' سبک زندگی ',
   openQuiz: 'لیست آزمون های باز',
+  iryscQuiz: 'لیست آزمون های آیریسک',
+  customQuiz: 'لیست آزمون های شخصی',
   contentQuiz: 'لیست آزمون های مخصوص بسته های آموزشی',
   packageQuiz: 'بسته های آزمون',
   haveQuiz: 'آزمون های موجود',

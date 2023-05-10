@@ -5,6 +5,7 @@ import List from './components/List';
 import {useParams} from 'react-router';
 import Karname from '../../../panel/quiz/components/Reports/Karname/Karname';
 import StudentAnswerSheet from '../../../panel/quiz/components/AnswerSheet/StudentAnswerSheet';
+import AnswerSheet from '../irysc/components/AnswerSheet';
 
 function MyQuizzes(props) {
   const useGlobalState = () => [
@@ -46,13 +47,11 @@ function MyQuizzes(props) {
         />
       )}
       {mode === 'answerSheet' && (
-        <StudentAnswerSheet
+        <AnswerSheet
           selectedAnswerSheetIdx={0}
           setLoading={setLoading}
           onBackClick={() => setMode('list')}
           token={state.token}
-          state={state}
-          dispatch={dispatch}
         />
       )}
     </QuizProvider>

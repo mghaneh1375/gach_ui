@@ -17,6 +17,7 @@ export const routes = {
   resendCode: 'user/resendCode',
   updateInfo: 'user/updateInfo/',
   fetchUser: 'user/fetchUser/',
+  getEducationalHistory: 'user/getEducationalHistory/',
   checkCode: 'user/checkCode',
   getMyRecps: 'user/myTransactions',
   getRoleForms: 'user/getRoleForms',

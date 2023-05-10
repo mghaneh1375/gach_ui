@@ -63,6 +63,8 @@ function StudentAnswerSheet({
       });
   }, [ref, setLoading]);
 
+  console.log(state.selectedQuiz);
+
   return (
     <MyView>
       <CommonWebBox

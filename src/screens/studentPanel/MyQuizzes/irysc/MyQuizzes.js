@@ -2,13 +2,13 @@ import List from './components/List';
 import {dispatchStateContext} from '../../../../App';
 import React, {useState} from 'react';
 import {QuizProvider} from '../../../panel/quiz/components/Context';
-import StudentAnswerSheet from '../../../panel/quiz/components/AnswerSheet/StudentAnswerSheet';
 import Ranking from '../../../panel/quiz/components/Reports/Ranking/Ranking';
 import Recp from '../../../../components/web/Recp';
 import Karname from '../../../panel/quiz/components/Reports/Karname/Karname';
 import ParticipantReport from '../../../panel/quiz/components/Reports/Participant/ParticipantReport';
 import ReportList from '../../../panel/quiz/components/Reports/List/List';
 import {useParams} from 'react-router';
+import AnswerSheet from './components/AnswerSheet';
 
 function MyQuizzes(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -44,7 +44,7 @@ function MyQuizzes(props) {
         />
       )}
       {mode === 'answerSheet' && (
-        <StudentAnswerSheet
+        <AnswerSheet
           selectedAnswerSheetIdx={0}
           setLoading={setLoading}
           onBackClick={() => setMode('list')}

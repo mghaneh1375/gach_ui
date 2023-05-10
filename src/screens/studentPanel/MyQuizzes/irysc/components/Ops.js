@@ -41,6 +41,9 @@ function Ops(props) {
   }, [state.selectedQuiz.stdRate]);
 
   const prepareShowAnswerSheet = async () => {
+    console.log('asd');
+    console.log(state.selectedQuiz.mode);
+
     if (state.selectedQuiz.mode === 'tashrihi') {
       props.navigate(
         '/showAnswerSheet/' +
@@ -52,6 +55,8 @@ function Ops(props) {
       );
       return;
     }
+
+    console.log(state.selectedQuiz.answer_sheet);
 
     if (state.selectedQuiz.answer_sheet !== undefined) {
       dispatch({

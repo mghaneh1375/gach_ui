@@ -63,7 +63,7 @@ function StudentMenu(props) {
   if (!state.isInPhone) {
     return (
       <MenuItemRepeat
-        excludes={[]}
+        excludes={['advisor', 'mySchool']}
         navigate={props.navigate}
         selected={props.selected}
       />

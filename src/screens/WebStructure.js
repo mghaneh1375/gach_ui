@@ -94,6 +94,7 @@ import Advisors from './general/Advisors/Advisors';
 import RequestLogsForAdvisors from './studentPanel/RequestLogsForAdvisors/RequestLogsForAdvisors';
 import MyRequests from './advisorPanel/MyRequests/MyRequests';
 import MyAdvisor from './studentPanel/Advisor/MyAdvisor/MyAdvisor';
+import StudentEducationalHistory from './panel/StudentEducationalHistory/StudentEducationalHistory';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -371,6 +372,9 @@ const WebStructue = props => {
               )}
               {props.page === 'acceptInvite' && (
                 <AcceptInvite token={state.token} navigate={navigate} />
+              )}
+              {props.page === 'studentEducationalHistory' && (
+                <StudentEducationalHistory navigate={navigate} />
               )}
               {props.page === 'upgrade' && (
                 <Upgrade
