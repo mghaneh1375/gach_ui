@@ -9,13 +9,16 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
+  PhoneView,
 } from '../../../../styles/Common';
-import QuizGeneralInfo from '../../../panel/quiz/components/Create/QuizGeneralInfo';
 import translator from '../../../panel/quiz/Translator';
 import commonTranslator from '../../../../translator/Common';
 import QuizAnswerSheetInfo from '../../../panel/quiz/components/Create/QuizAnswerSheetInfo';
-import {showSuccess} from '../../../../services/Utility';
-import QuizRunInfo from './QuizRunInfo';
+import {showSuccess, trueFalseValues} from '../../../../services/Utility';
+import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
+import hwTranslator from './Translator';
 
 const Create = props => {
   const useGlobalState = () => [
@@ -38,16 +41,14 @@ const Create = props => {
       return;
     }
 
-    if (state.selectedQuiz.payByStudent !== undefined)
-      setPayByStudent(state.selectedQuiz.payByStudent);
-
     setName(state.selectedQuiz.title);
-    setLaunchMode(state.selectedQuiz.launchMode);
-    setUseFromDatabase(state.selectedQuiz.database);
+    setAllowDelay(state.selectedQuiz.deleyEnd !== undefined);
+    setDelayEnd(state.selectedQuiz.delayEnd);
+    setDelayPenalty(state.selectedQuiz.delayPenalty);
+    setAnswerType(state.selectedQuiz.answerType);
+    setMaxUploadSize(state.selectedQuiz.maxFileSize);
     setStart(state.selectedQuiz.start);
     setDescAfter(state.selectedQuiz.descAfter);
-    setDescBefore(state.selectedQuiz.descBefore);
-    setMinusMark(state.selectedQuiz.minusMark);
     setEnd(state.selectedQuiz.end === undefined ? '' : state.selectedQuiz.end);
 
     setShowResultsAfterCorrection(
@@ -55,20 +56,26 @@ const Create = props => {
     );
   }, [state.selectedQuiz, dispatch, props.editMode, backToList]);
 
+  const answerTypes = [
+    {item: hwTranslator.pdf, id: 'pdf'},
+    {item: hwTranslator.word, id: 'word'},
+    {item: hwTranslator.powerpoint, id: 'powerpoint'},
+    {item: hwTranslator.image, id: 'image'},
+    {item: hwTranslator.audio, id: 'audio'},
+    {item: hwTranslator.video, id: 'video'},
+  ];
+
   const [name, setName] = useState('');
-  const [useFromDatabase, setUseFromDatabase] = useState(false);
-  const [len, setLen] = useState(props.editMode ? state.selectedQuiz.len : '');
-  const [lenMode, setLenMode] = useState(
-    props.editMode ? state.selectedQuiz.lenMode : 'question',
-  );
-  const [payByStudent, setPayByStudent] = useState(false);
-  const [launchMode, setLaunchMode] = useState();
+  const [maxUploadSize, setMaxUploadSize] = useState(5);
+  const [answerType, setAnswerType] = useState();
+  const [allowDelay, setAllowDelay] = useState(false);
+  const [delayEnd, setDelayEnd] = useState();
+  const [delayPenalty, setDelayPenalty] = useState();
+
   const [start, setStart] = useState(props.editMode ? undefined : '');
   const [end, setEnd] = useState(props.editMode ? undefined : '');
   const [showResultsAfterCorrection, setShowResultsAfterCorrection] =
     useState(true);
-
-  const [minusMark, setMinusMark] = useState(undefined);
 
   const [descBefore, setDescBefore] = useState(undefined);
   const [descAfter, setDescAfter] = useState(undefined);
@@ -110,22 +117,22 @@ const Create = props => {
       title: name,
       start: start,
       end: end,
-      duration: len,
-      database: useFromDatabase,
-      launchMode: launchMode,
-      minusMark: minusMark,
       showResultsAfterCorrection: showResultsAfterCorrection,
+      maxUploadSize: maxUploadSize,
+      answerType: answerType,
       descAfter: descAfter,
       desc: descBefore,
-      payByStudent: payByStudent,
     };
+
+    if (allowDelay) {
+      data.delayEnd = delayEnd;
+      data.delayPenalty = delayPenalty;
+    }
 
     props.setLoading(true);
     let result = await CallAPI(
       data,
-      props.editMode
-        ? routes.editQuiz + 'school/' + state.selectedQuiz.id
-        : routes.createQuiz + 'school',
+      props.editMode ? routes.editHW + state.selectedQuiz.id : routes.createHW,
       props.token,
       'school',
       undefined,
@@ -159,7 +166,7 @@ const Create = props => {
         data.id = state.selectedQuiz.id;
         data.status = state.selectedQuiz.status;
         data.visibility = state.selectedQuiz.visibility;
-        data.questionsCount = state.selectedQuiz.questionsCount;
+        data.attachesCount = state.selectedQuiz.attachesCount;
         data.studentsCount = state.selectedQuiz.studentsCount;
         dispatch({selectedQuiz: data, needUpdate: true});
       } else {
@@ -178,47 +185,110 @@ const Create = props => {
       <CommonWebBox
         header={translator.generalInfo}
         backBtn={true}
-        onBackClick={() => props.setMode('list')}
-        child={<QuizGeneralInfo name={name} setName={setName} />}
-      />
-      <CommonWebBox
-        header={translator.runInfo}
-        child={
-          <QuizRunInfo
-            isAdvisor={props.isAdvisor}
-            editMode={props.editMode}
-            start={start}
-            end={end}
-            payByStudent={payByStudent}
-            setPayByStudent={setPayByStudent}
-            isStart={
-              state.selectedQuiz === undefined
-                ? undefined
-                : state.selectedQuiz.isStart
-            }
-            isEnd={
-              state.selectedQuiz === undefined
-                ? undefined
-                : state.selectedQuiz.isEnd
-            }
-            setStart={setStart}
-            setEnd={setEnd}
-            lenMode={lenMode}
-            setLenMode={setLenMode}
-            len={len}
-            setLen={setLen}
-            setLaunchMode={setLaunchMode}
-            useFromDatabase={useFromDatabase}
-            setUseFromDatabase={setUseFromDatabase}
-            launchMode={launchMode}
-            minusMark={minusMark}
-            setMinusMark={setMinusMark}
-            status={state.selectedQuiz?.status}
-            showResultsAfterCorrection={showResultsAfterCorrection}
-            setShowResultsAfterCorrection={setShowResultsAfterCorrection}
+        onBackClick={() => props.setMode('list')}>
+        <PhoneView style={{gap: 15}}>
+          <JustBottomBorderTextInput
+            placeholder={translator.name}
+            onChangeText={e => setName(e)}
+            value={name}
+            subText={translator.name}
           />
-        }
-      />
+        </PhoneView>
+      </CommonWebBox>
+      <CommonWebBox header={translator.runInfo}>
+        <PhoneView style={{gap: 15}}>
+          <JustBottomBorderSelect
+            values={trueFalseValues}
+            value={
+              showResultsAfterCorrection === undefined
+                ? {}
+                : trueFalseValues.filter(element => {
+                    return element.id === showResultsAfterCorrection;
+                  })[0]
+            }
+            setter={setShowResultsAfterCorrection}
+            subText={translator.showResultAfterCorrection}
+            placeholder={translator.showResultAfterCorrection}
+          />
+          <JustBottomBorderSelect
+            values={answerTypes}
+            value={
+              answerType === undefined
+                ? {}
+                : answerTypes.filter(element => {
+                    return element.id === answerType;
+                  })[0]
+            }
+            setter={setAnswerType}
+            subText={hwTranslator.answerType}
+            placeholder={hwTranslator.answerType}
+          />
+
+          <JustBottomBorderTextInput
+            value={maxUploadSize}
+            onChangeText={e => setMaxUploadSize(e)}
+            placeholder={hwTranslator.maxUploadSize}
+            subText={hwTranslator.maxUploadSize}
+            justNum={true}
+          />
+          {(state.selectedQuiz === undefined ||
+            state.selectedQuiz.isStart === undefined ||
+            !state.selectedQuiz.isStart) && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.startDate}
+              value={start}
+              setter={setStart}
+              subText={translator.startDate}
+            />
+          )}
+          {(state.selectedQuiz === undefined ||
+            state.selectedQuiz.isEnd === undefined ||
+            !state.selectedQuiz.isEnd) && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.endDate}
+              value={end}
+              setter={setEnd}
+              subText={translator.endDate}
+            />
+          )}
+          {(state.selectedQuiz === undefined ||
+            state.selectedQuiz.isEnd === undefined ||
+            !state.selectedQuiz.isEnd) && (
+            <>
+              <JustBottomBorderSelect
+                values={trueFalseValues}
+                value={
+                  allowDelay === undefined
+                    ? {}
+                    : trueFalseValues.filter(element => {
+                        return element.id === allowDelay;
+                      })[0]
+                }
+                setter={setAllowDelay}
+                subText={hwTranslator.allowDelay}
+                placeholder={hwTranslator.allowDelay}
+              />
+              {allowDelay && (
+                <>
+                  <JustBottomBorderDatePicker
+                    value={delayEnd}
+                    setter={setDelayEnd}
+                    subText={hwTranslator.delayEnd}
+                    placeholder={hwTranslator.delayEnd}
+                  />
+                  <JustBottomBorderTextInput
+                    value={delayPenalty}
+                    onChangeText={e => setDelayPenalty(e)}
+                    placeholder={hwTranslator.delayPenalty}
+                    subText={hwTranslator.delayPenalty}
+                    justNum={true}
+                  />
+                </>
+              )}
+            </>
+          )}
+        </PhoneView>
+      </CommonWebBox>
 
       {(state.selectedQuiz === undefined ||
         state.selectedQuiz.isEnd === undefined ||

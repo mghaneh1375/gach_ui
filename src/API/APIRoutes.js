@@ -80,6 +80,8 @@ export const routes = {
   getMyTasks: 'quiz/school/getMyTasks',
   getMyMarkList: 'quiz/school/getMyMarkList/',
   createQuiz: 'quiz/manage/store/',
+  createHW: 'quiz/school/createHW',
+  editHW: 'quiz/school/editHW/',
   changeArrangeQuestions: 'quiz/manage/arrangeQuestions/',
   finalizeQuizResult: 'quiz/manage/finalizeQuizResult/',
   fetchAllQuiz: 'quiz/manage/getAll/',

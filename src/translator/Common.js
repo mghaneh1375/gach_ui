@@ -179,6 +179,8 @@ const translator = {
   course: ' درسی ',
   lifeStyle: ' سبک زندگی ',
   openQuiz: 'لیست آزمون های باز',
+  schoolQuiz: 'لیست آزمون های مدرسه',
+  advisorQuiz: 'لیست آزمون های مشاور',
   iryscQuiz: 'لیست آزمون های آیریسک',
   customQuiz: 'لیست آزمون های شخصی',
   contentQuiz: 'لیست آزمون های مخصوص بسته های آموزشی',
@@ -248,5 +250,6 @@ const translator = {
   not_has: 'ندارد',
   col: ': ',
   questionReportTags: 'تگ های گزارش خرابی سوال',
+  educationalHistory: 'سوابق تحصیلی',
 };
 export default translator;

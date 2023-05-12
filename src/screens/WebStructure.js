@@ -95,6 +95,7 @@ import RequestLogsForAdvisors from './studentPanel/RequestLogsForAdvisors/Reques
 import MyRequests from './advisorPanel/MyRequests/MyRequests';
 import MyAdvisor from './studentPanel/Advisor/MyAdvisor/MyAdvisor';
 import StudentEducationalHistory from './panel/StudentEducationalHistory/StudentEducationalHistory';
+import MyHWs from './schoolPanel/MyHWs/MyHWs';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -350,6 +351,7 @@ const WebStructue = props => {
               {props.page === 'mySchoolQuizzes' && (
                 <MySchoolQuizzes navigate={navigate} />
               )}
+              {props.page === 'mySchoolHWs' && <MyHWs navigate={navigate} />}
               {props.page === 'startQuiz' && (
                 <RunQuiz
                   isInReviewMode={false}

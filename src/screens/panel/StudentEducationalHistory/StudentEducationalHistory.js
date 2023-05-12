@@ -6,7 +6,13 @@ import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import StudentCard from '../../../components/web/StudentCard';
-import {CommonWebBox, MyView, SimpleText} from '../../../styles/Common';
+import {
+  CommonWebBox,
+  EqualTwoTextInputs,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../styles/Common';
 import CommonDataTable from '../../../styles/Common/CommonDataTable';
 import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 import {styles} from '../../../styles/Common/Styles';
@@ -14,6 +20,7 @@ import commonTranslator from '../../../translator/Common';
 import MiniCard from '../quiz/components/CV/MiniCard';
 import {subjectColsCustomQuiz} from '../quiz/components/Reports/Karname/LessonTableStructure';
 import iryscQuizColumns from './components/IryscQuizTableStructure';
+import Card from '../../general/Advisors/Card';
 
 function StudentEducationalHistory(props) {
   const params = useParams();
@@ -27,6 +34,8 @@ function StudentEducationalHistory(props) {
   const [iryscQuizzes, setIryscQuizzes] = useState();
   const [openQuizzes, setOpenQuizzes] = useState();
   const [customQuizzes, setCustomQuizzes] = useState();
+  const [advisorQuizzes, setAdvisorQuizzes] = useState();
+  const [schoolQuizzes, setSchoolQuizzes] = useState();
 
   const commonColumns = [
     {
@@ -126,6 +135,58 @@ function StudentEducationalHistory(props) {
     ...commonColumns,
   ];
 
+  const schoolColumns = [
+    {
+      name: '',
+      cell: (row, index, column, id) => {
+        return (
+          <SimpleFontIcon
+            onPress={() => {
+              window.open(
+                '/result/school/' +
+                  schoolQuizzes[index].id +
+                  '/' +
+                  params.userId,
+                '_blank',
+              );
+              // props.navigate(
+              //   '/result/school/' + openQuizzes[index].id + '/' + params.userId,
+              // );
+            }}
+            icon={faEye}
+          />
+        );
+      },
+      minWidth: '40px',
+      maxWidth: '40px',
+      center: true,
+    },
+    ...commonColumns,
+  ];
+
+  const advisorColumns = [
+    {
+      name: '',
+      cell: (row, index, column, id) => {
+        return (
+          <SimpleFontIcon
+            onPress={() => {
+              window.open(
+                '/result/school/' + openQuizzes[index].id + '/' + params.userId,
+                '_blank',
+              );
+            }}
+            icon={faEye}
+          />
+        );
+      },
+      minWidth: '40px',
+      maxWidth: '40px',
+      center: true,
+    },
+    ...commonColumns,
+  ];
+
   const [data, setData] = useState();
 
   const getData = React.useCallback(() => {
@@ -149,6 +210,8 @@ function StudentEducationalHistory(props) {
 
       setIryscQuizzes(res[0].iryscQuizzes);
       setOpenQuizzes(res[0].openQuizzes);
+      setAdvisorQuizzes(res[0].advisorQuizzes);
+      setSchoolQuizzes(res[0].schoolQuizzes);
       setCustomQuizzes(res[0].customQuizzes);
       setData(res[0]);
     });
@@ -166,25 +229,37 @@ function StudentEducationalHistory(props) {
   return (
     <>
       <CommonWebBox>
-        {data !== undefined && (
-          <MiniCard
-            styleCard100Percent={false}
-            subTexts={[
-              {
-                label: 'تعداد آزمون های شرکت کرده: ',
-                value: iryscQuizzes.length,
-              },
-              {label: 'نام مدرسه: ', value: data.school},
-              {label: 'نام شهر: ', value: data.city},
-              {label: 'پایه تحصیلی: ', value: data.grade},
-              {label: 'رشته: ', value: data.branches},
-              {label: 'رتبه کل در آیریسک: ', value: data.rank},
-            ]}
-            header={data.name}
-            ops={false}
-            src={data.pic}
-          />
-        )}
+        <EqualTwoTextInputs>
+          {data !== undefined && (
+            <MiniCard
+              styleCard100Percent={false}
+              subTexts={[
+                {
+                  label: 'تعداد آزمون های شرکت کرده: ',
+                  value: iryscQuizzes.length,
+                },
+                {label: 'نام مدرسه: ', value: data.school},
+                {label: 'نام شهر: ', value: data.city},
+                {label: 'پایه تحصیلی: ', value: data.grade},
+                {label: 'رشته: ', value: data.branches},
+                {label: 'رتبه کل در آیریسک: ', value: data.rank},
+              ]}
+              header={data.name}
+              ops={false}
+              src={data.pic}
+            />
+          )}
+
+          {data !== undefined && data.advisor !== undefined && (
+            <MyView>
+              <SimpleText
+                text={commonTranslator.advisor}
+                style={{...styles.BlueBold}}
+              />
+              <Card hasOpenRequest={true} data={data.advisor} />
+            </MyView>
+          )}
+        </EqualTwoTextInputs>
       </CommonWebBox>
 
       <CommonWebBox header={commonTranslator.iryscQuiz}>
@@ -203,6 +278,28 @@ function StudentEducationalHistory(props) {
           <CommonDataTable
             data={openQuizzes}
             columns={openColumns}
+            pagination={false}
+            excel={false}
+          />
+        )}
+      </CommonWebBox>
+
+      <CommonWebBox header={commonTranslator.advisorQuiz}>
+        {advisorQuizzes !== undefined && (
+          <CommonDataTable
+            data={advisorQuizzes}
+            columns={advisorColumns}
+            pagination={false}
+            excel={false}
+          />
+        )}
+      </CommonWebBox>
+
+      <CommonWebBox header={commonTranslator.schoolQuiz}>
+        {schoolQuizzes !== undefined && (
+          <CommonDataTable
+            data={schoolQuizzes}
+            columns={schoolColumns}
             pagination={false}
             excel={false}
           />

@@ -110,6 +110,11 @@ export default function WebRouter() {
             element={<WebStructue page="mySchoolQuizzes" />}
           />
 
+          <Route
+            path="mySchoolHWs"
+            element={<WebStructue page="mySchoolHWs" />}
+          />
+
           <Route path="/upgrade" element={<WebStructue page="upgrade" />} />
           <Route
             path="/upgrade/:userId"

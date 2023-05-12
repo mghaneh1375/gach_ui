@@ -50,6 +50,14 @@ function Ops(props) {
                 />
               </>
             )}
+
+            <CommonButton
+              theme={'transparent'}
+              title={commonTranslator.educationalHistory}
+              onPress={() =>
+                window.open('/studentEducationalHistory/' + props.selectedId)
+              }
+            />
           </PhoneView>
         </LargePopUp>
       )}
