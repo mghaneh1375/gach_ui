@@ -11,6 +11,7 @@ const translator = {
   delayPenalty: 'جریمه هر روز تاخیر در آپلود (به درصد)',
   maxUploadSize:
     'حداکثر حجم مجاز برای آپلود توسط دانش آموز (به مگابایت - بیشترین مقدار ممکن 20MB)',
+  name: 'نام تمرین',
 };
 
 export default translator;

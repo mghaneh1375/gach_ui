@@ -1,12 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {routes} from '../../../../API/APIRoutes';
-import {CV_BASE_URL, generalRequest} from '../../../../API/Utility';
-import UploadFile from '../../../../components/web/UploadFile';
-import {
-  formatPrice,
-  showError,
-  showSuccess,
-} from '../../../../services/Utility';
+import {generalRequest} from '../../../../API/Utility';
+import {formatPrice, showSuccess} from '../../../../services/Utility';
 import {
   CommonButton,
   MyView,
@@ -17,15 +12,10 @@ import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../../../panel/quiz/Translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
 import commonTranslator from '../../../../translator/Common';
-import {
-  createTaraz,
-  generateQuestionPDF,
-} from '../../../panel/quiz/components/Utility';
+import {createTaraz} from '../../../panel/quiz/components/Utility';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {setCacheItem} from '../../../../API/User';
 import SuccessTransaction from '../../../../components/web/SuccessTransaction/SuccessTransaction';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import CV from '../../../panel/quiz/components/CV/CV';
 import Ranking from './Ranking/Ranking';
 import {QuizProvider} from '../../../panel/quiz/components/Context';
 
@@ -35,56 +25,11 @@ const Ops = props => {
     React.useContext(dispatchMyQuizzesContext),
   ];
 
-  const [showUploadPane, setShowUploadPane] = useState(false);
   const [state, dispatch] = useGlobalState();
-
-  const [showChoosePageTheme, setShowChoosePageTheme] = useState(false);
-
-  const downloadAnswerSheet = async () => {
-    if (theme === undefined || size === undefined) {
-      showError(commonTranslator.pleaseFillAllFields);
-      return;
-    }
-    props.setLoading(true);
-
-    let res = await generalRequest(
-      CV_BASE_URL +
-        'generateSchoolAnswerSheet/' +
-        state.selectedQuiz.id +
-        '/' +
-        theme +
-        '/' +
-        size,
-      'post',
-      undefined,
-      'data',
-      props.token,
-    );
-
-    props.setLoading(false);
-
-    if (res != null) {
-      fetch(res, {
-        method: 'GET',
-      })
-        .then(response => response.blob())
-        .then(blob => {
-          // Create blob link to download
-          const url = window.URL.createObjectURL(new Blob([blob]));
-          const link = document.createElement('a');
-          link.href = url;
-          link.setAttribute('download', `پاسخنامه.pdf`);
-
-          document.body.appendChild(link);
-          link.click();
-          link.parentNode.removeChild(link);
-        });
-    }
-  };
 
   const createTarazLocal = async () => {
     props.setLoading(true);
-    await createTaraz(state.selectedQuiz.id, 'school', props.token);
+    await createTaraz(state.selectedQuiz.id, 'hw', props.token);
     props.setLoading(false);
   };
 
@@ -96,7 +41,7 @@ const Ops = props => {
       props.setLoading(true);
       Promise.all([
         generalRequest(
-          routes.fetchQuiz + 'school/' + state.selectedQuiz.id,
+          routes.fetchQuiz + 'hw/' + state.selectedQuiz.id,
           'get',
           undefined,
           'data',
@@ -128,7 +73,7 @@ const Ops = props => {
     props.setLoading(true);
     Promise.all([
       generalRequest(
-        routes.editQuiz + 'school/' + state.selectedQuiz.id,
+        routes.editQuiz + 'hw/' + state.selectedQuiz.id,
         'post',
         {
           visibility: !state.selectedQuiz.visibility,
@@ -153,26 +98,7 @@ const Ops = props => {
     }, 1000);
   }, [refId]);
 
-  const themes = [
-    {item: 'قرمز', id: 'RED'},
-    {item: 'آبی ', id: 'BLUE'},
-    {item: 'سبز', id: 'GREEN'},
-    {item: 'سفید', id: 'WHITE'},
-  ];
-
-  const sizes = [
-    {item: 'A5', id: 'A5'},
-    {item: 'A4', id: 'A4'},
-  ];
-
-  const [theme, setTheme] = useState();
-  const [size, setSize] = useState();
-  const [showCV, setShowCV] = useState(false);
   const [showRanking, setShowRanking] = useState(false);
-
-  React.useEffect(() => {
-    props.setShowList(!showCV);
-  }, [showCV, props]);
 
   React.useEffect(() => {
     props.setShowList(!showRanking);
@@ -192,54 +118,7 @@ const Ops = props => {
           />
         </QuizProvider>
       )}
-      {showCV && (
-        <CV
-          state={state}
-          dispatch={dispatch}
-          setLoading={props.setLoading}
-          setMode={mode => {
-            setShowCV(false);
-          }}
-          token={props.token}
-        />
-      )}
-      {showChoosePageTheme && (
-        <LargePopUp
-          title={'دانلود پاسخ برگها'}
-          btns={
-            <CommonButton
-              onPress={() => downloadAnswerSheet()}
-              theme={'dark'}
-              title={commonTranslator.confirm}
-            />
-          }
-          toggleShowPopUp={() => setShowChoosePageTheme(false)}>
-          <PhoneView>
-            <JustBottomBorderSelect
-              placeholder={'تم موردنظر'}
-              subText={'تم موردنظر'}
-              setter={setTheme}
-              values={themes}
-              value={
-                theme === undefined
-                  ? undefined
-                  : themes.find(elem => elem.id === theme)
-              }
-            />
-            <JustBottomBorderSelect
-              placeholder={'اندازه موردنظر'}
-              subText={'اندازه موردنظر'}
-              setter={setSize}
-              values={sizes}
-              value={
-                size === undefined
-                  ? undefined
-                  : sizes.find(elem => elem.id === size)
-              }
-            />
-          </PhoneView>
-        </LargePopUp>
-      )}
+
       {showFinalizeMsg && (
         <LargePopUp
           title={translator.finalize}
@@ -248,7 +127,7 @@ const Ops = props => {
               onPress={async () => {
                 props.setLoading(true);
                 let res = await generalRequest(
-                  routes.finalizeSchoolQuiz + state.selectedQuiz.id,
+                  routes.finalizeHW + state.selectedQuiz.id,
                   'post',
                   offcode === undefined ? undefined : {off: offcode},
                   ['action', 'refId', 'transactionId'],
@@ -304,7 +183,7 @@ const Ops = props => {
           />
         </LargePopUp>
       )}
-      {!showFinalizeMsg && !showCV && !showChoosePageTheme && !showRanking && (
+      {!showFinalizeMsg && !showRanking && (
         <LargePopUp
           title={state.selectedQuiz.title}
           toggleShowPopUp={props.toggleShowPopUp}>
@@ -321,31 +200,6 @@ const Ops = props => {
                 dir={'rtl'}
                 theme={'transparent'}
                 title={translator.seeInfo}
-              />
-              <CommonButton
-                dir={'rtl'}
-                onPress={() => changeMode('question')}
-                theme={'transparent'}
-                title={
-                  state.selectedQuiz.status !== 'init'
-                    ? translator.seeQuestion
-                    : translator.editQuestions
-                }
-              />
-
-              <CommonButton
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() =>
-                  window.open(
-                    '/reviewQuiz/' +
-                      state.selectedQuiz.generalMode +
-                      '/' +
-                      state.selectedQuiz.id,
-                    '_blank',
-                  )
-                }
-                title={'مرور آزمون'}
               />
 
               <CommonButton
@@ -381,8 +235,7 @@ const Ops = props => {
                     onPress={async () => {
                       props.setLoading(true);
                       let res = await generalRequest(
-                        routes.getQuizTotalPriceForSchool +
-                          state.selectedQuiz.id,
+                        routes.getHWTotalPrice + state.selectedQuiz.id,
                         'get',
                         undefined,
                         'data',
@@ -390,20 +243,8 @@ const Ops = props => {
                       );
                       props.setLoading(false);
                       if (res != null) {
-                        if (
-                          res.status !== undefined &&
-                          res.status === 'ready'
-                        ) {
-                          state.selectedQuiz.status = 'semi_finish';
-                          dispatch({
-                            selectedQuiz: state.selectedQuiz,
-                            needUpdate: true,
-                          });
-                          showSuccess();
-                        } else {
-                          setPriceInfo(res);
-                          setShowFinalizeMsg(true);
-                        }
+                        setPriceInfo(res);
+                        setShowFinalizeMsg(true);
                       }
                     }}
                     title={translator.finalize}
@@ -419,25 +260,6 @@ const Ops = props => {
                       theme={'transparent'}
                       title={translator.createTaraz}
                     />
-
-                    {(state.selectedQuiz.launchMode === 'physical' ||
-                      state.selectedQuiz.launchMode === 'hybrid') && (
-                      <CommonButton
-                        dir={'rtl'}
-                        theme={'transparent'}
-                        onPress={async () => {
-                          props.setLoading(true);
-                          await generateQuestionPDF(
-                            state.selectedQuiz.id,
-                            'school',
-                            props.token,
-                          );
-
-                          props.setLoading(false);
-                        }}
-                        title={translator.generateQuestionPDF}
-                      />
-                    )}
                   </>
                 )}
 
@@ -467,76 +289,9 @@ const Ops = props => {
                   )}
                 </>
               )}
-
-              {(state.selectedQuiz.launchMode === 'physical' ||
-                state.selectedQuiz.launchMode === 'hybrid') &&
-                state.selectedQuiz.status !== 'init' &&
-                !state.selectedQuiz.isStop &&
-                state.selectedQuiz.mode === 'regular' && (
-                  <CommonButton
-                    dir={'rtl'}
-                    theme={'transparent'}
-                    onPress={() => setShowCV(true)}
-                    title={translator.correntAnswerSheets}
-                  />
-                )}
-
-              <CommonButton
-                title={translator.keySheet}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => props.setMode('key')}
-              />
-
-              {(state.selectedQuiz.launchMode === 'physical' ||
-                state.selectedQuiz.launchMode === 'hybrid') &&
-                state.selectedQuiz.status !== 'init' &&
-                !state.selectedQuiz.isStop &&
-                state.selectedQuiz.mode === 'regular' && (
-                  <CommonButton
-                    title={'دانلود پاسخ برگ'}
-                    dir={'rtl'}
-                    theme={'transparent'}
-                    onPress={() => setShowChoosePageTheme(true)}
-                  />
-                )}
-
-              {state.selectedQuiz.status !== 'init' &&
-                (state.selectedQuiz.launchMode === 'physical' ||
-                  state.selectedQuiz.launchMode === 'hybrid') &&
-                !state.selectedQuiz.isStop && (
-                  <CommonButton
-                    title={'آپلود پاسخ برگها'}
-                    dir={'rtl'}
-                    theme={'transparent'}
-                    onPress={() => setShowUploadPane(true)}
-                  />
-                )}
             </PhoneView>
           )}
         </LargePopUp>
-      )}
-
-      {showUploadPane && (
-        <UploadFile
-          url={
-            CV_BASE_URL + 'uploadTashrihiAnswerSheets/' + state.selectedQuiz.id
-          }
-          token={props.token}
-          maxFileSize={20}
-          accept={['.pdf']}
-          toggleShow={() => setShowUploadPane(false)}
-          title={'آپلود پاسخ برگها'}
-          multi={false}
-          setResult={res => {
-            if (res) {
-              state.selectedQuiz.cropped = false;
-              dispatch({selectedQuiz: state.selectedQuiz});
-              showSuccess();
-              setShowUploadPane(false);
-            }
-          }}
-        />
       )}
 
       {refId !== undefined && (

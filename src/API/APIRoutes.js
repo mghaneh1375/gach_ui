@@ -70,7 +70,9 @@ export const routes = {
   getQuizRecpForSchool: 'quiz/school/recp/',
   copySchoolQuiz: 'quiz/school/copy/',
   getQuizTotalPriceForSchool: 'quiz/school/getTotalPrice/',
+  getHWTotalPrice: 'quiz/school/getTotalHWPrice/',
   finalizeSchoolQuiz: 'quiz/school/finalize/',
+  finalizeHW: 'quiz/school/finalizeHW/',
   getMyMarkListForSpecificStudent:
     'quiz/school/getMyMarkListForSpecificStudent/',
   getMyMarks: 'quiz/school/getMyMarks/',

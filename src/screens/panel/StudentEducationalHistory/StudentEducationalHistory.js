@@ -5,12 +5,10 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {dispatchStateContext, globalStateContext} from '../../../App';
-import StudentCard from '../../../components/web/StudentCard';
 import {
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
-  PhoneView,
   SimpleText,
 } from '../../../styles/Common';
 import CommonDataTable from '../../../styles/Common/CommonDataTable';
@@ -19,7 +17,6 @@ import {styles} from '../../../styles/Common/Styles';
 import commonTranslator from '../../../translator/Common';
 import MiniCard from '../quiz/components/CV/MiniCard';
 import {subjectColsCustomQuiz} from '../quiz/components/Reports/Karname/LessonTableStructure';
-import iryscQuizColumns from './components/IryscQuizTableStructure';
 import Card from '../../general/Advisors/Card';
 
 function StudentEducationalHistory(props) {
@@ -149,9 +146,6 @@ function StudentEducationalHistory(props) {
                   params.userId,
                 '_blank',
               );
-              // props.navigate(
-              //   '/result/school/' + openQuizzes[index].id + '/' + params.userId,
-              // );
             }}
             icon={faEye}
           />

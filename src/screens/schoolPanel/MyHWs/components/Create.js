@@ -47,14 +47,22 @@ const Create = props => {
     setDelayPenalty(state.selectedQuiz.delayPenalty);
     setAnswerType(state.selectedQuiz.answerType);
     setMaxUploadSize(state.selectedQuiz.maxFileSize);
-    setStart(state.selectedQuiz.start);
     setDescAfter(state.selectedQuiz.descAfter);
-    setEnd(state.selectedQuiz.end === undefined ? '' : state.selectedQuiz.end);
+    setDescBefore(state.selectedQuiz.desc);
+    setStart(state.selectedQuiz.start);
+    setEnd(state.selectedQuiz.end);
+
+    console.log(state.selectedQuiz);
+    console.log(state.selectedQuiz.start);
 
     setShowResultsAfterCorrection(
       state.selectedQuiz.showResultsAfterCorrection,
     );
   }, [state.selectedQuiz, dispatch, props.editMode, backToList]);
+
+  React.useEffect(() => {
+    console.log(start);
+  }, [start]);
 
   const answerTypes = [
     {item: hwTranslator.pdf, id: 'pdf'},
@@ -67,7 +75,7 @@ const Create = props => {
 
   const [name, setName] = useState('');
   const [maxUploadSize, setMaxUploadSize] = useState(5);
-  const [answerType, setAnswerType] = useState();
+  const [answerType, setAnswerType] = useState('pdf');
   const [allowDelay, setAllowDelay] = useState(false);
   const [delayEnd, setDelayEnd] = useState();
   const [delayPenalty, setDelayPenalty] = useState();
@@ -85,8 +93,19 @@ const Create = props => {
 
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
-      maxFileSize: 2,
-      accept: '.pdf',
+      maxFileSize: 5,
+      accept: [
+        '.pdf',
+        '.docx',
+        '.doc',
+        '.mp4',
+        '.mp3',
+        '.jpg',
+        '.png',
+        '.jpeg',
+        '.ppt',
+        '.pptx',
+      ],
       readAs: 'DataURL',
       multiple: true,
     });
@@ -134,7 +153,7 @@ const Create = props => {
       data,
       props.editMode ? routes.editHW + state.selectedQuiz.id : routes.createHW,
       props.token,
-      'school',
+      'hw',
       undefined,
     );
 
@@ -149,7 +168,7 @@ const Create = props => {
             props.token,
             filesContent[i],
             quizId,
-            'school',
+            'hw',
           );
           if (fileRes !== null && fileRes !== undefined) files.push(fileRes);
         }
@@ -188,10 +207,10 @@ const Create = props => {
         onBackClick={() => props.setMode('list')}>
         <PhoneView style={{gap: 15}}>
           <JustBottomBorderTextInput
-            placeholder={translator.name}
             onChangeText={e => setName(e)}
             value={name}
-            subText={translator.name}
+            subText={hwTranslator.name}
+            placeholder={hwTranslator.name}
           />
         </PhoneView>
       </CommonWebBox>
