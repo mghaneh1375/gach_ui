@@ -5,11 +5,14 @@ import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBord
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {styles} from '../../../../styles/Common/Styles';
 import translator from '../../../panel/quiz/Translator';
-import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
+import {
+  dispatchMyQuizzesContext,
+  myQuizzesContext,
+} from './../../MyQuizzes/components/Context';
 import commonTranslator from '../../../../translator/Common';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
-import {showError, showSuccess} from '../../../../services/Utility';
+import {showSuccess} from '../../../../services/Utility';
 import {launchModeKeyVals} from '../../../panel/quiz/components/KeyVals';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 

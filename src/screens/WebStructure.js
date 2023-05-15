@@ -24,7 +24,6 @@ import Menu from '../components/web/LargeScreen/Header/Menu';
 import Navbar from '../components/web/Navbar';
 import BottomNavBar from '../components/web/BottomNavBar';
 import Quiz from './panel/quiz/Quiz';
-import Consultants from './panel/consultants/Consultants';
 import Course from './panel/consultants/Course';
 import LifeStyle from './panel/consultants/LifeStyle';
 import Question from './panel/question/Question';
@@ -96,6 +95,8 @@ import MyRequests from './advisorPanel/MyRequests/MyRequests';
 import MyAdvisor from './studentPanel/Advisor/MyAdvisor/MyAdvisor';
 import StudentEducationalHistory from './panel/StudentEducationalHistory/StudentEducationalHistory';
 import MyHWs from './schoolPanel/MyHWs/MyHWs';
+import StudentHWs from './studentPanel/MyQuizzes/hw/MyHWs';
+import DoHW from './studentPanel/MyQuizzes/doHW/doHW';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -293,7 +294,10 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+
               {props.page === 'schoolQuiz' && <MyQuizzes navigate={navigate} />}
+              {props.page === 'schoolHW' && <StudentHWs navigate={navigate} />}
+
               {props.page === 'advisorQuiz' && (
                 <MyQuizzes advisor={true} navigate={navigate} />
               )}
@@ -352,6 +356,7 @@ const WebStructue = props => {
                 <MySchoolQuizzes navigate={navigate} />
               )}
               {props.page === 'mySchoolHWs' && <MyHWs navigate={navigate} />}
+              {props.page === 'startHW' && <DoHW navigate={navigate} />}
               {props.page === 'startQuiz' && (
                 <RunQuiz
                   isInReviewMode={false}

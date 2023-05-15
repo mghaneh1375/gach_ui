@@ -6,7 +6,7 @@ import {useParams} from 'react-router';
 import Karname from '../../../panel/quiz/components/Reports/Karname/Karname';
 import AnswerSheet from '../irysc/components/AnswerSheet';
 
-function MyQuizzes(props) {
+function MyHWs(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -32,7 +32,6 @@ function MyQuizzes(props) {
           advisor={props.advisor === undefined ? false : props.advisor}
           setLoading={setLoading}
           token={state.token}
-          money={state.user.user.money}
           navigate={props.navigate}
         />
       )}
@@ -57,4 +56,4 @@ function MyQuizzes(props) {
   );
 }
 
-export default MyQuizzes;
+export default MyHWs;

@@ -12,9 +12,9 @@ export const CV_BASE_URL = 'https://cv.irysc.com/api/';
 // export const VIDEO_BASE_URL = 'http://127.0.0.1:8086/video_api/';
 export const VIDEO_BASE_URL = 'https://video.irysc.com/video_api/';
 
-// export const BASE_URL = 'http://127.0.0.1:8080/api/';
+export const BASE_URL = 'http://127.0.0.1:8080/api/';
 // export const BASE_URL = 'http://192.168.0.106:8080/api/';
-export const BASE_URL = 'https://e.irysc.com/api/';
+// export const BASE_URL = 'https://e.irysc.com/api/';
 
 export const COMMON_HEADER = {
   'content-type': 'application/json',
@@ -396,6 +396,8 @@ export const preProcess = (data, mandatoryFields = undefined) => {
     for (let i = 0; i < mandatoryFields.length; i++) {
       const element = mandatoryFields[i];
       if (data[element] === undefined || data[element].length === 0) {
+        console.log(element);
+        console.log(data[element]);
         showError(commonTranslator.pleaseFillAllFields);
         throw 'please fill all mandatory fields';
       }

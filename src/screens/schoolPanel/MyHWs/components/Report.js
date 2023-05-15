@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 
-import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
+import {
+  dispatchMyQuizzesContext,
+  myQuizzesContext,
+} from './../../MyQuizzes/components/Context';
 import {
   fetchA1ReportLocal,
   fetchKarnameReportLocal,

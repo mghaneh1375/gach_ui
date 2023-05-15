@@ -4,7 +4,10 @@ import {CommonWebBox, MyView} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import {getQuizzes} from '../../../panel/quiz/components/Utility';
 import translator from '../../../panel/quiz/Translator';
-import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
+import {
+  dispatchMyQuizzesContext,
+  myQuizzesContext,
+} from './../../MyQuizzes/components/Context';
 import Ops from './Ops';
 import columns from './TableStructure';
 

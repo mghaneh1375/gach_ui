@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
-import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
+import {
+  dispatchMyQuizzesContext,
+  myQuizzesContext,
+} from './../../MyQuizzes/components/Context';
 import {useFilePicker} from 'use-file-picker';
 import {routes} from '../../../../API/APIRoutes';
 import {CallAPI} from '../../../panel/quiz/components/Create/CallAPI';
@@ -42,27 +45,20 @@ const Create = props => {
     }
 
     setName(state.selectedQuiz.title);
-    setAllowDelay(state.selectedQuiz.deleyEnd !== undefined);
+    setAllowDelay(state.selectedQuiz.delayEnd !== undefined);
     setDelayEnd(state.selectedQuiz.delayEnd);
     setDelayPenalty(state.selectedQuiz.delayPenalty);
     setAnswerType(state.selectedQuiz.answerType);
-    setMaxUploadSize(state.selectedQuiz.maxFileSize);
+    setMaxUploadSize(state.selectedQuiz.maxUploadSize);
     setDescAfter(state.selectedQuiz.descAfter);
     setDescBefore(state.selectedQuiz.desc);
     setStart(state.selectedQuiz.start);
     setEnd(state.selectedQuiz.end);
 
-    console.log(state.selectedQuiz);
-    console.log(state.selectedQuiz.start);
-
     setShowResultsAfterCorrection(
       state.selectedQuiz.showResultsAfterCorrection,
     );
   }, [state.selectedQuiz, dispatch, props.editMode, backToList]);
-
-  React.useEffect(() => {
-    console.log(start);
-  }, [start]);
 
   const answerTypes = [
     {item: hwTranslator.pdf, id: 'pdf'},
@@ -116,7 +112,12 @@ const Create = props => {
 
   const removeUploadedAttach = async filename => {
     props.setLoading(true);
-    let res = await removeFile(props.token, filename, state.selectedQuiz.id);
+    let res = await removeFile(
+      props.token,
+      filename,
+      state.selectedQuiz.id,
+      'hw',
+    );
     props.setLoading(false);
     if (res === null) return;
     let tmp = [];
@@ -250,26 +251,28 @@ const Create = props => {
             subText={hwTranslator.maxUploadSize}
             justNum={true}
           />
-          {(state.selectedQuiz === undefined ||
-            state.selectedQuiz.isStart === undefined ||
-            !state.selectedQuiz.isStart) && (
-            <JustBottomBorderDatePicker
-              placeholder={translator.startDate}
-              value={start}
-              setter={setStart}
-              subText={translator.startDate}
-            />
-          )}
-          {(state.selectedQuiz === undefined ||
-            state.selectedQuiz.isEnd === undefined ||
-            !state.selectedQuiz.isEnd) && (
-            <JustBottomBorderDatePicker
-              placeholder={translator.endDate}
-              value={end}
-              setter={setEnd}
-              subText={translator.endDate}
-            />
-          )}
+          {state.selectedQuiz === undefined ||
+            (start !== undefined &&
+              (state.selectedQuiz.isStart === undefined ||
+                !state.selectedQuiz.isStart) && (
+                <JustBottomBorderDatePicker
+                  placeholder={translator.startDate}
+                  value={start}
+                  setter={setStart}
+                  subText={translator.startDate}
+                />
+              ))}
+          {state.selectedQuiz === undefined ||
+            (end !== undefined &&
+              (state.selectedQuiz.isEnd === undefined ||
+                !state.selectedQuiz.isEnd) && (
+                <JustBottomBorderDatePicker
+                  placeholder={translator.endDate}
+                  value={end}
+                  setter={setEnd}
+                  subText={translator.endDate}
+                />
+              ))}
           {(state.selectedQuiz === undefined ||
             state.selectedQuiz.isEnd === undefined ||
             !state.selectedQuiz.isEnd) && (

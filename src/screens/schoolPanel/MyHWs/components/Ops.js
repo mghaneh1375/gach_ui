@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
-import {formatPrice, showSuccess} from '../../../../services/Utility';
+import {formatPrice} from '../../../../services/Utility';
 import {
   CommonButton,
   MyView,
@@ -10,7 +10,10 @@ import {
 } from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import translator from '../../../panel/quiz/Translator';
-import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
+import {
+  dispatchMyQuizzesContext,
+  myQuizzesContext,
+} from './../../MyQuizzes/components/Context';
 import commonTranslator from '../../../../translator/Common';
 import {createTaraz} from '../../../panel/quiz/components/Utility';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
@@ -18,6 +21,7 @@ import {setCacheItem} from '../../../../API/User';
 import SuccessTransaction from '../../../../components/web/SuccessTransaction/SuccessTransaction';
 import Ranking from './Ranking/Ranking';
 import {QuizProvider} from '../../../panel/quiz/components/Context';
+import hwTranslator from './Translator';
 
 const Ops = props => {
   const useGlobalState = () => [
@@ -73,11 +77,9 @@ const Ops = props => {
     props.setLoading(true);
     Promise.all([
       generalRequest(
-        routes.editQuiz + 'hw/' + state.selectedQuiz.id,
+        routes.toggleVisibilityQuiz + 'hw/' + state.selectedQuiz.id,
         'post',
-        {
-          visibility: !state.selectedQuiz.visibility,
-        },
+        undefined,
         undefined,
         props.token,
       ),
@@ -121,7 +123,7 @@ const Ops = props => {
 
       {showFinalizeMsg && (
         <LargePopUp
-          title={translator.finalize}
+          title={hwTranslator.finalize}
           btns={
             <CommonButton
               onPress={async () => {
@@ -151,11 +153,11 @@ const Ops = props => {
                 }
               }}
               theme={'dark'}
-              title={translator.finalize}
+              title={hwTranslator.finalize}
             />
           }
           toggleShowPopUp={() => setShowFinalizeMsg(false)}>
-          <SimpleText text={translator.finalizeMsg} />
+          <SimpleText text={hwTranslator.finalizeMsg} />
           {priceInfo !== undefined && (
             <MyView>
               <SimpleText
@@ -247,7 +249,7 @@ const Ops = props => {
                         setShowFinalizeMsg(true);
                       }
                     }}
-                    title={translator.finalize}
+                    title={hwTranslator.finalize}
                   />
                 </>
               )}

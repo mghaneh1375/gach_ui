@@ -80,7 +80,12 @@ const CreateOpenQuiz = props => {
 
   const removeUploadedAttach = async filename => {
     props.setLoading(true);
-    let res = await removeFile(props.token, filename, state.selectedQuiz.id);
+    let res = await removeFile(
+      props.token,
+      filename,
+      state.selectedQuiz.id,
+      'open',
+    );
     props.setLoading(false);
     if (res === null) return;
     let tmp = [];

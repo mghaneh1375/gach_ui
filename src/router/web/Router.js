@@ -79,6 +79,8 @@ export default function WebRouter() {
             element={<WebStructue page="schoolQuiz" />}
           />
 
+          <Route path="mySchool/hw" element={<WebStructue page="schoolHW" />} />
+
           <Route
             path="myAdvisor/quiz"
             element={<WebStructue page="advisorQuiz" />}
@@ -102,8 +104,6 @@ export default function WebRouter() {
             path="myStudentRequests"
             element={<WebStructue page="myStudentRequests" />}
           />
-
-          <Route path="mySchool/hw" element={<WebStructue page="schoolHW" />} />
 
           <Route
             path="mySchoolQuizzes"
@@ -247,6 +247,11 @@ export default function WebRouter() {
           <Route
             path="/startQuiz/:quizMode/:quizId"
             element={<WebStructue page="startQuiz" />}
+          />
+
+          <Route
+            path="/startHW/:hwId"
+            element={<WebStructue page="startHW" />}
           />
 
           <Route

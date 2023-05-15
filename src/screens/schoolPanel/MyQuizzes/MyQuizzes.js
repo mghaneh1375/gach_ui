@@ -66,6 +66,7 @@ function MyQuizzes(props) {
             setLoading={setLoading}
             setMode={setMode}
             token={state.token}
+            generalQuizMode={'school'}
           />
         )}
 

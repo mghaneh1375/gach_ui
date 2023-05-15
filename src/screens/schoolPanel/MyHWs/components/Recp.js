@@ -5,7 +5,10 @@ import {formatPrice} from '../../../../services/Utility';
 import {CommonWebBox, SimpleText} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import translator from '../../../panel/quiz/Translator';
-import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
+import {
+  dispatchMyQuizzesContext,
+  myQuizzesContext,
+} from './../../MyQuizzes/components/Context';
 
 function Recp(props) {
   const useGlobalState = () => [
@@ -28,7 +31,7 @@ function Recp(props) {
 
     Promise.all([
       generalRequest(
-        routes.getQuizRecpForSchool + state.selectedQuiz.id,
+        routes.getHWRecpForSchool + state.selectedQuiz.id,
         'get',
         undefined,
         'data',
@@ -62,40 +65,7 @@ function Recp(props) {
 
   const columns = [
     {
-      name: 'نام حیطه',
-      selector: row => row.subject,
-      grow: 3,
-      minWidth: '120px',
-    },
-    {
-      name: 'تعداد سوال',
-      selector: row => row.count,
-      grow: 1,
-      center: true,
-    },
-    {
-      name: 'سطح سختی',
-      selector: row => row.level,
-      grow: 1,
-      center: true,
-    },
-    {
-      name: 'قیمت واحد (تومان)',
-      selector: row => formatPrice(row.price),
-      grow: 1,
-      center: true,
-    },
-    {
-      name: 'قیمت کل (تومان)',
-      selector: row => formatPrice(row.totalPrice),
-      grow: 1,
-      center: true,
-    },
-  ];
-
-  const columns2 = [
-    {
-      name: 'تعداد سوال',
+      name: 'تعداد دانش آموز',
       selector: row => row.count,
       grow: 1,
       center: true,
@@ -130,7 +100,7 @@ function Recp(props) {
         {data !== undefined && (
           <CommonDataTable
             data={data}
-            columns={state.selectedQuiz.database ? columns : columns2}
+            columns={columns}
             excel={false}
             pagination={false}
           />
