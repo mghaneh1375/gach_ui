@@ -5,6 +5,7 @@ import {Store} from 'react-notifications-component';
 import {generalRequest} from '../API/Utility';
 import commonTranslator from '../translator/Common';
 import {defaultSystemFonts} from 'react-native-render-html';
+import hwTranslator from '../screens/schoolPanel/MyHWs/components/Translator';
 
 export function getDevice() {
   const device = [];
@@ -50,7 +51,10 @@ export function convertSecToMinWithOutHour(sec) {
 
 export function convertSecToMinWithOutSec(sec) {
   if (sec < 0) return '';
+
   const d = new Date(sec * 1000).toISOString();
+
+  let day = parseInt(d.substr(8, 2)) - 1;
 
   let h = d.substr(11, 2);
 
@@ -58,6 +62,15 @@ export function convertSecToMinWithOutSec(sec) {
 
   let m = d.substr(14, 2);
   if (m[0] == 0) m = m[1];
+
+  if (day > 0) {
+    if (h[0] > 0) {
+      if (m > 0) return day + ' روز ' + h + ' ساعت ' + m + ' دقیقه ';
+      return day + ' روز ' + h + ' ساعت ';
+    }
+
+    return +m + ' دقیقه ';
+  }
 
   if (h[0] > 0) {
     if (m > 0) return h + ' ساعت ' + m + ' دقیقه ';
@@ -311,3 +324,12 @@ export const setImgSize = (
       : ((totalWidth - 50) * height) / width,
   );
 };
+
+export const answerTypes = [
+  {item: hwTranslator.pdf, id: 'pdf'},
+  {item: hwTranslator.word, id: 'word'},
+  {item: hwTranslator.powerpoint, id: 'powerpoint'},
+  {item: hwTranslator.image, id: 'image'},
+  {item: hwTranslator.audio, id: 'audio'},
+  {item: hwTranslator.video, id: 'video'},
+];

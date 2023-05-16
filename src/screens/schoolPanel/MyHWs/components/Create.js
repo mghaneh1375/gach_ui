@@ -17,7 +17,11 @@ import {
 import translator from '../../../panel/quiz/Translator';
 import commonTranslator from '../../../../translator/Common';
 import QuizAnswerSheetInfo from '../../../panel/quiz/components/Create/QuizAnswerSheetInfo';
-import {showSuccess, trueFalseValues} from '../../../../services/Utility';
+import {
+  answerTypes,
+  showSuccess,
+  trueFalseValues,
+} from '../../../../services/Utility';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
@@ -59,15 +63,6 @@ const Create = props => {
       state.selectedQuiz.showResultsAfterCorrection,
     );
   }, [state.selectedQuiz, dispatch, props.editMode, backToList]);
-
-  const answerTypes = [
-    {item: hwTranslator.pdf, id: 'pdf'},
-    {item: hwTranslator.word, id: 'word'},
-    {item: hwTranslator.powerpoint, id: 'powerpoint'},
-    {item: hwTranslator.image, id: 'image'},
-    {item: hwTranslator.audio, id: 'audio'},
-    {item: hwTranslator.video, id: 'video'},
-  ];
 
   const [name, setName] = useState('');
   const [maxUploadSize, setMaxUploadSize] = useState(5);
@@ -251,28 +246,28 @@ const Create = props => {
             subText={hwTranslator.maxUploadSize}
             justNum={true}
           />
-          {state.selectedQuiz === undefined ||
+          {(state.selectedQuiz === undefined ||
             (start !== undefined &&
               (state.selectedQuiz.isStart === undefined ||
-                !state.selectedQuiz.isStart) && (
-                <JustBottomBorderDatePicker
-                  placeholder={translator.startDate}
-                  value={start}
-                  setter={setStart}
-                  subText={translator.startDate}
-                />
-              ))}
-          {state.selectedQuiz === undefined ||
+                !state.selectedQuiz.isStart))) && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.startDate}
+              value={start}
+              setter={setStart}
+              subText={translator.startDate}
+            />
+          )}
+          {(state.selectedQuiz === undefined ||
             (end !== undefined &&
               (state.selectedQuiz.isEnd === undefined ||
-                !state.selectedQuiz.isEnd) && (
-                <JustBottomBorderDatePicker
-                  placeholder={translator.endDate}
-                  value={end}
-                  setter={setEnd}
-                  subText={translator.endDate}
-                />
-              ))}
+                !state.selectedQuiz.isEnd))) && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.endDate}
+              value={end}
+              setter={setEnd}
+              subText={translator.endDate}
+            />
+          )}
           {(state.selectedQuiz === undefined ||
             state.selectedQuiz.isEnd === undefined ||
             !state.selectedQuiz.isEnd) && (

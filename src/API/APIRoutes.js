@@ -98,6 +98,8 @@ export const routes = {
   fetchMyQuizzes: 'quiz/public/myQuizzes/',
   fetchMySchoolHWs: 'quiz/public/myHWs',
   getMyHW: 'quiz/public/myHW/',
+  uploadHW: 'quiz/public/uploadHW/',
+  downloadHW: 'quiz/public/downloadHW/',
   fetchMySchoolQuizzes: 'quiz/public/mySchoolQuizzes',
   fetchMyCustomQuizzes: 'quiz/public/myCustomQuizzes/',
   reviewQuiz: 'quiz/public/reviewQuiz/',
