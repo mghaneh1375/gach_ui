@@ -18,6 +18,7 @@ import {
   convertSecToMin,
   convertSecToMinWithOutSec,
   convertTimestamp,
+  getDevice,
   showSuccess,
   simpleConvertTimestamp,
   systemFonts,
@@ -25,6 +26,7 @@ import {
 } from '../../../../services/Utility';
 import Row from './Row';
 import UploadFile from '../../../../components/web/UploadFile';
+import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
 
 function DoHW(props) {
   const [hw, setHw] = useState();
@@ -67,8 +69,13 @@ function DoHW(props) {
     fetchData();
   });
 
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+
   return (
-    <CommonWebBox>
+    <CommonWebBox
+      header={hw !== undefined ? hw.title : ''}
+      backBtn={true}
+      onBackClick={() => props.navigate('/mySchool/hw')}>
       {showUploadPane && (
         <UploadFile
           url={routes.uploadHW + hw.id}
@@ -90,10 +97,6 @@ function DoHW(props) {
       )}
       {hw !== undefined && (
         <>
-          <SimpleText
-            text={hw.title}
-            style={{...styles.BlueBold, ...styles.fontSize25}}
-          />
           <RenderHTML
             source={{
               html: hw.desc,
@@ -101,6 +104,31 @@ function DoHW(props) {
             tagsStyles={tagsStyles}
             systemFonts={systemFonts}
           />
+
+          {hw.attaches !== undefined &&
+            hw.attaches.map((elem, index) => {
+              return (
+                <SimpleText
+                  style={{
+                    cursor: 'pointer',
+                    color: '#0000EE',
+                    textDecoration: 'underline',
+                  }}
+                  onPress={() => {
+                    let tmp = elem.split('/');
+                    downloadRequest(
+                      elem,
+                      undefined,
+                      undefined,
+                      undefined,
+                      tmp[tmp.length - 1],
+                    );
+                  }}
+                  text={'فایل ضمیمه ' + (index + 1)}
+                />
+              );
+            })}
+
           <SimpleText
             text={'وضعیت تحویل تمرین'}
             style={{...styles.fontSize20, ...styles.textCenter}}
@@ -113,10 +141,11 @@ function DoHW(props) {
             <MyView
               style={{
                 ...styles.alignSelfCenter,
-                ...{width: 700, borderWidth: 1},
+                ...{width: isInPhone ? '100%' : 700, borderWidth: 1},
               }}>
               <Row
                 title={'وضعیت تحویل تمرین'}
+                isInPhone={isInPhone}
                 answer={
                   hw.uploadAt === undefined
                     ? 'تحویل داده نشده'
@@ -126,24 +155,35 @@ function DoHW(props) {
               />
               <Row
                 silver={false}
+                isInPhone={isInPhone}
                 title={'وضعیت نمره'}
-                answer={hw.mark === undefined ? 'نمره داده نشده' : hw.mark}
+                answer={
+                  hw.mark === undefined ? 'نمره داده نشده' : hw.mark + ' / 100'
+                }
               />
 
               <Row
                 silver={true}
+                isInPhone={isInPhone}
                 title={'مهلت انجام تمرین'}
-                answer={simpleConvertTimestamp(hw.start)}
+                answer={
+                  'از ' +
+                  simpleConvertTimestamp(hw.start) +
+                  ' تا ' +
+                  simpleConvertTimestamp(hw.end)
+                }
               />
 
               <Row
                 silver={false}
+                isInPhone={isInPhone}
                 title={'زمان باقی مانده'}
                 answer={convertSecToMinWithOutSec(hw.reminder)}
               />
 
               <Row
                 silver={true}
+                isInPhone={isInPhone}
                 title={'آخرین بارگذاری شما'}
                 answer={
                   hw.uploadAt !== undefined ? hw.uploadAt : '1400/01/01 - 12:00'
@@ -153,6 +193,7 @@ function DoHW(props) {
 
               <Row
                 silver={false}
+                isInPhone={isInPhone}
                 title={'فایل آپلود شده'}
                 answer={
                   hw.filename !== undefined ? hw.filename : 'ssssssss.zip'
@@ -160,7 +201,11 @@ function DoHW(props) {
                 style={
                   hw.uploadAt === undefined
                     ? {visibility: 'hidden'}
-                    : {cursor: 'pointer'}
+                    : {
+                        cursor: 'pointer',
+                        color: '#0000ee',
+                        textDecoration: 'underline',
+                      }
                 }
                 onPress={
                   hw.uploadAt === undefined
@@ -178,6 +223,7 @@ function DoHW(props) {
 
               <Row
                 silver={true}
+                isInPhone={isInPhone}
                 title={'فایل مجاز برای آپلود'}
                 answer={
                   answerTypes.find(e => e.id === hw.answerType).item +
@@ -186,6 +232,15 @@ function DoHW(props) {
                   'MB'
                 }
               />
+
+              {hw.markDesc !== undefined && (
+                <Row
+                  silver={false}
+                  isInPhone={isInPhone}
+                  title={'توضیح مصحح'}
+                  answer={hw.markDesc}
+                />
+              )}
             </MyView>
             {hw.delayEnd !== undefined && (
               <SimpleText
@@ -214,6 +269,15 @@ function DoHW(props) {
               />
             )}
           </MyView>
+          {hw.descAfter !== undefined && (
+            <RenderHTML
+              source={{
+                html: hw.descAfter,
+              }}
+              tagsStyles={tagsStyles}
+              systemFonts={systemFonts}
+            />
+          )}
         </>
       )}
     </CommonWebBox>

@@ -1,7 +1,29 @@
-import {PhoneView, SimpleText} from '../../../../styles/Common';
+import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
 import {styles} from '../../../../styles/Common/Styles';
 
 function Row(props) {
+  if (props.isInPhone)
+    return (
+      <MyView
+        style={{
+          ...styles.padding10,
+          ...{
+            backgroundColor: props.silver ? '#ccc' : 'white',
+          },
+        }}>
+        <SimpleText text={props.title} />
+        <SimpleText
+          text={props.answer}
+          style={
+            props.style === undefined
+              ? {textAlign: 'right'}
+              : {...props.style, ...{width: '60%', textAlign: 'right'}}
+          }
+          onPress={props.onPress}
+        />
+      </MyView>
+    );
+
   return (
     <PhoneView
       style={{

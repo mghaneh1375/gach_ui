@@ -75,6 +75,7 @@ export const routes = {
   getHWTotalPrice: 'quiz/school/getTotalHWPrice/',
   finalizeSchoolQuiz: 'quiz/school/finalize/',
   finalizeHW: 'quiz/school/finalizeHW/',
+  setMarkHW: 'quiz/school/setMark/',
   getMyMarkListForSpecificStudent:
     'quiz/school/getMyMarkListForSpecificStudent/',
   getMyMarks: 'quiz/school/getMyMarks/',

@@ -178,12 +178,7 @@ const Create = props => {
       }
 
       if (props.editMode) {
-        data.id = state.selectedQuiz.id;
-        data.status = state.selectedQuiz.status;
-        data.visibility = state.selectedQuiz.visibility;
-        data.attachesCount = state.selectedQuiz.attachesCount;
-        data.studentsCount = state.selectedQuiz.studentsCount;
-        dispatch({selectedQuiz: data, needUpdate: true});
+        dispatch({selectedQuiz: result, needUpdate: true});
       } else {
         let allQuizzes = state.quizzes;
         if (allQuizzes === undefined) allQuizzes = [];
@@ -225,27 +220,33 @@ const Create = props => {
             subText={translator.showResultAfterCorrection}
             placeholder={translator.showResultAfterCorrection}
           />
-          <JustBottomBorderSelect
-            values={answerTypes}
-            value={
-              answerType === undefined
-                ? {}
-                : answerTypes.filter(element => {
-                    return element.id === answerType;
-                  })[0]
-            }
-            setter={setAnswerType}
-            subText={hwTranslator.answerType}
-            placeholder={hwTranslator.answerType}
-          />
+          {(state.selectedQuiz === undefined ||
+            state.selectedQuiz.isStop === undefined ||
+            !state.selectedQuiz.isStop) && (
+            <>
+              <JustBottomBorderSelect
+                values={answerTypes}
+                value={
+                  answerType === undefined
+                    ? {}
+                    : answerTypes.filter(element => {
+                        return element.id === answerType;
+                      })[0]
+                }
+                setter={setAnswerType}
+                subText={hwTranslator.answerType}
+                placeholder={hwTranslator.answerType}
+              />
 
-          <JustBottomBorderTextInput
-            value={maxUploadSize}
-            onChangeText={e => setMaxUploadSize(e)}
-            placeholder={hwTranslator.maxUploadSize}
-            subText={hwTranslator.maxUploadSize}
-            justNum={true}
-          />
+              <JustBottomBorderTextInput
+                value={maxUploadSize}
+                onChangeText={e => setMaxUploadSize(e)}
+                placeholder={hwTranslator.maxUploadSize}
+                subText={hwTranslator.maxUploadSize}
+                justNum={true}
+              />
+            </>
+          )}
           {(state.selectedQuiz === undefined ||
             (start !== undefined &&
               (state.selectedQuiz.isStart === undefined ||
@@ -269,8 +270,8 @@ const Create = props => {
             />
           )}
           {(state.selectedQuiz === undefined ||
-            state.selectedQuiz.isEnd === undefined ||
-            !state.selectedQuiz.isEnd) && (
+            state.selectedQuiz.isStop === undefined ||
+            !state.selectedQuiz.isStop) && (
             <>
               <JustBottomBorderSelect
                 values={trueFalseValues}

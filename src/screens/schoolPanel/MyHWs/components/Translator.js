@@ -24,6 +24,12 @@ const translator = {
   resultReady: 'مشاهده نمرات',
   inProgress: 'تمرین شروع شده است',
   startHW: 'رفتن به تمرین',
+  mark: 'نمره مدنظر',
+  markHelp: 'نمره مدنظر (عدد صحیح بین ۰ تا ۱۰۰)',
+  markDesc: 'توضیحات نمره',
+  markDescHelp: 'توضیحات نمره (اختیاری - حداکثر ۳۰۰ کاراکتر)',
+  markConst: 'نمره باید بین ۰ تا ۱۰۰ باشد',
+  markDescConst: 'توضیحات نمره باید کمتر از ۳۰۰ کاراکتر باشد',
 };
 
 export default translator;

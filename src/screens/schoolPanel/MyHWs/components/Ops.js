@@ -15,12 +15,9 @@ import {
   myQuizzesContext,
 } from './../../MyQuizzes/components/Context';
 import commonTranslator from '../../../../translator/Common';
-import {createTaraz} from '../../../panel/quiz/components/Utility';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {setCacheItem} from '../../../../API/User';
 import SuccessTransaction from '../../../../components/web/SuccessTransaction/SuccessTransaction';
-import Ranking from './Ranking/Ranking';
-import {QuizProvider} from '../../../panel/quiz/components/Context';
 import hwTranslator from './Translator';
 
 const Ops = props => {
@@ -30,12 +27,6 @@ const Ops = props => {
   ];
 
   const [state, dispatch] = useGlobalState();
-
-  const createTarazLocal = async () => {
-    props.setLoading(true);
-    await createTaraz(state.selectedQuiz.id, 'hw', props.token);
-    props.setLoading(false);
-  };
 
   const changeMode = newMode => {
     if (
@@ -100,27 +91,8 @@ const Ops = props => {
     }, 1000);
   }, [refId]);
 
-  const [showRanking, setShowRanking] = useState(false);
-
-  React.useEffect(() => {
-    props.setShowList(!showRanking);
-  }, [showRanking, props]);
-
   return (
     <>
-      {showRanking && (
-        <QuizProvider>
-          <Ranking
-            setLoading={props.setLoading}
-            hide={() => {
-              setShowRanking(false);
-            }}
-            token={props.token}
-            quiz={state.selectedQuiz}
-          />
-        </QuizProvider>
-      )}
-
       {showFinalizeMsg && (
         <LargePopUp
           title={hwTranslator.finalize}
@@ -185,7 +157,7 @@ const Ops = props => {
           />
         </LargePopUp>
       )}
-      {!showFinalizeMsg && !showRanking && (
+      {!showFinalizeMsg && (
         <LargePopUp
           title={state.selectedQuiz.title}
           toggleShowPopUp={props.toggleShowPopUp}>
@@ -253,17 +225,6 @@ const Ops = props => {
                   />
                 </>
               )}
-              {state.selectedQuiz.status !== 'init' &&
-                !state.selectedQuiz.isStop && (
-                  <>
-                    <CommonButton
-                      onPress={() => createTarazLocal()}
-                      dir={'rtl'}
-                      theme={'transparent'}
-                      title={translator.createTaraz}
-                    />
-                  </>
-                )}
 
               {state.selectedQuiz.status !== 'init' && (
                 <>
@@ -273,22 +234,6 @@ const Ops = props => {
                     theme={'transparent'}
                     title={translator.copy}
                   />
-
-                  <CommonButton
-                    onPress={() => props.setMode('report')}
-                    dir={'rtl'}
-                    theme={'transparent'}
-                    title={commonTranslator.report}
-                  />
-
-                  {state.selectedQuiz.reportStatus === 'ready' && (
-                    <CommonButton
-                      onPress={() => setShowRanking(true)}
-                      dir={'rtl'}
-                      theme={'transparent'}
-                      title={translator.seeRanking}
-                    />
-                  )}
                 </>
               )}
             </PhoneView>

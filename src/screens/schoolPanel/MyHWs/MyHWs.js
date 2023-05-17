@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import {isUserAdvisor} from '../../../services/Utility';
-import Students from '../MyQuizzes/components/Students/Students';
 import {MyQuizzesProvider} from '../MyQuizzes/components/Context';
 import Copy from './components/Copy';
 import Create from './components/Create';
 import List from './components/List';
 import Recp from './components/Recp';
-import Report from './components/Report';
+import Students from './components/Students/Students';
 
 function MyHWs(props) {
   const navigate = props.navigate;
@@ -60,7 +59,6 @@ function MyHWs(props) {
             setLoading={setLoading}
             setMode={setMode}
             token={state.token}
-            generalQuizMode={'hw'}
           />
         )}
 
@@ -69,14 +67,6 @@ function MyHWs(props) {
         )}
         {mode === 'recp' && (
           <Recp setLoading={setLoading} setMode={setMode} token={state.token} />
-        )}
-
-        {mode === 'report' && (
-          <Report
-            setLoading={setLoading}
-            setMode={setMode}
-            token={state.token}
-          />
         )}
       </MyQuizzesProvider>
     </>

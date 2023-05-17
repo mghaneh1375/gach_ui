@@ -20,7 +20,6 @@ import {
   styleTitle,
   styleYellowBox,
 } from '../../../../panel/package/card/Style';
-import commonTranslator from '../../../../../translator/Common';
 import {convertTimestamp, getDevice} from '../../../../../services/Utility';
 import Translate from '../../../../schoolPanel/MyHWs/components/Translator';
 
@@ -67,19 +66,10 @@ function Card(props) {
               valFontSize={fontSize}
             />
 
-            <QuizItemCard
-              val={
-                props.quiz.status !== undefined &&
-                props.quiz.status !== 'finished'
-                  ? props.quiz.status === 'waitForResult'
-                    ? Translate.waitForResult
-                    : props.quiz.status === 'notStart'
-                    ? Translate.notStart
-                    : Translate.inProgress
-                  : Translate.resultReady
-              }
-              valFontSize={fontSize}
-            />
+            {props.quiz.status !== undefined &&
+              props.quiz.status === 'notStart' && (
+                <QuizItemCard val={Translate.notStart} valFontSize={fontSize} />
+              )}
 
             {props.quizOp !== undefined &&
               props.quiz.status !== undefined &&
@@ -91,7 +81,7 @@ function Card(props) {
                       ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
                       : {}
                   }
-                  title={commonTranslator.op}
+                  title={Translate.startHW}
                   onPress={() => props.quizOp()}
                 />
               )}

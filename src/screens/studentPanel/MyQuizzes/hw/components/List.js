@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
 import {MyView, PhoneView, SimpleText} from '../../../../../styles/Common';
-import {
-  quizContext,
-  dispatchQuizContext,
-} from '../../../../panel/quiz/components/Context';
-import Ops from './Ops';
+
 import {fetchMyHWs} from './Utility';
 import ProgressCard from '../../../‌MyOffs/ProgressCard/ProgressCard';
 import {styles} from '../../../../../styles/Common/Styles';
@@ -12,15 +8,8 @@ import vars from '../../../../../styles/root';
 import Card from './Card';
 
 function List(props) {
-  const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
-  ];
-
-  const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [quizzes, setQuizzes] = useState();
-  const [showOpPane, setShowOpPane] = useState(false);
   const [mode, setMode] = useState();
 
   React.useEffect(() => {
@@ -28,12 +17,7 @@ function List(props) {
   }, [props.status]);
 
   React.useEffect(() => {
-    if (isWorking) return;
-
-    if (state.quizzes !== undefined) {
-      setQuizzes(state.quizzes);
-      return;
-    }
+    if (isWorking || quizzes !== undefined) return;
 
     setIsWorking(true);
     props.setLoading(true);
@@ -45,30 +29,13 @@ function List(props) {
         return;
       }
 
-      dispatch({quizzes: res[0]});
       setQuizzes(res[0]);
       setIsWorking(false);
     });
-  }, [props, dispatch, state.quizzes, isWorking]);
-
-  const openOpBox = quiz => {
-    dispatch({selectedQuiz: quiz});
-    setShowOpPane(true);
-  };
+  }, [props, quizzes, isWorking]);
 
   return (
     <MyView>
-      {showOpPane && (
-        <Ops
-          setLoading={props.setLoading}
-          token={props.token}
-          setMode={props.setMode}
-          navigate={props.navigate}
-          user={props.user}
-          toggleShowPopUp={() => setShowOpPane(false)}
-        />
-      )}
-
       <MyView>
         <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
           <ProgressCard
@@ -135,11 +102,7 @@ function List(props) {
 
                   return (
                     <Card
-                      quizOp={() =>
-                        quiz.status === 'finished'
-                          ? openOpBox(quiz)
-                          : props.navigate('/startHW/' + quiz.id)
-                      }
+                      quizOp={() => props.navigate('/startHW/' + quiz.id)}
                       quiz={quiz}
                       key={index}
                     />
