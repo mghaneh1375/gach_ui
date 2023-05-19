@@ -11,6 +11,18 @@ const IRYSCMandatoryFields = [
   'priority',
 ];
 
+const OnlineStandingMandatoryFields = [
+  'title',
+  'startRegistry',
+  'start',
+  'price',
+  'end',
+  'endRegistry',
+  'maxTeams',
+  'perTeam',
+  'priority',
+];
+
 const SchoolMandatoryFields = [
   'title',
   'start',
@@ -43,6 +55,8 @@ export async function CallAPI(data, url, token, mode, kind = 'regular') {
       ? TashrihiMandatoryFields
       : mode === 'irysc'
       ? IRYSCMandatoryFields
+      : mode === 'onlineStanding'
+      ? OnlineStandingMandatoryFields
       : mode === 'school'
       ? SchoolMandatoryFields
       : mode === 'hw'

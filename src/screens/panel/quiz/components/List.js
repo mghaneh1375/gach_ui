@@ -9,7 +9,12 @@ import columns, {
   columnsForOpenQuiz,
   columnsForContentQuiz,
 } from './TableStructure';
-import {getContentQuizzes, getOpenQuizzes, getQuizzes} from './Utility';
+import {
+  getContentQuizzes,
+  getOnlineStandingQuizzes,
+  getOpenQuizzes,
+  getQuizzes,
+} from './Utility';
 import ProSearch from './ProSearch';
 
 const List = props => {
@@ -31,6 +36,9 @@ const List = props => {
     Promise.all([
       props.generalMode !== undefined && props.generalMode === 'openQuiz'
         ? getOpenQuizzes(props.token)
+        : props.generalMode !== undefined &&
+          props.generalMode === 'onlineStanding'
+        ? getOnlineStandingQuizzes(props.token)
         : props.generalMode !== undefined && props.generalMode === 'contentQuiz'
         ? getContentQuizzes(props.token)
         : getQuizzes(props.token),

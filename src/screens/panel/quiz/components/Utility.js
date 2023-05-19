@@ -46,6 +46,19 @@ export const getQuizzes = async (
   );
 };
 
+export const getOnlineStandingQuizzes = async (token, name = undefined) => {
+  let query = new URLSearchParams();
+  if (name !== undefined && name !== '') query.append('name', name);
+
+  return await generalRequest(
+    routes.fetchAllQuiz + 'onlineStanding?' + query.toString(),
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const getOpenQuizzes = async (token, name = undefined) => {
   let query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);

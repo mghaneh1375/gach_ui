@@ -194,7 +194,6 @@ const Ops = props => {
               theme={'transparent'}
               title={translator.editQuestions}
             />
-
             {(state.selectedQuiz.mode !== 'tashrihi' ||
               state.selectedQuiz.startRegistry !== undefined) &&
               state.selectedQuiz.generalMode === 'irysc' && (
@@ -209,7 +208,6 @@ const Ops = props => {
                   }
                 />
               )}
-
             {(state.selectedQuiz.mode !== 'tashrihi' ||
               state.selectedQuiz.startRegistry !== undefined) && (
               <CommonButton
@@ -233,12 +231,14 @@ const Ops = props => {
               onPress={() => changeMode('student')}
               title={translator.studentsList}
             />
-            <CommonButton
-              onPress={() => createTarazLocal()}
-              dir={'rtl'}
-              theme={'transparent'}
-              title={translator.createTaraz}
-            />
+            {state.selectedQuiz.generalMode === 'onlineStanding' && (
+              <CommonButton
+                onPress={() => createTarazLocal()}
+                dir={'rtl'}
+                theme={'transparent'}
+                title={translator.createTaraz}
+              />
+            )}
             {state.selectedQuiz.reportStatus === 'ready' &&
               state.selectedQuiz.generalMode === 'irysc' && (
                 <CommonButton
@@ -326,7 +326,6 @@ const Ops = props => {
                   onPress={() => setShowLogPane(true)}
                 />
               )}
-
             {state.selectedQuiz.mode === 'tashrihi' &&
               state.selectedQuiz.isQRNeeded && (
                 <CommonButton
@@ -336,7 +335,6 @@ const Ops = props => {
                   onPress={() => downloadAnswerSheet()}
                 />
               )}
-
             {state.selectedQuiz.mode === 'tashrihi' &&
               state.selectedQuiz.isQRNeeded && (
                 <CommonButton
@@ -346,7 +344,6 @@ const Ops = props => {
                   onPress={() => setShowUploadPane(true)}
                 />
               )}
-
             {(state.selectedQuiz.mode !== 'tashrihi' ||
               state.selectedQuiz.startRegistry !== undefined) && (
               <CommonButton

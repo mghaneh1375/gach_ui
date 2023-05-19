@@ -97,6 +97,7 @@ import StudentEducationalHistory from './panel/StudentEducationalHistory/Student
 import MyHWs from './schoolPanel/MyHWs/MyHWs';
 import StudentHWs from './studentPanel/MyQuizzes/hw/MyHWs';
 import DoHW from './studentPanel/MyQuizzes/doHW/doHW';
+import OnlineStanding from './panel/quiz/OnlineStanding';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -444,6 +445,14 @@ const WebStructue = props => {
                     navigate={navigate}
                   />
                 )}
+
+              {props.page === 'quiz' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'onlineStanding' && (
+                  <OnlineStanding navigate={navigate} />
+                )}
+
               {props.page === 'quiz' &&
                 params !== undefined &&
                 params.mode !== undefined &&
