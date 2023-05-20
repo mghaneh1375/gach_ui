@@ -6,6 +6,8 @@ import {fetchAllPackages} from '../../../../panel/package/components/Utility';
 import QuizList from './../Detail/List';
 import {getDevice, getWidthHeight} from '../../../../../services/Utility';
 import {styles} from '../../../../../styles/Common/Styles';
+import Pagination, {Icon, Dot} from 'react-native-pagination';
+import {FlatList} from 'react-native';
 
 function List(props) {
   const useGlobalState = () => [
@@ -95,8 +97,37 @@ function List(props) {
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
 
+  const _renderItem = ({item}) => {
+    if (item.type === 'package')
+      return (
+        <Card
+          isAdmin={false}
+          isStudent={
+            props.user === null ||
+            props.user === undefined ||
+            props.user.accesses.indexOf('student') !== -1
+          }
+          key={item.id}
+          package={item}
+          onPress={() => {
+            dispatch({package: item});
+            props.setMode('detail');
+          }}
+        />
+      );
+  };
+
+  const _keyExtractor = (item, index) => item.id;
+  const [viewableItems, setViewableItems] = useState();
+  const onViewCallBack = React.useCallback(viewableItems => {
+    console.log(viewableItems);
+    // Use viewable items in state or as intended
+  }, []); // any dependencies that require the function to be "redeclared"
+
+  const viewConfigRef = React.useRef({viewAreaCoveragePercentThreshold: 50});
+
   return (
-    <MyView>
+    <MyView style={!isInPhone ? {minHeight: '130vh'} : {}}>
       {!registered && (
         <PhoneView
           style={
@@ -104,7 +135,28 @@ function List(props) {
               ? {padding: 20, gap: 10, width: getWidthHeight[0]}
               : {gap: 15, padding: 20}
           }>
-          {state.selectableItems !== undefined &&
+          {state.selectableItems !== undefined && (
+            <>
+              <FlatList
+                data={state.selectableItems}
+                ref={r => (this.refs = r)} //create refrence point to enable scrolling
+                keyExtractor={_keyExtractor} //map your keys to whatever unique ids the have (mine is a "id" prop)
+                renderItem={_renderItem} //render each item
+                viewabilityConfig={viewConfigRef.current}
+                onViewableItemsChanged={onViewCallBack}
+              />
+
+              <Pagination
+                // dotThemeLight //<--use with backgroundColor:"grey"
+                listRef={this.refs} //to allow React Native Pagination to scroll to item when clicked  (so add "ref={r=>this.refs=r}" to your list)
+                paginationVisibleItems={viewableItems} //needs to track what the user sees
+                paginationItems={state.selectableItems} //pass the same list as data
+                paginationItemPadSize={3} //num of items to pad above and below your visable items
+              />
+            </>
+          )}
+
+          {/* {state.selectableItems !== undefined &&
             state.selectableItems.map((item, index) => {
               if (item.type === 'package')
                 return (
@@ -123,7 +175,7 @@ function List(props) {
                     }}
                   />
                 );
-            })}
+            })} */}
         </PhoneView>
       )}
       {!registered && quizzes !== undefined && quizzes.length > 0 && (

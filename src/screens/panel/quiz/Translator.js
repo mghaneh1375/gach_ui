@@ -77,6 +77,9 @@ const translator = {
   payByStudent: 'آیا هزینه آزمون توسط دانش آموزان پرداخت شود؟',
   maxTeams: 'حداکثر تعداد تیم ها',
   perTeam: 'حداکثر تعداد نفرات در هر تیم',
+  teamName: 'نام تیم',
+  members: 'اعضای تیم',
+  sureChangeMainMember: 'آیا از تغییر نفر اصلی اطمینان دارید؟',
 };
 
 export default translator;

@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import CreateQuiz from './components/CreateQuiz';
 import List from './components/List';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import Students from './components/Students/Students';
 import Questions from './components/Questions/Questions';
-import CV from './components/CV/CV';
-import {QuizProvider} from './components/Context';
+import {
+  dispatchQuizContext,
+  quizContext,
+  QuizProvider,
+} from './components/Context';
 import Key from './components/Key/Key';
 import Ranking from './components/Reports/Ranking/Ranking';
 import Karname from './components/Reports/Karname/Karname';
@@ -67,14 +69,19 @@ const OnlineStanding = props => {
           />
         )}
         {mode === 'key' && (
-          <Key setLoading={setLoading} setMode={setMode} token={state.token} />
+          <Key
+            stateContext={quizContext}
+            dispatchStateContext={dispatchQuizContext}
+            setLoading={setLoading}
+            setMode={setMode}
+            token={state.token}
+          />
         )}
         {mode === 'student' && (
           <Students
             setLoading={setLoading}
             setMode={setMode}
             token={state.token}
-            generalMode={'onlineStanding'}
           />
         )}
         {mode === 'question' && (
@@ -105,18 +112,7 @@ const OnlineStanding = props => {
             studentId={params.studentId}
           />
         )}
-        {mode === 'karname' && params.mode === 'content' && (
-          <ContentQuizKarname
-            setLoading={setLoading}
-            user={props.user}
-            setMode={setMode}
-            token={state.token}
-            quizMode={params.mode}
-            quizId={params.quizId}
-            studentId={params.studentId}
-            navigate={navigate}
-          />
-        )}
+
         {mode === 'report' && (
           <ReportList
             setLoading={setLoading}

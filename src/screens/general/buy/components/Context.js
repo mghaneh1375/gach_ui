@@ -10,6 +10,7 @@ const defaultGlobalState = {
   wantedQuizzes: undefined,
   selectedKindQuiz: 'all',
   selectedPrice: 'all',
+  setGlobalStates: false,
 };
 export const packagesContext = React.createContext(defaultGlobalState);
 export const dispatchPackagesContext = React.createContext(undefined);
@@ -127,10 +128,14 @@ export const PackageProvider = ({children}) => {
       selectableItems: newItems,
       needUpdateFilters: false,
     });
-  }, [state]);
+
+    globalDispatch({
+      selectableItems: newItems.length,
+    });
+  }, [state, globalDispatch]);
 
   const setFilters = React.useCallback(() => {
-    if (state.filters === undefined) return;
+    if (state.filters === undefined || state.setGlobalStates) return;
 
     globalDispatch({
       isRightMenuVisible: false,
@@ -138,15 +143,16 @@ export const PackageProvider = ({children}) => {
       filters: state.filters.items,
       month: state.filters.month,
       allItems: state.allItems === undefined ? 0 : state.allItems.length,
-      selectableItems:
-        state.selectableItems === undefined ? 0 : state.selectableItems.length,
+      selectableItems: state.allItems === undefined ? 0 : state.allItems.length,
       onChangeFilter: state.filters.onChangeFilter,
       onChangeFilterMonth: state.filters.onChangeFilterMonth,
       onChangeKindQuiz: state.filters.onChangeKindQuiz,
       onChangePrice: state.filters.onChangePrice,
       allFilter: true,
     });
-  }, [globalDispatch, state.filters, state.selectableItems, state.allItems]);
+
+    dispatch({setGlobalStates: true});
+  }, [globalDispatch, state.setGlobalStates, state.filters, state.allItems]);
 
   React.useEffect(() => {
     setFilters();

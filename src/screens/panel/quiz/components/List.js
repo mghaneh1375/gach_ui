@@ -8,6 +8,7 @@ import {dispatchQuizContext, quizContext} from './Context';
 import columns, {
   columnsForOpenQuiz,
   columnsForContentQuiz,
+  columnsForOnlineStanding,
 } from './TableStructure';
 import {
   getContentQuizzes,
@@ -96,6 +97,8 @@ const List = props => {
                   : props.generalMode !== undefined &&
                     props.generalMode === 'contentQuiz'
                   ? columnsForContentQuiz
+                  : props.generalMode === 'onlineStanding'
+                  ? columnsForOnlineStanding
                   : columns
               }
               data={state.quizzes}

@@ -231,7 +231,7 @@ const Ops = props => {
               onPress={() => changeMode('student')}
               title={translator.studentsList}
             />
-            {state.selectedQuiz.generalMode === 'onlineStanding' && (
+            {state.selectedQuiz.generalMode !== 'onlineStanding' && (
               <CommonButton
                 onPress={() => createTarazLocal()}
                 dir={'rtl'}

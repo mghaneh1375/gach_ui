@@ -1,12 +1,5 @@
-import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {
-  CommonRadioButton,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {CommonRadioButton, MyView, PhoneView} from '../../../../styles/Common';
 import vars from '../../../../styles/root';
 
 function FilterItem(props) {
@@ -22,7 +15,6 @@ function FilterItem(props) {
     setStatus(status === 'checked' ? 'unchecked' : 'checked');
     props.onPress(label);
   };
-  const [expand, setExpand] = useState(true);
   const [subCats, setSubCats] = useState();
 
   React.useEffect(() => {
@@ -61,42 +53,23 @@ function FilterItem(props) {
 
   return (
     <MyView>
-      <PhoneView style={{paddingBottom: expand ? 10 : 0}}>
-        {/* <SimpleFontIcon
-          onPress={() => setExpand(!expand)}
-          theme="full"
-          parentStyle={{width: 15, heigth: 15}}
-          style={{color: vars.DARK_SILVER}}
-          icon={expand ? faMinus : faPlus}
-        />
-        <SimpleText
-          style={{
-            color: vars.DARK_SILVER,
-            alignSelf: 'center',
-            paddingRight: 5,
-            fontSize: 15,
-          }}
-          text={props.item.label}
-          onPress={() => setExpand(!expand)}
-        /> */}
-      </PhoneView>
-      {expand && (
-        <MyView style={{minWidth: 200}}>
-          {subCats !== undefined &&
-            subCats.map((elem, index) => {
-              return (
-                <CommonRadioButton
-                  onPress={() => changeSubCatStatus(index)}
-                  status={elem.status}
-                  text={elem.label}
-                  textStyle={{fontSize: 13, color: vars.DARK_SILVER}}
-                  key={index}
-                  isCheckBox={true}
-                />
-              );
-            })}
-        </MyView>
-      )}
+      <PhoneView style={{paddingBottom: 10}}></PhoneView>
+
+      <MyView style={{minWidth: 200}}>
+        {subCats !== undefined &&
+          subCats.map((elem, index) => {
+            return (
+              <CommonRadioButton
+                onPress={() => changeSubCatStatus(index)}
+                status={elem.status}
+                text={elem.label}
+                textStyle={{fontSize: 13, color: vars.DARK_SILVER}}
+                key={index}
+                isCheckBox={true}
+              />
+            );
+          })}
+      </MyView>
     </MyView>
   );
 }

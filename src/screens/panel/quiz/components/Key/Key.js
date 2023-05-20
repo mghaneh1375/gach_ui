@@ -2,7 +2,6 @@ import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState, useRef, useCallback} from 'react';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import AnswerSheet from '../AnswerSheet/AnswerSheet';
-import {dispatchQuizContext, quizContext} from '../Context';
 import {getAnswerSheet} from '../Utility';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
@@ -13,10 +12,6 @@ import {
 } from '../../../../../styles/Common';
 
 function Key(props) {
-  // const useGlobalState = () => [
-  //   React.useContext(quizContext),
-  //   React.useContext(dispatchQuizContext),
-  // ];
   const useGlobalState = () => [
     React.useContext(props.stateContext),
     React.useContext(props.dispatchStateContext),

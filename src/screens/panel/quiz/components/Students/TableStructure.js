@@ -149,6 +149,25 @@ export const columnsForOnlineStanding = [
   },
 ];
 
+export const columnsForMember = [
+  {
+    name: 'نام دانش آموز',
+    selector: row => row.student.name,
+  },
+  {
+    name: 'کد ملی',
+    selector: row => row.student.NID,
+  },
+  {
+    name: 'تلفن همراه',
+    selector: row => row.student.phone,
+  },
+  {
+    name: 'ایمیل',
+    selector: row => row.student.mail,
+  },
+];
+
 export const columnsForQRTashtihi = [
   {
     name: 'نام دانش آموز',
