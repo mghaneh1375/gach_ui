@@ -88,6 +88,8 @@ function Card(props) {
                   props.quiz.mode !== undefined &&
                   props.quiz.mode === 'tashrihi'
                     ? 'آزمون تشریحی'
+                    : props.quiz.maxTeams !== undefined
+                    ? 'پای تخته'
                     : 'آزمون باز'
                 }
               />
@@ -105,21 +107,40 @@ function Card(props) {
       <MyView style={{...styleItemsGrandParent, ...styles.gap15}}>
         {!showMore && (
           <PhoneView style={{...styleItemsParent, ...styles.gap15}}>
-            {props.quiz.reminder !== undefined && (
-              <QuizItemCard
-                text={Translate.reminder}
-                val={props.quiz.reminder}
-                icon={faPlug}
-                textFontSize={fontSize}
-                valFontSize={valFontSize}
-              />
-            )}
+            {props.quiz.reminder !== undefined &&
+              props.quiz.maxTeams === undefined && (
+                <QuizItemCard
+                  text={Translate.reminder}
+                  val={props.quiz.reminder}
+                  icon={faPlug}
+                  textFontSize={fontSize}
+                  valFontSize={valFontSize}
+                />
+              )}
             {props.quiz.mode !== undefined && (
               <QuizItemCard
                 text={Translate.kind}
                 val={
                   kindQuizKeyVals.find(elem => elem.id === props.quiz.mode).item
                 }
+                icon={faInfo}
+                textFontSize={fontSize}
+                valFontSize={valFontSize}
+              />
+            )}
+            {props.quiz.maxTeams !== undefined && (
+              <QuizItemCard
+                text={Translate.reminder}
+                val={props.quiz.reminder}
+                icon={faInfo}
+                textFontSize={fontSize}
+                valFontSize={valFontSize}
+              />
+            )}
+            {props.quiz.perTeam !== undefined && (
+              <QuizItemCard
+                text={Translate.perTeam}
+                val={props.quiz.perTeam}
                 icon={faInfo}
                 textFontSize={fontSize}
                 valFontSize={valFontSize}
