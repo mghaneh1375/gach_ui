@@ -98,6 +98,7 @@ import MyHWs from './schoolPanel/MyHWs/MyHWs';
 import StudentHWs from './studentPanel/MyQuizzes/hw/MyHWs';
 import DoHW from './studentPanel/MyQuizzes/doHW/doHW';
 import OnlineStanding from './panel/quiz/OnlineStanding';
+import BuyOnlineStanding from './general/buy/BuyOnlineStanding';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -294,6 +295,10 @@ const WebStructue = props => {
                   token={state.token}
                   navigate={navigate}
                 />
+              )}
+
+              {props.page === 'onlineStandingQuizRegistration' && (
+                <BuyOnlineStanding navigate={navigate} />
               )}
 
               {props.page === 'schoolQuiz' && <MyQuizzes navigate={navigate} />}

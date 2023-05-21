@@ -95,35 +95,6 @@ function List(props) {
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
 
-  const _renderItem = ({item}) => {
-    if (item.type === 'package')
-      return (
-        <Card
-          isAdmin={false}
-          isStudent={
-            props.user === null ||
-            props.user === undefined ||
-            props.user.accesses.indexOf('student') !== -1
-          }
-          key={item.id}
-          package={item}
-          onPress={() => {
-            dispatch({package: item});
-            props.setMode('detail');
-          }}
-        />
-      );
-  };
-
-  const _keyExtractor = (item, index) => item.id;
-  const [viewableItems, setViewableItems] = useState();
-  const onViewCallBack = React.useCallback(viewableItems => {
-    console.log(viewableItems);
-    // Use viewable items in state or as intended
-  }, []); // any dependencies that require the function to be "redeclared"
-
-  const viewConfigRef = React.useRef({viewAreaCoveragePercentThreshold: 50});
-
   return (
     <MyView style={!isInPhone ? {minHeight: '130vh'} : {}}>
       {!registered && (

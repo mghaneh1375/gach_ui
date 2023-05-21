@@ -144,6 +144,21 @@ function Quizzes(props) {
       <PhoneView style={isInPhone ? {width: '100%', gap: 10} : {gap: 15}}>
         {viewableItems !== undefined &&
           viewableItems.map((quiz, index) => {
+            if (
+              quiz.generalMode !== undefined &&
+              quiz.generalMode === 'onlineStanding'
+            )
+              return (
+                <Card
+                  onClick={() =>
+                    window.open('/onlineStandingQuizRegistration/' + quiz.id)
+                  }
+                  selectText={'رفتن به صفحه ثبت نام'}
+                  quiz={quiz}
+                  key={index}
+                />
+              );
+
             return (
               <Card onClick={toggleSelectedItems} quiz={quiz} key={index} />
             );

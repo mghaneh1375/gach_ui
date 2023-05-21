@@ -250,6 +250,11 @@ export default function WebRouter() {
           />
 
           <Route
+            path="/onlineStandingQuizRegistration/:quizId"
+            element={<WebStructue page="onlineStandingQuizRegistration" />}
+          />
+
+          <Route
             path="/startHW/:hwId"
             element={<WebStructue page="startHW" />}
           />
