@@ -2,14 +2,18 @@ import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {generalRequest} from '../../API/Utility';
 import Card from '../../screens/panel/quiz/components/Card/Card';
-import {MyView, PhoneView} from '../../styles/Common';
+import {
+  MyView,
+  MyViewWithRef,
+  PhoneView,
+  SimpleText,
+} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import Basket from './Basket';
 import {dispatchStateContext} from '../../App';
 import {styles} from '../../styles/Common/Styles';
 import {getDevice} from '../../services/Utility';
-import {FlatList} from 'react-native';
-import Pagination from 'react-native-pagination';
+import {useEffectOnce} from 'usehooks-ts';
 
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState();
@@ -101,19 +105,12 @@ function Quizzes(props) {
     });
   }, [props, isWorking, quizzes, dispatch]);
 
-  const _renderItem = ({item}) => {
-    return <Card onClick={toggleSelectedItems} quiz={item} key={item.id} />;
-  };
-
-  const _keyExtractor = (item, index) => item.id;
   const [viewableItems, setViewableItems] = useState();
-  const onViewCallBack = React.useCallback(viewableItems => {
-    console.log(viewableItems);
-    setViewableItems(viewableItems.viewableItems);
-    // Use viewable items in state or as intended
-  }, []); // any dependencies that require the function to be "redeclared"
 
-  const viewConfigRef = React.useRef({viewAreaCoveragePercentThreshold: 100});
+  React.useEffect(() => {
+    if (quizzes === undefined) return;
+    setViewableItems(quizzes.slice(0, 12));
+  }, [quizzes]);
 
   return (
     <MyView
@@ -144,42 +141,35 @@ function Quizzes(props) {
           />
         )}
       </PhoneView>
-      {/* <PhoneView style={isInPhone ? {width: '100%', gap: 10} : {gap: 15}}> */}
-      {quizzes !== undefined && (
-        <>
-          <PhoneView style={{...styles.gap10}}>
-            {quizzes.map((quiz, index) => {
-              if (index > 10) return;
-              return (
-                <Card onClick={toggleSelectedItems} quiz={quiz} key={index} />
-              );
-            })}
-          </PhoneView>
-          {/* <FlatList
-            data={quizzes}
-            ref={r => (this.refs = r)} //create refrence point to enable scrolling
-            keyExtractor={_keyExtractor} //map your keys to whatever unique ids the have (mine is a "id" prop)
-            renderItem={_renderItem} //render each item
-            viewabilityConfig={viewConfigRef.current}
-            onViewableItemsChanged={onViewCallBack}
-          /> */}
-
-          <Pagination
-            listRef={this.refs} //to allow React Native Pagination to scroll to item when clicked  (so add "ref={r=>this.refs=r}" to your list)
-            paginationVisibleItems={viewableItems} //needs to track what the user sees
-            paginationItems={quizzes} //pass the same list as data
-            paginationItemPadSize={10} //num of items to pad above and below your visable items
-          />
-        </>
-      )}
-
-      {/* {quizzes !== undefined &&
-          quizzes.map((quiz, index) => {
+      <PhoneView style={isInPhone ? {width: '100%', gap: 10} : {gap: 15}}>
+        {viewableItems !== undefined &&
+          viewableItems.map((quiz, index) => {
             return (
               <Card onClick={toggleSelectedItems} quiz={quiz} key={index} />
             );
-          })} */}
-      {/* </PhoneView> */}
+          })}
+      </PhoneView>
+      {viewableItems !== undefined && viewableItems.length < quizzes.length && (
+        <SimpleText
+          text={'نمایش بیشتر'}
+          style={{
+            ...styles.alignSelfCenter,
+            ...styles.cursor_pointer,
+            ...styles.BlueBold,
+            ...styles.fontSize20,
+            ...styles.margin25,
+          }}
+          onPress={() => {
+            setViewableItems(
+              quizzes.slice(
+                0,
+                Math.min(viewableItems.length + 6, quizzes.length),
+              ),
+            );
+          }}
+        />
+      )}
+
       <Basket
         total={
           props.noSelectAll !== undefined && props.noSelectAll
