@@ -14,7 +14,7 @@ import {useParams} from 'react-router';
 import Card from '../../panel/quiz/components/Card/Card';
 import {styles} from '../../../styles/Common/Styles';
 import commonTranslator from '../../../translator/Common';
-import {showError} from '../../../services/Utility';
+import {getDevice, showError} from '../../../services/Utility';
 import OffCode from './components/OffCode';
 import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
 import BuyBasket from './components/BuyBasket';
@@ -42,6 +42,7 @@ function BuyOnlineStanding(props) {
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [accountOff, setAccountOff] = useState();
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
 
   const calc = React.useCallback(() => {
     let off = 0;
@@ -75,7 +76,7 @@ function BuyOnlineStanding(props) {
   const params = useParams();
 
   React.useEffect(() => {
-    if (quiz == undefined) return;
+    if (quiz == undefined || quiz.price === undefined) return;
 
     calc();
   }, [quiz, accountOff, calc]);
@@ -113,13 +114,37 @@ function BuyOnlineStanding(props) {
         return;
       }
 
-      setDesc(res[0].items[0].description);
-      let tmp = res[0].items[0];
-      tmp.description = undefined;
-      setQuiz(tmp);
-      setAccountOff(res[0].off);
+      if (res[0].items === undefined) {
+        setDesc(res[0].description);
+        let tmp = res[0];
+        tmp.description = undefined;
+        let myTeam = tmp.teams.find(e => {
+          return (
+            e.id === state.user.user.id ||
+            e.team.find(ee => {
+              return ee.id === state.user.user.id;
+            })
+          );
+        });
+        setQuiz(tmp);
+        setTeamName(myTeam.teamName);
+        setMembers(
+          myTeam.team.map(e => {
+            return {
+              NID: e.student.NID,
+              phone: e.student.phone,
+            };
+          }),
+        );
+      } else {
+        setDesc(res[0].items[0].description);
+        let tmp = res[0].items[0];
+        tmp.description = undefined;
+        setQuiz(tmp);
+        setAccountOff(res[0].off);
+      }
     });
-  }, [dispatch, params, props, state.token]);
+  }, [dispatch, params, props, state.token, state.user]);
 
   useEffectOnce(() => {
     fetchData();
@@ -235,7 +260,7 @@ function BuyOnlineStanding(props) {
 
       {!showSuccessTransaction && (
         <>
-          <CommonWebBox>
+          <CommonWebBox style={{marginBottom: isInPhone ? 200 : 100}}>
             {quiz !== undefined && (
               <PhoneView>
                 <Card quiz={quiz} />
@@ -280,7 +305,11 @@ function BuyOnlineStanding(props) {
                   />
 
                   {quiz.perTeam > 1 && (
-                    <MyView style={{width: 350, justifyContent: 'center'}}>
+                    <MyView
+                      style={{
+                        width: isInPhone ? '100%' : 350,
+                        justifyContent: 'center',
+                      }}>
                       <EqualTwoTextInputs>
                         <SimpleText text={'اعضای تیم شما'} />
                         {!createNewMember &&
@@ -339,9 +368,16 @@ function BuyOnlineStanding(props) {
                           return (
                             <EqualTwoTextInputs
                               key={index}
-                              style={{...styles.marginTop10}}>
+                              style={{
+                                ...styles.marginTop10,
+                                ...styles.alignItemsCenter,
+                              }}>
                               <SimpleText text={'کدملی: ' + e.NID} />
-                              <PhoneView style={{...styles.gap10}}>
+                              <PhoneView
+                                style={{
+                                  ...styles.gap10,
+                                  ...styles.alignItemsCenter,
+                                }}>
                                 <SimpleText text={'شماره همراه: ' + e.phone} />
                                 <FontIcon
                                   kind={'normal'}
@@ -360,13 +396,14 @@ function BuyOnlineStanding(props) {
               </>
             )}
           </CommonWebBox>
-          {quiz !== undefined && (
+          {quiz !== undefined && quiz.price !== undefined && (
             <Basket
               disable={teamName === undefined || teamName.length < 3}
               disableText={'برای خرید نام تیم خود را وارد نمایید'}
-              fullWidth={false}>
+              fullWidth={isInPhone}>
               <BuyBasket
                 disable={teamName === undefined || teamName.length < 3}
+                data={{teamName: teamName, members: members}}
                 price={quiz.price}
                 shouldPay={shouldPay}
                 wantedQuizzes={[quiz.id]}

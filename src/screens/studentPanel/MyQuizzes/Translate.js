@@ -7,6 +7,7 @@ const Translate = {
   review: 'مرور آزمون',
   rate: 'امتیاز بده',
   yourRate: 'امتیاز مدنظر',
+  myTeam: 'اعضای تیم',
 };
 
 export default Translate;

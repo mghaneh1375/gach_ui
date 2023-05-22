@@ -48,7 +48,11 @@ function BuyBasket(props) {
 
     let res =
       props.payUrl !== undefined
-        ? await goToPayCustomUrl(props.token, props.payUrl, data)
+        ? await goToPayCustomUrl(
+            props.token,
+            props.payUrl,
+            props.data !== undefined ? {...data, ...props.data} : data,
+          )
         : props.students === undefined
         ? await goToPay(props.token, data)
         : await goToPayGroup(props.token, data);

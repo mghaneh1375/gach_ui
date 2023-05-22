@@ -5,7 +5,7 @@ import Card from '../../screens/panel/quiz/components/Card/Card';
 import {MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import Basket from './Basket';
-import {dispatchStateContext} from '../../App';
+import {dispatchStateContext, globalStateContext} from '../../App';
 import {styles} from '../../styles/Common/Styles';
 import {getDevice} from '../../services/Utility';
 
@@ -14,9 +14,12 @@ function Quizzes(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
 
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
 
-  const [dispatch] = useGlobalState();
+  const [state, dispatch] = useGlobalState();
 
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
@@ -73,7 +76,7 @@ function Quizzes(props) {
     props.setLoading(true);
 
     Promise.all([
-      generalRequest(props.fetchUrl, 'get', undefined, 'data', props.token),
+      generalRequest(props.fetchUrl, 'get', undefined, 'data', state.token),
     ]).then(res => {
       props.setLoading(false);
       setIsWorking(false);
@@ -97,7 +100,7 @@ function Quizzes(props) {
       });
       if (props.setQuizzes !== undefined) props.setQuizzes(res[0].items);
     });
-  }, [props, isWorking, quizzes, dispatch]);
+  }, [props, isWorking, quizzes, dispatch, state.token]);
 
   const [viewableItems, setViewableItems] = useState();
 
@@ -145,9 +148,17 @@ function Quizzes(props) {
               return (
                 <Card
                   onClick={() =>
-                    window.open('/onlineStandingQuizRegistration/' + quiz.id)
+                    state.token === undefined || state.token === null
+                      ? window.open('/login')
+                      : window.open(
+                          '/onlineStandingQuizRegistration/' + quiz.id,
+                        )
                   }
-                  selectText={'رفتن به صفحه ثبت نام'}
+                  selectText={
+                    state.token === undefined || state.token === null
+                      ? 'ورود برای ثبت نام'
+                      : 'رفتن به صفحه ثبت نام'
+                  }
                   quiz={quiz}
                   key={index}
                 />

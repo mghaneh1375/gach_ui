@@ -9,6 +9,7 @@ import ParticipantReport from '../../../panel/quiz/components/Reports/Participan
 import ReportList from '../../../panel/quiz/components/Reports/List/List';
 import {useParams} from 'react-router';
 import AnswerSheet from './components/AnswerSheet';
+import Team from './components/Team';
 
 function MyQuizzes(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
@@ -59,6 +60,11 @@ function MyQuizzes(props) {
           token={props.token}
         />
       )}
+
+      {mode === 'team' && (
+        <Team setLoading={setLoading} setMode={setMode} token={props.token} />
+      )}
+
       {mode === 'report' && (
         <ReportList
           setLoading={setLoading}

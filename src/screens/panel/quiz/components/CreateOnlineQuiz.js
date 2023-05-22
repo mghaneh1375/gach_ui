@@ -53,11 +53,7 @@ const CreateOnlineQuiz = props => {
 
     setEnd(state.selectedQuiz.end === undefined ? '' : state.selectedQuiz.end);
     setStartRegistry(state.selectedQuiz.startRegistry);
-    setEndRegistry(
-      state.selectedQuiz.endRegistry === undefined
-        ? ''
-        : state.selectedQuiz.endRegistry,
-    );
+    setEndRegistry(state.selectedQuiz.endRegistry);
   }, [state.selectedQuiz, props.editMode, backToList]);
 
   const [name, setName] = useState('');
@@ -186,8 +182,7 @@ const CreateOnlineQuiz = props => {
       }
 
       if (props.editMode) {
-        data.id = state.selectedQuiz.id;
-        dispatch({selectedQuiz: data, needUpdate: true});
+        dispatch({selectedQuiz: result, needUpdate: true});
       } else {
         let allQuizzes = state.quizzes;
         allQuizzes.unshift(result);
@@ -219,19 +214,22 @@ const CreateOnlineQuiz = props => {
       />
       <CommonWebBox header={translator.runInfo}>
         <PhoneView style={{...styles.gap10}}>
-          <JustBottomBorderDatePicker
-            placeholder={translator.startDate}
-            value={start}
-            setter={setStart}
-            subText={translator.startDate}
-          />
-
-          <JustBottomBorderDatePicker
-            placeholder={translator.endDate}
-            value={end}
-            setter={setEnd}
-            subText={translator.endDate}
-          />
+          {(!props.editMode || start !== undefined) && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.startDate}
+              value={start}
+              setter={setStart}
+              subText={translator.startDate}
+            />
+          )}
+          {(!props.editMode || end !== undefined) && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.endDate}
+              value={end}
+              setter={setEnd}
+              subText={translator.endDate}
+            />
+          )}
 
           <JustBottomBorderTextInput
             placeholder={translator.maxTeams}

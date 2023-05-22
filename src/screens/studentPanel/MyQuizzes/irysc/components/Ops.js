@@ -56,8 +56,6 @@ function Ops(props) {
       return;
     }
 
-    console.log(state.selectedQuiz.answer_sheet);
-
     if (state.selectedQuiz.answer_sheet !== undefined) {
       dispatch({
         showAnswers: true,
@@ -236,6 +234,17 @@ function Ops(props) {
                   theme={'transparent'}
                 />
               )}
+
+              <CommonButton
+                onPress={() =>
+                  window.open(
+                    'onlineStandingQuizRegistration/' + state.selectedQuiz.id,
+                  )
+                }
+                title={'جزئیات آزمون'}
+                theme={'transparent'}
+              />
+
               <CommonButton
                 onPress={() => getRecp()}
                 title={Translate.recp}

@@ -196,7 +196,8 @@ const Ops = props => {
             />
             {(state.selectedQuiz.mode !== 'tashrihi' ||
               state.selectedQuiz.startRegistry !== undefined) &&
-              state.selectedQuiz.generalMode === 'irysc' && (
+              (state.selectedQuiz.generalMode === 'irysc' ||
+                state.selectedQuiz.generalMode === 'onlineStanding') && (
                 <CommonButton
                   dir={'rtl'}
                   theme={'transparent'}
@@ -351,9 +352,16 @@ const Ops = props => {
                 dir={'rtl'}
                 theme={'transparent'}
                 onPress={() => {
-                  navigator.clipboard.writeText(
-                    BASE_SITE_NAME + 'buy/' + state.selectedQuiz.id,
-                  );
+                  if (state.selectedQuiz.generalMode === 'onlineStanding')
+                    navigator.clipboard.writeText(
+                      BASE_SITE_NAME +
+                        'onlineStandingQuizRegistration/' +
+                        state.selectedQuiz.id,
+                    );
+                  else
+                    navigator.clipboard.writeText(
+                      BASE_SITE_NAME + 'buy/' + state.selectedQuiz.id,
+                    );
                   showSuccess('لینک کپی شد!');
                 }}
               />
