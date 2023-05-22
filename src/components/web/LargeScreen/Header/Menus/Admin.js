@@ -175,10 +175,6 @@ function AdminMenu(props) {
               url: '/quiz/list',
             },
             {
-              text: translator.listQuiz,
-              url: '/quiz/list',
-            },
-            {
               text: translator.onlineStanding,
               url: '/quiz/onlineStanding',
             },

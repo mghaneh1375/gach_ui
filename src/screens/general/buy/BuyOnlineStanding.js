@@ -1,5 +1,6 @@
 import {
   CommonWebBox,
+  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -16,6 +17,11 @@ import commonTranslator from '../../../translator/Common';
 import {showError} from '../../../services/Utility';
 import OffCode from './components/OffCode';
 import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
+import BuyBasket from './components/BuyBasket';
+import Basket from '../../../components/web/Basket';
+import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
+import {FontIcon} from '../../../styles/Common/FontIcon';
+import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 
 function BuyOnlineStanding(props) {
   const navigate = props.navigate;
@@ -27,21 +33,17 @@ function BuyOnlineStanding(props) {
 
   const [state, dispatch] = useGlobalState();
   const [quiz, setQuiz] = useState();
-  const [price, setPrice] = useState(0);
   const [off, setOff] = useState(0);
   const [shouldPay, setShouldPay] = useState(0);
   const [desc, setDesc] = useState();
-  const [userMoney, setUserMoney] = useState(
-    state.user === null ? 0 : state.user.user.money,
-  );
+  const userMoney = state.user === null ? 0 : state.user.user.money;
   const [showOffCodePane, setShowOffCodePane] = useState(false);
-  const [offs, setOffs] = useState([]);
 
-  const [userOff, setUserOff] = useState();
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
+  const [accountOff, setAccountOff] = useState();
 
-  const calc = accountOff => {
+  const calc = React.useCallback(() => {
     let off = 0;
     let totalPrice = quiz.price;
 
@@ -66,17 +68,17 @@ function BuyOnlineStanding(props) {
       shouldPayTmp -= userMoney;
     } else setUsedFromWallet(0);
 
-    setOffs(allOffs);
     setOff(Math.min(off, totalPrice));
-    setPrice(totalPrice === 0 ? 10 : totalPrice);
     setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 10);
-  };
+  }, [accountOff, quiz?.price, userMoney]);
 
   const params = useParams();
 
   React.useEffect(() => {
-    setUserOff(state.off);
-  }, [state.off]);
+    if (quiz == undefined) return;
+
+    calc();
+  }, [quiz, accountOff, calc]);
 
   const toggleShowOffCodePane = () => {
     if (
@@ -90,8 +92,7 @@ function BuyOnlineStanding(props) {
   };
 
   const setOffCodeResult = (amount, type, code) => {
-    setUserOff({type: type, amount: amount, code: code});
-    calc({type: type, amount: amount, code: code});
+    setAccountOff({type: type, amount: amount, code: code});
   };
 
   const fetchData = React.useCallback(() => {
@@ -112,17 +113,75 @@ function BuyOnlineStanding(props) {
         return;
       }
 
-      setOff(res[0].off);
       setDesc(res[0].items[0].description);
       let tmp = res[0].items[0];
       tmp.description = undefined;
       setQuiz(tmp);
+      setAccountOff(res[0].off);
     });
   }, [dispatch, params, props, state.token]);
 
   useEffectOnce(() => {
     fetchData();
   });
+
+  const [teamName, setTeamName] = useState();
+  const [members, setMembers] = useState([]);
+  const [createNewMember, setcreateNewMember] = useState(false);
+  const [NID, setNID] = useState();
+  const [phone, setPhone] = useState();
+
+  const addMember = () => {
+    if (
+      phone === undefined ||
+      NID.length === undefined ||
+      phone.length === 0 ||
+      NID.length === 0
+    ) {
+      showError(commonTranslator.pleaseFillAllFields);
+      return;
+    }
+
+    if (NID.length !== 10 || phone.length !== 11) {
+      showError('کدملی و یا شماره همراه وارد شده معتبر نمی باشد');
+      return;
+    }
+
+    if (state.user.user.NID === NID) {
+      showError('کدملی وارد شده مربوط به خودتان است و امکان وارد کردن آن نیست');
+      return;
+    }
+
+    let tmp = [];
+    let isValid = true;
+
+    members.forEach(e => {
+      if (e.NID === NID || e.phone === phone) {
+        isValid = false;
+        return;
+      }
+      tmp.push(e);
+    });
+
+    if (!isValid) {
+      showError('کدملی و یا شماره همراه وارد شده تکراری است');
+      return;
+    }
+
+    tmp.unshift({phone: phone, NID: NID});
+    setMembers(tmp);
+    setcreateNewMember(false);
+    setPhone();
+    setNID();
+  };
+
+  const removeMember = NID => {
+    setMembers(
+      members.filter(e => {
+        return e.NID !== NID;
+      }),
+    );
+  };
 
   return (
     <>
@@ -175,39 +234,155 @@ function BuyOnlineStanding(props) {
       )}
 
       {!showSuccessTransaction && (
-        <CommonWebBox>
-          {quiz !== undefined && (
-            <PhoneView>
-              <Card quiz={quiz} />
-              <SimpleText
-                text={desc}
-                style={{...styles.padding30, ...styles.fontSize17}}
-              />
-            </PhoneView>
-          )}
-          {quiz !== undefined &&
-            quiz.teams !== undefined &&
-            quiz.teams.length > 0 &&
-            quiz.teams.map((e, index) => {
-              return (
-                <MyView key={index}>
-                  <SimpleText text={'گروه ' + e.teamName} />
-                  <SimpleText text={'عضو ارشد: ' + e.student.name} />
+        <>
+          <CommonWebBox>
+            {quiz !== undefined && (
+              <PhoneView>
+                <Card quiz={quiz} />
+                <SimpleText
+                  text={desc}
+                  style={{...styles.padding30, ...styles.fontSize17}}
+                />
+              </PhoneView>
+            )}
+            <PhoneView style={{...styles.gap15}}>
+              {quiz !== undefined &&
+                quiz.teams !== undefined &&
+                quiz.teams.length > 0 &&
+                quiz.teams.map((e, index) => {
+                  return (
+                    <MyView key={index}>
+                      <SimpleText text={'گروه ' + e.teamName} />
+                      <SimpleText text={'عضو ارشد: ' + e.student.name} />
 
-                  {e.team !== undefined && e.team.length > 0 && (
-                    <>
-                      <SimpleText text={'سایر اعضای گروه'} />
-                      {e.team.map((e2, index2) => {
-                        return (
-                          <SimpleText key={index2} text={e2.student.name} />
-                        );
-                      })}
-                    </>
+                      {e.team !== undefined && e.team.length > 0 && (
+                        <>
+                          <SimpleText text={'سایر اعضای گروه'} />
+                          {e.team.map((e2, index2) => {
+                            return (
+                              <SimpleText key={index2} text={e2.student.name} />
+                            );
+                          })}
+                        </>
+                      )}
+                    </MyView>
+                  );
+                })}
+            </PhoneView>
+            {quiz !== undefined && (
+              <>
+                <PhoneView style={{...styles.gap100}}>
+                  <JustBottomBorderTextInput
+                    placeholder={'نام تیم شما'}
+                    subText={'نام تیم شما'}
+                    value={teamName}
+                    onChangeText={e => setTeamName(e)}
+                  />
+
+                  {quiz.perTeam > 1 && (
+                    <MyView style={{width: 350, justifyContent: 'center'}}>
+                      <EqualTwoTextInputs>
+                        <SimpleText text={'اعضای تیم شما'} />
+                        {!createNewMember &&
+                          members.length + 1 < quiz.perTeam && (
+                            <FontIcon
+                              kind={'normal'}
+                              theme={'rect'}
+                              back={'yellow'}
+                              icon={faPlus}
+                              onPress={() => setcreateNewMember(true)}
+                            />
+                          )}
+                      </EqualTwoTextInputs>
+
+                      {createNewMember && (
+                        <>
+                          <JustBottomBorderTextInput
+                            placeholder={'کد ملی عضو موردنظر'}
+                            subText={'کد ملی عضو موردنظر'}
+                            value={NID}
+                            onChangeText={e => setNID(e)}
+                            justNum={true}
+                          />
+                          <JustBottomBorderTextInput
+                            placeholder={'شماره همراه عضو موردنظر'}
+                            subText={'شماره همراه عضو موردنظر'}
+                            value={phone}
+                            onChangeText={e => setPhone(e)}
+                            justNum={true}
+                          />
+                          <EqualTwoTextInputs>
+                            <PhoneView></PhoneView>
+                            <PhoneView
+                              style={{...styles.gap10, ...styles.marginTop10}}>
+                              <FontIcon
+                                kind={'normal'}
+                                theme={'rect'}
+                                back={'orange'}
+                                icon={faMinus}
+                                onPress={() => setcreateNewMember(false)}
+                              />
+                              <FontIcon
+                                kind={'normal'}
+                                theme={'rect'}
+                                back={'yellow'}
+                                icon={faPlus}
+                                onPress={() => addMember()}
+                              />
+                            </PhoneView>
+                          </EqualTwoTextInputs>
+                        </>
+                      )}
+
+                      {members != undefined &&
+                        members.map((e, index) => {
+                          return (
+                            <EqualTwoTextInputs
+                              key={index}
+                              style={{...styles.marginTop10}}>
+                              <SimpleText text={'کدملی: ' + e.NID} />
+                              <PhoneView style={{...styles.gap10}}>
+                                <SimpleText text={'شماره همراه: ' + e.phone} />
+                                <FontIcon
+                                  kind={'normal'}
+                                  theme={'rect'}
+                                  back={'orange'}
+                                  icon={faMinus}
+                                  onPress={() => removeMember(e.NID)}
+                                />
+                              </PhoneView>
+                            </EqualTwoTextInputs>
+                          );
+                        })}
+                    </MyView>
                   )}
-                </MyView>
-              );
-            })}
-        </CommonWebBox>
+                </PhoneView>
+              </>
+            )}
+          </CommonWebBox>
+          {quiz !== undefined && (
+            <Basket
+              disable={teamName === undefined || teamName.length < 3}
+              disableText={'برای خرید نام تیم خود را وارد نمایید'}
+              fullWidth={false}>
+              <BuyBasket
+                disable={teamName === undefined || teamName.length < 3}
+                price={quiz.price}
+                shouldPay={shouldPay}
+                wantedQuizzes={[quiz.id]}
+                off={off}
+                payUrl={routes.buyOnlineQuiz + quiz.id}
+                userOff={accountOff}
+                setLoading={status => dispatch({loading: status})}
+                token={state.token}
+                user={state.user}
+                usedFromWallet={usedFromWallet}
+                toggleShowOffCodePane={toggleShowOffCodePane}
+                setShowSuccessTransaction={setShowSuccessTransaction}
+              />
+            </Basket>
+          )}
+        </>
       )}
     </>
   );

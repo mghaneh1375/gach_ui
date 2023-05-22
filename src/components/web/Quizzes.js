@@ -2,18 +2,12 @@ import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {generalRequest} from '../../API/Utility';
 import Card from '../../screens/panel/quiz/components/Card/Card';
-import {
-  MyView,
-  MyViewWithRef,
-  PhoneView,
-  SimpleText,
-} from '../../styles/Common';
+import {MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import Basket from './Basket';
 import {dispatchStateContext} from '../../App';
 import {styles} from '../../styles/Common/Styles';
 import {getDevice} from '../../services/Utility';
-import {useEffectOnce} from 'usehooks-ts';
 
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState();

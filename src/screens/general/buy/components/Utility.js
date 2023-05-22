@@ -11,6 +11,10 @@ export const getPackage = async (token, packageId) => {
   );
 };
 
+export const goToPayCustomUrl = async (token, url, data) => {
+  return await generalRequest(url, 'post', data, ['action', 'refId'], token);
+};
+
 export const goToPay = async (token, data) => {
   return await generalRequest(
     routes.buyQuiz,
