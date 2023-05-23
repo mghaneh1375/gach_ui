@@ -1,4 +1,5 @@
 import {
+  CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
@@ -36,6 +37,8 @@ function BuyOnlineStanding(props) {
   const [off, setOff] = useState(0);
   const [shouldPay, setShouldPay] = useState(0);
   const [desc, setDesc] = useState();
+  const [amIOwner, setAmIOwner] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const userMoney = state.user === null ? 0 : state.user.user.money;
   const [showOffCodePane, setShowOffCodePane] = useState(false);
 
@@ -119,6 +122,7 @@ function BuyOnlineStanding(props) {
         let tmp = res[0];
         tmp.description = undefined;
         let myTeam = tmp.teams.find(e => {
+          console.log(e.team);
           return (
             e.id === state.user.user.id ||
             e.team.find(ee => {
@@ -136,6 +140,8 @@ function BuyOnlineStanding(props) {
             };
           }),
         );
+        setAmIOwner(tmp.canChange && state.user.user.id === myTeam.student.id);
+        setEditMode(true);
       } else {
         setDesc(res[0].items[0].description);
         let tmp = res[0].items[0];
@@ -294,7 +300,10 @@ function BuyOnlineStanding(props) {
                   );
                 })}
             </PhoneView>
-            {quiz !== undefined && (
+            {/* {quiz !== undefined && editMode && !amIOwner && {
+                <CommonButton  />
+            }} */}
+            {quiz !== undefined && (!editMode || amIOwner) && (
               <>
                 <PhoneView style={{...styles.gap100}}>
                   <JustBottomBorderTextInput

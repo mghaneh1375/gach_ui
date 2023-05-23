@@ -252,5 +252,6 @@ const translator = {
   col: ': ',
   questionReportTags: 'تگ های گزارش خرابی سوال',
   educationalHistory: 'سوابق تحصیلی',
+  birthDay: 'تاریخ تولد',
 };
 export default translator;

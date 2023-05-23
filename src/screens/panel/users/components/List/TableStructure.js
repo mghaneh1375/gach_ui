@@ -55,6 +55,12 @@ const columns = [
     center: true,
   },
   {
+    name: commonTranslator.createdAt,
+    selector: row => row.createdAt,
+    grow: 1,
+    center: true,
+  },
+  {
     name: commonTranslator.status,
     selector: row => (row.status === 'active' ? 'فعال' : 'غیرفعال'),
     grow: 1,

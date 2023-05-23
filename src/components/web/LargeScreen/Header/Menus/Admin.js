@@ -175,6 +175,10 @@ function AdminMenu(props) {
               url: '/quiz/list',
             },
             {
+              text: translator.openQuiz,
+              url: '/quiz/open',
+            },
+            {
               text: translator.onlineStanding,
               url: '/quiz/onlineStanding',
             },

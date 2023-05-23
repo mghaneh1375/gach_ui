@@ -33,6 +33,7 @@ function FilterItem(props) {
       <CommonRadioButton
         onPress={() => changeStatus(props.item.label)}
         status={status}
+        textStyle={{alignSelf: 'center', fontSize: 12}}
         text={props.item.label}
         isCheckBox={props.checkbox !== undefined ? props.checkbox : undefined}
       />

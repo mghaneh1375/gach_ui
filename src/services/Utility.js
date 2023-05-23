@@ -87,6 +87,11 @@ export function convertTimestamp(unix_timestamp) {
     .format('تاریخ: jYYYY/jMM/jDD ساعت: HH:mm');
 }
 
+export function convertTimestampToJustDate(unix_timestamp) {
+  if (unix_timestamp === undefined || unix_timestamp === '') return '...';
+  return moment.unix(unix_timestamp / 1000).format('jYYYY/jMM/jDD');
+}
+
 export function getCurrTime() {
   return moment
     .unix(Date.now() / 1000)

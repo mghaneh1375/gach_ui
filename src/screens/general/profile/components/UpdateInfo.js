@@ -6,6 +6,7 @@ import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
 import vars from '../../../../styles/root';
 import {updateInfo} from './Utility';
 import {sexKeyVals} from '../../../../services/Utility';
+import {CommonDatePicker} from '../../../../styles/Common/CommonDatePicker';
 
 const UpdateInfo = props => {
   const [state, setState] = useState(props.user.state);
@@ -14,7 +15,7 @@ const UpdateInfo = props => {
   const [grade, setGrade] = useState(props.user.grade);
   const [branch, setBranch] = useState(props.user.branches);
   const [school, setSchool] = useState(props.user.school);
-
+  const [birthDay, setBirthDay] = useState(props.user.birthDay);
   const [resetCity, setResetCity] = useState(false);
 
   const [firstname, setFirstname] = useState(props.user.firstName);
@@ -150,6 +151,20 @@ const UpdateInfo = props => {
               multi={true}
             />
           )}
+
+        {birthDay !== undefined && (
+          <CommonDatePicker
+            parentStyle={{marginTop: 10}}
+            isHalf={true}
+            justDate={true}
+            placeholder={commonTranslator.birthDay}
+            value={birthDay}
+            setter={setBirthDay}
+            subText={
+              commonTranslator.birthDay + ' - ' + commonTranslator.optional
+            }
+          />
+        )}
       </PhoneView>
       <CommonButton
         style={{
@@ -171,6 +186,7 @@ const UpdateInfo = props => {
             cityId: city.id,
             NID: NID,
             sex: sex,
+            birthDay: birthDay,
           })
         }
       />

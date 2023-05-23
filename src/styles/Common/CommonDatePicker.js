@@ -1,7 +1,14 @@
 import {Platform} from 'react-native';
-import {calcInputWidth, CommonDatePickerElem} from './CommonText';
+import {
+  calcInputWidth,
+  CommonDatePickerElem,
+  CommonJustDatePickerElem,
+} from './CommonText';
 import SubInputText from './SubInputText';
-import {convertTimestamp, getWidthHeight} from '../../services/Utility';
+import {
+  convertTimestamp,
+  convertTimestampToJustDate,
+} from '../../services/Utility';
 import {MyView} from '../Common';
 
 export const CommonDatePicker = props => {
@@ -16,12 +23,16 @@ export const CommonDatePicker = props => {
     value !== undefined &&
     (typeof value === 'number' || value.indexOf('ساعت') == -1)
   ) {
-    value = convertTimestamp(value);
+    value = props.justDate
+      ? convertTimestampToJustDate(value)
+      : convertTimestamp(value);
   }
 
   const inputProps = {
     placeholder: props.placeholder,
-    format: 'تاریخ: jYYYY/jMM/jDD ساعت: HH:mm',
+    format: props.justDate
+      ? 'jYYYY/jMM/jDD'
+      : 'تاریخ: jYYYY/jMM/jDD ساعت: HH:mm',
     containerClass: 'date-picker',
     onChange: e => {
       props.setter(e * 1000);
@@ -49,7 +60,13 @@ export const CommonDatePicker = props => {
 
   return (
     <MyView style={parentAllStyles}>
-      <CommonDatePickerElem {...inputProps} />
+      {(props.justDate === undefined || !props.justDate) && (
+        <CommonDatePickerElem {...inputProps} />
+      )}
+      {props.justDate !== undefined && props.justDate && (
+        <CommonJustDatePickerElem {...inputProps} />
+      )}
+
       {props.subText !== undefined ? (
         <SubInputText>{props.subText}</SubInputText>
       ) : null}

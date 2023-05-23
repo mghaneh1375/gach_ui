@@ -282,7 +282,7 @@ function Filter() {
               ...{
                 borderBottomWidth: 2,
                 borderColor: vars.DARK_BLUE,
-                margin: 10,
+                margin: 3,
               },
             }}>
             <FilterItem
@@ -315,7 +315,7 @@ function Filter() {
               ...{
                 borderBottomWidth: 2,
                 borderColor: vars.DARK_BLUE,
-                margin: 10,
+                margin: 3,
               },
             }}>
             <FilterItem
@@ -328,13 +328,13 @@ function Filter() {
               status={selectedKindQuiz === 'regular' ? 'checked' : 'unchecked'}
               onPress={label => toggleKindQuiz('regular')}
             />
-            <FilterItem
+            {/* <FilterItem
               item={{label: 'آزمون پای تخته (تاریخ مشخصه)'}}
               status={
                 selectedKindQuiz === 'onlineStanding' ? 'checked' : 'unchecked'
               }
               onPress={label => toggleKindQuiz('onlineStanding')}
-            />
+            /> */}
             <FilterItem
               item={{label: 'همه رو ببینم'}}
               status={selectedKindQuiz === 'all' ? 'checked' : 'unchecked'}

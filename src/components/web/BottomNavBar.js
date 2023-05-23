@@ -59,7 +59,7 @@ export default function BottomNavBar() {
         <Link style={NavItemStyle} to="/packages">
           <SimpleFontIcon kind={'large'} icon={faVideo} />
         </Link>
-        <Text style={TinyNavTextStyle}>کلاس های المپیاد</Text>
+        <Text style={TinyNavTextStyle}>دوره های آموزشی</Text>
       </MyView>
       {/* <MyView style={NavItemContainerStyle}>
         <BottomLinkExternal href="https://www.irysc.com/contact-us/">

@@ -102,26 +102,28 @@ export const PackageProvider = ({children}) => {
         if (!hasWantedMonth) return;
       }
 
-      let isValidInKindQuizFilter = false;
+      let isValidInKindQuizFilter = state.selectedKindQuiz === 'all';
 
-      if (
-        (state.selectedKindQuiz === 'open' &&
-          elem.type !== undefined &&
-          elem.type === 'quiz' &&
-          elem.generalMode !== undefined &&
-          elem.generalMode === 'open') ||
-        (state.selectedKindQuiz === 'regular' &&
-          elem.type !== undefined &&
-          elem.type === 'quiz' &&
-          elem.generalMode !== undefined &&
-          elem.generalMode === 'irysc') ||
-        (state.selectedKindQuiz === 'onlineStanding' &&
-          elem.type !== undefined &&
-          elem.type === 'quiz' &&
-          elem.generalMode !== undefined &&
-          elem.generalMode === 'onlineStanding')
-      )
-        isValidInKindQuizFilter = true;
+      if (!isValidInKindQuizFilter) {
+        if (
+          (state.selectedKindQuiz === 'open' &&
+            elem.type !== undefined &&
+            elem.type === 'quiz' &&
+            elem.generalMode !== undefined &&
+            elem.generalMode === 'open') ||
+          (state.selectedKindQuiz === 'regular' &&
+            elem.type !== undefined &&
+            elem.type === 'quiz' &&
+            elem.generalMode !== undefined &&
+            elem.generalMode === 'irysc') ||
+          (state.selectedKindQuiz === 'onlineStanding' &&
+            elem.type !== undefined &&
+            elem.type === 'quiz' &&
+            elem.generalMode !== undefined &&
+            elem.generalMode === 'onlineStanding')
+        )
+          isValidInKindQuizFilter = true;
+      }
 
       if (!isValidInKindQuizFilter) return;
 
