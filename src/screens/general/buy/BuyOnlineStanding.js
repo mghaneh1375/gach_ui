@@ -15,7 +15,7 @@ import {useParams} from 'react-router';
 import Card from '../../panel/quiz/components/Card/Card';
 import {styles} from '../../../styles/Common/Styles';
 import commonTranslator from '../../../translator/Common';
-import {getDevice, showError} from '../../../services/Utility';
+import {getDevice, showError, showSuccess} from '../../../services/Utility';
 import OffCode from './components/OffCode';
 import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
 import BuyBasket from './components/BuyBasket';
@@ -122,7 +122,6 @@ function BuyOnlineStanding(props) {
         let tmp = res[0];
         tmp.description = undefined;
         let myTeam = tmp.teams.find(e => {
-          console.log(e.team);
           return (
             e.id === state.user.user.id ||
             e.team.find(ee => {
@@ -141,7 +140,7 @@ function BuyOnlineStanding(props) {
           }),
         );
         setAmIOwner(tmp.canChange && state.user.user.id === myTeam.student.id);
-        setCanChange(false);
+        setCanChange(tmp.canChange);
         setEditMode(true);
       } else {
         setDesc(res[0].items[0].description);
@@ -303,7 +302,28 @@ function BuyOnlineStanding(props) {
                 })}
             </PhoneView>
             {quiz !== undefined && editMode && !amIOwner && canChange && (
-              <CommonButton title={'انصراف از گروه'} />
+              <CommonButton
+                onPress={async () => {
+                  dispatch({loading: true});
+                  let res = await generalRequest(
+                    routes.leftTeamQuiz + quiz.id,
+                    'delete',
+                    undefined,
+                    undefined,
+                    state.token,
+                  );
+
+                  dispatch({loading: false});
+
+                  if (res === null) return;
+
+                  showSuccess();
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000);
+                }}
+                title={'انصراف از گروه'}
+              />
             )}
             {quiz !== undefined && (!editMode || amIOwner) && (
               <>
