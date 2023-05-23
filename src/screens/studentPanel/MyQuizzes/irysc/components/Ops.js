@@ -235,26 +235,34 @@ function Ops(props) {
                 />
               )}
 
-              <CommonButton
-                onPress={() =>
-                  window.open(
-                    'onlineStandingQuizRegistration/' + state.selectedQuiz.id,
-                  )
-                }
-                title={'جزئیات آزمون'}
-                theme={'transparent'}
-              />
+              {state.selectedQuiz.generalMode === 'onlineStanding' && (
+                <CommonButton
+                  onPress={() =>
+                    window.open(
+                      'onlineStandingQuizRegistration/' + state.selectedQuiz.id,
+                    )
+                  }
+                  title={'جزئیات آزمون'}
+                  theme={'transparent'}
+                />
+              )}
 
-              <CommonButton
-                onPress={() => getRecp()}
-                title={Translate.recp}
-                theme={'transparent'}
-              />
-              <CommonButton
-                onPress={() => setShowRatePane(true)}
-                title={Translate.rate}
-                theme={'transparent'}
-              />
+              {(state.selectedQuiz.isOwner === undefined ||
+                state.selectedQuiz.isOwner) && (
+                <>
+                  <CommonButton
+                    onPress={() => getRecp()}
+                    title={Translate.recp}
+                    theme={'transparent'}
+                  />
+                  <CommonButton
+                    onPress={() => setShowRatePane(true)}
+                    title={Translate.rate}
+                    theme={'transparent'}
+                  />
+                </>
+              )}
+
               {state.selectedQuiz.status === 'finished' &&
                 (state.selectedQuiz.isQRNeeded === undefined ||
                   !state.selectedQuiz.isQRNeeded) && (

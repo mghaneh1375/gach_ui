@@ -51,6 +51,7 @@ const QuizGeneralInfo = props => {
             setSelectedItem={item => {
               props.setTags(
                 item.map(elem => {
+                  if (elem.title) return elem.title;
                   return elem.name;
                 }),
               );

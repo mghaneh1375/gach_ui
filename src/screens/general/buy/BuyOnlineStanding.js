@@ -141,6 +141,7 @@ function BuyOnlineStanding(props) {
           }),
         );
         setAmIOwner(tmp.canChange && state.user.user.id === myTeam.student.id);
+        setCanChange(false);
         setEditMode(true);
       } else {
         setDesc(res[0].items[0].description);
@@ -156,6 +157,7 @@ function BuyOnlineStanding(props) {
     fetchData();
   });
 
+  const [canChange, setCanChange] = useState(false);
   const [teamName, setTeamName] = useState();
   const [members, setMembers] = useState([]);
   const [createNewMember, setcreateNewMember] = useState(false);
@@ -300,9 +302,9 @@ function BuyOnlineStanding(props) {
                   );
                 })}
             </PhoneView>
-            {/* {quiz !== undefined && editMode && !amIOwner && {
-                <CommonButton  />
-            }} */}
+            {quiz !== undefined && editMode && !amIOwner && canChange && (
+              <CommonButton title={'انصراف از گروه'} />
+            )}
             {quiz !== undefined && (!editMode || amIOwner) && (
               <>
                 <PhoneView style={{...styles.gap100}}>
