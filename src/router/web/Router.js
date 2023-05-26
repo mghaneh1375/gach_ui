@@ -128,6 +128,10 @@ export default function WebRouter() {
           <Route path="/profile" element={<WebStructue page="profile" />} />
           <Route path="/cert" element={<WebStructue page="cert" />} />
           <Route path="/question" element={<WebStructue page="question" />} />
+          <Route
+            path="/spec-question"
+            element={<WebStructue page="spec-question" />}
+          />
           <Route path="/offs" element={<WebStructue page="offs" />} />
           <Route path="/ticket" element={<WebStructue page="ticket" />} />
           <Route

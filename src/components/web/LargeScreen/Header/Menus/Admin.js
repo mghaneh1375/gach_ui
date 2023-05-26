@@ -91,11 +91,24 @@ function AdminMenu(props) {
           icon={faCertificate}
           selected={props.selected === 'cert'}
         />
-        <MenuItem
-          onClick={() => navigate('/question')}
+        <SuperMenuItem
           text={translator.questions}
           icon={faQuestion}
-          selected={props.selected === 'question'}
+          selected={
+            props.selected === 'questions' ||
+            props.selected === 'spec-questions'
+          }
+          navigate={navigate}
+          items={[
+            {
+              text: 'سوالات عادی',
+              url: '/question',
+            },
+            {
+              text: 'سوالات آزمون فرار',
+              url: 'spec-question',
+            },
+          ]}
         />
         <SuperMenuItem
           text={translator.users}
@@ -181,6 +194,10 @@ function AdminMenu(props) {
             {
               text: translator.onlineStanding,
               url: '/quiz/onlineStanding',
+            },
+            {
+              text: translator.escapeQuiz,
+              url: '/quiz/escape',
             },
             {
               text: translator.contentQuiz,

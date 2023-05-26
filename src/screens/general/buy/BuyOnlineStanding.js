@@ -23,6 +23,7 @@ import Basket from '../../../components/web/Basket';
 import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
 import {FontIcon} from '../../../styles/Common/FontIcon';
 import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {changeMode} from '../../panel/ticket/components/Show/Utility';
 
 function BuyOnlineStanding(props) {
   const navigate = props.navigate;
@@ -426,7 +427,31 @@ function BuyOnlineStanding(props) {
                 </PhoneView>
               </>
             )}
+            {quiz !== undefined && amIOwner && canChange && (
+              <CommonButton
+                title={commonTranslator.confirmChanges}
+                theme={'dark'}
+                onPress={async () => {
+                  dispatch({loading: true});
+                  let res = await generalRequest(
+                    routes.updateOnlineQuizProfile + quiz.id,
+                    'post',
+                    {
+                      members: members,
+                      teamName: teamName,
+                    },
+                    undefined,
+                    state.token,
+                  );
+                  dispatch({loading: false});
+                  if (res != null) {
+                    showSuccess();
+                  }
+                }}
+              />
+            )}
           </CommonWebBox>
+
           {quiz !== undefined && quiz.price !== undefined && (
             <Basket
               disable={teamName === undefined || teamName.length < 3}

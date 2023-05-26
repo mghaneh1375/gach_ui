@@ -180,6 +180,7 @@ const translator = {
   lifeStyle: ' سبک زندگی ',
   openQuiz: 'لیست آزمون های باز',
   onlineStanding: 'آزمون های آنلاین استندیگ',
+  escapeQuiz: 'آزمون فرار',
   schoolQuiz: 'لیست آزمون های مدرسه',
   advisorQuiz: 'لیست آزمون های مشاور',
   iryscQuiz: 'لیست آزمون های آیریسک',

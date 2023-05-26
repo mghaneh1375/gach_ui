@@ -99,6 +99,8 @@ import StudentHWs from './studentPanel/MyQuizzes/hw/MyHWs';
 import DoHW from './studentPanel/MyQuizzes/doHW/doHW';
 import OnlineStanding from './panel/quiz/OnlineStanding';
 import BuyOnlineStanding from './general/buy/BuyOnlineStanding';
+import EscapeQuiz from './panel/quiz/EscapeQuiz';
+import SpecQuestion from './panel/specQuestions/SpecQuestion';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -461,6 +463,11 @@ const WebStructue = props => {
               {props.page === 'quiz' &&
                 params !== undefined &&
                 params.mode !== undefined &&
+                params.mode === 'escape' && <EscapeQuiz navigate={navigate} />}
+
+              {props.page === 'quiz' &&
+                params !== undefined &&
+                params.mode !== undefined &&
                 params.mode === 'open' && (
                   <OpenQuiz token={state.token} navigate={navigate} />
                 )}
@@ -522,6 +529,11 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
+
+              {props.page === 'spec-question' && (
+                <SpecQuestion navigate={navigate} />
+              )}
+
               {props.page === 'offs' && (
                 <Off
                   token={state.token}
