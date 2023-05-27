@@ -113,6 +113,8 @@ export const routes = {
   getMyQuestionPDF: 'quiz/public/getMyQuestionPDF/',
   getMyAnswerSheetPDF: 'quiz/public/getMyAnswerSheetPDF/',
   storeStudentAnswers: 'quiz/public/storeAnswers/',
+  storeOnlineQuizAnswer: 'quiz/public/storeOnlineQuizAnswer/',
+  getOnlineQuizRankingTable: 'quiz/public/getOnlineQuizRankingTable/',
   uploadStudentAnswers: 'quiz/public/uploadAnswers/',
   uploadStudentAnswersSheet: 'quiz/public/uploadAnswersSheet/',
   resetStudentQuizEntryTime: 'quiz/manage/resetStudentQuizEntryTime/',

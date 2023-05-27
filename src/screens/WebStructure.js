@@ -101,6 +101,7 @@ import OnlineStanding from './panel/quiz/OnlineStanding';
 import BuyOnlineStanding from './general/buy/BuyOnlineStanding';
 import EscapeQuiz from './panel/quiz/EscapeQuiz';
 import SpecQuestion from './panel/specQuestions/SpecQuestion';
+import RunOnlineStandingQuiz from './studentPanel/RunOnlineStandingQuiz/RunOnlineStandingQuiz';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -365,14 +366,22 @@ const WebStructue = props => {
               )}
               {props.page === 'mySchoolHWs' && <MyHWs navigate={navigate} />}
               {props.page === 'startHW' && <DoHW navigate={navigate} />}
-              {props.page === 'startQuiz' && (
-                <RunQuiz
-                  isInReviewMode={false}
-                  token={state.token}
-                  user={state.user}
-                  navigate={navigate}
-                />
-              )}
+              {props.page === 'startQuiz' &&
+                params.quizMode === 'onlineStanding' && (
+                  <RunOnlineStandingQuiz
+                    isInReviewMode={false}
+                    navigate={navigate}
+                  />
+                )}
+              {props.page === 'startQuiz' &&
+                params.quizMode !== 'onlineStanding' && (
+                  <RunQuiz
+                    isInReviewMode={false}
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
+                )}
               {props.page === 'checkCert' && <CheckCert navigate={navigate} />}
               {props.page === 'rankingList' && (
                 <RankingList navigate={navigate} />

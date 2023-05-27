@@ -17,7 +17,7 @@ const SpecQuestion = props => {
     React.useContext(dispatchStateContext),
   ];
 
-  const [dispatch] = useGlobalState();
+  const [state, dispatch] = useGlobalState();
 
   const setLoading = status => {
     dispatch({loading: status});
