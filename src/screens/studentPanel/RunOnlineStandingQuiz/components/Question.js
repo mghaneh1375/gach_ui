@@ -11,6 +11,7 @@ import {
   EqualTwoTextInputs,
   MyView,
   PhoneView,
+  SimpleText,
 } from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
@@ -120,6 +121,9 @@ function Question(props) {
     setZoomW(undefined);
   };
 
+  const [showConfirmationPane, setShowConfirmationPane] = useState(false);
+  const [stdAns, setStdAns] = useState();
+
   return (
     <MyView>
       {isInZoomMode && (
@@ -149,7 +153,7 @@ function Question(props) {
           </CommonWebBox>
         </MyView>
       )}
-      {question !== undefined && (
+      {question !== undefined && !showConfirmationPane && (
         <MyView style={{marginBottom: 70}}>
           <CommonWebBox style={{padding: 15}}>
             {question.questionFile !== undefined && (
@@ -188,13 +192,10 @@ function Question(props) {
                       props.isInReviewMode
                         ? undefined
                         : idx => {
-                            if (state.answers[state.currIdx] == idx) {
-                              dispatch({
-                                answer: 0,
-                                needUpdateAnswer: true,
-                              });
-                            } else
-                              dispatch({answer: idx, needUpdateAnswer: true});
+                            if (state.answers[state.currIdx] == '') {
+                              setShowConfirmationPane(true);
+                              setStdAns(idx);
+                            }
                           }
                     }
                   />
@@ -253,6 +254,7 @@ function Question(props) {
               </MyView>
             </CommonWebBox>
           )}
+
           {question.answerFile !== undefined && (
             <CommonWebBox header={Translate.answerFile} style={{padding: 15}}>
               <Image
@@ -280,6 +282,39 @@ function Question(props) {
           )}
         </MyView>
       )}
+
+      {showConfirmationPane && (
+        <>
+          <SimpleText
+            style={{
+              ...styles.BlueBold,
+              ...styles.margin30,
+              ...styles.fontSize15,
+              ...styles.alignSelfCenter,
+            }}
+            text={
+              'آیا از ثبت پاسخ اطمینان دارید؟ (توجه داشته باشید که در این آزمون تنها یکبار فرصت پاسخدهی به هر سوال را دارید)'
+            }
+          />
+          <PhoneView style={{...styles.justifyContentCenter}}>
+            <CommonButton
+              onPress={() => {
+                dispatch({answer: stdAns, needUpdateAnswer: true});
+                setStdAns(undefined);
+                setShowConfirmationPane(false);
+              }}
+              theme={'dark'}
+              title={commonTranslator.yes}
+            />
+            <CommonButton
+              onPress={() => setShowConfirmationPane(false)}
+              theme={'orangeRed'}
+              title={commonTranslator.no}
+            />
+          </PhoneView>
+        </>
+      )}
+
       <MyView
         style={
           isInPhone

@@ -20,6 +20,7 @@ import {
   styleColorWhite,
 } from './../../../package/card/Style';
 import {
+  convertSecToMin,
   convertSecToMinWithOutSec,
   convertTimestamp,
   formatPrice,

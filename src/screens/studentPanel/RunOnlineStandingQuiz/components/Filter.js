@@ -21,9 +21,13 @@ import Translate from '../Translate';
 import commonTranslator from '../../../../translator/Common';
 import Circle from '../../../../components/web/Circle';
 import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
-import {getDevice} from '../../../../services/Utility';
+import {
+  convertTimestamp,
+  convertTimestampToJustTime,
+  getDevice,
+} from '../../../../services/Utility';
 import QuestionNumber from '../../RunQuiz/components/questionComponents/QuestionNumber';
-import Timer from '../../RunQuiz/components/Timer';
+import Timer from './Timer';
 
 function Filter(props) {
   const useGlobalState = () => [
@@ -54,7 +58,8 @@ function Filter(props) {
             refresh={state.refresh}
             reminder={state.reminder}
             duration={state.quizInfo.duration}
-            callNeedStore={() => dispatch({needRefreshRanking: true})}
+            callExit={() => dispatch({exit: true})}
+            callNeedStore={() => dispatch({needRanking: true})}
           />
         )}
 
@@ -188,6 +193,54 @@ function Filter(props) {
             </PhoneView>
           </MyView>
         )}
+      {state.ranking !== undefined && (
+        <MyView
+          style={{
+            padding: 20,
+            paddingBottom: 50,
+            borderBottomWidth: 2,
+            borderColor: vars.DARK_BLUE,
+          }}>
+          <SimpleText
+            style={{...styles.BlueBold, ...styles.marginBottom20}}
+            text={'جدول رتبه بندی'}
+          />
+          {state.ranking.map((e, index) => {
+            return (
+              <PhoneView key={index}>
+                <SimpleText text={index + 1} />
+                <SimpleText text={' - '} />
+                <SimpleText text={e.teamName} />
+                <SimpleText text={' : '} />
+                <SimpleText text={e.point} />
+              </PhoneView>
+            );
+          })}
+          {state.lastFetchedAt !== undefined && (
+            <EqualTwoTextInputs
+              style={{
+                ...styles.marginTop20,
+              }}>
+              <SimpleText
+                style={{
+                  ...styles.fontSize12,
+                  ...styles.BlueBold,
+                  ...styles.alignSelfCenter,
+                }}
+                text={'آخرین به روزرسانی: '}
+              />
+              <SimpleText
+                style={{
+                  ...styles.fontSize12,
+                  ...styles.BlueBold,
+                  ...styles.alignSelfCenter,
+                }}
+                text={convertTimestampToJustTime(state.lastFetchedAt)}
+              />
+            </EqualTwoTextInputs>
+          )}
+        </MyView>
+      )}
       {props.isInReviewMode &&
         state.questions !== undefined &&
         props.mode !== 'splash' && (

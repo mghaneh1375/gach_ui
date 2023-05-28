@@ -20,7 +20,7 @@ const translate = {
   notStart: 'این آزمون هنوز شروع نشده است.',
   timeReminder: 'زمان باقی مانده',
   resultReady: 'کارنامه آزمون صادر شده است.',
-  perTeam: 'حداکثر تعداد نفرات در هر تیم',
+  perTeam: 'حداکثر نفرات هر تیم',
 };
 
 export default translate;

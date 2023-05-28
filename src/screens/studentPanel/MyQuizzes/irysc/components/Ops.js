@@ -41,9 +41,6 @@ function Ops(props) {
   }, [state.selectedQuiz.stdRate]);
 
   const prepareShowAnswerSheet = async () => {
-    console.log('asd');
-    console.log(state.selectedQuiz.mode);
-
     if (state.selectedQuiz.mode === 'tashrihi') {
       props.navigate(
         '/showAnswerSheet/' +
@@ -213,20 +210,27 @@ function Ops(props) {
         <>
           {props.user.accesses.indexOf('student') !== -1 && (
             <PhoneView style={{gap: 10}}>
-              {state.selectedQuiz.status === 'finished' && (
-                <CommonButton
-                  onPress={() => prepareShowResult()}
-                  title={Translate.result}
-                  theme={'transparent'}
-                />
-              )}
-              {state.selectedQuiz.status === 'finished' && (
-                <CommonButton
-                  onPress={() => prepareShowAnswerSheet()}
-                  title={Translate.answerSheet}
-                  theme={'transparent'}
-                />
-              )}
+              {state.selectedQuiz.status === 'finished' &&
+                state.selectedQuiz.generalMode !== 'onlineStanding' && (
+                  <>
+                    <CommonButton
+                      onPress={() => prepareShowResult()}
+                      title={Translate.result}
+                      theme={'transparent'}
+                    />
+                    <CommonButton
+                      onPress={() => prepareShowAnswerSheet()}
+                      title={Translate.answerSheet}
+                      theme={'transparent'}
+                    />
+                    <CommonButton
+                      onPress={() => prepareShowRanking()}
+                      title={Translate.ranking}
+                      theme={'transparent'}
+                    />
+                  </>
+                )}
+
               {state.selectedQuiz.status === 'finished' && (
                 <CommonButton
                   onPress={() => prepareShowRanking()}
@@ -234,18 +238,19 @@ function Ops(props) {
                   theme={'transparent'}
                 />
               )}
-
-              {state.selectedQuiz.generalMode === 'onlineStanding' && (
-                <CommonButton
-                  onPress={() =>
-                    window.open(
-                      'onlineStandingQuizRegistration/' + state.selectedQuiz.id,
-                    )
-                  }
-                  title={'جزئیات آزمون'}
-                  theme={'transparent'}
-                />
-              )}
+              {state.selectedQuiz.generalMode === 'onlineStanding' &&
+                state.selectedQuiz.status !== 'finished' && (
+                  <CommonButton
+                    onPress={() =>
+                      window.open(
+                        'onlineStandingQuizRegistration/' +
+                          state.selectedQuiz.id,
+                      )
+                    }
+                    title={'جزئیات آزمون'}
+                    theme={'transparent'}
+                  />
+                )}
 
               {(state.selectedQuiz.isOwner === undefined ||
                 state.selectedQuiz.isOwner) && (

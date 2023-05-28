@@ -386,14 +386,24 @@ const WebStructue = props => {
               {props.page === 'rankingList' && (
                 <RankingList navigate={navigate} />
               )}
-              {props.page === 'reviewQuiz' && (
-                <RunQuiz
-                  isInReviewMode={true}
-                  token={state.token}
-                  user={state.user}
-                  navigate={navigate}
-                />
-              )}
+
+              {props.page === 'reviewQuiz' &&
+                params.quizMode === 'onlineStanding' && (
+                  <RunOnlineStandingQuiz
+                    isInReviewMode={true}
+                    navigate={navigate}
+                  />
+                )}
+
+              {props.page === 'reviewQuiz' &&
+                params.quizMode !== 'onlineStanding' && (
+                  <RunQuiz
+                    isInReviewMode={true}
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
+                )}
               {props.page === 'acceptInvite' && (
                 <AcceptInvite token={state.token} navigate={navigate} />
               )}

@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react';
-import CountDown from 'react-native-countdown-component';
 import {
   convertSecToMin,
   convertSecToMinWithOutSec,
@@ -18,11 +17,11 @@ import ProgressBar from '../../../../styles/Common/ProgressBar';
 import {useEffectOnce} from 'usehooks-ts';
 
 let timerVar;
+let timerVar2;
 let localReminder_ = undefined;
 
 function Timer(props) {
   const timerRef = useRef();
-  const startAt = Date.now();
 
   const [progress, setProgress] = useState(
     ((props.duration - props.reminder) * 100) / props.duration,
@@ -50,10 +49,7 @@ function Timer(props) {
       timerVar = setInterval(() => {
         setProgress(((props.duration - localReminder_) * 100) / props.duration);
 
-        if (
-          localReminder_ > 60 &&
-          (Date.now() - startAt) / 60000 < props.refresh
-        ) {
+        if (localReminder_ > 60) {
           localReminder_ -= 60;
 
           if (localReminder_ < 360 && localReminder_ > 300) {
@@ -65,13 +61,15 @@ function Timer(props) {
           timerRef.current.innerText =
             convertSecToMinWithOutSec(localReminder_) + Translate.reminder;
         } else {
-          localReminder_ = undefined;
-          props.callNeedStore();
-          clearInterval(timerVar);
+          props.callExit();
         }
       }, [60000]);
+
+      timerVar2 = setInterval(() => {
+        props.callNeedStore();
+      }, [300000]);
     }, 1000);
-  }, [props, startAt]);
+  }, [props]);
 
   useEffectOnce(() => {
     timer();
@@ -106,46 +104,6 @@ function Timer(props) {
         />
       </PhoneView>
       <ProgressBar percent={progress} />
-
-      {/* {localReminder_ !== undefined && localReminder_ < 300 && (
-        <CountDown
-          until={props.reminder}
-          onFinish={() => {
-            dispatch({exit: true});
-          }}
-          timeToShow={['H', 'M', 'S']}
-          style={{direction: 'ltr', marginTop: 20}}
-          digitStyle={{
-            backgroundColor: 'blue',
-            height: 0,
-            width: 20,
-            color: vars.RED,
-          }}
-          digitTxtStyle={{
-            ...styles.colorOrangeRed,
-            width: 20,
-            fontFamily: 'IRANSans',
-            ...styles.fontSize15,
-          }}
-          timeLabelStyle={{
-            color: 'red',
-            fontWeight: 'bold',
-          }}
-          separatorStyle={{
-            ...styles.colorOrangeRed,
-            ...styles.fontSize15,
-            ...styles.margin5,
-          }}
-          showSeparator
-          timeLabels={{h: '', s: '', m: ''}}
-          size={20}
-        />
-      )} */}
-
-      {/* text={convertSecToMinWithOutSec(localReminder_) + Translate.reminder} */}
-      {/* {localReminder_ !== undefined && localReminder_ > 300 && (
-        <SimpleTextWithRef ref={timerRef} />
-      )} */}
 
       <SimpleTextWithRef ref={timerRef} />
     </MyView>

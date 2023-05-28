@@ -1,6 +1,7 @@
 import React from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
+import {showSuccess} from '../../../../services/Utility';
 import {doSaveAnswer} from './Utility';
 
 const defaultGlobalState = {
@@ -16,6 +17,7 @@ const defaultGlobalState = {
   exit: false,
   needRanking: false,
   ranking: undefined,
+  lastFetchedAt: undefined,
 };
 
 export const doQuizContext = React.createContext(defaultGlobalState);
@@ -61,6 +63,7 @@ export const DoQuizProvider = ({children}) => {
       }
 
       state.answers[state.currIdx] = state.answer;
+      showSuccess();
 
       dispatch({
         reminder: res[0].reminder,
@@ -99,7 +102,14 @@ export const DoQuizProvider = ({children}) => {
         state.token,
       ),
     ]).then(res => {
-      if (res != null) dispatch({needRanking: false, ranking: res[0]});
+      if (res != null)
+        dispatch({
+          needRanking: false,
+          ranking: res[0].ranking,
+          reminder: res[0].reminder,
+          clearTimer: true,
+          lastFetchedAt: res[0].now,
+        });
       else dispatch({needRanking: false});
     });
   }, [state.quizInfo, state.token]);
