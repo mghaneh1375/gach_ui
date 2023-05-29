@@ -268,12 +268,23 @@ const Ops = props => {
                 title={translator.seeRanking}
               />
             )}
-            <CommonButton
-              onPress={() => props.setMode('report')}
-              dir={'rtl'}
-              theme={'transparent'}
-              title={commonTranslator.report}
-            />
+            {state.selectedQuiz.generalMode === 'onlineStanding' &&
+              state.selectedQuiz.status === 'finished' && (
+                <CommonButton
+                  onPress={() => props.setMode('ranking')}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  title={commonTranslator.report}
+                />
+              )}
+            {state.selectedQuiz.generalMode !== 'onlineStanding' && (
+              <CommonButton
+                onPress={() => props.setMode('report')}
+                dir={'rtl'}
+                theme={'transparent'}
+                title={commonTranslator.report}
+              />
+            )}
             {(state.selectedQuiz.launchMode === 'physical' ||
               state.selectedQuiz.launchMode === 'hybrid') &&
               state.selectedQuiz.mode === 'regular' && (

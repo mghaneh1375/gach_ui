@@ -277,7 +277,10 @@ function Ranking(props) {
       getRanking(
         state.selectedQuiz.id,
         state.selectedQuiz.generalMode,
-        state.selectedQuiz.generalMode === 'open' ? props.token : undefined,
+        state.selectedQuiz.generalMode === 'open' ||
+          (props.isAdmin !== undefined && props.isAdmin)
+          ? props.token
+          : undefined,
       ),
     ]).then(res => {
       props.setLoading(false);
@@ -361,26 +364,73 @@ function Ranking(props) {
         showDetailt &&
         selectedTeam !== undefined && (
           <>
-            <PhoneView style={{...styles.gap15}}>
+            <PhoneView style={{...styles.gap30}}>
               <SimpleText text={'نام تیم: ' + selectedTeam.teamName} />
               <SimpleText text={'نام رهبر تیم: ' + selectedTeam.stdName} />
               <SimpleText text={'امتیاز: ' + selectedTeam.point} />
               <SimpleText text={'رتبه: ' + selectedTeamRank} />
-              {state.selectedQuiz.startAt !== undefined && (
+            </PhoneView>
+
+            <PhoneView style={{...styles.gap30}}>
+              {selectedTeam.startAt !== undefined && (
                 <SimpleText text={'زمان آغاز: ' + selectedTeam.startAt} />
               )}
-              {state.selectedQuiz.endAt !== undefined && (
-                <SimpleText text={'زمان پایان: ' + selectedTeam.endAt} />
+              {selectedTeam.finishAt !== undefined && (
+                <SimpleText text={'زمان پایان: ' + selectedTeam.finishAt} />
               )}
             </PhoneView>
+
+            {selectedTeam.members !== undefined &&
+              selectedTeam.members.length > 0 && (
+                <>
+                  <SimpleText
+                    text={'سایر اعضای گروه'}
+                    style={{...styles.fontSize17, ...styles.BlueBold}}
+                  />
+                  {selectedTeam.members.map((e, index) => {
+                    return (
+                      <PhoneView style={{...styles.gap30}} key={index}>
+                        <SimpleText style={{width: 140}} text={e.name} />
+                        {e.NID !== undefined && (
+                          <>
+                            <SimpleText
+                              style={{width: 140}}
+                              text={'کدملی: ' + e.NID}
+                            />
+                            <SimpleText
+                              style={{width: 170}}
+                              text={'شماره همراه: ' + e.phone}
+                            />
+                            <SimpleText
+                              style={{width: 150}}
+                              text={'مدرسه: ' + e.school}
+                            />
+                            <SimpleText
+                              style={{width: 120}}
+                              text={'مقطع: ' + e.grade}
+                            />
+                            <SimpleText
+                              style={{width: 150}}
+                              text={'رشته: ' + e.branches}
+                            />
+                            <SimpleText
+                              style={{width: 150}}
+                              text={'شهر: ' + e.city}
+                            />
+                          </>
+                        )}
+                      </PhoneView>
+                    );
+                  })}
+                </>
+              )}
+
             <SimpleText
               text={'سوالات حل شده'}
               style={{...styles.fontSize17, ...styles.BlueBold}}
             />
             <MyView>
               {selectedTeam.marks.map((e, index) => {
-                console.log(index);
-                console.log(selectedTeam);
                 if (selectedTeam.answers[index].mark === undefined) return;
                 return (
                   <PhoneView style={{...styles.gap50}}>
@@ -405,6 +455,26 @@ function Ranking(props) {
                 );
               })}
             </MyView>
+
+            {selectedTeam.allAnswers !== undefined && (
+              <>
+                <SimpleText
+                  text={'پاسخ های ثبت شده'}
+                  style={{...styles.fontSize17, ...styles.BlueBold}}
+                />
+
+                <MyView>
+                  {selectedTeam.allAnswers.map((e, index) => {
+                    return (
+                      <PhoneView style={{...styles.gap50}}>
+                        <SimpleText text={'سوال ' + (index + 1)} />
+                        <SimpleText text={'پاسخ تیم: ' + e} />
+                      </PhoneView>
+                    );
+                  })}
+                </MyView>
+              </>
+            )}
           </>
         )}
     </CommonWebBox>

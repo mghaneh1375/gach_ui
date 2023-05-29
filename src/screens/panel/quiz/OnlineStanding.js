@@ -99,6 +99,7 @@ const OnlineStanding = props => {
             quizMode={params.mode}
             quizId={params.quizId}
             quizName={params.quizName}
+            isAdmin={true}
           />
         )}
         {mode === 'karname' && params.mode !== 'content' && (
