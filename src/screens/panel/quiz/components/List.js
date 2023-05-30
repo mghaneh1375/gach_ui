@@ -12,6 +12,7 @@ import columns, {
 } from './TableStructure';
 import {
   getContentQuizzes,
+  getEscapeQuizzes,
   getOnlineStandingQuizzes,
   getOpenQuizzes,
   getQuizzes,
@@ -40,6 +41,8 @@ const List = props => {
         : props.generalMode !== undefined &&
           props.generalMode === 'onlineStanding'
         ? getOnlineStandingQuizzes(props.token)
+        : props.generalMode === 'escape'
+        ? getEscapeQuizzes(props.token)
         : props.generalMode !== undefined && props.generalMode === 'contentQuiz'
         ? getContentQuizzes(props.token)
         : getQuizzes(props.token),

@@ -464,6 +464,8 @@ const WebStructue = props => {
               {props.page === 'quiz' &&
                 params !== undefined &&
                 params.mode !== undefined &&
+                params.mode !== 'onlineStanding' &&
+                params.mode !== 'escape' &&
                 params.mode === 'list' && (
                   <Quiz
                     token={state.token}

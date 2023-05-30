@@ -3,18 +3,11 @@ import {fileRequest, generalRequest} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
 
-export const filter = async (
-  token,
-  organizationCode,
-  isQuestionsNeeded = false,
-) => {
+export const filter = async (token, organizationCode) => {
   let query = new URLSearchParams();
 
   if (organizationCode !== undefined)
     query.append('organizationCode', organizationCode);
-
-  if (isQuestionsNeeded !== undefined && isQuestionsNeeded)
-    query.append('isQuestionNeeded', true);
 
   return await generalRequest(
     routes.getEscapeQuizQuestions + '?' + query.toString(),
@@ -27,12 +20,11 @@ export const filter = async (
 
 export const addQuestionToQuizzes = async (
   questionOrganizationId,
-  mode,
   quizzes,
   token,
 ) => {
   return await generalRequest(
-    routes.addQuestionToQuizzes + mode + '/' + questionOrganizationId + '/3',
+    routes.addQuestionToQuizzes + 'escape/' + questionOrganizationId + '/3',
     'put',
     {items: quizzes},
     ['excepts', 'doneIds'],
@@ -42,7 +34,7 @@ export const addQuestionToQuizzes = async (
 
 export const removeQuestion = async (questionId, token) => {
   return await generalRequest(
-    routes.removeQuestion,
+    routes.removeEscapeQuizQuestion,
     'delete',
     {
       items: [questionId],
@@ -52,23 +44,7 @@ export const removeQuestion = async (questionId, token) => {
   );
 };
 
-export const getTagsKeyVals = async token => {
-  return await generalRequest(
-    routes.getTagsKeyVals,
-    'get',
-    undefined,
-    'data',
-    token,
-  );
-};
-
-export const addQuestion = async (
-  subjectId,
-  data,
-  questionFile,
-  answerFile,
-  token,
-) => {
+export const addQuestion = async (data, questionFile, answerFile, token) => {
   let formData = new FormData();
 
   var myblob = new Blob([new Uint8Array(questionFile.content)]);
@@ -81,7 +57,7 @@ export const addQuestion = async (
 
   try {
     let res = await fileRequest(
-      routes.addQuestion + subjectId,
+      routes.addEscapeQuizQuestion,
       'post',
       formData,
       'id',
@@ -119,13 +95,13 @@ export const editQuestion = async (
 
   try {
     let res = await fileRequest(
-      routes.editQuestion + questionId,
+      routes.editEscapeQuizQuestion + questionId,
       'post',
       formData,
       undefined,
       token,
       data,
-      ['neededTime', 'answer', 'organizationId'],
+      ['answer', 'organizationId'],
     );
 
     if (res !== null) showSuccess(commonTranslator.success);

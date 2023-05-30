@@ -50,15 +50,7 @@ const SpecQuestion = props => {
             setLoading={setLoading}
             onBack={async () => {
               setLoading(true);
-              let res = await filter(
-                props.token,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-              );
+              let res = await filter(props.token, undefined);
 
               setLoading(false);
               setMode('list');

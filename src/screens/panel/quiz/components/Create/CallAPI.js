@@ -23,6 +23,19 @@ const OnlineStandingMandatoryFields = [
   'priority',
 ];
 
+const EscapeQuizMandatoryFields = [
+  'title',
+  'startRegistry',
+  'start',
+  'price',
+  'end',
+  'endRegistry',
+  'duration',
+  'capacity',
+  'priority',
+  'topStudentsCount',
+];
+
 const SchoolMandatoryFields = [
   'title',
   'start',
@@ -59,6 +72,8 @@ export async function CallAPI(data, url, token, mode, kind = 'regular') {
       ? OnlineStandingMandatoryFields
       : mode === 'school'
       ? SchoolMandatoryFields
+      : mode === 'escape'
+      ? EscapeQuizMandatoryFields
       : mode === 'hw'
       ? HWMandatoryFields
       : 'content'

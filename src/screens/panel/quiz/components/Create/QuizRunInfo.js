@@ -115,38 +115,40 @@ const QuizRunInfo = props => {
       </PhoneView>
       {props.quizGeneralMode !== 'open' && props.quizGeneralMode !== 'content' && (
         <PhoneView style={{gap: 15}}>
-          {(props.kind === undefined || props.kind !== 'tashrihi') && (
-            <JustBottomBorderSelect
-              values={launchModeKeyVals}
-              value={
-                props.launchMode === undefined
-                  ? {}
-                  : launchModeKeyVals.filter(element => {
-                      return element.id === props.launchMode;
-                    })[0]
-              }
-              setter={props.setLaunchMode}
-              placeholder={translator.isOnline}
-              subText={translator.isOnline}
-            />
-          )}
+          {(props.kind === undefined || props.kind !== 'tashrihi') &&
+            props.setLaunchMode !== undefined && (
+              <JustBottomBorderSelect
+                values={launchModeKeyVals}
+                value={
+                  props.launchMode === undefined
+                    ? {}
+                    : launchModeKeyVals.filter(element => {
+                        return element.id === props.launchMode;
+                      })[0]
+                }
+                setter={props.setLaunchMode}
+                placeholder={translator.isOnline}
+                subText={translator.isOnline}
+              />
+            )}
 
-          {(props.kind === undefined || props.kind !== 'tashrihi') && (
-            <JustBottomBorderSelect
-              values={trueFalseValues}
-              value={
-                props.permuteEn === undefined
-                  ? {}
-                  : trueFalseValues.filter(element => {
-                      return element.id === props.permuteEn;
-                    })[0]
-              }
-              setter={props.setPermuteEn}
-              subText={translator.permute}
-              placeholder={translator.permute}
-            />
-          )}
-          {uploadable && !QRNeeded && (
+          {(props.kind === undefined || props.kind !== 'tashrihi') &&
+            props.setPermuteEn !== undefined && (
+              <JustBottomBorderSelect
+                values={trueFalseValues}
+                value={
+                  props.permuteEn === undefined
+                    ? {}
+                    : trueFalseValues.filter(element => {
+                        return element.id === props.permuteEn;
+                      })[0]
+                }
+                setter={props.setPermuteEn}
+                subText={translator.permute}
+                placeholder={translator.permute}
+              />
+            )}
+          {uploadable && !QRNeeded && props.setBackEn !== undefined && (
             <JustBottomBorderSelect
               values={trueFalseValues}
               value={
@@ -162,51 +164,56 @@ const QuizRunInfo = props => {
             />
           )}
 
-          {(props.kind === undefined || props.kind !== 'tashrihi') && (
+          {(props.kind === undefined || props.kind !== 'tashrihi') &&
+            props.setMinusMark !== undefined && (
+              <JustBottomBorderSelect
+                values={trueFalseValues}
+                value={
+                  props.minusMark === undefined
+                    ? {}
+                    : trueFalseValues.filter(element => {
+                        return element.id === props.minusMark;
+                      })[0]
+                }
+                setter={props.setMinusMark}
+                subText={translator.minusMark}
+                placeholder={translator.minusMark}
+              />
+            )}
+          {props.setShowResultsAfterCorrection !== undefined && (
             <JustBottomBorderSelect
               values={trueFalseValues}
               value={
-                props.minusMark === undefined
+                props.showResultsAfterCorrection === undefined
                   ? {}
                   : trueFalseValues.filter(element => {
-                      return element.id === props.minusMark;
+                      return element.id === props.showResultsAfterCorrection;
                     })[0]
               }
-              setter={props.setMinusMark}
-              subText={translator.minusMark}
-              placeholder={translator.minusMark}
+              setter={props.setShowResultsAfterCorrection}
+              subText={translator.showResultAfterCorrection}
+              placeholder={translator.showResultAfterCorrection}
             />
           )}
-          <JustBottomBorderSelect
-            values={trueFalseValues}
-            value={
-              props.showResultsAfterCorrection === undefined
-                ? {}
-                : trueFalseValues.filter(element => {
-                    return element.id === props.showResultsAfterCorrection;
-                  })[0]
-            }
-            setter={props.setShowResultsAfterCorrection}
-            subText={translator.showResultAfterCorrection}
-            placeholder={translator.showResultAfterCorrection}
-          />
 
-          <JustBottomBorderSelect
-            values={trueFalseValues}
-            value={
-              props.showResultsAfterCorrectionNotLoginUsers === undefined
-                ? {}
-                : trueFalseValues.filter(element => {
-                    return (
-                      element.id ===
-                      props.showResultsAfterCorrectionNotLoginUsers
-                    );
-                  })[0]
-            }
-            setter={props.setShowResultsAfterCorrectionNotLoginUsers}
-            subText={translator.showResultsAfterCorrectionNotLoginUsers}
-            placeholder={translator.showResultsAfterCorrectionNotLoginUsers}
-          />
+          {props.setShowResultsAfterCorrectionNotLoginUsers !== undefined && (
+            <JustBottomBorderSelect
+              values={trueFalseValues}
+              value={
+                props.showResultsAfterCorrectionNotLoginUsers === undefined
+                  ? {}
+                  : trueFalseValues.filter(element => {
+                      return (
+                        element.id ===
+                        props.showResultsAfterCorrectionNotLoginUsers
+                      );
+                    })[0]
+              }
+              setter={props.setShowResultsAfterCorrectionNotLoginUsers}
+              subText={translator.showResultsAfterCorrectionNotLoginUsers}
+              placeholder={translator.showResultsAfterCorrectionNotLoginUsers}
+            />
+          )}
 
           {start !== undefined && uploadable && (
             <JustBottomBorderDatePicker

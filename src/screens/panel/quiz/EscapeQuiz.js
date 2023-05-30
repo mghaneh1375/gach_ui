@@ -4,6 +4,7 @@ import {useParams} from 'react-router';
 import List from './components/List';
 import {QuizProvider} from './components/Context';
 import {dispatchStateContext, globalStateContext} from '../../../App';
+import CreateEscapeQuiz from './components/CreateEscapeQuiz';
 
 function EscapeQuiz(props) {
   const [mode, setMode] = useState('karname');
@@ -38,6 +39,15 @@ function EscapeQuiz(props) {
             setLoading={setLoading}
             token={state.token}
             generalMode={'escape'}
+          />
+        )}
+        {mode === 'create' && (
+          <CreateEscapeQuiz
+            setLoading={setLoading}
+            setMode={setMode}
+            token={props.token}
+            editMode={false}
+            quizGeneralMode={'escape'}
           />
         )}
       </QuizProvider>

@@ -17,7 +17,6 @@ import {
   faAngleDoubleDown,
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
-import translate from '../../../quiz/components/Card/Translate';
 import {
   styleFont14,
   styleFont16,
@@ -28,7 +27,6 @@ import {
   styleMarginRight25,
   styleMaxHeight300,
 } from './style';
-import {levelKeyVals, statusKeyVals, typeOfQuestionKeyVals} from '../KeyVals';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import vars from '../../../../../styles/root';
 import {styles} from '../../../../../styles/Common/Styles';
@@ -133,214 +131,12 @@ function Question(props) {
           ...styleFlexSpaceBetween,
           ...styleMarginRight25,
         }}>
-        <PhoneView>
-          <BlueTextInline
-            style={{...styleFont14}}
-            text={translator.typeOfQuestion}
-          />
-          <SimpleText
-            style={{...styleMarginRight25}}
-            text={
-              ' ' +
-              typeOfQuestionKeyVals.find(
-                elem => elem.id === props.question.kindQuestion,
-              ).item
-            }
-          />
-        </PhoneView>
-        {props.question.neededTime !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translator.neededTime}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={' ' + props.question.neededTime + translator.second}
-            />
-          </PhoneView>
-        )}
-
-        <PhoneView>
-          <BlueTextInline style={{...styleFont14}} text={translator.level} />
-          <SimpleText
-            style={{...styleMarginRight25}}
-            text={
-              ' ' +
-              levelKeyVals.find(elem => elem.id === props.question.level).item
-            }
-          />
-        </PhoneView>
-        {props.question.author !== undefined && (
-          <PhoneView>
-            <BlueTextInline style={{...styleFont14}} text={translator.author} />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={' ' + props.question.author}
-            />
-          </PhoneView>
-        )}
-
-        {props.question.visibility !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translator.visibility}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={
-                ' ' +
-                statusKeyVals.find(
-                  elem => elem.id === props.question.visibility,
-                ).item
-              }
-            />
-          </PhoneView>
-        )}
-
         {props.question.answer !== undefined && (
           <PhoneView>
             <BlueTextInline style={{...styleFont14}} text={translator.answer} />
             <SimpleText
               style={{...styleMarginRight25}}
               text={props.question.answer + '  '}
-            />
-          </PhoneView>
-        )}
-        {props.question.telorance !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translator.telorance}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={props.question.telorance + ' '}
-            />
-          </PhoneView>
-        )}
-        {props.question.choicesCount !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translator.choicesCount}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={props.question.choicesCount + ' '}
-            />
-          </PhoneView>
-        )}
-        {props.question.sentencesCount !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translator.sentencesCount + ' '}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={' ' + props.question.sentencesCount}
-            />
-          </PhoneView>
-        )}
-        {props.question.neededLines !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translator.neededLines}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={props.question.neededLines + ' '}
-            />
-          </PhoneView>
-        )}
-        {props.question.subject !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={commonTranslator.subject + ' : '}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={' ' + props.question.subject.name}
-            />
-          </PhoneView>
-        )}
-        {props.question.mark !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translate.mark + ' : '}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={' ' + props.question.mark}
-            />
-          </PhoneView>
-        )}
-        {props.question.used !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translate.used + ' : '}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={' ' + props.question.used}
-            />
-          </PhoneView>
-        )}
-        {props.question.oldWhite !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translate.oldWhite}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={' ' + props.question.oldWhite}
-            />
-          </PhoneView>
-        )}
-        {props.question.oldCorrect !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translate.oldCorrect}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={' ' + props.question.oldCorrect}
-            />
-          </PhoneView>
-        )}
-        {props.question.oldIncorrect !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translate.oldIncorrect}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={' ' + props.question.oldIncorrect}
-            />
-          </PhoneView>
-        )}
-        {props.question.canUpload !== undefined && (
-          <PhoneView>
-            <BlueTextInline
-              style={{...styleFont14}}
-              text={translate.canUpload}
-            />
-            <SimpleText
-              style={{...styleMarginRight25}}
-              text={
-                props.question.canUpload
-                  ? commonTranslator.yes
-                  : commonTranslator.no
-              }
             />
           </PhoneView>
         )}
