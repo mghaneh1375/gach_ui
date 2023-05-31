@@ -178,6 +178,7 @@ const translator = {
   consultants: ' مشاوران ',
   course: ' درسی ',
   lifeStyle: ' سبک زندگی ',
+  examTags: ' آزمون ها ',
   openQuiz: 'لیست آزمون های باز',
   onlineStanding: 'آزمون های آنلاین استندیگ',
   escapeQuiz: 'آزمون فرار',

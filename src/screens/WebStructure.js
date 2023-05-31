@@ -102,6 +102,8 @@ import BuyOnlineStanding from './general/buy/BuyOnlineStanding';
 import EscapeQuiz from './panel/quiz/EscapeQuiz';
 import SpecQuestion from './panel/specQuestions/SpecQuestion';
 import RunOnlineStandingQuiz from './studentPanel/RunOnlineStandingQuiz/RunOnlineStandingQuiz';
+import ExamTags from './panel/consultants/ExamTags';
+import MyLifeStyle from './studentPanel/MyLifeStyle.js/MyLifeStyle';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -440,6 +442,10 @@ const WebStructue = props => {
               {props.page === 'advisors' && <Advisors navigate={navigate} />}
               {props.page === 'myAdvisor' && <MyAdvisor navigate={navigate} />}
 
+              {props.page === 'myLifeStyle' && (
+                <MyLifeStyle navigate={navigate} />
+              )}
+
               {props.page === 'myStudentRequests' && (
                 <MyRequests navigate={navigate} />
               )}
@@ -529,6 +535,13 @@ const WebStructue = props => {
                 params.mode !== undefined &&
                 params.mode === 'lifestyle' && (
                   <LifeStyle token={state.token} navigate={navigate} />
+                )}
+
+              {props.page === 'consultants' &&
+                params !== undefined &&
+                params.mode !== undefined &&
+                params.mode === 'examTags' && (
+                  <ExamTags token={state.token} navigate={navigate} />
                 )}
               {props.page === 'questionReport' && (
                 <QuestionReport token={state.token} navigate={navigate} />

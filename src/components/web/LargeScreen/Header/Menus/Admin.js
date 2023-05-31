@@ -223,6 +223,10 @@ function AdminMenu(props) {
               text: translator.lifeStyle,
               url: '/consultants/lifestyle',
             },
+            {
+              text: translator.examTags,
+              url: '/consultants/examTags',
+            },
           ]}
         />
         <SuperMenuItem
