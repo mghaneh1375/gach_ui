@@ -10,8 +10,6 @@ const SpecQuestion = props => {
   const [mode, setMode] = useState('detail');
   const [organizationCodeFilter, setOrganizationCodeFilter] = useState();
 
-  const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -48,13 +46,6 @@ const SpecQuestion = props => {
             token={state.token}
             organizationCodeFilter={organizationCodeFilter}
             setLoading={setLoading}
-            onBack={async () => {
-              setLoading(true);
-              let res = await filter(props.token, undefined);
-
-              setLoading(false);
-              setMode('list');
-            }}
           />
         )}
       </QuestionProvider>

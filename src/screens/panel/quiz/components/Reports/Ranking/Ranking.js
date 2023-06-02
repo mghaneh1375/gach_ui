@@ -17,7 +17,11 @@ import CopyBox from '../../../../../../components/CopyBox';
 import commonTranslator from '../../../Translator';
 import {BASE_SITE_NAME} from '../../../../../../API/Utility';
 import {styles} from '../../../../../../styles/Common/Styles';
-import {convertSecToMin, getDevice} from '../../../../../../services/Utility';
+import {
+  convertSecToMin,
+  convertSecToMinWithOutSec,
+  getDevice,
+} from '../../../../../../services/Utility';
 
 function Ranking(props) {
   const useGlobalState = () => [
@@ -30,7 +34,7 @@ function Ranking(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const [columns, setColumns] = useState();
   const [selectedTeam, setSelectedTeam] = useState();
-  const [showDetailt, setShowDetailt] = useState(false);
+  const [showDetails, setshowDetails] = useState(false);
   const [selectedTeamRank, setSelectedTeamRank] = useState();
 
   const chooseColumns = React.useCallback(() => {
@@ -44,7 +48,7 @@ function Ranking(props) {
                 onPress={() => {
                   setSelectedTeam(state.selectedQuiz.ranking[index]);
                   setSelectedTeamRank(index + 1);
-                  setShowDetailt(true);
+                  setshowDetails(true);
                 }}
                 icon={faEye}
               />
@@ -80,6 +84,61 @@ function Ranking(props) {
           minWidth: '40px',
           maxWidth: '40px',
           center: true,
+        },
+      ];
+      setColumns(a);
+      return;
+    } else if (state.selectedQuiz.generalMode === 'escape') {
+      let a = [
+        {
+          name: '',
+          cell: (row, index, column, id) => {
+            if (!props.isAdmin) return <></>;
+            return (
+              <SimpleFontIcon
+                onPress={() => {
+                  setSelectedTeam(state.selectedQuiz.ranking[index]);
+                  setSelectedTeamRank(index + 1);
+                  setshowDetails(true);
+                }}
+                icon={faEye}
+              />
+            );
+          },
+          minWidth: '40px',
+          maxWidth: '40px',
+          center: true,
+        },
+        {
+          name: 'نام',
+          selector: row => row.user,
+          grow: 2,
+          fontSize: 10,
+        },
+        {
+          name: 'تعداد سوالات حل کرده',
+          selector: row => row.solved,
+          grow: 1,
+          fontSize: 10,
+        },
+        {
+          name: 'آیا کل چالش را پشت سر گذاشته؟',
+          selector: row => (row.isComplete ? 'بله' : 'خیر'),
+          grow: 1,
+          fontSize: 10,
+        },
+        {
+          name: 'زمان ثبت آخرین پاسخ صحیح',
+          selector: row =>
+            convertSecToMinWithOutSec(row.lastAnswer) + ' بعد از شروع آزمون',
+          grow: 1,
+          fontSize: 10,
+        },
+        {
+          name: 'رتبه',
+          selector: row => row.rank,
+          grow: 1,
+          fontSize: 10,
         },
       ];
       setColumns(a);
@@ -337,7 +396,7 @@ function Ranking(props) {
           {state.selectedQuiz.title !== undefined && (
             <FontIcon
               onPress={() =>
-                showDetailt ? setShowDetailt(false) : props.setMode('list')
+                showDetails ? setshowDetails(false) : props.setMode('list')
               }
               theme="rect"
               kind="normal"
@@ -347,7 +406,7 @@ function Ranking(props) {
         </PhoneView>
       }>
       {state.selectedQuiz !== undefined &&
-        !showDetailt &&
+        !showDetails &&
         columns !== undefined &&
         state.selectedQuiz.ranking !== undefined && (
           <CommonDataTable
@@ -361,7 +420,8 @@ function Ranking(props) {
         )}
 
       {state.selectedQuiz !== undefined &&
-        showDetailt &&
+        state.selectedQuiz.generalMode === 'onlineStanding' &&
+        showDetails &&
         selectedTeam !== undefined && (
           <>
             <PhoneView style={{...styles.gap30}}>
@@ -475,6 +535,62 @@ function Ranking(props) {
                 </MyView>
               </>
             )}
+          </>
+        )}
+
+      {state.selectedQuiz !== undefined &&
+        state.selectedQuiz.generalMode === 'escape' &&
+        showDetails &&
+        selectedTeam !== undefined && (
+          <>
+            <PhoneView style={{...styles.gap30}}>
+              <SimpleText text={'نام: ' + selectedTeam.user} />
+              <SimpleText
+                text={'تعداد سوالات حل شده: ' + selectedTeam.solved}
+              />
+              <SimpleText text={'رتبه: ' + selectedTeamRank} />
+            </PhoneView>
+
+            <PhoneView style={{...styles.gap30}}>
+              {selectedTeam.startAt !== undefined && (
+                <SimpleText text={'زمان آغاز: ' + selectedTeam.startAt} />
+              )}
+              {selectedTeam.finishAt !== undefined && (
+                <SimpleText text={'زمان پایان: ' + selectedTeam.finishAt} />
+              )}
+            </PhoneView>
+
+            <SimpleText
+              text={'سوالات حل شده'}
+              style={{...styles.fontSize17, ...styles.BlueBold}}
+            />
+            <MyView>
+              {selectedTeam.answers.map((e, index) => {
+                return (
+                  <PhoneView style={{...styles.gap50}}>
+                    <SimpleText text={'سوال ' + (index + 1)} />
+
+                    {selectedTeam.answers[index].answerAt === '' && (
+                      <SimpleText text={'حل نشده'} />
+                    )}
+                    {selectedTeam.answers[index].answerAt !== '' && (
+                      <SimpleText
+                        text={
+                          'زمان حل: ' +
+                          convertSecToMin(
+                            selectedTeam.answers[index].answerAt,
+                          ) +
+                          '  بعد از شروع آزمون'
+                        }
+                      />
+                    )}
+                    <SimpleText
+                      text={'تعداد تلاش: ' + selectedTeam.answers[index].tries}
+                    />
+                  </PhoneView>
+                );
+              })}
+            </MyView>
           </>
         )}
     </CommonWebBox>

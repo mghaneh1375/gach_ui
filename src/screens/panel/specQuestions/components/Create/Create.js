@@ -90,6 +90,7 @@ function Create(props) {
     props.setLoading(false);
 
     if (res !== null) {
+      dispatch({questions: undefined});
       props.setMode('detail');
     }
   };

@@ -13,10 +13,7 @@ import {
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../translator/Common';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import {questionContext, dispatchQuestionContext} from './Context';
-import {styles} from '../../../../../styles/Common/Styles';
 
 function Detail(props) {
   const [selectingQuiz, setSelectingQuiz] = useState(false);

@@ -173,11 +173,10 @@ const CreateOnlineQuiz = props => {
           if (fileRes !== null && fileRes !== undefined) files.push(fileRes);
         }
 
-        if (props.editMode) data.attaches = files;
-        else result.attaches = files;
+        result.attaches = files;
         props.setLoading(false);
       } else {
-        if (props.editMode) data.attaches = state.selectedQuiz.attaches;
+        if (props.editMode) result.attaches = state.selectedQuiz.attaches;
         props.setLoading(false);
       }
 

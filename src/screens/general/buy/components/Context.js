@@ -120,7 +120,12 @@ export const PackageProvider = ({children}) => {
             elem.type !== undefined &&
             elem.type === 'quiz' &&
             elem.generalMode !== undefined &&
-            elem.generalMode === 'onlineStanding')
+            elem.generalMode === 'onlineStanding') ||
+          (state.selectedKindQuiz === 'escape' &&
+            elem.type !== undefined &&
+            elem.type === 'quiz' &&
+            elem.generalMode !== undefined &&
+            elem.generalMode === 'escape')
         )
           isValidInKindQuizFilter = true;
       }

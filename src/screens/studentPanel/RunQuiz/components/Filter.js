@@ -231,18 +231,27 @@ function Filter(props) {
         state.questions !== undefined &&
         props.mode !== 'splash' && (
           <MyView style={{padding: 20}}>
-            <EqualTwoTextInputs>
-              <SimpleText text={'مبحث: '} />
-              <SimpleText text={state.questions[state.currIdx].subject.name} />
-            </EqualTwoTextInputs>
-            <EqualTwoTextInputs>
-              <SimpleText text={'سطح سختی: '} />
-              <SimpleText text={state.questions[state.currIdx].levelFa} />
-            </EqualTwoTextInputs>
-            <EqualTwoTextInputs>
-              <SimpleText text={'طراح سوال: '} />
-              <SimpleText text={state.questions[state.currIdx].author} />
-            </EqualTwoTextInputs>
+            {state.questions[state.currIdx].subject !== undefined && (
+              <EqualTwoTextInputs>
+                <SimpleText text={'مبحث: '} />
+                <SimpleText
+                  text={state.questions[state.currIdx].subject.name}
+                />
+              </EqualTwoTextInputs>
+            )}
+            {state.questions[state.currIdx].levelFa !== undefined && (
+              <EqualTwoTextInputs>
+                <SimpleText text={'سطح سختی: '} />
+                <SimpleText text={state.questions[state.currIdx].levelFa} />
+              </EqualTwoTextInputs>
+            )}
+            {state.questions[state.currIdx].author !== undefined && (
+              <EqualTwoTextInputs>
+                <SimpleText text={'طراح سوال: '} />
+                <SimpleText text={state.questions[state.currIdx].author} />
+              </EqualTwoTextInputs>
+            )}
+
             {state.quizInfo.mode !== 'tashrihi' && (
               <EqualTwoTextInputs>
                 <SimpleText text={'پاسخ دانش آموز: '} />
@@ -251,8 +260,10 @@ function Filter(props) {
                     text={'گزینه ' + state.questions[state.currIdx].stdAns}
                   />
                 )}
-                {state.questions[state.currIdx].kindQuestion ===
-                  'short_answer' && (
+                {(state.questions[state.currIdx].kindQuestion ===
+                  'short_answer' ||
+                  state.questions[state.currIdx].kindQuestion ===
+                    undefined) && (
                   <SimpleText text={state.questions[state.currIdx].stdAns} />
                 )}
                 {state.questions[state.currIdx].kindQuestion ===
@@ -274,8 +285,10 @@ function Filter(props) {
                     text={'گزینه ' + state.questions[state.currIdx].answer}
                   />
                 )}
-                {state.questions[state.currIdx].kindQuestion ===
-                  'short_answer' && (
+                {(state.questions[state.currIdx].kindQuestion ===
+                  'short_answer' ||
+                  state.questions[state.currIdx].kindQuestion ===
+                    undefined) && (
                   <SimpleText text={state.questions[state.currIdx].answer} />
                 )}
                 {state.questions[state.currIdx].kindQuestion ===

@@ -36,15 +36,16 @@ const QuizRegistryInfo = props => {
             justNum={true}
           />
         )}
-        {props.quizGeneralMode !== 'open' && props.capacity !== undefined && (
-          <JustBottomBorderTextInput
-            subText={translator.capacity}
-            placeholder={translator.capacity}
-            value={props.capacity}
-            onChangeText={text => changeText(text, props.setCapacity)}
-            justNum={true}
-          />
-        )}
+        {props.quizGeneralMode !== 'open' &&
+          props.setCapacity !== undefined && (
+            <JustBottomBorderTextInput
+              subText={translator.capacity}
+              placeholder={translator.capacity}
+              value={props.capacity}
+              onChangeText={text => changeText(text, props.setCapacity)}
+              justNum={true}
+            />
+          )}
 
         {start !== undefined &&
           end !== undefined &&

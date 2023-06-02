@@ -211,7 +211,8 @@ function Ops(props) {
           {props.user.accesses.indexOf('student') !== -1 && (
             <PhoneView style={{gap: 10}}>
               {state.selectedQuiz.status === 'finished' &&
-                state.selectedQuiz.generalMode !== 'onlineStanding' && (
+                state.selectedQuiz.generalMode !== 'onlineStanding' &&
+                state.selectedQuiz.generalMode !== 'escape' && (
                   <>
                     <CommonButton
                       onPress={() => prepareShowResult()}
@@ -238,7 +239,8 @@ function Ops(props) {
                   theme={'transparent'}
                 />
               )}
-              {state.selectedQuiz.generalMode === 'onlineStanding' &&
+              {(state.selectedQuiz.generalMode === 'onlineStanding' ||
+                state.selectedQuiz.generalMode === 'escape') &&
                 state.selectedQuiz.status !== 'finished' && (
                   <CommonButton
                     onPress={() =>

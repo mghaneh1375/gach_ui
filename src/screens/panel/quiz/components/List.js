@@ -112,10 +112,11 @@ const List = props => {
               token={props.token}
               setLoading={props.setLoading}
               removeUrl={
-                props.generalMode === undefined ||
-                props.generalMode !== 'openQuiz'
+                props.generalMode === undefined || props.generalMode === 'irysc'
                   ? routes.removeIRYSCQuiz
-                  : routes.removeOpenQuiz
+                  : props.generalMode === 'openQuiz'
+                  ? routes.removeOpenQuiz
+                  : routes.removeQuiz + props.generalMode
               }
             />
           )}

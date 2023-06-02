@@ -14,7 +14,6 @@ import Karname from './components/Reports/Karname/Karname';
 import ReportList from './components/Reports/List/List';
 import {useParams} from 'react-router';
 import {MyView} from '../../../styles/Common';
-import ContentQuizKarname from './components/Reports/Karname/ContentQuizKarname';
 import CreateOnlineQuiz from './components/CreateOnlineQuiz';
 
 const OnlineStanding = props => {
@@ -99,10 +98,9 @@ const OnlineStanding = props => {
             quizMode={params.mode}
             quizId={params.quizId}
             quizName={params.quizName}
-            isAdmin={true}
           />
         )}
-        {mode === 'karname' && params.mode !== 'content' && (
+        {mode === 'karname' && (
           <Karname
             setLoading={setLoading}
             user={props.user}

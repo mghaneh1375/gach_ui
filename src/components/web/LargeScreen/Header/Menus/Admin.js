@@ -106,7 +106,7 @@ function AdminMenu(props) {
             },
             {
               text: 'سوالات آزمون فرار',
-              url: 'spec-question',
+              url: '/spec-question',
             },
           ]}
         />

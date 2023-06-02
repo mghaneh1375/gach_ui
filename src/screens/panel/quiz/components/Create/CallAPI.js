@@ -30,10 +30,11 @@ const EscapeQuizMandatoryFields = [
   'price',
   'end',
   'endRegistry',
-  'duration',
   'capacity',
   'priority',
   'topStudentsCount',
+  'maxTry',
+  'shouldComplete',
 ];
 
 const SchoolMandatoryFields = [

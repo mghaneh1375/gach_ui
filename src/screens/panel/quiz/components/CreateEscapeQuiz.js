@@ -4,6 +4,7 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
+  PhoneView,
 } from '../../../../styles/Common';
 import QuizAnswerSheetInfo from './Create/QuizAnswerSheetInfo';
 import QuizGeneralInfo from './Create/QuizGeneralInfo';
@@ -16,7 +17,11 @@ import {routes} from '../../../../API/APIRoutes';
 import {dispatchQuizContext, quizContext} from './Context';
 import {addFile, getTags, removeFile} from './Utility';
 import {useFilePicker} from 'use-file-picker';
-import {showSuccess} from '../../../../services/Utility';
+import {showSuccess, trueFalseValues} from '../../../../services/Utility';
+import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
+import {styles} from '../../../../styles/Common/Styles';
+import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 
 const CreateEscapeQuiz = props => {
   const useGlobalState = () => [
@@ -40,6 +45,8 @@ const CreateEscapeQuiz = props => {
     setPriority(state.selectedQuiz.priority);
     setDesc(state.selectedQuiz.description);
     setTags(state.selectedQuiz.tags);
+    setMaxTry(state.selectedQuiz.maxTry);
+    setShouldComplete(state.selectedQuiz.shouldComplete);
 
     setCapacity(state.selectedQuiz.capacity);
     setPrice(state.selectedQuiz.price);
@@ -60,7 +67,6 @@ const CreateEscapeQuiz = props => {
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [tags, setTags] = useState([]);
-  const [len, setLen] = useState(props.editMode ? state.selectedQuiz.len : '');
 
   const [priority, setPriority] = useState();
   const [start, setStart] = useState(props.editMode ? undefined : '');
@@ -68,6 +74,8 @@ const CreateEscapeQuiz = props => {
   const [price, setPrice] = useState();
   const [ranking, setRanking] = useState();
   const [capacity, setCapacity] = useState();
+  const [maxTry, setMaxTry] = useState();
+  const [shouldComplete, setShouldComplete] = useState();
 
   const [startRegistry, setStartRegistry] = useState(
     props.editMode ? undefined : '',
@@ -136,7 +144,6 @@ const CreateEscapeQuiz = props => {
       start: start,
       end: end,
       startRegistry: startRegistry,
-      duration: len,
       tags: tags,
       price: price,
       priority: priority,
@@ -144,6 +151,8 @@ const CreateEscapeQuiz = props => {
       topStudentsCount: ranking,
       descAfter: descAfter,
       desc: descBefore,
+      shouldComplete: shouldComplete,
+      maxTry: maxTry,
     };
     if (endRegistry !== undefined) data.endRegistry = endRegistry;
 
@@ -174,17 +183,15 @@ const CreateEscapeQuiz = props => {
           if (fileRes !== null && fileRes !== undefined) files.push(fileRes);
         }
 
-        if (props.editMode) data.attaches = files;
-        else result.attaches = files;
+        result.attaches = files;
         props.setLoading(false);
       } else {
-        if (props.editMode) data.attaches = state.selectedQuiz.attaches;
+        if (props.editMode) result.attaches = state.selectedQuiz.attaches;
         props.setLoading(false);
       }
 
       if (props.editMode) {
-        data.id = state.selectedQuiz.id;
-        dispatch({selectedQuiz: data, needUpdate: true});
+        dispatch({selectedQuiz: result, needUpdate: true});
       } else {
         let allQuizzes = state.quizzes;
         allQuizzes.unshift(result);
@@ -214,25 +221,48 @@ const CreateEscapeQuiz = props => {
           />
         }
       />
-      <CommonWebBox
-        header={translator.runInfo}
-        child={
-          <QuizRunInfo
-            isRigstrable={true}
-            isUploadable={true}
-            isQRNeeded={false}
-            kind={'regular'}
-            quizGeneralMode={'escape'}
-            start={start}
-            end={end}
-            setStart={setStart}
-            setEnd={setEnd}
-            lenMode={'custom'}
-            len={len}
-            setLen={setLen}
+      <CommonWebBox header={translator.runInfo}>
+        <PhoneView style={{...styles.gap10}}>
+          {(!props.editMode || start !== undefined) && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.startDate}
+              value={start}
+              setter={setStart}
+              subText={translator.startDate}
+            />
+          )}
+          {(!props.editMode || end !== undefined) && (
+            <JustBottomBorderDatePicker
+              placeholder={translator.endDate}
+              value={end}
+              setter={setEnd}
+              subText={translator.endDate}
+            />
+          )}
+          <JustBottomBorderTextInput
+            placeholder={'حداکثر تلاش اشتباه برای هر سوال'}
+            subText={'حداکثر تلاش اشتباه برای هر سوال'}
+            value={maxTry}
+            onChangeText={e => setMaxTry(e)}
+            justNum={true}
           />
-        }
-      />
+
+          <JustBottomBorderSelect
+            values={trueFalseValues}
+            value={
+              shouldComplete === undefined
+                ? {}
+                : trueFalseValues.filter(element => {
+                    return element.id === shouldComplete;
+                  })[0]
+            }
+            setter={setShouldComplete}
+            subText={'آیا شرط نفر برتر شدن جواب دادن به تمامی سوالات است؟'}
+            placeholder={'آیا شرط نفر برتر شدن جواب دادن به تمامی سوالات است؟'}
+          />
+        </PhoneView>
+      </CommonWebBox>
+
       <CommonWebBox
         header={translator.registryInfo}
         child={
@@ -246,6 +276,8 @@ const CreateEscapeQuiz = props => {
             setPrice={setPrice}
             ranking={ranking}
             setRanking={setRanking}
+            capacity={capacity}
+            setCapacity={setCapacity}
           />
         }
       />

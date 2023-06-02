@@ -477,9 +477,9 @@ export const changeQuestionsArrangeInQuiz = async (
   return res;
 };
 
-export const finalizeQuizResult = async (quizId, token) => {
+export const finalizeQuizResult = async (quizId, quizMode, token) => {
   let res = await generalRequest(
-    routes.finalizeQuizResult + quizId,
+    routes.finalizeQuizResult + quizMode + '/' + quizId,
     'post',
     undefined,
     undefined,

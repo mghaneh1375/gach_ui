@@ -80,6 +80,7 @@ const translator = {
   teamName: 'نام تیم',
   members: 'اعضای تیم',
   sureChangeMainMember: 'آیا از تغییر نفر اصلی اطمینان دارید؟',
+  selectGifts: 'تعیین جوایز',
 };
 
 export default translator;

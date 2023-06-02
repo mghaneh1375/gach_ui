@@ -91,6 +91,8 @@ function Card(props) {
                     ? 'آزمون تشریحی'
                     : props.quiz.maxTeams !== undefined
                     ? 'پای تخته'
+                    : props.quiz.generalMode === 'escape'
+                    ? 'آزمون فرار'
                     : 'آزمون باز'
                 }
               />
@@ -118,17 +120,19 @@ function Card(props) {
                   valFontSize={valFontSize}
                 />
               )}
-            {props.quiz.mode !== undefined && (
-              <QuizItemCard
-                text={Translate.kind}
-                val={
-                  kindQuizKeyVals.find(elem => elem.id === props.quiz.mode).item
-                }
-                icon={faInfo}
-                textFontSize={fontSize}
-                valFontSize={valFontSize}
-              />
-            )}
+            {props.quiz.mode !== undefined &&
+              props.quiz.generalMode !== 'escape' && (
+                <QuizItemCard
+                  text={Translate.kind}
+                  val={
+                    kindQuizKeyVals.find(elem => elem.id === props.quiz.mode)
+                      .item
+                  }
+                  icon={faInfo}
+                  textFontSize={fontSize}
+                  valFontSize={valFontSize}
+                />
+              )}
             {props.quiz.maxTeams !== undefined && (
               <QuizItemCard
                 text={Translate.reminder}

@@ -104,6 +104,7 @@ import SpecQuestion from './panel/specQuestions/SpecQuestion';
 import RunOnlineStandingQuiz from './studentPanel/RunOnlineStandingQuiz/RunOnlineStandingQuiz';
 import ExamTags from './panel/consultants/ExamTags';
 import MyLifeStyle from './studentPanel/MyLifeStyle.js/MyLifeStyle';
+import RunEscapeQuiz from './studentPanel/RunEscapeQuiz/RunEscapeQuiz';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -375,15 +376,18 @@ const WebStructue = props => {
                     navigate={navigate}
                   />
                 )}
-              {props.page === 'startQuiz' &&
-                params.quizMode !== 'onlineStanding' && (
-                  <RunQuiz
-                    isInReviewMode={false}
-                    token={state.token}
-                    user={state.user}
-                    navigate={navigate}
-                  />
-                )}
+
+              {props.page === 'startQuiz' && params.quizMode === 'escape' && (
+                <RunEscapeQuiz isInReviewMode={false} navigate={navigate} />
+              )}
+              {props.page === 'startQuiz' && params.quizMode !== 'escape' && (
+                <RunQuiz
+                  isInReviewMode={false}
+                  token={state.token}
+                  user={state.user}
+                  navigate={navigate}
+                />
+              )}
               {props.page === 'checkCert' && <CheckCert navigate={navigate} />}
               {props.page === 'rankingList' && (
                 <RankingList navigate={navigate} />
