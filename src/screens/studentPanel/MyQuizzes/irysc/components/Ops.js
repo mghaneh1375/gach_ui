@@ -224,11 +224,6 @@ function Ops(props) {
                       title={Translate.answerSheet}
                       theme={'transparent'}
                     />
-                    <CommonButton
-                      onPress={() => prepareShowRanking()}
-                      title={Translate.ranking}
-                      theme={'transparent'}
-                    />
                   </>
                 )}
 

@@ -10,8 +10,6 @@ import {
 } from './components/Context';
 import Key from './components/Key/Key';
 import Ranking from './components/Reports/Ranking/Ranking';
-import Karname from './components/Reports/Karname/Karname';
-import ReportList from './components/Reports/List/List';
 import {useParams} from 'react-router';
 import {MyView} from '../../../styles/Common';
 import CreateOnlineQuiz from './components/CreateOnlineQuiz';
@@ -98,25 +96,7 @@ const OnlineStanding = props => {
             quizMode={params.mode}
             quizId={params.quizId}
             quizName={params.quizName}
-          />
-        )}
-        {mode === 'karname' && (
-          <Karname
-            setLoading={setLoading}
-            user={props.user}
-            setMode={setMode}
-            token={state.token}
-            quizMode={params.mode}
-            quizId={params.quizId}
-            studentId={params.studentId}
-          />
-        )}
-
-        {mode === 'report' && (
-          <ReportList
-            setLoading={setLoading}
-            setMode={setMode}
-            token={state.token}
+            isAdmin={true}
           />
         )}
       </QuizProvider>

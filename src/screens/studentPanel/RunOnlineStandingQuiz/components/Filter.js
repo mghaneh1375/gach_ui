@@ -22,7 +22,6 @@ import commonTranslator from '../../../../translator/Common';
 import Circle from '../../../../components/web/Circle';
 import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
 import {
-  convertTimestamp,
   convertTimestampToJustTime,
   getDevice,
 } from '../../../../services/Utility';

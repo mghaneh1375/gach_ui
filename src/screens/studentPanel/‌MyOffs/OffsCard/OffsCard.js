@@ -16,7 +16,6 @@ import {
 import Translate from '../Translate';
 
 function OffsCard(props) {
-  console.log(props.dataLength);
   return (
     <CommonWebBox
       style={{...styleCard, ...styles.BlueBold, ...styles.padding10}}>
@@ -26,19 +25,14 @@ function OffsCard(props) {
           ...styles.fontSize15,
           ...styles.paddingRight15,
         }}
-        text={props.code === '' ? Translate.intelOffs : props.title}
+        text={
+          props.code === ''
+            ? Translate.intelOffs
+            : props.title === undefined || props.title.length === 0
+            ? 'کد تخفیف'
+            : props.title
+        }
       />
-
-      {/* {!props.code && (
-        <SimpleText
-          style={{
-            ...styles.BlueBold,
-            ...styles.fontSize15,
-            ...styles.paddingRight15,
-          }}
-          text={props.title}
-        />
-      )} */}
       <PhoneView>
         <EqualTwoTextInputs style={{...styles.gap30}}>
           <QuizItemCard
@@ -87,8 +81,8 @@ function OffsCard(props) {
             text={
               props.amount === undefined
                 ? props.amount
-                : props.type === 'money'
-                ? Translate.amount + ' : ' + props.amount
+                : props.type === 'money' || props.type === 'value'
+                ? Translate.amount + ' : ' + props.amount + ' تومان'
                 : props.type === 'coin'
                 ? Translate.amount + ' : ' + props.amount + Translate.xMoney
                 : ' ' + props.amount + ' ' + Translate.percent

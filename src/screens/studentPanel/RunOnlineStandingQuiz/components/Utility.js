@@ -28,7 +28,7 @@ export const doSaveAnswer = async (answer, quizId, questionId, token) => {
     {
       answer: answer,
     },
-    ['reminder'],
+    ['reminder', 'msg', 'ans'],
     token,
   );
 };
