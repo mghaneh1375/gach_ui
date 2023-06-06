@@ -239,8 +239,7 @@ function Ops(props) {
                   theme={'transparent'}
                 />
               )}
-              {(state.selectedQuiz.generalMode === 'onlineStanding' ||
-                state.selectedQuiz.generalMode === 'escape') &&
+              {state.selectedQuiz.generalMode === 'onlineStanding' &&
                 state.selectedQuiz.status !== 'finished' && (
                   <CommonButton
                     onPress={() =>

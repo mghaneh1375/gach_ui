@@ -19,7 +19,7 @@ const AddBatch = props => {
 
   return (
     <UploadFile
-      url={routes.addBatchQuestions}
+      url={routes.addBatchEscapeQuizQuestions}
       token={props.token}
       maxFileSize={6}
       accept={['.xls', '.xlsx']}
@@ -31,20 +31,8 @@ const AddBatch = props => {
       finalMsg={finalMsg}
       helps={[
         {
-          link: BASE_SITE_NAME + 'assets/add_question_sample.xlsx',
+          link: BASE_SITE_NAME + 'assets/add_escape_quiz_question_sample.xlsx',
           text: 'دانلود فایل نمونه سوالات',
-        },
-        {
-          link: BASE_URL + routes.getQuestionTagsExcel,
-          text: 'دانلود فایل آی دی تگ ها',
-        },
-        {
-          link: BASE_URL + routes.getSubjectCodesExcel,
-          text: 'دانلود فایل کد حیطه ها',
-        },
-        {
-          link: BASE_URL + routes.getAuthorCodesExcel,
-          text: 'دانلود فایل کد مولفین',
         },
       ]}
     />
