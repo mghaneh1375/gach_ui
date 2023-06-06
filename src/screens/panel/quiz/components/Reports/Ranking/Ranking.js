@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {getRanking} from '../../Utility';
 import {
+  CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
@@ -365,34 +366,45 @@ function Ranking(props) {
       }
       btn={
         <PhoneView style={styles.alignItemsCenter}>
-          {state.selectedQuiz.generalMode !== 'open' && !isInPhone && (
-            <CopyBox
-              title={commonTranslator.copyLink}
-              url={
-                state.selectedQuiz.title !== undefined
-                  ? BASE_SITE_NAME +
-                    'ranking/' +
-                    state.selectedQuiz.generalMode +
-                    '/' +
-                    state.selectedQuiz.id +
-                    '/' +
-                    state.selectedQuiz.title
-                  : props.quizName !== undefined
-                  ? BASE_SITE_NAME +
-                    'ranking/' +
-                    state.selectedQuiz.generalMode +
-                    '/' +
-                    state.selectedQuiz.id +
-                    '/' +
-                    props.quizName
-                  : BASE_SITE_NAME +
-                    'ranking/' +
-                    state.selectedQuiz.generalMode +
-                    '/' +
-                    state.selectedQuiz.id
-              }
-            />
-          )}
+          {state.selectedQuiz.generalMode !== 'open' &&
+            !isInPhone &&
+            !showDetails && (
+              <CopyBox
+                title={commonTranslator.copyLink}
+                url={
+                  state.selectedQuiz.title !== undefined
+                    ? BASE_SITE_NAME +
+                      'ranking/' +
+                      state.selectedQuiz.generalMode +
+                      '/' +
+                      state.selectedQuiz.id +
+                      '/' +
+                      state.selectedQuiz.title
+                    : props.quizName !== undefined
+                    ? BASE_SITE_NAME +
+                      'ranking/' +
+                      state.selectedQuiz.generalMode +
+                      '/' +
+                      state.selectedQuiz.id +
+                      '/' +
+                      props.quizName
+                    : BASE_SITE_NAME +
+                      'ranking/' +
+                      state.selectedQuiz.generalMode +
+                      '/' +
+                      state.selectedQuiz.id
+                }
+              />
+            )}
+          {state.selectedQuiz.generalMode !== 'open' &&
+            !isInPhone &&
+            showDetails && (
+              <CommonButton
+                title={'بازگشت'}
+                theme={'orangeRed'}
+                onPress={() => setshowDetails(false)}
+              />
+            )}
           {state.selectedQuiz.title !== undefined && (
             <FontIcon
               onPress={() =>
@@ -415,7 +427,13 @@ function Ranking(props) {
             show_row_no={false}
             pagination={false}
             groupOps={[]}
-            excel={isInPhone ? false : state.selectedQuiz.title !== undefined}
+            excel={
+              isInPhone ||
+              state.selectedQuiz.generalMode === 'onlineStanding' ||
+              state.selectedQuiz.generalMode === 'escape'
+                ? false
+                : state.selectedQuiz.title !== undefined
+            }
           />
         )}
 
@@ -503,7 +521,7 @@ function Ranking(props) {
                       text={
                         'زمان حل: ' +
                         convertSecToMin(selectedTeam.answers[index].time) +
-                        ' ثانیه بعد از شروع آزمون'
+                        ' بعد از شروع آزمون '
                       }
                     />
                     <SimpleText

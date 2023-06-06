@@ -110,7 +110,9 @@ function Card(props) {
       <MyView style={{...styleItemsGrandParent, ...styles.gap15}}>
         {!showMore && (
           <PhoneView style={{...styleItemsParent, ...styles.gap15}}>
-            {props.quiz.reminder !== undefined &&
+            {props.quiz.reportStatus !== 'ready' &&
+              props.quiz.status !== 'finished' &&
+              props.quiz.reminder !== undefined &&
               props.quiz.maxTeams === undefined && (
                 <QuizItemCard
                   text={Translate.reminder}
@@ -235,20 +237,26 @@ function Card(props) {
                 textFontSize={fontSize}
                 valFontSize={fontSize}
               />
-              <QuizItemCard
-                text={Translate.startRegistery}
-                val={convertTimestamp(props.quiz.startRegistry)}
-                icon={faPlug}
-                textFontSize={fontSize}
-                valFontSize={fontSize}
-              />
-              <QuizItemCard
-                text={Translate.endRegistery}
-                val={convertTimestamp(props.quiz.endRegistry)}
-                icon={faPlug}
-                textFontSize={fontSize}
-                valFontSize={fontSize}
-              />
+              {props.quiz.reportStatus !== 'ready' &&
+                props.quiz.status !== 'finished' && (
+                  <QuizItemCard
+                    text={Translate.startRegistery}
+                    val={convertTimestamp(props.quiz.startRegistry)}
+                    icon={faPlug}
+                    textFontSize={fontSize}
+                    valFontSize={fontSize}
+                  />
+                )}
+              {props.quiz.reportStatus !== 'ready' &&
+                props.quiz.status !== 'finished' && (
+                  <QuizItemCard
+                    text={Translate.endRegistery}
+                    val={convertTimestamp(props.quiz.endRegistry)}
+                    icon={faPlug}
+                    textFontSize={fontSize}
+                    valFontSize={fontSize}
+                  />
+                )}
 
               {props.afterQuiz !== undefined && props.afterQuiz && (
                 <QuizItemCard

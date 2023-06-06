@@ -2,7 +2,12 @@ import React, {useState} from 'react';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {dispatchStateContext, globalStateContext} from '../../../App';
-import {CommonWebBox, MyView, PhoneView} from '../../../styles/Common';
+import {
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
 import Card from '../../panel/quiz/components/Card/Card';
@@ -76,6 +81,13 @@ function RankingList(props) {
     });
   }, [dispatch, quizzes]);
 
+  const [viewableItems, setViewableItems] = useState();
+
+  React.useEffect(() => {
+    if (quizzes === undefined) return;
+    setViewableItems(quizzes.slice(0, 9));
+  }, [quizzes]);
+
   return (
     <MyView>
       <div
@@ -89,108 +101,138 @@ function RankingList(props) {
           background: 'url(./assets/images/back3.png)',
         }}></div>
 
-      <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
-        <ProgressCard
-          header={'رتبه بندی کلی'}
-          theme={vars.ORANGE}
-          color={mode === 'generalRanking' ? vars.WHITE : vars.DARK_BLUE}
-          width={250}
-          percent={mode === 'generalRanking' ? '90%' : '10%'}
-          onPress={() => {
-            if (mode === 'generalRanking') return;
-            setMode('generalRanking');
-          }}
-          style={{...styles.cursor_pointer}}
-        />
-        <ProgressCard
-          header={'رتبه بندی آزمون ها'}
-          theme={vars.ORANGE_RED}
-          color={mode === 'quizRanking' ? vars.WHITE : vars.DARK_BLUE}
-          width={250}
-          percent={mode === 'quizRanking' ? '90%' : '10%'}
-          onPress={() => {
-            if (mode === 'quizRanking') return;
-            prepareIRYSCQuizzes();
-          }}
-          style={{...styles.cursor_pointer}}
-        />
-      </PhoneView>
-      {mode === 'quizRanking' && (
-        <PhoneView
-          style={
-            state.isInPhone
-              ? {
-                  ...styles.gap30,
-                  ...styles.padding10,
-                  ...styles.justifyContentCenter,
-                  ...{marginBottom: 100},
-                }
-              : {...styles.gap30, ...styles.justifyContentCenter}
-          }>
-          {quizzes !== undefined &&
-            quizzes.map((elem, index) => {
-              return (
-                <Card
-                  onSelect={quizId => {
-                    window.open(
-                      '/ranking/irysc/' + quizId + '/' + elem.title,
-                      '_blank',
+      <MyView style={{marginBottom: 20}}>
+        <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
+          <ProgressCard
+            header={'رتبه بندی کلی'}
+            theme={vars.ORANGE}
+            color={mode === 'generalRanking' ? vars.WHITE : vars.DARK_BLUE}
+            width={250}
+            percent={mode === 'generalRanking' ? '90%' : '10%'}
+            onPress={() => {
+              if (mode === 'generalRanking') return;
+              setMode('generalRanking');
+            }}
+            style={{...styles.cursor_pointer}}
+          />
+          <ProgressCard
+            header={'رتبه بندی آزمون ها'}
+            theme={vars.ORANGE_RED}
+            color={mode === 'quizRanking' ? vars.WHITE : vars.DARK_BLUE}
+            width={250}
+            percent={mode === 'quizRanking' ? '90%' : '10%'}
+            onPress={() => {
+              if (mode === 'quizRanking') return;
+              prepareIRYSCQuizzes();
+            }}
+            style={{...styles.cursor_pointer}}
+          />
+        </PhoneView>
+        {mode === 'quizRanking' && (
+          <>
+            <PhoneView
+              style={
+                state.isInPhone
+                  ? {
+                      ...styles.gap30,
+                      ...styles.padding10,
+                      ...styles.justifyContentCenter,
+                      ...{marginBottom: 100},
+                    }
+                  : {...styles.gap30, ...styles.justifyContentCenter}
+              }>
+              {viewableItems !== undefined &&
+                viewableItems.map((elem, index) => {
+                  return (
+                    <Card
+                      onSelect={quizId => {
+                        window.open(
+                          '/ranking/' +
+                            elem.generalMode +
+                            '/' +
+                            quizId +
+                            '/' +
+                            elem.title,
+                          '_blank',
+                        );
+                      }}
+                      selectText={'مشاهده رتبه بندی'}
+                      key={index}
+                      quiz={elem}
+                    />
+                  );
+                })}
+            </PhoneView>
+            {viewableItems !== undefined &&
+              viewableItems.length < quizzes.length && (
+                <SimpleText
+                  text={'نمایش بیشتر'}
+                  style={{
+                    ...styles.alignSelfCenter,
+                    ...styles.cursor_pointer,
+                    ...styles.BlueBold,
+                    ...styles.fontSize20,
+                    ...styles.margin25,
+                  }}
+                  onPress={() => {
+                    setViewableItems(
+                      quizzes.slice(
+                        0,
+                        Math.min(viewableItems.length + 6, quizzes.length),
+                      ),
                     );
                   }}
-                  selectText={'مشاهده رتبه بندی'}
-                  key={index}
-                  quiz={elem}
                 />
-              );
-            })}
-        </PhoneView>
-      )}
-      {mode === 'generalRanking' && (
-        <MyView style={state.isInPhone ? {marginBottom: 100} : {}}>
-          <CommonWebBox
-            style={styles.alignSelfCenter}
-            width={
-              state.isRightMenuVisible || state.isInPhone
-                ? '100%'
-                : vars.LEFT_SECTION_WIDTH
-            }>
-            <Filter
-              setUseFilter={setUseFilter}
-              useFilter={useFilter}
-              setLoading={setLoading}
-              setData={setData}
-              grades={grades}
-            />
-          </CommonWebBox>
-          <PhoneView style={styles.justifyContentCenter}>
-            {data !== undefined &&
-              data.map((elem, index) => {
-                return (
-                  <PhoneView
-                    key={index}
-                    style={{
-                      marginRight: state.isInPhone ? 50 : 70,
-                      marginTop: 20,
-                      gap: 50,
-                    }}>
-                    <BoxRanking
-                      school={elem.student.school}
-                      grade={elem.student.grade}
-                      name={elem.student.name}
-                      city={elem.student.city}
-                      valScore={elem.cumSum}
-                      valQuiz={elem.totalQuizzes}
-                      field={elem.student.branches}
-                      rank={elem.student.rank}
-                      pic={elem.student.pic}
-                      useFilter={useFilter}
-                    />
-                  </PhoneView>
-                );
-              })}
-          </PhoneView>
-        </MyView>
-      )}
+              )}
+          </>
+        )}
+        {mode === 'generalRanking' && (
+          <MyView style={state.isInPhone ? {marginBottom: 100} : {}}>
+            <CommonWebBox
+              style={styles.alignSelfCenter}
+              width={
+                state.isRightMenuVisible || state.isInPhone
+                  ? '100%'
+                  : vars.LEFT_SECTION_WIDTH
+              }>
+              <Filter
+                setUseFilter={setUseFilter}
+                useFilter={useFilter}
+                setLoading={setLoading}
+                setData={setData}
+                grades={grades}
+              />
+            </CommonWebBox>
+            <PhoneView style={styles.justifyContentCenter}>
+              {data !== undefined &&
+                data.map((elem, index) => {
+                  return (
+                    <PhoneView
+                      key={index}
+                      style={{
+                        marginRight: state.isInPhone ? 50 : 70,
+                        marginTop: 20,
+                        gap: 50,
+                      }}>
+                      <BoxRanking
+                        school={elem.student.school}
+                        grade={elem.student.grade}
+                        name={elem.student.name}
+                        city={elem.student.city}
+                        valScore={elem.cumSum}
+                        valQuiz={elem.totalQuizzes}
+                        field={elem.student.branches}
+                        rank={elem.student.rank}
+                        pic={elem.student.pic}
+                        useFilter={useFilter}
+                      />
+                    </PhoneView>
+                  );
+                })}
+            </PhoneView>
+          </MyView>
+        )}
+      </MyView>
     </MyView>
   );
 }

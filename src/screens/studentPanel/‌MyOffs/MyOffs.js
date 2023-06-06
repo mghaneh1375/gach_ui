@@ -26,7 +26,6 @@ function MyOffs(props) {
   };
   const toggleBonus = () => {
     setBonus(!bonus);
-    console.log(dataBonus[1].obj.expireAtTs);
     if (discount === true) {
       setDiscount(!discount);
     }
@@ -124,7 +123,6 @@ function MyOffs(props) {
                   placeUse={
                     elem.obj !== undefined ? elem.obj.sectionFa : undefined
                   }
-                  // amount={elem.label}
                   expiredAt={
                     elem.obj !== undefined ? elem.obj.expireAt : undefined
                   }

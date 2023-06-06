@@ -1,7 +1,7 @@
 import React from 'react';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
+import {showError, showSuccess} from '../../../../services/Utility';
 import {doSaveAnswer} from './Utility';
 
 const defaultGlobalState = {
@@ -53,6 +53,18 @@ export const DoQuizProvider = ({children}) => {
       if (res[0] === null) {
         dispatch({
           needUpdateAnswer: false,
+        });
+        return;
+      }
+
+      if (res[0].msg !== undefined && res[0].ans !== undefined) {
+        showError(res[0].msg);
+
+        state.answers[state.currIdx] = res[0].ans;
+        dispatch({
+          needUpdateAnswer: false,
+          answer: res[0].ans,
+          answers: state.answers,
         });
         return;
       }

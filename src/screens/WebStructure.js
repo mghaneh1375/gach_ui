@@ -380,14 +380,16 @@ const WebStructue = props => {
               {props.page === 'startQuiz' && params.quizMode === 'escape' && (
                 <RunEscapeQuiz isInReviewMode={false} navigate={navigate} />
               )}
-              {props.page === 'startQuiz' && params.quizMode !== 'escape' && (
-                <RunQuiz
-                  isInReviewMode={false}
-                  token={state.token}
-                  user={state.user}
-                  navigate={navigate}
-                />
-              )}
+              {props.page === 'startQuiz' &&
+                params.quizMode !== 'escape' &&
+                params.quizMode !== 'onlineStanding' && (
+                  <RunQuiz
+                    isInReviewMode={false}
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
+                )}
               {props.page === 'checkCert' && <CheckCert navigate={navigate} />}
               {props.page === 'rankingList' && (
                 <RankingList navigate={navigate} />
