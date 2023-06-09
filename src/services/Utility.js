@@ -343,3 +343,15 @@ export const answerTypes = [
   {item: hwTranslator.audio, id: 'audio'},
   {item: hwTranslator.video, id: 'video'},
 ];
+
+export const faNums = [
+  'اول',
+  'دوم',
+  'سوم',
+  'چهارم',
+  'پنجم',
+  'ششم',
+  'هفتم',
+  'هشتم',
+  'نهم',
+];

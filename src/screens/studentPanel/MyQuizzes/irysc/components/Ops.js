@@ -227,13 +227,31 @@ function Ops(props) {
                   </>
                 )}
 
-              {state.selectedQuiz.status === 'finished' && (
-                <CommonButton
-                  onPress={() => prepareShowRanking()}
-                  title={Translate.ranking}
-                  theme={'transparent'}
-                />
-              )}
+              {state.selectedQuiz.status === 'finished' &&
+                state.selectedQuiz.generalMode !== 'onlineStanding' && (
+                  <CommonButton
+                    onPress={() => prepareShowRanking()}
+                    title={Translate.ranking}
+                    theme={'transparent'}
+                  />
+                )}
+
+              {state.selectedQuiz.status === 'finished' &&
+                state.selectedQuiz.generalMode === 'onlineStanding' && (
+                  <CommonButton
+                    onPress={() =>
+                      props.navigate(
+                        '/ranking/onlineStanding/' +
+                          state.selectedQuiz.id +
+                          '/' +
+                          state.selectedQuiz.title,
+                      )
+                    }
+                    title={Translate.ranking}
+                    theme={'transparent'}
+                  />
+                )}
+
               {state.selectedQuiz.generalMode === 'onlineStanding' &&
                 state.selectedQuiz.status !== 'finished' && (
                   <CommonButton

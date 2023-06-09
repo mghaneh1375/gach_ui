@@ -9,7 +9,6 @@ import {
   QuizProvider,
 } from './components/Context';
 import Key from './components/Key/Key';
-import Ranking from './components/Reports/Ranking/Ranking';
 import {useParams} from 'react-router';
 import {MyView} from '../../../styles/Common';
 import CreateOnlineQuiz from './components/CreateOnlineQuiz';
@@ -86,17 +85,6 @@ const OnlineStanding = props => {
             setLoading={setLoading}
             setMode={setMode}
             token={state.token}
-          />
-        )}
-        {mode === 'ranking' && (
-          <Ranking
-            setLoading={setLoading}
-            setMode={setMode}
-            token={state.token}
-            quizMode={params.mode}
-            quizId={params.quizId}
-            quizName={params.quizName}
-            isAdmin={true}
           />
         )}
       </QuizProvider>

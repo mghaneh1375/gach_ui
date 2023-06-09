@@ -39,57 +39,7 @@ function Ranking(props) {
   const [selectedTeamRank, setSelectedTeamRank] = useState();
 
   const chooseColumns = React.useCallback(() => {
-    if (state.selectedQuiz.generalMode === 'onlineStanding') {
-      let a = [
-        {
-          name: '',
-          cell: (row, index, column, id) => {
-            return (
-              <SimpleFontIcon
-                onPress={() => {
-                  setSelectedTeam(state.selectedQuiz.ranking[index]);
-                  setSelectedTeamRank(index + 1);
-                  setshowDetails(true);
-                }}
-                icon={faEye}
-              />
-            );
-          },
-          minWidth: '40px',
-          maxWidth: '40px',
-          center: true,
-        },
-        {
-          name: 'نام تیم',
-          selector: row => row.teamName,
-          grow: 2,
-          fontSize: 10,
-        },
-        {
-          name: 'رهبر تیم',
-          selector: row => row.stdName,
-          grow: 1,
-          size: 10,
-        },
-        {
-          name: 'امتیاز',
-          selector: row => row.point,
-          grow: 1,
-          fontSize: 10,
-        },
-        {
-          name: 'رتبه',
-          cell: (row, index, column, id) => {
-            return index + 1;
-          },
-          minWidth: '40px',
-          maxWidth: '40px',
-          center: true,
-        },
-      ];
-      setColumns(a);
-      return;
-    } else if (state.selectedQuiz.generalMode === 'escape') {
+    if (state.selectedQuiz.generalMode === 'escape') {
       let a = [
         {
           name: '',
@@ -428,132 +378,11 @@ function Ranking(props) {
             pagination={false}
             groupOps={[]}
             excel={
-              isInPhone ||
-              state.selectedQuiz.generalMode === 'onlineStanding' ||
-              state.selectedQuiz.generalMode === 'escape'
+              isInPhone || state.selectedQuiz.generalMode === 'escape'
                 ? false
                 : state.selectedQuiz.title !== undefined
             }
           />
-        )}
-
-      {state.selectedQuiz !== undefined &&
-        state.selectedQuiz.generalMode === 'onlineStanding' &&
-        showDetails &&
-        selectedTeam !== undefined && (
-          <>
-            <PhoneView style={{...styles.gap30}}>
-              <SimpleText text={'نام تیم: ' + selectedTeam.teamName} />
-              <SimpleText text={'نام رهبر تیم: ' + selectedTeam.stdName} />
-              <SimpleText text={'امتیاز: ' + selectedTeam.point} />
-              <SimpleText text={'رتبه: ' + selectedTeamRank} />
-            </PhoneView>
-
-            <PhoneView style={{...styles.gap30}}>
-              {selectedTeam.startAt !== undefined && (
-                <SimpleText text={'زمان آغاز: ' + selectedTeam.startAt} />
-              )}
-              {selectedTeam.finishAt !== undefined && (
-                <SimpleText text={'زمان پایان: ' + selectedTeam.finishAt} />
-              )}
-            </PhoneView>
-
-            {selectedTeam.members !== undefined &&
-              selectedTeam.members.length > 0 && (
-                <>
-                  <SimpleText
-                    text={'سایر اعضای گروه'}
-                    style={{...styles.fontSize17, ...styles.BlueBold}}
-                  />
-                  {selectedTeam.members.map((e, index) => {
-                    return (
-                      <PhoneView style={{...styles.gap30}} key={index}>
-                        <SimpleText style={{width: 140}} text={e.name} />
-                        {e.NID !== undefined && (
-                          <>
-                            <SimpleText
-                              style={{width: 140}}
-                              text={'کدملی: ' + e.NID}
-                            />
-                            <SimpleText
-                              style={{width: 170}}
-                              text={'شماره همراه: ' + e.phone}
-                            />
-                            <SimpleText
-                              style={{width: 150}}
-                              text={'مدرسه: ' + e.school}
-                            />
-                            <SimpleText
-                              style={{width: 120}}
-                              text={'مقطع: ' + e.grade}
-                            />
-                            <SimpleText
-                              style={{width: 150}}
-                              text={'رشته: ' + e.branches}
-                            />
-                            <SimpleText
-                              style={{width: 150}}
-                              text={'شهر: ' + e.city}
-                            />
-                          </>
-                        )}
-                      </PhoneView>
-                    );
-                  })}
-                </>
-              )}
-
-            <SimpleText
-              text={'سوالات حل شده'}
-              style={{...styles.fontSize17, ...styles.BlueBold}}
-            />
-            <MyView>
-              {selectedTeam.marks.map((e, index) => {
-                if (selectedTeam.answers[index].mark === undefined) return;
-                return (
-                  <PhoneView style={{...styles.gap50}}>
-                    <SimpleText text={'سوال ' + (index + 1)} />
-                    <SimpleText text={'نمره سوال: ' + e} />
-                    <SimpleText
-                      text={'نمره کسب شده: ' + selectedTeam.answers[index].mark}
-                    />
-                    <SimpleText
-                      text={
-                        'زمان حل: ' +
-                        convertSecToMin(selectedTeam.answers[index].time) +
-                        ' بعد از شروع آزمون '
-                      }
-                    />
-                    <SimpleText
-                      text={
-                        'امتیاز کسب شده: ' + selectedTeam.answers[index].point
-                      }
-                    />
-                  </PhoneView>
-                );
-              })}
-            </MyView>
-
-            {selectedTeam.allAnswers !== undefined && (
-              <>
-                <SimpleText
-                  text={'پاسخ های ثبت شده'}
-                  style={{...styles.fontSize17, ...styles.BlueBold}}
-                />
-
-                <MyView>
-                  {selectedTeam.allAnswers.map((e, index) => {
-                    return (
-                      <PhoneView style={{...styles.gap50}}>
-                        <SimpleText text={'سوال ' + (index + 1)} />
-                        <SimpleText text={'پاسخ تیم: ' + e} />
-                      </PhoneView>
-                    );
-                  })}
-                </MyView>
-              </>
-            )}
-          </>
         )}
 
       {state.selectedQuiz !== undefined &&

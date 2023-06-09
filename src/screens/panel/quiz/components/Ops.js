@@ -285,7 +285,14 @@ const Ops = props => {
             {state.selectedQuiz.generalMode === 'onlineStanding' &&
               state.selectedQuiz.status === 'finished' && (
                 <CommonButton
-                  onPress={() => props.setMode('ranking')}
+                  onPress={() =>
+                    props.navigate(
+                      '/ranking/onlineStanding/' +
+                        state.selectedQuiz.id +
+                        '/' +
+                        state.selectedQuiz.title,
+                    )
+                  }
                   dir={'rtl'}
                   theme={'transparent'}
                   title={commonTranslator.report}

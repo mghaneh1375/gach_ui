@@ -105,6 +105,7 @@ import RunOnlineStandingQuiz from './studentPanel/RunOnlineStandingQuiz/RunOnlin
 import ExamTags from './panel/consultants/ExamTags';
 import MyLifeStyle from './studentPanel/MyLifeStyle.js/MyLifeStyle';
 import RunEscapeQuiz from './studentPanel/RunEscapeQuiz/RunEscapeQuiz';
+import Ranking from './general/OnlineStanding/Ranking';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -510,14 +511,22 @@ const WebStructue = props => {
                 params.mode === 'content' && (
                   <ContentQuiz navigate={navigate} />
                 )}
-              {props.page === 'ranking' && params !== undefined && (
-                <Quiz
-                  mode={'ranking'}
-                  token={state.token}
-                  user={state.user}
-                  navigate={navigate}
-                />
-              )}
+              {props.page === 'ranking' &&
+                params !== undefined &&
+                params.mode !== 'onlineStanding' && (
+                  <Quiz
+                    mode={'ranking'}
+                    token={state.token}
+                    user={state.user}
+                    navigate={navigate}
+                  />
+                )}
+
+              {props.page === 'ranking' &&
+                params !== undefined &&
+                params.mode === 'onlineStanding' && (
+                  <Ranking navigate={navigate} />
+                )}
               {props.page === 'karname' && params !== undefined && (
                 <Quiz
                   mode={'karname'}
