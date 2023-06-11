@@ -66,7 +66,7 @@ function Card(props) {
           />
         </MyView>
         <MyView style={{...styles.gap15, ...styles.padding10}}>
-          {props.team.point === undefined && (
+          {props.rank === undefined && (
             <QuizItemCard
               text={'عضو ارشد'}
               val={props.team.student.name}
@@ -75,7 +75,7 @@ function Card(props) {
               valFontSize={14}
             />
           )}
-          {props.team.point !== undefined && (
+          {props.rank !== undefined && (
             <PhoneView style={{...styles.gap15}}>
               <QuizItemCard
                 text={'عضو ارشد'}
