@@ -245,6 +245,7 @@ const translator = {
   faqContents: 'سوالات متداول',
   advContents: 'ویدیوهای تبلیغاتی',
   seoContents: 'سئو',
+  teachersContents: 'مدرسان',
   results: 'نتایج',
   free: 'رایگان',
   clearFilters: 'پاک کردن فیلترها',

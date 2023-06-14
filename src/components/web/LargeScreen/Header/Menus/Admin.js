@@ -251,6 +251,10 @@ function AdminMenu(props) {
               text: translator.seoContents,
               url: '/seo-contents',
             },
+            {
+              text: translator.teachersContents,
+              url: '/contents-teacher',
+            },
           ]}
         />
         <SuperMenuItem

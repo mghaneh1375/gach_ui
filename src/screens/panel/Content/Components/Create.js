@@ -41,7 +41,7 @@ function Create(props) {
   const [description, setDescription] = useState();
   const [preReq, setPreReq] = useState();
   const [title, setTitle] = useState();
-  const [teacher, setTeacher] = useState();
+  const [teacher, setTeacher] = useState([]);
   const [price, setPrice] = useState();
   const [sessionsCount, setSessionsCount] = useState();
   const [teacherBio, setTeacherBio] = useState();
@@ -102,7 +102,7 @@ function Create(props) {
       generalRequest(
         routes.getTeacherBio,
         'post',
-        {teacher: teacher},
+        {teacher: teacher[0]},
         'data',
         props.token,
       ),
@@ -121,7 +121,10 @@ function Create(props) {
   }, [teacher]);
 
   React.useEffect(() => {
-    if (teacher === undefined || teacher === '') return;
+    if (teacher === undefined || teacher.length === 0 || teacher[0] === '') {
+      setTeacherBio('');
+      return;
+    }
     getTeacherBio();
   }, [teacher, getTeacherBio]);
 
@@ -312,14 +315,32 @@ function Create(props) {
           />
 
           <JustBottomBorderTextInput
-            resultPane={true}
+            multi={true}
             addNotFound={true}
+            resultPane={true}
+            setSelectedItem={item => {
+              setTeacher(
+                item.map(elem => {
+                  return elem.name;
+                }),
+              );
+              if (item.length > 0) {
+                let tmp = teachers;
+                item.forEach(itr => {
+                  if (teachers.find(elem => elem.id === itr.id) === undefined) {
+                    tmp.push(itr);
+                  }
+                });
+                setTeachers(tmp);
+              }
+            }}
+            values={teachers}
+            value={teacher.map((elem, index) => {
+              return {id: index, name: elem};
+            })}
             reset={false}
-            value={teacher === undefined ? '' : teacher}
             placeholder={Translator.teacher}
             subText={Translator.teacher}
-            setSelectedItem={item => setTeacher(item.name)}
-            values={teachers}
           />
 
           <JustBottomBorderSelect

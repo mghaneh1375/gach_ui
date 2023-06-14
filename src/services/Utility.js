@@ -49,6 +49,30 @@ export function convertSecToMinWithOutHour(sec) {
   return new Date(sec * 1000).toISOString().substr(14, 5);
 }
 
+export function convertSecToMinWithOutSecAndDay(sec) {
+  if (sec < 0) return '';
+
+  const d = new Date(sec * 1000).toISOString();
+
+  let day = parseInt(d.substr(8, 2)) - 1;
+
+  let h = d.substr(11, 2);
+
+  if (h[0] == 0) h = h[1];
+
+  h = day * 24 + parseInt(h);
+
+  let m = d.substr(14, 2);
+  if (m[0] == 0) m = m[1];
+
+  if (h > 0) {
+    if (m > 0) return h + ' ساعت ' + m + ' دقیقه ';
+    return h + ' ساعت ';
+  }
+
+  return m + ' دقیقه ';
+}
+
 export function convertSecToMinWithOutSec(sec) {
   if (sec < 0) return '';
 
@@ -69,7 +93,9 @@ export function convertSecToMinWithOutSec(sec) {
       return day + ' روز ' + h + ' ساعت ';
     }
 
-    return +m + ' دقیقه ';
+    if (m == 0) return day + 'روز ';
+
+    return day + 'روز ' + m + ' دقیقه ';
   }
 
   if (h[0] > 0) {
@@ -77,7 +103,7 @@ export function convertSecToMinWithOutSec(sec) {
     return h + ' ساعت ';
   }
 
-  return +m + ' دقیقه ';
+  return m + ' دقیقه ';
 }
 
 export function convertTimestamp(unix_timestamp) {

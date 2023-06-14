@@ -62,14 +62,6 @@ function Card(props) {
         </PhoneView>
         <PhoneView>
           <QuizItemCard
-            text={Translator.packageDuration}
-            val={convertSecToMinWithOutSec(props.package.duration)}
-            icon={faClock}
-            color={vars.YELLOW}
-            textFontSize={fontSize}
-            valFontSize={valFontSize}
-          />
-          <QuizItemCard
             text={Translator.sessionsCount}
             val={props.package.sessionsCount}
             icon={faListSquares}

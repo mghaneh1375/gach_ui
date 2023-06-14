@@ -76,6 +76,7 @@ import Video from './panel/Video';
 import CheckCert from './general/CheckCert/CheckCert';
 import MyCerts from './general/CheckCert/MyCerts';
 import Seo from './panel/Content/Seo/Seo';
+import ContentsTeachers from './panel/Content/Teachers/Teachers';
 import Adv from './panel/Content/Adv/Adv';
 import Notif from './panel/notifs/Notif';
 import SingleNotif from './studentPanel/Notif/Notif';
@@ -303,18 +304,14 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-
               {props.page === 'onlineStandingQuizRegistration' && (
                 <BuyOnlineStanding navigate={navigate} />
               )}
-
               {props.page === 'schoolQuiz' && <MyQuizzes navigate={navigate} />}
               {props.page === 'schoolHW' && <StudentHWs navigate={navigate} />}
-
               {props.page === 'advisorQuiz' && (
                 <MyQuizzes advisor={true} navigate={navigate} />
               )}
-
               {props.page === 'video_test' && <Video />}
               {props.page === 'packages' && params.sessionId !== undefined && (
                 <SessionDetail navigate={navigate} />
@@ -377,7 +374,6 @@ const WebStructue = props => {
                     navigate={navigate}
                   />
                 )}
-
               {props.page === 'startQuiz' && params.quizMode === 'escape' && (
                 <RunEscapeQuiz isInReviewMode={false} navigate={navigate} />
               )}
@@ -395,7 +391,6 @@ const WebStructue = props => {
               {props.page === 'rankingList' && (
                 <RankingList navigate={navigate} />
               )}
-
               {props.page === 'reviewQuiz' &&
                 params.quizMode === 'onlineStanding' && (
                   <RunOnlineStandingQuiz
@@ -403,7 +398,6 @@ const WebStructue = props => {
                     navigate={navigate}
                   />
                 )}
-
               {props.page === 'reviewQuiz' &&
                 params.quizMode !== 'onlineStanding' && (
                   <RunQuiz
@@ -448,21 +442,22 @@ const WebStructue = props => {
               )}
               {props.page === 'advisors' && <Advisors navigate={navigate} />}
               {props.page === 'myAdvisor' && <MyAdvisor navigate={navigate} />}
-
               {props.page === 'myLifeStyle' && (
                 <MyLifeStyle navigate={navigate} />
               )}
-
               {props.page === 'myStudentRequests' && (
                 <MyRequests navigate={navigate} />
               )}
               {props.page === 'requestLogsForAdvisors' && (
                 <RequestLogsForAdvisors navigate={navigate} />
               )}
-
               {props.page === 'seo-contents' && (
                 <Seo token={state.token} navigate={navigate} />
               )}
+              {props.page === 'contents-teacher' && (
+                <ContentsTeachers navigate={navigate} />
+              )}
+
               {props.page === 'adv-contents' && (
                 <Adv token={state.token} navigate={navigate} />
               )}
@@ -486,19 +481,16 @@ const WebStructue = props => {
                     navigate={navigate}
                   />
                 )}
-
               {props.page === 'quiz' &&
                 params !== undefined &&
                 params.mode !== undefined &&
                 params.mode === 'onlineStanding' && (
                   <OnlineStanding navigate={navigate} />
                 )}
-
               {props.page === 'quiz' &&
                 params !== undefined &&
                 params.mode !== undefined &&
                 params.mode === 'escape' && <EscapeQuiz navigate={navigate} />}
-
               {props.page === 'quiz' &&
                 params !== undefined &&
                 params.mode !== undefined &&
@@ -521,7 +513,6 @@ const WebStructue = props => {
                     navigate={navigate}
                   />
                 )}
-
               {props.page === 'ranking' &&
                 params !== undefined &&
                 params.mode === 'onlineStanding' && (
@@ -551,7 +542,6 @@ const WebStructue = props => {
                 params.mode === 'lifestyle' && (
                   <LifeStyle token={state.token} navigate={navigate} />
                 )}
-
               {props.page === 'consultants' &&
                 params !== undefined &&
                 params.mode !== undefined &&
@@ -578,11 +568,9 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-
               {props.page === 'spec-question' && (
                 <SpecQuestion navigate={navigate} />
               )}
-
               {props.page === 'offs' && (
                 <Off
                   token={state.token}

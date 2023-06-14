@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Image} from 'react-native';
 import {
-  convertSecToMinWithOutSec,
+  convertSecToMinWithOutSecAndDay,
+  faNums,
   formatPrice,
   getDevice,
   showError,
@@ -26,13 +27,14 @@ import {
   faAngleDown,
   faAngleUp,
   faClock,
+  faHourglassEnd,
   faListSquares,
   faSun,
+  faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import vars from '../../../../../styles/root';
 import commonTranslator from '../../../../../translator/Common';
 import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import Session from './Session';
 import {useEffectOnce} from 'usehooks-ts';
 import FAQ from './FAQ';
 import {setCacheItem} from '../../../../../API/User';
@@ -44,7 +46,6 @@ import {Rating} from 'react-native-ratings';
 import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
 import Card from '../Card';
-import {style} from '../../../../studentPanel/RunQuiz/style';
 
 function Detail(props) {
   const [item, setItem] = useState();
@@ -70,6 +71,7 @@ function Detail(props) {
   const [selectedSession, setSelectedSession] = useState();
   const [showTeacher, setShowTeacher] = useState(false);
   const [packageRate, setPackageRate] = useState();
+  const [teacherBio, setTeacherBio] = useState();
 
   const ref = React.useRef();
 
@@ -151,6 +153,7 @@ function Detail(props) {
 
   const [rate, setRate] = useState();
   const [teacherPackages, setTeacherPackages] = useState();
+  const [selectedTeacher, setSelectedTeacher] = useState();
 
   React.useEffect(() => {
     if (item !== undefined && item.rate !== undefined)
@@ -217,10 +220,58 @@ function Detail(props) {
         <CommonWebBox
           backBtn={true}
           onBackClick={() => setShowTeacher(false)}
-          header={item.teacher}>
+          header={
+            <PhoneView style={{...styles.gap30}}>
+              {item.teacher.map((e, index) => {
+                return (
+                  <SimpleText
+                    onPress={async () => {
+                      props.setLoading(true);
+                      let params = new URLSearchParams();
+                      params.append('teacher', e);
+                      setSelectedTeacher(e);
+
+                      let res = await generalRequest(
+                        routes.teacherPackages + params.toString(),
+                        'get',
+                        undefined,
+                        'data',
+                      );
+                      if (res !== null) {
+                        setTeacherPackages(
+                          res.packages.filter(e => e.id !== item.id),
+                        );
+                        setTeacherBio(res.bio);
+                      } else {
+                        setTeacherPackages([]);
+                        setTeacherBio('');
+                      }
+                      props.setLoading(false);
+                    }}
+                    key={index}
+                    text={'مدرس ' + faNums[index] + ' : ' + e}
+                    style={
+                      selectedTeacher == e
+                        ? {
+                            ...styles.BlueBold,
+                            ...styles.fontSize20,
+                            ...styles.colorOrangeRed,
+                          }
+                        : {
+                            ...styles.BlueBold,
+                            ...styles.fontSize15,
+                            ...styles.alignSelfCenter,
+                            ...styles.cursor_pointer,
+                          }
+                    }
+                  />
+                );
+              })}
+            </PhoneView>
+          }>
           <RenderHTML
             source={{
-              html: item.teacherBio,
+              html: teacherBio,
             }}
             tagsStyles={tagsStyles}
             systemFonts={systemFonts}
@@ -408,7 +459,7 @@ function Detail(props) {
                     style={{paddingLeft: 30, paddingRight: 30}}>
                     <QuizItemCard
                       text={Translator.packageDuration}
-                      val={convertSecToMinWithOutSec(item.duration)}
+                      val={convertSecToMinWithOutSecAndDay(item.duration)}
                       icon={faClock}
                       color={vars.YELLOW}
                       textFontSize={fontSize}
@@ -447,6 +498,20 @@ function Detail(props) {
                       valFontSize={valFontSize}
                     />
                   </EqualTwoTextInputs>
+
+                  {item.hasCert && (
+                    <EqualTwoTextInputs
+                      style={{paddingLeft: 30, paddingRight: 30}}>
+                      <QuizItemCard
+                        text={Translator.certDuration}
+                        val={item.certDuration + ' روز'}
+                        icon={faHourglassEnd}
+                        color={vars.YELLOW}
+                        textFontSize={fontSize}
+                        valFontSize={valFontSize}
+                      />
+                    </EqualTwoTextInputs>
+                  )}
 
                   {packageRate !== undefined && (
                     <PhoneView
@@ -666,7 +731,10 @@ function Detail(props) {
                   )}
 
                 <CommonWebBox header={Translator.teacherBio}>
-                  <SimpleText style={styles.BlueBold} text={item.teacher} />
+                  <SimpleText
+                    style={styles.BlueBold}
+                    text={item.teacher.join(' - ')}
+                  />
                   {item.teacherBio !== undefined &&
                     item.teacherBio !== null &&
                     item.teacherBio.length !== 0 && (
@@ -694,7 +762,8 @@ function Detail(props) {
                               setShowTeacher(true);
                             else {
                               let params = new URLSearchParams();
-                              params.append('teacher', item.teacher);
+                              params.append('teacher', item.teacher[0]);
+                              setSelectedTeacher(item.teacher[0]);
 
                               let res = await generalRequest(
                                 routes.teacherPackages + params.toString(),
@@ -702,11 +771,15 @@ function Detail(props) {
                                 undefined,
                                 'data',
                               );
-                              if (res !== null)
+                              if (res !== null) {
                                 setTeacherPackages(
-                                  res.filter(e => e.id !== item.id),
+                                  res.packages.filter(e => e.id !== item.id),
                                 );
-                              else setTeacherPackages([]);
+                                setTeacherBio(res.bio);
+                              } else {
+                                setTeacherPackages([]);
+                                setTeacherBio('');
+                              }
                               setShowTeacher(true);
                             }
                           }}

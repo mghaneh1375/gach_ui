@@ -31,8 +31,15 @@ function List(props) {
   const [maxDuration, setMaxDuration] = useState();
   const [tags, setTags] = useState();
   const [teachers, setTeachers] = useState();
-  const [showFilter, setShowFilter] = useState(false);
+  const [showFilter, setShowFilter] = useState(true);
   const [clearFilter, setClearFilter] = useState(false);
+
+  const [viewableItems, setViewableItems] = useState();
+
+  React.useEffect(() => {
+    if (state.selectableItems === undefined) return;
+    setViewableItems(state.selectableItems.slice(0, 9));
+  }, [state.selectableItems]);
 
   React.useEffect(() => {
     if (isWorking || state.allItems !== undefined) return;
@@ -215,8 +222,8 @@ function List(props) {
       )}
 
       <PhoneView style={styles.gap10}>
-        {state.selectableItems !== undefined &&
-          state.selectableItems.map((elem, index) => {
+        {viewableItems !== undefined &&
+          viewableItems.map((elem, index) => {
             return (
               <Card
                 isInMyMode={props.isInMyMode}
@@ -227,6 +234,30 @@ function List(props) {
             );
           })}
       </PhoneView>
+      {viewableItems !== undefined &&
+        viewableItems.length < state.selectableItems.length && (
+          <SimpleText
+            text={'نمایش بیشتر'}
+            style={{
+              ...styles.alignSelfCenter,
+              ...styles.cursor_pointer,
+              ...styles.BlueBold,
+              ...styles.fontSize20,
+              ...styles.margin25,
+            }}
+            onPress={() => {
+              setViewableItems(
+                state.selectableItems.slice(
+                  0,
+                  Math.min(
+                    viewableItems.length + 6,
+                    state.selectableItems.length,
+                  ),
+                ),
+              );
+            }}
+          />
+        )}
     </MyView>
   );
 }

@@ -299,6 +299,7 @@ export const routes = {
   addٰAttachToSession: 'package_content/manage/addٰAttachToSession/',
   removeAttachFromSession: 'package_content/manage/removeAttachFromSession/',
   removeSessionFromContent: 'package_content/manage/removeSession/',
+  changeTeacherName: 'package_content/public/changeTeacherName/',
   distinctTagsContents: 'package_content/public/distinctTags',
   buyContent: 'package_content/public/buy/',
   distinctTeachersContents: 'package_content/public/distinctTeachers',
