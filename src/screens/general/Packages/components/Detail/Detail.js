@@ -793,7 +793,7 @@ function Detail(props) {
                           style={{
                             ...styles.textJustify,
                             ...{
-                              maxHeight: 150,
+                              maxHeight: 85,
                               overflow: 'hidden',
                             },
                           }}>

@@ -67,7 +67,7 @@ function Card(props) {
           }}>
           <SimpleText style={styles.BlueBold} text={props.package.title} />
         </PhoneView>
-        <PhoneView>
+        <PhoneView style={{gap: 30}}>
           <QuizItemCard
             text={Translator.sessionsCount}
             val={props.package.sessionsCount + ' جلسه'}
