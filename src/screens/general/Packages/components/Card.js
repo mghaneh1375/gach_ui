@@ -11,7 +11,14 @@ import React, {useState} from 'react';
 import vars from '../../../../styles/root';
 import {styles} from '../../../../styles/Common/Styles';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
-import {faClock, faListSquares, faSun} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCancel,
+  faCheck,
+  faClock,
+  faListSquares,
+  faRemove,
+  faSun,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   convertSecToMinWithOutSec,
   formatPrice,
@@ -63,7 +70,7 @@ function Card(props) {
         <PhoneView>
           <QuizItemCard
             text={Translator.sessionsCount}
-            val={props.package.sessionsCount}
+            val={props.package.sessionsCount + ' جلسه'}
             icon={faListSquares}
             textFontSize={fontSize}
             color={vars.YELLOW}
@@ -71,11 +78,9 @@ function Card(props) {
           />
           <QuizItemCard
             text={Translator.cert}
-            val={
-              props.package.hasCert
-                ? commonTranslator.has
-                : commonTranslator.not_has
-            }
+            iconVal={props.package.hasCert ? faCheck : faRemove}
+            iconColor={props.package.hasCert ? vars.GREEN : vars.YELLOW}
+            val={'icon'}
             icon={faSun}
             color={vars.YELLOW}
             textFontSize={fontSize}

@@ -26,15 +26,17 @@ import {Translator} from '../../Translator';
 import {
   faAngleDown,
   faAngleUp,
+  faCheck,
   faClock,
   faHourglassEnd,
   faListSquares,
+  faRemove,
   faSun,
   faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import vars from '../../../../../styles/root';
 import commonTranslator from '../../../../../translator/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {useEffectOnce} from 'usehooks-ts';
 import FAQ from './FAQ';
 import {setCacheItem} from '../../../../../API/User';
@@ -457,62 +459,112 @@ function Detail(props) {
                 <CommonWebBox>
                   <EqualTwoTextInputs
                     style={{paddingLeft: 30, paddingRight: 30}}>
-                    <QuizItemCard
-                      text={Translator.packageDuration}
-                      val={convertSecToMinWithOutSecAndDay(item.duration)}
-                      icon={faClock}
-                      color={vars.YELLOW}
-                      textFontSize={fontSize}
-                      valFontSize={valFontSize}
-                    />
-
-                    <QuizItemCard
-                      text={Translator.chaptersCount}
-                      val={item.chapters.length}
-                      icon={faListSquares}
-                      textFontSize={fontSize}
-                      color={vars.YELLOW}
-                      valFontSize={valFontSize}
+                    <PhoneView>
+                      <SimpleFontIcon
+                        style={{color: vars.ORANGE_RED}}
+                        icon={faClock}
+                        kind={'normal'}
+                      />
+                      <SimpleText
+                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        text={Translator.packageDuration}
+                      />
+                    </PhoneView>
+                    <SimpleText
+                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      text={convertSecToMinWithOutSecAndDay(item.duration)}
                     />
                   </EqualTwoTextInputs>
                   <EqualTwoTextInputs
                     style={{paddingLeft: 30, paddingRight: 30}}>
-                    <QuizItemCard
-                      text={Translator.sessionsCount}
-                      val={item.sessionsCount}
-                      icon={faListSquares}
-                      textFontSize={fontSize}
-                      color={vars.YELLOW}
-                      valFontSize={valFontSize}
+                    <PhoneView>
+                      <SimpleFontIcon
+                        style={{color: vars.ORANGE_RED}}
+                        icon={faListSquares}
+                        kind={'normal'}
+                      />
+                      <SimpleText
+                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        text={Translator.chaptersCount}
+                      />
+                    </PhoneView>
+                    <SimpleText
+                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      text={item.chapters.length + ' فصل'}
                     />
-                    <QuizItemCard
-                      text={Translator.cert}
-                      val={
-                        item.hasCert
-                          ? commonTranslator.has
-                          : commonTranslator.not_has
-                      }
-                      icon={faSun}
-                      color={vars.YELLOW}
-                      textFontSize={fontSize}
-                      valFontSize={valFontSize}
+                  </EqualTwoTextInputs>
+
+                  <EqualTwoTextInputs
+                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    <PhoneView>
+                      <SimpleFontIcon
+                        style={{color: vars.ORANGE_RED}}
+                        icon={faListSquares}
+                        kind={'normal'}
+                      />
+                      <SimpleText
+                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        text={Translator.sessionsCount}
+                      />
+                    </PhoneView>
+                    <SimpleText
+                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      text={item.sessionsCount + ' جلسه'}
                     />
+                  </EqualTwoTextInputs>
+
+                  <EqualTwoTextInputs
+                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    <PhoneView>
+                      <SimpleFontIcon
+                        style={{color: vars.ORANGE_RED}}
+                        icon={faSun}
+                        kind={'normal'}
+                      />
+                      <SimpleText
+                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        text={Translator.cert}
+                      />
+                    </PhoneView>
+                    {item.hasCert && (
+                      <SimpleFontIcon
+                        style={{color: vars.GREEN}}
+                        kind={'normal'}
+                        icon={faCheck}
+                      />
+                    )}
+                    {!item.hasCert && (
+                      <SimpleFontIcon
+                        style={{color: vars.YELLOW}}
+                        kind={'normal'}
+                        icon={faRemove}
+                      />
+                    )}
                   </EqualTwoTextInputs>
 
                   {item.hasCert && (
                     <EqualTwoTextInputs
                       style={{paddingLeft: 30, paddingRight: 30}}>
-                      <QuizItemCard
-                        text={Translator.certDuration}
-                        val={item.certDuration + ' روز'}
-                        icon={faHourglassEnd}
-                        color={vars.YELLOW}
-                        textFontSize={fontSize}
-                        valFontSize={valFontSize}
+                      <PhoneView>
+                        <SimpleFontIcon
+                          style={{color: vars.ORANGE_RED}}
+                          icon={faHourglassEnd}
+                          kind={'normal'}
+                        />
+                        <SimpleText
+                          style={{
+                            ...styles.alignSelfCenter,
+                            ...styles.BlueBold,
+                          }}
+                          text={Translator.certDuration}
+                        />
+                      </PhoneView>
+                      <SimpleText
+                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        text={item.certDuration + ' روز'}
                       />
                     </EqualTwoTextInputs>
                   )}
-
                   {packageRate !== undefined && (
                     <PhoneView
                       style={{
@@ -533,7 +585,6 @@ function Detail(props) {
                       />
                     </PhoneView>
                   )}
-
                   {(item.afterBuy === undefined || !item.afterBuy) && (
                     <EqualTwoTextInputs style={{...styles.flexNoWrap}}>
                       <PhoneView style={{...styles.alignSelfCenter}}>
@@ -604,7 +655,6 @@ function Detail(props) {
                       )}
                     </EqualTwoTextInputs>
                   )}
-
                   {(off > 0 || usedFromWallet > 0) && (
                     <MyView>
                       {item.off !== undefined && (
