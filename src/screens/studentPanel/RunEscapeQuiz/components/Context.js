@@ -62,6 +62,10 @@ export const DoQuizProvider = ({children}) => {
 
       state.answers[state.currIdx] = state.answer;
       if (res[0].isCorrect) {
+        if (state.currIdx === state.questions.length - 1) {
+          window.location.href = '/myIRYSCQuizzes';
+          return;
+        }
         showSuccess('آفرین، حالا برو سراغ سوال بعد');
         dispatch({
           reminder: res[0].reminder,

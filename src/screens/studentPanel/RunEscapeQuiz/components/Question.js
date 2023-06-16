@@ -255,21 +255,22 @@ function Question(props) {
         }>
         <CommonWebBox style={{padding: 0}}>
           <EqualTwoTextInputs>
-            {!props.isInReviewMode && (
-              <CommonButton
-                onPress={() => {
-                  dispatch({exit: true});
-                }}
-                padding={isInPhone ? '5px 5px' : undefined}
-                textStyle={
-                  isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
-                    : {}
-                }
-                title={Translate.finish}
-                theme={isInPhone ? 'dark' : 'orangeRed'}
-              />
-            )}
+            {!props.isInReviewMode &&
+              state.currIdx !== state.questions.length - 1 && (
+                <CommonButton
+                  onPress={() => {
+                    dispatch({exit: true});
+                  }}
+                  padding={isInPhone ? '5px 5px' : undefined}
+                  textStyle={
+                    isInPhone
+                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      : {}
+                  }
+                  title={Translate.finish}
+                  theme={isInPhone ? 'dark' : 'orangeRed'}
+                />
+              )}
             {props.isInReviewMode && (
               <CommonButton
                 onPress={props.onBack}

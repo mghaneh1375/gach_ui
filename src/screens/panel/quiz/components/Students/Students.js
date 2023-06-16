@@ -205,12 +205,14 @@ const Students = props => {
               theme={'transparent'}
               title={translator.deleteStudent}
             />
-            <CommonButton
-              onPress={() => prepareShowAnswerSheet()}
-              dir={'rtl'}
-              theme={'transparent'}
-              title={'مشاهده پاسخ برگ'}
-            />
+            {state.selectedQuiz.generalMode !== 'escape' && (
+              <CommonButton
+                onPress={() => prepareShowAnswerSheet()}
+                dir={'rtl'}
+                theme={'transparent'}
+                title={'مشاهده پاسخ برگ'}
+              />
+            )}
           </PhoneView>
         </LargePopUp>
       )}
