@@ -329,7 +329,7 @@ function Filter() {
               onPress={label => toggleKindQuiz('regular')}
             />
 
-            <FilterItem
+            {/* <FilterItem
               item={{label: 'آزمون فرار'}}
               status={selectedKindQuiz === 'escape' ? 'checked' : 'unchecked'}
               onPress={label => toggleKindQuiz('escape')}
@@ -341,7 +341,8 @@ function Filter() {
                 selectedKindQuiz === 'onlineStanding' ? 'checked' : 'unchecked'
               }
               onPress={label => toggleKindQuiz('onlineStanding')}
-            />
+            /> */}
+
             <FilterItem
               item={{label: 'همه رو ببینم'}}
               status={selectedKindQuiz === 'all' ? 'checked' : 'unchecked'}

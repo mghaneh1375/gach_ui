@@ -1,10 +1,12 @@
-import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
+import {CommonButton, MyView, SimpleText} from '../../../../styles/Common';
 
 function Box(props) {
   return (
     <MyView>
-      <SimpleText title={props.item.title} />
-      <PhoneView></PhoneView>
+      <SimpleText text={props.item.tag} />
+      <SimpleText text={props.item.duration + ' دقیقه'} />
+      <SimpleText text={props.item.startAt} />
+      <CommonButton title={'حذف'} onPress={() => props.remove()} />
     </MyView>
   );
 }
