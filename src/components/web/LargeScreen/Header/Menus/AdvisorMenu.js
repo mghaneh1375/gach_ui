@@ -38,6 +38,12 @@ function AdvisorMenu(props) {
               icon={faUsers}
               selected={props.selected === 'manageStudent'}
             />
+            <MenuItem
+              onClick={() => navigate('/myFinanceOffers')}
+              text={translator.management + ' ' + translator.students}
+              icon={faUsers}
+              selected={props.selected === 'manageStudent'}
+            />
           </>
         }
       />
