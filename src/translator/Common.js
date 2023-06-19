@@ -256,5 +256,6 @@ const translator = {
   questionReportTags: 'تگ های گزارش خرابی سوال',
   educationalHistory: 'سوابق تحصیلی',
   birthDay: 'تاریخ تولد',
+  myFinancePlans: 'مدیریت بسته ها',
 };
 export default translator;

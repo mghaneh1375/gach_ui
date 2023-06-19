@@ -107,6 +107,7 @@ import ExamTags from './panel/consultants/ExamTags';
 import MyLifeStyle from './studentPanel/MyLifeStyle.js/MyLifeStyle';
 import RunEscapeQuiz from './studentPanel/RunEscapeQuiz/RunEscapeQuiz';
 import Ranking from './general/OnlineStanding/Ranking';
+import MyFinancePlans from './advisorPanel/MyFinancePlans/MyFinancePlans';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -444,6 +445,9 @@ const WebStructue = props => {
               {props.page === 'myAdvisor' && <MyAdvisor navigate={navigate} />}
               {props.page === 'myLifeStyle' && (
                 <MyLifeStyle navigate={navigate} />
+              )}
+              {props.page === 'myFinancePlans' && (
+                <MyFinancePlans navigate={navigate} />
               )}
               {props.page === 'myStudentRequests' && (
                 <MyRequests navigate={navigate} />
