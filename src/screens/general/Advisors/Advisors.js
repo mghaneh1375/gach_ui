@@ -9,6 +9,7 @@ import {LargePopUp} from '../../../styles/Common/PopUp';
 import {styles} from '../../../styles/Common/Styles';
 import Card from './Card';
 import FinancePlan from './FinancePlan';
+import {setCacheItem} from '../../../API/User';
 
 function Advisors(props) {
   const useGlobalState = () => [
@@ -19,9 +20,54 @@ function Advisors(props) {
 
   const [data, setData] = useState();
   const [myAdvisor, setMyAdvisor] = useState();
-  const [hasOpenRequest, setHasOpenRequest] = useState();
+  const [openRequests, setOpenRequests] = useState();
   const [fetchedPlans, setFetchedPlans] = useState([]);
   const [advisorPlans, setAdvisorPlans] = useState();
+
+  const [refId, setRefId] = useState();
+
+  React.useEffect(() => {
+    if (refId === undefined) return;
+    ref.current.submit();
+  }, [refId]);
+
+  const ref = React.useRef();
+
+  const goToPay = async (token, data, advisorId) => {
+    return await generalRequest(
+      routes.payAdvisorPrice + advisorId,
+      'post',
+      data,
+      ['action', 'refId'],
+      token,
+    );
+  };
+
+  const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
+
+  const goToPayLocal = async advisorId => {
+    let data = {};
+
+    // if (userOff !== undefined && userOff.code !== undefined)
+    //   data.off = userOff.code;
+
+    dispatch({loading: true});
+
+    let res = await goToPay(state.token, data, advisorId);
+
+    dispatch({loading: false});
+
+    if (res !== null) {
+      if (res.action === 'success') {
+        let user = props.user;
+        user.user.money = res.refId;
+        await setCacheItem('user', JSON.stringify(user));
+        setShowSuccessTransaction(true);
+      } else if (res.action === 'pay') {
+        setRefId(res.refId);
+      }
+    }
+  };
 
   const fetchData = React.useCallback(() => {
     dispatch({loading: true});
@@ -74,7 +120,8 @@ function Advisors(props) {
         }
 
         setMyAdvisor(res[1].id !== undefined ? res[1] : undefined);
-        setHasOpenRequest(res[2] === 'yes');
+
+        setOpenRequests(res[2]);
       }
 
       setData(res[0]);
@@ -87,6 +134,14 @@ function Advisors(props) {
 
   return (
     <>
+      {refId !== undefined && (
+        <form
+          ref={ref}
+          action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat"
+          method="post">
+          <input type={'hidden'} value={refId} name="RefId" />
+        </form>
+      )}
       {advisorPlans !== undefined && (
         <LargePopUp
           title={'پلن های موجود'}
@@ -108,10 +163,11 @@ function Advisors(props) {
                   );
                   dispatch({loading: false});
                   if (res !== null) {
-                    setHasOpenRequest(true);
+                    // setHasOpenRequest(true);
                     showSuccess(
                       'درخواست شما با موفقیت ثبت گردید و پس از بررسی مشاور نتیجه به اطلاع شما خواهد رسید',
                     );
+                    setAdvisorPlans(undefined);
                   }
                 }}
                 key={index}
@@ -125,12 +181,49 @@ function Advisors(props) {
         style={{...styles.gap60, ...styles.margin30, ...styles.marginRight60}}>
         {data !== undefined &&
           data.map((elem, index) => {
+            let openReq = openRequests.find(e => e.advisorId === elem.id);
+            let shouldPay =
+              openReq !== undefined && openReq.shouldPay !== undefined
+                ? openReq.shouldPay
+                : undefined;
+
+            if (shouldPay !== undefined) {
+              return (
+                <Card
+                  isMyAdvisor={
+                    myAdvisor !== undefined ? elem.id === myAdvisor.id : false
+                  }
+                  hasOpenRequest={openReq}
+                  shouldPay={shouldPay}
+                  price={openReq.price}
+                  key={index}
+                  data={elem}
+                  onPay={() => {
+                    goToPayLocal(elem.id);
+                  }}
+                />
+              );
+            }
+
+            if (openReq !== undefined) {
+              return (
+                <Card
+                  isMyAdvisor={
+                    myAdvisor !== undefined ? elem.id === myAdvisor.id : false
+                  }
+                  hasOpenRequest={openReq}
+                  key={index}
+                  data={elem}
+                />
+              );
+            }
+
             return (
               <Card
                 isMyAdvisor={
                   myAdvisor !== undefined ? elem.id === myAdvisor.id : false
                 }
-                hasOpenRequest={hasOpenRequest}
+                hasOpenRequest={openReq}
                 key={index}
                 data={elem}
                 onSelect={async () => {

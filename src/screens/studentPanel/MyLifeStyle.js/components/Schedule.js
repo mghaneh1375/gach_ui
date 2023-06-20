@@ -36,9 +36,11 @@ function Schedule(props) {
   const [duration, setDuration] = useState();
   const [startAt, setStartAt] = useState();
 
+  const canEdit = props.userId === undefined;
+
   const fetchData = React.useCallback(() => {
     Promise.all([
-      fetchMyLifeStyle(props.token),
+      fetchMyLifeStyle(props.token, props.userId),
       fetchLifeStyleTags(props.token),
       fetchExamTags(props.token),
     ]).then(res => {
@@ -156,6 +158,7 @@ function Schedule(props) {
                   selectedExams={selectedExams}
                   id={e.id}
                   onClick={() => {
+                    if (!canEdit) return;
                     let tmp = [];
                     let shouldAdd = true;
 
@@ -177,13 +180,15 @@ function Schedule(props) {
             })}
         </PhoneView>
 
-        <CommonButton
-          onPress={async () => {
-            await setMyExamInLifeStyle({exams: selectedExams}, props.token);
-          }}
-          title={commonTranslator.confirm}
-          theme={'dark'}
-        />
+        {canEdit && (
+          <CommonButton
+            onPress={async () => {
+              await setMyExamInLifeStyle({exams: selectedExams}, props.token);
+            }}
+            title={commonTranslator.confirm}
+            theme={'dark'}
+          />
+        )}
       </CommonWebBox>
       <CommonWebBox>
         {state.myLifeStyle !== undefined &&
@@ -198,6 +203,7 @@ function Schedule(props) {
                 boxes={e.items}
                 day={e.day}
                 key={index}
+                canEdit={canEdit}
               />
             );
           })}

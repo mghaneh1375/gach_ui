@@ -13,6 +13,7 @@ import {
 } from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
+import {formatPrice} from '../../../services/Utility';
 
 function Card(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
@@ -105,19 +106,39 @@ function Card(props) {
                 : 'درباره مشاور : '
             }
           />
-
-          {!props.isMyAdvisor &&
-            props.data.acceptStd &&
-            !props.hasOpenRequest &&
-            state.token !== undefined &&
-            state.token !== null && (
-              <CommonButton
-                onPress={() => props.onSelect()}
-                title={'درخواست مشاوره'}
-              />
-            )}
         </MyView>
       </MyView>
+
+      {!props.isMyAdvisor &&
+        props.data.acceptStd &&
+        !props.hasOpenRequest &&
+        state.token !== undefined &&
+        state.token !== null && (
+          <CommonButton
+            onPress={() => props.onSelect()}
+            title={'درخواست مشاوره'}
+          />
+        )}
+
+      {props.shouldPay !== undefined && (
+        <>
+          <SimpleText text={'وضعیت: تایید شده و در انتظار پرداخت'} />
+          <SimpleText
+            text={
+              'مبلغ مشاوره برای یک ماه: ' + formatPrice(props.price) + ' تومان'
+            }
+          />
+          <SimpleText
+            text={
+              'مبلغ قابل پرداخت: ' + formatPrice(props.shouldPay) + ' تومان'
+            }
+          />
+          <EqualTwoTextInputs>
+            <CommonButton theme={'dark'} title="وارد کردن کد تخفیف" />
+            <CommonButton onPress={() => props.onPay()} title={'پرداخت'} />
+          </EqualTwoTextInputs>
+        </>
+      )}
 
       {props.setRate !== undefined && (
         <EqualTwoTextInputs

@@ -2,8 +2,14 @@ import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {showSuccess} from '../../../services/Utility';
 
-export const fetchMyLifeStyle = token => {
-  return generalRequest(routes.myLifeStyle, 'get', undefined, 'data', token);
+export const fetchMyLifeStyle = (token, userId) => {
+  return generalRequest(
+    userId === undefined ? routes.myLifeStyle : routes.myLifeStyle + userId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
 };
 
 export const fetchLifeStyleTags = token => {

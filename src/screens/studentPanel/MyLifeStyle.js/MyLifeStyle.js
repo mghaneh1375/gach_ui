@@ -3,6 +3,7 @@ import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import {ScheduleProvider} from './components/Context';
 import Schedule from './components/Schedule';
+import {useParams} from 'react-router';
 
 function MyLifeStyle(props) {
   const navigate = props.navigate;
@@ -12,6 +13,7 @@ function MyLifeStyle(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
+  const params = useParams();
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -19,9 +21,10 @@ function MyLifeStyle(props) {
 
   useEffectOnce(() => {
     dispatch({isRightMenuVisible: false});
+    setMode('list');
   });
 
-  const [mode, setMode] = useState('list');
+  const [mode, setMode] = useState();
 
   return (
     <ScheduleProvider>
@@ -31,6 +34,7 @@ function MyLifeStyle(props) {
           navigate={navigate}
           setMode={setMode}
           setLoading={setLoading}
+          userId={params.studentId}
         />
       )}
     </ScheduleProvider>

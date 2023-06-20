@@ -48,39 +48,45 @@ function Day(props) {
           boxes.map((e, index) => {
             return (
               <Box
-                remove={async () => {
-                  props.setLoading(true);
-                  let res = await removeItemFromDay(
-                    {
-                      tag: e.tag,
-                      day: props.day,
-                    },
-                    props.token,
-                  );
-                  props.setLoading(false);
-                  if (res != null) {
-                    removeItems(boxes, setBoxes, [e.id]);
-                  }
-                }}
+                remove={
+                  !props.canEdit
+                    ? undefined
+                    : async () => {
+                        props.setLoading(true);
+                        let res = await removeItemFromDay(
+                          {
+                            tag: e.tag,
+                            day: props.day,
+                          },
+                          props.token,
+                        );
+                        props.setLoading(false);
+                        if (res != null) {
+                          removeItems(boxes, setBoxes, [e.id]);
+                        }
+                      }
+                }
                 key={index}
                 item={e}
               />
             );
           })}
       </View>
-      <PhoneView
-        style={{
-          border: '1px dashed',
-          width: 110,
-          justifyContent: 'center',
-        }}>
-        <SimpleFontIcon
-          onPress={() => props.addNewItem()}
-          icon={faAdd}
-          kind={'large'}
-          style={{color: vars.ORANGE_RED, cursor: 'pointer'}}
-        />
-      </PhoneView>
+      {props.canEdit && (
+        <PhoneView
+          style={{
+            border: '1px dashed',
+            width: 110,
+            justifyContent: 'center',
+          }}>
+          <SimpleFontIcon
+            onPress={() => props.addNewItem()}
+            icon={faAdd}
+            kind={'large'}
+            style={{color: vars.ORANGE_RED, cursor: 'pointer'}}
+          />
+        </PhoneView>
+      )}
     </PhoneView>
   );
 }

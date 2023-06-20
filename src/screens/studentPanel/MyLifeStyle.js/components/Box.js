@@ -6,7 +6,9 @@ function Box(props) {
       <SimpleText text={props.item.tag} />
       <SimpleText text={props.item.duration + ' دقیقه'} />
       <SimpleText text={props.item.startAt} />
-      <CommonButton title={'حذف'} onPress={() => props.remove()} />
+      {props.remove !== undefined && (
+        <CommonButton title={'حذف'} onPress={() => props.remove()} />
+      )}
     </MyView>
   );
 }

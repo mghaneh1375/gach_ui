@@ -446,6 +446,10 @@ const WebStructue = props => {
               {props.page === 'myLifeStyle' && (
                 <MyLifeStyle navigate={navigate} />
               )}
+              {props.page === 'studentLifeStyle' && (
+                <MyLifeStyle navigate={navigate} />
+              )}
+
               {props.page === 'myFinancePlans' && (
                 <MyFinancePlans navigate={navigate} />
               )}
@@ -461,7 +465,6 @@ const WebStructue = props => {
               {props.page === 'contents-teacher' && (
                 <ContentsTeachers navigate={navigate} />
               )}
-
               {props.page === 'adv-contents' && (
                 <Adv token={state.token} navigate={navigate} />
               )}
