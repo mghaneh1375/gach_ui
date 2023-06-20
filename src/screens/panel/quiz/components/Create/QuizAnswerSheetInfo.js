@@ -16,6 +16,7 @@ import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../../styles/Common/Styles';
 import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
+import {CKEditorToolbar} from '../../../../../services/Utility';
 
 const QuizAnswerSheetInfo = props => {
   let ckEditor = null;
@@ -97,6 +98,7 @@ const QuizAnswerSheetInfo = props => {
             customValues: {token: props.token},
             extraPlugins: [MyCustomUploadAdapterPlugin],
             placeholder: translator.descBefore,
+            ...CKEditorToolbar,
           }}
           data={props.descBefore === undefined ? '' : props.descBefore}
           onReady={editor => {
@@ -116,6 +118,7 @@ const QuizAnswerSheetInfo = props => {
             customValues: {token: props.token},
             extraPlugins: [MyCustomUploadAdapterPlugin],
             placeholder: translator.descAfter,
+            ...CKEditorToolbar,
           }}
           data={props.descAfter === undefined ? '' : props.descAfter}
           onReady={editor => {

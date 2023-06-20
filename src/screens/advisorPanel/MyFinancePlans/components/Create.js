@@ -11,7 +11,7 @@ import translator from './Translator';
 import commonTranslator from '../../../../translator/Common';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {statusKeyVals} from '../../../panel/question/components/KeyVals';
-import {createNewOff} from './Utility';
+import {createNewOffer, updateOffer} from './Utility';
 import {dispatchFinanceContext, financeContext} from './Context';
 
 function Create(props) {
@@ -39,26 +39,60 @@ function Create(props) {
       visibility: visibility,
     };
 
-    if (maxExam !== undefined && maxExam.length > 0) data.maxExam = maxExam;
-    if (maxChat !== undefined && maxChat.length > 0) data.maxChat = maxChat;
-    if (maxKarbarg !== undefined && maxKarbarg.length > 0)
-      data.maxKarbarg = maxKarbarg;
+    if (maxExam) data.maxExam = maxExam;
+    if (maxChat) data.maxChat = maxChat;
+    if (maxKarbarg) data.maxKarbarg = maxKarbarg;
 
     if (description !== undefined && description.length > 0)
       data.description = description;
+
     props.setLoading(true);
+
     let res = !props.isInEditMode
-      ? await createNewOff(props.token, data)
-      : null;
+      ? await createNewOffer(props.token, data)
+      : await updateOffer(props.token, state.selectedRow.id, data);
 
     props.setLoading(false);
 
     if (res !== null) {
-      state.data.push(res);
+      if (!props.isInEditMode) state.data.unshift(res);
+      else {
+        state.data = state.data.map(e => {
+          if (e.id === state.selectedRow.id) return res;
+          return e;
+        });
+      }
       dispatch({data: state.data});
       props.setMode('list');
     }
   };
+
+  React.useEffect(() => {
+    if (
+      price !== undefined ||
+      state.selectedRow === undefined ||
+      !props.isInEditMode
+    )
+      return;
+
+    setMaxKarbarg(
+      state.selectedRow.maxKarbarg === -1
+        ? undefined
+        : state.selectedRow.maxKarbarg,
+    );
+
+    setMaxExam(
+      state.selectedRow.maxExam === -1 ? undefined : state.selectedRow.maxExam,
+    );
+    setPrice(state.selectedRow.price);
+    setTitle(state.selectedRow.title);
+    setVideoCalls(state.selectedRow.videoCalls);
+    setVisibility(state.selectedRow.visibility);
+    setDescription(state.selectedRow.description);
+    setMaxChat(
+      state.selectedRow.maxChat === -1 ? undefined : state.selectedRow.maxChat,
+    );
+  }, [props.isInEditMode, state.selectedRow, price]);
 
   return (
     <CommonWebBox

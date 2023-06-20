@@ -42,6 +42,7 @@ const translator = {
   forthRankCert: 'گواهی نفر چهارم',
   fifthRankCert: 'گواهی نفر پنجم',
   minAdvicePrice: 'حداقل هزینه برای پکیج مالی مشاور',
+  maxVideoCallPerMonth: 'حداکثر تعداد تماس تصویری در ماه توسط هر مشاور',
   hwPerStudentPrice: 'قیمت هر دانش آموز در تمارین',
 };
 

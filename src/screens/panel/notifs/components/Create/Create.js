@@ -30,6 +30,7 @@ import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo
 import RenderHTML from 'react-native-render-html';
 import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
 import {useFilePicker} from 'use-file-picker';
+import {CKEditorToolbar} from '../../../../../services/Utility';
 
 function Create(props) {
   let ckEditor = null;
@@ -231,43 +232,7 @@ function Create(props) {
               customValues: {token: props.token},
               extraPlugins: [MyCustomUploadAdapterPlugin],
               placeholder: 'متن پیام',
-              toolbar: {
-                items: [
-                  'heading',
-                  '|',
-                  'bold',
-                  'italic',
-                  'alignment',
-                  'fontColor',
-                  'link',
-                  'bulletedList',
-                  'numberedList',
-                  '|',
-                  'outdent',
-                  'indent',
-                  '|',
-                  'uploadImage',
-                  'blockQuote',
-                  'insertTable',
-                  'mediaEmbed',
-                  'undo',
-                  'redo',
-                ],
-              },
-              image: {
-                toolbar: [
-                  'imageStyle:inline',
-                  'imageStyle:block',
-                  'imageStyle:side',
-                  '|',
-                  'linkImage',
-                  'toggleImageCaption',
-                  'imageTextAlternative',
-                ],
-              },
-              table: {
-                contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
-              },
+              ...CKEditorToolbar,
             }}
             data={desc}
             onReady={editor => {

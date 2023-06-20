@@ -381,3 +381,52 @@ export const faNums = [
   'هشتم',
   'نهم',
 ];
+
+export const CKEditorToolbar = {
+  toolbar: {
+    items: [
+      'heading',
+      '|',
+      'style',
+      'bold',
+      'italic',
+      'strikethrough',
+      'underline',
+      'alignment',
+      'fontColor',
+      'fontSize',
+      'fontFamily',
+      'fontBackgroundColor',
+      'highlight',
+      'link',
+      'bulletedList',
+      'numberedList',
+      '|',
+      'outdent',
+      'indent',
+      '|',
+      'uploadImage',
+      'blockQuote',
+      'insertTable',
+      'mediaEmbed',
+      'undo',
+      'redo',
+    ],
+  },
+  image: {
+    toolbar: [
+      'imageStyle:inline',
+      'imageStyle:block',
+      'imageStyle:side',
+      '|',
+      'linkImage',
+      'toggleImageCaption',
+      'imageTextAlternative',
+      'imageResize',
+    ],
+  },
+  table: {
+    toolbar: ['tableProperties', 'tableColumnResize'],
+    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
+  },
+};

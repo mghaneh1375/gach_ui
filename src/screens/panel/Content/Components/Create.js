@@ -15,7 +15,11 @@ import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '../../../../services/MyUploadAdapter';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {showError, trueFalseValues} from '../../../../services/Utility';
+import {
+  CKEditorToolbar,
+  showError,
+  trueFalseValues,
+} from '../../../../services/Utility';
 import {contentContext, dispatchContentContext} from './Context';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
@@ -469,6 +473,7 @@ function Create(props) {
           customValues: {token: props.token},
           extraPlugins: [MyCustomUploadAdapterPlugin],
           placeholder: Translator.description,
+          ...CKEditorToolbar,
         }}
         data={description === undefined ? '' : description}
         onReady={editor => {
@@ -485,6 +490,7 @@ function Create(props) {
           customValues: {token: props.token},
           extraPlugins: [MyCustomUploadAdapterPlugin],
           placeholder: Translator.teacherBio,
+          ...CKEditorToolbar,
         }}
         data={teacherBio === undefined ? '' : teacherBio}
         onReady={editor => {
@@ -501,6 +507,7 @@ function Create(props) {
           customValues: {token: props.token},
           extraPlugins: [MyCustomUploadAdapterPlugin],
           placeholder: Translator.preReq,
+          ...CKEditorToolbar,
         }}
         data={preReq === undefined ? '' : preReq}
         onReady={editor => {

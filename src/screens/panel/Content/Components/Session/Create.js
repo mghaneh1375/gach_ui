@@ -38,7 +38,11 @@ import {
   videoGeneralRequest,
   VIDEO_BASE_URL,
 } from '../../../../../API/Utility';
-import {showError, trueFalseValues} from '../../../../../services/Utility';
+import {
+  CKEditorToolbar,
+  showError,
+  trueFalseValues,
+} from '../../../../../services/Utility';
 import vars from '../../../../../styles/root';
 
 function Create(props) {
@@ -517,6 +521,7 @@ function Create(props) {
             customValues: {token: props.token},
             extraPlugins: [MyCustomUploadAdapterPlugin],
             placeholder: Translator.sessionDescription,
+            ...CKEditorToolbar,
           }}
           data={description === undefined ? '' : description}
           onReady={editor => {

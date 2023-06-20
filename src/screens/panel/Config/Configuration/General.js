@@ -41,6 +41,7 @@ function General(props) {
   const [giftPeriod, setGiftPeriod] = useState();
   const [maxQuestionPerQuiz, setMaxQuestionPerQuiz] = useState();
   const [minAdvicePrice, setMinAdvicePrice] = useState();
+  const [maxVideoCallPerMonth, setMaxVideoCallPerMonth] = useState();
   const [hwPerStudentPrice, setHwPerStudentPrice] = useState();
 
   React.useEffect(() => {
@@ -85,6 +86,7 @@ function General(props) {
       setMinQuestionForCustomQuiz(data.minQuestionForCustomQuiz);
       setHwPerStudentPrice(data.hwPerStudentPrice);
       setMinAdvicePrice(data.minAdvicePrice);
+      setMaxVideoCallPerMonth(data.maxVideoCallPerMonth);
     });
   }, [navigate, props.token, dispatch]);
 
@@ -117,6 +119,7 @@ function General(props) {
           maxQuestionPerQuiz: maxQuestionPerQuiz,
           minAdvicePrice: minAdvicePrice,
           hwPerStudentPrice: hwPerStudentPrice,
+          maxVideoCallPerMonth: maxVideoCallPerMonth,
         },
         undefined,
         props.token,
@@ -285,6 +288,14 @@ function General(props) {
           />
 
           <JustBottomBorderTextInput
+            placeholder={translator.hwPerStudentPrice}
+            subText={translator.hwPerStudentPrice}
+            value={hwPerStudentPrice}
+            onChangeText={e => setHwPerStudentPrice(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
             placeholder={translator.minAdvicePrice}
             subText={translator.minAdvicePrice}
             value={minAdvicePrice}
@@ -293,10 +304,10 @@ function General(props) {
           />
 
           <JustBottomBorderTextInput
-            placeholder={translator.hwPerStudentPrice}
-            subText={translator.hwPerStudentPrice}
-            value={hwPerStudentPrice}
-            onChangeText={e => setHwPerStudentPrice(e)}
+            placeholder={translator.maxVideoCallPerMonth}
+            subText={translator.maxVideoCallPerMonth}
+            value={maxVideoCallPerMonth}
+            onChangeText={e => setMaxVideoCallPerMonth(e)}
             justNum={true}
           />
         </PhoneView>

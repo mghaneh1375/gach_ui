@@ -5,8 +5,10 @@ import {generalRequest} from '../../../API/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import {showSuccess} from '../../../services/Utility';
 import {PhoneView} from '../../../styles/Common';
+import {LargePopUp} from '../../../styles/Common/PopUp';
 import {styles} from '../../../styles/Common/Styles';
 import Card from './Card';
+import FinancePlan from './FinancePlan';
 
 function Advisors(props) {
   const useGlobalState = () => [
@@ -18,6 +20,8 @@ function Advisors(props) {
   const [data, setData] = useState();
   const [myAdvisor, setMyAdvisor] = useState();
   const [hasOpenRequest, setHasOpenRequest] = useState();
+  const [fetchedPlans, setFetchedPlans] = useState([]);
+  const [advisorPlans, setAdvisorPlans] = useState();
 
   const fetchData = React.useCallback(() => {
     dispatch({loading: true});
@@ -82,39 +86,87 @@ function Advisors(props) {
   });
 
   return (
-    <PhoneView
-      style={{...styles.gap60, ...styles.margin30, ...styles.marginRight60}}>
-      {data !== undefined &&
-        data.map((elem, index) => {
-          return (
-            <Card
-              isMyAdvisor={
-                myAdvisor !== undefined ? elem.id === myAdvisor.id : false
-              }
-              hasOpenRequest={hasOpenRequest}
-              key={index}
-              data={elem}
-              onSelect={async () => {
-                dispatch({loading: true});
-                let res = await generalRequest(
-                  routes.sendAdvisorAcceptanceRequest + elem.id,
-                  'post',
-                  undefined,
-                  'data',
-                  state.token,
-                );
-                dispatch({loading: false});
-                if (res !== null) {
-                  setHasOpenRequest(true);
-                  showSuccess(
-                    'درخواست شما با موفقیت ثبت گردید و پس از بررسی مشاور نتیجه به اطلاع شما خواهد رسید',
+    <>
+      {advisorPlans !== undefined && (
+        <LargePopUp
+          title={'پلن های موجود'}
+          toggleShowPopUp={() => setAdvisorPlans(undefined)}>
+          {advisorPlans.plans.map((elem, index) => {
+            return (
+              <FinancePlan
+                onSelect={async () => {
+                  dispatch({loading: true});
+                  let res = await generalRequest(
+                    routes.sendAdvisorAcceptanceRequest +
+                      advisorPlans.advisorId +
+                      '/' +
+                      elem.id,
+                    'post',
+                    undefined,
+                    'data',
+                    state.token,
                   );
+                  dispatch({loading: false});
+                  if (res !== null) {
+                    setHasOpenRequest(true);
+                    showSuccess(
+                      'درخواست شما با موفقیت ثبت گردید و پس از بررسی مشاور نتیجه به اطلاع شما خواهد رسید',
+                    );
+                  }
+                }}
+                key={index}
+                plan={elem}
+              />
+            );
+          })}
+        </LargePopUp>
+      )}
+      <PhoneView
+        style={{...styles.gap60, ...styles.margin30, ...styles.marginRight60}}>
+        {data !== undefined &&
+          data.map((elem, index) => {
+            return (
+              <Card
+                isMyAdvisor={
+                  myAdvisor !== undefined ? elem.id === myAdvisor.id : false
                 }
-              }}
-            />
-          );
-        })}
-    </PhoneView>
+                hasOpenRequest={hasOpenRequest}
+                key={index}
+                data={elem}
+                onSelect={async () => {
+                  let plans = fetchedPlans.find(e => e.advisorId === elem.id);
+                  if (plans === undefined) {
+                    dispatch({loading: true});
+                    let res = await generalRequest(
+                      routes.getMyFinancePlans + elem.id,
+                      'get',
+                      undefined,
+                      'data',
+                      state.token,
+                    );
+
+                    dispatch({loading: false});
+                    if (res == null) return;
+                    let tmp = [];
+                    fetchedPlans.forEach(e => {
+                      tmp.push(e);
+                    });
+
+                    plans = {
+                      advisorId: elem.id,
+                      plans: res,
+                    };
+                    tmp.push(plans);
+                    setFetchedPlans(tmp);
+                  }
+
+                  setAdvisorPlans(plans);
+                }}
+              />
+            );
+          })}
+      </PhoneView>
+    </>
   );
 }
 

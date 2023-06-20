@@ -1,6 +1,6 @@
 const translator = {
   maxKarbarg: 'تعداد کاربرگ',
-  price: 'قیمت',
+  price: 'هزینه مشاوره برای یک ماه',
   visibility: 'وضعیت نمایش',
   maxVideoCalls: 'تعداد جلسات آنلاین',
   title: 'عنوان',

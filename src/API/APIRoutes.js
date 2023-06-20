@@ -349,6 +349,7 @@ export const routes = {
   buyAdvisorQuiz: 'quiz/public/buyAdvisorQuiz/',
   getMyFinancePlans: 'advisor/manage/getOffers/',
   createNewOffer: 'advisor/manage/createNewOffer/',
+  updateOffer: 'advisor/manage/updateOffer/',
   removeOffers: 'advisor/manage/removeOffers',
   hasOpenRequest: 'advisor/public/hasOpenRequest',
   sendAdvisorAcceptanceRequest: 'advisor/public/request/',

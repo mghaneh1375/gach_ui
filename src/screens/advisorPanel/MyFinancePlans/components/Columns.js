@@ -23,17 +23,17 @@ const columns = [
   },
   {
     name: translator.maxKarbarg,
-    selector: row => row.maxKarbarg,
+    selector: row => (row.maxKarbarg == -1 ? 'نامحدود' : row.maxKarbarg),
     grow: 1,
   },
   {
     name: translator.maxExam,
-    selector: row => row.maxExam,
+    selector: row => (row.maxExam == -1 ? 'نامحدود' : row.maxExam),
     grow: 1,
   },
   {
     name: translator.maxChat,
-    selector: row => row.maxChat,
+    selector: row => (row.maxChat == -1 ? 'نامحدود' : row.maxChat),
     grow: 1,
   },
 ];
