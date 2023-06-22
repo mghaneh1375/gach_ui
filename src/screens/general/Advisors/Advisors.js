@@ -3,13 +3,14 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../App';
-import {showSuccess} from '../../../services/Utility';
+import {addItem, removeItems, showSuccess} from '../../../services/Utility';
 import {PhoneView} from '../../../styles/Common';
 import {LargePopUp} from '../../../styles/Common/PopUp';
 import {styles} from '../../../styles/Common/Styles';
 import Card from './Card';
 import FinancePlan from './FinancePlan';
 import {setCacheItem} from '../../../API/User';
+import OffCode from '../buy/components/OffCode';
 
 function Advisors(props) {
   const useGlobalState = () => [
@@ -44,6 +45,9 @@ function Advisors(props) {
   };
 
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
+  const [showOffCodePane, setShowOffCodePane] = useState();
+  const [selectedAdvisor, setSelectedAdvisor] = useState();
+  const [userOff, setUserOff] = useState();
 
   const goToPayLocal = async advisorId => {
     let data = {};
@@ -132,8 +136,28 @@ function Advisors(props) {
     fetchData();
   });
 
+  const setOffCodeResult = (amount, type, code) => {
+    setUserOff({type: type, amount: amount, code: code});
+
+    let openReq = openRequests.find(e => e.advisorId === selectedAdvisor);
+    let offAmount = type === 'percent' ? openReq.price * amount : amount;
+    openReq.shouldPay = Math.max(
+      0,
+      openReq.price - offAmount - state.user.user.money,
+    );
+  };
+
   return (
     <>
+      {showOffCodePane && (
+        <OffCode
+          token={state.token}
+          for={'counseling'}
+          setLoading={new_status => dispatch({loading: new_status})}
+          setResult={setOffCodeResult}
+          toggleShowPopUp={() => setShowOffCodePane(false)}
+        />
+      )}
       {refId !== undefined && (
         <form
           ref={ref}
@@ -163,7 +187,8 @@ function Advisors(props) {
                   );
                   dispatch({loading: false});
                   if (res !== null) {
-                    // setHasOpenRequest(true);
+                    addItem(openRequests, setOpenRequests, res);
+
                     showSuccess(
                       'درخواست شما با موفقیت ثبت گردید و پس از بررسی مشاور نتیجه به اطلاع شما خواهد رسید',
                     );
@@ -193,13 +218,40 @@ function Advisors(props) {
                   isMyAdvisor={
                     myAdvisor !== undefined ? elem.id === myAdvisor.id : false
                   }
-                  hasOpenRequest={openReq}
+                  hasOpenRequest={true}
                   shouldPay={shouldPay}
                   price={openReq.price}
                   key={index}
                   data={elem}
+                  onOffClick={() => {
+                    setSelectedAdvisor(elem.id);
+                    setShowOffCodePane(true);
+                  }}
                   onPay={() => {
                     goToPayLocal(elem.id);
+                  }}
+                  onCancel={async () => {
+                    dispatch({loading: true});
+                    let res = await generalRequest(
+                      routes.cancelAdvisorRequest + openReq.id,
+                      'delete',
+                      undefined,
+                      undefined,
+                      state.token,
+                    );
+                    dispatch({loading: false});
+                    if (res !== null) {
+                      showSuccess();
+                      let tmp = data.map(e => {
+                        if (e.id === elem.id) {
+                          e.answer = 'cancel';
+                          return e;
+                        }
+                        return e;
+                      });
+                      removeItems(openRequests, setOpenRequests, [openReq.id]);
+                      setData(tmp);
+                    }
                   }}
                 />
               );
@@ -211,7 +263,30 @@ function Advisors(props) {
                   isMyAdvisor={
                     myAdvisor !== undefined ? elem.id === myAdvisor.id : false
                   }
-                  hasOpenRequest={openReq}
+                  onCancel={async () => {
+                    dispatch({loading: true});
+                    let res = await generalRequest(
+                      routes.cancelAdvisorRequest + openReq.id,
+                      'delete',
+                      undefined,
+                      undefined,
+                      state.token,
+                    );
+                    dispatch({loading: false});
+                    if (res !== null) {
+                      showSuccess();
+                      let tmp = data.map(e => {
+                        if (e.id === elem.id) {
+                          e.answer = 'cancel';
+                          return e;
+                        }
+                        return e;
+                      });
+                      removeItems(openRequests, setOpenRequests, [openReq.id]);
+                      setData(tmp);
+                    }
+                  }}
+                  hasOpenRequest={true}
                   key={index}
                   data={elem}
                 />
