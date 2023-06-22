@@ -122,7 +122,15 @@ function Card(props) {
 
       {props.shouldPay !== undefined && (
         <>
-          <SimpleText text={'وضعیت: تایید شده و در انتظار پرداخت'} />
+          <EqualTwoTextInputs>
+            <SimpleText text={'وضعیت: در انتظار پرداخت'} />
+            <SimpleText
+              style={{...styles.red, ...styles.cursor_pointer}}
+              onPress={() => props.onCancel()}
+              text={'انصراف از درخواست'}
+            />
+          </EqualTwoTextInputs>
+
           <SimpleText
             text={
               'مبلغ مشاوره برای یک ماه: ' + formatPrice(props.price) + ' تومان'
@@ -134,7 +142,7 @@ function Card(props) {
             }
           />
           <EqualTwoTextInputs>
-            <CommonButton theme={'dark'} title="وارد کردن کد تخفیف" />
+            <CommonButton theme={'dark'} title="کد تخفیف" />
             <CommonButton onPress={() => props.onPay()} title={'پرداخت'} />
           </EqualTwoTextInputs>
         </>
@@ -162,6 +170,19 @@ function Card(props) {
       {props.onRemove !== undefined && (
         <CommonButton onPress={() => props.onRemove()} title={'حذف مشاور'} />
       )}
+
+      {props.onCancel !== undefined && props.shouldPay === undefined && (
+        <EqualTwoTextInputs>
+          <SimpleText text={'وضعیت: در حال بررسی توسط مشاور'} />
+          <SimpleText
+            style={{...styles.red, ...styles.cursor_pointer}}
+            onPress={() => props.onCancel()}
+            text={'انصراف از درخواست'}
+          />
+        </EqualTwoTextInputs>
+      )}
+
+      {}
     </CommonWebBox>
   );
 }

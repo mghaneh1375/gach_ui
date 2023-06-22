@@ -344,6 +344,7 @@ export const routes = {
   createTag: 'advisor/tag/createTag',
   createLifeTag: 'advisor/tag/createLifeTag',
   createExamTag: 'advisor/tag/createExamTag',
+
   payAdvisorPrice: 'advisor/public/payAdvisorPrice/',
   getAllAdvisors: 'advisor/public/getAllAdvisors',
   getMyAdvisor: 'advisor/public/getMyAdvisor',
