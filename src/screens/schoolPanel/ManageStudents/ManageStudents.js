@@ -8,7 +8,7 @@ import {
   addItem,
   isUserAdvisor,
 } from '../../../services/Utility';
-import {MyView} from '../../../styles/Common';
+import {MyView, SimpleText} from '../../../styles/Common';
 import {getAllStudent} from './Utility';
 import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin';
 
@@ -80,6 +80,8 @@ function ManageStudents(props) {
           token={props.token}
         />
       )}
+      {/* window.open('/studentLifeStyle/' + props.selectedId) */}
+      {mode === 'advisorPanel' && <SimpleText text="salam" />}
     </MyView>
   );
 }

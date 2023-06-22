@@ -13,6 +13,7 @@ import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSe
 import {statusKeyVals} from '../../../panel/question/components/KeyVals';
 import {createNewOffer, updateOffer} from './Utility';
 import {dispatchFinanceContext, financeContext} from './Context';
+import {formatPrice} from '../../../../services/Utility';
 
 function Create(props) {
   const useGlobalState = () => [
@@ -109,7 +110,12 @@ function Create(props) {
 
         <JustBottomBorderTextInput
           placeholder={translator.price}
-          subText={translator.price}
+          subText={
+            translator.price +
+            ' به تومان - حداقل: ' +
+            formatPrice(state.minPrice) +
+            ' تومان'
+          }
           justNum={true}
           value={price}
           onChangeText={e => setPrice(e)}
@@ -117,7 +123,9 @@ function Create(props) {
 
         <JustBottomBorderTextInput
           placeholder={translator.maxVideoCalls}
-          subText={translator.maxVideoCalls}
+          subText={
+            translator.maxVideoCalls + ' - حداکثر ' + state.maxVideoCalls
+          }
           justNum={true}
           value={videoCalls}
           onChangeText={e => setVideoCalls(e)}

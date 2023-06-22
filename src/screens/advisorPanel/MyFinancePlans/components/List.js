@@ -37,7 +37,12 @@ function List(props) {
         props.navigate('/');
         return;
       }
-      dispatch({data: res[0]});
+      dispatch({
+        data: res[0].data,
+        maxVideoCalls: res[0].maxVideoCalls,
+        minPrice: res[0].minPrice,
+      });
+
       setIsWorking(false);
     });
   }, [dispatch, props, state.data, isWorking]);

@@ -146,35 +146,37 @@ function Advisors(props) {
         <LargePopUp
           title={'پلن های موجود'}
           toggleShowPopUp={() => setAdvisorPlans(undefined)}>
-          {advisorPlans.plans.map((elem, index) => {
-            return (
-              <FinancePlan
-                onSelect={async () => {
-                  dispatch({loading: true});
-                  let res = await generalRequest(
-                    routes.sendAdvisorAcceptanceRequest +
-                      advisorPlans.advisorId +
-                      '/' +
-                      elem.id,
-                    'post',
-                    undefined,
-                    'data',
-                    state.token,
-                  );
-                  dispatch({loading: false});
-                  if (res !== null) {
-                    // setHasOpenRequest(true);
-                    showSuccess(
-                      'درخواست شما با موفقیت ثبت گردید و پس از بررسی مشاور نتیجه به اطلاع شما خواهد رسید',
+          <PhoneView style={{...styles.gap15}}>
+            {advisorPlans.plans.map((elem, index) => {
+              return (
+                <FinancePlan
+                  onSelect={async () => {
+                    dispatch({loading: true});
+                    let res = await generalRequest(
+                      routes.sendAdvisorAcceptanceRequest +
+                        advisorPlans.advisorId +
+                        '/' +
+                        elem.id,
+                      'post',
+                      undefined,
+                      'data',
+                      state.token,
                     );
-                    setAdvisorPlans(undefined);
-                  }
-                }}
-                key={index}
-                plan={elem}
-              />
-            );
-          })}
+                    dispatch({loading: false});
+                    if (res !== null) {
+                      // setHasOpenRequest(true);
+                      showSuccess(
+                        'درخواست شما با موفقیت ثبت گردید و پس از بررسی مشاور نتیجه به اطلاع شما خواهد رسید',
+                      );
+                      setAdvisorPlans(undefined);
+                    }
+                  }}
+                  key={index}
+                  plan={elem}
+                />
+              );
+            })}
+          </PhoneView>
         </LargePopUp>
       )}
       <PhoneView

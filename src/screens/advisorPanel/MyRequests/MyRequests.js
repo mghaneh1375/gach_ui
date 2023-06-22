@@ -59,7 +59,7 @@ function MyRequests(props) {
     {
       name: 'عملیات',
       cell: (row, index, column, id) => {
-        if (row.status === 'reject') return <></>;
+        if (row.status !== 'pending') return <></>;
 
         return (
           <PhoneView style={{...styles.gap10}}>

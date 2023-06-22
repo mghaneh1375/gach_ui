@@ -10,7 +10,6 @@ import Slider from '@material-ui/core/Slider';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {
   allTrueFalseValues,
-  convertSecToMinWithOutSec,
   convertSecToMinWithOutSecAndDay,
   formatPrice,
   getDevice,
