@@ -13,6 +13,7 @@ import {faCheck, faInfo, faRemove} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../styles/Common/Styles';
 import {LargePopUp} from '../../../styles/Common/PopUp';
 import FinancePlan from '../../general/Advisors/FinancePlan';
+import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
 
 function MyRequests(props) {
   const navigate = props.navigate;
@@ -24,7 +25,9 @@ function MyRequests(props) {
 
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
-
+  const [filteredData, setFilteredData] = useState();
+  const [filter, setFilter] = useState('inProgress');
+  const [mode, setMode] = useState();
   const [selectedRequest, setSelectedRequest] = useState();
 
   const fetchData = React.useCallback(() => {
@@ -53,7 +56,31 @@ function MyRequests(props) {
     fetchData();
   });
 
-  const [mode, setMode] = useState();
+  React.useEffect(() => {
+    console.log(filter);
+    if (data === undefined) return;
+
+    setFilteredData(
+      data.filter(e => {
+        if (filter === 'all') return true;
+        if (
+          filter === 'finished' &&
+          (e.status === 'pending' ||
+            (e.status === 'accept' && e.paid === undefined))
+        )
+          return false;
+
+        if (
+          filter === 'inProgress' &&
+          (e.status === 'rejected' ||
+            (e.status === 'accept' && e.paid !== undefined))
+        )
+          return false;
+
+        return true;
+      }),
+    );
+  }, [filter, data]);
 
   const columns = [
     {
@@ -157,11 +184,17 @@ function MyRequests(props) {
       grow: 1,
     },
     {
-      name: Translate.answerAt,
+      name: Translate.statusAt,
       selector: row => row.answerAt,
       grow: 1,
       center: true,
     },
+  ];
+
+  const filterKeyVals = [
+    {item: 'در جریان', id: 'inProgress'},
+    {item: 'اتمام یافته', id: 'finished'},
+    {item: 'همه', id: 'all'},
   ];
 
   return (
@@ -213,12 +246,21 @@ function MyRequests(props) {
         </LargePopUp>
       )}
       <CommonWebBox>
-        {data !== undefined && (
+        <PhoneView>
+          <JustBottomBorderSelect
+            value={filterKeyVals.find(elem => elem.id === filter)}
+            placeholder={'وضعیت درخواست'}
+            subText={'وضعیت درخواست'}
+            setter={setFilter}
+            values={filterKeyVals}
+          />
+        </PhoneView>
+        {filteredData !== undefined && (
           <CommonDataTable
             excel={false}
             pagination={false}
             columns={columns}
-            data={data}
+            data={filteredData}
           />
         )}
       </CommonWebBox>

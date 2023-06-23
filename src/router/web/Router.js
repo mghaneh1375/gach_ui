@@ -78,6 +78,7 @@ export default function WebRouter() {
             path="myAdvisor/quiz"
             element={<WebStructue page="advisorQuiz" />}
           />
+          <Route path="chatRoom" element={<WebStructue page="chatRoom" />} />
           <Route
             path="studentEducationalHistory/:userId"
             element={<WebStructue page="studentEducationalHistory" />}

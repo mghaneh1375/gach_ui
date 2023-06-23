@@ -350,6 +350,7 @@ export const routes = {
   getMyAdvisor: 'advisor/public/getMyAdvisor',
   buyAdvisorQuiz: 'quiz/public/buyAdvisorQuiz/',
   getMyFinancePlans: 'advisor/manage/getOffers/',
+  getStudentDigestForAdvisor: 'advisor/manage/getStudentDigest/',
   createNewOffer: 'advisor/manage/createNewOffer/',
   updateOffer: 'advisor/manage/updateOffer/',
   removeOffers: 'advisor/manage/removeOffers',

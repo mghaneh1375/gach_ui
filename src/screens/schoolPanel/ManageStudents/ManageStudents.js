@@ -11,6 +11,8 @@ import {
 import {MyView, SimpleText} from '../../../styles/Common';
 import {getAllStudent} from './Utility';
 import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin';
+import {AdvicePanelProvider} from './Advisor/components/Context';
+import Panel from './Advisor/Panel';
 
 function ManageStudents(props) {
   const queryString = require('query-string');
@@ -80,8 +82,16 @@ function ManageStudents(props) {
           token={props.token}
         />
       )}
-      {/* window.open('/studentLifeStyle/' + props.selectedId) */}
-      {mode === 'advisorPanel' && <SimpleText text="salam" />}
+      <AdvicePanelProvider>
+        {mode === 'advisorPanel' && (
+          <Panel
+            wantedUserId={selectedStudent.id}
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
+          />
+        )}
+      </AdvicePanelProvider>
     </MyView>
   );
 }

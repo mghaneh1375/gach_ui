@@ -430,3 +430,28 @@ export const CKEditorToolbar = {
     contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
   },
 };
+
+export const getFileType = file => {
+  let fileType = file.split('.').pop().toLowerCase();
+
+  if (['png', 'jpeg', 'jpg', 'webp', 'svg'].indexOf(fileType) > -1) {
+    return 'img';
+  } else if (['mp3'].indexOf(fileType) > -1) {
+    return 'voice';
+  } else {
+    return 'other';
+  }
+};
+
+export const makeDownload = link => {
+  var element = document.createElement('a');
+  element.setAttribute('href', link);
+  element.setAttribute('target', '_blank');
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+};

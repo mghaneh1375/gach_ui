@@ -136,14 +136,35 @@ function Card(props) {
               'مبلغ مشاوره برای یک ماه: ' + formatPrice(props.price) + ' تومان'
             }
           />
+          {props.offAmount !== undefined && (
+            <SimpleText
+              text={
+                'تخفیف اعمال شده: ' + formatPrice(props.offAmount) + ' تومان'
+              }
+            />
+          )}
+          <SimpleText
+            text={
+              'مبلغ قابل کسر از حساب کاربری: ' +
+              formatPrice(props.userMoney) +
+              ' تومان'
+            }
+          />
           <SimpleText
             text={
               'مبلغ قابل پرداخت: ' + formatPrice(props.shouldPay) + ' تومان'
             }
           />
           <EqualTwoTextInputs>
-            <CommonButton theme={'dark'} title="کد تخفیف" />
-            <CommonButton onPress={() => props.onPay()} title={'پرداخت'} />
+            <CommonButton
+              onPress={() => props.onOffClick()}
+              theme={'dark'}
+              title="کد تخفیف"
+            />
+            <CommonButton
+              onPress={() => props.onPay()}
+              title={props.shouldPay > 100 ? 'پرداخت' : 'نهایی سازی'}
+            />
           </EqualTwoTextInputs>
         </>
       )}
