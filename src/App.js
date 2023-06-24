@@ -29,6 +29,7 @@ const excludeRightMenu = [
   'startQuiz',
   'rankingList',
   'allSchools',
+  'chatRoom',
 ];
 const excludeTopNav = ['login', 'profile', 'rankingList', 'allSchools', 'buy'];
 const excludeBottomNav = ['login'];

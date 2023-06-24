@@ -109,6 +109,7 @@ import RunEscapeQuiz from './studentPanel/RunEscapeQuiz/RunEscapeQuiz';
 import Ranking from './general/OnlineStanding/Ranking';
 import MyFinancePlans from './advisorPanel/MyFinancePlans/MyFinancePlans';
 import Chat from './studentPanel/Chat/Chat';
+import ChatRoom from './studentPanel/Chat/ChatRoom';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -318,7 +319,7 @@ const WebStructue = props => {
               {props.page === 'packages' && params.sessionId !== undefined && (
                 <SessionDetail navigate={navigate} />
               )}
-              {props.page === 'chatRoom' && <Chat navigate={navigate} />}
+              {props.page === 'chatRoom' && <ChatRoom navigate={navigate} />}
               {props.page === 'packages' && params.sessionId === undefined && (
                 <Packages isInMyMode={false} navigate={navigate} />
               )}

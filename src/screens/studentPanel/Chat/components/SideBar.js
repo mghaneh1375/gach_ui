@@ -1,23 +1,22 @@
-import {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {
-  updateSideBarChatRows_Redux,
-  updateSideBarChatRowsNOTIFY_Redux,
-} from './../Action';
+import React, {useEffect, useState} from 'react';
+
+import {chatContext, dispatchChatContext} from './Context';
 import {GetChatsApi} from './MessangerApi';
 
 function SideBar(props) {
-  const {sideBarRowIds, notReadMessageInfo} = useSelector(
-    state => state.CommonReducer,
-  );
-  const dispatch = useDispatch();
+  const useGlobalState = () => [
+    React.useContext(chatContext),
+    React.useContext(dispatchChatContext),
+  ];
+
+  const [state, dispatch] = useGlobalState();
 
   const [users, setUsers] = useState([]);
   const [showUser, setShowUser] = useState(null);
 
   const [userListToShow, setUserListToShow] = useState([]);
 
-  const getUsers = async props => {
+  const getUsers = async () => {
     props.setLoading(true);
     let res = await GetChatsApi(props.socketToken);
     props.setLoading(false);
@@ -42,7 +41,7 @@ function SideBar(props) {
 
   const changePerson = id => {
     setShowUser(id);
-    setUserSearch('');
+
     setUsers(prev => {
       let updated = prev.map(item => {
         if (item.id === id) {
@@ -57,12 +56,8 @@ function SideBar(props) {
     });
   };
 
-  const backToMainList = () => {
-    props.changePerson(null);
-  };
-
   useEffect(() => {
-    if (sideBarRowIds) {
+    if (state.sideBarRowIds) {
       let minOrder = 0;
       users.forEach(item => {
         minOrder = Math.min(minOrder, item.order);
@@ -70,7 +65,7 @@ function SideBar(props) {
       minOrder -= 2;
 
       let newUsers = users.map(item => {
-        if (item.id === sideBarRowIds) {
+        if (item.id === state.sideBarRowIds) {
           item.order = minOrder;
         }
 
@@ -83,21 +78,26 @@ function SideBar(props) {
 
       setUserListToShow(newUsers);
       setUsers(newUsers);
-      dispatch(updateSideBarChatRows_Redux(null));
+      dispatch({sideBarRowIds: null});
     }
-  }, [sideBarRowIds]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.sideBarRowIds]);
+
+  // useEffect(() => {
+  //   changePerson(props.selectedGroup);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [props.selectedGroup]);
+
+  // useEffect(() => {
+  //   getUsers();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
-    changePerson(props.selectedGroup);
-  }, [props.selectedGroup]);
-
-  useEffect(getUsers, []);
-
-  useEffect(() => {
-    if (notReadMessageInfo?.sideBarRowUpdateNotif) {
+    if (state.notReadMessageInfo?.sideBarRowUpdateNotif) {
       let newUsers = users.map(item => {
-        if (item.id === notReadMessageInfo?.sideBarRowUpdateNotif) {
-          item.notReadMessage = notReadMessageInfo?.notifCount;
+        if (item.id === state.notReadMessageInfo?.sideBarRowUpdateNotif) {
+          item.notReadMessage = state.notReadMessageInfo?.notifCount;
         }
 
         return {...item};
@@ -106,16 +106,22 @@ function SideBar(props) {
       setUserListToShow(newUsers);
       setUsers(newUsers);
 
-      dispatch(updateSideBarChatRowsNOTIFY_Redux(null, 0));
+      dispatch({
+        notReadMessageInfo: {sideBarRowUpdateNotif: null, notifCount: 0},
+      });
     }
-  }, [notReadMessageInfo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.notReadMessageInfo]);
 
   useEffect(() => {
-    if (props.sideBarList.length > 0) {
+    if (props.sideBarList?.length > 0) {
+      props.updateGroups(props.sideBarList);
+      setUsers(props.sideBarList);
       setUserListToShow(props.sideBarList);
     } else {
       setUserListToShow(users);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.sideBarList]);
 
   return (
@@ -124,45 +130,41 @@ function SideBar(props) {
         props.selectedGroup !== null && 'notOpen'
       }`}>
       <div style={{display: 'flex', flexDirection: 'column'}}>
-        {props.sideBarList.length > 0 && (
-          <div
-            className="mesUserSide font-weight-bold d-flex justify-content-center cursorPointer"
-            style={{order: -99998}}
-            onClick={backToMainList}>
-            بازگشت به لیست کاربران
-          </div>
-        )}
-        {userListToShow.map(item => (
-          <div
-            key={item.id}
-            className={`mesUserSide ${
-              props.selectedGroup?.id === item.id ? 'selected' : ''
-            }`}
-            onClick={() => changePerson(item.id)}
-            style={{order: item.order}}>
-            <div className="img">
-              <img src={item.pic} />
+        {userListToShow.map(item => {
+          return (
+            <div
+              key={item.id}
+              className={`mesUserSide ${
+                props.selectedGroup?.id === item.id ? 'selected' : ''
+              }`}
+              onClick={() => {
+                changePerson(item.id);
+              }}
+              style={{order: item.order}}>
+              <div className="img">
+                <img src={item.pic} />
+              </div>
+              <div className="nameBox">
+                <div className="name singleRow">{item.name}</div>
+                <div className="mesLastMes singleRow">{item.lastMessage}</div>
+              </div>
+              {item.notReadMessage > 0 && (
+                <div className="mesNotRead">{item.notReadMessage}</div>
+              )}
             </div>
-            <div className="nameBox">
-              <div className="name singleRow">{item.name}</div>
-              <div className="mesLastMes singleRow">{item.lastMessage}</div>
-            </div>
-            {item.notReadMessage > 0 && (
-              <div className="mesNotRead">{item.notReadMessage}</div>
-            )}
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
 }
 
-SideBar.defaultProps = {
-  sideBarList: [],
-  socketToken: null,
-  selectedGroup: null,
-  changePerson: id => {},
-  updateGroups: groups => {},
-};
+// SideBar.defaultProps = {
+//   sideBarList: [],
+//   socketToken: null,
+//   selectedGroup: null,
+//   changePerson: id => {},
+//   updateGroups: groups => {},
+// };
 
 export default SideBar;

@@ -1,12 +1,8 @@
 import moment from 'jalali-moment';
 import React, {useEffect, useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+
 import SockJsClient from 'react-stomp';
 
-import {
-  updateSideBarChatRows_Redux,
-  updateSideBarChatRowsNOTIFY_Redux,
-} from './Action';
 import {
   GetStudentsMessengerApi,
   GetFilesOfChatApi,
@@ -15,27 +11,29 @@ import {
   SendFileToMessenger,
 } from './components/MessangerApi';
 import MassengerContent from './components/MassengerContent';
-import MesSideBar from './components/SideBar';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import SideBar from './components/SideBar';
 import {isUserAdvisor} from '../../../services/Utility';
-import {MyView} from '../../../styles/Common';
+import {
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../styles/Common';
+import {useEffectOnce} from 'usehooks-ts';
+import {chatContext, dispatchChatContext} from './components/Context';
+import {FontIcon} from '../../../styles/Common/FontIcon';
+import {faChevronLeft, faEllipsisV} from '@fortawesome/free-solid-svg-icons';
+import vars from '../../../styles/root';
 
-function Messenger_Page() {
+function Chat(props) {
   const useGlobalState = () => [
-    React.useContext(globalStateContext),
-    React.useContext(dispatchStateContext),
+    React.useContext(chatContext),
+    React.useContext(dispatchChatContext),
   ];
 
-  const [state, dispatch2] = useGlobalState();
+  const [state, dispatch] = useGlobalState();
 
-  const setLoading = new_status => {
-    dispatch2({loading: new_status});
-  };
-
-  const {userInfo} = useSelector(state => state.AuthReducer);
   const chatBox = useRef(null);
-
-  const dispatch = useDispatch();
 
   const [openSidePopUp, setOpenSidePopUp] = useState(null);
   const [socketToken, setSocketToken] = useState(null);
@@ -89,12 +87,15 @@ function Messenger_Page() {
   const handleRecieveMessage = message => {
     let checkHasGet = allChats[message.chatId];
 
-    dispatch(updateSideBarChatRows_Redux(message.senderId));
+    dispatch({sideBarRowIds: message.senderId});
 
     if (message?.type === 'NOTIF') {
-      dispatch(
-        updateSideBarChatRowsNOTIFY_Redux(message.senderId, message.count),
-      );
+      dispatch({
+        notReadMessageInfo: {
+          sideBarRowUpdateNotif: message.senderId,
+          notifCount: message.count,
+        },
+      });
     }
 
     if (checkHasGet) {
@@ -118,7 +119,7 @@ function Messenger_Page() {
       }
 
       let newArrChat = {
-        amISender: newChat.sender === userInfo.completeName,
+        amISender: newChat.sender === props.user.first_name,
         content: newChat.content,
         createdAt: newChat.timestamp,
         id: newChat.senderId,
@@ -152,9 +153,9 @@ function Messenger_Page() {
   const getMessages = async chat => {
     let checkHasGet = allChats[chat.chatId];
     if (!checkHasGet || checkHasGet?.hasGet === false) {
-      setLoading(true);
+      props.setLoading(true);
       let res = GetMessagesOfChatApi(chat.id, socketToken);
-      setLoading(false);
+      props.setLoading(false);
 
       res.chats = reFormatChats(res.chats);
 
@@ -264,7 +265,6 @@ function Messenger_Page() {
     setGroupSelected(null);
     setChatIdSeleceted(null);
     setShowChats(null);
-    setStudentOfClass([]);
   };
 
   const handleClickMenu = event => {
@@ -275,7 +275,7 @@ function Messenger_Page() {
   };
 
   const showStudentClasses = async () => {
-    if (isUserAdvisor(state.user)) {
+    if (isUserAdvisor(props.user)) {
       if (myStudents === undefined) {
         let res = await GetStudentsMessengerApi(socketToken);
 
@@ -343,15 +343,14 @@ function Messenger_Page() {
       !lastExpireToken ||
       (lastExpireToken && lastExpireToken < new Date().getTime())
     ) {
-      setLoading(true);
-      let res = await GetMessengerTokenApi(state.token, setLoading);
+      props.setLoading(true);
+      let res = await GetMessengerTokenApi(props.token);
+      props.setLoading(false);
 
       let time = new Date().getTime() + res.reminder - 20000;
       localStorage.setItem('socketToken', res.token);
       localStorage.setItem('socketToken_expire', time);
       localStorage.setItem('socketToken_heartBeatTime', res.heartBeatInterval);
-
-      setLoading(false);
 
       setHeartTimer(res.heartBeatInterval);
       setSocketToken(res.token);
@@ -365,7 +364,7 @@ function Messenger_Page() {
 
   const startToChat = studentId => {
     setGroups(prev => {
-      let student = studentOfClass.find(item => item.id === studentId);
+      let student = myStudents.find(item => item.id === studentId);
       let exist = prev.find(item => item.id === studentId);
       if (!exist) {
         exist = {
@@ -389,16 +388,16 @@ function Messenger_Page() {
     });
   };
 
-  React.useEffect(() => {
+  useEffectOnce(() => {
     const destroyListener = createScrollStopListener(chatBox.current, () =>
       setUpdateScroll(prev => prev + 1),
     );
     setInterval(getNewToken, 2000);
 
     return () => destroyListener(); // when App component is unmounted
-  }, []);
+  });
 
-  React.useEffect(onScroll, [updateScroll]);
+  // React.useEffect(onScroll, [updateScroll]);
 
   React.useEffect(() => {
     if (sendHeart && socketState) {
@@ -415,9 +414,12 @@ function Messenger_Page() {
         setSendHeart(prev => prev + 1);
       }, heartTimer);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sendHeart]);
 
   useEffect(() => {
+    console.log('salam');
+    console.log(groups);
     setOpenSidePopUp(null);
     setScrollFromBottom(0);
     let chat = groups.find(group => group.id === groupSelected?.id);
@@ -426,8 +428,8 @@ function Messenger_Page() {
     } else if (groupSelected === null) {
       handleUnselectGroup();
     } else {
-      setStudentOfClass(prev => {
-        let student = studentOfClass.find(item => item.id === groupSelected);
+      setMyStudents(prev => {
+        let student = myStudents.find(item => item.id === groupSelected);
         let exist = prev.find(item => item.id === groupSelected);
         if (exist) {
           getMessages({
@@ -446,6 +448,7 @@ function Messenger_Page() {
         return [];
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupSelected]);
 
   useEffect(() => {
@@ -456,31 +459,34 @@ function Messenger_Page() {
 
       chatBox.current.scrollTo(0, scrollPosition);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showChats]);
 
   useEffect(() => {
-    if (chatIdSeleceted) {
+    if (socketToken) {
       showStudentClasses();
     }
-  }, [chatIdSeleceted]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socketToken]);
 
   return (
     <MyView>
       {socketToken && (
-        <MesSideBar
-          sideBarList={studentOfClass}
+        <SideBar
+          sideBarList={myStudents}
           socketToken={socketToken}
           selectedGroup={groupSelected}
           changePerson={setGroupSelected}
           updateGroups={setGroups}
+          setLoading={props.setLoading}
         />
       )}
-      <div className="panel-main messengerPanel">
+      <CommonWebBox width={vars.LEFT_SECTION_WIDTH} style={{marginRight: 250}}>
         {socketToken && (
           <>
             <SockJsClient
-              url={`${process.env.REACT_APP_SOCKET}/ws`}
-              topics={[`/chat/${state.user.user.id}`]}
+              url={`http://192.168.0.106:8088/ws`}
+              topics={[`/chat/${props.user.id}`]}
               subscribeHeaders={{'self-subscribe': true, token: socketToken}}
               debug={false}
               autoReconnect={false}
@@ -520,18 +526,22 @@ function Messenger_Page() {
 
         {groupSelected && (
           <div className="whiteBox headerMessSelect">
-            <div className="font-weight-bold">{groupSelected.name}</div>
-            <div className="d-flex align-items-center">
-              <button className="btn" onClick={handleClickMenu}>
-                <i className="fas fa-ellipsis-v"></i>
-              </button>
-              <button
-                className="ml-3 redButton showOnMobile"
-                onClick={handleUnselectGroup}
-                style={{borderRadius: '50%', height: '30px', width: '30px'}}>
-                <i className="fas fa-chevron-left"></i>
-              </button>
-            </div>
+            <SimpleText text={groupSelected.name} />
+
+            <PhoneView>
+              <FontIcon
+                kind={'normal'}
+                icon={faEllipsisV}
+                onPress={handleClickMenu}
+              />
+
+              <FontIcon
+                style={{borderRadius: '50%', height: '30px', width: '30px'}}
+                kind={'normal'}
+                icon={faChevronLeft}
+                onPress={handleUnselectGroup}
+              />
+            </PhoneView>
           </div>
         )}
 
@@ -572,7 +582,7 @@ function Messenger_Page() {
             />
           </div>
         )} */}
-      </div>
+      </CommonWebBox>
 
       {/* {openSidePopUp === 'menu' && (
         <SidePopUp close={handleCloseMenu}>

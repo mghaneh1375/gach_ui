@@ -2,7 +2,7 @@ import {generalRequest} from '../../../../API/Utility';
 
 export const GetMessengerTokenApi = async token => {
   let res = await generalRequest(
-    `${process.env.REACT_APP_SOCKET}/api/getToken`,
+    `http://192.168.0.106:8088/api/getToken`,
     'get',
     undefined,
     ['token', 'reminder', 'heartBeatInterval', 'validityDuration'],
@@ -14,7 +14,7 @@ export const GetMessengerTokenApi = async token => {
 
 export const GetChatsApi = async socketToken => {
   return await generalRequest(
-    `${process.env.REACT_APP_SOCKET}/api/chats`,
+    `http://192.168.0.106:8088/api/chats`,
     'get',
     undefined,
     'chats',
@@ -24,17 +24,17 @@ export const GetChatsApi = async socketToken => {
 
 export const GetStudentsMessengerApi = async socketToken => {
   return generalRequest(
-    `${process.env.REACT_APP_SOCKET}/api/getStudents`,
+    `http://192.168.0.106:8088/api/getStudents`,
     'get',
     undefined,
-    'data',
+    'students',
     socketToken,
   );
 };
 
 export const GetMessagesOfChatApi = async (id, socketToken, createdAt = -1) => {
   return await generalRequest(
-    `${process.env.REACT_APP_SOCKET}/api/chat/${id}/${createdAt}`,
+    `http://192.168.0.106:8088/api/chat/${id}/${createdAt}`,
     'get',
     undefined,
     'data',
@@ -85,7 +85,7 @@ export const GetFilesOfChatApi = (chatId, socketToken) => {
   //       headers: {
   //         Authorization: `Bearer ${socketToken}`,
   //       },
-  //       url: `${process.env.REACT_APP_SOCKET}/api/getFiles/${chatId}`,
+  //       url: `http://192.168.0.106:8088/api/getFiles/${chatId}`,
   //     })
   //       .then(res => {
   //         closeLoading();
