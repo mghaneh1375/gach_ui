@@ -40,6 +40,7 @@ const JustBottomBorderTextInput = props => {
         parentStyle={props.parentStyle}
         value={props.value}
         multiline={props.multiline}
+        onEnter={props.onEnter}
       />
     );
 

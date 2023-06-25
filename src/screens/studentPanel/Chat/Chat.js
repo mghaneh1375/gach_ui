@@ -9,6 +9,7 @@ import {
   GetMessagesOfChatApi,
   GetMessengerTokenApi,
   SendFileToMessenger,
+  GetMyAdvisorsMessengerApi,
 } from './components/MessangerApi';
 import MassengerContent from './components/MassengerContent';
 import SideBar from './components/SideBar';
@@ -24,6 +25,7 @@ import {chatContext, dispatchChatContext} from './components/Context';
 import {FontIcon} from '../../../styles/Common/FontIcon';
 import {faChevronLeft, faEllipsisV} from '@fortawesome/free-solid-svg-icons';
 import vars from '../../../styles/root';
+import FooterInputWithFileUpload from './components/FooterInputWithFileUpload';
 
 function Chat(props) {
   const useGlobalState = () => [
@@ -52,7 +54,7 @@ function Chat(props) {
   const [socketState, setSocketState] = useState(null);
   const [socketChatState, setSocketChatState] = useState(null);
 
-  const [myStudents, setMyStudents] = useState();
+  const [myTargets, setMyTargets] = useState();
 
   const sendMessage = message => {
     if (showChats && socketChatState && message.trim().length > 0) {
@@ -85,6 +87,8 @@ function Chat(props) {
   };
 
   const handleRecieveMessage = message => {
+    console.log(message);
+
     let checkHasGet = allChats[message.chatId];
 
     dispatch({sideBarRowIds: message.senderId});
@@ -119,7 +123,7 @@ function Chat(props) {
       }
 
       let newArrChat = {
-        amISender: newChat.sender === props.user.first_name,
+        amISender: newChat.senderId === props.user.user.id,
         content: newChat.content,
         createdAt: newChat.timestamp,
         id: newChat.senderId,
@@ -154,17 +158,17 @@ function Chat(props) {
     let checkHasGet = allChats[chat.chatId];
     if (!checkHasGet || checkHasGet?.hasGet === false) {
       props.setLoading(true);
-      let res = GetMessagesOfChatApi(chat.id, socketToken);
+      let res = await GetMessagesOfChatApi(chat.id, socketToken);
       props.setLoading(false);
 
       res.chats = reFormatChats(res.chats);
-
       res = {
         ...chat,
         ...checkHasGet,
         ...res,
       };
 
+      console.log(res);
       setShowChats(res);
       setAllChats(prev => ({
         ...prev,
@@ -216,50 +220,50 @@ function Chat(props) {
     });
   };
 
-  const onScroll = () => {
-    let scrollTop = chatBox.current.scrollTop;
+  // const onScroll = () => {
+  //   let scrollTop = chatBox.current.scrollTop;
 
-    if (scrollTop <= 100 && groupSelected?.id) {
-      let chat = groups.find(group => group.id === groupSelected?.id);
-      let allChatsOne = allChats[chat.chatId];
+  //   if (scrollTop <= 100 && groupSelected?.id) {
+  //     let chat = groups.find(group => group.id === groupSelected?.id);
+  //     let allChatsOne = allChats[chat.chatId];
 
-      if (!(allChatsOne.chats.length < allChatsOne.totalMsgs)) {
-        return;
-      }
+  //     if (!(allChatsOne.chats.length < allChatsOne.totalMsgs)) {
+  //       return;
+  //     }
 
-      let createdAt = allChatsOne.chats[0].createdAt;
+  //     let createdAt = allChatsOne.chats[0].createdAt;
 
-      // scroll position from bottom chatBox
-      let scrollHeight = chatBox.current.scrollHeight;
-      let clientHeight = chatBox.current.clientHeight;
-      let scrollPosition = scrollHeight - clientHeight - scrollTop;
-      setScrollFromBottom(scrollPosition);
+  //     // scroll position from bottom chatBox
+  //     let scrollHeight = chatBox.current.scrollHeight;
+  //     let clientHeight = chatBox.current.clientHeight;
+  //     let scrollPosition = scrollHeight - clientHeight - scrollTop;
+  //     setScrollFromBottom(scrollPosition);
 
-      GetMessagesOfChatApi(chat.mode, chat.id, socketToken, createdAt)
-        .then(res => {
-          res.chats = reFormatChats(res.chats);
+  //     GetMessagesOfChatApi(chat.mode, chat.id, socketToken, createdAt)
+  //       .then(res => {
+  //         res.chats = reFormatChats(res.chats);
 
-          setAllChats(prev => {
-            let newChats = [...res.chats, ...prev[res.chatId].chats];
+  //         setAllChats(prev => {
+  //           let newChats = [...res.chats, ...prev[res.chatId].chats];
 
-            setShowChats({
-              ...chat,
-              ...res,
-              chats: newChats,
-            });
+  //           setShowChats({
+  //             ...chat,
+  //             ...res,
+  //             chats: newChats,
+  //           });
 
-            return {
-              ...prev,
-              [res.chatId]: {
-                ...prev[res.chatId],
-                chats: [...newChats],
-              },
-            };
-          });
-        })
-        .catch(err => {});
-    }
-  };
+  //           return {
+  //             ...prev,
+  //             [res.chatId]: {
+  //               ...prev[res.chatId],
+  //               chats: [...newChats],
+  //             },
+  //           };
+  //         });
+  //       })
+  //       .catch(err => {});
+  //   }
+  // };
 
   const handleUnselectGroup = () => {
     setGroupSelected(null);
@@ -270,68 +274,42 @@ function Chat(props) {
   const handleClickMenu = event => {
     setOpenSidePopUp('menu');
   };
-  const handleCloseMenu = () => {
-    setOpenSidePopUp(null);
-  };
 
-  const showStudentClasses = async () => {
+  const getMyTargets = async () => {
+    if (myTargets !== undefined) {
+      setMyTargets(allChats[chatIdSeleceted].targets);
+      return;
+    }
+    let res;
     if (isUserAdvisor(props.user)) {
-      if (myStudents === undefined) {
-        let res = await GetStudentsMessengerApi(socketToken);
-
-        let studentList = res.map((item, index) => {
-          return {
-            id: item.id,
-            mode: 'PEER',
-            name: item.name,
-            newMsgs: 0,
-            notReadMessage: 0,
-            order: index - res.length,
-            pic: item.targetPic,
-            receiverId: item.id,
-            receiverName: item.name,
-          };
-        });
-        setMyStudents(studentList);
-        setAllChats(prev => {
-          return {
-            ...prev,
-            [chatIdSeleceted]: {
-              ...prev[chatIdSeleceted],
-              students: studentList,
-            },
-          };
-        });
-      } else {
-        setMyStudents(allChats[chatIdSeleceted].students);
-      }
+      res = await GetStudentsMessengerApi(socketToken);
     } else {
-      setMyStudents([]);
+      res = await GetMyAdvisorsMessengerApi(socketToken);
     }
-  };
 
-  const showFileList = () => {
-    if (!allChats[chatIdSeleceted]) return;
-
-    if (allChats[chatIdSeleceted].getFiles) {
-      setOpenSidePopUp('fileList');
-    } else {
-      GetFilesOfChatApi(chatIdSeleceted, socketToken)
-        .then(res => {
-          setOpenSidePopUp('fileList');
-          setAllChats(prev => {
-            return {
-              ...prev,
-              [chatIdSeleceted]: {
-                ...prev[chatIdSeleceted],
-                files: res,
-                getFiles: true,
-              },
-            };
-          });
-        })
-        .catch(() => {});
-    }
+    let targets = res.map((item, index) => {
+      return {
+        id: item.id,
+        mode: 'PEER',
+        name: item.name,
+        newMsgs: 0,
+        notReadMessage: 0,
+        order: index - res.length,
+        pic: item.targetPic,
+        receiverId: item.id,
+        receiverName: item.name,
+      };
+    });
+    setMyTargets(targets);
+    setAllChats(prev => {
+      return {
+        ...prev,
+        [chatIdSeleceted]: {
+          ...prev[chatIdSeleceted],
+          targets: targets,
+        },
+      };
+    });
   };
 
   const getNewToken = async () => {
@@ -362,32 +340,6 @@ function Chat(props) {
     }
   };
 
-  const startToChat = studentId => {
-    setGroups(prev => {
-      let student = myStudents.find(item => item.id === studentId);
-      let exist = prev.find(item => item.id === studentId);
-      if (!exist) {
-        exist = {
-          chatId: null,
-          id: student.id,
-          mode: 'PEER',
-          name: student.name,
-          newMsgs: 0,
-          notReadMessage: 0,
-          order: prev.length + 1,
-          pic: student.targetPic,
-          receiverId: student.id,
-          receiverName: student.name,
-        };
-        prev.push(exist);
-      }
-
-      setGroupSelected(exist);
-
-      return prev;
-    });
-  };
-
   useEffectOnce(() => {
     const destroyListener = createScrollStopListener(chatBox.current, () =>
       setUpdateScroll(prev => prev + 1),
@@ -410,6 +362,7 @@ function Chat(props) {
       }
 
       socketState.sendMessage('/app/chat', JSON.stringify(msg));
+
       setTimeout(() => {
         setSendHeart(prev => prev + 1);
       }, heartTimer);
@@ -418,9 +371,6 @@ function Chat(props) {
   }, [sendHeart]);
 
   useEffect(() => {
-    console.log('salam');
-    console.log(groups);
-    setOpenSidePopUp(null);
     setScrollFromBottom(0);
     let chat = groups.find(group => group.id === groupSelected?.id);
     if (chat) {
@@ -428,8 +378,8 @@ function Chat(props) {
     } else if (groupSelected === null) {
       handleUnselectGroup();
     } else {
-      setMyStudents(prev => {
-        let student = myStudents.find(item => item.id === groupSelected);
+      setMyTargets(prev => {
+        let student = myTargets.find(item => item.id === groupSelected);
         let exist = prev.find(item => item.id === groupSelected);
         if (exist) {
           getMessages({
@@ -464,7 +414,7 @@ function Chat(props) {
 
   useEffect(() => {
     if (socketToken) {
-      showStudentClasses();
+      getMyTargets();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socketToken]);
@@ -473,7 +423,7 @@ function Chat(props) {
     <MyView>
       {socketToken && (
         <SideBar
-          sideBarList={myStudents}
+          sideBarList={myTargets}
           socketToken={socketToken}
           selectedGroup={groupSelected}
           changePerson={setGroupSelected}
@@ -481,12 +431,12 @@ function Chat(props) {
           setLoading={props.setLoading}
         />
       )}
-      <CommonWebBox width={vars.LEFT_SECTION_WIDTH} style={{marginRight: 250}}>
+      <CommonWebBox width={'calc(100% - 300px)'} style={{marginRight: 280}}>
         {socketToken && (
           <>
             <SockJsClient
               url={`http://192.168.0.106:8088/ws`}
-              topics={[`/chat/${props.user.id}`]}
+              topics={[`/chat/${props.user.user.id}`]}
               subscribeHeaders={{'self-subscribe': true, token: socketToken}}
               debug={false}
               autoReconnect={false}
@@ -500,6 +450,7 @@ function Chat(props) {
                 console.log('onError');
               }}
               onDisconnect={() => {
+                console.log('heyyyy disconnect');
                 setSocketState(null);
               }}
             />
@@ -546,25 +497,28 @@ function Chat(props) {
         )}
 
         <div className="whiteBox mesMainMes pb-5" ref={chatBox}>
-          {showChats?.chats?.map((item, index) => (
-            <MassengerContent
-              key={`${item.id}__${index}`}
-              msg={{
-                name: !item.amISender && (item?.sender ?? ''),
-                myMsg: item.amISender,
-                msg: item.content,
-                date: item.date,
-                time: item.time,
-                isFile: item.isFile,
-                file: item.file,
-                files: [],
-              }}
-              needPic={false}
-            />
-          ))}
+          {showChats?.chats?.map((item, index) => {
+            // console.log(item);
+            return (
+              <MassengerContent
+                key={`${item.id}__${index}`}
+                msg={{
+                  name: !item.amISender && (item?.sender ?? ''),
+                  myMsg: item.amISender,
+                  msg: item.content,
+                  date: item.date,
+                  time: item.time,
+                  isFile: item.isFile,
+                  file: item.file,
+                  files: [],
+                }}
+                needPic={false}
+              />
+            );
+          })}
         </div>
 
-        {/* {showChats && (
+        {showChats && (
           <div className="whiteBox messengerFooter studentFooterMsgSection inMessenger">
             <FooterInputWithFileUpload
               text={''}
@@ -573,7 +527,7 @@ function Chat(props) {
               submitWithEnter={true}
               inputLabel="بارگذاری فایل"
               getFile={true}
-              userPic={userInfo.pic}
+              userPic={props.user.user.pic}
               removeText={removeText}
               onSubmit={sendMessage}
               onFileChange={sendFile}
@@ -581,7 +535,7 @@ function Chat(props) {
               getVoice={handleSendVoice}
             />
           </div>
-        )} */}
+        )}
       </CommonWebBox>
 
       {/* {openSidePopUp === 'menu' && (

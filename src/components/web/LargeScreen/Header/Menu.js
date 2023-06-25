@@ -7,7 +7,6 @@ import Teacher from './Menus/Teacher';
 import {globalStateContext} from '../../../../App';
 import Filter from './Filter';
 import {MyView} from '../../../../styles/Common';
-import {style} from './style';
 import {isUserAdmin} from '../../../../services/Utility';
 import AdvisorMenu from './Menus/AdvisorMenu';
 
@@ -16,7 +15,7 @@ const Menu = props => {
   const [state] = useGlobalState();
 
   return (
-    <MyView style={{...style.width100}}>
+    <MyView style={{width: state.isInPhone ? '100%' : 'unset'}}>
       {state.isRightMenuVisible &&
         props.accesses !== null &&
         props.accesses.indexOf('student') !== -1 && (

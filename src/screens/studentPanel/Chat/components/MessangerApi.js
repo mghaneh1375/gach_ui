@@ -32,6 +32,16 @@ export const GetStudentsMessengerApi = async socketToken => {
   );
 };
 
+export const GetMyAdvisorsMessengerApi = async socketToken => {
+  return generalRequest(
+    `http://192.168.0.106:8088/api/getMyAdvisors`,
+    'get',
+    undefined,
+    'advisors',
+    socketToken,
+  );
+};
+
 export const GetMessagesOfChatApi = async (id, socketToken, createdAt = -1) => {
   return await generalRequest(
     `http://192.168.0.106:8088/api/chat/${id}/${createdAt}`,

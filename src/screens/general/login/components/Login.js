@@ -19,15 +19,6 @@ const Login = props => {
   };
 
   const requestLogin = React.useCallback(() => {
-    if (
-      username === undefined ||
-      password === undefined ||
-      username === '' ||
-      password === ''
-    ) {
-      showError(commonTranlator.pleaseFillAllFields);
-      return;
-    }
     props.setLoading(true);
 
     Promise.all([
@@ -39,19 +30,25 @@ const Login = props => {
           password: password,
         },
         ['user', 'token'],
+        undefined,
+        ['username', 'password'],
       ),
-    ]).then(res => {
-      if (res[0] !== null) {
-        Promise.all([
-          setCacheItem('token', res[0].token),
-          setCacheItem('user', JSON.stringify(res[0].user)),
-        ]).then(r => {
-          props.setToken(res[0].token);
-        });
-      } else {
+    ])
+      .then(res => {
+        if (res[0] !== null) {
+          Promise.all([
+            setCacheItem('token', res[0].token),
+            setCacheItem('user', JSON.stringify(res[0].user)),
+          ]).then(r => {
+            props.setToken(res[0].token);
+          });
+        } else {
+          props.setLoading(false);
+        }
+      })
+      .catch(e => {
         props.setLoading(false);
-      }
-    });
+      });
   }, [props, username, password]);
 
   return (

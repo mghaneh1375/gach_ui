@@ -15,8 +15,8 @@ const columns = [
     center: true,
   },
   {
-    name: Translator.buyers,
-    selector: row => row.buyers,
+    name: Translator.chapter,
+    selector: row => row.chapter,
     grow: 2,
     center: true,
   },
