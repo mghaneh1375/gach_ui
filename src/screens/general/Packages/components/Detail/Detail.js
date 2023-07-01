@@ -735,8 +735,9 @@ function Detail(props) {
                     </PhoneView>
                   )}
                   {(item.afterBuy === undefined || !item.afterBuy) && (
-                    <EqualTwoTextInputs style={{...styles.flexNoWrap}}>
-                      <PhoneView style={{...styles.alignSelfCenter}}>
+                    <MyView style={{...styles.flexNoWrap}}>
+                      <PhoneView>
+                        {/* style={{...styles.alignSelfCenter}} */}
                         <SimpleText
                           style={{...styles.BlueBold}}
                           text={commonTranslator.price + ' '}
@@ -789,8 +790,12 @@ function Detail(props) {
                             style={{
                               ...styles.dark_blue_color,
                               ...styles.cursor_pointer,
-                              ...styles.alignSelfCenter,
+                              // ...styles.alignSelfCenter,
+                              ...styles.alignSelfEnd,
                               ...styles.fontSize12,
+                              ...{
+                                marginLeft: 30,
+                              },
                             }}
                             text={'کد تخفیف دارید؟'}
                           />
@@ -802,7 +807,7 @@ function Detail(props) {
                           title={Translator.loginForBuy}
                         />
                       )}
-                    </EqualTwoTextInputs>
+                    </MyView>
                   )}
                   {(off > 0 || usedFromWallet > 0) && (
                     <MyView>
