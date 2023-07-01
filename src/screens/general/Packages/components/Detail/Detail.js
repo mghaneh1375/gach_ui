@@ -18,10 +18,9 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
-import RenderHTML, {defaultSystemFonts} from 'react-native-render-html';
+import RenderHTML from 'react-native-render-html';
 import {styles} from '../../../../../styles/Common/Styles';
 import {fetchPackage, goToPay} from '../Utility';
-import QuizItemCard from '../../../../../components/web/QuizItemCard';
 import {Translator} from '../../Translator';
 import {
   faAngleDown,
@@ -29,17 +28,15 @@ import {
   faCheck,
   faClock,
   faHourglassEnd,
-  faIcons,
   faListSquares,
   faPaperPlane,
   faRemove,
   faSun,
-  faTimesCircle,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import vars from '../../../../../styles/root';
 import commonTranslator from '../../../../../translator/Common';
-import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {useEffectOnce} from 'usehooks-ts';
 import FAQ from './FAQ';
 import {setCacheItem} from '../../../../../API/User';
@@ -52,7 +49,6 @@ import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
 import Card from '../Card';
 import LastBuyer from './LastBuyer';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 
 function Detail(props) {
   const [item, setItem] = useState();
@@ -974,23 +970,63 @@ function Detail(props) {
                       />
                     </MyView>
                   </EqualTwoTextInputs>
-                  <div
-                    style={{
-                      width: 40,
-                      height: 40,
-                      background:
-                        "url('https://e.irysc.com/assets/images/social.png')",
-                    }}
-                    onClick={() =>
-                      window.open(
-                        'https://www.linkedin.com/shareArticle?min=true&url=' +
-                          // 'https://t.me/share/url?url=' +
-                          // 'http://twitter.com/share?url=' +
-                          decodeURIComponent(document.URL) +
-                          '&text=' +
-                          item.title,
-                      )
-                    }></div>
+                  <PhoneView>
+                    <div
+                      style={{
+                        cursor: 'pointer',
+                        width: 40,
+                        height: 40,
+                        background:
+                          "url('https://e.irysc.com/assets/images/social.png?v=1.2')",
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPositionX: '-102px',
+                        backgroundPositionY: '-9px',
+                      }}
+                      onClick={() =>
+                        window.open(
+                          'http://twitter.com/share?url=' +
+                            decodeURIComponent(document.URL) +
+                            '&text=' +
+                            item.title,
+                        )
+                      }></div>
+                    <div
+                      style={{
+                        cursor: 'pointer',
+                        width: 40,
+                        height: 40,
+                        background:
+                          "url('https://e.irysc.com/assets/images/social.png?v=1.2')",
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: '-148px -52px',
+                      }}
+                      onClick={() =>
+                        window.open(
+                          'https://www.linkedin.com/shareArticle?min=true&url=' +
+                            decodeURIComponent(document.URL) +
+                            '&text=' +
+                            item.title,
+                        )
+                      }></div>
+                    <div
+                      style={{
+                        cursor: 'pointer',
+                        width: 40,
+                        height: 40,
+                        background:
+                          "url('https://e.irysc.com/assets/images/social.png?v=1.2')",
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: '-58px -52px',
+                      }}
+                      onClick={() =>
+                        window.open(
+                          'https://t.me/share/url?url=' +
+                            decodeURIComponent(document.URL) +
+                            '&text=' +
+                            item.title,
+                        )
+                      }></div>
+                  </PhoneView>
                 </CommonWebBox>
 
                 {item.lastBuyers !== undefined && item.lastBuyers.length > 0 && (
