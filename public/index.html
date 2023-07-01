@@ -16,8 +16,120 @@
       href="https://e.irysc.com/assets/fonts/AtFontFace.css" />
     <link rel="stylesheet" href="https://e.irysc.com/assets/style.css" />
     <link rel="icon" href="https://e.irysc.com/assets/fav.png" /> -->
+    <style>
+      .rise {
+        border: 3px solid;
+        border-top: 0;
+        width: 320px;
+        height: 160px;
+        border-bottom-left-radius: 160px;
+        border-bottom-right-radius: 160px;
+        position: relative;
+      }
+
+      .lamp {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        position: absolute;
+      }
+
+      .rise > .lamp:nth-child(1) {
+        box-shadow: inset 10px 10px 10px blue, inset -10px -10px 10px blue,
+          0px 9px 13px blue;
+
+        left: calc(50% - 15px);
+        top: 160px;
+      }
+      .rise > .lamp:nth-child(2) {
+        box-shadow: inset 10px 10px 10px red, inset -10px -10px 10px red,
+          0px 9px 13px red;
+        left: calc(50% - 90px);
+        top: 145px;
+      }
+      .rise > .lamp:nth-child(3) {
+        box-shadow: inset 10px 10px 10px green, inset -10px -10px 10px green,
+          0px 9px 13px green;
+        left: calc(50% + 60px);
+        top: 145px;
+      }
+      .rise > .lamp:nth-child(4) {
+        box-shadow: inset 10px 10px 10px yellow, inset -10px -10px 10px yellow,
+          0px 9px 13px yellow;
+        left: calc(50% + 115px);
+        top: 106px;
+      }
+
+      .rise > .lamp:nth-child(5) {
+        box-shadow: inset 10px 10px 10px rgb(220, 139, 17),
+          inset -10px -10px 10px rgb(220, 139, 17),
+          0px 9px 13px rgb(220, 139, 17);
+        left: calc(50% - 140px);
+        top: 100px;
+      }
+    </style>
   </head>
   <body style="direction: rtl">
+    <!-- <img
+      style="
+        position: absolute;
+        left: -15px;
+        top: -20px;
+        width: 170px;
+        z-index: 1;
+      "
+      src="http://127.0.0.1:3000/assets/images/2.png" />
+    
+    <div
+      style="
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 160px;
+        display: flex;
+        flex-direction: row;
+      ">
+      <div class="rise">
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+      </div>
+
+      <div class="rise">
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+      </div>
+
+      <div class="rise">
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+      </div>
+
+      <div class="rise">
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+      </div>
+
+      <div class="rise">
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+        <div class="lamp"></div>
+      </div>
+    </div> -->
     <div id="root">
       <div
         style="

@@ -869,3 +869,9 @@ option {
 .hidden {
   display: none;
 }
+
+.rise {
+  width: 100px;
+  height: 10px;
+  border: 1px solid;
+}

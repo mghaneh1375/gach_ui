@@ -29,10 +29,13 @@ import {
   faCheck,
   faClock,
   faHourglassEnd,
+  faIcons,
   faListSquares,
+  faPaperPlane,
   faRemove,
   faSun,
   faTimesCircle,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import vars from '../../../../../styles/root';
 import commonTranslator from '../../../../../translator/Common';
@@ -48,6 +51,8 @@ import {Rating} from 'react-native-ratings';
 import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
 import Card from '../Card';
+import LastBuyer from './LastBuyer';
+import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 
 function Detail(props) {
   const [item, setItem] = useState();
@@ -204,6 +209,16 @@ function Detail(props) {
         setRefId(res.refId);
       }
     }
+  };
+
+  const [copying, setCopying] = useState();
+
+  const doCopy = () => {
+    navigator.clipboard.writeText(decodeURIComponent(document.URL));
+    setCopying(true);
+    setTimeout(function () {
+      setCopying(false);
+    }, 1300);
   };
 
   return (
@@ -363,58 +378,196 @@ function Detail(props) {
               }
               backBtn={true}></CommonWebBox>
             <PhoneView>
-              <CommonWebBox width={isInPhone ? '100%' : 'calc(70% - 10px)'}>
-                <PhoneView>
-                  <Image
-                    source={img}
-                    resizeMode={'contain'}
-                    style={{width: isInPhone ? '100%' : '60%', height: 300}}
-                  />
-                  <MyView
-                    style={{
-                      ...styles.padding20,
-                      ...styles.gap10,
-                      ...styles.textJustify,
-                      ...{
-                        width: isInPhone || showDescMore ? '100%' : '40%',
-                        maxHeight: showDescMore ? 'unset' : 300,
-                        overflow: showDescMore ? 'unset' : 'hidden',
-                      },
-                    }}>
-                    <SimpleText
-                      style={{...styles.BlueBold}}
-                      text={Translator.desc}
-                    />
-                    <RenderHTML
-                      contentWidth={'100%'}
-                      source={{
-                        html: item.description,
-                      }}
-                      tagsStyles={tagsStyles}
-                      systemFonts={systemFonts}
-                    />
-                  </MyView>
-                </PhoneView>
-                <SimpleText
-                  onPress={() => setShowDescMore(!showDescMore)}
-                  style={{
-                    ...styles.yellow_color,
-                    ...styles.alignSelfEnd,
-                    ...styles.cursor_pointer,
-                  }}
-                  text={
-                    showDescMore
-                      ? commonTranslator.showLess
-                      : commonTranslator.showMore
-                  }
-                />
-              </CommonWebBox>
               <MyView
                 style={{
-                  position: isInPhone ? 'relative' : 'fixed',
-                  left: props.token === undefined && !isInPhone ? '10%' : 0,
-                  top: scrollPosition > 100 ? 20 : 140 - scrollPosition,
-                  width: isInPhone ? '100%' : '25%',
+                  order: isInPhone ? 2 : 1,
+                  width: isInPhone ? '100%' : 'calc(70% - 10px)',
+                }}>
+                <CommonWebBox>
+                  <PhoneView>
+                    <Image
+                      source={img}
+                      resizeMode={'contain'}
+                      style={{width: isInPhone ? '100%' : '60%', height: 300}}
+                    />
+                    <MyView
+                      style={{
+                        ...styles.padding20,
+                        ...styles.gap10,
+                        ...styles.textJustify,
+                        ...{
+                          width: isInPhone || showDescMore ? '100%' : '40%',
+                          maxHeight: showDescMore ? 'unset' : 300,
+                          overflow: showDescMore ? 'unset' : 'hidden',
+                        },
+                      }}>
+                      <SimpleText
+                        style={{...styles.BlueBold}}
+                        text={Translator.desc}
+                      />
+                      <RenderHTML
+                        contentWidth={'100%'}
+                        source={{
+                          html: item.description,
+                        }}
+                        tagsStyles={tagsStyles}
+                        systemFonts={systemFonts}
+                      />
+                    </MyView>
+                  </PhoneView>
+                  <SimpleText
+                    onPress={() => setShowDescMore(!showDescMore)}
+                    style={{
+                      ...styles.yellow_color,
+                      ...styles.alignSelfEnd,
+                      ...styles.cursor_pointer,
+                    }}
+                    text={
+                      showDescMore
+                        ? commonTranslator.showLess
+                        : commonTranslator.showMore
+                    }
+                  />
+                </CommonWebBox>
+
+                {item.preReq !== undefined &&
+                  item.preReq !== null &&
+                  item.preReq.length > 0 && (
+                    <CommonWebBox
+                      btn={
+                        showPreReq ? (
+                          <SimpleFontIcon
+                            onPress={() => setShowPreReq(!showPreReq)}
+                            kind="midSize"
+                            icon={faAngleDown}
+                          />
+                        ) : (
+                          <SimpleFontIcon
+                            onPress={() => setShowPreReq(!showPreReq)}
+                            kind="midSize"
+                            icon={faAngleUp}
+                          />
+                        )
+                      }
+                      header={Translator.preReq}>
+                      {showPreReq && (
+                        <MyView>
+                          <MyView
+                            style={{
+                              ...styles.textJustify,
+                              ...{
+                                maxHeight: showPreReqMore ? 'unset' : 200,
+                                overflow: showPreReqMore ? 'unset' : 'hidden',
+                              },
+                            }}>
+                            <RenderHTML
+                              contentWidth={'100%'}
+                              source={{
+                                html: item.preReq,
+                              }}
+                              tagsStyles={tagsStyles}
+                              systemFonts={systemFonts}
+                            />
+                          </MyView>
+                          <SimpleText
+                            onPress={() => setShowPreReqMore(!showPreReqMore)}
+                            style={{
+                              ...styles.yellow_color,
+                              ...styles.alignSelfEnd,
+                              ...styles.cursor_pointer,
+                            }}
+                            text={
+                              showPreReqMore
+                                ? commonTranslator.showLess
+                                : commonTranslator.showMore
+                            }
+                          />
+                        </MyView>
+                      )}
+                    </CommonWebBox>
+                  )}
+
+                <CommonWebBox
+                  btn={
+                    showChapters ? (
+                      <SimpleFontIcon
+                        onPress={() => setShowChapters(!showChapters)}
+                        kind="midSize"
+                        icon={faAngleDown}
+                      />
+                    ) : (
+                      <SimpleFontIcon
+                        onPress={() => setShowChapters(!showChapters)}
+                        kind="midSize"
+                        icon={faAngleUp}
+                      />
+                    )
+                  }
+                  header={Translator.chapters}>
+                  {showChapters && (
+                    <MyView>
+                      {item.chapters.map((elem, index) => {
+                        return (
+                          <Chapter
+                            user={props.user}
+                            navigate={props.navigate}
+                            sessions={item.sessions.filter(e => {
+                              return e.chapter === elem.title;
+                            })}
+                            onPressSession={s => {
+                              props.navigate(
+                                '/packages/' + props.slug + '/' + s,
+                              );
+                            }}
+                            isFree={item.price === 0}
+                            chapter={elem}
+                            key={index}
+                          />
+                        );
+                      })}
+                    </MyView>
+                  )}
+                </CommonWebBox>
+
+                <CommonWebBox
+                  btn={
+                    showFAQ ? (
+                      <SimpleFontIcon
+                        onPress={() => setShowFAQ(!showFAQ)}
+                        kind="midSize"
+                        icon={faAngleDown}
+                      />
+                    ) : (
+                      <SimpleFontIcon
+                        onPress={() => setShowFAQ(!showFAQ)}
+                        kind="midSize"
+                        icon={faAngleUp}
+                      />
+                    )
+                  }
+                  header={Translator.faq}>
+                  {showFAQ && (
+                    <MyView style={styles.gap10}>
+                      {item.faqs.map((elem, index) => {
+                        return <FAQ elem={elem} key={index} />;
+                      })}
+                    </MyView>
+                  )}
+                </CommonWebBox>
+              </MyView>
+
+              <MyView
+                style={{
+                  order: isInPhone ? 1 : 2,
+                  position: 'relative',
+                  left: 10,
+                  top:
+                    scrollPosition < 200
+                      ? 0
+                      : scrollPosition > 100
+                      ? 20
+                      : 140 - scrollPosition,
+                  width: isInPhone ? '100%' : 'calc(30% - 20px)',
                 }}>
                 {item.quizStatus !== undefined && (
                   <CommonWebBox>
@@ -780,6 +933,105 @@ function Detail(props) {
                     </CommonWebBox>
                   )}
 
+                <CommonWebBox>
+                  <PhoneView style={{...styles.gap10}}>
+                    <SimpleFontIcon
+                      style={{color: vars.DARK_BLUE}}
+                      kind={'normal'}
+                      icon={faPaperPlane}
+                    />
+                    <SimpleText
+                      style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+                      text="اشتراک گذاری"
+                    />
+                  </PhoneView>
+                  <EqualTwoTextInputs>
+                    <SimpleText
+                      style={{
+                        maxWidth: 180,
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        alignSelf: 'center',
+                      }}
+                      text={decodeURIComponent(document.URL)}
+                    />
+                    <MyView>
+                      {copying && (
+                        <SimpleText
+                          style={{
+                            width: 50,
+                            position: 'absolute',
+                            left: 'calc(50% - 25px)',
+                            top: -20,
+                          }}
+                          text={commonTranslator.copied}
+                        />
+                      )}
+                      <CommonButton
+                        onPress={() => doCopy()}
+                        theme={'transparent'}
+                        title={'کپی لینک'}
+                      />
+                    </MyView>
+                  </EqualTwoTextInputs>
+                  <div
+                    style={{
+                      width: 40,
+                      height: 40,
+                      background:
+                        "url('https://e.irysc.com/assets/images/social.png')",
+                    }}
+                    onClick={() =>
+                      window.open(
+                        'https://www.linkedin.com/shareArticle?min=true&url=' +
+                          // 'https://t.me/share/url?url=' +
+                          // 'http://twitter.com/share?url=' +
+                          decodeURIComponent(document.URL) +
+                          '&text=' +
+                          item.title,
+                      )
+                    }></div>
+                </CommonWebBox>
+
+                {item.lastBuyers !== undefined && item.lastBuyers.length > 0 && (
+                  <CommonWebBox>
+                    <PhoneView style={{...styles.gap10}}>
+                      <SimpleFontIcon
+                        style={{color: vars.DARK_BLUE}}
+                        kind={'normal'}
+                        icon={faUsers}
+                      />
+                      <SimpleText
+                        style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+                        text="آخرین خریداران"
+                      />
+                    </PhoneView>
+                    <EqualTwoTextInputs>
+                      <SimpleText
+                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        text={
+                          item.buyers !== undefined && item.buyers > 0
+                            ? '+' + (item.buyers - item.lastBuyers?.length)
+                            : ''
+                        }
+                      />
+                      <PhoneView
+                        style={{justifyContent: 'end', marginLeft: 20}}>
+                        {item.lastBuyers.map((e, index) => {
+                          return (
+                            <LastBuyer
+                              index={index}
+                              key={index}
+                              pic={e.pic}
+                              text={e.name}
+                            />
+                          );
+                        })}
+                      </PhoneView>
+                    </EqualTwoTextInputs>
+                  </CommonWebBox>
+                )}
+
                 <CommonWebBox header={Translator.teacherBio}>
                   <SimpleText
                     style={styles.BlueBold}
@@ -845,131 +1097,6 @@ function Detail(props) {
                 </CommonWebBox>
               </MyView>
             </PhoneView>
-            {item.preReq !== undefined &&
-              item.preReq !== null &&
-              item.preReq.length > 0 && (
-                <CommonWebBox
-                  btn={
-                    showPreReq ? (
-                      <SimpleFontIcon
-                        onPress={() => setShowPreReq(!showPreReq)}
-                        kind="midSize"
-                        icon={faAngleDown}
-                      />
-                    ) : (
-                      <SimpleFontIcon
-                        onPress={() => setShowPreReq(!showPreReq)}
-                        kind="midSize"
-                        icon={faAngleUp}
-                      />
-                    )
-                  }
-                  width={isInPhone ? '100%' : 'calc(70% - 10px)'}
-                  header={Translator.preReq}>
-                  {showPreReq && (
-                    <MyView>
-                      <MyView
-                        style={{
-                          ...styles.textJustify,
-                          ...{
-                            maxHeight: showPreReqMore ? 'unset' : 200,
-                            overflow: showPreReqMore ? 'unset' : 'hidden',
-                          },
-                        }}>
-                        <RenderHTML
-                          contentWidth={'100%'}
-                          source={{
-                            html: item.preReq,
-                          }}
-                          tagsStyles={tagsStyles}
-                          systemFonts={systemFonts}
-                        />
-                      </MyView>
-                      <SimpleText
-                        onPress={() => setShowPreReqMore(!showPreReqMore)}
-                        style={{
-                          ...styles.yellow_color,
-                          ...styles.alignSelfEnd,
-                          ...styles.cursor_pointer,
-                        }}
-                        text={
-                          showPreReqMore
-                            ? commonTranslator.showLess
-                            : commonTranslator.showMore
-                        }
-                      />
-                    </MyView>
-                  )}
-                </CommonWebBox>
-              )}
-
-            <CommonWebBox
-              width={isInPhone ? '100%' : 'calc(70% - 10px)'}
-              btn={
-                showChapters ? (
-                  <SimpleFontIcon
-                    onPress={() => setShowChapters(!showChapters)}
-                    kind="midSize"
-                    icon={faAngleDown}
-                  />
-                ) : (
-                  <SimpleFontIcon
-                    onPress={() => setShowChapters(!showChapters)}
-                    kind="midSize"
-                    icon={faAngleUp}
-                  />
-                )
-              }
-              header={Translator.chapters}>
-              {showChapters && (
-                <MyView>
-                  {item.chapters.map((elem, index) => {
-                    return (
-                      <Chapter
-                        user={props.user}
-                        navigate={props.navigate}
-                        sessions={item.sessions.filter(e => {
-                          return e.chapter === elem.title;
-                        })}
-                        onPressSession={s => {
-                          props.navigate('/packages/' + props.slug + '/' + s);
-                        }}
-                        isFree={item.price === 0}
-                        chapter={elem}
-                        key={index}
-                      />
-                    );
-                  })}
-                </MyView>
-              )}
-            </CommonWebBox>
-
-            <CommonWebBox
-              width={isInPhone ? '100%' : 'calc(70% - 10px)'}
-              btn={
-                showFAQ ? (
-                  <SimpleFontIcon
-                    onPress={() => setShowFAQ(!showFAQ)}
-                    kind="midSize"
-                    icon={faAngleDown}
-                  />
-                ) : (
-                  <SimpleFontIcon
-                    onPress={() => setShowFAQ(!showFAQ)}
-                    kind="midSize"
-                    icon={faAngleUp}
-                  />
-                )
-              }
-              header={Translator.faq}>
-              {showFAQ && (
-                <MyView style={styles.gap10}>
-                  {item.faqs.map((elem, index) => {
-                    return <FAQ elem={elem} key={index} />;
-                  })}
-                </MyView>
-              )}
-            </CommonWebBox>
           </MyView>
         )}
 
