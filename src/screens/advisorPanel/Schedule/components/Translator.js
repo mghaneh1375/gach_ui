@@ -1,5 +1,5 @@
 const Translator = {
-  weakStartAt: 'روز شروع هفته',
+  weekStartAt: 'روز شروع هفته',
   schedulesSum: 'مجموع ساعات برنامه ریزی شده',
   doneSum: 'مجموع ساعات انجام شده',
   advisors: 'مشاور/مشاوران',

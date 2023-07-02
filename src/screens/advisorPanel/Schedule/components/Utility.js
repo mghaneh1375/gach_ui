@@ -1,5 +1,6 @@
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
+import {showSuccess} from '../../../../services/Utility';
 
 export const fetchSubjects = () => {};
 
@@ -8,5 +9,67 @@ export const fetchTags = token => {
 };
 
 export const fetchSchedules = (token, userId) => {
-  return generalRequest(routes.getAllTags, 'get', undefined, 'data', token);
+  return generalRequest(
+    routes.getStudentSchedules + userId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const fetchSchedule = (
+  token,
+  id = undefined,
+  userId = undefined,
+  scheduleFor = undefined,
+) => {
+  return generalRequest(
+    id !== undefined
+      ? routes.getStudentSchedule + id
+      : routes.getStudentSchedule + userId + '/' + scheduleFor,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const addItemToSchedule = async (token, userId, data) => {
+  let res = await generalRequest(
+    routes.addItemToSchedule + userId,
+    'put',
+    data,
+    'data',
+    token,
+  );
+  if (res != null) {
+    showSuccess();
+  }
+
+  return res;
+};
+
+export const removeItemFromSchedule = async (token, userId, id) => {
+  let res = await generalRequest(
+    routes.removeItemFromSchedule + userId + '/' + id,
+    'delete',
+    undefined,
+    undefined,
+    token,
+  );
+  if (res != null) showSuccess();
+  return res;
+};
+
+export const removeSchedule = async (token, id) => {
+  let res = await generalRequest(
+    routes.removeSchedule + id,
+    'delete',
+    undefined,
+    undefined,
+    token,
+  );
+  if (res != null) showSuccess();
+  return res;
 };

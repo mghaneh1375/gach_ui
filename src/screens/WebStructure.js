@@ -108,8 +108,8 @@ import MyLifeStyle from './studentPanel/MyLifeStyle.js/MyLifeStyle';
 import RunEscapeQuiz from './studentPanel/RunEscapeQuiz/RunEscapeQuiz';
 import Ranking from './general/OnlineStanding/Ranking';
 import MyFinancePlans from './advisorPanel/MyFinancePlans/MyFinancePlans';
-import Chat from './studentPanel/Chat/Chat';
 import ChatRoom from './studentPanel/Chat/ChatRoom';
+import Schedule from './advisorPanel/Schedule/Schedule';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -193,7 +193,7 @@ const WebStructue = props => {
   };
 
   const params = useParams();
-  //, backgroundColor: vars.DARK_WHITE
+
   return (
     <MyView style={{flex: 1, height: '100%'}}>
       {allowRenderPage && (
@@ -451,6 +451,10 @@ const WebStructue = props => {
               )}
               {props.page === 'studentLifeStyle' && (
                 <MyLifeStyle navigate={navigate} />
+              )}
+
+              {props.page === 'studentSchedules' && (
+                <Schedule navigate={navigate} />
               )}
 
               {props.page === 'myFinancePlans' && (

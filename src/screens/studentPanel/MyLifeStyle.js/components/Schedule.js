@@ -12,6 +12,7 @@ import {
   fetchExamTags,
   fetchLifeStyleTags,
   fetchMyLifeStyle,
+  removeItemFromDay,
   setMyExamInLifeStyle,
 } from '../Utility';
 import {dispatchScheduleContext, scheduleContext} from './Context';
@@ -204,6 +205,24 @@ function Schedule(props) {
                 day={e.day}
                 key={index}
                 canEdit={canEdit}
+                onRemove={
+                  !canEdit
+                    ? undefined
+                    : async (ee, callBack) => {
+                        props.setLoading(true);
+                        let res = await removeItemFromDay(
+                          {
+                            tag: ee.tag,
+                            day: e.day,
+                          },
+                          props.token,
+                        );
+                        props.setLoading(false);
+                        if (res != null) {
+                          callBack();
+                        }
+                      }
+                }
               />
             );
           })}

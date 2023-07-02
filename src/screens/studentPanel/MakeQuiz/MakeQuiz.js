@@ -14,7 +14,7 @@ import vars from '../../../styles/root';
 import MakeQuizBox from './MakeQuizBox';
 import Translate from './Translate';
 import {dispatchStateContext} from '../../../App';
-import {checkExistance, fetchAllFlags, finalized} from './Utility';
+import {fetchAllFlags, finalized} from './Utility';
 import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 import Basket from '../../../components/web/Basket';
 import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
@@ -29,11 +29,10 @@ function MakeQuiz(props) {
   const [dispatch] = useGlobalState();
   const [flags, setFlags] = useState();
   const [boxes, setBoxes] = useState([]);
-  const [level, setLevel] = useState();
+
   const [total, setTotal] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [name, setName] = useState();
-  const [count, setCount] = useState();
 
   const [off, setOff] = useState(0);
   const [shouldPay, setShouldPay] = useState(0);

@@ -23,7 +23,7 @@ function Schedule(props) {
   }, [params]);
 
   React.useEffect(() => {
-    setMode('list');
+    if (studentId !== undefined) setMode('list');
   }, [studentId]);
 
   const setLoading = status => {
@@ -38,6 +38,7 @@ function Schedule(props) {
           setLoading={setLoading}
           navigate={props.navigate}
           studentId={studentId}
+          setMode={setMode}
         />
       )}
       {mode === 'create' && (
@@ -45,13 +46,16 @@ function Schedule(props) {
           token={state.token}
           setLoading={setLoading}
           isInEditMode={false}
+          studentId={studentId}
+          setMode={setMode}
         />
       )}
-      {mode === 'update' && (
+      {mode === 'edit' && (
         <Create
           token={state.token}
           setLoading={setLoading}
-          navigate={props.navigate}
+          studentId={studentId}
+          setMode={setMode}
           isInEditMode={true}
         />
       )}

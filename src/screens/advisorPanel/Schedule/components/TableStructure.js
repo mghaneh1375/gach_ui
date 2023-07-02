@@ -1,19 +1,20 @@
+import {convertSecToMinWithOutSec} from '../../../../services/Utility';
 import Translator from './Translator';
 
 const columns = [
   {
-    name: Translator.weakStartAt,
-    selector: row => row.weakStartAt,
+    name: Translator.weekStartAt,
+    selector: row => row.weekStartAt,
     grow: 1,
   },
   {
     name: Translator.schedulesSum,
-    selector: row => row.schedulesSum,
+    selector: row => convertSecToMinWithOutSec(row.schedulesSum * 60),
     grow: 1,
   },
   {
     name: Translator.doneSum,
-    selector: row => row.doneSum,
+    selector: row => convertSecToMinWithOutSec(row.doneSum * 60),
     grow: 1,
   },
   {

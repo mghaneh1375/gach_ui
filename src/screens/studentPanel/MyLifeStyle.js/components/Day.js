@@ -6,7 +6,6 @@ import {PhoneView, SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
-import {removeItemFromDay} from '../Utility';
 import Box from './Box';
 
 function Day(props) {
@@ -49,21 +48,13 @@ function Day(props) {
             return (
               <Box
                 remove={
-                  !props.canEdit
+                  props.onRemove === undefined ||
+                  (e.canEdit !== undefined && !e.canEdit)
                     ? undefined
-                    : async () => {
-                        props.setLoading(true);
-                        let res = await removeItemFromDay(
-                          {
-                            tag: e.tag,
-                            day: props.day,
-                          },
-                          props.token,
+                    : () => {
+                        props.onRemove(e, () =>
+                          removeItems(boxes, setBoxes, [e.id]),
                         );
-                        props.setLoading(false);
-                        if (res != null) {
-                          removeItems(boxes, setBoxes, [e.id]);
-                        }
                       }
                 }
                 key={index}
