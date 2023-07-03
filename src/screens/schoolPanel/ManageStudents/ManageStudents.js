@@ -8,14 +8,13 @@ import {
   addItem,
   isUserAdvisor,
 } from '../../../services/Utility';
-import {MyView, SimpleText} from '../../../styles/Common';
+import {MyView} from '../../../styles/Common';
 import {getAllStudent} from './Utility';
 import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin';
 import {AdvicePanelProvider} from './Advisor/components/Context';
 import Panel from './Advisor/Panel';
 
 function ManageStudents(props) {
-  const queryString = require('query-string');
   const navigate = props.navigate;
 
   const useGlobalState = () => [

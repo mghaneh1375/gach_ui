@@ -85,6 +85,7 @@
     "react-router-native": "^5.3.2",
     "react-scripts": "^5.0.1",
     "react-stomp": "^5.1.0",
+    "react-time-picker": "^6.2.0",
     "react-video-js-player": "^1.1.1",
     "react-wheel-of-prizes": "^1.0.9",
     "styled-components": "^5.3.5",

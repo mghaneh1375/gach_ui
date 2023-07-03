@@ -12,7 +12,7 @@ export const CV_BASE_URL = 'https://cv.irysc.com/api/';
 // export const VIDEO_BASE_URL = 'http://127.0.0.1:8086/video_api/';
 export const VIDEO_BASE_URL = 'https://video.irysc.com/video_api/';
 
-export const BASE_URL = 'http://127.0.0.1:8080/api/';
+export const BASE_URL = 'http://127.0.0.1:8091/api/';
 // export const BASE_URL = 'http://192.168.0.106:8080/api/';
 // export const BASE_URL = 'https://e.irysc.com/api/';
 
@@ -95,15 +95,15 @@ export const generalRequest = async (
     .then(async function (response) {
       var data = response.data;
       if (data.status === 'nok') {
-        // if (data.msg === 'Token is not valid') {
-        //   await removeAuthCache();
-        //   // showError(data.msg);
-        //   // window.location.href = '/';
-        //   // return undefined;
-        //   return null;
-        // }
+        if (data.msg === 'Token is not valid') {
+          await removeAuthCache();
+          showError(data.msg);
+          window.location.href = '/';
+          return undefined;
+          // return null;
+        }
 
-        // showError(data.msg);
+        showError(data.msg);
         return null;
       }
 
@@ -122,19 +122,19 @@ export const generalRequest = async (
       }
     })
     .catch(async function (error) {
-      // if (
-      //   error.response !== undefined &&
-      //   error.response.data !== undefined &&
-      //   error.response.data.msg === 'Token is not valid'
-      // ) {
-      //   if (token !== null) await removeAuthCache();
+      if (
+        error.response !== undefined &&
+        error.response.data !== undefined &&
+        error.response.data.msg === 'Token is not valid'
+      ) {
+        if (token !== null) await removeAuthCache();
 
-      //   showError('توکن شما منقضی شده است و نیاز است لاگین کنید');
-      //   window.location.href = '/login';
-      //   return undefined;
-      // } else {
-      //   showError(commonTranslator.opErr);
-      // }
+        showError('توکن شما منقضی شده است و نیاز است لاگین کنید');
+        window.location.href = '/login';
+        return undefined;
+      } else {
+        showError(commonTranslator.opErr);
+      }
       return null;
     });
 

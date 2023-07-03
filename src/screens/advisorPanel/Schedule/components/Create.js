@@ -3,6 +3,7 @@ import {useEffectOnce} from 'usehooks-ts';
 import {
   CommonButton,
   CommonWebBox,
+  MyView,
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
@@ -31,6 +32,7 @@ import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorde
 import Tag from '../../../studentPanel/MyLifeStyle.js/components/Tag';
 import {removeItems, showError} from '../../../../services/Utility';
 import {getSubjectsKeyVals} from '../../../panel/question/components/Utility';
+import TimePicker from '../../../../styles/Common/TimePicker';
 
 function Create(props) {
   const useGlobalState = () => [
@@ -164,6 +166,8 @@ function Create(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedSchedule?.days, state.myLifeStyle, showDailySchedule]);
 
+  const [value, onChange] = useState('10:00');
+
   return (
     <>
       {selectedDay !== undefined && (
@@ -180,13 +184,17 @@ function Create(props) {
                   showError('لطفا مدت را تعیین کنید');
                   return;
                 }
+                if (subject === undefined) {
+                  showError('لطفا حیطه موردنظر را وارد نمایید');
+                  return;
+                }
                 props.setLoading(true);
                 let data = {
                   tag: selectedTag,
                   duration: duration,
                   startAt: startAt,
                   day: selectedDay,
-                  subjectId: '632f936d8ef58f2a8770f030',
+                  subjectId: subject.id,
                 };
 
                 if (state.selectedSchedule.id !== undefined)
@@ -230,48 +238,68 @@ function Create(props) {
               title={commonTranslator.confirm}
             />
           }>
-          <JustBottomBorderTextInput
-            placeholder={commonTranslator.subject}
-            subText={commonTranslator.subject}
-            resultPane={true}
-            setSelectedItem={item => {
-              setSubject(item);
-            }}
-            values={state.subjectsKeyVals}
-            value={subject !== undefined ? subject.name : ''}
-            reset={false}
-          />
-          <SimpleText text={'لطفا تگ موردنظر خود را انتخاب نمایید'} />
-          <PhoneView style={{...styles.gap15}}>
-            {state.tags !== undefined &&
-              state.tags.map((e, index) => {
-                return (
-                  <Tag
-                    selectedTag={selectedTag}
-                    id={e.id}
-                    onClick={() => {
-                      setSelectedTag(e.id);
-                    }}
-                    label={e.label}
-                    key={index}
-                  />
-                );
-              })}
-          </PhoneView>
-          <PhoneView style={{...styles.gap15, ...styles.marginTop20}}>
-            <JustBottomBorderTextInput
-              subText={'مدت (به دقیقه)'}
-              placeholder={'مدت (به دقیقه)'}
-              value={duration}
-              onChangeText={e => setDuration(e)}
-            />
-            <JustBottomBorderTextInput
-              subText={'زمان شروع (اختیاری)'}
-              placeholder={'زمان شروع (اختیاری)'}
-              value={startAt}
-              onChangeText={e => setStartAt(e)}
-            />
-          </PhoneView>
+          <MyView
+            style={{
+              minHeight: '50vh',
+            }}>
+            <SimpleText text={'لطفا تگ موردنظر خود را انتخاب نمایید'} />
+            <PhoneView style={{...styles.gap15}}>
+              {state.tags !== undefined &&
+                state.tags.map((e, index) => {
+                  return (
+                    <Tag
+                      selectedTag={selectedTag}
+                      id={e.id}
+                      onClick={() => {
+                        setSelectedTag(e.id);
+                      }}
+                      label={e.label}
+                      key={index}
+                    />
+                  );
+                })}
+            </PhoneView>
+            <PhoneView
+              style={{
+                ...styles.gap15,
+                ...styles.marginTop20,
+              }}>
+              <JustBottomBorderTextInput
+                placeholder={commonTranslator.subject}
+                subText={commonTranslator.subject}
+                resultPane={true}
+                setSelectedItem={item => {
+                  setSubject(item);
+                }}
+                resultPaneHeight={300}
+                values={state.subjectsKeyVals}
+                value={subject !== undefined ? subject.name : ''}
+                reset={false}
+              />
+
+              <JustBottomBorderTextInput
+                subText={'مدت (به دقیقه)'}
+                placeholder={'مدت (به دقیقه)'}
+                value={duration}
+                onChangeText={e => setDuration(e)}
+              />
+
+              <TimePicker
+                subText={'زمان شروع (اختیاری)'}
+                placeholder={'زمان شروع (اختیاری)'}
+                onChangeText={e => setStartAt(e)}
+              />
+            </PhoneView>
+            <PhoneView>
+              <JustBottomBorderTextInput
+                multiline={true}
+                value={description}
+                onChangeText={e => setDescription(e)}
+                placeholder={commonTranslator.description}
+                subText={commonTranslator.optional}
+              />
+            </PhoneView>
+          </MyView>
         </LargePopUp>
       )}
       <CommonWebBox

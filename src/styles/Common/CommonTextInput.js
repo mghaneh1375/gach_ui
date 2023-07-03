@@ -53,6 +53,7 @@ export const CommonTextInput = props => {
   }
 
   if (props.value !== undefined) inputProps.value = props.value;
+
   if (props.type !== undefined && props.type === 'password')
     inputProps.secureTextEntry = true;
   if (props.justNum !== undefined && props.justNum && Platform.OS === 'web') {

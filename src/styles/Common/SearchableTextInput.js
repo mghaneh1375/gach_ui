@@ -163,7 +163,10 @@ export const SearchableTextInput = props => {
         <CommonWebBox
           style={{
             width: '90%',
-            height: 100,
+            height:
+              props.resultPaneHeight === undefined
+                ? 100
+                : props.resultPaneHeight,
             marginTop: props.subText !== undefined ? -20 : 10,
             backgroundColor: vars.WHITE,
             marginLeft: 0,

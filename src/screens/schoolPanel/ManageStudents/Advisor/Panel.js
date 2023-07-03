@@ -82,6 +82,13 @@ function Panel(props) {
               style={{...styles.red, ...styles.cursor_pointer}}
               text={'مشاهده برنامه روزانه دانش آموز'}
             />
+            <SimpleText
+              onPress={() =>
+                window.open('/studentSchedules/' + props.wantedUserId)
+              }
+              style={{...styles.red, ...styles.cursor_pointer}}
+              text={'مشاهده کاربرگ ها'}
+            />
             <SimpleText text={'رفتن به چت روم'} />
           </MyView>
         )}
