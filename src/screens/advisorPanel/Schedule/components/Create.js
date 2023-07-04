@@ -112,31 +112,48 @@ function Create(props) {
 
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
-    Promise.all([
-      fetchTags(props.token),
-      fetchMyLifeStyle(props.token, props.studentId),
-      fetchExamTags(props.token),
-      getLessons(),
-    ]).then(res => {
-      props.setLoading(false);
+    if (props.isAdvisor) {
+      Promise.all([
+        fetchTags(props.token),
+        fetchMyLifeStyle(props.token, props.studentId),
+        fetchExamTags(props.token),
+        getLessons(),
+      ]).then(res => {
+        props.setLoading(false);
 
-      if (
-        res[0] == null ||
-        res[1] == null ||
-        res[2] == null ||
-        res[3] == null
-      ) {
-        props.navigate('/');
-        return;
-      }
+        if (
+          res[0] == null ||
+          res[1] == null ||
+          res[2] == null ||
+          res[3] == null
+        ) {
+          props.navigate('/');
+          return;
+        }
 
-      dispatch({
-        myLifeStyle: res[1].days,
-        myExams: res[2].exams,
-        tags: res[0],
-        lessonsKeyVals: res[3],
+        dispatch({
+          myLifeStyle: res[1].days,
+          myExams: res[2].exams,
+          tags: res[0],
+          lessonsKeyVals: res[3],
+        });
       });
-    });
+    } else {
+      Promise.all([fetchMyLifeStyle(props.token, props.studentId)]).then(
+        res => {
+          props.setLoading(false);
+
+          if (res[0] == null) {
+            props.navigate('/');
+            return;
+          }
+
+          dispatch({
+            myLifeStyle: res[0].days,
+          });
+        },
+      );
+    }
   }, [props, dispatch]);
 
   useEffectOnce(() => {
@@ -384,31 +401,38 @@ function Create(props) {
                 boxes={e.items}
                 day={e.day}
                 key={index}
-                canEdit={true}
-                onRemove={async (ee, callBack) => {
-                  props.setLoading(true);
-                  let res = await removeItemFromSchedule(
-                    props.token,
-                    props.studentId,
-                    ee.id,
-                  );
-                  props.setLoading(false);
-                  if (res != null) {
-                    removeItems(
-                      state.selectedSchedule.days.find(itr => itr.day === e.day)
-                        .items,
-                      items => {
-                        state.selectedSchedule.days =
-                          state.selectedSchedule.days.map(itr => {
-                            if (itr.day === e.day) itr.items = items;
-                            return itr;
-                          });
-                        dispatch({selectedSchedule: state.selectedSchedule});
-                      },
-                      [ee.id],
-                    );
-                  }
-                }}
+                canEdit={props.isAdvisor ? true : false}
+                onRemove={
+                  !props.isAdvisor
+                    ? undefined
+                    : async (ee, callBack) => {
+                        props.setLoading(true);
+                        let res = await removeItemFromSchedule(
+                          props.token,
+                          props.studentId,
+                          ee.id,
+                        );
+                        props.setLoading(false);
+                        if (res != null) {
+                          removeItems(
+                            state.selectedSchedule.days.find(
+                              itr => itr.day === e.day,
+                            ).items,
+                            items => {
+                              state.selectedSchedule.days =
+                                state.selectedSchedule.days.map(itr => {
+                                  if (itr.day === e.day) itr.items = items;
+                                  return itr;
+                                });
+                              dispatch({
+                                selectedSchedule: state.selectedSchedule,
+                              });
+                            },
+                            [ee.id],
+                          );
+                        }
+                      }
+                }
               />
             );
           })}

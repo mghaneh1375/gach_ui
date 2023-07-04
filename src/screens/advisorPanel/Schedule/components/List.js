@@ -6,7 +6,7 @@ import {
   dispatchAdvisorScheduleContext,
 } from './Context';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {fetchSchedules} from './Utility';
+import {fetchMySchedules, fetchSchedules} from './Utility';
 import columns from './TableStructure';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import {removeItems, showSuccess} from '../../../../services/Utility';
@@ -34,7 +34,11 @@ function List(props) {
 
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
-    Promise.all([fetchSchedules(props.token, props.studentId)]).then(res => {
+    Promise.all([
+      props.studentId === undefined
+        ? fetchMySchedules(props.token)
+        : fetchSchedules(props.token, props.studentId),
+    ]).then(res => {
       props.setLoading(false);
 
       if (res[0] == null) {
@@ -59,7 +63,7 @@ function List(props) {
   return (
     <CommonWebBox
       header={'لیست کاربرگ ها'}
-      addBtn={true}
+      addBtn={props.isAdvisor}
       onAddClick={() => props.setMode('create')}>
       {showConfirmation && (
         <ConfirmationBatchOpPane
@@ -117,11 +121,26 @@ function List(props) {
           title={commonTranslator.filter}
           onPress={async () => {
             props.setLoading(true);
-            let res = await fetchSchedules(
-              props.token,
-              props.studentId,
-              filter === 'all' ? undefined : filter == 'passed' ? false : true,
-            );
+
+            let res =
+              props.studentId === undefined
+                ? await fetchMySchedules(
+                    props.token,
+                    filter === 'all'
+                      ? undefined
+                      : filter == 'passed'
+                      ? false
+                      : true,
+                  )
+                : await fetchSchedules(
+                    props.token,
+                    props.studentId,
+                    filter === 'all'
+                      ? undefined
+                      : filter == 'passed'
+                      ? false
+                      : true,
+                  );
             props.setLoading(false);
             if (res != null) dispatch({schedules: res});
           }}

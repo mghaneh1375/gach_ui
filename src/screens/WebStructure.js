@@ -453,6 +453,8 @@ const WebStructue = props => {
                 <MyLifeStyle navigate={navigate} />
               )}
 
+              {props.page === 'mySchedules' && <Schedule navigate={navigate} />}
+
               {props.page === 'studentSchedules' && (
                 <Schedule navigate={navigate} />
               )}

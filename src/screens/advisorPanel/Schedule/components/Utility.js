@@ -20,6 +20,18 @@ export const fetchSchedules = (token, userId, filter = undefined) => {
   );
 };
 
+export const fetchMySchedules = (token, filter = undefined) => {
+  return generalRequest(
+    filter === undefined
+      ? routes.getMySchedules
+      : routes.getMySchedules + '?notReturnPassed=' + filter,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const fetchSchedule = (
   token,
   id = undefined,

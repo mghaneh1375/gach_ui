@@ -2,6 +2,7 @@ import React from 'react';
 
 const defaultGlobalState = {
   tags: undefined,
+  selectedTag: undefined,
 };
 export const courseContext = React.createContext(defaultGlobalState);
 export const dispatchCourseContext = React.createContext(undefined);

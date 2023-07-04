@@ -4,6 +4,7 @@ import {dispatchStateContext, globalStateContext} from '../../../App';
 import {AdvisorScheduleProvider} from './components/Context';
 import {useParams} from 'react-router';
 import List from './components/List';
+import {isUserAdvisor} from '../../../services/Utility';
 
 function Schedule(props) {
   const [mode, setMode] = useState();
@@ -14,6 +15,7 @@ function Schedule(props) {
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
+  const isAdvisor = isUserAdvisor(state.user);
 
   const params = useParams();
 
@@ -23,7 +25,9 @@ function Schedule(props) {
   }, [params]);
 
   React.useEffect(() => {
-    if (studentId !== undefined) setMode('list');
+    if (studentId !== undefined || !isAdvisor) setMode('list');
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentId]);
 
   const setLoading = status => {
@@ -35,6 +39,7 @@ function Schedule(props) {
       {mode === 'list' && (
         <List
           token={state.token}
+          isAdvisor={isAdvisor}
           setLoading={setLoading}
           navigate={props.navigate}
           studentId={studentId}
@@ -45,6 +50,7 @@ function Schedule(props) {
         <Create
           token={state.token}
           setLoading={setLoading}
+          isAdvisor={isAdvisor}
           isInEditMode={false}
           studentId={studentId}
           setMode={setMode}
@@ -53,6 +59,7 @@ function Schedule(props) {
       {mode === 'edit' && (
         <Create
           token={state.token}
+          isAdvisor={isAdvisor}
           setLoading={setLoading}
           studentId={studentId}
           setMode={setMode}

@@ -20,6 +20,11 @@ function Create(props) {
   const [needToNumber, setNeedToNumber] = useState(false);
   const [label, setLabel] = useState();
 
+  React.useEffect(() => {
+    if (!props.isInEditMode || state.selectedTag === undefined) return;
+    setTitle(state.selectedTag.title);
+  }, [props.isInEditMode, state.selectedTag]);
+
   const createData = React.useCallback(() => {
     props.setLoading(true);
 

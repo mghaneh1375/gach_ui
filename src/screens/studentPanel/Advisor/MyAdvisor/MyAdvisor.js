@@ -131,7 +131,10 @@ function MyAdvisor(props) {
           onPress={() => props.navigate('/myLifeStyle')}
           title={'تغییر برنامه ریزی روزانه'}
         />
-        <CommonButton title={'برنامه های مطالعه'} />
+        <CommonButton
+          onPress={() => window.open('/mySchedules')}
+          title={'برنامه های مطالعه'}
+        />
       </EqualTwoTextInputs>
     </CommonWebBox>
   );
