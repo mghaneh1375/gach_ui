@@ -1,8 +1,11 @@
 import {faAdd} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {removeItems} from '../../../../services/Utility';
-import {PhoneView, SimpleText} from '../../../../styles/Common';
+import {
+  convertSecToMinWithOutSec,
+  removeItems,
+} from '../../../../services/Utility';
+import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
@@ -10,14 +13,25 @@ import Box from './Box';
 
 function Day(props) {
   const [boxes, setBoxes] = useState();
+  const [sum, setSum] = useState();
+  const [sumLife, setSumLife] = useState();
 
   React.useEffect(() => {
     setBoxes(props.boxes);
+    let lifeSum = 0;
+    let scheduleSum = 0;
+
+    props.boxes.forEach(e => {
+      if (e.label !== undefined && e.label === 'life') lifeSum += e.duration;
+      else scheduleSum += e.duration;
+    });
+    setSumLife(lifeSum);
+    setSum(scheduleSum);
   }, [props.boxes]);
 
   return (
     <PhoneView style={{...styles.gap15, ...{flexWrap: 'nowrap'}}}>
-      <PhoneView
+      <MyView
         style={{
           backgroundColor: vars.DARK_BLUE,
           padding: 40,
@@ -25,6 +39,7 @@ function Day(props) {
           alignContent: 'center',
           justifyContent: 'center',
           minWidth: 150,
+          gap: 10,
         }}>
         <SimpleText
           text={
@@ -34,7 +49,35 @@ function Day(props) {
           }
           style={{fontSize: 18, color: 'white'}}
         />
-      </PhoneView>
+        {sum !== undefined && (
+          <SimpleText
+            style={{
+              fontSize: 12,
+              color: 'white',
+              maxWidth: 120,
+              textAlign: 'center',
+            }}
+            text={
+              'مجموع ساعات برنامه ریزی شده: ' +
+              convertSecToMinWithOutSec(sum * 60)
+            }
+          />
+        )}
+        {sumLife !== undefined && sumLife !== 0 && (
+          <SimpleText
+            style={{
+              fontSize: 12,
+              color: 'white',
+              maxWidth: 120,
+              textAlign: 'center',
+            }}
+            text={
+              'مجموع ساعات برنامه روزانه ثابت دانش آموز: ' +
+              convertSecToMinWithOutSec(sumLife * 60)
+            }
+          />
+        )}
+      </MyView>
       <View
         style={{
           flexWrap: 'nowrap',

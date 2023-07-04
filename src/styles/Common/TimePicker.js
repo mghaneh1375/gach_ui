@@ -6,7 +6,6 @@ import {
   CommonTextInputStyleWeb,
 } from './CommonText';
 import SubInputText from './SubInputText';
-import SubInputTextTwo from './SubInputTextTwo';
 
 function TimePicker(props) {
   const [value, setValue] = useState('');

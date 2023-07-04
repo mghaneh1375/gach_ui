@@ -11,6 +11,7 @@ import {
   addItemToSchedule,
   fetchSchedule,
   fetchTags,
+  getLessons,
   removeItemFromSchedule,
 } from './Utility';
 import {
@@ -31,7 +32,6 @@ import commonTranslator from '../../../../translator/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import Tag from '../../../studentPanel/MyLifeStyle.js/components/Tag';
 import {removeItems, showError} from '../../../../services/Utility';
-import {getSubjectsKeyVals} from '../../../panel/question/components/Utility';
 import TimePicker from '../../../../styles/Common/TimePicker';
 
 function Create(props) {
@@ -46,7 +46,8 @@ function Create(props) {
   const [selectedTag, setSelectedTag] = useState();
   const [duration, setDuration] = useState();
   const [startAt, setStartAt] = useState();
-  const [subject, setSubject] = useState();
+  const [lesson, setLesson] = useState();
+  const [additional, setAdditional] = useState();
 
   const scheduleForValues = [
     {id: 0, item: 'هفته جاری'},
@@ -99,6 +100,7 @@ function Create(props) {
 
   React.useEffect(() => {
     if (!props.isInEditMode) return;
+
     fetchScheduleLocal();
   }, [props.isInEditMode, fetchScheduleLocal]);
 
@@ -109,12 +111,15 @@ function Create(props) {
   }, [props.isInEditMode, scheduleFor]);
 
   const fetchData = React.useCallback(() => {
+    props.setLoading(true);
     Promise.all([
       fetchTags(props.token),
       fetchMyLifeStyle(props.token, props.studentId),
       fetchExamTags(props.token),
-      getSubjectsKeyVals(props.token),
+      getLessons(),
     ]).then(res => {
+      props.setLoading(false);
+
       if (
         res[0] == null ||
         res[1] == null ||
@@ -129,7 +134,7 @@ function Create(props) {
         myLifeStyle: res[1].days,
         myExams: res[2].exams,
         tags: res[0],
-        subjectsKeyVals: res[3],
+        lessonsKeyVals: res[3],
       });
     });
   }, [props, dispatch]);
@@ -156,7 +161,7 @@ function Create(props) {
             day: e.day,
             items: e.items.concat(
               state.myLifeStyle[index].items.map(itr => {
-                return {...itr, canEdit: false};
+                return {...itr, canEdit: false, label: 'life'};
               }),
             ),
           };
@@ -165,8 +170,6 @@ function Create(props) {
     } else setBoxes(state.selectedSchedule.days);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedSchedule?.days, state.myLifeStyle, showDailySchedule]);
-
-  const [value, onChange] = useState('10:00');
 
   return (
     <>
@@ -184,22 +187,36 @@ function Create(props) {
                   showError('لطفا مدت را تعیین کنید');
                   return;
                 }
-                if (subject === undefined) {
+                if (lesson === undefined) {
                   showError('لطفا حیطه موردنظر را وارد نمایید');
                   return;
                 }
+
+                if (
+                  selectedTag?.numberLabel !== undefined &&
+                  additional === undefined
+                ) {
+                  showError(
+                    'لطفا ' + selectedTag?.numberLabel + ' را وارد نمایید',
+                  );
+                  return;
+                }
+
                 props.setLoading(true);
                 let data = {
-                  tag: selectedTag,
+                  tag: selectedTag.id,
                   duration: duration,
                   startAt: startAt,
                   day: selectedDay,
-                  subjectId: subject.id,
+                  lessonId: lesson.id,
                 };
 
                 if (state.selectedSchedule.id !== undefined)
                   data.id = state.selectedSchedule.id;
                 else data.scheduleFor = scheduleFor;
+
+                if (selectedTag?.numberLabel !== undefined)
+                  data.additional = additional;
 
                 if (description !== undefined) data.description = description;
 
@@ -217,10 +234,14 @@ function Create(props) {
                     e => {
                       if (e.day !== selectedDay) return e;
                       e.items.push({
-                        tag: state.tags.find(e => e.id === selectedTag).label,
+                        tag: state.tags.find(e => e.id === selectedTag.id)
+                          .label,
                         duration: duration,
                         startAt: startAt,
+                        lesson: lesson.name,
                         id: res.id,
+                        additionalLabel: selectedTag.numberLabel,
+                        additional: additional,
                       });
                       return e;
                     },
@@ -231,7 +252,8 @@ function Create(props) {
                   setSelectedTag();
                   setStartAt();
                   setDescription();
-                  setSubject();
+                  setLesson();
+                  setAdditional();
                 }
               }}
               theme={'dark'}
@@ -248,10 +270,10 @@ function Create(props) {
                 state.tags.map((e, index) => {
                   return (
                     <Tag
-                      selectedTag={selectedTag}
+                      selectedTag={selectedTag?.id}
                       id={e.id}
                       onClick={() => {
-                        setSelectedTag(e.id);
+                        setSelectedTag(e);
                       }}
                       label={e.label}
                       key={index}
@@ -265,15 +287,15 @@ function Create(props) {
                 ...styles.marginTop20,
               }}>
               <JustBottomBorderTextInput
-                placeholder={commonTranslator.subject}
-                subText={commonTranslator.subject}
+                placeholder={commonTranslator.lesson}
+                subText={commonTranslator.lesson}
                 resultPane={true}
                 setSelectedItem={item => {
-                  setSubject(item);
+                  setLesson(item);
                 }}
                 resultPaneHeight={300}
-                values={state.subjectsKeyVals}
-                value={subject !== undefined ? subject.name : ''}
+                values={state.lessonsKeyVals}
+                value={lesson !== undefined ? lesson.name : ''}
                 reset={false}
               />
 
@@ -289,6 +311,15 @@ function Create(props) {
                 placeholder={'زمان شروع (اختیاری)'}
                 onChangeText={e => setStartAt(e)}
               />
+              {selectedTag?.numberLabel !== undefined && (
+                <JustBottomBorderTextInput
+                  placeholder={selectedTag.numberLabel}
+                  subText={selectedTag.numberLabel}
+                  justNum={true}
+                  value={additional}
+                  onChangeText={e => setAdditional(e)}
+                />
+              )}
             </PhoneView>
             <PhoneView>
               <JustBottomBorderTextInput
@@ -315,7 +346,10 @@ function Create(props) {
               }
             />
             <FontIcon
-              onPress={() => props.setMode('list')}
+              onPress={() => {
+                dispatch({schedules: undefined, selectedSchedule: undefined});
+                props.setMode('list');
+              }}
               theme="rect"
               kind="normal"
               icon={faArrowLeft}

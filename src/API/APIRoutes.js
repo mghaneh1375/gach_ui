@@ -41,6 +41,7 @@ export const routes = {
   fetchContentDigests: 'general/fetchContentDigests',
   fetchGrades: 'admin/content/grades',
   fetchLesson: 'admin/content/lessons',
+  getLessonsDigest: 'admin/content/getLessonsDigest',
   fetchGradeLessons: 'admin/content/gradeLessons',
   addLesson: 'admin/content/addLesson/',
   editLesson: 'admin/content/updateLesson/',

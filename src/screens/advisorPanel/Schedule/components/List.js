@@ -6,12 +6,14 @@ import {
   dispatchAdvisorScheduleContext,
 } from './Context';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {fetchSchedules, removeSchedule} from './Utility';
+import {fetchSchedules} from './Utility';
 import columns from './TableStructure';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import {removeItems, showSuccess} from '../../../../services/Utility';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
 import {routes} from '../../../../API/APIRoutes';
+import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import commonTranslator from '../../../../translator/Common';
 
 function List(props) {
   const useGlobalState = () => [
@@ -21,6 +23,14 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
   const [showOp, setShowOp] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+
+  const statusValues = [
+    {id: 'passed', item: 'گذشته'},
+    {id: 'current', item: 'جاری یا آینده'},
+    {id: 'all', item: 'همه'},
+  ];
+
+  const [filter, setFilter] = useState('all');
 
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
@@ -95,6 +105,28 @@ function List(props) {
           </PhoneView>
         </LargePopUp>
       )}
+      <PhoneView>
+        <JustBottomBorderSelect
+          values={statusValues}
+          setter={setFilter}
+          value={statusValues.find(elem => elem.id === filter)}
+          placeholder={'وضعیت کاربرگ'}
+          subText={'وضعیت کاربرگ'}
+        />
+        <CommonButton
+          title={commonTranslator.filter}
+          onPress={async () => {
+            props.setLoading(true);
+            let res = await fetchSchedules(
+              props.token,
+              props.studentId,
+              filter === 'all' ? undefined : filter == 'passed' ? false : true,
+            );
+            props.setLoading(false);
+            if (res != null) dispatch({schedules: res});
+          }}
+        />
+      </PhoneView>
       {state.schedules !== undefined && (
         <CommonDataTable
           handleOp={handleOp}

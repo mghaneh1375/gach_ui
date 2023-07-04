@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
-import {CommonWebBox, MyView} from '../../../../styles/Common';
+import {CommonWebBox} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {courseContext, dispatchCourseContext} from './Context';
-// import columns from './tableCourse';
 
 function List(props) {
   const useGlobalState = () => [
@@ -20,6 +18,18 @@ function List(props) {
     {
       name: 'عنوان',
       selector: row => row.label,
+      grow: 2,
+      center: true,
+    },
+    {
+      name: 'آیا نیاز به عدد دارد؟',
+      selector: row => (row.numberLabel === undefined ? 'خیر' : 'بله'),
+      grow: 1,
+      center: true,
+    },
+    {
+      name: 'عنوان عدد',
+      selector: row => row.numberLabel,
       grow: 3,
       center: true,
     },

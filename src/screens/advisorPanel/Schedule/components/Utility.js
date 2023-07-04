@@ -8,9 +8,11 @@ export const fetchTags = token => {
   return generalRequest(routes.getAllTags, 'get', undefined, 'data', token);
 };
 
-export const fetchSchedules = (token, userId) => {
+export const fetchSchedules = (token, userId, filter = undefined) => {
   return generalRequest(
-    routes.getStudentSchedules + userId,
+    filter === undefined
+      ? routes.getStudentSchedules + userId
+      : routes.getStudentSchedules + userId + '?notReturnPassed=' + filter,
     'get',
     undefined,
     'data',
@@ -48,6 +50,10 @@ export const addItemToSchedule = async (token, userId, data) => {
   }
 
   return res;
+};
+
+export const getLessons = () => {
+  return generalRequest(routes.getLessonsDigest, 'get', undefined, 'data');
 };
 
 export const removeItemFromSchedule = async (token, userId, id) => {
