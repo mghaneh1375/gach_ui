@@ -72,6 +72,16 @@ function Ops(props) {
             onPress={() => props.changeMode('chargeAccount')}
             title={'شارژ حساب'}
           />
+          <CommonButton
+            theme={'transparent'}
+            onPress={() =>
+              window.open(
+                '/studentEducationalHistory/' + state.selectedUser.id,
+                '_blank',
+              )
+            }
+            title={commonTranslator.educationalHistory}
+          />
         </PhoneView>
       </LargePopUp>
     </MyView>

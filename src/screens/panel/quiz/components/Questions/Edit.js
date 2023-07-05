@@ -21,6 +21,7 @@ function Edit(props) {
       toggleShowPopUp={() => props.setShowEditPane(false)}
       btns={
         <CommonButton
+          theme={'dark'}
           title={commonTranslator.confirm}
           onPress={async () => {
             props.setLoading(true);
@@ -30,7 +31,7 @@ function Edit(props) {
               props.quizGeneralMode,
               props.question.id,
               mark,
-              canUpload,
+              props.quizGeneralMode === 'irysc' ? canUpload : undefined,
             );
             props.setLoading(false);
             if (res !== null) {
@@ -49,13 +50,14 @@ function Edit(props) {
         subText={translator.mark}
         placeholder={translator.mark}
       />
-      {props.question.canUpload !== undefined && (
-        <RadioButtonYesOrNo
-          label={translator.isUploadable}
-          selected={canUpload}
-          setSelected={setCanUpload}
-        />
-      )}
+      {props.question.canUpload !== undefined &&
+        props.quizGeneralMode === 'irysc' && (
+          <RadioButtonYesOrNo
+            label={translator.isUploadable}
+            selected={canUpload}
+            setSelected={setCanUpload}
+          />
+        )}
     </LargePopUp>
   );
 }

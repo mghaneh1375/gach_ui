@@ -4,7 +4,11 @@ import translator from './translator';
 import {Device} from './../../../models/Device';
 import {Image} from 'react-native';
 
-import {getDevice, getWidthHeight} from './../../../services/Utility';
+import {
+  getDevice,
+  getWidthHeight,
+  simpleConvertTimestamp,
+} from './../../../services/Utility';
 
 import {
   MyView,

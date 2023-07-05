@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import vars from './../root';
 import {Platform, TextInput} from 'react-native';
-import {DateTimePicker} from 'react-advance-jalaali-datepicker';
+import {DatePicker, DateTimePicker} from 'react-advance-jalaali-datepicker';
 import SelectBox from 'react-native-multi-selectbox';
 import {getWidthHeight} from '../../services/Utility';
 
@@ -40,6 +40,10 @@ export const CommonSelectElem = styled(SelectBox)`
 `;
 
 export const CommonDatePickerElem = styled(DateTimePicker)`
+  ${CommonTextInputStyleAndroid}
+`;
+
+export const CommonJustDatePickerElem = styled(DatePicker)`
   ${CommonTextInputStyleAndroid}
 `;
 

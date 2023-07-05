@@ -136,21 +136,22 @@ const QuizRunInfo = props => {
             subText={translator.endDate}
           />
         )}
-        {props.isAdvisor && (
-          <JustBottomBorderSelect
-            values={trueFalseValues}
-            value={
-              props.payByStudent === undefined
-                ? {}
-                : trueFalseValues.filter(element => {
-                    return element.id === props.payByStudent;
-                  })[0]
-            }
-            setter={props.setPayByStudent}
-            subText={translator.payByStudent}
-            placeholder={translator.payByStudent}
-          />
-        )}
+        {props.isAdvisor &&
+          (props.status === undefined || props.status === 'init') && (
+            <JustBottomBorderSelect
+              values={trueFalseValues}
+              value={
+                props.payByStudent === undefined
+                  ? {}
+                  : trueFalseValues.filter(element => {
+                      return element.id === props.payByStudent;
+                    })[0]
+              }
+              setter={props.setPayByStudent}
+              subText={translator.payByStudent}
+              placeholder={translator.payByStudent}
+            />
+          )}
       </PhoneView>
     </MyView>
   );

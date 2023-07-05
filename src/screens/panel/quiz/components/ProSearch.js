@@ -32,19 +32,22 @@ function ProSearch(props) {
           value={name}
         />
 
-        <JustBottomBorderSelect
-          values={kindQuizKeyValsForFilter}
-          value={
-            kindQuiz === undefined
-              ? {}
-              : kindQuizKeyValsForFilter.filter(element => {
-                  return element.id === kindQuiz;
-                })[0]
-          }
-          setter={setKindQuiz}
-          placeholder={translator.kind}
-          subText={translator.kind}
-        />
+        {(props.generalMode === undefined ||
+          props.generalMode !== 'escape') && (
+          <JustBottomBorderSelect
+            values={kindQuizKeyValsForFilter}
+            value={
+              kindQuiz === undefined
+                ? {}
+                : kindQuizKeyValsForFilter.filter(element => {
+                    return element.id === kindQuiz;
+                  })[0]
+            }
+            setter={setKindQuiz}
+            placeholder={translator.kind}
+            subText={translator.kind}
+          />
+        )}
 
         {(props.generalMode === undefined ||
           props.generalMode !== 'openQuiz') && (

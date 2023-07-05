@@ -11,7 +11,14 @@ import React, {useState} from 'react';
 import vars from '../../../../styles/root';
 import {styles} from '../../../../styles/Common/Styles';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
-import {faClock, faListSquares, faSun} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCancel,
+  faCheck,
+  faClock,
+  faListSquares,
+  faRemove,
+  faSun,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   convertSecToMinWithOutSec,
   formatPrice,
@@ -26,6 +33,7 @@ import {
   styleTitle,
   styleYellowBox,
 } from '../../../panel/package/card/Style';
+import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 
 function Card(props) {
   const [img, setImg] = useState();
@@ -60,35 +68,41 @@ function Card(props) {
           }}>
           <SimpleText style={styles.BlueBold} text={props.package.title} />
         </PhoneView>
-        <PhoneView>
-          <QuizItemCard
-            text={Translator.packageDuration}
-            val={convertSecToMinWithOutSec(props.package.duration)}
-            icon={faClock}
-            color={vars.YELLOW}
-            textFontSize={fontSize}
-            valFontSize={valFontSize}
+        <PhoneView style={{gap: 100}}>
+          <SimpleText
+            style={{...styles.BlueBold, ...styles.margin15}}
+            text={props.package.sessionsCount + ' جلسه'}
           />
-          <QuizItemCard
+
+          {/* <QuizItemCard
             text={Translator.sessionsCount}
-            val={props.package.sessionsCount}
+            val={props.package.sessionsCount + ' جلسه'}
             icon={faListSquares}
             textFontSize={fontSize}
             color={vars.YELLOW}
             valFontSize={valFontSize}
-          />
-          <QuizItemCard
+          /> */}
+          {/* <QuizItemCard
             text={Translator.cert}
-            val={
-              props.package.hasCert
-                ? commonTranslator.has
-                : commonTranslator.not_has
-            }
+            iconVal={props.package.hasCert ? faCheck : faRemove}
+            iconColor={props.package.hasCert ? vars.GREEN : vars.YELLOW}
+            val={'icon'}
             icon={faSun}
             color={vars.YELLOW}
             textFontSize={fontSize}
             valFontSize={valFontSize}
-          />
+          /> */}
+          <PhoneView>
+            <SimpleText
+              style={{...styles.BlueBold, ...styles.margin15}}
+              text={Translator.cert + ' '}
+            />
+            <SimpleFontIcon
+              style={{color: props.package.hasCert ? vars.GREEN : vars.YELLOW}}
+              kind={'normal'}
+              icon={props.package.hasCert ? faCheck : faRemove}
+            />
+          </PhoneView>
         </PhoneView>
         <SimpleText
           style={styles.BlueBold}

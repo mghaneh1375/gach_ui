@@ -122,8 +122,16 @@ export const MultiSearchableTextInput = props => {
     }
     if (props.values !== undefined) {
       for (var i = 0; i < props.values.length; i++) {
-        if (props.values[i].name.includes(text))
+        if (
+          (props.values[i].title &&
+            props.values[i].title.length > 0 &&
+            props.values[i].title.includes(text)) ||
+          (props.values[i].name &&
+            props.values[i].name.length > 0 &&
+            props.values[i].name.includes(text))
+        ) {
           newSuggests.push(props.values[i]);
+        }
       }
     }
     if (props.addNotFound && newSuggests.length === 0) {

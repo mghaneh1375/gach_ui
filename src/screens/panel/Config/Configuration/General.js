@@ -40,6 +40,9 @@ function General(props) {
   const [minQuestionForCustomQuiz, setMinQuestionForCustomQuiz] = useState();
   const [giftPeriod, setGiftPeriod] = useState();
   const [maxQuestionPerQuiz, setMaxQuestionPerQuiz] = useState();
+  const [minAdvicePrice, setMinAdvicePrice] = useState();
+  const [maxVideoCallPerMonth, setMaxVideoCallPerMonth] = useState();
+  const [hwPerStudentPrice, setHwPerStudentPrice] = useState();
 
   React.useEffect(() => {
     dispatch({loading: true});
@@ -81,6 +84,9 @@ function General(props) {
       setQuizPerStudentPrice(data.quizPerStudentPrice);
       setMaxQuestionPerQuiz(data.maxQuestionPerQuiz);
       setMinQuestionForCustomQuiz(data.minQuestionForCustomQuiz);
+      setHwPerStudentPrice(data.hwPerStudentPrice);
+      setMinAdvicePrice(data.minAdvicePrice);
+      setMaxVideoCallPerMonth(data.maxVideoCallPerMonth);
     });
   }, [navigate, props.token, dispatch]);
 
@@ -111,6 +117,9 @@ function General(props) {
           quizPerStudentPrice: quizPerStudentPrice,
           minQuestionForCustomQuiz: minQuestionForCustomQuiz,
           maxQuestionPerQuiz: maxQuestionPerQuiz,
+          minAdvicePrice: minAdvicePrice,
+          hwPerStudentPrice: hwPerStudentPrice,
+          maxVideoCallPerMonth: maxVideoCallPerMonth,
         },
         undefined,
         props.token,
@@ -275,6 +284,30 @@ function General(props) {
             subText={translator.minQuestionForCustomQuiz}
             value={minQuestionForCustomQuiz}
             onChangeText={e => setMinQuestionForCustomQuiz(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.hwPerStudentPrice}
+            subText={translator.hwPerStudentPrice}
+            value={hwPerStudentPrice}
+            onChangeText={e => setHwPerStudentPrice(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.minAdvicePrice}
+            subText={translator.minAdvicePrice}
+            value={minAdvicePrice}
+            onChangeText={e => setMinAdvicePrice(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.maxVideoCallPerMonth}
+            subText={translator.maxVideoCallPerMonth}
+            value={maxVideoCallPerMonth}
+            onChangeText={e => setMaxVideoCallPerMonth(e)}
             justNum={true}
           />
         </PhoneView>

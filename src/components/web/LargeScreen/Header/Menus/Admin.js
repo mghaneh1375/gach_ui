@@ -91,11 +91,24 @@ function AdminMenu(props) {
           icon={faCertificate}
           selected={props.selected === 'cert'}
         />
-        <MenuItem
-          onClick={() => navigate('/question')}
+        <SuperMenuItem
           text={translator.questions}
           icon={faQuestion}
-          selected={props.selected === 'question'}
+          selected={
+            props.selected === 'questions' ||
+            props.selected === 'spec-questions'
+          }
+          navigate={navigate}
+          items={[
+            {
+              text: 'سوالات عادی',
+              url: '/question',
+            },
+            {
+              text: 'سوالات آزمون فرار',
+              url: '/spec-question',
+            },
+          ]}
         />
         <SuperMenuItem
           text={translator.users}
@@ -179,6 +192,14 @@ function AdminMenu(props) {
               url: '/quiz/open',
             },
             {
+              text: translator.onlineStanding,
+              url: '/quiz/onlineStanding',
+            },
+            {
+              text: translator.escapeQuiz,
+              url: '/quiz/escape',
+            },
+            {
               text: translator.contentQuiz,
               url: '/quiz/content',
             },
@@ -201,6 +222,10 @@ function AdminMenu(props) {
             {
               text: translator.lifeStyle,
               url: '/consultants/lifestyle',
+            },
+            {
+              text: translator.examTags,
+              url: '/consultants/examTags',
             },
           ]}
         />
@@ -225,6 +250,10 @@ function AdminMenu(props) {
             {
               text: translator.seoContents,
               url: '/seo-contents',
+            },
+            {
+              text: translator.teachersContents,
+              url: '/contents-teacher',
             },
           ]}
         />

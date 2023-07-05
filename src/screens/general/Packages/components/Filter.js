@@ -10,7 +10,7 @@ import Slider from '@material-ui/core/Slider';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {
   allTrueFalseValues,
-  convertSecToMinWithOutSec,
+  convertSecToMinWithOutSecAndDay,
   formatPrice,
   getDevice,
 } from '../../../../services/Utility';
@@ -79,20 +79,10 @@ function Filter(props) {
             />
             <EqualTwoTextInputs>
               <SimpleText
-                text={
-                  'از ' +
-                  formatPrice(value[0]) +
-                  ' ' +
-                  commonTranslator.priceUnit
-                }
+                text={formatPrice(value[1]) + ' ' + commonTranslator.priceUnit}
               />
               <SimpleText
-                text={
-                  ' تا ' +
-                  formatPrice(value[1]) +
-                  ' ' +
-                  commonTranslator.priceUnit
-                }
+                text={formatPrice(value[0]) + ' ' + commonTranslator.priceUnit}
               />
             </EqualTwoTextInputs>
           </MyView>
@@ -109,10 +99,10 @@ function Filter(props) {
             />
             <EqualTwoTextInputs>
               <SimpleText
-                text={'از ' + convertSecToMinWithOutSec(valueDuration[0] * 60)}
+                text={convertSecToMinWithOutSecAndDay(valueDuration[1])}
               />
               <SimpleText
-                text={' تا ' + convertSecToMinWithOutSec(valueDuration[1] * 60)}
+                text={convertSecToMinWithOutSecAndDay(valueDuration[0])}
               />
             </EqualTwoTextInputs>
           </MyView>

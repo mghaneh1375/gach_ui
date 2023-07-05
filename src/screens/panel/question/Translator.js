@@ -46,6 +46,7 @@ const translator = {
   questionShowMid: 'نمایش سوالات متوسط',
   questionShowHard: 'نمایش سوالات سخت',
   questionNumber: 'تعداد سوالات موجود: ',
+  isPublic: 'آیا این سوال عمومی است؟',
 };
 
 export default translator;

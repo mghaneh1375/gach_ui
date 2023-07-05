@@ -17,9 +17,6 @@ const Navbar = props => {
   return (
     <MyView style={{width: '100%'}}>
       <Nav>
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/buy">
-          آزمون ها
-        </NavLink>
         <NavLinkExternal
           rel="noopener noreferrer"
           target="_blank"
@@ -72,7 +69,7 @@ const Navbar = props => {
             paddingRight: 10,
             display: width > 768 && width < 900 ? 'none' : 'flex',
           }}
-          title={'کلاس های المپیاد'}
+          title={'دوره های آموزشی'}
           onPress={() => {
             window.location.href = '/packages';
             // window.open(
@@ -81,6 +78,22 @@ const Navbar = props => {
             // );
           }}
         />
+
+        <CommonButton
+          style={{
+            backgroundColor: vars.ORANGE_RED,
+            minWidth: 'unset',
+            marginLeft: 0,
+            paddingLeft: 10,
+            paddingRight: 10,
+            display: width > 768 && width < 900 ? 'none' : 'flex',
+          }}
+          title={'آزمون ها'}
+          onPress={() => {
+            window.location.href = '/buy';
+          }}
+        />
+
         {!isLogin && (
           <CommonButton
             style={{minWidth: 'unset', paddingLeft: 10, paddingRight: 10}}

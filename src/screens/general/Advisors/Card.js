@@ -1,18 +1,19 @@
 import React, {useState} from 'react';
-import {faMedal, faQuestion} from '@fortawesome/free-solid-svg-icons';
 import {Image} from 'react-native';
+import {Rating} from 'react-native-ratings';
 import {globalStateContext} from '../../../App';
 import Circle from '../../../components/web/Circle';
-import QuizItemCard from '../../../components/web/QuizItemCard';
 import {
   CommonButton,
   CommonWebBox,
+  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
+import {formatPrice} from '../../../services/Utility';
 
 function Card(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
@@ -81,35 +82,128 @@ function Card(props) {
             style={{...styles.BlueBold, ...styles.fontSize15}}
             text={'نام و نام خانوادگی :' + ' ' + props.data.name}
           />
+        </MyView>
+        <MyView style={{marginTop: -10, ...styles.gap5}}>
           {props.isMyAdvisor && (
             <SimpleText
               style={{...styles.BlueBold, ...styles.fontSize15, ...styles.red}}
               text={'مشاور من'}
             />
           )}
-        </MyView>
-        <MyView style={{marginTop: -10, ...styles.gap5}}>
           <SimpleText
             style={{...styles.colorDarkBlue}}
             text={'تعداد دانش آموزان : ' + ' ' + props.data.stdCount}
           />
-          <SimpleText
-            style={{...styles.colorDarkBlue}}
-            text={'درباره مشاور : ' + ' ' + props.data.bio}
-          />
 
-          {!props.isMyAdvisor &&
-            props.data.acceptStd &&
-            !props.hasOpenRequest &&
-            state.token !== undefined &&
-            state.token !== null && (
-              <CommonButton
-                onPress={() => props.onSelect()}
-                title={'درخواست مشاوره'}
-              />
-            )}
+          <SimpleText
+            style={{
+              ...styles.colorDarkBlue,
+              ...{minHeight: 100, maxHeight: 100},
+            }}
+            text={
+              props.data.bio !== undefined
+                ? 'درباره مشاور : ' + ' ' + props.data.bio
+                : 'درباره مشاور : '
+            }
+          />
         </MyView>
       </MyView>
+
+      {!props.isMyAdvisor &&
+        props.data.acceptStd &&
+        !props.hasOpenRequest &&
+        state.token !== undefined &&
+        state.token !== null && (
+          <CommonButton
+            onPress={() => props.onSelect()}
+            title={'درخواست مشاوره'}
+          />
+        )}
+
+      {props.shouldPay !== undefined && (
+        <>
+          <EqualTwoTextInputs>
+            <SimpleText text={'وضعیت: در انتظار پرداخت'} />
+            <SimpleText
+              style={{...styles.red, ...styles.cursor_pointer}}
+              onPress={() => props.onCancel()}
+              text={'انصراف از درخواست'}
+            />
+          </EqualTwoTextInputs>
+
+          <SimpleText
+            text={
+              'مبلغ مشاوره برای یک ماه: ' + formatPrice(props.price) + ' تومان'
+            }
+          />
+          {props.offAmount !== undefined && (
+            <SimpleText
+              text={
+                'تخفیف اعمال شده: ' + formatPrice(props.offAmount) + ' تومان'
+              }
+            />
+          )}
+          <SimpleText
+            text={
+              'مبلغ قابل کسر از حساب کاربری: ' +
+              formatPrice(props.userMoney) +
+              ' تومان'
+            }
+          />
+          <SimpleText
+            text={
+              'مبلغ قابل پرداخت: ' + formatPrice(props.shouldPay) + ' تومان'
+            }
+          />
+          <EqualTwoTextInputs>
+            <CommonButton
+              onPress={() => props.onOffClick()}
+              theme={'dark'}
+              title="کد تخفیف"
+            />
+            <CommonButton
+              onPress={() => props.onPay()}
+              title={props.shouldPay > 100 ? 'پرداخت' : 'نهایی سازی'}
+            />
+          </EqualTwoTextInputs>
+        </>
+      )}
+
+      {props.setRate !== undefined && (
+        <EqualTwoTextInputs
+          style={{width: '100%', direction: 'ltr', alignItems: 'center'}}>
+          <Rating
+            type="star"
+            ratingCount={5}
+            imageSize={30}
+            fractions={0}
+            onFinishRating={rating => props.setRate(rating)}
+            style={{
+              direction: 'ltr',
+              cursor: 'pointer',
+            }}
+            startingValue={props.rate}
+          />
+          <SimpleText text={'امتیاز شما به مشاور'} />
+        </EqualTwoTextInputs>
+      )}
+
+      {props.onRemove !== undefined && (
+        <CommonButton onPress={() => props.onRemove()} title={'حذف مشاور'} />
+      )}
+
+      {props.onCancel !== undefined && props.shouldPay === undefined && (
+        <EqualTwoTextInputs>
+          <SimpleText text={'وضعیت: در حال بررسی توسط مشاور'} />
+          <SimpleText
+            style={{...styles.red, ...styles.cursor_pointer}}
+            onPress={() => props.onCancel()}
+            text={'انصراف از درخواست'}
+          />
+        </EqualTwoTextInputs>
+      )}
+
+      {}
     </CommonWebBox>
   );
 }

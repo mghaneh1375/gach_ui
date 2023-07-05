@@ -194,10 +194,10 @@ const Ops = props => {
               theme={'transparent'}
               title={translator.editQuestions}
             />
-
             {(state.selectedQuiz.mode !== 'tashrihi' ||
               state.selectedQuiz.startRegistry !== undefined) &&
-              state.selectedQuiz.generalMode === 'irysc' && (
+              (state.selectedQuiz.generalMode === 'irysc' ||
+                state.selectedQuiz.generalMode === 'onlineStanding') && (
                 <CommonButton
                   dir={'rtl'}
                   theme={'transparent'}
@@ -209,7 +209,6 @@ const Ops = props => {
                   }
                 />
               )}
-
             {(state.selectedQuiz.mode !== 'tashrihi' ||
               state.selectedQuiz.startRegistry !== undefined) && (
               <CommonButton
@@ -233,20 +232,36 @@ const Ops = props => {
               onPress={() => changeMode('student')}
               title={translator.studentsList}
             />
-            <CommonButton
-              onPress={() => createTarazLocal()}
-              dir={'rtl'}
-              theme={'transparent'}
-              title={translator.createTaraz}
-            />
+            {state.selectedQuiz.generalMode !== 'onlineStanding' &&
+              state.selectedQuiz.generalMode !== 'escape' && (
+                <CommonButton
+                  onPress={() => createTarazLocal()}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  title={translator.createTaraz}
+                />
+              )}
+            {state.selectedQuiz.generalMode === 'escape' && (
+              <CommonButton
+                onPress={() => props.setMode('gifts')}
+                dir={'rtl'}
+                theme={'transparent'}
+                title={translator.selectGifts}
+              />
+            )}
             {state.selectedQuiz.reportStatus === 'ready' &&
-              state.selectedQuiz.generalMode === 'irysc' && (
+              (state.selectedQuiz.generalMode === 'irysc' ||
+                state.selectedQuiz.generalMode === 'escape') && (
                 <CommonButton
                   dir={'rtl'}
                   theme={'transparent'}
                   title={translator.gift}
                   onPress={() =>
-                    finalizeQuizResult(state.selectedQuiz.id, props.token)
+                    finalizeQuizResult(
+                      state.selectedQuiz.id,
+                      state.selectedQuiz.generalMode,
+                      props.token,
+                    )
                   }
                 />
               )}
@@ -267,12 +282,31 @@ const Ops = props => {
                 title={translator.seeRanking}
               />
             )}
-            <CommonButton
-              onPress={() => props.setMode('report')}
-              dir={'rtl'}
-              theme={'transparent'}
-              title={commonTranslator.report}
-            />
+            {state.selectedQuiz.generalMode === 'onlineStanding' &&
+              state.selectedQuiz.status === 'finished' && (
+                <CommonButton
+                  onPress={() =>
+                    props.navigate(
+                      '/ranking/onlineStanding/' +
+                        state.selectedQuiz.id +
+                        '/' +
+                        state.selectedQuiz.title,
+                    )
+                  }
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  title={commonTranslator.report}
+                />
+              )}
+            {state.selectedQuiz.generalMode !== 'onlineStanding' &&
+              state.selectedQuiz.generalMode !== 'escape' && (
+                <CommonButton
+                  onPress={() => props.setMode('report')}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  title={commonTranslator.report}
+                />
+              )}
             {(state.selectedQuiz.launchMode === 'physical' ||
               state.selectedQuiz.launchMode === 'hybrid') &&
               state.selectedQuiz.mode === 'regular' && (
@@ -300,14 +334,15 @@ const Ops = props => {
                 title={translator.generateQuestionPDF}
               />
             )}
-            {state.selectedQuiz.mode !== 'tashrihi' && (
-              <CommonButton
-                title={translator.keySheet}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => props.setMode('key')}
-              />
-            )}
+            {state.selectedQuiz.mode !== 'tashrihi' &&
+              state.selectedQuiz.generalMode !== 'escape' && (
+                <CommonButton
+                  title={translator.keySheet}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  onPress={() => props.setMode('key')}
+                />
+              )}
             {state.selectedQuiz.mode === 'tashrihi' && (
               <CommonButton
                 title={translator.correctors}
@@ -326,7 +361,6 @@ const Ops = props => {
                   onPress={() => setShowLogPane(true)}
                 />
               )}
-
             {state.selectedQuiz.mode === 'tashrihi' &&
               state.selectedQuiz.isQRNeeded && (
                 <CommonButton
@@ -336,7 +370,6 @@ const Ops = props => {
                   onPress={() => downloadAnswerSheet()}
                 />
               )}
-
             {state.selectedQuiz.mode === 'tashrihi' &&
               state.selectedQuiz.isQRNeeded && (
                 <CommonButton
@@ -346,7 +379,6 @@ const Ops = props => {
                   onPress={() => setShowUploadPane(true)}
                 />
               )}
-
             {(state.selectedQuiz.mode !== 'tashrihi' ||
               state.selectedQuiz.startRegistry !== undefined) && (
               <CommonButton
@@ -354,9 +386,16 @@ const Ops = props => {
                 dir={'rtl'}
                 theme={'transparent'}
                 onPress={() => {
-                  navigator.clipboard.writeText(
-                    BASE_SITE_NAME + 'buy/' + state.selectedQuiz.id,
-                  );
+                  if (state.selectedQuiz.generalMode === 'onlineStanding')
+                    navigator.clipboard.writeText(
+                      BASE_SITE_NAME +
+                        'onlineStandingQuizRegistration/' +
+                        state.selectedQuiz.id,
+                    );
+                  else
+                    navigator.clipboard.writeText(
+                      BASE_SITE_NAME + 'buy/' + state.selectedQuiz.id,
+                    );
                   showSuccess('لینک کپی شد!');
                 }}
               />

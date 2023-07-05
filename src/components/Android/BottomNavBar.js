@@ -45,7 +45,7 @@ export default function BottomNavBar(props) {
             source={require('./../../images/support.png')}
           />
         </MyView>
-        <Text>کلاس های المپیاد</Text>
+        <Text>دوره های آموزشی</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
         <MyView style={NavItemStyle}>

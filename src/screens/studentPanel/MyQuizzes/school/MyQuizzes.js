@@ -4,7 +4,7 @@ import {QuizProvider} from '../../../panel/quiz/components/Context';
 import List from './components/List';
 import {useParams} from 'react-router';
 import Karname from '../../../panel/quiz/components/Reports/Karname/Karname';
-import StudentAnswerSheet from '../../../panel/quiz/components/AnswerSheet/StudentAnswerSheet';
+import AnswerSheet from '../irysc/components/AnswerSheet';
 
 function MyQuizzes(props) {
   const useGlobalState = () => [
@@ -29,8 +29,10 @@ function MyQuizzes(props) {
           status={status}
           setMode={setMode}
           user={state.user}
+          advisor={props.advisor === undefined ? false : props.advisor}
           setLoading={setLoading}
           token={state.token}
+          money={state.user.user.money}
           navigate={props.navigate}
         />
       )}
@@ -44,13 +46,11 @@ function MyQuizzes(props) {
         />
       )}
       {mode === 'answerSheet' && (
-        <StudentAnswerSheet
+        <AnswerSheet
           selectedAnswerSheetIdx={0}
           setLoading={setLoading}
           onBackClick={() => setMode('list')}
           token={state.token}
-          state={state}
-          dispatch={dispatch}
         />
       )}
     </QuizProvider>

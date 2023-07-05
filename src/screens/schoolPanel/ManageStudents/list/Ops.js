@@ -50,6 +50,20 @@ function Ops(props) {
                 />
               </>
             )}
+            {props.isAdvisor && (
+              <CommonButton
+                theme={'transparent'}
+                title={'ورود به پنل مشاوره'}
+                onPress={() => props.setMode('advisorPanel')}
+              />
+            )}
+            <CommonButton
+              theme={'transparent'}
+              title={commonTranslator.educationalHistory}
+              onPress={() =>
+                window.open('/studentEducationalHistory/' + props.selectedId)
+              }
+            />
           </PhoneView>
         </LargePopUp>
       )}

@@ -2,10 +2,10 @@ import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {generalRequest} from '../../API/Utility';
 import Card from '../../screens/panel/quiz/components/Card/Card';
-import {MyView, PhoneView} from '../../styles/Common';
+import {MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {FontIcon} from '../../styles/Common/FontIcon';
 import Basket from './Basket';
-import {dispatchStateContext} from '../../App';
+import {dispatchStateContext, globalStateContext} from '../../App';
 import {styles} from '../../styles/Common/Styles';
 import {getDevice} from '../../services/Utility';
 
@@ -14,9 +14,12 @@ function Quizzes(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
 
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
 
-  const [dispatch] = useGlobalState();
+  const [state, dispatch] = useGlobalState();
 
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
@@ -73,7 +76,7 @@ function Quizzes(props) {
     props.setLoading(true);
 
     Promise.all([
-      generalRequest(props.fetchUrl, 'get', undefined, 'data', props.token),
+      generalRequest(props.fetchUrl, 'get', undefined, 'data', state.token),
     ]).then(res => {
       props.setLoading(false);
       setIsWorking(false);
@@ -97,7 +100,14 @@ function Quizzes(props) {
       });
       if (props.setQuizzes !== undefined) props.setQuizzes(res[0].items);
     });
-  }, [props, isWorking, quizzes, dispatch]);
+  }, [props, isWorking, quizzes, dispatch, state.token]);
+
+  const [viewableItems, setViewableItems] = useState();
+
+  React.useEffect(() => {
+    if (quizzes === undefined) return;
+    setViewableItems(quizzes.slice(0, 12));
+  }, [quizzes]);
 
   return (
     <MyView
@@ -129,13 +139,57 @@ function Quizzes(props) {
         )}
       </PhoneView>
       <PhoneView style={isInPhone ? {width: '100%', gap: 10} : {gap: 15}}>
-        {quizzes !== undefined &&
-          quizzes.map((quiz, index) => {
+        {viewableItems !== undefined &&
+          viewableItems.map((quiz, index) => {
+            if (
+              quiz.generalMode !== undefined &&
+              quiz.generalMode === 'onlineStanding'
+            )
+              return (
+                <Card
+                  onClick={() =>
+                    state.token === undefined || state.token === null
+                      ? window.open('/login')
+                      : window.open(
+                          '/onlineStandingQuizRegistration/' + quiz.id,
+                        )
+                  }
+                  selectText={
+                    state.token === undefined || state.token === null
+                      ? 'ورود برای ثبت نام'
+                      : 'رفتن به صفحه ثبت نام'
+                  }
+                  quiz={quiz}
+                  key={index}
+                />
+              );
+
             return (
               <Card onClick={toggleSelectedItems} quiz={quiz} key={index} />
             );
           })}
       </PhoneView>
+      {viewableItems !== undefined && viewableItems.length < quizzes.length && (
+        <SimpleText
+          text={'نمایش بیشتر'}
+          style={{
+            ...styles.alignSelfCenter,
+            ...styles.cursor_pointer,
+            ...styles.BlueBold,
+            ...styles.fontSize20,
+            ...styles.margin25,
+          }}
+          onPress={() => {
+            setViewableItems(
+              quizzes.slice(
+                0,
+                Math.min(viewableItems.length + 6, quizzes.length),
+              ),
+            );
+          }}
+        />
+      )}
+
       <Basket
         total={
           props.noSelectAll !== undefined && props.noSelectAll

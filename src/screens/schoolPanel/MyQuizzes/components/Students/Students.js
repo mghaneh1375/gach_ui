@@ -47,7 +47,10 @@ const Students = props => {
 
     Promise.all([
       generalRequest(
-        routes.getParticipants + 'school/' + state.selectedQuiz.id,
+        routes.getParticipants +
+          props.generalQuizMode +
+          '/' +
+          state.selectedQuiz.id,
         'get',
         undefined,
         'students',
@@ -148,7 +151,10 @@ const Students = props => {
 
     Promise.all([
       generalRequest(
-        routes.forceRegistry + 'school/' + state.selectedQuiz.id,
+        routes.forceRegistry +
+          props.generalQuizMode +
+          '/' +
+          state.selectedQuiz.id,
         'put',
         {
           items: selectedStudents.map(elem => {
@@ -260,7 +266,10 @@ const Students = props => {
               setData={setStudents}
               removeUrl={
                 state.selectedQuiz.status === 'init'
-                  ? routes.forceDeportation + 'school/' + state.selectedQuiz.id
+                  ? routes.forceDeportation +
+                    props.generalQuizMode +
+                    '/' +
+                    state.selectedQuiz.id
                   : undefined
               }
             />

@@ -96,7 +96,7 @@ function List(props) {
   const isInPhone = device.indexOf('WebPort') !== -1;
 
   return (
-    <MyView>
+    <MyView style={!isInPhone ? {minHeight: '130vh'} : {}}>
       {!registered && (
         <PhoneView
           style={

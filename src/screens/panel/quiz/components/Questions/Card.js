@@ -7,6 +7,7 @@ import Question from '../../../question/components/Detail/Question';
 import React, {useState} from 'react';
 import commonTranslator from '../../../../../translator/Common';
 import {dispatchQuizContext, quizContext} from '../Context';
+import EscapeQuestion from '../../../question/components/Detail/EscapeQuestion';
 
 function Card(props) {
   const [isSelected, setIsSelected] = useState(false);
@@ -38,25 +39,35 @@ function Card(props) {
         />
       )}
       <MyView style={{width: '90%'}}>
-        <Question
-          dispatch={dispatch}
-          needOps={false}
-          question={props.question}
-          totalQuestions={props.totalQuestions}
-          btns={
-            props.needUpdate !== undefined && !props.needUpdate
-              ? []
-              : [
-                  {
-                    theme: 'dark',
-                    title: commonTranslator.edit,
-                    onPress: question => {
-                      props.setSelectedQuestion(question);
+        {state.selectedQuiz.generalMode !== 'escape' && (
+          <Question
+            dispatch={dispatch}
+            needOps={false}
+            question={props.question}
+            totalQuestions={props.totalQuestions}
+            btns={
+              props.needUpdate !== undefined && !props.needUpdate
+                ? []
+                : [
+                    {
+                      theme: 'dark',
+                      title: commonTranslator.edit,
+                      onPress: question => {
+                        props.setSelectedQuestion(question);
+                      },
                     },
-                  },
-                ]
-          }
-        />
+                  ]
+            }
+          />
+        )}
+        {state.selectedQuiz.generalMode === 'escape' && (
+          <EscapeQuestion
+            dispatch={dispatch}
+            needOps={false}
+            question={props.question}
+            totalQuestions={props.totalQuestions}
+          />
+        )}
       </MyView>
     </PhoneView>
   );

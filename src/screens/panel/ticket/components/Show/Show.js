@@ -100,6 +100,7 @@ function Show(props) {
               return (
                 <Chat
                   pic={elem.isForUser ? studentPic : elem.responder.pic}
+                  name={elem.isForUser ? undefined : elem.responder.name}
                   {...elem}
                   key={key}
                   isHtml={props.ticket.section === 'access'}

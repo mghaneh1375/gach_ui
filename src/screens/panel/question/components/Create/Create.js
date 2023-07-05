@@ -18,7 +18,11 @@ import {
   sentencesCountKeyVals,
 } from '../KeyVals';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {changeText, showError} from '../../../../../services/Utility';
+import {
+  changeText,
+  showError,
+  trueFalseValues,
+} from '../../../../../services/Utility';
 import {styleGap10Wrap} from '../Detail/style';
 import commonTranslator from '../../../../../translator/Common';
 import MultiSentenceType from './MultiSentenceType';
@@ -50,6 +54,7 @@ function Create(props) {
       setLevel(state.selectedQuestion.level);
       setYear(state.selectedQuestion.year);
       setTags(state.selectedQuestion.tags);
+      setIsPublic(state.selectedQuestion.isPublic);
       setVisibility(state.selectedQuestion.visibility);
       setOrganizationId(state.selectedQuestion.organizationId);
 
@@ -103,6 +108,7 @@ function Create(props) {
   const [tags, setTags] = useState([]);
   const [year, setYear] = useState();
   const [organizationId, setOrganizationId] = useState();
+  const [isPublic, setIsPublic] = useState();
 
   const [questionFile, setQuestionFile] = useState();
   const [answerFile, setAnswerFile] = useState();
@@ -173,6 +179,7 @@ function Create(props) {
       organizationId: organizationId,
       kindQuestion: type,
       visibility: visibility,
+      isPublic: isPublic,
     };
 
     if (type === 'tashrihi') data.neededLine = neededLine;
@@ -307,6 +314,15 @@ function Create(props) {
             values={statusKeyVals}
             value={statusKeyVals.find(elem => elem.id === visibility)}
           />
+
+          <JustBottomBorderSelect
+            placeholder={translator.isPublic}
+            subText={translator.isPublic}
+            setter={setIsPublic}
+            values={trueFalseValues}
+            value={trueFalseValues.find(elem => elem.id === isPublic)}
+          />
+
           <JustBottomBorderSelect
             placeholder={translator.level}
             subText={translator.level}

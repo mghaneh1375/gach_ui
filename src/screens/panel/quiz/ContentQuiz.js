@@ -3,7 +3,11 @@ import List from './components/List';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import Students from './components/Students/Students';
 import Questions from './components/Questions/Questions';
-import {QuizProvider} from './components/Context';
+import {
+  dispatchQuizContext,
+  quizContext,
+  QuizProvider,
+} from './components/Context';
 import Key from './components/Key/Key';
 import Ranking from './components/Reports/Ranking/Ranking';
 import Karname from './components/Reports/Karname/Karname';
@@ -66,7 +70,13 @@ const ContentQuiz = props => {
           />
         )}
         {mode === 'key' && (
-          <Key setLoading={setLoading} setMode={setMode} token={state.token} />
+          <Key
+            stateContext={quizContext}
+            dispatchStateContext={dispatchQuizContext}
+            setLoading={setLoading}
+            setMode={setMode}
+            token={state.token}
+          />
         )}
         {mode === 'student' && (
           <Students

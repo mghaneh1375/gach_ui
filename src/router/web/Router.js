@@ -41,7 +41,6 @@ export default function WebRouter() {
             path="packages/:slug/:sessionId"
             element={<WebStructue page="packages" />}
           />
-
           <Route path="myNotifs" element={<WebStructue page="notif" />} />
           <Route path="notif/:id" element={<WebStructue page="notif" />} />
           <Route path="barcodes" element={<WebStructue page="barcodes" />} />
@@ -58,46 +57,76 @@ export default function WebRouter() {
             path="recp/:transactionId"
             element={<WebStructue page="recp" />}
           />
-
           <Route
             path="myIRYSCQuizzes/:mode"
             element={<WebStructue page="myIRYSCQuizzes" />}
           />
-
           <Route
             path="myIRYSCQuizzes"
             element={<WebStructue page="myIRYSCQuizzes" />}
           />
-
           <Route
             path="myCustomQuizzes"
             element={<WebStructue page="myCustomQuizzes" />}
           />
-
           <Route
             path="mySchool/quiz"
             element={<WebStructue page="schoolQuiz" />}
           />
+          <Route path="mySchool/hw" element={<WebStructue page="schoolHW" />} />
+          <Route
+            path="myAdvisor/quiz"
+            element={<WebStructue page="advisorQuiz" />}
+          />
+          <Route path="chatRoom" element={<WebStructue page="chatRoom" />} />
+          <Route
+            path="studentEducationalHistory/:userId"
+            element={<WebStructue page="studentEducationalHistory" />}
+          />
+
+          <Route
+            path="mySchedules"
+            element={<WebStructue page="mySchedules" />}
+          />
+
+          <Route
+            path="studentSchedules/:studentId"
+            element={<WebStructue page="studentSchedules" />}
+          />
+
+          <Route
+            path="myLifeStyle"
+            element={<WebStructue page="myLifeStyle" />}
+          />
+
+          <Route
+            path="studentLifeStyle/:studentId"
+            element={<WebStructue page="studentLifeStyle" />}
+          />
+
+          <Route
+            path="myFinancePlans"
+            element={<WebStructue page="myFinancePlans" />}
+          />
 
           <Route path="advisors" element={<WebStructue page="advisors" />} />
-
+          <Route path="myAdvisor" element={<WebStructue page="myAdvisor" />} />
           <Route
             path="requestLogsForAdvisors"
             element={<WebStructue page="requestLogsForAdvisors" />}
           />
-
           <Route
             path="myStudentRequests"
             element={<WebStructue page="myStudentRequests" />}
           />
-
-          <Route path="mySchool/hw" element={<WebStructue page="schoolHW" />} />
-
           <Route
             path="mySchoolQuizzes"
             element={<WebStructue page="mySchoolQuizzes" />}
           />
-
+          <Route
+            path="mySchoolHWs"
+            element={<WebStructue page="mySchoolHWs" />}
+          />
           <Route path="/upgrade" element={<WebStructue page="upgrade" />} />
           <Route
             path="/upgrade/:userId"
@@ -111,6 +140,10 @@ export default function WebRouter() {
           <Route path="/profile" element={<WebStructue page="profile" />} />
           <Route path="/cert" element={<WebStructue page="cert" />} />
           <Route path="/question" element={<WebStructue page="question" />} />
+          <Route
+            path="/spec-question"
+            element={<WebStructue page="spec-question" />}
+          />
           <Route path="/offs" element={<WebStructue page="offs" />} />
           <Route path="/ticket" element={<WebStructue page="ticket" />} />
           <Route
@@ -141,14 +174,11 @@ export default function WebRouter() {
             path="/showAnswerSheet/:generalQuizMode/:quizId/:mode/:id"
             element={<WebStructue page="showAnswerSheet" />}
           />
-
           <Route path="/myTasks" element={<WebStructue page="myTasks" />} />
-
           <Route
             path="/invoice/:refId"
             element={<WebStructue page="invoice" />}
           />
-
           <Route
             path="/finantialReport"
             element={<WebStructue page="finantialReport" />}
@@ -157,14 +187,11 @@ export default function WebRouter() {
             path="/generalConfiguration"
             element={<WebStructue page="generalConfiguration" />}
           />
-
           <Route
             path="/validateCertification/:certId"
             element={<WebStructue page="validateCert" />}
           />
-
           <Route path="/myCerts" element={<WebStructue page="myCerts" />} />
-
           <Route
             path="/certificateConfiguration"
             element={<WebStructue page="certificateConfiguration" />}
@@ -190,6 +217,11 @@ export default function WebRouter() {
             path="/seo-contents"
             element={<WebStructue page="seo-contents" />}
           />
+          <Route
+            path="/contents-teacher"
+            element={<WebStructue page="contents-teacher" />}
+          />
+
           <Route path="/notifs/:mode" element={<WebStructue page="notifs" />} />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route
@@ -224,24 +256,27 @@ export default function WebRouter() {
           />
           <Route path="/teachers" element={<WebStructue page="teachers" />} />
           <Route path="/charge" element={<WebStructue page="charge" />} />
-
           <Route path="/myOffs" element={<WebStructue page="myOffs" />} />
-
           <Route
             path="/startQuiz/:quizMode/:quizId"
             element={<WebStructue page="startQuiz" />}
           />
-
+          <Route
+            path="/onlineStandingQuizRegistration/:quizId"
+            element={<WebStructue page="onlineStandingQuizRegistration" />}
+          />
+          <Route
+            path="/startHW/:hwId"
+            element={<WebStructue page="startHW" />}
+          />
           <Route
             path="/reviewQuiz/:quizMode/:quizId"
             element={<WebStructue page="reviewQuiz" />}
           />
-
           <Route
             path="/checkCert/:certId/:NID"
             element={<WebStructue page="checkCert" />}
           />
-
           <Route
             path="/acceptInvite/:reqId"
             element={<WebStructue page="acceptInvite" />}

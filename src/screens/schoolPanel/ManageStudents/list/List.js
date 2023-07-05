@@ -50,7 +50,11 @@ function List(props) {
             setData={setData}
             handleOp={handleOp}
             setLoading={props.setLoading}
-            removeUrl={routes.removeStudents}
+            removeUrl={
+              props.isAdvisor
+                ? routes.removeStudentsByAdvisor
+                : routes.removeStudents
+            }
             token={props.token}
           />
         )}

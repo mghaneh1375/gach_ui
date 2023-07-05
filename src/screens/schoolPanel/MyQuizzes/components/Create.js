@@ -29,11 +29,17 @@ const Create = props => {
   }, [props]);
 
   React.useEffect(() => {
-    if (props.editMode === undefined || !props.editMode) return;
+    if (props.editMode === undefined || !props.editMode) {
+      dispatch({selectedQuiz: undefined});
+      return;
+    }
     if (state.selectedQuiz === undefined) {
       backToList();
       return;
     }
+
+    if (state.selectedQuiz.payByStudent !== undefined)
+      setPayByStudent(state.selectedQuiz.payByStudent);
 
     setName(state.selectedQuiz.title);
     setLaunchMode(state.selectedQuiz.launchMode);
@@ -47,7 +53,7 @@ const Create = props => {
     setShowResultsAfterCorrection(
       state.selectedQuiz.showResultsAfterCorrection,
     );
-  }, [state.selectedQuiz, props.editMode, backToList]);
+  }, [state.selectedQuiz, dispatch, props.editMode, backToList]);
 
   const [name, setName] = useState('');
   const [useFromDatabase, setUseFromDatabase] = useState(false);
@@ -84,7 +90,12 @@ const Create = props => {
 
   const removeUploadedAttach = async filename => {
     props.setLoading(true);
-    let res = await removeFile(props.token, filename, state.selectedQuiz.id);
+    let res = await removeFile(
+      props.token,
+      filename,
+      state.selectedQuiz.id,
+      'school',
+    );
     props.setLoading(false);
     if (res === null) return;
     let tmp = [];
@@ -207,6 +218,7 @@ const Create = props => {
             launchMode={launchMode}
             minusMark={minusMark}
             setMinusMark={setMinusMark}
+            status={state.selectedQuiz?.status}
             showResultsAfterCorrection={showResultsAfterCorrection}
             setShowResultsAfterCorrection={setShowResultsAfterCorrection}
           />

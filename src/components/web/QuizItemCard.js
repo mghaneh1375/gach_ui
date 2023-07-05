@@ -12,6 +12,8 @@ function QuizItemCard({
   background,
   iconFontSize,
   color,
+  iconVal,
+  iconColor,
 }) {
   if (val === undefined || val === '' || val === '...') return <></>;
   return (
@@ -46,14 +48,23 @@ function QuizItemCard({
           }}
           text={text}
         />
-        <SimpleText
-          style={{
-            fontSize: valFontSize,
-            ...styles.BlueBold,
-            ...styles.alignSelfStart,
-          }}
-          text={val}
-        />
+        {val !== 'icon' && (
+          <SimpleText
+            style={{
+              fontSize: valFontSize,
+              ...styles.BlueBold,
+              ...styles.alignSelfStart,
+            }}
+            text={val}
+          />
+        )}
+        {val === 'icon' && (
+          <SimpleFontIcon
+            style={{color: iconColor}}
+            kind={'normal'}
+            icon={iconVal}
+          />
+        )}
       </MyView>
     </PhoneView>
   );

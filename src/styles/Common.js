@@ -352,6 +352,7 @@ export const CommonRadioButton = props => (
                   props.style === undefined || props.style.color === undefined
                     ? 'black'
                     : props.style.color,
+                alignSelf: 'center',
               }
         }
         text={props.text}

@@ -42,7 +42,11 @@ const Chat = props => {
               marginLeft: 10,
               marginRight: 15,
             }}
-            text={props.createdAt}
+            text={
+              props.name === undefined
+                ? props.createdAt
+                : props.createdAt + ' - ' + props.name
+            }
           />
         </PhoneView>
         {props.isHtml && (

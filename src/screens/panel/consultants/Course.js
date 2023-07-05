@@ -34,6 +34,16 @@ function Course(props) {
           navigate={navigate}
           setLoading={setLoading}
           token={state.token}
+          isInEditMode={false}
+        />
+      )}
+      {mode === 'edit' && (
+        <Create
+          setMode={setMode}
+          navigate={navigate}
+          setLoading={setLoading}
+          token={state.token}
+          isInEditMode={true}
         />
       )}
     </CourseProvider>

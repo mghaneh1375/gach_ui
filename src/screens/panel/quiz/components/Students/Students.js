@@ -5,6 +5,7 @@ import {
   PhoneView,
   MyView,
   CommonRadioButton,
+  SimpleText,
 } from '../../../../../styles/Common';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../translator/Common';
@@ -14,13 +15,18 @@ import {routes} from '../../../../../API/APIRoutes';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import ExcelComma from '../../../../../components/web/ExcelCommaInput';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import columns, {columnsForQRTashtihi} from './TableStructure';
+import columns, {
+  columnsForMember,
+  columnsForOnlineStanding,
+  columnsForQRTashtihi,
+} from './TableStructure';
 import {columnsForTashtihi} from './TableStructure';
 import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
 import {changeText, showSuccess} from '../../../../../services/Utility';
 import {getAnswerSheets, removeStudents} from '../Utility';
 import {dispatchQuizContext, quizContext} from '../Context';
 import StudentAnswerSheet from '../AnswerSheet/StudentAnswerSheet';
+import {styles} from '../../../../../styles/Common/Styles';
 
 const Students = props => {
   const useGlobalState = () => [
@@ -33,6 +39,7 @@ const Students = props => {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedSudent, setSelectedStudent] = useState(undefined);
   const [paid, setPaid] = useState();
+  const [teamName, setTeamName] = useState();
 
   const afterAdd = items => {
     if (items === undefined) return;
@@ -187,7 +194,7 @@ const Students = props => {
           dispatch={dispatch}
         />
       )}
-      {showOpPopUp && (
+      {showOpPopUp && state.selectedQuiz.generalMode !== 'onlineStanding' && (
         <LargePopUp
           toggleShowPopUp={toggleShowOpPopUp}
           title={state.selectedQuiz.title}>
@@ -198,6 +205,95 @@ const Students = props => {
               theme={'transparent'}
               title={translator.deleteStudent}
             />
+            {state.selectedQuiz.generalMode !== 'escape' && (
+              <CommonButton
+                onPress={() => prepareShowAnswerSheet()}
+                dir={'rtl'}
+                theme={'transparent'}
+                title={'مشاهده پاسخ برگ'}
+              />
+            )}
+          </PhoneView>
+        </LargePopUp>
+      )}
+      {showOpPopUp && state.selectedQuiz.generalMode === 'onlineStanding' && (
+        <CommonWebBox
+          backBtn={true}
+          onBackClick={() => toggleShowOpPopUp()}
+          header={state.selectedQuiz.title}>
+          {selectedSudent !== undefined && selectedSudent.team !== undefined && (
+            <>
+              <SimpleText
+                style={{...styles.BlueBold, ...styles.margin15}}
+                text={translator.members}
+              />
+              <ExcelComma
+                header={translator.addStudent}
+                placeholder={commonTranslator.NIDs}
+                help={commonTranslator.NIDHelp}
+                newItems={
+                  foundUser === undefined ? [] : foundUser.map(elem => elem.NID)
+                }
+                setNewItems={setFoundUser}
+                setLoading={props.setLoading}
+                onSearchClick={() => setShowSearchUser(true)}
+                token={props.token}
+                url={
+                  routes.onlineStandingAddMember +
+                  state.selectedQuiz.id +
+                  '/' +
+                  selectedSudent.id
+                }
+                afterAddingCallBack={items => {
+                  state.selectedQuiz.students = undefined;
+                  dispatch({selectedQuiz: state.selectedQuiz});
+                  props.setMode('list');
+                }}></ExcelComma>
+              <CommonDataTable
+                groupOps={[
+                  {
+                    key: 'setMainMember',
+                    url:
+                      routes.onlineStandingChangeMainMember +
+                      state.selectedQuiz.id +
+                      '/' +
+                      selectedSudent.id,
+                    method: 'put',
+                    label: 'انتخاب به عنوان نفر اصلی',
+                    warning: translator.sureChangeMainMember,
+                    afterFunc: arr => {
+                      state.selectedQuiz.students = undefined;
+                      dispatch({selectedQuiz: state.selectedQuiz});
+                      props.setMode('list');
+                    },
+                  },
+                  {
+                    key: 'removeMember',
+                    url:
+                      routes.onlineStandingRemoveMember +
+                      state.selectedQuiz.id +
+                      '/' +
+                      selectedSudent.id,
+                    method: 'delete',
+                    label: 'حذف عضو/اعضا',
+                    warning: commonTranslator.sureRemove,
+                    afterFunc: arr => {
+                      state.selectedQuiz.students = undefined;
+                      dispatch({selectedQuiz: state.selectedQuiz});
+                      props.setMode('list');
+                    },
+                  },
+                ]}
+                setLoading={props.setLoading}
+                token={props.token}
+                columns={columnsForMember}
+                data={selectedSudent.team}
+                pagination={false}
+                excel={false}
+              />
+            </>
+          )}
+          <PhoneView style={{gap: 20}}>
             <CommonButton
               onPress={() => prepareShowAnswerSheet()}
               dir={'rtl'}
@@ -205,94 +301,119 @@ const Students = props => {
               title={'مشاهده پاسخ برگ'}
             />
           </PhoneView>
-        </LargePopUp>
+        </CommonWebBox>
       )}
-      {!showAnswerSheet && (
-        <MyView>
-          <SearchUser
-            setFinalResult={setFoundUser}
-            setShow={setShowSearchUser}
-            token={props.token}
-            setLoading={props.setLoading}
-            show={showSearchUser}
-          />
-          <CommonWebBox
-            backBtn={true}
-            onBackClick={() => props.setMode('list')}
-            header={translator.studentsListInQuiz}>
-            <ExcelComma
-              header={translator.addStudent}
-              placeholder={commonTranslator.NIDs}
-              help={commonTranslator.NIDHelp}
-              newItems={
-                foundUser === undefined ? [] : foundUser.map(elem => elem.NID)
-              }
-              setNewItems={setFoundUser}
-              setLoading={props.setLoading}
-              onSearchClick={() => setShowSearchUser(true)}
+      {!showAnswerSheet &&
+        (!showOpPopUp ||
+          state.selectedQuiz.generalMode !== 'onlineStanding') && (
+          <MyView>
+            <SearchUser
+              setFinalResult={setFoundUser}
+              setShow={setShowSearchUser}
               token={props.token}
-              url={
-                routes.forceRegistry +
-                state.selectedQuiz.generalMode +
-                '/' +
-                state.selectedQuiz.id
-              }
-              afterAddingCallBack={afterAdd}
-              additionalData={{paid: paid}}
-              mandatoryFields={['paid']}>
-              <MyView style={{marginBottom: 10}}>
-                <JustBottomBorderTextInput
-                  justNum={true}
-                  value={paid}
-                  onChangeText={e => changeText(e, setPaid)}
-                  placeholder={commonTranslator.paid}
-                />
-              </MyView>
-            </ExcelComma>
-            <CommonRadioButton
-              status={showJustRate ? 'checked' : 'unchecked'}
-              onPress={() => {
-                setShowJustRate(true);
-                setData(
-                  state.selectedQuiz.students.filter(e => e.rate !== undefined),
-                );
-              }}
-              text={'فقط افراد دارای امتیاز را نمایش بده'}
+              setLoading={props.setLoading}
+              show={showSearchUser}
             />
-            <CommonRadioButton
-              status={showJustRate ? 'unchecked' : 'checked'}
-              onPress={() => {
-                setShowJustRate(false);
-                setData(state.selectedQuiz.students);
-              }}
-              text={'نمایش همه افراد'}
-            />
-            {data !== undefined && (
-              <CommonDataTable
-                columns={
-                  state.selectedQuiz.mode === 'tashrihi'
-                    ? state.selectedQuiz.isQRNeeded !== undefined &&
-                      state.selectedQuiz.isQRNeeded
-                      ? columnsForQRTashtihi
-                      : columnsForTashtihi
-                    : columns
+            <CommonWebBox
+              backBtn={true}
+              onBackClick={() => props.setMode('list')}
+              header={translator.studentsListInQuiz}>
+              <ExcelComma
+                header={translator.addStudent}
+                placeholder={commonTranslator.NIDs}
+                help={commonTranslator.NIDHelp}
+                newItems={
+                  foundUser === undefined ? [] : foundUser.map(elem => elem.NID)
                 }
-                data={data}
-                handleOp={handleOp}
+                setNewItems={setFoundUser}
                 setLoading={props.setLoading}
+                onSearchClick={() => setShowSearchUser(true)}
                 token={props.token}
-                setData={setStudents}
-                removeUrl={
-                  routes.forceDeportation +
-                  state.selectedQuiz.generalMode +
-                  '/' +
-                  state.selectedQuiz.id
+                url={
+                  state.selectedQuiz.generalMode === 'onlineStanding'
+                    ? routes.onlineStandingForceRegistry + state.selectedQuiz.id
+                    : routes.forceRegistry +
+                      state.selectedQuiz.generalMode +
+                      '/' +
+                      state.selectedQuiz.id
                 }
+                afterAddingCallBack={afterAdd}
+                additionalData={
+                  state.selectedQuiz.generalMode === 'onlineStanding'
+                    ? {paid: paid, teamName: teamName}
+                    : {paid: paid}
+                }
+                mandatoryFields={
+                  state.selectedQuiz.generalMode === 'onlineStanding'
+                    ? ['paid', 'teamName']
+                    : ['paid']['paid']
+                }>
+                <PhoneView style={{marginBottom: 10, gap: 10}}>
+                  {state.selectedQuiz.generalMode === 'onlineStanding' && (
+                    <JustBottomBorderTextInput
+                      value={teamName}
+                      onChangeText={e => setTeamName(e)}
+                      placeholder={translator.teamName}
+                      subText={translator.teamName}
+                    />
+                  )}
+                  <JustBottomBorderTextInput
+                    justNum={true}
+                    value={paid}
+                    onChangeText={e => changeText(e, setPaid)}
+                    placeholder={commonTranslator.paid}
+                    subText={commonTranslator.paid}
+                  />
+                </PhoneView>
+              </ExcelComma>
+              <CommonRadioButton
+                status={showJustRate ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  setShowJustRate(true);
+                  setData(
+                    state.selectedQuiz.students.filter(
+                      e => e.rate !== undefined,
+                    ),
+                  );
+                }}
+                text={'فقط افراد دارای امتیاز را نمایش بده'}
               />
-            )}
-          </CommonWebBox>
-        </MyView>
-      )}
+              <CommonRadioButton
+                status={showJustRate ? 'unchecked' : 'checked'}
+                onPress={() => {
+                  setShowJustRate(false);
+                  setData(state.selectedQuiz.students);
+                }}
+                text={'نمایش همه افراد'}
+              />
+              {data !== undefined && (
+                <CommonDataTable
+                  columns={
+                    state.selectedQuiz.generalMode === 'onlineStanding'
+                      ? columnsForOnlineStanding
+                      : state.selectedQuiz.mode === 'tashrihi'
+                      ? state.selectedQuiz.isQRNeeded !== undefined &&
+                        state.selectedQuiz.isQRNeeded
+                        ? columnsForQRTashtihi
+                        : columnsForTashtihi
+                      : columns
+                  }
+                  data={data}
+                  handleOp={handleOp}
+                  setLoading={props.setLoading}
+                  token={props.token}
+                  setData={setStudents}
+                  removeUrl={
+                    routes.forceDeportation +
+                    state.selectedQuiz.generalMode +
+                    '/' +
+                    state.selectedQuiz.id
+                  }
+                />
+              )}
+            </CommonWebBox>
+          </MyView>
+        )}
     </MyView>
   );
 };

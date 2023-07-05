@@ -4,6 +4,7 @@ export const Translator = {
   sessionsCount: 'تعداد جلسات',
   chaptersCount: 'تعداد فصول',
   cert: 'گواهی دوره',
+  certDuration: 'مهلت کسب گواهی',
   teacher: 'نام استاد',
   teacherBio: 'درباره مدرس',
   select: 'انتخاب دوره',

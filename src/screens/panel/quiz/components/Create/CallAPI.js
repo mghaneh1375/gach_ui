@@ -11,6 +11,32 @@ const IRYSCMandatoryFields = [
   'priority',
 ];
 
+const OnlineStandingMandatoryFields = [
+  'title',
+  'startRegistry',
+  'start',
+  'price',
+  'end',
+  'endRegistry',
+  'maxTeams',
+  'perTeam',
+  'priority',
+];
+
+const EscapeQuizMandatoryFields = [
+  'title',
+  'startRegistry',
+  'start',
+  'price',
+  'end',
+  'endRegistry',
+  'capacity',
+  'priority',
+  'topStudentsCount',
+  'maxTry',
+  'shouldComplete',
+];
+
 const SchoolMandatoryFields = [
   'title',
   'start',
@@ -18,6 +44,15 @@ const SchoolMandatoryFields = [
   'launchMode',
   'showResultsAfterCorrection',
   'database',
+];
+
+const HWMandatoryFields = [
+  'title',
+  'start',
+  'end',
+  'showResultsAfterCorrection',
+  'answerType',
+  'maxUploadSize',
 ];
 
 const OpenMandatoryFields = ['title', 'price'];
@@ -34,8 +69,14 @@ export async function CallAPI(data, url, token, mode, kind = 'regular') {
       ? TashrihiMandatoryFields
       : mode === 'irysc'
       ? IRYSCMandatoryFields
+      : mode === 'onlineStanding'
+      ? OnlineStandingMandatoryFields
       : mode === 'school'
       ? SchoolMandatoryFields
+      : mode === 'escape'
+      ? EscapeQuizMandatoryFields
+      : mode === 'hw'
+      ? HWMandatoryFields
       : 'content'
       ? ContentMandatoryFields
       : OpenMandatoryFields;

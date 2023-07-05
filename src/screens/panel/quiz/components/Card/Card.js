@@ -20,6 +20,7 @@ import {
   styleColorWhite,
 } from './../../../package/card/Style';
 import {
+  convertSecToMin,
   convertSecToMinWithOutSec,
   convertTimestamp,
   formatPrice,
@@ -88,6 +89,10 @@ function Card(props) {
                   props.quiz.mode !== undefined &&
                   props.quiz.mode === 'tashrihi'
                     ? 'آزمون تشریحی'
+                    : props.quiz.maxTeams !== undefined
+                    ? 'پای تخته'
+                    : props.quiz.generalMode === 'escape'
+                    ? 'آزمون فرار'
                     : 'آزمون باز'
                 }
               />
@@ -105,21 +110,44 @@ function Card(props) {
       <MyView style={{...styleItemsGrandParent, ...styles.gap15}}>
         {!showMore && (
           <PhoneView style={{...styleItemsParent, ...styles.gap15}}>
-            {props.quiz.reminder !== undefined && (
+            {props.quiz.reportStatus !== 'ready' &&
+              props.quiz.status !== 'finished' &&
+              props.quiz.reminder !== undefined &&
+              props.quiz.maxTeams === undefined && (
+                <QuizItemCard
+                  text={Translate.reminder}
+                  val={props.quiz.reminder}
+                  icon={faPlug}
+                  textFontSize={fontSize}
+                  valFontSize={valFontSize}
+                />
+              )}
+            {props.quiz.mode !== undefined &&
+              props.quiz.generalMode !== 'escape' && (
+                <QuizItemCard
+                  text={Translate.kind}
+                  val={
+                    kindQuizKeyVals.find(elem => elem.id === props.quiz.mode)
+                      .item
+                  }
+                  icon={faInfo}
+                  textFontSize={fontSize}
+                  valFontSize={valFontSize}
+                />
+              )}
+            {props.quiz.maxTeams !== undefined && (
               <QuizItemCard
                 text={Translate.reminder}
                 val={props.quiz.reminder}
-                icon={faPlug}
+                icon={faInfo}
                 textFontSize={fontSize}
                 valFontSize={valFontSize}
               />
             )}
-            {props.quiz.mode !== undefined && (
+            {props.quiz.perTeam !== undefined && (
               <QuizItemCard
-                text={Translate.kind}
-                val={
-                  kindQuizKeyVals.find(elem => elem.id === props.quiz.mode).item
-                }
+                text={Translate.perTeam}
+                val={props.quiz.perTeam}
                 icon={faInfo}
                 textFontSize={fontSize}
                 valFontSize={valFontSize}
@@ -209,20 +237,26 @@ function Card(props) {
                 textFontSize={fontSize}
                 valFontSize={fontSize}
               />
-              <QuizItemCard
-                text={Translate.startRegistery}
-                val={convertTimestamp(props.quiz.startRegistry)}
-                icon={faPlug}
-                textFontSize={fontSize}
-                valFontSize={fontSize}
-              />
-              <QuizItemCard
-                text={Translate.endRegistery}
-                val={convertTimestamp(props.quiz.endRegistry)}
-                icon={faPlug}
-                textFontSize={fontSize}
-                valFontSize={fontSize}
-              />
+              {props.quiz.reportStatus !== 'ready' &&
+                props.quiz.status !== 'finished' && (
+                  <QuizItemCard
+                    text={Translate.startRegistery}
+                    val={convertTimestamp(props.quiz.startRegistry)}
+                    icon={faPlug}
+                    textFontSize={fontSize}
+                    valFontSize={fontSize}
+                  />
+                )}
+              {props.quiz.reportStatus !== 'ready' &&
+                props.quiz.status !== 'finished' && (
+                  <QuizItemCard
+                    text={Translate.endRegistery}
+                    val={convertTimestamp(props.quiz.endRegistry)}
+                    icon={faPlug}
+                    textFontSize={fontSize}
+                    valFontSize={fontSize}
+                  />
+                )}
 
               {props.afterQuiz !== undefined && props.afterQuiz && (
                 <QuizItemCard
@@ -381,27 +415,32 @@ function Card(props) {
                 />
               </PhoneView>
             )}
-            <PhoneView>
-              <CommonButton
-                onPress={() => props.onClick(props.quiz.id)}
-                padding={isInPhone ? '5px 5px' : undefined}
-                textStyle={
-                  isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
-                    : {}
-                }
-                theme={
-                  props.quiz.isSelected !== undefined && props.quiz.isSelected
-                    ? 'yellow'
-                    : 'yellow-transparent'
-                }
-                title={
-                  props.quiz.isSelected !== undefined && props.quiz.isSelected
-                    ? commonTranslator.selected
-                    : commonTranslator.select
-                }
-              />
-            </PhoneView>
+            {props.onClick !== undefined && (
+              <PhoneView>
+                <CommonButton
+                  onPress={() => props.onClick(props.quiz.id)}
+                  padding={isInPhone ? '5px 5px' : undefined}
+                  textStyle={
+                    isInPhone
+                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      : {}
+                  }
+                  theme={
+                    props.quiz.isSelected !== undefined && props.quiz.isSelected
+                      ? 'yellow'
+                      : 'yellow-transparent'
+                  }
+                  title={
+                    props.selectText !== undefined
+                      ? props.selectText
+                      : props.quiz.isSelected !== undefined &&
+                        props.quiz.isSelected
+                      ? commonTranslator.selected
+                      : commonTranslator.select
+                  }
+                />
+              </PhoneView>
+            )}
           </PhoneView>
         )}
         {props.onSelect !== undefined && (

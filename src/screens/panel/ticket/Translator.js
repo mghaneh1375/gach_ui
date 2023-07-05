@@ -10,6 +10,7 @@ const translator = {
   titleSuggest: 'عنوان مربوطه',
   closedRequest: 'بسته شده',
   section: 'واحد',
+  advisor: 'مشاور',
   item: 'آیتم موردنظر',
   priority: 'ضرورت',
   dateStartRequest: 'بازه شروع درخواست از',

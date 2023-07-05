@@ -29,14 +29,12 @@ function Timer(props) {
   );
 
   React.useEffect(() => {
-    console.log('props reminder is ' + props.reminder);
     if (props.reminder !== undefined && localReminder_ === undefined) {
       localReminder_ = props.reminder;
     }
   }, [props.reminder]);
 
   const timer = React.useCallback(() => {
-    console.log('salam ' + props.refresh);
     const interval_id = window.setInterval(function () {},
     Number.MAX_SAFE_INTEGER);
 

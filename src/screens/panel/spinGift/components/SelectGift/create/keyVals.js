@@ -5,6 +5,7 @@ export const typeGiftKeyVals = [
   {item: commonTranslator.coin, id: 'coin'},
   {item: commonTranslator.money, id: 'money'},
   {item: commonTranslator.offcode, id: 'offcode'},
+  {item: 'آزاد', id: 'free'},
 ];
 export const offCodeKeyVals = [
   {item: commonTranslator.all, id: 'all'},

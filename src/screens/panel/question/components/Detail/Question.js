@@ -232,6 +232,18 @@ function Question(props) {
             />
           </PhoneView>
         )}
+        {props.question.isPublic !== undefined && (
+          <PhoneView>
+            <BlueTextInline
+              style={{...styleFont14}}
+              text={translator.isPublic}
+            />
+            <SimpleText
+              style={{...styleMarginRight25}}
+              text={props.question.isPublic ? 'بله' : 'خیر'}
+            />
+          </PhoneView>
+        )}
         {props.question.sentencesCount !== undefined && (
           <PhoneView>
             <BlueTextInline

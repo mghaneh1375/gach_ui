@@ -36,35 +36,36 @@ const QuizRegistryInfo = props => {
             justNum={true}
           />
         )}
-        {props.quizGeneralMode !== 'open' && (
-          <JustBottomBorderTextInput
-            subText={translator.capacity}
-            placeholder={translator.capacity}
-            value={props.capacity}
-            onChangeText={text => changeText(text, props.setCapacity)}
-            justNum={true}
-          />
-        )}
-      </PhoneView>
+        {props.quizGeneralMode !== 'open' &&
+          props.setCapacity !== undefined && (
+            <JustBottomBorderTextInput
+              subText={translator.capacity}
+              placeholder={translator.capacity}
+              value={props.capacity}
+              onChangeText={text => changeText(text, props.setCapacity)}
+              justNum={true}
+            />
+          )}
 
-      {start !== undefined &&
-        end !== undefined &&
-        props.quizGeneralMode !== 'open' && (
-          <PhoneView style={{gap: 10, marginBottom: 10}}>
-            <JustBottomBorderDatePicker
-              placeholder={translator.startRegistryDate}
-              subText={translator.startRegistryDate}
-              value={start}
-              setter={props.setStart}
-            />
-            <JustBottomBorderDatePicker
-              placeholder={translator.endRegistryDate}
-              subText={translator.endRegistryDate}
-              value={end}
-              setter={props.setEnd}
-            />
-          </PhoneView>
-        )}
+        {start !== undefined &&
+          end !== undefined &&
+          props.quizGeneralMode !== 'open' && (
+            <>
+              <JustBottomBorderDatePicker
+                placeholder={translator.startRegistryDate}
+                subText={translator.startRegistryDate}
+                value={start}
+                setter={props.setStart}
+              />
+              <JustBottomBorderDatePicker
+                placeholder={translator.endRegistryDate}
+                subText={translator.endRegistryDate}
+                value={end}
+                setter={props.setEnd}
+              />
+            </>
+          )}
+      </PhoneView>
     </MyView>
   );
 };

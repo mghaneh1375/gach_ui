@@ -46,6 +46,13 @@ function Basket(props) {
                   onPress={() => props.onBackClick()}
                 />
               )}
+            {props.disable && props.disableText && (
+              <SimpleText
+                style={{...styles.marginTop10, ...styles.red}}
+                text={props.disableText}
+              />
+            )}
+
             {(props.total !== undefined || props.label !== undefined) && (
               <SimpleText
                 style={{

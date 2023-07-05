@@ -8,8 +8,15 @@ import {dispatchQuizContext, quizContext} from './Context';
 import columns, {
   columnsForOpenQuiz,
   columnsForContentQuiz,
+  columnsForOnlineStanding,
 } from './TableStructure';
-import {getContentQuizzes, getOpenQuizzes, getQuizzes} from './Utility';
+import {
+  getContentQuizzes,
+  getEscapeQuizzes,
+  getOnlineStandingQuizzes,
+  getOpenQuizzes,
+  getQuizzes,
+} from './Utility';
 import ProSearch from './ProSearch';
 
 const List = props => {
@@ -31,6 +38,11 @@ const List = props => {
     Promise.all([
       props.generalMode !== undefined && props.generalMode === 'openQuiz'
         ? getOpenQuizzes(props.token)
+        : props.generalMode !== undefined &&
+          props.generalMode === 'onlineStanding'
+        ? getOnlineStandingQuizzes(props.token)
+        : props.generalMode === 'escape'
+        ? getEscapeQuizzes(props.token)
         : props.generalMode !== undefined && props.generalMode === 'contentQuiz'
         ? getContentQuizzes(props.token)
         : getQuizzes(props.token),
@@ -88,6 +100,8 @@ const List = props => {
                   : props.generalMode !== undefined &&
                     props.generalMode === 'contentQuiz'
                   ? columnsForContentQuiz
+                  : props.generalMode === 'onlineStanding'
+                  ? columnsForOnlineStanding
                   : columns
               }
               data={state.quizzes}
@@ -98,10 +112,11 @@ const List = props => {
               token={props.token}
               setLoading={props.setLoading}
               removeUrl={
-                props.generalMode === undefined ||
-                props.generalMode !== 'openQuiz'
+                props.generalMode === undefined || props.generalMode === 'irysc'
                   ? routes.removeIRYSCQuiz
-                  : routes.removeOpenQuiz
+                  : props.generalMode === 'openQuiz'
+                  ? routes.removeOpenQuiz
+                  : routes.removeQuiz + props.generalMode
               }
             />
           )}

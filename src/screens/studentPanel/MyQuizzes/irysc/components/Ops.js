@@ -210,37 +210,78 @@ function Ops(props) {
         <>
           {props.user.accesses.indexOf('student') !== -1 && (
             <PhoneView style={{gap: 10}}>
-              {state.selectedQuiz.status === 'finished' && (
-                <CommonButton
-                  onPress={() => prepareShowResult()}
-                  title={Translate.result}
-                  theme={'transparent'}
-                />
+              {state.selectedQuiz.status === 'finished' &&
+                state.selectedQuiz.generalMode !== 'onlineStanding' &&
+                state.selectedQuiz.generalMode !== 'escape' && (
+                  <>
+                    <CommonButton
+                      onPress={() => prepareShowResult()}
+                      title={Translate.result}
+                      theme={'transparent'}
+                    />
+                    <CommonButton
+                      onPress={() => prepareShowAnswerSheet()}
+                      title={Translate.answerSheet}
+                      theme={'transparent'}
+                    />
+                  </>
+                )}
+
+              {state.selectedQuiz.status === 'finished' &&
+                state.selectedQuiz.generalMode !== 'onlineStanding' && (
+                  <CommonButton
+                    onPress={() => prepareShowRanking()}
+                    title={Translate.ranking}
+                    theme={'transparent'}
+                  />
+                )}
+
+              {state.selectedQuiz.status === 'finished' &&
+                state.selectedQuiz.generalMode === 'onlineStanding' && (
+                  <CommonButton
+                    onPress={() =>
+                      props.navigate(
+                        '/ranking/onlineStanding/' +
+                          state.selectedQuiz.id +
+                          '/' +
+                          state.selectedQuiz.title,
+                      )
+                    }
+                    title={Translate.ranking}
+                    theme={'transparent'}
+                  />
+                )}
+
+              {state.selectedQuiz.generalMode === 'onlineStanding' &&
+                state.selectedQuiz.status !== 'finished' && (
+                  <CommonButton
+                    onPress={() =>
+                      window.open(
+                        'onlineStandingQuizRegistration/' +
+                          state.selectedQuiz.id,
+                      )
+                    }
+                    title={'جزئیات آزمون'}
+                    theme={'transparent'}
+                  />
+                )}
+
+              {(state.selectedQuiz.isOwner === undefined ||
+                state.selectedQuiz.isOwner) && (
+                <>
+                  <CommonButton
+                    onPress={() => getRecp()}
+                    title={Translate.recp}
+                    theme={'transparent'}
+                  />
+                  <CommonButton
+                    onPress={() => setShowRatePane(true)}
+                    title={Translate.rate}
+                    theme={'transparent'}
+                  />
+                </>
               )}
-              {state.selectedQuiz.status === 'finished' && (
-                <CommonButton
-                  onPress={() => prepareShowAnswerSheet()}
-                  title={Translate.answerSheet}
-                  theme={'transparent'}
-                />
-              )}
-              {state.selectedQuiz.status === 'finished' && (
-                <CommonButton
-                  onPress={() => prepareShowRanking()}
-                  title={Translate.ranking}
-                  theme={'transparent'}
-                />
-              )}
-              <CommonButton
-                onPress={() => getRecp()}
-                title={Translate.recp}
-                theme={'transparent'}
-              />
-              <CommonButton
-                onPress={() => setShowRatePane(true)}
-                title={Translate.rate}
-                theme={'transparent'}
-              />
+
               {state.selectedQuiz.status === 'finished' &&
                 (state.selectedQuiz.isQRNeeded === undefined ||
                   !state.selectedQuiz.isQRNeeded) && (

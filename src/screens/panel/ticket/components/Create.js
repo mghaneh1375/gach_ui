@@ -18,11 +18,12 @@ import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {faPaperclip, faPlus} from '@fortawesome/free-solid-svg-icons';
 import SearchUser from '../../../../components/web/SearchUser/SearchUser';
 import {addFile, finalize, submit} from './Show/Utility';
-import {changeText} from '../../../../services/Utility';
+import {changeText, showError} from '../../../../services/Utility';
 import {useFilePicker} from 'use-file-picker';
 import UserTinyPic from '../../../../components/web/LargeScreen/UserTinyPic';
 import AttachBox from './Show/AttachBox/AttachBox';
-import {setRef} from '@material-ui/core';
+import {generalRequest} from '../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
 
 function Create(props) {
   const [showSearchUser, setShowSearchUser] = useState(false);
@@ -32,6 +33,44 @@ function Create(props) {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [err, setErr] = useState();
+
+  const [advisor, setAdvisor] = useState();
+  const [myAdvisors, setMyAdvisors] = useState();
+  const [isWorking, setIsWorking] = useState(false);
+
+  const fetchMyAdvisors = React.useCallback(() => {
+    if (isWorking || myAdvisors !== undefined) return;
+
+    props.setLoading(true);
+    setIsWorking(true);
+
+    Promise.all([
+      generalRequest(
+        routes.getMyAdvisors,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+
+      if (res[0] == null) {
+        return;
+      }
+      setMyAdvisors(
+        res[0].map(e => {
+          return {id: e.id, item: e.name};
+        }),
+      );
+      setIsWorking(false);
+    });
+  }, [props, isWorking, myAdvisors]);
+
+  React.useEffect(() => {
+    if (section !== 'advisor' || myAdvisors !== undefined) return;
+    fetchMyAdvisors();
+  }, [section, myAdvisors, fetchMyAdvisors]);
 
   const toggleShowSearchUser = () => {
     setShowSearchUser(!showSearchUser);
@@ -79,6 +118,11 @@ function Create(props) {
       return;
     }
 
+    if (section === 'advisor' && advisor === undefined) {
+      showError('لطفا مشاور را تعیین کنید');
+      return;
+    }
+
     props.setLoading(true);
 
     let data = {
@@ -88,6 +132,8 @@ function Create(props) {
       priority: priority,
       userId: props.isAdmin ? foundUser[0].id : undefined,
     };
+
+    if (section === 'advisor') data.advisorId = advisor;
 
     if (refId !== undefined) {
       if (refId.indexOf('_') !== -1) {
@@ -179,6 +225,15 @@ function Create(props) {
             placeholder={translator.section}
             subText={translator.section}
           />
+          {section === 'advisor' && myAdvisors !== undefined && (
+            <JustBottomBorderSelect
+              setter={setAdvisor}
+              values={myAdvisors}
+              value={myAdvisors.find(elem => elem.id === advisor)}
+              placeholder={translator.advisor}
+              subText={translator.advisor}
+            />
+          )}
           {refs !== undefined && (
             <JustBottomBorderSelect
               setter={setRefId}

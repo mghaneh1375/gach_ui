@@ -1,7 +1,13 @@
 import React, {useState} from 'react';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {getRanking} from '../../Utility';
-import {CommonWebBox, PhoneView} from '../../../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../../../../styles/Common';
 import {quizContext, dispatchQuizContext} from '../../Context';
 import {
   FontIcon,
@@ -12,7 +18,11 @@ import CopyBox from '../../../../../../components/CopyBox';
 import commonTranslator from '../../../Translator';
 import {BASE_SITE_NAME} from '../../../../../../API/Utility';
 import {styles} from '../../../../../../styles/Common/Styles';
-import {getDevice} from '../../../../../../services/Utility';
+import {
+  convertSecToMin,
+  convertSecToMinWithOutSec,
+  getDevice,
+} from '../../../../../../services/Utility';
 
 function Ranking(props) {
   const useGlobalState = () => [
@@ -24,8 +34,68 @@ function Ranking(props) {
 
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const [columns, setColumns] = useState();
+  const [selectedTeam, setSelectedTeam] = useState();
+  const [showDetails, setshowDetails] = useState(false);
+  const [selectedTeamRank, setSelectedTeamRank] = useState();
 
   const chooseColumns = React.useCallback(() => {
+    if (state.selectedQuiz.generalMode === 'escape') {
+      let a = [
+        {
+          name: '',
+          cell: (row, index, column, id) => {
+            if (!props.isAdmin) return <></>;
+            return (
+              <SimpleFontIcon
+                onPress={() => {
+                  setSelectedTeam(state.selectedQuiz.ranking[index]);
+                  setSelectedTeamRank(index + 1);
+                  setshowDetails(true);
+                }}
+                icon={faEye}
+              />
+            );
+          },
+          minWidth: '40px',
+          maxWidth: '40px',
+          center: true,
+        },
+        {
+          name: 'نام',
+          selector: row => row.user,
+          grow: 2,
+          fontSize: 10,
+        },
+        {
+          name: 'تعداد سوالات حل کرده',
+          selector: row => row.solved,
+          grow: 1,
+          fontSize: 10,
+        },
+        {
+          name: 'آیا کل چالش را پشت سر گذاشته؟',
+          selector: row => (row.isComplete ? 'بله' : 'خیر'),
+          grow: 1,
+          fontSize: 10,
+        },
+        {
+          name: 'زمان ثبت آخرین پاسخ صحیح',
+          selector: row =>
+            convertSecToMinWithOutSec(row.lastAnswer) + ' بعد از شروع آزمون',
+          grow: 1,
+          fontSize: 10,
+        },
+        {
+          name: 'رتبه',
+          selector: row => row.rank,
+          grow: 1,
+          fontSize: 10,
+        },
+      ];
+      setColumns(a);
+      return;
+    }
+
     if (
       state.selectedQuiz.ranking !== undefined &&
       state.selectedQuiz.ranking.length > 0 &&
@@ -193,12 +263,12 @@ function Ranking(props) {
         },
       ]);
     }
-  }, [props, dispatch, state.selectedQuiz.ranking]);
+  }, [props, dispatch, state.selectedQuiz]);
 
   React.useEffect(() => {
     if (state.selectedQuiz.ranking === undefined) return;
     chooseColumns();
-  }, [state.selectedQuiz.ranking, chooseColumns]);
+  }, [state.selectedQuiz, chooseColumns]);
 
   React.useEffect(() => {
     if (state.selectedQuiz === undefined) {
@@ -217,7 +287,10 @@ function Ranking(props) {
       getRanking(
         state.selectedQuiz.id,
         state.selectedQuiz.generalMode,
-        state.selectedQuiz.generalMode === 'open' ? props.token : undefined,
+        state.selectedQuiz.generalMode === 'open' ||
+          (props.isAdmin !== undefined && props.isAdmin)
+          ? props.token
+          : undefined,
       ),
     ]).then(res => {
       props.setLoading(false);
@@ -243,37 +316,50 @@ function Ranking(props) {
       }
       btn={
         <PhoneView style={styles.alignItemsCenter}>
-          {state.selectedQuiz.generalMode !== 'open' && !isInPhone && (
-            <CopyBox
-              title={commonTranslator.copyLink}
-              url={
-                state.selectedQuiz.title !== undefined
-                  ? BASE_SITE_NAME +
-                    'ranking/' +
-                    state.selectedQuiz.generalMode +
-                    '/' +
-                    state.selectedQuiz.id +
-                    '/' +
-                    state.selectedQuiz.title
-                  : props.quizName !== undefined
-                  ? BASE_SITE_NAME +
-                    'ranking/' +
-                    state.selectedQuiz.generalMode +
-                    '/' +
-                    state.selectedQuiz.id +
-                    '/' +
-                    props.quizName
-                  : BASE_SITE_NAME +
-                    'ranking/' +
-                    state.selectedQuiz.generalMode +
-                    '/' +
-                    state.selectedQuiz.id
-              }
-            />
-          )}
+          {state.selectedQuiz.generalMode !== 'open' &&
+            !isInPhone &&
+            !showDetails && (
+              <CopyBox
+                title={commonTranslator.copyLink}
+                url={
+                  state.selectedQuiz.title !== undefined
+                    ? BASE_SITE_NAME +
+                      'ranking/' +
+                      state.selectedQuiz.generalMode +
+                      '/' +
+                      state.selectedQuiz.id +
+                      '/' +
+                      state.selectedQuiz.title
+                    : props.quizName !== undefined
+                    ? BASE_SITE_NAME +
+                      'ranking/' +
+                      state.selectedQuiz.generalMode +
+                      '/' +
+                      state.selectedQuiz.id +
+                      '/' +
+                      props.quizName
+                    : BASE_SITE_NAME +
+                      'ranking/' +
+                      state.selectedQuiz.generalMode +
+                      '/' +
+                      state.selectedQuiz.id
+                }
+              />
+            )}
+          {state.selectedQuiz.generalMode !== 'open' &&
+            !isInPhone &&
+            showDetails && (
+              <CommonButton
+                title={'بازگشت'}
+                theme={'orangeRed'}
+                onPress={() => setshowDetails(false)}
+              />
+            )}
           {state.selectedQuiz.title !== undefined && (
             <FontIcon
-              onPress={() => props.setMode('list')}
+              onPress={() =>
+                showDetails ? setshowDetails(false) : props.setMode('list')
+              }
               theme="rect"
               kind="normal"
               icon={faArrowLeft}
@@ -282,6 +368,7 @@ function Ranking(props) {
         </PhoneView>
       }>
       {state.selectedQuiz !== undefined &&
+        !showDetails &&
         columns !== undefined &&
         state.selectedQuiz.ranking !== undefined && (
           <CommonDataTable
@@ -290,8 +377,68 @@ function Ranking(props) {
             show_row_no={false}
             pagination={false}
             groupOps={[]}
-            excel={isInPhone ? false : state.selectedQuiz.title !== undefined}
+            excel={
+              isInPhone || state.selectedQuiz.generalMode === 'escape'
+                ? false
+                : state.selectedQuiz.title !== undefined
+            }
           />
+        )}
+
+      {state.selectedQuiz !== undefined &&
+        state.selectedQuiz.generalMode === 'escape' &&
+        showDetails &&
+        selectedTeam !== undefined && (
+          <>
+            <PhoneView style={{...styles.gap30}}>
+              <SimpleText text={'نام: ' + selectedTeam.user} />
+              <SimpleText
+                text={'تعداد سوالات حل شده: ' + selectedTeam.solved}
+              />
+              <SimpleText text={'رتبه: ' + selectedTeamRank} />
+            </PhoneView>
+
+            <PhoneView style={{...styles.gap30}}>
+              {selectedTeam.startAt !== undefined && (
+                <SimpleText text={'زمان آغاز: ' + selectedTeam.startAt} />
+              )}
+              {selectedTeam.finishAt !== undefined && (
+                <SimpleText text={'زمان پایان: ' + selectedTeam.finishAt} />
+              )}
+            </PhoneView>
+
+            <SimpleText
+              text={'سوالات حل شده'}
+              style={{...styles.fontSize17, ...styles.BlueBold}}
+            />
+            <MyView>
+              {selectedTeam.answers.map((e, index) => {
+                return (
+                  <PhoneView style={{...styles.gap50}}>
+                    <SimpleText text={'سوال ' + (index + 1)} />
+
+                    {selectedTeam.answers[index].answerAt === '' && (
+                      <SimpleText text={'حل نشده'} />
+                    )}
+                    {selectedTeam.answers[index].answerAt !== '' && (
+                      <SimpleText
+                        text={
+                          'زمان حل: ' +
+                          convertSecToMin(
+                            selectedTeam.answers[index].answerAt,
+                          ) +
+                          '  بعد از شروع آزمون'
+                        }
+                      />
+                    )}
+                    <SimpleText
+                      text={'تعداد تلاش: ' + selectedTeam.answers[index].tries}
+                    />
+                  </PhoneView>
+                );
+              })}
+            </MyView>
+          </>
         )}
     </CommonWebBox>
   );

@@ -11,9 +11,10 @@ import {
 import {MyView} from '../../../styles/Common';
 import {getAllStudent} from './Utility';
 import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin';
+import {AdvicePanelProvider} from './Advisor/components/Context';
+import Panel from './Advisor/Panel';
 
 function ManageStudents(props) {
-  const queryString = require('query-string');
   const navigate = props.navigate;
 
   const useGlobalState = () => [
@@ -80,6 +81,16 @@ function ManageStudents(props) {
           token={props.token}
         />
       )}
+      <AdvicePanelProvider>
+        {mode === 'advisorPanel' && (
+          <Panel
+            wantedUserId={selectedStudent.id}
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
+          />
+        )}
+      </AdvicePanelProvider>
     </MyView>
   );
 }

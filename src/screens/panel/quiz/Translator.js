@@ -75,6 +75,12 @@ const translator = {
   finalizeMsg:
     'توجه داشته باشید که بعد از نهایی سازی آزمون امکان ویرایش لیست نفرات شرکت کننده و یا سوالات وجود ندارد.',
   payByStudent: 'آیا هزینه آزمون توسط دانش آموزان پرداخت شود؟',
+  maxTeams: 'حداکثر تعداد تیم ها',
+  perTeam: 'حداکثر تعداد نفرات در هر تیم',
+  teamName: 'نام تیم',
+  members: 'اعضای تیم',
+  sureChangeMainMember: 'آیا از تغییر نفر اصلی اطمینان دارید؟',
+  selectGifts: 'تعیین جوایز',
 };
 
 export default translator;

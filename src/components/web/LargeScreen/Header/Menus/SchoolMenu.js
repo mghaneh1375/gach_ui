@@ -6,6 +6,7 @@ import translator from '../../../../../translator/Common';
 import {faSchool, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '../../../../../styles/Common';
 import MenuItemRepeat from './MenuItemRepeat';
+import {SuperMenuItem} from './SuperMenuItem';
 
 function SchoolMenu(props) {
   const device = getDevice();
@@ -20,11 +21,24 @@ function SchoolMenu(props) {
         selected={props.selected}
         child={
           <>
-            <MenuItem
-              onClick={() => navigate('/mySchoolQuizzes')}
-              text={translator.mySchoolQuizess}
+            <SuperMenuItem
+              text={translator.mySchool}
               icon={faSchool}
-              selected={props.selected === 'mySchoolQuizzes'}
+              selected={
+                props.selected === 'mySchoolQuizzes' ||
+                props.selected === 'mySchoolHWs'
+              }
+              navigate={navigate}
+              items={[
+                {
+                  text: translator.mySchoolQuizess,
+                  url: '/mySchoolQuizzes',
+                },
+                {
+                  text: translator.hws,
+                  url: '/mySchoolHWs',
+                },
+              ]}
             />
             <MenuItem
               onClick={() => navigate('/manageStudent')}

@@ -107,6 +107,10 @@ export const sectionKeyVals = [
     item: 'تسویه مالی',
     id: 'requestmoney',
   },
+  {
+    item: 'مشاوره',
+    id: 'advisor',
+  },
 ];
 
 export const sectionKeyValsForFilter = [
