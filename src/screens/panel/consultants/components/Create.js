@@ -22,7 +22,10 @@ function Create(props) {
 
   React.useEffect(() => {
     if (!props.isInEditMode || state.selectedTag === undefined) return;
-    setTitle(state.selectedTag.title);
+
+    setTitle(state.selectedTag.label);
+    setNeedToNumber(state.selectedTag.numberLabel !== undefined);
+    setLabel(state.selectedTag.numberLabel);
   }, [props.isInEditMode, state.selectedTag]);
 
   const createData = React.useCallback(() => {
@@ -41,7 +44,15 @@ function Create(props) {
     }
 
     Promise.all([
-      generalRequest(routes.createTag, 'post', data, 'id', props.token),
+      generalRequest(
+        props.isInEditMode
+          ? routes.editTag + state.selectedTag.id
+          : routes.createTag,
+        'post',
+        data,
+        'id',
+        props.token,
+      ),
     ]).then(res => {
       props.setLoading(false);
 
@@ -51,18 +62,43 @@ function Create(props) {
       }
 
       let tmp = state.tags;
-      tmp.push({
-        id: res[0],
-        label: title,
-      });
+      if (!props.isInEditMode) {
+        tmp.push({
+          id: res[0],
+          label: title,
+          numberLabel: needToNumber ? label : undefined,
+        });
+      } else {
+        tmp = tmp.map(e => {
+          if (e.id == state.selectedTag.id)
+            return {
+              id: e.id,
+              label: title,
+              numberLabel: needToNumber ? label : undefined,
+            };
+
+          return e;
+        });
+      }
 
       dispatch({tags: tmp});
       props.setMode('list');
     });
-  }, [props, title, dispatch, state.tags, needToNumber, label]);
+  }, [
+    props,
+    title,
+    dispatch,
+    state.tags,
+    needToNumber,
+    label,
+    state.selectedTag,
+  ]);
 
   return (
-    <CommonWebBox backBtn={true} onBackClick={() => props.setMode('list')}>
+    <CommonWebBox
+      header={props.isInEditMode ? 'ویرایش' : 'افزودن'}
+      backBtn={true}
+      onBackClick={() => props.setMode('list')}>
       <PhoneView style={{gap: 20}}>
         <JustBottomBorderTextInput
           placehoder={commonTranslator.title}

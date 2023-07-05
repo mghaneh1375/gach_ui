@@ -375,7 +375,12 @@ function Create(props) {
         }>
         {props.isInEditMode && (
           <SimpleText
-            text={'برنامه هفتگی ' + state.selectedSchedule.weekStartAt}
+            text={
+              'برنامه هفتگی ' +
+              state.selectedSchedule.weekStartAt +
+              ' - ' +
+              state.student.name
+            }
           />
         )}
         {!props.isInEditMode && (

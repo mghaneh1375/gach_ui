@@ -343,6 +343,7 @@ export const routes = {
   removeLife: 'advisor/tag/removeLifeTags',
   removeExamTags: 'advisor/tag/removeExamTags',
   createTag: 'advisor/tag/createTag',
+  editTag: 'advisor/tag/editTag/',
   createLifeTag: 'advisor/tag/createLifeTag',
   createExamTag: 'advisor/tag/createExamTag',
   getStudentSchedules: 'advisor/manage/getStudentSchedules/',

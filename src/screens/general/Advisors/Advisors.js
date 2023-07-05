@@ -271,9 +271,13 @@ function Advisors(props) {
                     shouldPay={shouldPay}
                     userMoney={Math.min(
                       state.user.user.money,
-                      openReq.price - offAmount,
+                      Math.max(0, openReq.price - offAmount),
                     )}
-                    offAmount={offAmount > 0 ? offAmount : undefined}
+                    offAmount={
+                      offAmount > 0
+                        ? Math.min(offAmount, openReq.price)
+                        : undefined
+                    }
                     price={openReq.price}
                     key={index}
                     data={elem}

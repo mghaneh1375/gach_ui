@@ -455,3 +455,7 @@ export const makeDownload = link => {
 
   document.body.removeChild(element);
 };
+
+export const f2e = v => {
+  return (v + '').replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+};

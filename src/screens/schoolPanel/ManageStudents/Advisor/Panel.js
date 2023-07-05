@@ -59,7 +59,10 @@ function Panel(props) {
   }, [props.wantedUserId, fetchData]);
 
   return (
-    <CommonWebBox>
+    <CommonWebBox
+      header={'پنل مشاوره '}
+      onBackClick={() => props.setMode('list')}
+      backBtn={true}>
       <EqualTwoTextInputs>
         {data !== undefined && (
           <MyView>

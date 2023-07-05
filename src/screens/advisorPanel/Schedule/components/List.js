@@ -45,8 +45,8 @@ function List(props) {
         props.navigate('/');
         return;
       }
-
-      dispatch({schedules: res[0]});
+      if (props.studentId === undefined) dispatch({schedules: res[0].items});
+      else dispatch({schedules: res[0].items, student: res[0].student});
     });
   }, [props, dispatch]);
 
@@ -62,7 +62,11 @@ function List(props) {
 
   return (
     <CommonWebBox
-      header={'لیست کاربرگ ها'}
+      header={
+        state.student === undefined
+          ? 'لیست کاربرگ ها '
+          : 'لیست کاربرگ های ' + state.student.name
+      }
       addBtn={props.isAdvisor}
       onAddClick={() => props.setMode('create')}>
       {showConfirmation && (
@@ -106,6 +110,11 @@ function List(props) {
                 title={'حذف'}
               />
             )}
+            <CommonButton
+              theme={'transparent'}
+              onPress={() => setShowConfirmation(true)}
+              title={'گزارش تفکیکی'}
+            />
           </PhoneView>
         </LargePopUp>
       )}

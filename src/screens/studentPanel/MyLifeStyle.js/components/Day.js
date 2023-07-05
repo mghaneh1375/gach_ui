@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {
   convertSecToMinWithOutSec,
+  f2e,
   removeItems,
 } from '../../../../services/Utility';
 import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
@@ -22,8 +23,9 @@ function Day(props) {
     let scheduleSum = 0;
 
     props.boxes.forEach(e => {
-      if (e.label !== undefined && e.label === 'life') lifeSum += e.duration;
-      else scheduleSum += e.duration;
+      if (e.label !== undefined && e.label === 'life')
+        lifeSum += parseInt(f2e(e.duration));
+      else scheduleSum += parseInt(f2e(e.duration));
     });
     setSumLife(lifeSum);
     setSum(scheduleSum);
@@ -49,7 +51,7 @@ function Day(props) {
           }
           style={{fontSize: 18, color: 'white'}}
         />
-        {sum !== undefined && (
+        {sum !== undefined && sum !== 0 && (
           <SimpleText
             style={{
               fontSize: 12,
