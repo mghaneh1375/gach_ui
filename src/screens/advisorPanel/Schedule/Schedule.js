@@ -5,6 +5,7 @@ import {AdvisorScheduleProvider} from './components/Context';
 import {useParams} from 'react-router';
 import List from './components/List';
 import {isUserAdvisor} from '../../../services/Utility';
+import Lesson from './components/Lesson';
 
 function Schedule(props) {
   const [mode, setMode] = useState();
@@ -43,6 +44,15 @@ function Schedule(props) {
           setLoading={setLoading}
           navigate={props.navigate}
           studentId={studentId}
+          setMode={setMode}
+        />
+      )}
+      {mode === 'lesson' && (
+        <Lesson
+          token={state.token}
+          isAdvisor={isAdvisor}
+          setLoading={setLoading}
+          navigate={props.navigate}
           setMode={setMode}
         />
       )}

@@ -32,6 +32,16 @@ export const fetchMySchedules = (token, filter = undefined) => {
   );
 };
 
+export const lessonsInSchedule = (token, id) => {
+  return generalRequest(
+    routes.lessonsInSchedule + id,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const fetchSchedule = (
   token,
   id = undefined,

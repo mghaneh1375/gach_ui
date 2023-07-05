@@ -112,7 +112,7 @@ function List(props) {
             )}
             <CommonButton
               theme={'transparent'}
-              onPress={() => setShowConfirmation(true)}
+              onPress={() => props.setMode('lesson')}
               title={'گزارش تفکیکی'}
             />
           </PhoneView>
