@@ -90,6 +90,11 @@ export default function WebRouter() {
           />
 
           <Route
+            path="studentProgress/:userId"
+            element={<WebStructue page="studentProgress" />}
+          />
+
+          <Route
             path="studentSchedules/:studentId"
             element={<WebStructue page="studentSchedules" />}
           />

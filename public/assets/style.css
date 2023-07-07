@@ -875,3 +875,159 @@ option {
   height: 10px;
   border: 1px solid;
 }
+
+.rise-container {
+  width: 100%;
+  position: absolute;
+  top: -100px;
+  left: 0;
+  height: 160px;
+  display: flex;
+  flex-direction: row;
+}
+
+.ghadirFlag {
+  position: absolute;
+  left: -15px;
+  top: -40px;
+  width: 170px;
+  z-index: 1;
+  display: none;
+}
+
+.rise {
+  border: 3px solid;
+  border-top: 0;
+  width: 320px;
+  height: 160px;
+  border-bottom-left-radius: 160px;
+  border-bottom-right-radius: 160px;
+  position: relative;
+}
+
+.lamp {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.rise > .lamp:nth-child(1) {
+  box-shadow: inset 10px 10px 10px blue, inset -10px -10px 10px blue,
+    0px 9px 13px blue;
+
+  left: calc(50% - 15px);
+  top: 160px;
+}
+.rise > .lamp:nth-child(2) {
+  box-shadow: inset 10px 10px 10px red, inset -10px -10px 10px red,
+    0px 9px 13px red;
+  left: calc(50% - 90px);
+  top: 145px;
+}
+.rise > .lamp:nth-child(3) {
+  box-shadow: inset 10px 10px 10px green, inset -10px -10px 10px green,
+    0px 9px 13px green;
+  left: calc(50% + 60px);
+  top: 145px;
+}
+.rise > .lamp:nth-child(4) {
+  box-shadow: inset 10px 10px 10px yellow, inset -10px -10px 10px yellow,
+    0px 9px 13px yellow;
+  left: calc(50% + 115px);
+  top: 106px;
+}
+
+.rise > .lamp:nth-child(5) {
+  box-shadow: inset 10px 10px 10px rgb(220, 139, 17),
+    inset -10px -10px 10px rgb(220, 139, 17), 0px 9px 13px rgb(220, 139, 17);
+  left: calc(50% - 140px);
+  top: 100px;
+}
+
+@media (max-width: 1120px) {
+  .rise-container {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1370px) {
+  .rise > .lamp:nth-child(2) {
+    left: calc(50% - 70px);
+    top: 150px;
+  }
+  .rise > .lamp:nth-child(3) {
+    left: calc(50% + 35px);
+    top: 150px;
+  }
+  .rise > .lamp:nth-child(4) {
+    left: calc(50% + 90px);
+    top: 110px;
+  }
+
+  .rise > .lamp:nth-child(5) {
+    left: calc(50% - 115px);
+    top: 112px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .ghadirFlag {
+    left: -30px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .lamp {
+    width: 25px;
+    height: 25px;
+  }
+  .rise > .lamp:nth-child(1) {
+    left: calc(50% - 15px);
+  }
+  .rise > .lamp:nth-child(2) {
+    left: calc(50% - 75px);
+  }
+  .rise > .lamp:nth-child(3) {
+    left: calc(50% + 50px);
+  }
+  .rise > .lamp:nth-child(4) {
+    left: calc(50% + 125px);
+    top: 115px;
+  }
+
+  .rise > .lamp:nth-child(5) {
+    left: calc(50% - 155px);
+    top: 120px;
+  }
+}
+
+@media (max-width: 1150px) {
+  .lamp {
+    width: 25px;
+    height: 25px;
+  }
+  .rise > .lamp:nth-child(4) {
+    left: calc(50% + 115px);
+    top: 115px;
+  }
+
+  .rise > .lamp:nth-child(5) {
+    left: calc(50% - 145px);
+    top: 120px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .ghadirFlag {
+    display: none !important;
+  }
+}
+
+@media (max-width: 550px) {
+  .ghadirFlag {
+    display: block !important;
+    left: unset;
+    right: -45px;
+  }
+}

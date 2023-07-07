@@ -110,6 +110,47 @@ const Home = props => {
 
   return (
     <ScreenScroll style={{background: 'transparent'}}>
+      {/* <div className={'rise-container'}>
+        <div className={'rise'}>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+        </div>
+
+        <div className={'rise'}>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+        </div>
+
+        <div className={'rise'}>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+        </div>
+
+        <div className={'rise'}>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+        </div>
+
+        <div className={'rise'}>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+          <div className={'lamp'}></div>
+        </div>
+      </div> */}
       <div
         style={{
           position: 'fixed',

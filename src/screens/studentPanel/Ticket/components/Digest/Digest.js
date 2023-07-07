@@ -30,13 +30,32 @@ function Digest({
   setLoading,
 }) {
   return (
-    <CommonWebBox header={ticket.title}>
+    <CommonWebBox
+      header={
+        isAdmin ? ticket.title + ' - ' + ticket.student.name : ticket.title
+      }>
       <PhoneView
         style={{
           ...styles.justifyContentSpaceAround,
           ...styles.margin25,
           ...styles.gap50,
         }}>
+        {ticket.advisor !== undefined && (
+          <PhoneView>
+            <TinyTextIcon />
+            <MyView>
+              <SimpleText
+                style={{...styleFontSize11}}
+                text={Translate.advisor}
+              />
+              <SimpleText
+                style={{...styleFontSize15}}
+                text={ticket.advisor.name}
+              />
+            </MyView>
+          </PhoneView>
+        )}
+
         <PhoneView>
           <TinyTextIcon />
           <MyView>

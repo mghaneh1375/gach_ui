@@ -4,7 +4,7 @@ import {filter} from '../../panel/ticket/components/List/Utility';
 import {globalStateContext, dispatchStateContext} from '../../../App';
 import Show from '../../panel/ticket/components/Show/Show';
 import Create from '../../panel/ticket/components/Create';
-import {addItem, removeItems} from '../../../services/Utility';
+import {addItem, isUserAdvisor, removeItems} from '../../../services/Utility';
 import {MyView} from '../../../styles/Common';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
@@ -59,6 +59,8 @@ function Ticketstd(props) {
     else setMode('create');
   }, [params]);
 
+  const isAdvisor = isUserAdvisor(state.user);
+
   return (
     <MyView>
       {mode !== undefined && mode === 'list' && (
@@ -69,6 +71,7 @@ function Ticketstd(props) {
           setLoading={setLoading}
           setSelectedTicket={setSelectedTicket}
           token={props.token}
+          isAdmin={isAdvisor}
           removeTicket={itemRemove =>
             removeItems(tickets, setTickets, itemRemove)
           }
@@ -81,7 +84,7 @@ function Ticketstd(props) {
           setMode={setMode}
           user={props.user}
           updateTicket={() => {}}
-          isAdmin={false}
+          isAdmin={isAdvisor}
           ticket={selectedTicket}
           setSelectedTicket={setSelectedTicket}
         />
@@ -95,6 +98,7 @@ function Ticketstd(props) {
           name={params.name}
           id={params.id}
           isAdmin={false}
+          isAdvisor={isAdvisor}
           user={props.user}
           addTicket={newItem => addItem(tickets, setTickets, newItem)}
         />

@@ -83,6 +83,14 @@ function Show(props) {
                       subText={translator.item}
                     />
                   )}
+                  {props.ticket.advisor !== undefined && (
+                    <JustBottomBorderTextInput
+                      value={props.ticket.advisor.name}
+                      disable={true}
+                      placeholder={translator.advisor}
+                      subText={translator.advisor}
+                    />
+                  )}
 
                   <JustBottomBorderTextInput
                     value={props.ticket.statusFa}

@@ -32,9 +32,11 @@ export const fetchMySchedules = (token, filter = undefined) => {
   );
 };
 
-export const lessonsInSchedule = (token, id) => {
+export const lessonsInSchedule = (token, id, isAdvisor) => {
   return generalRequest(
-    routes.lessonsInSchedule + id,
+    isAdvisor
+      ? routes.lessonsInSchedule + id
+      : routes.getMyLessonsInSchedule + id,
     'get',
     undefined,
     'data',
@@ -84,6 +86,18 @@ export const removeItemFromSchedule = async (token, userId, id) => {
     'delete',
     undefined,
     undefined,
+    token,
+  );
+  if (res != null) showSuccess();
+  return res;
+};
+
+export const setDoneInSchedule = async (token, id, itemId, data) => {
+  let res = await generalRequest(
+    routes.setDoneInSchedule + id + '/' + itemId,
+    'post',
+    data,
+    'data',
     token,
   );
   if (res != null) showSuccess();

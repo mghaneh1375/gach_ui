@@ -11,6 +11,7 @@ const translator = {
   closedRequest: 'بسته شده',
   section: 'واحد',
   advisor: 'مشاور',
+  student: 'دانش آموز',
   item: 'آیتم موردنظر',
   priority: 'ضرورت',
   dateStartRequest: 'بازه شروع درخواست از',

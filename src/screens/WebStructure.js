@@ -110,6 +110,7 @@ import Ranking from './general/OnlineStanding/Ranking';
 import MyFinancePlans from './advisorPanel/MyFinancePlans/MyFinancePlans';
 import ChatRoom from './studentPanel/Chat/ChatRoom';
 import Schedule from './advisorPanel/Schedule/Schedule';
+import Progress from './advisorPanel/Progress/Progress';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -453,12 +454,13 @@ const WebStructue = props => {
                 <MyLifeStyle navigate={navigate} />
               )}
 
+              {props.page === 'studentProgress' && (
+                <Progress navigate={navigate} />
+              )}
               {props.page === 'mySchedules' && <Schedule navigate={navigate} />}
-
               {props.page === 'studentSchedules' && (
                 <Schedule navigate={navigate} />
               )}
-
               {props.page === 'myFinancePlans' && (
                 <MyFinancePlans navigate={navigate} />
               )}

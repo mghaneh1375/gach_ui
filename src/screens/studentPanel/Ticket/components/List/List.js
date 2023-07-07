@@ -3,7 +3,7 @@ import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import {Translate} from '../../Translate';
 import Digest from '../Digest/Digest';
 import Filter from '../../../../panel/ticket/components/ProSearch/Filter';
-import {editItem} from '../../../../../services/Utility';
+import {editItem, isUserAdvisor} from '../../../../../services/Utility';
 
 function List(props) {
   return (
@@ -26,7 +26,7 @@ function List(props) {
         props.tickets.map((elem, index) => {
           return (
             <Digest
-              isAdmin={false}
+              isAdmin={props.isAdmin}
               ticket={elem}
               setSelectedTicket={props.setSelectedTicket}
               setMode={props.setMode}

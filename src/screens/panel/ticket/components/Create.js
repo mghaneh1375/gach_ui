@@ -34,6 +34,9 @@ function Create(props) {
   const [desc, setDesc] = useState('');
   const [err, setErr] = useState();
 
+  const [student, setStudent] = useState();
+  const [myStudents, setMyStudents] = useState();
+
   const [advisor, setAdvisor] = useState();
   const [myAdvisors, setMyAdvisors] = useState();
   const [isWorking, setIsWorking] = useState(false);
@@ -67,10 +70,40 @@ function Create(props) {
     });
   }, [props, isWorking, myAdvisors]);
 
+  const fetchMyStudents = React.useCallback(() => {
+    if (isWorking || myStudents !== undefined) return;
+
+    props.setLoading(true);
+    setIsWorking(true);
+
+    Promise.all([
+      generalRequest(
+        routes.getStudentsDigest,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+
+      if (res[0] == null) {
+        return;
+      }
+      setMyStudents(
+        res[0].map(e => {
+          return {id: e.id, item: e.name};
+        }),
+      );
+      setIsWorking(false);
+    });
+  }, [props, isWorking, myStudents]);
+
   React.useEffect(() => {
     if (section !== 'advisor' || myAdvisors !== undefined) return;
-    fetchMyAdvisors();
-  }, [section, myAdvisors, fetchMyAdvisors]);
+    if (props.isAdvisor) fetchMyStudents();
+    else fetchMyAdvisors();
+  }, [section, myAdvisors, fetchMyAdvisors, fetchMyStudents, props.isAdvisor]);
 
   const toggleShowSearchUser = () => {
     setShowSearchUser(!showSearchUser);
@@ -118,8 +151,13 @@ function Create(props) {
       return;
     }
 
-    if (section === 'advisor' && advisor === undefined) {
+    if (section === 'advisor' && !props.isAdvisor && advisor === undefined) {
       showError('لطفا مشاور را تعیین کنید');
+      return;
+    }
+
+    if (section === 'advisor' && props.isAdvisor && student === undefined) {
+      showError('لطفا دانش آموز را تعیین کنید');
       return;
     }
 
@@ -133,7 +171,10 @@ function Create(props) {
       userId: props.isAdmin ? foundUser[0].id : undefined,
     };
 
-    if (section === 'advisor') data.advisorId = advisor;
+    if (section === 'advisor') {
+      if (props.isAdvisor) data.userId = student;
+      else data.advisorId = advisor;
+    }
 
     if (refId !== undefined) {
       if (refId.indexOf('_') !== -1) {
@@ -158,7 +199,8 @@ function Create(props) {
       }
     }
 
-    if (!props.isAdmin) res = await finalize(res.id, props.token);
+    if (!props.isAdmin && !props.isAdvisor)
+      res = await finalize(res.id, props.token);
 
     if (res !== null) {
       if (props.isAdmin) res.chats[0].files = files;
@@ -232,6 +274,15 @@ function Create(props) {
               value={myAdvisors.find(elem => elem.id === advisor)}
               placeholder={translator.advisor}
               subText={translator.advisor}
+            />
+          )}
+          {section === 'advisor' && myStudents !== undefined && (
+            <JustBottomBorderSelect
+              setter={setStudent}
+              values={myStudents}
+              value={myStudents.find(elem => elem.id === student)}
+              placeholder={translator.student}
+              subText={translator.student}
             />
           )}
           {refs !== undefined && (

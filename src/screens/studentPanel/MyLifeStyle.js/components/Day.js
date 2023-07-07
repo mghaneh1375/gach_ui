@@ -102,6 +102,14 @@ function Day(props) {
                         );
                       }
                 }
+                onDone={
+                  props.onDone === undefined ||
+                  (e.canEdit !== undefined && !e.canEdit)
+                    ? undefined
+                    : () => {
+                        props.onDone(e);
+                      }
+                }
                 key={index}
                 item={e}
               />

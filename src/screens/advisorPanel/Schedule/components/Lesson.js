@@ -41,7 +41,11 @@ function Lesson(props) {
     setIsWorking(true);
 
     Promise.all([
-      lessonsInSchedule(props.token, state.selectedSchedule.id),
+      lessonsInSchedule(
+        props.token,
+        state.selectedSchedule.id,
+        props.isAdvisor,
+      ),
     ]).then(res => {
       props.setLoading(false);
       if (res[0] == null) {
@@ -68,7 +72,9 @@ function Lesson(props) {
 
   return (
     <CommonWebBox
-      header={'گزارش تفکیکی ' + state.student.name}
+      header={
+        props.isAdvisor ? 'گزارش تفکیکی ' + state.student.name : 'گزارش تفکیکی '
+      }
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       {state.selectedSchedule?.lessonsStats !== undefined &&
@@ -145,16 +151,6 @@ function Lesson(props) {
                         }
                         style={{fontSize: 12, color: 'white', maxWidth: 130}}
                       />
-                      {itr.stats.additionalLabel !== undefined && (
-                        <SimpleText
-                          text={
-                            itr.stats.additionalLabel +
-                            ' : ' +
-                            itr.stats.additionalTotal
-                          }
-                          style={{fontSize: 12, color: 'white', maxWidth: 130}}
-                        />
-                      )}
 
                       {itr.stats.additionalLabel !== undefined && (
                         <SimpleText

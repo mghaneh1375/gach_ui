@@ -9,4 +9,5 @@ export const Translate = {
   conditionNotAnswer: 'پاسخ داده نشده',
   conditionHandel: 'وضعیت در حال رسیدگی به پاسخ شما',
   closeAll: 'بستن',
+  advisor: 'مشاور',
 };

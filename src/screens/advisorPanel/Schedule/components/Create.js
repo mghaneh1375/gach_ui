@@ -13,6 +13,7 @@ import {
   fetchTags,
   getLessons,
   removeItemFromSchedule,
+  setDoneInSchedule,
 } from './Utility';
 import {
   advisorScheduleContext,
@@ -31,7 +32,11 @@ import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../translator/Common';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import Tag from '../../../studentPanel/MyLifeStyle.js/components/Tag';
-import {removeItems, showError} from '../../../../services/Utility';
+import {
+  removeItems,
+  showError,
+  trueFalseValues,
+} from '../../../../services/Utility';
 import TimePicker from '../../../../styles/Common/TimePicker';
 
 function Create(props) {
@@ -48,6 +53,16 @@ function Create(props) {
   const [startAt, setStartAt] = useState();
   const [lesson, setLesson] = useState();
   const [additional, setAdditional] = useState();
+
+  const [showDonePopUp, setShowDonePopUp] = useState(false);
+  const [fullDone, setFullDone] = useState();
+  const [doneDuration, setDoneDuration] = useState();
+  const [selectedItem, setSelectedItem] = useState();
+  const [doneAdditional, setDoneAdditional] = useState();
+
+  const [selectedDay, setSelectedDay] = useState();
+  const [showDailySchedule, setShowDailySchedule] = useState(true);
+  const [boxes, setBoxes] = useState();
 
   const scheduleForValues = [
     {id: 0, item: 'هفته جاری'},
@@ -161,10 +176,6 @@ function Create(props) {
     fetchData();
   }, [fetchData]);
 
-  const [selectedDay, setSelectedDay] = useState();
-  const [showDailySchedule, setShowDailySchedule] = useState(true);
-  const [boxes, setBoxes] = useState();
-
   React.useEffect(() => {
     if (
       state.myLifeStyle === undefined ||
@@ -188,8 +199,85 @@ function Create(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedSchedule?.days, state.myLifeStyle, showDailySchedule]);
 
+  const doneJob = async () => {
+    let data = fullDone
+      ? {fullDone: true}
+      : {fullDone: false, duration: doneDuration};
+
+    if (selectedItem.additionalLabel !== undefined) {
+      if (doneAdditional === undefined) {
+        showError('لطفا ' + selectedItem.additionalLabel + ' را وارد نمایید');
+        return;
+      }
+      data.additional = doneAdditional;
+    }
+
+    props.setLoading(true);
+    let res = await setDoneInSchedule(
+      props.token,
+      state.selectedSchedule.id,
+      selectedItem.id,
+      data,
+    );
+    props.setLoading(false);
+    if (res != null) {
+      state.selectedSchedule.days = res.days;
+      dispatch({selectedSchedule: state.selectedSchedule});
+      setShowDonePopUp(false);
+      setDoneDuration();
+      setDoneAdditional();
+      setFullDone();
+    }
+  };
+
   return (
     <>
+      {showDonePopUp && (
+        <LargePopUp
+          btns={
+            <CommonButton
+              theme={'dark'}
+              title={'تایید'}
+              onPress={() => doneJob()}
+            />
+          }
+          toggleShowPopUp={() => setShowDonePopUp(false)}>
+          <PhoneView style={{...styles.gap15}}>
+            <JustBottomBorderSelect
+              values={trueFalseValues}
+              setter={setFullDone}
+              value={trueFalseValues.find(e => e.id === fullDone)}
+              placeholder={'کل برنامه انجام شد؟'}
+              subText={'کل برنامه انجام شد؟'}
+            />
+            {fullDone !== undefined && !fullDone && (
+              <JustBottomBorderTextInput
+                value={doneDuration}
+                onChangeText={e => setDoneDuration(e)}
+                justNum={true}
+                placeholder={'مدت انجام'}
+                subText={
+                  'مدت انجام  -  حداکثر ' + selectedItem.duration + ' دقیقه'
+                }
+              />
+            )}
+
+            {selectedItem.additionalLabel !== undefined && (
+              <JustBottomBorderTextInput
+                value={doneAdditional}
+                onChangeText={e => setDoneAdditional(e)}
+                justNum={true}
+                placeholder={selectedItem.additionalLabel}
+                subText={
+                  selectedItem.additionalLabel +
+                  ' انجام شده  -  حداکثر ' +
+                  selectedItem.additional
+                }
+              />
+            )}
+          </PhoneView>
+        </LargePopUp>
+      )}
       {selectedDay !== undefined && (
         <LargePopUp
           toggleShowPopUp={() => setSelectedDay(undefined)}
@@ -373,7 +461,7 @@ function Create(props) {
             />
           </PhoneView>
         }>
-        {props.isInEditMode && (
+        {props.isInEditMode && props.isAdvisor && (
           <SimpleText
             text={
               'برنامه هفتگی ' +
@@ -406,7 +494,30 @@ function Create(props) {
                 boxes={e.items}
                 day={e.day}
                 key={index}
-                canEdit={props.isAdvisor ? true : false}
+                canEdit={props.isAdvisor}
+                onDone={
+                  props.isAdvisor
+                    ? undefined
+                    : e => {
+                        setSelectedItem(e);
+                        setDoneDuration(
+                          e.doneDuration !== undefined
+                            ? e.doneDuration
+                            : undefined,
+                        );
+                        setFullDone(
+                          e.doneDuration !== undefined
+                            ? e.doneDuration === e.duration
+                            : undefined,
+                        );
+                        setDoneAdditional(
+                          e.doneAdditional !== undefined
+                            ? e.doneAdditional
+                            : undefined,
+                        );
+                        setShowDonePopUp(true);
+                      }
+                }
                 onRemove={
                   !props.isAdvisor
                     ? undefined
