@@ -4,6 +4,7 @@ import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../translator/Common';
 import {login, toggleStatus} from './Utility';
 import {usersContext, dispatchUsersContext} from './Context';
+import {isUserAdvisor} from '../../../../services/Utility';
 
 function Ops(props) {
   const useGlobalState = () => [
@@ -12,6 +13,7 @@ function Ops(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
+  const isAdvisor = isUserAdvisor(state.selectedUser);
 
   return (
     <MyView>
@@ -72,16 +74,25 @@ function Ops(props) {
             onPress={() => props.changeMode('chargeAccount')}
             title={'شارژ حساب'}
           />
-          <CommonButton
-            theme={'transparent'}
-            onPress={() =>
-              window.open(
-                '/studentEducationalHistory/' + state.selectedUser.id,
-                '_blank',
-              )
-            }
-            title={commonTranslator.educationalHistory}
-          />
+          {isAdvisor && (
+            <CommonButton
+              theme={'transparent'}
+              title={'مدیریت برچسب ها'}
+              onPress={() => props.setMode('advisorTags')}
+            />
+          )}
+          {!isAdvisor && (
+            <CommonButton
+              theme={'transparent'}
+              onPress={() =>
+                window.open(
+                  '/studentEducationalHistory/' + state.selectedUser.id,
+                  '_blank',
+                )
+              }
+              title={commonTranslator.educationalHistory}
+            />
+          )}
         </PhoneView>
       </LargePopUp>
     </MyView>

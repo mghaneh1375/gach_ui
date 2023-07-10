@@ -14,12 +14,36 @@ import {
 } from 'victory-native';
 import Tag from './Tag';
 import {styles} from '../../../../styles/Common/Styles';
+import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {
+  faAngleDown,
+  faAngleUp,
+  faInfo,
+} from '@fortawesome/free-solid-svg-icons';
 
 function Lesson(props) {
   const [showPane, setShowPane] = useState(true);
+  const [showDetail, setShowDetail] = useState(false);
 
   return (
-    <CommonWebBox header={props.data.lesson}>
+    <CommonWebBox
+      btn={
+        <PhoneView>
+          <SimpleFontIcon
+            style={{cursor: 'pointer'}}
+            icon={showPane ? faAngleDown : faAngleUp}
+            kind={'normal'}
+            onPress={() => setShowPane(!showPane)}
+          />
+          <SimpleFontIcon
+            style={{cursor: 'pointer'}}
+            icon={faInfo}
+            kind={'normal'}
+            onPress={() => setShowDetail(!showDetail)}
+          />
+        </PhoneView>
+      }
+      header={props.data.lesson}>
       {showPane && (
         <EqualTwoTextInputs>
           <MyView>
@@ -116,16 +140,20 @@ function Lesson(props) {
           </MyView>
         </EqualTwoTextInputs>
       )}
-      <SimpleText
-        style={{...styles.BlueBold}}
-        text={'آمار بر اساس تگ های مطالعه'}
-      />
-      <PhoneView style={{gap: 20}}>
-        {props.data.tags !== undefined &&
-          props.data.tags.map((e, index) => {
-            return <Tag weeks={props.weeks} data={e} key={index} />;
-          })}
-      </PhoneView>
+      {showDetail && (
+        <>
+          <SimpleText
+            style={{...styles.BlueBold}}
+            text={'آمار بر اساس تگ های مطالعه'}
+          />
+          <PhoneView style={{gap: 20}}>
+            {props.data.tags !== undefined &&
+              props.data.tags.map((e, index) => {
+                return <Tag weeks={props.weeks} data={e} key={index} />;
+              })}
+          </PhoneView>
+        </>
+      )}
     </CommonWebBox>
   );
 }

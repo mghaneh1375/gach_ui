@@ -6,6 +6,7 @@ import {useParams} from 'react-router';
 import List from './components/List';
 import {isUserAdvisor} from '../../../services/Utility';
 import Lesson from './components/Lesson';
+import Copy from './components/Copy';
 
 function Schedule(props) {
   const [mode, setMode] = useState();
@@ -53,6 +54,15 @@ function Schedule(props) {
           isAdvisor={isAdvisor}
           setLoading={setLoading}
           navigate={props.navigate}
+          setMode={setMode}
+        />
+      )}
+
+      {mode === 'copy' && (
+        <Copy
+          studentId={studentId}
+          token={state.token}
+          setLoading={setLoading}
           setMode={setMode}
         />
       )}

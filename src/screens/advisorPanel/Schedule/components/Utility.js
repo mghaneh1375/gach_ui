@@ -20,6 +20,19 @@ export const fetchSchedules = (token, userId, filter = undefined) => {
   );
 };
 
+export const copy = (token, scheduleId, scheduleFor, students) => {
+  return generalRequest(
+    routes.copySchedule + scheduleId,
+    'post',
+    {
+      users: students,
+      scheduleFor: scheduleFor,
+    },
+    ['doneIds', 'excepts'],
+    token,
+  );
+};
+
 export const fetchMySchedules = (token, filter = undefined) => {
   return generalRequest(
     filter === undefined

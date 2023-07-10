@@ -115,6 +115,11 @@ function List(props) {
               onPress={() => props.setMode('lesson')}
               title={'گزارش تفکیکی'}
             />
+            <CommonButton
+              theme={'transparent'}
+              onPress={() => props.setMode('copy')}
+              title={'کپی کردن برنامه'}
+            />
           </PhoneView>
         </LargePopUp>
       )}

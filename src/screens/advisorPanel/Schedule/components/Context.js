@@ -4,6 +4,7 @@ const defaultGlobalState = {
   schedules: undefined,
   needUpdate: false,
   selectedSchedule: undefined,
+  myStudents: undefined,
 };
 
 export const advisorScheduleContext = React.createContext(defaultGlobalState);

@@ -75,7 +75,6 @@ function List(props) {
     <MyView>
       {showOpPopUp && (
         <Ops
-          user={props.selectedUser}
           updateUser={props.updateUser}
           token={props.token}
           setLoading={props.setLoading}

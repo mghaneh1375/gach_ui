@@ -358,6 +358,7 @@ export const routes = {
   getMyAdvisors: 'advisor/public/getMyAdvisors',
   buyAdvisorQuiz: 'quiz/public/buyAdvisorQuiz/',
   getMySchedules: 'advisor/public/getMySchedules',
+  copySchedule: 'advisor/manage/copy/',
   getStudentsDigest: 'advisor/manage/getStudentsDigest',
   getMyFinancePlans: 'advisor/manage/getOffers/',
   lessonsInSchedule: 'advisor/manage/lessonsInSchedule/',
