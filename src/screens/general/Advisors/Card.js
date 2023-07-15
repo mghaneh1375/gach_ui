@@ -94,6 +94,24 @@ function Card(props) {
             style={{...styles.colorDarkBlue}}
             text={'تعداد دانش آموزان : ' + ' ' + props.data.stdCount}
           />
+          {props.data.age !== undefined && (
+            <SimpleText
+              style={{...styles.colorDarkBlue}}
+              text={'سن : ' + ' ' + props.data.age}
+            />
+          )}
+          {props.data.form !== undefined && (
+            <>
+              <SimpleText
+                style={{...styles.colorDarkBlue}}
+                text={'مدارس همکار : ' + ' ' + props.data.form.workSchools}
+              />
+              <SimpleText
+                style={{...styles.colorDarkBlue}}
+                text={'دروس تخصصی : ' + ' ' + props.data.form.workLessons}
+              />
+            </>
+          )}
 
           <SimpleText
             style={{
@@ -108,7 +126,19 @@ function Card(props) {
           />
         </MyView>
       </MyView>
-
+      {props.data.tags !== undefined && (
+        <PhoneView style={{...styles.gap10}}>
+          {props.data.tags.map((e, index) => {
+            return (
+              <SimpleText
+                key={index}
+                style={{...styles.colorDarkBlue}}
+                text={'#' + e}
+              />
+            );
+          })}
+        </PhoneView>
+      )}
       {!props.isMyAdvisor &&
         props.data.acceptStd &&
         !props.hasOpenRequest &&

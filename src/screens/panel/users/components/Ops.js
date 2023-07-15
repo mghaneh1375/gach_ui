@@ -78,7 +78,7 @@ function Ops(props) {
             <CommonButton
               theme={'transparent'}
               title={'مدیریت برچسب ها'}
-              onPress={() => props.setMode('advisorTags')}
+              onPress={() => props.changeMode('advisorTags')}
             />
           )}
           {!isAdvisor && (
