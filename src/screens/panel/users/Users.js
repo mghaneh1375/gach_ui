@@ -41,6 +41,7 @@ const Users = props => {
             token={props.token}
           />
         )}
+        {mode === 'advisorTags' && }
         {mode === 'changePass' && (
           <ChangePassByAdmin
             setMode={setMode}

@@ -1,3 +1,4 @@
+import { routes } from '../../../../API/APIRoutes';
 import {CommonWebBox} from '../../../../styles/Common';
 import {dispatchUsersContext, usersContext} from './Context';
 
@@ -10,7 +11,17 @@ function AdvisorTags(props) {
 
   const [state, dispatch] = useGlobalState();
 
-  const fetchData = React.useCallback(() => {}, [state.selectedUser]);
+  const fetchData = React.useCallback(() => {
+      
+    props.setLoading(true);
+
+      Promise.all([routes.]).then(res => {
+
+      });
+
+      props.setLoading(false);
+
+  }, [state.selectedUser]);
 
   const [tags, setTags] = useState();
 
