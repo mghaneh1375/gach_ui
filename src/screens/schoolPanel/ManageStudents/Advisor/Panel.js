@@ -4,6 +4,7 @@ import {
   dispatchAdvicePanelContext,
 } from './components/Context';
 import {
+  CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
@@ -15,6 +16,8 @@ import Card from '../../../general/Advisors/Card';
 import {styles} from '../../../../styles/Common/Styles';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
+import {showSuccess} from '../../../../services/Utility';
+import {LargePopUp} from '../../../../styles/Common/PopUp';
 
 function Panel(props) {
   const useGlobalState = () => [
@@ -25,6 +28,8 @@ function Panel(props) {
   const [data, setData] = useState();
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
+  const [url, setUrl] = useState();
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const fetchData = React.useCallback(() => {
     if (data !== undefined || isWorking) return;
@@ -40,9 +45,17 @@ function Panel(props) {
         'data',
         props.token,
       ),
+      generalRequest(
+        routes.getMyCurrentRoomForAdvisorForSpecificStudent +
+          props.wantedUserId,
+        'get',
+        undefined,
+        'url',
+        props.token,
+      ),
     ]).then(res => {
       props.setLoading(false);
-      if (res[0] == null) {
+      if (res[0] == null || res[1] == null) {
         props.setMode('list');
         return;
       }
@@ -50,6 +63,7 @@ function Panel(props) {
       state.fetchedInfos.push({userId: props.wantedUserId, data: res[0]});
       dispatch({fetchedInfos: state.fetchedInfos});
       setData(res[0]);
+      setUrl(res[1] === '' ? undefined : res[1]);
       setIsWorking(false);
     });
   }, [dispatch, state, props, isWorking, data]);
@@ -63,6 +77,38 @@ function Panel(props) {
       header={'پنل مشاوره '}
       onBackClick={() => props.setMode('list')}
       backBtn={true}>
+      {showConfirmation && (
+        <LargePopUp
+          toggleShowPopUp={() => setShowConfirmation(false)}
+          title={'ایجاد اتاق جلسه'}
+          btns={
+            <CommonButton
+              theme={'dark'}
+              title={commonTranslator.confirm}
+              onPress={async () => {
+                props.setLoading(true);
+                let res = await generalRequest(
+                  routes.requestMeeting + props.wantedUserId,
+                  'post',
+                  undefined,
+                  'url',
+                  props.token,
+                );
+                props.setLoading(false);
+                if (res != null) {
+                  showSuccess();
+                  setUrl(res);
+                }
+              }}
+            />
+          }>
+          <SimpleText
+            text={
+              'آیا از ساخت اتاق جلسه اطمینان دارید؟ (پس از ساخت اتاق دیگر امکان حذف آن وجود ندارد)'
+            }
+          />
+        </LargePopUp>
+      )}
       <EqualTwoTextInputs>
         {data !== undefined && (
           <MyView>
@@ -99,7 +145,31 @@ function Panel(props) {
               style={{...styles.red, ...styles.cursor_pointer}}
               text={'مشاهده پیشرفت'}
             />
-            <SimpleText text={'رفتن به چت روم'} />
+            <SimpleText
+              style={{...styles.red, ...styles.cursor_pointer}}
+              onPress={() =>
+                window.open(
+                  '/ticket?section=advisor&userId=' + props.wantedUserId,
+                )
+              }
+              text={'رفتن به چت روم'}
+            />
+
+            {url === undefined && (
+              <SimpleText
+                style={{...styles.red, ...styles.cursor_pointer}}
+                onPress={() => setShowConfirmation(true)}
+                text={'ایجاد اتاق جلسه'}
+              />
+            )}
+
+            {url !== undefined && (
+              <CommonButton
+                onPress={() => window.open(url)}
+                title={'رفتن به جلسه'}
+                theme={'dark'}
+              />
+            )}
           </MyView>
         )}
 

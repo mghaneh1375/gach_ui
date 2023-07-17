@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
@@ -18,6 +19,8 @@ import {
 } from 'victory-native';
 import Lesson from './components/Lesson';
 import Tag from './components/Tag';
+import JustBottomBorderDatePicker from '../../../styles/Common/JustBottomBorderDatePicker';
+import {styles} from '../../../styles/Common/Styles';
 
 function Progress(props) {
   const useGlobalState = () => [
@@ -29,18 +32,22 @@ function Progress(props) {
 
   const params = useParams();
 
+  const [start, setStart] = useState();
+  const [end, setEnd] = useState();
+
   const fetchData = React.useCallback(() => {
     dispatch({loading: true});
-    Promise.all([getProgressData(state.token, params.userId)]).then(res => {
-      dispatch({loading: false});
-      if (res[0] == null) {
-        props.navigate('/');
-        return;
-      }
-      setData(res[0]);
-      console.log(res[0]);
-    });
-  }, [dispatch, props, params.userId, state.token]);
+    Promise.all([getProgressData(state.token, params.userId, start, end)]).then(
+      res => {
+        dispatch({loading: false});
+        if (res[0] == null) {
+          props.navigate('/');
+          return;
+        }
+        setData(res[0]);
+      },
+    );
+  }, [dispatch, props, params.userId, state.token, start, end]);
 
   useEffectOnce(() => {
     if (params.userId === undefined) {
@@ -52,6 +59,27 @@ function Progress(props) {
 
   return (
     <>
+      <CommonWebBox>
+        <PhoneView style={{...styles.gap10}}>
+          <JustBottomBorderDatePicker
+            value={start}
+            setter={setStart}
+            placeholder={'تاریخ آغاز فیلتر'}
+            subText={'تاریخ آغاز فیلتر'}
+          />
+          <JustBottomBorderDatePicker
+            value={end}
+            setter={setEnd}
+            placeholder={'تاریخ پایان فیلتر'}
+            subText={'تاریخ پایان فیلتر'}
+          />
+        </PhoneView>
+        <CommonButton
+          title="فیلتر"
+          theme={'dark'}
+          onPress={() => fetchData()}
+        />
+      </CommonWebBox>
       <CommonWebBox header={'آمار کلی'}>
         {data !== undefined && (
           <EqualTwoTextInputs>

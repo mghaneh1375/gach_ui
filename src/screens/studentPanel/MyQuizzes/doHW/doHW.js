@@ -15,7 +15,6 @@ import {styles} from '../../../../styles/Common/Styles';
 import RenderHTML from 'react-native-render-html';
 import {
   answerTypes,
-  convertSecToMin,
   convertSecToMinWithOutSec,
   convertTimestamp,
   getDevice,
@@ -26,7 +25,6 @@ import {
 } from '../../../../services/Utility';
 import Row from './Row';
 import UploadFile from '../../../../components/web/UploadFile';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
 
 function DoHW(props) {
   const [hw, setHw] = useState();

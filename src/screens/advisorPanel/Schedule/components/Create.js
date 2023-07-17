@@ -38,6 +38,8 @@ import {
   trueFalseValues,
 } from '../../../../services/Utility';
 import TimePicker from '../../../../styles/Common/TimePicker';
+import {downloadRequest} from '../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
 
 function Create(props) {
   const useGlobalState = () => [
@@ -61,7 +63,7 @@ function Create(props) {
   const [doneAdditional, setDoneAdditional] = useState();
 
   const [selectedDay, setSelectedDay] = useState();
-  const [showDailySchedule, setShowDailySchedule] = useState(true);
+  const [showDailySchedule, setShowDailySchedule] = useState(props.isAdvisor);
   const [boxes, setBoxes] = useState();
 
   const scheduleForValues = [
@@ -442,6 +444,19 @@ function Create(props) {
         header={props.isInEditMode ? '' : 'افزودن کاربرگ جدید'}
         btn={
           <PhoneView style={{...styles.alignItemsCenter}}>
+            <CommonButton
+              theme={'dark'}
+              onPress={() =>
+                downloadRequest(
+                  routes.exportPDF + state.selectedSchedule.id,
+                  undefined,
+                  props.token,
+                  undefined,
+                  'کاربرگ ' + state.selectedSchedule.weekStartAt + '.pdf',
+                )
+              }
+              title={'دریافت خروجی PDF'}
+            />
             <CommonButton
               onPress={() => setShowDailySchedule(!showDailySchedule)}
               title={

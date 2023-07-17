@@ -69,12 +69,14 @@ function Ticketstd(props) {
           setTickets={setTickets}
           setMode={setMode}
           setLoading={setLoading}
+          user={props.user}
           setSelectedTicket={setSelectedTicket}
           token={props.token}
           isAdmin={isAdvisor}
           removeTicket={itemRemove =>
             removeItems(tickets, setTickets, itemRemove)
           }
+          addTicket={newItem => addItem(tickets, setTickets, newItem)}
         />
       )}
       {mode !== undefined && mode === 'show' && (

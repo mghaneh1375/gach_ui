@@ -34,10 +34,10 @@ function Create(props) {
   const [desc, setDesc] = useState('');
   const [err, setErr] = useState();
 
-  const [student, setStudent] = useState();
+  const [student, setStudent] = useState(props.id);
   const [myStudents, setMyStudents] = useState();
 
-  const [advisor, setAdvisor] = useState();
+  const [advisor, setAdvisor] = useState(props.id);
   const [myAdvisors, setMyAdvisors] = useState();
   const [isWorking, setIsWorking] = useState(false);
 

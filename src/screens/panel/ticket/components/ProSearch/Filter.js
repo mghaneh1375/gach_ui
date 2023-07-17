@@ -38,12 +38,26 @@ function Filter(props) {
   const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
   const [priority, setPriority] = useState();
   const [section, setSection] = useState();
+  const [item, setItem] = useState();
 
   React.useEffect(() => {
     if (section === undefined && props.section !== undefined) {
       setSection(props.section);
     }
   }, [props.section, section]);
+
+  React.useEffect(() => {
+    if (props.userId !== undefined) {
+      setItem(props.userId);
+    }
+  }, [props.userId]);
+
+  React.useEffect(() => {
+    if (section === 'advisor' && props.section !== 'advisor')
+      props.setSection('advisor');
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [section]);
 
   const toggleShowProSearch = () => {
     if (showProSearch) setWantedIcon(faAngleDoubleDown);
@@ -94,6 +108,20 @@ function Filter(props) {
           placeholder={translator.section}
           subText={translator.section}
         />
+        {section === 'advisor' && props.items !== undefined && (
+          <JustBottomBorderSelect
+            setter={item => {
+              setItem(item);
+              props.setRefId(item);
+            }}
+            values={props.items}
+            value={props.items.find(elem => elem.id === item)}
+            placeholder={
+              props.isAdvisor ? translator.student : translator.advisor
+            }
+            subText={props.isAdvisor ? translator.student : translator.advisor}
+          />
+        )}
         {items !== undefined && (
           <JustBottomBorderSelect
             setter={setRefId}
@@ -122,6 +150,17 @@ function Filter(props) {
           title={commonTranslator.show}
           style={{alignSelf: 'flex-start'}}
         />
+        {item !== undefined && section === 'advisor' && (
+          <CommonButton
+            theme={'dark'}
+            onPress={() => props.setIsInCreateMode(true)}
+            title={
+              props.isAdvisor
+                ? 'ارسال پیام جدید به دانش آموز'
+                : 'ارسال پیام جدید به مشاور'
+            }
+          />
+        )}
       </PhoneView>
       <PhoneView>
         <SimpleText

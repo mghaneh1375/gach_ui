@@ -7,6 +7,7 @@ import {useParams} from 'react-router';
 import {UsersProvider} from './components/Context';
 import ChangePassByAdmin from './components/ChangePassByAdmin';
 import ChargeAccount from './components/ChargeAccount';
+import AdvisorTags from './components/AdvisorTags';
 
 const Users = props => {
   const [mode, setMode] = useState();
@@ -41,7 +42,7 @@ const Users = props => {
             token={props.token}
           />
         )}
-        {mode === 'advisorTags' && }
+
         {mode === 'changePass' && (
           <ChangePassByAdmin
             setMode={setMode}
@@ -58,6 +59,13 @@ const Users = props => {
         )}
         {mode === 'chargeAccount' && (
           <ChargeAccount
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
+          />
+        )}
+        {mode === 'advisorTags' && (
+          <AdvisorTags
             setMode={setMode}
             setLoading={setLoading}
             token={props.token}
