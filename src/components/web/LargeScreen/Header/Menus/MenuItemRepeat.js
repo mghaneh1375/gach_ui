@@ -102,12 +102,24 @@ function MenuItemRepeat(props) {
           navigate={navigate}
           items={[
             {
-              text: translator.myAdvisor,
+              text:
+                props.excludes !== undefined &&
+                props.excludes.indexOf('my_advisor') === -1
+                  ? translator.myAdvisor
+                  : undefined,
               url: '/myAdvisor',
             },
             {
               text: translator.advisors,
               url: '/advisors',
+            },
+            {
+              text:
+                props.excludes !== undefined &&
+                props.excludes.indexOf('my_advisor_quizzes') === -1
+                  ? translator.quizes
+                  : undefined,
+              url: '/myAdvisor/quiz',
             },
             {
               text: translator.requestsLog,

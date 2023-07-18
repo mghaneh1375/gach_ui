@@ -379,7 +379,7 @@ export const routes = {
   sendAdvisorAcceptanceRequest: 'advisor/public/request/',
   cancelAdvisor: 'advisor/public/cancel',
   getMyCurrentRoom: 'advisor/public/getMyCurrentRoom',
-  rateToAdvisor: 'advisor/public/rate',
+  rateToAdvisor: 'advisor/public/rate/',
   myLifeStyle: 'advisor/public/myLifeStyle/',
   addItemToMyLifeStyle: 'advisor/public/addItemToMyLifeStyle',
   removeItemFromMyLifeStyle: 'advisor/public/removeItemFromMyLifeStyle',

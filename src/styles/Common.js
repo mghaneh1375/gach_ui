@@ -323,8 +323,12 @@ export const ErrorText = props => {
 export const CommonRadioButton = props => (
   <PhoneView
     style={
-      ({height: props.isCheckBox ? 20 : 60, alignItems: 'center'},
-      props.style !== undefined ? props.style : {})
+      props.style !== undefined
+        ? {
+            ...{height: props.isCheckBox ? 20 : 60, alignItems: 'center'},
+            ...props.style,
+          }
+        : {height: props.isCheckBox ? 20 : 60, alignItems: 'center'}
     }>
     {props.isCheckBox === undefined && (
       <RadioButton

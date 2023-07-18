@@ -23,7 +23,7 @@ function MyAdvisor(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [myAdvisors, setMyAdvisors] = useState();
-  const [rate, setRate] = useState(0);
+
   const [sessions, setSessions] = useState();
 
   const fetchData = React.useCallback(() => {
@@ -45,7 +45,6 @@ function MyAdvisor(props) {
 
       if (res[0].length > 0) {
         setMyAdvisors(res[0]);
-        // setRate(res[0].myRate);
 
         Promise.all([
           generalRequest(
@@ -75,87 +74,99 @@ function MyAdvisor(props) {
 
   return (
     <CommonWebBox header={commonTranslator.myAdvisor}>
-      <PhoneView>
+      <PhoneView style={{...styles.justifyContentCenter}}>
         <CommonButton
           onPress={() => props.navigate('/myLifeStyle')}
           title={'تغییر برنامه ریزی روزانه'}
         />
-        <CommonButton
-          onPress={() => window.open('/mySchedules')}
-          title={'برنامه های مطالعه'}
-        />
+        {myAdvisors !== undefined &&
+          myAdvisors !== null &&
+          myAdvisors.length > 0 && (
+            <>
+              <CommonButton
+                theme={'dark'}
+                onPress={() => window.open('/mySchedules')}
+                title={'برنامه های مطالعه'}
+              />
+
+              <CommonButton
+                theme={'orangeRed'}
+                onPress={() => props.navigate('/myAdvisor/quiz')}
+                title={'آزمون ها'}
+              />
+            </>
+          )}
       </PhoneView>
 
-      {myAdvisors !== undefined &&
-        myAdvisors !== null &&
-        myAdvisors.map((myAdvisor, index) => {
-          return (
-            <>
-              <PhoneView style={{...styles.marginRight60}} key={index}>
-                <Card
-                  setRate={async rate => {
-                    dispatch({loading: true});
-                    let res = await generalRequest(
-                      routes.rateToAdvisor,
-                      'put',
-                      {
-                        rate: rate,
-                      },
-                      'rate',
-                      state.token,
-                    );
-                    dispatch({loading: false});
-                    if (res !== null) {
-                      showSuccess();
-                      setRate(rate);
-                      setMyAdvisors({
-                        ...myAdvisors,
-                        rate: res,
-                      });
-                    }
-                  }}
-                  rate={rate}
-                  isMyAdvisor={true}
-                  hasOpenRequest={false}
-                  data={myAdvisor}
-                  onRemove={async () => {
-                    dispatch({loading: true});
-                    let res = await generalRequest(
-                      routes.cancelAdvisor,
-                      'delete',
-                      undefined,
-                      undefined,
-                      state.token,
-                    );
-                    dispatch({loading: false});
-                    if (res !== null) {
-                      showSuccess();
-                      props.navigate('/advisors');
-                    }
-                  }}
-                />
-              </PhoneView>
-
-              <EqualTwoTextInputs>
-                {myAdvisors !== undefined && myAdvisors !== null && (
+      <PhoneView
+        style={{
+          ...styles.gap50,
+          ...styles.marginRight60,
+          ...styles.marginTop20,
+        }}>
+        {myAdvisors !== undefined &&
+          myAdvisors !== null &&
+          myAdvisors.map((myAdvisor, index) => {
+            return (
+              <Card
+                key={index}
+                setRate={async rate => {
+                  dispatch({loading: true});
+                  let res = await generalRequest(
+                    routes.rateToAdvisor + myAdvisor.id,
+                    'put',
+                    {
+                      rate: rate,
+                    },
+                    'rate',
+                    state.token,
+                  );
+                  dispatch({loading: false});
+                  if (res !== null) {
+                    showSuccess();
+                    myAdvisor.myRate = rate;
+                    myAdvisor.rate = res;
+                    let tmp = myAdvisors.map(e => {
+                      if (e.id == myAdvisor.id) return myAdvisor;
+                      return e;
+                    });
+                    setMyAdvisors(tmp);
+                  }
+                }}
+                rate={myAdvisor.myRate}
+                isMyAdvisor={true}
+                hasOpenRequest={false}
+                data={myAdvisor}
+                onRemove={async () => {
+                  dispatch({loading: true});
+                  let res = await generalRequest(
+                    routes.cancelAdvisor,
+                    'delete',
+                    undefined,
+                    undefined,
+                    state.token,
+                  );
+                  dispatch({loading: false});
+                  if (res !== null) {
+                    showSuccess();
+                    props.navigate('/advisors');
+                  }
+                }}
+                btn={
                   <CommonButton
                     onPress={() =>
                       window.open(
                         '/ticket?section=advisor&userId=' + myAdvisor.id,
                       )
                     }
+                    theme={'dark'}
                     title={'صحبت با مشاور'}
                   />
-                )}
-
-                <CommonButton
-                  onPress={() => props.navigate('/myAdvisor/quiz')}
-                  title={'آزمون ها'}
-                />
-              </EqualTwoTextInputs>
-            </>
-          );
-        })}
+                }
+              />
+            );
+          })}
+      </PhoneView>
       {myAdvisors === null && (
         <MyView style={{...styles.alignItemsCenter}}>
           <SimpleText

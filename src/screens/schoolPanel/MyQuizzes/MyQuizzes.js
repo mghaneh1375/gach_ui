@@ -30,6 +30,8 @@ function MyQuizzes(props) {
 
   const [state, dispatch] = useGlobalState();
 
+  const isAdvisor = isUserAdvisor(state.user);
+
   return (
     <>
       <MyQuizzesProvider>
@@ -80,7 +82,12 @@ function MyQuizzes(props) {
           />
         )}
         {mode === 'copy' && (
-          <Copy setLoading={setLoading} setMode={setMode} token={state.token} />
+          <Copy
+            isAdvisor={isAdvisor}
+            setLoading={setLoading}
+            setMode={setMode}
+            token={state.token}
+          />
         )}
         {mode === 'recp' && (
           <Recp setLoading={setLoading} setMode={setMode} token={state.token} />

@@ -8,6 +8,7 @@ import {addItem, isUserAdvisor, removeItems} from '../../../services/Utility';
 import {MyView} from '../../../styles/Common';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
+import {useSearchParams} from 'react-router-dom';
 
 function Ticketstd(props) {
   const [mode, setMode] = useState();
@@ -21,10 +22,13 @@ function Ticketstd(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
+  const isAdvisor = isUserAdvisor(state.user);
 
   const setLoading = status => {
     dispatch({loading: status});
   };
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   React.useEffect(() => {
     filter(
@@ -36,6 +40,7 @@ function Ticketstd(props) {
         isAdmin: false,
       },
       undefined,
+      searchParams.get('section'),
       undefined,
       undefined,
       undefined,
@@ -44,8 +49,10 @@ function Ticketstd(props) {
       undefined,
       undefined,
       undefined,
+      isAdvisor ? undefined : searchParams.get('userId'),
+      isAdvisor ? searchParams.get('userId') : undefined,
     );
-  }, [navigate, props.token, dispatch]);
+  }, [navigate, props.token, dispatch, searchParams, isAdvisor]);
 
   const params = useParams();
 
@@ -58,8 +65,6 @@ function Ticketstd(props) {
       setMode('list');
     else setMode('create');
   }, [params]);
-
-  const isAdvisor = isUserAdvisor(state.user);
 
   return (
     <MyView>

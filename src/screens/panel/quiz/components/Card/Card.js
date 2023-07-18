@@ -356,6 +356,16 @@ function Card(props) {
               )}
             </PhoneView>
           )}
+          {props.quiz.creator !== undefined && (
+            <SimpleText
+              style={{
+                ...styles.colorOrangeRed,
+                ...styles.bold,
+                ...styles.marginTop10,
+              }}
+              text={'سازنده: ' + props.quiz.creator}
+            />
+          )}
         </MyView>
 
         <MyView>

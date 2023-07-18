@@ -52,12 +52,16 @@ function SelectFromMyStudents(props) {
   ];
 
   return (
-    <LargePopUp toggleShowPopUp={props.toggleShowPopUp} title={props.title}>
+    <LargePopUp
+      removeCancel={true}
+      toggleShowPopUp={props.toggleShowPopUp}
+      title={props.title}>
       {data !== undefined && (
         <CommonDataTable
           groupOps={[
             {
               key: 'select',
+              showAsButton: true,
               label: commonTranslator.select,
               warning: 'آیا از انتخاب دانش آموزان انتخاب شده اطمینان دارید؟',
               afterFunc: arr => {

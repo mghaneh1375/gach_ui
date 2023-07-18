@@ -75,16 +75,35 @@ function TimePicker(props) {
       }
     }
     if (value.length < 2) {
-      if (
-        charCode !== 96 &&
-        charCode !== 97 &&
-        charCode !== 98 &&
-        charCode !== 99 &&
-        charCode !== 100 &&
-        String.fromCharCode(charCode).match(/[^0-4]/g)
-      ) {
-        e.preventDefault();
-        return;
+      if (value[0] == 2) {
+        if (
+          charCode !== 96 &&
+          charCode !== 97 &&
+          charCode !== 98 &&
+          charCode !== 99 &&
+          charCode !== 100 &&
+          String.fromCharCode(charCode).match(/[^0-4]/g)
+        ) {
+          e.preventDefault();
+          return;
+        }
+      } else {
+        if (
+          charCode !== 96 &&
+          charCode !== 97 &&
+          charCode !== 98 &&
+          charCode !== 99 &&
+          charCode !== 100 &&
+          charCode !== 101 &&
+          charCode !== 102 &&
+          charCode !== 103 &&
+          charCode !== 104 &&
+          charCode !== 105 &&
+          String.fromCharCode(charCode).match(/[^0-9]/g)
+        ) {
+          e.preventDefault();
+          return;
+        }
       }
     } else if (value.length < 3) {
       if (

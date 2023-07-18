@@ -64,7 +64,11 @@ function StudentMenu(props) {
     return (
       <MenuItemRepeat
         // excludes={['advisor', 'mySchool']}
-        excludes={[]}
+        excludes={
+          state.user?.user?.hasAdvisor
+            ? []
+            : ['my_advisor', 'my_advisor_quizzes']
+        }
         navigate={props.navigate}
         selected={props.selected}
       />

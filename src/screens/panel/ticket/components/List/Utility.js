@@ -47,13 +47,15 @@ export const filter = (
   answerDateSolar,
   answerDateSolarEndLimit,
   refId = undefined,
+  advisorId = undefined,
+  studentId = undefined,
 ) => {
   let query = new URLSearchParams();
 
   if (priority !== undefined && priority !== 'all') {
     query.append('priority', priority);
   }
-  if (section !== undefined && section !== 'all') {
+  if (section !== undefined && section !== null && section !== 'all') {
     query.append('section', section);
   }
   if (status !== undefined && status !== 'all') {
@@ -62,6 +64,14 @@ export const filter = (
 
   if (refId !== undefined) {
     query.append('refId', refId);
+  }
+
+  if (advisorId !== undefined && advisorId !== null) {
+    query.append('advisorId', advisorId);
+  }
+
+  if (studentId !== undefined && studentId !== null) {
+    query.append('studentId', studentId);
   }
 
   if (searchArchive !== undefined && searchArchive !== '') {

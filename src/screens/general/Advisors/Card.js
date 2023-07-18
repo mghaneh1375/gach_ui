@@ -218,9 +218,12 @@ function Card(props) {
         </EqualTwoTextInputs>
       )}
 
-      {props.onRemove !== undefined && (
-        <CommonButton onPress={() => props.onRemove()} title={'حذف مشاور'} />
-      )}
+      <PhoneView>
+        {props.onRemove !== undefined && (
+          <CommonButton onPress={() => props.onRemove()} title={'حذف مشاور'} />
+        )}
+        {props.btn !== undefined && props.btn}
+      </PhoneView>
 
       {props.onCancel !== undefined && props.shouldPay === undefined && (
         <EqualTwoTextInputs>

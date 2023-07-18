@@ -30,12 +30,14 @@ function StudentList(props) {
   return (
     <LargePopUp
       toggleShowPopUp={props.toggleShowPopUp}
+      removeCancel={true}
       title={'افزودن دانش آموز/دانش آموزان به آزمون'}>
       {state.myStudents !== undefined && (
         <CommonDataTable
           groupOps={[
             {
               key: 'select',
+              showAsButton: true,
               label: commonTranslator.select,
               warning: 'آیا از انتخاب دانش آموزان انتخاب شده اطمینان دارید؟',
               afterFunc: arr => {

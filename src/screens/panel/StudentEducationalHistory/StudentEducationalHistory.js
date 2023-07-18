@@ -9,6 +9,7 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
+  PhoneView,
   SimpleText,
 } from '../../../styles/Common';
 import CommonDataTable from '../../../styles/Common/CommonDataTable';
@@ -244,13 +245,17 @@ function StudentEducationalHistory(props) {
             />
           )}
 
-          {data !== undefined && data.advisor !== undefined && (
+          {data !== undefined && data.advisors !== undefined && (
             <MyView>
               <SimpleText
-                text={commonTranslator.advisor}
+                text={commonTranslator.advisors}
                 style={{...styles.BlueBold}}
               />
-              <Card hasOpenRequest={true} data={data.advisor} />
+              <PhoneView>
+                {data.advisors.map((e, index) => {
+                  return <Card hasOpenRequest={true} data={e} key={index} />;
+                })}
+              </PhoneView>
             </MyView>
           )}
         </EqualTwoTextInputs>

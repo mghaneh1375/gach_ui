@@ -4,7 +4,7 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import ConfirmationBatchOpPane from '../../components/web/ConfirmationBatchOpPane';
 import {showSuccess} from '../../services/Utility';
 import commonTranslator from '../../translator/Common';
-import {MyView} from '../Common';
+import {CommonButton, MyView} from '../Common';
 
 const CommonDataTable = props => {
   const customStyles = {
@@ -362,6 +362,23 @@ const CommonDataTable = props => {
           }}
         />
       )}
+
+      {state.ops !== undefined &&
+        state.ops.length > 0 &&
+        state.ops.map((e, index) => {
+          if (e.showAsButton === undefined || !e.showAsButton) return;
+          return (
+            <CommonButton
+              key={index}
+              theme={'dark'}
+              onPress={() => {
+                setSelectedOp(e);
+                setShowRemovePopUp(true);
+              }}
+              title={e.label}
+            />
+          );
+        })}
     </MyView>
   );
 };

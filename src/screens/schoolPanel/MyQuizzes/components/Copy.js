@@ -9,7 +9,7 @@ import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
 import commonTranslator from '../../../../translator/Common';
 import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
-import {showError, showSuccess} from '../../../../services/Utility';
+import {isUserAdvisor, showSuccess} from '../../../../services/Utility';
 import {launchModeKeyVals} from '../../../panel/quiz/components/KeyVals';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 
@@ -25,7 +25,9 @@ function Copy(props) {
   const [end, setEnd] = useState();
   const [name, setName] = useState();
   const [copyStudents, setCopyStudents] = useState('no');
-  const [launchMode, setLaunchMode] = useState();
+  const [launchMode, setLaunchMode] = useState(
+    props.isAdvisor ? 'online' : undefined,
+  );
 
   return (
     <CommonWebBox
@@ -54,19 +56,21 @@ function Copy(props) {
           subText={translator.endDate}
         />
 
-        <JustBottomBorderSelect
-          values={launchModeKeyVals}
-          value={
-            launchMode === undefined
-              ? {}
-              : launchModeKeyVals.filter(element => {
-                  return element.id === launchMode;
-                })[0]
-          }
-          setter={setLaunchMode}
-          placeholder={translator.isOnline}
-          subText={translator.isOnline}
-        />
+        {!props.isAdvisor && (
+          <JustBottomBorderSelect
+            values={launchModeKeyVals}
+            value={
+              launchMode === undefined
+                ? {}
+                : launchModeKeyVals.filter(element => {
+                    return element.id === launchMode;
+                  })[0]
+            }
+            setter={setLaunchMode}
+            placeholder={translator.isOnline}
+            subText={translator.isOnline}
+          />
+        )}
 
         <RadioButtonYesOrNo
           selected={copyStudents}
