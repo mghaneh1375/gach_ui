@@ -71,6 +71,9 @@ function Advisors(props) {
   const [maxAge, setMaxAge] = useState(49);
   const [tags, setTags] = useState();
 
+  const [offAmount, setOffAmount] = useState(0);
+  const [userMoney, setUserMoney] = useState(state.user.user.money);
+
   const goToPayLocal = async advisorId => {
     let data = {};
 
@@ -160,6 +163,14 @@ function Advisors(props) {
 
         setTags(tmp);
 
+        if (
+          res[2] !== null &&
+          res[2] !== undefined &&
+          res[2].length > 0 &&
+          res[2][0].userMoney !== undefined
+        )
+          setUserMoney(res[2][0].userMoney);
+
         setOpenRequests(res[2]);
       } else {
         if (res[0] === null || res[1] == null) {
@@ -188,8 +199,6 @@ function Advisors(props) {
     fetchData();
   });
 
-  const [offAmount, setOffAmount] = useState(0);
-
   const setOffCodeResult = (amount, type, code) => {
     setUserOff({type: type, amount: amount, code: code});
 
@@ -197,10 +206,7 @@ function Advisors(props) {
     let offAmountTmp =
       type === 'percent' ? (openReq.price * amount) / 100 : amount;
     setOffAmount(offAmountTmp);
-    openReq.shouldPay = Math.max(
-      0,
-      openReq.price - offAmountTmp - state.user.user.money,
-    );
+    openReq.shouldPay = Math.max(0, openReq.price - offAmountTmp - userMoney);
   };
 
   const [selectableItems, setSelectableItems] = useState();
@@ -392,7 +398,7 @@ function Advisors(props) {
                       hasOpenRequest={true}
                       shouldPay={shouldPay}
                       userMoney={Math.min(
-                        state.user.user.money,
+                        userMoney,
                         Math.max(0, openReq.price - offAmount),
                       )}
                       offAmount={

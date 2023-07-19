@@ -35,10 +35,11 @@ import Tag from '../../../studentPanel/MyLifeStyle.js/components/Tag';
 import {
   removeItems,
   showError,
+  showSuccess,
   trueFalseValues,
 } from '../../../../services/Utility';
 import TimePicker from '../../../../styles/Common/TimePicker';
-import {downloadRequest} from '../../../../API/Utility';
+import {downloadRequest, generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 
 function Create(props) {
@@ -65,6 +66,7 @@ function Create(props) {
   const [selectedDay, setSelectedDay] = useState();
   const [showDailySchedule, setShowDailySchedule] = useState(props.isAdvisor);
   const [boxes, setBoxes] = useState();
+  const [desc, setDesc] = useState();
 
   const scheduleForValues = [
     {id: 0, item: 'هفته جاری'},
@@ -98,6 +100,9 @@ function Create(props) {
 
       if (props.isInEditMode) {
         state.selectedSchedule.days = res[0].days;
+        if (res[0].advisorsDesc !== undefined)
+          state.selectedSchedule.advisorsDesc = res[0].advisorsDesc;
+        setDesc(res[0].advisorDesc);
         dispatch({
           selectedSchedule: state.selectedSchedule,
         });
@@ -428,6 +433,7 @@ function Create(props) {
                 />
               )}
             </PhoneView>
+
             <PhoneView>
               <JustBottomBorderTextInput
                 multiline={true}
@@ -496,6 +502,38 @@ function Create(props) {
             />
           </PhoneView>
         )}
+
+        {props.isAdvisor && state.selectedSchedule?.id !== undefined && (
+          <PhoneView>
+            <JustBottomBorderTextInput
+              onChangeText={e => setDesc(e)}
+              value={desc}
+              placeholder={'توضیحات'}
+              subText={'توضیحات'}
+              multiline={true}
+            />
+            <CommonButton
+              title={'ذخیره توضیحات'}
+              onPress={async () => {
+                let res = await generalRequest(
+                  routes.setScheduleDesc + state.selectedSchedule.id,
+                  'put',
+                  {description: desc},
+                  undefined,
+                  props.token,
+                );
+                if (res != null) showSuccess();
+              }}
+            />
+          </PhoneView>
+        )}
+        {!props.isAdvisor &&
+          state.selectedSchedule.advisorsDesc !== undefined &&
+          state.selectedSchedule.advisorsDesc.map((e, index) => {
+            return (
+              <SimpleText key={index} text={e.advisor + ': "' + e.desc + '"'} />
+            );
+          })}
 
         {boxes !== undefined &&
           boxes.map((e, index) => {

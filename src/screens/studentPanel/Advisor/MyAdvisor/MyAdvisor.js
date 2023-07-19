@@ -73,126 +73,132 @@ function MyAdvisor(props) {
   });
 
   return (
-    <CommonWebBox header={commonTranslator.myAdvisor}>
-      <PhoneView style={{...styles.justifyContentCenter}}>
-        <CommonButton
-          onPress={() => props.navigate('/myLifeStyle')}
-          title={'تغییر برنامه ریزی روزانه'}
-        />
-        {myAdvisors !== undefined &&
-          myAdvisors !== null &&
-          myAdvisors.length > 0 && (
-            <>
-              <CommonButton
-                theme={'dark'}
-                onPress={() => window.open('/mySchedules')}
-                title={'برنامه های مطالعه'}
-              />
-
-              <CommonButton
-                theme={'orangeRed'}
-                onPress={() => props.navigate('/myAdvisor/quiz')}
-                title={'آزمون ها'}
-              />
-            </>
-          )}
-      </PhoneView>
-
-      <PhoneView
-        style={{
-          ...styles.gap50,
-          ...styles.marginRight60,
-          ...styles.marginTop20,
-        }}>
-        {myAdvisors !== undefined &&
-          myAdvisors !== null &&
-          myAdvisors.map((myAdvisor, index) => {
-            return (
-              <Card
-                key={index}
-                setRate={async rate => {
-                  dispatch({loading: true});
-                  let res = await generalRequest(
-                    routes.rateToAdvisor + myAdvisor.id,
-                    'put',
-                    {
-                      rate: rate,
-                    },
-                    'rate',
-                    state.token,
-                  );
-                  dispatch({loading: false});
-                  if (res !== null) {
-                    showSuccess();
-                    myAdvisor.myRate = rate;
-                    myAdvisor.rate = res;
-                    let tmp = myAdvisors.map(e => {
-                      if (e.id == myAdvisor.id) return myAdvisor;
-                      return e;
-                    });
-                    setMyAdvisors(tmp);
-                  }
-                }}
-                rate={myAdvisor.myRate}
-                isMyAdvisor={true}
-                hasOpenRequest={false}
-                data={myAdvisor}
-                onRemove={async () => {
-                  dispatch({loading: true});
-                  let res = await generalRequest(
-                    routes.cancelAdvisor,
-                    'delete',
-                    undefined,
-                    undefined,
-                    state.token,
-                  );
-                  dispatch({loading: false});
-                  if (res !== null) {
-                    showSuccess();
-                    props.navigate('/advisors');
-                  }
-                }}
-                btn={
-                  <CommonButton
-                    onPress={() =>
-                      window.open(
-                        '/ticket?section=advisor&userId=' + myAdvisor.id,
-                      )
-                    }
-                    theme={'dark'}
-                    title={'صحبت با مشاور'}
-                  />
-                }
-              />
-            );
-          })}
-      </PhoneView>
-      {myAdvisors === null && (
-        <MyView style={{...styles.alignItemsCenter}}>
-          <SimpleText
-            style={{...styles.BlueBold}}
-            text={'شما در حال حاضر مشاوری ندارید'}
-          />
+    <>
+      <CommonWebBox header={commonTranslator.myAdvisor}>
+        <PhoneView style={{...styles.justifyContentCenter}}>
           <CommonButton
-            onPress={() => props.navigate('/advisors')}
-            theme={'dark'}
-            title={'انتخاب مشاور'}
+            onPress={() => props.navigate('/myLifeStyle')}
+            title={'تغییر برنامه ریزی روزانه'}
           />
-        </MyView>
-      )}
+          {myAdvisors !== undefined &&
+            myAdvisors !== null &&
+            myAdvisors.length > 0 && (
+              <>
+                <CommonButton
+                  theme={'dark'}
+                  onPress={() => window.open('/mySchedules')}
+                  title={'برنامه های مطالعه'}
+                />
 
-      {sessions !== undefined &&
-        sessions.map((e, index) => {
-          return (
-            <CommonButton
-              key={index}
-              title={'رفتن به اتاق جلسه با ' + e.advisor}
-              theme={'dark'}
-              onPress={() => window.open(e.url)}
+                <CommonButton
+                  theme={'orangeRed'}
+                  onPress={() => props.navigate('/myAdvisor/quiz')}
+                  title={'آزمون ها'}
+                />
+              </>
+            )}
+        </PhoneView>
+
+        <PhoneView
+          style={{
+            ...styles.gap50,
+            ...styles.marginRight60,
+            ...styles.marginTop20,
+          }}>
+          {myAdvisors !== undefined &&
+            myAdvisors !== null &&
+            myAdvisors.map((myAdvisor, index) => {
+              return (
+                <Card
+                  key={index}
+                  setRate={async rate => {
+                    dispatch({loading: true});
+                    let res = await generalRequest(
+                      routes.rateToAdvisor + myAdvisor.id,
+                      'put',
+                      {
+                        rate: rate,
+                      },
+                      'rate',
+                      state.token,
+                    );
+                    dispatch({loading: false});
+                    if (res !== null) {
+                      showSuccess();
+                      myAdvisor.myRate = rate;
+                      myAdvisor.rate = res;
+                      let tmp = myAdvisors.map(e => {
+                        if (e.id == myAdvisor.id) return myAdvisor;
+                        return e;
+                      });
+                      setMyAdvisors(tmp);
+                    }
+                  }}
+                  rate={myAdvisor.myRate}
+                  isMyAdvisor={true}
+                  hasOpenRequest={false}
+                  data={myAdvisor}
+                  onRemove={async () => {
+                    dispatch({loading: true});
+                    let res = await generalRequest(
+                      routes.cancelAdvisor + myAdvisor.id,
+                      'delete',
+                      undefined,
+                      undefined,
+                      state.token,
+                    );
+                    dispatch({loading: false});
+                    if (res !== null) {
+                      showSuccess();
+                      props.navigate('/advisors');
+                    }
+                  }}
+                  btn={
+                    <CommonButton
+                      onPress={() =>
+                        window.open(
+                          '/ticket?section=advisor&userId=' + myAdvisor.id,
+                        )
+                      }
+                      theme={'dark'}
+                      title={'صحبت با مشاور'}
+                    />
+                  }
+                />
+              );
+            })}
+        </PhoneView>
+        {myAdvisors === null && (
+          <MyView style={{...styles.alignItemsCenter}}>
+            <SimpleText
+              style={{...styles.BlueBold}}
+              text={'شما در حال حاضر مشاوری ندارید'}
             />
-          );
-        })}
-    </CommonWebBox>
+            <CommonButton
+              onPress={() => props.navigate('/advisors')}
+              theme={'dark'}
+              title={'انتخاب مشاور'}
+            />
+          </MyView>
+        )}
+      </CommonWebBox>
+      {sessions !== undefined && sessions.length > 0 && (
+        <CommonWebBox header={'جلسات آنلاین'}>
+          <PhoneView>
+            {sessions.map((e, index) => {
+              return (
+                <CommonButton
+                  key={index}
+                  title={'رفتن به اتاق جلسه با ' + e.advisor}
+                  theme={'dark'}
+                  onPress={() => window.open(e.url)}
+                />
+              );
+            })}
+          </PhoneView>
+        </CommonWebBox>
+      )}
+    </>
   );
 }
 
