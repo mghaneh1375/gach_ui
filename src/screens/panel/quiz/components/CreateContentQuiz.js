@@ -38,7 +38,7 @@ const CreateContentQuiz = props => {
     setName(state.selectedQuiz.title);
     setDesc(state.selectedQuiz.description);
     setTags(state.selectedQuiz.tags);
-    setKind(state.selectedQuiz.mode);
+
     setDescAfter(state.selectedQuiz.descAfter);
     setDescBefore(state.selectedQuiz.descBefore);
     setMinusMark(state.selectedQuiz.minusMark);
@@ -46,7 +46,6 @@ const CreateContentQuiz = props => {
 
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
-  const [kind, setKind] = useState();
   const [tags, setTags] = useState([]);
   const [len, setLen] = useState(props.editMode ? state.selectedQuiz.len : '');
   const [lenMode, setLenMode] = useState(
@@ -179,8 +178,6 @@ const CreateContentQuiz = props => {
           <QuizGeneralInfo
             name={name}
             setName={setName}
-            kind={kind}
-            setKind={setKind}
             tags={tags}
             setTags={setTags}
             desc={desc}

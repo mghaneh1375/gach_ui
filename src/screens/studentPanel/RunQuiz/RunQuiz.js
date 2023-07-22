@@ -276,10 +276,12 @@ function RunQuiz(props) {
                       : params.quizMode === 'school'
                       ? (window.location.href = '/mySchool/quiz')
                       : params.quizMode === 'content'
-                      ? (window.location.href = '/myPackages')
+                      ? props.navigate(-1)
                       : (window.location.href = '/myIRYSCQuizzes')
                     : params.quizMode === 'open'
                     ? (window.location.href = '/quiz/open')
+                    : params.quizMode === 'content'
+                    ? props.navigate(-1)
                     : (window.location.href = '/quiz/list')
                 }
               />
@@ -297,7 +299,7 @@ function RunQuiz(props) {
                     ? params.quizMode === 'custom'
                       ? (window.location.href = '/myCustomQuizzes')
                       : params.quizMode === 'content'
-                      ? (window.location.href = '/myPackages')
+                      ? props.navigate(-1)
                       : params.quizMode === 'school'
                       ? (window.location.href = '/mySchool/quiz')
                       : (window.location.href = '/myIRYSCQuizzes')

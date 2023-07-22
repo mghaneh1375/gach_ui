@@ -8,7 +8,7 @@ import {
 } from '../../../../../../styles/Common';
 import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
-import {fetchStudentAnswerSheet, getKarname} from '../../Utility';
+import {getKarname} from '../../Utility';
 import {
   lessonCols,
   lessonColsCustomQuiz,
@@ -147,7 +147,7 @@ function ContentQuizKarname(props) {
             : 'کارنامه آزمون '
         }
         backBtn={true}
-        onBackClick={() => props.navigate('/myPackages')}></CommonWebBox>
+        onBackClick={() => props.navigate(-1)}></CommonWebBox>
 
       <MyView>
         <PhoneView>

@@ -17,6 +17,8 @@ const defaultGlobalState = {
   exit: false,
   openFileSelectorFlag: undefined,
   stdAnswerSheets: undefined,
+  showExitConfirmation: false,
+  imSureExit: false,
 };
 
 export const doQuizContext = React.createContext(defaultGlobalState);
@@ -182,8 +184,13 @@ export const DoQuizProvider = ({children}) => {
 
   React.useEffect(() => {
     if (!state.exit) return;
+    dispatch({showExitConfirmation: true});
+  }, [state.exit, dispatch]);
+
+  React.useEffect(() => {
+    if (!state.imSureExit) return;
     saveAnswersWithExit();
-  }, [state.exit, saveAnswersWithExit]);
+  }, [state.imSureExit, saveAnswersWithExit]);
 
   const saveAnswers = React.useCallback(() => {
     state.setLoadingWithText(true);
@@ -284,6 +291,8 @@ export const DoQuizProvider = ({children}) => {
         window.location.href =
           state.quizInfo.generalMode === 'custom'
             ? '/myCustomQuizzes'
+            : state.quizInfo.generalMode === 'content'
+            ? '/myPackages'
             : state.quizInfo.generalMode === 'school'
             ? '/mySchool/quiz'
             : '/myIRYSCQuizzes';

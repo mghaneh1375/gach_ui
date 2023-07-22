@@ -49,6 +49,8 @@ import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
 import Card from '../Card';
 import LastBuyer from './LastBuyer';
+import {downloadCert} from '../../../../panel/certificate/Utility';
+import {LargePopUp} from '../../../../../styles/Common/PopUp';
 
 function Detail(props) {
   const [item, setItem] = useState();
@@ -68,6 +70,7 @@ function Detail(props) {
   const [userMoney, setUserMoney] = useState(
     props.user === null ? 0 : props.user.user.money,
   );
+  const [showRunQuizWarning, setShowRunQuizWarning] = useState(false);
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [off, setOff] = useState();
   const [shouldPay, setShouldPay] = useState();
@@ -220,6 +223,22 @@ function Detail(props) {
   return (
     <>
       {item === undefined && <></>}
+      {showRunQuizWarning && (
+        <LargePopUp
+          toggleShowPopUp={() => setShowRunQuizWarning(false)}
+          btns={
+            <CommonButton
+              theme={'dark'}
+              title={commonTranslator.confirm}
+              onPress={() => props.navigate('/startQuiz/content/' + item.id)}
+            />
+          }>
+          <SimpleText
+            onPress={() => props.navigate('/startQuiz/content/' + item.id)}
+            text="آیا از رفتن به آزمون پایان دوره اطمینان دارید؟ (تنها یکبار می توانید در این آزمون شرکت کنید)"
+          />
+        </LargePopUp>
+      )}
       {selectedSession !== undefined && (
         <SessionDetail
           duration={item.duration}
@@ -569,39 +588,58 @@ function Detail(props) {
                   <CommonWebBox>
                     {item.quizStatus === 'start' && (
                       <SimpleText
-                        onPress={() =>
-                          props.navigate('/startQuiz/content/' + item.id)
-                        }
+                        onPress={() => setShowRunQuizWarning(true)}
                         text={'شرکت در آزمون پایان دوره'}
                         style={{...styles.BlueBold, ...styles.cursor_pointer}}
                       />
                     )}
                     {item.quizStatus === 'result' && (
-                      <EqualTwoTextInputs>
-                        <SimpleText
-                          onPress={() =>
-                            props.navigate('/reviewQuiz/content/' + item.id)
-                          }
-                          style={{...styles.BlueBold, ...styles.cursor_pointer}}
-                          text={' مرور آزمون پایان دوره'}
-                        />
-                        <SimpleText
-                          onPress={() =>
-                            props.navigate(
-                              '/result/content/' +
-                                item.finalExamId +
-                                '/' +
-                                props.user.user.id,
-                            )
-                          }
-                          style={{
-                            ...styles.BlueBold,
-                            ...styles.cursor_pointer,
-                            ...styles.colorOrangeRed,
-                          }}
-                          text={' مشاهده کارنامه آزمون'}
-                        />
-                      </EqualTwoTextInputs>
+                      <>
+                        <EqualTwoTextInputs>
+                          <SimpleText
+                            onPress={() =>
+                              props.navigate('/reviewQuiz/content/' + item.id)
+                            }
+                            style={{
+                              ...styles.BlueBold,
+                              ...styles.cursor_pointer,
+                            }}
+                            text={' مرور آزمون پایان دوره'}
+                          />
+                          <SimpleText
+                            onPress={() =>
+                              props.navigate(
+                                '/result/content/' +
+                                  item.finalExamId +
+                                  '/' +
+                                  props.user.user.id,
+                              )
+                            }
+                            style={{
+                              ...styles.BlueBold,
+                              ...styles.cursor_pointer,
+                              ...styles.colorOrangeRed,
+                            }}
+                            text={' مشاهده کارنامه آزمون'}
+                          />
+                        </EqualTwoTextInputs>
+                        {item.certStatus === 'ready' && (
+                          <SimpleText
+                            onPress={async () => {
+                              await downloadCert(
+                                item.certId,
+                                props.user.user.NID,
+                              );
+                            }}
+                            style={{
+                              ...styles.BlueBold,
+                              ...styles.cursor_pointer,
+                              ...styles.red,
+                            }}
+                            text={' دانلود گواهی دوره'}
+                          />
+                        )}
+                      </>
                     )}
                   </CommonWebBox>
                 )}

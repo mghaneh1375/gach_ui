@@ -328,17 +328,20 @@ function Splash(props) {
                   }
             }>
             <EqualTwoTextInputs>
-              <CommonButton
-                padding={isInPhone ? '5px 5px' : undefined}
-                textStyle={
-                  isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
-                    : {}
-                }
-                onPress={props.onBack}
-                title={commonTranslator.back}
-                theme={'orangeRed'}
-              />
+              {(props.isInReviewMode ||
+                props.quizGeneralMode !== 'content') && (
+                <CommonButton
+                  padding={isInPhone ? '5px 5px' : undefined}
+                  textStyle={
+                    isInPhone
+                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      : {}
+                  }
+                  onPress={props.onBack}
+                  title={commonTranslator.back}
+                  theme={'orangeRed'}
+                />
+              )}
 
               {(state.quizInfo.isQRNeeded === undefined ||
                 !state.quizInfo.isQRNeeded) && (
