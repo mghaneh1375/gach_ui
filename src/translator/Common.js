@@ -250,6 +250,7 @@ const translator = {
   free: 'رایگان',
   clearFilters: 'پاک کردن فیلترها',
   showFilters: 'نمایش فیلتر',
+  lessFilters: 'بستن فیلتر',
   has: 'دارد',
   not_has: 'ندارد',
   col: ': ',

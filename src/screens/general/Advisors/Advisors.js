@@ -13,6 +13,7 @@ import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
+  MyView,
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';
@@ -24,7 +25,7 @@ import {setCacheItem} from '../../../API/User';
 import OffCode from '../buy/components/OffCode';
 import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
 import commonTranslator from '../../../translator/Common';
-import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import Filter from './Filter';
 
 function Advisors(props) {
@@ -271,51 +272,23 @@ function Advisors(props) {
           <input type={'hidden'} value={refId} name="RefId" />
         </form>
       )}
-      {advisorPlans !== undefined && (
-        <LargePopUp
-          title={'پلن های موجود'}
-          toggleShowPopUp={() => setAdvisorPlans(undefined)}>
-          <PhoneView style={{...styles.gap15}}>
-            {advisorPlans.plans.map((elem, index) => {
-              return (
-                <FinancePlan
-                  onSelect={async () => {
-                    dispatch({loading: true});
-                    let res = await generalRequest(
-                      routes.sendAdvisorAcceptanceRequest +
-                        advisorPlans.advisorId +
-                        '/' +
-                        elem.id,
-                      'post',
-                      undefined,
-                      'data',
-                      state.token,
-                    );
-                    dispatch({loading: false});
-                    if (res !== null) {
-                      addItem(openRequests, setOpenRequests, res);
 
-                      showSuccess(
-                        'درخواست شما با موفقیت ثبت گردید و پس از بررسی مشاور نتیجه به اطلاع شما خواهد رسید',
-                      );
-                      setAdvisorPlans(undefined);
-                    }
-                  }}
-                  key={index}
-                  plan={elem}
-                />
-              );
-            })}
-          </PhoneView>
-        </LargePopUp>
-      )}
       {!showSuccessTransaction && (
         <>
           {!isInPhone && (
             <CommonWebBox>
               <EqualTwoTextInputs>
-                <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
-                  {state.allItems !== undefined && (
+                <PhoneView
+                  style={{
+                    ...styles.alignSelfCenter,
+                    ...styles.gap10,
+                    ...styles.alignItemsCenter,
+                  }}>
+                  <SimpleText
+                    style={{...styles.BlueBold, ...styles.fontSize17}}
+                    text={'لیست مشاوران'}
+                  />
+                  {selectableItems !== undefined && (
                     <SimpleText
                       style={{...styles.fontSize13, ...styles.dark_blue_color}}
                       text={
@@ -342,11 +315,15 @@ function Advisors(props) {
                   <CommonButton
                     iconDir={'left'}
                     textStyle={{...styles.fontSize17, ...styles.bold}}
-                    icon={faChevronRight}
+                    icon={showFilter ? faChevronDown : faChevronRight}
                     onPress={() => {
                       setShowFilter(!showFilter);
                     }}
-                    title={commonTranslator.showFilters}
+                    title={
+                      showFilter
+                        ? commonTranslator.lessFilters
+                        : commonTranslator.showFilters
+                    }
                   />
                 </PhoneView>
               </EqualTwoTextInputs>
@@ -374,12 +351,17 @@ function Advisors(props) {
 
           <PhoneView
             style={{
-              ...styles.gap60,
-              ...styles.margin30,
-              ...styles.marginRight60,
+              ...styles.gap15,
+              ...styles.margin15,
             }}>
             {selectableItems !== undefined &&
               selectableItems.map((elem, index) => {
+                if (
+                  selectedAdvisor !== undefined &&
+                  elem.id !== selectedAdvisor
+                )
+                  return;
+
                 let openReq = openRequests.find(e => e.advisorId === elem.id);
                 let shouldPay =
                   openReq !== undefined && openReq.shouldPay !== undefined
@@ -487,10 +469,12 @@ function Advisors(props) {
                     hasOpenRequest={openReq}
                     key={index}
                     data={elem}
+                    selected={elem.id === selectedAdvisor}
                     onSelect={async () => {
                       let plans = fetchedPlans.find(
                         e => e.advisorId === elem.id,
                       );
+                      setSelectedAdvisor(elem.id);
                       if (plans === undefined) {
                         dispatch({loading: true});
                         let res = await generalRequest(
@@ -518,10 +502,57 @@ function Advisors(props) {
 
                       setAdvisorPlans(plans);
                     }}
+                    onBackClick={() => {
+                      setAdvisorPlans(undefined);
+                      setSelectedAdvisor(undefined);
+                    }}
                   />
                 );
               })}
           </PhoneView>
+
+          {advisorPlans !== undefined && (
+            <MyView
+              style={{
+                ...styles.gap15,
+                ...styles.margin15,
+              }}>
+              <CommonWebBox header={'برنامه ها'} />
+              <PhoneView style={{...styles.gap15}}>
+                {advisorPlans.plans.map((elem, index) => {
+                  return (
+                    <FinancePlan
+                      onSelect={async () => {
+                        dispatch({loading: true});
+                        let res = await generalRequest(
+                          routes.sendAdvisorAcceptanceRequest +
+                            advisorPlans.advisorId +
+                            '/' +
+                            elem.id,
+                          'post',
+                          undefined,
+                          'data',
+                          state.token,
+                        );
+                        dispatch({loading: false});
+                        if (res !== null) {
+                          addItem(openRequests, setOpenRequests, res);
+
+                          showSuccess(
+                            'درخواست شما با موفقیت ثبت گردید و پس از بررسی مشاور نتیجه به اطلاع شما خواهد رسید',
+                          );
+                          setAdvisorPlans(undefined);
+                          setSelectedAdvisor(undefined);
+                        }
+                      }}
+                      key={index}
+                      plan={elem}
+                    />
+                  );
+                })}
+              </PhoneView>
+            </MyView>
+          )}
         </>
       )}
     </>

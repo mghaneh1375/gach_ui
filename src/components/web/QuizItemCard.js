@@ -1,4 +1,5 @@
 import React from 'react';
+import {PropTypes} from 'victory-core';
 import {MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {FontIcon, SimpleFontIcon} from '../../styles/Common/FontIcon';
 import {styles} from '../../styles/Common/Styles';
@@ -14,6 +15,7 @@ function QuizItemCard({
   color,
   iconVal,
   iconColor,
+  isBold,
 }) {
   if (val === undefined || val === '' || val === '...') return <></>;
   return (
@@ -41,20 +43,36 @@ function QuizItemCard({
 
       <MyView>
         <SimpleText
-          style={{
-            fontSize: textFontSize,
-            ...styles.BlueBold,
-            ...styles.flexWrap,
-          }}
+          style={
+            isBold === undefined || isBold
+              ? {
+                  fontSize: textFontSize,
+                  ...styles.BlueBold,
+                  ...styles.flexWrap,
+                }
+              : {
+                  fontSize: textFontSize,
+                  ...styles.dark_blue_color,
+                  ...styles.flexWrap,
+                }
+          }
           text={text}
         />
         {val !== 'icon' && (
           <SimpleText
-            style={{
-              fontSize: valFontSize,
-              ...styles.BlueBold,
-              ...styles.alignSelfStart,
-            }}
+            style={
+              isBold === undefined || isBold
+                ? {
+                    fontSize: valFontSize,
+                    ...styles.BlueBold,
+                    ...styles.alignSelfStart,
+                  }
+                : {
+                    fontSize: valFontSize,
+                    ...styles.dark_blue_color,
+                    ...styles.alignSelfStart,
+                  }
+            }
             text={val}
           />
         )}

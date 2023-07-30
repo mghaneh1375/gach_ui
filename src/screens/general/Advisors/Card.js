@@ -14,6 +14,19 @@ import {
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
 import {formatPrice} from '../../../services/Utility';
+import {
+  faArrowLeft,
+  faBook,
+  faCalendar,
+  faCalendarAlt,
+  faCalendarDay,
+  faCalendarTimes,
+  faCalendarWeek,
+  faSchool,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
+import QuizItemCard from '../../../components/web/QuizItemCard';
+import {FontIcon} from '../../../styles/Common/FontIcon';
 
 function Card(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
@@ -26,119 +39,183 @@ function Card(props) {
   }, [props.data.pic]);
 
   return (
-    <CommonWebBox width={state.isInPhone ? 320 : 390}>
-      <Circle
+    <CommonWebBox width={'100%'}>
+      <EqualTwoTextInputs
         style={{
-          ...styles.positionAbsolute,
-          marginRight: state.isInPhone ? -45 : -75,
-          ...styles.marginTop20,
-        }}
-        child={
-          pic !== undefined && (
-            <Image
-              style={{
-                width: state.isInPhone ? 90 : 140,
-                height: state.isInPhone ? 90 : 140,
-                borderRadius: '50%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
-              source={pic}
-            />
-          )
-        }
-        diameter={state.isInPhone ? 100 : 150}
-        backgroundColor={vars.YELLOW_WHITE}></Circle>
-      <PhoneView
-        style={{
-          ...styles.positionAbsolute,
-          top: -25,
-          left: 15,
-          ...styles.gap15,
+          ...styles.justifyContentCenter,
+          ...styles.paddingRight15,
+          backgroundColor: vars.YELLOW_WHITE,
+          borderRadius: 5,
+          height: 40,
+          marginRight: 0,
         }}>
         <SimpleText
-          style={{...styles.colorDarkBlue, ...styles.alignSelfCenter}}
-          text={'امتیاز'}
-        />
-        <Circle
-          diameter={50}
-          text={props.data.rate === 0 ? '-' : props.data.rate}
-          color={vars.DARK_BLUE}
-          backgroundColor={vars.YELLOW_WHITE}
-        />
-      </PhoneView>
-      <MyView
-        style={{paddingRight: 80, ...styles.gap15, ...styles.marginTop20}}>
-        <MyView
           style={{
-            ...styles.justifyContentCenter,
-            ...styles.paddingRight15,
-            backgroundColor: vars.YELLOW_WHITE,
-            borderRadius: 5,
-            height: 40,
-            marginRight: 0,
+            ...styles.BlueBold,
+            ...styles.fontSize15,
+            ...styles.alignSelfCenter,
+          }}
+          text={props.data.name}
+        />
+
+        <PhoneView
+          style={{
+            ...styles.positionAbsolute,
+            top: -5,
+            left: 15,
+            ...styles.gap15,
           }}>
           <SimpleText
-            style={{...styles.BlueBold, ...styles.fontSize15}}
-            text={'نام و نام خانوادگی :' + ' ' + props.data.name}
+            style={{...styles.colorDarkBlue, ...styles.alignSelfCenter}}
+            text={'امتیاز'}
           />
-        </MyView>
-        <MyView style={{marginTop: -10, ...styles.gap5}}>
-          {props.isMyAdvisor && (
-            <SimpleText
-              style={{...styles.BlueBold, ...styles.fontSize15, ...styles.red}}
-              text={'مشاور من'}
-            />
-          )}
-          <SimpleText
-            style={{...styles.colorDarkBlue}}
-            text={'تعداد دانش آموزان : ' + ' ' + props.data.stdCount}
+          <Circle
+            diameter={50}
+            text={props.data.rate === 0 ? '-' : props.data.rate}
+            color={vars.WHITE}
+            backgroundColor={vars.ORANGE_RED}
           />
-          {props.data.age !== undefined && (
-            <SimpleText
-              style={{...styles.colorDarkBlue}}
-              text={'سن : ' + ' ' + props.data.age}
-            />
-          )}
-          {props.data.form !== undefined && (
-            <>
-              <SimpleText
-                style={{...styles.colorDarkBlue}}
-                text={'مدارس همکار : ' + ' ' + props.data.form.workSchools}
+          {props.selected && (
+            <PhoneView
+              style={{
+                marginTop: 10,
+              }}>
+              <FontIcon
+                onPress={props.onBackClick}
+                theme="rect"
+                kind="normal"
+                icon={faArrowLeft}
               />
-              <SimpleText
-                style={{...styles.colorDarkBlue}}
-                text={'دروس تخصصی : ' + ' ' + props.data.form.workLessons}
-              />
-            </>
+            </PhoneView>
           )}
+        </PhoneView>
+      </EqualTwoTextInputs>
 
+      <PhoneView style={{...styles.gap100}}>
+        <PhoneView>
+          <MyView>
+            <MyView
+              style={{
+                ...styles.marginTop20,
+                ...{
+                  border: '4px solid',
+                  borderColor: vars.ORANGE,
+                  borderRadius: 7,
+                  padding: 3,
+                },
+              }}>
+              <Image
+                style={{
+                  width: state.isInPhone ? 90 : 140,
+                  height: state.isInPhone ? 90 : 140,
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }}
+                source={pic}
+              />
+            </MyView>
+
+            <SimpleText
+              style={{...styles.dark_blue_color, ...styles.marginTop10}}
+              text={'تگ ها'}
+            />
+            {props.data.tags !== undefined && (
+              <PhoneView style={{...styles.gap10, ...styles.marginTop10}}>
+                {props.data.tags.map((e, index) => {
+                  return (
+                    <SimpleText
+                      key={index}
+                      style={{...styles.colorDarkBlue}}
+                      text={'#' + e}
+                    />
+                  );
+                })}
+              </PhoneView>
+            )}
+          </MyView>
+
+          <MyView
+            style={{paddingRight: 20, ...styles.gap15, ...styles.marginTop20}}>
+            <MyView style={{marginTop: -10, ...styles.gap5}}>
+              <QuizItemCard
+                text={'تعداد دانش آموزان'}
+                val={props.data.stdCount + ' نفر'}
+                icon={faUser}
+                background={false}
+                iconFontSize={'normal'}
+                color={vars.YELLOW}
+                textFontSize={14}
+                valFontSize={14}
+                isBold={false}
+              />
+
+              {props.data.age !== undefined && (
+                <QuizItemCard
+                  text={'سن'}
+                  val={props.data.age + ' سال'}
+                  icon={faCalendarAlt}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={false}
+                />
+              )}
+              {props.data.form !== undefined && (
+                <>
+                  <QuizItemCard
+                    text={'مدارس همکار'}
+                    val={props.data.form.workSchools}
+                    icon={faSchool}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={false}
+                  />
+
+                  <QuizItemCard
+                    text={'دروس تخصصی'}
+                    val={props.data.form.workLessons}
+                    icon={faBook}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={false}
+                  />
+                </>
+              )}
+            </MyView>
+          </MyView>
+        </PhoneView>
+
+        <MyView
+          style={{
+            ...{minHeight: 100, maxHeight: 220, maxWidth: 'calc(100% - 430px)'},
+          }}>
           <SimpleText
             style={{
-              ...styles.colorDarkBlue,
-              ...{minHeight: 100, maxHeight: 100},
+              ...styles.BlueBold,
             }}
-            text={
-              props.data.bio !== undefined
-                ? 'درباره مشاور : ' + ' ' + props.data.bio
-                : 'درباره مشاور : '
-            }
+            text={'درباره مشاور'}
           />
+          {props.data.bio !== undefined && (
+            <SimpleText
+              style={{
+                ...styles.colorDarkBlue,
+                ...styles.marginTop10,
+              }}
+              text={props.data.bio}
+            />
+          )}
         </MyView>
-      </MyView>
-      {props.data.tags !== undefined && (
-        <PhoneView style={{...styles.gap10}}>
-          {props.data.tags.map((e, index) => {
-            return (
-              <SimpleText
-                key={index}
-                style={{...styles.colorDarkBlue}}
-                text={'#' + e}
-              />
-            );
-          })}
-        </PhoneView>
-      )}
+      </PhoneView>
+
       {!props.isMyAdvisor &&
         props.data.acceptStd &&
         !props.hasOpenRequest &&
@@ -149,43 +226,67 @@ function Card(props) {
             title={'درخواست مشاوره'}
           />
         )}
+      {props.isMyAdvisor &&
+        (props.showMyAdvisor === undefined || props.showMyAdvisor) && (
+          <SimpleText
+            style={{
+              ...styles.marginLeft15,
+              ...styles.alignSelfEnd,
+              ...styles.BlueBold,
+              ...styles.fontSize15,
+              ...styles.red,
+            }}
+            text={'مشاور من'}
+          />
+        )}
 
       {props.shouldPay !== undefined && (
         <>
+          <SimpleText
+            style={{...styles.dark_blue_color}}
+            text={'وضعیت: در انتظار پرداخت'}
+          />
+
           <EqualTwoTextInputs>
-            <SimpleText text={'وضعیت: در انتظار پرداخت'} />
             <SimpleText
-              style={{...styles.red, ...styles.cursor_pointer}}
-              onPress={() => props.onCancel()}
-              text={'انصراف از درخواست'}
+              style={{...styles.dark_blue_color}}
+              text={
+                'مبلغ مشاوره برای یک ماه: ' +
+                formatPrice(props.price) +
+                ' تومان'
+              }
+            />
+            {props.offAmount !== undefined && (
+              <SimpleText
+                style={{...styles.dark_blue_color}}
+                text={
+                  'تخفیف اعمال شده: ' + formatPrice(props.offAmount) + ' تومان'
+                }
+              />
+            )}
+            <SimpleText
+              style={{...styles.dark_blue_color}}
+              text={
+                'مبلغ قابل کسر از حساب کاربری: ' +
+                formatPrice(props.userMoney) +
+                ' تومان'
+              }
+            />
+            <SimpleText
+              style={{...styles.BlueBold, ...styles.fontSize17}}
+              text={
+                'مبلغ قابل پرداخت: ' + formatPrice(props.shouldPay) + ' تومان'
+              }
             />
           </EqualTwoTextInputs>
 
-          <SimpleText
-            text={
-              'مبلغ مشاوره برای یک ماه: ' + formatPrice(props.price) + ' تومان'
-            }
-          />
-          {props.offAmount !== undefined && (
-            <SimpleText
-              text={
-                'تخفیف اعمال شده: ' + formatPrice(props.offAmount) + ' تومان'
-              }
+          <PhoneView style={{...styles.alignSelfEnd}}>
+            <CommonButton
+              theme={'orangeRed'}
+              onPress={() => props.onCancel()}
+              title={'انصراف از درخواست'}
             />
-          )}
-          <SimpleText
-            text={
-              'مبلغ قابل کسر از حساب کاربری: ' +
-              formatPrice(props.userMoney) +
-              ' تومان'
-            }
-          />
-          <SimpleText
-            text={
-              'مبلغ قابل پرداخت: ' + formatPrice(props.shouldPay) + ' تومان'
-            }
-          />
-          <EqualTwoTextInputs>
+
             <CommonButton
               onPress={() => props.onOffClick()}
               theme={'dark'}
@@ -195,39 +296,56 @@ function Card(props) {
               onPress={() => props.onPay()}
               title={props.shouldPay > 100 ? 'پرداخت' : 'نهایی سازی'}
             />
-          </EqualTwoTextInputs>
+          </PhoneView>
         </>
       )}
 
       {props.setRate !== undefined && (
-        <EqualTwoTextInputs
-          style={{width: '100%', direction: 'ltr', alignItems: 'center'}}>
-          <Rating
-            type="star"
-            ratingCount={5}
-            imageSize={30}
-            fractions={0}
-            onFinishRating={rating => props.setRate(rating)}
+        <MyView style={{marginTop: -50}}>
+          <PhoneView
             style={{
-              direction: 'ltr',
-              cursor: 'pointer',
-            }}
-            startingValue={props.rate}
-          />
-          <SimpleText text={'امتیاز شما به مشاور'} />
-        </EqualTwoTextInputs>
-      )}
+              ...styles.alignSelfEnd,
+              ...styles.alignItemsCenter,
+              ...styles.gap10,
+              ...styles.marginLeft15,
+            }}>
+            <SimpleText
+              style={{...styles.dark_blue_color}}
+              text={'امتیاز شما به مشاور'}
+            />
+            <Rating
+              type="star"
+              ratingCount={5}
+              imageSize={30}
+              fractions={0}
+              onFinishRating={rating => props.setRate(rating)}
+              style={{
+                direction: 'ltr',
+                cursor: 'pointer',
+              }}
+              startingValue={props.rate}
+            />
+          </PhoneView>
 
-      <PhoneView>
-        {props.onRemove !== undefined && (
-          <CommonButton onPress={() => props.onRemove()} title={'حذف مشاور'} />
-        )}
-        {props.btn !== undefined && props.btn}
-      </PhoneView>
+          <PhoneView style={{...styles.alignSelfEnd}}>
+            {props.onRemove !== undefined && (
+              <CommonButton
+                theme={'orangeRed'}
+                onPress={() => props.onRemove()}
+                title={'حذف مشاور'}
+              />
+            )}
+            {props.btn !== undefined && props.btn}
+          </PhoneView>
+        </MyView>
+      )}
 
       {props.onCancel !== undefined && props.shouldPay === undefined && (
         <EqualTwoTextInputs>
-          <SimpleText text={'وضعیت: در حال بررسی توسط مشاور'} />
+          <SimpleText
+            style={{...styles.dark_blue_color}}
+            text={'وضعیت: در حال بررسی توسط مشاور'}
+          />
           <SimpleText
             style={{...styles.red, ...styles.cursor_pointer}}
             onPress={() => props.onCancel()}
