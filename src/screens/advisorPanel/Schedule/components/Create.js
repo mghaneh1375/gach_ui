@@ -24,8 +24,8 @@ import {
   fetchExamTags,
   fetchMyLifeStyle,
 } from '../../../studentPanel/MyLifeStyle.js/Utility';
-import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
+import {faArrowLeft, faFilePdf} from '@fortawesome/free-solid-svg-icons';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {styles} from '../../../../styles/Common/Styles';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
@@ -447,11 +447,20 @@ function Create(props) {
         </LargePopUp>
       )}
       <CommonWebBox
-        header={props.isInEditMode ? '' : 'افزودن کاربرگ جدید'}
+        header={
+          props.isInEditMode && props.isAdvisor
+            ? 'برنامه هفتگی ' +
+              state.selectedSchedule.weekStartAt +
+              ' - ' +
+              state.student.name
+            : ''
+        }
         btn={
           <PhoneView style={{...styles.alignItemsCenter}}>
-            <CommonButton
-              theme={'dark'}
+            <SimpleFontIcon
+              icon={faFilePdf}
+              kind={'large'}
+              style={{color: 'orangeRed'}}
               onPress={() =>
                 downloadRequest(
                   routes.exportPDF + state.selectedSchedule.id,
@@ -460,15 +469,6 @@ function Create(props) {
                   undefined,
                   'کاربرگ ' + state.selectedSchedule.weekStartAt + '.pdf',
                 )
-              }
-              title={'دریافت خروجی PDF'}
-            />
-            <CommonButton
-              onPress={() => setShowDailySchedule(!showDailySchedule)}
-              title={
-                showDailySchedule
-                  ? 'مخفی کردن برنامه روزانه'
-                  : 'نمایش برنامه روزانه'
               }
             />
             <FontIcon
@@ -482,16 +482,23 @@ function Create(props) {
             />
           </PhoneView>
         }>
-        {props.isInEditMode && props.isAdvisor && (
-          <SimpleText
-            text={
-              'برنامه هفتگی ' +
-              state.selectedSchedule.weekStartAt +
-              ' - ' +
-              state.student.name
-            }
-          />
-        )}
+        <SimpleText
+          style={{
+            ...styles.colorOrangeRed,
+            ...styles.cursor_pointer,
+            ...styles.bold,
+            ...styles.fontSize13,
+            ...{marginTop: -30},
+          }}
+          onPress={() => setShowDailySchedule(!showDailySchedule)}
+          text={
+            showDailySchedule
+              ? 'مخفی کردن برنامه روزانه'
+              : 'نمایش برنامه روزانه'
+          }
+        />
+      </CommonWebBox>
+      <CommonWebBox>
         {!props.isInEditMode && (
           <PhoneView>
             <JustBottomBorderSelect

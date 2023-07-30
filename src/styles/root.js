@@ -25,6 +25,7 @@ const vars = {
   BLACK: '#000000',
   DARK_WHITE: '#EEEEEE',
   DARK_BLUE: '#013243',
+  SILVER: '#E6E6E6',
   LIGHT_SILVER: '#707070',
   DARK_SILVER: '#5B5B5B',
   RED: '#FF0000',

@@ -36,11 +36,10 @@ function Day(props) {
       <MyView
         style={{
           backgroundColor: vars.DARK_BLUE,
-          padding: 40,
           alignItems: 'center',
           alignContent: 'center',
           justifyContent: 'center',
-          minWidth: 150,
+          minHeight: 200,
           gap: 10,
         }}>
         <SimpleText
@@ -49,9 +48,9 @@ function Day(props) {
               ? props.day
               : props.day + ' - ' + props.date
           }
-          style={{fontSize: 18, color: 'white'}}
+          style={{fontSize: 18, color: 'white', writingMode: 'tb-rl'}}
         />
-        {sum !== undefined && sum !== 0 && (
+        {/* {sum !== undefined && sum !== 0 && (
           <SimpleText
             style={{
               fontSize: 12,
@@ -64,8 +63,8 @@ function Day(props) {
               convertSecToMinWithOutSec(sum * 60)
             }
           />
-        )}
-        {sumLife !== undefined && sumLife !== 0 && (
+        )} */}
+        {/* {sumLife !== undefined && sumLife !== 0 && (
           <SimpleText
             style={{
               fontSize: 12,
@@ -78,7 +77,7 @@ function Day(props) {
               convertSecToMinWithOutSec(sumLife * 60)
             }
           />
-        )}
+        )} */}
       </MyView>
       <View
         style={{

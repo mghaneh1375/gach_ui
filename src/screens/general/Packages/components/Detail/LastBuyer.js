@@ -14,7 +14,8 @@ function LastBuyer(props) {
       onMouseOut={() => setHover(false)}
       style={{
         width: 40,
-        marginRight: -10,
+        marginRight:
+          props.isJustOne === undefined || !props.isJustOne ? -10 : 5,
         display: 'flex',
         gap: 5,
         flexDirection: 'column',
