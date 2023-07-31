@@ -17,11 +17,7 @@ import {formatPrice} from '../../../services/Utility';
 import {
   faArrowLeft,
   faBook,
-  faCalendar,
   faCalendarAlt,
-  faCalendarDay,
-  faCalendarTimes,
-  faCalendarWeek,
   faSchool,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';

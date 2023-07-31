@@ -6,6 +6,7 @@ const translator = {
   title: 'عنوان',
   maxExam: 'تعداد آزمون',
   maxChat: 'تعداد چت در سایت',
+  startEnd: 'تاریخ شروع و پایان',
 };
 
 export default translator;

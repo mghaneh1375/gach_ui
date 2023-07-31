@@ -7,14 +7,13 @@ import {showSuccess} from '../../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
-  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
 import {styles} from '../../../../styles/Common/Styles';
-import commonTranslator from '../../../../translator/Common';
-import Card from '../../../general/Advisors/Card';
+
+import MyAdvisorFinancePlan from './MyAdvisorFinancePlan';
 
 function MyAdvisor(props) {
   const useGlobalState = () => [
@@ -74,29 +73,31 @@ function MyAdvisor(props) {
 
   return (
     <>
-      <PhoneView style={{...styles.justifyContentCenter}}>
-        <CommonButton
-          onPress={() => props.navigate('/myLifeStyle')}
-          title={'تغییر برنامه ریزی روزانه'}
-        />
-        {myAdvisors !== undefined &&
-          myAdvisors !== null &&
-          myAdvisors.length > 0 && (
-            <>
-              <CommonButton
-                theme={'dark'}
-                onPress={() => window.open('/mySchedules')}
-                title={'برنامه های مطالعه'}
-              />
+      <CommonWebBox header={'لیست عملیات'}>
+        <PhoneView>
+          <CommonButton
+            onPress={() => props.navigate('/myLifeStyle')}
+            title={'تغییر برنامه ریزی روزانه'}
+          />
+          {myAdvisors !== undefined &&
+            myAdvisors !== null &&
+            myAdvisors.length > 0 && (
+              <>
+                <CommonButton
+                  theme={'dark'}
+                  onPress={() => window.open('/mySchedules')}
+                  title={'برنامه های مطالعه'}
+                />
 
-              <CommonButton
-                theme={'orangeRed'}
-                onPress={() => props.navigate('/myAdvisor/quiz')}
-                title={'آزمون ها'}
-              />
-            </>
-          )}
-      </PhoneView>
+                <CommonButton
+                  theme={'orangeRed'}
+                  onPress={() => props.navigate('/myAdvisor/quiz')}
+                  title={'آزمون ها'}
+                />
+              </>
+            )}
+        </PhoneView>
+      </CommonWebBox>
       <CommonWebBox header={'لیست مشاوران من'} />
 
       <PhoneView
@@ -108,8 +109,9 @@ function MyAdvisor(props) {
           myAdvisors !== null &&
           myAdvisors.map((myAdvisor, index) => {
             return (
-              <Card
+              <MyAdvisorFinancePlan
                 key={index}
+                plan={myAdvisor.plan}
                 setRate={async rate => {
                   dispatch({loading: true});
                   let res = await generalRequest(
@@ -153,17 +155,6 @@ function MyAdvisor(props) {
                     props.navigate('/advisors');
                   }
                 }}
-                btn={
-                  <CommonButton
-                    onPress={() =>
-                      window.open(
-                        '/ticket?section=advisor&userId=' + myAdvisor.id,
-                      )
-                    }
-                    theme={'dark'}
-                    title={'صحبت با مشاور'}
-                  />
-                }
               />
             );
           })}
