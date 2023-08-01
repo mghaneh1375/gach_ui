@@ -102,8 +102,8 @@ function MyAdvisor(props) {
 
       <PhoneView
         style={{
-          ...styles.gap50,
-          ...styles.marginTop20,
+          ...styles.gap15,
+          ...styles.marginTop10,
         }}>
         {myAdvisors !== undefined &&
           myAdvisors !== null &&

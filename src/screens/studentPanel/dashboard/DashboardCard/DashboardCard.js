@@ -29,6 +29,7 @@ function DashboardCard({
   width,
   fontSize,
   subFontSize,
+  multiline,
 }) {
   return (
     <CommonWebBox
@@ -58,7 +59,7 @@ function DashboardCard({
           }}
           text={text}
         />
-        {btnColor === undefined && (
+        {btnColor === undefined && (multiline === undefined || !multiline) && (
           <SimpleText
             style={{
               ...styleFontSize25,
@@ -87,6 +88,16 @@ function DashboardCard({
             />
           </EqualTwoTextInputs>
         </MyView>
+      )}
+      {icon === undefined && multiline && subtext !== undefined && (
+        <SimpleText
+          style={
+            subFontSize !== undefined
+              ? {...{fontSize: subFontSize}, ...styleSubText}
+              : {...styleFontSize30, ...styleSubText}
+          }
+          text={subtext}
+        />
       )}
     </CommonWebBox>
   );

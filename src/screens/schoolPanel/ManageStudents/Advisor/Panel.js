@@ -11,7 +11,6 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
-import MiniCard from '../../../panel/quiz/components/CV/MiniCard';
 import commonTranslator from '../../../../translator/Common';
 import Card from '../../../general/Advisors/Card';
 import {styles} from '../../../../styles/Common/Styles';
@@ -19,6 +18,18 @@ import {generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import {showSuccess} from '../../../../services/Utility';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
+import {Image} from 'react-native';
+import vars from '../../../../styles/root';
+import translator from '../../../../screens/advisorPanel/MyFinancePlans/components/Translator';
+import QuizItemCard from '../../../../components/web/QuizItemCard';
+import {
+  faClockRotateLeft,
+  faNewspaper,
+  faPaperPlane,
+  faQuestion,
+  faVideo,
+} from '@fortawesome/free-solid-svg-icons';
+import DashboardCard from '../../../studentPanel/dashboard/DashboardCard/DashboardCard';
 
 function Panel(props) {
   const useGlobalState = () => [
@@ -30,7 +41,12 @@ function Panel(props) {
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [url, setUrl] = useState();
+  const [src, setSrc] = useState();
   const [showConfirmation, setShowConfirmation] = useState(false);
+
+  React.useEffect(() => {
+    setSrc(data?.pic);
+  }, [data?.pic]);
 
   const fetchData = React.useCallback(() => {
     if (data !== undefined || isWorking) return;
@@ -74,10 +90,7 @@ function Panel(props) {
   }, [props.wantedUserId, fetchData]);
 
   return (
-    <CommonWebBox
-      header={'پنل مشاوره '}
-      onBackClick={() => props.setMode('list')}
-      backBtn={true}>
+    <>
       {showConfirmation && (
         <LargePopUp
           toggleShowPopUp={() => setShowConfirmation(false)}
@@ -110,138 +123,276 @@ function Panel(props) {
           />
         </LargePopUp>
       )}
-      <EqualTwoTextInputs>
-        {data !== undefined && (
+      <CommonWebBox
+        header={'پنل مشاوره '}
+        onBackClick={() => props.setMode('list')}
+        backBtn={true}
+      />
+      <CommonWebBox>
+        <EqualTwoTextInputs>
+          {data !== undefined && (
+            <PhoneView style={{...styles.gap10}}>
+              <MyView>
+                <SimpleText
+                  style={{...styles.BlueBold, ...styles.textCenter}}
+                  text={data.name}
+                />
+                {src !== undefined && (
+                  <Image
+                    style={{
+                      width: 100,
+                      height: 140,
+                      borderColor: vars.ORANGE_RED,
+                      borderRadius: 2,
+                      borderWidth: 4,
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                    }}
+                    source={src}
+                  />
+                )}
+              </MyView>
+
+              <MyView style={{...styles.justifyContentCenter}}>
+                <SimpleText
+                  style={{...styles.dark_blue_color}}
+                  text={'رشته: ' + data.branches}
+                />
+                <SimpleText
+                  style={{...styles.dark_blue_color}}
+                  text={'پایه تحصیلی: ' + data.grade}
+                />
+                <SimpleText
+                  style={{...styles.dark_blue_color}}
+                  text={'نام مدرسه: ' + data.school}
+                />
+                <SimpleText
+                  style={{...styles.dark_blue_color}}
+                  text={'نام شهر: ' + data.city}
+                />
+              </MyView>
+            </PhoneView>
+          )}
+
           <MyView>
-            <MiniCard
-              styleCard100Percent={false}
-              subTexts={[
-                {label: 'نام مدرسه: ', value: data.school},
-                {label: 'نام شهر: ', value: data.city},
-                {label: 'پایه تحصیلی: ', value: data.grade},
-                {label: 'رشته: ', value: data.branches},
-              ]}
-              header={data.name}
-              ops={false}
-              src={data.pic}
-            />
-            <SimpleText
+            <CommonButton
+              style={{minWidth: 260}}
               onPress={() =>
                 window.open('/studentLifeStyle/' + props.wantedUserId)
               }
-              style={{...styles.red, ...styles.cursor_pointer}}
-              text={'مشاهده برنامه روزانه دانش آموز'}
-            />
-            <SimpleText
-              onPress={() =>
-                window.open('/studentSchedules/' + props.wantedUserId)
-              }
-              style={{...styles.red, ...styles.cursor_pointer}}
-              text={'مشاهده کاربرگ ها'}
-            />
-            <SimpleText
-              onPress={() =>
-                window.open('/studentProgress/' + props.wantedUserId)
-              }
-              style={{...styles.red, ...styles.cursor_pointer}}
-              text={'مشاهده پیشرفت'}
-            />
-            <SimpleText
-              style={{...styles.red, ...styles.cursor_pointer}}
-              onPress={() =>
-                window.open(
-                  '/ticket?section=advisor&userId=' + props.wantedUserId,
-                )
-              }
-              text={'رفتن به چت روم'}
-            />
-
-            {url === undefined && (
-              <SimpleText
-                style={{...styles.red, ...styles.cursor_pointer}}
-                onPress={() => setShowConfirmation(true)}
-                text={'ایجاد اتاق جلسه'}
-              />
-            )}
-
-            {url !== undefined && (
-              <CommonButton
-                onPress={() => window.open(url)}
-                title={'رفتن به جلسه'}
-                theme={'dark'}
-              />
-            )}
-          </MyView>
-        )}
-
-        {data !== undefined && data.advisors !== undefined && (
-          <MyView>
-            <SimpleText
-              text={commonTranslator.advisors}
-              style={{...styles.BlueBold}}
+              title={'مشاهده برنامه روزانه دانش آموز'}
             />
             <PhoneView>
-              {data.advisors.map((e, index) => {
-                return <Card hasOpenRequest={true} data={e} key={index} />;
-              })}
+              <CommonButton
+                padding={'5px 15px'}
+                style={{minWidth: 120}}
+                onPress={() =>
+                  window.open('/studentSchedules/' + props.wantedUserId)
+                }
+                theme={'orangeRed'}
+                title={'کاربرگ ها'}
+              />
+              <CommonButton
+                padding={'5px 15px'}
+                style={{minWidth: 120}}
+                onPress={() =>
+                  window.open('/studentProgress/' + props.wantedUserId)
+                }
+                theme={'dark'}
+                title={'نمودار پیشرفت'}
+              />
+            </PhoneView>
+
+            <PhoneView>
+              <CommonButton
+                padding={'5px 15px'}
+                style={{minWidth: 120}}
+                onPress={() =>
+                  window.open(
+                    '/ticket?section=advisor&userId=' + props.wantedUserId,
+                  )
+                }
+                title={'چت روم'}
+              />
+
+              {url === undefined && (
+                <CommonButton
+                  padding={'5px 15px'}
+                  style={{minWidth: 120}}
+                  onPress={() => setShowConfirmation(true)}
+                  title={'ایجاد اتاق جلسه'}
+                />
+              )}
+
+              {url !== undefined && (
+                <CommonButton
+                  style={{minWidth: 180}}
+                  onPress={() => window.open(url)}
+                  title={'رفتن به جلسه'}
+                  theme={'dark'}
+                />
+              )}
             </PhoneView>
           </MyView>
+        </EqualTwoTextInputs>
+      </CommonWebBox>
+      <CommonWebBox header={'تعهدات'}>
+        {data !== undefined && data.maxKarbarg !== undefined && (
+          <SimpleText text={data.planTitle} style={{...styles.BlueBold}} />
         )}
-      </EqualTwoTextInputs>
-      {data !== undefined && (
-        <>
-          <SimpleText text={'آمار کلی'} />
-          <SimpleText
-            text={
-              'تعداد کاربرگ های تعریف شده در ماه جاری: ' +
-              data.schedulesInCurrMonth
-            }
-          />
-          <SimpleText
-            text={
-              'تعداد کاربرگ های تعریف شده در ماه قبلی: ' +
-              data.schedulesInLastMonth
-            }
-          />
+        <PhoneView style={{...styles.gap15}}>
+          {data !== undefined && data.maxKarbarg !== undefined && (
+            <>
+              <QuizItemCard
+                text={translator.maxKarbarg}
+                val={data.maxKarbarg === -1 ? 'نامحدود' : data.maxKarbarg}
+                icon={faNewspaper}
+                background={false}
+                iconFontSize={'normal'}
+                color={vars.YELLOW}
+                textFontSize={14}
+                valFontSize={14}
+                isBold={false}
+              />
 
-          <SimpleText
-            text={
-              'تعداد آزمون های تعریف شده در ماه جاری: ' + data.quizzesInMonth
-            }
-          />
+              <QuizItemCard
+                text={translator.maxVideoCalls}
+                val={data.maxVideoCalls}
+                icon={faVideo}
+                background={false}
+                iconFontSize={'normal'}
+                color={vars.YELLOW}
+                textFontSize={14}
+                valFontSize={14}
+                isBold={false}
+              />
 
-          <SimpleText
-            text={
-              'تعداد آزمون های تعریف شده در ماه قبلی: ' +
-              data.quizzesInLastMonth
-            }
-          />
+              <QuizItemCard
+                text={translator.maxChat}
+                val={data.maxChats === -1 ? 'نامحدود' : data.maxChats}
+                icon={faPaperPlane}
+                background={false}
+                iconFontSize={'normal'}
+                color={vars.YELLOW}
+                textFontSize={14}
+                valFontSize={14}
+                isBold={false}
+              />
 
-          <SimpleText
-            text={
-              'تعداد جلسات آنلاین در ماه جاری: ' + data.advisorMeetingsInMonth
-            }
-          />
+              <QuizItemCard
+                text={translator.maxExam}
+                val={data.maxExam === -1 ? 'نامحدود' : data.maxExam}
+                icon={faQuestion}
+                background={false}
+                iconFontSize={'normal'}
+                color={vars.YELLOW}
+                textFontSize={14}
+                valFontSize={14}
+                isBold={false}
+              />
 
-          <SimpleText
-            text={
-              'تعداد جلسات آنلاین در ماه قبلی: ' +
-              data.advisorMeetingsInLastMonth
-            }
-          />
-        </>
-      )}
-      {data !== undefined && data.maxKarbarg !== undefined && (
-        <>
-          <SimpleText text={'تعهدات'} />
-          <SimpleText text={'عنوان پلن مالی: ' + data.planTitle} />
-          <SimpleText text={'تعداد کاربرگ ' + data.maxKarbarg} />
-          <SimpleText text={'تعداد آزمون ' + data.maxExam} />
-          <SimpleText text={'تعداد چت ' + data.maxChats} />
-          <SimpleText text={'تعداد جلسات آنلاین ' + data.maxVideoCalls} />
-        </>
-      )}
-    </CommonWebBox>
+              <QuizItemCard
+                text={translator.startEnd}
+                val={data.createdAt + ' تا ' + data.finishAt}
+                icon={faClockRotateLeft}
+                background={false}
+                iconFontSize={'normal'}
+                color={vars.YELLOW}
+                textFontSize={14}
+                valFontSize={14}
+                isBold={false}
+              />
+            </>
+          )}
+        </PhoneView>
+      </CommonWebBox>
+      <CommonWebBox header={'آمار کلی'}>
+        {data !== undefined && (
+          <PhoneView>
+            <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
+              text={'تعداد کاربرگ ها در ماه جاری'}
+              fontSize={16}
+              theme={vars.ORANGE_RED}
+              subtext={data.schedulesInCurrMonth}
+              borderRight={true}
+              borderRightWidth={18}
+              multiline={true}
+            />
+
+            <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
+              text={'تعداد کاربرگ ها در ماه قبل'}
+              fontSize={17}
+              theme={vars.ORANGE_RED}
+              subtext={data.schedulesInCurrMonth}
+              borderRight={true}
+              borderRightWidth={18}
+              multiline={true}
+            />
+
+            <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
+              text={'تعداد آزمون ها در ماه جاری'}
+              fontSize={17}
+              theme={vars.DARK_BLUE}
+              subtext={data.quizzesInMonth}
+              borderRight={true}
+              borderRightWidth={18}
+              multiline={true}
+            />
+
+            <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
+              text={'تعداد آزمون ها در ماه قبلی'}
+              fontSize={17}
+              theme={vars.DARK_BLUE}
+              subtext={data.quizzesInLastMonth}
+              borderRight={true}
+              borderRightWidth={18}
+              multiline={true}
+            />
+            <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
+              text={'تعداد جلسات آنلاین در ماه جاری'}
+              fontSize={17}
+              theme={vars.YELLOW}
+              subtext={data.advisorMeetingsInMonth}
+              borderRight={true}
+              borderRightWidth={18}
+              multiline={true}
+            />
+
+            <DashboardCard
+              width={state.isInPhone ? '100%' : undefined}
+              text={'تعداد جلسات آنلاین در ماه قبلی'}
+              fontSize={17}
+              theme={vars.YELLOW}
+              subtext={data.advisorMeetingsInLastMonth}
+              borderRight={true}
+              borderRightWidth={18}
+              multiline={true}
+            />
+          </PhoneView>
+        )}
+      </CommonWebBox>
+      <CommonWebBox header={'اطلاعات مشاوران'}>
+        {data !== undefined && data.advisors !== undefined && (
+          <PhoneView>
+            {data.advisors.map((e, index) => {
+              return (
+                <Card
+                  digest={true}
+                  hasOpenRequest={true}
+                  data={e}
+                  key={index}
+                />
+              );
+            })}
+          </PhoneView>
+        )}
+      </CommonWebBox>
+    </>
   );
 }
 

@@ -6,11 +6,17 @@ import {
   f2e,
   removeItems,
 } from '../../../../services/Utility';
-import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../../styles/Common';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
 import Box from './Box';
+import {style} from '../../RunQuiz/style';
 
 function Day(props) {
   const [boxes, setBoxes] = useState();
@@ -84,11 +90,18 @@ function Day(props) {
           flexWrap: 'nowrap',
           flexDirection: 'row',
           overflow: 'auto',
-          maxWidth: 'calc(100% - 300px)',
+          maxWidth: 'calc(100% - 80px)',
           gap: 20,
         }}>
         {boxes !== undefined &&
           boxes.map((e, index) => {
+            if (
+              e.advisor !== undefined &&
+              props.selectedAdvisors !== undefined &&
+              props.selectedAdvisors.find(ee => ee.name === e.advisor.name) ===
+                undefined
+            )
+              return;
             return (
               <Box
                 remove={
@@ -116,19 +129,27 @@ function Day(props) {
           })}
       </View>
       {props.canEdit && (
-        <PhoneView
-          style={{
-            border: '1px dashed',
-            width: 110,
-            justifyContent: 'center',
-          }}>
-          <SimpleFontIcon
-            onPress={() => props.addNewItem()}
-            icon={faAdd}
-            kind={'large'}
-            style={{color: vars.ORANGE_RED, cursor: 'pointer'}}
-          />
-        </PhoneView>
+        <CommonWebBox width={200}>
+          <MyView
+            style={{...styles.justifyContentSpaceBetween, ...{height: 160}}}>
+            <FontIcon
+              onPress={() => props.addNewItem()}
+              icon={faAdd}
+              back={'blue'}
+              kind={'large'}
+              parentStyle={{marginRight: 'auto'}}
+            />
+            <SimpleText
+              onPress={() => props.addNewItem()}
+              text={'ایجاد برنامه جدید'}
+              style={{
+                ...styles.dark_blue_color,
+                ...styles.bold,
+                ...styles.cursor_pointer,
+              }}
+            />
+          </MyView>
+        </CommonWebBox>
       )}
     </PhoneView>
   );

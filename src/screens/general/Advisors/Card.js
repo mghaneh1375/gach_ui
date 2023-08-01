@@ -35,7 +35,8 @@ function Card(props) {
   }, [props.data.pic]);
 
   return (
-    <CommonWebBox width={'100%'}>
+    <CommonWebBox
+      width={props.digest === undefined || !props.digest ? '100%' : 400}>
       <EqualTwoTextInputs
         style={{
           ...styles.justifyContentCenter,
@@ -89,46 +90,27 @@ function Card(props) {
 
       <PhoneView style={{...styles.gap100}}>
         <PhoneView>
-          <MyView>
-            <MyView
+          <MyView
+            style={{
+              ...styles.marginTop20,
+              ...{
+                border: '4px solid',
+                borderColor: vars.ORANGE,
+                borderRadius: 7,
+                width: 148,
+                height: 148,
+              },
+            }}>
+            <Image
               style={{
-                ...styles.marginTop20,
-                ...{
-                  border: '4px solid',
-                  borderColor: vars.ORANGE,
-                  borderRadius: 7,
-                  padding: 3,
-                },
-              }}>
-              <Image
-                style={{
-                  width: state.isInPhone ? 90 : 140,
-                  height: state.isInPhone ? 90 : 140,
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  objectPosition: 'center',
-                }}
-                source={pic}
-              />
-            </MyView>
-
-            <SimpleText
-              style={{...styles.dark_blue_color, ...styles.marginTop10}}
-              text={'تگ ها'}
+                width: state.isInPhone ? 90 : 140,
+                height: state.isInPhone ? 90 : 140,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
+              source={pic}
             />
-            {props.data.tags !== undefined && (
-              <PhoneView style={{...styles.gap10, ...styles.marginTop10}}>
-                {props.data.tags.map((e, index) => {
-                  return (
-                    <SimpleText
-                      key={index}
-                      style={{...styles.colorDarkBlue}}
-                      text={'#' + e}
-                    />
-                  );
-                })}
-              </PhoneView>
-            )}
           </MyView>
 
           <MyView
@@ -190,28 +172,51 @@ function Card(props) {
           </MyView>
         </PhoneView>
 
-        <MyView
-          style={{
-            ...{minHeight: 100, maxHeight: 220, maxWidth: 'calc(100% - 430px)'},
-          }}>
-          <SimpleText
+        {(props.digest === undefined || !props.digest) && (
+          <MyView
             style={{
-              ...styles.BlueBold,
-            }}
-            text={'درباره مشاور'}
-          />
-          {props.data.bio !== undefined && (
+              ...{
+                minHeight: 100,
+                maxHeight: 220,
+                maxWidth: 'calc(100% - 430px)',
+              },
+            }}>
             <SimpleText
               style={{
-                ...styles.colorDarkBlue,
-                ...styles.marginTop10,
+                ...styles.BlueBold,
               }}
-              text={props.data.bio}
+              text={'درباره مشاور'}
             />
-          )}
-        </MyView>
+            {props.data.bio !== undefined && (
+              <SimpleText
+                style={{
+                  ...styles.colorDarkBlue,
+                  ...styles.marginTop10,
+                }}
+                text={props.data.bio}
+              />
+            )}
+          </MyView>
+        )}
       </PhoneView>
 
+      <SimpleText
+        style={{...styles.dark_blue_color, ...styles.marginTop10}}
+        text={'تگ ها'}
+      />
+      {props.data.tags !== undefined && (
+        <PhoneView style={{...styles.gap10, ...{marginTop: -10}}}>
+          {props.data.tags.map((e, index) => {
+            return (
+              <SimpleText
+                key={index}
+                style={{...styles.colorDarkBlue}}
+                text={'#' + e}
+              />
+            );
+          })}
+        </PhoneView>
+      )}
       {!props.isMyAdvisor &&
         props.data.acceptStd &&
         !props.hasOpenRequest &&
@@ -229,10 +234,12 @@ function Card(props) {
               ...styles.marginLeft15,
               ...styles.alignSelfEnd,
               ...styles.BlueBold,
+              ...styles.cursor_pointer,
               ...styles.fontSize15,
               ...styles.red,
             }}
-            text={'مشاور من'}
+            onPress={() => window.open('/myAdvisor')}
+            text={'مشاور من - رفتن به پنل مشاوره'}
           />
         )}
 

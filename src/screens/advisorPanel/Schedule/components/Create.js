@@ -3,6 +3,7 @@ import {useEffectOnce} from 'usehooks-ts';
 import {
   CommonButton,
   CommonWebBox,
+  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -23,8 +24,14 @@ import Day from '../../../studentPanel/MyLifeStyle.js/components/Day';
 import {
   fetchExamTags,
   fetchMyLifeStyle,
+  fetchMySchedulesDigest,
+  fetchStudentSchedulesDigest,
 } from '../../../studentPanel/MyLifeStyle.js/Utility';
-import {faArrowLeft, faFilePdf} from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeft,
+  faFilePdf,
+  faSave,
+} from '@fortawesome/free-solid-svg-icons';
 import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {styles} from '../../../../styles/Common/Styles';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
@@ -41,6 +48,8 @@ import {
 import TimePicker from '../../../../styles/Common/TimePicker';
 import {downloadRequest, generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
+import vars from '../../../../styles/root';
+import LastBuyer from '../../../general/Packages/components/Detail/LastBuyer';
 
 function Create(props) {
   const useGlobalState = () => [
@@ -76,7 +85,25 @@ function Create(props) {
     {id: 4, item: 'چهار هفته بعد'},
   ];
 
+  const [selectedSchedule, setSelectedSchedule] = useState();
+  const [uniqueAdvisors, setUniqueAdvisors] = useState();
+
   const [isWorking, setIsWorking] = useState();
+
+  React.useEffect(() => {
+    if (state.selectedSchedule?.days === undefined) return;
+    let tmp = [];
+    state.selectedSchedule?.days.forEach(e => {
+      e.items.forEach(ee => {
+        if (tmp.find(eee => eee.name == ee.advisor.name) !== undefined) return;
+        tmp.push({
+          ...ee.advisor,
+          ...{selected: true},
+        });
+      });
+    });
+    setUniqueAdvisors(tmp);
+  }, [state.selectedSchedule?.days]);
 
   const fetchScheduleLocal = React.useCallback(() => {
     if (isWorking || state.selectedSchedule?.days !== undefined) return;
@@ -127,6 +154,11 @@ function Create(props) {
   }, [props.isInEditMode, fetchScheduleLocal]);
 
   React.useEffect(() => {
+    if (state.selectedSchedule?.id === undefined) return;
+    fetchScheduleLocal();
+  }, [state.selectedSchedule?.id, fetchScheduleLocal]);
+
+  React.useEffect(() => {
     if (props.isInEditMode || scheduleFor === undefined) return;
     dispatch({selectedSchedule: undefined});
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -140,6 +172,11 @@ function Create(props) {
         fetchMyLifeStyle(props.token, props.studentId),
         fetchExamTags(props.token),
         getLessons(),
+        fetchStudentSchedulesDigest(
+          props.studentId,
+          props.token,
+          props.isInEditMode,
+        ),
       ]).then(res => {
         props.setLoading(false);
 
@@ -147,36 +184,48 @@ function Create(props) {
           res[0] == null ||
           res[1] == null ||
           res[2] == null ||
-          res[3] == null
+          res[3] == null ||
+          res[4] == null
         ) {
           props.navigate('/');
           return;
         }
+
+        if (props.isInEditMode)
+          setSelectedSchedule(
+            res[4].find(e => e.id === state.selectedSchedule.id),
+          );
 
         dispatch({
           myLifeStyle: res[1].days,
           myExams: res[2].exams,
           tags: res[0],
           lessonsKeyVals: res[3],
+          myAllSchedulesDigest: res[4],
         });
       });
     } else {
-      Promise.all([fetchMyLifeStyle(props.token, props.studentId)]).then(
-        res => {
-          props.setLoading(false);
+      Promise.all([
+        fetchMyLifeStyle(props.token, props.studentId),
+        fetchMySchedulesDigest(props.token),
+      ]).then(res => {
+        props.setLoading(false);
 
-          if (res[0] == null) {
-            props.navigate('/');
-            return;
-          }
+        if (res[0] == null || res[1] == null) {
+          props.navigate('/');
+          return;
+        }
+        setSelectedSchedule(
+          res[1].find(e => e.id === state.selectedSchedule.id),
+        );
 
-          dispatch({
-            myLifeStyle: res[0].days,
-          });
-        },
-      );
+        dispatch({
+          myLifeStyle: res[0].days,
+          myAllSchedulesDigest: res[1],
+        });
+      });
     }
-  }, [props, dispatch]);
+  }, [props, dispatch, state.selectedSchedule]);
 
   useEffectOnce(() => {
     if (state.tags !== undefined) return;
@@ -453,7 +502,7 @@ function Create(props) {
               state.selectedSchedule.weekStartAt +
               ' - ' +
               state.student.name
-            : ''
+            : 'برنامه های هفتگی'
         }
         btn={
           <PhoneView style={{...styles.alignItemsCenter}}>
@@ -488,7 +537,7 @@ function Create(props) {
             ...styles.cursor_pointer,
             ...styles.bold,
             ...styles.fontSize13,
-            ...{marginTop: -30},
+            ...{marginTop: -15},
           }}
           onPress={() => setShowDailySchedule(!showDailySchedule)}
           text={
@@ -498,6 +547,56 @@ function Create(props) {
           }
         />
       </CommonWebBox>
+      {props.isAdvisor ||
+        (desc !== undefined && desc.length > 0 && (
+          <CommonWebBox
+            header={'توضیحات'}
+            btn={
+              props.isAdvisor && state.selectedSchedule?.id !== undefined ? (
+                <FontIcon
+                  icon={faSave}
+                  theme={'rect'}
+                  back={'yellow'}
+                  onPress={async () => {
+                    let res = await generalRequest(
+                      routes.setScheduleDesc + state.selectedSchedule.id,
+                      'put',
+                      {description: desc},
+                      undefined,
+                      props.token,
+                    );
+                    if (res != null) showSuccess();
+                  }}
+                />
+              ) : undefined
+            }>
+            {props.isAdvisor && state.selectedSchedule?.id !== undefined && (
+              <JustBottomBorderTextInput
+                isHalf={false}
+                parentStyle={{width: '100%'}}
+                style={{maxWidth: '100%'}}
+                onChangeText={e => setDesc(e)}
+                value={desc}
+                placeholder={'توضیحات'}
+                subText={
+                  'توضیحات ( حتما بعد از تغییر، برای ذخیره سازی، دکمه ذخیره را کلیک کنید)'
+                }
+                multiline={true}
+              />
+            )}
+            {!props.isAdvisor &&
+              state.selectedSchedule.advisorsDesc !== undefined &&
+              state.selectedSchedule.advisorsDesc.map((e, index) => {
+                return (
+                  <SimpleText
+                    key={index}
+                    text={e.advisor + ': "' + e.desc + '"'}
+                  />
+                );
+              })}
+          </CommonWebBox>
+        ))}
+
       <CommonWebBox>
         {!props.isInEditMode && (
           <PhoneView>
@@ -509,43 +608,102 @@ function Create(props) {
             />
           </PhoneView>
         )}
-
-        {props.isAdvisor && state.selectedSchedule?.id !== undefined && (
-          <PhoneView>
-            <JustBottomBorderTextInput
-              onChangeText={e => setDesc(e)}
-              value={desc}
-              placeholder={'توضیحات'}
-              subText={'توضیحات'}
-              multiline={true}
-            />
-            <CommonButton
-              title={'ذخیره توضیحات'}
-              onPress={async () => {
-                let res = await generalRequest(
-                  routes.setScheduleDesc + state.selectedSchedule.id,
-                  'put',
-                  {description: desc},
-                  undefined,
-                  props.token,
-                );
-                if (res != null) showSuccess();
-              }}
-            />
-          </PhoneView>
+        {props.isInEditMode && state.myAllSchedulesDigest !== undefined && (
+          <EqualTwoTextInputs
+            style={{backgroundColor: vars.CREAM, borderRadius: 7, padding: 7}}>
+            <PhoneView style={{minWidth: 400, gap: 10}}>
+              <SimpleText
+                text={'برنامه روزانه'}
+                style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+              />
+              <JustBottomBorderSelect
+                parentStyle={{
+                  backgroundColor: 'white',
+                  width: 'calc(100% - 200px)',
+                }}
+                setter={item => {
+                  let tmp = {
+                    id: item,
+                    item: '',
+                  };
+                  setSelectedSchedule(tmp);
+                  state.selectedSchedule.id = item;
+                  state.selectedSchedule.days = undefined;
+                  dispatch({selectedSchedule: state.selectedSchedule});
+                }}
+                values={state.myAllSchedulesDigest}
+                value={state.myAllSchedulesDigest.find(
+                  elem => elem.id === selectedSchedule?.id,
+                )}
+                placeholder={'هفته موردنظر'}
+              />
+              <PhoneView
+                style={{
+                  ...styles.gap10,
+                  ...styles.marginRight15,
+                  ...{maxHeight: 40},
+                }}>
+                {uniqueAdvisors !== undefined &&
+                  uniqueAdvisors.map((e, index) => {
+                    return (
+                      <LastBuyer
+                        index={index}
+                        key={index}
+                        pic={e.pic}
+                        text={e.name}
+                        onPress={() => {
+                          setUniqueAdvisors(
+                            uniqueAdvisors.map(ee => {
+                              if (ee.name !== e.name) return ee;
+                              if (ee.selected === undefined || !ee.selected)
+                                ee.selected = true;
+                              else ee.selected = false;
+                              return ee;
+                            }),
+                          );
+                        }}
+                        borderColor={
+                          e.selected !== undefined && e.selected
+                            ? 'orange'
+                            : undefined
+                        }
+                      />
+                    );
+                  })}
+              </PhoneView>
+            </PhoneView>
+            <PhoneView>
+              <SimpleText
+                text={'تاریخ شروع'}
+                style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+              />
+              {state.myAllSchedulesDigest !== undefined &&
+                selectedSchedule !== undefined && (
+                  <SimpleText
+                    style={{
+                      backgroundColor: vars.ORANGE_RED,
+                      alignSelf: 'center',
+                      color: 'white',
+                      padding: 10,
+                      marginRight: 10,
+                    }}
+                    text={
+                      state.myAllSchedulesDigest.find(
+                        elem => elem.id === selectedSchedule?.id,
+                      ).item
+                    }
+                  />
+                )}
+            </PhoneView>
+          </EqualTwoTextInputs>
         )}
-        {!props.isAdvisor &&
-          state.selectedSchedule.advisorsDesc !== undefined &&
-          state.selectedSchedule.advisorsDesc.map((e, index) => {
-            return (
-              <SimpleText key={index} text={e.advisor + ': "' + e.desc + '"'} />
-            );
-          })}
-
         {boxes !== undefined &&
           boxes.map((e, index) => {
             return (
               <Day
+                selectedAdvisors={uniqueAdvisors.filter(ee => {
+                  return ee.selected === undefined || ee.selected;
+                })}
                 setLoading={props.setLoading}
                 token={props.token}
                 addNewItem={() => {

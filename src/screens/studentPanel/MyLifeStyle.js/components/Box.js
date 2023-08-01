@@ -1,80 +1,86 @@
 import {
-  faBriefcaseClock,
-  faClock,
-  faClockFour,
   faClockRotateLeft,
   faClose,
-  faColonSign,
   faEdit,
-  faTimeline,
-  faTimes,
-  faTimesCircle,
+  faQuestion,
   faUserClock,
 } from '@fortawesome/free-solid-svg-icons';
 import {
-  CommonWebBox,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {styles} from '../../../../styles/Common/Styles';
-import LastBuyer from '../../../general/Packages/components/Detail/LastBuyer';
 import vars from '../../../../styles/root';
 import {justifyContentEnd} from '../../../../styles/Common/Button';
+import {Image} from 'react-native';
 
 function Box(props) {
   return (
-    <PhoneView style={{...styles.alignSelfCenter}}>
-      <EqualTwoTextInputs
-        style={{
-          ...{
-            backgroundColor: vars.CREAM,
-            width: 50,
-            boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 16px 4px',
-            minHeight: 180,
-            maxHeight: 180,
-          },
-        }}>
-        {props.item.startAt !== undefined && (
-          <MyView style={{...styles.gap10}}>
-            <PhoneView style={{...styles.alignItemsEnd, ...{height: 80}}}>
-              <SimpleText
-                style={{
-                  writingMode: 'tb-rl',
-                  fontSize: 14,
-                  color: vars.DARK_BLUE,
-                }}
-                text={'شروع'}
+    <PhoneView style={{...styles.alignSelfCenter, ...{minWidth: 225}}}>
+      {(props.item.startAt !== undefined || props.item.advisor) && (
+        <EqualTwoTextInputs
+          style={{
+            ...{
+              backgroundColor: vars.CREAM,
+              width: 50,
+              boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 16px 4px',
+              minHeight: 180,
+              maxHeight: 180,
+            },
+          }}>
+          {props.item.startAt !== undefined && (
+            <MyView style={{...styles.gap10}}>
+              <PhoneView style={{...styles.alignItemsEnd, ...{height: 80}}}>
+                <SimpleText
+                  style={{
+                    writingMode: 'tb-rl',
+                    fontSize: 14,
+                    color: vars.DARK_BLUE,
+                  }}
+                  text={'شروع'}
+                />
+                <SimpleText
+                  style={{
+                    writingMode: 'tb-rl',
+                    fontSize: 20,
+                    color: vars.DARK_BLUE,
+                  }}
+                  text={props.item.startAt}
+                />
+              </PhoneView>
+              <SimpleFontIcon
+                kind={'normal'}
+                style={{color: vars.YELLOW}}
+                icon={faUserClock}
               />
-              <SimpleText
-                style={{
-                  writingMode: 'tb-rl',
-                  fontSize: 20,
-                  color: vars.DARK_BLUE,
-                }}
-                text={props.item.startAt}
-              />
-            </PhoneView>
-            <SimpleFontIcon
-              kind={'normal'}
-              style={{color: vars.YELLOW}}
-              icon={faUserClock}
-            />
-          </MyView>
-        )}
+            </MyView>
+          )}
 
-        {props.item.advisor !== undefined && (
-          <MyView style={{...justifyContentEnd}}>
-            <LastBuyer
-              isJustOne={true}
-              pic={props.item.advisor.pic}
-              text={props.item.advisor.name}
-            />
-          </MyView>
-        )}
-      </EqualTwoTextInputs>
+          {props.item.advisor !== undefined && (
+            <MyView
+              style={{
+                ...justifyContentEnd,
+                ...styles.alignItemsCenter,
+                ...{width: 40, marginRight: 5},
+              }}>
+              <Image
+                source={props.item.advisor.pic}
+                resizeMode={'contain'}
+                style={{
+                  cursor: 'pointer',
+                  width: '100%',
+                  height: '40px',
+                  border: '1px solid',
+                  borderRadius: '50%',
+                }}
+              />
+            </MyView>
+          )}
+        </EqualTwoTextInputs>
+      )}
       <MyView
         style={{
           minWidth: 150,
@@ -93,7 +99,12 @@ function Box(props) {
         {props.remove !== undefined && (
           <EqualTwoTextInputs
             style={{
-              backgroundColor: vars.ORANGE_RED,
+              backgroundColor:
+                props.item.lesson === undefined
+                  ? vars.YELLOW
+                  : props.item.additional === undefined
+                  ? vars.ORANGE_RED
+                  : vars.DARK_BLUE,
               padding: 7,
             }}>
             <SimpleText style={{color: 'white'}} text={props.item.tag} />
@@ -106,49 +117,99 @@ function Box(props) {
             />
           </EqualTwoTextInputs>
         )}
-
-        <MyView style={{justifyContent: 'space-between'}}>
-          {props.item.lesson !== undefined && (
-            <SimpleText text={props.item.lesson} />
-          )}
-
-          <PhoneView
+        {props.remove === undefined && (
+          <MyView
             style={{
               backgroundColor:
-                props.item.doneDuration !== undefined ? vars.SILVER : 'unset',
+                props.item.lesson === undefined
+                  ? vars.YELLOW
+                  : props.item.additional === undefined
+                  ? vars.ORANGE_RED
+                  : vars.DARK_BLUE,
+              padding: 7,
             }}>
-            <SimpleFontIcon
-              style={{color: vars.YELLOW}}
-              kind={'normal'}
-              icon={faClockRotateLeft}
-            />
-            <MyView>
-              <SimpleText
-                text={'مدت زمان'}
-                style={{...styles.dark_blue_color, ...styles.fontSize10}}
-              />
-              <SimpleText
-                text={props.item.duration + ' دقیقه'}
-                style={{...styles.dark_blue_color}}
-              />
+            <SimpleText style={{color: 'white'}} text={props.item.tag} />
+          </MyView>
+        )}
 
-              {/* {props.item.doneDuration !== undefined && (
+        <MyView
+          style={{
+            justifyContent: 'space-between',
+            height: 'calc(100% - 40px)',
+          }}>
+          {props.item.lesson !== undefined && (
+            <SimpleText
+              style={{
+                ...styles.dark_blue_color,
+                ...styles.fontSize13,
+                ...styles.marginTop10,
+              }}
+              text={props.item.lesson}
+            />
+          )}
+          {props.item.lesson === undefined && <MyView />}
+
+          <MyView>
+            {props.item.additional !== undefined && (
+              <PhoneView
+                style={{
+                  ...styles.gap10,
+                  ...styles.alignItemsCenter,
+                  ...{
+                    marginRight: 4,
+                    backgroundColor:
+                      props.item.doneAdditional !== undefined
+                        ? vars.SILVER
+                        : 'unset',
+                  },
+                }}>
+                <FontIcon kind={'small'} back={'yellow'} icon={faQuestion} />
+
+                <MyView>
+                  <SimpleText
+                    text={props.item.additionalLabel}
+                    style={{...styles.dark_blue_color, ...styles.fontSize10}}
+                  />
+                  <SimpleText
+                    text={props.item.additional}
+                    style={{...styles.dark_blue_color, ...{textAlign: 'end'}}}
+                  />
+                </MyView>
+              </PhoneView>
+            )}
+
+            <PhoneView
+              style={{
+                backgroundColor:
+                  props.item.doneDuration !== undefined ? vars.SILVER : 'unset',
+              }}>
+              <SimpleFontIcon
+                style={{color: vars.YELLOW}}
+                kind={'normal'}
+                icon={faClockRotateLeft}
+              />
+              <MyView>
+                <SimpleText
+                  text={'مدت زمان'}
+                  style={{...styles.dark_blue_color, ...styles.fontSize10}}
+                />
+                <SimpleText
+                  text={props.item.duration + ' دقیقه'}
+                  style={{...styles.dark_blue_color}}
+                />
+
+                {/* {props.item.doneDuration !== undefined && (
               <SimpleText
                 style={{...styles.red, ...styles.bold, ...styles.fontSize10}}
                 text={'مدت انجام شده: ' + props.item.doneDuration + ' دقیقه'}
               />
             )} */}
-            </MyView>
-          </PhoneView>
+              </MyView>
+            </PhoneView>
+          </MyView>
         </MyView>
 
-        {props.item.additional !== undefined && (
-          <SimpleText
-            text={props.item.additionalLabel + ' : ' + props.item.additional}
-          />
-        )}
-
-        {props.item.doneAdditional !== undefined && (
+        {/* {props.item.doneAdditional !== undefined && (
           <SimpleText
             text={
               props.item.additionalLabel +
@@ -169,7 +230,7 @@ function Box(props) {
             icon={faEdit}
             kind={'normal'}
           />
-        )}
+        )} */}
       </MyView>
     </PhoneView>
   );

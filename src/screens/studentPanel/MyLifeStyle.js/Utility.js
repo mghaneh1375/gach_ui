@@ -19,6 +19,32 @@ export const fetchExamTags = token => {
   return generalRequest(routes.getAllExamTags, 'get', undefined, 'data', token);
 };
 
+export const fetchMySchedulesDigest = token => {
+  return generalRequest(
+    routes.getMySchedulesDigest,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const fetchStudentSchedulesDigest = (
+  wantedUserId,
+  token,
+  isInEditMode,
+) => {
+  if (!isInEditMode) return [];
+
+  return generalRequest(
+    routes.getStudentSchedulesDigest + wantedUserId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const setMyExamInLifeStyle = async (data, token) => {
   let res = await generalRequest(
     routes.setMyExamInLifeStyle,

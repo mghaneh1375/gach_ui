@@ -43,6 +43,8 @@ export const FontIcon = props => {
         ? '100%'
         : props.kind === 'normal'
         ? 30
+        : props.kind === 'large'
+        ? 40
         : props.kind === 'tiny'
         ? 10
         : 20,
@@ -51,6 +53,8 @@ export const FontIcon = props => {
         ? '100%'
         : props.kind === 'normal'
         ? 30
+        : props.kind === 'large'
+        ? 40
         : props.kind === 'tiny'
         ? 10
         : 20,

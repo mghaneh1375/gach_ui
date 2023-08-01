@@ -10,6 +10,7 @@ function LastBuyer(props) {
 
   return (
     <div
+      onClick={props.onPress === undefined ? undefined : props.onPress}
       onMouseOver={() => setHover(true)}
       onMouseOut={() => setHover(false)}
       style={{
@@ -28,7 +29,9 @@ function LastBuyer(props) {
           cursor: 'pointer',
           width: '100%',
           height: '40px',
-          border: '1px solid',
+          borderColor:
+            props.borderColor === undefined ? 'black' : props.borderColor,
+          borderWidth: props.borderColor === undefined ? 1 : 3,
           borderRadius: '50%',
         }}
       />

@@ -44,7 +44,7 @@ function MyAdvisorFinancePlan(props) {
           }}>
           <SimpleText
             style={{...styles.BlueBold, ...styles.fontSize15}}
-            text={props.plan.title}
+            text={props.plan?.title}
           />
 
           <PhoneView
@@ -100,77 +100,85 @@ function MyAdvisorFinancePlan(props) {
                 text={props.data.name}
               />
 
-              <PhoneView style={{...styles.gap15}}>
-                <QuizItemCard
-                  text={translator.maxKarbarg}
-                  val={
-                    props.plan.maxKarbarg === -1
-                      ? 'نامحدود'
-                      : props.plan.maxKarbarg
-                  }
-                  icon={faNewspaper}
-                  background={false}
-                  iconFontSize={'normal'}
-                  color={vars.YELLOW}
-                  textFontSize={14}
-                  valFontSize={14}
-                  isBold={false}
-                />
-                <QuizItemCard
-                  text={translator.maxVideoCalls}
-                  val={props.plan.videoCalls}
-                  icon={faVideo}
-                  background={false}
-                  iconFontSize={'normal'}
-                  color={vars.YELLOW}
-                  textFontSize={14}
-                  valFontSize={14}
-                  isBold={false}
-                />
+              {props.plan !== undefined && (
+                <>
+                  <PhoneView style={{...styles.gap15}}>
+                    <QuizItemCard
+                      text={translator.maxKarbarg}
+                      val={
+                        props.plan.maxKarbarg === -1
+                          ? 'نامحدود'
+                          : props.plan.maxKarbarg
+                      }
+                      icon={faNewspaper}
+                      background={false}
+                      iconFontSize={'normal'}
+                      color={vars.YELLOW}
+                      textFontSize={14}
+                      valFontSize={14}
+                      isBold={false}
+                    />
+                    <QuizItemCard
+                      text={translator.maxVideoCalls}
+                      val={props.plan.videoCalls}
+                      icon={faVideo}
+                      background={false}
+                      iconFontSize={'normal'}
+                      color={vars.YELLOW}
+                      textFontSize={14}
+                      valFontSize={14}
+                      isBold={false}
+                    />
 
-                <QuizItemCard
-                  text={translator.maxChat}
-                  val={
-                    props.plan.maxChat === -1 ? 'نامحدود' : props.plan.maxChat
-                  }
-                  icon={faPaperPlane}
-                  background={false}
-                  iconFontSize={'normal'}
-                  color={vars.YELLOW}
-                  textFontSize={14}
-                  valFontSize={14}
-                  isBold={false}
-                />
+                    <QuizItemCard
+                      text={translator.maxChat}
+                      val={
+                        props.plan.maxChat === -1
+                          ? 'نامحدود'
+                          : props.plan.maxChat
+                      }
+                      icon={faPaperPlane}
+                      background={false}
+                      iconFontSize={'normal'}
+                      color={vars.YELLOW}
+                      textFontSize={14}
+                      valFontSize={14}
+                      isBold={false}
+                    />
 
-                <QuizItemCard
-                  text={translator.maxExam}
-                  val={
-                    props.plan.maxChat === -1 ? 'نامحدود' : props.plan.maxChat
-                  }
-                  icon={faQuestion}
-                  background={false}
-                  iconFontSize={'normal'}
-                  color={vars.YELLOW}
-                  textFontSize={14}
-                  valFontSize={14}
-                  isBold={false}
-                />
-              </PhoneView>
-              <QuizItemCard
-                text={translator.startEnd}
-                val={
-                  props.plan.createdAt.split('-')[0] +
-                  ' تا ' +
-                  props.plan.finishAt.split('-')[0]
-                }
-                icon={faClockRotateLeft}
-                background={false}
-                iconFontSize={'normal'}
-                color={vars.YELLOW}
-                textFontSize={14}
-                valFontSize={14}
-                isBold={false}
-              />
+                    <QuizItemCard
+                      text={translator.maxExam}
+                      val={
+                        props.plan.maxChat === -1
+                          ? 'نامحدود'
+                          : props.plan.maxChat
+                      }
+                      icon={faQuestion}
+                      background={false}
+                      iconFontSize={'normal'}
+                      color={vars.YELLOW}
+                      textFontSize={14}
+                      valFontSize={14}
+                      isBold={false}
+                    />
+                  </PhoneView>
+                  <QuizItemCard
+                    text={translator.startEnd}
+                    val={
+                      props.plan.createdAt.split('-')[0] +
+                      ' تا ' +
+                      props.plan.finishAt.split('-')[0]
+                    }
+                    icon={faClockRotateLeft}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={false}
+                  />
+                </>
+              )}
             </MyView>
           </PhoneView>
 
@@ -222,8 +230,8 @@ function MyAdvisorFinancePlan(props) {
           )}
         </EqualTwoTextInputs>
 
-        {props.plan.description !== undefined &&
-          props.plan.description.length > 0 && (
+        {props.plan?.description !== undefined &&
+          props.plan?.description.length > 0 && (
             <SimpleText
               style={{
                 ...styles.dark_blue_color,
