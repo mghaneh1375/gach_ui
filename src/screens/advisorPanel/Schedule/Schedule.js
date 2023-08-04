@@ -22,6 +22,12 @@ function Schedule(props) {
   const params = useParams();
 
   React.useEffect(() => {
+    if (mode === 'create' || mode === 'edit')
+      dispatch({isRightMenuVisible: false});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode]);
+
+  React.useEffect(() => {
     if (params.studentId === undefined) return;
     setStudentId(params.studentId);
   }, [params]);
@@ -72,6 +78,7 @@ function Schedule(props) {
           setLoading={setLoading}
           isAdvisor={isAdvisor}
           isInEditMode={false}
+          advisorId={isAdvisor ? state.user.user.id : undefined}
           studentId={studentId}
           setMode={setMode}
         />
@@ -80,6 +87,7 @@ function Schedule(props) {
         <Create
           token={state.token}
           isAdvisor={isAdvisor}
+          user={state.user.user}
           setLoading={setLoading}
           studentId={studentId}
           setMode={setMode}

@@ -21,6 +21,9 @@ import Lesson from './components/Lesson';
 import Tag from './components/Tag';
 import JustBottomBorderDatePicker from '../../../styles/Common/JustBottomBorderDatePicker';
 import {styles} from '../../../styles/Common/Styles';
+import vars from '../../../styles/root';
+import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
+import {log} from 'react-native-reanimated';
 
 function Progress(props) {
   const useGlobalState = () => [
@@ -57,6 +60,38 @@ function Progress(props) {
     fetchData();
   }, [fetchData]);
 
+  const [selectedTagReport, setSelectedTagReport] = useState();
+  const [tagReports, setTagReports] = useState();
+
+  const [lessonReports, setLessonReports] = useState();
+  const [selectedLessonReport, setSelectedLessonReport] = useState();
+
+  React.useEffect(() => {
+    if (data?.tagsGeneralStats === undefined) return;
+
+    setTagReports(
+      data.tagsGeneralStats.map(e => {
+        return {
+          id: e.tag,
+          item: e.tag,
+        };
+      }),
+    );
+  }, [data?.tagsGeneralStats]);
+
+  React.useEffect(() => {
+    if (data?.stats === undefined) return;
+
+    setLessonReports(
+      data.stats.map(e => {
+        return {
+          id: e.lesson,
+          item: e.lesson,
+        };
+      }),
+    );
+  }, [data?.stats]);
+
   return (
     <>
       <CommonWebBox>
@@ -84,18 +119,60 @@ function Progress(props) {
         {data !== undefined && (
           <EqualTwoTextInputs>
             <MyView>
+              <PhoneView
+                style={{
+                  gap: 30,
+                  padding: 7,
+                  backgroundColor: vars.DARK_BLUE,
+                }}>
+                <SimpleText
+                  style={{color: 'white', width: 150, textAlign: 'center'}}
+                  text={'تاریخ'}
+                />
+
+                <SimpleText
+                  style={{color: 'white', width: 150}}
+                  text="زمان تعریف شده (دقیقه)"
+                />
+                <SimpleText
+                  style={{color: 'white', width: 150}}
+                  text="زمان انجام شده (دقیقه)"
+                />
+              </PhoneView>
               {data.generalStats.totalStats.map((e, index) => {
                 return (
-                  <PhoneView style={{gap: 30}}>
-                    <SimpleText text={data.weeks[index]} />
+                  <PhoneView
+                    style={{
+                      gap: 30,
+                      padding: 7,
+                      backgroundColor:
+                        index % 2 == 0 ? 'white' : 'rgb(138 168 160)',
+                    }}>
                     <SimpleText
-                      text={
-                        'زمان انجام شده: ' +
-                        data.generalStats.doneStats[index] +
-                        ' دقیقه'
-                      }
+                      style={{
+                        color: vars.DARK_BLUE,
+                        width: 150,
+                        textAlign: 'center',
+                      }}
+                      text={data.weeks[index]}
                     />
-                    <SimpleText text={'زمان تعریف شده: ' + e + ' دقیقه'} />
+
+                    <SimpleText
+                      style={{
+                        color: vars.DARK_BLUE,
+                        width: 150,
+                        textAlign: 'center',
+                      }}
+                      text={e}
+                    />
+                    <SimpleText
+                      style={{
+                        color: vars.DARK_BLUE,
+                        width: 150,
+                        textAlign: 'center',
+                      }}
+                      text={data.generalStats.doneStats[index]}
+                    />
                   </PhoneView>
                 );
               })}
@@ -244,37 +321,56 @@ function Progress(props) {
           </VictoryChart>
         )}
       </CommonWebBox>
-      <CommonWebBox header={'آمار کلی بر اساس تگ مطالعه'}>
-        {data !== undefined && (
-          <PhoneView style={{gap: 20}}>
-            {data.tagsGeneralStats !== undefined &&
-              data.tagsGeneralStats.map((e, index) => {
-                return <Tag weeks={data.weeks} data={e} key={index} />;
-              })}
-          </PhoneView>
+      <CommonWebBox header={'آمار کلی بر اساس تگ ها'}>
+        {tagReports !== undefined && (
+          <JustBottomBorderSelect
+            isHalf={true}
+            values={tagReports}
+            setter={setSelectedTagReport}
+            value={tagReports.find(e => e.id === selectedTagReport)}
+            placeholder={'تگ موردنظر'}
+            subText={'تگ موردنظر'}
+          />
         )}
       </CommonWebBox>
 
-      <CommonWebBox header={'آمار کلی تعداد تست'}>
-        {data !== undefined && (
-          <PhoneView style={{gap: 20}}>
-            {data.additionalTagsGeneralStats !== undefined &&
-              data.additionalTagsGeneralStats.map((e, index) => {
-                return (
-                  <Tag
-                    isForTest={true}
-                    weeks={data.weeks}
-                    data={e}
-                    key={index}
-                  />
-                );
-              })}
-          </PhoneView>
+      {data !== undefined &&
+        data.tagsGeneralStats !== undefined &&
+        data.tagsGeneralStats.map((e, index) => {
+          if (e.tag !== selectedTagReport) return;
+          return <Tag weeks={data.weeks} data={e} key={index} />;
+        })}
+
+      {data !== undefined &&
+        data.additionalTagsGeneralStats !== undefined &&
+        data.additionalTagsGeneralStats.map((e, index) => {
+          return (
+            <Tag
+              header={'آمار کلی تعداد تست'}
+              isForTest={true}
+              weeks={data.weeks}
+              data={e}
+              key={index}
+            />
+          );
+        })}
+
+      <CommonWebBox header={'آمار بر اساس دروس'}>
+        {lessonReports !== undefined && (
+          <JustBottomBorderSelect
+            isHalf={true}
+            values={lessonReports}
+            setter={setSelectedLessonReport}
+            value={lessonReports.find(e => e.id === selectedLessonReport)}
+            placeholder={'درس موردنظر'}
+            subText={'درس موردنظر'}
+          />
         )}
       </CommonWebBox>
 
       {data !== undefined &&
         data.stats.map((elem, index) => {
+          if (elem.lesson !== selectedLessonReport) return;
           return <Lesson weeks={data.weeks} key={index} data={elem} />;
         })}
     </>

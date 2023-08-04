@@ -23,6 +23,7 @@ import Tag from './Tag';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import {showError} from '../../../../services/Utility';
 import Exam from './Exam';
+import TimePicker from '../../../../styles/Common/TimePicker';
 
 function Schedule(props) {
   const useGlobalState = () => [
@@ -140,16 +141,19 @@ function Schedule(props) {
               value={duration}
               onChangeText={e => setDuration(e)}
             />
-            <JustBottomBorderTextInput
+
+            <TimePicker
               subText={'زمان شروع (اختیاری)'}
               placeholder={'زمان شروع (اختیاری)'}
-              value={startAt}
               onChangeText={e => setStartAt(e)}
             />
           </PhoneView>
         </LargePopUp>
       )}
-      <CommonWebBox>
+      <CommonWebBox
+        header={''}
+        backBtn={true}
+        onBackClick={() => props.navigate('/myAdvisor')}>
         <SimpleText text={'آیا در آزمون خاصی شرکت می کنی؟'} />
         <PhoneView style={{...styles.gap15}}>
           {state.examTags !== undefined &&

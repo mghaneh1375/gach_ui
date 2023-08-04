@@ -21,7 +21,7 @@ import {LargePopUp} from '../../../styles/Common/PopUp';
 import {styles} from '../../../styles/Common/Styles';
 import Card from './Card';
 import FinancePlan from './FinancePlan';
-import {setCacheItem} from '../../../API/User';
+import {fetchUser, setCacheItem} from '../../../API/User';
 import OffCode from '../buy/components/OffCode';
 import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
 import commonTranslator from '../../../translator/Common';
@@ -89,9 +89,8 @@ function Advisors(props) {
 
     if (res !== null) {
       if (res.action === 'success') {
-        let user = state.user;
-        user.user.money = res.refId;
-        await setCacheItem('user', JSON.stringify(user));
+        await setCacheItem('user', undefined);
+        await fetchUser(state.token, user => {});
         setShowSuccessTransaction(true);
       } else if (res.action === 'pay') {
         setRefId(res.refId);
@@ -466,7 +465,7 @@ function Advisors(props) {
                 return (
                   <Card
                     isMyAdvisor={isMyAdvisor}
-                    hasOpenRequest={openReq}
+                    hasOpenRequest={advisorPlans !== undefined ? true : openReq}
                     key={index}
                     data={elem}
                     selected={elem.id === selectedAdvisor}

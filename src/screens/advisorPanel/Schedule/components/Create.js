@@ -95,7 +95,7 @@ function Create(props) {
     let tmp = [];
     state.selectedSchedule?.days.forEach(e => {
       e.items.forEach(ee => {
-        if (tmp.find(eee => eee.name == ee.advisor.name) !== undefined) return;
+        if (tmp.find(eee => eee.name == ee.advisor?.name) !== undefined) return;
         tmp.push({
           ...ee.advisor,
           ...{selected: true},
@@ -403,6 +403,11 @@ function Create(props) {
                         id: res.id,
                         additionalLabel: selectedTag.numberLabel,
                         additional: additional,
+                        advisor: {
+                          name:
+                            props.user.firstName + ' ' + props.user.lastName,
+                          pic: props.user.pic,
+                        },
                       });
                       return e;
                     },
@@ -611,7 +616,7 @@ function Create(props) {
         {props.isInEditMode && state.myAllSchedulesDigest !== undefined && (
           <EqualTwoTextInputs
             style={{backgroundColor: vars.CREAM, borderRadius: 7, padding: 7}}>
-            <PhoneView style={{minWidth: 400, gap: 10}}>
+            <PhoneView style={{minWidth: 'calc(100% - 200px)', gap: 10}}>
               <SimpleText
                 text={'برنامه روزانه'}
                 style={{...styles.BlueBold, ...styles.alignSelfCenter}}
@@ -619,7 +624,6 @@ function Create(props) {
               <JustBottomBorderSelect
                 parentStyle={{
                   backgroundColor: 'white',
-                  width: 'calc(100% - 200px)',
                 }}
                 setter={item => {
                   let tmp = {
@@ -697,6 +701,10 @@ function Create(props) {
             </PhoneView>
           </EqualTwoTextInputs>
         )}
+        <SimpleText
+          style={{...styles.BlueBold}}
+          text={'برای ارسال گزارش روی کارت ها کلیک کنید'}
+        />
         {boxes !== undefined &&
           boxes.map((e, index) => {
             return (
@@ -704,6 +712,7 @@ function Create(props) {
                 selectedAdvisors={uniqueAdvisors.filter(ee => {
                   return ee.selected === undefined || ee.selected;
                 })}
+                currentAdvisor={props.advisorId}
                 setLoading={props.setLoading}
                 token={props.token}
                 addNewItem={() => {

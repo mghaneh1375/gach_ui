@@ -1,22 +1,17 @@
 import {faAdd} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {
-  convertSecToMinWithOutSec,
-  f2e,
-  removeItems,
-} from '../../../../services/Utility';
+import {f2e, removeItems} from '../../../../services/Utility';
 import {
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {FontIcon} from '../../../../styles/Common/FontIcon';
 import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
 import Box from './Box';
-import {style} from '../../RunQuiz/style';
 
 function Day(props) {
   const [boxes, setBoxes] = useState();
@@ -24,7 +19,17 @@ function Day(props) {
   const [sumLife, setSumLife] = useState();
 
   React.useEffect(() => {
-    setBoxes(props.boxes);
+    console.log(props.boxes);
+
+    setBoxes(
+      props.boxes.sort((a, b) => {
+        if (a.startAt === undefined || b.startAt === undefined) return 1;
+        return (
+          parseInt(a.startAt.replace(':', '')) -
+          parseInt(b.startAt.replace(':', ''))
+        );
+      }),
+    );
     let lifeSum = 0;
     let scheduleSum = 0;
 
@@ -90,7 +95,7 @@ function Day(props) {
           flexWrap: 'nowrap',
           flexDirection: 'row',
           overflow: 'auto',
-          maxWidth: 'calc(100% - 80px)',
+          maxWidth: props.canEdit ? 'calc(100% - 260px)' : 'calc(100% - 100px)',
           gap: 20,
         }}>
         {boxes !== undefined &&
@@ -106,6 +111,8 @@ function Day(props) {
               <Box
                 remove={
                   props.onRemove === undefined ||
+                  e.owner === undefined ||
+                  !e.owner ||
                   (e.canEdit !== undefined && !e.canEdit)
                     ? undefined
                     : () => {

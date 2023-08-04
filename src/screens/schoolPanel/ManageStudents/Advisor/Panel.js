@@ -190,7 +190,7 @@ function Panel(props) {
                   window.open('/studentSchedules/' + props.wantedUserId)
                 }
                 theme={'orangeRed'}
-                title={'کاربرگ ها'}
+                title={'رویت کاربرگ ها'}
               />
               <CommonButton
                 padding={'5px 15px'}
@@ -212,7 +212,7 @@ function Panel(props) {
                     '/ticket?section=advisor&userId=' + props.wantedUserId,
                   )
                 }
-                title={'چت روم'}
+                title={'رفتن به چت روم'}
               />
 
               {url === undefined && (

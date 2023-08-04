@@ -40,45 +40,47 @@ function FinancePlan(props) {
             text={props.plan.title}
           />
         </MyView>
-        <MyView
-          style={{
-            minHeight: showMore ? 260 : 70,
-            maxHeight: showMore ? 'unset' : 70,
-          }}>
-          <SimpleText
+        {props.plan.description !== undefined && (
+          <MyView
             style={{
-              ...styles.dark_blue_color,
-              ...{
-                maxHeight: showMore ? 'unset' : 50,
-                overflow: showMore ? 'unset' : 'hidden',
-              },
-            }}
-            text={'توضیحات: ' + props.plan.description}
-          />
-          {showMore && (
+              minHeight: showMore ? 260 : 70,
+              maxHeight: showMore ? 'unset' : 70,
+            }}>
             <SimpleText
               style={{
-                ...styles.yellow_color,
-                ...styles.alignSelfEnd,
-                ...styles.cursor_pointer,
+                ...styles.dark_blue_color,
+                ...{
+                  maxHeight: showMore ? 'unset' : 50,
+                  overflow: showMore ? 'unset' : 'hidden',
+                },
               }}
-              text={'نمایش کمتر'}
-              onPress={() => setShowMore(false)}
+              text={'توضیحات: ' + props.plan.description}
             />
-          )}
+            {showMore && (
+              <SimpleText
+                style={{
+                  ...styles.yellow_color,
+                  ...styles.alignSelfEnd,
+                  ...styles.cursor_pointer,
+                }}
+                text={'نمایش کمتر'}
+                onPress={() => setShowMore(false)}
+              />
+            )}
 
-          {!showMore && (
-            <SimpleText
-              style={{
-                ...styles.yellow_color,
-                ...styles.alignSelfEnd,
-                ...styles.cursor_pointer,
-              }}
-              text={'نمایش بیشتر'}
-              onPress={() => setShowMore(true)}
-            />
-          )}
-        </MyView>
+            {!showMore && (
+              <SimpleText
+                style={{
+                  ...styles.yellow_color,
+                  ...styles.alignSelfEnd,
+                  ...styles.cursor_pointer,
+                }}
+                text={'نمایش بیشتر'}
+                onPress={() => setShowMore(true)}
+              />
+            )}
+          </MyView>
+        )}
 
         {!showMore && (
           <>
