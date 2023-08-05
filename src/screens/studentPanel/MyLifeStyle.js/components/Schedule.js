@@ -151,11 +151,14 @@ function Schedule(props) {
         </LargePopUp>
       )}
       <CommonWebBox
-        header={''}
+        header={'آیا در آزمون خاصی شرکت می کنی؟'}
         backBtn={true}
-        onBackClick={() => props.navigate('/myAdvisor')}>
-        <SimpleText text={'آیا در آزمون خاصی شرکت می کنی؟'} />
-        <PhoneView style={{...styles.gap15}}>
+        onBackClick={() =>
+          canEdit
+            ? props.navigate('/myAdvisor')
+            : props.navigate('/manageStudent')
+        }>
+        <PhoneView style={props.isInPhone ? {} : {...styles.gap15}}>
           {state.examTags !== undefined &&
             state.examTags.map((e, index) => {
               return (

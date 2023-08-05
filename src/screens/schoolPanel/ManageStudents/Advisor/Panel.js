@@ -174,9 +174,19 @@ function Panel(props) {
             </PhoneView>
           )}
 
-          <MyView>
+          <MyView
+            style={
+              props.isInPhone ? {width: '100%', alignItems: 'center'} : {}
+            }>
             <CommonButton
-              style={{minWidth: 260}}
+              style={
+                props.isInPhone
+                  ? {minWidth: 290, justifyContent: 'center'}
+                  : {minWidth: 260}
+              }
+              parentStyle={
+                props.isInPhone ? {alignSelf: 'center !important'} : {}
+              }
               onPress={() =>
                 window.open('/studentLifeStyle/' + props.wantedUserId)
               }
@@ -184,8 +194,12 @@ function Panel(props) {
             />
             <PhoneView>
               <CommonButton
-                padding={'5px 15px'}
-                style={{minWidth: 120}}
+                padding={props.isInPhone ? '5px' : '5px 15px'}
+                style={
+                  props.isInPhone
+                    ? {minWidth: 140, marginRight: 3, marginLeft: 3}
+                    : {minWidth: 120}
+                }
                 onPress={() =>
                   window.open('/studentSchedules/' + props.wantedUserId)
                 }
@@ -193,8 +207,12 @@ function Panel(props) {
                 title={'رویت کاربرگ ها'}
               />
               <CommonButton
-                padding={'5px 15px'}
-                style={{minWidth: 120}}
+                padding={props.isInPhone ? '5px' : '5px 15px'}
+                style={
+                  props.isInPhone
+                    ? {minWidth: 140, marginRight: 3, marginLeft: 3}
+                    : {minWidth: 120}
+                }
                 onPress={() =>
                   window.open('/studentProgress/' + props.wantedUserId)
                 }
@@ -205,8 +223,12 @@ function Panel(props) {
 
             <PhoneView>
               <CommonButton
-                padding={'5px 15px'}
-                style={{minWidth: 120}}
+                padding={props.isInPhone ? '5px' : '5px 15px'}
+                style={
+                  props.isInPhone
+                    ? {minWidth: 140, marginRight: 3, marginLeft: 3}
+                    : {minWidth: 120}
+                }
                 onPress={() =>
                   window.open(
                     '/ticket?section=advisor&userId=' + props.wantedUserId,
@@ -217,8 +239,12 @@ function Panel(props) {
 
               {url === undefined && (
                 <CommonButton
-                  padding={'5px 15px'}
-                  style={{minWidth: 120}}
+                  padding={props.isInPhone ? '5px' : '5px 15px'}
+                  style={
+                    props.isInPhone
+                      ? {minWidth: 140, marginRight: 3, marginLeft: 3}
+                      : {minWidth: 120}
+                  }
                   onPress={() => setShowConfirmation(true)}
                   title={'ایجاد اتاق جلسه'}
                 />
@@ -226,7 +252,12 @@ function Panel(props) {
 
               {url !== undefined && (
                 <CommonButton
-                  style={{minWidth: 180}}
+                  padding={props.isInPhone ? '5px' : '5px 15px'}
+                  style={
+                    props.isInPhone
+                      ? {minWidth: 140, marginRight: 3, marginLeft: 3}
+                      : {minWidth: 120}
+                  }
                   onPress={() => window.open(url)}
                   title={'رفتن به جلسه'}
                   theme={'dark'}

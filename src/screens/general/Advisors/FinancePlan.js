@@ -23,7 +23,7 @@ function FinancePlan(props) {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <CommonWebBox width={props.isInPhone ? 320 : 480}>
+    <CommonWebBox width={props.isInPhone ? 'calc(100% - 60px)' : 480}>
       <MyView
         style={{paddingRight: 10, ...styles.gap15, ...styles.marginTop10}}>
         <MyView
@@ -40,7 +40,7 @@ function FinancePlan(props) {
             text={props.plan.title}
           />
         </MyView>
-        {props.plan.description !== undefined && (
+        {props.plan.description !== undefined && props.plan.description !== '' && (
           <MyView
             style={{
               minHeight: showMore ? 260 : 70,

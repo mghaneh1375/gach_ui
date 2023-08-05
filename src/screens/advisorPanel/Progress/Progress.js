@@ -23,7 +23,6 @@ import JustBottomBorderDatePicker from '../../../styles/Common/JustBottomBorderD
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
 import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
-import {log} from 'react-native-reanimated';
 
 function Progress(props) {
   const useGlobalState = () => [
@@ -118,7 +117,7 @@ function Progress(props) {
       <CommonWebBox header={'آمار کلی'}>
         {data !== undefined && (
           <EqualTwoTextInputs>
-            <MyView>
+            <MyView style={state.isInPhone ? {width: '100%'} : {}}>
               <PhoneView
                 style={{
                   gap: 30,
@@ -126,16 +125,20 @@ function Progress(props) {
                   backgroundColor: vars.DARK_BLUE,
                 }}>
                 <SimpleText
-                  style={{color: 'white', width: 150, textAlign: 'center'}}
+                  style={{
+                    color: 'white',
+                    width: state.isInPhone ? 80 : 150,
+                    textAlign: 'center',
+                  }}
                   text={'تاریخ'}
                 />
 
                 <SimpleText
-                  style={{color: 'white', width: 150}}
+                  style={{color: 'white', width: state.isInPhone ? 80 : 150}}
                   text="زمان تعریف شده (دقیقه)"
                 />
                 <SimpleText
-                  style={{color: 'white', width: 150}}
+                  style={{color: 'white', width: state.isInPhone ? 80 : 150}}
                   text="زمان انجام شده (دقیقه)"
                 />
               </PhoneView>
@@ -151,7 +154,7 @@ function Progress(props) {
                     <SimpleText
                       style={{
                         color: vars.DARK_BLUE,
-                        width: 150,
+                        width: state.isInPhone ? 80 : 150,
                         textAlign: 'center',
                       }}
                       text={data.weeks[index]}
@@ -160,7 +163,7 @@ function Progress(props) {
                     <SimpleText
                       style={{
                         color: vars.DARK_BLUE,
-                        width: 150,
+                        width: state.isInPhone ? 80 : 150,
                         textAlign: 'center',
                       }}
                       text={e}
@@ -168,7 +171,7 @@ function Progress(props) {
                     <SimpleText
                       style={{
                         color: vars.DARK_BLUE,
-                        width: 150,
+                        width: state.isInPhone ? 80 : 150,
                         textAlign: 'center',
                       }}
                       text={data.generalStats.doneStats[index]}
@@ -177,7 +180,7 @@ function Progress(props) {
                 );
               })}
             </MyView>
-            <MyView style={{width: 500}}>
+            <MyView style={{width: state.isInPhone ? '100%' : 500}}>
               <VictoryChart
                 height={300}
                 width={350}
@@ -251,80 +254,85 @@ function Progress(props) {
           </EqualTwoTextInputs>
         )}
       </CommonWebBox>
-      <CommonWebBox header={'آمار روزانه'}>
-        {data !== undefined && (
-          <VictoryChart height={200} width={350} theme={VictoryTheme.material}>
-            <VictoryLine
-              categories={{
-                x: data.daily.labels,
-              }}
-              style={{
-                data: {
-                  stroke: '#c43a31',
-                  strokeWidth: ({data}) => 1,
-                },
-              }}
-              domain={{
-                y: [
-                  Math.min(
-                    Math.min.apply(Math, data.daily.total),
-                    Math.min.apply(Math, data.daily.done),
-                  ) - 10,
-                  Math.max(
-                    Math.max.apply(Math, data.daily.total),
-                    Math.max.apply(Math, data.daily.done),
-                  ) + 100,
-                ],
-              }}
-              data={[0, ...data.daily.total]}
-            />
-            <VictoryLine
-              categories={{
-                x: data.daily.labels,
-              }}
-              style={{
-                data: {
-                  stroke: '#777777',
-                  strokeWidth: ({data}) => 1,
-                },
-              }}
-              data={[0, ...data.daily.done]}
-            />
-            <VictoryAxis
-              style={{
-                tickLabels: {
-                  fontFamily: 'IRANSans',
-                  fontSize: 4,
-                },
-                axisLabel: {
-                  fontFamily: 'IRANSans',
-                  fontSize: 4,
-                },
-              }}
-            />
-            <VictoryAxis
-              dependentAxis
-              tickFormat={x => x}
-              style={{
-                tickLabels: {
-                  fontFamily: 'IRANSans',
-                  fontSize: 4,
-                  dx: -10,
-                },
-                axisLabel: {
-                  fontFamily: 'IRANSans',
-                  fontSize: 4,
-                  dx: -10,
-                },
-              }}
-            />
-          </VictoryChart>
-        )}
-      </CommonWebBox>
+      {!state.isInPhone && (
+        <CommonWebBox header={'آمار روزانه'}>
+          {data !== undefined && (
+            <VictoryChart
+              height={200}
+              width={350}
+              theme={VictoryTheme.material}>
+              <VictoryLine
+                categories={{
+                  x: data.daily.labels,
+                }}
+                style={{
+                  data: {
+                    stroke: '#c43a31',
+                    strokeWidth: ({data}) => 1,
+                  },
+                }}
+                domain={{
+                  y: [
+                    Math.min(
+                      Math.min.apply(Math, data.daily.total),
+                      Math.min.apply(Math, data.daily.done),
+                    ) - 10,
+                    Math.max(
+                      Math.max.apply(Math, data.daily.total),
+                      Math.max.apply(Math, data.daily.done),
+                    ) + 100,
+                  ],
+                }}
+                data={[0, ...data.daily.total]}
+              />
+              <VictoryLine
+                categories={{
+                  x: data.daily.labels,
+                }}
+                style={{
+                  data: {
+                    stroke: '#777777',
+                    strokeWidth: ({data}) => 1,
+                  },
+                }}
+                data={[0, ...data.daily.done]}
+              />
+              <VictoryAxis
+                style={{
+                  tickLabels: {
+                    fontFamily: 'IRANSans',
+                    fontSize: 4,
+                  },
+                  axisLabel: {
+                    fontFamily: 'IRANSans',
+                    fontSize: 4,
+                  },
+                }}
+              />
+              <VictoryAxis
+                dependentAxis
+                tickFormat={x => x}
+                style={{
+                  tickLabels: {
+                    fontFamily: 'IRANSans',
+                    fontSize: 4,
+                    dx: -10,
+                  },
+                  axisLabel: {
+                    fontFamily: 'IRANSans',
+                    fontSize: 4,
+                    dx: -10,
+                  },
+                }}
+              />
+            </VictoryChart>
+          )}
+        </CommonWebBox>
+      )}
       <CommonWebBox header={'آمار کلی بر اساس تگ ها'}>
         {tagReports !== undefined && (
           <JustBottomBorderSelect
-            isHalf={true}
+            isHalf={!state.isInPhone}
             values={tagReports}
             setter={setSelectedTagReport}
             value={tagReports.find(e => e.id === selectedTagReport)}
@@ -338,7 +346,14 @@ function Progress(props) {
         data.tagsGeneralStats !== undefined &&
         data.tagsGeneralStats.map((e, index) => {
           if (e.tag !== selectedTagReport) return;
-          return <Tag weeks={data.weeks} data={e} key={index} />;
+          return (
+            <Tag
+              isInPhone={state.isInPhone}
+              weeks={data.weeks}
+              data={e}
+              key={index}
+            />
+          );
         })}
 
       {data !== undefined &&
@@ -347,6 +362,7 @@ function Progress(props) {
           return (
             <Tag
               header={'آمار کلی تعداد تست'}
+              isInPhone={state.isInPhone}
               isForTest={true}
               weeks={data.weeks}
               data={e}
@@ -355,10 +371,12 @@ function Progress(props) {
           );
         })}
 
-      <CommonWebBox header={'آمار بر اساس دروس'}>
+      <CommonWebBox
+        header={'آمار بر اساس دروس'}
+        style={{marginBottom: selectedLessonReport === undefined ? 200 : 10}}>
         {lessonReports !== undefined && (
           <JustBottomBorderSelect
-            isHalf={true}
+            isHalf={!state.isInPhone}
             values={lessonReports}
             setter={setSelectedLessonReport}
             value={lessonReports.find(e => e.id === selectedLessonReport)}
@@ -371,7 +389,14 @@ function Progress(props) {
       {data !== undefined &&
         data.stats.map((elem, index) => {
           if (elem.lesson !== selectedLessonReport) return;
-          return <Lesson weeks={data.weeks} key={index} data={elem} />;
+          return (
+            <Lesson
+              isInPhone={state.isInPhone}
+              weeks={data.weeks}
+              key={index}
+              data={elem}
+            />
+          );
         })}
     </>
   );

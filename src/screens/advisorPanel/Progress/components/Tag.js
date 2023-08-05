@@ -27,10 +27,14 @@ function Tag(props) {
             style={{gap: 5, padding: 7, backgroundColor: vars.DARK_BLUE}}>
             <SimpleText
               text={'تاریخ'}
-              style={{color: 'white', width: 120, textAlign: 'center'}}
+              style={{
+                color: 'white',
+                width: props.isInPhone ? 100 : 120,
+                textAlign: 'center',
+              }}
             />
             <SimpleText
-              style={{color: 'white', width: 150}}
+              style={{color: 'white', width: props.isInPhone ? 100 : 150}}
               text={
                 props.isForTest === undefined
                   ? 'زمان تعریف شده (دقیقه)'
@@ -38,7 +42,7 @@ function Tag(props) {
               }
             />
             <SimpleText
-              style={{color: 'white', width: 150}}
+              style={{color: 'white', width: props.isInPhone ? 100 : 150}}
               text={
                 props.isForTest === undefined
                   ? 'زمان انجام شده (دقیقه)'
@@ -58,7 +62,7 @@ function Tag(props) {
                 <SimpleText
                   style={{
                     color: vars.DARK_BLUE,
-                    width: 120,
+                    width: props.isInPhone ? 100 : 120,
                     textAlign: 'center',
                   }}
                   text={props.weeks[index]}
@@ -67,7 +71,7 @@ function Tag(props) {
                 <SimpleText
                   style={{
                     color: vars.DARK_BLUE,
-                    width: 150,
+                    width: props.isInPhone ? 100 : 150,
                     textAlign: 'center',
                   }}
                   text={e}
@@ -76,7 +80,7 @@ function Tag(props) {
                 <SimpleText
                   style={{
                     color: vars.DARK_BLUE,
-                    width: 150,
+                    width: props.isInPhone ? 100 : 150,
                     textAlign: 'center',
                   }}
                   text={props.data.done[index]}
@@ -85,7 +89,7 @@ function Tag(props) {
             );
           })}
         </MyView>
-        <MyView style={{width: 500}}>
+        <MyView style={{width: props.isInPhone ? '100%' : 500}}>
           <VictoryChart height={300} width={350} theme={VictoryTheme.material}>
             <VictoryLine
               categories={{

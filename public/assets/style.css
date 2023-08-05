@@ -474,7 +474,7 @@ option {
 .myBtn > *:hover {
   box-shadow: inset 0px 0px 1px 3px #efefef80;
   display: flex !important;
-  justify-content: flex-end !important;
+  /* justify-content: flex-end !important; */
 }
 .myBtn-Transparent > *:hover {
   box-shadow: inset 0px 0px 10px 20px #ababab4f;

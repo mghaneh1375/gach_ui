@@ -62,12 +62,32 @@ function AdvisorMenu(props) {
         ...style.MenuJustApp,
       }}>
       <MenuItemPhone
-        text={translator.users}
+        onClick={() => navigate('/myStudentRequests')}
+        text={translator.myStudentRequests}
+        icon={faTicket}
+        isApp={false}
+        selected={props.selected === 'myStudentRequests'}
+      />
+      <MenuItemPhone
+        onClick={() => navigate('/mySchoolQuizzes')}
+        text={translator.mySchoolQuizess}
+        icon={faSchool}
+        isApp={false}
+        selected={props.selected === 'mySchoolQuizzes'}
+      />
+      <MenuItemPhone
+        onClick={() => navigate('/manageStudent')}
+        text={translator.management + ' ' + translator.students}
         icon={faUsers}
         isApp={false}
-        onClick={() => {
-          navigate('/users');
-        }}
+        selected={props.selected === 'manageStudent'}
+      />
+      <MenuItemPhone
+        onClick={() => navigate('/myFinancePlans')}
+        text={translator.myFinancePlans}
+        icon={faShop}
+        isApp={false}
+        selected={props.selected === 'myFinancePlans'}
       />
     </MyView>
   );

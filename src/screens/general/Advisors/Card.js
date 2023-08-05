@@ -36,7 +36,11 @@ function Card(props) {
 
   return (
     <CommonWebBox
-      width={props.digest === undefined || !props.digest ? '100%' : 400}>
+      width={
+        state.isInPhone || props.digest === undefined || !props.digest
+          ? '100%'
+          : 400
+      }>
       <EqualTwoTextInputs
         style={{
           ...styles.justifyContentCenter,
@@ -88,7 +92,8 @@ function Card(props) {
         </PhoneView>
       </EqualTwoTextInputs>
 
-      <PhoneView style={{...styles.gap100}}>
+      <PhoneView
+        style={state.isInPhone ? {...styles.gap15} : {...styles.gap100}}>
         <PhoneView>
           <MyView
             style={{
@@ -97,8 +102,8 @@ function Card(props) {
                 border: '4px solid',
                 borderColor: vars.ORANGE,
                 borderRadius: 7,
-                width: 148,
-                height: 148,
+                width: state.isInPhone ? 100 : 148,
+                height: state.isInPhone ? 100 : 148,
               },
             }}>
             <Image
@@ -178,7 +183,9 @@ function Card(props) {
               ...{
                 minHeight: 100,
                 maxHeight: 220,
-                maxWidth: 'calc(100% - 430px)',
+                maxWidth: state.isInPhone
+                  ? 'calc(100% - 30px)'
+                  : 'calc(100% - 430px)',
               },
             }}>
             <SimpleText
