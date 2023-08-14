@@ -16,6 +16,8 @@ const defaultGlobalState = {
   needRanking: false,
   ranking: undefined,
   lastFetchedAt: undefined,
+  showExitConfirmation: false,
+  imSureExit: false,
 };
 
 export const doQuizContext = React.createContext(defaultGlobalState);
@@ -111,9 +113,13 @@ export const DoQuizProvider = ({children}) => {
 
   React.useEffect(() => {
     if (!state.exit) return;
+    dispatch({showExitConfirmation: true});
+  }, [state.exit, dispatch]);
 
+  React.useEffect(() => {
+    if (!state.imSureExit) return;
     window.location.href = '/myIRYSCQuizzes';
-  }, [state.exit]);
+  }, [state.imSureExit]);
 
   React.useEffect(() => {
     if (state.clearTimer) dispatch({clearTimer: false});

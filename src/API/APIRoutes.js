@@ -363,6 +363,8 @@ export const routes = {
   getMySchedules: 'advisor/public/getMySchedules',
   getMySchedulesDigest: 'advisor/public/getMySchedulesDigest',
   getDistinctAdvisorsTags: 'advisor/public/getAdvisorTags',
+  notifyAdvisorForSchedule: 'advisor/public/notifyAdvisorForSchedule/',
+  notifyStudentForSchedule: 'advisor/manage/notifyStudentForSchedule/',
   getAdvisorTags: 'advisor/manage/getAdvisorTags/',
   addAdvisorTag: 'advisor/manage/addAdvisorTag/',
   removeAdvisorTag: 'advisor/manage/removeAdvisorTag/',

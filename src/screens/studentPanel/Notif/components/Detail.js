@@ -3,7 +3,7 @@ import RenderHTML, {defaultSystemFonts} from 'react-native-render-html';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
-import {tagsStyles} from '../../../../services/Utility';
+import {systemFonts, tagsStyles} from '../../../../services/Utility';
 import {
   CommonWebBox,
   EqualTwoTextInputs,
@@ -58,9 +58,6 @@ function Detail(props) {
   useEffectOnce(() => {
     fetchNotif();
   }, [fetchNotif]);
-
-  const systemFonts = [...defaultSystemFonts, 'IRANSans'];
-  console.log('Asd');
 
   return (
     <CommonWebBox

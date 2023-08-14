@@ -536,21 +536,75 @@ function Create(props) {
             />
           </PhoneView>
         }>
-        <SimpleText
-          style={{
-            ...styles.colorOrangeRed,
-            ...styles.cursor_pointer,
-            ...styles.bold,
-            ...styles.fontSize13,
-            ...{marginTop: -15},
-          }}
-          onPress={() => setShowDailySchedule(!showDailySchedule)}
-          text={
-            showDailySchedule
-              ? 'مخفی کردن برنامه روزانه'
-              : 'نمایش برنامه روزانه'
-          }
-        />
+        <EqualTwoTextInputs>
+          <SimpleText
+            style={{
+              ...styles.colorOrangeRed,
+              ...styles.cursor_pointer,
+              ...styles.bold,
+              ...styles.fontSize13,
+              ...{marginTop: -15},
+            }}
+            onPress={() => setShowDailySchedule(!showDailySchedule)}
+            text={
+              showDailySchedule
+                ? 'مخفی کردن برنامه روزانه'
+                : 'نمایش برنامه روزانه'
+            }
+          />
+          {state.selectedSchedule !== undefined && props.isAdvisor && (
+            <SimpleText
+              style={{
+                ...styles.red,
+                ...styles.cursor_pointer,
+                ...styles.bold,
+                ...styles.fontSize17,
+                ...{marginTop: -15},
+              }}
+              onPress={async () => {
+                props.setLoading(true);
+                let res = await generalRequest(
+                  routes.notifyStudentForSchedule + state.selectedSchedule.id,
+                  'post',
+                  undefined,
+                  undefined,
+                  props.token,
+                );
+                props.setLoading(false);
+                if (res !== null) {
+                  showSuccess();
+                }
+              }}
+              text={'مطلع کردن دانش آموز'}
+            />
+          )}
+          {state.selectedSchedule !== undefined && !props.isAdvisor && (
+            <SimpleText
+              style={{
+                ...styles.red,
+                ...styles.cursor_pointer,
+                ...styles.bold,
+                ...styles.fontSize17,
+                ...{marginTop: -15},
+              }}
+              onPress={async () => {
+                props.setLoading(true);
+                let res = await generalRequest(
+                  routes.notifyAdvisorForSchedule + state.selectedSchedule.id,
+                  'post',
+                  undefined,
+                  undefined,
+                  props.token,
+                );
+                props.setLoading(false);
+                if (res !== null) {
+                  showSuccess();
+                }
+              }}
+              text={'مطلع کردن مشاور/مشاوران'}
+            />
+          )}
+        </EqualTwoTextInputs>
       </CommonWebBox>
       {props.isAdvisor ||
         (desc !== undefined && desc.length > 0 && (
