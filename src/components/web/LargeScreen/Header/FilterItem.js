@@ -34,6 +34,7 @@ function FilterItem(props) {
         onPress={() => changeStatus(props.item.label)}
         status={status}
         textStyle={{alignSelf: 'center', fontSize: 12}}
+        style={{height: 35}}
         text={props.item.label}
         isCheckBox={props.checkbox !== undefined ? props.checkbox : undefined}
       />
