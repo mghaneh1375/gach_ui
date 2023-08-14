@@ -111,6 +111,7 @@ function MyAdvisor(props) {
             return (
               <MyAdvisorFinancePlan
                 key={index}
+                isInPhone={state.isInPhone}
                 plan={myAdvisor.plan}
                 setRate={async rate => {
                   dispatch({loading: true});

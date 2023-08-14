@@ -13,6 +13,7 @@ import {
   faShoppingCart,
   faVideo,
   faSun,
+  faBandage,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   MyView,
@@ -155,6 +156,33 @@ function StudentMenu(props) {
           },
         ]}
       />
+
+      <SuperMenuItem
+        text={'مشاور'}
+        icon={faBandage}
+        navigate={navigate}
+        items={[
+          {
+            text: state.user?.user?.hasAdvisor
+              ? translator.myAdvisor
+              : undefined,
+            url: '/myAdvisor',
+          },
+          {
+            text: translator.advisors,
+            url: '/advisors',
+          },
+          {
+            text: state.user?.user?.hasAdvisor ? translator.quizes : undefined,
+            url: '/myAdvisor/quiz',
+          },
+          {
+            text: translator.requestsLog,
+            url: '/requestLogsForAdvisors',
+          },
+        ]}
+      />
+
       <MenuItemPhone
         onClick={() => {
           navigate(isApp ? 'Home' : '/charge');

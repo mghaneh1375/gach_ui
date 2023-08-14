@@ -91,7 +91,12 @@ function MyAdvisorFinancePlan(props) {
               />
             </MyView>
 
-            <MyView style={{...styles.gap10, ...styles.marginTop20}}>
+            <MyView
+              style={{
+                ...styles.gap10,
+                ...styles.marginTop20,
+                ...styles.width100,
+              }}>
               <SimpleText
                 style={{
                   ...styles.BlueBold,
@@ -183,7 +188,12 @@ function MyAdvisorFinancePlan(props) {
           </PhoneView>
 
           {props.setRate !== undefined && (
-            <MyView style={{...styles.justifyContentSpaceBetween}}>
+            <MyView
+              style={
+                props.isInPhone
+                  ? {...styles.marginTop10}
+                  : {...styles.justifyContentSpaceBetween}
+              }>
               <PhoneView
                 style={{
                   ...styles.alignSelfEnd,

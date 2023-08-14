@@ -676,29 +676,31 @@ function Create(props) {
                   })}
               </PhoneView>
             </PhoneView>
-            <PhoneView>
-              <SimpleText
-                text={'تاریخ شروع'}
-                style={{...styles.BlueBold, ...styles.alignSelfCenter}}
-              />
-              {state.myAllSchedulesDigest !== undefined &&
-                selectedSchedule !== undefined && (
-                  <SimpleText
-                    style={{
-                      backgroundColor: vars.ORANGE_RED,
-                      alignSelf: 'center',
-                      color: 'white',
-                      padding: 10,
-                      marginRight: 10,
-                    }}
-                    text={
-                      state.myAllSchedulesDigest.find(
-                        elem => elem.id === selectedSchedule?.id,
-                      ).item
-                    }
-                  />
-                )}
-            </PhoneView>
+            {!props.isInPhone && (
+              <PhoneView>
+                <SimpleText
+                  text={'تاریخ شروع'}
+                  style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+                />
+                {state.myAllSchedulesDigest !== undefined &&
+                  selectedSchedule !== undefined && (
+                    <SimpleText
+                      style={{
+                        backgroundColor: vars.ORANGE_RED,
+                        alignSelf: 'center',
+                        color: 'white',
+                        padding: 10,
+                        marginRight: 10,
+                      }}
+                      text={
+                        state.myAllSchedulesDigest.find(
+                          elem => elem.id === selectedSchedule?.id,
+                        ).item
+                      }
+                    />
+                  )}
+              </PhoneView>
+            )}
           </EqualTwoTextInputs>
         )}
         <SimpleText
@@ -709,6 +711,7 @@ function Create(props) {
           boxes.map((e, index) => {
             return (
               <Day
+                isInPhone={props.isInPhone}
                 selectedAdvisors={uniqueAdvisors.filter(ee => {
                   return ee.selected === undefined || ee.selected;
                 })}

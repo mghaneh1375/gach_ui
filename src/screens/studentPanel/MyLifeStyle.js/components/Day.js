@@ -19,8 +19,6 @@ function Day(props) {
   const [sumLife, setSumLife] = useState();
 
   React.useEffect(() => {
-    console.log(props.boxes);
-
     setBoxes(
       props.boxes.sort((a, b) => {
         if (a.startAt === undefined || b.startAt === undefined) return 1;
@@ -95,7 +93,11 @@ function Day(props) {
           flexWrap: 'nowrap',
           flexDirection: 'row',
           overflow: 'auto',
-          maxWidth: props.canEdit ? 'calc(100% - 260px)' : 'calc(100% - 100px)',
+          maxWidth: props.canEdit
+            ? props.isInPhone
+              ? 'calc(100% - 120px)'
+              : 'calc(100% - 260px)'
+            : 'calc(100% - 100px)',
           gap: 20,
         }}>
         {boxes !== undefined &&
@@ -136,9 +138,8 @@ function Day(props) {
           })}
       </View>
       {props.canEdit && (
-        <CommonWebBox width={200}>
-          <MyView
-            style={{...styles.justifyContentSpaceBetween, ...{height: 160}}}>
+        <>
+          {props.isInPhone && (
             <FontIcon
               onPress={() => props.addNewItem()}
               icon={faAdd}
@@ -146,17 +147,36 @@ function Day(props) {
               kind={'large'}
               parentStyle={{marginRight: 'auto'}}
             />
-            <SimpleText
-              onPress={() => props.addNewItem()}
-              text={'ایجاد برنامه جدید'}
-              style={{
-                ...styles.dark_blue_color,
-                ...styles.bold,
-                ...styles.cursor_pointer,
-              }}
-            />
-          </MyView>
-        </CommonWebBox>
+          )}
+          {!props.isInPhone && (
+            <CommonWebBox width={200}>
+              <MyView
+                style={{
+                  ...styles.justifyContentSpaceBetween,
+                  ...{height: 160},
+                }}>
+                <FontIcon
+                  onPress={() => props.addNewItem()}
+                  icon={faAdd}
+                  back={'blue'}
+                  kind={'large'}
+                  parentStyle={{marginRight: 'auto'}}
+                />
+                {!props.isInPhone && (
+                  <SimpleText
+                    onPress={() => props.addNewItem()}
+                    text={'ایجاد برنامه جدید'}
+                    style={{
+                      ...styles.dark_blue_color,
+                      ...styles.bold,
+                      ...styles.cursor_pointer,
+                    }}
+                  />
+                )}
+              </MyView>
+            </CommonWebBox>
+          )}
+        </>
       )}
     </PhoneView>
   );

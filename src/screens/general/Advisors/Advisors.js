@@ -517,7 +517,12 @@ function Advisors(props) {
                 ...styles.margin15,
               }}>
               <CommonWebBox header={'برنامه ها'} />
-              <PhoneView style={{...styles.gap15}}>
+              <PhoneView
+                style={
+                  state.isInPhone
+                    ? {...styles.justifyContentCenter}
+                    : {...styles.gap15}
+                }>
                 {advisorPlans.plans.map((elem, index) => {
                   return (
                     <FinancePlan
@@ -544,6 +549,7 @@ function Advisors(props) {
                           setSelectedAdvisor(undefined);
                         }
                       }}
+                      isInPhone={state.isInPhone}
                       key={index}
                       plan={elem}
                     />

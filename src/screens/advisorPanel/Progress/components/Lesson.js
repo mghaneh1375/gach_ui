@@ -42,14 +42,18 @@ function Lesson(props) {
             style={{gap: 5, padding: 7, backgroundColor: vars.DARK_BLUE}}>
             <SimpleText
               text={'تاریخ'}
-              style={{color: 'white', width: 120, textAlign: 'center'}}
+              style={{
+                color: 'white',
+                width: props.isInPhone ? 100 : 120,
+                textAlign: 'center',
+              }}
             />
             <SimpleText
-              style={{color: 'white', width: 150}}
+              style={{color: 'white', width: props.isInPhone ? 100 : 150}}
               text={'زمان تعریف شده (دقیقه)'}
             />
             <SimpleText
-              style={{color: 'white', width: 150}}
+              style={{color: 'white', width: props.isInPhone ? 100 : 150}}
               text={'زمان انجام شده (دقیقه)'}
             />
           </PhoneView>
@@ -65,7 +69,7 @@ function Lesson(props) {
                 <SimpleText
                   style={{
                     color: vars.DARK_BLUE,
-                    width: 120,
+                    width: props.isInPhone ? 100 : 120,
                     textAlign: 'center',
                   }}
                   text={props.weeks[index]}
@@ -73,7 +77,7 @@ function Lesson(props) {
                 <SimpleText
                   style={{
                     color: vars.DARK_BLUE,
-                    width: 120,
+                    width: props.isInPhone ? 100 : 120,
                     textAlign: 'center',
                   }}
                   text={e}
@@ -81,7 +85,7 @@ function Lesson(props) {
                 <SimpleText
                   style={{
                     color: vars.DARK_BLUE,
-                    width: 120,
+                    width: props.isInPhone ? 100 : 120,
                     textAlign: 'center',
                   }}
                   text={props.data.doneStats[index]}
@@ -90,7 +94,7 @@ function Lesson(props) {
             );
           })}
         </MyView>
-        <MyView style={{width: 500}}>
+        <MyView style={{width: props.isInPhone ? '100%' : 500}}>
           <VictoryChart height={300} width={350} theme={VictoryTheme.material}>
             <VictoryLine
               categories={{
@@ -164,11 +168,12 @@ function Lesson(props) {
         </MyView>
       </EqualTwoTextInputs>
 
-      <>
+      <MyView
+        style={{marginBottom: selectedTagReport === undefined ? 200 : 10}}>
         <SimpleText style={{...styles.BlueBold}} text={'آمار بر اساس تگ ها'} />
         {tagReports !== undefined && (
           <JustBottomBorderSelect
-            isHalf={true}
+            isHalf={!props.isInPhone}
             values={tagReports}
             setter={setSelectedTagReport}
             value={tagReports.find(e => e.id === selectedTagReport)}
@@ -176,13 +181,20 @@ function Lesson(props) {
             subText={'تگ موردنظر'}
           />
         )}
+      </MyView>
 
-        {props.data.tags !== undefined &&
-          props.data.tags.map((e, index) => {
-            if (e.tag !== selectedTagReport) return;
-            return <Tag weeks={props.weeks} data={e} key={index} />;
-          })}
-      </>
+      {props.data.tags !== undefined &&
+        props.data.tags.map((e, index) => {
+          if (e.tag !== selectedTagReport) return;
+          return (
+            <Tag
+              isInPhone={props.isInPhone}
+              weeks={props.weeks}
+              data={e}
+              key={index}
+            />
+          );
+        })}
     </CommonWebBox>
   );
 }

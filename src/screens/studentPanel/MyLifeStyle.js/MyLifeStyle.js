@@ -35,6 +35,7 @@ function MyLifeStyle(props) {
           setMode={setMode}
           setLoading={setLoading}
           userId={params.studentId}
+          isInPhone={state.isInPhone}
         />
       )}
     </ScheduleProvider>

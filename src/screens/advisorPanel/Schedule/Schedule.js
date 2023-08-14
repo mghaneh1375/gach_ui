@@ -75,6 +75,7 @@ function Schedule(props) {
       {mode === 'create' && (
         <Create
           token={state.token}
+          isInPhone={state.isInPhone}
           setLoading={setLoading}
           isAdvisor={isAdvisor}
           isInEditMode={false}
@@ -86,6 +87,7 @@ function Schedule(props) {
       {mode === 'edit' && (
         <Create
           token={state.token}
+          isInPhone={state.isInPhone}
           isAdvisor={isAdvisor}
           user={state.user.user}
           setLoading={setLoading}

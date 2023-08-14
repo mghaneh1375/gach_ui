@@ -224,42 +224,43 @@ function StudentEducationalHistory(props) {
   return (
     <>
       <CommonWebBox>
-        <EqualTwoTextInputs>
-          {data !== undefined && (
-            <MiniCard
-              styleCard100Percent={false}
-              subTexts={[
-                {
-                  label: 'تعداد آزمون های شرکت کرده: ',
-                  value: iryscQuizzes.length,
-                },
-                {label: 'نام مدرسه: ', value: data.school},
-                {label: 'نام شهر: ', value: data.city},
-                {label: 'پایه تحصیلی: ', value: data.grade},
-                {label: 'رشته: ', value: data.branches},
-                {label: 'رتبه کل در آیریسک: ', value: data.rank},
-              ]}
-              header={data.name}
-              ops={false}
-              src={data.pic}
-            />
-          )}
-
-          {data !== undefined && data.advisors !== undefined && (
-            <MyView>
-              <SimpleText
-                text={commonTranslator.advisors}
-                style={{...styles.BlueBold}}
-              />
-              <PhoneView>
-                {data.advisors.map((e, index) => {
-                  return <Card hasOpenRequest={true} data={e} key={index} />;
-                })}
-              </PhoneView>
-            </MyView>
-          )}
-        </EqualTwoTextInputs>
+        {data !== undefined && (
+          <MiniCard
+            styleCard100Percent={false}
+            subTexts={[
+              {
+                label: 'تعداد آزمون های شرکت کرده: ',
+                value: iryscQuizzes.length,
+              },
+              {label: 'نام مدرسه: ', value: data.school},
+              {label: 'نام شهر: ', value: data.city},
+              {label: 'پایه تحصیلی: ', value: data.grade},
+              {label: 'رشته: ', value: data.branches},
+              {label: 'رتبه کل در آیریسک: ', value: data.rank},
+            ]}
+            header={data.name}
+            ops={false}
+            src={data.pic}
+          />
+        )}
       </CommonWebBox>
+
+      {data !== undefined && data.advisors !== undefined && (
+        <CommonWebBox header={commonTranslator.advisors}>
+          <PhoneView style={{gap: 10}}>
+            {data.advisors.map((e, index) => {
+              return (
+                <Card
+                  digest={true}
+                  hasOpenRequest={true}
+                  data={e}
+                  key={index}
+                />
+              );
+            })}
+          </PhoneView>
+        </CommonWebBox>
+      )}
 
       <CommonWebBox header={commonTranslator.iryscQuiz}>
         {iryscQuizzes !== undefined && (

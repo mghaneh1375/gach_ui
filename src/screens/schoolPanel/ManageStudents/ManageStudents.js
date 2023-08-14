@@ -88,6 +88,7 @@ function ManageStudents(props) {
             setMode={setMode}
             setLoading={setLoading}
             token={props.token}
+            isInPhone={state.isInPhone}
           />
         )}
       </AdvicePanelProvider>
