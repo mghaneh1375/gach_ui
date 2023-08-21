@@ -215,6 +215,7 @@ export const routes = {
   setAvatarAsMyPic: 'user/setAvatar/',
   blockNotif: 'user/blockNotif/',
   getAllConfiguration: 'admin/config/config/getAll',
+  getShopConfiguration: 'admin/config/config/getShop',
   getCertConfiguration: 'admin/config/config/getCert',
   updateConfiguration: 'admin/config/config/update',
   fetchSchools: 'admin/config/school/fetchSchools',

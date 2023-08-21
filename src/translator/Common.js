@@ -64,6 +64,7 @@ const translator = {
   generalConfiguration: 'پیکربندی کلی',
   certificateConfiguration: 'پیکربندی گواهی نفرات برتر',
   ravanConfiguration: 'پیکربندی آزمون های روان شناسی',
+  shopConfiguration: 'پیکربندی فروشگاه',
   requests: 'درخواست ها',
   requestsLog: 'تاریخچه درخواست ها',
   users: 'کاربران',

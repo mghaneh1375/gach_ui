@@ -100,7 +100,7 @@ function Timer(props) {
             ...styles.textCenter,
             backgroundColor: vars.ORANGE_RED,
           }}
-          text={convertSecToMin(props.duration)}
+          text={convertSecToMinWithOutSec(props.duration)}
         />
       </PhoneView>
       <ProgressBar percent={progress} />

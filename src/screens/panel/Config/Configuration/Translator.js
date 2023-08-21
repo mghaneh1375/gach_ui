@@ -44,6 +44,10 @@ const translator = {
   minAdvicePrice: 'حداقل هزینه برای پکیج مالی مشاور',
   maxVideoCallPerMonth: 'حداکثر تعداد تماس تصویری در ماه توسط هر مشاور',
   hwPerStudentPrice: 'قیمت هر دانش آموز در تمارین',
+  minBuyAmountForShop: 'حداقل میزان خرید از فروشگاه برای گرفتن اعتبار',
+  percentOfShopBuy: 'درصد از خرید فروشگاه',
+  createShopOffVisibility:
+    'آیا قابلیت گرفتن اعتبار با خرید از فروشگاه فعال باشد؟',
 };
 
 export default translator;

@@ -29,6 +29,7 @@ import {
 import QuizItemCard from '../../../../components/web/QuizItemCard';
 import {
   convertSecToMin,
+  convertSecToMinWithOutSec,
   getDevice,
   systemFonts,
   tagsStyles,
@@ -136,7 +137,7 @@ function Splash(props) {
                   textFontSize={10}
                   valFontSize={16}
                   text={'مدت زمان '}
-                  val={convertSecToMin(state.quizInfo.duration)}
+                  val={convertSecToMinWithOutSec(state.quizInfo.duration)}
                 />
               )}
 

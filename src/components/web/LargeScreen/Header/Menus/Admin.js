@@ -7,7 +7,6 @@ import {
   faHome,
   faCog,
   faUsers,
-  faContactBook,
   faMoneyBill,
   faQuestion,
   faGift,
@@ -150,6 +149,7 @@ function AdminMenu(props) {
             props.selected === 'generalConfiguration' ||
             props.selected === 'certificateConfiguration' ||
             props.selected === 'ravanConfiguration' ||
+            props.selected === 'shopConfiguration' ||
             props.selected === 'schools' ||
             props.selected === 'tarazLevels'
           }
@@ -166,6 +166,10 @@ function AdminMenu(props) {
             {
               text: translator.ravanConfiguration,
               url: '/ravanConfiguration',
+            },
+            {
+              text: translator.shopConfiguration,
+              url: '/shopConfiguration',
             },
             {
               text: translator.schools,

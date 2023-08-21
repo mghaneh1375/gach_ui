@@ -193,6 +193,10 @@ export default function WebRouter() {
             element={<WebStructue page="generalConfiguration" />}
           />
           <Route
+            path="/shopConfiguration"
+            element={<WebStructue page="shopConfiguration" />}
+          />
+          <Route
             path="/validateCertification/:certId"
             element={<WebStructue page="validateCert" />}
           />

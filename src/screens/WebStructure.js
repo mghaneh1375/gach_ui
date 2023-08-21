@@ -111,6 +111,7 @@ import MyFinancePlans from './advisorPanel/MyFinancePlans/MyFinancePlans';
 import ChatRoom from './studentPanel/Chat/ChatRoom';
 import Schedule from './advisorPanel/Schedule/Schedule';
 import Progress from './advisorPanel/Progress/Progress';
+import Shop from './panel/Config/Configuration/Shop';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -666,6 +667,9 @@ const WebStructue = props => {
                   user={state.user}
                   navigate={navigate}
                 />
+              )}
+              {props.page === 'shopConfiguration' && (
+                <Shop navigate={navigate} />
               )}
               {props.page === 'certificateConfiguration' && (
                 <CertConf

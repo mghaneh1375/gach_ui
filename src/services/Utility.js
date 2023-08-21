@@ -73,12 +73,16 @@ export function convertSecToMinWithOutSecAndDay(sec) {
   return m + ' دقیقه ';
 }
 
-export function convertSecToMinWithOutSec(sec) {
+export function convertSecToMinWithOutSec2(sec) {
   if (sec < 0) return '';
 
   const d = new Date(sec * 1000).toISOString();
 
+  console.log(d);
+
   let day = parseInt(d.substr(8, 2)) - 1;
+
+  console.log(d.substr(8, 2));
 
   let h = d.substr(11, 2);
 
@@ -104,6 +108,30 @@ export function convertSecToMinWithOutSec(sec) {
   }
 
   return m + ' دقیقه ';
+}
+
+export function convertSecToMinWithOutSec(sec) {
+  if (sec < 0) return '';
+
+  let day = Math.floor(sec / (60 * 60 * 24));
+
+  sec -= day * 60 * 60 * 24;
+
+  let h = Math.floor(sec / (60 * 60));
+
+  sec -= h * 60 * 60;
+
+  let m = Math.floor(sec / 60);
+
+  let result = '';
+
+  if (day > 0) result += day + ' روز ';
+
+  if (h > 0) result += h + ' ساعت ';
+
+  if (m > 0) result += m + ' دقیقه ';
+
+  return result;
 }
 
 export function convertTimestamp(unix_timestamp) {
