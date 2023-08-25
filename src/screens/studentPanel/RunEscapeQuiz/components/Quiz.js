@@ -3,12 +3,16 @@ import {CommonButton, MyView, SimpleText} from '../../../../styles/Common';
 import Question from './Question';
 import {dispatchDoQuizContext, doQuizContext} from './Context';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
+import {getDevice} from '../../../../services/Utility';
 
 function Quiz(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
+
+  const device = getDevice();
+  const isInPhone = device.indexOf('WebPort') !== -1;
 
   const [state, dispatch] = useGlobalState();
 
@@ -34,7 +38,7 @@ function Quiz(props) {
         </LargePopUp>
       )}
       {!state.showExitConfirmation && (
-        <MyView>
+        <MyView style={isInPhone ? {marginBottom: 100} : {}}>
           <Question
             onBack={props.onBack}
             isInReviewMode={props.isInReviewMode}

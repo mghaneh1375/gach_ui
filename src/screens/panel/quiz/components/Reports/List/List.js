@@ -123,7 +123,9 @@ function List(props) {
         <A1Report />
       )}
       {selectedReport === 'karnameReport' &&
-        state.selectedQuiz.karnameReport !== undefined && <KarnameReport />}
+        state.selectedQuiz.karnameReport !== undefined && (
+          <KarnameReport token={props.token} />
+        )}
       {selectedReport === 'participant' &&
         state.selectedQuiz.participantReport !== undefined && (
           <ParticipantReport

@@ -65,7 +65,14 @@ export const DoQuizProvider = ({children}) => {
       state.answers[state.currIdx] = state.answer;
       if (res[0].isCorrect) {
         if (state.currIdx === state.questions.length - 1) {
-          window.location.href = '/myIRYSCQuizzes';
+          showSuccess(
+            'شما ' +
+              res[0].rank +
+              ' امین نفری هستید که آزمون رو با موفقیت پشت سر گذاشتید',
+          );
+          setTimeout(() => {
+            window.location.href = '/myIRYSCQuizzes';
+          }, 2000);
           return;
         }
         showSuccess('آفرین، حالا برو سراغ سوال بعد');

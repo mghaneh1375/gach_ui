@@ -45,11 +45,6 @@ function PhoneFilter(props) {
             }
           />
           <PhoneView style={styles.gap10}>
-            <SimpleText
-              style={{alignSelf: 'center', cursor: 'pointer'}}
-              onPress={() => setMode('map')}
-              text={'سوالات'}
-            />
             {state.quizInfo !== undefined &&
               state.quizInfo.attaches !== undefined &&
               state.quizInfo.attaches.length > 0 && (

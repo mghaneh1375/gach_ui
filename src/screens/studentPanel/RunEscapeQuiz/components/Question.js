@@ -11,7 +11,6 @@ import {
   EqualTwoTextInputs,
   MyView,
   PhoneView,
-  SimpleText,
 } from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import {FontIcon} from '../../../../styles/Common/FontIcon';
@@ -180,23 +179,22 @@ function Question(props) {
               }}
             />
           </CommonWebBox>
-          {question.stdAns !== undefined && (
-            <CommonWebBox
-              header={
-                props.isInReviewMode ? Translate.yourAnswer : Translate.res
-              }>
-              <MyView>
-                <CommonTextInput
-                  placeholder={Translate.resInput}
-                  subText={Translate.resInput}
-                  value={stdAns}
-                  onChangeText={e => setStdAns(e)}
-                  parentStyle={{width: '100%'}}
-                  style={{backgroundColor: '#efefef', border: 0}}
-                />
-              </MyView>
-            </CommonWebBox>
-          )}
+
+          <CommonWebBox
+            header={
+              props.isInReviewMode ? Translate.yourAnswer : Translate.res
+            }>
+            <MyView>
+              <CommonTextInput
+                placeholder={Translate.resInput}
+                subText={Translate.resInput}
+                value={stdAns}
+                onChangeText={e => setStdAns(e)}
+                parentStyle={{width: '100%'}}
+                style={{backgroundColor: '#efefef', border: 0}}
+              />
+            </MyView>
+          </CommonWebBox>
 
           {question.answerFile === undefined && question.answer !== undefined && (
             <CommonWebBox header={Translate.answer}>
@@ -256,6 +254,7 @@ function Question(props) {
         <CommonWebBox style={{padding: 0}}>
           <EqualTwoTextInputs>
             {!props.isInReviewMode &&
+              !isInPhone &&
               state.currIdx !== state.questions.length - 1 && (
                 <CommonButton
                   onPress={() => {
@@ -321,29 +320,50 @@ function Question(props) {
             {isInPhone && (
               <PhoneView
                 style={{
-                  ...styles.justifyContentCenter,
-                  ...styles.alignItemsCenter,
                   ...styles.padding5,
                   ...styles.gap5,
                 }}>
                 {state.currIdx > 0 && (
-                  <FontIcon
+                  <CommonButton
                     onPress={() => {
                       dispatch({currIdx: state.currIdx - 1});
                     }}
-                    icon={faArrowRight}
-                    theme={'rect'}
+                    padding={isInPhone ? '5px 5px' : undefined}
+                    textStyle={isInPhone ? {fontSize: 14} : {}}
+                    title={Translate.prev}
                   />
                 )}
-                {state.currIdx < state.questions.length - 1 && (
-                  <FontIcon
+                {state.currIdx < state.questions.length && (
+                  <CommonButton
                     onPress={() => {
-                      dispatch({currIdx: state.currIdx + 1});
+                      dispatch({answer: stdAns, needUpdateAnswer: true});
                     }}
-                    icon={faArrowLeft}
-                    theme={'rect'}
+                    theme={'dark'}
+                    padding={isInPhone ? '5px 5px' : undefined}
+                    textStyle={isInPhone ? {fontSize: 14} : {}}
+                    title={
+                      state.currIdx === state.questions.length - 1
+                        ? 'ثبت پاسخ و اتمام آزمون'
+                        : 'ثبت پاسخ و رفتن به سوال بعد'
+                    }
                   />
                 )}
+                {!props.isInReviewMode &&
+                  state.currIdx !== state.questions.length - 1 && (
+                    <CommonButton
+                      onPress={() => {
+                        dispatch({exit: true});
+                      }}
+                      padding={'5px 5px'}
+                      textStyle={{
+                        fontSize: 14,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                      }}
+                      title={Translate.finish}
+                      theme={'orangeRed'}
+                    />
+                  )}
               </PhoneView>
             )}
           </EqualTwoTextInputs>

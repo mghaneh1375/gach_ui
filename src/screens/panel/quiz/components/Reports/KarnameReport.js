@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
-import {CommonWebBox} from '../../../../../styles/Common';
+import {CommonButton, CommonWebBox} from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import {quizContext} from '../Context';
+import {downloadRequest} from '../../../../../API/Utility';
+import {routes} from '../../../../../API/APIRoutes';
 
 function KarnameReport(props) {
   const useGlobalState = () => [React.useContext(quizContext)];
@@ -126,13 +128,32 @@ function KarnameReport(props) {
   }, [state.selectedQuiz, props.quiz]);
 
   return (
-    <CommonWebBox>
+    <CommonWebBox
+      header={''}
+      btn={
+        <CommonButton
+          onPress={() => {
+            downloadRequest(
+              routes.fetchKarnameReportExcel +
+                state.selectedQuiz.generalMode +
+                '/' +
+                state.selectedQuiz.id,
+              undefined,
+              props.token,
+              undefined,
+              'report.xlsx',
+            );
+          }}
+          title={'دانلود فایل اکسل گزارش'}
+        />
+      }>
       {columns !== undefined && (
         <CommonDataTable
           columns={columns}
           show_row_no={false}
           pagination={false}
           groupOps={[]}
+          excel={false}
           data={
             props.quiz !== undefined
               ? props.quiz.karnameReport

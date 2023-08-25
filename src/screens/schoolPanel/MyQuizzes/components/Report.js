@@ -104,7 +104,7 @@ function Report(props) {
       )}
       {selectedReport === 'karnameReport' &&
         state.selectedQuiz.karnameReport !== undefined && (
-          <KarnameReport quiz={state.selectedQuiz} />
+          <KarnameReport token={props.token} quiz={state.selectedQuiz} />
         )}
       {selectedReport === 'participant' &&
         state.selectedQuiz.participantReport !== undefined && (
