@@ -141,11 +141,11 @@ function Panel(props) {
                 {src !== undefined && (
                   <Image
                     style={{
-                      width: 100,
-                      height: 140,
-                      borderColor: vars.ORANGE_RED,
-                      borderRadius: 2,
-                      borderWidth: 4,
+                      width: 120,
+                      height: 120,
+                      // borderColor: vars.ORANGE_RED,
+                      // borderRadius: 2,
+                      // borderWidth: 4,
                       objectFit: 'cover',
                       objectPosition: 'center',
                     }}
@@ -357,7 +357,7 @@ function Panel(props) {
               text={'تعداد کاربرگ ها در ماه قبل'}
               fontSize={17}
               theme={vars.ORANGE_RED}
-              subtext={data.schedulesInCurrMonth}
+              subtext={data.schedulesInLastMonth}
               borderRight={true}
               borderRightWidth={18}
               multiline={true}

@@ -5,6 +5,8 @@ import Create from './components/Create';
 import List from './components/List/List';
 import {filter} from './components/Utility';
 import {editItem} from './../../../services/Utility';
+import Copun from './components/List/Copun';
+import CopunRev from './components/List/CopunRev';
 
 const Off = props => {
   const [mode, setMode] = useState('list');
@@ -59,6 +61,16 @@ const Off = props => {
           setSelectedOff={setSelectedOff}
           selectedOff={selectedOff}
           removeOffs={removeOffs}
+        />
+      )}
+      {mode === 'copun' && (
+        <Copun setLoading={setLoading} token={props.token} setMode={setMode} />
+      )}
+      {mode === 'copunRev' && (
+        <CopunRev
+          setLoading={setLoading}
+          token={props.token}
+          setMode={setMode}
         />
       )}
       {mode === 'create' && (

@@ -11,6 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '../../../../../styles/Common';
 import MenuItemRepeat from './MenuItemRepeat';
+import {SuperMenuItem} from './SuperMenuItem';
 
 function AdvisorMenu(props) {
   const device = getDevice();
@@ -24,32 +25,30 @@ function AdvisorMenu(props) {
         navigate={props.navigate}
         selected={props.selected}
         child={
-          <>
-            <MenuItem
-              onClick={() => navigate('/myStudentRequests')}
-              text={translator.myStudentRequests}
-              icon={faTicket}
-              selected={props.selected === 'myStudentRequests'}
-            />
-            <MenuItem
-              onClick={() => navigate('/mySchoolQuizzes')}
-              text={translator.mySchoolQuizess}
-              icon={faSchool}
-              selected={props.selected === 'mySchoolQuizzes'}
-            />
-            <MenuItem
-              onClick={() => navigate('/manageStudent')}
-              text={translator.management + ' ' + translator.students}
-              icon={faUsers}
-              selected={props.selected === 'manageStudent'}
-            />
-            <MenuItem
-              onClick={() => navigate('/myFinancePlans')}
-              text={translator.myFinancePlans}
-              icon={faShop}
-              selected={props.selected === 'myFinancePlans'}
-            />
-          </>
+          <SuperMenuItem
+            text={translator.advicing}
+            icon={faSchool}
+            selected={props.selected === 'schoolQuiz'}
+            navigate={navigate}
+            items={[
+              {
+                text: translator.myStudentRequests,
+                url: '/myStudentRequests',
+              },
+              {
+                text: translator.mySchoolQuizess,
+                url: '/mySchoolQuizzes',
+              },
+              {
+                text: translator.management + ' ' + translator.students,
+                url: '/manageStudent',
+              },
+              {
+                text: translator.myFinancePlans,
+                url: '/myFinancePlans',
+              },
+            ]}
+          />
         }
       />
     );

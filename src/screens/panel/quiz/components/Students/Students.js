@@ -16,6 +16,7 @@ import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import ExcelComma from '../../../../../components/web/ExcelCommaInput';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import columns, {
+  columnsForEscapeQuiz,
   columnsForMember,
   columnsForOnlineStanding,
   columnsForQRTashtihi,
@@ -213,6 +214,28 @@ const Students = props => {
                 title={'مشاهده پاسخ برگ'}
               />
             )}
+            {state.selectedQuiz.generalMode === 'escape' && (
+              <CommonButton
+                onPress={async () => {
+                  props.setLoading(true);
+                  let res = await generalRequest(
+                    routes.resetEscapeQuiz +
+                      state.selectedQuiz.id +
+                      '/' +
+                      selectedSudent.id,
+                    'put',
+                    undefined,
+                    undefined,
+                    props.token,
+                  );
+                  props.setLoading(false);
+                  if (res != null) showSuccess();
+                }}
+                dir={'rtl'}
+                theme={'transparent'}
+                title={'ریست کردن آزمون'}
+              />
+            )}
           </PhoneView>
         </LargePopUp>
       )}
@@ -391,6 +414,8 @@ const Students = props => {
                   columns={
                     state.selectedQuiz.generalMode === 'onlineStanding'
                       ? columnsForOnlineStanding
+                      : state.selectedQuiz.generalMode === 'escape'
+                      ? columnsForEscapeQuiz
                       : state.selectedQuiz.mode === 'tashrihi'
                       ? state.selectedQuiz.isQRNeeded !== undefined &&
                         state.selectedQuiz.isQRNeeded

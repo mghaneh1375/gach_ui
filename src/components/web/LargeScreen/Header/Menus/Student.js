@@ -67,7 +67,7 @@ function StudentMenu(props) {
         // excludes={['advisor', 'mySchool']}
         excludes={
           state.user?.user?.hasAdvisor
-            ? []
+            ? ['my_life_style']
             : ['my_advisor', 'my_advisor_quizzes']
         }
         navigate={props.navigate}
@@ -167,6 +167,12 @@ function StudentMenu(props) {
               ? translator.myAdvisor
               : undefined,
             url: '/myAdvisor',
+          },
+          {
+            text: state.user?.user?.hasAdvisor
+              ? undefined
+              : 'تغییر برنامه ریزی روزانه',
+            url: '/myLifeStyle',
           },
           {
             text: translator.advisors,

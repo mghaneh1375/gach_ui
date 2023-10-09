@@ -41,6 +41,65 @@ const columns = [
   },
 ];
 
+export const columnsForEscapeQuiz = [
+  {
+    name: 'نام دانش آموز',
+    selector: row => row.student.name,
+  },
+  {
+    name: 'کد ملی',
+    selector: row => row.student.NID,
+  },
+  {
+    name: 'امکان ادامه آزمون',
+    selector: row => (row.canContinue ? 'بله' : 'خیر'),
+  },
+  {
+    name: 'سوالات حل کرده',
+    selector: row => row.answers,
+  },
+  {
+    name: 'تاریخ ثبت نام',
+    selector: row => row.registerAt,
+    grow: 2,
+    style: {
+      minWidth: '200px !important',
+    },
+  },
+  {
+    name: 'امتیاز',
+    selector: row => (row.rate === undefined ? '-' : row.rate),
+  },
+  {
+    name: 'تاریخ امتیاز',
+    selector: row => (row.rate === undefined ? '-' : row.rateAt),
+    grow: 2,
+    style: {
+      minWidth: '150px !important',
+    },
+  },
+  {
+    name: 'زمان شروع آزمون',
+    selector: row => (row.startAt === undefined ? 'شروع نشده' : row.startAt),
+    grow: 2,
+    style: {
+      minWidth: '150px !important',
+    },
+  },
+  {
+    name: 'زمان پایان آزمون',
+    selector: row => (row.finishAt === undefined ? 'شروع نشده' : row.finishAt),
+    grow: 2,
+    style: {
+      minWidth: '150px !important',
+    },
+  },
+  {
+    name: 'مبلغ پرداختی',
+    selector: row => row.paid,
+  },
+];
+
 export const columnsForTashtihi = [
   {
     name: 'نام دانش آموز',

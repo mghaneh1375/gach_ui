@@ -17,7 +17,6 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';
-import {LargePopUp} from '../../../styles/Common/PopUp';
 import {styles} from '../../../styles/Common/Styles';
 import Card from './Card';
 import FinancePlan from './FinancePlan';

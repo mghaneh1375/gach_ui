@@ -287,7 +287,9 @@ const Header = props => {
                           // }
                           text={
                             newAlertsKeyVals.find(itr => itr.id === elem.key)
-                              .title
+                              .title +
+                            ' ' +
+                            elem.value
                           }
                           href={
                             elem.key === 'new_tickets'
@@ -295,10 +297,10 @@ const Header = props => {
                               : '/notif/' + elem.id
                           }
                         />
-                        <SimpleText
+                        {/* <SimpleText
                           style={{fontSize: 10, color: vars.DARK_BLUE}}
                           text={elem.value}
-                        />
+                        /> */}
                       </EqualTwoTextInputs>
                     );
                   })}

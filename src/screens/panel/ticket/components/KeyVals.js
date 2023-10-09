@@ -105,7 +105,7 @@ export const sectionKeyVals = [
   },
   {
     item: 'تسویه مالی',
-    id: 'requestmoney',
+    id: 'requestMoney',
   },
   {
     item: 'مشاوره',

@@ -55,7 +55,15 @@ const Chat = props => {
         {!props.isHtml && <SimpleText text={props.msg} />}
         <PhoneView style={{alignSelf: props.isForUser ? 'flex-start' : ''}}>
           {props.files.map((elem, index) => {
-            return <AttachBox key={index} filename={elem} />;
+            return (
+              <AttachBox
+                onClick={() => {
+                  window.open(elem);
+                }}
+                key={index}
+                filename={elem}
+              />
+            );
           })}
         </PhoneView>
       </MyView>

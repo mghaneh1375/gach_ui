@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  MyView,
+  PhoneView,
+} from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import Ops from '../Ops';
 import translator from '../../Translator';
@@ -41,6 +46,18 @@ const List = props => {
             token={props.token}
             setLoading={props.setLoading}
           />
+          <PhoneView>
+            <CommonButton
+              onPress={() => props.setMode('copun')}
+              theme={'dark'}
+              title={'گزارش کوپن های فروشگاه'}
+            />
+            <CommonButton
+              onPress={() => props.setMode('copunRev')}
+              theme={'orangeRed'}
+              title={'گزارش خرید های فروشگاه'}
+            />
+          </PhoneView>
           <CommonDataTable
             columns={columns}
             data={props.offs}

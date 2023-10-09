@@ -25,6 +25,7 @@ const translator = {
   authors: 'مولفین',
   schools: 'مدارس',
   advisor: 'مشاور',
+  advicing: 'مشاوره',
   price: 'قیمت :',
   priceUnit: 'تومان',
   advisors: 'مشاوران',

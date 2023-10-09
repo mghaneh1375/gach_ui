@@ -109,6 +109,16 @@ function MenuItemRepeat(props) {
                   : undefined,
               url: '/myAdvisor',
             },
+
+            {
+              text:
+                props.excludes !== undefined &&
+                props.excludes.indexOf('my_life_style') === -1
+                  ? 'تغییر برنامه ریزی روزانه'
+                  : undefined,
+              url: '/myLifeStyle',
+            },
+
             {
               text: translator.advisors,
               url: '/advisors',
