@@ -32,6 +32,7 @@ function List(props) {
           lesson={selected}
           token={props.token}
           setLoading={props.setLoading}
+          subMode={props.subMode}
           changeMode={changeMode}
           toggleShowPopUp={toggleShowOpPopUp}
           afterDelete={ids => {
@@ -41,7 +42,11 @@ function List(props) {
         />
       )}
       <CommonWebBox
-        header={commonTranslator.lessonsDefinition}
+        header={
+          props.subMode === 'grades'
+            ? commonTranslator.lessonsDefinitionInGrades
+            : commonTranslator.lessonsDefinitionInBranches
+        }
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         <CommonDataTable

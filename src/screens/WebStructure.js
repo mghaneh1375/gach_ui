@@ -624,13 +624,8 @@ const WebStructue = props => {
               {props.page === 'basic' &&
                 params !== undefined &&
                 params.mode !== undefined &&
-                params.mode === 'lessons' && (
-                  <Lesson
-                    token={state.token}
-                    user={state.user}
-                    navigate={navigate}
-                  />
-                )}
+                params.mode === 'lessons' &&
+                params.subMode !== undefined && <Lesson navigate={navigate} />}
               {props.page === 'basic' &&
                 params !== undefined &&
                 params.mode !== undefined &&

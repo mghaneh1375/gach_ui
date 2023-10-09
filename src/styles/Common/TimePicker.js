@@ -20,6 +20,7 @@ function TimePicker(props) {
       borderRightWidth: 0,
       borderRadius: 0,
       padding: 5,
+      direction: 'ltr',
     },
   };
 
@@ -35,7 +36,7 @@ function TimePicker(props) {
       let v = e.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
       v = v.replace(/[^0-9]/g, '');
 
-      if (v.length > 2) v = v.slice(0, 2) + ':' + v.slice(2);
+      if (v.length >= 2) v = v.slice(0, 2) + ':' + v.slice(2);
 
       setValue(v);
       props.onChangeText(v);
@@ -55,12 +56,22 @@ function TimePicker(props) {
       charCode == 37 ||
       charCode == 39 ||
       charCode == 46
-    )
+    ) {
+      if (charCode === 8 && value.length === 3) {
+        e.preventDefault();
+        setValue(value[0]);
+      }
       return;
+    }
 
     if (value.length === 5) {
       e.preventDefault();
       return;
+    }
+
+    if (charCode >= 96 && charCode <= 105) {
+      // Numpad keys
+      charCode -= 48;
     }
 
     if (value.length < 1) {
@@ -105,7 +116,7 @@ function TimePicker(props) {
           return;
         }
       }
-    } else if (value.length < 3) {
+    } else if (value.length < 4) {
       if (
         charCode !== 96 &&
         charCode !== 97 &&
@@ -136,7 +147,8 @@ function TimePicker(props) {
     }
 
     let v = value + String.fromCharCode(charCode);
-    for (let i = v.length; i < 4; i++) v += '0';
+
+    for (let i = v.length; i < 5; i++) v += '0';
 
     if (v.indexOf(':') === -1) v = v.slice(0, 2) + ':' + v.slice(2);
 

@@ -49,6 +49,7 @@ function Day(props) {
           alignContent: 'center',
           justifyContent: 'center',
           minHeight: 200,
+          minWidth: 30,
           gap: 10,
         }}>
         <SimpleText

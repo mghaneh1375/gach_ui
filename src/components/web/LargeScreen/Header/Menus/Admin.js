@@ -49,8 +49,12 @@ function AdminMenu(props) {
               url: '/basic/grades',
             },
             {
-              text: translator.lessonsDefinition,
-              url: '/basic/lessons',
+              text: translator.lessonsDefinitionInGrades,
+              url: '/basic/lessons/grade',
+            },
+            {
+              text: translator.lessonsDefinitionInBranches,
+              url: '/basic/lessons/branch',
             },
             {
               text: translator.subjectDefinition,

@@ -82,6 +82,7 @@ function Schedule(props) {
           advisorId={isAdvisor ? state.user.user.id : undefined}
           studentId={studentId}
           setMode={setMode}
+          user={state.user.user}
         />
       )}
       {mode === 'edit' && (

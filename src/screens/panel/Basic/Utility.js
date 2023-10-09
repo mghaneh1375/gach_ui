@@ -19,10 +19,16 @@ export const removeGrade = async (setLoading, token, gradeId, afterFunc) => {
   }
 };
 
-export const removeLesson = async (setLoading, token, lessonId, afterFunc) => {
+export const removeLesson = async (
+  setLoading,
+  token,
+  subMode,
+  lessonId,
+  afterFunc,
+) => {
   setLoading(true);
   let res = await generalRequest(
-    routes.removeLessons,
+    routes.removeLessons + subMode,
     'delete',
     {items: [lessonId]},
     ['excepts', 'doneIds'],
@@ -56,9 +62,9 @@ export const removeSubject = async (
   }
 };
 
-export const getGradesOnly = async token => {
+export const getGradesOnly = async (token, subMode) => {
   let res = await generalRequest(
-    routes.fetchGrades,
+    subMode === 'grade' ? routes.fetchGrades : routes.fetchBranches,
     'get',
     undefined,
     'data',
@@ -78,14 +84,13 @@ export const getGradeLessons = async token => {
 };
 
 export const getGrades = async token => {
-  let res = await generalRequest(
+  return await generalRequest(
     routes.fetchGradesAndBranches,
     'get',
     undefined,
     'data',
     token,
   );
-  return res;
 };
 
 export const getSubjects = async token => {
@@ -99,9 +104,9 @@ export const getSubjects = async token => {
   return res;
 };
 
-export const getLessons = async token => {
+export const getLessons = async (token, subMode) => {
   let res = await generalRequest(
-    routes.fetchLesson,
+    subMode === 'grade' ? routes.fetchLessonGrades : routes.fetchLessonBranch,
     'get',
     undefined,
     'data',
@@ -123,9 +128,9 @@ export const editGrade = async (id, token, data, isOlympiadOld) => {
   return res;
 };
 
-export const editLesson = async (id, gradeId, token, data) => {
+export const editLesson = async (subMode, id, gradeId, token, data) => {
   let res = await generalRequest(
-    routes.editLesson + gradeId + '/' + id,
+    routes.editLesson + subMode + '/' + gradeId + '/' + id,
     'put',
     data,
     undefined,
@@ -147,9 +152,9 @@ export const createGrade = async (token, data, isOlympiad) => {
   if (res !== null) showSuccess(commonTranslator.success);
   return res;
 };
-export const createLesson = async (token, gradeId, data) => {
+export const createLesson = async (token, subMode, gradeId, data) => {
   let res = await generalRequest(
-    routes.addLesson + gradeId,
+    routes.addLesson + subMode + '/' + gradeId,
     'post',
     data,
     'id',

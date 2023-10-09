@@ -50,6 +50,7 @@ import {downloadRequest, generalRequest} from '../../../../API/Utility';
 import {routes} from '../../../../API/APIRoutes';
 import vars from '../../../../styles/root';
 import LastBuyer from '../../../general/Packages/components/Detail/LastBuyer';
+import {getGrades} from '../../../panel/Basic/Utility';
 
 function Create(props) {
   const useGlobalState = () => [
@@ -77,6 +78,9 @@ function Create(props) {
   const [boxes, setBoxes] = useState();
   const [desc, setDesc] = useState();
 
+  const [selectedGrade, setSelectedGrade] = useState();
+  const [lessonsKeyVals, setLessonsKeyVals] = useState();
+
   const scheduleForValues = [
     {id: 0, item: 'هفته جاری'},
     {id: 1, item: 'هفته بعد'},
@@ -89,6 +93,46 @@ function Create(props) {
   const [uniqueAdvisors, setUniqueAdvisors] = useState();
 
   const [isWorking, setIsWorking] = useState();
+
+  const fetchLessons = React.useCallback(() => {
+    if (isWorking) return;
+
+    let grade = state.grades.find(e => e.id === selectedGrade);
+    if (grade === undefined) return;
+
+    if (grade.lessons !== undefined) {
+      setLessonsKeyVals(grade.lessons);
+      return;
+    }
+
+    setIsWorking(true);
+    props.setLoading(true);
+
+    Promise.all([getLessons(selectedGrade, grade.isOlympiad)]).then(res => {
+      props.setLoading(false);
+
+      if (res[0] === null) return;
+
+      grade.lessons = res[0].map(e => {
+        return {
+          id: e.id,
+          item: e.name,
+        };
+      });
+      state.grades = state.grades.map(e => {
+        if (e.id === selectedGrade) return grade;
+        return e;
+      });
+      dispatch({grades: state.grades});
+      setLessonsKeyVals(grade.lessons);
+      setIsWorking(false);
+    });
+  }, [selectedGrade, isWorking, state, dispatch, props]);
+
+  React.useEffect(() => {
+    if (selectedGrade == null) return;
+    fetchLessons();
+  }, [selectedGrade, fetchLessons]);
 
   React.useEffect(() => {
     if (state.selectedSchedule?.days === undefined) return;
@@ -171,7 +215,7 @@ function Create(props) {
         fetchTags(props.token),
         fetchMyLifeStyle(props.token, props.studentId),
         fetchExamTags(props.token),
-        getLessons(),
+        getGrades(props.token),
         fetchStudentSchedulesDigest(
           props.studentId,
           props.token,
@@ -200,7 +244,13 @@ function Create(props) {
           myLifeStyle: res[1].days,
           myExams: res[2].exams,
           tags: res[0],
-          lessonsKeyVals: res[3],
+          grades: res[3].map(e => {
+            return {
+              id: e.id,
+              item: e.name,
+              isOlympiad: e.isOlympiad,
+            };
+          }),
           myAllSchedulesDigest: res[4],
         });
       });
@@ -364,12 +414,13 @@ function Create(props) {
                 }
 
                 props.setLoading(true);
+
                 let data = {
                   tag: selectedTag.id,
                   duration: duration,
                   startAt: startAt,
                   day: selectedDay,
-                  lessonId: lesson.id,
+                  lessonId: lesson,
                 };
 
                 if (state.selectedSchedule.id !== undefined)
@@ -399,7 +450,7 @@ function Create(props) {
                           .label,
                         duration: duration,
                         startAt: startAt,
-                        lesson: lesson.name,
+                        lesson: lessonsKeyVals.find(e => e.id === lesson)?.name,
                         id: res.id,
                         additionalLabel: selectedTag.numberLabel,
                         additional: additional,
@@ -418,6 +469,7 @@ function Create(props) {
                   setSelectedTag();
                   setStartAt();
                   setDescription();
+                  setSelectedGrade();
                   setLesson();
                   setAdditional();
                 }
@@ -452,18 +504,36 @@ function Create(props) {
                 ...styles.gap15,
                 ...styles.marginTop20,
               }}>
-              <JustBottomBorderTextInput
-                placeholder={commonTranslator.lesson}
-                subText={commonTranslator.lesson}
-                resultPane={true}
-                setSelectedItem={item => {
-                  setLesson(item);
-                }}
-                resultPaneHeight={300}
-                values={state.lessonsKeyVals}
-                value={lesson !== undefined ? lesson.name : ''}
-                reset={false}
+              <JustBottomBorderSelect
+                placeholder={commonTranslator.grade}
+                subText={commonTranslator.grade}
+                setter={setSelectedGrade}
+                values={state.grades}
+                value={state.grades.find(e => e.id === selectedGrade)}
               />
+
+              {selectedGrade != undefined && lessonsKeyVals !== undefined && (
+                <JustBottomBorderSelect
+                  placeholder={commonTranslator.lesson}
+                  subText={commonTranslator.lesson}
+                  setter={setLesson}
+                  values={lessonsKeyVals}
+                  value={lessonsKeyVals.find(e => e.id === lesson)}
+                />
+
+                // <JustBottomBorderTextInput
+                // placeholder={commonTranslator.lesson}
+                // subText={commonTranslator.lesson}
+                //   resultPane={true}
+                //   setSelectedItem={item => {
+                //     setLesson(item);
+                //   }}
+                //   resultPaneHeight={300}
+                //   values={lessonsKeyVals}
+                //   value={lesson !== undefined ? lesson.name : ''}
+                //   reset={false}
+                // />
+              )}
 
               <JustBottomBorderTextInput
                 subText={'مدت (به دقیقه)'}
@@ -474,7 +544,7 @@ function Create(props) {
 
               <TimePicker
                 subText={'زمان شروع (اختیاری)'}
-                placeholder={'زمان شروع (اختیاری)'}
+                placeholder={'hh:mm'}
                 onChangeText={e => setStartAt(e)}
               />
               {selectedTag?.numberLabel !== undefined && (

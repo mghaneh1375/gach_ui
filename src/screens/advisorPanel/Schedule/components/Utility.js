@@ -89,8 +89,18 @@ export const addItemToSchedule = async (token, userId, data) => {
   return res;
 };
 
-export const getLessons = () => {
-  return generalRequest(routes.getLessonsDigest, 'get', undefined, 'data');
+export const getLessons = (gradeId, isOlympiad) => {
+  let query = new URLSearchParams();
+  query.append('parentId', gradeId);
+
+  if (isOlympiad) query.append('searchInBranches', true);
+
+  return generalRequest(
+    routes.getLessonsDigest + '?' + query.toString(),
+    'get',
+    undefined,
+    'data',
+  );
 };
 
 export const removeItemFromSchedule = async (token, userId, id) => {

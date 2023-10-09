@@ -1,5 +1,4 @@
 import React from 'react';
-import {View} from 'react-native';
 import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import commonTranslator from '../../../../translator/Common';
@@ -17,6 +16,7 @@ function Ops(props) {
               removeLesson(
                 props.setLoading,
                 props.token,
+                props.subMode,
                 props.lesson.id,
                 props.afterDelete,
               )

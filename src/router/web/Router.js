@@ -160,6 +160,12 @@ export default function WebRouter() {
             path="/users/:level"
             element={<WebStructue page="users" />}
           />
+
+          <Route
+            exact
+            path="/basic/:mode/:subMode"
+            element={<WebStructue page="basic" />}
+          />
           <Route
             exact
             path="/basic/:mode"

@@ -144,7 +144,7 @@ function Schedule(props) {
 
             <TimePicker
               subText={'زمان شروع (اختیاری)'}
-              placeholder={'زمان شروع (اختیاری)'}
+              placeholder={'hh:mm'}
               onChangeText={e => setStartAt(e)}
             />
           </PhoneView>

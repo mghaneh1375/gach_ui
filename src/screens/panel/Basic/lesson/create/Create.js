@@ -67,6 +67,7 @@ function Create(props) {
 
             if (props.lesson !== undefined) {
               res = await editLesson(
+                props.subMode,
                 props.lesson.id,
                 props.lesson.grade.id,
                 props.token,
@@ -77,7 +78,7 @@ function Create(props) {
                 },
               );
             } else {
-              res = await createLesson(props.token, grade, {
+              res = await createLesson(props.token, props.subMode, grade, {
                 name: name,
                 description: description,
               });
