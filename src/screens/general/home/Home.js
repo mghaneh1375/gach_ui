@@ -211,7 +211,7 @@ const Home = props => {
             background: '#ffffffcc',
             zIndex: 20,
             position: 'absolute',
-            top: width < 440 ? -240 : -170,
+            top: width < 440 ? -320 : -170,
             width: '100%',
             maxWidth: '100%',
             overflow: 'auto',
@@ -309,9 +309,15 @@ const Home = props => {
             paddingLeft: 50,
             bottom: 0,
             width: 'calc(100% - 100px)',
+            // height: '5px',
           }}>
           <img src="./assets/images/irysc.png" width={200} />
-          <MyView style={{...styles.gap10, ...styles.marginTop10}}>
+          <MyView
+            style={{
+              ...styles.gap10,
+              ...styles.marginTop10,
+              marginBottom: '90px',
+            }}>
             <PhoneView style={{...styles.gap10}}>
               <img src="./assets/images/address.svg" height={30} />
               <SimpleText

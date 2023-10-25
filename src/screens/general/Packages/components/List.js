@@ -8,7 +8,7 @@ import {
 } from '../../../../styles/Common';
 import {dispatchPackagesContext, packagesContext} from './Context';
 import {fetchAllPackages} from './Utility';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {getDevice} from '../../../../services/Utility';
 import {styles} from '../../../../styles/Common/Styles';
 import Card from './Card';
@@ -16,6 +16,7 @@ import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {Translator} from '../Translator';
 import commonTranslator from '../../../../translator/Common';
 import Filter from './Filter';
+import {style} from '@material-ui/system';
 
 function List(props) {
   const useGlobalState = () => [
@@ -110,7 +111,9 @@ function List(props) {
 
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
+  useEffect(() => {
+    if (isInPhone) setShowFilter(false);
+  }, [isInPhone]);
   return (
     <MyView
       style={{
@@ -118,7 +121,12 @@ function List(props) {
         width: props.token === undefined && !isInPhone ? '80%' : '100%',
       }}>
       {!props.isInMyMode && (
-        <CommonWebBox>
+        <CommonWebBox
+          style={
+            showFilter && isInPhone
+              ? {position: 'fixed', zIndex: '1', margin: '0px'}
+              : {}
+          }>
           {!isInPhone && (
             <EqualTwoTextInputs>
               <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
@@ -159,7 +167,6 @@ function List(props) {
               </PhoneView>
             </EqualTwoTextInputs>
           )}
-
           {isInPhone && (
             <MyView style={{...styles.alignSelfCenter, ...styles.gap10}}>
               <PhoneView style={{...styles.gap10}}>
@@ -199,7 +206,6 @@ function List(props) {
               />
             </MyView>
           )}
-
           {showFilter &&
             min !== undefined &&
             max !== undefined &&
@@ -215,13 +221,25 @@ function List(props) {
                 token={props.token}
                 setClearFilter={setClearFilter}
                 clearFilter={clearFilter}
+                show={showFilter}
                 close={() => setShowFilter(false)}
               />
             )}
         </CommonWebBox>
       )}
-
-      <PhoneView style={styles.gap10}>
+      <MyView>
+        <SimpleText
+          style={{
+            ...styles.BlueBold,
+            ...styles.fontSize25,
+            ...styles.textCenter,
+            ...styles.marginTop20,
+            ...styles.marginBottom20,
+          }}
+          text={' بسته های آموزشی'}
+        />
+      </MyView>
+      <PhoneView style={{...styles.gap10, justifyContent: 'space-around'}}>
         {viewableItems !== undefined &&
           viewableItems.map((elem, index) => {
             return (

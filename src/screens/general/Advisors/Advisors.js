@@ -273,7 +273,7 @@ function Advisors(props) {
 
       {!showSuccessTransaction && (
         <>
-          {!isInPhone && (
+          {
             <CommonWebBox>
               <EqualTwoTextInputs>
                 <PhoneView
@@ -345,7 +345,7 @@ function Advisors(props) {
                   />
                 )}
             </CommonWebBox>
-          )}
+          }
 
           <PhoneView
             style={{
