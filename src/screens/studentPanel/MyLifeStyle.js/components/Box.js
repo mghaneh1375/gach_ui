@@ -25,67 +25,55 @@ function Box(props) {
           ...styles.alignSelfCenter,
           ...{minWidth: props.item.advisor !== undefined ? 225 : 'unset'},
         }}>
-        {(props.item.startAt !== undefined || props.item.advisor) && (
-          <EqualTwoTextInputs
+        <EqualTwoTextInputs
+          style={{
+            ...{
+              backgroundColor: vars.CREAM,
+              width: 50,
+              boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 16px 4px',
+              minHeight: 180,
+              maxHeight: 180,
+            },
+          }}>
+          <MyView
             style={{
-              ...{
-                backgroundColor: vars.CREAM,
-                width: 50,
-                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 16px 4px',
-                minHeight: 180,
-                maxHeight: 180,
-              },
+              ...styles.alignItemsCenter,
+              ...styles.alignSelfCenter,
+              ...styles.justifyContentCenter,
+              ...{width: 50, height: 130},
             }}>
-            {props.item.startAt !== undefined && (
-              <MyView style={{...styles.gap10}}>
-                <PhoneView style={{...styles.alignItemsEnd, ...{height: 80}}}>
-                  <SimpleText
-                    style={{
-                      writingMode: 'tb-rl',
-                      fontSize: 14,
-                      color: vars.DARK_BLUE,
-                    }}
-                    text={'شروع'}
-                  />
-                  <SimpleText
-                    style={{
-                      writingMode: 'tb-rl',
-                      fontSize: 20,
-                      color: vars.DARK_BLUE,
-                    }}
-                    text={props.item.startAt}
-                  />
-                </PhoneView>
-                <SimpleFontIcon
-                  kind={'normal'}
-                  style={{color: vars.YELLOW}}
-                  icon={faUserClock}
-                />
-              </MyView>
-            )}
+            <SimpleText
+              style={{
+                writingMode: 'tb-rl',
+                fontSize: 17,
+                color: vars.DARK_BLUE,
+              }}
+              text={props?.item?.tag}
+            />
+          </MyView>
 
-            {props.item.advisor !== undefined && (
-              <MyView
+          {props.item.advisor !== undefined && (
+            <MyView
+              style={{
+                ...justifyContentEnd,
+                ...styles.alignItemsCenter,
+                ...{width: 40, marginRight: 5},
+              }}>
+              <Image
+                source={props.item.advisor.pic}
+                resizeMode={'contain'}
                 style={{
-                  ...justifyContentEnd,
-                  ...styles.alignItemsCenter,
-                  ...{width: 40, marginRight: 5},
-                }}>
-                <Image
-                  source={props.item.advisor.pic}
-                  resizeMode={'contain'}
-                  style={{
-                    cursor: 'pointer',
-                    width: '100%',
-                    height: '40px',
-                    border: '1px solid',
-                    borderRadius: '50%',
-                  }}
-                />
-              </MyView>
-            )}
-          </EqualTwoTextInputs>
-        )}
+                  cursor: 'pointer',
+                  width: '100%',
+                  height: '40px',
+                  border: '1px solid',
+                  borderRadius: '50%',
+                }}
+              />
+            </MyView>
+          )}
+        </EqualTwoTextInputs>
+
         <MyView
           style={{
             minWidth: 150,
@@ -112,7 +100,7 @@ function Box(props) {
                     : vars.DARK_BLUE,
                 padding: 7,
               }}>
-              <SimpleText style={{color: 'white'}} text={props.item.tag} />
+              <SimpleText style={{color: 'white'}} text={props?.item?.lesson} />
               <SimpleFontIcon
                 icon={faClose}
                 kind={'normal'}
@@ -122,7 +110,7 @@ function Box(props) {
               />
             </EqualTwoTextInputs>
           )}
-          {props.remove === undefined && (
+          {props.remove === undefined && props.item.lesson !== undefined && (
             <MyView
               style={{
                 backgroundColor:
@@ -133,26 +121,32 @@ function Box(props) {
                     : vars.DARK_BLUE,
                 padding: 7,
               }}>
-              <SimpleText style={{color: 'white'}} text={props.item.tag} />
+              <SimpleText
+                style={{color: 'white', fontSize: 11}}
+                text={props.item.lesson}
+              />
             </MyView>
           )}
 
           <MyView
             style={{
               justifyContent: 'space-between',
-              height: 'calc(100% - 40px)',
+              height:
+                props.remove !== undefined || props.item.lesson !== undefined
+                  ? 'calc(100% - 40px)'
+                  : 'calc(100% - 5px)',
             }}>
-            {props.item.lesson !== undefined && (
+            {props.item.startAt !== undefined && (
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
-                  ...styles.fontSize13,
-                  ...styles.marginTop10,
+                  color: vars.DARK_BLUE,
+                  marginTop: 10,
                 }}
-                text={props.item.lesson}
+                text={'شروع : ' + props.item.startAt}
               />
             )}
-            {props.item.lesson === undefined && <MyView />}
+
+            {props.item.startAt === undefined && <MyView />}
 
             <MyView style={{...styles.gap10}}>
               {props.item.additional !== undefined && (

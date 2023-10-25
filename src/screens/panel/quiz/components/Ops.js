@@ -188,12 +188,25 @@ const Ops = props => {
               theme={'transparent'}
               title={translator.seeInfo}
             />
-            <CommonButton
-              dir={'rtl'}
-              onPress={() => changeMode('question')}
-              theme={'transparent'}
-              title={translator.editQuestions}
-            />
+
+            {state.selectedQuiz.pdfQuiz && (
+              <CommonButton
+                dir={'rtl'}
+                theme={'transparent'}
+                title={translator.manageQuestions}
+                onPress={() => changeMode('pdfQuestion')}
+              />
+            )}
+            {(state.selectedQuiz.pdfQuiz === undefined ||
+              !state.selectedQuiz.pdfQuiz) && (
+              <CommonButton
+                dir={'rtl'}
+                onPress={() => changeMode('question')}
+                theme={'transparent'}
+                title={translator.editQuestions}
+              />
+            )}
+
             {(state.selectedQuiz.mode !== 'tashrihi' ||
               state.selectedQuiz.startRegistry !== undefined) &&
               (state.selectedQuiz.generalMode === 'irysc' ||
@@ -266,6 +279,8 @@ const Ops = props => {
                 />
               )}
             {state.selectedQuiz.generalMode === 'irysc' &&
+              (state.selectedQuiz.pdfQuiz === undefined ||
+                !state.selectedQuiz.pdfQuiz) &&
               state.selectedQuiz.mode !== 'tashrihi' && (
                 <CommonButton
                   dir={'rtl'}
@@ -335,6 +350,8 @@ const Ops = props => {
               />
             )}
             {state.selectedQuiz.mode !== 'tashrihi' &&
+              (state.selectedQuiz.pdfQuiz === undefined ||
+                !state.selectedQuiz.pdfQuiz) &&
               state.selectedQuiz.generalMode !== 'escape' && (
                 <CommonButton
                   title={translator.keySheet}
@@ -343,6 +360,14 @@ const Ops = props => {
                   onPress={() => props.setMode('key')}
                 />
               )}
+            {state.selectedQuiz.pdfQuiz && (
+              <CommonButton
+                title={translator.keySheet}
+                dir={'rtl'}
+                theme={'transparent'}
+                onPress={() => props.setMode('pdfKey')}
+              />
+            )}
             {state.selectedQuiz.mode === 'tashrihi' && (
               <CommonButton
                 title={translator.correctors}

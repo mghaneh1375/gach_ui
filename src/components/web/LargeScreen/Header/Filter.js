@@ -55,14 +55,21 @@ function Filter() {
   };
 
   const toggleSelected = lbl => {
-    let tmpIdx = selected.indexOf(lbl);
-    let tmp = selected;
+    let tmp = [];
+    // console.log(selected);
+    selected.forEach(itr => {
+      tmp.push(itr);
+    });
+    // console.log(tmp);
+    let tmpIdx = tmp.indexOf(lbl);
+
     if (tmpIdx === -1) tmp.push(lbl);
     else tmp.splice(tmpIdx, 1);
     if (allAvailable && allActive && tmp.length !== filters.length)
       setAllActive(false);
-    setSelected(tmp);
 
+    // console.log(tmp);
+    setSelected(tmp);
     dispatch({loading: true});
 
     state.onChangeFilter(tmp);
@@ -371,6 +378,7 @@ function Filter() {
                   <FilterItem
                     item={elem}
                     status={allActive ? 'unchecked' : undefined}
+                    selected={selected}
                     key={index}
                     onPress={label => toggleSelected(label)}
                   />

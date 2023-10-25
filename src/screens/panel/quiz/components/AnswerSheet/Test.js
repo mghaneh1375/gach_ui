@@ -37,12 +37,15 @@ function Test(props) {
 
   const changeAnsSelected = idx => {
     let ans = props.state.wanted_answer_sheet[index].answer;
+
     let studentAns = props.state.wanted_answer_sheet[index].studentAns;
 
     if (props.state.allowChangeAns) {
       ans = idx + 1;
-      props.state.new_answer_sheet[index] = idx + 1;
-      props.dispatch({new_answer_sheet: props.state.new_answer_sheet[index]});
+      props.state.wanted_answer_sheet[index].answer = idx + 1;
+      props.dispatch({
+        wanted_answer_sheet: props.state.wanted_answer_sheet,
+      });
     } else if (props.state.allowChangeStdAns) {
       studentAns = idx + 1;
       props.state.new_std_answer_sheet[index] = idx + 1;

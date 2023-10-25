@@ -112,6 +112,7 @@ import ChatRoom from './studentPanel/Chat/ChatRoom';
 import Schedule from './advisorPanel/Schedule/Schedule';
 import Progress from './advisorPanel/Progress/Progress';
 import Shop from './panel/Config/Configuration/Shop';
+import RunPDFQuiz from './studentPanel/RunPDFQuiz/RunPDFQuiz';
 
 const WebStructue = props => {
   const navigate = useNavigate();
@@ -404,7 +405,11 @@ const WebStructue = props => {
                     navigate={navigate}
                   />
                 )}
+              {props.page === 'reviewQuiz' && params.quizMode === 'pdf' && (
+                <RunPDFQuiz isInReviewMode={true} navigate={navigate} />
+              )}
               {props.page === 'reviewQuiz' &&
+                params.quizMode !== 'pdf' &&
                 params.quizMode !== 'onlineStanding' && (
                   <RunQuiz
                     isInReviewMode={true}

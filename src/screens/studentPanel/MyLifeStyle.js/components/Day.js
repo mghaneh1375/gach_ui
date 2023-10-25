@@ -154,7 +154,7 @@ function Day(props) {
               <MyView
                 style={{
                   ...styles.justifyContentSpaceBetween,
-                  ...{height: 160},
+                  ...{height: 140},
                 }}>
                 <FontIcon
                   onPress={() => props.addNewItem()}

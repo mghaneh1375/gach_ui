@@ -307,7 +307,7 @@ const Home = props => {
             position: 'absolute',
             paddingRight: 50,
             paddingLeft: 50,
-            bottom: 0,
+            bottom: state.token ? 0 : 85,
             width: 'calc(100% - 100px)',
           }}>
           <img src="./assets/images/irysc.png" width={200} />
@@ -318,10 +318,9 @@ const Home = props => {
                 style={{
                   ...styles.alignSelfCenter,
                   ...styles.BlueBold,
+                  ...{width: 'calc(100% - 30px)'},
                 }}
-                text={
-                  'تهران، میدان انقلاب، ابتدای خیابان آزادی، بن بست قائم مقام ، پلاک 5'
-                }
+                text={'نشانی: دانشگاه صنعتی شریف، ساختمان ابن سینا، طبقه چهارم'}
               />
             </PhoneView>
             <PhoneView style={{...styles.gap10}}>
@@ -331,7 +330,7 @@ const Home = props => {
                   ...styles.alignSelfCenter,
                   ...styles.BlueBold,
                 }}
-                text={'02166917230'}
+                text={'021-91096320'}
               />
             </PhoneView>
             <PhoneView style={{...styles.gap10}}>

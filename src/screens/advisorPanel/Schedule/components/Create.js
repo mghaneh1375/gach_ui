@@ -450,7 +450,7 @@ function Create(props) {
                           .label,
                         duration: duration,
                         startAt: startAt,
-                        lesson: lessonsKeyVals.find(e => e.id === lesson)?.name,
+                        lesson: lessonsKeyVals.find(e => e.id === lesson)?.item,
                         id: res.id,
                         additionalLabel: selectedTag.numberLabel,
                         additional: additional,

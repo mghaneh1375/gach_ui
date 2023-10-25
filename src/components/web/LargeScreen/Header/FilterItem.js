@@ -21,9 +21,16 @@ function FilterItem(props) {
     if (props.item.subCats === undefined) return;
     let tmp = [];
     for (let i = 0; i < props.item.subCats.length; i++) {
-      tmp.push({status: 'unchecked', label: props.item.subCats[i]});
+      tmp.push({
+        status:
+          props.selected?.indexOf(props.item.subCats[i]) !== -1
+            ? 'checked'
+            : 'unchecked',
+        label: props.item.subCats[i],
+      });
     }
     setSubCats(tmp);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.item]);
 
   if (status === undefined) return <></>;
@@ -50,6 +57,7 @@ function FilterItem(props) {
         return elem;
       }),
     );
+
     props.onPress(currLabel);
   };
 

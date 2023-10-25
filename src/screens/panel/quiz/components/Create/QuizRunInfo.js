@@ -29,6 +29,11 @@ const QuizRunInfo = props => {
     props.setLen(val);
   };
 
+  React.useEffect(() => {
+    if (props.kind === 'regularWithPDF') props.setLenMode('custom');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.kind]);
+
   const changeLenMode = newMode => {
     if (newMode === 'question') props.setLen('');
     props.setLenMode(newMode);
@@ -90,14 +95,17 @@ const QuizRunInfo = props => {
         )}
         {registrable && uploadable && !QRNeeded && (
           <>
-            <CommonRadioButton
-              value="question"
-              status={props.lenMode === 'question' ? 'checked' : 'unchecked'}
-              onPress={() => {
-                if (!QRNeeded) changeLenMode('question');
-              }}
-              text={translator.questionBased}
-            />
+            {props.kind !== 'regularWithPDF' && (
+              <CommonRadioButton
+                value="question"
+                status={props.lenMode === 'question' ? 'checked' : 'unchecked'}
+                onPress={() => {
+                  if (!QRNeeded) changeLenMode('question');
+                }}
+                text={translator.questionBased}
+              />
+            )}
+
             <CommonRadioButton
               value="custom"
               status={props.lenMode === 'custom' ? 'checked' : 'unchecked'}
@@ -132,7 +140,8 @@ const QuizRunInfo = props => {
               />
             )}
 
-          {(props.kind === undefined || props.kind !== 'tashrihi') &&
+          {(props.kind === undefined ||
+            (props.kind !== 'tashrihi' && props.kind !== 'regularWithPDF')) &&
             props.setPermuteEn !== undefined && (
               <JustBottomBorderSelect
                 values={trueFalseValues}
@@ -148,21 +157,24 @@ const QuizRunInfo = props => {
                 placeholder={translator.permute}
               />
             )}
-          {uploadable && !QRNeeded && props.setBackEn !== undefined && (
-            <JustBottomBorderSelect
-              values={trueFalseValues}
-              value={
-                props.backEn === undefined
-                  ? {}
-                  : trueFalseValues.filter(element => {
-                      return element.id === props.backEn;
-                    })[0]
-              }
-              setter={props.setBackEn}
-              placeholder={translator.backEn}
-              subText={translator.backEn}
-            />
-          )}
+          {uploadable &&
+            !QRNeeded &&
+            props.kind !== 'regularWithPDF' &&
+            props.setBackEn !== undefined && (
+              <JustBottomBorderSelect
+                values={trueFalseValues}
+                value={
+                  props.backEn === undefined
+                    ? {}
+                    : trueFalseValues.filter(element => {
+                        return element.id === props.backEn;
+                      })[0]
+                }
+                setter={props.setBackEn}
+                placeholder={translator.backEn}
+                subText={translator.backEn}
+              />
+            )}
 
           {(props.kind === undefined || props.kind !== 'tashrihi') &&
             props.setMinusMark !== undefined && (

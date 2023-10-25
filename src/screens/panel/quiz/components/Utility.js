@@ -250,6 +250,16 @@ export const fetchGenderReport = async (quizId, quizMode, token) => {
   );
 };
 
+export const getPDFQuizAnswerSheet = async (quizId, token) => {
+  return await generalRequest(
+    routes.fetchPDFQuizAnswerSheet + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const getAnswerSheet = async (quizId, quizMode, token) => {
   return await generalRequest(
     routes.fetchQuizAnswerSheet + quizMode + '/' + quizId,
@@ -263,6 +273,33 @@ export const getAnswerSheet = async (quizId, quizMode, token) => {
 export const getQuestions = async (token, quizId, quizMode) => {
   return await generalRequest(
     routes.fetchQuestions + quizMode + '/' + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const setPDFQuestions = async (quizId, token, count, file) => {
+  let formData = undefined;
+  if (file !== null) {
+    formData = new FormData();
+
+    var myblob = new Blob([new Uint8Array(file.content)]);
+    formData.append('file', myblob, file.name);
+  }
+  return await fileRequest(
+    routes.setPDFQuizQuestions + quizId + '/' + count,
+    'put',
+    formData,
+    undefined,
+    token,
+  );
+};
+
+export const getPDFQuestions = async (token, quizId) => {
+  return await generalRequest(
+    routes.getPDFQuizQuestions + quizId,
     'get',
     undefined,
     'data',
@@ -286,6 +323,16 @@ export const getKarname = async (token, studentId, quizId, quizMode) => {
     'get',
     undefined,
     'data',
+    token,
+  );
+};
+
+export const savePDF = async (token, quizId, answers) => {
+  return await generalRequest(
+    routes.setPDFQuizAnswerSheet + quizId,
+    'put',
+    {answers: answers},
+    undefined,
     token,
   );
 };

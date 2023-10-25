@@ -40,7 +40,9 @@ const CreateQuiz = props => {
     setPriority(state.selectedQuiz.priority);
     setDesc(state.selectedQuiz.description);
     setTags(state.selectedQuiz.tags);
-    setKind(state.selectedQuiz.mode);
+    setKind(
+      state.selectedQuiz.pdfQuiz ? 'regularWithPDF' : state.selectedQuiz.mode,
+    );
     setCapacity(state.selectedQuiz.capacity);
     setLaunchMode(state.selectedQuiz.launchMode);
     setPrice(state.selectedQuiz.price);
@@ -195,10 +197,8 @@ const CreateQuiz = props => {
         tags: tags,
         price: price,
         priority: priority,
-        permute: permuteEn,
         capacity: capacity,
         minusMark: minusMark,
-        backEn: backEn,
         showResultsAfterCorrection: showResultsAfterCorrection,
         showResultsAfterCorrectionNotLoginUsers:
           showResultsAfterCorrectionNotLoginUsers,
@@ -207,6 +207,11 @@ const CreateQuiz = props => {
         desc: descBefore,
       };
       if (endRegistry !== undefined) data.endRegistry = endRegistry;
+      if (kind !== 'regulatWithPDF') {
+        data.permute = permuteEn;
+        data.backEn = backEn;
+        data.kind = kind;
+      }
     }
 
     props.setLoading(true);
