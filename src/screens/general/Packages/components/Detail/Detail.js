@@ -545,6 +545,7 @@ function Detail(props) {
                 </CommonWebBox>
 
                 <CommonWebBox
+                  style={{marginBottom: '75px'}}
                   btn={
                     showFAQ ? (
                       <SimpleFontIcon

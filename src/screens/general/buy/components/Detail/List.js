@@ -180,7 +180,14 @@ function List(props) {
                 }
               : {padding: 10, alignSelf: 'start', minHeight: '100vh'}
           }>
-          <BigBoldBlueText text={'لیست آزمون ها'} />
+          <BigBoldBlueText
+            style={{
+              ...styles.BlueBold,
+              ...styles.textCenter,
+              ...styles.fontSize20,
+            }}
+            text={'لیست خرید آزمون ها'}
+          />
           <Quizzes
             fullWidth={
               props.user === null ||

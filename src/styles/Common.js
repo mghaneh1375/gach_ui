@@ -114,12 +114,12 @@ export const TextLink = props => {
     Platform.OS === 'web'
       ? props.href !== undefined
         ? {
-            color: vars.ORANGE,
+            color: 'white',
             fontFamily: 'IRANSans',
             textDecoration: 'none',
           }
-        : {color: vars.ORANGE, cursor: 'pointer'}
-      : {color: vars.ORANGE};
+        : {color: 'white', cursor: 'pointer'}
+      : {color: 'white'};
 
   allStyles =
     props.style !== undefined ? {...allStyles, ...props.style} : allStyles;
@@ -397,7 +397,16 @@ export const TextWithLink = props => {
   return (
     <InlineTextContainer style={props.style !== undefined ? props.style : {}}>
       <BlueTextInline text={props.text} />
-      <TextLink onPress={props.onPress} href={props.href} text={props.link} />
+      <button
+        style={{
+          border: 'none',
+          padding: '5px 10px',
+          marginRight: '2px',
+          borderRadius: '10px',
+          backgroundColor: vars.ORANGE,
+        }}>
+        <TextLink onPress={props.onPress} href={props.href} text={props.link} />
+      </button>
     </InlineTextContainer>
   );
 };

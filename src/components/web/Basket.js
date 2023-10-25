@@ -35,6 +35,7 @@ function Basket(props) {
       style={{
         ...basketBox,
         ...{width: width},
+        marginBottom: '5px',
       }}>
       <EqualTwoTextInputs>
         <MyView>

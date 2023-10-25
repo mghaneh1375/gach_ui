@@ -34,6 +34,7 @@ import {
   styleYellowBox,
 } from '../../../panel/package/card/Style';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {useMediaQuery} from '@material-ui/core';
 
 function Card(props) {
   const [img, setImg] = useState();
@@ -42,11 +43,13 @@ function Card(props) {
     setImg(props.package.img);
   }, [props.package.img]);
 
+  const size600 = useMediaQuery('(max-width:600px)');
+
   const fontSize = props.isInPhone ? 10 : 11;
   const valFontSize = props.isInPhone ? 12 : 15;
 
   return (
-    <CommonWebBox width={props.isInPhone ? 320 : 350}>
+    <CommonWebBox width={size600 ? '100%' : props.isInPhone ? 320 : 350}>
       <Image
         style={{
           width: '100%',
@@ -68,9 +71,9 @@ function Card(props) {
           }}>
           <SimpleText style={styles.BlueBold} text={props.package.title} />
         </PhoneView>
-        <PhoneView style={{gap: 100}}>
+        <PhoneView>
           <SimpleText
-            style={{...styles.BlueBold, ...styles.margin15}}
+            style={{...styles.BlueBold, ...styles.margin15, width: '50%'}}
             text={props.package.sessionsCount + ' جلسه'}
           />
 

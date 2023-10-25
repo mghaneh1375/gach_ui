@@ -178,6 +178,7 @@ function Quizzes(props) {
             ...styles.BlueBold,
             ...styles.fontSize20,
             ...styles.margin25,
+            marginBottom: '20px',
           }}
           onPress={() => {
             setViewableItems(

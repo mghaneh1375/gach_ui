@@ -126,6 +126,7 @@ function List(props) {
             })}
         </PhoneView>
       )}
+
       {!registered && quizzes !== undefined && quizzes.length > 0 && (
         <QuizList
           isRightMenuVisible={true}

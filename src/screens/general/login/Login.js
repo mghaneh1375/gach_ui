@@ -97,12 +97,14 @@ const Login = props => {
               setLoading={setLoading}
             />
 
+            {/* <button> */}
             <TextWithLink
               onPress={() => changeMode('signUp')}
               style={{...styles.margin30}}
               link={translator.subscrible}
               text={translator.ifNotSubscribe}
             />
+            {/* </button> */}
             <TextWithLink
               onPress={() => changeMode('forget')}
               style={{...styles.margin30}}
