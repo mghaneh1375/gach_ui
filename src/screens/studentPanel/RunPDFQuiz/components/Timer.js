@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react';
-import CountDown from 'react-native-countdown-component';
 import {
   convertSecToMin,
   convertSecToMinWithOutSec,
@@ -106,46 +105,6 @@ function Timer(props) {
         />
       </PhoneView>
       <ProgressBar percent={progress} />
-
-      {/* {localReminder_ !== undefined && localReminder_ < 300 && (
-        <CountDown
-          until={props.reminder}
-          onFinish={() => {
-            dispatch({exit: true});
-          }}
-          timeToShow={['H', 'M', 'S']}
-          style={{direction: 'ltr', marginTop: 20}}
-          digitStyle={{
-            backgroundColor: 'blue',
-            height: 0,
-            width: 20,
-            color: vars.RED,
-          }}
-          digitTxtStyle={{
-            ...styles.colorOrangeRed,
-            width: 20,
-            fontFamily: 'IRANSans',
-            ...styles.fontSize15,
-          }}
-          timeLabelStyle={{
-            color: 'red',
-            fontWeight: 'bold',
-          }}
-          separatorStyle={{
-            ...styles.colorOrangeRed,
-            ...styles.fontSize15,
-            ...styles.margin5,
-          }}
-          showSeparator
-          timeLabels={{h: '', s: '', m: ''}}
-          size={20}
-        />
-      )} */}
-
-      {/* text={convertSecToMinWithOutSec(localReminder_) + Translate.reminder} */}
-      {/* {localReminder_ !== undefined && localReminder_ > 300 && (
-        <SimpleTextWithRef ref={timerRef} />
-      )} */}
 
       <SimpleTextWithRef ref={timerRef} />
     </MyView>

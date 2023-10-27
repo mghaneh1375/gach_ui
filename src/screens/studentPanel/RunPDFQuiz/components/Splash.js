@@ -25,7 +25,6 @@ import {
   faClock,
   faMagnifyingGlass,
   faMessage,
-  faInfo,
   faQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
@@ -78,10 +77,12 @@ function Splash(props) {
         answers: res[0].questions.map(elem => {
           return elem.stdAns;
         }),
+        file: res[0].file,
         quizInfo: res[0].quizInfo,
         reminder: res[0].quizInfo.reminder,
         refresh: res[0].quizInfo.refresh,
         setLoadingWithText: props.setLoadingWithText,
+        showAnswers: props.isInReviewMode,
       });
 
       setIsWorking(false);

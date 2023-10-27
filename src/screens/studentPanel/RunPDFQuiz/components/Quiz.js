@@ -1,8 +1,15 @@
 import React from 'react';
-import {getDevice} from '../../../../services/Utility';
-import {CommonButton, MyView, SimpleText} from '../../../../styles/Common';
+import {getDevice, getWidthHeight} from '../../../../services/Utility';
+import {
+  CommonButton,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../../styles/Common';
 import {LargePopUp} from '../../../../styles/Common/PopUp';
 import {dispatchDoQuizContext, doQuizContext} from './Context';
+import AnswerSheet from './AnswerSheet';
+import vars from '../../../../styles/root';
 
 function Quiz(props) {
   const device = getDevice();
@@ -14,6 +21,7 @@ function Quiz(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
+  const [w, h] = getWidthHeight();
 
   return (
     <>
@@ -37,18 +45,32 @@ function Quiz(props) {
         </LargePopUp>
       )}
       {!state.showExitConfirmation && state.file && (
-        <MyView>
-          <object
-            data={state.file}
-            type="application/pdf"
-            width="100%"
-            height="100%">
-            <p>
-              Alternative text - include a link{' '}
-              <a href={state.file}>to the PDF!</a>
-            </p>
-          </object>
-        </MyView>
+        <PhoneView style={{margin: 10, gap: 10}}>
+          <MyView style={{width: (w - vars.RIGHT_MENU_WIDTH) / 2 - 20}}>
+            <object
+              data={state.file}
+              type="application/pdf"
+              width="100%"
+              height={h - 20 - 80}>
+              <p>
+                Alternative text - include a link{' '}
+                <a href={state.file}>to the PDF!</a>
+              </p>
+            </object>
+          </MyView>
+          <MyView
+            style={{
+              width: (w - vars.RIGHT_MENU_WIDTH) / 2 - 20,
+            }}>
+            <AnswerSheet
+              answer_sheet={state.answers}
+              setLoading={props.setLoading}
+              token={props.token}
+              state={state}
+              dispatch={dispatch}
+            />
+          </MyView>
+        </PhoneView>
       )}
     </>
   );

@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-import {useFilePicker} from 'use-file-picker';
-import {doSaveAnswers, doUploadAnswer, doUploadAnswerSheet} from './Utility';
+import React from 'react';
+import {doSaveAnswers} from './Utility';
 
 const defaultGlobalState = {
   questions: undefined,
@@ -8,12 +7,10 @@ const defaultGlobalState = {
   file: undefined,
   quizInfo: undefined,
   needUpdate: false,
-  needUpdateAnswer: false,
   reminder: undefined,
   refresh: undefined,
   clearTimer: false,
   exit: false,
-  stdAnswerSheets: undefined,
   showExitConfirmation: false,
   imSureExit: false,
 };
@@ -26,44 +23,6 @@ export const DoQuizProvider = ({children}) => {
     (state, newValue) => ({...state, ...newValue}),
     defaultGlobalState,
   );
-
-  const setAnswer = React.useCallback(() => {
-    if (
-      state.currIdx === undefined ||
-      state.currIdx < 0 ||
-      state.answer === undefined
-    ) {
-      dispatch({needUpdateAnswer: false});
-      return;
-    }
-
-    state.answers[state.currIdx] = state.answer;
-
-    dispatch({answers: state.answers, needUpdateAnswer: false});
-  }, [state.currIdx, state.answer, state.answers]);
-
-  const updateQuestion = React.useCallback(() => {
-    if (state.question === undefined || state.questions === undefined) {
-      dispatch({needUpdate: false});
-      return;
-    }
-    let newQuestions = state.questions.map(elem => {
-      if (elem.id !== state.question.id) return elem;
-      return state.question;
-    });
-
-    dispatch({questions: newQuestions, needUpdate: false});
-  }, [state.question, state.questions]);
-
-  React.useEffect(() => {
-    if (!state.needUpdate) return;
-    updateQuestion();
-  }, [state.needUpdate, updateQuestion]);
-
-  React.useEffect(() => {
-    if (!state.needUpdateAnswer) return;
-    setAnswer();
-  }, [state.needUpdateAnswer, setAnswer]);
 
   React.useEffect(() => {
     if (!state.needStore) return;
@@ -86,28 +45,7 @@ export const DoQuizProvider = ({children}) => {
     Promise.all([
       doSaveAnswers(
         {
-          answers:
-            state.quizInfo.mode === 'tashrihi'
-              ? state.answers
-                  .map((elem, index) => {
-                    if (elem === undefined || elem.length === 0)
-                      return undefined;
-
-                    if (
-                      state.questions[index].canUpload === undefined ||
-                      !state.questions[index].canUpload
-                    )
-                      return {
-                        questionId: state.questions[index].id,
-                        answer: elem,
-                      };
-
-                    return undefined;
-                  })
-                  .filter(elem => {
-                    return elem !== undefined;
-                  })
-              : state.answers,
+          answers: state.answers,
         },
         state.quizInfo.id,
         state.quizInfo.generalMode,
@@ -146,28 +84,7 @@ export const DoQuizProvider = ({children}) => {
     Promise.all([
       doSaveAnswers(
         {
-          answers:
-            state.quizInfo.mode === 'tashrihi'
-              ? state.answers
-                  .map((elem, index) => {
-                    if (elem === undefined || elem.length === 0)
-                      return undefined;
-
-                    if (
-                      state.questions[index].canUpload === undefined ||
-                      !state.questions[index].canUpload
-                    )
-                      return {
-                        questionId: state.questions[index].id,
-                        answer: elem,
-                      };
-
-                    return undefined;
-                  })
-                  .filter(elem => {
-                    return elem !== undefined;
-                  })
-              : state.answers,
+          answers: state.answers,
         },
         state.quizInfo.id,
         state.quizInfo.generalMode,

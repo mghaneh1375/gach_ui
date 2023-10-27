@@ -1,7 +1,7 @@
 import React from 'react';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
-import {MenuItem, style, MenuItemPhone} from '../style';
+import {style, MenuItemPhone} from '../style';
 import translator from '../../../../../translator/Common';
 import {
   faSchool,
@@ -12,11 +12,17 @@ import {
 import {MyView} from '../../../../../styles/Common';
 import MenuItemRepeat from './MenuItemRepeat';
 import {SuperMenuItem} from './SuperMenuItem';
+import MobileLogout from '../MobileLogout';
+import {globalStateContext} from '../../../../../App';
 
 function AdvisorMenu(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
   const navigate = props.navigate;
+
+  const useGlobalState = () => [React.useContext(globalStateContext)];
+
+  const [state] = useGlobalState();
 
   if (isLargePage) {
     return (
@@ -55,10 +61,14 @@ function AdvisorMenu(props) {
   }
   return (
     <MyView
+      className={'menu-container-in-phone'}
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
         ...style.MenuJustApp,
+        ...{
+          zIndex: state.isRightMenuVisible ? 4 : 'unset',
+        },
       }}>
       <MenuItemPhone
         onClick={() => navigate('/myStudentRequests')}
@@ -88,6 +98,8 @@ function AdvisorMenu(props) {
         isApp={false}
         selected={props.selected === 'myFinancePlans'}
       />
+
+      <MobileLogout name={props.name} navigate={props.navigate} />
     </MyView>
   );
 }

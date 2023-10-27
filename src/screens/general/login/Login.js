@@ -95,22 +95,23 @@ const Login = props => {
               }}
               // style={{marginTop: 20}}
               setLoading={setLoading}
+              changeMode={changeMode}
             />
 
             {/* <button> */}
-            <TextWithLink
+            {/* <TextWithLink
               onPress={() => changeMode('signUp')}
               style={{...styles.margin30}}
               link={translator.subscrible}
               text={translator.ifNotSubscribe}
-            />
+            /> */}
             {/* </button> */}
-            <TextWithLink
+            {/* <TextWithLink
               onPress={() => changeMode('forget')}
               style={{...styles.margin30}}
               text={translator.ifForget}
               link={translator.forgetAction}
-            />
+            /> */}
           </MyView>
         )}
 

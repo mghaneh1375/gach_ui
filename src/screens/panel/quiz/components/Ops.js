@@ -230,7 +230,9 @@ const Ops = props => {
                 onPress={() =>
                   window.open(
                     '/reviewQuiz/' +
-                      state.selectedQuiz.generalMode +
+                      (state.selectedQuiz.pdfQuiz
+                        ? 'pdf'
+                        : state.selectedQuiz.generalMode) +
                       '/' +
                       state.selectedQuiz.id,
                     '_blank',

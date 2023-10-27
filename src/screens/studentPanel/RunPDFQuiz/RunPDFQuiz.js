@@ -56,7 +56,6 @@ function RunPDFQuiz(props) {
 
   const [oldMode, setOldMode] = useState();
   const [selectedAttach, setSelectedAttach] = useState();
-  const [questionId, setQuestionId] = useState();
 
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
@@ -105,7 +104,6 @@ function RunPDFQuiz(props) {
                 setOldMode(mode);
                 setMode(m);
               }}
-              setQuestionId={setQuestionId}
               setSelectedAttach={setSelectedAttach}
               token={state.token}
             />
@@ -141,6 +139,8 @@ function RunPDFQuiz(props) {
             )}
             {mode !== undefined && mode === 'doQuiz' && (
               <Quiz
+                setLoading={setLoading}
+                token={state.token}
                 isInReviewMode={props.isInReviewMode}
                 onBack={() =>
                   props.user.accesses.indexOf('school') !== -1

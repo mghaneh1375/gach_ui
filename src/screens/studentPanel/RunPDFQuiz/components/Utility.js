@@ -75,6 +75,7 @@ export const doUploadAnswerSheet = async (
 };
 
 export const doSaveAnswers = async (answers, quizId, generalMode, token) => {
+  console.log('here');
   return await generalRequest(
     routes.storeStudentAnswers + generalMode + '/' + quizId,
     'put',

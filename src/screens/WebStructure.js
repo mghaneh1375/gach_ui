@@ -384,8 +384,12 @@ const WebStructue = props => {
               {props.page === 'startQuiz' && params.quizMode === 'escape' && (
                 <RunEscapeQuiz isInReviewMode={false} navigate={navigate} />
               )}
+              {props.page === 'startQuiz' && params.quizMode === 'pdf' && (
+                <RunPDFQuiz isInReviewMode={false} navigate={navigate} />
+              )}
               {props.page === 'startQuiz' &&
                 params.quizMode !== 'escape' &&
+                params.quizMode !== 'pdf' &&
                 params.quizMode !== 'onlineStanding' && (
                   <RunQuiz
                     isInReviewMode={false}

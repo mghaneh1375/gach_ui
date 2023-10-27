@@ -84,6 +84,7 @@ const translator = {
   members: 'اعضای تیم',
   sureChangeMainMember: 'آیا از تغییر نفر اصلی اطمینان دارید؟',
   selectGifts: 'تعیین جوایز',
+  subjectsFile: 'فایل اکسل مباحث آزمون',
 };
 
 export default translator;

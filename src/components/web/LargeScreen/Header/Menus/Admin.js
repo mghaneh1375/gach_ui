@@ -17,11 +17,17 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {SuperMenuItem} from './SuperMenuItem';
 import {MyView} from '../../../../../styles/Common';
+import MobileLogout from '../MobileLogout';
+import {globalStateContext} from '../../../../../App';
 
 function AdminMenu(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
   const navigate = props.navigate;
+
+  const useGlobalState = () => [React.useContext(globalStateContext)];
+
+  const [state] = useGlobalState();
 
   if (isLargePage) {
     return (
@@ -317,10 +323,14 @@ function AdminMenu(props) {
 
   return (
     <MyView
+      className={'menu-container-in-phone'}
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
         ...style.MenuJustApp,
+        ...{
+          zIndex: state.isRightMenuVisible ? 4 : 'unset',
+        },
       }}>
       <MenuItemPhone
         text={translator.home}
@@ -608,6 +618,8 @@ function AdminMenu(props) {
         icon={faUsers}
         selected={props.selected === 'avatar'}
       />
+
+      <MobileLogout name={props.name} navigate={props.navigate} />
     </MyView>
   );
 }

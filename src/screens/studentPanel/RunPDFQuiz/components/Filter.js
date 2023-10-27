@@ -39,12 +39,28 @@ function Filter(props) {
       {!props.isInReviewMode &&
         state.quizInfo.duration > 0 &&
         !state.clearTimer && (
-          <Timer
-            refresh={state.refresh}
-            reminder={state.reminder}
-            duration={state.quizInfo.duration}
-            callNeedStore={() => dispatch({needStore: true})}
-          />
+          <>
+            <Timer
+              refresh={state.refresh}
+              reminder={state.reminder}
+              duration={state.quizInfo.duration}
+              callNeedStore={() => dispatch({needStore: true})}
+            />
+
+            <PhoneView>
+              <CommonButton
+                onPress={() => dispatch({needStore: true})}
+                theme={'dark'}
+                title={'ذخیره'}
+              />
+              <CommonButton
+                title={'خروج'}
+                onPress={() => {
+                  dispatch({exit: true});
+                }}
+              />
+            </PhoneView>
+          </>
         )}
 
       {state.quizInfo !== undefined &&

@@ -131,6 +131,8 @@ function List(props) {
                         quiz.status !== 'inProgress' &&
                         quiz.status !== 'continue'
                           ? openOpBox(quiz)
+                          : quiz.pdfQuiz
+                          ? props.navigate('/startQuiz/pdf/' + quiz.id)
                           : props.navigate(
                               '/startQuiz/' + quiz.generalMode + '/' + quiz.id,
                             )

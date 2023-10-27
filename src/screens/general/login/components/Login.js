@@ -3,11 +3,11 @@ import {routes} from '../../../../API/APIRoutes';
 import {setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {style} from '../../../../components/web/LargeScreen/Header/style';
-import {showError} from '../../../../services/Utility';
-import {CommonButton, MyView} from '../../../../styles/Common';
+import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
 import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
 import commonTranlator from './../../../../translator/Common';
 import translator from './../translate';
+import {styles} from '../../../../styles/Common/Styles';
 
 const Login = props => {
   const [username, setUsername] = useState('');
@@ -67,13 +67,24 @@ const Login = props => {
         onChangeText={e => changeInput('password', e)}
         style={{marginTop: 20}}
       />
-      <MyView>
+      <PhoneView>
         <CommonButton
           style={{marginTop: 50}}
           onPress={() => requestLogin()}
           title={commonTranlator.entrance}
         />
-      </MyView>
+        <CommonButton
+          theme={'dark'}
+          onPress={() => props.changeMode('signUp')}
+          title={'ثبت نام'}
+        />
+
+        <CommonButton
+          theme={'orangeRed'}
+          onPress={() => props.changeMode('forget')}
+          title={'فراموشی رمزعبور'}
+        />
+      </PhoneView>
     </MyView>
   );
 };
