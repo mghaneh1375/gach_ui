@@ -1,14 +1,9 @@
 import React, {useState} from 'react';
-import {getDevice, getWidthHeight} from '../../../services/Utility';
+import {getDevice} from '../../../services/Utility';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import LoginModule from './components/Login';
 
-import {
-  commonStyles,
-  MyView,
-  ScreenScroll,
-  TextWithLink,
-} from '../../../styles/Common';
+import {commonStyles, MyView, ScreenScroll} from '../../../styles/Common';
 import translator from './translate';
 import {TextIcon} from '../../../styles/Common/TextIcon';
 import {Device} from '../../../models/Device';
@@ -19,7 +14,6 @@ import VerificationModule from './components/Verification';
 import SignupModule from './components/Signup';
 import RoleFormModule from './components/RoleForm';
 import {style} from '../../../components/web/LargeScreen/Header/style';
-import {styles} from '../../../styles/Common/Styles';
 
 const Login = props => {
   const device = getDevice();

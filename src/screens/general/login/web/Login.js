@@ -172,16 +172,16 @@ const Login = props => {
           )}
         </BlurLoginBack>
         <BlurLoginBack style={{marginTop: '20px'}}>
-          <InlineTextContainer>
+          {/* <InlineTextContainer>
             <BlueTextInline text={translator.ifForget} />
             <TextLink
               text={translator.forgetAction}
               onPress={() => changeMode('forgetPass')}
             />
-          </InlineTextContainer>
+          </InlineTextContainer> */}
 
           <MyView style={{paddingLeft: 30}}>
-            <EqualTwoTextInputs style={{marginTop: 10}}>
+            {/* <EqualTwoTextInputs style={{marginTop: 10}}>
               <BlueTextInline
                 style={{alignSelf: 'center'}}
                 text={translator.notSubscribeYet}
@@ -191,7 +191,7 @@ const Login = props => {
                 title={commonTranlator.signUp}
                 onPress={() => changeMode('signUp')}
               />
-            </EqualTwoTextInputs>
+            </EqualTwoTextInputs> */}
             <PhoneView style={{marginTop: 10, justifyContent: 'space-between'}}>
               <BlueTextInline
                 style={{alignSelf: 'center'}}
@@ -200,6 +200,9 @@ const Login = props => {
               <CommonButton
                 style={{marginRight: 'auto', backgroundColor: vars.DARK_BLUE}}
                 title={commonTranlator.support}
+                onPress={() =>
+                  (window.location.href = 'https://www.irysc.com/contact-us')
+                }
               />
             </PhoneView>
           </MyView>

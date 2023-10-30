@@ -4,7 +4,12 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {getDevice, getWidthHeight} from '../../../../services/Utility';
-import {MyView, MyViewWithRef, SimpleText} from '../../../../styles/Common';
+import {
+  CommonButton,
+  MyView,
+  MyViewWithRef,
+  SimpleText,
+} from '../../../../styles/Common';
 import Confetti from 'react-confetti';
 import vars from '../../../../styles/root';
 import {styles} from '../../../../styles/Common/Styles';
@@ -174,9 +179,14 @@ function Spinner(props) {
   return (
     <>
       {spins !== undefined && (
-        <MyViewWithRef style={{...styles.alignItemsCenter}}>
+        <MyViewWithRef
+          style={{...styles.alignItemsCenter, ...styles.justifyContentCenter}}>
           {showCongratulations && (
-            <MyView>
+            <MyView
+              style={{
+                ...styles.justifyContentCenter,
+                ...styles.alignItemsCenter,
+              }}>
               <SimpleText
                 text={`تبریک شما برنده ${award} شدید`}
                 style={{
@@ -187,14 +197,15 @@ function Spinner(props) {
                   ...{marginTop: '200px'},
                 }}
               />
-              <SimpleText
-                text={' برای مشاهده جزییات کلیک کنید'}
+              <CommonButton
+                title={'برای مشاهده جزییات کلیک کن'}
                 style={{
                   ...styles.BlueBold,
                   ...styles.alignSelfCenter,
                   ...styles.fontSize20,
                   ...styles.colorGreen,
                   ...styles.cursor_pointer,
+                  ...styles.justifyContentCenter,
                 }}
                 onPress={() => props.navigate('/myOffs')}
               />
@@ -202,7 +213,12 @@ function Spinner(props) {
                 (repeat === 'third' && coinForThirdTime !== undefined) ||
                 (repeat === 'forth' && coinForForthTime !== undefined) ||
                 (repeat === 'fifth' && coinForFifthTime !== undefined)) && (
-                <MyView style={{...styles.marginTop50}}>
+                <MyView
+                  style={{
+                    ...styles.marginTop50,
+                    ...styles.justifyContentCenter,
+                    ...styles.alignItemsCenter,
+                  }}>
                   <SimpleText
                     style={{
                       ...styles.BlueBold,
@@ -210,7 +226,7 @@ function Spinner(props) {
                       ...styles.fontSize20,
                       ...styles.colorGreen,
                     }}
-                    text={'آیا می خواهید در گردونه شانس مجددا شرکت کنید؟'}
+                    text={'اگر می خوای دوباره گردونه رو بچرخونی، باید '}
                   />
                   <SimpleText
                     style={{
@@ -220,29 +236,29 @@ function Spinner(props) {
                       ...styles.colorGreen,
                     }}
                     text={
-                      'فقط کافیه ' +
                       (repeat === 'second'
                         ? coinForSecondTime
                         : repeat === 'third'
                         ? coinForThirdTime
                         : repeat === 'forth'
                         ? coinForForthTime
-                        : coinForFifthTime) +
-                      ' ایکس پول بدهید'
+                        : coinForFifthTime) + ' ایکس پول بدی'
                     }
                   />
-                  <SimpleText
+                  <CommonButton
+                    theme={'dark'}
                     style={{
                       ...styles.BlueBold,
                       ...styles.alignSelfCenter,
                       ...styles.fontSize20,
                       ...styles.colorGreen,
                       ...styles.cursor_pointer,
+                      ...styles.justifyContentCenter,
                     }}
                     onPress={() => {
                       rotateAgain(repeat);
                     }}
-                    text={'بزن بریم!!'}
+                    title={'بزن بریم!!'}
                   />
                 </MyView>
               )}
@@ -267,11 +283,11 @@ function Spinner(props) {
               }
               primaryColor="black"
               contrastColor="white"
-              buttonText="چرخنده"
+              buttonText="بچرخون"
               isOnlyOnce={true}
               size={290}
-              upDuration={600}
-              downDuration={10000}
+              upDuration={100}
+              downDuration={3000}
               fontFamily="IRANSans"
             />
           )}
