@@ -331,6 +331,7 @@ function AdminMenu(props) {
         ...{
           zIndex: state.isRightMenuVisible ? 4 : 'unset',
         },
+        marginBottom: '145px',
       }}>
       <MenuItemPhone
         text={translator.home}

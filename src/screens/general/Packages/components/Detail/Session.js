@@ -60,7 +60,11 @@ function Session(props) {
             props.session.video === undefined ||
             props.session.video === 'null' ||
             props.session.video === '') && (
-            <SimpleFontIcon kind={'med'} style={{color: 'red'}} icon={faLock} />
+            <SimpleFontIcon
+              kind={'normal'}
+              style={{color: 'red'}}
+              icon={faLock}
+            />
           )}
           <SimpleFontIcon
             onPress={() => setShow(!show)}

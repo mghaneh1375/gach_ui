@@ -395,7 +395,7 @@ function Detail(props) {
             <PhoneView>
               <MyView
                 style={{
-                  order: isInPhone ? 2 : 1,
+                  // order: isInPhone ? 2 : 1,
                   width: isInPhone ? '100%' : 'calc(70% - 10px)',
                 }}>
                 <CommonWebBox>
@@ -545,7 +545,7 @@ function Detail(props) {
                 </CommonWebBox>
 
                 <CommonWebBox
-                  style={{marginBottom: '75px'}}
+                  // style={{marginBottom: '75px'}}
                   btn={
                     showFAQ ? (
                       <SimpleFontIcon
@@ -1112,7 +1112,9 @@ function Detail(props) {
                   </CommonWebBox>
                 )}
 
-                <CommonWebBox header={Translator.teacherBio}>
+                <CommonWebBox
+                  style={{marginBottom: '75px'}}
+                  header={Translator.teacherBio}>
                   <SimpleText
                     style={styles.BlueBold}
                     text={item.teacher.join(' - ')}
