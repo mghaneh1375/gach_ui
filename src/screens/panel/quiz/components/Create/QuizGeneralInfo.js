@@ -4,7 +4,7 @@ import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorde
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import translator from '../../Translator';
 import commonTranslator from '../../../../../translator/Common';
-import {kindQuizKeyVals} from '../KeyVals';
+import {kindQuizKeyVals, limitedKindQuizKeyVals} from '../KeyVals';
 import {dispatchQuizContext, quizContext} from './../Context';
 
 const QuizGeneralInfo = props => {
@@ -40,7 +40,11 @@ const QuizGeneralInfo = props => {
             placeholder={translator.kind}
             subText={translator.kind}
             setter={props.setKind}
-            values={kindQuizKeyVals}
+            values={
+              props.excludeTashrihi === undefined || !props.excludeTashrihi
+                ? kindQuizKeyVals
+                : limitedKindQuizKeyVals
+            }
           />
         )}
         {props.setTags !== undefined && (

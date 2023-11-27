@@ -89,6 +89,19 @@ export const addItemToSchedule = async (token, userId, data) => {
   return res;
 };
 
+export const updateScheduleItem = async (token, userId, data) => {
+  let res = await generalRequest(
+    routes.updateScheduleItem + userId,
+    'put',
+    data,
+    'data',
+    token,
+  );
+  if (res != null) showSuccess();
+
+  return res;
+};
+
 export const getLessons = (gradeId, isOlympiad) => {
   let query = new URLSearchParams();
   query.append('parentId', gradeId);

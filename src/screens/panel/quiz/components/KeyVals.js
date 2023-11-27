@@ -5,6 +5,11 @@ export const kindQuizKeyVals = [
   {id: 'hybrid', item: 'تلفیقی(تست - کوتاه پاسخ - چند گزاره ای)'},
 ];
 
+export const limitedKindQuizKeyVals = [
+  {id: 'regular', item: 'تستی'},
+  {id: 'regularWithPDF', item: 'تستی با PDF'},
+];
+
 export const kindQuizKeyValsForFilter = [
   {id: 'regular', item: 'تستی'},
   {id: 'tashrihi', item: 'تشریحی'},

@@ -77,7 +77,7 @@ function MyAdvisor(props) {
         <PhoneView>
           <CommonButton
             onPress={() => props.navigate('/myLifeStyle')}
-            title={'تغییر برنامه ریزی روزانه'}
+            title={'برنامه‌ی روزانه‌ی من'}
           />
           {myAdvisors !== undefined &&
             myAdvisors !== null &&
@@ -92,7 +92,7 @@ function MyAdvisor(props) {
                 <CommonButton
                   theme={'orangeRed'}
                   onPress={() => props.navigate('/myAdvisor/quiz')}
-                  title={'آزمون ها'}
+                  title={'آزمون‌ها'}
                 />
               </>
             )}

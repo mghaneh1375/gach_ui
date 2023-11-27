@@ -32,7 +32,7 @@ const Verification = props => {
     let res = await generalRequest(
       props.mode === 'signUp'
         ? routes.activate
-        : props.mode === 'forgetPass'
+        : props.mode === 'forget'
         ? routes.checkCode
         : routes.setUsername,
       'post',

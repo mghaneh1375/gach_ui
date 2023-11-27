@@ -61,7 +61,7 @@ function Detail(props) {
 
   return (
     <CommonWebBox
-      header={'پیام های من'}
+      header={'نامه‌های من'}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       {notif !== undefined && (

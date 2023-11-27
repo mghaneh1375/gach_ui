@@ -84,6 +84,14 @@ function Splash(props) {
         setLoadingWithText: props.setLoadingWithText,
         showAnswers: props.isInReviewMode,
       });
+      props.setHasRightSection(
+        !(
+          res[0].quizInfo === undefined ||
+          (props.isInReviewMode &&
+            (res[0].quizInfo.attaches === undefined ||
+              res[0].quizInfo.attaches.length === 0))
+        ),
+      );
 
       setIsWorking(false);
     });
@@ -226,7 +234,7 @@ function Splash(props) {
 
           <CommonWebBox
             style={
-              isInPhone
+              isInPhone || !props.hasRightSection
                 ? {
                     ...basketBoxInPhone,
                     ...{

@@ -8,7 +8,9 @@ import {
 import SubInputText from './SubInputText';
 
 function TimePicker(props) {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(
+    props.value !== undefined ? props.value : '',
+  );
 
   let style1 = CommonTextInputStyleWeb;
 

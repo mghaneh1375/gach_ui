@@ -384,12 +384,13 @@ const WebStructue = props => {
               {props.page === 'startQuiz' && params.quizMode === 'escape' && (
                 <RunEscapeQuiz isInReviewMode={false} navigate={navigate} />
               )}
-              {props.page === 'startQuiz' && params.quizMode === 'pdf' && (
-                <RunPDFQuiz isInReviewMode={false} navigate={navigate} />
-              )}
+              {props.page === 'startQuiz' &&
+                params.quizMode.indexOf('pdf') !== -1 && (
+                  <RunPDFQuiz isInReviewMode={false} navigate={navigate} />
+                )}
               {props.page === 'startQuiz' &&
                 params.quizMode !== 'escape' &&
-                params.quizMode !== 'pdf' &&
+                params.quizMode.indexOf('pdf') === -1 &&
                 params.quizMode !== 'onlineStanding' && (
                   <RunQuiz
                     isInReviewMode={false}
@@ -409,11 +410,12 @@ const WebStructue = props => {
                     navigate={navigate}
                   />
                 )}
-              {props.page === 'reviewQuiz' && params.quizMode === 'pdf' && (
-                <RunPDFQuiz isInReviewMode={true} navigate={navigate} />
-              )}
               {props.page === 'reviewQuiz' &&
-                params.quizMode !== 'pdf' &&
+                params.quizMode.indexOf('pdf') !== -1 && (
+                  <RunPDFQuiz isInReviewMode={true} navigate={navigate} />
+                )}
+              {props.page === 'reviewQuiz' &&
+                params.quizMode.indexOf('pdf') === -1 &&
                 params.quizMode !== 'onlineStanding' && (
                   <RunQuiz
                     isInReviewMode={true}

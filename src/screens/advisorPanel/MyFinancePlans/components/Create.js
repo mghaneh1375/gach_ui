@@ -31,6 +31,7 @@ function Create(props) {
   const [visibility, setVisibility] = useState();
   const [description, setDescription] = useState();
   const [maxChat, setMaxChat] = useState();
+  const [videoLink, setVideoLink] = useState();
 
   const create = async () => {
     let data = {
@@ -43,6 +44,7 @@ function Create(props) {
     if (maxExam) data.maxExam = maxExam;
     if (maxChat) data.maxChat = maxChat;
     if (maxKarbarg) data.maxKarbarg = maxKarbarg;
+    if (videoLink) data.videoLink = videoLink;
 
     if (description !== undefined && description.length > 0)
       data.description = description;
@@ -163,6 +165,13 @@ function Create(props) {
           value={statusKeyVals.find(elem => elem.id === visibility)}
         />
       </PhoneView>
+      <JustBottomBorderTextInput
+        isHalf={true}
+        placeholder={translator.videoLink}
+        subText={translator.videoLink + '  -  ' + commonTranslator.optional}
+        value={videoLink}
+        onChangeText={e => setVideoLink(e)}
+      />
       <EqualTwoTextInputs>
         <JustBottomBorderTextInput
           multiline={true}

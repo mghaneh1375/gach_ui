@@ -365,7 +365,7 @@ function Panel(props) {
 
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
-              text={'تعداد آزمون ها در ماه جاری'}
+              text={'تعداد آزمون‌ها در ماه جاری'}
               fontSize={17}
               theme={vars.DARK_BLUE}
               subtext={data.quizzesInMonth}
@@ -376,7 +376,7 @@ function Panel(props) {
 
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
-              text={'تعداد آزمون ها در ماه قبلی'}
+              text={'تعداد آزمون‌ها در ماه قبلی'}
               fontSize={17}
               theme={vars.DARK_BLUE}
               subtext={data.quizzesInLastMonth}

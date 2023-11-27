@@ -215,7 +215,7 @@ function SchoolList(props) {
             width: '100%',
             minHeight: '100vh',
           }}>
-          <BigBoldBlueText text={'لیست آزمون ها'} />
+          <BigBoldBlueText text={'لیست آزمون‌ها'} />
           <Quizzes
             marginBottom={30}
             fullWidth={!state.isRightMenuVisible}

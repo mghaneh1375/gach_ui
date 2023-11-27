@@ -112,7 +112,7 @@ function MyCerts(props) {
         <CommonWebBox
           width={isInPhone ? '100%' : '80%'}
           style={{...styles.alignSelfCenter}}
-          header={'گواهی های من'}>
+          header={'گواهی‌های من'}>
           <CommonDataTable
             excel={false}
             pagination={false}

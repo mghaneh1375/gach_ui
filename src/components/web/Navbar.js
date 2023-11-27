@@ -88,7 +88,7 @@ const Navbar = props => {
             paddingRight: 10,
             display: width > 768 && width < 900 ? 'none' : 'flex',
           }}
-          title={'آزمون ها'}
+          title={'آزمون‌ها'}
           onPress={() => {
             window.location.href = '/buy';
           }}

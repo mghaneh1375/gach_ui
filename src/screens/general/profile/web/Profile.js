@@ -70,6 +70,7 @@ const Profile = props => {
   const [showEditPic, setShowEditPic] = useState(true);
   const [showEditForm, setShowEditForm] = useState(true);
   const [acceptStd, setAcceptStd] = useState();
+  const [videoLink, setVideoLink] = useState();
 
   React.useEffect(() => {
     if (user !== undefined || isWorking) return;
@@ -233,6 +234,12 @@ const Profile = props => {
                       placeholder={'متن درباره من'}
                       subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
                     />
+                    <JustBottomBorderTextInput
+                      placeholder={'لینک ویدیو معرفی من'}
+                      subText={'لینک ویدیو معرفی من - اختیاری'}
+                      value={videoLink}
+                      onChangeText={e => setVideoLink(e)}
+                    />
                     <CommonButton
                       title={commonTranslator.confirm}
                       onPress={async () => {
@@ -241,12 +248,15 @@ const Profile = props => {
                           return;
                         }
                         setLoading(true);
+                        let data = {
+                          aboutMe: aboutMe,
+                        };
+                        if (videoLink !== undefined && videoLink !== '')
+                          data.videoLink = videoLink;
                         let res = await generalRequest(
                           routes.setAboutMe,
                           'put',
-                          {
-                            aboutMe: aboutMe,
-                          },
+                          data,
                           undefined,
                           props.token,
                         );

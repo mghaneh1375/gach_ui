@@ -53,7 +53,7 @@ function ListExamTags(props) {
 
   return (
     <CommonWebBox
-      header={' آزمون ها '}
+      header={' آزمون‌ها '}
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
       {state.tags && (

@@ -36,8 +36,8 @@ function StudentMenu(props) {
         // excludes={['advisor', 'mySchool']}
         excludes={
           state.user?.user?.hasAdvisor
-            ? ['my_life_style']
-            : ['my_advisor', 'my_advisor_quizzes']
+            ? []
+            : ['my_advisor', 'my_advisor_quizzes', 'my_schedules']
         }
         navigate={props.navigate}
         selected={props.selected}
@@ -129,14 +129,18 @@ function StudentMenu(props) {
             url: '/myAdvisor',
           },
           {
-            text: state.user?.user?.hasAdvisor
-              ? undefined
-              : 'تغییر برنامه ریزی روزانه',
+            text: 'برنامه‌ی روزانه‌ی من',
             url: '/myLifeStyle',
           },
           {
             text: translator.advisors,
             url: '/advisors',
+          },
+          {
+            text: state.user?.user?.hasAdvisor
+              ? translator.mySchedules
+              : undefined,
+            url: '/mySchedules',
           },
           {
             text: state.user?.user?.hasAdvisor ? translator.quizes : undefined,

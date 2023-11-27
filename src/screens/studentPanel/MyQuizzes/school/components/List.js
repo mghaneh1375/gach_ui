@@ -232,7 +232,9 @@ function List(props) {
                               ? openOpBox(quiz)
                               : props.navigate(
                                   '/startQuiz/' +
-                                    quiz.generalMode +
+                                    (quiz.pdfQuiz
+                                      ? 'school_pdf'
+                                      : quiz.generalMode) +
                                     '/' +
                                     quiz.id,
                                 )
@@ -265,6 +267,15 @@ function List(props) {
             </PhoneView>
           )}
         </MyView>
+      )}
+
+      {refId !== undefined && (
+        <form
+          ref={ref}
+          action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat"
+          method="post">
+          <input type={'hidden'} value={refId} name="RefId" />
+        </form>
       )}
     </MyView>
   );

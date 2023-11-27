@@ -79,7 +79,9 @@ function Ops(props) {
   const prepareReview = () => {
     props.navigate(
       '/reviewQuiz/' +
-        state.selectedQuiz.generalMode +
+        (state.selectedQuiz.pdfQuiz
+          ? 'school_pdf'
+          : state.selectedQuiz.generalMode) +
         '/' +
         state.selectedQuiz.id,
     );

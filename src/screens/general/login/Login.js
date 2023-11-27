@@ -45,7 +45,7 @@ const Login = props => {
 
   const changeMode = wantedMode => {
     if (wantedMode === 'signUp') setIsSignUp(true);
-    else if (wantedMode === 'forgetPass') setIsSignUp(false);
+    else if (wantedMode === 'forget') setIsSignUp(false);
     setMode(wantedMode);
   };
 
@@ -130,7 +130,7 @@ const Login = props => {
             setCode={setCode}
             setMode={setMode}
             username={username}
-            mode={isSignUp ? 'signUp' : 'forgetPass'}
+            mode={isSignUp ? 'signUp' : 'forget'}
           />
         )}
         {mode === 'resetPass' && (

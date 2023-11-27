@@ -42,12 +42,12 @@ function AdvisorMenu(props) {
                 url: '/myStudentRequests',
               },
               {
-                text: translator.mySchoolQuizess,
-                url: '/mySchoolQuizzes',
-              },
-              {
                 text: translator.management + ' ' + translator.students,
                 url: '/manageStudent',
+              },
+              {
+                text: translator.mySchoolQuizess,
+                url: '/mySchoolQuizzes',
               },
               {
                 text: translator.myFinancePlans,
@@ -78,19 +78,20 @@ function AdvisorMenu(props) {
         selected={props.selected === 'myStudentRequests'}
       />
       <MenuItemPhone
-        onClick={() => navigate('/mySchoolQuizzes')}
-        text={translator.mySchoolQuizess}
-        icon={faSchool}
-        isApp={false}
-        selected={props.selected === 'mySchoolQuizzes'}
-      />
-      <MenuItemPhone
         onClick={() => navigate('/manageStudent')}
         text={translator.management + ' ' + translator.students}
         icon={faUsers}
         isApp={false}
         selected={props.selected === 'manageStudent'}
       />
+      <MenuItemPhone
+        onClick={() => navigate('/mySchoolQuizzes')}
+        text={translator.mySchoolQuizess}
+        icon={faSchool}
+        isApp={false}
+        selected={props.selected === 'mySchoolQuizzes'}
+      />
+
       <MenuItemPhone
         onClick={() => navigate('/myFinancePlans')}
         text={translator.myFinancePlans}

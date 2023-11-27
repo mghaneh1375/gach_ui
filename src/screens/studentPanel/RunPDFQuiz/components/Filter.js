@@ -1,14 +1,13 @@
 import {
   CommonButton,
   CommonWebBox,
-  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
 import {styles} from '../../../../styles/Common/Styles';
 import vars from '../../../../styles/root';
-import React, {useState} from 'react';
+import React from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 
 import Timer from './Timer';
@@ -29,7 +28,13 @@ function Filter(props) {
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
 
-  if (state.quizInfo === undefined) return <></>;
+  if (
+    state.quizInfo === undefined ||
+    (props.isInReviewMode &&
+      (state.quizInfo.attaches === undefined ||
+        state.quizInfo.attaches.length === 0))
+  )
+    return <></>;
 
   return (
     <CommonWebBox

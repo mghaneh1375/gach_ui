@@ -2,9 +2,6 @@ import React from 'react';
 import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
 import Show from './Show/Show';
 import translator from '../Translator';
-import MakeQuiz from '../../../../studentPanel/MakeQuiz/MakeQuiz';
-
-// import WheelsOfPrizes from '../../../../../components/web/WheelsOfPrizes/WheelsOfPrizes';
 
 function List(props) {
   const setDefaultAvatar = avatarId => {

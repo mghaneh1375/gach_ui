@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {dispatchQuizContext, quizContext} from '../Context';
 import {setPDFQuestions} from '../Utility';
 import {
   CommonButton,
+  CommonWebBox,
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
@@ -21,14 +21,7 @@ import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {styles} from '../../../../../styles/Common/Styles';
 
 function UploadQuestions(props) {
-  const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
-  ];
-
-  const [state, dispatch] = useGlobalState();
-
-  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
+  const [openFileSelector, {filesContent, loading, errors, clear}] =
     useFilePicker({
       maxFileSize: 6,
       accept: ['pdf/*'],
@@ -36,10 +29,16 @@ function UploadQuestions(props) {
       multiple: false,
     });
 
-  const [count, setCount] = useState(state.selectedQuiz.qNo);
-
+  const [count, setCount] = useState(props.state.selectedQuiz.qNo);
+  React.useEffect(() => {
+    if (errors[0]?.fileSizeToolarge)
+      showError('حداکثر حجم مجاز 6 مگابایت می باشد');
+  }, [errors]);
   return (
-    <>
+    <CommonWebBox
+      backBtn={true}
+      onBackClick={() => props.setMode('list')}
+      header={translator.pdfQuestion}>
       <JustBottomBorderTextInput
         onChangeText={text => changeText(text, setCount)}
         placeholder={translator.qNo}
@@ -61,8 +60,13 @@ function UploadQuestions(props) {
         />
 
         <PhoneView style={{marginTop: 20}}>
-          {state.selectedQuiz.file !== undefined && (
-            <AttachBox filename={state.selectedQuiz.file} />
+          {props.state.selectedQuiz.pdfQuestionFile && (
+            <AttachBox
+              onClick={() =>
+                window.open(props.state.selectedQuiz.pdfQuestionFile)
+              }
+              filename={props.state.selectedQuiz.pdfQuestionFile}
+            />
           )}
 
           {filesContent !== undefined &&
@@ -74,7 +78,7 @@ function UploadQuestions(props) {
                   filename={elem.name}
                   fileContent={elem.content}
                   removeAttach={() => {
-                    remove(index);
+                    clear();
                   }}
                 />
               );
@@ -91,21 +95,25 @@ function UploadQuestions(props) {
 
           props.setLoading(true);
           let res = await setPDFQuestions(
-            state.selectedQuiz.id,
+            props.state.selectedQuiz.id,
             props.token,
             count,
             filesContent[0],
           );
 
           props.setLoading(false);
-          if (res[0] == null) return;
+          if (res == null) return;
 
           showSuccess();
+          props.state.selectedQuiz.qNo = count;
+          props.state.selectedQuiz.questionsCount = count;
+          props.state.selectedQuiz.subjects = undefined;
+          props.dispatch({selectedQuiz: props.state.selectedQuiz});
         }}
         theme={'dark'}
         title={commonTranslator.confirm}
       />
-    </>
+    </CommonWebBox>
   );
 }
 

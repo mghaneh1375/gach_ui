@@ -60,6 +60,8 @@ function RunPDFQuiz(props) {
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
 
+  const [hasRightSection, setHasRightSection] = React.useState(true);
+
   return (
     <MyView style={isInPhone ? {marginBottom: 20} : {}}>
       <DoQuizProvider>
@@ -110,7 +112,9 @@ function RunPDFQuiz(props) {
           )}
           <MyView
             style={
-              isInPhone ? {width: '100%'} : {width: vars.LEFT_SECTION_WIDTH}
+              isInPhone || !hasRightSection
+                ? {width: '100%'}
+                : {width: vars.LEFT_SECTION_WIDTH}
             }>
             {mode !== undefined && mode === 'splash' && (
               <Splash
@@ -121,6 +125,8 @@ function RunPDFQuiz(props) {
                 quizGeneralMode={params.quizMode}
                 navigate={props.navigate}
                 setLoading={setLoading}
+                hasRightSection={hasRightSection}
+                setHasRightSection={setHasRightSection}
                 setMode={m => {
                   setOldMode(mode);
                   setMode(m);

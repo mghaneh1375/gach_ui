@@ -22,7 +22,7 @@ function Teacher(props) {
           child={
             <MenuItem
               onClick={() => navigate('/myTasks')}
-              text={'آزمون های من'}
+              text={'آزمون‌های من'}
               icon={faTasks}
               selected={props.selected === 'myTasks'}
             />

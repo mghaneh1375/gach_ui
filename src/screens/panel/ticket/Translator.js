@@ -1,5 +1,5 @@
 const translator = {
-  allRequests: 'لیست درخواست ها',
+  allRequests: 'لیست درخواست‌ها',
   seeForm: 'مشاهده فرم اطلاعات',
   status: 'وضعیت درخواست',
   pending: 'در حال بررسی',

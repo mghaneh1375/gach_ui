@@ -157,6 +157,18 @@ function FinancePlan(props) {
                 />
               )}
             </EqualTwoTextInputs>
+            {props.plan.videoLink && (
+              <MyView>
+                <SimpleText text="برای مشاهده جزئیات بیشتر روی لینک زیر کلیک کنید" />
+                <a target="_blank" href={props.plan.videoLink}>
+                  توضیحات بیشتر
+                </a>
+              </MyView>
+            )}
+            {(props.plan.videoLink === undefined ||
+              props.plan.videoLink === '') && (
+              <MyView style={{height: 40}}></MyView>
+            )}
           </>
         )}
       </MyView>

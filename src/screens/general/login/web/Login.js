@@ -56,7 +56,7 @@ const Login = props => {
 
   const changeMode = wantedMode => {
     if (wantedMode === 'signUp') setIsSignUp(true);
-    else if (wantedMode === 'forgetPass') setIsSignUp(false);
+    else if (wantedMode === 'forget') setIsSignUp(false);
 
     setMode(wantedMode);
   };
@@ -116,9 +116,10 @@ const Login = props => {
                 dispatch({token: token});
               }}
               setLoading={setLoading}
+              changeMode={changeMode}
             />
           )}
-          {mode === 'forgetPass' && (
+          {mode === 'forget' && (
             <ForgetPassModule
               setUsername={setUsername}
               username={username}
@@ -147,7 +148,7 @@ const Login = props => {
               setCode={setCode}
               setMode={setMode}
               username={username}
-              mode={isSignUp ? 'signUp' : 'forgetPass'}
+              mode={isSignUp ? 'signUp' : 'forget'}
             />
           )}
           {mode === 'signUp' && (
@@ -201,7 +202,7 @@ const Login = props => {
                 style={{marginRight: 'auto', backgroundColor: vars.DARK_BLUE}}
                 title={commonTranlator.support}
                 onPress={() =>
-                  (window.location.href = 'https://www.irysc.com/contact-us')
+                  (window.location.href = 'https://www.irysc.com/contact-us/')
                 }
               />
             </PhoneView>

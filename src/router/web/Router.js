@@ -83,39 +83,37 @@ export default function WebRouter() {
             path="studentEducationalHistory/:userId"
             element={<WebStructue page="studentEducationalHistory" />}
           />
-
+          <Route
+            path="mySchedules"
+            element={<WebStructue page="mySchedules" />}
+          />
+          <Route
+            path="studentProgress/:userId"
+            element={<WebStructue page="studentProgress" />}
+          />
+          <Route
+            path="studentSchedules/:studentId"
+            element={<WebStructue page="studentSchedules" />}
+          />
+          <Route
+            path="myLifeStyle"
+            element={<WebStructue page="myLifeStyle" />}
+          />
+          <Route
+            path="studentLifeStyle/:studentId"
+            element={<WebStructue page="studentLifeStyle" />}
+          />
+          <Route
+            path="myFinancePlans"
+            element={<WebStructue page="myFinancePlans" />}
+          />
+          <Route path="advisors" element={<WebStructue page="advisors" />} />
+          <Route path="myAdvisor" element={<WebStructue page="myAdvisor" />} />
           <Route
             path="mySchedules"
             element={<WebStructue page="mySchedules" />}
           />
 
-          <Route
-            path="studentProgress/:userId"
-            element={<WebStructue page="studentProgress" />}
-          />
-
-          <Route
-            path="studentSchedules/:studentId"
-            element={<WebStructue page="studentSchedules" />}
-          />
-
-          <Route
-            path="myLifeStyle"
-            element={<WebStructue page="myLifeStyle" />}
-          />
-
-          <Route
-            path="studentLifeStyle/:studentId"
-            element={<WebStructue page="studentLifeStyle" />}
-          />
-
-          <Route
-            path="myFinancePlans"
-            element={<WebStructue page="myFinancePlans" />}
-          />
-
-          <Route path="advisors" element={<WebStructue page="advisors" />} />
-          <Route path="myAdvisor" element={<WebStructue page="myAdvisor" />} />
           <Route
             path="requestLogsForAdvisors"
             element={<WebStructue page="requestLogsForAdvisors" />}
@@ -160,7 +158,6 @@ export default function WebRouter() {
             path="/users/:level"
             element={<WebStructue page="users" />}
           />
-
           <Route
             exact
             path="/basic/:mode/:subMode"
@@ -236,7 +233,6 @@ export default function WebRouter() {
             path="/contents-teacher"
             element={<WebStructue page="contents-teacher" />}
           />
-
           <Route path="/notifs/:mode" element={<WebStructue page="notifs" />} />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route

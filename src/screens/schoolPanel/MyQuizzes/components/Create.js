@@ -69,7 +69,7 @@ const Create = props => {
     useState(true);
 
   const [minusMark, setMinusMark] = useState(undefined);
-
+  const [kind, setKind] = useState();
   const [descBefore, setDescBefore] = useState(undefined);
   const [descAfter, setDescAfter] = useState(undefined);
   const [attaches, setAttaches] = useState(
@@ -123,6 +123,7 @@ const Create = props => {
       descAfter: descAfter,
       desc: descBefore,
       payByStudent: payByStudent,
+      kind: kind,
     };
 
     props.setLoading(true);
@@ -184,7 +185,15 @@ const Create = props => {
         header={translator.generalInfo}
         backBtn={true}
         onBackClick={() => props.setMode('list')}
-        child={<QuizGeneralInfo name={name} setName={setName} />}
+        child={
+          <QuizGeneralInfo
+            kind={kind}
+            setKind={setKind}
+            excludeTashrihi={true}
+            name={name}
+            setName={setName}
+          />
+        }
       />
       <CommonWebBox
         header={translator.runInfo}
@@ -192,6 +201,7 @@ const Create = props => {
           <QuizRunInfo
             isAdvisor={props.isAdvisor}
             editMode={props.editMode}
+            kind={kind}
             start={start}
             end={end}
             payByStudent={payByStudent}

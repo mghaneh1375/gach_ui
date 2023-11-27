@@ -23,6 +23,19 @@ function Quiz(props) {
   const [state, dispatch] = useGlobalState();
   const [w, h] = getWidthHeight();
 
+  const [hasRightSection, setHasRightSection] = React.useState(true);
+
+  React.useEffect(() => {
+    setHasRightSection(
+      !(
+        state.quizInfo === undefined ||
+        (props.isInReviewMode &&
+          (state.quizInfo.attaches === undefined ||
+            state.quizInfo.attaches.length === 0))
+      ),
+    );
+  }, [state.quizInfo, props.isInReviewMode]);
+
   return (
     <>
       {state.showExitConfirmation && (
@@ -46,8 +59,24 @@ function Quiz(props) {
       )}
       {!state.showExitConfirmation && state.file && (
         <PhoneView style={{margin: 10, gap: 10}}>
-          <MyView style={{width: (w - vars.RIGHT_MENU_WIDTH) / 2 - 20}}>
-            <object
+          <MyView
+            style={{
+              display:
+                isInPhone && state.activeTab === 'answerSheet'
+                  ? 'none'
+                  : 'flex',
+              width: isInPhone
+                ? state.activeTab === 'questions'
+                  ? '100%'
+                  : '0'
+                : hasRightSection
+                ? (w - vars.RIGHT_MENU_WIDTH) / 2 - 20
+                : w / 2 - 20,
+            }}>
+            <div>
+              <iframe src={state.file} width="100%" height={h - 20 - 80} />
+            </div>
+            {/* <object
               data={state.file}
               type="application/pdf"
               width="100%"
@@ -56,11 +85,19 @@ function Quiz(props) {
                 Alternative text - include a link{' '}
                 <a href={state.file}>to the PDF!</a>
               </p>
-            </object>
+            </object> */}
           </MyView>
           <MyView
             style={{
-              width: (w - vars.RIGHT_MENU_WIDTH) / 2 - 20,
+              display:
+                isInPhone && state.activeTab === 'questions' ? 'none' : 'flex',
+              width: isInPhone
+                ? state.activeTab === 'answerSheet'
+                  ? '100%'
+                  : '0'
+                : hasRightSection
+                ? (w - vars.RIGHT_MENU_WIDTH) / 2 - 20
+                : w / 2 - 20,
             }}>
             <AnswerSheet
               answer_sheet={state.answers}

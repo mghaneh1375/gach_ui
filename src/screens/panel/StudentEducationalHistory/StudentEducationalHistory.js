@@ -7,7 +7,6 @@ import {generalRequest} from '../../../API/Utility';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import {
   CommonWebBox,
-  EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
@@ -167,7 +166,10 @@ function StudentEducationalHistory(props) {
           <SimpleFontIcon
             onPress={() => {
               window.open(
-                '/result/school/' + openQuizzes[index].id + '/' + params.userId,
+                '/result/school/' +
+                  advisorQuizzes[index].id +
+                  '/' +
+                  params.userId,
                 '_blank',
               );
             }}
@@ -229,7 +231,7 @@ function StudentEducationalHistory(props) {
             styleCard100Percent={false}
             subTexts={[
               {
-                label: 'تعداد آزمون های شرکت کرده: ',
+                label: 'تعداد آزمون‌های شرکت کرده: ',
                 value: iryscQuizzes.length,
               },
               {label: 'نام مدرسه: ', value: data.school},

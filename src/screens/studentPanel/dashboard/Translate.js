@@ -1,9 +1,9 @@
 export const Translate = {
   youSee: 'شما در یک نگاه',
   money: 'کیف پول',
-  passedQuizzes: 'آزمون های گذشته',
+  passedQuizzes: 'آزمون‌های گذشته',
   createOff: 'ساخت کد تخفیف',
-  activeQuizzes: 'آزمون های آینده',
+  activeQuizzes: 'آزمون‌های آینده',
   allQuizzes: 'آزمون آماده ثبت نام',
   yourRank: 'رتبه آیریسکی',
   yourBranchRank: 'رتبه در رشته',

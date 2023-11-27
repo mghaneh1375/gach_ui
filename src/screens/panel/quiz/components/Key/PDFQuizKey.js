@@ -7,7 +7,6 @@ import {
 } from '../../../../../styles/Common';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
-import {dispatchQuizContext, quizContext} from '../Context';
 import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {getPDFQuestions, getPDFQuizAnswerSheet, savePDF} from '../Utility';
@@ -15,14 +14,13 @@ import AnswerSheet from '../AnswerSheet/AnswerSheet';
 import {showError, showSuccess} from '../../../../../services/Utility';
 
 function PDFQuizKey(props) {
-  const useGlobalState = () => [
-    React.useContext(quizContext),
-    React.useContext(dispatchQuizContext),
-  ];
-
-  const [state, dispatch] = useGlobalState();
   const ref = useRef();
   const [isWorking, setIsWorking] = useState(false);
+  const useGlobalState = () => [
+    React.useContext(props.stateContext),
+    React.useContext(props.dispatchStateContext),
+  ];
+  const [state, dispatch] = useGlobalState();
 
   React.useEffect(() => {
     if (isWorking) return;

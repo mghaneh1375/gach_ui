@@ -15,6 +15,7 @@ import {
   getLessons,
   removeItemFromSchedule,
   setDoneInSchedule,
+  updateScheduleItem,
 } from './Utility';
 import {
   advisorScheduleContext,
@@ -68,18 +69,24 @@ function Create(props) {
   const [additional, setAdditional] = useState();
 
   const [showDonePopUp, setShowDonePopUp] = useState(false);
+  const [showUpdatePopUp, setShowUpdatePopUp] = useState(false);
+  const [selectedItemForUpdate, setSelectedItemForUpdate] = useState();
   const [fullDone, setFullDone] = useState();
   const [doneDuration, setDoneDuration] = useState();
   const [selectedItem, setSelectedItem] = useState();
   const [doneAdditional, setDoneAdditional] = useState();
 
   const [selectedDay, setSelectedDay] = useState();
+  const [selectedDayForUpdate, setSelectedDayForUpdate] = useState();
   const [showDailySchedule, setShowDailySchedule] = useState(props.isAdvisor);
   const [boxes, setBoxes] = useState();
   const [desc, setDesc] = useState();
 
   const [selectedGrade, setSelectedGrade] = useState();
   const [lessonsKeyVals, setLessonsKeyVals] = useState();
+
+  const [selectedDescription, setSelectedDescription] = useState();
+  const [showRemoveConfirmation, setShowRemoveConfirmation] = useState(false);
 
   const scheduleForValues = [
     {id: 0, item: 'هفته جاری'},
@@ -207,6 +214,37 @@ function Create(props) {
     dispatch({selectedSchedule: undefined});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isInEditMode, scheduleFor]);
+
+  const [selectedDayForRemove, setSelectedDayForRemove] = useState();
+  const [selectedItemForRemove, setSelectedItemForRemove] = useState();
+
+  const removeItem = async () => {
+    props.setLoading(true);
+    let res = await removeItemFromSchedule(
+      props.token,
+      props.studentId,
+      selectedItemForRemove.id,
+    );
+    props.setLoading(false);
+    if (res != null) {
+      removeItems(
+        state.selectedSchedule.days.find(
+          itr => itr.day === selectedDayForRemove,
+        ).items,
+        items => {
+          state.selectedSchedule.days = state.selectedSchedule.days.map(itr => {
+            if (itr.day === selectedDayForRemove) itr.items = items;
+            return itr;
+          });
+          dispatch({
+            selectedSchedule: state.selectedSchedule,
+          });
+        },
+        [selectedItemForRemove.id],
+      );
+      setShowRemoveConfirmation(false);
+    }
+  };
 
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
@@ -336,8 +374,38 @@ function Create(props) {
     }
   };
 
+  React.useEffect(() => {
+    if (selectedItemForUpdate === undefined || state.tags === undefined) return;
+    setDuration(selectedItemForUpdate.duration);
+    setStartAt(selectedItemForUpdate.startAt);
+    setDescription(selectedItemForUpdate.description);
+    setSelectedTag(state.tags.find(e => e.label === selectedItemForUpdate.tag));
+    setAdditional(selectedItemForUpdate.additional);
+    setShowUpdatePopUp(true);
+  }, [selectedItemForUpdate, state.tags]);
+
+  React.useEffect(() => {
+    if (!showUpdatePopUp) {
+      setSelectedItemForUpdate(undefined);
+      setSelectedDayForUpdate(undefined);
+    }
+  }, [showUpdatePopUp]);
+
   return (
     <>
+      {showRemoveConfirmation && (
+        <LargePopUp
+          toggleShowPopUp={() => setShowRemoveConfirmation(false)}
+          btns={
+            <CommonButton
+              theme={'dark'}
+              title={'تایید'}
+              onPress={() => removeItem()}
+            />
+          }>
+          <SimpleText text={'آیا از حذف آیتم موردنظر اطمینان دارید؟'} />
+        </LargePopUp>
+      )}
       {showDonePopUp && (
         <LargePopUp
           btns={
@@ -348,43 +416,48 @@ function Create(props) {
             />
           }
           toggleShowPopUp={() => setShowDonePopUp(false)}>
-          <PhoneView style={{...styles.gap15}}>
-            <JustBottomBorderSelect
-              values={trueFalseValues}
-              setter={setFullDone}
-              value={trueFalseValues.find(e => e.id === fullDone)}
-              placeholder={'کل برنامه انجام شد؟'}
-              subText={'کل برنامه انجام شد؟'}
-            />
-            {fullDone !== undefined && !fullDone && (
-              <JustBottomBorderTextInput
-                value={doneDuration}
-                onChangeText={e => setDoneDuration(e)}
-                justNum={true}
-                placeholder={'مدت انجام'}
-                subText={
-                  'مدت انجام  -  حداکثر ' + selectedItem.duration + ' دقیقه'
-                }
-              />
+          <MyView>
+            {selectedDescription && (
+              <SimpleText text={'توضیح مشاور: ' + selectedDescription} />
             )}
+            <PhoneView style={{...styles.gap15}}>
+              <JustBottomBorderSelect
+                values={trueFalseValues}
+                setter={setFullDone}
+                value={trueFalseValues.find(e => e.id === fullDone)}
+                placeholder={'کل برنامه انجام شد؟'}
+                subText={'کل برنامه انجام شد؟'}
+              />
+              {fullDone !== undefined && !fullDone && (
+                <JustBottomBorderTextInput
+                  value={doneDuration}
+                  onChangeText={e => setDoneDuration(e)}
+                  justNum={true}
+                  placeholder={'مدت انجام'}
+                  subText={
+                    'مدت انجام  -  حداکثر ' + selectedItem.duration + ' دقیقه'
+                  }
+                />
+              )}
 
-            {selectedItem.additionalLabel !== undefined && (
-              <JustBottomBorderTextInput
-                value={doneAdditional}
-                onChangeText={e => setDoneAdditional(e)}
-                justNum={true}
-                placeholder={selectedItem.additionalLabel}
-                subText={
-                  selectedItem.additionalLabel +
-                  ' انجام شده  -  حداکثر ' +
-                  selectedItem.additional
-                }
-              />
-            )}
-          </PhoneView>
+              {selectedItem.additionalLabel !== undefined && (
+                <JustBottomBorderTextInput
+                  value={doneAdditional}
+                  onChangeText={e => setDoneAdditional(e)}
+                  justNum={true}
+                  placeholder={selectedItem.additionalLabel}
+                  subText={
+                    selectedItem.additionalLabel +
+                    ' انجام شده  -  حداکثر ' +
+                    selectedItem.additional
+                  }
+                />
+              )}
+            </PhoneView>
+          </MyView>
         </LargePopUp>
       )}
-      {selectedDay !== undefined && (
+      {selectedDay && (
         <LargePopUp
           toggleShowPopUp={() => setSelectedDay(undefined)}
           btns={
@@ -454,6 +527,8 @@ function Create(props) {
                         id: res.id,
                         additionalLabel: selectedTag.numberLabel,
                         additional: additional,
+                        description: description,
+                        owner: true,
                         advisor: {
                           name:
                             props.user.firstName + ' ' + props.user.lastName,
@@ -547,6 +622,148 @@ function Create(props) {
                 placeholder={'hh:mm'}
                 onChangeText={e => setStartAt(e)}
               />
+              {selectedTag?.numberLabel !== undefined && (
+                <JustBottomBorderTextInput
+                  placeholder={selectedTag.numberLabel}
+                  subText={selectedTag.numberLabel}
+                  justNum={true}
+                  value={additional}
+                  onChangeText={e => setAdditional(e)}
+                />
+              )}
+            </PhoneView>
+
+            <PhoneView>
+              <JustBottomBorderTextInput
+                multiline={true}
+                value={description}
+                onChangeText={e => setDescription(e)}
+                placeholder={commonTranslator.description}
+                subText={commonTranslator.optional}
+              />
+            </PhoneView>
+          </MyView>
+        </LargePopUp>
+      )}
+      {showUpdatePopUp && (
+        <LargePopUp
+          toggleShowPopUp={() => setShowUpdatePopUp(false)}
+          btns={
+            <CommonButton
+              onPress={async () => {
+                if (selectedTag == undefined) {
+                  showError('لطفا تگ موردنظر خود را انتخاب کنید');
+                  return;
+                }
+                if (duration === undefined) {
+                  showError('لطفا مدت را تعیین کنید');
+                  return;
+                }
+
+                if (
+                  selectedTag?.numberLabel !== undefined &&
+                  additional === undefined
+                ) {
+                  showError(
+                    'لطفا ' + selectedTag?.numberLabel + ' را وارد نمایید',
+                  );
+                  return;
+                }
+
+                props.setLoading(true);
+
+                let data = {
+                  tag: selectedTag.id,
+                  duration: duration,
+                  startAt: startAt,
+                };
+
+                if (selectedTag?.numberLabel !== undefined)
+                  data.additional = additional;
+
+                if (description !== undefined) data.description = description;
+
+                let res = await updateScheduleItem(
+                  props.token,
+                  selectedItemForUpdate.id,
+                  data,
+                );
+                props.setLoading(false);
+                if (res !== null) {
+                  state.selectedSchedule.days = state.selectedSchedule.days.map(
+                    e => {
+                      if (e.day !== selectedDayForUpdate) return e;
+                      e.items.map(itemItr => {
+                        if (itemItr.id === selectedItemForUpdate.id) {
+                          itemItr.tag = state.tags.find(
+                            e => e.id === selectedTag.id,
+                          ).label;
+                          itemItr.duration = duration;
+                          itemItr.startAt = startAt;
+                          itemItr.additionalLabel = selectedTag.numberLabel;
+                          itemItr.additional = additional;
+                          itemItr.description = description;
+                        }
+
+                        return itemItr;
+                      });
+
+                      return e;
+                    },
+                  );
+                  dispatch({selectedSchedule: state.selectedSchedule});
+                  setDuration();
+                  setSelectedTag();
+                  setStartAt();
+                  setDescription();
+                  setAdditional();
+                  setShowUpdatePopUp(false);
+                }
+              }}
+              theme={'dark'}
+              title={commonTranslator.confirm}
+            />
+          }>
+          <MyView
+            style={{
+              minHeight: '50vh',
+            }}>
+            <SimpleText text={'لطفا تگ موردنظر خود را انتخاب نمایید'} />
+            <PhoneView style={{...styles.gap15}}>
+              {state.tags !== undefined &&
+                state.tags.map((e, index) => {
+                  return (
+                    <Tag
+                      selectedTag={selectedTag?.id}
+                      id={e.id}
+                      onClick={() => {
+                        setSelectedTag(e);
+                      }}
+                      label={e.label}
+                      key={index}
+                    />
+                  );
+                })}
+            </PhoneView>
+            <PhoneView
+              style={{
+                ...styles.gap15,
+                ...styles.marginTop20,
+              }}>
+              <JustBottomBorderTextInput
+                subText={'مدت (به دقیقه)'}
+                placeholder={'مدت (به دقیقه)'}
+                value={duration}
+                onChangeText={e => setDuration(e)}
+              />
+
+              <TimePicker
+                value={startAt}
+                subText={'زمان شروع (اختیاری)'}
+                placeholder={'hh:mm'}
+                onChangeText={e => setStartAt(e)}
+              />
+
               {selectedTag?.numberLabel !== undefined && (
                 <JustBottomBorderTextInput
                   placeholder={selectedTag.numberLabel}
@@ -851,7 +1068,10 @@ function Create(props) {
                 canEdit={props.isAdvisor}
                 onDone={
                   props.isAdvisor
-                    ? undefined
+                    ? ee => {
+                        setSelectedItemForUpdate(ee);
+                        setSelectedDayForUpdate(e.day);
+                      }
                     : e => {
                         setSelectedItem(e);
                         setDoneDuration(
@@ -869,38 +1089,17 @@ function Create(props) {
                             ? e.doneAdditional
                             : undefined,
                         );
+                        setSelectedDescription(e.description);
                         setShowDonePopUp(true);
                       }
                 }
                 onRemove={
                   !props.isAdvisor
                     ? undefined
-                    : async (ee, callBack) => {
-                        props.setLoading(true);
-                        let res = await removeItemFromSchedule(
-                          props.token,
-                          props.studentId,
-                          ee.id,
-                        );
-                        props.setLoading(false);
-                        if (res != null) {
-                          removeItems(
-                            state.selectedSchedule.days.find(
-                              itr => itr.day === e.day,
-                            ).items,
-                            items => {
-                              state.selectedSchedule.days =
-                                state.selectedSchedule.days.map(itr => {
-                                  if (itr.day === e.day) itr.items = items;
-                                  return itr;
-                                });
-                              dispatch({
-                                selectedSchedule: state.selectedSchedule,
-                              });
-                            },
-                            [ee.id],
-                          );
-                        }
+                    : ee => {
+                        setSelectedItemForRemove(ee);
+                        setSelectedDayForRemove(e.day);
+                        setShowRemoveConfirmation(true);
                       }
                 }
               />

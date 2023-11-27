@@ -1,6 +1,7 @@
 import {
   faClockRotateLeft,
   faClose,
+  faInfo,
   faQuestion,
   faUserClock,
 } from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +20,8 @@ import React from 'react';
 
 function Box(props) {
   return (
-    <Pressable onPress={() => props.onDone()}>
+    <Pressable
+      onPress={() => (props.onDone === undefined ? {} : props.onDone())}>
       <PhoneView
         style={{
           ...styles.alignSelfCenter,
@@ -98,9 +100,16 @@ function Box(props) {
                     : props.item.additional === undefined
                     ? vars.ORANGE_RED
                     : vars.DARK_BLUE,
-                padding: 7,
+                padding: props?.item?.lesson.length > 15 ? 3 : 7,
               }}>
-              <SimpleText style={{color: 'white'}} text={props?.item?.lesson} />
+              <SimpleText
+                style={{
+                  color: 'white',
+                  fontSize: props?.item?.lesson.length > 15 ? 9 : 13,
+                  paddingTop: props?.item?.lesson.length > 15 ? 4 : 0,
+                }}
+                text={props?.item?.lesson}
+              />
               <SimpleFontIcon
                 icon={faClose}
                 kind={'normal'}
@@ -137,13 +146,25 @@ function Box(props) {
                   : 'calc(100% - 5px)',
             }}>
             {props.item.startAt !== undefined && (
-              <SimpleText
+              <EqualTwoTextInputs
                 style={{
-                  color: vars.DARK_BLUE,
                   marginTop: 10,
-                }}
-                text={'شروع : ' + props.item.startAt}
-              />
+                }}>
+                <SimpleText
+                  style={{
+                    color: vars.DARK_BLUE,
+                  }}
+                  text={'شروع : ' + props.item.startAt}
+                />
+                {props.item.description !== undefined &&
+                  props.item.description !== '' && (
+                    <SimpleFontIcon
+                      kind="normal"
+                      icon={faInfo}
+                      style={{color: vars.RED, marginTop: -10}}
+                    />
+                  )}
+              </EqualTwoTextInputs>
             )}
 
             {props.item.startAt === undefined && <MyView />}

@@ -109,12 +109,19 @@ function MenuItemRepeat(props) {
                   : undefined,
               url: '/myAdvisor',
             },
-
+            {
+              text:
+                props.excludes !== undefined &&
+                props.excludes.indexOf('my_schedules') === -1
+                  ? translator.mySchedules
+                  : undefined,
+              url: '/mySchedules',
+            },
             {
               text:
                 props.excludes !== undefined &&
                 props.excludes.indexOf('my_life_style') === -1
-                  ? 'تغییر برنامه ریزی روزانه'
+                  ? 'برنامه‌ی روزانه‌ی من'
                   : undefined,
               url: '/myLifeStyle',
             },

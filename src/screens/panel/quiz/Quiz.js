@@ -18,7 +18,7 @@ import {useParams} from 'react-router';
 import {MyView} from '../../../styles/Common';
 import ContentQuizKarname from './components/Reports/Karname/ContentQuizKarname';
 import Correctors from './components/Correctors/Correctors';
-import PDFQuestion from './components/PDFQuestion/PDFQuestion';
+import PDF from './components/PDFQuestion/Questions';
 import PDFQuizKey from './components/Key/PDFQuizKey';
 
 const Quiz = props => {
@@ -103,15 +103,13 @@ const Quiz = props => {
           />
         )}
         {mode === 'pdfQuestion' && (
-          <PDFQuestion
-            setLoading={setLoading}
-            setMode={setMode}
-            token={props.token}
-          />
+          <PDF setLoading={setLoading} setMode={setMode} token={props.token} />
         )}
 
         {mode === 'pdfKey' && (
           <PDFQuizKey
+            stateContext={quizContext}
+            dispatchStateContext={dispatchQuizContext}
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}

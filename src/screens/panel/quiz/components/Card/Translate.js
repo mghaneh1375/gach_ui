@@ -11,7 +11,7 @@ const translate = {
   isOnline: 'نوع اجرا: ',
   kind: 'نوع آزمون: ',
   mark: 'نمره: ',
-  used: 'تعداد مرتبه تکرار در آزمون ها: ',
+  used: 'تعداد مرتبه تکرار در آزمون‌ها: ',
   oldWhite: 'تعداد نزده: ',
   oldCorrect: 'تعداد درست: ',
   oldIncorrect: 'تعداد نادرست: ',

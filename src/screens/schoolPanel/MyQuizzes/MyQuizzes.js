@@ -10,10 +10,11 @@ import {
 import Copy from './components/Copy';
 import Create from './components/Create';
 import List from './components/List';
-import Questions from './components/Questions/Questions';
 import Recp from './components/Recp';
 import Report from './components/Report';
 import Students from './components/Students/Students';
+import Abstract from './components/Questions/Abstract';
+import PDFQuizKey from '../../panel/quiz/components/Key/PDFQuizKey';
 
 function MyQuizzes(props) {
   const navigate = props.navigate;
@@ -73,7 +74,7 @@ function MyQuizzes(props) {
         )}
 
         {mode === 'question' && (
-          <Questions
+          <Abstract
             setLoading={setLoading}
             setMode={setMode}
             user={state.user}
@@ -94,6 +95,15 @@ function MyQuizzes(props) {
         )}
         {mode === 'key' && (
           <Key
+            stateContext={myQuizzesContext}
+            dispatchStateContext={dispatchMyQuizzesContext}
+            setLoading={setLoading}
+            setMode={setMode}
+            token={state.token}
+          />
+        )}
+        {mode === 'pdfKey' && (
+          <PDFQuizKey
             stateContext={myQuizzesContext}
             dispatchStateContext={dispatchMyQuizzesContext}
             setLoading={setLoading}

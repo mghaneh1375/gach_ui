@@ -141,6 +141,7 @@ const Ops = props => {
       if (res[0] !== null) {
         state.selectedQuiz.visibility = !state.selectedQuiz.visibility;
         dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+        showSuccess();
       }
     });
   };
@@ -339,7 +340,9 @@ const Ops = props => {
                 onPress={() =>
                   window.open(
                     '/reviewQuiz/' +
-                      state.selectedQuiz.generalMode +
+                      (state.selectedQuiz.pdfQuiz
+                        ? 'school_pdf'
+                        : state.selectedQuiz.generalMode) +
                       '/' +
                       state.selectedQuiz.id,
                     '_blank',
@@ -481,12 +484,23 @@ const Ops = props => {
                   />
                 )}
 
-              <CommonButton
-                title={translator.keySheet}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => props.setMode('key')}
-              />
+              {!state.selectedQuiz.pdfQuiz && (
+                <CommonButton
+                  title={translator.keySheet}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  onPress={() => props.setMode('key')}
+                />
+              )}
+
+              {state.selectedQuiz.pdfQuiz && (
+                <CommonButton
+                  title={translator.keySheet}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  onPress={() => props.setMode('pdfKey')}
+                />
+              )}
 
               {(state.selectedQuiz.launchMode === 'physical' ||
                 state.selectedQuiz.launchMode === 'hybrid') &&

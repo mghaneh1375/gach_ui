@@ -47,7 +47,7 @@ export default function BottomNavBar() {
         <Link style={NavItemStyle} to="/buy">
           <SimpleFontIcon kind={'large'} icon={faCheckDouble} />
         </Link>
-        <Text style={NavTextStyle}>آزمون ها</Text>
+        <Text style={NavTextStyle}>آزمون‌ها</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/rankinglist">

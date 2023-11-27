@@ -13,6 +13,7 @@ const defaultGlobalState = {
   exit: false,
   showExitConfirmation: false,
   imSureExit: false,
+  activeTab: 'questions',
 };
 
 export const doQuizContext = React.createContext(defaultGlobalState);

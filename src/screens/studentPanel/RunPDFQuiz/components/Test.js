@@ -17,7 +17,7 @@ function Test(props) {
 
   const [stdAns, setStdAns] = useState(state.answers[index]);
 
-  const choicesCount = 4;
+  const choicesCount = state.questions[index].choicesCount;
   const [choicesArr, setChoicesArr] = useState();
 
   React.useEffect(() => {

@@ -6,7 +6,7 @@ const Translate = {
   minSelect: 'با ثبت‌نام حداقل چند آزمون از این بسته تخفیف می‌گیرید؟ ',
   buyersCount: 'تعداد خریداران: ',
   showQuiz: 'مشاهده آزمون',
-  packageQuizzes: 'آزمون های اضافه شده ',
+  packageQuizzes: 'آزمون‌های اضافه شده ',
   addToPackage: 'اضافه کردن به بسته',
   addQuiz: 'اضافه کردن آزمون',
   removeFromPackage: 'حذف کردن از بسته',

@@ -280,14 +280,23 @@ export const getQuestions = async (token, quizId, quizMode) => {
   );
 };
 
+export const getPDFQuizSubjects = async (token, quizId) => {
+  return generalRequest(
+    routes.getPDFQuizSubjects + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const setPDFQuestions = async (quizId, token, count, file) => {
   let formData = undefined;
-  if (file !== null) {
+  if (file !== null && file !== undefined) {
     formData = new FormData();
     var myblob = new Blob([new Uint8Array(file.content)]);
     formData.append('file', myblob, file.name);
   }
-  console.log(formData);
   return await fileRequest(
     routes.setPDFQuizQuestions + quizId + '/' + count,
     'put',
@@ -306,7 +315,7 @@ export const setPDFSubjects = async (quizId, token, file) => {
   formData.append('file', myblob, file.name);
 
   return await fileRequest(
-    routes.setPDFQuizSubjects + quizId,
+    routes.setPDFQuizSubjectsAndChoicesCount + quizId,
     'put',
     formData,
     undefined,

@@ -1,11 +1,11 @@
 const newAlertsKeyVals = [
   {
     id: 'new_tickets',
-    title: 'درخواست های جدید',
+    title: 'درخواست‌های جدید',
   },
   {
     id: 'open_tickets_wait_for_admin',
-    title: 'درخواست های منتظر پاسخ ادمین',
+    title: 'درخواست‌های منتظر پاسخ ادمین',
   },
   {
     id: 'notif',

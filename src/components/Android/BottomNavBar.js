@@ -55,7 +55,7 @@ export default function BottomNavBar(props) {
             source={require('./../../images/exam.png')}
           />
         </MyView>
-        <Text>آزمون ها</Text>
+        <Text>آزمون‌ها</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
         <MyView style={NavItemStyle}>
@@ -75,7 +75,7 @@ export default function BottomNavBar(props) {
             source={require('./../../images/exam.png')}
           />
         </MyView>
-        <Text>آزمون ها</Text>
+        <Text>آزمون‌ها</Text>
       </MyView>
     </MyView>
   );

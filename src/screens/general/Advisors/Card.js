@@ -183,25 +183,39 @@ function Card(props) {
               ...{
                 minHeight: 100,
                 maxHeight: 220,
+                justifyContent: 'space-between',
                 maxWidth: state.isInPhone
                   ? 'calc(100% - 30px)'
                   : 'calc(100% - 430px)',
               },
             }}>
-            <SimpleText
-              style={{
-                ...styles.BlueBold,
-              }}
-              text={'درباره مشاور'}
-            />
-            {props.data.bio !== undefined && (
+            <MyView>
               <SimpleText
                 style={{
-                  ...styles.colorDarkBlue,
-                  ...styles.marginTop10,
+                  ...styles.BlueBold,
                 }}
-                text={props.data.bio}
+                text={'درباره مشاور'}
               />
+              {props.data.bio !== undefined && (
+                <SimpleText
+                  style={{
+                    ...styles.colorDarkBlue,
+                    ...styles.marginTop10,
+                  }}
+                  text={props.data.bio}
+                />
+              )}
+            </MyView>
+            {props.data.videoLink !== undefined && props.data.videoLink !== '' && (
+              <MyView>
+                <SimpleText text="برای مشاهده جزئیات بیشتر روی لینک زیر کلیک کنید" />
+                <a
+                  style={{fontFamily: 'IRANSans'}}
+                  target="_blank"
+                  href={props.data.videoLink}>
+                  توضیحات بیشتر
+                </a>
+              </MyView>
             )}
           </MyView>
         )}

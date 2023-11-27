@@ -20,7 +20,7 @@ const certTranslator = {
   fileNotSelect: 'هنوز فایلی انتخاب نشده است',
   formate: 'فرمت:',
   fortyPercent: '40%',
-  haveCertificate: 'گواهی های موجود ',
+  haveCertificate: 'گواهی‌های موجود ',
   createDate: 'تاریخ ایجاد',
   receiver: 'دریافت کننده',
   vertical: 'عمودی',

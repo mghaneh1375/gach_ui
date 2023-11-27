@@ -1,9 +1,9 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 import WheelComponent from 'react-wheel-of-prizes';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
-import {getDevice, getWidthHeight} from '../../../../services/Utility';
+import {getWidthHeight} from '../../../../services/Utility';
 import {
   CommonButton,
   MyView,
@@ -13,8 +13,6 @@ import {
 import Confetti from 'react-confetti';
 import vars from '../../../../styles/root';
 import {styles} from '../../../../styles/Common/Styles';
-import {style} from '../../ticket/components/Show/AttachBox/style';
-// import 'react-wheel-of-prizes/dist/index.css';
 
 function Spinner(props) {
   const [spins, setSpins] = useState();

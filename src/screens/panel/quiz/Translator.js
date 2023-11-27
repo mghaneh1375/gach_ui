@@ -1,6 +1,6 @@
 const translator = {
   generalInfo: 'اطلاعات آزمون',
-  quizes: 'آزمون های موجود',
+  quizes: 'آزمون‌های موجود',
   name: 'نام آزمون',
   kind: 'نوع آزمون',
   tag: 'تگ های جست و جو',
@@ -48,6 +48,8 @@ const translator = {
   deleteStudent: 'حذف دانش آموز',
   chooseQuestion: 'انتخاب سوال',
   questions: 'سوالات آزمون',
+  pdfQuestion: 'فایل PDF سوالات آزمون',
+  subjects: 'مباحث آزمون',
   organizationId: 'کد سازمانی سوال',
   organizationIdHelp: 'چندین کد را با استفاده از , جدا کنید',
   topic: 'موضوع',

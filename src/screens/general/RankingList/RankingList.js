@@ -116,7 +116,7 @@ function RankingList(props) {
             style={{...styles.cursor_pointer}}
           />
           <ProgressCard
-            header={'رتبه بندی آزمون ها'}
+            header={'رتبه بندی آزمون‌ها'}
             theme={vars.ORANGE_RED}
             color={mode === 'quizRanking' ? vars.WHITE : vars.DARK_BLUE}
             width={250}

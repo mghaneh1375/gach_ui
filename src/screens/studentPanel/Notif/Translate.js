@@ -3,7 +3,7 @@ const Translator = {
   seenStatus: 'وضعیت رویت',
   seen: 'دیده شده',
   unseen: 'دیده نشده',
-  myNotifs: 'پیام های من',
+  myNotifs: 'نامه‌های من',
 };
 
 export default Translator;

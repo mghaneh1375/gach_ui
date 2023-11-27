@@ -186,7 +186,7 @@ function List(props) {
               ...styles.textCenter,
               ...styles.fontSize20,
             }}
-            text={'لیست خرید آزمون ها'}
+            text={'لیست خرید آزمون‌ها'}
           />
           <Quizzes
             fullWidth={
