@@ -12,6 +12,11 @@ import Key from './components/Key/Key';
 import {useParams} from 'react-router';
 import {MyView} from '../../../styles/Common';
 import CreateOnlineQuiz from './components/CreateOnlineQuiz';
+import {
+  isUserAdmin,
+  isUserContentAccess,
+  isUserEditorAccess,
+} from '../../../services/Utility';
 
 const OnlineStanding = props => {
   const [mode, setMode] = useState('karname');
@@ -46,6 +51,9 @@ const OnlineStanding = props => {
             setLoading={setLoading}
             token={state.token}
             generalMode={'onlineStanding'}
+            isAdmin={isUserAdmin(state.user)}
+            isContent={isUserContentAccess(state.user)}
+            isEditor={isUserEditorAccess(state.user)}
           />
         )}
         {mode === 'create' && (
@@ -78,6 +86,7 @@ const OnlineStanding = props => {
             setLoading={setLoading}
             setMode={setMode}
             token={state.token}
+            isAdmin={isUserAdmin(state.user)}
           />
         )}
         {mode === 'question' && (

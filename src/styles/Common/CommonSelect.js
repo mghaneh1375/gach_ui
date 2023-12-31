@@ -28,7 +28,8 @@ export const CommonSelect = props => {
       paddingBottom: props.paddingLeft !== undefined ? 6 : 2,
       paddingTop: props.paddingLeft !== undefined ? 5 : 9,
       borderBottomWidth: 1,
-      borderColor: vars.LIGHT_SILVER,
+      borderColor:
+        props.style.color === undefined ? vars.LIGHT_SILVER : props.style.color,
     },
     optionContainerStyle: {
       borderRadius: 0,
@@ -51,7 +52,8 @@ export const CommonSelect = props => {
       paddingBottom: 1,
       paddingLeft: props.paddingLeft !== undefined ? props.paddingLeft : 0,
     },
-    arrowIconColor: vars.LIGHT_SILVER,
+    arrowIconColor:
+      props.style.color === undefined ? vars.LIGHT_SILVER : props.style.color,
     optionsLabelStyle: {
       fontFamily: 'IRANSans',
       fontSize: 13,
@@ -85,7 +87,12 @@ export const CommonSelect = props => {
     <MyView className={'myView mySelect'} style={parentAllStyles}>
       <CommonSelectElem className={'myView2'} {...inputProps} />
       {props.subText !== undefined ? (
-        <SubInputText style={{width: '100%', height: '100%'}}>
+        <SubInputText
+          style={
+            props.style.color !== undefined
+              ? {width: '100%', height: '100%', color: props.style.color}
+              : {width: '100%', height: '100%'}
+          }>
           {props.subText}
         </SubInputText>
       ) : null}

@@ -208,12 +208,11 @@ function Card(props) {
             </MyView>
             {props.data.videoLink !== undefined && props.data.videoLink !== '' && (
               <MyView>
-                <SimpleText text="برای مشاهده جزئیات بیشتر روی لینک زیر کلیک کنید" />
                 <a
                   style={{fontFamily: 'IRANSans'}}
                   target="_blank"
                   href={props.data.videoLink}>
-                  توضیحات بیشتر
+                  معرفی ویدیویی
                 </a>
               </MyView>
             )}

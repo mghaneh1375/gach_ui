@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import CreateQuiz from './components/CreateOpenQuiz';
 import List from './components/List';
-import {dispatchStateContext} from '../../../App';
+import {dispatchStateContext, globalStateContext} from '../../../App';
 import Students from './components/Students/Students';
 import Questions from './components/Questions/Questions';
 import {
@@ -15,14 +15,22 @@ import Karname from './components/Reports/Karname/Karname';
 import ReportList from './components/Reports/List/List';
 import {useParams} from 'react-router';
 import {MyView} from '../../../styles/Common';
+import {
+  isUserAdmin,
+  isUserContentAccess,
+  isUserEditorAccess,
+} from '../../../services/Utility';
 
 const OpenQuiz = props => {
   const [mode, setMode] = useState('karname');
   const navigate = props.navigate;
 
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
 
-  const [dispatch] = useGlobalState();
+  const [state, dispatch] = useGlobalState();
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -46,6 +54,9 @@ const OpenQuiz = props => {
             setLoading={setLoading}
             token={props.token}
             generalMode={'openQuiz'}
+            isAdmin={isUserAdmin(state.user)}
+            isContent={isUserContentAccess(state.user)}
+            isEditor={isUserEditorAccess(state.user)}
           />
         )}
         {mode === 'create' && (
@@ -55,6 +66,7 @@ const OpenQuiz = props => {
             token={props.token}
             editMode={false}
             quizGeneralMode={'open'}
+            canEdit={isUserContentAccess(state.user)}
           />
         )}
         {mode === 'update' && (
@@ -64,6 +76,7 @@ const OpenQuiz = props => {
             token={props.token}
             editMode={true}
             quizGeneralMode={'open'}
+            canEdit={isUserContentAccess(state.user)}
           />
         )}
         {mode === 'key' && (
@@ -80,6 +93,7 @@ const OpenQuiz = props => {
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}
+            isAdmin={isUserAdmin(state.user)}
           />
         )}
         {mode === 'question' && (

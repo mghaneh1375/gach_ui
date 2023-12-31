@@ -1,7 +1,5 @@
 import {Platform} from 'react-native';
-import {Background} from 'victory-core';
 import {EqualTwoTextInputs, MyView} from '../Common';
-import vars from '../root';
 import {
   calcInputWidth,
   CommonHalfTextInputStyleWeb,
@@ -114,7 +112,14 @@ export const CommonTextInput = props => {
       <CommonTextInputElem {...inputProps} />
       <EqualTwoTextInputs>
         {props.subText !== undefined ? (
-          <SubInputText>{props.subText}</SubInputText>
+          <SubInputText
+            style={
+              props?.style?.color !== undefined
+                ? {color: props.style.color}
+                : {}
+            }>
+            {props.subText}
+          </SubInputText>
         ) : null}
         {props.subTextTwo !== undefined ? (
           <SubInputTextTwo>{props.subTextTwo}</SubInputTextTwo>

@@ -2,9 +2,12 @@ import React, {useState} from 'react';
 import {getPDFQuestions} from '../Utility';
 import UploadQuestions from './UploadQuestions';
 import UploadSubjects from './UploadSubjects';
+import SetSubjects from './SetSubjects/SetSubjects';
+import {SetSubjectProvider} from './SetSubjects/Context';
 
 function PDFQuestion(props) {
   const [isWorking, setIsWorking] = useState(false);
+  const [selectionMode, setSelectionMode] = useState('individual');
 
   React.useEffect(() => {
     if (isWorking) return;
@@ -40,14 +43,28 @@ function PDFQuestion(props) {
         state={props.state}
         dispatch={props.dispatch}
       />
-      {props.state.selectedQuiz.questionsCount > 0 && (
-        <UploadSubjects
-          state={props.state}
-          dispatch={props.dispatch}
-          setLoading={props.setLoading}
-          token={props.token}
-        />
-      )}
+      {props.state.selectedQuiz.questionsCount > 0 &&
+        selectionMode === 'batch' && (
+          <UploadSubjects
+            state={props.state}
+            dispatch={props.dispatch}
+            setLoading={props.setLoading}
+            token={props.token}
+            setMode={props.setMode}
+          />
+        )}
+      {props.state.selectedQuiz.questionsCount > 0 &&
+        selectionMode === 'individual' && (
+          <SetSubjectProvider>
+            <SetSubjects
+              state={props.state}
+              dispatch={props.dispatch}
+              setLoading={props.setLoading}
+              token={props.token}
+              setMode={props.setMode}
+            />
+          </SetSubjectProvider>
+        )}
     </>
   );
 }

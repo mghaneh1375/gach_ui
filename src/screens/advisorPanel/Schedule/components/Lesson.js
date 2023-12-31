@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {
-  convertSecToMinWithOutHour,
-  convertSecToMinWithOutSec,
-  removeItems,
-} from '../../../../services/Utility';
+import {convertSecToMinWithOutSec} from '../../../../services/Utility';
 import {
   CommonWebBox,
   MyView,

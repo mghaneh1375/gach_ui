@@ -51,6 +51,7 @@ function List(props) {
           token={props.token}
           setMode={props.setMode}
           toggleShowPopUp={() => setShowOp(!showOp)}
+          isEditor={props.isEditor}
         />
       )}
       <CommonWebBox

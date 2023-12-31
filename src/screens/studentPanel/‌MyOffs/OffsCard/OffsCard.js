@@ -81,7 +81,9 @@ function OffsCard(props) {
             text={
               props.amount === undefined
                 ? props.amount
-                : props.type === 'money' || props.type === 'value'
+                : props.type === 'money' ||
+                  props.type === 'value' ||
+                  (props.subType !== undefined && props.subType === 'value')
                 ? Translate.amount + ' : ' + props.amount + ' تومان'
                 : props.type === 'coin'
                 ? Translate.amount + ' : ' + props.amount + Translate.xMoney

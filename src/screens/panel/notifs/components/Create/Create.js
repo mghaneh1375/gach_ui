@@ -1,4 +1,4 @@
-import {faPaperclip, faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 
 import {
@@ -7,7 +7,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
-import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {styles} from '../../../../../styles/Common/Styles';
 import {dispatchNotifContext, notifContext} from '../Context';
@@ -28,9 +28,9 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter';
 import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
 import RenderHTML from 'react-native-render-html';
-import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
-import {useFilePicker} from 'use-file-picker';
 import {CKEditorToolbar} from '../../../../../services/Utility';
+import Attach from './Attach';
+import Excel from './Excel';
 
 function Create(props) {
   let ckEditor = null;
@@ -40,18 +40,6 @@ function Create(props) {
     React.useContext(notifContext),
     React.useContext(dispatchNotifContext),
   ];
-
-  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
-    useFilePicker({
-      maxFileSize: 6,
-      accept: ['image/*', '.pdf', '.zip'],
-      readAs: 'ArrayBuffer',
-      multiple: false,
-    });
-
-  const removeAttach = index => {
-    remove(index);
-  };
 
   const removeUploadedAttach = async filename => {
     // props.setLoading(true);
@@ -75,6 +63,8 @@ function Create(props) {
   const [filters, setFilters] = useState([]);
   const [title, setTitle] = useState();
   const [desc, setDesc] = useState();
+  const [attachesFilesContent, setAttachesFilesContent] = useState();
+  const [excelsFilesContent, setExcelsFilesContent] = useState();
 
   const fetchNotif = React.useCallback(() => {
     if (
@@ -229,6 +219,7 @@ function Create(props) {
           <CKEditor
             editor={ClassicEditor}
             config={{
+              title: false,
               customValues: {token: props.token},
               extraPlugins: [MyCustomUploadAdapterPlugin],
               placeholder: 'متن پیام',
@@ -244,62 +235,29 @@ function Create(props) {
           />
         )}
 
-        <RadioButtonYesOrNo
-          label={'آیا از طریق پیامک اطلاع داده شود؟'}
-          selected={sendSMS}
-          setSelected={
-            props.isInReviewMode || props.sendVia === 'sms' ? {} : setSendSMS
-          }
-        />
-        <RadioButtonYesOrNo
-          label={'آیا از طریق ایمیل اطلاع داده شود؟'}
-          selected={sendMail}
-          setSelected={
-            props.isInReviewMode || props.sendVia === 'mail' ? {} : setSendMail
-          }
-        />
+        <Attach attaches={attaches} setFilesContent={setAttachesFilesContent} />
+        <Excel setFilesContent={setExcelsFilesContent} />
 
-        <PhoneView style={{...styles.gap15}}>
-          <SimpleText
-            style={{...styles.alignSelfCenter, ...styles.BlueBold}}
-            text={'پیوست'}
+        {props.sendVia !== 'mail' && props.sendVia !== 'sms' && (
+          <RadioButtonYesOrNo
+            label={'آیا از طریق پیامک اطلاع داده شود؟'}
+            selected={sendSMS}
+            setSelected={
+              props.isInReviewMode || props.sendVia === 'sms' ? {} : setSendSMS
+            }
           />
-          <SimpleFontIcon
-            onPress={() => openFileSelector()}
-            kind={'normal'}
-            icon={faPaperclip}
+        )}
+        {props.sendVia !== 'mail' && (
+          <RadioButtonYesOrNo
+            label={'آیا از طریق ایمیل اطلاع داده شود؟'}
+            selected={sendMail}
+            setSelected={
+              props.isInReviewMode || props.sendVia === 'mail'
+                ? {}
+                : setSendMail
+            }
           />
-
-          <PhoneView style={{marginTop: 20}}>
-            {attaches !== undefined &&
-              attaches.map((elem, index) => {
-                return (
-                  <AttachBox
-                    key={index}
-                    filename={elem}
-                    removeAttach={async () => {
-                      await removeUploadedAttach(elem);
-                    }}
-                  />
-                );
-              })}
-
-            {filesContent !== undefined &&
-              filesContent.length > 0 &&
-              filesContent.map((elem, index) => {
-                return (
-                  <AttachBox
-                    key={index}
-                    filename={elem.name}
-                    fileContent={elem.content}
-                    removeAttach={() => {
-                      removeAttach(index);
-                    }}
-                  />
-                );
-              })}
-          </PhoneView>
-        </PhoneView>
+        )}
 
         {!props.isInReviewMode && (
           <CommonButton
@@ -318,8 +276,18 @@ function Create(props) {
               });
 
               let res =
-                filesContent.length > 0
-                  ? await store(props.token, data, filesContent[0])
+                attachesFilesContent?.length > 0 ||
+                excelsFilesContent?.length > 0
+                  ? await store(
+                      props.token,
+                      data,
+                      attachesFilesContent.length > 0
+                        ? attachesFilesContent[0]
+                        : null,
+                      excelsFilesContent.length > 0
+                        ? excelsFilesContent[0]
+                        : null,
+                    )
                   : await simpleStore(props.token, data);
               props.setLoading(false);
 

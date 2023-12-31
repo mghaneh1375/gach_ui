@@ -132,6 +132,8 @@ export const generalRequest = async (
         showError('توکن شما منقضی شده است و نیاز است لاگین کنید');
         window.location.href = '/login';
         return undefined;
+      } else if (error.response.status === 401) {
+        showError('شما دسترسی لازم برای انجام این کار را ندارید');
       } else {
         showError(commonTranslator.opErr);
       }

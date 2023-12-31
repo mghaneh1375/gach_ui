@@ -74,12 +74,34 @@ export const fetchContentDigests = async token => {
   );
 };
 
-export const store = async (token, data, fileContent) => {
-  if (fileContent !== undefined) {
-    var myblob = new Blob([new Uint8Array(fileContent.content)]);
-    let formData = new FormData();
-    formData.append('file', myblob, fileContent.name);
+export const store = async (
+  token,
+  data,
+  attachFileContent,
+  excelFileContent,
+) => {
+  let formData = new FormData();
+  let hasFile = false;
 
+  if (attachFileContent !== null && attachFileContent !== undefined) {
+    formData.append(
+      'file',
+      new Blob([new Uint8Array(attachFileContent.content)]),
+      attachFileContent.name,
+    );
+    hasFile = true;
+  }
+
+  if (excelFileContent !== null && excelFileContent !== undefined) {
+    formData.append(
+      'list',
+      new Blob([new Uint8Array(excelFileContent.content)]),
+      excelFileContent.name,
+    );
+    hasFile = true;
+  }
+
+  if (hasFile) {
     let res = await fileRequest(
       routes.storeNotif,
       'post',

@@ -194,7 +194,7 @@ function AdminMenu(props) {
         <SuperMenuItem
           text={translator.quizes}
           icon={faUsers}
-          selected={props.selected === 'consultants'}
+          selected={props.selected === 'quiz'}
           navigate={navigate}
           items={[
             {
@@ -226,7 +226,7 @@ function AdminMenu(props) {
         <SuperMenuItem
           text={translator.consultants}
           icon={faUsers}
-          selected={props.selected === 'quiz'}
+          selected={props.selected === 'consultants'}
           navigate={navigate}
           items={[
             {
@@ -496,7 +496,7 @@ function AdminMenu(props) {
       <SuperMenuItem
         text={translator.quizes}
         icon={faUsers}
-        selected={props.selected === 'consultants'}
+        selected={props.selected === 'quiz'}
         navigate={navigate}
         items={[
           {
@@ -528,7 +528,7 @@ function AdminMenu(props) {
       <SuperMenuItem
         text={translator.consultants}
         icon={faUsers}
-        selected={props.selected === 'quiz'}
+        selected={props.selected === 'consultants'}
         navigate={navigate}
         items={[
           {

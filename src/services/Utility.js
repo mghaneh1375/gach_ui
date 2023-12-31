@@ -292,6 +292,32 @@ export const isUserAdmin = user => {
   return true;
 };
 
+export const isUserContentAccess = user => {
+  if (user === undefined || user === null) return false;
+
+  if (
+    user.accesses.indexOf('content') === -1 &&
+    user.accesses.indexOf('admin') === -1 &&
+    user.accesses.indexOf('superadmin') === -1
+  )
+    return false;
+
+  return true;
+};
+
+export const isUserEditorAccess = user => {
+  if (user === undefined || user === null) return false;
+
+  if (
+    user.accesses.indexOf('editor') === -1 &&
+    user.accesses.indexOf('admin') === -1 &&
+    user.accesses.indexOf('superadmin') === -1
+  )
+    return false;
+
+  return true;
+};
+
 export const isUserAdvisor = user => {
   if (user === undefined || user === null) return false;
 

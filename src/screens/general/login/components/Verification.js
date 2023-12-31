@@ -156,14 +156,11 @@ const Verification = props => {
         />
       )}
 
-      <InlineTextContainer style={{marginTop: 50}}>
-        <BlueTextInline text={translator.ifWrongData} />
-        <TextLink
-          // 'forgetPass' 'signUp'
-          onPress={() => props.setMode(props.mode)}
-          text={translator.ifWrongDataHref}
-        />
-      </InlineTextContainer>
+      <CommonButton
+        style={{marginTop: 50}}
+        onPress={() => props.setMode(props.mode)}
+        text={'اصلاح شماره موبایل/ایمیل'}
+      />
     </MyView>
   );
 };

@@ -368,11 +368,13 @@ const CreateQuiz = props => {
           onPress={() => props.setMode('list')}
           title={commonTranslator.cancel}
         />
-        <CommonButton
-          onPress={() => submit()}
-          theme={'dark'}
-          title={commonTranslator.confirmChanges}
-        />
+        {props.canEdit && (
+          <CommonButton
+            onPress={() => submit()}
+            theme={'dark'}
+            title={commonTranslator.confirmChanges}
+          />
+        )}
       </EqualTwoTextInputs>
     </MyView>
   );

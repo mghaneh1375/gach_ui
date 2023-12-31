@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import {MyView} from 'react-native-multi-selectbox';
 import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext} from '../../../App';
 import {formatPrice} from '../../../services/Utility';
-import {PhoneView} from '../../../styles/Common';
+import {MyView, PhoneView} from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
 import vars from '../../../styles/root';
 import OffsCard from './OffsCard/OffsCard';
@@ -119,6 +118,7 @@ function MyOffs(props) {
                 <OffsCard
                   key={index}
                   type={elem.type}
+                  subType={elem.obj?.type}
                   code={elem.obj !== undefined ? elem.obj.code : undefined}
                   placeUse={
                     elem.obj !== undefined ? elem.obj.sectionFa : undefined
@@ -130,8 +130,8 @@ function MyOffs(props) {
                   amount={
                     elem.label
                       ? elem.label
-                      : elem.type === ''
-                      ? formatPrice(elem.amount)
+                      : elem.type === '' || elem.obj.type === 'value'
+                      ? formatPrice(elem.obj.amount)
                       : elem.obj.amount
                   }
                   title={elem.label}

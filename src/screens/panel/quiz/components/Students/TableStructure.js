@@ -12,6 +12,14 @@ const columns = [
     selector: row => row.student.phone,
   },
   {
+    name: 'نام مدرسه',
+    selector: row => row.student.school,
+  },
+  {
+    name: 'نام شهر',
+    selector: row => row.student.city,
+  },
+  {
     name: 'ایمیل',
     selector: row => row.student.mail,
   },

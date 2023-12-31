@@ -232,7 +232,10 @@ export const CommonButton = props => {
     </Button>
   ) : (
     <div className={className}>
-      <Button style={allStyles} onClick={props.onPress}>
+      <Button
+        disabled={props.disabled}
+        style={allStyles}
+        onClick={props.onPress}>
         {props.icon !== undefined &&
           (props.iconDir === undefined || props.iconDir === 'right') && (
             <SimpleFontIcon

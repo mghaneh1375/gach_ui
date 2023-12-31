@@ -290,6 +290,26 @@ export const getPDFQuizSubjects = async (token, quizId) => {
   );
 };
 
+export const getPDFQuizInfo = async (token, quizId) => {
+  return generalRequest(
+    routes.getPDFQuizInfo + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
+export const getGradesAndBranches = async (token, quizId) => {
+  return generalRequest(
+    routes.getGradesAndBranches + quizId,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
+
 export const setPDFQuestions = async (quizId, token, count, file) => {
   let formData = undefined;
   if (file !== null && file !== undefined) {

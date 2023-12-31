@@ -206,7 +206,7 @@ const Students = props => {
               theme={'transparent'}
               title={translator.deleteStudent}
             />
-            {state.selectedQuiz.generalMode !== 'escape' && (
+            {state.selectedQuiz.generalMode !== 'escape' && props.isAdmin && (
               <CommonButton
                 onPress={() => prepareShowAnswerSheet()}
                 dir={'rtl'}
@@ -214,7 +214,7 @@ const Students = props => {
                 title={'مشاهده پاسخ برگ'}
               />
             )}
-            {state.selectedQuiz.generalMode === 'escape' && (
+            {state.selectedQuiz.generalMode === 'escape' && props.isAdmin && (
               <CommonButton
                 onPress={async () => {
                   props.setLoading(true);
@@ -316,14 +316,16 @@ const Students = props => {
               />
             </>
           )}
-          <PhoneView style={{gap: 20}}>
-            <CommonButton
-              onPress={() => prepareShowAnswerSheet()}
-              dir={'rtl'}
-              theme={'transparent'}
-              title={'مشاهده پاسخ برگ'}
-            />
-          </PhoneView>
+          {props.isAdmin && (
+            <PhoneView style={{gap: 20}}>
+              <CommonButton
+                onPress={() => prepareShowAnswerSheet()}
+                dir={'rtl'}
+                theme={'transparent'}
+                title={'مشاهده پاسخ برگ'}
+              />
+            </PhoneView>
+          )}
         </CommonWebBox>
       )}
       {!showAnswerSheet &&

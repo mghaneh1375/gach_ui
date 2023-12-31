@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import {dispatchStateContext} from '../../../App';
-import {editItem} from '../../../services/Utility';
+import {
+  editItem,
+  isUserContentAccess,
+  isUserEditorAccess,
+} from '../../../services/Utility';
 import {getGradeLessons} from '../Basic/Utility';
 import Create from './components/Create/Create';
 import Detail from './components/Detail/Detail';
@@ -15,7 +19,7 @@ const Question = props => {
   const [mode, setMode] = useState('');
   const [grades, setGrades] = useState();
   const [selected, setSelected] = useState();
-  const isAdmin = isUserAdmin(props.user);
+
   const [organizationCodeFilter, setOrganizationCodeFilter] = useState();
 
   const navigate = props.navigate;
@@ -77,13 +81,13 @@ const Question = props => {
           grades={grades}
           setOrganizationCodeFilter={setOrganizationCodeFilter}
           setLoading={setLoading}
-          isAdmin={isUserAdmin(props.user)}
+          isAdmin={isUserContentAccess(props.user)}
         />
       )}
       <QuestionProvider>
         {mode === 'create' && (
           <Create
-            isAdmin={isAdmin}
+            isAdmin={isUserContentAccess(props.user)}
             setMode={setMode}
             token={props.token}
             setLoading={setLoading}
@@ -103,7 +107,7 @@ const Question = props => {
         )}
         {mode === 'edit' && (
           <Create
-            isAdmin={isAdmin}
+            isAdmin={isUserContentAccess(props.user)}
             setMode={setMode}
             token={props.token}
             setLoading={setLoading}
@@ -142,7 +146,14 @@ const Question = props => {
               editItem(subjects, setSubjects, newItem);
               setSelected(newItem);
             }}
-            quizMode={isUserAdmin(props.user) ? 'irysc' : 'school'}
+            isAdmin={isUserAdmin(props.user)}
+            isEditor={isUserEditorAccess(props.user)}
+            isContent={isUserContentAccess(props.user)}
+            quizMode={
+              isUserContentAccess(props.user) || isUserEditorAccess(props.user)
+                ? 'irysc'
+                : 'school'
+            }
             setMode={setMode}
             token={props.token}
             organizationCodeFilter={organizationCodeFilter}

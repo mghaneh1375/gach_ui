@@ -170,9 +170,12 @@ export const routes = {
   fetchQuestions: 'quiz/manage/fetchQuestions/',
   getPDFQuizQuestions: 'quiz/manage/getPDFQuizQuestions/',
   getPDFQuizSubjects: 'quiz/manage/getPDFQuizSubjects/',
+  getPDFQuizInfo: 'quiz/manage/getPDFQuizInfo/',
+  getGradesAndBranches: 'quiz/manage/getGradesAndBranches/',
   setPDFQuizQuestions: 'quiz/manage/setPDFQuizQuestions/',
   setPDFQuizSubjectsAndChoicesCount:
     'quiz/manage/setPDFQuizSubjectsAndChoicesCount/',
+  setPDFQuizInfo: 'quiz/manage/setPDFQuizInfo/',
   setPDFQuizAnswerSheet: 'quiz/manage/setPDFQuizAnswerSheet/',
   addBatchQuestionsToQuiz: 'quiz/manage/addBatchQuestionsToQuiz/',
   addQuestionToQuizzes: 'quiz/manage/addQuestionToQuizzes/',

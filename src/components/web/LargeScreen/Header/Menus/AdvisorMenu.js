@@ -27,7 +27,7 @@ function AdvisorMenu(props) {
   if (isLargePage) {
     return (
       <MenuItemRepeat
-        excludes={['certs', 'package', 'quiz', 'mySchool', 'advisor']}
+        excludes={['certs', 'mySchool', 'advisor']}
         navigate={props.navigate}
         selected={props.selected}
         child={

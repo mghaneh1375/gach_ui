@@ -12,7 +12,11 @@ import Home from './general/home/Home';
 import Login from './general/login/Login';
 import WebLogin from './general/login/web/Login';
 import WebProfile from './general/profile/web/Profile';
-import {isUserAdmin} from '../services/Utility';
+import {
+  isUserAdmin,
+  isUserContentAccess,
+  isUserEditorAccess,
+} from '../services/Utility';
 
 import 'react-notifications-component/dist/theme.css';
 import {ReactNotifications} from 'react-notifications-component';
@@ -608,14 +612,10 @@ const WebStructue = props => {
                   navigate={navigate}
                 />
               )}
-              {props.page === 'ticket' && isUserAdmin(state.user) && (
-                <Ticket
-                  token={state.token}
-                  user={state.user}
-                  navigate={navigate}
-                />
+              {props.page === 'ticket' && isUserEditorAccess(state.user) && (
+                <Ticket navigate={navigate} />
               )}
-              {props.page === 'ticket' && !isUserAdmin(state.user) && (
+              {props.page === 'ticket' && !isUserEditorAccess(state.user) && (
                 <Ticketstd
                   token={state.token}
                   user={state.user}

@@ -229,6 +229,7 @@ function Filter(props) {
         )}
       {props.isInReviewMode &&
         state.questions !== undefined &&
+        state.questions[state.currIdx] !== undefined &&
         props.mode !== 'splash' && (
           <MyView style={{padding: 20}}>
             {state.questions[state.currIdx].subject !== undefined && (

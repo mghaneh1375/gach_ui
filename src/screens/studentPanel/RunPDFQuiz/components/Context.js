@@ -1,5 +1,6 @@
 import React from 'react';
 import {doSaveAnswers} from './Utility';
+import {showSuccess} from '../../../../services/Utility';
 
 const defaultGlobalState = {
   questions: undefined,
@@ -70,6 +71,7 @@ export const DoQuizProvider = ({children}) => {
         return;
       }
 
+      showSuccess('پاسخبرگ ذخیره شد');
       dispatch({
         reminder: res[0].reminder,
         refresh: res[0].refresh,

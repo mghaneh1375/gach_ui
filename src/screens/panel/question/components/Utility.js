@@ -91,13 +91,14 @@ export const getAuthorsKeyVals = async token => {
   );
 };
 
-export const getSubjectsKeyVals = async token => {
+export const getSubjectsKeyVals = async (lessonId = undefined) => {
   return await generalRequest(
-    routes.getSubjectsKeyVals,
+    lessonId === undefined
+      ? routes.getSubjectsKeyVals
+      : routes.getSubjectsKeyVals + '?lessonId=' + lessonId,
     'get',
     undefined,
     'data',
-    token,
   );
 };
 

@@ -59,12 +59,15 @@ function Ops(props) {
               : commonTranslator.toShow
           }
         />
-        <CommonButton
-          dir={'rtl'}
-          theme={'transparent'}
-          onPress={() => props.setMode('studentsList')}
-          title={Translator.users}
-        />
+        {props.isEditor && (
+          <CommonButton
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => props.setMode('studentsList')}
+            title={Translator.users}
+          />
+        )}
+
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}

@@ -14,7 +14,7 @@ import QuizGeneralInfo from '../../../panel/quiz/components/Create/QuizGeneralIn
 import translator from '../../../panel/quiz/Translator';
 import commonTranslator from '../../../../translator/Common';
 import QuizAnswerSheetInfo from '../../../panel/quiz/components/Create/QuizAnswerSheetInfo';
-import {showSuccess} from '../../../../services/Utility';
+import {showError, showSuccess} from '../../../../services/Utility';
 import QuizRunInfo from './QuizRunInfo';
 
 const Create = props => {
@@ -111,6 +111,10 @@ const Create = props => {
   const submit = async () => {
     let data = {};
 
+    if (kind === 'regularWithPDF' && (len === undefined || len.length === 0)) {
+      showError('لطفا مدت آزمون را مشخص نمایید');
+      return;
+    }
     data = {
       title: name,
       start: start,

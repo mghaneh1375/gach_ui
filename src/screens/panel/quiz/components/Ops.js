@@ -189,39 +189,239 @@ const Ops = props => {
               title={translator.seeInfo}
             />
 
-            {state.selectedQuiz.pdfQuiz && (
-              <CommonButton
-                dir={'rtl'}
-                theme={'transparent'}
-                title={translator.manageQuestions}
-                onPress={() => changeMode('pdfQuestion')}
-              />
+            {props.isContent && (
+              <>
+                {state.selectedQuiz.pdfQuiz && (
+                  <CommonButton
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    title={translator.manageQuestions}
+                    onPress={() => changeMode('pdfQuestion')}
+                  />
+                )}
+                {(state.selectedQuiz.pdfQuiz === undefined ||
+                  !state.selectedQuiz.pdfQuiz) && (
+                  <CommonButton
+                    dir={'rtl'}
+                    onPress={() => changeMode('question')}
+                    theme={'transparent'}
+                    title={translator.editQuestions}
+                  />
+                )}
+
+                {(state.selectedQuiz.mode !== 'tashrihi' ||
+                  state.selectedQuiz.startRegistry !== undefined) &&
+                  (state.selectedQuiz.generalMode === 'irysc' ||
+                    state.selectedQuiz.generalMode === 'onlineStanding') && (
+                    <CommonButton
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      onPress={() => toggleVisibility()}
+                      title={
+                        state.selectedQuiz.visibility
+                          ? commonTranslator.toHide
+                          : commonTranslator.toShow
+                      }
+                    />
+                  )}
+
+                {props.isAdmin &&
+                  state.selectedQuiz.generalMode !== 'onlineStanding' &&
+                  state.selectedQuiz.generalMode !== 'escape' && (
+                    <CommonButton
+                      onPress={() => createTarazLocal()}
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      title={translator.createTaraz}
+                    />
+                  )}
+
+                {props.isAdmin &&
+                  state.selectedQuiz.generalMode === 'escape' && (
+                    <CommonButton
+                      onPress={() => props.setMode('gifts')}
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      title={translator.selectGifts}
+                    />
+                  )}
+                {props.isAdmin &&
+                  state.selectedQuiz.reportStatus === 'ready' &&
+                  (state.selectedQuiz.generalMode === 'irysc' ||
+                    state.selectedQuiz.generalMode === 'escape') && (
+                    <CommonButton
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      title={translator.gift}
+                      onPress={() =>
+                        finalizeQuizResult(
+                          state.selectedQuiz.id,
+                          state.selectedQuiz.generalMode,
+                          props.token,
+                        )
+                      }
+                    />
+                  )}
+
+                {state.selectedQuiz.generalMode === 'irysc' &&
+                  (state.selectedQuiz.pdfQuiz === undefined ||
+                    !state.selectedQuiz.pdfQuiz) &&
+                  state.selectedQuiz.mode !== 'tashrihi' && (
+                    <CommonButton
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      title={translator.transferToOpenQuiz}
+                      onPress={() => transferToOpenQuizLocal()}
+                    />
+                  )}
+                {state.selectedQuiz.reportStatus === 'ready' && (
+                  <CommonButton
+                    onPress={() => props.setMode('ranking')}
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    title={translator.seeRanking}
+                  />
+                )}
+                {state.selectedQuiz.generalMode === 'onlineStanding' &&
+                  state.selectedQuiz.status === 'finished' && (
+                    <CommonButton
+                      onPress={() =>
+                        props.navigate(
+                          '/ranking/onlineStanding/' +
+                            state.selectedQuiz.id +
+                            '/' +
+                            state.selectedQuiz.title,
+                        )
+                      }
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      title={commonTranslator.report}
+                    />
+                  )}
+                {state.selectedQuiz.generalMode !== 'onlineStanding' &&
+                  state.selectedQuiz.generalMode !== 'escape' && (
+                    <CommonButton
+                      onPress={() => props.setMode('report')}
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      title={commonTranslator.report}
+                    />
+                  )}
+                {(state.selectedQuiz.launchMode === 'physical' ||
+                  state.selectedQuiz.launchMode === 'hybrid') &&
+                  state.selectedQuiz.mode === 'regular' && (
+                    <CommonButton
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      onPress={() => props.setMode('CV')}
+                      title={translator.correntAnswerSheets}
+                    />
+                  )}
+                {state.selectedQuiz.mode === 'tashrihi' && (
+                  <CommonButton
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    onPress={async () => {
+                      props.setLoading(true);
+                      await generateQuestionPDF(
+                        state.selectedQuiz.id,
+                        state.selectedQuiz.generalMode,
+                        props.token,
+                      );
+
+                      props.setLoading(false);
+                    }}
+                    title={translator.generateQuestionPDF}
+                  />
+                )}
+                {state.selectedQuiz.mode !== 'tashrihi' &&
+                  (state.selectedQuiz.pdfQuiz === undefined ||
+                    !state.selectedQuiz.pdfQuiz) &&
+                  state.selectedQuiz.generalMode !== 'escape' && (
+                    <CommonButton
+                      title={translator.keySheet}
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      onPress={() => props.setMode('key')}
+                    />
+                  )}
+                {state.selectedQuiz.pdfQuiz && (
+                  <CommonButton
+                    title={translator.keySheet}
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    onPress={() => props.setMode('pdfKey')}
+                  />
+                )}
+                {state.selectedQuiz.mode === 'tashrihi' && (
+                  <CommonButton
+                    title={translator.correctors}
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    onPress={() => props.setMode('correctors')}
+                  />
+                )}
+                {state.selectedQuiz.mode === 'tashrihi' &&
+                  state.selectedQuiz.isQRNeeded !== undefined &&
+                  state.selectedQuiz.isQRNeeded && (
+                    <CommonButton
+                      title="نمایش لاگ ها"
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      onPress={() => setShowLogPane(true)}
+                    />
+                  )}
+                {state.selectedQuiz.mode === 'tashrihi' &&
+                  state.selectedQuiz.isQRNeeded && (
+                    <CommonButton
+                      title={'دانلود پاسخ برگ'}
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      onPress={() => downloadAnswerSheet()}
+                    />
+                  )}
+                {state.selectedQuiz.mode === 'tashrihi' &&
+                  state.selectedQuiz.isQRNeeded && (
+                    <CommonButton
+                      title={'آپلود پاسخ برگها'}
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      onPress={() => setShowUploadPane(true)}
+                    />
+                  )}
+                {(state.selectedQuiz.mode !== 'tashrihi' ||
+                  state.selectedQuiz.startRegistry !== undefined) && (
+                  <CommonButton
+                    title={translator.copyLink}
+                    dir={'rtl'}
+                    theme={'transparent'}
+                    onPress={() => {
+                      if (state.selectedQuiz.generalMode === 'onlineStanding')
+                        navigator.clipboard.writeText(
+                          BASE_SITE_NAME +
+                            'onlineStandingQuizRegistration/' +
+                            state.selectedQuiz.id,
+                        );
+                      else
+                        navigator.clipboard.writeText(
+                          BASE_SITE_NAME + 'buy/' + state.selectedQuiz.id,
+                        );
+                      showSuccess('لینک کپی شد!');
+                    }}
+                  />
+                )}
+              </>
             )}
-            {(state.selectedQuiz.pdfQuiz === undefined ||
-              !state.selectedQuiz.pdfQuiz) && (
+
+            {props.isEditor && (
               <CommonButton
                 dir={'rtl'}
-                onPress={() => changeMode('question')}
                 theme={'transparent'}
-                title={translator.editQuestions}
+                onPress={() => changeMode('student')}
+                title={translator.studentsList}
               />
             )}
 
-            {(state.selectedQuiz.mode !== 'tashrihi' ||
-              state.selectedQuiz.startRegistry !== undefined) &&
-              (state.selectedQuiz.generalMode === 'irysc' ||
-                state.selectedQuiz.generalMode === 'onlineStanding') && (
-                <CommonButton
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  onPress={() => toggleVisibility()}
-                  title={
-                    state.selectedQuiz.visibility
-                      ? commonTranslator.toHide
-                      : commonTranslator.toShow
-                  }
-                />
-              )}
             {(state.selectedQuiz.mode !== 'tashrihi' ||
               state.selectedQuiz.startRegistry !== undefined) && (
               <CommonButton
@@ -239,192 +439,6 @@ const Ops = props => {
                   )
                 }
                 title={Translate.review}
-              />
-            )}
-            <CommonButton
-              dir={'rtl'}
-              theme={'transparent'}
-              onPress={() => changeMode('student')}
-              title={translator.studentsList}
-            />
-            {state.selectedQuiz.generalMode !== 'onlineStanding' &&
-              state.selectedQuiz.generalMode !== 'escape' && (
-                <CommonButton
-                  onPress={() => createTarazLocal()}
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  title={translator.createTaraz}
-                />
-              )}
-            {state.selectedQuiz.generalMode === 'escape' && (
-              <CommonButton
-                onPress={() => props.setMode('gifts')}
-                dir={'rtl'}
-                theme={'transparent'}
-                title={translator.selectGifts}
-              />
-            )}
-            {state.selectedQuiz.reportStatus === 'ready' &&
-              (state.selectedQuiz.generalMode === 'irysc' ||
-                state.selectedQuiz.generalMode === 'escape') && (
-                <CommonButton
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  title={translator.gift}
-                  onPress={() =>
-                    finalizeQuizResult(
-                      state.selectedQuiz.id,
-                      state.selectedQuiz.generalMode,
-                      props.token,
-                    )
-                  }
-                />
-              )}
-            {state.selectedQuiz.generalMode === 'irysc' &&
-              (state.selectedQuiz.pdfQuiz === undefined ||
-                !state.selectedQuiz.pdfQuiz) &&
-              state.selectedQuiz.mode !== 'tashrihi' && (
-                <CommonButton
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  title={translator.transferToOpenQuiz}
-                  onPress={() => transferToOpenQuizLocal()}
-                />
-              )}
-            {state.selectedQuiz.reportStatus === 'ready' && (
-              <CommonButton
-                onPress={() => props.setMode('ranking')}
-                dir={'rtl'}
-                theme={'transparent'}
-                title={translator.seeRanking}
-              />
-            )}
-            {state.selectedQuiz.generalMode === 'onlineStanding' &&
-              state.selectedQuiz.status === 'finished' && (
-                <CommonButton
-                  onPress={() =>
-                    props.navigate(
-                      '/ranking/onlineStanding/' +
-                        state.selectedQuiz.id +
-                        '/' +
-                        state.selectedQuiz.title,
-                    )
-                  }
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  title={commonTranslator.report}
-                />
-              )}
-            {state.selectedQuiz.generalMode !== 'onlineStanding' &&
-              state.selectedQuiz.generalMode !== 'escape' && (
-                <CommonButton
-                  onPress={() => props.setMode('report')}
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  title={commonTranslator.report}
-                />
-              )}
-            {(state.selectedQuiz.launchMode === 'physical' ||
-              state.selectedQuiz.launchMode === 'hybrid') &&
-              state.selectedQuiz.mode === 'regular' && (
-                <CommonButton
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  onPress={() => props.setMode('CV')}
-                  title={translator.correntAnswerSheets}
-                />
-              )}
-            {state.selectedQuiz.mode === 'tashrihi' && (
-              <CommonButton
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={async () => {
-                  props.setLoading(true);
-                  await generateQuestionPDF(
-                    state.selectedQuiz.id,
-                    state.selectedQuiz.generalMode,
-                    props.token,
-                  );
-
-                  props.setLoading(false);
-                }}
-                title={translator.generateQuestionPDF}
-              />
-            )}
-            {state.selectedQuiz.mode !== 'tashrihi' &&
-              (state.selectedQuiz.pdfQuiz === undefined ||
-                !state.selectedQuiz.pdfQuiz) &&
-              state.selectedQuiz.generalMode !== 'escape' && (
-                <CommonButton
-                  title={translator.keySheet}
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  onPress={() => props.setMode('key')}
-                />
-              )}
-            {state.selectedQuiz.pdfQuiz && (
-              <CommonButton
-                title={translator.keySheet}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => props.setMode('pdfKey')}
-              />
-            )}
-            {state.selectedQuiz.mode === 'tashrihi' && (
-              <CommonButton
-                title={translator.correctors}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => props.setMode('correctors')}
-              />
-            )}
-            {state.selectedQuiz.mode === 'tashrihi' &&
-              state.selectedQuiz.isQRNeeded !== undefined &&
-              state.selectedQuiz.isQRNeeded && (
-                <CommonButton
-                  title="نمایش لاگ ها"
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  onPress={() => setShowLogPane(true)}
-                />
-              )}
-            {state.selectedQuiz.mode === 'tashrihi' &&
-              state.selectedQuiz.isQRNeeded && (
-                <CommonButton
-                  title={'دانلود پاسخ برگ'}
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  onPress={() => downloadAnswerSheet()}
-                />
-              )}
-            {state.selectedQuiz.mode === 'tashrihi' &&
-              state.selectedQuiz.isQRNeeded && (
-                <CommonButton
-                  title={'آپلود پاسخ برگها'}
-                  dir={'rtl'}
-                  theme={'transparent'}
-                  onPress={() => setShowUploadPane(true)}
-                />
-              )}
-            {(state.selectedQuiz.mode !== 'tashrihi' ||
-              state.selectedQuiz.startRegistry !== undefined) && (
-              <CommonButton
-                title={translator.copyLink}
-                dir={'rtl'}
-                theme={'transparent'}
-                onPress={() => {
-                  if (state.selectedQuiz.generalMode === 'onlineStanding')
-                    navigator.clipboard.writeText(
-                      BASE_SITE_NAME +
-                        'onlineStandingQuizRegistration/' +
-                        state.selectedQuiz.id,
-                    );
-                  else
-                    navigator.clipboard.writeText(
-                      BASE_SITE_NAME + 'buy/' + state.selectedQuiz.id,
-                    );
-                  showSuccess('لینک کپی شد!');
-                }}
               />
             )}
           </PhoneView>

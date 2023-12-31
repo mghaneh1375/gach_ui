@@ -3,7 +3,7 @@ import {dispatchStateContext, globalStateContext} from '../../../App';
 import List from './components/List/List';
 import Create from './components/Create';
 import Show from './components/Show/Show';
-import {addItem, editItem, isUserAdmin} from '../../../services/Utility';
+import {addItem, editItem, isUserEditorAccess} from '../../../services/Utility';
 import {filter} from './components/List/Utility';
 import {useLocation} from 'react-router';
 import {MyView} from '../../../styles/Common';
@@ -21,7 +21,7 @@ function Ticket(props) {
   const [state, dispatch] = useGlobalState();
   const [tickets, setTickets] = useState();
   const [selectedTicket, setSelectedTicket] = useState({});
-  const isAdmin = isUserAdmin(props.user);
+  const isAdmin = isUserEditorAccess(state.user);
   const [items, setItems] = useState();
 
   const setLoading = status => {
@@ -35,7 +35,7 @@ function Ticket(props) {
     filter(
       {
         setLoading: status => dispatch({loading: status}),
-        token: props.token,
+        token: state.token,
         setTickets: setTickets,
         setItems: setItems,
         navigate: navigate,
@@ -51,7 +51,7 @@ function Ticket(props) {
       undefined,
       undefined,
     );
-  }, [navigate, props.token, isAdmin, search, dispatch]);
+  }, [navigate, state.token, isAdmin, search, dispatch]);
 
   return (
     <MyView>
@@ -63,29 +63,29 @@ function Ticket(props) {
           items={items}
           isAdmin={isAdmin}
           setTickets={setTickets}
-          token={props.token}
+          token={state.token}
           setSelectedTicket={setSelectedTicket}
         />
       )}
       {mode === 'create' && (
         <Create
-          user={props.user}
+          user={state.user}
           setMode={setMode}
           setLoading={setLoading}
           isAdmin={isAdmin}
           addTicket={newTicket => addItem(tickets, setTickets, newTicket)}
-          token={props.token}
+          token={state.token}
         />
       )}
       {mode === 'show' && (
         <Show
           isAdmin={isAdmin}
-          user={props.user}
+          user={state.user}
           setLoading={setLoading}
           updateTicket={ticket => editItem(tickets, setTickets, ticket)}
           setSelectedTicket={setSelectedTicket}
           ticket={selectedTicket}
-          token={props.token}
+          token={state.token}
           setMode={setMode}
         />
       )}

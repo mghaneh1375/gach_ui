@@ -16,6 +16,11 @@ import CreateGift from './components/Gift/Create';
 import ListGift from './components/Gift/List';
 import ReportList from './components/Reports/List/List';
 import Ranking from './components/Reports/Ranking/Ranking';
+import {
+  isUserAdmin,
+  isUserContentAccess,
+  isUserEditorAccess,
+} from '../../../services/Utility';
 
 function EscapeQuiz(props) {
   const [mode, setMode] = useState('karname');
@@ -50,6 +55,9 @@ function EscapeQuiz(props) {
             setLoading={setLoading}
             token={state.token}
             generalMode={'escape'}
+            isAdmin={isUserAdmin(state.user)}
+            isContent={isUserContentAccess(state.user)}
+            isEditor={isUserEditorAccess(state.user)}
           />
         )}
         {mode === 'create' && (
@@ -103,6 +111,7 @@ function EscapeQuiz(props) {
             setLoading={setLoading}
             setMode={setMode}
             token={state.token}
+            isAdmin={isUserAdmin(state.user)}
           />
         )}
         {mode === 'question' && (

@@ -15,6 +15,11 @@ import ReportList from './components/Reports/List/List';
 import {useParams} from 'react-router';
 import {MyView} from '../../../styles/Common';
 import CreateContentQuiz from './components/CreateContentQuiz';
+import {
+  isUserAdmin,
+  isUserContentAccess,
+  isUserEditorAccess,
+} from '../../../services/Utility';
 
 const ContentQuiz = props => {
   const [mode, setMode] = useState('karname');
@@ -49,6 +54,9 @@ const ContentQuiz = props => {
             setLoading={setLoading}
             token={state.token}
             generalMode={'contentQuiz'}
+            isAdmin={isUserAdmin(state.user)}
+            isContent={isUserContentAccess(state.user)}
+            isEditor={isUserEditorAccess(state.user)}
           />
         )}
         {mode === 'create' && (
@@ -83,6 +91,7 @@ const ContentQuiz = props => {
             setLoading={setLoading}
             setMode={setMode}
             token={state.token}
+            isAdmin={isUserAdmin(state.user)}
           />
         )}
         {mode === 'question' && (

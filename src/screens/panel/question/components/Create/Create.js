@@ -122,7 +122,7 @@ function Create(props) {
 
     Promise.all([
       getAuthorsKeyVals(props.token),
-      getSubjectsKeyVals(props.token),
+      getSubjectsKeyVals(),
       getTagsKeyVals(props.token),
     ]).then(res => {
       props.setLoading(false);

@@ -1,8 +1,8 @@
 import React from 'react';
-import {PropTypes} from 'victory-core';
 import {MyView, PhoneView, SimpleText} from '../../styles/Common';
 import {FontIcon, SimpleFontIcon} from '../../styles/Common/FontIcon';
 import {styles} from '../../styles/Common/Styles';
+import {getDevice, getWidthHeight} from '../../services/Utility';
 
 function QuizItemCard({
   text,
@@ -17,6 +17,8 @@ function QuizItemCard({
   iconColor,
   isBold,
 }) {
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const width = getWidthHeight()[0];
   if (val === undefined || val === '' || val === '...') return <></>;
   return (
     <PhoneView style={{...styles.alignItemsCenter}}>
@@ -66,11 +68,13 @@ function QuizItemCard({
                     fontSize: valFontSize,
                     ...styles.BlueBold,
                     ...styles.alignSelfStart,
+                    maxWidth: isInPhone ? width - 120 : undefined,
                   }
                 : {
                     fontSize: valFontSize,
                     ...styles.dark_blue_color,
                     ...styles.alignSelfStart,
+                    maxWidth: isInPhone ? width - 120 : undefined,
                   }
             }
             text={val}

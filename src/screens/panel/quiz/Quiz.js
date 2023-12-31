@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import CreateQuiz from './components/CreateQuiz';
 import List from './components/List';
-import {dispatchStateContext} from '../../../App';
+import {dispatchStateContext, globalStateContext} from '../../../App';
 import Students from './components/Students/Students';
 import Questions from './components/Questions/Questions';
 import CV from './components/CV/CV';
@@ -20,14 +20,22 @@ import ContentQuizKarname from './components/Reports/Karname/ContentQuizKarname'
 import Correctors from './components/Correctors/Correctors';
 import PDF from './components/PDFQuestion/Questions';
 import PDFQuizKey from './components/Key/PDFQuizKey';
+import {
+  isUserAdmin,
+  isUserContentAccess,
+  isUserEditorAccess,
+} from '../../../services/Utility';
 
 const Quiz = props => {
   const [mode, setMode] = useState('karname');
   const navigate = props.navigate;
 
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
 
-  const [dispatch] = useGlobalState();
+  const [state, dispatch] = useGlobalState();
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -50,6 +58,9 @@ const Quiz = props => {
             navigate={navigate}
             setLoading={setLoading}
             token={props.token}
+            isAdmin={isUserAdmin(state.user)}
+            isContent={isUserContentAccess(state.user)}
+            isEditor={isUserEditorAccess(state.user)}
           />
         )}
         {mode === 'create' && (
@@ -59,6 +70,7 @@ const Quiz = props => {
             token={props.token}
             editMode={false}
             quizGeneralMode={'irysc'}
+            canEdit={isUserContentAccess(state.user)}
           />
         )}
         {mode === 'correctors' && (
@@ -77,6 +89,7 @@ const Quiz = props => {
             token={props.token}
             editMode={true}
             quizGeneralMode={'irysc'}
+            canEdit={isUserContentAccess(state.user)}
           />
         )}
         {mode === 'key' && (
@@ -93,6 +106,7 @@ const Quiz = props => {
             setLoading={setLoading}
             setMode={setMode}
             token={props.token}
+            isAdmin={isUserAdmin(state.user)}
           />
         )}
         {mode === 'question' && (
