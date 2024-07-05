@@ -9,7 +9,7 @@ const newAlertsKeyVals = [
   },
   {
     id: 'notif',
-    title: 'اعلان جدید: ',
+    title: 'نامه جدید: ',
     // title: 'پیغام ها: ',
   },
 ];

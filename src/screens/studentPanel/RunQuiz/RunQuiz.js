@@ -260,6 +260,7 @@ function RunQuiz(props) {
                 token={props.token}
                 quizId={params.quizId}
                 quizGeneralMode={params.quizMode}
+                sessionId={params.sessionId}
                 navigate={props.navigate}
                 setLoading={setLoading}
                 setMode={m => {

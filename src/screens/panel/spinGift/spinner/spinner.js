@@ -186,7 +186,7 @@ function Spinner(props) {
                 ...styles.alignItemsCenter,
               }}>
               <SimpleText
-                text={`تبریک شما برنده ${award} شدید`}
+                text={`تبریک برنده ${award} شدی`}
                 style={{
                   ...styles.BlueBold,
                   ...styles.alignSelfCenter,

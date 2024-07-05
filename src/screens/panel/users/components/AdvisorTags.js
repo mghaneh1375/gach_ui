@@ -105,7 +105,7 @@ function AdvisorTags(props) {
 
   return (
     <CommonWebBox
-      header={'مدیریت تگ های ' + state.selectedUser.name}
+      header={'مدیریت تگ‌های ' + state.selectedUser.name}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       {state.selectedUser.tags !== undefined && (

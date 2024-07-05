@@ -10,6 +10,11 @@ import {
   faQuestion,
   faDashboard,
   faBox,
+  faBandage,
+  faCreditCard,
+  faHistory,
+  faVideo,
+  faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import {SuperMenuItem} from './SuperMenuItem';
 import {MyView} from '../../../../../styles/Common';
@@ -24,6 +29,8 @@ function EditorMenu(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
 
   const [state] = useGlobalState();
+
+  const hasAdvisor = state.user?.user?.hasAdvisor;
 
   if (isLargePage) {
     return (
@@ -121,7 +128,112 @@ function EditorMenu(props) {
               text: translator.teachersContents,
               url: '/contents-teacher',
             },
+            {
+              text: translator.copySessions,
+              url: '/copy-sessions',
+            },
           ]}
+        />
+
+        <SuperMenuItem
+          text={'آزمون - بخش دانش آموزی'}
+          icon={faShoppingCart}
+          selected={
+            props.selected === 'buy' ||
+            props.selected === 'makeQuiz' ||
+            props.selected === 'myIRYSCQuizzes' ||
+            props.selected === 'myCustomQuizzes'
+          }
+          navigate={navigate}
+          items={[
+            {
+              text: translator.buyQuiz,
+              url: '/buy',
+            },
+            {
+              text: translator.makeQuiz,
+              url: '/makeQuiz',
+            },
+            {
+              text: translator.myQuizes,
+              url: '/myIRYSCQuizzes',
+            },
+            {
+              text: translator.myCustomQuizess,
+              url: '/myCustomQuizzes',
+            },
+          ]}
+        />
+
+        <SuperMenuItem
+          text={'دوره‌ها' + ' - بخش دانش آموزی'}
+          icon={faVideo}
+          selected={
+            props.selected === 'packages' || props.selected === 'myPackages'
+          }
+          navigate={navigate}
+          items={[
+            {
+              text: translator.buyPackages,
+              url: '/packages',
+            },
+            {
+              text: translator.myPackages,
+              url: '/myPackages',
+            },
+          ]}
+        />
+
+        <SuperMenuItem
+          text={'مشاور'}
+          icon={faBandage}
+          selected={props.selected === 'buy'}
+          navigate={navigate}
+          items={[
+            {
+              text: hasAdvisor ? translator.myAdvisor : undefined,
+              url: '/myAdvisor',
+            },
+            {
+              text: hasAdvisor ? translator.mySchedules : undefined,
+              url: '/mySchedules',
+            },
+            {
+              text: 'برنامه‌ی روزانه‌ی من',
+              url: '/myLifeStyle',
+            },
+
+            {
+              text: translator.advisors,
+              url: '/advisors',
+            },
+            {
+              text: hasAdvisor ? translator.quizes : undefined,
+              url: '/myAdvisor/quiz',
+            },
+            {
+              text: translator.requestsLog,
+              url: '/requestLogsForAdvisors',
+            },
+          ]}
+        />
+        <MenuItem
+          onClick={() => navigate('/charge')}
+          text={translator.charge}
+          icon={faCreditCard}
+          selected={props.selected === 'charge'}
+        />
+        <MenuItem
+          onClick={() => navigate('/financeHistory')}
+          text={translator.history}
+          icon={faHistory}
+          selected={props.selected === 'financeHistory'}
+        />
+        <MenuItem
+          onClick={() => navigate('/ticket')}
+          text={translator.requests}
+          icon={faCog}
+          selected={props.selected === 'ticket'}
         />
       </div>
     );
@@ -235,7 +347,112 @@ function EditorMenu(props) {
             text: translator.teachersContents,
             url: '/contents-teacher',
           },
+          {
+            text: translator.copySessions,
+            url: '/copy-sessions',
+          },
         ]}
+      />
+
+      <SuperMenuItem
+        text={'آزمون - بخش دانش آموزی'}
+        icon={faShoppingCart}
+        selected={
+          props.selected === 'buy' ||
+          props.selected === 'makeQuiz' ||
+          props.selected === 'myIRYSCQuizzes' ||
+          props.selected === 'myCustomQuizzes'
+        }
+        navigate={navigate}
+        items={[
+          {
+            text: translator.buyQuiz,
+            url: '/buy',
+          },
+          {
+            text: translator.makeQuiz,
+            url: '/makeQuiz',
+          },
+          {
+            text: translator.myQuizes,
+            url: '/myIRYSCQuizzes',
+          },
+          {
+            text: translator.myCustomQuizess,
+            url: '/myCustomQuizzes',
+          },
+        ]}
+      />
+
+      <SuperMenuItem
+        text={'دوره‌ها' + ' - بخش دانش آموزی'}
+        icon={faVideo}
+        selected={
+          props.selected === 'packages' || props.selected === 'myPackages'
+        }
+        navigate={navigate}
+        items={[
+          {
+            text: translator.buyPackages,
+            url: '/packages',
+          },
+          {
+            text: translator.myPackages,
+            url: '/myPackages',
+          },
+        ]}
+      />
+
+      <SuperMenuItem
+        text={'مشاور'}
+        icon={faBandage}
+        selected={props.selected === 'buy'}
+        navigate={navigate}
+        items={[
+          {
+            text: hasAdvisor ? translator.myAdvisor : undefined,
+            url: '/myAdvisor',
+          },
+          {
+            text: hasAdvisor ? translator.mySchedules : undefined,
+            url: '/mySchedules',
+          },
+          {
+            text: 'برنامه‌ی روزانه‌ی من',
+            url: '/myLifeStyle',
+          },
+
+          {
+            text: translator.advisors,
+            url: '/advisors',
+          },
+          {
+            text: hasAdvisor ? translator.quizes : undefined,
+            url: '/myAdvisor/quiz',
+          },
+          {
+            text: translator.requestsLog,
+            url: '/requestLogsForAdvisors',
+          },
+        ]}
+      />
+      <MenuItemPhone
+        onClick={() => navigate('/charge')}
+        text={translator.charge}
+        icon={faCreditCard}
+        selected={props.selected === 'charge'}
+      />
+      <MenuItemPhone
+        onClick={() => navigate('/financeHistory')}
+        text={translator.history}
+        icon={faHistory}
+        selected={props.selected === 'financeHistory'}
+      />
+      <MenuItemPhone
+        onClick={() => navigate('/ticket')}
+        text={translator.requests}
+        icon={faCog}
+        selected={props.selected === 'ticket'}
       />
 
       <MobileLogout name={props.name} navigate={props.navigate} />

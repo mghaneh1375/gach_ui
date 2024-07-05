@@ -58,7 +58,7 @@ const Navbar = props => {
           تماس و پشتیبانی
         </NavLinkExternal>
         {/* <NavLink style={{...styles.whiteSpaceNoWrap}} to="/packages">
-          بسته های آموزشی
+          دوره‌های آموزشی
         </NavLink> */}
         <CommonButton
           style={{
@@ -69,7 +69,7 @@ const Navbar = props => {
             paddingRight: 10,
             display: width > 768 && width < 900 ? 'none' : 'flex',
           }}
-          title={'دوره های آموزشی'}
+          title={'دوره‌های آموزشی'}
           onPress={() => {
             window.location.href = '/packages';
             // window.open(

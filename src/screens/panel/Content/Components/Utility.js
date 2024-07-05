@@ -1,6 +1,5 @@
 import {routes} from '../../../../API/APIRoutes';
 import {
-  fileRequest,
   generalRequest,
   videoFileRequest,
   videoGeneralRequest,
@@ -50,13 +49,7 @@ let mandatoryFields = [
   'priority',
 ];
 
-let mandatoryFieldsSession = [
-  'title',
-  'description',
-  'priority',
-  'duration',
-  'visibility',
-];
+let mandatoryFieldsSession = ['title', 'priority', 'duration', 'visibility'];
 
 export const store = async (token, data) => {
   try {

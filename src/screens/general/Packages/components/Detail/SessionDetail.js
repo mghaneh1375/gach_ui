@@ -11,6 +11,7 @@ import {
   showError,
 } from '../../../../../services/Utility';
 import {
+  CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
@@ -25,12 +26,7 @@ import RenderHTML from 'react-native-render-html';
 import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext, globalStateContext} from '../../../../../App';
 import {useParams} from 'react-router';
-import {
-  BASE_SITE_NAME,
-  BASE_URL,
-  downloadRequest,
-  generalRequest,
-} from '../../../../../API/Utility';
+import {downloadRequest, generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
 import AttachBox from '../../../../panel/ticket/components/Show/AttachBox/AttachBox';
 
@@ -47,6 +43,7 @@ function SessionDetail(props) {
     React.useContext(dispatchStateContext),
   ];
 
+  const [contentId, setContentId] = useState();
   const [state, dispatch] = useGlobalState();
   const params = useParams();
 
@@ -72,6 +69,7 @@ function SessionDetail(props) {
       setAllSessions(res[0].sessions);
       if (res[0].adv === undefined) setShowAdvertising(false);
       setAdv(res[0].adv);
+      setContentId(res[0].contentId);
       setSelectedSession(res[0].sessions.find(elem => elem.selected));
     });
   }, [dispatch, state.token, params, props]);
@@ -97,6 +95,53 @@ function SessionDetail(props) {
           onBackClick={() => props.navigate('/packages/' + params.slug)}
           btn={
             <PhoneView style={styles.gap15}>
+              {selectedSession.hasExam && (
+                <>
+                  {selectedSession.canDoQuiz && (
+                    <CommonButton
+                      title="شرکت در آزمون جلسه"
+                      onPress={() =>
+                        (window.location.href =
+                          '/startQuiz/content/' +
+                          contentId +
+                          '/' +
+                          selectedSession.id)
+                      }
+                    />
+                  )}
+                  {!selectedSession.canDoQuiz && (
+                    <PhoneView
+                      style={{alignItems: 'center', alignContents: 'center'}}>
+                      <CommonButton
+                        title="مرور آزمون جلسه"
+                        onPress={() =>
+                          (window.location.href =
+                            '/reviewQuiz/content/' +
+                            contentId +
+                            '/' +
+                            selectedSession.id)
+                        }
+                      />
+                      <SimpleText
+                        onPress={() =>
+                          props.navigate(
+                            '/result/content/' +
+                              selectedSession.examId +
+                              '/' +
+                              state.user.user.id,
+                          )
+                        }
+                        style={{
+                          ...styles.BlueBold,
+                          ...styles.cursor_pointer,
+                          ...styles.colorOrangeRed,
+                        }}
+                        text={' مشاهده کارنامه آزمون'}
+                      />
+                    </PhoneView>
+                  )}
+                </>
+              )}
               {selectedSession.attachesCount !== undefined &&
                 selectedSession.attachesCount > 0 && (
                   <PhoneView style={{...styles.gap5, ...styles.marginLeft15}}>
@@ -140,7 +185,7 @@ function SessionDetail(props) {
             {selectedSession.attaches !== undefined &&
               selectedSession.attaches.map((elem, index) => {
                 return (
-                  <PhoneView>
+                  <PhoneView key={index}>
                     <SimpleText
                       style={{alignSelf: 'center'}}
                       text={'فایل ضمیمه شماره: ' + (index + 1)}
@@ -172,7 +217,7 @@ function SessionDetail(props) {
                       elem.video === ''
                     )
                       showError(
-                        'برای مشاهده این جلسه باید این بسته را خریداری نمایید',
+                        'برای مشاهده این جلسه باید این دوره را خریداری نمایید',
                       );
                     else {
                       setSelectedSession(undefined);

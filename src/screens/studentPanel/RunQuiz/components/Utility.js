@@ -6,9 +6,21 @@ import {
 } from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 
-export const reviewQuiz = async (quizId, generalMode, token) => {
+export const reviewQuiz = async (
+  quizId,
+  generalMode,
+  token,
+  sessionId = undefined,
+) => {
   return await generalRequest(
-    routes.reviewQuiz + generalMode + '/' + quizId,
+    sessionId === undefined
+      ? routes.reviewQuiz + generalMode + '/' + quizId
+      : routes.reviewQuiz +
+          generalMode +
+          '/' +
+          quizId +
+          '?sessionId=' +
+          sessionId,
     'get',
     undefined,
     'data',
@@ -16,9 +28,16 @@ export const reviewQuiz = async (quizId, generalMode, token) => {
   );
 };
 
-export const doQuiz = async (quizId, generalMode, token) => {
+export const doQuiz = async (
+  quizId,
+  generalMode,
+  token,
+  sessionId = undefined,
+) => {
   return await generalRequest(
-    routes.doQuiz + generalMode + '/' + quizId,
+    sessionId === undefined
+      ? routes.doQuiz + generalMode + '/' + quizId
+      : routes.doQuiz + generalMode + '/' + quizId + '?sessionId=' + sessionId,
     'get',
     undefined,
     'data',

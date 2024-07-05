@@ -71,25 +71,34 @@ function List(props) {
             subText={'کد حیطه'}
           />
         </PhoneView>
-        <CommonButton
-          onPress={async () => {
-            let query = new URLSearchParams();
-            if (searchKey !== undefined) query.append('subject', searchKey);
-            if (code !== undefined) query.append('code', code);
+        <PhoneView style={{justifyContent: 'end'}}>
+          <CommonButton
+            onPress={async () => {
+              let query = new URLSearchParams();
+              if (searchKey !== undefined) query.append('subject', searchKey);
+              if (code !== undefined) query.append('code', code);
 
-            props.setLoading(true);
-            let res = await generalRequest(
-              routes.fetchSubjects + '?' + query.toString(),
-              'get',
-              undefined,
-              'data',
-              props.token,
-            );
-            props.setLoading(false);
-            if (res !== null) setData(res);
-          }}
-          title={commonTranslator.search}
-        />
+              props.setLoading(true);
+              let res = await generalRequest(
+                routes.fetchSubjects + '?' + query.toString(),
+                'get',
+                undefined,
+                'data',
+                props.token,
+              );
+              props.setLoading(false);
+              if (res !== null) setData(res);
+            }}
+            title={commonTranslator.search}
+          />
+          <CommonButton
+            onPress={async () => {
+              props.setMode('groupEdit');
+            }}
+            theme={'dark'}
+            title={'ویرایش دسته جمعی'}
+          />
+        </PhoneView>
       </MyView>
       {data !== undefined && (
         <CommonDataTable

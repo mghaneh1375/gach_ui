@@ -50,12 +50,12 @@ const List = props => {
             <CommonButton
               onPress={() => props.setMode('copun')}
               theme={'dark'}
-              title={'گزارش کوپن های فروشگاه'}
+              title={'گزارش کوپن‌های فروشگاه'}
             />
             <CommonButton
               onPress={() => props.setMode('copunRev')}
               theme={'orangeRed'}
-              title={'گزارش خرید های فروشگاه'}
+              title={'گزارش خرید‌های فروشگاه'}
             />
           </PhoneView>
           <CommonDataTable

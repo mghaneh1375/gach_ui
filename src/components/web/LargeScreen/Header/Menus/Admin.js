@@ -269,6 +269,10 @@ function AdminMenu(props) {
               text: translator.teachersContents,
               url: '/contents-teacher',
             },
+            {
+              text: translator.copySessions,
+              url: '/copy-sessions',
+            },
           ]}
         />
         <SuperMenuItem
@@ -570,6 +574,10 @@ function AdminMenu(props) {
           {
             text: translator.teachersContents,
             url: '/contents-teacher',
+          },
+          {
+            text: translator.copySessions,
+            url: '/copy-sessions',
           },
         ]}
       />

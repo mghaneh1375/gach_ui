@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {addItem, editItem} from '../../../../services/Utility';
-import {getGradeLessons, getSubjects} from '../Utility';
+import {getGradeAndBranchesLessons, getSubjects} from '../Utility';
 import {dispatchStateContext} from '../../../../App';
 import Create from './components/Create';
 import List from './components/List/List';
 import {MyView} from '../../../../styles/Common';
+import GroupEdit from './components/GroupEdit';
 
 function Subject(props) {
   const navigate = props.navigate;
@@ -21,7 +22,7 @@ function Subject(props) {
 
   React.useEffect(() => {
     dispatch({loading: true});
-    Promise.all([getSubjects(), getGradeLessons()]).then(res => {
+    Promise.all([getSubjects(), getGradeAndBranchesLessons()]).then(res => {
       dispatch({loading: false});
       if (res[0] === null || res[1] === null) {
         navigate('/');
@@ -58,6 +59,13 @@ function Subject(props) {
           setLoading={setLoading}
           setSubjects={setSubjects}
           afterFunc={newItem => addItem(subjects, setSubjects, newItem)}
+        />
+      )}
+      {mode === 'groupEdit' && (
+        <GroupEdit
+          setMode={setMode}
+          token={props.token}
+          setLoading={setLoading}
         />
       )}
       {mode === 'edit' && (

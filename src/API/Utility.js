@@ -13,7 +13,7 @@ export const CV_BASE_URL = 'https://cv.irysc.com/api/';
 export const VIDEO_BASE_URL = 'https://video.irysc.com/video_api/';
 
 // export const BASE_URL = 'http://127.0.0.1:8080/api/';
-// export const BASE_URL = 'http://192.168.0.106:8080/api/';
+// export const BASE_URL = 'http://192.168.1.100:8080/api/';
 export const BASE_URL = 'https://e.irysc.com/api/';
 
 export const COMMON_HEADER = {

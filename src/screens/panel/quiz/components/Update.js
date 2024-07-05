@@ -80,7 +80,10 @@ const Update = props => {
 
     let result = await CallAPI(
       data,
-      routes.editQuiz + state.selectedQuiz.id,
+      routes.editQuiz +
+        state.selectedQuiz.generalMode +
+        '/' +
+        state.selectedQuiz.id,
       props.token,
       props.setLoading,
       'regular',

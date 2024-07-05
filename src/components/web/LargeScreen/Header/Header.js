@@ -9,7 +9,7 @@ import {
 } from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {style} from './style';
-import {faAngleUp, faBell} from '@fortawesome/free-solid-svg-icons';
+import {faAngleUp, faBell, faGift} from '@fortawesome/free-solid-svg-icons';
 import {getDevice, getWidthHeight} from '../../../../services/Utility';
 import {Device} from '../../../../models/Device';
 import {logout} from '../../../../API/User';
@@ -237,93 +237,102 @@ const Header = props => {
             )}
           </div>
         </MyView>
-
-        <MyView style={style.Header_NOTIF}>
-          <SimpleFontIcon
-            onPress={async () => {
-              changeShowNotif(!showNotif);
-              showProfilePane ? setShowProfilePane(!showProfilePane) : '';
-            }}
-            icon={faBell}
-          />
-          {newAlerts !== undefined &&
-            newAlerts.events !== undefined &&
-            (newAlerts.events.length > 0 ||
-              newAlerts.gift_id !== undefined) && (
-              <SimpleText
-                style={{
-                  position: 'absolute',
-                  right: -10,
-                  top: -5,
-                  backgroundColor: vars.RED,
-                  borderRadius: '50%',
-                  textAlign: 'center',
-                  fontWeight: 'bolder',
-                  width: 20,
-                  height: 20,
-                  color: vars.YELLOW,
-                }}
-                text={
-                  newAlerts.gift_id !== undefined
-                    ? newAlerts.events.length + 1
-                    : newAlerts.events.length
+        <PhoneView style={{gap: '10px'}}>
+          {newAlerts !== undefined && newAlerts.gift_id !== undefined && (
+            <MyView style={style.Header_NOTIF}>
+              <SimpleFontIcon
+                onPress={() =>
+                  (window.location.href = '/spinner/' + newAlerts.gift_id)
                 }
-              />
-            )}
-
-          {showNotif && (
-            <MyView style={style.Header_Profile_Notif}>
-              <MyView style={{...styles.gap15}}>
-                {newAlerts !== undefined &&
-                  newAlerts.events !== undefined &&
-                  newAlerts.events.map((elem, index) => {
-                    return (
-                      <EqualTwoTextInputs key={index}>
-                        <TextLink
-                          style={{...styles.fontSize12, ...styles.BlueBold}}
-                          // text={
-                          //   newAlertsKeyVals.find(itr => itr.id === elem.key)
-                          //     .title + newAlerts.events.length
-                          // }
-                          text={
-                            newAlertsKeyVals.find(itr => itr.id === elem.key)
-                              .title +
-                            ' ' +
-                            elem.value
-                          }
-                          href={
-                            elem.key === 'new_tickets'
-                              ? '/ticket?section=upgradelevel'
-                              : '/notif/' + elem.id
-                          }
-                        />
-                        {/* <SimpleText
-                          style={{fontSize: 10, color: vars.DARK_BLUE}}
-                          text={elem.value}
-                        /> */}
-                      </EqualTwoTextInputs>
-                    );
-                  })}
-                {newAlerts !== undefined && newAlerts.gift_id !== undefined && (
-                  <TextLink
-                    style={{...styles.fontSize12, ...styles.BlueBold}}
-                    text={'گردونه شانس'}
-                    href={'/spinner/' + newAlerts.gift_id}
-                  />
-                )}
-              </MyView>
-              <TextLink
-                style={{
-                  ...styles.BlueBold,
-                  ...styles.fontSize12,
-                  ...styles.alignSelfEnd,
-                }}
-                href={'/myNotifs'}
-                text={'تمام اعلان های من'}
+                icon={faGift}
               />
             </MyView>
           )}
-        </MyView>
+
+          <MyView style={style.Header_NOTIF}>
+            <SimpleFontIcon
+              onPress={async () => {
+                changeShowNotif(!showNotif);
+                showProfilePane ? setShowProfilePane(!showProfilePane) : '';
+              }}
+              icon={faBell}
+            />
+
+            {newAlerts !== undefined &&
+              newAlerts.events !== undefined &&
+              newAlerts.events.length > 0 && (
+                <SimpleText
+                  style={{
+                    position: 'absolute',
+                    right: -10,
+                    top: -5,
+                    backgroundColor: vars.RED,
+                    borderRadius: '50%',
+                    textAlign: 'center',
+                    fontWeight: 'bolder',
+                    width: 20,
+                    height: 20,
+                    color: vars.YELLOW,
+                  }}
+                  text={newAlerts.events.length}
+                />
+              )}
+
+            {showNotif && (
+              <MyView style={style.Header_Profile_Notif}>
+                <MyView style={{...styles.gap15}}>
+                  {newAlerts !== undefined &&
+                    newAlerts.events !== undefined &&
+                    newAlerts.events.map((elem, index) => {
+                      return (
+                        <EqualTwoTextInputs key={index}>
+                          <TextLink
+                            style={{...styles.fontSize12, ...styles.BlueBold}}
+                            // text={
+                            //   newAlertsKeyVals.find(itr => itr.id === elem.key)
+                            //     .title + newAlerts.events.length
+                            // }
+                            text={
+                              newAlertsKeyVals.find(itr => itr.id === elem.key)
+                                .title +
+                              ' ' +
+                              elem.value
+                            }
+                            href={
+                              elem.key === 'new_tickets'
+                                ? '/ticket?section=upgradelevel'
+                                : '/notif/' + elem.id
+                            }
+                          />
+                          {/* <SimpleText
+                          style={{fontSize: 10, color: vars.DARK_BLUE}}
+                          text={elem.value}
+                        /> */}
+                        </EqualTwoTextInputs>
+                      );
+                    })}
+                  {/* {newAlerts !== undefined &&
+                    newAlerts.gift_id !== undefined && (
+                      <TextLink
+                        style={{...styles.fontSize12, ...styles.BlueBold}}
+                        text={'گردونه شانس'}
+                        href={'/spinner/' + newAlerts.gift_id}
+                      />
+                    )} */}
+                </MyView>
+                <TextLink
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.fontSize12,
+                    ...styles.alignSelfEnd,
+                  }}
+                  href={'/myNotifs'}
+                  text={'تمام نامه‌های من'}
+                />
+              </MyView>
+            )}
+          </MyView>
+        </PhoneView>
       </PhoneView>
     );
   }

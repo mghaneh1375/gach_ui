@@ -377,6 +377,7 @@ function Advisors(props) {
                       isMyAdvisor={isMyAdvisor}
                       hasOpenRequest={true}
                       shouldPay={shouldPay}
+                      navigate={props.navigate}
                       userMoney={Math.min(
                         userMoney,
                         Math.max(0, openReq.price - offAmount),
@@ -429,6 +430,7 @@ function Advisors(props) {
                   return (
                     <Card
                       isMyAdvisor={isMyAdvisor}
+                      navigate={props.navigate}
                       onCancel={async () => {
                         dispatch({loading: true});
                         let res = await generalRequest(
@@ -464,6 +466,7 @@ function Advisors(props) {
                 return (
                   <Card
                     isMyAdvisor={isMyAdvisor}
+                    navigate={props.navigate}
                     hasOpenRequest={advisorPlans !== undefined ? true : openReq}
                     key={index}
                     data={elem}

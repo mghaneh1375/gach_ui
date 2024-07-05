@@ -36,7 +36,7 @@ export const VideoJS = props => {
     padding: 5px;
     background-color: #3a3a3a;
     width: 123px;
-    font-family: 'IRANSans';">نمایش ویدیو بعد از تبلیغ</p>`;
+    font-family: 'IRANSans';">تا چند ثانیه دیگه فیلم این جلسه را می‌بینی!</p>`;
             player.el().appendChild(div);
           });
         }

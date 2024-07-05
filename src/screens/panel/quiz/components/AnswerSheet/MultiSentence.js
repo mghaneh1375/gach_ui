@@ -23,7 +23,7 @@ function MultiSentence(props) {
       state.wanted_answer_sheet[index].studentAns
         .replaceAll('1', 'ص ')
         .replaceAll('0', 'غ ')
-        .replaceAll('_', 'ن'),
+        .replaceAll('_', 'ن '),
     );
     setAnswer(
       state.wanted_answer_sheet[index].answer

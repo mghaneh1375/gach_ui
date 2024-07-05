@@ -36,7 +36,7 @@ function Filter(props) {
     {item: 'شماره همراه', id: 'phones'},
     {item: 'سطح دسترسی', id: 'accesses'},
     {item: 'رتبه در سایت', id: 'rank'},
-    {item: 'بسته آموزشی', id: 'packages'},
+    {item: 'دوره آموزشی', id: 'packages'},
   ];
 
   const accesses = [

@@ -16,7 +16,6 @@ import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {Translator} from '../Translator';
 import commonTranslator from '../../../../translator/Common';
 import Filter from './Filter';
-import {style} from '@material-ui/system';
 
 function List(props) {
   const useGlobalState = () => [
@@ -119,6 +118,7 @@ function List(props) {
       style={{
         alignSelf: 'center',
         width: props.token === undefined && !isInPhone ? '80%' : '100%',
+        marginBottom: 100,
       }}>
       {!props.isInMyMode && (
         <CommonWebBox
@@ -236,7 +236,7 @@ function List(props) {
             ...styles.marginTop20,
             ...styles.marginBottom20,
           }}
-          text={' بسته های آموزشی'}
+          text={' دوره‌های آموزشی'}
         />
       </MyView>
       <PhoneView style={{...styles.gap10, justifyContent: 'space-around'}}>
@@ -248,6 +248,7 @@ function List(props) {
                 isInPhone={isInPhone}
                 package={elem}
                 key={index}
+                navigate={props.navigate}
               />
             );
           })}

@@ -9,6 +9,7 @@ function Video(props) {
     controls: true,
     responsive: true,
     fluid: true,
+    playbackRates: [0.5, 1, 1.2, 1.4, 2],
     displayCurrentQuality: true,
     sources: [
       {

@@ -36,7 +36,7 @@ function Filter(props) {
   return (
     <MyView>
       <PhoneView style={{gap: 15}}>
-        <BigBoldBlueText text={'رتبه های برتر'} />
+        <BigBoldBlueText text={'رتبه‌های برتر'} />
         <JustBottomBorderTextInput
           isHalf={true}
           placeholder={'بر اساس پایه تحصیلی'}

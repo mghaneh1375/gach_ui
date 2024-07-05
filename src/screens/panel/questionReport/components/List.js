@@ -79,7 +79,7 @@ function List(props) {
       )}
       {!showOpPopUp && (
         <CommonWebBox
-          header={' تگ های خرابی سوال '}
+          header={' تگ‌های خرابی سوال '}
           addBtn={true}
           onAddClick={() => props.setMode('create')}>
           {state.tags !== undefined && (

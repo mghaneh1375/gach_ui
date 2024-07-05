@@ -49,16 +49,18 @@ function Ops(props) {
           theme={'transparent'}
           title={Translator.seeInfo}
         />
-        <CommonButton
-          dir={'rtl'}
-          theme={'transparent'}
-          onPress={() => toggleVisibility()}
-          title={
-            state.selectedContent.visibility
-              ? commonTranslator.toHide
-              : commonTranslator.toShow
-          }
-        />
+        {props.isAdmin && (
+          <CommonButton
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => toggleVisibility()}
+            title={
+              state.selectedContent.visibility
+                ? commonTranslator.toHide
+                : commonTranslator.toShow
+            }
+          />
+        )}
         {props.isEditor && (
           <CommonButton
             dir={'rtl'}
@@ -67,13 +69,14 @@ function Ops(props) {
             title={Translator.users}
           />
         )}
-
-        <CommonButton
-          dir={'rtl'}
-          theme={'transparent'}
-          onPress={() => props.setSelectedContentId(state.selectedContent.id)}
-          title={Translator.manageSeo}
-        />
+        {props.isAdmin && (
+          <CommonButton
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => props.setSelectedContentId(state.selectedContent.id)}
+            title={Translator.manageSeo}
+          />
+        )}
         <CommonButton
           dir={'rtl'}
           theme={'transparent'}

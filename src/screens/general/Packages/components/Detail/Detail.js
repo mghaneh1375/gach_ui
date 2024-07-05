@@ -241,6 +241,7 @@ function Detail(props) {
       )}
       {selectedSession !== undefined && (
         <SessionDetail
+          user={props.user.user.id}
           duration={item.duration}
           adv={item.adv}
           sessions={item.sessions}
@@ -311,7 +312,7 @@ function Detail(props) {
           {teacherPackages !== undefined && teacherPackages.length > 0 && (
             <MyView>
               <SimpleText
-                text={'دوره های دیگر این استاد'}
+                text={'دوره‌های دیگر این استاد'}
                 style={{...styles.BlueBold, ...styles.fontSize22}}
               />
               <PhoneView style={{...styles.gap10}}>
@@ -322,6 +323,7 @@ function Detail(props) {
                       isInPhone={isInPhone}
                       key={index}
                       package={elem}
+                      navigate={props.navigate}
                     />
                   );
                 })}

@@ -794,7 +794,7 @@ function Create(props) {
               state.selectedSchedule.weekStartAt +
               ' - ' +
               state.student.name
-            : 'برنامه های هفتگی'
+            : 'برنامه‌های هفتگی'
         }
         btn={
           <PhoneView style={{...styles.alignItemsCenter}}>

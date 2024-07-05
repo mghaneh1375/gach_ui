@@ -1,5 +1,5 @@
 const translator = {
-  offs: 'کد های تخفیف',
+  offs: 'کد‌های تخفیف',
   addOff: 'افزودن کد تخفیف',
   editOff: 'ویرایش کد تخفیف',
   amount: 'مقدار کد تخفیف',
@@ -30,7 +30,7 @@ const translator = {
   endUseOffCode: 'اتمام بازه استفاده کد تخفیف',
   startExpireOffCode: 'شروع بازه منقضی شدن کد تخفیف',
   endExpireOffCode: 'اتمام بازه منقضی شدن استفاده کد تخفیف',
-  content: 'بسته های آموزشی',
+  content: 'دوره‌های آموزشی',
 };
 
 export default translator;

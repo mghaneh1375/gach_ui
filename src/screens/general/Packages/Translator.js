@@ -13,7 +13,7 @@ export const Translator = {
   sessions: 'جلسات',
   chapters: 'فصول',
   loginForBuy: 'ورود به سامانه برای خرید',
-  faq: 'پرسش و پاسخ های متداول',
+  faq: 'پرسش و پاسخ‌های متداول',
   off: 'تخفیف',
   publicOff: 'هدیه آیریسک',
   wallet: 'کیف پول',

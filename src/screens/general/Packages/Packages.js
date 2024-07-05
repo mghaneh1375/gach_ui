@@ -4,6 +4,8 @@ import {dispatchStateContext, globalStateContext} from '../../../App';
 import {PackageProvider} from './components/Context';
 import Detail from './components/Detail/Detail';
 import List from './components/List';
+import {getDevice} from '../../../services/Utility';
+import PhoneDetail from './components/Detail/PhoneDetail';
 
 function Packages(props) {
   const [mode, setMode] = useState();
@@ -14,6 +16,7 @@ function Packages(props) {
 
   const [state, dispatch] = useGlobalState();
   const params = useParams();
+  const isInPhone = getDevice().indexOf('WebPort') !== -1;
 
   const setLoading = status => {
     dispatch({loading: status});
@@ -35,8 +38,18 @@ function Packages(props) {
           isInMyMode={props.isInMyMode}
         />
       )}
-      {mode !== undefined && mode === 'detail' && (
+      {mode !== undefined && mode === 'detail' && !isInPhone && (
         <Detail
+          navigate={props.navigate}
+          slug={params.slug}
+          token={state.token}
+          user={state.user}
+          setMode={setMode}
+          setLoading={setLoading}
+        />
+      )}
+      {mode !== undefined && mode === 'detail' && isInPhone && (
+        <PhoneDetail
           navigate={props.navigate}
           slug={params.slug}
           token={state.token}

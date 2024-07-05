@@ -1,7 +1,7 @@
 const translator = {
   karnameReport: 'کارنامه ها',
-  cirtReport: 'شهر های شرکت کننده',
-  stateReprt: 'استان های شرکت کننده',
+  cirtReport: 'شهر‌های شرکت کننده',
+  stateReprt: 'استان‌های شرکت کننده',
   genderReport: 'وضعیت شرکت کنندگان بر اساس جنسیت',
   schoolReport: 'مدارس شرکت کننده',
   A1: 'نمای کلی',

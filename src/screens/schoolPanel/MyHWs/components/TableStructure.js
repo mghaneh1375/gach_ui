@@ -45,7 +45,7 @@ const columns = [
     center: true,
   },
   {
-    name: 'تعداد فایل های ضمیمه شده',
+    name: 'تعداد فایل‌های ضمیمه شده',
     selector: row => row.attachesCount,
     grow: 1,
     center: true,

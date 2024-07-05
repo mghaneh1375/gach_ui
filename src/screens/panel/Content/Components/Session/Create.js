@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {
   CommonButton,
+  CommonRadioButton,
   CommonWebBox,
   EqualTwoTextInputs,
+  MyView,
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
@@ -54,16 +56,18 @@ function Create(props) {
   ];
   const [state, dispatch] = useGlobalState();
 
-  const [visibility, setVisibility] = useState();
+  const [visibility, setVisibility] = useState(true);
   const [description, setDescription] = useState();
   const [title, setTitle] = useState();
   const [price, setPrice] = useState();
   const [duration, setDuration] = useState();
   const [priority, setPriority] = useState();
-  const [hasExam, setHasExam] = useState();
+  const [hasExam, setHasExam] = useState(false);
+  const [hasExternalLink, setHasExternalLink] = useState();
 
+  const [externalLink, setExternalLink] = useState();
   const [examId, setExamId] = useState();
-  const [examMinMark, setExamMinMark] = useState();
+  // const [examMinMark, setExamMinMark] = useState();
   const [video, setVideo] = useState();
   const [quizzes, setQuizzes] = useState();
   const [chapters, setChapters] = useState();
@@ -202,7 +206,7 @@ function Create(props) {
 
     Promise.all([
       generalRequest(
-        routes.getAllQuizzesDigest,
+        routes.getAllContentQuizzesDigest,
         'get',
         undefined,
         'data',
@@ -239,13 +243,17 @@ function Create(props) {
         setPriority(state.selectedSession.priority);
         setVideo(state.selectedSession.video);
         setDuration(state.selectedSession.duration);
+        setHasExternalLink(state.selectedSession.hasExternalLink);
+
+        if (state.selectedSession.hasExternalLink)
+          setExternalLink(state.selectedSession.video);
 
         setChapter(state.selectedSession.chapter);
         setChapterDesc(state.selectedSession.chapterDesc);
         setHasExam(state.selectedSession.hasExam);
         if (state.selectedSession.hasExam) {
           setExamId(state.selectedSession.examId);
-          setExamMinMark(state.selectedSession.minMark);
+          // setExamMinMark(state.selectedSession.minMark);
         }
 
         props.setLoading(false);
@@ -484,7 +492,7 @@ function Create(props) {
             value={trueFalseValues.find(elem => elem.id === hasExam)}
           />
 
-          {hasExam !== undefined && hasExam && (
+          {/* {hasExam !== undefined && hasExam && (
             <JustBottomBorderTextInput
               placeholder={Translator.finalExamMinMark}
               subText={Translator.finalExamMinMark}
@@ -492,7 +500,7 @@ function Create(props) {
               value={examMinMark}
               justNum={true}
             />
-          )}
+          )} */}
 
           {hasExam !== undefined && hasExam && quizzes !== undefined && (
             <JustBottomBorderTextInput
@@ -505,8 +513,8 @@ function Create(props) {
                       return element.id === examId;
                     })[0].name
               }
-              placeholder={Translator.finalExam}
-              subText={Translator.finalExam}
+              placeholder={'آزمون مدنظر'}
+              subText={'آزمون مدنظر'}
               setSelectedItem={item => setExamId(item.id)}
               values={quizzes}
             />
@@ -534,38 +542,60 @@ function Create(props) {
       )}
 
       {videoFileForShow === undefined && !showCopyPane && (
-        <PhoneView style={{...styles.gap15}}>
-          <SimpleText
-            style={{...styles.alignSelfCenter, ...styles.BlueBold}}
-            text={Translator.video}
+        <MyView>
+          <CommonRadioButton
+            color={vars.ORANGE}
+            text={'آیا لینک جلسه را میخواهید وارد نمایید؟'}
+            status={hasExternalLink ? 'checked' : 'unchecked'}
+            onPress={() => {
+              setHasExternalLink(!hasExternalLink);
+            }}
           />
-          <SimpleFontIcon
-            onPress={() => openFileSelector()}
-            kind={'normal'}
-            icon={faPaperclip}
-          />
-
-          <PhoneView style={{marginTop: 20}}>
-            {video !== undefined && (
-              <AttachBox
-                onClick={() => setVideoFileForShow(video)}
-                filename={video}
-                removeAttach={async () => {
-                  await removeUploadedVideo();
-                }}
+          {hasExternalLink && (
+            <>
+              <JustBottomBorderTextInput
+                placeholder={'لینک ویدیو جلسه'}
+                subText={'لینک ویدیو جلسه'}
+                value={externalLink}
+                onChangeText={e => setExternalLink(e)}
               />
-            )}
-
-            {filesContent !== undefined && filesContent.length > 0 && (
-              <AttachBox
-                filename={filesContent[0].name}
-                removeAttach={() => {
-                  remove(0);
-                }}
+            </>
+          )}
+          {!hasExternalLink && (
+            <PhoneView style={{...styles.gap15}}>
+              <SimpleText
+                style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                text={Translator.video}
               />
-            )}
-          </PhoneView>
-        </PhoneView>
+              <SimpleFontIcon
+                onPress={() => openFileSelector()}
+                kind={'normal'}
+                icon={faPaperclip}
+              />
+
+              <PhoneView style={{marginTop: 20}}>
+                {video !== undefined && (
+                  <AttachBox
+                    onClick={() => setVideoFileForShow(video)}
+                    filename={video}
+                    removeAttach={async () => {
+                      await removeUploadedVideo();
+                    }}
+                  />
+                )}
+
+                {filesContent !== undefined && filesContent.length > 0 && (
+                  <AttachBox
+                    filename={filesContent[0].name}
+                    removeAttach={() => {
+                      remove(0);
+                    }}
+                  />
+                )}
+              </PhoneView>
+            </PhoneView>
+          )}
+        </MyView>
       )}
 
       {uploadVideo && (
@@ -622,6 +652,14 @@ function Create(props) {
                   return;
                 }
 
+                if (
+                  hasExternalLink &&
+                  (externalLink === undefined || externalLink.length === 0)
+                ) {
+                  showError('لطفا لینک ویدیو جلسه را وارد نمایید');
+                  return;
+                }
+
                 let data = {
                   visibility: visibility,
                   description: description,
@@ -641,7 +679,11 @@ function Create(props) {
 
                 if (hasExam) {
                   data.examId = examId;
-                  data.minMark = examMinMark;
+                  // data.minMark = examMinMark;
+                }
+
+                if (hasExternalLink) {
+                  data.hlsUrl = externalLink;
                 }
 
                 props.setLoading(true);
@@ -664,7 +706,7 @@ function Create(props) {
                     ? state.selectedSession.id
                     : res.id;
 
-                  if (filesContent.length > 0) {
+                  if (filesContent.length > 0 && !hasExternalLink) {
                     res.hasVideo = true;
 
                     setUploadVideo(true);
@@ -677,11 +719,13 @@ function Create(props) {
                     setTimeout(() => {
                       getFileContext();
                     }, 1000);
-                  } else {
-                    if (props.isInEditMode) {
-                      res.video = state.selectedContent.video;
-                      res.attaches = state.selectedContent.attaches;
-                    }
+                  } else if (props.isInEditMode) {
+                    if (hasExternalLink) {
+                      res.video = externalLink;
+                      res.externalLink = externalLink;
+                      res.hasExternalLink = true;
+                    } else res.video = state.selectedContent.video;
+                    res.attaches = state.selectedContent.attaches;
                   }
 
                   let sessions = state.selectedContent.sessions;

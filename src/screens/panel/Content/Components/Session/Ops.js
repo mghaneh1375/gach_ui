@@ -25,13 +25,15 @@ function Ops(props) {
             theme={'transparent'}
             title={Translator.seeInfo}
           />
+          {props.isAdmin && (
+            <CommonButton
+              dir={'rtl'}
+              theme={'transparent'}
+              onPress={() => props.setMode('sessionStudent')}
+              title={Translator.users}
+            />
+          )}
 
-          <CommonButton
-            dir={'rtl'}
-            theme={'transparent'}
-            onPress={() => props.setMode('sessionStudent')}
-            title={Translator.users}
-          />
           <CommonButton
             dir={'rtl'}
             theme={'transparent'}

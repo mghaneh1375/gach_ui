@@ -8,7 +8,7 @@ import CreateSession from './Components/Session/Create';
 import Attach from './Components/Session/Attach';
 import Students from './Components/StudentsList/Students';
 import Seo from './Seo/Seo';
-import {isUserEditorAccess} from '../../../services/Utility';
+import {isUserAdmin, isUserEditorAccess} from '../../../services/Utility';
 
 function Content(props) {
   const navigate = props.navigate;
@@ -31,6 +31,7 @@ function Content(props) {
   }, [selectedContentId]);
 
   const isEditor = isUserEditorAccess(state.user);
+  const isAdmin = isUserAdmin(state.user);
 
   return (
     <ContentProvider>
@@ -42,6 +43,7 @@ function Content(props) {
           setSelectedContentId={setSelectedContentId}
           navigate={navigate}
           isEditor={isEditor}
+          isAdmin={isAdmin}
         />
       )}
       {mode === 'seo' && (
@@ -86,6 +88,7 @@ function Content(props) {
           setLoading={setLoading}
           setMode={setMode}
           navigate={navigate}
+          isAdmin={isAdmin}
         />
       )}
       {mode === 'attaches' && (

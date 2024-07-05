@@ -181,7 +181,7 @@ function TeamDetail(props) {
           {props.team.allAnswers !== undefined && (
             <>
               <SimpleText
-                text={'پاسخ های ثبت شده'}
+                text={'پاسخ‌های ثبت شده'}
                 style={{...styles.fontSize17, ...styles.BlueBold}}
               />
 

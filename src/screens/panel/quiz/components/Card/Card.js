@@ -20,7 +20,6 @@ import {
   styleColorWhite,
 } from './../../../package/card/Style';
 import {
-  convertSecToMin,
   convertSecToMinWithOutSec,
   convertTimestamp,
   formatPrice,
@@ -276,7 +275,19 @@ function Card(props) {
               )}
 
               {props.quiz.rate !== undefined && (
-                <PhoneView style={{width: '100%', direction: 'ltr'}}>
+                <PhoneView
+                  style={
+                    isInPhone
+                      ? {
+                          width: '100%',
+                          direction: 'ltr',
+                          justifyContent: 'center',
+                        }
+                      : {
+                          width: '100%',
+                          direction: 'ltr',
+                        }
+                  }>
                   <Rating
                     type="star"
                     readonly={true}

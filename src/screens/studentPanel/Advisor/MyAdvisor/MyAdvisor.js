@@ -86,7 +86,7 @@ function MyAdvisor(props) {
                 <CommonButton
                   theme={'dark'}
                   onPress={() => window.open('/mySchedules')}
-                  title={'برنامه های مطالعه'}
+                  title={'برنامه‌های مطالعه'}
                 />
 
                 <CommonButton

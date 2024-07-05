@@ -74,6 +74,14 @@ export const style = {
     alignItems: 'center',
     width: width < 768 ? '85%' : 'unset',
   },
+  Gift_Header_Profile: {
+    marginTop: 10,
+    backgroundColor: vars.WHITE,
+    height: 40,
+    zIndex: 2,
+    alignItems: 'center',
+    width: width < 768 ? 'calc(85% - 60px)' : 'unset',
+  },
   // Header_Profile_Div: {
   //   width: width < 768 ? '100%' : '100%',
   // },

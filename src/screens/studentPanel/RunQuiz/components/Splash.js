@@ -64,8 +64,18 @@ function Splash(props) {
 
     Promise.all([
       props.isInReviewMode
-        ? reviewQuiz(props.quizId, props.quizGeneralMode, props.token)
-        : doQuiz(props.quizId, props.quizGeneralMode, props.token),
+        ? reviewQuiz(
+            props.quizId,
+            props.quizGeneralMode,
+            props.token,
+            props.sessionId,
+          )
+        : doQuiz(
+            props.quizId,
+            props.quizGeneralMode,
+            props.token,
+            props.sessionId,
+          ),
     ]).then(res => {
       props.setLoading(false);
       if (res[0] === null) {

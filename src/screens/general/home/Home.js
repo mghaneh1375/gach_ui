@@ -4,11 +4,7 @@ import translator from './translator';
 import {Device} from './../../../models/Device';
 import {Image} from 'react-native';
 
-import {
-  getDevice,
-  getWidthHeight,
-  simpleConvertTimestamp,
-} from './../../../services/Utility';
+import {getDevice, getWidthHeight} from './../../../services/Utility';
 
 import {
   MyView,
@@ -23,6 +19,7 @@ import {routes} from '../../../API/APIRoutes';
 import {useEffectOnce} from 'usehooks-ts';
 import {styles} from '../../../styles/Common/Styles';
 import HomeBox from './HomeBox/HomeBox';
+import RSS from './RSS/RSS';
 
 const device = getDevice();
 
@@ -53,6 +50,18 @@ const Home = props => {
   ];
   const [state, dispatch] = useGlobalState();
 
+  const [news, setNews] = useState([]);
+
+  const fetchNews = React.useCallback(() => {
+    Promise.all([
+      generalRequest(routes.fetchRSS, 'get', undefined, 'data'),
+    ]).then(res => {
+      if (res[0] != null) {
+        setNews(res[0]);
+      }
+    });
+  }, []);
+
   useEffectOnce(() => {
     Image.getSize(
       'https://e.irysc.com/assets/images/footergray.svg',
@@ -82,7 +91,10 @@ const Home = props => {
         setWhiteDividerH(height);
       },
     );
+    fetchNews();
   });
+
+  const isInPhone = device.indexOf('WebPort') !== -1;
 
   React.useEffect(() => {
     if (isWorking || data !== undefined) return;
@@ -197,6 +209,7 @@ const Home = props => {
         }
         device={device}
       />
+      {isInPhone && news.length > 0 && <RSS news={news} />}
       <div
         style={{
           position: 'relative',
@@ -211,7 +224,8 @@ const Home = props => {
             background: '#ffffffcc',
             zIndex: 20,
             position: 'absolute',
-            top: width < 440 ? -320 : -170,
+            // top: width < 440 ? -320 : -170,
+            top: width < 440 ? -320 : -350,
             width: '100%',
             maxWidth: '100%',
             overflow: 'auto',
@@ -243,6 +257,7 @@ const Home = props => {
               number={data !== undefined ? data.students : ''}
             />
           </PhoneView>
+          {!isInPhone && news.length > 0 && <RSS news={news} />}
         </MyView>
         <div
           style={{
@@ -307,7 +322,7 @@ const Home = props => {
             position: 'absolute',
             paddingRight: 50,
             paddingLeft: 50,
-            bottom: state.token ? 0 : 85,
+            bottom: isInPhone ? 80 : 0,
             width: 'calc(100% - 100px)',
             // height: '5px',
           }}>
@@ -316,7 +331,7 @@ const Home = props => {
             style={{
               ...styles.gap10,
               ...styles.marginTop10,
-              marginBottom: '90px',
+              marginBottom: '10px',
             }}>
             <PhoneView style={{...styles.gap10}}>
               <img src="./assets/images/address.svg" height={30} />
@@ -354,7 +369,7 @@ const Home = props => {
                 ...styles.dark_blue_color,
               }}
               text={
-                'تمام حقوق این وبسایت، مطالب، سوالات و دوره های موجود در آن متعلق به کانون دانش پژوهان ایران (آیریسک) است. هر گونه استفاده بدون مجوز از مطالب می تواند پیگرد قانونی داشته باشد.'
+                'تمام حقوق این وبسایت، مطالب، سوالات و دوره‌های موجود در آن متعلق به کانون دانش پژوهان ایران (آیریسک) است. هر گونه استفاده بدون مجوز از مطالب می تواند پیگرد قانونی داشته باشد.'
               }
             />
           </MyView>

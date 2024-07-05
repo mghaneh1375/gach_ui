@@ -37,11 +37,17 @@ export default function BottomNavBar() {
         </Link>
         <Text style={NavTextStyle}>ورود/ثبت نام</Text>
       </MyView>
-      <MyView style={NavItemContainerStyle}>
+      {/* <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/showAllSchools">
           <SimpleFontIcon kind={'large'} icon={faPeopleGroup} />
         </Link>
         <Text style={NavTextStyle}>مدارس</Text>
+      </MyView> */}
+      <MyView style={NavItemContainerStyle}>
+        <BottomLinkExternal href="https://www.irysc.com/%d8%b1%d8%a7%d9%87%d9%86%d9%85%d8%a7%db%8c-%da%af%da%86-%d8%b3%d9%81%db%8c%d8%af-%d8%a2%db%8c%d8%b1%db%8c%d8%b3%da%a9/">
+          <SimpleFontIcon kind={'large'} icon={faInfo} />
+        </BottomLinkExternal>
+        <Text style={NavTextStyle}>راهنما</Text>
       </MyView>
       <MyView style={NavItemContainerStyle}>
         <Link style={NavItemStyle} to="/buy">
@@ -59,7 +65,7 @@ export default function BottomNavBar() {
         <Link style={NavItemStyle} to="/packages">
           <SimpleFontIcon kind={'large'} icon={faVideo} />
         </Link>
-        <Text style={TinyNavTextStyle}>دوره های آموزشی</Text>
+        <Text style={TinyNavTextStyle}>دوره‌های آموزشی</Text>
       </MyView>
       {/* <MyView style={NavItemContainerStyle}>
         <BottomLinkExternal href="https://www.irysc.com/contact-us/">

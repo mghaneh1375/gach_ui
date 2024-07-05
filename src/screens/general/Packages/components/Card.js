@@ -10,29 +10,11 @@ import {
 import React, {useState} from 'react';
 import vars from '../../../../styles/root';
 import {styles} from '../../../../styles/Common/Styles';
-import QuizItemCard from '../../../../components/web/QuizItemCard';
-import {
-  faCancel,
-  faCheck,
-  faClock,
-  faListSquares,
-  faRemove,
-  faSun,
-} from '@fortawesome/free-solid-svg-icons';
-import {
-  convertSecToMinWithOutSec,
-  formatPrice,
-} from '../../../../services/Utility';
+import {faCheck, faRemove} from '@fortawesome/free-solid-svg-icons';
+import {formatPrice} from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
 import {Translator} from '../Translator';
 import {Rating} from 'react-native-ratings';
-import {
-  styleCircleBox,
-  styleColorWhite,
-  stylePricaPane,
-  styleTitle,
-  styleYellowBox,
-} from '../../../panel/package/card/Style';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import {useMediaQuery} from '@material-ui/core';
 
@@ -44,6 +26,9 @@ function Card(props) {
   }, [props.package.img]);
 
   const size600 = useMediaQuery('(max-width:600px)');
+
+  const isInApp =
+    window.navigator.userAgent.toLowerCase().indexOf('android') !== -1;
 
   const fontSize = props.isInPhone ? 10 : 11;
   const valFontSize = props.isInPhone ? 12 : 15;
@@ -176,7 +161,11 @@ function Card(props) {
           )}
           {props.isInMyMode && <SimpleText />}
           <CommonButton
-            onPress={() => window.open('/packages/' + props.package.slug)}
+            onPress={() =>
+              isInApp
+                ? props.navigate('/packages/' + props.package.slug)
+                : window.open('/packages/' + props.package.slug)
+            }
             title={Translator.select}
           />
         </EqualTwoTextInputs>

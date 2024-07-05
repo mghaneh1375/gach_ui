@@ -3,7 +3,7 @@ const translate = {
   endRegistery: 'اتمام مهلت ثبت نام ',
   startLaunching: 'آغاز زمان برگزاری ',
   endLaunching: 'اتمام زمان برگزاری ',
-  reminder: 'ظرفیت باقی مانده: ',
+  reminder: 'ظرفیت: ',
   price: 'قیمت : ',
   studentsCount: 'تعداد ثبت نامی: ',
   duration: 'مدت آزمون',

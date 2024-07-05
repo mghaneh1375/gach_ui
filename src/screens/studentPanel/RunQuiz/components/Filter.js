@@ -273,7 +273,7 @@ function Filter(props) {
                     text={state.questions[state.currIdx].stdAns
                       .replaceAll('1', 'ص ')
                       .replaceAll('0', 'غ ')
-                      .replaceAll('_', 'ن')}
+                      .replaceAll('_', 'ن ')}
                   />
                 )}
               </EqualTwoTextInputs>

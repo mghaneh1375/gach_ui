@@ -7,6 +7,7 @@ import React, {useState} from 'react';
 import {fetchSessions} from '../Utility';
 import Translator from '../../Translate';
 import columns from './TableStructure';
+import {VIDEO_BASE_URL} from '../../../../../API/Utility';
 
 function List(props) {
   const useGlobalState = () => [
@@ -55,6 +56,7 @@ function List(props) {
           token={props.token}
           setMode={props.setMode}
           toggleShowPopUp={() => setShowOp(!showOp)}
+          isAdmin={props.isAdmin}
         />
       )}
       <CommonWebBox
@@ -66,7 +68,9 @@ function List(props) {
         {state.selectedContent.sessions !== undefined && (
           <CommonDataTable
             removeUrl={
-              routes.removeSessionFromContent + state.selectedContent.id
+              VIDEO_BASE_URL +
+              routes.removeSessionFromContent +
+              state.selectedContent.id
             }
             handleOp={handleOp}
             setLoading={props.setLoading}

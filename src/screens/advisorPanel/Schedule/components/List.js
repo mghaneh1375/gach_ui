@@ -65,7 +65,7 @@ function List(props) {
       header={
         state.student === undefined
           ? 'لیست کاربرگ ها '
-          : 'لیست کاربرگ های ' + state.student.name
+          : 'لیست کاربرگ‌های ' + state.student.name
       }
       addBtn={props.isAdvisor}
       onAddClick={() => props.setMode('create')}>

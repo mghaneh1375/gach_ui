@@ -82,7 +82,16 @@ export const getGradeLessons = async token => {
   );
   return res;
 };
-
+export const getGradeAndBranchesLessons = async token => {
+  let res = await generalRequest(
+    routes.fetchGradeLessonsInGradesAndBranches,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+  return res;
+};
 export const getGrades = async token => {
   return await generalRequest(
     routes.fetchGradesAndBranches,

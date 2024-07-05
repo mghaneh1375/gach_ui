@@ -23,7 +23,7 @@ const translator = {
   msgText: 'متن پیام',
   create: 'ایجاد پیام جدید',
   searchArchive: 'جستجو در آرشیو :',
-  sureClose: 'آیا از بستن آیتم/آیتم های موردنظر اطمینان دارید؟',
+  sureClose: 'آیا از بستن آیتم/آیتم‌های موردنظر اطمینان دارید؟',
   successSendAnswer: 'پاسخ شما با موفقیت ذخیره شد.',
   insetYourMsg: 'لطفا متن پیام خود را وارد نمایید.',
   nameOfReciver: 'نام دریافت کننده',

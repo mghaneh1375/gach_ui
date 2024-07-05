@@ -70,7 +70,10 @@ const Ops = props => {
     props.setLoading(true);
     Promise.all([
       generalRequest(
-        routes.editQuiz + state.selectedQuiz.id,
+        routes.editQuiz +
+          state.selectedQuiz.generalMode +
+          '/' +
+          state.selectedQuiz.id,
         'post',
         {
           visibility: !state.selectedQuiz.visibility,

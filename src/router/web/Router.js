@@ -233,6 +233,10 @@ export default function WebRouter() {
             path="/contents-teacher"
             element={<WebStructue page="contents-teacher" />}
           />
+          <Route
+            path="/copy-sessions"
+            element={<WebStructue page="copy-sessions" />}
+          />
           <Route path="/notifs/:mode" element={<WebStructue page="notifs" />} />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
           <Route
@@ -269,6 +273,10 @@ export default function WebRouter() {
           <Route path="/charge" element={<WebStructue page="charge" />} />
           <Route path="/myOffs" element={<WebStructue page="myOffs" />} />
           <Route
+            path="/startQuiz/:quizMode/:quizId/:sessionId"
+            element={<WebStructue page="startQuiz" />}
+          />
+          <Route
             path="/startQuiz/:quizMode/:quizId"
             element={<WebStructue page="startQuiz" />}
           />
@@ -279,6 +287,10 @@ export default function WebRouter() {
           <Route
             path="/startHW/:hwId"
             element={<WebStructue page="startHW" />}
+          />
+          <Route
+            path="/reviewQuiz/:quizMode/:quizId/:sessionId"
+            element={<WebStructue page="reviewQuiz" />}
           />
           <Route
             path="/reviewQuiz/:quizMode/:quizId"

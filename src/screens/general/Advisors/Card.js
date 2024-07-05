@@ -30,6 +30,9 @@ function Card(props) {
 
   const [pic, setPic] = useState();
 
+  const isInApp =
+    window.navigator.userAgent.toLowerCase().indexOf('android') !== -1;
+
   React.useEffect(() => {
     setPic(props.data.pic);
   }, [props.data.pic]);
@@ -258,7 +261,9 @@ function Card(props) {
               ...styles.fontSize15,
               ...styles.red,
             }}
-            onPress={() => window.open('/myAdvisor')}
+            onPress={() =>
+              isInApp ? props.navigate('/myAdvisor') : window.open('/myAdvisor')
+            }
             text={'مشاور من - رفتن به پنل مشاوره'}
           />
         )}

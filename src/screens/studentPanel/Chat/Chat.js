@@ -574,7 +574,7 @@
 //       )} */}
 //       {/* {openSidePopUp === 'fileList' && (
 //         <SidePopUp close={() => setOpenSidePopUp('menu')}>
-//           <BasicSide whiteTitle={`فایل های ${groupSelected.name}`}>
+//           <BasicSide whiteTitle={`فایل‌های ${groupSelected.name}`}>
 //             <div className="fileListSide">
 //               {allChats[chatIdSeleceted].files.map(item => (
 //                 <a
