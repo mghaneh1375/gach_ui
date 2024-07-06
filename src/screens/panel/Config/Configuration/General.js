@@ -43,6 +43,11 @@ function General(props) {
   const [minAdvicePrice, setMinAdvicePrice] = useState();
   const [maxVideoCallPerMonth, setMaxVideoCallPerMonth] = useState();
   const [hwPerStudentPrice, setHwPerStudentPrice] = useState();
+  const [iryscTeachPercent, setIryscTeachPercent] = useState();
+  const [iryscAdvicePercent, setIryscAdvicePercent] = useState();
+  const [maxTeachCap, setMaxTeachCap] = useState();
+  const [minTeachPrice, setMinTeachPrice] = useState();
+  const [maxTeachPrice, setMaxTeachPrice] = useState();
 
   React.useEffect(() => {
     dispatch({loading: true});
@@ -87,6 +92,11 @@ function General(props) {
       setHwPerStudentPrice(data.hwPerStudentPrice);
       setMinAdvicePrice(data.minAdvicePrice);
       setMaxVideoCallPerMonth(data.maxVideoCallPerMonth);
+      setMaxTeachCap(data.maxTeachCap);
+      setIryscTeachPercent(data.iryscTeachPercent);
+      setIryscAdvicePercent(data.iryscAdvicePercent);
+      setMinTeachPrice(data.minTeachPrice);
+      setMaxTeachPrice(data.maxTeachPrice);
     });
   }, [navigate, props.token, dispatch]);
 
@@ -120,6 +130,11 @@ function General(props) {
           minAdvicePrice: minAdvicePrice,
           hwPerStudentPrice: hwPerStudentPrice,
           maxVideoCallPerMonth: maxVideoCallPerMonth,
+          maxTeachCap: maxTeachCap,
+          iryscTeachPercent: iryscTeachPercent,
+          iryscAdvicePercent: iryscAdvicePercent,
+          minTeachPrice: minTeachPrice,
+          maxTeachPrice: maxTeachPrice,
         },
         undefined,
         props.token,
@@ -308,6 +323,46 @@ function General(props) {
             subText={translator.maxVideoCallPerMonth}
             value={maxVideoCallPerMonth}
             onChangeText={e => setMaxVideoCallPerMonth(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.maxTeachCap}
+            subText={translator.maxTeachCap}
+            value={maxTeachCap}
+            onChangeText={e => setMaxTeachCap(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.iryscTeachPercent}
+            subText={translator.iryscTeachPercent}
+            value={iryscTeachPercent}
+            onChangeText={e => setIryscTeachPercent(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.iryscAdvicePercent}
+            subText={translator.iryscAdvicePercent}
+            value={iryscAdvicePercent}
+            onChangeText={e => setIryscAdvicePercent(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.minTeachPrice}
+            subText={translator.minTeachPrice}
+            value={minTeachPrice}
+            onChangeText={e => setMinTeachPrice(e)}
+            justNum={true}
+          />
+
+          <JustBottomBorderTextInput
+            placeholder={translator.maxTeachPrice}
+            subText={translator.maxTeachPrice}
+            value={maxTeachPrice}
+            onChangeText={e => setMaxTeachPrice(e)}
             justNum={true}
           />
         </PhoneView>

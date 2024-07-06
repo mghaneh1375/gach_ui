@@ -48,6 +48,11 @@ const translator = {
   percentOfShopBuy: 'درصد از خرید فروشگاه',
   createShopOffVisibility:
     'آیا قابلیت گرفتن اعتبار با خرید از فروشگاه فعال باشد؟',
+  maxTeachCap: 'حداکثر ظرفیت برای کلاسهای نیمه خصوصی',
+  iryscTeachPercent: 'مقدار پیش فرض برای سهم آیریسک از تدریس',
+  iryscAdvicePercent: 'مقدار پیش فرض برای سهم آیریسک از مشاوره',
+  minTeachPrice: 'حداقل مبلغ حق التدریس',
+  maxTeachPrice: 'حداکثر مبلغ حق التدریس',
 };
 
 export default translator;
