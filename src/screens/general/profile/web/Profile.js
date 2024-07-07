@@ -107,7 +107,11 @@ const Profile = props => {
       });
     } else {
       setUser(props.user.user);
-      setAboutMe(props.user.user.bio);
+      setTeachAboutMe(props.user.user.teachBio);
+      setAdviceAboutMe(props.user.user.adviceBio);
+      setAdviceVideoLink(props.user.user.adviceVideoLink);
+      setTeachVideoLink(props.user.user.teachVideoLink);
+      setDefaultTeachPrice(props.user.user.defaultTeachPrice);
       setAcceptStd(props.user.user.acceptStd);
       setIsAdvisor(isUserAdvisor(props.user));
     }
