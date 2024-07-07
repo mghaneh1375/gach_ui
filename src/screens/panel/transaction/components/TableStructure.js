@@ -1,3 +1,4 @@
+import {formatPrice} from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
 import translator from '../Translate';
 
@@ -20,13 +21,13 @@ const columns = [
   },
   {
     name: translator.amount,
-    selector: row => row.amount,
+    selector: row => formatPrice(row.amount),
     grow: 1,
     center: true,
   },
   {
     name: translator.accountMoney,
-    selector: row => row.accountMoney,
+    selector: row => formatPrice(row.accountMoney),
     grow: 1,
     center: true,
   },
