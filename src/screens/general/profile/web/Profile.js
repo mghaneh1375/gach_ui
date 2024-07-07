@@ -40,8 +40,7 @@ const Profile = props => {
   const [user, setUser] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdvisor, setIsAdvisor] = useState(false);
-  const [teachAboutMe, setTeachAboutMe] = useState();
-  const [adviceAboutMe, setAdviceAboutMe] = useState();
+  const [aboutMe, setAboutMe] = useState();
   const navigate = props.navigate;
   const params = useParams();
 
@@ -71,9 +70,7 @@ const Profile = props => {
   const [showEditPic, setShowEditPic] = useState(true);
   const [showEditForm, setShowEditForm] = useState(true);
   const [acceptStd, setAcceptStd] = useState();
-  const [teachVideoLink, setTeachVideoLink] = useState();
-  const [defaultTeachPrice, setDefaultTeachPrice] = useState();
-  const [adviceVideoLink, setAdviceVideoLink] = useState();
+  const [videoLink, setVideoLink] = useState();
 
   React.useEffect(() => {
     if (user !== undefined || isWorking) return;
@@ -229,106 +226,33 @@ const Profile = props => {
                 </CommonWebBox>
 
                 {isAdvisor && (
-                  <MyView>
-                    <CommonWebBox header={'من به عنوان معلم'}>
-                      <JustBottomBorderTextInput
-                        multiline={true}
-                        value={teachAboutMe}
-                        onChangeText={e => setTeachAboutMe(e)}
-                        placeholder={'متن درباره من'}
-                        subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
-                      />
-                      <JustBottomBorderTextInput
-                        placeholder={'لینک ویدیو معرفی من'}
-                        subText={'لینک ویدیو معرفی من - اختیاری'}
-                        value={teachVideoLink}
-                        onChangeText={e => setTeachVideoLink(e)}
-                      />
-                      <JustBottomBorderTextInput
-                        placeholder={'مبلغ پیش فرض برای تدریس در هر جلسه'}
-                        subText={'مبلغ پیش فرض برای تدریس در هر جلسه'}
-                        value={defaultTeachPrice}
-                        onChangeText={e => setDefaultTeachPrice(e)}
-                        justNum={true}
-                      />
-                    </CommonWebBox>
-                    <CommonWebBox header={'من به عنوان مشاور'}>
-                      <JustBottomBorderTextInput
-                        multiline={true}
-                        value={adviceAboutMe}
-                        onChangeText={e => setAdviceAboutMe(e)}
-                        placeholder={'متن درباره من'}
-                        subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
-                      />
-                      <JustBottomBorderTextInput
-                        placeholder={'لینک ویدیو معرفی من'}
-                        subText={'لینک ویدیو معرفی من - اختیاری'}
-                        value={adviceVideoLink}
-                        onChangeText={e => setAdviceVideoLink(e)}
-                      />
-
-                      <JustBottomBorderSelect
-                        placeholder={'پذیرش دانش آموز'}
-                        subText={'پذیرش دانش آموز'}
-                        values={trueFalseValues}
-                        value={
-                          acceptStd === undefined
-                            ? undefined
-                            : trueFalseValues.find(
-                                elem => elem.id === acceptStd,
-                              )
-                        }
-                        setter={async selected => {
-                          if (selected === acceptStd) return;
-
-                          setLoading(true);
-                          let res = await generalRequest(
-                            routes.toggleStdAcceptance,
-                            'post',
-                            undefined,
-                            undefined,
-                            props.token,
-                          );
-
-                          setLoading(false);
-
-                          if (res !== null) {
-                            await setCacheItem('user', undefined);
-                            await fetchUser(props.token, user => {});
-                            showSuccess();
-                          }
-
-                          setAcceptStd(selected);
-                        }}
-                      />
-                    </CommonWebBox>
+                  <CommonWebBox header={'درباره من'}>
+                    <JustBottomBorderTextInput
+                      multiline={true}
+                      value={aboutMe}
+                      onChangeText={e => setAboutMe(e)}
+                      placeholder={'متن درباره من'}
+                      subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
+                    />
+                    <JustBottomBorderTextInput
+                      placeholder={'لینک ویدیو معرفی من'}
+                      subText={'لینک ویدیو معرفی من - اختیاری'}
+                      value={videoLink}
+                      onChangeText={e => setVideoLink(e)}
+                    />
                     <CommonButton
                       title={commonTranslator.confirm}
                       onPress={async () => {
-                        if (
-                          teachAboutMe.length === 0 ||
-                          adviceAboutMe.length === 0
-                        ) {
+                        if (aboutMe.length === 0) {
                           showError(commonTranslator.pleaseFillAllFields);
                           return;
                         }
                         setLoading(true);
                         let data = {
-                          teachAboutMe: teachAboutMe,
-                          adviceAboutMe: adviceAboutMe,
-                          defaultTeachPrice: defaultTeachPrice,
+                          aboutMe: aboutMe,
                         };
-                        if (
-                          teachVideoLink !== undefined &&
-                          teachVideoLink !== ''
-                        )
-                          data.teachVideoLink = teachVideoLink;
-
-                        if (
-                          adviceVideoLink !== undefined &&
-                          adviceVideoLink !== ''
-                        )
-                          data.adviceVideoLink = adviceVideoLink;
+                        if (videoLink !== undefined && videoLink !== '')
+                          data.videoLink = videoLink;
                         let res = await generalRequest(
                           routes.setAboutMe,
                           'put',
@@ -346,7 +270,40 @@ const Profile = props => {
                         }
                       }}
                     />
-                  </MyView>
+
+                    <JustBottomBorderSelect
+                      placeholder={'پذیرش دانش آموز'}
+                      subText={'پذیرش دانش آموز'}
+                      values={trueFalseValues}
+                      value={
+                        acceptStd === undefined
+                          ? undefined
+                          : trueFalseValues.find(elem => elem.id === acceptStd)
+                      }
+                      setter={async selected => {
+                        if (selected === acceptStd) return;
+
+                        setLoading(true);
+                        let res = await generalRequest(
+                          routes.toggleStdAcceptance,
+                          'post',
+                          undefined,
+                          undefined,
+                          props.token,
+                        );
+
+                        setLoading(false);
+
+                        if (res !== null) {
+                          await setCacheItem('user', undefined);
+                          await fetchUser(props.token, user => {});
+                          showSuccess();
+                        }
+
+                        setAcceptStd(selected);
+                      }}
+                    />
+                  </CommonWebBox>
                 )}
                 {user.forms !== undefined && (
                   <CommonWebBox>
