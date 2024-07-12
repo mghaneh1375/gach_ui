@@ -66,6 +66,15 @@ const Users = props => {
         )}
         {mode === 'advisorTags' && (
           <AdvisorTags
+            teachMode="advisor"
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
+          />
+        )}
+        {mode === 'teachTags' && (
+          <AdvisorTags
+            teachMode="teach"
             setMode={setMode}
             setLoading={setLoading}
             token={props.token}

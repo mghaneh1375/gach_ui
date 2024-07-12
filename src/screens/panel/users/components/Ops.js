@@ -75,11 +75,18 @@ function Ops(props) {
             title={'شارژ حساب'}
           />
           {isAdvisor && (
-            <CommonButton
-              theme={'transparent'}
-              title={'مدیریت برچسب ها'}
-              onPress={() => props.changeMode('advisorTags')}
-            />
+            <>
+              <CommonButton
+                theme={'transparent'}
+                title={'مدیریت برچسب های مخصوص تدریس'}
+                onPress={() => props.changeMode('teachTags')}
+              />
+              <CommonButton
+                theme={'transparent'}
+                title={'مدیریت برچسب های مخصوص مشاوره'}
+                onPress={() => props.changeMode('advisorTags')}
+              />
+            </>
           )}
           {!isAdvisor && (
             <CommonButton

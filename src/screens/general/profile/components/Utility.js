@@ -110,26 +110,14 @@ export const updateUserPic = async (
   setUser(newUserModel);
 };
 
-export const getPreRequirements = async (
-  setLoading,
-  setStates,
-  setGrades,
-  setBranches,
-  setSchools,
-) => {
-  setLoading(true);
-
-  Promise.all([
+export const getPreRequirements = async () => {
+  return Promise.all([
     generalRequest(routes.fetchState, 'get', undefined, 'data'),
     generalRequest(routes.fetchGrades, 'get', undefined, 'data'),
     generalRequest(routes.fetchBranches, 'get', undefined, 'data'),
     generalRequest(routes.fetchSchoolsDigest, 'get', undefined, 'data'),
   ]).then(res => {
-    setLoading(false);
-    if (res[0] !== null) setStates(res[0]);
-    if (res[1] !== null) setGrades(res[1]);
-    if (res[2] !== null) setBranches(res[2]);
-    if (res[3] !== null) setSchools(res[3]);
+    return res;
   });
 };
 

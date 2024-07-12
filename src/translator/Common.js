@@ -29,6 +29,8 @@ const translator = {
   price: 'قیمت :',
   priceUnit: 'تومان',
   advisors: 'مشاوران آیریسک',
+  iryscTeachers: 'مدرسین آیریسک',
+  teach: 'تدریس',
   entrance: 'ورود',
   continue: 'ادامه',
   support: 'پشتیبانی',
@@ -262,8 +264,11 @@ const translator = {
   not_has: 'ندارد',
   col: ': ',
   questionReportTags: 'تگ‌های گزارش خرابی سوال',
+  teachReportTags: 'تگ‌های گزارش مشکل برای تدریس',
   educationalHistory: 'سوابق تحصیلی',
   birthDay: 'تاریخ تولد',
   myFinancePlans: 'مدیریت بسته‌ها',
+  myTeachSchedules: 'برنامه های تدریس من',
+  myTeachRequests: 'درخواست های رسیده',
 };
 export default translator;

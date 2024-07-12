@@ -25,7 +25,10 @@ function AdvisorTags(props) {
 
     Promise.all([
       generalRequest(
-        routes.getAdvisorTags + state.selectedUser.id,
+        routes.getAdvisorTags +
+          state.selectedUser.id +
+          '?mode=' +
+          props.teachMode,
         'get',
         undefined,
         'data',
@@ -67,7 +70,7 @@ function AdvisorTags(props) {
     props.setLoading(true);
 
     let res = await generalRequest(
-      routes.addAdvisorTag + state.selectedUser.id,
+      routes.addAdvisorTag + state.selectedUser.id + '?mode=' + props.teachMode,
       'put',
       {
         tags: newTag,
@@ -79,7 +82,7 @@ function AdvisorTags(props) {
     props.setLoading(false);
 
     if (res != null) {
-      state.selectedUser.tags = newTag;
+      state.selectedUser.tags = undefined;
       dispatch({selectedUser: state.selectedUser, needUpdate: true});
       showSuccess();
     }
@@ -107,7 +110,11 @@ function AdvisorTags(props) {
     <CommonWebBox
       header={'مدیریت تگ‌های ' + state.selectedUser.name}
       backBtn={true}
-      onBackClick={() => props.setMode('list')}>
+      onBackClick={() => {
+        state.selectedUser.tags = undefined;
+        dispatch({selectedUser: state.selectedUser, needUpdate: true});
+        props.setMode('list');
+      }}>
       {state.selectedUser.tags !== undefined && (
         <PhoneView>
           <JustBottomBorderTextInput

@@ -70,6 +70,10 @@ function AdminMenu(props) {
               text: translator.questionReportTags,
               url: '/basic/questionReports',
             },
+            {
+              text: translator.teachReportTags,
+              url: '/basic/teachTagsReport',
+            },
           ]}
         />
         <SuperMenuItem

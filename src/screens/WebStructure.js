@@ -102,6 +102,7 @@ const SingleNotif = lazy(() => import('./studentPanel/Notif/Notif'));
 const Barcode = lazy(() => import('./panel/Barcode/Barcode'));
 import {routes} from '../API/APIRoutes';
 import {generalRequest} from '../API/Utility';
+import MyTeachSchedule from './advisorPanel/Teach/Schedule/MyTeachSchedule';
 const Report = lazy(() => import('./panel/spinGift/components/Report/Report'));
 const SessionDetail = lazy(() =>
   import('./general/Packages/components/Detail/SessionDetail'),
@@ -112,10 +113,14 @@ const MyTasks = lazy(() => import('./correctorPanel/myTasks/MyTasks'));
 const QuestionReport = lazy(() =>
   import('./panel/questionReport/QuestionReport'),
 );
+const TeachTagsReport = lazy(() =>
+  import('./panel/Teach/teachReport/TeachTagsReport'),
+);
 const MyQuizzes = lazy(() =>
   import('./studentPanel/MyQuizzes/school/MyQuizzes'),
 );
 const Advisors = lazy(() => import('./general/Advisors/Advisors'));
+const AllTeachers = lazy(() => import('./general/Teachers/Teachers'));
 const RequestLogsForAdvisors = lazy(() =>
   import('./studentPanel/RequestLogsForAdvisors/RequestLogsForAdvisors'),
 );
@@ -523,6 +528,12 @@ const WebStructue = props => {
                   {props.page === 'psychology' && (
                     <Psychology navigate={navigate} />
                   )}
+                  {props.page === 'showAllTeachers' && (
+                    <AllTeachers navigate={navigate} />
+                  )}
+                  {props.page === 'myTeachSchedules' && (
+                    <MyTeachSchedule navigate={navigate} />
+                  )}
                   {props.page === 'advisors' && (
                     <Advisors navigate={navigate} />
                   )}
@@ -535,7 +546,6 @@ const WebStructue = props => {
                   {props.page === 'studentLifeStyle' && (
                     <MyLifeStyle navigate={navigate} />
                   )}
-
                   {props.page === 'studentProgress' && (
                     <Progress navigate={navigate} />
                   )}
@@ -729,6 +739,12 @@ const WebStructue = props => {
                     params.mode !== undefined &&
                     params.mode === 'questionReports' && (
                       <QuestionReport navigate={navigate} />
+                    )}
+                  {props.page === 'basic' &&
+                    params !== undefined &&
+                    params.mode !== undefined &&
+                    params.mode === 'teachTagsReport' && (
+                      <TeachTagsReport navigate={navigate} />
                     )}
                   {props.page === 'avatars' && (
                     <Avatar

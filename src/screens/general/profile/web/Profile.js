@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   BigBoldBlueTextInline,
   CommonWebBox,
@@ -6,6 +6,7 @@ import {
   MyView,
   CommonButton,
   SimpleText,
+  PhoneView,
 } from '../../../../styles/Common';
 
 import ChangePass from '../components/ChangePass';
@@ -35,6 +36,9 @@ import UpdateForm from '../components/UpdateForm';
 import {fetchUser, setCacheItem} from '../../../../API/User';
 import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import RadioButtonYesOrNo from '../../../../components/web/RadioButtonYesOrNo';
+import commonTranslate from '../../../../translator/Common';
+import {styles} from '../../../../styles/Common/Styles';
 
 const Profile = props => {
   const [user, setUser] = useState();
@@ -62,6 +66,7 @@ const Profile = props => {
   const [grades, setGrades] = useState();
   const [branches, setBranches] = useState();
   const [schools, setSchools] = useState();
+  const [wantToTeach, setWantToTeach] = useState(false);
 
   const [showChangeUsernameModal, setShowChangeUsernameModal] = useState(false);
   const [usernameModalMode, setUsernameModalMode] = useState(false);
@@ -74,6 +79,10 @@ const Profile = props => {
   const [teachVideoLink, setTeachVideoLink] = useState();
   const [defaultTeachPrice, setDefaultTeachPrice] = useState();
   const [adviceVideoLink, setAdviceVideoLink] = useState();
+  const [teachLessons, setTeachLessons] = useState();
+  const [teachGrades, setTeachGrades] = useState();
+  const [teachBranches, setTeachBranches] = useState();
+  const [selectableLessons, setSelectableLessons] = useState([]);
 
   React.useEffect(() => {
     if (user !== undefined || isWorking) return;
@@ -107,26 +116,76 @@ const Profile = props => {
       });
     } else {
       setUser(props.user.user);
-      setTeachAboutMe(props.user.user.teachBio);
-      setAdviceAboutMe(props.user.user.adviceBio);
-      setAdviceVideoLink(props.user.user.adviceVideoLink);
-      setTeachVideoLink(props.user.user.teachVideoLink);
-      setDefaultTeachPrice(props.user.user.defaultTeachPrice);
-      setAcceptStd(props.user.user.acceptStd);
-      setIsAdvisor(isUserAdvisor(props.user));
+      const isAdvisor = isUserAdvisor(props.user);
+      if (isAdvisor) {
+        setTeachAboutMe(props.user.user.teachBio);
+        setAdviceAboutMe(props.user.user.adviceBio);
+        setAdviceVideoLink(props.user.user.adviceVideoLink);
+        setTeachVideoLink(props.user.user.teachVideoLink);
+        setDefaultTeachPrice(props.user.user.defaultTeachPrice);
+        setAcceptStd(props.user.user.acceptStd);
+        setWantToTeach(props.user.user.wantToTeach);
+      }
+      setIsAdvisor(isAdvisor);
     }
   }, [props, isWorking, user, dispatch, navigate, params]);
 
   React.useEffect(() => {
     if (fetchedStates) return;
     setFetchedStates(true);
-    getPreRequirements(
-      status => dispatch({loading: status}),
-      setStates,
-      setBranches,
-      setGrades,
-      setSchools,
-    );
+    dispatch({loading: true});
+    Promise.all([getPreRequirements()]).then(res => {
+      res = res[0];
+      dispatch({loading: false});
+      if (res[0] !== null) setStates(res[0]);
+      if (res[1] !== null) setGrades(res[1]);
+      if (res[2] !== null) setBranches(res[2]);
+      if (res[3] !== null) setSchools(res[3]);
+      const isAdvisor = isUserAdvisor(props.user);
+      if (isAdvisor) {
+        Promise.all([
+          generalRequest(
+            routes.getMyFields,
+            'get',
+            undefined,
+            'data',
+            props.token,
+          ),
+        ]).then(r => {
+          if (r[0] !== null) {
+            let tmp = [];
+            res[2]
+              .filter(grade => r[0].grades.indexOf(grade.id) !== -1)
+              .forEach(e => {
+                e.lessons.forEach(ee => {
+                  tmp.push(ee);
+                });
+              });
+
+            setSelectableLessons(tmp);
+            setTeachLessons(
+              tmp.filter(lesson => {
+                return r[0].lessons.indexOf(lesson.id) !== -1;
+              }),
+            );
+
+            setTeachGrades(
+              res[2].filter(grade => {
+                return r[0].grades.indexOf(grade.id) !== -1;
+              }),
+            );
+
+            setTeachBranches(
+              res[1].filter(branch => {
+                return r[0].branches.indexOf(branch.id) !== -1;
+              }),
+            );
+          }
+        });
+      }
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchedStates, dispatch]);
 
   const toggleChangeUsernameModal = () => {
@@ -235,121 +294,238 @@ const Profile = props => {
                 {isAdvisor && (
                   <MyView>
                     <CommonWebBox header={'من به عنوان معلم'}>
-                      <JustBottomBorderTextInput
-                        multiline={true}
-                        value={teachAboutMe}
-                        onChangeText={e => setTeachAboutMe(e)}
-                        placeholder={'متن درباره من'}
-                        subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
+                      <RadioButtonYesOrNo
+                        label={'آیا تمایل به تدریس دارید؟'}
+                        selected={wantToTeach ? 'yes' : 'no'}
+                        setSelected={e => setWantToTeach(e === 'yes')}
                       />
-                      <JustBottomBorderTextInput
-                        placeholder={'لینک ویدیو معرفی من'}
-                        subText={'لینک ویدیو معرفی من - اختیاری'}
-                        value={teachVideoLink}
-                        onChangeText={e => setTeachVideoLink(e)}
-                      />
-                      <JustBottomBorderTextInput
-                        placeholder={'مبلغ پیش فرض برای تدریس در هر جلسه'}
-                        subText={'مبلغ پیش فرض برای تدریس در هر جلسه'}
-                        value={defaultTeachPrice}
-                        onChangeText={e => setDefaultTeachPrice(e)}
-                        justNum={true}
-                      />
-                    </CommonWebBox>
-                    <CommonWebBox header={'من به عنوان مشاور'}>
-                      <JustBottomBorderTextInput
-                        multiline={true}
-                        value={adviceAboutMe}
-                        onChangeText={e => setAdviceAboutMe(e)}
-                        placeholder={'متن درباره من'}
-                        subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
-                      />
-                      <JustBottomBorderTextInput
-                        placeholder={'لینک ویدیو معرفی من'}
-                        subText={'لینک ویدیو معرفی من - اختیاری'}
-                        value={adviceVideoLink}
-                        onChangeText={e => setAdviceVideoLink(e)}
-                      />
+                      {wantToTeach && (
+                        <>
+                          <JustBottomBorderTextInput
+                            multiline={true}
+                            value={teachAboutMe}
+                            onChangeText={e => setTeachAboutMe(e)}
+                            placeholder={'متن درباره من'}
+                            subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
+                          />
+                          <JustBottomBorderTextInput
+                            placeholder={'لینک ویدیو معرفی من'}
+                            subText={'لینک ویدیو معرفی من - اختیاری'}
+                            value={teachVideoLink}
+                            onChangeText={e => setTeachVideoLink(e)}
+                          />
+                          <JustBottomBorderTextInput
+                            placeholder={'مبلغ پیش فرض برای تدریس در هر جلسه'}
+                            subText={'مبلغ پیش فرض برای تدریس در هر جلسه'}
+                            value={defaultTeachPrice}
+                            onChangeText={e => setDefaultTeachPrice(e)}
+                            justNum={true}
+                          />
 
-                      <JustBottomBorderSelect
-                        placeholder={'پذیرش دانش آموز'}
-                        subText={'پذیرش دانش آموز'}
-                        values={trueFalseValues}
-                        value={
-                          acceptStd === undefined
-                            ? undefined
-                            : trueFalseValues.find(
-                                elem => elem.id === acceptStd,
+                          <SimpleText
+                            style={{...styles.BlueBold, ...styles.marginTop20}}
+                            text={'من به عنوان مشاور'}
+                          />
+
+                          <JustBottomBorderTextInput
+                            multiline={true}
+                            value={adviceAboutMe}
+                            onChangeText={e => setAdviceAboutMe(e)}
+                            placeholder={'متن درباره من'}
+                            subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
+                          />
+                          <JustBottomBorderTextInput
+                            placeholder={'لینک ویدیو معرفی من'}
+                            subText={'لینک ویدیو معرفی من - اختیاری'}
+                            value={adviceVideoLink}
+                            onChangeText={e => setAdviceVideoLink(e)}
+                          />
+
+                          <JustBottomBorderSelect
+                            placeholder={'پذیرش دانش آموز'}
+                            subText={'پذیرش دانش آموز'}
+                            values={trueFalseValues}
+                            value={
+                              acceptStd === undefined
+                                ? undefined
+                                : trueFalseValues.find(
+                                    elem => elem.id === acceptStd,
+                                  )
+                            }
+                            setter={async selected => {
+                              if (selected === acceptStd) return;
+
+                              setLoading(true);
+                              let res = await generalRequest(
+                                routes.toggleStdAcceptance,
+                                'post',
+                                undefined,
+                                undefined,
+                                props.token,
+                              );
+
+                              setLoading(false);
+
+                              if (res !== null) {
+                                await setCacheItem('user', undefined);
+                                await fetchUser(props.token, user => {});
+                                showSuccess();
+                              }
+
+                              setAcceptStd(selected);
+                            }}
+                          />
+
+                          <CommonButton
+                            title={commonTranslator.confirm}
+                            onPress={async () => {
+                              if (
+                                teachAboutMe.length === 0 ||
+                                adviceAboutMe.length === 0
+                              ) {
+                                showError(commonTranslator.pleaseFillAllFields);
+                                return;
+                              }
+                              setLoading(true);
+                              let data = {
+                                adviceAboutMe: adviceAboutMe,
+                                wantToTeach: wantToTeach,
+                              };
+                              if (wantToTeach) {
+                                data.teachAboutMe = teachAboutMe;
+                                data.defaultTeachPrice = defaultTeachPrice;
+
+                                if (
+                                  teachVideoLink !== undefined &&
+                                  teachVideoLink !== ''
+                                )
+                                  data.teachVideoLink = teachVideoLink;
+                              }
+
+                              if (
+                                adviceVideoLink !== undefined &&
+                                adviceVideoLink !== ''
                               )
-                        }
-                        setter={async selected => {
-                          if (selected === acceptStd) return;
+                                data.adviceVideoLink = adviceVideoLink;
 
-                          setLoading(true);
-                          let res = await generalRequest(
-                            routes.toggleStdAcceptance,
-                            'post',
-                            undefined,
-                            undefined,
-                            props.token,
-                          );
+                              let res = await generalRequest(
+                                routes.setAboutMe,
+                                'put',
+                                data,
+                                undefined,
+                                props.token,
+                              );
 
-                          setLoading(false);
+                              setLoading(false);
 
-                          if (res !== null) {
-                            await setCacheItem('user', undefined);
-                            await fetchUser(props.token, user => {});
-                            showSuccess();
-                          }
-
-                          setAcceptStd(selected);
-                        }}
-                      />
+                              if (res !== null) {
+                                await setCacheItem('user', undefined);
+                                await fetchUser(props.token, user => {});
+                                showSuccess();
+                              }
+                            }}
+                          />
+                        </>
+                      )}
                     </CommonWebBox>
-                    <CommonButton
-                      title={commonTranslator.confirm}
-                      onPress={async () => {
-                        if (
-                          teachAboutMe.length === 0 ||
-                          adviceAboutMe.length === 0
-                        ) {
-                          showError(commonTranslator.pleaseFillAllFields);
-                          return;
-                        }
-                        setLoading(true);
-                        let data = {
-                          teachAboutMe: teachAboutMe,
-                          adviceAboutMe: adviceAboutMe,
-                          defaultTeachPrice: defaultTeachPrice,
-                        };
-                        if (
-                          teachVideoLink !== undefined &&
-                          teachVideoLink !== ''
-                        )
-                          data.teachVideoLink = teachVideoLink;
+                    {wantToTeach && (
+                      <CommonWebBox header={'تخصص های من برای تدریس (اختیاری)'}>
+                        <PhoneView style={{gap: '10px'}}>
+                          {grades && (
+                            <JustBottomBorderTextInput
+                              style={{marginTop: 10}}
+                              isHalf={state.isInPhone ? undefined : true}
+                              resultPane={true}
+                              placeholder={commonTranslator.grade}
+                              subText={
+                                'نام رشته المپیادی خود را به شکل فارسی سرچ کنید مثلا: شیمی'
+                              }
+                              setSelectedItem={items => {
+                                setTeachGrades(items);
+                                const teachGradesId = items.map(e => e.id);
 
-                        if (
-                          adviceVideoLink !== undefined &&
-                          adviceVideoLink !== ''
-                        )
-                          data.adviceVideoLink = adviceVideoLink;
-                        let res = await generalRequest(
-                          routes.setAboutMe,
-                          'put',
-                          data,
-                          undefined,
-                          props.token,
-                        );
+                                let tmp = [];
+                                grades
+                                  .filter(
+                                    grade =>
+                                      teachGradesId.indexOf(grade.id) !== -1,
+                                  )
+                                  .forEach(e => {
+                                    e.lessons.forEach(ee => {
+                                      tmp.push(ee);
+                                    });
+                                  });
+                                setSelectableLessons(tmp);
+                              }}
+                              reset={false}
+                              values={grades}
+                              value={teachGrades}
+                              multi={true}
+                            />
+                          )}
 
-                        setLoading(false);
+                          <JustBottomBorderTextInput
+                            style={{marginTop: 10}}
+                            isHalf={state.isInPhone ? undefined : true}
+                            resultPane={true}
+                            placeholder={commonTranslator.lesson}
+                            subText={
+                              'نام رشته المپیادی خود را به شکل فارسی سرچ کنید مثلا: شیمی'
+                            }
+                            setSelectedItem={setTeachLessons}
+                            reset={false}
+                            values={selectableLessons}
+                            value={teachLessons}
+                            multi={true}
+                          />
+                        </PhoneView>
 
-                        if (res !== null) {
-                          await setCacheItem('user', undefined);
-                          await fetchUser(props.token, user => {});
-                          showSuccess();
-                        }
-                      }}
-                    />
+                        {branches && (
+                          <JustBottomBorderTextInput
+                            style={{marginTop: 10}}
+                            isHalf={state.isInPhone ? undefined : true}
+                            resultPane={true}
+                            placeholder={commonTranslator.branch}
+                            subText={
+                              'نام رشته المپیادی خود را به شکل فارسی سرچ کنید مثلا: شیمی'
+                            }
+                            setSelectedItem={setTeachBranches}
+                            reset={false}
+                            values={branches}
+                            value={teachBranches}
+                            multi={true}
+                          />
+                        )}
+                        <CommonButton
+                          onPress={async () => {
+                            setLoading(true);
+                            let res = await generalRequest(
+                              routes.setMyFields,
+                              'put',
+                              {
+                                lessons:
+                                  teachLessons === undefined
+                                    ? []
+                                    : teachLessons.map(e => e.id),
+                                grades:
+                                  teachGrades === undefined
+                                    ? []
+                                    : teachGrades.map(e => e.id),
+                                branches:
+                                  teachBranches === undefined
+                                    ? []
+                                    : teachBranches.map(e => e.id),
+                              },
+                              undefined,
+                              props.token,
+                            );
+                            setLoading(false);
+                            if (res !== null) showSuccess();
+                          }}
+                          title={commonTranslate.confirm}
+                        />
+                      </CommonWebBox>
+                    )}
                   </MyView>
                 )}
                 {user.forms !== undefined && (
