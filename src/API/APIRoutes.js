@@ -357,6 +357,8 @@ export const routes = {
   addQuestionReportTag: 'questionReport/manage/addTag',
   removeQuestionReportTags: 'questionReport/manage/remove',
   editQuestionReportTag: 'questionReport/manage/editTag/',
+  getAdvisorIRYSCPercent: 'teach/admin/getAdvisorIRYSCPercent/',
+  setAdvisorIRYSCPercent: 'teach/admin/setAdvisorIRYSCPercent/',
   getTeachTagsReport: 'teach/admin/getAllReportTags',
   createTeachTagsReport: 'teach/admin/createReportTag',
   removeTeachTagsReport: 'teach/admin/removeTags',

@@ -83,6 +83,8 @@ const Profile = props => {
   const [teachGrades, setTeachGrades] = useState();
   const [teachBranches, setTeachBranches] = useState();
   const [selectableLessons, setSelectableLessons] = useState([]);
+  const [iryscTeachPercent, setIryscTeachPercent] = useState();
+  const [iryscAdvicePercent, setIryscAdvicePercent] = useState();
 
   React.useEffect(() => {
     if (user !== undefined || isWorking) return;
@@ -180,6 +182,9 @@ const Profile = props => {
                 return r[0].branches.indexOf(branch.id) !== -1;
               }),
             );
+
+            setIryscAdvicePercent(r[0].iryscAdvicePercent);
+            setIryscTeachPercent(r[0].iryscTeachPercent);
           }
         });
       }
@@ -321,112 +326,127 @@ const Profile = props => {
                             onChangeText={e => setDefaultTeachPrice(e)}
                             justNum={true}
                           />
-
                           <SimpleText
-                            style={{...styles.BlueBold, ...styles.marginTop20}}
-                            text={'من به عنوان مشاور'}
-                          />
-
-                          <JustBottomBorderTextInput
-                            multiline={true}
-                            value={adviceAboutMe}
-                            onChangeText={e => setAdviceAboutMe(e)}
-                            placeholder={'متن درباره من'}
-                            subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
-                          />
-                          <JustBottomBorderTextInput
-                            placeholder={'لینک ویدیو معرفی من'}
-                            subText={'لینک ویدیو معرفی من - اختیاری'}
-                            value={adviceVideoLink}
-                            onChangeText={e => setAdviceVideoLink(e)}
-                          />
-
-                          <JustBottomBorderSelect
-                            placeholder={'پذیرش دانش آموز'}
-                            subText={'پذیرش دانش آموز'}
-                            values={trueFalseValues}
-                            value={
-                              acceptStd === undefined
-                                ? undefined
-                                : trueFalseValues.find(
-                                    elem => elem.id === acceptStd,
-                                  )
+                            style={styles.colorOrangeRed}
+                            text={
+                              'سهم آیریسک از هر تدریس برای شما ' +
+                              iryscTeachPercent +
+                              '% می باشد'
                             }
-                            setter={async selected => {
-                              if (selected === acceptStd) return;
-
-                              setLoading(true);
-                              let res = await generalRequest(
-                                routes.toggleStdAcceptance,
-                                'post',
-                                undefined,
-                                undefined,
-                                props.token,
-                              );
-
-                              setLoading(false);
-
-                              if (res !== null) {
-                                await setCacheItem('user', undefined);
-                                await fetchUser(props.token, user => {});
-                                showSuccess();
-                              }
-
-                              setAcceptStd(selected);
-                            }}
-                          />
-
-                          <CommonButton
-                            title={commonTranslator.confirm}
-                            onPress={async () => {
-                              if (
-                                teachAboutMe.length === 0 ||
-                                adviceAboutMe.length === 0
-                              ) {
-                                showError(commonTranslator.pleaseFillAllFields);
-                                return;
-                              }
-                              setLoading(true);
-                              let data = {
-                                adviceAboutMe: adviceAboutMe,
-                                wantToTeach: wantToTeach,
-                              };
-                              if (wantToTeach) {
-                                data.teachAboutMe = teachAboutMe;
-                                data.defaultTeachPrice = defaultTeachPrice;
-
-                                if (
-                                  teachVideoLink !== undefined &&
-                                  teachVideoLink !== ''
-                                )
-                                  data.teachVideoLink = teachVideoLink;
-                              }
-
-                              if (
-                                adviceVideoLink !== undefined &&
-                                adviceVideoLink !== ''
-                              )
-                                data.adviceVideoLink = adviceVideoLink;
-
-                              let res = await generalRequest(
-                                routes.setAboutMe,
-                                'put',
-                                data,
-                                undefined,
-                                props.token,
-                              );
-
-                              setLoading(false);
-
-                              if (res !== null) {
-                                await setCacheItem('user', undefined);
-                                await fetchUser(props.token, user => {});
-                                showSuccess();
-                              }
-                            }}
                           />
                         </>
                       )}
+
+                      <SimpleText
+                        style={{...styles.BlueBold, ...styles.marginTop20}}
+                        text={'من به عنوان مشاور'}
+                      />
+
+                      <JustBottomBorderTextInput
+                        multiline={true}
+                        value={adviceAboutMe}
+                        onChangeText={e => setAdviceAboutMe(e)}
+                        placeholder={'متن درباره من'}
+                        subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
+                      />
+                      <JustBottomBorderTextInput
+                        placeholder={'لینک ویدیو معرفی من'}
+                        subText={'لینک ویدیو معرفی من - اختیاری'}
+                        value={adviceVideoLink}
+                        onChangeText={e => setAdviceVideoLink(e)}
+                      />
+
+                      <JustBottomBorderSelect
+                        placeholder={'پذیرش دانش آموز'}
+                        subText={'پذیرش دانش آموز'}
+                        values={trueFalseValues}
+                        value={
+                          acceptStd === undefined
+                            ? undefined
+                            : trueFalseValues.find(
+                                elem => elem.id === acceptStd,
+                              )
+                        }
+                        setter={async selected => {
+                          if (selected === acceptStd) return;
+
+                          setLoading(true);
+                          let res = await generalRequest(
+                            routes.toggleStdAcceptance,
+                            'post',
+                            undefined,
+                            undefined,
+                            props.token,
+                          );
+
+                          setLoading(false);
+
+                          if (res !== null) {
+                            await setCacheItem('user', undefined);
+                            await fetchUser(props.token, user => {});
+                            showSuccess();
+                          }
+
+                          setAcceptStd(selected);
+                        }}
+                      />
+                      <SimpleText
+                        style={styles.colorOrangeRed}
+                        text={
+                          'سهم آیریسک از هر مشاوره برای شما ' +
+                          iryscAdvicePercent +
+                          '% می باشد'
+                        }
+                      />
+                      <CommonButton
+                        title={commonTranslator.confirm}
+                        onPress={async () => {
+                          if (
+                            teachAboutMe.length === 0 ||
+                            adviceAboutMe.length === 0
+                          ) {
+                            showError(commonTranslator.pleaseFillAllFields);
+                            return;
+                          }
+                          setLoading(true);
+                          let data = {
+                            adviceAboutMe: adviceAboutMe,
+                            wantToTeach: wantToTeach,
+                          };
+                          if (wantToTeach) {
+                            data.teachAboutMe = teachAboutMe;
+                            data.defaultTeachPrice = defaultTeachPrice;
+
+                            if (
+                              teachVideoLink !== undefined &&
+                              teachVideoLink !== ''
+                            )
+                              data.teachVideoLink = teachVideoLink;
+                          }
+
+                          if (
+                            adviceVideoLink !== undefined &&
+                            adviceVideoLink !== ''
+                          )
+                            data.adviceVideoLink = adviceVideoLink;
+
+                          let res = await generalRequest(
+                            routes.setAboutMe,
+                            'put',
+                            data,
+                            undefined,
+                            props.token,
+                          );
+
+                          setLoading(false);
+
+                          if (res !== null) {
+                            await setCacheItem('user', undefined);
+                            await fetchUser(props.token, user => {});
+                            showSuccess();
+                          }
+                        }}
+                      />
                     </CommonWebBox>
                     {wantToTeach && (
                       <CommonWebBox header={'تخصص های من برای تدریس (اختیاری)'}>

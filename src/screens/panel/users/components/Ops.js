@@ -86,6 +86,11 @@ function Ops(props) {
                 title={'مدیریت برچسب های مخصوص مشاوره'}
                 onPress={() => props.changeMode('advisorTags')}
               />
+              <CommonButton
+                theme={'transparent'}
+                title={'تعیین درصد تسویه'}
+                onPress={() => props.changeMode('setIRYSCPercent')}
+              />
             </>
           )}
           {!isAdvisor && (

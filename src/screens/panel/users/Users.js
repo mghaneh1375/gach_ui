@@ -8,6 +8,7 @@ import {UsersProvider} from './components/Context';
 import ChangePassByAdmin from './components/ChangePassByAdmin';
 import ChargeAccount from './components/ChargeAccount';
 import AdvisorTags from './components/AdvisorTags';
+import SetIRYSCPercent from './components/SetIRYSCPercent';
 
 const Users = props => {
   const [mode, setMode] = useState();
@@ -22,6 +23,7 @@ const Users = props => {
   };
 
   const level = useParams().level;
+  const [selectedUser, setSelectedUser] = useState();
 
   React.useEffect(() => {
     if (level === undefined) {
@@ -40,6 +42,7 @@ const Users = props => {
             setMode={setMode}
             setLoading={setLoading}
             token={props.token}
+            setSelectedUser={setSelectedUser}
           />
         )}
 
@@ -75,6 +78,14 @@ const Users = props => {
         {mode === 'teachTags' && (
           <AdvisorTags
             teachMode="teach"
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
+          />
+        )}
+        {mode === 'setIRYSCPercent' && (
+          <SetIRYSCPercent
+            selectedUser={selectedUser}
             setMode={setMode}
             setLoading={setLoading}
             token={props.token}

@@ -19,7 +19,6 @@ function List(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
-
   const [showOpPopUp, setShowOpPopUp] = useState(false);
 
   const toggleShowOpPopUp = () => {
@@ -33,8 +32,10 @@ function List(props) {
   const handleOp = React.useCallback(
     (idx, selectedUser) => {
       dispatch({selectedUser: selectedUser});
+      props.setSelectedUser(selectedUser);
       setShowOpPopUp(true);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [dispatch],
   );
 
