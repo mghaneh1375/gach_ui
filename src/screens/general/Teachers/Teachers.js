@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import {
+  faArrowLeft,
+  faChevronDown,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
+import React, {useMemo, useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
-import {globalStateContext, dispatchStateContext} from '../../../App';
-import {
-  addItem,
-  getDevice,
-  removeItems,
-  showSuccess,
-} from '../../../services/Utility';
+import {dispatchStateContext, globalStateContext} from '../../../App';
+import Basket from '../../../components/web/Basket';
+import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
+import {getDevice, showSuccess} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -17,13 +19,12 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';
+import {FontIcon} from '../../../styles/Common/FontIcon';
 import {styles} from '../../../styles/Common/Styles';
-import Card from './Card';
-import {fetchUser, setCacheItem} from '../../../API/User';
-import OffCode from '../buy/components/OffCode';
-import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
 import commonTranslator from '../../../translator/Common';
-import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import OffCode from '../buy/components/OffCode';
+import BuySchedule from './BuySchedule';
+import Card from './Card';
 import Filter from './Filter';
 import Schedule from './Schedule';
 
@@ -36,25 +37,7 @@ function Teachers(props) {
 
   const [data, setData] = useState();
   const [teacherSchedules, setTeacherSchedules] = useState();
-
-  const [refId, setRefId] = useState();
-
-  React.useEffect(() => {
-    if (refId === undefined) return;
-    ref.current.submit();
-  }, [refId]);
-
-  const ref = React.useRef();
-
-  const goToPay = async (token, data, teacherId) => {
-    return await generalRequest(
-      routes.payTeacherPrice + teacherId,
-      'post',
-      data,
-      ['action', 'refId'],
-      token,
-    );
-  };
+  const [selectedTeachSchedule, setSelectedTeachSchedule] = useState();
 
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [showOffCodePane, setShowOffCodePane] = useState();
@@ -69,30 +52,11 @@ function Teachers(props) {
   const [lessons, setLessons] = useState();
 
   const [offAmount, setOffAmount] = useState(0);
-  const [userMoney, setUserMoney] = useState(state.user.user.money);
-
-  const goToPayLocal = async teacherId => {
-    let data = {};
-
-    if (userOff !== undefined && userOff.code !== undefined)
-      data.off = userOff.code;
-
-    dispatch({loading: true});
-
-    let res = await goToPay(state.token, data, teacherId);
-
-    dispatch({loading: false});
-
-    if (res !== null) {
-      if (res.action === 'success') {
-        await setCacheItem('user', undefined);
-        await fetchUser(state.token, user => {});
-        setShowSuccessTransaction(true);
-      } else if (res.action === 'pay') {
-        setRefId(res.refId);
-      }
-    }
-  };
+  const userMoney = useMemo(
+    () => state.user.user.money,
+    [state.user.user.money],
+  );
+  const [usedFromWallet, setUsedFromWallet] = useState();
 
   const fetchData = React.useCallback(() => {
     dispatch({loading: true});
@@ -161,12 +125,21 @@ function Teachers(props) {
   });
 
   const setOffCodeResult = (amount, type, code) => {
-    // setUserOff({type: type, amount: amount, code: code});
-    // let openReq = openRequests.find(e => e.teacherId === selectedTeacher);
-    // let offAmountTmp =
-    //   type === 'percent' ? (openReq.price * amount) / 100 : amount;
-    // setOffAmount(offAmountTmp);
-    // openReq.shouldPay = Math.max(0, openReq.price - offAmountTmp - userMoney);
+    setUserOff({type: type, amount: amount, code: code});
+    let offAmountTmp =
+      type === 'percent'
+        ? (selectedTeachSchedule.price * amount) / 100
+        : amount;
+
+    setOffAmount(Math.min(offAmountTmp, selectedTeachSchedule.price));
+    let shouldPayTmp = selectedTeachSchedule.price - offAmountTmp;
+
+    if (shouldPayTmp > 0) {
+      setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
+      shouldPayTmp -= userMoney;
+    } else setUsedFromWallet(0);
+
+    selectedTeachSchedule.shouldPay = Math.max(0, shouldPayTmp);
   };
 
   const [selectableItems, setSelectableItems] = useState();
@@ -206,134 +179,157 @@ function Teachers(props) {
       {showOffCodePane && (
         <OffCode
           token={state.token}
-          for={'counseling'}
+          for={'classes'}
           setLoading={new_status => dispatch({loading: new_status})}
           setResult={setOffCodeResult}
           toggleShowPopUp={() => setShowOffCodePane(false)}
         />
       )}
 
-      {refId !== undefined && (
-        <form
-          ref={ref}
-          action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat"
-          method="post">
-          <input type={'hidden'} value={refId} name="RefId" />
-        </form>
+      {selectedTeachSchedule?.shouldPay !== undefined && (
+        <Basket
+          backBtnTitle="انصراف"
+          onBackClick={() => setSelectedTeachSchedule(undefined)}>
+          <BuySchedule
+            id={selectedTeachSchedule.id}
+            price={selectedTeachSchedule.price}
+            shouldPay={selectedTeachSchedule.shouldPay}
+            off={offAmount}
+            userOff={userOff}
+            setLoading={new_status => dispatch({status: new_status})}
+            token={state.token}
+            user={state.user}
+            usedFromWallet={usedFromWallet}
+            toggleShowOffCodePane={() => setShowOffCodePane(!showOffCodePane)}
+            setShowSuccessTransaction={setShowSuccessTransaction}
+          />
+        </Basket>
       )}
 
       {!showSuccessTransaction && (
         <>
-          {
-            <CommonWebBox>
-              <EqualTwoTextInputs>
-                <PhoneView
-                  style={{
-                    ...styles.alignSelfCenter,
-                    ...styles.gap10,
-                    ...styles.alignItemsCenter,
-                  }}>
-                  <SimpleText
-                    style={{...styles.BlueBold, ...styles.fontSize17}}
-                    text={'لیست دبیران'}
-                  />
-                  {selectableItems !== undefined && (
-                    <SimpleText
-                      style={{...styles.fontSize13, ...styles.dark_blue_color}}
-                      text={
-                        'نمایش ' +
-                        selectableItems.length +
-                        ' مورد از ' +
-                        data.length +
-                        ' مورد '
-                      }
-                    />
-                  )}
-                </PhoneView>
-                <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
-                  <SimpleText
-                    style={{
-                      ...styles.alignSelfCenter,
-                      ...styles.gap10,
-                      ...styles.cursor_pointer,
-                      ...styles.colorOrangeRed,
-                    }}
-                    onPress={() => setClearFilter(true)}
-                    text={commonTranslator.clearFilters}
-                  />
-                  <CommonButton
-                    iconDir={'left'}
-                    textStyle={{...styles.fontSize17, ...styles.bold}}
-                    icon={showFilter ? faChevronDown : faChevronRight}
-                    onPress={() => {
-                      setShowFilter(!showFilter);
-                    }}
-                    title={
-                      showFilter
-                        ? commonTranslator.lessFilters
-                        : commonTranslator.showFilters
-                    }
-                  />
-                </PhoneView>
-              </EqualTwoTextInputs>
-              {showFilter && maxAge !== undefined && minAge !== undefined && (
-                <Filter
-                  minAge={minAge}
-                  maxAge={maxAge}
-                  grades={grades}
-                  branches={branches}
-                  lessons={lessons}
-                  tags={tags}
-                  token={props.token}
-                  setLoading={new_status => dispatch({loading: new_status})}
-                  setClearFilter={setClearFilter}
-                  clearFilter={clearFilter}
-                  close={() => setShowFilter(false)}
-                  setSelectableItems={items => setSelectableItems(items)}
-                />
-              )}
-            </CommonWebBox>
-          }
+          {teacherSchedules === undefined && (
+            <>
+              {
+                <CommonWebBox>
+                  <EqualTwoTextInputs>
+                    <PhoneView
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.gap10,
+                        ...styles.alignItemsCenter,
+                      }}>
+                      <SimpleText
+                        style={{...styles.BlueBold, ...styles.fontSize17}}
+                        text={'لیست دبیران'}
+                      />
+                      {selectableItems !== undefined && (
+                        <SimpleText
+                          style={{
+                            ...styles.fontSize13,
+                            ...styles.dark_blue_color,
+                          }}
+                          text={
+                            'نمایش ' +
+                            selectableItems.length +
+                            ' مورد از ' +
+                            data.length +
+                            ' مورد '
+                          }
+                        />
+                      )}
+                    </PhoneView>
+                    <PhoneView
+                      style={{...styles.alignSelfCenter, ...styles.gap10}}>
+                      <SimpleText
+                        style={{
+                          ...styles.alignSelfCenter,
+                          ...styles.gap10,
+                          ...styles.cursor_pointer,
+                          ...styles.colorOrangeRed,
+                        }}
+                        onPress={() => setClearFilter(true)}
+                        text={commonTranslator.clearFilters}
+                      />
+                      <CommonButton
+                        iconDir={'left'}
+                        textStyle={{...styles.fontSize17, ...styles.bold}}
+                        icon={showFilter ? faChevronDown : faChevronRight}
+                        onPress={() => {
+                          setShowFilter(!showFilter);
+                        }}
+                        title={
+                          showFilter
+                            ? commonTranslator.lessFilters
+                            : commonTranslator.showFilters
+                        }
+                      />
+                    </PhoneView>
+                  </EqualTwoTextInputs>
+                  {showFilter &&
+                    maxAge !== undefined &&
+                    minAge !== undefined && (
+                      <Filter
+                        minAge={minAge}
+                        maxAge={maxAge}
+                        grades={grades}
+                        branches={branches}
+                        lessons={lessons}
+                        tags={tags}
+                        token={props.token}
+                        setLoading={new_status =>
+                          dispatch({loading: new_status})
+                        }
+                        setClearFilter={setClearFilter}
+                        clearFilter={clearFilter}
+                        close={() => setShowFilter(false)}
+                        setSelectableItems={items => setSelectableItems(items)}
+                      />
+                    )}
+                </CommonWebBox>
+              }
 
-          <PhoneView
-            style={{
-              ...styles.gap15,
-              ...styles.margin15,
-            }}>
-            {selectableItems !== undefined &&
-              selectableItems.map((elem, index) => {
-                if (
-                  selectedTeacher !== undefined &&
-                  elem.id !== selectedTeacher
-                )
-                  return;
+              <PhoneView
+                style={{
+                  ...styles.gap15,
+                  ...styles.margin15,
+                }}>
+                {selectableItems !== undefined &&
+                  selectableItems.map((elem, index) => {
+                    if (
+                      selectedTeacher !== undefined &&
+                      elem.id !== selectedTeacher
+                    )
+                      return;
 
-                return (
-                  <Card
-                    navigate={props.navigate}
-                    key={index}
-                    data={elem}
-                    selected={elem.id === selectedTeacher}
-                    onSelect={async () => {
-                      dispatch({loading: true});
-                      const res = await generalRequest(
-                        routes.getTeacherSchedules + elem.id,
-                        'get',
-                        undefined,
-                        'data',
-                        state.token,
-                      );
-                      dispatch({loading: false});
-                      setTeacherSchedules(res);
-                    }}
-                    onBackClick={() => {
-                      setTeacherSchedules(undefined);
-                      setSelectedTeacher(undefined);
-                    }}
-                  />
-                );
-              })}
-          </PhoneView>
+                    return (
+                      <Card
+                        navigate={props.navigate}
+                        key={index}
+                        data={elem}
+                        selected={elem.id === selectedTeacher}
+                        onSelect={async () => {
+                          dispatch({loading: true});
+                          const res = await generalRequest(
+                            routes.getTeacherSchedules + elem.id,
+                            'get',
+                            undefined,
+                            'data',
+                            state.token,
+                          );
+                          dispatch({loading: false});
+                          setTeacherSchedules(res);
+                        }}
+                        onBackClick={() => {
+                          setTeacherSchedules(undefined);
+                          setSelectedTeacher(undefined);
+                        }}
+                      />
+                    );
+                  })}
+              </PhoneView>
+            </>
+          )}
 
           {teacherSchedules !== undefined && (
             <MyView
@@ -341,6 +337,15 @@ function Teachers(props) {
                 ...styles.gap15,
                 ...styles.margin15,
               }}>
+              <PhoneView
+                style={{flexDirection: 'row-reverse', padding: '10px'}}>
+                <FontIcon
+                  onPress={() => setTeacherSchedules(undefined)}
+                  theme="rect"
+                  kind="normal"
+                  icon={faArrowLeft}
+                />
+              </PhoneView>
               <PhoneView
                 style={
                   state.isInPhone
@@ -351,12 +356,19 @@ function Teachers(props) {
                   return (
                     <Schedule
                       onSelect={async () => {
+                        if (elem.teachMode === 'semi_private') {
+                          return;
+                        }
+                        if (!elem.needRegistryConfirmation) {
+                          elem.shouldPay = Math.max(0, elem.price - userMoney);
+                          setUsedFromWallet(Math.min(userMoney, elem.price));
+                          setSelectedTeachSchedule(elem);
+                          return;
+                        }
+
                         dispatch({loading: true});
                         let res = await generalRequest(
-                          routes.sendTeacherAcceptanceRequest +
-                            teacherSchedules.teacherId +
-                            '/' +
-                            elem.id,
+                          routes.sendTeachRequest + elem.id,
                           'post',
                           undefined,
                           'data',
@@ -367,6 +379,7 @@ function Teachers(props) {
                           showSuccess(
                             'درخواست شما با موفقیت ثبت گردید و پس از بررسی دبیر نتیجه به اطلاع شما خواهد رسید',
                           );
+
                           setTeacherSchedules(undefined);
                           setSelectedTeacher(undefined);
                         }

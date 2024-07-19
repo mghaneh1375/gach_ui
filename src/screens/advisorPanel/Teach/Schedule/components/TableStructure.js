@@ -2,6 +2,14 @@ import {formatPrice} from '../../../../../services/Utility';
 import Translator from './Translator';
 import commonTranslator from '../../../../../translator/Common';
 
+export const studentsColumns = [
+  {
+    name: Translator.title,
+    selector: row => row.title,
+    grow: 1,
+  },
+];
+
 const columns = [
   {
     name: Translator.title,
@@ -25,7 +33,14 @@ const columns = [
   },
   {
     name: Translator.teachMode,
-    selector: row => (row.teachMode === 'private' ? 'خصوصی' : 'نیمه خصوصی'),
+    selector: row =>
+      row.teachMode === 'private' ? Translator.private : Translator.semiPrivate,
+    grow: 1,
+  },
+  {
+    name: Translator.needRegistryConfirmation,
+    selector: row =>
+      row.needRegistryConfirmation ? commonTranslator.yes : commonTranslator.no,
     grow: 1,
   },
   {

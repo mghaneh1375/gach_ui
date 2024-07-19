@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   showError,
   showSuccess,
@@ -16,12 +16,19 @@ import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomB
 import commonTranslator from '../../../../../translator/Common';
 import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
+import {dispatchTeachScheduleContext, teachScheduleContext} from './Context';
 
 function Create(props) {
+  const useGlobalState = () => [
+    React.useContext(teachScheduleContext),
+    React.useContext(dispatchTeachScheduleContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
   const teachModes = useMemo(() => {
     return [
-      {item: 'خصوصی', id: 'private'},
-      {item: 'نیمه خصوصی', id: 'semi_private'},
+      {item: Translator.private, id: 'private'},
+      {item: Translator.semiPrivate, id: 'semi_private'},
     ];
   }, []);
 
@@ -36,11 +43,46 @@ function Create(props) {
   const [maxCap, setMaxCap] = useState();
   const [needRegistryConfirmation, setNeedRegistryConfirmation] =
     useState(true);
+
+  const fetchSchedule = React.useCallback(() => {
+    props.setLoading(true);
+    Promise.all([
+      generalRequest(
+        routes.getTeachSchedule + state.selectedScheduleId,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] != null) {
+        setTitle(res[0].title);
+        setDescription(res[0].description);
+        setTeachMode(res[0].teachMode);
+        setPrice(res[0].price);
+        setVisibility(res[0].visibility);
+        setMinCap(res[0].minCap);
+        setMaxCap(res[0].maxCap);
+        setLength(res[0].length);
+        setStart(res[0].startAt);
+        setNeedRegistryConfirmation(res[0].needRegistryConfirmation);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.selectedScheduleId, props.token]);
+
+  useEffect(() => {
+    if (!props.isInEditMode) return;
+    fetchSchedule();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.isInEditMode]);
+
   return (
     <CommonWebBox
       backBtn={true}
       onBackClick={() => props.setMode('list')}
-      header={Translator.create}>
+      header={props.isInEditMode ? Translator.update : Translator.create}>
       <PhoneView style={{gap: '20px'}}>
         <JustBottomBorderTextInput
           value={title}
@@ -76,12 +118,15 @@ function Create(props) {
           placeholder={Translator.teachMode}
           subText={Translator.teachMode}
         />
-        <JustBottomBorderDatePicker
-          value={start}
-          setter={setStart}
-          placeholder={Translator.start}
-          subText={Translator.start}
-        />
+        {(!props.isInEditMode || start !== undefined) && (
+          <JustBottomBorderDatePicker
+            value={start}
+            setter={setStart}
+            placeholder={Translator.start}
+            subText={Translator.start}
+          />
+        )}
+
         {teachMode === 'private' && (
           <JustBottomBorderSelect
             values={trueFalseValues}
@@ -134,24 +179,41 @@ function Create(props) {
             visibility: visibility,
             teachMode: teachMode,
             description: description,
-            price: price,
             start: start,
           };
           if (teachMode === 'semi_private') {
             data.minCap = minCap;
             data.maxCap = maxCap;
           } else data.needRegistryConfirmation = needRegistryConfirmation;
+
+          if (price !== undefined) data.price = price;
+
           props.setLoading(true);
           let res = await generalRequest(
-            routes.createTeachSchedules,
-            'post',
+            props.isInEditMode
+              ? routes.updateTeachSchedule + state.selectedScheduleId
+              : routes.createTeachSchedules,
+            props.isInEditMode ? 'put' : 'post',
             data,
-            'id',
+            'data',
             props.token,
           );
           props.setLoading(false);
           if (res !== null) {
             showSuccess();
+            if (props.isInEditMode) {
+              dispatch({
+                schedules: state.schedules.map(e => {
+                  if (e.id !== state.selectedScheduleId) return e;
+                  return res;
+                }),
+              });
+            } else {
+              let tmp = state.schedules;
+              tmp.push(res);
+              dispatch({schedules: tmp});
+            }
+            props.setMode('list');
           }
         }}
         theme={'dark'}

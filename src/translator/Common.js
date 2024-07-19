@@ -17,6 +17,7 @@ const translator = {
   students: 'دانش آموزان',
   teacher: 'دبیر',
   teachers: 'دبیران',
+  allUsers: 'تمام کاربران',
   agent: 'نماینده',
   agents: 'نمایندگان',
   school: 'مدرسه',
@@ -268,7 +269,9 @@ const translator = {
   educationalHistory: 'سوابق تحصیلی',
   birthDay: 'تاریخ تولد',
   myFinancePlans: 'مدیریت بسته‌ها',
-  myTeachSchedules: 'برنامه های تدریس من',
-  myTeachRequests: 'درخواست های رسیده',
+  myTeachSchedules: 'برنامه\u200Cهای تدریس من',
+  myTeachRequests: 'درخواست\u200Cهای رسیده',
+  myClassess: 'جلسات من',
+  myRequests: 'درخواست\u200Cهای من',
 };
 export default translator;

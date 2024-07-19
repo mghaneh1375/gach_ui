@@ -6,6 +6,8 @@ import commonTranslator from '../../../../../translator/Common';
 import {filter} from '../Utility';
 
 import {dispatchUsersContext} from '../Context';
+import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
+import {levelsKeyVals} from '../../../ticket/components/KeyVals';
 
 function Filter(props) {
   const useGlobalState = () => [React.useContext(dispatchUsersContext)];
@@ -18,6 +20,7 @@ function Filter(props) {
   const [lastName, setLastName] = useState();
   const [grade, setGrade] = useState();
   const [branch, setBranch] = useState();
+  const [wantedLevel, setWantedLevel] = useState('all');
 
   const level = useParams().level;
   const [isWorking, setIsWorking] = useState(false);
@@ -38,6 +41,7 @@ function Filter(props) {
       lastName,
       branch !== undefined ? branch.id : undefined,
       grade !== undefined ? grade.id : undefined,
+      wantedLevel,
     );
 
     props.setLoading(false);
@@ -116,6 +120,15 @@ function Filter(props) {
           values={props.branches}
           value={branch != undefined ? branch.name : ''}
         />
+        {props.currLevel === 'all' && (
+          <JustBottomBorderSelect
+            placeholder={commonTranslator.access}
+            subText={commonTranslator.access}
+            setter={setWantedLevel}
+            values={levelsKeyVals}
+            value={levelsKeyVals.find(elem => elem.id === wantedLevel)}
+          />
+        )}
       </PhoneView>
 
       <CommonButton

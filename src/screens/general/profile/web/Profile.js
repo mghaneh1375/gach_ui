@@ -449,7 +449,8 @@ const Profile = props => {
                       />
                     </CommonWebBox>
                     {wantToTeach && (
-                      <CommonWebBox header={'تخصص های من برای تدریس (اختیاری)'}>
+                      <CommonWebBox
+                        header={'تخصص\u200Cهای من برای تدریس (اختیاری)'}>
                         <PhoneView style={{gap: '10px'}}>
                           {grades && (
                             <JustBottomBorderTextInput

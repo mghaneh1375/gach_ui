@@ -48,6 +48,7 @@ function General(props) {
   const [maxTeachCap, setMaxTeachCap] = useState();
   const [minTeachPrice, setMinTeachPrice] = useState();
   const [maxTeachPrice, setMaxTeachPrice] = useState();
+  const [prePayAmount, setPrePayAmount] = useState();
 
   React.useEffect(() => {
     dispatch({loading: true});
@@ -97,6 +98,7 @@ function General(props) {
       setIryscAdvicePercent(data.iryscAdvicePercent);
       setMinTeachPrice(data.minTeachPrice);
       setMaxTeachPrice(data.maxTeachPrice);
+      setPrePayAmount(data.prePayAmount);
     });
   }, [navigate, props.token, dispatch]);
 
@@ -135,6 +137,7 @@ function General(props) {
           iryscAdvicePercent: iryscAdvicePercent,
           minTeachPrice: minTeachPrice,
           maxTeachPrice: maxTeachPrice,
+          prePayAmount: prePayAmount,
         },
         undefined,
         props.token,
@@ -357,12 +360,18 @@ function General(props) {
             onChangeText={e => setMinTeachPrice(e)}
             justNum={true}
           />
-
           <JustBottomBorderTextInput
             placeholder={translator.maxTeachPrice}
             subText={translator.maxTeachPrice}
             value={maxTeachPrice}
             onChangeText={e => setMaxTeachPrice(e)}
+            justNum={true}
+          />
+          <JustBottomBorderTextInput
+            placeholder={translator.prePayAmount}
+            subText={translator.prePayAmount}
+            value={prePayAmount}
+            onChangeText={e => setPrePayAmount(e)}
             justNum={true}
           />
         </PhoneView>

@@ -63,6 +63,10 @@ export const levelsKeyVals = [
     item: 'ادمین ها',
     id: 'admin',
   },
+  {
+    item: 'تمام کاربران',
+    id: 'all',
+  },
 ];
 export const priorityKeyValsForFilter = [
   ...priorityKeyVals,

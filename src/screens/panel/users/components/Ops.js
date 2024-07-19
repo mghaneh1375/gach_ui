@@ -78,12 +78,12 @@ function Ops(props) {
             <>
               <CommonButton
                 theme={'transparent'}
-                title={'مدیریت برچسب های مخصوص تدریس'}
+                title={'مدیریت برچسب\u200Cهای مخصوص تدریس'}
                 onPress={() => props.changeMode('teachTags')}
               />
               <CommonButton
                 theme={'transparent'}
-                title={'مدیریت برچسب های مخصوص مشاوره'}
+                title={'مدیریت برچسب\u200Cهای مخصوص مشاوره'}
                 onPress={() => props.changeMode('advisorTags')}
               />
               <CommonButton

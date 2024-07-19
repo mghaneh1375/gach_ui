@@ -155,6 +155,18 @@ function Filter(props) {
           />
         )}
 
+        <JustBottomBorderSelect
+          values={props.branches}
+          setter={setWantedBranch}
+          value={
+            wantedBranch === undefined
+              ? undefined
+              : props.branches.find(elem => elem.id === wantedBranch)
+          }
+          placeholder={'رشته مدنظر'}
+          subText={'رشته مدنظر'}
+        />
+
         {props.branches !== undefined && (
           <JustBottomBorderSelect
             values={props.branches}
@@ -219,8 +231,8 @@ function Filter(props) {
                   elem => elem.id === justHasFreeSchedule,
                 )
           }
-          placeholder={'برنامه های تدریس'}
-          subText={'برنامه های تدریس'}
+          placeholder={'برنامه\u200Cهای تدریس'}
+          subText={'برنامه\u200Cهای تدریس'}
         />
       </PhoneView>
       <CommonButton

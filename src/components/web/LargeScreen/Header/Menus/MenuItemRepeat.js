@@ -155,7 +155,7 @@ function MenuItemRepeat(props) {
       {(props.excludes === undefined ||
         props.excludes.indexOf('teach') === -1) && (
         <SuperMenuItem
-          text={'مدرس'}
+          text={translator.teach}
           icon={faBook}
           selected={props.selected === 'teach'}
           navigate={navigate}
@@ -163,6 +163,14 @@ function MenuItemRepeat(props) {
             {
               text: translator.iryscTeachers,
               url: '/showAllTeachers',
+            },
+            {
+              text: translator.myClassess,
+              url: '/myTeachClasses',
+            },
+            {
+              text: translator.myRequests,
+              url: '/myScheduleRequests',
             },
           ]}
         />

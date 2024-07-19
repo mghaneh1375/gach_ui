@@ -125,7 +125,7 @@ function Card(props) {
             style={{paddingRight: 20, ...styles.gap15, ...styles.marginTop20}}>
             <MyView style={{marginTop: -10, ...styles.gap5}}>
               <QuizItemCard
-                text={'تعداد تدریس های انجام شده در سایت'}
+                text={'تعداد تدریس\u200Cهای انجام شده در سایت'}
                 val={props.data.teaches}
                 icon={faUser}
                 background={false}
@@ -242,7 +242,7 @@ function Card(props) {
       )}
       <CommonButton
         onPress={() => props.onSelect()}
-        title={'مشاهده زمان های تدریس'}
+        title={'مشاهده زمان\u200Cهای تدریس'}
       />
 
       {props.setRate !== undefined && (

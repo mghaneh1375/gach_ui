@@ -3,6 +3,8 @@ import List from './components/List';
 import {dispatchStateContext, globalStateContext} from '../../../../App';
 import {TeachScheduleProvider} from './components/Context';
 import Create from './components/Create';
+import Students from './components/Students';
+import Copy from './components/Copy';
 
 function MyTeachSchedule(props) {
   const [mode, setMode] = useState('list');
@@ -30,25 +32,29 @@ function MyTeachSchedule(props) {
       {mode === 'create' && (
         <Create
           token={state.token}
-          isInPhone={state.isInPhone}
           setLoading={setLoading}
           isInEditMode={false}
-          advisorId={state.user.user.id}
           setMode={setMode}
-          user={state.user.user}
         />
       )}
-      {/* {mode === 'edit' && (
+      {mode === 'edit' && (
         <Create
           token={state.token}
-          isInPhone={state.isInPhone}
-          user={state.user.user}
           setLoading={setLoading}
-          studentId={studentId}
           setMode={setMode}
           isInEditMode={true}
         />
-      )} */}
+      )}
+      {mode === 'copy' && (
+        <Copy token={state.token} setLoading={setLoading} setMode={setMode} />
+      )}
+      {mode === 'students' && (
+        <Students
+          token={state.token}
+          setLoading={setLoading}
+          setMode={setMode}
+        />
+      )}
     </TeachScheduleProvider>
   );
 }

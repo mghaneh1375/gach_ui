@@ -53,6 +53,7 @@ const translator = {
   iryscAdvicePercent: 'مقدار پیش فرض برای سهم آیریسک از مشاوره',
   minTeachPrice: 'حداقل مبلغ حق التدریس',
   maxTeachPrice: 'حداکثر مبلغ حق التدریس',
+  prePayAmount: 'مقدار پیش پرداخت برای جلسات نیمه خصوصی',
 };
 
 export default translator;

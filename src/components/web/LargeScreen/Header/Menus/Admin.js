@@ -130,6 +130,10 @@ function AdminMenu(props) {
           navigate={navigate}
           items={[
             {
+              text: translator.allUsers,
+              url: '/users/all',
+            },
+            {
               text: translator.agent,
               url: '/users/agent',
             },

@@ -102,7 +102,18 @@ const SingleNotif = lazy(() => import('./studentPanel/Notif/Notif'));
 const Barcode = lazy(() => import('./panel/Barcode/Barcode'));
 import {routes} from '../API/APIRoutes';
 import {generalRequest} from '../API/Utility';
-import MyTeachSchedule from './advisorPanel/Teach/Schedule/MyTeachSchedule';
+const MyTeachSchedule = lazy(() =>
+  import('./advisorPanel/Teach/Schedule/MyTeachSchedule'),
+);
+const MyTeachRequests = lazy(() =>
+  import('./advisorPanel/Teach/Requests/MyTeachRequests'),
+);
+const MyScheduleRequests = lazy(() =>
+  import('./studentPanel/Teach/MyScheduleRequests/MyScheduleRequests'),
+);
+const MyTeachClasses = lazy(() =>
+  import('./studentPanel/Teach/MyClasses/MyClasses'),
+);
 const Report = lazy(() => import('./panel/spinGift/components/Report/Report'));
 const SessionDetail = lazy(() =>
   import('./general/Packages/components/Detail/SessionDetail'),
@@ -533,6 +544,15 @@ const WebStructue = props => {
                   )}
                   {props.page === 'myTeachSchedules' && (
                     <MyTeachSchedule navigate={navigate} />
+                  )}
+                  {props.page === 'myTeachRequests' && (
+                    <MyTeachRequests navigate={navigate} />
+                  )}
+                  {props.page === 'myTeachClasses' && (
+                    <MyTeachClasses navigate={navigate} />
+                  )}
+                  {props.page === 'myScheduleRequests' && (
+                    <MyScheduleRequests navigate={navigate} />
                   )}
                   {props.page === 'advisors' && (
                     <Advisors navigate={navigate} />

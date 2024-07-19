@@ -2,9 +2,7 @@ import React from 'react';
 
 const defaultGlobalState = {
   schedules: undefined,
-  needUpdate: false,
-  selectedSchedule: undefined,
-  myStudents: undefined,
+  selectedScheduleId: undefined,
 };
 
 export const teachScheduleContext = React.createContext(defaultGlobalState);

@@ -12,7 +12,12 @@ function StudentCard(props) {
           : ''
       }
       subTexts={[
-        {label: 'تعداد آزمون‌های شرکت کرده: ', value: props.std.totalQuizzes},
+        props.std.totalQuizzes !== undefined
+          ? {
+              label: 'تعداد آزمون‌های شرکت کرده: ',
+              value: props.std.totalQuizzes,
+            }
+          : undefined,
         props.std.totalCorrects !== undefined
           ? {
               label: 'پاسخ‌های صحیح در این آزمون: ',
