@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import Translator from '../../Translator';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import columns from './TableStructure';
+import columns, {allUsersColumns} from './TableStructure';
 import Ops from '../Ops';
 import {levelsKeyVals} from '../../../ticket/components/KeyVals';
 import {useParams} from 'react-router';
@@ -19,7 +19,6 @@ function List(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
-
   const [showOpPopUp, setShowOpPopUp] = useState(false);
 
   const toggleShowOpPopUp = () => {
@@ -33,8 +32,10 @@ function List(props) {
   const handleOp = React.useCallback(
     (idx, selectedUser) => {
       dispatch({selectedUser: selectedUser});
+      props.setSelectedUser(selectedUser);
       setShowOpPopUp(true);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [dispatch],
   );
 
@@ -102,12 +103,13 @@ function List(props) {
               branches={branches}
               token={props.token}
               setLoading={props.setLoading}
+              currLevel={currLevel}
             />
           )}
 
           {state.users !== undefined && (
             <CommonDataTable
-              columns={columns}
+              columns={currLevel !== 'all' ? columns : allUsersColumns}
               data={state.users}
               setData={data => dispatch({users: data})}
               removeUrl={routes.removeUsers}

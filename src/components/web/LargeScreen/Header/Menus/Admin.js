@@ -70,6 +70,10 @@ function AdminMenu(props) {
               text: translator.questionReportTags,
               url: '/basic/questionReports',
             },
+            {
+              text: translator.teachReportTags,
+              url: '/basic/teachTagsReport',
+            },
           ]}
         />
         <SuperMenuItem
@@ -125,6 +129,10 @@ function AdminMenu(props) {
           selected={props.selected === 'users'}
           navigate={navigate}
           items={[
+            {
+              text: translator.allUsers,
+              url: '/users/all',
+            },
             {
               text: translator.agent,
               url: '/users/agent',

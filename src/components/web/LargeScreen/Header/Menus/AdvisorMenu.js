@@ -4,6 +4,7 @@ import {getDevice} from '../../../../../services/Utility';
 import {style, MenuItemPhone} from '../style';
 import translator from '../../../../../translator/Common';
 import {
+  faBook,
   faCog,
   faCreditCard,
   faHistory,
@@ -36,30 +37,48 @@ function AdvisorMenu(props) {
         navigate={props.navigate}
         selected={props.selected}
         child={
-          <SuperMenuItem
-            text={translator.advicing}
-            icon={faSchool}
-            selected={props.selected === 'schoolQuiz'}
-            navigate={navigate}
-            items={[
-              {
-                text: translator.myStudentRequests,
-                url: '/myStudentRequests',
-              },
-              {
-                text: translator.management + ' ' + translator.students,
-                url: '/manageStudent',
-              },
-              {
-                text: translator.mySchoolQuizess,
-                url: '/mySchoolQuizzes',
-              },
-              {
-                text: translator.myFinancePlans,
-                url: '/myFinancePlans',
-              },
-            ]}
-          />
+          <>
+            <SuperMenuItem
+              text={translator.advicing}
+              icon={faSchool}
+              selected={props.selected === 'schoolQuiz'}
+              navigate={navigate}
+              items={[
+                {
+                  text: translator.myStudentRequests,
+                  url: '/myStudentRequests',
+                },
+                {
+                  text: translator.management + ' ' + translator.students,
+                  url: '/manageStudent',
+                },
+                {
+                  text: translator.mySchoolQuizess,
+                  url: '/mySchoolQuizzes',
+                },
+                {
+                  text: translator.myFinancePlans,
+                  url: '/myFinancePlans',
+                },
+              ]}
+            />
+            <SuperMenuItem
+              text={translator.teach}
+              icon={faBook}
+              selected={props.selected === 'mySchedules'}
+              navigate={navigate}
+              items={[
+                {
+                  text: translator.myTeachSchedules,
+                  url: '/myTeachSchedules',
+                },
+                {
+                  text: translator.myTeachRequests,
+                  url: '/myTeachRequests',
+                },
+              ]}
+            />
+          </>
         }
       />
     );

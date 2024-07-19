@@ -1,5 +1,6 @@
 import {
   faBandage,
+  faBook,
   faCog,
   faCreditCard,
   faDashboard,
@@ -98,7 +99,12 @@ function MenuItemRepeat(props) {
         <SuperMenuItem
           text={'مشاور'}
           icon={faBandage}
-          selected={props.selected === 'buy'}
+          selected={
+            props.selected === 'myAdvisor' ||
+            props.selected === 'mySchedules' ||
+            props.selected === 'myLifeStyle' ||
+            props.selected === 'advisors'
+          }
           navigate={navigate}
           items={[
             {
@@ -141,6 +147,30 @@ function MenuItemRepeat(props) {
             {
               text: translator.requestsLog,
               url: '/requestLogsForAdvisors',
+            },
+          ]}
+        />
+      )}
+
+      {(props.excludes === undefined ||
+        props.excludes.indexOf('teach') === -1) && (
+        <SuperMenuItem
+          text={translator.teach}
+          icon={faBook}
+          selected={props.selected === 'teach'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.iryscTeachers,
+              url: '/showAllTeachers',
+            },
+            {
+              text: translator.myClassess,
+              url: '/myTeachClasses',
+            },
+            {
+              text: translator.myRequests,
+              url: '/myScheduleRequests',
             },
           ]}
         />

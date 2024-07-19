@@ -14,10 +14,12 @@ export const filter = async (
   lastname = undefined,
   grade = undefined,
   branch = undefined,
+  subLevel = undefined,
 ) => {
   let query = new URLSearchParams();
 
-  query.append('level', level);
+  if (subLevel !== undefined) query.append('level', subLevel);
+  else query.append('level', level);
   if (NID !== undefined && NID !== '') query.append('NID', NID);
   if (phone !== undefined && phone !== '') query.append('phone', phone);
   if (name !== undefined && name !== '') query.append('name', name);
