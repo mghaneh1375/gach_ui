@@ -16,6 +16,8 @@ const translator = {
   detail: 'مشاهده جزئیات گزارش',
   from: 'تاریخ آغاز فیلتر',
   to: 'تاریخ پایان فیلتر',
+  reportedProblems: 'مشکلات گزارش شده',
+  students: 'مشاهده لیست دانش آموزان',
 };
 
 export default translator;

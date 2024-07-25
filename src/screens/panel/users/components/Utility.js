@@ -15,6 +15,7 @@ export const filter = async (
   grade = undefined,
   branch = undefined,
   subLevel = undefined,
+  additionalLevel = undefined,
 ) => {
   let query = new URLSearchParams();
 
@@ -27,6 +28,8 @@ export const filter = async (
     query.append('lastname', lastname);
   if (grade !== undefined && grade !== '') query.append('gradeId', grade);
   if (branch !== undefined && branch !== '') query.append('branchId', branch);
+  if (additionalLevel !== undefined)
+    query.append('additionalLevel', additionalLevel);
 
   let res = await generalRequest(
     routes.fetchAllUsers + '?' + query.toString(),

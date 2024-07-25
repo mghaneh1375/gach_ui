@@ -66,6 +66,7 @@ const Profile = props => {
   const [branches, setBranches] = useState();
   const [schools, setSchools] = useState();
   const [wantToTeach, setWantToTeach] = useState(false);
+  const [wantToAdvice, setWantToAdvice] = useState(false);
 
   const [showChangeUsernameModal, setShowChangeUsernameModal] = useState(false);
   const [usernameModalMode, setUsernameModalMode] = useState(false);
@@ -128,6 +129,7 @@ const Profile = props => {
         setDefaultTeachPrice(props.user.user.defaultTeachPrice);
         setAcceptStd(props.user.user.acceptStd);
         setWantToTeach(props.user.user.wantToTeach);
+        setWantToAdvice(props.user.user.wantToAdvice);
       }
       setIsAdvisor(isAdvisor);
     }
@@ -342,78 +344,98 @@ const Profile = props => {
                         style={{...styles.BlueBold, ...styles.marginTop20}}
                         text={'من به عنوان مشاور'}
                       />
-
-                      <JustBottomBorderTextInput
-                        multiline={true}
-                        value={adviceAboutMe}
-                        onChangeText={e => setAdviceAboutMe(e)}
-                        placeholder={'متن درباره من'}
-                        subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
+                      <RadioButtonYesOrNo
+                        label={'آیا تمایل به مشاوره دارید؟'}
+                        selected={wantToAdvice ? 'yes' : 'no'}
+                        setSelected={e => setWantToAdvice(e === 'yes')}
                       />
-                      <JustBottomBorderTextInput
-                        placeholder={'لینک ویدیو معرفی من'}
-                        subText={'لینک ویدیو معرفی من - اختیاری'}
-                        value={adviceVideoLink}
-                        onChangeText={e => setAdviceVideoLink(e)}
-                      />
+                      {wantToAdvice && (
+                        <>
+                          <JustBottomBorderTextInput
+                            multiline={true}
+                            value={adviceAboutMe}
+                            onChangeText={e => setAdviceAboutMe(e)}
+                            placeholder={'متن درباره من'}
+                            subText={'متن درباره من (حداکثر ۱۵۰ کاراکتر)'}
+                          />
+                          <JustBottomBorderTextInput
+                            placeholder={'لینک ویدیو معرفی من'}
+                            subText={'لینک ویدیو معرفی من - اختیاری'}
+                            value={adviceVideoLink}
+                            onChangeText={e => setAdviceVideoLink(e)}
+                          />
 
-                      <JustBottomBorderSelect
-                        placeholder={'پذیرش دانش آموز'}
-                        subText={'پذیرش دانش آموز'}
-                        values={trueFalseValues}
-                        value={
-                          acceptStd === undefined
-                            ? undefined
-                            : trueFalseValues.find(
-                                elem => elem.id === acceptStd,
-                              )
-                        }
-                        setter={async selected => {
-                          if (selected === acceptStd) return;
+                          <JustBottomBorderSelect
+                            placeholder={'پذیرش دانش آموز'}
+                            subText={'پذیرش دانش آموز'}
+                            values={trueFalseValues}
+                            value={
+                              acceptStd === undefined
+                                ? undefined
+                                : trueFalseValues.find(
+                                    elem => elem.id === acceptStd,
+                                  )
+                            }
+                            setter={async selected => {
+                              if (selected === acceptStd) return;
 
-                          setLoading(true);
-                          let res = await generalRequest(
-                            routes.toggleStdAcceptance,
-                            'post',
-                            undefined,
-                            undefined,
-                            props.token,
-                          );
+                              setLoading(true);
+                              let res = await generalRequest(
+                                routes.toggleStdAcceptance,
+                                'post',
+                                undefined,
+                                undefined,
+                                props.token,
+                              );
 
-                          setLoading(false);
+                              setLoading(false);
 
-                          if (res !== null) {
-                            await setCacheItem('user', undefined);
-                            await fetchUser(props.token, user => {});
-                            showSuccess();
-                          }
+                              if (res !== null) {
+                                await setCacheItem('user', undefined);
+                                await fetchUser(props.token, user => {});
+                                showSuccess();
+                              }
 
-                          setAcceptStd(selected);
-                        }}
-                      />
-                      <SimpleText
-                        style={styles.colorOrangeRed}
-                        text={
-                          'سهم آیریسک از هر مشاوره برای شما ' +
-                          iryscAdvicePercent +
-                          '% می باشد'
-                        }
-                      />
+                              setAcceptStd(selected);
+                            }}
+                          />
+                          <SimpleText
+                            style={styles.colorOrangeRed}
+                            text={
+                              'سهم آیریسک از هر مشاوره برای شما ' +
+                              iryscAdvicePercent +
+                              '% می باشد'
+                            }
+                          />
+                        </>
+                      )}
                       <CommonButton
                         title={commonTranslator.confirm}
                         onPress={async () => {
                           if (
-                            teachAboutMe.length === 0 ||
-                            adviceAboutMe.length === 0
+                            (wantToTeach && teachAboutMe.length === 0) ||
+                            (wantToAdvice && adviceAboutMe.length === 0)
                           ) {
                             showError(commonTranslator.pleaseFillAllFields);
                             return;
                           }
                           setLoading(true);
+
                           let data = {
-                            adviceAboutMe: adviceAboutMe,
+                            wantToAdvice: wantToAdvice,
                             wantToTeach: wantToTeach,
                           };
+
+                          if (wantToAdvice) {
+                            data.adviceAboutMe = adviceAboutMe;
+
+                            if (
+                              adviceVideoLink !== undefined &&
+                              adviceVideoLink !== ''
+                            )
+                              data.adviceVideoLink = adviceVideoLink;
+                          }
+
                           if (wantToTeach) {
                             data.teachAboutMe = teachAboutMe;
                             data.defaultTeachPrice = defaultTeachPrice;
@@ -424,12 +446,6 @@ const Profile = props => {
                             )
                               data.teachVideoLink = teachVideoLink;
                           }
-
-                          if (
-                            adviceVideoLink !== undefined &&
-                            adviceVideoLink !== ''
-                          )
-                            data.adviceVideoLink = adviceVideoLink;
 
                           let res = await generalRequest(
                             routes.setAboutMe,

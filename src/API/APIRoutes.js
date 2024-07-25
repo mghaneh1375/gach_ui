@@ -361,6 +361,7 @@ export const routes = {
   getAdvisorIRYSCPercent: 'teach/admin/getAdvisorIRYSCPercent/',
   setAdvisorIRYSCPercent: 'teach/admin/setAdvisorIRYSCPercent/',
   getTeachTagsReport: 'teach/admin/getAllReportTags',
+  getTeachSchedulesForAdmin: 'teach/admin/getSchedules',
   createTeachTagsReport: 'teach/admin/createReportTag',
   removeTeachTagsReport: 'teach/admin/removeTags',
   editTeachReportTag: 'teach/admin/editReportTag/',

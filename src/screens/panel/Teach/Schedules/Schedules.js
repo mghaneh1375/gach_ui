@@ -3,14 +3,21 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../../API/APIRoutes';
 import {generalRequest} from '../../../../API/Utility';
 import {dispatchStateContext, globalStateContext} from '../../../../App';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+  SimpleText,
+} from '../../../../styles/Common';
 import CommonDataTable from '../../../../styles/Common/CommonDataTable';
 import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
 import commonTranslator from '../../../../translator/Common';
 import Translator from '../../../advisorPanel/Teach/Schedule/components/Translator';
 import translator from '../Translate';
-import columns from './components/TableStructure';
+import columns, {studentsColumns} from './components/TableStructure';
+import reportColumns from '../TeachReport/components/TableStructure';
+import {LargePopUp} from '../../../../styles/Common/PopUp';
 
 function Schedules(props) {
   const navigate = props.navigate;
@@ -23,6 +30,10 @@ function Schedules(props) {
   const [selectedSchedule, setSelectedSchedule] = useState();
   const [teachers, setTeachers] = useState();
   const [showOp, setShowOp] = useState(false);
+  const [mode, setMode] = useState();
+  const [students, setStudents] = useState();
+  const [reports, setReports] = useState();
+  const [selectedReport, setSelectedReport] = useState();
   const [filter, setFilter] = useState({
     activeMode: 'active',
     teachMode: 'all',
@@ -45,7 +56,7 @@ function Schedules(props) {
   }, []);
 
   const handleOp = async (idx, row) => {
-    setSelectedReport(row);
+    setSelectedSchedule(row);
 
     if (!row.seen) {
       dispatch({loading: true});
@@ -58,20 +69,24 @@ function Schedules(props) {
       );
       dispatch({loading: false});
     }
+
+    setMode('op');
     setShowOp(true);
+  };
+
+  const handleReportOp = (idx, row) => {
+    setSelectedReport(row);
+    setMode('reportDetail');
   };
 
   const fetchData = React.useCallback(() => {
     const query = new URLSearchParams();
 
-    if (filter.seenStatus === 'showJustUnSeen')
-      query.append('showJustUnSeen', true);
+    if (filter.activeMode !== 'all')
+      query.append('activeMode', filter.activeMode);
+    if (filter.teachMode !== 'all') query.append('teachMode', filter.teachMode);
     if (filter.teacherId && filter.teacherId !== 'all')
       query.append('teacherId', filter.teacherId);
-    if (filter.sendFrom === 'student')
-      query.append('justSendFromStudent', true);
-    else if (filter.sendFrom === 'teacher')
-      query.append('justSendFromTeacher', true);
 
     if (filter.from) query.append('from', filter.from);
     if (filter.to) query.append('to', filter.to);
@@ -81,7 +96,7 @@ function Schedules(props) {
       teachers === undefined
         ? [
             generalRequest(
-              routes.getTeachReportsForAdmin + '?' + query.toString(),
+              routes.getTeachSchedulesForAdmin + '?' + query.toString(),
               'get',
               undefined,
               'data',
@@ -97,7 +112,7 @@ function Schedules(props) {
           ]
         : [
             generalRequest(
-              routes.getTeachReportsForAdmin + '?' + query.toString(),
+              routes.getTeachSchedulesForAdmin + '?' + query.toString(),
               'get',
               undefined,
               'data',
@@ -112,7 +127,7 @@ function Schedules(props) {
         return;
       }
 
-      setReports(res[0]);
+      setSchedules(res[0]);
       if (teachers === undefined) {
         setTeachers([
           {
@@ -215,11 +230,105 @@ function Schedules(props) {
           columns={columns}
         />
       )}
-      {showOp && (
+      {showOp && mode === 'op' && (
+        <LargePopUp
+          title={translator.detail}
+          toggleShowPopUp={() => {
+            setShowOp(false);
+            setMode(undefined);
+          }}>
+          <PhoneView style={{gap: '20px'}}>
+            <CommonButton
+              theme={'transparent'}
+              onPress={async () => {
+                dispatch({loading: true});
+                const res = await generalRequest(
+                  routes.getScheduleStudents + selectedSchedule.id,
+                  'get',
+                  undefined,
+                  'data',
+                  state.token,
+                );
+                dispatch({loading: false});
+                if (res !== null) {
+                  setStudents(res);
+                  setMode('students');
+                }
+              }}
+              title={translator.students}
+            />
+            <CommonButton
+              theme={'transparent'}
+              onPress={async () => {
+                dispatch({loading: true});
+                const res = await generalRequest(
+                  routes.getTeachReportsForAdmin +
+                    '?teachId=' +
+                    selectedSchedule.id,
+                  'get',
+                  undefined,
+                  'data',
+                  state.token,
+                );
+                dispatch({loading: false});
+                if (res !== null) {
+                  setReports(res);
+                  setMode('report');
+                }
+              }}
+              title={translator.reportedProblems}
+            />
+          </PhoneView>
+        </LargePopUp>
+      )}
+      {showOp && mode === 'students' && (
         <CommonWebBox
+          header={translator.students}
           backBtn={true}
-          header={translator.detail}
-          onBackClick={() => setShowOp(false)}></CommonWebBox>
+          onBackClick={() => {
+            setMode(undefined);
+            setStudents(undefined);
+            setShowOp(false);
+          }}>
+          <CommonDataTable
+            pagination={false}
+            excel={false}
+            data={students}
+            columns={studentsColumns}
+          />
+        </CommonWebBox>
+      )}
+      {showOp && mode === 'report' && (
+        <CommonWebBox
+          header={translator.reportedProblems}
+          backBtn={true}
+          onBackClick={() => {
+            setMode(undefined);
+            setReports(undefined);
+            setShowOp(false);
+          }}>
+          <CommonDataTable
+            pagination={false}
+            excel={false}
+            data={reports}
+            columns={reportColumns}
+            handleOp={handleReportOp}
+          />
+        </CommonWebBox>
+      )}
+      {showOp && mode === 'reportDetail' && (
+        <CommonWebBox
+          header={translator.reportedProblems}
+          backBtn={true}
+          onBackClick={() => {
+            setMode('report');
+            setSelectedReport(undefined);
+          }}>
+          {selectedReport.tags !== null && (
+            <SimpleText text={selectedReport.tags.map(e => e + ' ')} />
+          )}
+          <SimpleText text={selectedReport.desc} />
+        </CommonWebBox>
       )}
     </CommonWebBox>
   );

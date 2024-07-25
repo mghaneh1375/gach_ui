@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {useParams} from 'react-router';
 import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
@@ -21,6 +21,15 @@ function Filter(props) {
   const [grade, setGrade] = useState();
   const [branch, setBranch] = useState();
   const [wantedLevel, setWantedLevel] = useState('all');
+  const [additionalLevel, setAdditionalLevel] = useState('all');
+
+  const additionalLevelValues = useMemo(() => {
+    return [
+      {id: 'all', item: commonTranslator.all},
+      {id: 'teach', item: 'تدریس'},
+      {id: 'advice', item: 'مشاوره'},
+    ];
+  }, []);
 
   const level = useParams().level;
   const [isWorking, setIsWorking] = useState(false);
@@ -42,6 +51,9 @@ function Filter(props) {
       branch !== undefined ? branch.id : undefined,
       grade !== undefined ? grade.id : undefined,
       wantedLevel,
+      wantedLevel === 'advisor' && additionalLevel !== 'all'
+        ? additionalLevel
+        : undefined,
     );
 
     props.setLoading(false);
@@ -127,6 +139,17 @@ function Filter(props) {
             setter={setWantedLevel}
             values={levelsKeyVals}
             value={levelsKeyVals.find(elem => elem.id === wantedLevel)}
+          />
+        )}
+        {wantedLevel === 'advisor' && (
+          <JustBottomBorderSelect
+            placeholder={'قابلیت'}
+            subText={'قابلیت'}
+            setter={setAdditionalLevel}
+            values={additionalLevelValues}
+            value={additionalLevelValues.find(
+              elem => elem.id === additionalLevel,
+            )}
           />
         )}
       </PhoneView>

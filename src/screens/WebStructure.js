@@ -106,6 +106,7 @@ import {generalRequest} from '../API/Utility';
 const TeachReports = lazy(() =>
   import('./panel/Teach/TeachReport/TeachReports'),
 );
+const TeachSchedules = lazy(() => import('./panel/Teach/Schedules/Schedules'));
 const MyTeachSchedule = lazy(() =>
   import('./advisorPanel/Teach/Schedule/MyTeachSchedule'),
 );
@@ -549,6 +550,9 @@ const WebStructue = props => {
                   )}
                   {props.page === 'teachReports' && (
                     <TeachReports navigate={navigate} />
+                  )}
+                  {props.page === 'allTeaches' && (
+                    <TeachSchedules navigate={navigate} />
                   )}
                   {props.page === 'showAllTeachers' && (
                     <AllTeachers navigate={navigate} />
