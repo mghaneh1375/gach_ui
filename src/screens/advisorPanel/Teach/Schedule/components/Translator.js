@@ -23,6 +23,8 @@ const Translator = {
   expireAt: 'مهلت بررسی/پرداخت',
   createdAt: 'زمان درخواست',
   activeMode: 'وضعیت برگزاری جلسه',
+  active: 'شروع نشده',
+  expired: 'برگزار شده',
   registryStauts: 'وضعیت ثبت نامی ها',
   requestStauts: 'وضعیت درخواست ها',
   studentsList: 'لیست دانش آموزان',
@@ -38,6 +40,8 @@ const Translator = {
   copy: 'کپی کردن برنامه تدریس',
   buildSkyRoom: 'ساخت لینک جلسه در اسکای روم',
   goToSkyRoom: 'رفتن به اتاق تدریس در اسکای روم',
+  seeStudentProfile: 'مشاهده اطلاعات تحصیلی دانش آموز',
+  report: 'گزارش مشکل',
 };
 
 export default Translator;

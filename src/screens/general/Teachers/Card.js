@@ -165,17 +165,47 @@ function Card(props) {
                 </>
               )}
 
-              {/* <QuizItemCard
-                text={'دروس تخصصی'}
-                val={props.data.form.workLessons}
-                icon={faBook}
-                background={false}
-                iconFontSize={'normal'}
-                color={vars.YELLOW}
-                textFontSize={14}
-                valFontSize={14}
-                isBold={false}
-              /> */}
+              {props.data.branches && (
+                <QuizItemCard
+                  text={'رشته‌های تخصصی'}
+                  val={props.data.branches}
+                  icon={faBook}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={false}
+                />
+              )}
+
+              {props.data.grades && (
+                <QuizItemCard
+                  text={'مقاطع تخصصی'}
+                  val={props.data.grades.map(e => e + ' ')}
+                  icon={faBook}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={false}
+                />
+              )}
+
+              {props.data.lessons && (
+                <QuizItemCard
+                  text={'دروس تخصصی'}
+                  val={props.data.lessons.map(e => e + ' ')}
+                  icon={faBook}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={false}
+                />
+              )}
             </MyView>
           </MyView>
         </PhoneView>

@@ -196,6 +196,7 @@ export const routes = {
   removeFileToQuiz: 'quiz/manage/removeAttach/',
   addQuizzesToPackage: 'quiz/manage/addQuizzesToPackage/',
   removeQuizzesFromPackage: 'quiz/manage/removeQuizzesFromPackage/',
+  GetGeneralStats: 'admin/stats/report',
   addQuestion: 'admin/question/store/',
   addEscapeQuizQuestion: 'admin/question/storeEscapeQuizQuestion/',
   editQuestion: 'admin/question/edit/',
@@ -444,4 +445,14 @@ export const routes = {
   myScheduleRequests: 'teach/student/myScheduleRequests',
   cancelTeachRequest: 'teach/student/cancelRequest/',
   getMyTeachSchedules: 'teach/student/getMySchedules',
+  rateToTeachSchedules: 'teach/student/rateToSchedule/',
+  getMyTeachScheduleReportProblems:
+    'teach/student/getMyTeachScheduleReportProblems/',
+  setMyTeachScheduleReportProblems:
+    'teach/student/setMyTeachScheduleReportProblems/',
+  getTeachAllReportTags: 'teach/student/getAllReportTags',
+  getTeachReports: 'teach/student/getTeachReports',
+  getTeachReportsForAdmin: 'teach/admin/getTeachReports',
+  getAllTeachersDigest: 'teach/admin/getAllTeachersDigest',
+  setTeachReportAsSeen: 'teach/admin/setTeachReportAsSeen/',
 };

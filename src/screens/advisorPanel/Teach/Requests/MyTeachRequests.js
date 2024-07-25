@@ -199,6 +199,16 @@ function MyTeachRequests(props) {
                     theme={'transparent'}
                     title={Translator.reject}
                   />
+                  <CommonButton
+                    onPress={() =>
+                      window.open(
+                        'studentEducationalHistory/' +
+                          selectedRequest.request.student.id,
+                      )
+                    }
+                    theme={'transparent'}
+                    title={'مشاهده سوابق تحصیلی دانش آموز'}
+                  />
                 </>
               )}
           </PhoneView>

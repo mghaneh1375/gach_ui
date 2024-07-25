@@ -453,21 +453,21 @@ const Profile = props => {
                       <CommonWebBox
                         header={'تخصص\u200Cهای من برای تدریس (اختیاری)'}>
                         <PhoneView style={{gap: '10px'}}>
-                          {grades && (
+                          {branches && (
                             <JustBottomBorderTextInput
                               style={{marginTop: 10}}
                               isHalf={state.isInPhone ? undefined : true}
                               resultPane={true}
                               placeholder={commonTranslator.grade}
                               subText={
-                                'نام رشته المپیادی خود را به شکل فارسی سرچ کنید مثلا: شیمی'
+                                'نام مقطع تحصیلی خود را به شکل فارسی سرچ کنید مثلا: دوازدهم'
                               }
                               setSelectedItem={items => {
                                 setTeachGrades(items);
                                 const teachGradesId = items.map(e => e.id);
 
                                 let tmp = [];
-                                grades
+                                branches
                                   .filter(
                                     grade =>
                                       teachGradesId.indexOf(grade.id) !== -1,
@@ -480,7 +480,7 @@ const Profile = props => {
                                 setSelectableLessons(tmp);
                               }}
                               reset={false}
-                              values={grades}
+                              values={branches}
                               value={teachGrades}
                               multi={true}
                             />
@@ -492,7 +492,7 @@ const Profile = props => {
                             resultPane={true}
                             placeholder={commonTranslator.lesson}
                             subText={
-                              'نام رشته المپیادی خود را به شکل فارسی سرچ کنید مثلا: شیمی'
+                              'نام درس را سرچ کنید (ابتدا باید مقطع/مقاطع تحصیلی خود را انتخاب کرده باشید)'
                             }
                             setSelectedItem={setTeachLessons}
                             reset={false}
@@ -502,7 +502,7 @@ const Profile = props => {
                           />
                         </PhoneView>
 
-                        {branches && (
+                        {grades && (
                           <JustBottomBorderTextInput
                             style={{marginTop: 10}}
                             isHalf={state.isInPhone ? undefined : true}
@@ -513,7 +513,7 @@ const Profile = props => {
                             }
                             setSelectedItem={setTeachBranches}
                             reset={false}
-                            values={branches}
+                            values={grades}
                             value={teachBranches}
                             multi={true}
                           />

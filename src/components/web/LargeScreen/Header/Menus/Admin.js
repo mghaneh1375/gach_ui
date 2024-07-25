@@ -14,6 +14,8 @@ import {
   faDashboard,
   faBox,
   faMessage,
+  faInfo,
+  faChartBar,
 } from '@fortawesome/free-solid-svg-icons';
 import {SuperMenuItem} from './SuperMenuItem';
 import {MyView} from '../../../../../styles/Common';
@@ -43,6 +45,18 @@ function AdminMenu(props) {
           text={translator.dashboard}
           icon={faDashboard}
           selected={props.selected === 'dashboard'}
+        />
+        <SuperMenuItem
+          text={translator.stats}
+          icon={faChartBar}
+          selected={props.selected === 'admin'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.generalStats,
+              url: '/admin/stats/general',
+            },
+          ]}
         />
         <SuperMenuItem
           text={translator.basicDefinition}
@@ -328,6 +342,22 @@ function AdminMenu(props) {
           text={translator.avatars}
           icon={faUsers}
           selected={props.selected === 'avatar'}
+        />
+        <SuperMenuItem
+          text={translator.teach}
+          icon={faGift}
+          selected={props.selected === 'admin'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.teaches,
+              url: '/admin/teach/list',
+            },
+            {
+              text: translator.teachReports,
+              url: '/admin/teach/reports',
+            },
+          ]}
         />
       </div>
     );

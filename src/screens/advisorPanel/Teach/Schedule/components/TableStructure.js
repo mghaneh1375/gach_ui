@@ -4,9 +4,50 @@ import commonTranslator from '../../../../../translator/Common';
 
 export const studentsColumns = [
   {
-    name: Translator.title,
-    selector: row => row.title,
+    name: commonTranslator.name,
+    selector: row => row.student.name,
     grow: 1,
+    center: true,
+  },
+  {
+    name: commonTranslator.city,
+    selector: row => row.student.city,
+    grow: 2,
+    center: true,
+  },
+  {
+    name: commonTranslator.school,
+    selector: row => row.student.school,
+    grow: 2,
+    center: true,
+  },
+  {
+    name: commonTranslator.grade,
+    selector: row => row.student.grade,
+    grow: 2,
+    center: true,
+  },
+  {
+    name: commonTranslator.branch,
+    selector: row => row.student.branches,
+    grow: 2,
+    center: true,
+  },
+  {
+    name: 'امتیاز',
+    selector: row => (row.rate === undefined ? 'امتیاز داده نشده' : row.rate),
+    grow: 1,
+    center: true,
+  },
+  {
+    name: 'تاریخ امتیاز',
+    selector: row => (row.rate === undefined ? 'امتیاز داده نشده' : row.rateAt),
+    grow: 2,
+  },
+  {
+    name: 'تاریخ ثبت نام',
+    selector: row => row.createdAt,
+    grow: 2,
   },
 ];
 

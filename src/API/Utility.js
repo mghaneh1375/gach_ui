@@ -72,9 +72,9 @@ export const generalRequest = async (
   if (
     url.indexOf('fetchUser') !== -1 &&
     (token === undefined || token === null)
-  ) {
+  )
     return null;
-  }
+
   if (data !== undefined && data !== null) {
     try {
       data = preProcess(data, mandatoryFields);

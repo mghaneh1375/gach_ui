@@ -14,6 +14,7 @@ import QuizItemCard from '../../../../../components/web/QuizItemCard';
 import Translator from '../../../../advisorPanel/Teach/Schedule/components/Translator';
 import vars from '../../../../../styles/root';
 import Circle from '../../../../../components/web/Circle';
+import {Rating} from 'react-native-ratings';
 
 function Card(props) {
   const [showMore, setShowMore] = useState(false);
@@ -175,6 +176,26 @@ function Card(props) {
           title={Translator.goToSkyRoom}
           theme={'dark'}
         />
+      )}
+      {props.plan.canRate && (
+        <>
+          <CommonButton
+            onPress={props.onReportClick}
+            title={Translator.report}
+          />
+          <Rating
+            type="star"
+            ratingCount={5}
+            imageSize={30}
+            fractions={0}
+            onFinishRating={props.onChangeRate}
+            style={{
+              direction: 'ltr',
+              cursor: 'pointer',
+            }}
+            startingValue={props.plan.rate}
+          />
+        </>
       )}
     </CommonWebBox>
   );

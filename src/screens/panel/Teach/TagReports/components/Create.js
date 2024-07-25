@@ -1,5 +1,4 @@
 import React, {useMemo, useState} from 'react';
-import {teachReportContext, dispatchTeachReportContext} from './Context';
 import {generalRequest} from '../../../../../API/Utility';
 import {routes} from '../../../../../API/APIRoutes';
 import {
@@ -12,6 +11,7 @@ import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorde
 import commonTranslator from '../../../../../translator/Common';
 import {trueFalseValues} from '../../../../../services/Utility';
 import {styles} from '../../../../../styles/Common/Styles';
+import {dispatchTeachTagReportContext, teachTagReportContext} from './Context';
 
 function Create(props) {
   const teachReportTagMode = useMemo(() => {
@@ -22,8 +22,8 @@ function Create(props) {
   }, []);
 
   const useGlobalState = () => [
-    React.useContext(teachReportContext),
-    React.useContext(dispatchTeachReportContext),
+    React.useContext(teachTagReportContext),
+    React.useContext(dispatchTeachTagReportContext),
   ];
 
   const [state, dispatch] = useGlobalState();

@@ -6,10 +6,17 @@ import ProgressCard from '../../../‌MyOffs/ProgressCard/ProgressCard';
 import {Translator} from '../../Translate';
 import {routes} from '../../../../../API/APIRoutes';
 import {generalRequest} from '../../../../../API/Utility';
-import QuizItemCard from '../../../../../components/web/QuizItemCard';
 import Card from './Card';
+import {showSuccess} from '../../../../../services/Utility';
+import {myTeachClassesContext, dispatchMyTeachClassesContext} from './Context';
 
 function List(props) {
+  const useGlobalState = () => [
+    React.useContext(myTeachClassesContext),
+    React.useContext(dispatchMyTeachClassesContext),
+  ];
+  const [state, dispatch] = useGlobalState();
+
   const [mode, setMode] = useState('future');
   const [schedules, setSchedules] = useState();
 
@@ -33,14 +40,18 @@ function List(props) {
         return;
       }
       setSchedules(res[0]);
+      let myClassesTmp = state.myClasses;
+      myClassesTmp[mode] = schedules;
+      dispatch({myClasses: myClassesTmp});
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 
   useEffect(() => {
-    fetchClasses();
+    if (state.myClasses?.mode === undefined) fetchClasses();
+    else setSchedules(state.myClasses.mode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode]);
+  }, [state.myClasses, mode]);
 
   return (
     <CommonWebBox header={Translator.myClasses}>
@@ -85,7 +96,37 @@ function List(props) {
       <PhoneView style={{gap: '10px'}}>
         {schedules &&
           schedules.map((schedule, index) => {
-            return <Card plan={schedule} key={index} />;
+            return (
+              <Card
+                onReportClick={() => {
+                  dispatch({selectedScheduleId: schedule.id});
+                  props.setMode('report');
+                }}
+                onChangeRate={async rate => {
+                  props.setLoading(true);
+                  const res = await generalRequest(
+                    routes.rateToTeachSchedules + schedule.id + '?rate=' + rate,
+                    'put',
+                    undefined,
+                    undefined,
+                    props.token,
+                  );
+                  props.setLoading(false);
+                  if (res != null) {
+                    showSuccess();
+                    setSchedules(
+                      schedules.map(e => {
+                        if (e.id !== schedule.id) return e;
+                        e.rate = rate;
+                        return e;
+                      }),
+                    );
+                  }
+                }}
+                plan={schedule}
+                key={index}
+              />
+            );
           })}
       </PhoneView>
     </CommonWebBox>

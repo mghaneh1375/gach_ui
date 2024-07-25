@@ -19,8 +19,8 @@ function Filter(props) {
         {item: commonTranslator.all, id: 'all'},
       ],
       [
-        {item: 'شروع نشده', id: 'active'},
-        {item: 'برگزار شده', id: 'expired'},
+        {item: Translator.active, id: 'active'},
+        {item: Translator.expired, id: 'expired'},
         {item: commonTranslator.all, id: 'all'},
       ],
       [

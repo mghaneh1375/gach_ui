@@ -7,4 +7,5 @@ export const Translator = {
   oldClassess: 'جلسات گذشته',
   futureClasses: 'جلسات پیش رو',
   allClasses: 'تمام جلسات',
+  report: 'گزارش مشکل',
 };

@@ -102,6 +102,10 @@ const SingleNotif = lazy(() => import('./studentPanel/Notif/Notif'));
 const Barcode = lazy(() => import('./panel/Barcode/Barcode'));
 import {routes} from '../API/APIRoutes';
 import {generalRequest} from '../API/Utility';
+
+const TeachReports = lazy(() =>
+  import('./panel/Teach/TeachReport/TeachReports'),
+);
 const MyTeachSchedule = lazy(() =>
   import('./advisorPanel/Teach/Schedule/MyTeachSchedule'),
 );
@@ -125,8 +129,9 @@ const QuestionReport = lazy(() =>
   import('./panel/questionReport/QuestionReport'),
 );
 const TeachTagsReport = lazy(() =>
-  import('./panel/Teach/teachReport/TeachTagsReport'),
+  import('./panel/Teach/TagReports/TeachTagsReport'),
 );
+const GeneralStats = lazy(() => import('./panel/Stat/GeneralStats'));
 const MyQuizzes = lazy(() =>
   import('./studentPanel/MyQuizzes/school/MyQuizzes'),
 );
@@ -352,6 +357,9 @@ const WebStructue = props => {
                       navigate={navigate}
                     />
                   )}
+                  {props.page === 'generalStats' && (
+                    <GeneralStats navigate={navigate} />
+                  )}
                   {props.page === 'notif' && (
                     <SingleNotif navigate={navigate} />
                   )}
@@ -538,6 +546,9 @@ const WebStructue = props => {
                   {props.page === 'spinner' && <SpinGift navigate={navigate} />}
                   {props.page === 'psychology' && (
                     <Psychology navigate={navigate} />
+                  )}
+                  {props.page === 'teachReports' && (
+                    <TeachReports navigate={navigate} />
                   )}
                   {props.page === 'showAllTeachers' && (
                     <AllTeachers navigate={navigate} />

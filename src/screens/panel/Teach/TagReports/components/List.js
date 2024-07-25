@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {teachReportContext, dispatchTeachReportContext} from './Context';
+import {teachTagReportContext, dispatchTeachTagReportContext} from './Context';
 import columns from './TableStructure';
 import {routes} from '../../../../../API/APIRoutes';
 import {generalRequest} from '../../../../../API/Utility';
@@ -15,8 +15,8 @@ import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 
 function List(props) {
   const useGlobalState = () => [
-    React.useContext(teachReportContext),
-    React.useContext(dispatchTeachReportContext),
+    React.useContext(teachTagReportContext),
+    React.useContext(dispatchTeachTagReportContext),
   ];
 
   const [state, dispatch] = useGlobalState();

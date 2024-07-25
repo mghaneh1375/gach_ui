@@ -3,10 +3,10 @@ import React from 'react';
 const defaultGlobalState = {
   tags: undefined,
 };
-export const teachReportContext = React.createContext(defaultGlobalState);
-export const dispatchTeachReportContext = React.createContext(undefined);
+export const teachTagReportContext = React.createContext(defaultGlobalState);
+export const dispatchTeachTagReportContext = React.createContext(undefined);
 
-export const TeachReportProvider = ({children}) => {
+export const TeachTagReportProvider = ({children}) => {
   const [state, dispatch] = React.useReducer(
     (state, newValue) => ({...state, ...newValue}),
     defaultGlobalState,
@@ -32,10 +32,10 @@ export const TeachReportProvider = ({children}) => {
   }, [state.needUpdate, state.tags, state.selectedTag, dispatch]);
 
   return (
-    <teachReportContext.Provider value={state}>
-      <dispatchTeachReportContext.Provider value={dispatch}>
+    <teachTagReportContext.Provider value={state}>
+      <dispatchTeachTagReportContext.Provider value={dispatch}>
         {children}
-      </dispatchTeachReportContext.Provider>
-    </teachReportContext.Provider>
+      </dispatchTeachTagReportContext.Provider>
+    </teachTagReportContext.Provider>
   );
 };

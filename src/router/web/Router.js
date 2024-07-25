@@ -18,6 +18,11 @@ export default function WebRouter() {
           <Route exact path="/" element={<WebStructue page="home" />} />
           <Route path="dashboard" element={<WebStructue page="dashboard" />} />
           <Route
+            path="admin/stats/general"
+            element={<WebStructue page="generalStats" />}
+          />
+
+          <Route
             path="buy/package/:packageId"
             element={<WebStructue page="buy" />}
           />
@@ -122,6 +127,14 @@ export default function WebRouter() {
           <Route
             path="myTeachRequests"
             element={<WebStructue page="myTeachRequests" />}
+          />
+          <Route
+            path="admin/teach/reports"
+            element={<WebStructue page="teachReports" />}
+          />
+          <Route
+            path="admin/teach/list"
+            element={<WebStructue page="allTeaches" />}
           />
           <Route
             path="myScheduleRequests"

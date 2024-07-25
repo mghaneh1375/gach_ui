@@ -262,6 +262,7 @@ function List(props) {
           />
           {state.schedules !== undefined && (
             <CommonDataTable
+              excel={false}
               handleOp={handleOp}
               columns={columns}
               data={state.schedules}

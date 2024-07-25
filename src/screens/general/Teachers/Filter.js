@@ -23,7 +23,6 @@ function Filter(props) {
   const [wantedGrade, setWantedGrade] = useState();
   const [wantedBranch, setWantedBranch] = useState();
   const [wantedLesson, setWantedLesson] = useState();
-
   const [tag, setTag] = useState();
 
   const rangeSelectorRate = (event, newValue) => {
@@ -38,7 +37,10 @@ function Filter(props) {
     setTag(undefined);
     setValueAge([props.minAge, props.maxAge]);
     setRate([1, 5]);
-
+    setJustHasFreeSchedule('all');
+    setWantedBranch(undefined);
+    setWantedGrade(undefined);
+    setWantedLesson(undefined);
     props.setClearFilter(false);
   }, [props]);
 
@@ -154,18 +156,6 @@ function Filter(props) {
             subText={'تگ'}
           />
         )}
-
-        <JustBottomBorderSelect
-          values={props.branches}
-          setter={setWantedBranch}
-          value={
-            wantedBranch === undefined
-              ? undefined
-              : props.branches.find(elem => elem.id === wantedBranch)
-          }
-          placeholder={'رشته مدنظر'}
-          subText={'رشته مدنظر'}
-        />
 
         {props.branches !== undefined && (
           <JustBottomBorderSelect

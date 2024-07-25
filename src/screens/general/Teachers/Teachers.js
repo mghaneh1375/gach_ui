@@ -3,7 +3,7 @@ import {
   faChevronDown,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
@@ -88,7 +88,7 @@ function Teachers(props) {
 
       setMinAge(res[0].filters.minAge);
       setMaxAge(res[0].filters.maxAge);
-      let tmpArr = [];
+      let tmpArr = [{id: 'all', item: 'همه'}];
       res[3].forEach(element => {
         element.lessons?.forEach(itr => {
           tmpArr.push({
@@ -99,22 +99,24 @@ function Teachers(props) {
       });
       setLessons(tmpArr);
 
-      setBranches(
-        res[2].map(e => {
+      setBranches([
+        {id: 'all', item: 'همه'},
+        ...res[2].map(e => {
           return {
             id: e.id,
             item: e.name,
           };
         }),
-      );
-      setGrades(
-        res[3].map(e => {
+      ]);
+      setGrades([
+        {id: 'all', item: 'همه'},
+        ...res[3].map(e => {
           return {
             id: e.id,
             item: e.name,
           };
         }),
-      );
+      ]);
       setData(res[0].data);
       setSelectableItems(res[0].data);
     });
@@ -148,6 +150,10 @@ function Teachers(props) {
 
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
+
+  useEffect(() => {
+    if (clearFilter) setShowFilter(false);
+  }, [clearFilter]);
 
   return (
     <>
