@@ -12,7 +12,7 @@ const translator = {
   teacher: 'نام دبیر',
   startAt: 'زمان برگزاری کلاس',
   sendFrom: 'ارسال از طرف',
-  justUnSeen: 'تنها دیده نشده ها',
+  justUnSeen: 'تنها دیده نشده\u200cها',
   detail: 'مشاهده جزئیات گزارش',
   from: 'تاریخ آغاز فیلتر',
   to: 'تاریخ پایان فیلتر',

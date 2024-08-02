@@ -118,8 +118,8 @@ function AdvisorTags(props) {
       {state.selectedUser.tags !== undefined && (
         <PhoneView>
           <JustBottomBorderTextInput
-            placeholder={'تگ ها'}
-            subText={'تگ ها'}
+            placeholder={'تگ\u200cها'}
+            subText={'تگ\u200cها'}
             resultPane={true}
             multi={true}
             setSelectedItem={setSelectedTags}

@@ -110,6 +110,9 @@ const TeachSchedules = lazy(() => import('./panel/Teach/Schedules/Schedules'));
 const MyTeachSchedule = lazy(() =>
   import('./advisorPanel/Teach/Schedule/MyTeachSchedule'),
 );
+const MyTeachTransactions = lazy(() =>
+  import('./advisorPanel/Teach/Transaction/MyTeachTransactions'),
+);
 const MyTeachRequests = lazy(() =>
   import('./advisorPanel/Teach/Requests/MyTeachRequests'),
 );
@@ -120,6 +123,7 @@ const MyTeachClasses = lazy(() =>
   import('./studentPanel/Teach/MyClasses/MyClasses'),
 );
 const Report = lazy(() => import('./panel/spinGift/components/Report/Report'));
+const AllComments = lazy(() => import('./panel/Comment/Comment'));
 const SessionDetail = lazy(() =>
   import('./general/Packages/components/Detail/SessionDetail'),
 );
@@ -155,6 +159,9 @@ const OnlineStanding = lazy(() => import('./panel/quiz/OnlineStanding'));
 const BuyOnlineStanding = lazy(() => import('./general/buy/BuyOnlineStanding'));
 const EscapeQuiz = lazy(() => import('./panel/quiz/EscapeQuiz'));
 const SpecQuestion = lazy(() => import('./panel/specQuestions/SpecQuestion'));
+const AllTeachTransactions = lazy(() =>
+  import('./panel/Teach/Transactions/Transactions'),
+);
 const RunOnlineStandingQuiz = lazy(() =>
   import('./studentPanel/RunOnlineStandingQuiz/RunOnlineStandingQuiz'),
 );
@@ -173,6 +180,9 @@ const ChatRoom = lazy(() => import('./studentPanel/Chat/ChatRoom'));
 const Schedule = lazy(() => import('./advisorPanel/Schedule/Schedule'));
 const Progress = lazy(() => import('./advisorPanel/Progress/Progress'));
 const Shop = lazy(() => import('./panel/Config/Configuration/Shop'));
+const SettlementRequests = lazy(() =>
+  import('./panel/Settlements/SettlementRequests'),
+);
 const RunPDFQuiz = lazy(() => import('./studentPanel/RunPDFQuiz/RunPDFQuiz'));
 
 const WebStructue = props => {
@@ -360,6 +370,15 @@ const WebStructue = props => {
                   )}
                   {props.page === 'generalStats' && (
                     <GeneralStats navigate={navigate} />
+                  )}
+                  {props.page === 'settlementRequests' && (
+                    <SettlementRequests navigate={navigate} />
+                  )}
+                  {props.page === 'allComments' && (
+                    <AllComments navigate={navigate} />
+                  )}
+                  {props.page === 'allTeachTransactions' && (
+                    <AllTeachTransactions navigate={navigate} />
                   )}
                   {props.page === 'notif' && (
                     <SingleNotif navigate={navigate} />
@@ -559,6 +578,9 @@ const WebStructue = props => {
                   )}
                   {props.page === 'myTeachSchedules' && (
                     <MyTeachSchedule navigate={navigate} />
+                  )}
+                  {props.page === 'myTeachTransactions' && (
+                    <MyTeachTransactions navigate={navigate} />
                   )}
                   {props.page === 'myTeachRequests' && (
                     <MyTeachRequests navigate={navigate} />

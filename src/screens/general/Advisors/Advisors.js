@@ -518,7 +518,7 @@ function Advisors(props) {
                 ...styles.gap15,
                 ...styles.margin15,
               }}>
-              <CommonWebBox header={'برنامه ها'} />
+              <CommonWebBox header={'برنامه\u200cها'} />
               <PhoneView
                 style={
                   state.isInPhone

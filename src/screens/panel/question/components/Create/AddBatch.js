@@ -36,11 +36,11 @@ const AddBatch = props => {
         },
         {
           link: BASE_URL + routes.getQuestionTagsExcel,
-          text: 'دانلود فایل آی دی تگ ها',
+          text: 'دانلود فایل آی دی تگ\u200cها',
         },
         {
           link: BASE_URL + routes.getSubjectCodesExcel,
-          text: 'دانلود فایل کد حیطه ها',
+          text: 'دانلود فایل کد حیطه\u200cها',
         },
         {
           link: BASE_URL + routes.getAuthorCodesExcel,

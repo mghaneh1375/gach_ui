@@ -71,7 +71,7 @@ function RunQuiz(props) {
   const setLoadingWithText = status => {
     dispatch({
       loading: status,
-      loadingText: 'در حال ذخیره کردن پاسخ ها. لطفا شکیبا باشید.',
+      loadingText: 'در حال ذخیره کردن پاسخ\u200cها. لطفا شکیبا باشید.',
     });
   };
 

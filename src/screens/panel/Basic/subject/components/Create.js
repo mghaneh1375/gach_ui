@@ -86,7 +86,7 @@ function Create(props) {
           helps={[
             {
               link: BASE_SITE_NAME + 'assets/add_subject_sample.xlsx',
-              text: 'دانلود فایل نمونه حیطه ها',
+              text: 'دانلود فایل نمونه حیطه\u200cها',
             },
           ]}
         />

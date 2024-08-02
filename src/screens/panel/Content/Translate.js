@@ -24,7 +24,7 @@ const Translator = {
   teacherBio: 'درباره استاد',
   preReq: 'پیش نیاز‌های دوره',
   cert: 'گواهی دوره',
-  tags: 'برچسب ها',
+  tags: 'برچسب\u200cها',
   chapter: 'فصل',
   chapterDesc: 'توضیحات فصل (اختیاری)',
   seeInfo: 'مشاهده اطلاعات',

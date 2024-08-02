@@ -64,7 +64,7 @@ function List(props) {
     <CommonWebBox
       header={
         state.student === undefined
-          ? 'لیست کاربرگ ها '
+          ? 'لیست کاربرگ\u200cها '
           : 'لیست کاربرگ‌های ' + state.student.name
       }
       addBtn={props.isAdvisor}

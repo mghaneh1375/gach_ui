@@ -87,7 +87,7 @@ function PhoneFilter(props) {
             state.quizInfo.attaches.length > 0 && (
               <SimpleText
                 style={{alignSelf: 'center', cursor: 'pointer'}}
-                text={'فایل ها'}
+                text={'فایل\u200cها'}
                 onPress={() => setMode('attaches')}
               />
             )}
@@ -109,7 +109,7 @@ function PhoneFilter(props) {
               background: 'white',
               alignSelf: 'center',
             }}>
-            <SimpleText style={{...styles.BlueBold}} text={'فایل ها'} />
+            <SimpleText style={{...styles.BlueBold}} text={'فایل\u200cها'} />
             <SimpleText
               style={{...styles.cursor_pointer}}
               onPress={() => setMode('menu')}

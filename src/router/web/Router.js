@@ -21,7 +21,6 @@ export default function WebRouter() {
             path="admin/stats/general"
             element={<WebStructue page="generalStats" />}
           />
-
           <Route
             path="buy/package/:packageId"
             element={<WebStructue page="buy" />}
@@ -137,8 +136,24 @@ export default function WebRouter() {
             element={<WebStructue page="allTeaches" />}
           />
           <Route
+            path="all-comments"
+            element={<WebStructue page="allComments" />}
+          />
+          <Route
+            path="admin/teach/transactions"
+            element={<WebStructue page="allTeachTransactions" />}
+          />
+          <Route
             path="myScheduleRequests"
             element={<WebStructue page="myScheduleRequests" />}
+          />
+          <Route
+            path="settlementRequests"
+            element={<WebStructue page="settlementRequests" />}
+          />
+          <Route
+            path="myTeachTransactions"
+            element={<WebStructue page="myTeachTransactions" />}
           />
           <Route path="advisors" element={<WebStructue page="advisors" />} />
           <Route path="myAdvisor" element={<WebStructue page="myAdvisor" />} />

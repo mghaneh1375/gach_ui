@@ -170,7 +170,10 @@ function Lesson(props) {
 
       <MyView
         style={{marginBottom: selectedTagReport === undefined ? 200 : 10}}>
-        <SimpleText style={{...styles.BlueBold}} text={'آمار بر اساس تگ ها'} />
+        <SimpleText
+          style={{...styles.BlueBold}}
+          text={'آمار بر اساس تگ\u200cها'}
+        />
         {tagReports !== undefined && (
           <JustBottomBorderSelect
             isHalf={!props.isInPhone}

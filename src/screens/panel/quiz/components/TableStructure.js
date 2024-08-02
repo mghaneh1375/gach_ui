@@ -85,7 +85,7 @@ export const columnsForOnlineStanding = [
     center: true,
   },
   {
-    name: 'تعداد تیم ها',
+    name: 'تعداد تیم\u200cها',
     selector: row => row.teamsCount,
     grow: 1,
     center: true,

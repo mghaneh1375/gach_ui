@@ -594,7 +594,7 @@ const Profile = props => {
                     onPress={() => window.open('/upgrade/' + user.id, '_blank')}
                     style={{alignSelf: 'center'}}
                     theme={'dark'}
-                    title="وارد کردن اطلاعات فرم ها"
+                    title="وارد کردن اطلاعات فرم\u200cها"
                   />
                 )}
               </MyView>
@@ -636,8 +636,8 @@ const Profile = props => {
               <SimpleText
                 text={
                   user.blockNotif === undefined
-                    ? 'وضعیت ارسال هشدار ها: فعال'
-                    : 'وضعیت ارسال هشدار ها: غیرفعال'
+                    ? 'وضعیت ارسال هشدار\u200cها: فعال'
+                    : 'وضعیت ارسال هشدار\u200cها: غیرفعال'
                 }
               />
               <CommonButton

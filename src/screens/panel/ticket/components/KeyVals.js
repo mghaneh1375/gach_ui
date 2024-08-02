@@ -60,7 +60,7 @@ export const levelsKeyVals = [
     id: 'advisor',
   },
   {
-    item: 'ادمین ها',
+    item: 'ادمین\u200cها',
     id: 'admin',
   },
   {
@@ -100,7 +100,7 @@ export const sectionKeyVals = [
     id: 'access',
   },
   {
-    item: 'کلاس و دوره ها',
+    item: 'کلاس و دوره\u200cها',
     id: 'class',
   },
   {

@@ -106,7 +106,7 @@ function Card({
           setSelectedAnswerSheetIdx(index);
         }}
         theme={'dark'}
-        title={'وارد کردن پاسخ ها'}
+        title={'وارد کردن پاسخ\u200cها'}
       />
       {state.selectedQuiz.answer_sheets[index].answerSheet !== undefined &&
         state.selectedQuiz.answer_sheets[index].answerSheet !== '' && (

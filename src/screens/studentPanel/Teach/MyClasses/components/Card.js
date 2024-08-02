@@ -183,6 +183,7 @@ function Card(props) {
             onPress={props.onReportClick}
             title={Translator.report}
           />
+          {/* <CommonButton onPress={props.onShowComments()} /> */}
           <Rating
             type="star"
             ratingCount={5}

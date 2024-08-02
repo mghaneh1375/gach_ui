@@ -205,7 +205,7 @@ function Splash(props) {
             state.quizInfo.attaches.length > 0 && (
               <CommonWebBox header={'فایل توضیحات'}>
                 <SimpleText
-                  text={'مشاهده این فایل ها برای این آزمون ضروری است.'}
+                  text={'مشاهده این فایل\u200cها برای این آزمون ضروری است.'}
                 />
                 <PhoneView>
                   {state.quizInfo.attaches.map((elem, index) => {

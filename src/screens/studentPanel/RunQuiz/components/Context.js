@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useFilePicker} from 'use-file-picker';
 import {doSaveAnswers, doUploadAnswer, doUploadAnswerSheet} from './Utility';
+import {showError} from '../../../../services/Utility';
 
 const defaultGlobalState = {
   questions: undefined,
@@ -32,12 +33,20 @@ export const DoQuizProvider = ({children}) => {
 
   const [openFileSelector, {filesContent, loading, errors, clear}] =
     useFilePicker({
-      maxFileSize: 2,
+      maxFileSize: 5,
       accept: ['image/*', '.pdf'],
       readAs: 'ArrayBuffer',
     });
 
   const [isUploading, setIsUploading] = useState(false);
+
+  useEffect(() => {
+    if (errors?.length > 0) {
+      if (errors[0].fileSizeToolarge)
+        showError('حداکثر حجم مجاز برای آپلود 5 مگابایت می باشد');
+      else showError('فرمت فایل مدنظر مناسب نمی باشد');
+    }
+  }, [errors]);
 
   const uploadAns = React.useCallback(() => {
     if (state.quizInfo === undefined || isUploading) return;

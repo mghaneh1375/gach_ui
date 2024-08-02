@@ -1,7 +1,7 @@
 const Translate = {
   test: 'تست',
-  off: 'تخفیف ها',
-  bonus: 'جایزه ها',
+  off: 'تخفیف\u200cها',
+  bonus: 'جایزه\u200cها',
   intelOffs: 'تخفیف هوشمند',
   offsCode: 'کد تخفیف',
   placeUse: 'محل استفاده ',

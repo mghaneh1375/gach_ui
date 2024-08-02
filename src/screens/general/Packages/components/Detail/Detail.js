@@ -51,6 +51,7 @@ import Card from '../Card';
 import LastBuyer from './LastBuyer';
 import {downloadCert} from '../../../../panel/certificate/Utility';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
+import Comment from '../../../../../components/web/Comment/Comment';
 
 function Detail(props) {
   const [item, setItem] = useState();
@@ -545,7 +546,14 @@ function Detail(props) {
                     </MyView>
                   )}
                 </CommonWebBox>
-
+                <Comment
+                  defaultIsOpen={false}
+                  canWriteComment={item.afterBuy}
+                  token={props.token}
+                  setLoading={props.setLoading}
+                  refId={item.id}
+                  section="content"
+                />
                 <CommonWebBox
                   // style={{marginBottom: '75px'}}
                   btn={

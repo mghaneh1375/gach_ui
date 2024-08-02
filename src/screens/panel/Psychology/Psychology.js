@@ -74,7 +74,7 @@ function Psychology(props) {
 
         <Description descriptionText={text[0].descriptionText} />
         <CommonWebBox style={{...styles.width80}}>
-          <SimpleText style={{...styles.BlueBold}} text={' تگ ها '} />
+          <SimpleText style={{...styles.BlueBold}} text={' تگ\u200cها '} />
           <SimpleText
             text={
               ' برنامه‌نویسی یک مهارت اساسی است که در دنیای امروز بسیار پرکاربرد است. ممکن است تصور کنید که برنامه‌نویسی تنها مختص مهندسان کامپیوتر است، در حالی که چنین نیست. نیاز به این تخصص امروزه در تمام رشته‌ها از جمله پزشکی، اقتصاد، علوم انسانی، مدیریت، حمل و نقل و غیره احساس می‌شود  '

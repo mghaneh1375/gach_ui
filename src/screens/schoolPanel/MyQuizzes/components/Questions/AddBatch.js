@@ -35,7 +35,7 @@ const AddBatch = props => {
         },
         {
           link: BASE_URL + routes.getSubjectCodesExcel,
-          text: 'دانلود فایل کد حیطه ها',
+          text: 'دانلود فایل کد حیطه\u200cها',
         },
       ]}
     />

@@ -201,8 +201,8 @@ function ContentQuizKarname(props) {
                 style={{alignSelf: 'center'}}
                 text={
                   props.generalQuizMode === undefined
-                    ? 'جدول شماره 3 - نتایج حیطه ها'
-                    : 'جدول شماره 2 - نتایج حیطه ها'
+                    ? 'جدول شماره 3 - نتایج حیطه\u200cها'
+                    : 'جدول شماره 2 - نتایج حیطه\u200cها'
                 }
               />
             </EqualTwoTextInputs>

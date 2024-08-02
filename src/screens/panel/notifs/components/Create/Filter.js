@@ -44,7 +44,7 @@ function Filter(props) {
     {item: 'دانش آموزان', id: 'student'},
     {item: 'دبیران', id: 'teacher'},
     {item: 'مشاوران', id: 'advisor'},
-    {item: 'نمایندگی ها', id: 'agent'},
+    {item: 'نمایندگی\u200cها', id: 'agent'},
   ];
 
   const [selectedFilter, setSelectedFilter] = useState();

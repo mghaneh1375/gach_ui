@@ -255,7 +255,7 @@ function Card(props) {
 
       <SimpleText
         style={{...styles.dark_blue_color, ...styles.marginTop10}}
-        text={'تگ ها'}
+        text={'تگ\u200cها'}
       />
       {props.data.tags !== undefined && (
         <PhoneView style={{...styles.gap10, ...{marginTop: -10}}}>

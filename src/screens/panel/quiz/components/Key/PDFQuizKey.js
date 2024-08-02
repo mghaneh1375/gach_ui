@@ -121,7 +121,7 @@ function PDFQuizKey(props) {
                 }
               });
               if (!isValid) {
-                showError('لطفا تمامی پاسخ ها را مشخص نمایید');
+                showError('لطفا تمامی پاسخ\u200cها را مشخص نمایید');
                 return;
               }
               let res = savePDF(

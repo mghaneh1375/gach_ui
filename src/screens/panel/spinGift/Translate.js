@@ -7,7 +7,7 @@ const Translate = {
   class: 'کلاس و همایش',
   psychology: 'آزمون‌های روان شناسی',
   useItem: 'مورد استفاده',
-  maxCut: 'حداکثر تعداد برش ها',
+  maxCut: 'حداکثر تعداد برش\u200cها',
   typeOffCode: 'نوع  تخفیف',
   percent: 'درصدی',
   values: 'مقداری',

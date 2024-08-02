@@ -369,8 +369,8 @@ function Karname(props) {
                 style={{alignSelf: 'center'}}
                 text={
                   props.generalQuizMode === undefined
-                    ? 'جدول شماره 3 - نتایج حیطه ها'
-                    : 'جدول شماره 2 - نتایج حیطه ها'
+                    ? 'جدول شماره 3 - نتایج حیطه\u200cها'
+                    : 'جدول شماره 2 - نتایج حیطه\u200cها'
                 }
               />
               {/* <SimpleFontIcon
@@ -413,7 +413,7 @@ function Karname(props) {
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
                   style={{alignSelf: 'center'}}
-                  text={'جدول شماره 4 - نتایج آماری حیطه ها'}
+                  text={'جدول شماره 4 - نتایج آماری حیطه\u200cها'}
                 />
               </EqualTwoTextInputs>
               <MyView>
@@ -522,7 +522,7 @@ function Karname(props) {
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
                   style={{alignSelf: 'center'}}
-                  text={'جدول شماره 6 - نتایج رتبه بندی حیطه ها'}
+                  text={'جدول شماره 6 - نتایج رتبه بندی حیطه\u200cها'}
                 />
               </EqualTwoTextInputs>
               <MyView>

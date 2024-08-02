@@ -7,7 +7,7 @@ const translator = {
   completeInfoCoin: 'مقدار ایکس پول برای تکمیل اطلاعات',
   quizMoney: 'مقدار پول جایزه برای نفرات برتر',
   quizCoin: 'مقدار ایکس پول جایزه برای نفرات برتر',
-  agentOffPercent: 'تخفیف ثبت نام نماینده ها',
+  agentOffPercent: 'تخفیف ثبت نام نماینده\u200cها',
   schoolOffPercent: 'تخفیف ثبت نام مدارس',
   minRequestMoney: 'حداقل پول قابل برداشت',
   coinRateCoef: 'نرخ تبدیل ایکس پول به پول',
@@ -26,7 +26,7 @@ const translator = {
   childRaven: 'قیمت آزمون هوش ریون کودکان',
   gardner: 'قیمت تست هوش چندگانه گاردنر(MII)',
   izenk: 'قیمت تست شخصیت آیزنک (EPQ)',
-  haland: 'قیمت آزمون رغبت سنج شغلی/تحصیلی هالند',
+  haland: 'قیمت آزمون رغبت سنج شغلی/تحصیلی\u200cهالند',
   neo: 'قیمت تست شخصیت شناسی نئو',
   cannor: 'قیمت تست هراس اجتماعی کانور',
   GHQ: 'قیمت تست سلامت عمومی ( GHQ )',
@@ -54,6 +54,7 @@ const translator = {
   minTeachPrice: 'حداقل مبلغ حق التدریس',
   maxTeachPrice: 'حداکثر مبلغ حق التدریس',
   prePayAmount: 'مقدار پیش پرداخت برای جلسات نیمه خصوصی',
+  minAmountForSettlement: 'حداقل مبلغ قابل تسویه',
 };
 
 export default translator;

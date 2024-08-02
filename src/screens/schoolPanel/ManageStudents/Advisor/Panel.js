@@ -205,7 +205,7 @@ function Panel(props) {
                   window.open('/studentSchedules/' + props.wantedUserId)
                 }
                 theme={'orangeRed'}
-                title={'رویت کاربرگ ها'}
+                title={'رویت کاربرگ\u200cها'}
               />
               <CommonButton
                 padding={props.isInPhone ? '5px' : '5px 15px'}
@@ -343,7 +343,7 @@ function Panel(props) {
           <PhoneView>
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
-              text={'تعداد کاربرگ ها در ماه جاری'}
+              text={'تعداد کاربرگ\u200cها در ماه جاری'}
               fontSize={16}
               theme={vars.ORANGE_RED}
               subtext={data.schedulesInCurrMonth}
@@ -354,7 +354,7 @@ function Panel(props) {
 
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
-              text={'تعداد کاربرگ ها در ماه قبل'}
+              text={'تعداد کاربرگ\u200cها در ماه قبل'}
               fontSize={17}
               theme={vars.ORANGE_RED}
               subtext={data.schedulesInLastMonth}

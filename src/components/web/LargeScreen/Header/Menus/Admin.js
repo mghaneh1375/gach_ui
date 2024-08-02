@@ -16,6 +16,7 @@ import {
   faMessage,
   faInfo,
   faChartBar,
+  faComment,
 } from '@fortawesome/free-solid-svg-icons';
 import {SuperMenuItem} from './SuperMenuItem';
 import {MyView} from '../../../../../styles/Common';
@@ -99,6 +100,10 @@ function AdminMenu(props) {
             {
               text: translator.report,
               url: '/finantialReport',
+            },
+            {
+              text: translator.settlementRequests,
+              url: '/settlementRequests',
             },
             {
               text: translator.offcode,
@@ -357,7 +362,17 @@ function AdminMenu(props) {
               text: translator.teachReports,
               url: '/admin/teach/reports',
             },
+            {
+              text: translator.allTeachTransactions,
+              url: '/admin/teach/transactions',
+            },
           ]}
+        />
+        <MenuItem
+          onClick={() => navigate('/all-comments')}
+          text={translator.comments}
+          icon={faComment}
+          selected={props.selected === 'all-comments'}
         />
       </div>
     );
@@ -426,6 +441,10 @@ function AdminMenu(props) {
           {
             text: translator.report,
             url: '/finantialReport',
+          },
+          {
+            text: translator.settlementRequests,
+            url: '/settlementRequests',
           },
           {
             text: translator.offcode,

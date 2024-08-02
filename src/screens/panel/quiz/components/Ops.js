@@ -368,7 +368,7 @@ const Ops = props => {
                   state.selectedQuiz.isQRNeeded !== undefined &&
                   state.selectedQuiz.isQRNeeded && (
                     <CommonButton
-                      title="نمایش لاگ ها"
+                      title="نمایش لاگ\u200cها"
                       dir={'rtl'}
                       theme={'transparent'}
                       onPress={() => setShowLogPane(true)}
@@ -449,10 +449,10 @@ const Ops = props => {
       )}
       {showLogPane && (
         <LargePopUp
-          title={'لاگ ها'}
+          title={'لاگ\u200cها'}
           toggleShowPopUp={() => setShowLogPane(false)}>
           {state.selectedQuiz.logs === undefined && (
-            <SimpleText text={'در حال گرفتن داده ها'} />
+            <SimpleText text={'در حال گرفتن داده\u200cها'} />
           )}
           {state.selectedQuiz.logs !== undefined && (
             <SimpleText text={state.selectedQuiz.logs} />

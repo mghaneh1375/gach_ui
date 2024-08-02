@@ -76,6 +76,10 @@ function AdvisorMenu(props) {
                   text: translator.myTeachRequests,
                   url: '/myTeachRequests',
                 },
+                {
+                  text: translator.myTeachTransactions,
+                  url: '/myTeachTransactions',
+                },
               ]}
             />
           </>

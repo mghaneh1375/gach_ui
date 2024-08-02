@@ -543,7 +543,7 @@
 //           <BasicSide>
 //             <div className="actionButtons">
 //               <Link to="#" onClick={showFileList}>
-//                 فایل ها
+//                 فایل\u200cها
 //               </Link>
 //             </div>
 //           </BasicSide>

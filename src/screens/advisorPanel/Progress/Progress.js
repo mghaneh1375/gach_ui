@@ -329,7 +329,7 @@ function Progress(props) {
           )}
         </CommonWebBox>
       )}
-      <CommonWebBox header={'آمار کلی بر اساس تگ ها'}>
+      <CommonWebBox header={'آمار کلی بر اساس تگ\u200cها'}>
         {tagReports !== undefined && (
           <JustBottomBorderSelect
             isHalf={!state.isInPhone}

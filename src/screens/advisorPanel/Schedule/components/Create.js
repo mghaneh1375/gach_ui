@@ -1046,7 +1046,7 @@ function Create(props) {
         )}
         <SimpleText
           style={{...styles.BlueBold}}
-          text={'برای ارسال گزارش روی کارت ها کلیک کنید'}
+          text={'برای ارسال گزارش روی کارت\u200cها کلیک کنید'}
         />
         {boxes !== undefined &&
           boxes.map((e, index) => {

@@ -49,6 +49,7 @@ function General(props) {
   const [minTeachPrice, setMinTeachPrice] = useState();
   const [maxTeachPrice, setMaxTeachPrice] = useState();
   const [prePayAmount, setPrePayAmount] = useState();
+  const [minAmountForSettlement, setMinAmountForSettlement] = useState();
 
   React.useEffect(() => {
     dispatch({loading: true});
@@ -99,6 +100,7 @@ function General(props) {
       setMinTeachPrice(data.minTeachPrice);
       setMaxTeachPrice(data.maxTeachPrice);
       setPrePayAmount(data.prePayAmount);
+      setMinAmountForSettlement(data.minAmountForSettlement);
     });
   }, [navigate, props.token, dispatch]);
 
@@ -138,6 +140,7 @@ function General(props) {
           minTeachPrice: minTeachPrice,
           maxTeachPrice: maxTeachPrice,
           prePayAmount: prePayAmount,
+          minAmountForSettlement: minAmountForSettlement,
         },
         undefined,
         props.token,
@@ -372,6 +375,13 @@ function General(props) {
             subText={translator.prePayAmount}
             value={prePayAmount}
             onChangeText={e => setPrePayAmount(e)}
+            justNum={true}
+          />
+          <JustBottomBorderTextInput
+            placeholder={translator.minAmountForSettlement}
+            subText={translator.minAmountForSettlement}
+            value={minAmountForSettlement}
+            onChangeText={e => setMinAmountForSettlement(e)}
             justNum={true}
           />
         </PhoneView>
