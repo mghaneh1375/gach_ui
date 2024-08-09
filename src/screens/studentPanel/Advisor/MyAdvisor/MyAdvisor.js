@@ -141,6 +141,22 @@ function MyAdvisor(props) {
                 showMyAdvisor={false}
                 hasOpenRequest={false}
                 data={myAdvisor}
+                onWriteComment={async comment => {
+                  dispatch({loading: true});
+                  let res = await generalRequest(
+                    routes.writeComments + myAdvisor.id + '/advisor',
+                    'post',
+                    {comment: comment},
+                    undefined,
+                    state.token,
+                  );
+                  dispatch({loading: false});
+                  if (res !== null) {
+                    showSuccess(
+                      'نظر شما با موفقیت ثبت گردید و بعد از تایید ادمین نمایش داده خواهد شد',
+                    );
+                  }
+                }}
                 onRemove={async () => {
                   dispatch({loading: true});
                   let res = await generalRequest(

@@ -14,21 +14,23 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import translator from '../../../../../translator/Common';
-import {MenuItem, style} from '../style';
+import {MenuItemPhone, style} from '../style';
 import {SuperMenuItem} from './SuperMenuItem';
 
-function MenuItemRepeat(props) {
+function MenuItemRepeatForPhone(props) {
   const navigate = props.navigate;
 
   return (
-    <div className="menu-item-container" style={style.MenuJustLarge}>
-      <MenuItem
+    <>
+      <MenuItemPhone
+        isApp={false}
         onClick={() => navigate('/')}
         text={translator.home}
         icon={faHome}
         selected={props.selected === '/'}
       />
-      <MenuItem
+      <MenuItemPhone
+        isApp={false}
         onClick={() => navigate('/dashboard')}
         text={translator.dashboard}
         icon={faDashboard}
@@ -201,7 +203,8 @@ function MenuItemRepeat(props) {
 
       {(props.excludes === undefined ||
         props.excludes.indexOf('charge') === -1) && (
-        <MenuItem
+        <MenuItemPhone
+          isApp={false}
           onClick={() => navigate('/charge')}
           text={translator.charge}
           icon={faCreditCard}
@@ -211,7 +214,8 @@ function MenuItemRepeat(props) {
 
       {(props.excludes === undefined ||
         props.excludes.indexOf('certs') === -1) && (
-        <MenuItem
+        <MenuItemPhone
+          isApp={false}
           onClick={() => navigate('/myCerts')}
           text={translator.myCerts}
           icon={faSun}
@@ -221,7 +225,8 @@ function MenuItemRepeat(props) {
 
       {(props.excludes === undefined ||
         props.excludes.indexOf('financeHistory') === -1) && (
-        <MenuItem
+        <MenuItemPhone
+          isApp={false}
           onClick={() => navigate('/financeHistory')}
           text={translator.history}
           icon={faHistory}
@@ -229,22 +234,25 @@ function MenuItemRepeat(props) {
         />
       )}
 
-      {/* <MenuItem text={translator.support} icon={faQuestion} /> */}
-      <MenuItem
+      {/* <MenuItemPhone
+      isApp={false} text={translator.support} icon={faQuestion} /> */}
+      <MenuItemPhone
+        isApp={false}
         onClick={() => navigate('/ticket')}
         text={translator.requests}
         icon={faCog}
         selected={props.selected === 'ticket'}
       />
-      <MenuItem
+      <MenuItemPhone
+        isApp={false}
         onClick={() => navigate('/myComments')}
         text={translator.myComments}
         icon={faComments}
         selected={props.selected === 'myComments'}
       />
       {props.child}
-    </div>
+    </>
   );
 }
 
-export default MenuItemRepeat;
+export default MenuItemRepeatForPhone;

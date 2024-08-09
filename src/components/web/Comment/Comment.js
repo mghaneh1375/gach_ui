@@ -1,19 +1,17 @@
-import React, {useState} from 'react';
 import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../styles/Common';
-import commonTranslator from '../../../translator/Common';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
-import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
-import Translate from './translate';
-import Card from './Card';
-import {generalRequest} from '../../../API/Utility';
+  faAngleDown,
+  faAngleLeft,
+  faAngleUp,
+} from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react';
 import {routes} from '../../../API/APIRoutes';
+import {generalRequest} from '../../../API/Utility';
+import {CommonWebBox, MyView, SimpleText} from '../../../styles/Common';
+import {FontIcon, SimpleFontIcon} from '../../../styles/Common/FontIcon';
+import commonTranslator from '../../../translator/Common';
+import Card from './Card';
 import NewComment from './NewComment';
+import Translate from './translate';
 
 function Comment(props) {
   const [isOpen, setIsOpen] = useState(props.defaultIsOpen);
@@ -58,11 +56,22 @@ function Comment(props) {
   return (
     <CommonWebBox
       btn={
-        <SimpleFontIcon
-          icon={isOpen ? faAngleDown : faAngleUp}
-          onPress={() => setIsOpen(!isOpen)}
-          kind="midSize"
-        />
+        <>
+          {props.onBackClick && (
+            <FontIcon
+              onPress={props.onBackClick}
+              icon={faAngleLeft}
+              theme={'rect'}
+            />
+          )}
+          {!props.onBackClick && (
+            <SimpleFontIcon
+              icon={isOpen ? faAngleDown : faAngleUp}
+              onPress={() => setIsOpen(!isOpen)}
+              kind="midSize"
+            />
+          )}
+        </>
       }
       header={commonTranslator.comments}>
       {isOpen && (

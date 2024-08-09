@@ -16,12 +16,20 @@ function QuizItemCard({
   iconVal,
   iconColor,
   isBold,
+  maxWidth,
+  isBoldValue,
+  minWidth,
 }) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const width = getWidthHeight()[0];
   if (val === undefined || val === '' || val === '...') return <></>;
   return (
-    <PhoneView style={{...styles.alignItemsCenter}}>
+    <PhoneView
+      style={{
+        maxWidth: maxWidth ? maxWidth : 'unset',
+        minWidth: minWidth ? minWidth : 'unset',
+        ...styles.alignItemsCenter,
+      }}>
       {icon !== undefined && (background === undefined || background) && (
         <FontIcon
           kind={iconFontSize !== undefined ? iconFontSize : 'small'}
@@ -48,11 +56,13 @@ function QuizItemCard({
           style={
             isBold === undefined || isBold
               ? {
+                  maxWidth: maxWidth ? maxWidth - 40 : 'unset',
                   fontSize: textFontSize,
                   ...styles.BlueBold,
                   ...styles.flexWrap,
                 }
               : {
+                  maxWidth: maxWidth ? maxWidth - 40 : 'unset',
                   fontSize: textFontSize,
                   ...styles.dark_blue_color,
                   ...styles.flexWrap,
@@ -60,21 +70,30 @@ function QuizItemCard({
           }
           text={text}
         />
-        {val !== 'icon' && (
+        {val !== 'icon' && val !== null && (
           <SimpleText
             style={
-              isBold === undefined || isBold
+              isBoldValue ||
+              (isBoldValue === undefined && (isBold === undefined || isBold))
                 ? {
                     fontSize: valFontSize,
                     ...styles.BlueBold,
                     ...styles.alignSelfStart,
-                    maxWidth: isInPhone ? width - 120 : undefined,
+                    maxWidth: isInPhone
+                      ? width - 120
+                      : maxWidth
+                      ? maxWidth - 40
+                      : 'unset',
                   }
                 : {
                     fontSize: valFontSize,
                     ...styles.dark_blue_color,
                     ...styles.alignSelfStart,
-                    maxWidth: isInPhone ? width - 120 : undefined,
+                    maxWidth: isInPhone
+                      ? width - 120
+                      : maxWidth
+                      ? maxWidth - 40
+                      : 'unset',
                   }
             }
             text={val}

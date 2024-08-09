@@ -4,7 +4,6 @@ import {
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useEffect, useMemo, useState} from 'react';
-import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {dispatchStateContext, globalStateContext} from '../../../App';
@@ -27,6 +26,7 @@ import BuySchedule from './BuySchedule';
 import Card from './Card';
 import Filter from './Filter';
 import Schedule from './Schedule';
+import Comment from '../../../components/web/Comment/Comment';
 
 function Teachers(props) {
   const useGlobalState = () => [
@@ -122,9 +122,10 @@ function Teachers(props) {
     });
   }, [dispatch, state.token, props]);
 
-  useEffectOnce(() => {
+  useEffect(() => {
     fetchData();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const setOffCodeResult = (amount, type, code) => {
     setUserOff({type: type, amount: amount, code: code});
@@ -147,6 +148,8 @@ function Teachers(props) {
   const [selectableItems, setSelectableItems] = useState();
   const [clearFilter, setClearFilter] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [selectedTeacherForComment, setSelectedTeacherForComment] = useState();
 
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
@@ -198,8 +201,13 @@ function Teachers(props) {
           onBackClick={() => setSelectedTeachSchedule(undefined)}>
           <BuySchedule
             id={selectedTeachSchedule.id}
-            price={selectedTeachSchedule.price}
+            price={
+              selectedTeachSchedule.canUseOff
+                ? selectedTeachSchedule.price
+                : selectedTeachSchedule.prePayAmount
+            }
             shouldPay={selectedTeachSchedule.shouldPay}
+            canUseOff={selectedTeachSchedule.canUseOff}
             off={offAmount}
             userOff={userOff}
             setLoading={new_status => dispatch({status: new_status})}
@@ -214,7 +222,7 @@ function Teachers(props) {
 
       {!showSuccessTransaction && (
         <>
-          {teacherSchedules === undefined && (
+          {teacherSchedules === undefined && !showComments && (
             <>
               {
                 <CommonWebBox>
@@ -298,7 +306,7 @@ function Teachers(props) {
               <PhoneView
                 style={{
                   ...styles.gap15,
-                  ...styles.margin15,
+                  ...{margin: isInPhone ? 4 : 15},
                 }}>
                 {selectableItems !== undefined &&
                   selectableItems.map((elem, index) => {
@@ -314,6 +322,10 @@ function Teachers(props) {
                         key={index}
                         data={elem}
                         selected={elem.id === selectedTeacher}
+                        seeComments={() => {
+                          setSelectedTeacherForComment(elem.id);
+                          setShowComments(true);
+                        }}
                         onSelect={async () => {
                           dispatch({loading: true});
                           const res = await generalRequest(
@@ -335,6 +347,18 @@ function Teachers(props) {
                   })}
               </PhoneView>
             </>
+          )}
+
+          {showComments && (
+            <Comment
+              onBackClick={() => setShowComments(false)}
+              defaultIsOpen={true}
+              canWriteComment={false}
+              refId={selectedTeacherForComment}
+              section="teach"
+              token={state.token}
+              setLoading={status => dispatch({loading: status})}
+            />
           )}
 
           {teacherSchedules !== undefined && (
@@ -363,9 +387,29 @@ function Teachers(props) {
                     <Schedule
                       onSelect={async () => {
                         if (elem.teachMode === 'semi_private') {
+                          if (elem.shouldPrePay) {
+                            elem.canUseOff = false;
+                            elem.shouldPay = Math.max(
+                              0,
+                              elem.prePayAmount - userMoney,
+                            );
+                            setUsedFromWallet(
+                              Math.min(userMoney, elem.prePayAmount),
+                            );
+                          } else {
+                            elem.canUseOff = true;
+                            elem.shouldPay = Math.max(
+                              0,
+                              elem.price - userMoney,
+                            );
+                            setUsedFromWallet(Math.min(userMoney, elem.price));
+                          }
+
+                          setSelectedTeachSchedule(elem);
                           return;
                         }
                         if (!elem.needRegistryConfirmation) {
+                          elem.canUseOff = true;
                           elem.shouldPay = Math.max(0, elem.price - userMoney);
                           setUsedFromWallet(Math.min(userMoney, elem.price));
                           setSelectedTeachSchedule(elem);

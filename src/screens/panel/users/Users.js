@@ -9,6 +9,7 @@ import ChangePassByAdmin from './components/ChangePassByAdmin';
 import ChargeAccount from './components/ChargeAccount';
 import AdvisorTags from './components/AdvisorTags';
 import SetIRYSCPercent from './components/SetIRYSCPercent';
+import SetPriority from './components/SetPriority';
 
 const Users = props => {
   const [mode, setMode] = useState();
@@ -78,6 +79,13 @@ const Users = props => {
         {mode === 'teachTags' && (
           <AdvisorTags
             teachMode="teach"
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
+          />
+        )}
+        {mode === 'setPriority' && (
+          <SetPriority
             setMode={setMode}
             setLoading={setLoading}
             token={props.token}

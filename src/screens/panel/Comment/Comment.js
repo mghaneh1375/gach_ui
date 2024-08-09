@@ -38,21 +38,26 @@ function Comment(props) {
     section: 'all',
     status: 'pending',
     justTop: false,
+    refId: 'all',
   });
 
-  const [sectionValues, statusValues] = useMemo(
+  const [sectionValues, statusValues, justTopValues] = useMemo(
     () => [
       [
         {id: 'all', item: commonTranslator.all},
         {id: 'teach', item: commonTranslator.teach},
         {id: 'content', item: commonTranslator.contents},
-        {id: 'advice', item: commonTranslator.advisor},
+        {id: 'advisor', item: commonTranslator.advisor},
       ],
       [
         {id: 'all', item: commonTranslator.all},
         {id: 'pending', item: commonTranslator.pending},
         {id: 'accept', item: commonTranslator.accepted},
         {id: 'reject', item: commonTranslator.rejected},
+      ],
+      [
+        {id: false, item: commonTranslator.all},
+        {id: true, item: 'تنها برترین ها'},
       ],
     ],
     [],
@@ -70,26 +75,60 @@ function Comment(props) {
     if (filter.status !== 'all') query.append('status', filter.status);
     if (filter.from) query.append('from', filter.from);
     if (filter.to) query.append('to', filter.to);
-    if (filter.refId) query.append('refId', filter.refId);
+    if (filter.refId && filter.refId !== 'all')
+      query.append('refId', filter.refId);
     if (filter.justTop) query.append('justTop', true);
     query.append('pageIndex', pageIndex);
 
-    Promise.all([
-      generalRequest(
-        routes.getAllComments + '?' + query.toString(),
-        'get',
-        undefined,
-        'data',
-        state.token,
-      ),
-      generalRequest(
-        routes.getCommentsCount + '?' + query.toString(),
-        'get',
-        undefined,
-        'data',
-        state.token,
-      ),
-    ]).then(res => {
+    Promise.all(
+      contents === undefined
+        ? [
+            generalRequest(
+              routes.getAllComments + '?' + query.toString(),
+              'get',
+              undefined,
+              'data',
+              state.token,
+            ),
+            generalRequest(
+              routes.getCommentsCount + '?' + query.toString(),
+              'get',
+              undefined,
+              'data',
+              state.token,
+            ),
+            generalRequest(
+              routes.getAllTeachersDigest,
+              'get',
+              undefined,
+              'data',
+              state.token,
+            ),
+            generalRequest(
+              routes.fetchContentDigests,
+              'get',
+              undefined,
+              'data',
+              state.token,
+            ),
+          ]
+        : [
+            generalRequest(
+              routes.getAllComments + '?' + query.toString(),
+              'get',
+              undefined,
+              'data',
+              state.token,
+            ),
+            generalRequest(
+              routes.getCommentsCount + '?' + query.toString(),
+              'get',
+              undefined,
+              'data',
+              state.token,
+            ),
+          ],
+    ).then(res => {
       dispatch({loading: false});
 
       if (res[0] == null || res[1] === null) {
@@ -100,6 +139,16 @@ function Comment(props) {
       setComments(res[0].comments);
       setTotalCount(res[1].count);
       setPerPage(res[1].perPage);
+      if (res.length > 2 && res[2] !== null) {
+        setTeachers([
+          {id: 'all', item: commonTranslator.all},
+          ...res[2].map(e => ({id: e.id, item: e.name})),
+        ]);
+        setContents([
+          {id: 'all', item: commonTranslator.all},
+          ...res[3].map(e => ({id: e.id, item: e.title})),
+        ]);
+      }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
@@ -111,7 +160,8 @@ function Comment(props) {
     if (filter.status !== 'all') query.append('status', filter.status);
     if (filter.from) query.append('from', filter.from);
     if (filter.to) query.append('to', filter.to);
-    if (filter.refId) query.append('refId', filter.refId);
+    if (filter.refId && filter.refId !== 'all')
+      query.append('refId', filter.refId);
     if (filter.justTop) query.append('justTop', true);
     query.append('pageIndex', pageIndex);
 
@@ -275,6 +325,54 @@ function Comment(props) {
             placeholder={'بخش'}
             subText={'بخش'}
           />
+          <JustBottomBorderSelect
+            values={justTopValues}
+            setter={val =>
+              setFilter(prevValues => ({
+                ...prevValues,
+                justTop: val,
+              }))
+            }
+            value={justTopValues.find(elem => elem.id === filter.justTop)}
+            placeholder={'وضعیت برترین'}
+            subText={'وضعیت برترین'}
+          />
+          {(filter.section === 'teach' || filter.section === 'advisor') && (
+            <JustBottomBorderSelect
+              values={teachers}
+              setter={val =>
+                setFilter(prevValues => ({
+                  ...prevValues,
+                  refId: val,
+                }))
+              }
+              value={
+                filter.refId
+                  ? teachers.find(elem => elem.id === filter.refId)
+                  : undefined
+              }
+              placeholder={'دبیر مدنظر'}
+              subText={'دبیر مدنظر'}
+            />
+          )}
+          {filter.section === 'content' && (
+            <JustBottomBorderSelect
+              values={contents}
+              setter={val =>
+                setFilter(prevValues => ({
+                  ...prevValues,
+                  refId: val,
+                }))
+              }
+              value={
+                filter.refId
+                  ? contents.find(elem => elem.id === filter.refId)
+                  : undefined
+              }
+              placeholder={'دوره آموزشی مدنظر'}
+              subText={'دوره آموزشی مدنظر'}
+            />
+          )}
           <JustBottomBorderDatePicker
             value={filter.from}
             setter={e =>
@@ -313,7 +411,7 @@ function Comment(props) {
           <>
             <CommonDataTable
               handleOp={handleOp}
-              paginate={false}
+              pagination={false}
               data={comments}
               columns={columns}
             />
@@ -331,6 +429,7 @@ function Comment(props) {
               setShowOp(false);
               setSelectedRow(undefined);
             }}>
+            <SimpleText text={selectedRow.comment} />
             <PhoneView style={{gap: '10px'}}>
               {selectedRow.status !== 'accept' && (
                 <CommonButton

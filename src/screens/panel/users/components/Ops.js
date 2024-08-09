@@ -91,6 +91,11 @@ function Ops(props) {
                 title={'تعیین درصد تسویه'}
                 onPress={() => props.changeMode('setIRYSCPercent')}
               />
+              <CommonButton
+                theme={'transparent'}
+                title={'تعیین اولویت نمایش'}
+                onPress={() => props.changeMode('setPriority')}
+              />
             </>
           )}
           {!isAdvisor && (

@@ -6,6 +6,8 @@ const Translator = {
   addMoney: 'مقدار پول مورد نظر برای افزوده شدن',
   currCoin: 'مقدار ایکس پول فعلی',
   addCoin: 'مقدار ایکس پول موردنظر برای اضافه شده',
+  advisorPriority: 'اولویت نمایش در قسمت مشاوره',
+  teachPriority: 'اولویت نمایش در قسمت تدریس',
 };
 
 export default Translator;

@@ -27,7 +27,6 @@ import {FontIcon} from '../../../styles/Common/FontIcon';
 function Card(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
   const [state] = useGlobalState();
-
   const [pic, setPic] = useState();
 
   const isInApp =
@@ -97,17 +96,20 @@ function Card(props) {
 
       <PhoneView
         style={state.isInPhone ? {...styles.gap15} : {...styles.gap100}}>
-        <PhoneView>
+        <PhoneView
+          style={{
+            maxWidth: state.isInPhone ? '100%' : '520px',
+            minWidth: state.isInPhone ? '100%' : '520px',
+            flexDirection: state.isInPhone ? 'column' : 'row',
+          }}>
           <MyView
             style={{
-              ...styles.marginTop20,
-              ...{
-                border: '4px solid',
-                borderColor: vars.ORANGE,
-                borderRadius: 7,
-                width: state.isInPhone ? 100 : 148,
-                height: state.isInPhone ? 100 : 148,
-              },
+              border: state.isInPhone ? 'unset' : '4px solid',
+              borderColor: vars.ORANGE,
+              borderRadius: 7,
+              width: state.isInPhone ? 100 : 148,
+              height: state.isInPhone ? 100 : 148,
+              marginTop: state.isInPhone ? 0 : 20,
             }}>
             <Image
               style={{
@@ -122,7 +124,13 @@ function Card(props) {
           </MyView>
 
           <MyView
-            style={{paddingRight: 20, ...styles.gap15, ...styles.marginTop20}}>
+            style={{
+              paddingRight: 20,
+              maxWidth: '350px',
+              minWidth: '350px',
+              ...styles.gap15,
+              ...styles.marginTop20,
+            }}>
             <MyView style={{marginTop: -10, ...styles.gap5}}>
               <QuizItemCard
                 text={'تعداد دانش آموزان'}
@@ -133,7 +141,9 @@ function Card(props) {
                 color={vars.YELLOW}
                 textFontSize={14}
                 valFontSize={14}
-                isBold={false}
+                isBold={true}
+                isBoldValue={false}
+                maxWidth={350}
               />
 
               {props.data.age !== undefined && (
@@ -146,7 +156,9 @@ function Card(props) {
                   color={vars.YELLOW}
                   textFontSize={14}
                   valFontSize={14}
-                  isBold={false}
+                  isBold={true}
+                  isBoldValue={false}
+                  maxWidth={350}
                 />
               )}
               {props.data.form !== undefined && (
@@ -160,7 +172,9 @@ function Card(props) {
                     color={vars.YELLOW}
                     textFontSize={14}
                     valFontSize={14}
-                    isBold={false}
+                    isBold={true}
+                    isBoldValue={false}
+                    maxWidth={350}
                   />
 
                   <QuizItemCard
@@ -172,7 +186,9 @@ function Card(props) {
                     color={vars.YELLOW}
                     textFontSize={14}
                     valFontSize={14}
-                    isBold={false}
+                    isBold={true}
+                    isBoldValue={false}
+                    maxWidth={350}
                   />
                 </>
               )}
@@ -189,7 +205,7 @@ function Card(props) {
                 justifyContent: 'space-between',
                 maxWidth: state.isInPhone
                   ? 'calc(100% - 30px)'
-                  : 'calc(100% - 430px)',
+                  : 'calc(100% - 630px)',
               },
             }}>
             <MyView>
@@ -223,22 +239,24 @@ function Card(props) {
         )}
       </PhoneView>
 
-      <SimpleText
-        style={{...styles.dark_blue_color, ...styles.marginTop10}}
-        text={'تگ\u200cها'}
-      />
-      {props.data.tags !== undefined && (
-        <PhoneView style={{...styles.gap10, ...{marginTop: -10}}}>
-          {props.data.tags.map((e, index) => {
-            return (
-              <SimpleText
-                key={index}
-                style={{...styles.colorDarkBlue}}
-                text={'#' + e}
-              />
-            );
-          })}
-        </PhoneView>
+      {props.data.tags && props.data.tags.length > 0 && (
+        <>
+          <SimpleText
+            style={{...styles.dark_blue_color, ...styles.marginTop10}}
+            text={'تگ\u200cها'}
+          />
+          <PhoneView style={{...styles.gap10, ...{marginTop: -10}}}>
+            {props.data.tags.map((e, index) => {
+              return (
+                <SimpleText
+                  key={index}
+                  style={{...styles.colorDarkBlue}}
+                  text={'#' + e}
+                />
+              );
+            })}
+          </PhoneView>
+        </>
       )}
       {!props.isMyAdvisor &&
         props.data.acceptStd &&

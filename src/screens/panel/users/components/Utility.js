@@ -152,3 +152,23 @@ export const chargeAccount = async (coin, money, userId, token) => {
 
   if (res !== null) showSuccess();
 };
+
+export const setPriority = async (
+  advisorPriority,
+  teachPriority,
+  userId,
+  token,
+) => {
+  let res = await generalRequest(
+    routes.setDisplayPriority + userId,
+    'put',
+    {
+      advisorPriority: advisorPriority,
+      teachPriority: teachPriority,
+    },
+    undefined,
+    token,
+  );
+
+  if (res !== null) showSuccess();
+};

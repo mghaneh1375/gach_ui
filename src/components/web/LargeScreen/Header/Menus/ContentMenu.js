@@ -222,7 +222,6 @@ function ContentMenu(props) {
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
-        ...style.MenuJustApp,
         ...{
           zIndex: state.isRightMenuVisible ? 4 : 'unset',
         },

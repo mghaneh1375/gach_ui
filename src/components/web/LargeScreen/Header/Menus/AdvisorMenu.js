@@ -20,6 +20,7 @@ import MenuItemRepeat from './MenuItemRepeat';
 import {SuperMenuItem} from './SuperMenuItem';
 import MobileLogout from '../MobileLogout';
 import {globalStateContext} from '../../../../../App';
+import MenuItemRepeatForPhone from './MenuItemRepeatForPhone';
 
 function AdvisorMenu(props) {
   const device = getDevice();
@@ -27,21 +28,25 @@ function AdvisorMenu(props) {
   const navigate = props.navigate;
 
   const useGlobalState = () => [React.useContext(globalStateContext)];
-
   const [state] = useGlobalState();
 
   if (isLargePage) {
     return (
       <MenuItemRepeat
-        excludes={['certs', 'mySchool', 'advisor']}
+        excludes={['certs', 'mySchool']}
         navigate={props.navigate}
         selected={props.selected}
         child={
           <>
             <SuperMenuItem
-              text={translator.advicing}
+              text={translator.advicingForAdvisors}
               icon={faSchool}
-              selected={props.selected === 'schoolQuiz'}
+              selected={
+                props.selected === 'myStudentRequests' ||
+                props.selected === 'manageStudent' ||
+                props.selected === 'mySchoolQuizzes' ||
+                props.selected === 'myFinancePlans'
+              }
               navigate={navigate}
               items={[
                 {
@@ -63,9 +68,13 @@ function AdvisorMenu(props) {
               ]}
             />
             <SuperMenuItem
-              text={translator.teach}
+              text={translator.teachForTeachers}
               icon={faBook}
-              selected={props.selected === 'mySchedules'}
+              selected={
+                props.selected === 'myTeachSchedules' ||
+                props.selected === 'myTeachRequests' ||
+                props.selected === 'myTeachTransactions'
+              }
               navigate={navigate}
               items={[
                 {
@@ -93,106 +102,71 @@ function AdvisorMenu(props) {
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
-        ...style.MenuJustApp,
         ...{
           zIndex: state.isRightMenuVisible ? 4 : 'unset',
         },
       }}>
-      <MenuItemPhone
-        onClick={() => navigate('/myStudentRequests')}
-        text={translator.myStudentRequests}
-        icon={faTicket}
-        isApp={false}
-        selected={props.selected === 'myStudentRequests'}
-      />
-      <MenuItemPhone
-        onClick={() => navigate('/manageStudent')}
-        text={translator.management + ' ' + translator.students}
-        icon={faUsers}
-        isApp={false}
-        selected={props.selected === 'manageStudent'}
-      />
-      <MenuItemPhone
-        onClick={() => navigate('/mySchoolQuizzes')}
-        text={translator.mySchoolQuizess}
-        icon={faSchool}
-        isApp={false}
-        selected={props.selected === 'mySchoolQuizzes'}
-      />
-
-      <SuperMenuItem
-        text={'دوره‌ها'}
-        icon={faVideo}
-        selected={
-          props.selected === 'packages' || props.selected === 'myPackages'
+      <MenuItemRepeatForPhone
+        excludes={['certs', 'mySchool']}
+        navigate={props.navigate}
+        selected={props.selected}
+        child={
+          <>
+            <SuperMenuItem
+              text={translator.advicingForAdvisors}
+              icon={faSchool}
+              selected={
+                props.selected === 'myStudentRequests' ||
+                props.selected === 'manageStudent' ||
+                props.selected === 'mySchoolQuizzes' ||
+                props.selected === 'myFinancePlans'
+              }
+              navigate={navigate}
+              items={[
+                {
+                  text: translator.myStudentRequests,
+                  url: '/myStudentRequests',
+                },
+                {
+                  text: translator.management + ' ' + translator.students,
+                  url: '/manageStudent',
+                },
+                {
+                  text: translator.mySchoolQuizess,
+                  url: '/mySchoolQuizzes',
+                },
+                {
+                  text: translator.myFinancePlans,
+                  url: '/myFinancePlans',
+                },
+              ]}
+            />
+            <SuperMenuItem
+              text={translator.teachForTeachers}
+              icon={faBook}
+              selected={
+                props.selected === 'myTeachSchedules' ||
+                props.selected === 'myTeachRequests' ||
+                props.selected === 'myTeachTransactions'
+              }
+              navigate={navigate}
+              items={[
+                {
+                  text: translator.myTeachSchedules,
+                  url: '/myTeachSchedules',
+                },
+                {
+                  text: translator.myTeachRequests,
+                  url: '/myTeachRequests',
+                },
+                {
+                  text: translator.myTeachTransactions,
+                  url: '/myTeachTransactions',
+                },
+              ]}
+            />
+          </>
         }
-        navigate={navigate}
-        items={[
-          {
-            text: translator.buyPackages,
-            url: '/packages',
-          },
-          {
-            text: translator.myPackages,
-            url: '/myPackages',
-          },
-        ]}
-      />
-
-      <SuperMenuItem
-        text={'آزمون - بخش دانش آموزی'}
-        icon={faShoppingCart}
-        selected={
-          props.selected === 'buy' ||
-          props.selected === 'makeQuiz' ||
-          props.selected === 'myIRYSCQuizzes' ||
-          props.selected === 'myCustomQuizzes'
-        }
-        navigate={navigate}
-        items={[
-          {
-            text: translator.buyQuiz,
-            url: '/buy',
-          },
-          {
-            text: translator.makeQuiz,
-            url: '/makeQuiz',
-          },
-          {
-            text: translator.myQuizes,
-            url: '/myIRYSCQuizzes',
-          },
-          {
-            text: translator.myCustomQuizess,
-            url: '/myCustomQuizzes',
-          },
-        ]}
-      />
-
-      <MenuItemPhone
-        onClick={() => navigate('/charge')}
-        text={translator.charge}
-        icon={faCreditCard}
-        selected={props.selected === 'charge'}
-      />
-      <MenuItemPhone
-        onClick={() => navigate('/financeHistory')}
-        text={translator.history}
-        icon={faHistory}
-        selected={props.selected === 'financeHistory'}
-      />
-      <MenuItemPhone
-        onClick={() => navigate('/myFinancePlans')}
-        text={translator.myFinancePlans}
-        icon={faShop}
-        isApp={false}
-        selected={props.selected === 'myFinancePlans'}
-      />
-      <MenuItemPhone
-        onClick={() => navigate('/ticket')}
-        text={translator.requests}
-        icon={faCog}
-        selected={props.selected === 'ticket'}
       />
 
       <MobileLogout name={props.name} navigate={props.navigate} />

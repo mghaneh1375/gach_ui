@@ -55,7 +55,9 @@ function BuySchedule(props) {
 
   const goToPay = async (token, data, scheduleId) => {
     return await generalRequest(
-      routes.payForTeachSchedule + scheduleId,
+      props.canUseOff
+        ? routes.payForTeachSchedule + scheduleId
+        : routes.prePayForSchedule + scheduleId,
       'post',
       data,
       ['action', 'refId'],
@@ -161,6 +163,26 @@ function BuySchedule(props) {
                     />
                   </PhoneView>
                 )}
+                {props.prePaid > 0 && (
+                  <PhoneView style={styles.alignItemsCenter}>
+                    <SimpleText
+                      text={formatPrice(props.prePaid)}
+                      style={{
+                        ...{marginRight: 10},
+                        ...styles.yellow_color,
+                        ...styles.fontSize13,
+                      }}
+                    />
+                    <SimpleText
+                      style={{
+                        ...{marginRight: 5},
+                        ...styles.dark_blue_color,
+                        ...styles.fontSize13,
+                      }}
+                      text={Translate.prePaid}
+                    />
+                  </PhoneView>
+                )}
               </MyView>
             )}
           </PhoneView>
@@ -193,17 +215,18 @@ function BuySchedule(props) {
             title={props.shouldPay > 0 ? Translate.goToPay : 'ثبت نام در جلسه'}
             onPress={() => goToPayLocal()}
           />
-          {(props.shouldPay > 0 || props.userOff === undefined) && (
-            <SimpleText
-              style={{
-                ...styles.yellow_color,
-                ...styles.fontSize13,
-                ...styles.cursor_pointer,
-              }}
-              text={Translate.enterOff}
-              onPress={() => props.toggleShowOffCodePane()}
-            />
-          )}
+          {props.canUseOff &&
+            (props.shouldPay > 0 || props.userOff === undefined) && (
+              <SimpleText
+                style={{
+                  ...styles.yellow_color,
+                  ...styles.fontSize13,
+                  ...styles.cursor_pointer,
+                }}
+                text={Translate.enterOff}
+                onPress={() => props.toggleShowOffCodePane()}
+              />
+            )}
         </MyView>
       )}
 
@@ -214,18 +237,19 @@ function BuySchedule(props) {
             title={props.shouldPay > 0 ? Translate.goToPay : 'ثبت نام در جلسه'}
             onPress={() => goToPayLocal()}
           />
-          {(props.shouldPay > 0 || props.userOff === undefined) && (
-            <SimpleText
-              style={{
-                ...styles.yellow_color,
-                ...styles.fontSize13,
-                ...styles.cursor_pointer,
-                ...styles.alignSelfCenter,
-              }}
-              text={Translate.enterOff}
-              onPress={() => props.toggleShowOffCodePane()}
-            />
-          )}
+          {props.canUseOff &&
+            (props.shouldPay > 0 || props.userOff === undefined) && (
+              <SimpleText
+                style={{
+                  ...styles.yellow_color,
+                  ...styles.fontSize13,
+                  ...styles.cursor_pointer,
+                  ...styles.alignSelfCenter,
+                }}
+                text={Translate.enterOff}
+                onPress={() => props.toggleShowOffCodePane()}
+              />
+            )}
         </EqualTwoTextInputs>
       )}
 

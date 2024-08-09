@@ -57,6 +57,10 @@ const columns = [
         ? Translator.cancel
         : row.status === 'accept'
         ? Translator.accept
+        : row.status === 'waitForCap'
+        ? Translator.waitForCap
+        : row.status === 'waitForPaySemiPrivate'
+        ? Translator.waitForPaySemiPrivate
         : Translator.unknown,
     grow: 2,
     center: true,

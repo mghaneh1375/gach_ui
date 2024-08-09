@@ -140,6 +140,7 @@ const GeneralStats = lazy(() => import('./panel/Stat/GeneralStats'));
 const MyQuizzes = lazy(() =>
   import('./studentPanel/MyQuizzes/school/MyQuizzes'),
 );
+const MyComments = lazy(() => import('./studentPanel/Comment/MyComments'));
 const Advisors = lazy(() => import('./general/Advisors/Advisors'));
 const AllTeachers = lazy(() => import('./general/Teachers/Teachers'));
 const RequestLogsForAdvisors = lazy(() =>
@@ -376,6 +377,9 @@ const WebStructue = props => {
                   )}
                   {props.page === 'allComments' && (
                     <AllComments navigate={navigate} />
+                  )}
+                  {props.page === 'myComments' && (
+                    <MyComments navigate={navigate} />
                   )}
                   {props.page === 'allTeachTransactions' && (
                     <AllTeachTransactions navigate={navigate} />

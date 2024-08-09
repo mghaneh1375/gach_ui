@@ -37,7 +37,6 @@ function Teacher(props) {
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
-        ...style.MenuJustApp,
       }}></MyView>
   );
 }

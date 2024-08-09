@@ -34,9 +34,27 @@ export const studentsColumns = [
     center: true,
   },
   {
+    name: Translator.stdTeachRate,
+    selector: row => row.student.teachRate,
+    grow: 2,
+    center: true,
+  },
+  {
+    name: Translator.teacherToStdRate,
+    selector: row => row.teacherToStdRate,
+    grow: 2,
+    center: true,
+  },
+  {
+    name: Translator.teacherToStdRateAt,
+    selector: row => row.teacherToStdRateAt,
+    grow: 3,
+    center: true,
+  },
+  {
     name: 'تاریخ ثبت نام',
     selector: row => row.createdAt,
-    grow: 2,
+    grow: 3,
   },
 ];
 

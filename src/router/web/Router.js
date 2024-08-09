@@ -136,6 +136,10 @@ export default function WebRouter() {
             element={<WebStructue page="allTeaches" />}
           />
           <Route
+            path="myComments"
+            element={<WebStructue page="myComments" />}
+          />
+          <Route
             path="all-comments"
             element={<WebStructue page="allComments" />}
           />

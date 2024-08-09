@@ -35,7 +35,6 @@ function Agent(props) {
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
-        ...style.MenuJustApp,
       }}>
       <MenuItemPhone
         text={translator.users}

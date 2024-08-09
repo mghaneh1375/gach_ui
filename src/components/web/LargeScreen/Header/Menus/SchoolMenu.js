@@ -66,7 +66,6 @@ function SchoolMenu(props) {
       style={{
         ...style.Menu,
         ...style.MenuJustPhone,
-        ...style.MenuJustApp,
       }}>
       <SuperMenuItem
         text={translator.mySchool}

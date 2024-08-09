@@ -15,6 +15,8 @@ import Translator from '../../../../advisorPanel/Teach/Schedule/components/Trans
 import vars from '../../../../../styles/root';
 import Circle from '../../../../../components/web/Circle';
 import {Rating} from 'react-native-ratings';
+import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
+import {showError} from '../../../../../services/Utility';
 
 function Card(props) {
   const [showMore, setShowMore] = useState(false);
@@ -24,8 +26,11 @@ function Card(props) {
     setPic(props.plan.teacher.pic);
   }, [props.plan.teacher.pic]);
 
+  const [writeComment, setWriteComment] = useState(false);
+  const [comment, setComment] = useState();
+
   return (
-    <CommonWebBox title={props.plan.title}>
+    <CommonWebBox width={'350px'} title={props.plan.title}>
       <PhoneView style={{...styles.justifyContentCenter}}>
         <PhoneView
           style={{
@@ -87,115 +92,167 @@ function Card(props) {
         </PhoneView>
       </EqualTwoTextInputs>
 
-      {props.plan.description !== undefined && props.plan.description !== '' && (
-        <MyView
-          style={{
-            minHeight: showMore ? 260 : 70,
-            maxHeight: showMore ? 'unset' : 70,
-          }}>
-          <SimpleText
-            style={{
-              ...styles.dark_blue_color,
-              ...{
-                maxHeight: showMore ? 'unset' : 50,
-                overflow: showMore ? 'unset' : 'hidden',
-              },
-            }}
-            text={'توضیحات: ' + props.plan.description}
-          />
-          {showMore && (
-            <SimpleText
-              style={{
-                ...styles.yellow_color,
-                ...styles.alignSelfEnd,
-                ...styles.cursor_pointer,
-              }}
-              text={'نمایش کمتر'}
-              onPress={() => setShowMore(false)}
-            />
-          )}
+      {!writeComment && (
+        <>
+          {props.plan.description !== undefined &&
+            props.plan.description !== '' && (
+              <MyView
+                style={{
+                  minHeight: showMore ? 260 : 70,
+                  maxHeight: showMore ? 'unset' : 70,
+                }}>
+                <SimpleText
+                  style={{
+                    ...styles.dark_blue_color,
+                    ...{
+                      maxHeight: showMore ? 'unset' : 50,
+                      overflow: showMore ? 'unset' : 'hidden',
+                    },
+                  }}
+                  text={'توضیحات: ' + props.plan.description}
+                />
+                {showMore && (
+                  <SimpleText
+                    style={{
+                      ...styles.yellow_color,
+                      ...styles.alignSelfEnd,
+                      ...styles.cursor_pointer,
+                    }}
+                    text={'نمایش کمتر'}
+                    onPress={() => setShowMore(false)}
+                  />
+                )}
+
+                {!showMore && (
+                  <SimpleText
+                    style={{
+                      ...styles.yellow_color,
+                      ...styles.alignSelfEnd,
+                      ...styles.cursor_pointer,
+                    }}
+                    text={'نمایش بیشتر'}
+                    onPress={() => setShowMore(true)}
+                  />
+                )}
+              </MyView>
+            )}
 
           {!showMore && (
-            <SimpleText
-              style={{
-                ...styles.yellow_color,
-                ...styles.alignSelfEnd,
-                ...styles.cursor_pointer,
-              }}
-              text={'نمایش بیشتر'}
-              onPress={() => setShowMore(true)}
-            />
+            <>
+              <PhoneView style={{...styles.gap15}}>
+                <QuizItemCard
+                  text={Translator.start}
+                  val={props.plan.startAt}
+                  icon={faCalendar}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={false}
+                />
+                <QuizItemCard
+                  text={Translator.teachMode}
+                  val={props.plan.teachMode === 'private' ? 'خصوصی' : 'گروهی'}
+                  icon={faInfo}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={false}
+                />
+              </PhoneView>
+              <PhoneView>
+                <QuizItemCard
+                  text={Translator.duration}
+                  val={props.plan.length}
+                  icon={faClock}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={false}
+                />
+              </PhoneView>
+            </>
           )}
-        </MyView>
-      )}
 
-      {!showMore && (
-        <>
-          <PhoneView style={{...styles.gap15}}>
-            <QuizItemCard
-              text={Translator.start}
-              val={props.plan.startAt}
-              icon={faCalendar}
-              background={false}
-              iconFontSize={'normal'}
-              color={vars.YELLOW}
-              textFontSize={14}
-              valFontSize={14}
-              isBold={false}
-            />
-            <QuizItemCard
-              text={Translator.teachMode}
-              val={props.plan.teachMode === 'private' ? 'خصوصی' : 'نیمه خصوصی'}
-              icon={faInfo}
-              background={false}
-              iconFontSize={'normal'}
-              color={vars.YELLOW}
-              textFontSize={14}
-              valFontSize={14}
-              isBold={false}
-            />
+          <PhoneView style={{justifyContent: 'start', flexWrap: 'wrap'}}>
+            {props.plan.skyRoomUrl !== undefined &&
+              props.plan.skyRoomUrl !== '' && (
+                <CommonButton
+                  onPress={() => window.open(props.plan.skyRoomUrl)}
+                  title={Translator.goToSkyRoom}
+                  theme={'dark'}
+                />
+              )}
+            {props.plan.canRate && (
+              <>
+                <CommonButton
+                  onPress={props.onReportClick}
+                  title={Translator.report}
+                />
+                <CommonButton
+                  theme={'orangeRed'}
+                  onPress={() => setWriteComment(true)}
+                  title={Translator.comment}
+                />
+              </>
+            )}
           </PhoneView>
-          <PhoneView>
-            <QuizItemCard
-              text={Translator.duration}
-              val={props.plan.length}
-              icon={faClock}
-              background={false}
-              iconFontSize={'normal'}
-              color={vars.YELLOW}
-              textFontSize={14}
-              valFontSize={14}
-              isBold={false}
-            />
+          <PhoneView style={{justifyContent: 'end'}}>
+            {props.plan.canRate && (
+              <>
+                <Rating
+                  type="star"
+                  ratingCount={5}
+                  imageSize={30}
+                  fractions={0}
+                  onFinishRating={props.onChangeRate}
+                  style={{
+                    direction: 'ltr',
+                    cursor: 'pointer',
+                  }}
+                  startingValue={props.plan.rate}
+                />
+              </>
+            )}
           </PhoneView>
         </>
       )}
-      {props.plan.skyRoomUrl !== undefined && props.plan.skyRoomUrl !== '' && (
-        <CommonButton
-          onPress={() => window.open(props.plan.skyRoomUrl)}
-          title={Translator.goToSkyRoom}
-          theme={'dark'}
-        />
-      )}
-      {props.plan.canRate && (
+      {writeComment && (
         <>
-          <CommonButton
-            onPress={props.onReportClick}
-            title={Translator.report}
+          <JustBottomBorderTextInput
+            onChangeText={e => setComment(e)}
+            value={comment}
+            multiline={true}
+            subText={'لطفا نظر خود را بنویسید'}
+            placeholder={'لطفا نظر خود را بنویسید'}
           />
-          {/* <CommonButton onPress={props.onShowComments()} /> */}
-          <Rating
-            type="star"
-            ratingCount={5}
-            imageSize={30}
-            fractions={0}
-            onFinishRating={props.onChangeRate}
-            style={{
-              direction: 'ltr',
-              cursor: 'pointer',
-            }}
-            startingValue={props.plan.rate}
-          />
+          <PhoneView>
+            <CommonButton
+              title={'انصراف'}
+              onPress={() => {
+                setWriteComment(false);
+                setComment(undefined);
+              }}
+            />
+            <CommonButton
+              theme={'dark'}
+              title={'تایید'}
+              onPress={() => {
+                if (comment.length < 5) {
+                  showError('لطفا نظر خود را بنویسید (حداقل 5 کاراکتر)');
+                  return;
+                }
+                props.onWriteComment(comment);
+                setWriteComment(false);
+                setComment(undefined);
+              }}
+            />
+          </PhoneView>
         </>
       )}
     </CommonWebBox>

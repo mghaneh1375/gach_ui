@@ -14,15 +14,18 @@ const Translator = {
   title: 'عنوان (اختیاری)',
   needRegistryConfirmation:
     'آیا درخواست\u200cها نیاز به تایید شما داشته باشند؟',
-  needRegistryConfirmationForStudents: 'نیاز به تایید توسط دبیر بعد از درخواست',
+  needRegistryConfirmationForStudents:
+    'پرداخت و ثبت‌نام نهایی در این کلاس پس از تأیید معلم انجام می‌شود.',
+  prePayWarning:
+    'برای ذخیرۀ جای شما در این کلاس، مبلغ پیش ثبت‌نام دریافت می‌شود.',
   minCap: 'حداقل ظرفیت',
   maxCap: 'حداکثر ظرفیت',
   description: 'توضیحات (اختیاری)',
-  start: 'روز و ساعت برگزاری جلسه',
+  start: 'روز و ساعت کلاس',
   studentsCount: 'تعداد دانش آموزان',
   requestsCount: 'تعداد درخواست\u200cها',
   private: 'خصوصی',
-  semiPrivate: 'نیمه خصوصی',
+  semiPrivate: 'گروهی',
   answerAt: 'زمان پاسخ دبیر',
   expireAt: 'مهلت بررسی/پرداخت',
   createdAt: 'زمان درخواست',
@@ -39,6 +42,8 @@ const Translator = {
   paid: 'پرداخت شده',
   cancel: 'انصراف داده شده',
   accept: 'تایید شده و در انتظار پرداخت',
+  waitForCap: 'پرداخت پیش‌ثبت‌نام و در انتظار رسیدن حدنصاب',
+  waitForPaySemiPrivate: 'کلاس به حدنصاب رسیده و در انتظار پرداخت',
   answered: 'پاسخ داده شده',
   unknown: 'نامشخص',
   copy: 'کپی کردن برنامه تدریس',
@@ -46,6 +51,11 @@ const Translator = {
   goToSkyRoom: 'رفتن به اتاق تدریس در اسکای روم',
   seeStudentProfile: 'مشاهده اطلاعات تحصیلی دانش آموز',
   report: 'گزارش مشکل',
+  comment: 'نوشتن نظر',
+  teacherToStdRate: 'امتیاز شما به دانش آموز',
+  teacherToStdRateAt: 'زمان امتیاز شما به دانش آموز',
+  stdTeachRate: 'امتیاز دبیران به دانش آموز',
+  requestsCountForStudents: 'درخواست\u200cها',
 };
 
 export default Translator;

@@ -160,7 +160,10 @@ export const style = {
   },
   MenuJustPhone: {
     width: '96%',
-    height: getWidthHeight()[1] - 70,
+    height: getWidthHeight()[1] - 140,
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    paddingTop: 0,
   },
   Menu: {
     marginTop: 10,
@@ -242,7 +245,7 @@ export const MenuItem = props => {
 };
 
 export const MenuItemPhone = props => {
-  let styles = {...style.MenuItem, ...{marginTop: 10}};
+  let styles = {...style.MenuItem, ...{marginTop: 2}};
   // if (props.selected !== undefined && props.selected)
   //   styles = {...styles, ...style.MenuItemSelected};
   return (

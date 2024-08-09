@@ -21,9 +21,13 @@ import translator from '../../../../screens/advisorPanel/MyFinancePlans/componen
 import Circle from '../../../../components/web/Circle';
 import {Image} from 'react-native';
 import {Rating} from 'react-native-ratings';
+import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import {showError} from '../../../../services/Utility';
 
 function MyAdvisorFinancePlan(props) {
   const [pic, setPic] = useState();
+  const [comment, setComment] = useState();
+  const [writeComment, setWriteComment] = useState();
 
   React.useEffect(() => {
     setPic(props.data.pic);
@@ -235,10 +239,49 @@ function MyAdvisorFinancePlan(props) {
                   }
                   title={'صحبت با مشاور'}
                 />
+                <CommonButton
+                  theme={'dark'}
+                  onPress={() => setWriteComment(true)}
+                  title={'نوشتن نظر'}
+                />
               </PhoneView>
             </MyView>
           )}
         </EqualTwoTextInputs>
+
+        {writeComment && (
+          <>
+            <JustBottomBorderTextInput
+              placeholder={'نظر خود را بنویسید'}
+              subText={'نظر خود را بنویسید'}
+              multiline={true}
+              value={comment}
+              onChangeText={e => setComment(e)}
+            />
+            <PhoneView style={{gap: '10px'}}>
+              <CommonButton
+                title={'انصراف'}
+                onPress={() => {
+                  setComment(undefined);
+                  setWriteComment(false);
+                }}
+              />
+              <CommonButton
+                theme={'dark'}
+                onPress={() => {
+                  if (comment.length < 5) {
+                    showError('لطفا نظر خود را بنویسید (حداقل 5 کاراکتر)');
+                    return;
+                  }
+                  props.onWriteComment(comment);
+                  setComment(undefined);
+                  setWriteComment(false);
+                }}
+                title={'ثبت'}
+              />
+            </PhoneView>
+          </>
+        )}
 
         {props.plan?.description !== undefined &&
           props.plan?.description.length > 0 && (

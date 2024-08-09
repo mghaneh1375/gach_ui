@@ -1,3 +1,9 @@
+import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import React, {useEffect, useState} from 'react';
+import {routes} from '../../../../API/APIRoutes';
+import {generalRequest} from '../../../../API/Utility';
+import BestComments from '../../../../components/web/Comment/BestComments';
+import {getDevice} from '../../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -6,16 +12,13 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
-import {dispatchPackagesContext, packagesContext} from './Context';
-import {fetchAllPackages} from './Utility';
-import React, {useEffect, useState} from 'react';
-import {getDevice} from '../../../../services/Utility';
 import {styles} from '../../../../styles/Common/Styles';
-import Card from './Card';
-import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
-import {Translator} from '../Translator';
 import commonTranslator from '../../../../translator/Common';
+import {Translator} from '../Translator';
+import Card from './Card';
+import {dispatchPackagesContext, packagesContext} from './Context';
 import Filter from './Filter';
+import {fetchAllPackages} from './Utility';
 
 function List(props) {
   const useGlobalState = () => [
@@ -33,7 +36,7 @@ function List(props) {
   const [teachers, setTeachers] = useState();
   const [showFilter, setShowFilter] = useState(true);
   const [clearFilter, setClearFilter] = useState(false);
-
+  const [bestComments, setBestComments] = useState();
   const [viewableItems, setViewableItems] = useState();
 
   React.useEffect(() => {
@@ -54,16 +57,23 @@ function List(props) {
           ? undefined
           : props.token,
       ),
+      generalRequest(
+        routes.getTopComments + 'content',
+        'get',
+        undefined,
+        'data',
+      ),
     ]).then(res => {
       props.setLoading(false);
 
-      if (res[0] === null) {
+      if (res[0] === null || res[1] == null) {
         props.navigate('/');
         return;
       }
 
       setMin(res[0].min);
       setMax(res[0].max);
+      setBestComments(res[1]);
 
       setMinDuration(res[0].minDuration);
       setMaxDuration(res[0].maxDuration);
@@ -227,6 +237,7 @@ function List(props) {
             )}
         </CommonWebBox>
       )}
+      <BestComments bestComments={bestComments} />
       <MyView>
         <SimpleText
           style={{

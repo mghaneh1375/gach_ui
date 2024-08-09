@@ -36,7 +36,7 @@ function List(props) {
         ],
         [
           {item: 'خصوصی', id: 'private'},
-          {item: 'نیمه خصوصی', id: 'semi_private'},
+          {item: 'گروهی', id: 'semi_private'},
           {item: 'همه', id: 'all'},
         ],
         [

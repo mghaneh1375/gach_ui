@@ -9,7 +9,7 @@ import {
   SimpleText,
 } from '../../../styles/Common';
 import {styles} from '../../../styles/Common/Styles';
-import {formatPrice} from '../../../services/Utility';
+import {faNums, formatPrice} from '../../../services/Utility';
 import vars from '../../../styles/root';
 import Translator from '../../advisorPanel/Teach/Schedule/components/Translator';
 import {
@@ -22,117 +22,213 @@ import {
 function Schedule(props) {
   const [showMore, setShowMore] = useState(false);
   return (
-    <CommonWebBox title={props.plan.title}>
-      {props.plan.description !== undefined && props.plan.description !== '' && (
-        <MyView
+    <CommonWebBox title={props.plan.title} width={350}>
+      <MyView style={{minHeight: '300px', gap: '5px'}}>
+        <SimpleText
           style={{
-            minHeight: showMore ? 260 : 70,
-            maxHeight: showMore ? 'unset' : 70,
-          }}>
-          <SimpleText
-            style={{
-              ...styles.dark_blue_color,
-              ...{
-                maxHeight: showMore ? 'unset' : 50,
-                overflow: showMore ? 'unset' : 'hidden',
-              },
-            }}
-            text={'توضیحات: ' + props.plan.description}
-          />
-          {showMore && (
-            <SimpleText
-              style={{
-                ...styles.yellow_color,
-                ...styles.alignSelfEnd,
-                ...styles.cursor_pointer,
-              }}
-              text={'نمایش کمتر'}
-              onPress={() => setShowMore(false)}
-            />
-          )}
+            ...styles.fontSize17,
+            ...styles.BlueBold,
+            ...styles.textCenter,
+            ...{marginBottom: '5px'},
+          }}
+          text={
+            props.plan.teachMode === 'private' ? 'کلاس خصوصی' : 'کلاس گروهی'
+          }
+        />
 
-          {!showMore && (
-            <SimpleText
-              style={{
-                ...styles.yellow_color,
-                ...styles.alignSelfEnd,
-                ...styles.cursor_pointer,
-              }}
-              text={'نمایش بیشتر'}
-              onPress={() => setShowMore(true)}
-            />
-          )}
-        </MyView>
-      )}
-
-      {!showMore && (
-        <>
-          <PhoneView style={{...styles.gap15}}>
-            <QuizItemCard
-              text={Translator.start}
-              val={props.plan.startAt}
-              icon={faCalendar}
-              background={false}
-              iconFontSize={'normal'}
-              color={vars.YELLOW}
-              textFontSize={14}
-              valFontSize={14}
-              isBold={false}
-            />
-            <QuizItemCard
-              text={Translator.teachMode}
-              val={props.plan.teachMode === 'private' ? 'خصوصی' : 'نیمه خصوصی'}
-              icon={faInfo}
-              background={false}
-              iconFontSize={'normal'}
-              color={vars.YELLOW}
-              textFontSize={14}
-              valFontSize={14}
-              isBold={false}
-            />
-          </PhoneView>
-          <PhoneView>
-            <QuizItemCard
-              text={Translator.duration}
-              val={props.plan.length}
-              icon={faClock}
-              background={false}
-              iconFontSize={'normal'}
-              color={vars.YELLOW}
-              textFontSize={14}
-              valFontSize={14}
-              isBold={false}
-            />
-            <QuizItemCard
-              text={Translator.needRegistryConfirmationForStudents}
-              val={props.plan.needRegistryConfirmation ? 'بله' : 'خیر'}
-              icon={faCheck}
-              background={false}
-              iconFontSize={'normal'}
-              color={vars.YELLOW}
-              textFontSize={14}
-              valFontSize={14}
-              isBold={false}
-            />
-          </PhoneView>
-
-          <EqualTwoTextInputs>
-            <MyView>
-              <SimpleText
-                style={{...styles.BlueBold, ...styles.fontSize17}}
-                text={formatPrice(props.plan.price) + ' تومان'}
+        {!showMore && (
+          <>
+            <PhoneView style={styles.justifyContentSpaceBetween}>
+              <QuizItemCard
+                text={Translator.start}
+                val={props.plan.startAt}
+                icon={faCalendar}
+                background={false}
+                iconFontSize={'normal'}
+                color={vars.YELLOW}
+                textFontSize={14}
+                valFontSize={14}
+                isBold={true}
+                isBoldValue={false}
               />
-            </MyView>
-            {props.onSelect !== undefined && (
-              <CommonButton
-                onPress={() => props.onSelect()}
-                theme={'yellow'}
-                title={'درخواست برای گرفتن این جلسه'}
+              <QuizItemCard
+                text={Translator.duration}
+                val={props.plan.length}
+                icon={faClock}
+                background={false}
+                iconFontSize={'normal'}
+                color={vars.YELLOW}
+                textFontSize={14}
+                valFontSize={14}
+                isBold={true}
+                isBoldValue={false}
+              />
+            </PhoneView>
+            {props.plan.teachMode === 'semi_private' && (
+              <>
+                <PhoneView style={{justifyContent: 'space-between'}}>
+                  <QuizItemCard
+                    text={Translator.minCap}
+                    val={props.plan.minCap}
+                    icon={faInfo}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={true}
+                    isBoldValue={false}
+                  />
+                  <QuizItemCard
+                    text={Translator.maxCap}
+                    val={props.plan.maxCap}
+                    icon={faInfo}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={true}
+                    isBoldValue={false}
+                    minWidth={'155px'}
+                  />
+                </PhoneView>
+                <PhoneView style={{justifyContent: 'space-between'}}>
+                  <QuizItemCard
+                    text={Translator.requestsCountForStudents}
+                    val={props.plan.requestsCount}
+                    icon={faInfo}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={true}
+                    isBoldValue={false}
+                    minWidth={'112px'}
+                  />
+                </PhoneView>
+              </>
+            )}
+          </>
+        )}
+        {props.plan.description && props.plan.description !== '' && (
+          <MyView
+            style={{
+              minHeight: showMore ? 260 : 70,
+              maxHeight: showMore ? 'unset' : 70,
+            }}>
+            <SimpleText
+              style={{
+                ...styles.dark_blue_color,
+                ...{
+                  maxHeight: showMore ? 'unset' : 46,
+                  overflow: showMore ? 'unset' : 'hidden',
+                },
+              }}
+              text={'توضیحات: ' + props.plan.description}
+            />
+            {showMore && (
+              <SimpleText
+                style={{
+                  ...styles.yellow_color,
+                  ...styles.alignSelfEnd,
+                  ...styles.cursor_pointer,
+                }}
+                text={'نمایش کمتر'}
+                onPress={() => setShowMore(false)}
               />
             )}
-          </EqualTwoTextInputs>
-        </>
-      )}
+
+            {!showMore && (
+              <SimpleText
+                style={{
+                  ...styles.yellow_color,
+                  ...styles.alignSelfEnd,
+                  ...styles.cursor_pointer,
+                }}
+                text={'نمایش بیشتر'}
+                onPress={() => setShowMore(true)}
+              />
+            )}
+          </MyView>
+        )}
+        {!props.plan.description && (
+          <MyView style={{minHeight: showMore ? 260 : 70}}></MyView>
+        )}
+        {!showMore && (
+          <MyView style={{position: 'absolute', bottom: '5px', width: '100%'}}>
+            {props.plan.needRegistryConfirmation && (
+              <SimpleText
+                style={{
+                  color: 'red',
+                  fontSize: '11px',
+                  fontWeight: 'bold',
+                }}
+                text={Translator.needRegistryConfirmationForStudents}
+              />
+            )}
+            {props.plan.teachMode === 'semi_private' &&
+              props.plan.shouldPrePay && (
+                <>
+                  <SimpleText
+                    style={{
+                      color: 'red',
+                      fontSize: '11px',
+                      fontWeight: 'bold',
+                    }}
+                    text={Translator.prePayWarning}
+                  />
+                  <SimpleText
+                    style={{
+                      color: 'red',
+                      fontSize: '11px',
+                      fontWeight: 'bold',
+                    }}
+                    text={
+                      'مبلغ پیش‌ثبت‌نام: ' +
+                      formatPrice(props.plan.prePayAmount) +
+                      ' تومان'
+                    }
+                  />
+                </>
+              )}
+            <EqualTwoTextInputs style={{marginTop: '10px'}}>
+              <MyView style={{justifyContent: 'center'}}>
+                <SimpleText
+                  style={{...styles.BlueBold, ...styles.fontSize15}}
+                  text={formatPrice(props.plan.price)}
+                />
+                <SimpleText
+                  style={{...styles.BlueBold, ...styles.fontSize15}}
+                  text={' تومان'}
+                />
+              </MyView>
+              {props.onSelect !== undefined && (
+                <CommonButton
+                  onPress={() => props.onSelect()}
+                  theme={
+                    (props.plan.teachMode === 'semi_private' &&
+                      props.plan.shouldPrePay) ||
+                    !props.plan.needRegistryConfirmation
+                      ? 'orangeRed'
+                      : 'dark'
+                  }
+                  title={
+                    props.plan.teachMode === 'semi_private' &&
+                    props.plan.shouldPrePay
+                      ? 'پرداخت هزینۀ پیش ثبت‌نام'
+                      : props.plan.teachMode === 'semi_private' ||
+                        !props.plan.needRegistryConfirmation
+                      ? 'پرداخت و ثبت‌نام در کلاس'
+                      : 'درخواست پیش‌ثبت‌نام'
+                  }
+                />
+              )}
+            </EqualTwoTextInputs>
+          </MyView>
+        )}
+      </MyView>
     </CommonWebBox>
   );
 }

@@ -1,7 +1,6 @@
 import commonTranslator from '../../../translator/Common';
 
 const columns = [
-  {name: 'کاربر', selector: row => row.student.name},
   {
     name: 'بخش',
     selector: row =>
@@ -34,11 +33,6 @@ const columns = [
         : row.status === 'reject'
         ? commonTranslator.rejected
         : commonTranslator.unknow,
-    grow: 1,
-  },
-  {
-    name: 'بهترین ها',
-    selector: row => (row.isTop ? commonTranslator.yes : commonTranslator.no),
     grow: 1,
   },
   {

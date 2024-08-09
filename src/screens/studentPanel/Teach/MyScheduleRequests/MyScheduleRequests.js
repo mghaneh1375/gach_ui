@@ -58,7 +58,11 @@ function MyScheduleRequests(props) {
         return;
       }
       setRequests(res[0]);
-      setActiveLinks(res[0].filter(e => e.status === 'accept'));
+      setActiveLinks(
+        res[0].filter(
+          e => e.status === 'accept' || e.status === 'waitForPaySemiPrivate',
+        ),
+      );
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -138,7 +142,10 @@ function MyScheduleRequests(props) {
                     }}
                     key={index}
                     onPress={() => {
-                      e.shouldPay = Math.max(0, e.price - userMoney);
+                      e.shouldPay = Math.max(
+                        0,
+                        e.price - e.prePaid - userMoney,
+                      );
                       setUsedFromWallet(Math.min(userMoney, e.price));
                       setShowBasket(true);
                       setSelectedRequest(e);
@@ -178,6 +185,8 @@ function MyScheduleRequests(props) {
                 id={selectedRequest.id}
                 price={selectedRequest.price}
                 shouldPay={selectedRequest.shouldPay}
+                prePaid={selectedRequest.prePaid}
+                canUseOff={true}
                 off={offAmount}
                 userOff={userOff}
                 setLoading={new_status => dispatch({status: new_status})}

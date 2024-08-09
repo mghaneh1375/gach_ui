@@ -98,6 +98,21 @@ function List(props) {
           schedules.map((schedule, index) => {
             return (
               <Card
+                onWriteComment={async desc => {
+                  props.setLoading(true);
+                  const res = await generalRequest(
+                    routes.writeComments + schedule.teacher.id + '/teach',
+                    'post',
+                    {comment: desc},
+                    undefined,
+                    props.token,
+                  );
+                  props.setLoading(false);
+                  if (res !== null)
+                    showSuccess(
+                      'نظر شما با موفقیت ثبت گردید و بعد از تایید ادمین نمایش داده خواهد شد',
+                    );
+                }}
                 onReportClick={() => {
                   dispatch({selectedScheduleId: schedule.id});
                   props.setMode('report');
