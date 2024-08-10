@@ -23,7 +23,7 @@ function FilterItem(props) {
     for (let i = 0; i < props.item.subCats.length; i++) {
       tmp.push({
         status:
-          props.selected?.indexOf(props.item.subCats[i]) !== -1
+          props.selected && props.selected.indexOf(props.item.subCats[i]) !== -1
             ? 'checked'
             : 'unchecked',
         label: props.item.subCats[i],

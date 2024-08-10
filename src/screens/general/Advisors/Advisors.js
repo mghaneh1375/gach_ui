@@ -26,6 +26,7 @@ import SuccessTransaction from '../../../components/web/SuccessTransaction/Succe
 import commonTranslator from '../../../translator/Common';
 import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import Filter from './Filter';
+import Comment from '../../../components/web/Comment/Comment';
 
 function Advisors(props) {
   const useGlobalState = () => [
@@ -73,6 +74,9 @@ function Advisors(props) {
 
   const [offAmount, setOffAmount] = useState(0);
   const [userMoney, setUserMoney] = useState(state.user.user.money);
+
+  const [showComments, setShowComments] = useState(false);
+  const [selectedAdvisorForComment, setSelectedAdvisorForComment] = useState();
 
   const goToPayLocal = async advisorId => {
     let data = {};
@@ -346,171 +350,190 @@ function Advisors(props) {
                 )}
             </CommonWebBox>
           }
+          {!showComments && (
+            <PhoneView
+              style={{
+                ...styles.gap15,
+                ...styles.margin15,
+              }}>
+              {selectableItems !== undefined &&
+                selectableItems.map((elem, index) => {
+                  if (
+                    selectedAdvisor !== undefined &&
+                    elem.id !== selectedAdvisor
+                  )
+                    return;
 
-          <PhoneView
-            style={{
-              ...styles.gap15,
-              ...styles.margin15,
-            }}>
-            {selectableItems !== undefined &&
-              selectableItems.map((elem, index) => {
-                if (
-                  selectedAdvisor !== undefined &&
-                  elem.id !== selectedAdvisor
-                )
-                  return;
+                  let openReq = openRequests.find(e => e.advisorId === elem.id);
+                  let shouldPay =
+                    openReq !== undefined && openReq.shouldPay !== undefined
+                      ? openReq.shouldPay
+                      : undefined;
 
-                let openReq = openRequests.find(e => e.advisorId === elem.id);
-                let shouldPay =
-                  openReq !== undefined && openReq.shouldPay !== undefined
-                    ? openReq.shouldPay
-                    : undefined;
+                  let isMyAdvisor =
+                    myAdvisors !== undefined
+                      ? myAdvisors.find(eeee => eeee.id === elem.id) !==
+                        undefined
+                      : false;
 
-                let isMyAdvisor =
-                  myAdvisors !== undefined
-                    ? myAdvisors.find(eeee => eeee.id === elem.id) !== undefined
-                    : false;
+                  if (shouldPay !== undefined) {
+                    return (
+                      <Card
+                        isMyAdvisor={isMyAdvisor}
+                        hasOpenRequest={true}
+                        shouldPay={shouldPay}
+                        navigate={props.navigate}
+                        userMoney={Math.min(
+                          userMoney,
+                          Math.max(0, openReq.price - offAmount),
+                        )}
+                        offAmount={
+                          offAmount > 0
+                            ? Math.min(offAmount, openReq.price)
+                            : undefined
+                        }
+                        price={openReq.price}
+                        key={index}
+                        data={elem}
+                        onOffClick={() => {
+                          setSelectedAdvisor(elem.id);
+                          setShowOffCodePane(true);
+                        }}
+                        onPay={() => {
+                          goToPayLocal(elem.id);
+                        }}
+                        onCancel={async () => {
+                          dispatch({loading: true});
+                          let res = await generalRequest(
+                            routes.cancelAdvisorRequest + openReq.id,
+                            'delete',
+                            undefined,
+                            undefined,
+                            state.token,
+                          );
+                          dispatch({loading: false});
+                          if (res !== null) {
+                            showSuccess();
+                            let tmp = data.map(e => {
+                              if (e.id === elem.id) {
+                                e.answer = 'cancel';
+                                return e;
+                              }
+                              return e;
+                            });
+                            removeItems(openRequests, setOpenRequests, [
+                              openReq.id,
+                            ]);
+                            setData(tmp);
+                          }
+                        }}
+                      />
+                    );
+                  }
 
-                if (shouldPay !== undefined) {
+                  if (openReq !== undefined) {
+                    return (
+                      <Card
+                        isMyAdvisor={isMyAdvisor}
+                        navigate={props.navigate}
+                        onCancel={async () => {
+                          dispatch({loading: true});
+                          let res = await generalRequest(
+                            routes.cancelAdvisorRequest + openReq.id,
+                            'delete',
+                            undefined,
+                            undefined,
+                            state.token,
+                          );
+                          dispatch({loading: false});
+                          if (res !== null) {
+                            showSuccess();
+                            let tmp = data.map(e => {
+                              if (e.id === elem.id) {
+                                e.answer = 'cancel';
+                                return e;
+                              }
+                              return e;
+                            });
+                            removeItems(openRequests, setOpenRequests, [
+                              openReq.id,
+                            ]);
+                            setData(tmp);
+                          }
+                        }}
+                        hasOpenRequest={true}
+                        key={index}
+                        data={elem}
+                      />
+                    );
+                  }
+
                   return (
                     <Card
                       isMyAdvisor={isMyAdvisor}
-                      hasOpenRequest={true}
-                      shouldPay={shouldPay}
                       navigate={props.navigate}
-                      userMoney={Math.min(
-                        userMoney,
-                        Math.max(0, openReq.price - offAmount),
-                      )}
-                      offAmount={
-                        offAmount > 0
-                          ? Math.min(offAmount, openReq.price)
-                          : undefined
+                      hasOpenRequest={
+                        advisorPlans !== undefined ? true : openReq
                       }
-                      price={openReq.price}
                       key={index}
                       data={elem}
-                      onOffClick={() => {
+                      selected={elem.id === selectedAdvisor}
+                      seeComments={() => {
+                        setSelectedAdvisorForComment(elem.id);
+                        setShowComments(true);
+                      }}
+                      onSelect={async () => {
+                        let plans = fetchedPlans.find(
+                          e => e.advisorId === elem.id,
+                        );
                         setSelectedAdvisor(elem.id);
-                        setShowOffCodePane(true);
-                      }}
-                      onPay={() => {
-                        goToPayLocal(elem.id);
-                      }}
-                      onCancel={async () => {
-                        dispatch({loading: true});
-                        let res = await generalRequest(
-                          routes.cancelAdvisorRequest + openReq.id,
-                          'delete',
-                          undefined,
-                          undefined,
-                          state.token,
-                        );
-                        dispatch({loading: false});
-                        if (res !== null) {
-                          showSuccess();
-                          let tmp = data.map(e => {
-                            if (e.id === elem.id) {
-                              e.answer = 'cancel';
-                              return e;
-                            }
-                            return e;
+                        if (plans === undefined) {
+                          dispatch({loading: true});
+                          let res = await generalRequest(
+                            routes.getMyFinancePlans + elem.id,
+                            'get',
+                            undefined,
+                            'data',
+                            state.token,
+                          );
+
+                          dispatch({loading: false});
+                          if (res == null) return;
+                          let tmp = [];
+                          fetchedPlans.forEach(e => {
+                            tmp.push(e);
                           });
-                          removeItems(openRequests, setOpenRequests, [
-                            openReq.id,
-                          ]);
-                          setData(tmp);
+
+                          plans = {
+                            advisorId: elem.id,
+                            plans: res,
+                          };
+                          tmp.push(plans);
+                          setFetchedPlans(tmp);
                         }
+
+                        setAdvisorPlans(plans);
+                      }}
+                      onBackClick={() => {
+                        setAdvisorPlans(undefined);
+                        setSelectedAdvisor(undefined);
                       }}
                     />
                   );
-                }
-
-                if (openReq !== undefined) {
-                  return (
-                    <Card
-                      isMyAdvisor={isMyAdvisor}
-                      navigate={props.navigate}
-                      onCancel={async () => {
-                        dispatch({loading: true});
-                        let res = await generalRequest(
-                          routes.cancelAdvisorRequest + openReq.id,
-                          'delete',
-                          undefined,
-                          undefined,
-                          state.token,
-                        );
-                        dispatch({loading: false});
-                        if (res !== null) {
-                          showSuccess();
-                          let tmp = data.map(e => {
-                            if (e.id === elem.id) {
-                              e.answer = 'cancel';
-                              return e;
-                            }
-                            return e;
-                          });
-                          removeItems(openRequests, setOpenRequests, [
-                            openReq.id,
-                          ]);
-                          setData(tmp);
-                        }
-                      }}
-                      hasOpenRequest={true}
-                      key={index}
-                      data={elem}
-                    />
-                  );
-                }
-
-                return (
-                  <Card
-                    isMyAdvisor={isMyAdvisor}
-                    navigate={props.navigate}
-                    hasOpenRequest={advisorPlans !== undefined ? true : openReq}
-                    key={index}
-                    data={elem}
-                    selected={elem.id === selectedAdvisor}
-                    onSelect={async () => {
-                      let plans = fetchedPlans.find(
-                        e => e.advisorId === elem.id,
-                      );
-                      setSelectedAdvisor(elem.id);
-                      if (plans === undefined) {
-                        dispatch({loading: true});
-                        let res = await generalRequest(
-                          routes.getMyFinancePlans + elem.id,
-                          'get',
-                          undefined,
-                          'data',
-                          state.token,
-                        );
-
-                        dispatch({loading: false});
-                        if (res == null) return;
-                        let tmp = [];
-                        fetchedPlans.forEach(e => {
-                          tmp.push(e);
-                        });
-
-                        plans = {
-                          advisorId: elem.id,
-                          plans: res,
-                        };
-                        tmp.push(plans);
-                        setFetchedPlans(tmp);
-                      }
-
-                      setAdvisorPlans(plans);
-                    }}
-                    onBackClick={() => {
-                      setAdvisorPlans(undefined);
-                      setSelectedAdvisor(undefined);
-                    }}
-                  />
-                );
-              })}
-          </PhoneView>
+                })}
+            </PhoneView>
+          )}
+          {showComments && (
+            <Comment
+              onBackClick={() => setShowComments(false)}
+              defaultIsOpen={true}
+              canWriteComment={false}
+              refId={selectedAdvisorForComment}
+              section="advisor"
+              token={state.token}
+              setLoading={status => dispatch({loading: status})}
+            />
+          )}
 
           {advisorPlans !== undefined && (
             <MyView

@@ -263,27 +263,43 @@ function Card(props) {
         !props.hasOpenRequest &&
         state.token !== undefined &&
         state.token !== null && (
-          <CommonButton
-            onPress={() => props.onSelect()}
-            title={'درخواست مشاوره'}
-          />
+          <PhoneView style={{justifyContent: 'end'}}>
+            <CommonButton
+              theme={'dark'}
+              onPress={() => props.seeComments()}
+              title={'نظرات'}
+            />
+            <CommonButton
+              onPress={() => props.onSelect()}
+              title={'مشاهده بیشتر'}
+            />
+          </PhoneView>
         )}
       {props.isMyAdvisor &&
         (props.showMyAdvisor === undefined || props.showMyAdvisor) && (
-          <SimpleText
-            style={{
-              ...styles.marginLeft15,
-              ...styles.alignSelfEnd,
-              ...styles.BlueBold,
-              ...styles.cursor_pointer,
-              ...styles.fontSize15,
-              ...styles.red,
-            }}
-            onPress={() =>
-              isInApp ? props.navigate('/myAdvisor') : window.open('/myAdvisor')
-            }
-            text={'مشاور من - رفتن به پنل مشاوره'}
-          />
+          <PhoneView style={{justifyContent: 'end'}}>
+            <CommonButton
+              theme={'dark'}
+              onPress={() => props.seeComments()}
+              title={'نظرات'}
+            />
+            <SimpleText
+              style={{
+                ...styles.marginLeft15,
+                ...styles.alignSelfCenter,
+                ...styles.BlueBold,
+                ...styles.cursor_pointer,
+                ...styles.fontSize15,
+                ...styles.red,
+              }}
+              onPress={() =>
+                isInApp
+                  ? props.navigate('/myAdvisor')
+                  : window.open('/myAdvisor')
+              }
+              text={'مشاور من - رفتن به پنل مشاوره'}
+            />
+          </PhoneView>
         )}
 
       {props.shouldPay !== undefined && (

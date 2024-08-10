@@ -126,7 +126,6 @@ function Filter() {
 
   const setAllFilter = React.useCallback(() => {
     if (filters === undefined) return;
-
     if (!allAvailable || allActive) setSelected([]);
     dispatch({allFilter: allAvailable && allActive});
   }, [dispatch, allActive, filters, allAvailable]);
