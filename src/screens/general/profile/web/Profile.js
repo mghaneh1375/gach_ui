@@ -468,7 +468,9 @@ const Profile = props => {
                     {wantToTeach && (
                       <CommonWebBox
                         header={'تخصص\u200Cهای من برای تدریس (اختیاری)'}>
-                        <PhoneView style={{gap: '10px'}}>
+                        <PhoneView
+                          className={'mySpecialties'}
+                          style={{gap: '10px'}}>
                           {branches && (
                             <JustBottomBorderTextInput
                               style={{marginTop: 10}}
@@ -503,7 +505,7 @@ const Profile = props => {
                           )}
 
                           <JustBottomBorderTextInput
-                            style={{marginTop: 10}}
+                            style={{marginTop: 10, maxWidth: '100%'}}
                             isHalf={state.isInPhone ? undefined : true}
                             resultPane={true}
                             placeholder={commonTranslator.lesson}

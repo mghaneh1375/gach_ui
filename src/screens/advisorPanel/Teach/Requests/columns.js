@@ -44,6 +44,10 @@ const columns = [
         ? Translator.cancel
         : row.request.status === 'accept'
         ? Translator.accept
+        : row.request.status === 'waitForCap'
+        ? Translator.waitForCap
+        : row.request.status === 'waitForPaySemiPrivate'
+        ? Translator.waitForPaySemiPrivate
         : Translator.unknown,
     grow: 2,
     fontSize: 10,
@@ -51,6 +55,12 @@ const columns = [
   {
     name: 'کاربر درخواست دهنده',
     selector: row => row.request.student.name,
+    grow: 2,
+    fontSize: 10,
+  },
+  {
+    name: Translator.stdTeachRate,
+    selector: row => row.request.student.teachRate,
     grow: 2,
     fontSize: 10,
   },

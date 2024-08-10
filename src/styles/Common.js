@@ -544,7 +544,11 @@ export function PhoneView(props) {
 
   if (props.onClick !== undefined) viewProps.onClick = props.onClick;
 
-  return <MyView {...viewProps}>{props.children}</MyView>;
+  return (
+    <MyView className={props.className} {...viewProps}>
+      {props.children}
+    </MyView>
+  );
 }
 
 export function ShrinkView(props) {

@@ -13,6 +13,7 @@ import {StudentTableStructure, TableStructure} from '../TableStructure';
 import {PhoneView} from '../../../../../styles/Common';
 import Filter from '../ProSearch/Filter';
 import {useLocation} from 'react-router';
+import {login} from '../../../users/components/Utility';
 const queryString = require('query-string');
 
 function List(props) {
@@ -60,6 +61,21 @@ function List(props) {
             <CommonButton
               onPress={() => props.setMode('show')}
               title={translator.showRequest}
+              theme={'transparent'}
+            />
+            <CommonButton
+              title={'ورود'}
+              onPress={async () => {
+                let res = await login(
+                  props.setLoading,
+                  props.token,
+                  selected.student.id,
+                );
+                if (res) {
+                  toggleShowOpPopUp();
+                  window.location.href = '/';
+                }
+              }}
               theme={'transparent'}
             />
             {/* {props.isAdmin && (

@@ -92,8 +92,8 @@ function Filter() {
       });
 
     dispatch({loading: true});
-
-    setSelected(tmpArr);
+    // setSelected(tmpArr);
+    setSelected([]);
     state.onChangeFilter(tmpArr);
 
     setTimeout(() => {
@@ -183,9 +183,7 @@ function Filter() {
     <>
       {!isLargePage && (
         <Pressable
-          onPress={() => {
-            setShowFilterBox(true);
-          }}
+          onPress={() => setShowFilterBox(true)}
           style={{
             boxShadow: '0px 3px 16px 4px rgb(0 0 0 / 16%)',
             borderRadius: 10,
@@ -197,6 +195,7 @@ function Filter() {
             alignItems: 'stretch',
           }}>
           <SimpleTextIcon
+            onPress={() => setShowFilterBox(true)}
             textStyle={{
               ...styles.alignSelfCenter,
               ...styles.fontSize20,
