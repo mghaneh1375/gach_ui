@@ -17,24 +17,33 @@ import {
   faCheck,
   faClock,
   faInfo,
+  faUser,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
+import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 
 function Schedule(props) {
   const [showMore, setShowMore] = useState(false);
   return (
     <CommonWebBox title={props.plan.title} width={350}>
       <MyView style={{minHeight: '300px', gap: '5px'}}>
-        <SimpleText
-          style={{
-            ...styles.fontSize17,
-            ...styles.BlueBold,
-            ...styles.textCenter,
-            ...{marginBottom: '5px'},
-          }}
-          text={
-            props.plan.teachMode === 'private' ? 'کلاس خصوصی' : 'کلاس گروهی'
-          }
-        />
+        <PhoneView style={{position: 'relative', justifyContent: 'center'}}>
+          <SimpleFontIcon
+            style={{color: vars.ORANGE}}
+            parentStyle={{position: 'absolute', left: 0}}
+            kind="midSize"
+            icon={props.plan.teachMode === 'private' ? faUser : faUsers}
+          />
+          <SimpleText
+            style={{
+              ...styles.fontSize17,
+              ...styles.BlueBold,
+              ...styles.textCenter,
+              ...{marginBottom: '5px'},
+            }}
+            text={props.plan.title}
+          />
+        </PhoneView>
 
         {!showMore && (
           <>

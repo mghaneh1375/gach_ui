@@ -1,10 +1,9 @@
+import {faTasks} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
-import {style, MenuItemPhone, MenuItem} from '../style';
-import translator from '../../../../../translator/Common';
-import {faSchool, faTasks, faUsers} from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '../../../../../styles/Common';
+import {MenuItem, style} from '../style';
 import MenuItemRepeat from './MenuItemRepeat';
 
 function Teacher(props) {

@@ -1,26 +1,15 @@
+import {faBook, faSchool, faTasks} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
+import {globalStateContext} from '../../../../../App';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
-import {style, MenuItemPhone} from '../style';
-import translator from '../../../../../translator/Common';
-import {
-  faBook,
-  faCog,
-  faCreditCard,
-  faHistory,
-  faSchool,
-  faShop,
-  faShoppingCart,
-  faTicket,
-  faUsers,
-  faVideo,
-} from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '../../../../../styles/Common';
-import MenuItemRepeat from './MenuItemRepeat';
-import {SuperMenuItem} from './SuperMenuItem';
+import translator from '../../../../../translator/Common';
 import MobileLogout from '../MobileLogout';
-import {globalStateContext} from '../../../../../App';
+import {MenuItem, MenuItemPhone, style} from '../style';
+import MenuItemRepeat from './MenuItemRepeat';
 import MenuItemRepeatForPhone from './MenuItemRepeatForPhone';
+import {SuperMenuItem} from './SuperMenuItem';
 
 function AdvisorMenu(props) {
   const device = getDevice();
@@ -91,6 +80,14 @@ function AdvisorMenu(props) {
                 },
               ]}
             />
+            {props.hasTeacherAccess && (
+              <MenuItem
+                onClick={() => navigate('/myTasks')}
+                text={'آزمون های من (مخصوصا مصححین)'}
+                icon={faTasks}
+                selected={props.selected === 'myTasks'}
+              />
+            )}
           </>
         }
       />
@@ -165,6 +162,14 @@ function AdvisorMenu(props) {
                 },
               ]}
             />
+            {props.hasTeacherAccess && (
+              <MenuItemPhone
+                onClick={() => navigate('/myTasks')}
+                text={'آزمون های من (مخصوصا مصححین)'}
+                icon={faTasks}
+                selected={props.selected === 'myTasks'}
+              />
+            )}
           </>
         }
       />

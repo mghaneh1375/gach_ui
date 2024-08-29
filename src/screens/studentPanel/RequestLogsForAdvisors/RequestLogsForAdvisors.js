@@ -8,9 +8,11 @@ import CommonDataTable from '../../../styles/Common/CommonDataTable';
 import Translate from './Translate';
 import commonTranslator from '../../../translator/Common';
 import {showSuccess} from '../../../services/Utility';
+import {LargePopUp} from '../../../styles/Common/PopUp';
 
 function RequestLogsForAdvisors(props) {
   const navigate = props.navigate;
+  const [selectedRowId, setSelectedRowId] = useState();
 
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -42,6 +44,27 @@ function RequestLogsForAdvisors(props) {
     });
   }, [dispatch, state.token, navigate]);
 
+  const cancelRequest = React.useCallback(() => {
+    dispatch({loading: true});
+    Promise.all([
+      generalRequest(
+        routes.cancelAdvisorRequest + selectedRowId,
+        'delete',
+        undefined,
+        undefined,
+        state.token,
+      ),
+    ]).then(res => {
+      dispatch({loading: false});
+      if (res[0] != null) {
+        setData(data.filter(elem => elem.id !== selectedRowId));
+        setSelectedRowId(undefined);
+        showSuccess();
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedRowId]);
+
   useEffectOnce(() => {
     fetchData();
   });
@@ -55,23 +78,7 @@ function RequestLogsForAdvisors(props) {
         return (
           <CommonButton
             title={'لغو درخواست'}
-            onPress={async () => {
-              dispatch({loading: true});
-              let res = await generalRequest(
-                routes.cancelAdvisorRequest + row.id,
-                'delete',
-                undefined,
-                undefined,
-                state.token,
-              );
-              dispatch({loading: false});
-
-              if (res != null) {
-                let tmp = data.filter(elem => elem.id !== row.id);
-                setData(tmp);
-                showSuccess();
-              }
-            }}
+            onPress={() => setSelectedRowId(row.id)}
           />
         );
       },
@@ -116,6 +123,18 @@ function RequestLogsForAdvisors(props) {
           columns={columns}
           data={data}
         />
+      )}
+      {selectedRowId && (
+        <LargePopUp
+          btns={
+            <CommonButton
+              theme={'dark'}
+              title={'بله، درخواست مشاوره را حذف کن'}
+              onPress={() => cancelRequest()}
+            />
+          }
+          toggleShowPopUp={() => setSelectedRowId(undefined)}
+          title={'آیا از حذف درخواست مشاوره خود اطمینان دارید؟'}></LargePopUp>
       )}
     </CommonWebBox>
   );

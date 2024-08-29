@@ -22,7 +22,7 @@ const translator = {
   bankExam: 'آزمون‌های شخصی ساز',
   book: 'فروش کتاب',
   schoolQuiz: 'آزمون مدرسه ای',
-  classes: 'فروش دوره و کلاس',
+  classes: 'کلاس خصوصی',
   ravanExam: 'آزمون‌های روان شناسی',
   counseling: 'مشاوره',
   expired: 'منقضی شده',

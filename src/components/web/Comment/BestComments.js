@@ -11,14 +11,9 @@ function BestComments(props) {
       {props.bestComments && props.bestComments.length > 0 && (
         <MyView>
           <PhoneView style={{width: '100%', justifyContent: 'center'}}>
-            <Image
-              style={{
-                width: '400px',
-                height: '200px',
-                justifyContent: 'center',
-              }}
-              resizeMode="contain"
-              source={require('./../../../images/experience.jpg')}
+            <img
+              width={props.isInPhone ? '100%' : '800px'}
+              src={require('./../../../images/experience.jpg')}
             />
           </PhoneView>
           <PhoneView

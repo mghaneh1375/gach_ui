@@ -52,32 +52,27 @@ function List(props) {
           <PhoneView>
             {props.isAdmin &&
               (isInUpgradeMode || selected.section === 'upgradelevel') && (
-                <CommonButton
-                  title={translator.seeForm}
-                  onPress={() => window.open('/profile/' + selected.student.id)}
-                  theme={'transparent'}
-                />
+                <>
+                  <CommonButton
+                    title={translator.seeForm}
+                    onPress={() =>
+                      window.open('/profile/' + selected.student.id)
+                    }
+                    theme={'transparent'}
+                  />
+                  <CommonButton
+                    title={'ارتقا سطح'}
+                    onPress={() => props.setMode('changeLevel')}
+                    theme={'transparent'}
+                  />
+                </>
               )}
             <CommonButton
               onPress={() => props.setMode('show')}
               title={translator.showRequest}
               theme={'transparent'}
             />
-            <CommonButton
-              title={'ورود'}
-              onPress={async () => {
-                let res = await login(
-                  props.setLoading,
-                  props.token,
-                  selected.student.id,
-                );
-                if (res) {
-                  toggleShowOpPopUp();
-                  window.location.href = '/';
-                }
-              }}
-              theme={'transparent'}
-            />
+
             {/* {props.isAdmin && (
               <CommonButton
                 title={translator.showRecords}
@@ -85,20 +80,37 @@ function List(props) {
               />
             )} */}
             {props.isAdmin && (
-              <CommonButton
-                onPress={() =>
-                  closeRequest(
-                    {
-                      token: props.token,
-                      setLoading: props.setLoading,
-                    },
-                    selected.id,
-                    toggleShowOpPopUp,
-                  )
-                }
-                title={translator.closeRecords}
-                theme={'transparent'}
-              />
+              <>
+                <CommonButton
+                  title={'ورود'}
+                  onPress={async () => {
+                    let res = await login(
+                      props.setLoading,
+                      props.token,
+                      selected.student.id,
+                    );
+                    if (res) {
+                      toggleShowOpPopUp();
+                      window.location.href = '/';
+                    }
+                  }}
+                  theme={'transparent'}
+                />
+                <CommonButton
+                  onPress={() =>
+                    closeRequest(
+                      {
+                        token: props.token,
+                        setLoading: props.setLoading,
+                      },
+                      selected.id,
+                      toggleShowOpPopUp,
+                    )
+                  }
+                  title={translator.closeRecords}
+                  theme={'transparent'}
+                />
+              </>
             )}
           </PhoneView>
         </LargePopUp>

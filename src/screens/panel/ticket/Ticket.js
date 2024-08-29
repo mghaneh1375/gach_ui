@@ -7,6 +7,7 @@ import {addItem, editItem, isUserEditorAccess} from '../../../services/Utility';
 import {filter} from './components/List/Utility';
 import {useLocation} from 'react-router';
 import {MyView} from '../../../styles/Common';
+import ChangeLevel from './components/ChangeLevel';
 
 const queryString = require('query-string');
 
@@ -65,6 +66,14 @@ function Ticket(props) {
           setTickets={setTickets}
           token={state.token}
           setSelectedTicket={setSelectedTicket}
+        />
+      )}
+      {mode === 'changeLevel' && (
+        <ChangeLevel
+          setMode={setMode}
+          setLoading={setLoading}
+          token={state.token}
+          selectedUser={selectedTicket.student}
         />
       )}
       {mode === 'create' && (

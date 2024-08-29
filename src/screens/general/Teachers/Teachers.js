@@ -27,6 +27,7 @@ import Card from './Card';
 import Filter from './Filter';
 import Schedule from './Schedule';
 import Comment from '../../../components/web/Comment/Comment';
+import BestComments from '../../../components/web/Comment/BestComments';
 
 function Teachers(props) {
   const useGlobalState = () => [
@@ -43,6 +44,7 @@ function Teachers(props) {
   const [showOffCodePane, setShowOffCodePane] = useState();
   const [selectedTeacher, setSelectedTeacher] = useState();
   const [userOff, setUserOff] = useState();
+  const [bestComments, setBestComments] = useState();
 
   const [minAge, setMinAge] = useState(23);
   const [maxAge, setMaxAge] = useState(49);
@@ -71,6 +73,7 @@ function Teachers(props) {
       generalRequest(routes.getDistinctTeacherTags, 'get', undefined, 'data'),
       generalRequest(routes.fetchGrades, 'get', undefined, 'data'),
       generalRequest(routes.fetchBranches, 'get', undefined, 'data'),
+      generalRequest(routes.getTopComments + 'teach', 'get', undefined, 'data'),
     ]).then(res => {
       dispatch({loading: false});
 
@@ -79,12 +82,10 @@ function Teachers(props) {
         return;
       }
 
-      let tmp = res[1].map(elem => {
-        return {id: elem, item: elem};
-      });
-      tmp.push({id: 'all', item: 'همه'});
-
-      setTags(tmp);
+      setTags([
+        ...res[1].map(elem => ({id: elem, item: elem})),
+        {id: 'all', item: 'همه'},
+      ]);
 
       setMinAge(res[0].filters.minAge);
       setMaxAge(res[0].filters.maxAge);
@@ -98,6 +99,7 @@ function Teachers(props) {
         });
       });
       setLessons(tmpArr);
+      setBestComments(res[4]);
 
       setBranches([
         {id: 'all', item: 'همه'},
@@ -302,6 +304,11 @@ function Teachers(props) {
                     )}
                 </CommonWebBox>
               }
+
+              <BestComments
+                isInPhone={state.isInPhone}
+                bestComments={bestComments}
+              />
 
               <PhoneView
                 style={{

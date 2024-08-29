@@ -226,21 +226,23 @@ function Filter(props) {
                   justNum={true}
                   float={true}
                   onChangeText={e => setMark(e)}
-                  value={mark}
+                  value={state.answers[state.currIdx].stdAns === '' ? 0 : mark}
                 />
                 {mark !== undefined && descMark !== undefined && (
                   <SimpleText text={descMark} />
                 )}
-                <CommonButton
-                  parentStyle={{...styles.margin15}}
-                  onPress={() => {
-                    if (mark === undefined || mark.length === 0)
-                      showError('لطفا ابتدا نمره موردنظر خود را وارد نمایید');
-                    else setShowDescMarkPopUp(true);
-                  }}
-                  theme={'dark'}
-                  title={'اعمال نمره'}
-                />
+                {state.answers[state.currIdx].stdAns !== '' && (
+                  <CommonButton
+                    parentStyle={{...styles.margin15}}
+                    onPress={() => {
+                      if (mark === undefined || mark.length === 0)
+                        showError('لطفا ابتدا نمره موردنظر خود را وارد نمایید');
+                      else setShowDescMarkPopUp(true);
+                    }}
+                    theme={'dark'}
+                    title={'اعمال نمره'}
+                  />
+                )}
               </MyView>
             )}
           </MyView>

@@ -27,6 +27,8 @@ import commonTranslator from '../../../translator/Common';
 import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import Filter from './Filter';
 import Comment from '../../../components/web/Comment/Comment';
+import BestComments from '../../../components/web/Comment/BestComments';
+import {LargePopUp} from '../../../styles/Common/PopUp';
 
 function Advisors(props) {
   const useGlobalState = () => [
@@ -64,6 +66,7 @@ function Advisors(props) {
   const [showOffCodePane, setShowOffCodePane] = useState();
   const [selectedAdvisor, setSelectedAdvisor] = useState();
   const [userOff, setUserOff] = useState();
+  const [bestComments, setBestComments] = useState();
 
   const [min, setMin] = useState(10000);
   const [max, setMax] = useState(2000000);
@@ -101,6 +104,36 @@ function Advisors(props) {
     }
   };
 
+  const [selectedAdvisorPlanId, setSelectedAdvisorPlanId] = useState();
+
+  const sendRequestForAdvisor = React.useCallback(() => {
+    dispatch({loading: true});
+    Promise.all([
+      generalRequest(
+        routes.sendAdvisorAcceptanceRequest +
+          advisorPlans.advisorId +
+          '/' +
+          selectedAdvisorPlanId,
+        'post',
+        undefined,
+        'data',
+        state.token,
+      ),
+    ]).then(res => {
+      dispatch({loading: false});
+      if (res[0] !== null) {
+        addItem(openRequests, setOpenRequests, res[0]);
+        showSuccess(
+          'درخواست شما با موفقیت ثبت گردید و پس از بررسی مشاور نتیجه به اطلاع شما خواهد رسید',
+        );
+        setAdvisorPlans(undefined);
+        setSelectedAdvisor(undefined);
+        setSelectedAdvisorPlanId(undefined);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [advisorPlans?.advisorId, selectedAdvisorPlanId]);
+
   const fetchData = React.useCallback(() => {
     dispatch({loading: true});
     Promise.all(
@@ -112,6 +145,18 @@ function Advisors(props) {
               undefined,
               'data',
               undefined,
+            ),
+            generalRequest(
+              routes.getDistinctAdvisorsTags,
+              'get',
+              undefined,
+              'data',
+            ),
+            generalRequest(
+              routes.getTopComments + 'advisor',
+              'get',
+              undefined,
+              'data',
             ),
             generalRequest(
               routes.getMyAdvisors,
@@ -126,12 +171,6 @@ function Advisors(props) {
               undefined,
               'data',
               state.token,
-            ),
-            generalRequest(
-              routes.getDistinctAdvisorsTags,
-              'get',
-              undefined,
-              'data',
             ),
           ]
         : [
@@ -148,51 +187,44 @@ function Advisors(props) {
               undefined,
               'data',
             ),
+            generalRequest(
+              routes.getTopComments + 'advisor',
+              'get',
+              undefined,
+              'data',
+            ),
           ],
     ).then(res => {
       dispatch({loading: false});
+      if (res[0] == null || res[1] == null || res[2] == null) {
+        props.navigate('/');
+        return;
+      }
+
+      setTags([
+        ...res[1].map(elem => ({id: elem, item: elem})),
+        {id: 'all', item: 'همه'},
+      ]);
 
       if (state.token !== undefined && state.token !== null) {
-        if (res[1] == null || res[2] == null || res[3] == null) {
-          props.navigate('/');
-          return;
-        }
-
-        setMyAdvisors(res[1].length > 0 ? res[1] : undefined);
-        let tmp = res[3].map(elem => {
-          return {id: elem, item: elem};
-        });
-        tmp.push({id: 'all', item: 'همه'});
-
-        setTags(tmp);
+        setMyAdvisors(res[3].length > 0 ? res[3] : undefined);
 
         if (
-          res[2] !== null &&
-          res[2] !== undefined &&
-          res[2].length > 0 &&
-          res[2][0].userMoney !== undefined
+          res[4] !== null &&
+          res[4] !== undefined &&
+          res[4].length > 0 &&
+          res[4][0].userMoney !== undefined
         )
-          setUserMoney(res[2][0].userMoney);
+          setUserMoney(res[4][0].userMoney);
 
-        setOpenRequests(res[2]);
-      } else {
-        if (res[0] === null || res[1] == null) {
-          props.navigate('/');
-          return;
-        }
-        let tmp = res[1].map(elem => {
-          return {id: elem, item: elem};
-        });
-        tmp.push({id: 'all', item: 'همه'});
-
-        setTags(tmp);
+        setOpenRequests(res[4]);
       }
 
       setMax(res[0].filters.maxPrice);
       setMin(res[0].filters.minPrice);
       setMinAge(res[0].filters.minAge);
       setMaxAge(res[0].filters.maxAge);
-
+      setBestComments(res[2]);
       setData(res[0].data);
       setSelectableItems(res[0].data);
     });
@@ -351,177 +383,185 @@ function Advisors(props) {
             </CommonWebBox>
           }
           {!showComments && (
-            <PhoneView
-              style={{
-                ...styles.gap15,
-                ...styles.margin15,
-              }}>
-              {selectableItems !== undefined &&
-                selectableItems.map((elem, index) => {
-                  if (
-                    selectedAdvisor !== undefined &&
-                    elem.id !== selectedAdvisor
-                  )
-                    return;
+            <>
+              <BestComments
+                isInPhone={state.isInPhone}
+                bestComments={bestComments}
+              />
+              <PhoneView
+                style={{
+                  ...styles.gap15,
+                  ...styles.margin15,
+                }}>
+                {selectableItems !== undefined &&
+                  selectableItems.map((elem, index) => {
+                    if (
+                      selectedAdvisor !== undefined &&
+                      elem.id !== selectedAdvisor
+                    )
+                      return;
 
-                  let openReq = openRequests.find(e => e.advisorId === elem.id);
-                  let shouldPay =
-                    openReq !== undefined && openReq.shouldPay !== undefined
-                      ? openReq.shouldPay
-                      : undefined;
+                    let openReq = openRequests.find(
+                      e => e.advisorId === elem.id,
+                    );
+                    let shouldPay =
+                      openReq !== undefined && openReq.shouldPay !== undefined
+                        ? openReq.shouldPay
+                        : undefined;
 
-                  let isMyAdvisor =
-                    myAdvisors !== undefined
-                      ? myAdvisors.find(eeee => eeee.id === elem.id) !==
-                        undefined
-                      : false;
+                    let isMyAdvisor =
+                      myAdvisors !== undefined
+                        ? myAdvisors.find(eeee => eeee.id === elem.id) !==
+                          undefined
+                        : false;
 
-                  if (shouldPay !== undefined) {
+                    if (shouldPay !== undefined) {
+                      return (
+                        <Card
+                          isMyAdvisor={isMyAdvisor}
+                          hasOpenRequest={true}
+                          shouldPay={shouldPay}
+                          navigate={props.navigate}
+                          userMoney={Math.min(
+                            userMoney,
+                            Math.max(0, openReq.price - offAmount),
+                          )}
+                          offAmount={
+                            offAmount > 0
+                              ? Math.min(offAmount, openReq.price)
+                              : undefined
+                          }
+                          price={openReq.price}
+                          key={index}
+                          data={elem}
+                          onOffClick={() => {
+                            setSelectedAdvisor(elem.id);
+                            setShowOffCodePane(true);
+                          }}
+                          onPay={() => {
+                            goToPayLocal(elem.id);
+                          }}
+                          onCancel={async () => {
+                            dispatch({loading: true});
+                            let res = await generalRequest(
+                              routes.cancelAdvisorRequest + openReq.id,
+                              'delete',
+                              undefined,
+                              undefined,
+                              state.token,
+                            );
+                            dispatch({loading: false});
+                            if (res !== null) {
+                              showSuccess();
+                              let tmp = data.map(e => {
+                                if (e.id === elem.id) {
+                                  e.answer = 'cancel';
+                                  return e;
+                                }
+                                return e;
+                              });
+                              removeItems(openRequests, setOpenRequests, [
+                                openReq.id,
+                              ]);
+                              setData(tmp);
+                            }
+                          }}
+                        />
+                      );
+                    }
+
+                    if (openReq !== undefined) {
+                      return (
+                        <Card
+                          isMyAdvisor={isMyAdvisor}
+                          navigate={props.navigate}
+                          onCancel={async () => {
+                            dispatch({loading: true});
+                            let res = await generalRequest(
+                              routes.cancelAdvisorRequest + openReq.id,
+                              'delete',
+                              undefined,
+                              undefined,
+                              state.token,
+                            );
+                            dispatch({loading: false});
+                            if (res !== null) {
+                              showSuccess();
+                              let tmp = data.map(e => {
+                                if (e.id === elem.id) {
+                                  e.answer = 'cancel';
+                                  return e;
+                                }
+                                return e;
+                              });
+                              removeItems(openRequests, setOpenRequests, [
+                                openReq.id,
+                              ]);
+                              setData(tmp);
+                            }
+                          }}
+                          hasOpenRequest={true}
+                          key={index}
+                          data={elem}
+                        />
+                      );
+                    }
+
                     return (
                       <Card
                         isMyAdvisor={isMyAdvisor}
-                        hasOpenRequest={true}
-                        shouldPay={shouldPay}
                         navigate={props.navigate}
-                        userMoney={Math.min(
-                          userMoney,
-                          Math.max(0, openReq.price - offAmount),
-                        )}
-                        offAmount={
-                          offAmount > 0
-                            ? Math.min(offAmount, openReq.price)
-                            : undefined
+                        hasOpenRequest={
+                          advisorPlans !== undefined ? true : openReq
                         }
-                        price={openReq.price}
                         key={index}
                         data={elem}
-                        onOffClick={() => {
+                        selected={elem.id === selectedAdvisor}
+                        seeComments={() => {
+                          setSelectedAdvisorForComment(elem.id);
+                          setShowComments(true);
+                        }}
+                        onSelect={async () => {
+                          let plans = fetchedPlans.find(
+                            e => e.advisorId === elem.id,
+                          );
                           setSelectedAdvisor(elem.id);
-                          setShowOffCodePane(true);
-                        }}
-                        onPay={() => {
-                          goToPayLocal(elem.id);
-                        }}
-                        onCancel={async () => {
-                          dispatch({loading: true});
-                          let res = await generalRequest(
-                            routes.cancelAdvisorRequest + openReq.id,
-                            'delete',
-                            undefined,
-                            undefined,
-                            state.token,
-                          );
-                          dispatch({loading: false});
-                          if (res !== null) {
-                            showSuccess();
-                            let tmp = data.map(e => {
-                              if (e.id === elem.id) {
-                                e.answer = 'cancel';
-                                return e;
-                              }
-                              return e;
+                          if (plans === undefined) {
+                            dispatch({loading: true});
+                            let res = await generalRequest(
+                              routes.getMyFinancePlans + elem.id,
+                              'get',
+                              undefined,
+                              'data',
+                              state.token,
+                            );
+
+                            dispatch({loading: false});
+                            if (res == null) return;
+                            let tmp = [];
+                            fetchedPlans.forEach(e => {
+                              tmp.push(e);
                             });
-                            removeItems(openRequests, setOpenRequests, [
-                              openReq.id,
-                            ]);
-                            setData(tmp);
+
+                            plans = {
+                              advisorId: elem.id,
+                              plans: res,
+                            };
+                            tmp.push(plans);
+                            setFetchedPlans(tmp);
                           }
+
+                          setAdvisorPlans(plans);
+                        }}
+                        onBackClick={() => {
+                          setAdvisorPlans(undefined);
+                          setSelectedAdvisor(undefined);
                         }}
                       />
                     );
-                  }
-
-                  if (openReq !== undefined) {
-                    return (
-                      <Card
-                        isMyAdvisor={isMyAdvisor}
-                        navigate={props.navigate}
-                        onCancel={async () => {
-                          dispatch({loading: true});
-                          let res = await generalRequest(
-                            routes.cancelAdvisorRequest + openReq.id,
-                            'delete',
-                            undefined,
-                            undefined,
-                            state.token,
-                          );
-                          dispatch({loading: false});
-                          if (res !== null) {
-                            showSuccess();
-                            let tmp = data.map(e => {
-                              if (e.id === elem.id) {
-                                e.answer = 'cancel';
-                                return e;
-                              }
-                              return e;
-                            });
-                            removeItems(openRequests, setOpenRequests, [
-                              openReq.id,
-                            ]);
-                            setData(tmp);
-                          }
-                        }}
-                        hasOpenRequest={true}
-                        key={index}
-                        data={elem}
-                      />
-                    );
-                  }
-
-                  return (
-                    <Card
-                      isMyAdvisor={isMyAdvisor}
-                      navigate={props.navigate}
-                      hasOpenRequest={
-                        advisorPlans !== undefined ? true : openReq
-                      }
-                      key={index}
-                      data={elem}
-                      selected={elem.id === selectedAdvisor}
-                      seeComments={() => {
-                        setSelectedAdvisorForComment(elem.id);
-                        setShowComments(true);
-                      }}
-                      onSelect={async () => {
-                        let plans = fetchedPlans.find(
-                          e => e.advisorId === elem.id,
-                        );
-                        setSelectedAdvisor(elem.id);
-                        if (plans === undefined) {
-                          dispatch({loading: true});
-                          let res = await generalRequest(
-                            routes.getMyFinancePlans + elem.id,
-                            'get',
-                            undefined,
-                            'data',
-                            state.token,
-                          );
-
-                          dispatch({loading: false});
-                          if (res == null) return;
-                          let tmp = [];
-                          fetchedPlans.forEach(e => {
-                            tmp.push(e);
-                          });
-
-                          plans = {
-                            advisorId: elem.id,
-                            plans: res,
-                          };
-                          tmp.push(plans);
-                          setFetchedPlans(tmp);
-                        }
-
-                        setAdvisorPlans(plans);
-                      }}
-                      onBackClick={() => {
-                        setAdvisorPlans(undefined);
-                        setSelectedAdvisor(undefined);
-                      }}
-                    />
-                  );
-                })}
-            </PhoneView>
+                  })}
+              </PhoneView>
+            </>
           )}
           {showComments && (
             <Comment
@@ -536,52 +576,44 @@ function Advisors(props) {
           )}
 
           {advisorPlans !== undefined && (
-            <MyView
-              style={{
-                ...styles.gap15,
-                ...styles.margin15,
-              }}>
-              <CommonWebBox header={'برنامه\u200cها'} />
-              <PhoneView
-                style={
-                  state.isInPhone
-                    ? {...styles.justifyContentCenter}
-                    : {...styles.gap15}
-                }>
-                {advisorPlans.plans.map((elem, index) => {
-                  return (
-                    <FinancePlan
-                      onSelect={async () => {
-                        dispatch({loading: true});
-                        let res = await generalRequest(
-                          routes.sendAdvisorAcceptanceRequest +
-                            advisorPlans.advisorId +
-                            '/' +
-                            elem.id,
-                          'post',
-                          undefined,
-                          'data',
-                          state.token,
-                        );
-                        dispatch({loading: false});
-                        if (res !== null) {
-                          addItem(openRequests, setOpenRequests, res);
-
-                          showSuccess(
-                            'درخواست شما با موفقیت ثبت گردید و پس از بررسی مشاور نتیجه به اطلاع شما خواهد رسید',
-                          );
-                          setAdvisorPlans(undefined);
-                          setSelectedAdvisor(undefined);
-                        }
-                      }}
-                      isInPhone={state.isInPhone}
-                      key={index}
-                      plan={elem}
+            <>
+              <MyView
+                style={{
+                  ...styles.gap15,
+                  ...styles.margin15,
+                }}>
+                <CommonWebBox header={'برنامه\u200cها'} />
+                <PhoneView
+                  style={
+                    state.isInPhone
+                      ? {...styles.justifyContentCenter}
+                      : {...styles.gap15}
+                  }>
+                  {advisorPlans.plans.map((elem, index) => {
+                    return (
+                      <FinancePlan
+                        onSelect={() => setSelectedAdvisorPlanId(elem.id)}
+                        isInPhone={state.isInPhone}
+                        key={index}
+                        plan={elem}
+                      />
+                    );
+                  })}
+                </PhoneView>
+              </MyView>
+              {selectedAdvisorPlanId && (
+                <LargePopUp
+                  toggleShowPopUp={() => setSelectedAdvisorPlanId(undefined)}
+                  title="آیا از ارسال درخواست مشاوره اطمینان دارید؟ "
+                  btns={
+                    <CommonButton
+                      onPress={() => sendRequestForAdvisor()}
+                      theme={'dark'}
+                      title={'بله، ارسال درخواست'}
                     />
-                  );
-                })}
-              </PhoneView>
-            </MyView>
+                  }></LargePopUp>
+              )}
+            </>
           )}
         </>
       )}

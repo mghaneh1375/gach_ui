@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import {dispatchNotifContext, notifContext} from '../Context';
 import {routes} from '../../../../../API/APIRoutes';
-import {CommonWebBox, MyView} from '../../../../../styles/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  MyView,
+  PhoneView,
+} from '../../../../../styles/Common';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
 import Translator from '../../Translate';
 import {fetchAllNotifs} from '../Utility';
 import Ops from './Ops';
 import columns from './TableStructure';
+import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 
 function List(props) {
   const useGlobalState = () => [
@@ -15,26 +21,27 @@ function List(props) {
   ];
 
   const [state, dispatch] = useGlobalState();
-  const [isWorking, setIsWorking] = useState(false);
   const [showOp, setShowOp] = useState(false);
+  const [from, setFrom] = useState(Date.now() - 2592000000);
+  const [to, setTo] = useState();
 
   const fetchData = React.useCallback(() => {
-    if (isWorking || state.notifs !== undefined) return;
-
-    setIsWorking(true);
     props.setLoading(true);
 
-    Promise.all([fetchAllNotifs(props.token, props.sendVia)]).then(res => {
-      props.setLoading(false);
-      if (res[0] === null) return props.navigate('/');
-      dispatch({notifs: res[0]});
-      setIsWorking(false);
-    });
-  }, [isWorking, state.notifs, dispatch, props]);
+    Promise.all([fetchAllNotifs(props.token, props.sendVia, from, to)]).then(
+      res => {
+        props.setLoading(false);
+        if (res[0] === null) return props.navigate('/');
+        dispatch({notifs: res[0]});
+      },
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [from, to]);
 
   React.useEffect(() => {
     if (state.notifs === undefined) fetchData();
-  }, [state.notifs, fetchData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.notifs]);
 
   const handleOp = (idx, row) => {
     dispatch({selectedNotif: state.notifs[idx]});
@@ -54,17 +61,34 @@ function List(props) {
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         {state.notifs !== undefined && (
-          <CommonDataTable
-            removeUrl={routes.removeNotif}
-            handleOp={handleOp}
-            setLoading={props.setLoading}
-            columns={columns}
-            data={state.notifs}
-            token={props.token}
-            setData={newData => {
-              dispatch({notifs: newData});
-            }}
-          />
+          <>
+            <PhoneView style={{gap: '10px'}}>
+              <JustBottomBorderDatePicker
+                value={from}
+                setter={setFrom}
+                placeholder={'تاریخ آغاز فیلتر'}
+                subText={'تاریخ آغاز فیلتر'}
+              />
+              <JustBottomBorderDatePicker
+                value={to}
+                setter={setTo}
+                placeholder={'تاریخ پایان فیلتر'}
+                subText={'تاریخ پایان فیلتر'}
+              />
+            </PhoneView>
+            <CommonButton onPress={() => fetchData()} title={'اعمال فیلتر'} />
+            <CommonDataTable
+              removeUrl={routes.removeNotif}
+              handleOp={handleOp}
+              setLoading={props.setLoading}
+              columns={columns}
+              data={state.notifs}
+              token={props.token}
+              setData={newData => {
+                dispatch({notifs: newData});
+              }}
+            />
+          </>
         )}
       </CommonWebBox>
     </MyView>

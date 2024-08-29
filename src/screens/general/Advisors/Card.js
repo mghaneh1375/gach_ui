@@ -23,6 +23,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import QuizItemCard from '../../../components/web/QuizItemCard';
 import {FontIcon} from '../../../styles/Common/FontIcon';
+import {LargePopUp} from '../../../styles/Common/PopUp';
 
 function Card(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
@@ -35,6 +36,8 @@ function Card(props) {
   React.useEffect(() => {
     setPic(props.data.pic);
   }, [props.data.pic]);
+
+  const [showConfirmationMessage, setShowConfirmationMessage] = useState(false);
 
   return (
     <CommonWebBox
@@ -345,7 +348,7 @@ function Card(props) {
           <PhoneView style={{...styles.alignSelfEnd}}>
             <CommonButton
               theme={'orangeRed'}
-              onPress={() => props.onCancel()}
+              onPress={() => setShowConfirmationMessage(true)}
               title={'انصراف از درخواست'}
             />
 
@@ -360,6 +363,22 @@ function Card(props) {
             />
           </PhoneView>
         </>
+      )}
+
+      {showConfirmationMessage && (
+        <LargePopUp
+          toggleShowPopUp={() => setShowConfirmationMessage(false)}
+          title={'آیا از حذف درخواست مشاوره خود اطمینان دارید؟'}
+          btns={
+            <CommonButton
+              onPress={() => {
+                props.onCancel();
+                setShowConfirmationMessage(false);
+              }}
+              theme={'dark'}
+              title={'بله، انصراف از درخواست'}
+            />
+          }></LargePopUp>
       )}
 
       {props.setRate !== undefined && (
@@ -410,7 +429,7 @@ function Card(props) {
           />
           <SimpleText
             style={{...styles.red, ...styles.cursor_pointer}}
-            onPress={() => props.onCancel()}
+            onPress={() => setShowConfirmationMessage(true)}
             text={'انصراف از درخواست'}
           />
         </EqualTwoTextInputs>

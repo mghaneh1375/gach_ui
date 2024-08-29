@@ -248,8 +248,8 @@ const Profile = props => {
                       user={user}
                       setLoading={setLoading}
                       states={states}
-                      grades={grades}
-                      branches={branches}
+                      grades={branches}
+                      branches={grades}
                       schools={schools}
                       accesses={props.user.accesses}
                     />

@@ -4,6 +4,9 @@ const Translate = {
   rejected: 'تایید نشده',
   accepted: 'تایید شده',
   answerAt: 'تاریخ تعیین وضعیت',
+  student: 'نام دانش آموز',
+  title: 'عنوان بسته',
+  price: 'هزینه',
 };
 
 export default Translate;

@@ -237,7 +237,7 @@ function List(props) {
             )}
         </CommonWebBox>
       )}
-      <BestComments bestComments={bestComments} />
+      <BestComments isInPhone={isInPhone} bestComments={bestComments} />
       <MyView>
         <SimpleText
           style={{

@@ -1,19 +1,19 @@
-import React, {useState, useRef} from 'react';
+import {faCheck, faInfo, faRemove} from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import {dispatchStateContext, globalStateContext} from '../../../App';
+import {showSuccess} from '../../../services/Utility';
 import {CommonButton, CommonWebBox, PhoneView} from '../../../styles/Common';
 import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import Translate from './Translate';
-import commonTranslator from '../../../translator/Common';
-import {showSuccess} from '../../../services/Utility';
 import {FontIcon} from '../../../styles/Common/FontIcon';
-import {faCheck, faInfo, faRemove} from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../../styles/Common/Styles';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import FinancePlan from '../../general/Advisors/FinancePlan';
 import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
+import {LargePopUp} from '../../../styles/Common/PopUp';
+import {styles} from '../../../styles/Common/Styles';
+import commonTranslator from '../../../translator/Common';
+import FinancePlan from '../../general/Advisors/FinancePlan';
+import Translate from './Translate';
 
 function MyRequests(props) {
   const navigate = props.navigate;
@@ -72,7 +72,7 @@ function MyRequests(props) {
 
         if (
           filter === 'inProgress' &&
-          (e.status === 'rejected' ||
+          (e.status === 'reject' ||
             (e.status === 'accept' && e.paid !== undefined))
         )
           return false;
@@ -85,7 +85,7 @@ function MyRequests(props) {
   const columns = [
     {
       name: 'عملیات',
-      cell: (row, index, column, id) => {
+      cell: row => {
         if (row.status !== 'pending') return <></>;
 
         return (
@@ -162,8 +162,18 @@ function MyRequests(props) {
       center: true,
     },
     {
-      name: Translate.advisor,
+      name: Translate.student,
       selector: row => row.name,
+      grow: 1,
+    },
+    {
+      name: Translate.title,
+      selector: row => row.title,
+      grow: 1,
+    },
+    {
+      name: Translate.price,
+      selector: row => row.price,
       grow: 1,
     },
     {
@@ -184,7 +194,7 @@ function MyRequests(props) {
       grow: 1,
     },
     {
-      name: Translate.statusAt,
+      name: Translate.answerAt,
       selector: row => row.answerAt,
       grow: 1,
       center: true,
