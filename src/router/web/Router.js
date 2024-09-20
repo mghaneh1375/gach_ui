@@ -151,6 +151,7 @@ export default function WebRouter() {
             path="admin/teach/transactions"
             element={<WebStructue page="allTeachTransactions" />}
           />
+          <Route path="exchanges" element={<WebStructue page="exchanges" />} />
           <Route
             path="myScheduleRequests"
             element={<WebStructue page="myScheduleRequests" />}

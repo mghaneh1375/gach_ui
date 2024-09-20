@@ -250,6 +250,7 @@ const translator = {
   badges: 'مدال\u200cها',
   levels: 'سطوح',
   points: 'امتیازات',
+  exchanges: 'تبدیلات ایکس پول',
   dailyAdv: 'تبلیغات روزانه',
   level: 'مقطع',
   successOffCode: 'کد تخفیف موردنظر با موفقیت اعمال گردید',

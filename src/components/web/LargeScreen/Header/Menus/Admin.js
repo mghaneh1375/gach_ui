@@ -105,6 +105,10 @@ function AdminMenu(props) {
               text: translator.dailyAdv,
               url: '/dailyAdv',
             },
+            {
+              text: translator.exchanges,
+              url: '/exchanges',
+            },
           ]}
         />
         <SuperMenuItem
@@ -460,6 +464,10 @@ function AdminMenu(props) {
           {
             text: translator.dailyAdv,
             url: '/dailyAdv',
+          },
+          {
+            text: translator.exchanges,
+            url: '/exchanges',
           },
         ]}
       />

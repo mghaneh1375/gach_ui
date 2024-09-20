@@ -180,6 +180,7 @@ const RunEscapeQuiz = lazy(() =>
   import('./studentPanel/RunEscapeQuiz/RunEscapeQuiz'),
 );
 const Ranking = lazy(() => import('./general/OnlineStanding/Ranking'));
+const Exchanges = lazy(() => import('./panel/Exchange/Exchange'));
 const Badges = lazy(() => import('./panel/Badge/Badge'));
 const Points = lazy(() => import('./panel/Point/Point'));
 const Levels = lazy(() => import('./panel/Level/Level'));
@@ -418,6 +419,9 @@ const WebStructue = props => {
                   )}
                   {props.page === 'generalStats' && (
                     <GeneralStats navigate={navigate} />
+                  )}
+                  {props.page === 'exchanges' && (
+                    <Exchanges navigate={navigate} />
                   )}
                   {props.page === 'badges' && <Badges navigate={navigate} />}
                   {props.page === 'points' && <Points navigate={navigate} />}
