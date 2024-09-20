@@ -87,6 +87,7 @@ const Profile = props => {
   const [selectableLessons, setSelectableLessons] = useState([]);
   const [iryscTeachPercent, setIryscTeachPercent] = useState();
   const [iryscAdvicePercent, setIryscAdvicePercent] = useState();
+  const [userLevel, setUserLevel] = useState();
 
   React.useEffect(() => {
     if (user !== undefined || isWorking) return;
@@ -132,6 +133,17 @@ const Profile = props => {
         setWantToAdvice(props.user.user.wantToAdvice);
       }
       setIsAdvisor(isAdvisor);
+      Promise.all([
+        generalRequest(
+          routes.getMyCurrLevel,
+          'get',
+          undefined,
+          'data',
+          props.token,
+        ),
+      ]).then(res => {
+        if (res[0] !== null) setUserLevel(res[0]);
+      });
     }
   }, [props, isWorking, user, dispatch, navigate, params]);
 
@@ -621,6 +633,7 @@ const Profile = props => {
                   accesses={props.user.accesses}
                   token={props.token}
                   user={user}
+                  userLevel={userLevel}
                   isAdmin={isAdmin}
                   navigate={navigate}
                   setLoading={setLoading}

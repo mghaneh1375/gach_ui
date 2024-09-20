@@ -15,6 +15,7 @@ import {styles} from '../../../../styles/Common/Styles';
 import UploadFile from '../../../../components/web/UploadFile';
 import {routes} from '../../../../API/APIRoutes';
 import {fetchUser, setCacheItem} from '../../../../API/User';
+import {Slider} from '@material-ui/core';
 
 const UpdatePic = props => {
   const [pic, setPic] = useState(undefined);
@@ -136,6 +137,38 @@ const UpdatePic = props => {
           <SimpleText text={'کد معرفی شما:   '} />
           <SimpleText text={props.user.invitationCode} />
         </EqualTwoTextInputs>
+
+        {props.userLevel && (
+          <MyView style={{width: '80%'}}>
+            <SimpleText
+              style={{marginBottom: '40px'}}
+              text={'سطح فعلی شما: ' + props.userLevel.name}
+            />
+            <Slider
+              max={props.userLevel.maxPoint}
+              min={props.userLevel.minPoint}
+              value={props.userLevel.point}
+              valueLabelDisplay={'on'}
+              color="secondary"
+              marks={[
+                {
+                  value: props.userLevel.minPoint,
+                  label: props.userLevel.minPoint,
+                },
+                {
+                  value: props.userLevel.maxPoint,
+                  label: props.userLevel.maxPoint,
+                },
+              ]}
+            />
+            <a
+              href="https://www.irysc.com/%d8%b1%d8%a7%d9%87%d9%86%d9%85%d8%a7%db%8c-%da%af%da%86-%d8%b3%d9%81%db%8c%d8%af-%d8%a2%db%8c%d8%b1%db%8c%d8%b3%da%a9/%d8%a7%d9%85%d8%aa%db%8c%d8%a7%d8%b2-%d9%85%d8%af%d8%a7%d9%84-%da%af%da%86-%d8%b3%d9%81%db%8c%d8%af/"
+              style={{textAlign: 'center', fontFamily: 'IRANSans'}}>
+              برای مشاهده امتیاز هر فعالیت اینجا رو کلیک کن
+            </a>
+          </MyView>
+        )}
+
         <CommonButton
           onPress={() => props.navigate('/upgrade')}
           title={'درخواست ارتفا سطح'}

@@ -57,7 +57,7 @@ function Comment(props) {
       ],
       [
         {id: false, item: commonTranslator.all},
-        {id: true, item: 'تنها برترین ها'},
+        {id: true, item: 'تنها برترین\u200cها'},
       ],
     ],
     [],
@@ -450,8 +450,8 @@ function Comment(props) {
                   theme={'transparent'}
                   title={
                     selectedRow.isTop
-                      ? 'حذف از برترین ها'
-                      : 'افزودن به برترین ها'
+                      ? 'حذف از برترین\u200cها'
+                      : 'افزودن به برترین\u200cها'
                   }
                   onPress={() => toggleIsTop()}
                 />

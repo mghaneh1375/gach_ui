@@ -47,12 +47,14 @@ export function LargePopUp(props) {
         style={modal.box}
         child={
           <MyView>
-            <TextIcon
-              style={{...modal.marginBottom20, ...modal.padding0}}
-              onPress={() => props.toggleShowPopUp()}
-              text={props.title}
-              icon={faClose}
-            />
+            {props.toggleShowPopUp && (
+              <TextIcon
+                style={{...modal.marginBottom20, ...modal.padding0}}
+                onPress={() => props.toggleShowPopUp()}
+                text={props.title}
+                icon={faClose}
+              />
+            )}
             {props.children}
             <PhoneView style={{...styles.marginTop20}}>
               {props.btns}

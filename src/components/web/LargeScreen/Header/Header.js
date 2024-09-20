@@ -1,5 +1,15 @@
-import React, {useState, useRef} from 'react';
+import {
+  faAngleUp,
+  faBell,
+  faGift,
+  faVideo,
+} from '@fortawesome/free-solid-svg-icons';
+import React, {useRef, useState} from 'react';
 import {TouchableOpacity} from 'react-native';
+import {logout} from '../../../../API/User';
+import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {Device} from '../../../../models/Device';
+import {getDevice, getWidthHeight} from '../../../../services/Utility';
 import {
   EqualTwoTextInputs,
   MyView,
@@ -8,17 +18,15 @@ import {
   TextLink,
 } from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {style} from './style';
-import {faAngleUp, faBell, faGift} from '@fortawesome/free-solid-svg-icons';
-import {getDevice, getWidthHeight} from '../../../../services/Utility';
-import {Device} from '../../../../models/Device';
-import {logout} from '../../../../API/User';
-import commonTranslator from '../../../../translator/Common';
-import newAlertsKeyVals from './NewAlertsKeyVals';
-import UserTinyPic from '../UserTinyPic';
 import {styles} from '../../../../styles/Common/Styles';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
 import vars from '../../../../styles/root';
+import commonTranslator from '../../../../translator/Common';
+import UserTinyPic from '../UserTinyPic';
+import newAlertsKeyVals from './NewAlertsKeyVals';
+import {style} from './style';
+import {generalRequest} from '../../../../API/Utility';
+import {routes} from '../../../../API/APIRoutes';
+import DailyAdv from './DailyAdv';
 
 const Header = props => {
   const isApp = getDevice().indexOf(Device.App) !== -1;
@@ -34,6 +42,7 @@ const Header = props => {
   const [showNotif, setShowNotif] = useState(false);
   const [pic, setPic] = useState('url(../../../../images/slider.png)');
   const [newAlerts, setNewAlerts] = useState();
+  const [srcDailyAdv, setSrcDailyAdv] = useState();
 
   React.useEffect(() => {
     setNewAlerts(props.newAlerts);
@@ -248,7 +257,27 @@ const Header = props => {
               />
             </MyView>
           )}
-
+          {props.canRequestForAdv !== undefined &&
+            (props.canRequestForAdv === 'true' ||
+              props.canRequestForAdv === true) && (
+              <MyView style={style.Header_NOTIF}>
+                <SimpleFontIcon
+                  onPress={async () => {
+                    props.setLoading(true);
+                    const res = await generalRequest(
+                      routes.getRandAdv,
+                      'get',
+                      undefined,
+                      'data',
+                      props.token,
+                    );
+                    props.setLoading(false);
+                    if (res !== null) setSrcDailyAdv(res);
+                  }}
+                  icon={faVideo}
+                />
+              </MyView>
+            )}
           <MyView style={style.Header_NOTIF}>
             <SimpleFontIcon
               onPress={async () => {
@@ -333,6 +362,13 @@ const Header = props => {
             )}
           </MyView>
         </PhoneView>
+        {srcDailyAdv && (
+          <DailyAdv
+            src={srcDailyAdv}
+            setLoading={props.setLoading}
+            token={props.token}
+          />
+        )}
       </PhoneView>
     );
   }

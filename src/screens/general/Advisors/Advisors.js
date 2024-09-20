@@ -528,7 +528,7 @@ function Advisors(props) {
                           setSelectedAdvisor(elem.id);
                           if (plans === undefined) {
                             dispatch({loading: true});
-                            let res = await generalRequest(
+                            const res = await generalRequest(
                               routes.getMyFinancePlans + elem.id,
                               'get',
                               undefined,
@@ -545,7 +545,7 @@ function Advisors(props) {
 
                             plans = {
                               advisorId: elem.id,
-                              plans: res,
+                              plans: res.data,
                             };
                             tmp.push(plans);
                             setFetchedPlans(tmp);

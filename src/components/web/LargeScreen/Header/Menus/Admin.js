@@ -89,6 +89,22 @@ function AdminMenu(props) {
               text: translator.teachReportTags,
               url: '/basic/teachTagsReport',
             },
+            {
+              text: translator.badges,
+              url: '/badges',
+            },
+            {
+              text: translator.levels,
+              url: '/levels',
+            },
+            {
+              text: translator.points,
+              url: '/points',
+            },
+            {
+              text: translator.dailyAdv,
+              url: '/dailyAdv',
+            },
           ]}
         />
         <SuperMenuItem
@@ -428,6 +444,22 @@ function AdminMenu(props) {
           {
             text: translator.questionReportTags,
             url: '/basic/questionReports',
+          },
+          {
+            text: translator.badges,
+            url: '/badges',
+          },
+          {
+            text: translator.levels,
+            url: '/levels',
+          },
+          {
+            text: translator.points,
+            url: '/points',
+          },
+          {
+            text: translator.dailyAdv,
+            url: '/dailyAdv',
           },
         ]}
       />

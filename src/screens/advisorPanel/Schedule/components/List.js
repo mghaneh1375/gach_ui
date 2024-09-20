@@ -158,7 +158,11 @@ function List(props) {
                       : true,
                   );
             props.setLoading(false);
-            if (res != null) dispatch({schedules: res});
+            if (res != null) {
+              if (props.studentId === undefined)
+                dispatch({schedules: res.items});
+              else dispatch({schedules: res.items, student: res.student});
+            }
           }}
         />
       </PhoneView>

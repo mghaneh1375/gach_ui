@@ -236,12 +236,15 @@ function MenuItemRepeat(props) {
         icon={faCog}
         selected={props.selected === 'ticket'}
       />
-      <MenuItem
-        onClick={() => navigate('/myComments')}
-        text={translator.myComments}
-        icon={faComments}
-        selected={props.selected === 'myComments'}
-      />
+      {(props.excludes === undefined ||
+        props.excludes.indexOf('comments') === -1) && (
+        <MenuItem
+          onClick={() => navigate('/myComments')}
+          text={translator.myComments}
+          icon={faComments}
+          selected={props.selected === 'myComments'}
+        />
+      )}
       {props.child}
     </div>
   );

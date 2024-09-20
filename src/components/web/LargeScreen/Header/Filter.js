@@ -103,7 +103,7 @@ function Filter() {
     setFilters([
       {
         subCats: tmpArr,
-        label: 'تگ ها',
+        label: 'تگ\u200cها',
       },
     ]);
     setSelectedKindTag(lbl);

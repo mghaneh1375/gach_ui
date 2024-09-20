@@ -1,4 +1,4 @@
-import React, {useState, lazy, Suspense} from 'react';
+import React, {useState, lazy, Suspense, useMemo, useEffect} from 'react';
 
 import {
   MinFullHeightView,
@@ -12,7 +12,7 @@ import Home from './general/home/Home';
 const Login = lazy(() => import('./general/login/Login'));
 const WebLogin = lazy(() => import('./general/login/web/Login'));
 const WebProfile = lazy(() => import('./general/profile/web/Profile'));
-import {isUserEditorAccess} from '../services/Utility';
+import {getToday, isUserEditorAccess} from '../services/Utility';
 
 import 'react-notifications-component/dist/theme.css';
 import {ReactNotifications} from 'react-notifications-component';
@@ -107,6 +107,9 @@ const TeachReports = lazy(() =>
   import('./panel/Teach/TeachReport/TeachReports'),
 );
 const TeachSchedules = lazy(() => import('./panel/Teach/Schedules/Schedules'));
+const TeacherProfile = lazy(() =>
+  import('./advisorPanel/Profile/TeacherProfile'),
+);
 const MyTeachSchedule = lazy(() =>
   import('./advisorPanel/Teach/Schedule/MyTeachSchedule'),
 );
@@ -141,6 +144,9 @@ const MyQuizzes = lazy(() =>
   import('./studentPanel/MyQuizzes/school/MyQuizzes'),
 );
 const MyComments = lazy(() => import('./studentPanel/Comment/MyComments'));
+const CommentsAboutMe = lazy(() =>
+  import('./studentPanel/Comment/CommentsAboutMe'),
+);
 const Advisors = lazy(() => import('./general/Advisors/Advisors'));
 const AllTeachers = lazy(() => import('./general/Teachers/Teachers'));
 const RequestLogsForAdvisors = lazy(() =>
@@ -174,6 +180,10 @@ const RunEscapeQuiz = lazy(() =>
   import('./studentPanel/RunEscapeQuiz/RunEscapeQuiz'),
 );
 const Ranking = lazy(() => import('./general/OnlineStanding/Ranking'));
+const Badges = lazy(() => import('./panel/Badge/Badge'));
+const Points = lazy(() => import('./panel/Point/Point'));
+const Levels = lazy(() => import('./panel/Level/Level'));
+const DailyAdv = lazy(() => import('./panel/DailyAdv/DailyAdv'));
 const MyFinancePlans = lazy(() =>
   import('./advisorPanel/MyFinancePlans/MyFinancePlans'),
 );
@@ -195,11 +205,47 @@ const WebStructue = props => {
   ];
 
   const [state, dispatch] = useGlobalState();
-
   const [allowRenderPage, setAllowRenderPage] = useState(false);
   const includeFilterMenu = ['buy', 'quiz'];
   const excludeBottomNav = ['buy'];
   const [isWorking, setIsWorking] = useState(false);
+  const [canRequestForAdv, setCanRequestForAdv] = useState(
+    window.localStorage.getItem('can_request_for_adv'),
+  );
+
+  useEffect(() => {
+    setCanRequestForAdv(window.localStorage.getItem('can_request_for_adv'));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [window.localStorage]);
+
+  const [lastFetchDailyAdv, today] = useMemo(
+    () => [window.localStorage.getItem('last_fetch_daily_adv'), getToday()],
+    [],
+  );
+
+  const fetchCanReq = React.useCallback(() => {
+    window.localStorage.setItem('can_request_for_adv', undefined);
+    Promise.all([
+      generalRequest(
+        routes.canReqForAdv,
+        'get',
+        undefined,
+        'data',
+        state.token,
+      ),
+    ]).then(res => {
+      if (res[0] != null) {
+        window.localStorage.setItem('last_fetch_daily_adv', today);
+        window.localStorage.setItem('can_request_for_adv', res[0]);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.token]);
+
+  useEffect(() => {
+    if (state.token && today !== lastFetchDailyAdv) fetchCanReq();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastFetchDailyAdv, state.token]);
 
   React.useEffect(() => {
     setAllowRenderPage(state.user !== undefined);
@@ -308,6 +354,7 @@ const WebStructue = props => {
                   props.page !== 'allSchools' &&
                   props.page !== 'rankingList' && (
                     <Header
+                      canRequestForAdv={canRequestForAdv}
                       pic={state.user.user.pic}
                       name={
                         state.user.user.firstName +
@@ -372,6 +419,12 @@ const WebStructue = props => {
                   {props.page === 'generalStats' && (
                     <GeneralStats navigate={navigate} />
                   )}
+                  {props.page === 'badges' && <Badges navigate={navigate} />}
+                  {props.page === 'points' && <Points navigate={navigate} />}
+                  {props.page === 'levels' && <Levels navigate={navigate} />}
+                  {props.page === 'dailyAdv' && (
+                    <DailyAdv navigate={navigate} />
+                  )}
                   {props.page === 'settlementRequests' && (
                     <SettlementRequests navigate={navigate} />
                   )}
@@ -381,8 +434,14 @@ const WebStructue = props => {
                   {props.page === 'myComments' && (
                     <MyComments navigate={navigate} />
                   )}
+                  {props.page === 'commentsAboutMe' && (
+                    <CommentsAboutMe navigate={navigate} />
+                  )}
                   {props.page === 'allTeachTransactions' && (
                     <AllTeachTransactions navigate={navigate} />
+                  )}
+                  {props.page === 'teacherProfile' && (
+                    <TeacherProfile navigate={navigate} />
                   )}
                   {props.page === 'notif' && (
                     <SingleNotif navigate={navigate} />

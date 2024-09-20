@@ -24,13 +24,12 @@ function Attach(props) {
   ];
   const [state, dispatch] = useGlobalState();
 
-  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
-    useFilePicker({
-      maxFileSize: 6,
-      accept: ['image/*', 'pdf', 'docx', 'ppt', 'pptx', 'video/*', 'zip'],
-      readAs: 'DataURL',
-      multiple: true,
-    });
+  const [openFileSelector, {filesContent, remove}] = useFilePicker({
+    maxFileSize: 8,
+    accept: ['image/*', '.pdf', '.docx', '.ppt', '.pptx', 'video/*', '.zip'],
+    readAs: 'DataURL',
+    multiple: true,
+  });
 
   const removeUploadedAttach = async filename => {
     props.setLoading(true);

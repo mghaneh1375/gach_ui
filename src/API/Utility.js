@@ -301,7 +301,6 @@ export const fileRequest = async (
     try {
       if (mandatoryFields !== undefined)
         additionalData = preProcess(additionalData, mandatoryFields);
-
       data.append('json', JSON.stringify(additionalData));
     } catch (err) {
       throw 'preProccess err';

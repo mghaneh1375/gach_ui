@@ -37,7 +37,7 @@ const columns = [
     grow: 1,
   },
   {
-    name: 'بهترین ها',
+    name: 'بهترین\u200cها',
     selector: row => (row.isTop ? commonTranslator.yes : commonTranslator.no),
     grow: 1,
   },

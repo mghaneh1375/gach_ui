@@ -48,4 +48,40 @@ const columns = [
   },
 ];
 
+export const aboutMeColumns = [
+  {
+    name: 'بخش',
+    selector: row =>
+      row.section === 'teach'
+        ? commonTranslator.teach
+        : row.section === 'advisor'
+        ? commonTranslator.advisor
+        : row.section === 'content'
+        ? commonTranslator.contents
+        : commonTranslator.unknow,
+    grow: 1,
+  },
+  {
+    name: 'تاریخ ایجاد',
+    selector: row => row.createdAt,
+    grow: 1,
+  },
+  {
+    name: 'منتخب',
+    selector: row => (row.marked ? commonTranslator.yes : commonTranslator.no),
+    grow: 1,
+  },
+  {
+    name: 'در مورد',
+    selector: row => row.ref,
+    grow: 3,
+  },
+  {
+    name: 'نظر',
+    selector: row =>
+      row.comment.length > 30 ? row.comment.substr(0, 30) + '...' : row.comment,
+    grow: 3,
+  },
+];
+
 export default columns;

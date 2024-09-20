@@ -140,6 +140,10 @@ export default function WebRouter() {
             element={<WebStructue page="myComments" />}
           />
           <Route
+            path="commentsAboutMe"
+            element={<WebStructue page="commentsAboutMe" />}
+          />
+          <Route
             path="all-comments"
             element={<WebStructue page="allComments" />}
           />
@@ -250,6 +254,10 @@ export default function WebRouter() {
             path="/shopConfiguration"
             element={<WebStructue page="shopConfiguration" />}
           />
+          <Route path="/points" element={<WebStructue page="points" />} />
+          <Route path="/levels" element={<WebStructue page="levels" />} />
+          <Route path="/badges" element={<WebStructue page="badges" />} />
+          <Route path="/dailyAdv" element={<WebStructue page="dailyAdv" />} />
           <Route
             path="/validateCertification/:certId"
             element={<WebStructue page="validateCert" />}
@@ -307,6 +315,10 @@ export default function WebRouter() {
             exact
             path="/gift/:mode"
             element={<WebStructue page="gift" />}
+          />
+          <Route
+            path="/teacher-public-profile/:teacherId"
+            element={<WebStructue page="teacherProfile" />}
           />
           <Route
             path="/schoolUsers"

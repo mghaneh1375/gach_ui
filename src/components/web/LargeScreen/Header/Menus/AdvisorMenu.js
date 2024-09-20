@@ -1,4 +1,9 @@
-import {faBook, faSchool, faTasks} from '@fortawesome/free-solid-svg-icons';
+import {
+  faBook,
+  faComment,
+  faSchool,
+  faTasks,
+} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import {globalStateContext} from '../../../../../App';
 import {Device} from '../../../../../models/Device';
@@ -22,7 +27,7 @@ function AdvisorMenu(props) {
   if (isLargePage) {
     return (
       <MenuItemRepeat
-        excludes={['certs', 'mySchool']}
+        excludes={['certs', 'mySchool', 'comments']}
         navigate={props.navigate}
         selected={props.selected}
         child={
@@ -83,11 +88,30 @@ function AdvisorMenu(props) {
             {props.hasTeacherAccess && (
               <MenuItem
                 onClick={() => navigate('/myTasks')}
-                text={'آزمون های من (مخصوصا مصححین)'}
+                text={'آزمون\u200cهای من (مخصوصا مصححین)'}
                 icon={faTasks}
                 selected={props.selected === 'myTasks'}
               />
             )}
+            <SuperMenuItem
+              text={'نظرات'}
+              icon={faComment}
+              selected={
+                props.selected === 'myComments' ||
+                props.selected === 'commentsAboutMe'
+              }
+              navigate={navigate}
+              items={[
+                {
+                  text: translator.myComments,
+                  url: '/myComments',
+                },
+                {
+                  text: translator.commentsAboutMe,
+                  url: '/commentsAboutMe',
+                },
+              ]}
+            />
           </>
         }
       />
@@ -165,7 +189,7 @@ function AdvisorMenu(props) {
             {props.hasTeacherAccess && (
               <MenuItemPhone
                 onClick={() => navigate('/myTasks')}
-                text={'آزمون های من (مخصوصا مصححین)'}
+                text={'آزمون\u200cهای من (مخصوصا مصححین)'}
                 icon={faTasks}
                 selected={props.selected === 'myTasks'}
               />

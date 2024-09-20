@@ -18,7 +18,7 @@ function Teachers(props) {
     dispatch({loading: true});
     Promise.all([
       generalRequest(
-        routes.distinctTeachersContents,
+        routes.distinctTeachersContentsForAdmin,
         'get',
         undefined,
         'data',
@@ -49,7 +49,8 @@ function Teachers(props) {
             <Teacher
               key={index}
               token={state.token}
-              name={e}
+              name={e.teacher}
+              nid={e.nid}
               setLoading={setLoading}
             />
           );

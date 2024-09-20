@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image} from 'react-native';
+import {Image, Pressable} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {globalStateContext} from '../../../App';
 import Circle from '../../../components/web/Circle';
@@ -105,7 +105,10 @@ function Card(props) {
             minWidth: state.isInPhone ? '100%' : '520px',
             flexDirection: state.isInPhone ? 'column' : 'row',
           }}>
-          <MyView
+          <Pressable
+            onPress={() =>
+              window.open('/teacher-public-profile/' + props.data.id, '_blank')
+            }
             style={{
               border: state.isInPhone ? 'unset' : '4px solid',
               borderColor: vars.ORANGE,
@@ -124,7 +127,7 @@ function Card(props) {
               }}
               source={pic}
             />
-          </MyView>
+          </Pressable>
 
           <MyView
             style={{

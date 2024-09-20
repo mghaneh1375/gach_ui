@@ -151,6 +151,10 @@ export function convertTimestampToJustDate(unix_timestamp) {
   return moment.unix(unix_timestamp / 1000).format('jYYYY/jMM/jDD');
 }
 
+export function getToday() {
+  return moment.unix(Date.now() / 1000).format('jYYYY/jMM/jDD');
+}
+
 export function getCurrTime() {
   return moment
     .unix(Date.now() / 1000)
