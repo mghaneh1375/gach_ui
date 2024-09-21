@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {
   CommonButton,
@@ -37,8 +37,10 @@ function Schedule(props) {
   const [selectedExams, setSelectedExams] = useState([]);
   const [duration, setDuration] = useState();
   const [startAt, setStartAt] = useState();
-
-  const canEdit = props.userId === undefined;
+  const [canEdit, setCanEdit] = useState();
+  useEffect(() => {
+    setCanEdit(props.userId === undefined);
+  }, [props.userId]);
 
   const fetchData = React.useCallback(() => {
     Promise.all([
@@ -92,7 +94,7 @@ function Schedule(props) {
                   return;
                 }
                 props.setLoading(true);
-                let res = await addItemToDay(
+                const res = await addItemToDay(
                   {
                     tag: selectedTag,
                     duration: duration,
@@ -109,6 +111,8 @@ function Schedule(props) {
                       .label,
                     duration: duration,
                     startAt: startAt,
+                    owner: true,
+                    id: res,
                   });
                   setSelectedDay();
                 }
@@ -225,9 +229,7 @@ function Schedule(props) {
                           props.token,
                         );
                         props.setLoading(false);
-                        if (res != null) {
-                          callBack();
-                        }
+                        if (res != null) callBack();
                       }
                 }
               />

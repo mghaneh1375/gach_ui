@@ -259,9 +259,7 @@ export const generalUpdate = (
 };
 
 export const removeItems = (items, setItems, removedIds) => {
-  let allItems = items;
-  allItems = allItems.filter(elem => removedIds.indexOf(elem.id) === -1);
-  setItems(allItems);
+  setItems(items.filter(elem => removedIds.indexOf(elem.id) === -1));
 };
 
 export const changeText = (text, setter) => {

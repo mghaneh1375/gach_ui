@@ -110,11 +110,11 @@ function Day(props) {
                 undefined
             )
               return;
+
             return (
               <Box
                 remove={
                   props.onRemove === undefined ||
-                  e.owner === undefined ||
                   !e.owner ||
                   (e.canEdit !== undefined && !e.canEdit)
                     ? undefined

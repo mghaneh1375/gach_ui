@@ -100,13 +100,13 @@ function Box(props) {
                     : props.item.additional === undefined
                     ? vars.ORANGE_RED
                     : vars.DARK_BLUE,
-                padding: props?.item?.lesson.length > 15 ? 3 : 7,
+                padding: props?.item?.lesson?.length > 15 ? 3 : 7,
               }}>
               <SimpleText
                 style={{
                   color: 'white',
-                  fontSize: props?.item?.lesson.length > 15 ? 9 : 13,
-                  paddingTop: props?.item?.lesson.length > 15 ? 4 : 0,
+                  fontSize: props?.item?.lesson?.length > 15 ? 9 : 13,
+                  paddingTop: props?.item?.lesson?.length > 15 ? 4 : 0,
                 }}
                 text={props?.item?.lesson}
               />
