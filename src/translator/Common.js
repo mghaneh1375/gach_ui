@@ -191,6 +191,7 @@ const translator = {
   questionReport: 'گزارش خرابی سوال',
   logout: 'خروج',
   profile: 'پروفایل',
+  profileConfig: 'موارد قابل نمایش در پروفایل',
   hello: 'سلام',
   seeInfo: 'مشاهده اطلاعات',
   settlementRequests: 'درخواست\u200cهای تسویه',

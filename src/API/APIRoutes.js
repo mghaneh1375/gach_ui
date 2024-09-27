@@ -36,6 +36,8 @@ export const routes = {
   setUsername: 'user/setNewUsername',
   changePass: 'user/changePassword/',
   logout: 'user/logout',
+  getProfileConfig: 'profile/public/getMyConfig',
+  setProfileConfig: 'profile/public/setMyConfig',
   settlementRequests: 'admin/settled/getSettledRequests',
   setSettlementRequestStatus: 'admin/settled/changeSettlementRequestStatus/',
   adminLogin: 'admin/user/signIn/',

@@ -190,6 +190,9 @@ const MyFinancePlans = lazy(() =>
   import('./advisorPanel/MyFinancePlans/MyFinancePlans'),
 );
 const ChatRoom = lazy(() => import('./studentPanel/Chat/ChatRoom'));
+const ProfileConfig = lazy(() =>
+  import('./studentPanel/ProfileConfig/ProfileConfig'),
+);
 const Schedule = lazy(() => import('./advisorPanel/Schedule/Schedule'));
 const Progress = lazy(() => import('./advisorPanel/Progress/Progress'));
 const Shop = lazy(() => import('./panel/Config/Configuration/Shop'));
@@ -499,6 +502,9 @@ const WebStructue = props => {
                     )}
                   {props.page === 'myPackages' && (
                     <Packages isInMyMode={true} navigate={navigate} />
+                  )}
+                  {props.page === 'profileConfig' && (
+                    <ProfileConfig navigate={navigate} />
                   )}
                   {props.page === 'contentFinalExam' && (
                     <RunQuiz

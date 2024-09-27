@@ -15,9 +15,7 @@ function StudentMenu(props) {
   const navigate = props.navigate;
 
   const useGlobalState = () => [React.useContext(globalStateContext)];
-
   const [state] = useGlobalState();
-
   const isApp = device.indexOf(Device.App) !== -1;
 
   if (!state.isInPhone) {

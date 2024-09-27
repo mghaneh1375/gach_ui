@@ -157,6 +157,10 @@ export default function WebRouter() {
             element={<WebStructue page="publicBadges" />}
           />
           <Route
+            path="profile-config"
+            element={<WebStructue page="profileConfig" />}
+          />
+          <Route
             path="myScheduleRequests"
             element={<WebStructue page="myScheduleRequests" />}
           />
