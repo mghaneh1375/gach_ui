@@ -20,6 +20,12 @@ const columns = [
     fontSize: 10,
   },
   {
+    name: translator.award,
+    selector: row => row.award,
+    grow: 2,
+    fontSize: 10,
+  },
+  {
     name: translator.priority,
     selector: row => row.priority,
     grow: 2,

@@ -182,6 +182,7 @@ const RunEscapeQuiz = lazy(() =>
 const Ranking = lazy(() => import('./general/OnlineStanding/Ranking'));
 const Exchanges = lazy(() => import('./panel/Exchange/Exchange'));
 const Badges = lazy(() => import('./panel/Badge/Badge'));
+const PublicBadges = lazy(() => import('./general/Badge/Badge'));
 const Points = lazy(() => import('./panel/Point/Point'));
 const Levels = lazy(() => import('./panel/Level/Level'));
 const DailyAdv = lazy(() => import('./panel/DailyAdv/DailyAdv'));
@@ -422,6 +423,9 @@ const WebStructue = props => {
                   )}
                   {props.page === 'exchanges' && (
                     <Exchanges navigate={navigate} />
+                  )}
+                  {props.page === 'publicBadges' && (
+                    <PublicBadges navigate={navigate} />
                   )}
                   {props.page === 'badges' && <Badges navigate={navigate} />}
                   {props.page === 'points' && <Points navigate={navigate} />}

@@ -44,10 +44,21 @@ export function LargePopUp(props) {
   return (
     <MyView style={modal.container}>
       <CommonWebBox
+        header={props.header}
+        btn={
+          props.toggleShowPopUp ? (
+            <TextIcon
+              style={{...modal.marginBottom20, ...modal.padding0}}
+              onPress={() => props.toggleShowPopUp()}
+              text={props.title}
+              icon={faClose}
+            />
+          ) : undefined
+        }
         style={modal.box}
         child={
           <MyView>
-            {props.toggleShowPopUp && (
+            {props.toggleShowPopUp && !props.header && (
               <TextIcon
                 style={{...modal.marginBottom20, ...modal.padding0}}
                 onPress={() => props.toggleShowPopUp()}

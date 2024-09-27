@@ -1,24 +1,14 @@
+import {faIdBadge, faMedal, faSun} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
+import {globalStateContext} from '../../../../../App';
 import {Device} from '../../../../../models/Device';
 import {getDevice} from '../../../../../services/Utility';
-import {style, MenuItemPhone} from '../style';
-import translator from '../../../../../translator/Common';
-import {
-  faHome,
-  faHistory,
-  faQuestion,
-  faCreditCard,
-  faDashboard,
-  faShoppingCart,
-  faVideo,
-  faSun,
-  faBandage,
-} from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '../../../../../styles/Common';
-import MenuItemRepeat from './MenuItemRepeat';
-import {globalStateContext} from '../../../../../App';
-import {SuperMenuItem} from './SuperMenuItem';
+import translator from '../../../../../translator/Common';
 import MobileLogout from '../MobileLogout';
+import {MenuItemPhone, style} from '../style';
+import MenuItemRepeat from './MenuItemRepeat';
+import MenuItemRepeatForPhone from './MenuItemRepeatForPhone';
 
 function StudentMenu(props) {
   const device = getDevice();
@@ -55,140 +45,26 @@ function StudentMenu(props) {
           zIndex: state.isRightMenuVisible ? 4 : 'unset',
         },
       }}>
-      <MenuItemPhone
-        text={translator.home}
-        icon={faHome}
-        onClick={() => {
-          navigate(isApp ? 'Home' : '/');
-          props.toggleRightMenuVisibility();
-        }}
-        selected={props.selected === 'home'}
-      />
-      <MenuItemPhone
-        onClick={() => {
-          navigate(isApp ? 'Home' : '/dashboard');
-          props.toggleRightMenuVisibility();
-        }}
-        selected={props.selected === 'dashboard'}
-        text={translator.dashboard}
-        icon={faDashboard}
-      />
-      <SuperMenuItem
-        text={translator.quiz}
-        icon={faShoppingCart}
-        selected={props.selected === 'book'}
-        navigate={navigate}
-        items={[
-          {
-            text: translator.buyQuiz,
-            url: '/buy',
-          },
-          {
-            text: translator.makeQuiz,
-            url: '/makeQuiz',
-          },
-          {
-            text: translator.myQuizes,
-            url: '/myIRYSCQuizzes',
-          },
-          {
-            text: translator.myCustomQuizess,
-            url: '/myCustomQuizzes',
-          },
-        ]}
-      />
-      <SuperMenuItem
-        text={translator.packages}
-        icon={faVideo}
-        selected={
-          props.selected === 'packages' || props.selected === 'myPackages'
+      <MenuItemRepeatForPhone
+        excludes={['certs', 'mySchool']}
+        navigate={props.navigate}
+        selected={props.selected}
+        child={
+          <>
+            <MenuItemPhone
+              onClick={() => navigate(isApp ? 'Home' : '/myCerts')}
+              selected={props.selected === 'myCerts'}
+              text={translator.myCerts}
+              icon={faSun}
+            />
+            <MenuItemPhone
+              onClick={() => navigate('/all-badges')}
+              selected={props.selected === 'publicBadges'}
+              text={translator.badges}
+              icon={faMedal}
+            />
+          </>
         }
-        navigate={navigate}
-        items={[
-          {
-            text: translator.buyPackages,
-            url: '/packages',
-          },
-          {
-            text: translator.myPackages,
-            url: '/myPackages',
-          },
-        ]}
-      />
-
-      <SuperMenuItem
-        text={'مشاور'}
-        icon={faBandage}
-        navigate={navigate}
-        items={[
-          {
-            text: state.user?.user?.hasAdvisor
-              ? translator.myAdvisor
-              : undefined,
-            url: '/myAdvisor',
-          },
-          {
-            text: 'برنامه‌ی روزانه‌ی من',
-            url: '/myLifeStyle',
-          },
-          {
-            text: translator.advisors,
-            url: '/advisors',
-          },
-          {
-            text: state.user?.user?.hasAdvisor
-              ? translator.mySchedules
-              : undefined,
-            url: '/mySchedules',
-          },
-          {
-            text: state.user?.user?.hasAdvisor ? translator.quizes : undefined,
-            url: '/myAdvisor/quiz',
-          },
-          {
-            text: translator.requestsLog,
-            url: '/requestLogsForAdvisors',
-          },
-        ]}
-      />
-
-      <MenuItemPhone
-        onClick={() => {
-          navigate(isApp ? 'Home' : '/charge');
-          props.toggleRightMenuVisibility();
-        }}
-        selected={props.selected === 'charge'}
-        text={translator.charge}
-        icon={faCreditCard}
-      />
-
-      <MenuItemPhone
-        onClick={() => {
-          navigate(isApp ? 'Home' : '/myCerts');
-          props.toggleRightMenuVisibility();
-        }}
-        selected={props.selected === 'myCerts'}
-        text={translator.myCerts}
-        icon={faSun}
-      />
-
-      <MenuItemPhone
-        onClick={() => {
-          navigate(isApp ? 'Home' : '/financeHistory');
-          props.toggleRightMenuVisibility();
-        }}
-        selected={props.selected === 'financeHistory'}
-        text={translator.history}
-        icon={faHistory}
-      />
-      <MenuItemPhone
-        onClick={() => {
-          navigate(isApp ? 'Home' : '/ticket');
-          props.toggleRightMenuVisibility();
-        }}
-        selected={props.selected === 'ticket'}
-        text={translator.support}
-        icon={faQuestion}
       />
       <MobileLogout name={props.name} navigate={props.navigate} />
     </MyView>

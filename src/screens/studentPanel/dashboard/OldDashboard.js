@@ -1,16 +1,4 @@
-import {
-  faExchange,
-  faEye,
-  faIdCard,
-  faWallet,
-} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {routes} from '../../../API/APIRoutes';
-import {fetchUser, setCacheItem} from '../../../API/User';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import CopyBox from '../../../components/CopyBox';
-import {formatPrice, showError, showSuccess} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -19,16 +7,22 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import {styles} from '../../../styles/Common/Styles';
-import vars from '../../../styles/root';
-import commonTranslator from '../../../translator/Common';
-import ProgressCard from '../‌MyOffs/ProgressCard/ProgressCard';
-import DashboardCard from './DashboardCard/DashboardCard';
-import ExchangeOffer from './ExchangeOffer';
 import {Translate} from './Translate';
+import DashboardCard from './DashboardCard/DashboardCard';
+import vars from '../../../styles/root';
+import {faExchange, faEye, faIdCard} from '@fortawesome/free-solid-svg-icons';
+import {dispatchStateContext, globalStateContext} from '../../../App';
 import {getMySummary} from './Utility';
+import commonTranslator from '../../../translator/Common';
+import {formatPrice, showError, showSuccess} from '../../../services/Utility';
+import {LargePopUp} from '../../../styles/Common/PopUp';
+import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
+import {generalRequest} from '../../../API/Utility';
+import {routes} from '../../../API/APIRoutes';
+import {fetchUser, setCacheItem} from '../../../API/User';
+import ProgressCard from '../‌MyOffs/ProgressCard/ProgressCard';
+import {styles} from '../../../styles/Common/Styles';
+import CopyBox from '../../../components/CopyBox';
 
 function Dashboard(props) {
   const useGlobalState = () => [
@@ -36,9 +30,9 @@ function Dashboard(props) {
     React.useContext(dispatchStateContext),
   ];
 
-  const [exchangeOffers, setExchangeOffers] = useState();
   const [data, setData] = useState();
   const [exchangeCoinToMoneyRate, setExchangeCoinToMoneyRate] = useState();
+  const [exchangeMoneyToCoinRate, setExchangeMoneyToCoinRate] = useState();
   const [createOff, setCreateOff] = useState(false);
   const [state, dispatch] = useGlobalState();
   const navigate = props.navigate;
@@ -54,12 +48,18 @@ function Dashboard(props) {
       }
       setData(res[0]);
       setExchangeCoinToMoneyRate(res[0].coinToMoneyExchange);
+      setExchangeMoneyToCoinRate(res[0].moneyToCoinExchange);
     });
   }, [navigate, state.token, dispatch]);
 
   const [showExchangeCoinToMoneyPopup, setShowExchangeCoinToMoneyPopup] =
     useState(false);
 
+  const [showExchangeMoneyToCoinPopup, setShowExchangeMoneyToCoinPopup] =
+    useState(false);
+
+  const [wantedCoinToExchange, setWantedCoinToExchange] = useState();
+  const [wantedMoneyToExchange, setWantedMoneyToExchange] = useState();
   const [mode, setMode] = useState('coin');
   const [offCodeAmount, setOffCodeAmount] = useState();
   const [code, setCode] = useState();
@@ -228,52 +228,141 @@ function Dashboard(props) {
       )}
       {showExchangeCoinToMoneyPopup && (
         <LargePopUp
-          header={'موجودی فعلی شما: ' + data.coin + ' ' + commonTranslator.coin}
-          toggleShowPopUp={() => setShowExchangeCoinToMoneyPopup(false)}>
-          <PhoneView style={{gap: '10px'}}>
-            {exchangeOffers &&
-              exchangeOffers.map((e, index) => {
-                return (
-                  <ExchangeOffer
-                    onPress={async () => {
-                      dispatch({loading: true});
-                      const res = await generalRequest(
-                        routes.getReward + e.id,
-                        'post',
-                        undefined,
-                        undefined,
-                        state.token,
-                      );
-                      if (res !== null) {
-                        if (e.section !== 'تبدیل به پول')
-                          showSuccess(
-                            'کدتخفیف شما با موفقیت ساخته شد. برای رویت کدهای تخفیف خود از قسمت تخفیف و جایزه اقدام فرمایید',
-                          );
-                        else showSuccess();
-
-                        await setCacheItem('user', undefined);
-                        await fetchUser(state.token, user => {
-                          dispatch({loading: false});
-                          let tmp = data;
-                          tmp.coin = user.user.coin;
-                          tmp.money = user.user.money;
-                          setData(data);
-                        });
-                        setShowExchangeCoinToMoneyPopup(false);
-                      } else {
-                        dispatch({loading: false});
-                      }
-                    }}
-                    key={index}
-                    offer={e}
-                  />
+          toggleShowPopUp={() => setShowExchangeCoinToMoneyPopup(false)}
+          btns={
+            <CommonButton
+              theme={'dark'}
+              onPress={async () => {
+                dispatch({loading: true});
+                let res = await generalRequest(
+                  routes.exchange,
+                  'post',
+                  {
+                    amount: wantedCoinToExchange,
+                    mode: 'coin_to_money',
+                  },
+                  undefined,
+                  state.token,
                 );
-              })}
-          </PhoneView>
+                if (res !== null) {
+                  await setCacheItem('user', undefined);
+                  await fetchUser(state.token, user => {
+                    dispatch({loading: false});
+                    showSuccess();
+                    let tmp = data;
+                    tmp.coin = user.user.coin;
+                    tmp.money = user.user.money;
+                    setData(data);
+                  });
+                  setShowExchangeCoinToMoneyPopup(false);
+                } else {
+                  dispatch({loading: false});
+                }
+              }}
+              title={'انجام معامله'}
+            />
+          }>
+          <EqualTwoTextInputs>
+            <SimpleText
+              text={
+                'نرخ تبدیل ' +
+                commonTranslator.coin +
+                ' به پول: ' +
+                'هر ایکس پول معادل است با ' +
+                formatPrice(exchangeCoinToMoneyRate) +
+                ' ' +
+                commonTranslator.priceUnit
+              }
+            />
+            <SimpleText
+              text={
+                'موجودی فعلی شما: ' + data.coin + ' ' + commonTranslator.coin
+              }
+            />
+          </EqualTwoTextInputs>
+          <JustBottomBorderTextInput
+            placeholder={'مقدار ' + commonTranslator.coin + ' مورد نظر'}
+            subText={'مقدار ' + commonTranslator.coin + ' مورد نظر'}
+            value={wantedCoinToExchange}
+            onChangeText={e => setWantedCoinToExchange(e)}
+          />
         </LargePopUp>
       )}
-
-      <CommonWebBox header={Translate.youSee}>
+      {showExchangeMoneyToCoinPopup && (
+        <LargePopUp
+          toggleShowPopUp={() => setShowExchangeMoneyToCoinPopup(false)}
+          btns={
+            <CommonButton
+              theme={'dark'}
+              onPress={async () => {
+                dispatch({loading: true});
+                let res = await generalRequest(
+                  routes.exchange,
+                  'post',
+                  {
+                    amount: wantedMoneyToExchange,
+                    mode: 'money_to_coin',
+                  },
+                  undefined,
+                  state.token,
+                );
+                if (res !== null) {
+                  await setCacheItem('user', undefined);
+                  await fetchUser(state.token, user => {
+                    dispatch({loading: false});
+                    showSuccess();
+                    let tmp = data;
+                    tmp.coin = user.user.coin;
+                    tmp.money = user.user.money;
+                    setData(data);
+                  });
+                  setShowExchangeMoneyToCoinPopup(false);
+                } else {
+                  dispatch({loading: false});
+                }
+              }}
+              title={'انجام معامله'}
+            />
+          }>
+          <EqualTwoTextInputs>
+            <SimpleText
+              text={
+                'نرخ تبدیل هر 10000 تومان به  ' +
+                commonTranslator.coin +
+                ' معادل است با ' +
+                formatPrice(exchangeMoneyToCoinRate)
+              }
+            />
+            <SimpleText
+              text={
+                'موجودی فعلی شما: ' +
+                data.money +
+                ' ' +
+                commonTranslator.priceUnit
+              }
+            />
+          </EqualTwoTextInputs>
+          <JustBottomBorderTextInput
+            placeholder={'مبلغ موردنظر '}
+            subText={'مبلغ موردنظر '}
+            value={wantedMoneyToExchange}
+            onChangeText={e => setWantedMoneyToExchange(e)}
+          />
+        </LargePopUp>
+      )}
+      {/* <HomeBox color={'red'} number={1500} text={'آزمون در حال برگزرای'} /> */}
+      <CommonWebBox
+        header={Translate.youSee}
+        btn={
+          <SimpleText
+            text={
+              'هر ایکس پول معادل است با ' +
+              formatPrice(exchangeCoinToMoneyRate) +
+              ' ' +
+              commonTranslator.priceUnit
+            }
+          />
+        }>
         {data !== undefined && (
           <PhoneView>
             <DashboardCard
@@ -283,8 +372,9 @@ function Dashboard(props) {
               subtext={formatPrice(data.money)}
               btnColor={'yellow'}
               borderRight={true}
+              icon={faExchange}
+              onPress={() => setShowExchangeMoneyToCoinPopup(true)}
               borderRightWidth={18}
-              icon={faWallet}
             />
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
@@ -294,25 +384,7 @@ function Dashboard(props) {
               btnColor={'blue'}
               borderRight={true}
               icon={faExchange}
-              onPress={async () => {
-                if (exchangeOffers) {
-                  setShowExchangeCoinToMoneyPopup(true);
-                  return;
-                }
-                dispatch({loading: true});
-                const res = await generalRequest(
-                  routes.exchangeOffers,
-                  'get',
-                  undefined,
-                  'data',
-                  state.token,
-                );
-                dispatch({loading: false});
-                if (res != null) {
-                  setExchangeOffers(res);
-                  setShowExchangeCoinToMoneyPopup(true);
-                }
-              }}
+              onPress={() => setShowExchangeCoinToMoneyPopup(true)}
               borderRightWidth={18}
             />
             <DashboardCard
@@ -372,6 +444,13 @@ function Dashboard(props) {
               padding={'38px 10px'}
               borderRight={false}
             />
+            {/* <DashboardCard
+              text={Translate.yourBranchRank}
+              subtext={data.branchRank}
+              background={vars.GRADIENT}
+              padding={'38px 10px'}
+              borderRight={false}
+            /> */}
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
               text={Translate.yourGradeRank}

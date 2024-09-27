@@ -158,7 +158,9 @@ function Schedule(props) {
         header={'آیا در آزمون خاصی شرکت می کنی؟'}
         backBtn={true}
         onBackClick={() =>
-          canEdit
+          props.onBack
+            ? props.onBack()
+            : canEdit
             ? props.navigate('/myAdvisor')
             : props.navigate('/manageStudent')
         }>

@@ -35,6 +35,9 @@ function Create(props) {
   const [metric, setMetric] = useState();
   const [count, setCount] = useState();
   const [values, setValues] = useState();
+  const [award, setAward] = useState(
+    props.isInEditMode ? state.selectedBadge.award : undefined,
+  );
   const [priority, setPriority] = useState(
     props.isInEditMode ? state.selectedBadge.priority : undefined,
   );
@@ -88,6 +91,14 @@ function Create(props) {
           value={priority}
           onChangeText={e => setPriority(e)}
           justNum={true}
+        />
+        <JustBottomBorderTextInput
+          placeholder={translator.award}
+          subText={translator.award}
+          value={award}
+          onChangeText={e => setAward(e)}
+          justNum={true}
+          float={true}
         />
       </PhoneView>
       <MyView style={{...styles.justifyContentCenter, ...styles.borderBottom1}}>
@@ -238,6 +249,7 @@ function Create(props) {
               props.token,
               {
                 name: title,
+                award: award,
                 priority: priority,
                 actions: actions.map(e => ({
                   action: e.action,

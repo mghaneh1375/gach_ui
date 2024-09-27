@@ -10,4 +10,5 @@ export const translator = {
   unlockedImg: 'تصویر نشان در حالت اخذ شده',
   addMetric: 'افزودن متریک',
   priority: 'اولویت نمایش',
+  award: 'مقدار جایزه ایکس پول',
 };

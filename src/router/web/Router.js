@@ -153,6 +153,10 @@ export default function WebRouter() {
           />
           <Route path="exchanges" element={<WebStructue page="exchanges" />} />
           <Route
+            path="all-badges"
+            element={<WebStructue page="publicBadges" />}
+          />
+          <Route
             path="myScheduleRequests"
             element={<WebStructue page="myScheduleRequests" />}
           />

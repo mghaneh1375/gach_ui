@@ -7,6 +7,7 @@ import {
   faDashboard,
   faHistory,
   faHome,
+  faMedal,
   faSchool,
   faShoppingCart,
   faSun,
@@ -196,6 +197,16 @@ function MenuItemRepeat(props) {
               url: '/myPackages',
             },
           ]}
+        />
+      )}
+
+      {(props.excludes === undefined ||
+        props.excludes.indexOf('publicBadges') === -1) && (
+        <MenuItem
+          onClick={() => navigate('/all-badges')}
+          text={translator.badges}
+          icon={faMedal}
+          selected={props.selected === 'publicBadges'}
         />
       )}
 

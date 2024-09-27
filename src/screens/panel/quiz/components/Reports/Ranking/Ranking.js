@@ -21,6 +21,8 @@ import {styles} from '../../../../../../styles/Common/Styles';
 import {
   convertSecToMin,
   convertSecToMinWithOutSec,
+  convertSecToMinWithOutSec2,
+  convertSecToMinWithOutSec3,
   getDevice,
 } from '../../../../../../services/Utility';
 
@@ -81,7 +83,7 @@ function Ranking(props) {
         {
           name: 'زمان ثبت آخرین پاسخ صحیح',
           selector: row =>
-            convertSecToMinWithOutSec(row.lastAnswer) + ' بعد از شروع آزمون',
+            convertSecToMinWithOutSec3(row.lastAnswer) + ' بعد از شروع آزمون',
           grow: 1,
           fontSize: 10,
         },

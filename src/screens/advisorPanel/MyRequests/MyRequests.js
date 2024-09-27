@@ -14,6 +14,8 @@ import {styles} from '../../../styles/Common/Styles';
 import commonTranslator from '../../../translator/Common';
 import FinancePlan from '../../general/Advisors/FinancePlan';
 import Translate from './Translate';
+import Schedule from '../../studentPanel/MyLifeStyle.js/components/Schedule';
+import {ScheduleProvider} from '../../studentPanel/MyLifeStyle.js/components/Context';
 
 function MyRequests(props) {
   const navigate = props.navigate;
@@ -207,9 +209,23 @@ function MyRequests(props) {
     {item: 'همه', id: 'all'},
   ];
 
+  const [studentInfo, setStudentInfo] = useState();
+
   return (
     <>
-      {selectedRequest !== undefined && (
+      {studentInfo && (
+        <ScheduleProvider>
+          <Schedule
+            token={state.token}
+            navigate={navigate}
+            onBack={() => setStudentInfo(undefined)}
+            setLoading={newStatus => dispatch({loading: newStatus})}
+            userId={studentInfo}
+            isInPhone={state.isInPhone}
+          />
+        </ScheduleProvider>
+      )}
+      {!studentInfo && selectedRequest && (
         <LargePopUp
           toggleShowPopUp={() => {
             if (mode !== undefined) setMode(undefined);
@@ -231,7 +247,8 @@ function MyRequests(props) {
             <PhoneView style={{...styles.gap15}}>
               <CommonButton
                 onPress={() =>
-                  window.open('/studentLifeStyle/' + selectedRequest.userId)
+                  // window.open('/studentLifeStyle/' + selectedRequest.userId)
+                  setStudentInfo(selectedRequest.userId)
                 }
                 theme={'transparent'}
                 title={'مشاهده برنامه روزانه'}
@@ -255,25 +272,27 @@ function MyRequests(props) {
           )}
         </LargePopUp>
       )}
-      <CommonWebBox>
-        <PhoneView>
-          <JustBottomBorderSelect
-            value={filterKeyVals.find(elem => elem.id === filter)}
-            placeholder={'وضعیت درخواست'}
-            subText={'وضعیت درخواست'}
-            setter={setFilter}
-            values={filterKeyVals}
-          />
-        </PhoneView>
-        {filteredData !== undefined && (
-          <CommonDataTable
-            excel={false}
-            pagination={false}
-            columns={columns}
-            data={filteredData}
-          />
-        )}
-      </CommonWebBox>
+      {!studentInfo && (
+        <CommonWebBox>
+          <PhoneView>
+            <JustBottomBorderSelect
+              value={filterKeyVals.find(elem => elem.id === filter)}
+              placeholder={'وضعیت درخواست'}
+              subText={'وضعیت درخواست'}
+              setter={setFilter}
+              values={filterKeyVals}
+            />
+          </PhoneView>
+          {filteredData !== undefined && (
+            <CommonDataTable
+              excel={false}
+              pagination={false}
+              columns={columns}
+              data={filteredData}
+            />
+          )}
+        </CommonWebBox>
+      )}
     </>
   );
 }

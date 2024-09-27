@@ -113,24 +113,34 @@ export function convertSecToMinWithOutSec2(sec) {
 export function convertSecToMinWithOutSec(sec) {
   if (sec < 0) return '';
 
-  let day = Math.floor(sec / (60 * 60 * 24));
-
+  const day = Math.floor(sec / (60 * 60 * 24));
   sec -= day * 60 * 60 * 24;
-
-  let h = Math.floor(sec / (60 * 60));
-
+  const h = Math.floor(sec / (60 * 60));
   sec -= h * 60 * 60;
-
-  let m = Math.floor(sec / 60);
-
+  const m = Math.floor(sec / 60);
   let result = '';
 
   if (day > 0) result += day + ' روز ';
-
   if (h > 0) result += h + ' ساعت ';
-
   if (m > 0) result += m + ' دقیقه ';
+  return result;
+}
 
+export function convertSecToMinWithOutSec3(sec) {
+  if (sec < 0) return '';
+
+  const day = Math.floor(sec / (60 * 60 * 24));
+  sec -= day * 60 * 60 * 24;
+  const h = Math.floor(sec / (60 * 60));
+  sec -= h * 60 * 60;
+  const m = Math.floor(sec / 60);
+  let result = '';
+  sec -= m * 60;
+
+  if (day > 0) result += day + ' روز ';
+  if (h > 0) result += h + ' ساعت ';
+  if (m > 0) result += m + ' دقیقه ';
+  if (sec > 0) result += sec + ' ثانیه';
   return result;
 }
 

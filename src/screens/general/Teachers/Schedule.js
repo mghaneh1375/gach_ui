@@ -26,7 +26,7 @@ function Schedule(props) {
   const [showMore, setShowMore] = useState(false);
   return (
     <CommonWebBox title={props.plan.title} width={350}>
-      <MyView style={{minHeight: '300px', gap: '5px'}}>
+      <MyView style={{minHeight: '400px', gap: '5px'}}>
         <PhoneView style={{position: 'relative', justifyContent: 'center'}}>
           <SimpleFontIcon
             style={{color: vars.ORANGE}}
@@ -41,7 +41,11 @@ function Schedule(props) {
               ...styles.textCenter,
               ...{marginBottom: '5px'},
             }}
-            text={props.plan.title}
+            text={
+              props.plan.title.length > 30
+                ? props.plan.title.substr(0, 30) + '...'
+                : props.plan.title
+            }
           />
         </PhoneView>
 
