@@ -13,6 +13,7 @@ import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {styles} from '../../../../../styles/Common/Styles';
 import vars from '../../../../../styles/root';
 import {styleCard100Percent} from '../../../package/card/Style';
+import {TouchableOpacity} from 'react-native';
 
 function MiniCard(props) {
   const [src, setSrc] = useState();
@@ -30,17 +31,27 @@ function MiniCard(props) {
       }>
       <MyView>
         <PhoneView>
-          {src !== undefined && (
-            <Image
-              style={{
-                width: 100,
-                height: 140,
-                borderRadius: 11,
-                objectFit: 'cover',
-                objectPosition: 'center',
-              }}
-              source={src}
-            />
+          {src && (
+            <TouchableOpacity
+              onPress={() =>
+                props.studentId === undefined
+                  ? undefined
+                  : window.open(
+                      '/student-public-profile/' + props.studentId,
+                      '_target',
+                    )
+              }>
+              <Image
+                style={{
+                  width: 100,
+                  height: 140,
+                  borderRadius: 11,
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }}
+                source={src}
+              />
+            </TouchableOpacity>
           )}
           {src === undefined && (
             <MyView
@@ -69,19 +80,22 @@ function MiniCard(props) {
             }}>
             {props.subTexts !== undefined &&
               props.subTexts.map((elem, index) => {
-                if (elem === undefined) return <></>;
-                return (
-                  <PhoneView key={index} style={{padding: 0, paddingRight: 10}}>
-                    <SimpleText style={{fontSize: 11}} text={elem.label} />
-                    <SimpleText
-                      style={{
-                        fontSize: 13,
-                        color: vars.DARK_BLUE,
-                      }}
-                      text={elem.value}
-                    />
-                  </PhoneView>
-                );
+                if (elem !== undefined) {
+                  return (
+                    <PhoneView
+                      key={index}
+                      style={{padding: 0, paddingRight: 10}}>
+                      <SimpleText style={{fontSize: 11}} text={elem.label} />
+                      <SimpleText
+                        style={{
+                          fontSize: 13,
+                          color: vars.DARK_BLUE,
+                        }}
+                        text={elem.value}
+                      />
+                    </PhoneView>
+                  );
+                }
               })}
           </MyView>
         </PhoneView>

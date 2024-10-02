@@ -101,7 +101,6 @@ export const PackageProvider = ({children}) => {
 
         if (!hasWantedMonth) return;
       }
-
       let isValidInKindQuizFilter = state.selectedKindQuiz === 'all';
 
       if (!isValidInKindQuizFilter) {
@@ -116,6 +115,9 @@ export const PackageProvider = ({children}) => {
             elem.type === 'quiz' &&
             elem.generalMode !== undefined &&
             elem.generalMode === 'irysc') ||
+          (state.selectedKindQuiz === 'regular' &&
+            elem.type &&
+            elem.type === 'package') ||
           (state.selectedKindQuiz === 'onlineStanding' &&
             elem.type !== undefined &&
             elem.type === 'quiz' &&

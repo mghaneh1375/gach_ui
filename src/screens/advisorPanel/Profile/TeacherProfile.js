@@ -16,7 +16,6 @@ import {generalRequest} from '../../../API/Utility';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import QuizItemCard from '../../../components/web/QuizItemCard';
 import {
-  CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,

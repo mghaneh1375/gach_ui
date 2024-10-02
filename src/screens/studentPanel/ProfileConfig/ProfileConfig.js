@@ -139,7 +139,7 @@ function ProfileConfig(props) {
             </PhoneView>
             <PhoneView style={{width: '500px'}}>
               <RadioButtonYesOrNo
-                label={'نمایش شعبه من'}
+                label={'نمایش رشته المپیادی من'}
                 selected={config.showBranch ? 'yes' : 'no'}
                 setSelected={e => {
                   setConfig(prevValues => ({

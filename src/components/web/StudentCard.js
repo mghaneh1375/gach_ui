@@ -4,6 +4,7 @@ import MiniCard from '../../screens/panel/quiz/components/CV/MiniCard';
 function StudentCard(props) {
   return (
     <MiniCard
+      studentId={props.std.student.id}
       styleCard100Percent={props.std.rank !== undefined}
       infoWidth={props.infoWidth}
       text={

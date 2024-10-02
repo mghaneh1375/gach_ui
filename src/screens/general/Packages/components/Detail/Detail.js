@@ -1114,6 +1114,12 @@ function Detail(props) {
                               key={index}
                               pic={e.pic}
                               text={e.name}
+                              onPress={() =>
+                                window.open(
+                                  '/student-public-profile/' + e.id,
+                                  '_target',
+                                )
+                              }
                             />
                           );
                         })}

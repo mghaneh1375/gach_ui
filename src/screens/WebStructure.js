@@ -110,6 +110,9 @@ const TeachSchedules = lazy(() => import('./panel/Teach/Schedules/Schedules'));
 const TeacherProfile = lazy(() =>
   import('./advisorPanel/Profile/TeacherProfile'),
 );
+const StudentProfile = lazy(() =>
+  import('./studentPanel/Profile/StudentProfile'),
+);
 const MyTeachSchedule = lazy(() =>
   import('./advisorPanel/Teach/Schedule/MyTeachSchedule'),
 );
@@ -453,6 +456,9 @@ const WebStructue = props => {
                   )}
                   {props.page === 'teacherProfile' && (
                     <TeacherProfile navigate={navigate} />
+                  )}
+                  {props.page === 'studentProfile' && (
+                    <StudentProfile navigate={navigate} />
                   )}
                   {props.page === 'notif' && (
                     <SingleNotif navigate={navigate} />

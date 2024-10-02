@@ -112,7 +112,7 @@ export const style = {
   },
   Header_Profile_MENU: {
     width: '100%',
-    height: width < 768 ? 175 : 150,
+    height: width < 768 ? 175 : 170,
     overflow: 'auto',
     backgroundColor: vars.WHITE,
     borderBottomRightRadius: 10,

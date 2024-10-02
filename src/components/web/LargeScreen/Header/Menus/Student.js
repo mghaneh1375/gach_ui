@@ -1,4 +1,4 @@
-import {faIdBadge, faMedal, faSun} from '@fortawesome/free-solid-svg-icons';
+import {faMedal, faSun} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import {globalStateContext} from '../../../../../App';
 import {Device} from '../../../../../models/Device';

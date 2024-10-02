@@ -330,6 +330,10 @@ export default function WebRouter() {
             element={<WebStructue page="teacherProfile" />}
           />
           <Route
+            path="/student-public-profile/:studentId"
+            element={<WebStructue page="studentProfile" />}
+          />
+          <Route
             path="/schoolUsers"
             element={<WebStructue page="schoolUsers" />}
           />

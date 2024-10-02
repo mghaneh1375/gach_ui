@@ -194,7 +194,19 @@ function MobileLogout(props) {
                   text={commonTranslator.profile}
                 />
               </TouchableOpacity>
-
+              <TouchableOpacity
+                onPress={() => {
+                  setShowProfilePane(false);
+                  props.navigate('/profile-config');
+                }}>
+                <SimpleText
+                  style={{
+                    ...styles.borderBottom1,
+                    ...styles.paddingBottomUp5,
+                  }}
+                  text={commonTranslator.profileConfig}
+                />
+              </TouchableOpacity>
               <TouchableOpacity
                 onPress={async () => {
                   setShowProfilePane(false);

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {MyView, PhoneView, SimpleText} from '../../../styles/Common';
-import {Image} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 
 function Card(props) {
   const [pic, setPic] = useState();
@@ -11,15 +11,23 @@ function Card(props) {
   return (
     <PhoneView style={{alignItems: 'center', gap: '10px'}}>
       <MyView>
-        <Image
-          resizeMode="contain"
-          style={{
-            width: '75px',
-            height: '75px',
-            alignSelf: 'center',
-          }}
-          source={{uri: pic}}
-        />
+        <TouchableOpacity
+          onPress={() =>
+            window.open(
+              '/student-public-profile/' + props.comment.student.id,
+              '_target',
+            )
+          }>
+          <Image
+            resizeMode="contain"
+            style={{
+              width: '75px',
+              height: '75px',
+              alignSelf: 'center',
+            }}
+            source={{uri: pic}}
+          />
+        </TouchableOpacity>
         <SimpleText
           style={{textAlign: 'center', fontSize: '11px'}}
           text={props.comment.student.name}

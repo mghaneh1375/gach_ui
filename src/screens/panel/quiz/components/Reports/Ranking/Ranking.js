@@ -67,6 +67,21 @@ function Ranking(props) {
           selector: row => row.user,
           grow: 2,
           fontSize: 10,
+          cell: (column, id) => {
+            return (
+              <SimpleText
+                style={{cursor: 'pointer'}}
+                key={'name_' + id}
+                onPress={() =>
+                  window.open(
+                    '/student-public-profile/' + column.userId,
+                    '_target',
+                  )
+                }
+                text={column.user}
+              />
+            );
+          },
         },
         {
           name: 'تعداد سوالات حل کرده',
