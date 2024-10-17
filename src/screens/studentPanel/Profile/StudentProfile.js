@@ -18,6 +18,7 @@ import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import ContentCard from '../../general/Packages/components/Card';
 import CommentCard from './CommentCard';
 import TeacherCard from './TeacherCard';
+import BadgeCard from './../../general/Badge/Card';
 import Card from '../../panel/quiz/components/Card/Card';
 
 function StudentProfile(props) {
@@ -29,6 +30,7 @@ function StudentProfile(props) {
   const [state, dispatch] = useGlobalState();
   const [info, setInfo] = useState();
   const [pic, setPic] = useState();
+  const [showBadges, setShowBadges] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [showContents, setShowContents] = useState(false);
   const [showAdvisors, setShowAdvisors] = useState(false);
@@ -39,6 +41,7 @@ function StudentProfile(props) {
   const [teachers, setTeachers] = useState();
   const [comments, setComments] = useState();
   const [quizzes, setQuizzes] = useState();
+  const [badges, setBadges] = useState();
 
   const fetchData = React.useCallback(() => {
     dispatch({loading: true});
@@ -330,6 +333,48 @@ function StudentProfile(props) {
                   {comments &&
                     comments.map((elem, index) => (
                       <CommentCard comment={elem} key={index} />
+                    ))}
+                </PhoneView>
+              )}
+            </CommonWebBox>
+          )}
+          {info && (
+            <CommonWebBox
+              btn={
+                <SimpleFontIcon
+                  onPress={async () => {
+                    if (showBadges) {
+                      setShowBadges(false);
+                      return;
+                    }
+                    if (badges === undefined) {
+                      dispatch({loading: true});
+                      const res = await generalRequest(
+                        routes.getStudentBadges + studentId,
+                        'get',
+                        undefined,
+                        'data',
+                        state.token,
+                      );
+                      dispatch({loading: false});
+                      if (res !== null) setBadges(res);
+                    }
+                    setShowBadges(true);
+                  }}
+                  kind={'normal'}
+                  icon={showBadges ? faAngleDown : faAngleUp}
+                />
+              }
+              header={'مدال ها'}>
+              {showBadges && (
+                <PhoneView style={{...styles.gap10}}>
+                  {badges &&
+                    badges.map((elem, index) => (
+                      <BadgeCard
+                        badge={elem}
+                        key={index}
+                        isInPhone={state.isInPhone}
+                      />
                     ))}
                 </PhoneView>
               )}

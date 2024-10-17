@@ -103,6 +103,10 @@ const Barcode = lazy(() => import('./panel/Barcode/Barcode'));
 import {routes} from '../API/APIRoutes';
 import {generalRequest} from '../API/Utility';
 
+const MyAdvisorHistory = lazy(() =>
+  import('./studentPanel/Advisor/MyAdvisor/MyAdvisorHistory'),
+);
+
 const TeachReports = lazy(() =>
   import('./panel/Teach/TeachReport/TeachReports'),
 );
@@ -444,6 +448,9 @@ const WebStructue = props => {
                   )}
                   {props.page === 'allComments' && (
                     <AllComments navigate={navigate} />
+                  )}
+                  {props.page === 'historyOfMyAdvisor' && (
+                    <MyAdvisorHistory navigate={navigate} />
                   )}
                   {props.page === 'myComments' && (
                     <MyComments navigate={navigate} />

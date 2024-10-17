@@ -59,7 +59,6 @@ function MyRequests(props) {
   });
 
   React.useEffect(() => {
-    console.log(filter);
     if (data === undefined) return;
 
     setFilteredData(
@@ -88,6 +87,15 @@ function MyRequests(props) {
     {
       name: 'عملیات',
       cell: row => {
+        if (row.status === 'accept')
+          return (
+            <CommonButton
+              onPress={() =>
+                window.open('/historyOfMyAdvisor/' + row.id, '_target')
+              }
+              title={'مشاهده کاربرگها'}
+            />
+          );
         if (row.status !== 'pending') return <></>;
 
         return (

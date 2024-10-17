@@ -183,6 +183,10 @@ export default function WebRouter() {
             element={<WebStructue page="requestLogsForAdvisors" />}
           />
           <Route
+            path="historyOfMyAdvisor/:reqId"
+            element={<WebStructue page="historyOfMyAdvisor" />}
+          />
+          <Route
             path="myStudentRequests"
             element={<WebStructue page="myStudentRequests" />}
           />

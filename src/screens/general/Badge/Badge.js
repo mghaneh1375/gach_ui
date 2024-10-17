@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '../../../App';
 import {PhoneView} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
 import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 import Card from './Card';

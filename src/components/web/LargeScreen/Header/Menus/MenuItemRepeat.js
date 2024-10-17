@@ -133,7 +133,6 @@ function MenuItemRepeat(props) {
                   : undefined,
               url: '/myLifeStyle',
             },
-
             {
               text: translator.advisors,
               url: '/advisors',

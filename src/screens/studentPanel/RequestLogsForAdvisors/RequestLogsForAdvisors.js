@@ -72,7 +72,16 @@ function RequestLogsForAdvisors(props) {
   const columns = [
     {
       name: 'عملیات',
-      cell: (row, index, column, id) => {
+      cell: row => {
+        if (row.status === 'accept')
+          return (
+            <CommonButton
+              onPress={() =>
+                window.open('/historyOfMyAdvisor/' + row.id, '_target')
+              }
+              title={'مشاهده کاربرگها'}
+            />
+          );
         if (row.status !== 'pending') return <></>;
 
         return (

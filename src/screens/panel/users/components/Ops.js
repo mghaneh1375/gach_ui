@@ -96,6 +96,11 @@ function Ops(props) {
                 title={'تعیین اولویت نمایش'}
                 onPress={() => props.changeMode('setPriority')}
               />
+              <CommonButton
+                theme={'transparent'}
+                title={'مشاهده تراکنش ها'}
+                onPress={() => props.changeMode('transactions')}
+              />
             </>
           )}
           {!isAdvisor && (

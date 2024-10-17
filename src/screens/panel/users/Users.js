@@ -10,6 +10,7 @@ import ChargeAccount from './components/ChargeAccount';
 import AdvisorTags from './components/AdvisorTags';
 import SetIRYSCPercent from './components/SetIRYSCPercent';
 import SetPriority from './components/SetPriority';
+import Transactions from './components/Transactions/Transactions';
 
 const Users = props => {
   const [mode, setMode] = useState();
@@ -86,6 +87,13 @@ const Users = props => {
         )}
         {mode === 'setPriority' && (
           <SetPriority
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
+          />
+        )}
+        {mode === 'transactions' && (
+          <Transactions
             setMode={setMode}
             setLoading={setLoading}
             token={props.token}

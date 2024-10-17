@@ -1,17 +1,11 @@
-import React, {useState, useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import CodeInput from 'react-native-confirmation-code-input';
 import {routes} from '../../../../API/APIRoutes';
 import {fetchUser, setCacheItem} from '../../../../API/User';
 import {generalRequest} from '../../../../API/Utility';
 import {style} from '../../../../components/web/LargeScreen/Header/style';
 import {showError, showSuccess} from '../../../../services/Utility';
-import {
-  TextLink,
-  BlueTextInline,
-  CommonButton,
-  InlineTextContainer,
-  MyView,
-} from '../../../../styles/Common';
+import {BlueTextInline, CommonButton, MyView} from '../../../../styles/Common';
 import {MyCountDown} from '../../../../styles/Common/MyCountDown';
 import vars from './../../../../styles/root';
 import translator from './../translate';

@@ -77,7 +77,10 @@ function Create(props) {
   if (!values) return <></>;
 
   return (
-    <CommonWebBox onBackClick={() => props.setMode('list')} backBtn={true}>
+    <CommonWebBox
+      onBackClick={() => props.setMode('list')}
+      backBtn={true}
+      header={'افزودن مدال جدید'}>
       <PhoneView style={{...styles.gap10}}>
         <JustBottomBorderTextInput
           placeholder={translator.title}
