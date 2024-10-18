@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '../../../../../styles/Common';
 import Translator from '../../Translator';
 import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import columns, {allUsersColumns} from './TableStructure';
+import columns, {advisorColumns, allUsersColumns} from './TableStructure';
 import Ops from '../Ops';
 import {levelsKeyVals} from '../../../ticket/components/KeyVals';
 import {useParams} from 'react-router';
@@ -109,7 +109,13 @@ function List(props) {
 
           {state.users !== undefined && (
             <CommonDataTable
-              columns={currLevel !== 'all' ? columns : allUsersColumns}
+              columns={
+                currLevel === 'advisor'
+                  ? advisorColumns
+                  : currLevel !== 'all'
+                  ? columns
+                  : allUsersColumns
+              }
               data={state.users}
               setData={data => dispatch({users: data})}
               removeUrl={routes.removeUsers}
