@@ -26,37 +26,48 @@ function List(props) {
   const [showOp, setShowOp] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
-  const [activeValues, teachValues, registryValues, requestValues] =
-    useMemo(() => {
-      return [
-        [
-          {item: 'شروع نشده', id: 'active'},
-          {item: 'برگزار شده', id: 'expired'},
-          {item: 'همه', id: 'all'},
-        ],
-        [
-          {item: 'خصوصی', id: 'private'},
-          {item: 'گروهی', id: 'semi_private'},
-          {item: 'همه', id: 'all'},
-        ],
-        [
-          {
-            item: 'تنها آنهایی که دانش آموز ثبت نام شده دارند',
-            id: 'justHasStudents',
-          },
-          {item: 'همه', id: 'all'},
-        ],
-        [
-          {
-            item: 'تنها آنهایی که درخواست دهنده دارند',
-            id: 'justHasRequests',
-          },
-          {item: 'همه', id: 'all'},
-        ],
-      ];
-    }, []);
+  const [
+    activeValues,
+    teachValues,
+    registryValues,
+    requestValues,
+    sessionsMode,
+  ] = useMemo(() => {
+    return [
+      [
+        {item: 'شروع نشده', id: 'active'},
+        {item: 'برگزار شده', id: 'expired'},
+        {item: 'همه', id: 'all'},
+      ],
+      [
+        {item: 'خصوصی', id: 'private'},
+        {item: 'گروهی', id: 'semi_private'},
+        {item: 'همه', id: 'all'},
+      ],
+      [
+        {
+          item: 'تنها آنهایی که دانش آموز ثبت نام شده دارند',
+          id: 'justHasStudents',
+        },
+        {item: 'همه', id: 'all'},
+      ],
+      [
+        {
+          item: 'تنها آنهایی که درخواست دهنده دارند',
+          id: 'justHasRequests',
+        },
+        {item: 'همه', id: 'all'},
+      ],
+      [
+        {item: 'همه', id: 'all'},
+        {item: Translator.individual, id: 'individual'},
+        {item: Translator.multi, id: 'multi'},
+      ],
+    ];
+  }, []);
 
   const [activeMode, setActiveMode] = useState('active');
+  const [sessionMode, setSessionMode] = useState('all');
   const [teachMode, setTeachMode] = useState('all');
   const [registryStatus, setRegistryStatus] = useState('all');
   const [requestStatus, setRequestStatus] = useState('all');
@@ -68,12 +79,15 @@ function List(props) {
     teachMode,
     registryStatus,
     requestStatus,
+    sessionMode,
   ) => {
     const params = new URLSearchParams();
     if (activeMode !== 'all') params.append('activeMode', activeMode);
     if (teachMode !== 'all') params.append('teachMode', teachMode);
     if (registryStatus !== 'all') params.append('justHasStudents', true);
     if (requestStatus !== 'all') params.append('justHasRequests', true);
+    if (sessionMode !== 'all')
+      params.append('justMultiSessions', sessionMode === 'multi');
     return generalRequest(
       routes.getTeachSchedules + '?' + params.toString(),
       'get',
@@ -92,6 +106,7 @@ function List(props) {
         teachMode,
         registryStatus,
         requestStatus,
+        sessionMode,
       ),
     ]).then(res => {
       props.setLoading(false);
@@ -101,7 +116,15 @@ function List(props) {
       }
       dispatch({schedules: res[0]});
     });
-  }, [props, dispatch, activeMode, teachMode, registryStatus, requestStatus]);
+  }, [
+    props,
+    dispatch,
+    activeMode,
+    teachMode,
+    registryStatus,
+    requestStatus,
+    sessionMode,
+  ]);
 
   useEffectOnce(() => {
     if (state.schedules !== undefined) return;
@@ -254,6 +277,17 @@ function List(props) {
               }
               placeholder={Translator.requestStauts}
               subText={Translator.requestStauts}
+            />
+            <JustBottomBorderSelect
+              values={sessionsMode}
+              setter={setSessionMode}
+              value={
+                sessionMode === undefined
+                  ? undefined
+                  : sessionsMode.find(elem => elem.id === sessionMode)
+              }
+              placeholder={Translator.sessionsMode}
+              subText={Translator.sessionsMode}
             />
           </PhoneView>
           <CommonButton

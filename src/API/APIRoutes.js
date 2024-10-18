@@ -478,6 +478,7 @@ export const routes = {
   getTeachSchedules: 'teach/manage/getSchedules',
   getTeachSchedule: 'teach/manage/getSchedule/',
   createTeachSchedules: 'teach/manage/createNewSchedule',
+  createTeachSchedulesPackage: 'teach/manage/createPackage',
   copyTeachSchedule: 'teach/manage/copySchedule/',
   removeTeachSchedule: 'teach/manage/removeSchedule/',
   setRequestStatus: 'teach/manage/setRequestStatus/',
