@@ -25,13 +25,22 @@ function Create(props) {
   ];
   const [state, dispatch] = useGlobalState();
 
-  const teachModes = useMemo(() => {
+  const [teachModes, sessionsMode] = useMemo(() => {
     return [
-      {item: Translator.private, id: 'private'},
-      {item: Translator.semiPrivate, id: 'semi_private'},
+      [
+        {item: Translator.private, id: 'private'},
+        {item: Translator.semiPrivate, id: 'semi_private'},
+      ],
+      [
+        {item: Translator.individual, id: 'individual'},
+        {item: Translator.multi, id: 'multi'},
+      ],
     ];
   }, []);
 
+  const [sessionMode, setSessionMode] = useState('individual');
+  const [sessionsCount, setSessionsCount] = useState();
+  const [endRegistration, setEndRegistration] = useState();
   const [title, setTitle] = useState();
   const [length, setLength] = useState();
   const [teachMode, setTeachMode] = useState('private');
@@ -84,12 +93,36 @@ function Create(props) {
       onBackClick={() => props.setMode('list')}
       header={props.isInEditMode ? Translator.update : Translator.create}>
       <PhoneView style={{gap: '20px'}}>
+        <JustBottomBorderSelect
+          values={sessionsMode}
+          setter={setSessionMode}
+          value={sessionsMode.find(e => e.id === sessionMode)}
+          placeholder={Translator.sessionsMode}
+          subText={Translator.sessionsMode}
+        />
         <JustBottomBorderTextInput
           value={title}
           onChangeText={e => setTitle(e)}
-          placeholder={Translator.title}
-          subText={Translator.title}
+          placeholder={
+            sessionMode === 'multi'
+              ? Translator.mandatoryTitle
+              : Translator.title
+          }
+          subText={
+            sessionMode === 'multi'
+              ? Translator.mandatoryTitle
+              : Translator.title
+          }
         />
+        {sessionMode === 'multi' && (
+          <JustBottomBorderTextInput
+            value={sessionsCount}
+            onChangeText={e => setSessionsCount(e)}
+            justNum={true}
+            placeholder={Translator.sessionsCount}
+            subText={Translator.sessionsCount}
+          />
+        )}
         <JustBottomBorderTextInput
           value={length}
           onChangeText={e => setLength(e)}
@@ -101,8 +134,12 @@ function Create(props) {
           value={price}
           onChangeText={e => setPrice(e)}
           justNum={true}
-          placeholder={Translator.price}
-          subText={Translator.price}
+          placeholder={
+            sessionMode === 'multi' ? Translator.packagePrice : Translator.price
+          }
+          subText={
+            sessionMode === 'multi' ? Translator.packagePrice : Translator.price
+          }
         />
         <JustBottomBorderSelect
           values={trueFalseValues}
@@ -118,14 +155,25 @@ function Create(props) {
           placeholder={Translator.teachMode}
           subText={Translator.teachMode}
         />
-        {(!props.isInEditMode || start !== undefined) && (
-          <JustBottomBorderDatePicker
-            value={start}
-            setter={setStart}
-            placeholder={Translator.start}
-            subText={Translator.start}
-          />
-        )}
+        {(!props.isInEditMode || start !== undefined) &&
+          sessionMode === 'individual' && (
+            <JustBottomBorderDatePicker
+              value={start}
+              setter={setStart}
+              placeholder={Translator.start}
+              subText={Translator.start}
+            />
+          )}
+
+        {(!props.isInEditMode || endRegistration !== undefined) &&
+          sessionMode === 'multi' && (
+            <JustBottomBorderDatePicker
+              value={endRegistration}
+              setter={setEndRegistration}
+              placeholder={Translator.endRegistration}
+              subText={Translator.endRegistration}
+            />
+          )}
 
         {teachMode === 'private' && (
           <JustBottomBorderSelect
@@ -165,7 +213,11 @@ function Create(props) {
       <CommonButton
         onPress={async () => {
           if (
-            start === undefined ||
+            (sessionMode === 'individual' && start === undefined) ||
+            (sessionMode === 'multi' &&
+              (endRegistration === undefined ||
+                sessionsCount === undefined ||
+                price === undefined)) ||
             length === undefined ||
             (teachMode === 'semi_private' &&
               (minCap === undefined || maxCap === undefined))
@@ -179,12 +231,16 @@ function Create(props) {
             visibility: visibility,
             teachMode: teachMode,
             description: description,
-            start: start,
           };
           if (teachMode === 'semi_private') {
             data.minCap = minCap;
             data.maxCap = maxCap;
           } else data.needRegistryConfirmation = needRegistryConfirmation;
+
+          if (sessionMode === 'multi') {
+            data.sessionsCount = sessionsCount;
+            data.endRegistration = endRegistration;
+          } else data.start = start;
 
           if (price !== undefined) data.price = price;
 
@@ -192,6 +248,8 @@ function Create(props) {
           let res = await generalRequest(
             props.isInEditMode
               ? routes.updateTeachSchedule + state.selectedScheduleId
+              : sessionMode === 'multi'
+              ? routes.createTeachSchedulesPackage
               : routes.createTeachSchedules,
             props.isInEditMode ? 'put' : 'post',
             data,

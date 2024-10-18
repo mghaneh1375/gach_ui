@@ -8,10 +8,12 @@ const Translator = {
   update: 'ویرایش برنامه',
   teachMode: 'نحوه تدریس',
   price: 'هزینه جلسه (به تومان - اختیاری)',
+  packagePrice: 'هزینه تمامی جلسات (به تومان - اجباری)',
   iryscPercent: 'درصد آیریسک از تدریس',
   teacherShare: 'سهم دبیر',
   duration: 'مدت جلسه (به دقیقه)',
   title: 'عنوان (اختیاری)',
+  mandatoryTitle: 'عنوان (اجباری)',
   needRegistryConfirmation:
     'آیا درخواست\u200cها نیاز به تایید شما داشته باشند؟',
   needRegistryConfirmationForStudents:
@@ -56,6 +58,11 @@ const Translator = {
   teacherToStdRateAt: 'زمان امتیاز شما به دانش آموز',
   stdTeachRate: 'امتیاز دبیران به دانش آموز',
   requestsCountForStudents: 'درخواست\u200cها',
+  individual: 'تک جلسه',
+  multi: 'چند جلسه',
+  sessionsMode: 'نوع تعداد جلسه',
+  sessionsCount: 'تعداد جلسات',
+  endRegistration: 'تاریخ اتمام ثبت نام',
 };
 
 export default Translator;
