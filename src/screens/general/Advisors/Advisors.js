@@ -1,14 +1,14 @@
+import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '../../../API/APIRoutes';
+import {fetchUser, setCacheItem} from '../../../API/User';
 import {generalRequest} from '../../../API/Utility';
-import {globalStateContext, dispatchStateContext} from '../../../App';
-import {
-  addItem,
-  getDevice,
-  removeItems,
-  showSuccess,
-} from '../../../services/Utility';
+import {dispatchStateContext, globalStateContext} from '../../../App';
+import BestComments from '../../../components/web/Comment/BestComments';
+import Comment from '../../../components/web/Comment/Comment';
+import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
+import {addItem, removeItems, showSuccess} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -17,18 +17,14 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
-import Card from './Card';
-import FinancePlan from './FinancePlan';
-import {fetchUser, setCacheItem} from '../../../API/User';
-import OffCode from '../buy/components/OffCode';
-import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
-import commonTranslator from '../../../translator/Common';
-import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
-import Filter from './Filter';
-import Comment from '../../../components/web/Comment/Comment';
-import BestComments from '../../../components/web/Comment/BestComments';
 import {LargePopUp} from '../../../styles/Common/PopUp';
+import {styles} from '../../../styles/Common/Styles';
+import commonTranslator from '../../../translator/Common';
+import OffCode from '../buy/components/OffCode';
+import Card from './Card';
+import Filter from './Filter';
+import FinancePlan from './FinancePlan';
+import vars from '../../../styles/root';
 
 function Advisors(props) {
   const useGlobalState = () => [
@@ -68,11 +64,11 @@ function Advisors(props) {
   const [userOff, setUserOff] = useState();
   const [bestComments, setBestComments] = useState();
 
-  const [min, setMin] = useState(10000);
-  const [max, setMax] = useState(2000000);
+  const [min, setMin] = useState();
+  const [max, setMax] = useState();
 
-  const [minAge, setMinAge] = useState(23);
-  const [maxAge, setMaxAge] = useState(49);
+  const [minAge, setMinAge] = useState();
+  const [maxAge, setMaxAge] = useState();
   const [tags, setTags] = useState();
 
   const [offAmount, setOffAmount] = useState(0);
@@ -105,6 +101,9 @@ function Advisors(props) {
   };
 
   const [selectedAdvisorPlanId, setSelectedAdvisorPlanId] = useState();
+  const [pageIndex, setPageIndex] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [totalCount, setTotalCount] = useState();
 
   const sendRequestForAdvisor = React.useCallback(() => {
     dispatch({loading: true});
@@ -140,7 +139,7 @@ function Advisors(props) {
       state.token !== undefined && state.token !== null
         ? [
             generalRequest(
-              routes.getAllAdvisors,
+              routes.getAllAdvisors + '?pageIndex=' + pageIndex,
               'get',
               undefined,
               'data',
@@ -175,7 +174,7 @@ function Advisors(props) {
           ]
         : [
             generalRequest(
-              routes.getAllAdvisors,
+              routes.getAllAdvisors + '?pageIndex=' + pageIndex,
               'get',
               undefined,
               'data',
@@ -226,9 +225,12 @@ function Advisors(props) {
       setMaxAge(res[0].filters.maxAge);
       setBestComments(res[2]);
       setData(res[0].data);
+      setHasMore(res[0].hasMore);
       setSelectableItems(res[0].data);
+      setTotalSelectableItemsSize(res[0].totalCount);
+      if (totalCount === undefined) setTotalCount(res[0].totalCount);
     });
-  }, [dispatch, state.token, props]);
+  }, [dispatch, state.token, props, pageIndex, totalCount]);
 
   useEffectOnce(() => {
     fetchData();
@@ -245,11 +247,10 @@ function Advisors(props) {
   };
 
   const [selectableItems, setSelectableItems] = useState();
+  const [totalSelectableItemsSize, setTotalSelectableItemsSize] = useState();
   const [clearFilter, setClearFilter] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
-
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const [doFilter, setDoFilter] = useState(false);
 
   return (
     <>
@@ -327,9 +328,9 @@ function Advisors(props) {
                       style={{...styles.fontSize13, ...styles.dark_blue_color}}
                       text={
                         'نمایش ' +
-                        selectableItems.length +
+                        totalSelectableItemsSize +
                         ' مورد از ' +
-                        data.length +
+                        totalCount +
                         ' مورد '
                       }
                     />
@@ -361,25 +362,33 @@ function Advisors(props) {
                   />
                 </PhoneView>
               </EqualTwoTextInputs>
-              {showFilter &&
-                min !== undefined &&
-                max !== undefined &&
-                maxAge !== undefined &&
-                minAge !== undefined && (
-                  <Filter
-                    min={min}
-                    max={max}
-                    minAge={minAge}
-                    maxAge={maxAge}
-                    tags={tags}
-                    token={props.token}
-                    setLoading={new_status => dispatch({loading: new_status})}
-                    setClearFilter={setClearFilter}
-                    clearFilter={clearFilter}
-                    close={() => setShowFilter(false)}
-                    setSelectableItems={items => setSelectableItems(items)}
-                  />
-                )}
+              {min && max && maxAge && minAge && (
+                <Filter
+                  showFilter={showFilter}
+                  min={min}
+                  max={max}
+                  minAge={minAge}
+                  maxAge={maxAge}
+                  tags={tags}
+                  token={props.token}
+                  setLoading={new_status => dispatch({loading: new_status})}
+                  setClearFilter={setClearFilter}
+                  clearFilter={clearFilter}
+                  doFilter={doFilter}
+                  setDoFilter={setDoFilter}
+                  pageIndex={pageIndex}
+                  close={() => setShowFilter(false)}
+                  setHasMore={setHasMore}
+                  setTotalSelectableItemsSize={setTotalSelectableItemsSize}
+                  setSelectableItems={items => {
+                    setPageIndex(1);
+                    setSelectableItems(items);
+                  }}
+                  addToSelectableItems={items => {
+                    setSelectableItems([...selectableItems, ...items]);
+                  }}
+                />
+              )}
             </CommonWebBox>
           }
           {!showComments && (
@@ -561,6 +570,23 @@ function Advisors(props) {
                     );
                   })}
               </PhoneView>
+              {hasMore && (
+                <SimpleText
+                  onPress={() => {
+                    setPageIndex(pageIndex + 1);
+                    setDoFilter(true);
+                  }}
+                  style={{
+                    color: vars.ORANGE_RED,
+                    fontWeight: 'bold',
+                    fontSize: 17,
+                    textAlign: 'center',
+                    margin: '20px',
+                    cursor: 'pointer',
+                  }}
+                  text={'نمایش بیشتر'}
+                />
+              )}
             </>
           )}
           {showComments && (

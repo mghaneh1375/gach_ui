@@ -21,7 +21,6 @@ function Filter(props) {
   const [rate, setRate] = useState([1, 5]);
   const [value, setValue] = useState([props.min, props.max]);
   const [valueAge, setValueAge] = useState([props.minAge, props.maxAge]);
-
   const [tag, setTag] = useState();
 
   const rangeSelectorRate = (event, newValue) => {
@@ -47,11 +46,19 @@ function Filter(props) {
 
   React.useEffect(() => {
     if (props.clearFilter) clear();
-  }, [props.clearFilter, clear]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.clearFilter]);
 
-  const filter = async () => {
+  React.useEffect(() => {
+    if (props.doFilter) {
+      filter(props.pageIndex);
+      props.setDoFilter(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.doFilter]);
+
+  const filter = async pageIndex => {
     let query = new URLSearchParams();
-
     if (tag !== undefined && tag !== 'all') query.append('tag', tag);
 
     if (value[0] !== undefined && props.min !== value[0])
@@ -67,13 +74,10 @@ function Filter(props) {
       query.append('maxAge', valueAge[1]);
 
     if (rate !== undefined && 1 !== rate[0]) query.append('minRate', rate[0]);
-
     if (rate !== undefined && 5 !== rate[1]) query.append('maxRate', rate[1]);
-
     if (sort !== undefined) query.append('sortBy', sort);
-
+    query.append('pageIndex', pageIndex);
     query.append('returnFilters', false);
-
     props.setLoading(true);
 
     let res = await generalRequest(
@@ -85,9 +89,12 @@ function Filter(props) {
     );
 
     props.setLoading(false);
-
     if (res != null) {
-      props.setSelectableItems(res);
+      props.setHasMore(res.hasMore);
+      if (pageIndex === 1) {
+        props.setTotalSelectableItemsSize(res.totalCount);
+        props.setSelectableItems(res.data);
+      } else props.addToSelectableItems(res.data);
     }
   };
 
@@ -100,104 +107,111 @@ function Filter(props) {
   const [sort, setSort] = useState();
 
   return (
-    <MyView>
-      <PhoneView style={{...styles.gap30}}>
-        {props.max !== props.min && (
-          <MyView style={{width: isInPhone ? 260 : 300}}>
-            <SimpleText
-              style={{...styles.alignSelfCenter}}
-              text={'هزینه مشاوره'}
-            />
-            <Slider
-              max={props.max}
-              min={props.min}
-              value={value}
-              valueLabelDisplay={'off'}
-              onChange={rangeSelector}
-            />
-            <EqualTwoTextInputs>
-              <SimpleText
-                text={formatPrice(value[1]) + ' ' + commonTranslator.priceUnit}
-              />
-              <SimpleText
-                text={formatPrice(value[0]) + ' ' + commonTranslator.priceUnit}
-              />
-            </EqualTwoTextInputs>
-          </MyView>
-        )}
-        {props.maxAge !== props.minAge && (
-          <MyView style={{width: isInPhone ? 260 : 300}}>
-            <SimpleText
-              style={{...styles.alignSelfCenter}}
-              text={'سن مشاوره'}
-            />
-            <Slider
-              max={props.maxAge}
-              min={props.minAge}
-              value={valueAge}
-              valueLabelDisplay={'off'}
-              onChange={rangeSelectorAge}
-            />
-            <EqualTwoTextInputs>
-              <SimpleText text={valueAge[1]} />
-              <SimpleText text={valueAge[0]} />
-            </EqualTwoTextInputs>
-          </MyView>
-        )}
+    <>
+      {props.showFilter && (
+        <MyView>
+          <PhoneView style={{...styles.gap30}}>
+            {props.max !== props.min && (
+              <MyView style={{width: isInPhone ? 260 : 300}}>
+                <SimpleText
+                  style={{...styles.alignSelfCenter}}
+                  text={'هزینه مشاوره'}
+                />
+                <Slider
+                  max={props.max}
+                  min={props.min}
+                  value={value}
+                  valueLabelDisplay={'off'}
+                  onChange={rangeSelector}
+                />
+                <EqualTwoTextInputs>
+                  <SimpleText
+                    text={
+                      formatPrice(value[1]) + ' ' + commonTranslator.priceUnit
+                    }
+                  />
+                  <SimpleText
+                    text={
+                      formatPrice(value[0]) + ' ' + commonTranslator.priceUnit
+                    }
+                  />
+                </EqualTwoTextInputs>
+              </MyView>
+            )}
+            {props.maxAge !== props.minAge && (
+              <MyView style={{width: isInPhone ? 260 : 300}}>
+                <SimpleText
+                  style={{...styles.alignSelfCenter}}
+                  text={'سن مشاوره'}
+                />
+                <Slider
+                  max={props.maxAge}
+                  min={props.minAge}
+                  value={valueAge}
+                  valueLabelDisplay={'off'}
+                  onChange={rangeSelectorAge}
+                />
+                <EqualTwoTextInputs>
+                  <SimpleText text={valueAge[1]} />
+                  <SimpleText text={valueAge[0]} />
+                </EqualTwoTextInputs>
+              </MyView>
+            )}
 
-        <MyView style={{width: isInPhone ? 260 : 150}}>
-          <SimpleText
-            style={{...styles.alignSelfCenter}}
-            text={'امتیاز مشاور'}
+            <MyView style={{width: isInPhone ? 260 : 150}}>
+              <SimpleText
+                style={{...styles.alignSelfCenter}}
+                text={'امتیاز مشاور'}
+              />
+              <Slider
+                max={5}
+                min={1}
+                value={rate}
+                valueLabelDisplay={'off'}
+                onChange={rangeSelectorRate}
+              />
+              <EqualTwoTextInputs>
+                <SimpleText text={rate[1]} />
+                <SimpleText text={rate[0]} />
+              </EqualTwoTextInputs>
+            </MyView>
+
+            {props.tags !== undefined && props.tags.length > 0 && (
+              <JustBottomBorderSelect
+                values={props.tags}
+                setter={setTag}
+                value={
+                  tag === undefined
+                    ? undefined
+                    : props.tags.find(elem => elem.id === tag)
+                }
+                placeholder={'تگ'}
+                subText={'تگ'}
+              />
+            )}
+
+            <JustBottomBorderSelect
+              values={sortByValues}
+              setter={setSort}
+              value={
+                sort === undefined
+                  ? undefined
+                  : sortByValues.find(elem => elem.id === sort)
+              }
+              placeholder={'مرتب سازی بر اساس'}
+              subText={'مرتب سازی بر اساس'}
+            />
+          </PhoneView>
+          <CommonButton
+            onPress={async () => {
+              await filter(1);
+              if (isInPhone) props.close();
+            }}
+            title={'اعمال فیلتر'}
           />
-          <Slider
-            max={5}
-            min={1}
-            value={rate}
-            valueLabelDisplay={'off'}
-            onChange={rangeSelectorRate}
-          />
-          <EqualTwoTextInputs>
-            <SimpleText text={rate[1]} />
-            <SimpleText text={rate[0]} />
-          </EqualTwoTextInputs>
         </MyView>
-
-        {props.tags !== undefined && props.tags.length > 0 && (
-          <JustBottomBorderSelect
-            values={props.tags}
-            setter={setTag}
-            value={
-              tag === undefined
-                ? undefined
-                : props.tags.find(elem => elem.id === tag)
-            }
-            placeholder={'تگ'}
-            subText={'تگ'}
-          />
-        )}
-
-        <JustBottomBorderSelect
-          values={sortByValues}
-          setter={setSort}
-          value={
-            sort === undefined
-              ? undefined
-              : sortByValues.find(elem => elem.id === sort)
-          }
-          placeholder={'مرتب سازی بر اساس'}
-          subText={'مرتب سازی بر اساس'}
-        />
-      </PhoneView>
-      <CommonButton
-        onPress={async () => {
-          await filter();
-
-          if (isInPhone) props.close();
-        }}
-        title={'اعمال فیلتر'}
-      />
-    </MyView>
+      )}
+    </>
   );
 }
 
