@@ -2,21 +2,17 @@ import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 
 export const search = async (token, mode, name, lastName, phone, mail, NID) => {
-  let query;
+  let query = new URLSearchParams();
 
   if (mode === 'name') {
-    if (name !== undefined) query = 'name=' + name;
-    if (lastName !== undefined)
-      query =
-        query === undefined
-          ? 'lastname=' + lastName
-          : query + '&lastname=' + lastName;
-  } else if (mode === 'phone') query = 'phone=' + phone;
-  else if (mode === 'mail') query = 'mail=' + mail;
-  else if (mode === 'NID') query = 'NID=' + NID;
+    if (name !== undefined) query.append('name', name);
+    if (lastName !== undefined) query = query.append('lastname', lastName);
+  } else if (mode === 'phone') query.append('phone', phone);
+  else if (mode === 'mail') query.append('mail', mail);
+  else if (mode === 'NID') query.append('NID', NID);
 
   let res = await generalRequest(
-    routes.fetchTinyUser + query,
+    routes.fetchTinyUser + query.toString(),
     'get',
     undefined,
     'users',

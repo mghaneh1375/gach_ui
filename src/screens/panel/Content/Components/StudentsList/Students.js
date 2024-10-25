@@ -63,7 +63,6 @@ const Students = props => {
 
   const [showSearchUser, setShowSearchUser] = useState(false);
   const [foundUser, setFoundUser] = useState();
-  const [studentIdx, setStudentIdx] = useState();
 
   return (
     <MyView>

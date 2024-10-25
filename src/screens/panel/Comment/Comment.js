@@ -16,7 +16,7 @@ import {showSuccess} from '../../../services/Utility';
 import CommonDataTable from '../../../styles/Common/CommonDataTable';
 import columns from './TableStructure';
 import JustBottomBorderDatePicker from '../../../styles/Common/JustBottomBorderDatePicker';
-import vars from '../../../styles/root';
+import Pagination from '../../../components/web/Pagination/Pagination';
 
 function Comment(props) {
   const navigate = props.navigate;
@@ -267,28 +267,6 @@ function Comment(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedRow]);
 
-  const drawPaginate = () => {
-    const tmp = Math.ceil(totalCount / perPage);
-    const elems = [];
-    for (let i = 1; i <= tmp; i++)
-      elems.push(
-        <SimpleText
-          key={i}
-          onPress={() => {
-            setPageIndex(i);
-          }}
-          text={i}
-          style={{
-            color: i == pageIndex ? 'red' : vars.DARK_BLUE,
-            cursor: 'pointer',
-            fontSize: '16px',
-          }}
-        />,
-      );
-
-    return elems;
-  };
-
   return (
     <>
       <CommonWebBox>
@@ -415,10 +393,12 @@ function Comment(props) {
               data={comments}
               columns={columns}
             />
-            <PhoneView
-              style={{gap: '10px', direction: 'ltr', justifyContent: 'center'}}>
-              {drawPaginate()}
-            </PhoneView>
+            <Pagination
+              perPage={perPage}
+              totalCount={totalCount}
+              pageIndex={pageIndex}
+              setPageIndex={setPageIndex}
+            />
           </>
         )}
 

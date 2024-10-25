@@ -8,19 +8,18 @@ import {levelKeyVals} from '../../ticket/components/KeyVals';
 export const filter = async (
   token,
   level,
+  pageIndex,
   NID = undefined,
   phone = undefined,
   name = undefined,
   lastname = undefined,
   grade = undefined,
   branch = undefined,
-  subLevel = undefined,
   additionalLevel = undefined,
+  settlementStatus = undefined,
 ) => {
   let query = new URLSearchParams();
-
-  if (subLevel !== undefined) query.append('level', subLevel);
-  else query.append('level', level);
+  query.append('level', level);
   if (NID !== undefined && NID !== '') query.append('NID', NID);
   if (phone !== undefined && phone !== '') query.append('phone', phone);
   if (name !== undefined && name !== '') query.append('name', name);
@@ -30,12 +29,14 @@ export const filter = async (
   if (branch !== undefined && branch !== '') query.append('branchId', branch);
   if (additionalLevel !== undefined)
     query.append('additionalLevel', additionalLevel);
-
-  let res = await generalRequest(
-    routes.fetchAllUsers + '?' + query.toString(),
+  settlementStatus &&
+    query.append('justSettled', settlementStatus === 'settled');
+  query.append('pageIndex', pageIndex);
+  const res = await generalRequest(
+    routes.fetchTinyUser + query.toString(),
     'get',
     undefined,
-    'users',
+    'data',
     token,
   );
   return res;

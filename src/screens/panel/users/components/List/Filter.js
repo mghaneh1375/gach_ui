@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {useParams} from 'react-router';
 import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
@@ -11,7 +11,6 @@ import {levelsKeyVals} from '../../../ticket/components/KeyVals';
 
 function Filter(props) {
   const useGlobalState = () => [React.useContext(dispatchUsersContext)];
-
   const [dispatch] = useGlobalState();
 
   const [NID, setNID] = useState();
@@ -22,68 +21,92 @@ function Filter(props) {
   const [branch, setBranch] = useState();
   const [wantedLevel, setWantedLevel] = useState('all');
   const [additionalLevel, setAdditionalLevel] = useState('all');
+  const [settlementStatus, setSettlementStatus] = useState('all');
 
-  const additionalLevelValues = useMemo(() => {
+  const [additionalLevelValues, settlementStatusValues] = useMemo(() => {
     return [
-      {id: 'all', item: commonTranslator.all},
-      {id: 'teach', item: 'تدریس'},
-      {id: 'advice', item: 'مشاوره'},
+      [
+        {id: 'all', item: commonTranslator.all},
+        {id: 'teach', item: 'تدریس'},
+        {id: 'advice', item: 'مشاوره'},
+      ],
+      [
+        {id: 'all', item: commonTranslator.all},
+        {id: 'notSettled', item: 'دارای تراکنش تسویه نشده'},
+        {id: 'settled', item: 'تسویه شده'},
+      ],
     ];
   }, []);
 
   const level = useParams().level;
-  const [isWorking, setIsWorking] = useState(false);
 
   React.useEffect(() => {
     if (!props.clearFilters) return;
     clearFilters();
-  }, [props.clearFilters, clearFilters]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.clearFilters]);
 
-  const filterLocal = async () => {
+  const filterLocal = React.useCallback(() => {
     props.setLoading(true);
-    let res = await filter(
-      props.token,
-      level,
-      NID,
-      phone,
-      name,
-      lastName,
-      branch !== undefined ? branch.id : undefined,
-      grade !== undefined ? grade.id : undefined,
-      wantedLevel,
-      wantedLevel === 'advisor' && additionalLevel !== 'all'
-        ? additionalLevel
-        : undefined,
-    );
+    Promise.all([
+      filter(
+        props.token,
+        level === 'all' && wantedLevel !== 'all' ? wantedLevel : level,
+        props.pageIndex,
+        NID,
+        phone,
+        name,
+        lastName,
+        branch !== undefined ? branch.id : undefined,
+        grade !== undefined ? grade.id : undefined,
+        wantedLevel === 'advisor' && additionalLevel !== 'all'
+          ? additionalLevel
+          : undefined,
+        settlementStatus === 'all' ? undefined : settlementStatus,
+      ),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null) return;
+      dispatch({users: res[0].users});
+      props.setTotalCount(res[0].totalCount);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    props.pageIndex,
+    name,
+    lastName,
+    NID,
+    phone,
+    wantedLevel,
+    additionalLevel,
+    branch,
+    grade,
+    settlementStatus,
+  ]);
 
-    props.setLoading(false);
-    // setNID(undefined);
-    // setPhone(undefined);
-    // setName(undefined);
-    // setLastName(undefined);
-    if (res === null) return;
-    dispatch({users: res});
-  };
+  useEffect(() => {
+    filterLocal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.pageIndex]);
 
   const clearFilters = React.useCallback(() => {
-    if (isWorking) return;
-
-    setIsWorking(true);
     setNID('');
     setPhone('');
     setName('');
     setLastName('');
     setBranch();
     setGrade(), props.setClearFilters(false);
+    setSettlementStatus('all');
 
     props.setLoading(true);
-    Promise.all([filter(props.token, level)]).then(res => {
+    Promise.all([filter(props.token, level, props.pageIndex)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) return;
-      dispatch({users: res[0]});
-      setIsWorking(false);
+      dispatch({users: res[0].users});
+      props.setTotalCount(res[0].totalCount);
     });
-  }, [dispatch, props, level, isWorking]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.pageIndex, level]);
 
   return (
     <MyView style={{gap: 20}}>
@@ -141,21 +164,34 @@ function Filter(props) {
             value={levelsKeyVals.find(elem => elem.id === wantedLevel)}
           />
         )}
-        {wantedLevel === 'advisor' && (
-          <JustBottomBorderSelect
-            placeholder={'قابلیت'}
-            subText={'قابلیت'}
-            setter={setAdditionalLevel}
-            values={additionalLevelValues}
-            value={additionalLevelValues.find(
-              elem => elem.id === additionalLevel,
-            )}
-          />
+        {(wantedLevel === 'advisor' || level === 'advisor') && (
+          <>
+            <JustBottomBorderSelect
+              placeholder={'وضعیت تسویه'}
+              subText={'وضعیت تسویه'}
+              setter={setSettlementStatus}
+              values={settlementStatusValues}
+              value={settlementStatusValues.find(
+                elem => elem.id === settlementStatus,
+              )}
+            />
+            <JustBottomBorderSelect
+              placeholder={'قابلیت'}
+              subText={'قابلیت'}
+              setter={setAdditionalLevel}
+              values={additionalLevelValues}
+              value={additionalLevelValues.find(
+                elem => elem.id === additionalLevel,
+              )}
+            />
+          </>
         )}
       </PhoneView>
 
       <CommonButton
-        onPress={() => filterLocal()}
+        onPress={() =>
+          props.pageIndex !== 1 ? props.setPageIndex(1) : filterLocal()
+        }
         title={commonTranslator.search}
       />
     </MyView>

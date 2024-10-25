@@ -7,7 +7,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';
-import {generalRequest} from '../../../API/Utility';
+import {BASE_SITE_NAME, generalRequest} from '../../../API/Utility';
 import {routes} from '../../../API/APIRoutes';
 import {useParams} from 'react-router';
 import {styles} from '../../../styles/Common/Styles';
@@ -20,6 +20,7 @@ import CommentCard from './CommentCard';
 import TeacherCard from './TeacherCard';
 import BadgeCard from './../../general/Badge/Card';
 import Card from '../../panel/quiz/components/Card/Card';
+import CopyBox from '../../../components/CopyBox';
 
 function StudentProfile(props) {
   const useGlobalState = () => [
@@ -81,6 +82,8 @@ function StudentProfile(props) {
                 borderRadius: 5,
                 height: 40,
                 marginRight: 0,
+                alignContent: 'center',
+                marginTop: 10,
               }}>
               <SimpleText
                 style={{
@@ -89,6 +92,10 @@ function StudentProfile(props) {
                   ...styles.alignSelfCenter,
                 }}
                 text={info.name}
+              />
+              <CopyBox
+                title="کپی کردن لینک صفحه"
+                url={BASE_SITE_NAME + 'student-public-profile/' + studentId}
               />
             </EqualTwoTextInputs>
 
@@ -338,7 +345,7 @@ function StudentProfile(props) {
               )}
             </CommonWebBox>
           )}
-          {info && (
+          {info && info.showBadges && (
             <CommonWebBox
               btn={
                 <SimpleFontIcon

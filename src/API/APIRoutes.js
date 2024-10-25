@@ -247,7 +247,6 @@ export const routes = {
   removeTickets: 'admin/ticket/remove',
   removeStudents: 'admin/user/removeStudents',
   removeUsers: 'admin/user/removeUsers',
-  fetchAllUsers: 'admin/user/fetchTinyUser',
   fetchAllAvatars: 'admin/config/avatar/getAll',
   addAvatar: 'admin/config/avatar/add',
   deleteAvatar: 'admin/config/avatar/delete/',

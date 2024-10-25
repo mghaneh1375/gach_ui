@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../../../styles/Common';
-import Translator from '../../Translator';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import columns, {advisorColumns, allUsersColumns} from './TableStructure';
-import Ops from '../Ops';
-import {levelsKeyVals} from '../../../ticket/components/KeyVals';
 import {useParams} from 'react-router';
-import Filter from './Filter';
-import {usersContext, dispatchUsersContext} from '../Context';
-import {filter} from '../Utility';
 import {routes} from '../../../../../API/APIRoutes';
 import {generalRequest} from '../../../../../API/Utility';
+import Pagination from '../../../../../components/web/Pagination/Pagination';
+import {CommonWebBox, MyView, SimpleText} from '../../../../../styles/Common';
+import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
+import {levelsKeyVals} from '../../../ticket/components/KeyVals';
+import Translator from '../../Translator';
+import {dispatchUsersContext, usersContext} from '../Context';
+import Ops from '../Ops';
+import {filter} from '../Utility';
+import Filter from './Filter';
+import columns, {advisorColumns, allUsersColumns} from './TableStructure';
 
 function List(props) {
   const useGlobalState = () => [
@@ -40,37 +41,34 @@ function List(props) {
   );
 
   const currLevel = useParams().level;
-  const [isWorking, setIsWorking] = useState(false);
   const [branches, setBranches] = useState();
   const [grades, setGrades] = useState();
   const [clearFilters, setClearFilters] = useState(false);
+  const [pageIndex, setPageIndex] = useState(1);
+  const [totalCount, setTotalCount] = useState();
 
   const fetchData = React.useCallback(() => {
-    if ((state.fetched === currLevel && state.users !== undefined) || isWorking)
-      return;
-
-    setIsWorking(true);
     props.setLoading(true);
     Promise.all([
-      filter(props.token, currLevel),
       generalRequest(routes.fetchBranches, 'get', undefined, 'data'),
       generalRequest(routes.fetchGrades, 'get', undefined, 'data'),
     ]).then(res => {
       props.setLoading(false);
-      if (res[0] == null || res[1] == null || res[2] == null) {
+      if (res[0] == null || res[1] == null) {
         props.navigate('/');
         return;
       }
-      setGrades(res[1]);
-      setBranches(res[2]);
-      dispatch({users: res[0], fetched: currLevel});
-      setIsWorking(false);
+      setGrades(res[0]);
+      setBranches(res[1]);
+      dispatch({fetched: currLevel});
     });
-  }, [props, currLevel, dispatch, isWorking, state.users, state.fetched]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currLevel, pageIndex]);
 
   React.useEffect(() => {
-    if (state.fetched !== currLevel || state.users === undefined) fetchData();
-  }, [state.users, currLevel, fetchData, state.fetched]);
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <MyView>
@@ -104,25 +102,39 @@ function List(props) {
               token={props.token}
               setLoading={props.setLoading}
               currLevel={currLevel}
+              pageIndex={pageIndex}
+              setPageIndex={setPageIndex}
+              setTotalCount={setTotalCount}
             />
           )}
 
           {state.users !== undefined && (
-            <CommonDataTable
-              columns={
-                currLevel === 'advisor'
-                  ? advisorColumns
-                  : currLevel !== 'all'
-                  ? columns
-                  : allUsersColumns
-              }
-              data={state.users}
-              setData={data => dispatch({users: data})}
-              removeUrl={routes.removeUsers}
-              handleOp={handleOp}
-              token={props.token}
-              setLoading={props.setLoading}
-            />
+            <>
+              <SimpleText text={'تعداد کل رکوردها: ' + totalCount} />
+              <CommonDataTable
+                excel={false}
+                columns={
+                  currLevel === 'advisor'
+                    ? advisorColumns
+                    : currLevel !== 'all'
+                    ? columns
+                    : allUsersColumns
+                }
+                data={state.users}
+                setData={data => dispatch({users: data})}
+                removeUrl={routes.removeUsers}
+                handleOp={handleOp}
+                token={props.token}
+                setLoading={props.setLoading}
+                pagination={false}
+              />
+              <Pagination
+                perPage={10}
+                totalCount={totalCount}
+                pageIndex={pageIndex}
+                setPageIndex={setPageIndex}
+              />
+            </>
           )}
         </MyView>
       </CommonWebBox>

@@ -936,7 +936,7 @@ const WebStructue = props => {
                     <Transaction token={state.token} navigate={navigate} />
                   )}
                   {props.page === 'users' &&
-                    params.level !== undefined &&
+                    params.level &&
                     params.level !== 'school' && (
                       <Users
                         token={state.token}
@@ -945,7 +945,7 @@ const WebStructue = props => {
                       />
                     )}
                   {props.page === 'users' &&
-                    params.level !== undefined &&
+                    params.level &&
                     params.level === 'school' && (
                       <SchoolUsers
                         token={state.token}
