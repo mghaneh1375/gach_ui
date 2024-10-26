@@ -66,7 +66,8 @@ const columns = [
   },
   {
     name: Translator.start,
-    selector: row => row.startAt,
+    selector: row =>
+      row.startAt ? row.startAt : row.startDate + ' تا ' + row.endDate,
     grow: 1,
   },
   {
@@ -109,6 +110,11 @@ const columns = [
   {
     name: commonTranslator.createdAt,
     selector: row => row.createdAt,
+    grow: 1,
+  },
+  {
+    name: Translator.sessionsCount,
+    selector: row => (row.sessionsCount ? row.sessionsCount : 1),
     grow: 1,
   },
 ];

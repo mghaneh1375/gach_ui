@@ -484,6 +484,7 @@ export const routes = {
   setRequestStatus: 'teach/manage/setRequestStatus/',
   getTeachRequests: 'teach/manage/getRequests',
   updateTeachSchedule: 'teach/manage/updateSchedule/',
+  updateTeachPackage: 'teach/manage/updatePackage/',
   getScheduleStudents: 'teach/manage/getScheduleStudents/',
   createMeetingRoomForTeach: 'teach/manage/createMeetingRoom/',
   getMyTeachTransactions: 'teach/manage/getMyTransactions',

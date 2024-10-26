@@ -41,6 +41,8 @@ function Create(props) {
   const [sessionMode, setSessionMode] = useState('individual');
   const [sessionsCount, setSessionsCount] = useState();
   const [endRegistration, setEndRegistration] = useState();
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
   const [title, setTitle] = useState();
   const [length, setLength] = useState();
   const [teachMode, setTeachMode] = useState('private');
@@ -74,8 +76,15 @@ function Create(props) {
         setMinCap(res[0].minCap);
         setMaxCap(res[0].maxCap);
         setLength(res[0].length);
-        setStart(res[0].startAt);
         setNeedRegistryConfirmation(res[0].needRegistryConfirmation);
+        const mode = res[0].startAt ? 'individual' : 'multi';
+        setSessionMode(mode);
+
+        res[0].startAt && setStart(res[0].startAt);
+        res[0].sessionsCount && setSessionsCount(res[0].sessionsCount);
+        res[0].endRegistration && setEndRegistration(res[0].endRegistration);
+        res[0].startDate && setStartDate(res[0].startDate);
+        res[0].endDate && setEndDate(res[0].endDate);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,13 +102,16 @@ function Create(props) {
       onBackClick={() => props.setMode('list')}
       header={props.isInEditMode ? Translator.update : Translator.create}>
       <PhoneView style={{gap: '20px'}}>
-        <JustBottomBorderSelect
-          values={sessionsMode}
-          setter={setSessionMode}
-          value={sessionsMode.find(e => e.id === sessionMode)}
-          placeholder={Translator.sessionsMode}
-          subText={Translator.sessionsMode}
-        />
+        {!props.isInEditMode && (
+          <JustBottomBorderSelect
+            values={sessionsMode}
+            setter={setSessionMode}
+            value={sessionsMode.find(e => e.id === sessionMode)}
+            placeholder={Translator.sessionsMode}
+            subText={Translator.sessionsMode}
+          />
+        )}
+
         <JustBottomBorderTextInput
           value={title}
           onChangeText={e => setTitle(e)}
@@ -175,6 +187,26 @@ function Create(props) {
             />
           )}
 
+        {(!props.isInEditMode || startDate !== undefined) &&
+          sessionMode === 'multi' && (
+            <JustBottomBorderDatePicker
+              value={startDate}
+              setter={setStartDate}
+              placeholder={Translator.startDate}
+              subText={Translator.startDate}
+            />
+          )}
+
+        {(!props.isInEditMode || endDate !== undefined) &&
+          sessionMode === 'multi' && (
+            <JustBottomBorderDatePicker
+              value={endDate}
+              setter={setEndDate}
+              placeholder={Translator.endDate}
+              subText={Translator.endDate}
+            />
+          )}
+
         {teachMode === 'private' && (
           <JustBottomBorderSelect
             values={trueFalseValues}
@@ -240,6 +272,8 @@ function Create(props) {
           if (sessionMode === 'multi') {
             data.sessionsCount = sessionsCount;
             data.endRegistration = endRegistration;
+            data.startDate = startDate;
+            data.endDate = endDate;
           } else data.start = start;
 
           if (price !== undefined) data.price = price;
@@ -247,7 +281,9 @@ function Create(props) {
           props.setLoading(true);
           let res = await generalRequest(
             props.isInEditMode
-              ? routes.updateTeachSchedule + state.selectedScheduleId
+              ? sessionMode === 'multi'
+                ? routes.updateTeachPackage + state.selectedScheduleId
+                : routes.updateTeachSchedule + state.selectedScheduleId
               : sessionMode === 'multi'
               ? routes.createTeachSchedulesPackage
               : routes.createTeachSchedules,
