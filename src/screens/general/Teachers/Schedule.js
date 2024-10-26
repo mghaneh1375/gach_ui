@@ -1,5 +1,14 @@
+import {
+  faCalendar,
+  faClock,
+  faInfo,
+  faListNumeric,
+  faUser,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import {useState} from 'react';
 import QuizItemCard from '../../../components/web/QuizItemCard';
+import {faNums, formatPrice} from '../../../services/Utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -8,19 +17,10 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/Common';
+import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 import {styles} from '../../../styles/Common/Styles';
-import {faNums, formatPrice} from '../../../services/Utility';
 import vars from '../../../styles/root';
 import Translator from '../../advisorPanel/Teach/Schedule/components/Translator';
-import {
-  faCalendar,
-  faCheck,
-  faClock,
-  faInfo,
-  faUser,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
 
 function Schedule(props) {
   const [showMore, setShowMore] = useState(false);
@@ -51,19 +51,35 @@ function Schedule(props) {
 
         {!showMore && (
           <>
-            <PhoneView style={styles.justifyContentSpaceBetween}>
-              <QuizItemCard
-                text={Translator.start}
-                val={props.plan.startAt}
-                icon={faCalendar}
-                background={false}
-                iconFontSize={'normal'}
-                color={vars.YELLOW}
-                textFontSize={14}
-                valFontSize={14}
-                isBold={true}
-                isBoldValue={false}
-              />
+            <PhoneView style={{gap: '10px'}}>
+              {props.plan.startAt && (
+                <QuizItemCard
+                  text={Translator.start}
+                  val={props.plan.startAt}
+                  icon={faCalendar}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={true}
+                  isBoldValue={false}
+                />
+              )}
+              {props.plan.endRegistration && (
+                <QuizItemCard
+                  text={Translator.endRegistration}
+                  val={props.plan.endRegistration}
+                  icon={faCalendar}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={true}
+                  isBoldValue={false}
+                />
+              )}
               <QuizItemCard
                 text={Translator.duration}
                 val={props.plan.length}
@@ -77,6 +93,50 @@ function Schedule(props) {
                 isBoldValue={false}
               />
             </PhoneView>
+            {props.plan.endRegistration && (
+              <PhoneView style={{gap: '10px'}}>
+                <QuizItemCard
+                  text={Translator.startDate}
+                  val={props.plan.startDate}
+                  icon={faCalendar}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={true}
+                  isBoldValue={false}
+                />
+                <QuizItemCard
+                  text={Translator.endDate}
+                  val={props.plan.endDate}
+                  icon={faCalendar}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={true}
+                  isBoldValue={false}
+                />
+              </PhoneView>
+            )}
+            {props.plan.endRegistration && (
+              <PhoneView style={{gap: '10px'}}>
+                <QuizItemCard
+                  text={Translator.sessionsCount}
+                  val={props.plan.sessionsCount}
+                  icon={faListNumeric}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={true}
+                  isBoldValue={false}
+                />
+              </PhoneView>
+            )}
             {props.plan.teachMode === 'semi_private' && (
               <>
                 <PhoneView style={{justifyContent: 'space-between'}}>

@@ -139,6 +139,7 @@ function MyTeachRequests(props) {
           />
           {requests && (
             <CommonDataTable
+              excel={false}
               handleOp={handleOp}
               columns={columns}
               data={requests}

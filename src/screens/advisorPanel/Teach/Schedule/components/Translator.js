@@ -63,6 +63,8 @@ const Translator = {
   sessionsMode: 'نوع تعداد جلسه',
   sessionsCount: 'تعداد جلسات',
   endRegistration: 'تاریخ اتمام ثبت نام',
+  startDate: 'تاریخ شروع کلاس',
+  endDate: 'تاریخ اتمام کلاس',
 };
 
 export default Translator;
