@@ -62,6 +62,7 @@ const Translator = {
   multi: 'چند جلسه',
   sessionsMode: 'نوع تعداد جلسه',
   sessionsCount: 'تعداد جلسات',
+  doneSessions: 'جلسات برگزار شده',
   endRegistration: 'تاریخ اتمام ثبت نام',
   startDate: 'تاریخ شروع کلاس',
   endDate: 'تاریخ اتمام کلاس',

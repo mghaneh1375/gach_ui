@@ -6,6 +6,7 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
+  SimpleText,
 } from '../../../../../styles/Common';
 import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
 import {LargePopUp} from '../../../../../styles/Common/PopUp';
@@ -35,7 +36,8 @@ function List(props) {
   ] = useMemo(() => {
     return [
       [
-        {item: 'شروع نشده', id: 'active'},
+        {item: 'شروع نشده', id: 'not_start'},
+        {item: 'در جریان', id: 'active'},
         {item: 'برگزار شده', id: 'expired'},
         {item: 'همه', id: 'all'},
       ],
@@ -132,7 +134,10 @@ function List(props) {
   }, [fetchData]);
 
   const handleOp = (idx, row) => {
-    dispatch({selectedScheduleId: row.id});
+    dispatch({
+      selectedScheduleId: row.id,
+      isPackage: row.sessionsCount !== undefined,
+    });
     setSelectedRow(row);
     setShowOp(true);
   };
@@ -230,6 +235,14 @@ function List(props) {
               />
             )}
           </PhoneView>
+          {selectedRow.reminderLinks !== undefined && (
+            <SimpleText
+              text={
+                'تعداد لینک های باقی مانده و قابل ساخت: ' +
+                selectedRow.reminderLinks
+              }
+            />
+          )}
         </LargePopUp>
       )}
       {!showOp && !showConfirmation && (
