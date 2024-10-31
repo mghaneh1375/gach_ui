@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {faCalendar, faClock, faInfo} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendar,
+  faCheck,
+  faClock,
+  faInfo,
+  faListNumeric,
+} from '@fortawesome/free-solid-svg-icons';
 import {
   CommonButton,
   CommonWebBox,
@@ -140,17 +146,19 @@ function Card(props) {
           {!showMore && (
             <>
               <PhoneView style={{...styles.gap15}}>
-                <QuizItemCard
-                  text={Translator.start}
-                  val={props.plan.startAt}
-                  icon={faCalendar}
-                  background={false}
-                  iconFontSize={'normal'}
-                  color={vars.YELLOW}
-                  textFontSize={14}
-                  valFontSize={14}
-                  isBold={false}
-                />
+                {props.plan.startAt && (
+                  <QuizItemCard
+                    text={Translator.start}
+                    val={props.plan.startAt}
+                    icon={faCalendar}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={false}
+                  />
+                )}
                 <QuizItemCard
                   text={Translator.teachMode}
                   val={props.plan.teachMode === 'private' ? 'خصوصی' : 'گروهی'}
@@ -162,7 +170,49 @@ function Card(props) {
                   valFontSize={14}
                   isBold={false}
                 />
+                {props.plan.sessionsCount && (
+                  <QuizItemCard
+                    text={Translator.sessionsCount}
+                    val={props.plan.sessionsCount}
+                    icon={faListNumeric}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={true}
+                    isBoldValue={false}
+                  />
+                )}
               </PhoneView>
+              {props.plan.startDate && (
+                <PhoneView style={{gap: '10px'}}>
+                  <QuizItemCard
+                    text={Translator.startDate}
+                    val={props.plan.startDate}
+                    icon={faCalendar}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={true}
+                    isBoldValue={false}
+                  />
+                  <QuizItemCard
+                    text={Translator.endDate}
+                    val={props.plan.endDate}
+                    icon={faCalendar}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={true}
+                    isBoldValue={false}
+                  />
+                </PhoneView>
+              )}
               <PhoneView>
                 <QuizItemCard
                   text={Translator.duration}
@@ -175,6 +225,19 @@ function Card(props) {
                   valFontSize={14}
                   isBold={false}
                 />
+                {props.plan.doneSessions !== undefined && (
+                  <QuizItemCard
+                    text={Translator.doneSessions}
+                    val={props.plan.doneSessions}
+                    icon={faCheck}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={false}
+                  />
+                )}
               </PhoneView>
             </>
           )}

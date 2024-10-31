@@ -17,14 +17,13 @@ function List(props) {
   ];
   const [state, dispatch] = useGlobalState();
 
-  const [mode, setMode] = useState('future');
+  const [mode, setMode] = useState('active');
   const [schedules, setSchedules] = useState();
 
   const fetchClasses = React.useCallback(() => {
     props.setLoading(true);
     const params = new URLSearchParams();
-    if (mode !== 'all')
-      params.append('activeMode', mode === 'future' ? 'active' : 'expired');
+    if (mode !== 'all') params.append('activeMode', mode);
     Promise.all([
       generalRequest(
         routes.getMyTeachSchedules + '?' + params.toString(),
@@ -59,24 +58,36 @@ function List(props) {
         <ProgressCard
           header={Translator.oldClassess}
           theme={vars.ORANGE}
-          color={mode === 'old' ? vars.WHITE : vars.DARK_BLUE}
+          color={mode === 'expired' ? vars.WHITE : vars.DARK_BLUE}
           width={250}
-          percent={mode === 'old' ? '90%' : '10%'}
+          percent={mode === 'expired' ? '90%' : '10%'}
           onPress={() => {
-            if (mode === 'old') return;
-            setMode('old');
+            if (mode === 'expired') return;
+            setMode('expired');
           }}
           style={{...styles.cursor_pointer}}
         />
         <ProgressCard
-          header={Translator.futureClasses}
+          header={Translator.notStartClasses}
           theme={vars.ORANGE_RED}
-          color={mode === 'future' ? vars.WHITE : vars.DARK_BLUE}
+          color={mode === 'not_start' ? vars.WHITE : vars.DARK_BLUE}
           width={250}
-          percent={mode === 'future' ? '90%' : '10%'}
+          percent={mode === 'not_start' ? '90%' : '10%'}
           onPress={() => {
-            if (mode === 'future') return;
-            setMode('future');
+            if (mode === 'not_start') return;
+            setMode('not_start');
+          }}
+          style={{...styles.cursor_pointer}}
+        />
+        <ProgressCard
+          header={Translator.activeClasses}
+          theme={vars.GREEN}
+          color={mode === 'active' ? vars.WHITE : vars.DARK_BLUE}
+          width={250}
+          percent={mode === 'active' ? '90%' : '10%'}
+          onPress={() => {
+            if (mode === 'active') return;
+            setMode('active');
           }}
           style={{...styles.cursor_pointer}}
         />

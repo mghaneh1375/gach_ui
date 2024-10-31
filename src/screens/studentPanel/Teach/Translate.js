@@ -5,7 +5,8 @@ export const Translator = {
   activeLink: 'لینک\u200Cهای فعال',
   myClasses: 'جلسات من',
   oldClassess: 'جلسات گذشته',
-  futureClasses: 'جلسات پیش رو',
+  notStartClasses: 'جلسات پیش رو',
+  activeClasses: 'جلسات فعال',
   allClasses: 'تمام جلسات',
   report: 'گزارش مشکل',
 };

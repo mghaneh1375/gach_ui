@@ -123,6 +123,7 @@ function Students(props) {
           title={'عملیات'}
           toggleShowPopUp={() => {
             setShowOp(false);
+            setShowReportPane(false);
             setSelectedRow(undefined);
           }}>
           <PhoneView style={{gap: '10px'}}>
@@ -176,6 +177,7 @@ function Students(props) {
                 subText={commonTranslator.optional}
               />
               <CommonButton
+                theme={'dark'}
                 onPress={async () => {
                   props.setLoading(true);
                   const selectedTags = tags.filter(e => e.isSelected);

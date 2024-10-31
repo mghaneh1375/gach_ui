@@ -19,29 +19,68 @@ function Copy(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [start, setStart] = useState();
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+  const [endRegistration, setEndRegistration] = useState();
 
   return (
     <CommonWebBox
       backBtn={true}
       onBackClick={() => props.setMode('list')}
       header={Translator.copy}>
-      <PhoneView>
-        <JustBottomBorderDatePicker
-          value={start}
-          setter={setStart}
-          placeholder={Translator.start}
-          subText={Translator.start}
-        />
+      <PhoneView style={{gap: '10px'}}>
+        {state.isPackage && (
+          <>
+            <JustBottomBorderDatePicker
+              value={startDate}
+              setter={setStartDate}
+              placeholder={Translator.startDate}
+              subText={Translator.startDate}
+            />
+            <JustBottomBorderDatePicker
+              value={endDate}
+              setter={setEndDate}
+              placeholder={Translator.endDate}
+              subText={Translator.endDate}
+            />
+            <JustBottomBorderDatePicker
+              value={endRegistration}
+              setter={setEndRegistration}
+              placeholder={Translator.endRegistration}
+              subText={Translator.endRegistration}
+            />
+          </>
+        )}
+        {!state.isPackage && (
+          <JustBottomBorderDatePicker
+            value={start}
+            setter={setStart}
+            placeholder={Translator.start}
+            subText={Translator.start}
+          />
+        )}
       </PhoneView>
       <CommonButton
         onPress={async () => {
-          if (start === undefined) {
+          if (
+            (!state.isPackage && start === undefined) ||
+            (state.isPackage &&
+              (startDate === undefined ||
+                endDate === undefined ||
+                endRegistration === undefined))
+          ) {
             showError(commonTranslator.pleaseFillAllFields);
             return;
           }
-          const data = {
-            start: start,
-          };
+          const data = state.isPackage
+            ? {
+                startDate: startDate,
+                endDate: endDate,
+                endRegistration: endRegistration,
+              }
+            : {
+                start: start,
+              };
 
           props.setLoading(true);
           let res = await generalRequest(
