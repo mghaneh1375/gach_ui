@@ -155,7 +155,7 @@ const SearchUser = props => {
             title={commonTranslator.search}
             onPress={async () => {
               props.setLoading(true);
-              let res = await search(
+              const res = await search(
                 props.token,
                 mode,
                 name,
@@ -178,6 +178,7 @@ const SearchUser = props => {
           onRowSelect={selectedRows => setSelected(selectedRows)}
           groupOps={[]}
           columns={columns}
+          excel={false}
           data={users}
         />
 

@@ -104,10 +104,15 @@ export const columnsForOpenQuiz = [
     selector: row => row.price,
     grow: 1,
   },
-
   {
     name: 'تعداد سوال',
     selector: row => row.questionsCount,
+    grow: 1,
+    center: true,
+  },
+  {
+    name: 'وضعیت نمایش',
+    selector: row => (row.visibility ? 'نمایش' : 'عدم نمایش'),
     grow: 1,
     center: true,
   },

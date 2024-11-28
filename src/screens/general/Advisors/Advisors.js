@@ -570,7 +570,7 @@ function Advisors(props) {
                     );
                   })}
               </PhoneView>
-              {hasMore && (
+              {hasMore && advisorPlans === undefined && (
                 <SimpleText
                   onPress={() => {
                     setPageIndex(pageIndex + 1);

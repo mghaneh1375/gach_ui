@@ -9,7 +9,6 @@ import {levelsKeyVals} from '../../../ticket/components/KeyVals';
 import Translator from '../../Translator';
 import {dispatchUsersContext, usersContext} from '../Context';
 import Ops from '../Ops';
-import {filter} from '../Utility';
 import Filter from './Filter';
 import columns, {advisorColumns, allUsersColumns} from './TableStructure';
 

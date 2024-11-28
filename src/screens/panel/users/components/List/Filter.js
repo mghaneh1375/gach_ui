@@ -4,10 +4,12 @@ import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import commonTranslator from '../../../../../translator/Common';
 import {filter} from '../Utility';
-
-import {dispatchUsersContext} from '../Context';
+import {routes} from '../../../../../API/APIRoutes';
+import {downloadRequest} from '../../../../../API/Utility';
+import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
 import {levelsKeyVals} from '../../../ticket/components/KeyVals';
+import {dispatchUsersContext} from '../Context';
 
 function Filter(props) {
   const useGlobalState = () => [React.useContext(dispatchUsersContext)];
@@ -22,6 +24,8 @@ function Filter(props) {
   const [wantedLevel, setWantedLevel] = useState('all');
   const [additionalLevel, setAdditionalLevel] = useState('all');
   const [settlementStatus, setSettlementStatus] = useState('all');
+  const [start, setStart] = useState();
+  const [end, setEnd] = useState();
 
   const [additionalLevelValues, settlementStatusValues] = useMemo(() => {
     return [
@@ -63,6 +67,8 @@ function Filter(props) {
           ? additionalLevel
           : undefined,
         settlementStatus === 'all' ? undefined : settlementStatus,
+        start,
+        end,
       ),
     ]).then(res => {
       props.setLoading(false);
@@ -82,6 +88,8 @@ function Filter(props) {
     branch,
     grade,
     settlementStatus,
+    start,
+    end,
   ]);
 
   useEffect(() => {
@@ -97,6 +105,8 @@ function Filter(props) {
     setBranch();
     setGrade(), props.setClearFilters(false);
     setSettlementStatus('all');
+    setStart(undefined);
+    setEnd(undefined);
 
     props.setLoading(true);
     Promise.all([filter(props.token, level, props.pageIndex)]).then(res => {
@@ -155,6 +165,18 @@ function Filter(props) {
           values={props.branches}
           value={branch != undefined ? branch.name : ''}
         />
+        <JustBottomBorderDatePicker
+          value={start}
+          setter={setStart}
+          placeholder={'تاریخ آغاز عضویت'}
+          subText={'تاریخ آغاز عضویت'}
+        />
+        <JustBottomBorderDatePicker
+          value={end}
+          setter={setEnd}
+          placeholder={'تاریخ پایان عضویت'}
+          subText={'تاریخ پایان عضویت'}
+        />
         {props.currLevel === 'all' && (
           <JustBottomBorderSelect
             placeholder={commonTranslator.access}
@@ -188,12 +210,41 @@ function Filter(props) {
         )}
       </PhoneView>
 
-      <CommonButton
-        onPress={() =>
-          props.pageIndex !== 1 ? props.setPageIndex(1) : filterLocal()
-        }
-        title={commonTranslator.search}
-      />
+      <PhoneView style={{justifyContent: 'end'}}>
+        <CommonButton
+          onPress={() =>
+            props.pageIndex !== 1 ? props.setPageIndex(1) : filterLocal()
+          }
+          title={commonTranslator.search}
+        />
+        <CommonButton
+          theme={'dark'}
+          title={'دانلود فایل اکسل'}
+          onPress={async () => {
+            const params = new URLSearchParams();
+            NID && params.append('NID', NID);
+            phone && params.append('phone', phone);
+            name && params.append('firstname', name);
+            lastName && params.append('lastname', lastName);
+            grade && params.append('gradeId', grade.id);
+            branch && params.append('branchId', branch.id);
+            level && params.append('level', level);
+            additionalLevel &&
+              params.append('additionalLevel', additionalLevel);
+            start && params.append('from', start);
+            end && params.append('to', end);
+            props.setLoading(true);
+            await downloadRequest(
+              routes.getUsersReport + '?' + params.toString(),
+              {},
+              props.token,
+              undefined,
+              'users.xlsx',
+            );
+            props.setLoading(false);
+          }}
+        />
+      </PhoneView>
     </MyView>
   );
 }

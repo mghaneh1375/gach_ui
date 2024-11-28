@@ -414,7 +414,7 @@ const Ops = props => {
                 </>
               )}
               {state.selectedQuiz.status !== 'init' &&
-                !state.selectedQuiz.isStop && (
+                state.selectedQuiz.isEnd && (
                   <>
                     <CommonButton
                       onPress={() => createTarazLocal()}

@@ -6,20 +6,21 @@ export const search = async (token, mode, name, lastName, phone, mail, NID) => {
 
   if (mode === 'name') {
     if (name !== undefined) query.append('name', name);
-    if (lastName !== undefined) query = query.append('lastname', lastName);
+    if (lastName !== undefined) query.append('lastname', lastName);
   } else if (mode === 'phone') query.append('phone', phone);
   else if (mode === 'mail') query.append('mail', mail);
   else if (mode === 'NID') query.append('NID', NID);
 
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.fetchTinyUser + query.toString(),
     'get',
     undefined,
-    'users',
+    'data',
     token,
   );
 
   if (res === null) return [];
+  console.log(res);
 
-  return res;
+  return res.users;
 };

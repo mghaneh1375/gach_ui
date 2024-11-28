@@ -215,6 +215,7 @@ const Ops = props => {
                 {(state.selectedQuiz.mode !== 'tashrihi' ||
                   state.selectedQuiz.startRegistry !== undefined) &&
                   (state.selectedQuiz.generalMode === 'irysc' ||
+                    state.selectedQuiz.generalMode === 'open' ||
                     state.selectedQuiz.generalMode === 'onlineStanding') && (
                     <CommonButton
                       dir={'rtl'}

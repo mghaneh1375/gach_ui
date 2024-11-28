@@ -17,7 +17,11 @@ export const filter = async (
   branch = undefined,
   additionalLevel = undefined,
   settlementStatus = undefined,
+  from = undefined,
+  to = undefined,
 ) => {
+  console.log(from);
+
   let query = new URLSearchParams();
   query.append('level', level);
   if (NID !== undefined && NID !== '') query.append('NID', NID);
@@ -31,6 +35,8 @@ export const filter = async (
     query.append('additionalLevel', additionalLevel);
   settlementStatus &&
     query.append('justSettled', settlementStatus === 'settled');
+  from && query.append('from', from);
+  to && query.append('to', to);
   query.append('pageIndex', pageIndex);
   const res = await generalRequest(
     routes.fetchTinyUser + query.toString(),

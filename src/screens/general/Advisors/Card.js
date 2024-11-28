@@ -289,6 +289,10 @@ function Card(props) {
               onPress={() => props.seeComments()}
               title={'نظرات'}
             />
+            <CommonButton
+              onPress={() => props.onSelect()}
+              title={'مشاهده بیشتر'}
+            />
             <SimpleText
               style={{
                 ...styles.marginLeft15,
