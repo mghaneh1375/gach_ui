@@ -7,13 +7,15 @@ export const fetchAllNotifs = async (
   sendVia,
   from = undefined,
   to = undefined,
+  minUsersCount = undefined,
 ) => {
   const params = new URLSearchParams();
   params.append('sendVia', sendVia);
 
   if (from !== null && from !== undefined) params.append('from', from);
-
   if (to !== null && to !== undefined) params.append('to', to);
+  if (minUsersCount !== null && minUsersCount !== undefined)
+    params.append('minUsersCount', minUsersCount);
 
   return await generalRequest(
     routes.fetchAllNotifs + '?' + params.toString(),

@@ -4,6 +4,7 @@ import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import React, {useState} from 'react';
 import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
 import {
+  convertTimestampToJustDate,
   removeItems,
   sexKeyVals,
   showError,
@@ -13,6 +14,7 @@ import {notifContext, dispatchNotifContext} from '../Context';
 import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../../styles/Common/Styles';
+import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
 
 function Filter(props) {
   const useGlobalState = () => [
@@ -37,6 +39,7 @@ function Filter(props) {
     {item: 'سطح دسترسی', id: 'accesses'},
     {item: 'رتبه در سایت', id: 'rank'},
     {item: 'دوره آموزشی', id: 'packages'},
+    {item: 'تاریخ عضویت', id: 'createdAt'},
   ];
 
   const accesses = [
@@ -68,6 +71,7 @@ function Filter(props) {
     else if (wanted === 'coin' || wanted === 'money' || wanted === 'rank')
       setItemType('minMax');
     else if (wanted === 'nids' || wanted === 'phones') setItemType('multiText');
+    else if (wanted === 'createdAt') setItemType('date');
     if (wanted === 'grades') {
       setItems(state.grades);
     } else if (wanted === 'schools') setItems(state.schools);
@@ -153,6 +157,38 @@ function Filter(props) {
       return;
     }
 
+    if (itemType === 'date') {
+      if (selectedVal.from === undefined && selectedVal.to === undefined) {
+        showError(commonTranslator.pleaseFillAllFields);
+        return;
+      }
+      if (selectedVal.from !== undefined)
+        props.setFilter({
+          id: selectedFilter.id + '_from',
+          key:
+            'from' +
+            selectedFilter.id.charAt(0).toUpperCase() +
+            selectedFilter.id.slice(1),
+          value: selectedVal.from,
+          label: 'از - ' + selectedFilter.item,
+          valueText: convertTimestampToJustDate(selectedVal.from),
+        });
+      if (selectedVal.to !== undefined)
+        props.setFilter({
+          id: selectedFilter.id + '_to',
+          key:
+            'to' +
+            selectedFilter.id.charAt(0).toUpperCase() +
+            selectedFilter.id.slice(1),
+          value: selectedVal.to,
+          label: 'تا - ' + selectedFilter.item,
+          valueText: convertTimestampToJustDate(selectedVal.to),
+        });
+
+      props.toggleShowPopUp();
+      return;
+    }
+
     if (itemType === 'multiText') id = selectedFilter.id;
     else if (selectedVal !== undefined)
       id = selectedFilter.id + '_' + selectedVal.id;
@@ -231,6 +267,32 @@ function Filter(props) {
               values={items}
             />
           )}
+        {selectedFilter !== undefined && itemType === 'date' && (
+          <PhoneView style={{...styles.gap10}}>
+            <JustBottomBorderDatePicker
+              value={selectedVal?.from}
+              setter={e =>
+                setSelectedVal(prevValues => ({
+                  ...prevValues,
+                  from: e,
+                }))
+              }
+              placeholder={'تاریخ آغاز فیلتر'}
+              subText={'تاریخ آغاز فیلتر'}
+            />
+            <JustBottomBorderDatePicker
+              value={selectedVal?.to}
+              setter={e => {
+                setSelectedVal(prevValues => ({
+                  ...prevValues,
+                  to: e,
+                }));
+              }}
+              placeholder={'تاریخ پایان فیلتر'}
+              subText={'تاریخ پایان فیلتر'}
+            />
+          </PhoneView>
+        )}
         {selectedFilter !== undefined &&
           items !== undefined &&
           itemType === 'searchable' && (

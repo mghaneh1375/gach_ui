@@ -271,6 +271,7 @@ function Create(props) {
                 sendMail: sendMail === 'yes',
                 sendSMS: sendSMS === 'yes',
               };
+
               filters.map(elem => {
                 data[elem.key] = elem.value;
               });

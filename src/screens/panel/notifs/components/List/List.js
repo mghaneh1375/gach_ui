@@ -13,6 +13,7 @@ import {fetchAllNotifs} from '../Utility';
 import Ops from './Ops';
 import columns from './TableStructure';
 import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
+import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
 
 function List(props) {
   const useGlobalState = () => [
@@ -24,19 +25,20 @@ function List(props) {
   const [showOp, setShowOp] = useState(false);
   const [from, setFrom] = useState(Date.now() - 2592000000);
   const [to, setTo] = useState();
+  const [minUsersCount, setMinUsersCount] = useState(2);
 
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
 
-    Promise.all([fetchAllNotifs(props.token, props.sendVia, from, to)]).then(
-      res => {
-        props.setLoading(false);
-        if (res[0] === null) return props.navigate('/');
-        dispatch({notifs: res[0]});
-      },
-    );
+    Promise.all([
+      fetchAllNotifs(props.token, props.sendVia, from, to, minUsersCount),
+    ]).then(res => {
+      props.setLoading(false);
+      if (res[0] === null) return props.navigate('/');
+      dispatch({notifs: res[0]});
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, to]);
+  }, [from, to, minUsersCount]);
 
   React.useEffect(() => {
     if (state.notifs === undefined) fetchData();
@@ -74,6 +76,13 @@ function List(props) {
                 setter={setTo}
                 placeholder={'تاریخ پایان فیلتر'}
                 subText={'تاریخ پایان فیلتر'}
+              />
+              <JustBottomBorderTextInput
+                value={minUsersCount}
+                onChangeText={e => setMinUsersCount(e)}
+                subText={'حداقل تعداد دریافت کنندگان'}
+                placeholder={'حداقل تعداد دریافت کنندگان'}
+                justNum={true}
               />
             </PhoneView>
             <CommonButton onPress={() => fetchData()} title={'اعمال فیلتر'} />
