@@ -8,7 +8,8 @@ const Translate = {
   showQuiz: 'مشاهده آزمون',
   packageQuizzes: 'آزمون‌های اضافه شده ',
   addToPackage: 'اضافه کردن به بسته',
-  addQuiz: 'اضافه کردن آزمون',
+  addQuiz: 'اضافه کردن آزمون پشت میز',
+  addOpenQuiz: 'اضافه کردن آزمون باز',
   removeFromPackage: 'حذف کردن از بسته',
   grade: 'موضوع',
 };

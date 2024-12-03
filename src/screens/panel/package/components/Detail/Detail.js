@@ -6,6 +6,7 @@ import Add from './Add';
 import Info from './Info';
 import List from './List';
 import {dispatchQuizzesContext, quizzesContext} from './Utility';
+import AddOpenQuiz from './AddOpenQuiz';
 
 function Detail(props) {
   const useGlobalState = () => [
@@ -53,13 +54,26 @@ function Detail(props) {
   return (
     <MyView>
       {state.selectingQuiz && (
-        <Add
-          setMode={props.setMode}
-          token={props.token}
-          setLoading={props.setLoading}
-          package={props.package}
-          setPackage={props.setPackage}
-        />
+        <>
+          {state.showIryscQuizzes && (
+            <Add
+              setMode={props.setMode}
+              token={props.token}
+              setLoading={props.setLoading}
+              package={props.package}
+              setPackage={props.setPackage}
+            />
+          )}
+          {!state.showIryscQuizzes && (
+            <AddOpenQuiz
+              setMode={props.setMode}
+              token={props.token}
+              setLoading={props.setLoading}
+              package={props.package}
+              setPackage={props.setPackage}
+            />
+          )}
+        </>
       )}
 
       {!state.selectingQuiz && (

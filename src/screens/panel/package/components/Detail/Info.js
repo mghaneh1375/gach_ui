@@ -201,11 +201,21 @@ function Info(props) {
         </MyView>
 
         {props.isAdmin && (
-          <CommonButton
-            title={Translate.addQuiz}
-            theme={'dark'}
-            onPress={() => dispatch({selectingQuiz: true})}
-          />
+          <PhoneView style={{justifyContent: 'end'}}>
+            <CommonButton
+              title={Translate.addQuiz}
+              theme={'dark'}
+              onPress={() =>
+                dispatch({selectingQuiz: true, showIryscQuizzes: true})
+              }
+            />
+            <CommonButton
+              title={Translate.addOpenQuiz}
+              onPress={() =>
+                dispatch({selectingQuiz: true, showIryscQuizzes: false})
+              }
+            />
+          </PhoneView>
         )}
       </MyView>
     </CommonWebBox>

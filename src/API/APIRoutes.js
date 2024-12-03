@@ -93,6 +93,7 @@ export const routes = {
   fetchBranches: 'admin/content/branches',
   uploadQuizAttaches: 'ckeditor/quiz',
   fetchIRYSCRegistrableQuizzes: 'quiz/public/get/irysc',
+  fetchOpenQuizzes: 'quiz/public/get/open',
   resetEscapeQuiz: 'quiz/manage/resetEscapeQuiz/',
   fetchEscapeQuizRegistrableQuizzes: 'quiz/public/get/escape',
   setCorrectorByStudentMode: 'quiz/manage/setCorrectorByStudentMode/',
