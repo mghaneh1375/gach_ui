@@ -116,6 +116,7 @@ export const routes = {
   getMyTasks: 'quiz/school/getMyTasks',
   getMyMarkList: 'quiz/school/getMyMarkList/',
   createQuiz: 'quiz/manage/store/',
+  copyQuiz: 'quiz/manage/copy/',
   createHW: 'quiz/school/createHW',
   editHW: 'quiz/school/editHW/',
   changeArrangeQuestions: 'quiz/manage/arrangeQuestions/',

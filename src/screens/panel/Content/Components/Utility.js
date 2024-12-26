@@ -7,9 +7,18 @@ import {
 import {showError, showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
 
-export const fetchContents = async token => {
+export const fetchContents = async (token, filter) => {
+  const params = new URLSearchParams();
+  filter.teacher &&
+    filter.teacher !== 'all' &&
+    params.append('teacher', filter.teacher);
+  filter.tag && filter.tag !== 'all' && params.append('tag', filter.tag);
+  filter.name && filter.name !== 'all' && params.append('title', filter.name);
+  filter.visibility &&
+    filter.visibility !== 'all' &&
+    params.append('visibility', filter.visibility === 'true');
   return await generalRequest(
-    routes.fetchContents,
+    routes.fetchContents + '?' + params.toString(),
     'get',
     undefined,
     'data',

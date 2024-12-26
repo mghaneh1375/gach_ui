@@ -228,6 +228,16 @@ const Ops = props => {
                       }
                     />
                   )}
+                {props.isAdmin &&
+                  (state.selectedQuiz.generalMode === 'irysc' ||
+                    state.selectedQuiz.generalMode === 'open') && (
+                    <CommonButton
+                      onPress={() => props.setMode('copy')}
+                      dir={'rtl'}
+                      theme={'transparent'}
+                      title={translator.copy}
+                    />
+                  )}
 
                 {props.isAdmin &&
                   state.selectedQuiz.generalMode !== 'onlineStanding' &&

@@ -273,74 +273,86 @@ function Filter() {
             />
           )}
 
-          <SimpleText
-            style={{
-              ...styles.paddingTop10,
-              ...styles.marginLeft15,
-              ...styles.marginRight15,
-              ...styles.BlueBold,
-            }}
-            text={'دنبال چه آزمونی می‌گردی؟'}
-          />
-          <MyView
-            style={{
-              ...{
-                borderBottomWidth: 2,
-                borderColor: vars.DARK_BLUE,
-                margin: 3,
-              },
-            }}>
-            <FilterItem
-              item={{label: 'هوش'}}
-              status={selectedKindTag === 'hosh' ? 'checked' : 'unchecked'}
-              onPress={label => changeKindTag('hosh')}
-            />
-            <FilterItem
-              item={{label: 'المپیاد'}}
-              status={selectedKindTag === 'olympiad' ? 'checked' : 'unchecked'}
-              onPress={label => changeKindTag('olympiad')}
-            />
-            <FilterItem
-              item={{label: 'همه رو ببینم'}}
-              status={selectedKindTag === 'all' ? 'checked' : 'unchecked'}
-              onPress={label => changeKindTag('all')}
-            />
-          </MyView>
+          {(state.relativeFilterOn === undefined || state.relativeFilterOn) && (
+            <>
+              <SimpleText
+                style={{
+                  ...styles.paddingTop10,
+                  ...styles.marginLeft15,
+                  ...styles.marginRight15,
+                  ...styles.BlueBold,
+                }}
+                text={'دنبال چه آزمونی می‌گردی؟'}
+              />
+              <MyView
+                style={{
+                  ...{
+                    borderBottomWidth: 2,
+                    borderColor: vars.DARK_BLUE,
+                    margin: 3,
+                  },
+                }}>
+                <FilterItem
+                  item={{label: 'هوش'}}
+                  status={selectedKindTag === 'hosh' ? 'checked' : 'unchecked'}
+                  onPress={label => changeKindTag('hosh')}
+                />
+                <FilterItem
+                  item={{label: 'المپیاد'}}
+                  status={
+                    selectedKindTag === 'olympiad' ? 'checked' : 'unchecked'
+                  }
+                  onPress={label => changeKindTag('olympiad')}
+                />
+                <FilterItem
+                  item={{label: 'همه رو ببینم'}}
+                  status={selectedKindTag === 'all' ? 'checked' : 'unchecked'}
+                  onPress={label => changeKindTag('all')}
+                />
+              </MyView>
+            </>
+          )}
 
-          <SimpleText
-            style={{
-              ...styles.padding10,
-              ...styles.BlueBold,
-              ...styles.marginRight15,
-            }}
-            text={'میخوای چه زمانی باشه؟'}
-          />
-          <MyView
-            style={{
-              ...{
-                borderBottomWidth: 2,
-                borderColor: vars.DARK_BLUE,
-                margin: 3,
-              },
-            }}>
-            <FilterItem
-              item={{label: 'آزمون باز (تاریخ آزاده)'}}
-              status={selectedKindQuiz === 'open' ? 'checked' : 'unchecked'}
-              onPress={label => toggleKindQuiz('open')}
-            />
-            <FilterItem
-              item={{label: 'آزمون پشت میز (تاریخ مشخصه)'}}
-              status={selectedKindQuiz === 'regular' ? 'checked' : 'unchecked'}
-              onPress={label => toggleKindQuiz('regular')}
-            />
+          {(state.timeFilterOn === undefined || state.timeFilterOn) && (
+            <>
+              <SimpleText
+                style={{
+                  ...styles.padding10,
+                  ...styles.BlueBold,
+                  ...styles.marginRight15,
+                }}
+                text={'میخوای چه زمانی باشه؟'}
+              />
+              <MyView
+                style={{
+                  ...{
+                    borderBottomWidth: 2,
+                    borderColor: vars.DARK_BLUE,
+                    margin: 3,
+                  },
+                }}>
+                <FilterItem
+                  item={{label: 'آزمون باز (تاریخ آزاده)'}}
+                  status={selectedKindQuiz === 'open' ? 'checked' : 'unchecked'}
+                  onPress={label => toggleKindQuiz('open')}
+                />
+                <FilterItem
+                  item={{label: 'آزمون پشت میز (تاریخ مشخصه)'}}
+                  status={
+                    selectedKindQuiz === 'regular' ? 'checked' : 'unchecked'
+                  }
+                  onPress={label => toggleKindQuiz('regular')}
+                />
 
-            <FilterItem
-              item={{label: 'آزمون فرار'}}
-              status={selectedKindQuiz === 'escape' ? 'checked' : 'unchecked'}
-              onPress={label => toggleKindQuiz('escape')}
-            />
+                <FilterItem
+                  item={{label: 'آزمون فرار'}}
+                  status={
+                    selectedKindQuiz === 'escape' ? 'checked' : 'unchecked'
+                  }
+                  onPress={label => toggleKindQuiz('escape')}
+                />
 
-            {/* <FilterItem
+                {/* <FilterItem
               item={{label: 'آزمون پای تخته (تاریخ مشخصه)'}}
               status={
                 selectedKindQuiz === 'onlineStanding' ? 'checked' : 'unchecked'
@@ -348,13 +360,14 @@ function Filter() {
               onPress={label => toggleKindQuiz('onlineStanding')}
             /> */}
 
-            <FilterItem
-              item={{label: 'همه رو ببینم'}}
-              status={selectedKindQuiz === 'all' ? 'checked' : 'unchecked'}
-              onPress={label => toggleKindQuiz('all')}
-            />
-          </MyView>
-
+                <FilterItem
+                  item={{label: 'همه رو ببینم'}}
+                  status={selectedKindQuiz === 'all' ? 'checked' : 'unchecked'}
+                  onPress={label => toggleKindQuiz('all')}
+                />
+              </MyView>
+            </>
+          )}
           <SimpleText
             style={{
               ...styles.padding10,
@@ -431,39 +444,42 @@ function Filter() {
               isAll={true}
             />
           )}
-
-          <SimpleText
-            style={{
-              ...styles.padding10,
-              ...styles.BlueBold,
-              ...styles.marginRight15,
-            }}
-            text={'آزمون رایگان باشه یا پولی؟'}
-          />
-          <MyView
-            style={{
-              ...{
-                borderBottomWidth: 2,
-                borderColor: vars.DARK_BLUE,
-                margin: 10,
-              },
-            }}>
-            <FilterItem
-              item={{label: 'رایگان'}}
-              status={selectedPrice === 'free' ? 'checked' : 'unchecked'}
-              onPress={label => togglePrice('free')}
-            />
-            <FilterItem
-              item={{label: 'غیر رایگان'}}
-              status={selectedPrice === 'nonFree' ? 'checked' : 'unchecked'}
-              onPress={label => togglePrice('nonFree')}
-            />
-            <FilterItem
-              item={{label: 'همه'}}
-              status={selectedPrice === 'all' ? 'checked' : 'unchecked'}
-              onPress={label => togglePrice('all')}
-            />
-          </MyView>
+          {(state.priceFilterOn === undefined || state.priceFilterOn) && (
+            <>
+              <SimpleText
+                style={{
+                  ...styles.padding10,
+                  ...styles.BlueBold,
+                  ...styles.marginRight15,
+                }}
+                text={'آزمون رایگان باشه یا پولی؟'}
+              />
+              <MyView
+                style={{
+                  ...{
+                    borderBottomWidth: 2,
+                    borderColor: vars.DARK_BLUE,
+                    margin: 10,
+                  },
+                }}>
+                <FilterItem
+                  item={{label: 'رایگان'}}
+                  status={selectedPrice === 'free' ? 'checked' : 'unchecked'}
+                  onPress={label => togglePrice('free')}
+                />
+                <FilterItem
+                  item={{label: 'غیر رایگان'}}
+                  status={selectedPrice === 'nonFree' ? 'checked' : 'unchecked'}
+                  onPress={label => togglePrice('nonFree')}
+                />
+                <FilterItem
+                  item={{label: 'همه'}}
+                  status={selectedPrice === 'all' ? 'checked' : 'unchecked'}
+                  onPress={label => togglePrice('all')}
+                />
+              </MyView>
+            </>
+          )}
         </div>
       )}
     </>

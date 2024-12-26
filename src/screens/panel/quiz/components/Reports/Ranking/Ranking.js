@@ -417,10 +417,22 @@ function Ranking(props) {
 
             <PhoneView style={{...styles.gap30}}>
               {selectedTeam.startAt !== undefined && (
-                <SimpleText text={'زمان آغاز: ' + selectedTeam.startAt} />
+                <>
+                  <SimpleText text={'زمان آغاز: '} />
+                  <SimpleText
+                    style={{direction: 'ltr'}}
+                    text={selectedTeam.startAt}
+                  />
+                </>
               )}
               {selectedTeam.finishAt !== undefined && (
-                <SimpleText text={'زمان پایان: ' + selectedTeam.finishAt} />
+                <>
+                  <SimpleText text={'زمان پایان: '} />
+                  <SimpleText
+                    style={{direction: 'ltr'}}
+                    text={selectedTeam.finishAt}
+                  />
+                </>
               )}
             </PhoneView>
 

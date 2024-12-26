@@ -1,10 +1,28 @@
+import {
+  faAngleDown,
+  faAngleUp,
+  faCheck,
+  faClock,
+  faHourglassEnd,
+  faListSquares,
+  faPaperPlane,
+  faRemove,
+  faSun,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import React, {useEffect, useState} from 'react';
 import {Image} from 'react-native';
+import {Rating} from 'react-native-ratings';
+import RenderHTML from 'react-native-render-html';
+import {useEffectOnce} from 'usehooks-ts';
+import {routes} from '../../../../../API/APIRoutes';
+import {setCacheItem} from '../../../../../API/User';
+import {generalRequest} from '../../../../../API/Utility';
+import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
 import {
   convertSecToMinWithOutSecAndDay,
   faNums,
   formatPrice,
-  getDevice,
   showError,
   showSuccess,
   systemFonts,
@@ -18,39 +36,20 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../styles/Common';
-import RenderHTML from 'react-native-render-html';
+import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {LargePopUp} from '../../../../../styles/Common/PopUp';
 import {styles} from '../../../../../styles/Common/Styles';
-import {fetchPackage, goToPay} from '../Utility';
-import {Translator} from '../../Translator';
-import {
-  faAngleDown,
-  faAngleUp,
-  faCheck,
-  faClock,
-  faHourglassEnd,
-  faListSquares,
-  faPaperPlane,
-  faRemove,
-  faSun,
-  faUsers,
-} from '@fortawesome/free-solid-svg-icons';
 import vars from '../../../../../styles/root';
 import commonTranslator from '../../../../../translator/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import {useEffectOnce} from 'usehooks-ts';
-import FAQ from './FAQ';
-import {setCacheItem} from '../../../../../API/User';
-import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
-import OffCode from '../../../buy/components/OffCode';
-import SessionDetail from './SessionDetail';
-import Chapter from './Chapter';
-import {Rating} from 'react-native-ratings';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import Card from '../Card';
-import LastBuyer from './LastBuyer';
 import {downloadCert} from '../../../../panel/certificate/Utility';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
+import OffCode from '../../../buy/components/OffCode';
+import {Translator} from '../../Translator';
+import Card from '../Card';
+import {fetchPackage, goToPay} from '../Utility';
+import Chapter from './Chapter';
+import FAQ from './FAQ';
+import LastBuyer from './LastBuyer';
+import SessionDetail from './SessionDetail';
 
 function PhoneDetail(props) {
   const [item, setItem] = useState();
@@ -1128,7 +1127,13 @@ function PhoneDetail(props) {
             </CommonWebBox>
 
             <CommonWebBox
-              // style={{marginBottom: '75px'}}
+              style={
+                props.token === null ||
+                props.token === undefined ||
+                props.token === ''
+                  ? {marginBottom: '100px'}
+                  : {}
+              }
               btn={
                 showFAQ ? (
                   <SimpleFontIcon

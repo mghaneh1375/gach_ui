@@ -25,6 +25,7 @@ import {
   isUserContentAccess,
   isUserEditorAccess,
 } from '../../../services/Utility';
+import Copy from './components/Copy/Copy';
 
 const Quiz = props => {
   const [mode, setMode] = useState('karname');
@@ -108,6 +109,9 @@ const Quiz = props => {
             token={props.token}
             isAdmin={isUserAdmin(state.user)}
           />
+        )}
+        {mode === 'copy' && (
+          <Copy setLoading={setLoading} setMode={setMode} token={props.token} />
         )}
         {mode === 'question' && (
           <Questions

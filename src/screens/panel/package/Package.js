@@ -28,6 +28,9 @@ function Package(props) {
       allFilter: true,
       isFilterMenuVisible: true,
       isRightMenuVisible: false,
+      timeFilterOn: false,
+      priceFilterOn: false,
+      relativeFilterOn: false,
     });
   };
 

@@ -1,13 +1,13 @@
-import React, {useMemo, useState} from 'react';
+import React, {useState} from 'react';
 import {routes} from '../../../../../API/APIRoutes';
-import Quizzes from '../../../../../components/web/Quizzes';
-import {CommonButton} from '../../../../../styles/Common';
-import {addQuizzesToPackage} from '../Utility';
-import Translate from '../../Translate';
-import commonTranslator from '../../../../../translator/Common';
-import {showSuccess} from '../../../../../services/Utility';
-import {dispatchQuizzesContext, quizzesContext} from './Utility';
 import {generalRequest} from '../../../../../API/Utility';
+import Quizzes from '../../../../../components/web/Quizzes';
+import {showSuccess} from '../../../../../services/Utility';
+import {CommonButton} from '../../../../../styles/Common';
+import commonTranslator from '../../../../../translator/Common';
+import Translate from '../../Translate';
+import {addQuizzesToPackage} from '../Utility';
+import {dispatchQuizzesContext, quizzesContext} from './Utility';
 
 function AddOpenQuiz(props) {
   const [selectedQuizzes, setSelectedQuizzes] = useState([]);
