@@ -30,12 +30,30 @@ export const addSchool = async (data, token) => {
   }
 };
 
+export const addExistSchool = async (data, token) => {
+  try {
+    let res = await generalRequest(
+      routes.addExistSchoolByAgent,
+      'post',
+      data,
+      undefined,
+      token,
+      ['NID', 'phone'],
+    );
+    if (res !== null) showSuccess('درخواست شما در انتظار تایید قرار گرفت');
+
+    return res;
+  } catch (error) {
+    return null;
+  }
+};
+
 export const checkDuplicate = async (data, token) => {
   return await generalRequest(
     routes.checkDuplicate,
     'post',
     data,
-    'exist',
+    'data',
     token,
   );
 };

@@ -9,10 +9,15 @@ import {
 import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
 import Translate from './Translate';
 import commonTranslator from '../../../translator/Common';
-import {checkDuplicate, addSchool} from './Utility';
+import {checkDuplicate, addSchool, addExistSchool} from './Utility';
 
 import StateAndCity from '../../../components/web/StateAndCity';
-import {changeText, sexKeyVals, showError} from '../../../services/Utility';
+import {
+  changeText,
+  sexKeyVals,
+  showError,
+  showSuccess,
+} from '../../../services/Utility';
 import {grades} from '../../panel/Config/Schools/components/KeyVals';
 import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
 
@@ -66,11 +71,24 @@ function Create(props) {
                 phone: phone,
                 NID: nid,
               };
-              let res = await checkDuplicate(info, props.token);
+              const res = await checkDuplicate(info, props.token);
               props.setLoading(false);
               if (res !== null) {
-                setShowAllFields(!res);
-                setStep(2);
+                if (res.isSchool) {
+                  props.setLoading(true);
+                  const res2 = await addExistSchool(
+                    {
+                      phone: phone,
+                      NID: nid,
+                    },
+                    props.token,
+                  );
+                  props.setLoading(false);
+                  if (res2 != null) props.setMode('list');
+                } else {
+                  setShowAllFields(!res.exist);
+                  setStep(2);
+                }
               } else props.setMode('list');
             }}
           />

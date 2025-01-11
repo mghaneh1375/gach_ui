@@ -17,7 +17,7 @@ const columns = [
   },
   {
     name: Translator.teacher,
-    selector: row => row.teacher,
+    selector: row => row.teacher.join(' '),
     grow: 2,
     center: true,
   },

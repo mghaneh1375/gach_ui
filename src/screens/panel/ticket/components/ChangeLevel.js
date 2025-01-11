@@ -122,6 +122,10 @@ function ChangeLevel(props) {
           <PhoneView style={{alignSelf: 'end'}}>
             <CommonButton
               onPress={async () => {
+                if (!newLevel) {
+                  showError('لطفا دسترسی مدنظر خود را انتخاب کنید');
+                  return;
+                }
                 let res = await addAccess(
                   props.setLoading,
                   props.token,

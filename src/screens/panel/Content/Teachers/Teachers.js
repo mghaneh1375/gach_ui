@@ -51,6 +51,7 @@ function Teachers(props) {
               token={state.token}
               name={e.teacher}
               nid={e.nid}
+              bio={e.bio}
               setLoading={setLoading}
             />
           );
