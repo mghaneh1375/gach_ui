@@ -81,10 +81,11 @@ function List(props) {
         />
       )}
       <CommonWebBox
-        addBtn={currLevel !== 'teacher'}
+        addBtn={currLevel === 'all' || currLevel === 'student'}
         backBtn={true}
         onAddClick={() => {
-          if (currLevel !== 'teacher') props.setMode('create');
+          if (currLevel === 'all' || currLevel === 'student')
+            props.setMode('create');
         }}
         onBackClick={() => setClearFilters(true)}
         header={

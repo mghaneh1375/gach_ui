@@ -67,6 +67,7 @@ function List(props) {
       {showOpPane && (
         <Ops
           setWantedQuizId={props.setWantedQuizId}
+          setWantedQuizMode={props.setWantedQuizMode}
           setRecp={props.setRecp}
           setLoading={props.setLoading}
           token={props.token}

@@ -23,18 +23,18 @@ function ParticipantReport(props) {
 
     setIsWorking(true);
     props.setLoading(true);
-    Promise.all([fetchParticipantReport(props.quizId, props.token)]).then(
-      res => {
-        props.setLoading(false);
+    Promise.all([
+      fetchParticipantReport(props.quizId, props.quizMode, props.token),
+    ]).then(res => {
+      props.setLoading(false);
 
-        if (res[0] === null) {
-          props.onBackClick();
-          return;
-        }
-        setData(res[0]);
-        setIsWorking(false);
-      },
-    );
+      if (res[0] === null) {
+        props.onBackClick();
+        return;
+      }
+      setData(res[0]);
+      setIsWorking(false);
+    });
   }, [props, isWorking]);
 
   React.useEffect(() => {

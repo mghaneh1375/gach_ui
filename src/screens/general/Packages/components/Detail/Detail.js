@@ -28,6 +28,8 @@ import {
   faCheck,
   faClock,
   faHourglassEnd,
+  faLevelUp,
+  faListOl,
   faListSquares,
   faPaperPlane,
   faRemove,
@@ -760,6 +762,29 @@ function Detail(props) {
                       <SimpleText
                         style={{...styles.alignSelfCenter, ...styles.BlueBold}}
                         text={item.certDuration + ' روز'}
+                      />
+                    </EqualTwoTextInputs>
+                  )}
+                  {item.level && (
+                    <EqualTwoTextInputs
+                      style={{paddingLeft: 30, paddingRight: 30}}>
+                      <PhoneView>
+                        <SimpleFontIcon
+                          style={{color: vars.ORANGE_RED}}
+                          icon={faListOl}
+                          kind={'normal'}
+                        />
+                        <SimpleText
+                          style={{
+                            ...styles.alignSelfCenter,
+                            ...styles.BlueBold,
+                          }}
+                          text={Translator.level}
+                        />
+                      </PhoneView>
+                      <SimpleText
+                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        text={item.level}
                       />
                     </EqualTwoTextInputs>
                   )}

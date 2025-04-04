@@ -72,7 +72,20 @@ function ShortAnswer(props) {
               style={{textAlign: 'center'}}
               backgroundColor={vars.WHITE}
               placeholder={stdAns}
-              disable={true}
+              disable={!state.allowChangeStdAns}
+              onChangeText={
+                state.allowChangeStdAns
+                  ? e => {
+                      state.new_std_answer_sheet[index] = e;
+                      setStdAns(e);
+                      dispatch({
+                        new_std_answer_sheet: state.new_std_answer_sheet,
+                      });
+                    }
+                  : undefined
+              }
+              justNum={true}
+              float={true}
             />
             <div
               style={{

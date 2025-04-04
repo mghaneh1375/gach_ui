@@ -100,6 +100,7 @@ const Adv = lazy(() => import('./panel/Content/Adv/Adv'));
 const Notif = lazy(() => import('./panel/notifs/Notif'));
 const SingleNotif = lazy(() => import('./studentPanel/Notif/Notif'));
 const Barcode = lazy(() => import('./panel/Barcode/Barcode'));
+const PackageLevel = lazy(() => import('./panel/Content/Level/PackageLevel'));
 import {routes} from '../API/APIRoutes';
 import {generalRequest} from '../API/Utility';
 
@@ -722,6 +723,9 @@ const WebStructue = props => {
                   )}
                   {props.page === 'adv-contents' && (
                     <Adv token={state.token} navigate={navigate} />
+                  )}
+                  {props.page === 'package-levels' && (
+                    <PackageLevel token={state.token} navigate={navigate} />
                   )}
                   {props.page === 'faq-contents' && <FAQ navigate={navigate} />}
                   {props.page === 'contents' && (

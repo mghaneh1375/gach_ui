@@ -271,6 +271,7 @@ const translator = {
   listContents: 'لیست دوره‌های آموزشی',
   faqContents: 'سوالات متداول',
   advContents: 'ویدیوهای تبلیغاتی',
+  packageLevels: 'سطوح دوره ها',
   seoContents: 'سئو',
   teachersContents: 'مدرسان',
   copySessions: 'کپی کردن جلسات',

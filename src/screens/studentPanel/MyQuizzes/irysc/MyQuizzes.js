@@ -18,6 +18,7 @@ function MyQuizzes(props) {
   const [mode, setMode] = useState('list');
   const [recp, setRecp] = useState();
   const [wantedQuizId, setWantedQuizId] = useState();
+  const [wantedQuizMode, setWantedQuizMode] = useState();
   const params = useParams();
   const status = params.mode !== undefined ? params.mode : 'all';
 
@@ -40,6 +41,7 @@ function MyQuizzes(props) {
           user={props.user}
           setLoading={setLoading}
           setWantedQuizId={setWantedQuizId}
+          setWantedQuizMode={setWantedQuizMode}
           token={props.token}
           navigate={props.navigate}
         />
@@ -57,6 +59,7 @@ function MyQuizzes(props) {
           setLoading={setLoading}
           onBackClick={() => setMode('list')}
           quizId={wantedQuizId}
+          quizMode={wantedQuizMode}
           token={props.token}
         />
       )}

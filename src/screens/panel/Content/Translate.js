@@ -54,6 +54,7 @@ const Translator = {
   advTitle: 'عنوان ویدیو تبلیغاتی',
   off: 'تخفیف',
   offType: 'نوع تخفیف',
+  level: 'سطح',
   offStart: 'تاریخ آغاز تخفیف',
   offExpire: 'تاریخ اتمام تخفیف',
 };

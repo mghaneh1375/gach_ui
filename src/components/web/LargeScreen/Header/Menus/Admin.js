@@ -1,27 +1,26 @@
-import React from 'react';
-import {Device} from '../../../../../models/Device';
-import {getDevice} from '../../../../../services/Utility';
-import {MenuItem, style, MenuItemPhone} from '../style';
-import translator from '../../../../../translator/Common';
 import {
-  faHome,
+  faBox,
+  faCertificate,
+  faChartBar,
   faCog,
-  faUsers,
+  faComment,
+  faDashboard,
+  faGift,
+  faHome,
+  faMessage,
   faMoneyBill,
   faQuestion,
-  faGift,
-  faCertificate,
-  faDashboard,
-  faBox,
-  faMessage,
-  faInfo,
-  faChartBar,
-  faComment,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import {SuperMenuItem} from './SuperMenuItem';
-import {MyView} from '../../../../../styles/Common';
-import MobileLogout from '../MobileLogout';
+import React from 'react';
 import {globalStateContext} from '../../../../../App';
+import {Device} from '../../../../../models/Device';
+import {getDevice} from '../../../../../services/Utility';
+import {MyView} from '../../../../../styles/Common';
+import translator from '../../../../../translator/Common';
+import MobileLogout from '../MobileLogout';
+import {MenuItem, MenuItemPhone, style} from '../style';
+import {SuperMenuItem} from './SuperMenuItem';
 
 function AdminMenu(props) {
   const device = getDevice();
@@ -307,6 +306,10 @@ function AdminMenu(props) {
             {
               text: translator.advContents,
               url: '/adv-contents',
+            },
+            {
+              text: translator.packageLevels,
+              url: '/package-levels',
             },
             {
               text: translator.seoContents,

@@ -4,6 +4,7 @@ import {
   faCheck,
   faClock,
   faHourglassEnd,
+  faListOl,
   faListSquares,
   faPaperPlane,
   faRemove,
@@ -539,7 +540,29 @@ function PhoneDetail(props) {
                     />
                   )}
                 </EqualTwoTextInputs>
-
+                {item.level && (
+                  <EqualTwoTextInputs
+                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    <PhoneView>
+                      <SimpleFontIcon
+                        style={{color: vars.ORANGE_RED}}
+                        icon={faListOl}
+                        kind={'normal'}
+                      />
+                      <SimpleText
+                        style={{
+                          ...styles.alignSelfCenter,
+                          ...styles.BlueBold,
+                        }}
+                        text={Translator.level}
+                      />
+                    </PhoneView>
+                    <SimpleText
+                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      text={item.level}
+                    />
+                  </EqualTwoTextInputs>
+                )}
                 {item.hasCert && (
                   <EqualTwoTextInputs
                     style={{paddingLeft: 30, paddingRight: 30}}>

@@ -36,12 +36,13 @@ function List(props) {
     teacher: 'all',
     visibility: 'all',
     tag: 'all',
+    level: 'all',
   });
   const [teachers, setTeachers] = useState();
   const [tags, setTags] = useState();
   const [state, dispatch] = useGlobalState();
-  const [isWorking, setIsWorking] = useState(false);
   const [showOp, setShowOp] = useState(false);
+  const [levels, setLevels] = useState();
 
   useEffect(() => {
     const fetchTeachers = () => {
@@ -61,6 +62,13 @@ function List(props) {
           'data',
           props.token,
         ),
+        generalRequest(
+          routes.getListOfPackageLevels,
+          'get',
+          undefined,
+          'data',
+          props.token,
+        ),
       ]).then(res => {
         props.setLoading(false);
         if (res[0] !== null) {
@@ -73,6 +81,12 @@ function List(props) {
           setTags([
             {id: 'all', item: 'همه'},
             ...res[1].map(e => ({id: e, item: e})),
+          ]);
+        }
+        if (res[2] !== null) {
+          setLevels([
+            {id: 'all', item: 'همه'},
+            ...res[2].map(e => ({id: e.id, item: e.title})),
           ]);
         }
       });
@@ -138,6 +152,20 @@ function List(props) {
                 value={teachers.find(e => e.id === filter.teacher)}
                 placeholder={'دبیر موردنظر'}
                 subText={'دبیر موردنظر'}
+              />
+            )}
+            {levels && (
+              <JustBottomBorderSelect
+                values={levels}
+                setter={t =>
+                  setFilter(prevValues => ({
+                    ...prevValues,
+                    level: t,
+                  }))
+                }
+                value={levels.find(e => e.id === filter.level)}
+                placeholder={'سطح موردنظر'}
+                subText={'سطح موردنظر'}
               />
             )}
             {tags && (

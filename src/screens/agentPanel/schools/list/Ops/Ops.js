@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import {View} from 'react-native';
 import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
 import {showSuccess} from '../../../../../services/Utility';
 import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';

@@ -298,6 +298,10 @@ export default function WebRouter() {
             element={<WebStructue page="adv-contents" />}
           />
           <Route
+            path="/package-levels"
+            element={<WebStructue page="package-levels" />}
+          />
+          <Route
             path="/seo-contents"
             element={<WebStructue page="seo-contents" />}
           />

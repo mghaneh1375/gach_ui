@@ -10,6 +10,7 @@ import ProgressCard from './ProgressCard/ProgressCard';
 import Translate from './Translate';
 import {getMyOffs} from './Utility';
 import {giveMyGifts} from './UtilityBonus';
+import GiftOffsCard from './OffsCard/OffsCard';
 
 function MyOffs(props) {
   const [discount, setDiscount] = useState(true);
@@ -115,7 +116,7 @@ function MyOffs(props) {
           {dataBonus !== undefined &&
             dataBonus.map((elem, index) => {
               return (
-                <OffsCard
+                <GiftOffsCard
                   key={index}
                   type={elem.type}
                   subType={elem.obj?.type}

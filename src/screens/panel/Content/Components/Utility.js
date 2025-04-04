@@ -17,6 +17,9 @@ export const fetchContents = async (token, filter) => {
   filter.visibility &&
     filter.visibility !== 'all' &&
     params.append('visibility', filter.visibility === 'true');
+  filter.level &&
+    filter.level !== 'all' &&
+    params.append('level', filter.level);
   return await generalRequest(
     routes.fetchContents + '?' + params.toString(),
     'get',

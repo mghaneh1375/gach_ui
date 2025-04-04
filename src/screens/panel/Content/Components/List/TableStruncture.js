@@ -59,6 +59,12 @@ const columns = [
     center: true,
   },
   {
+    name: Translator.level,
+    selector: row => row.level,
+    grow: 1,
+    center: true,
+  },
+  {
     name: commonTranslator.createdAt,
     selector: row => row.createdAt,
     grow: 1,

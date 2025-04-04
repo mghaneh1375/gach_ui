@@ -17,4 +17,5 @@ export const Translator = {
   off: 'تخفیف',
   publicOff: 'هدیه آیریسک',
   wallet: 'کیف پول',
+  level: 'سطح',
 };

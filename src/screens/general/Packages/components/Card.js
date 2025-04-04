@@ -30,8 +30,8 @@ function Card(props) {
   const isInApp =
     window.navigator.userAgent.toLowerCase().indexOf('android') !== -1;
 
-  const fontSize = props.isInPhone ? 10 : 11;
-  const valFontSize = props.isInPhone ? 12 : 15;
+  // const fontSize = props.isInPhone ? 10 : 11;
+  // const valFontSize = props.isInPhone ? 12 : 15;
 
   return (
     <CommonWebBox width={size600 ? '100%' : props.isInPhone ? 320 : 350}>
@@ -176,6 +176,9 @@ function Card(props) {
               return <SimpleText key={index} text={'#' + elem} />;
             })}
         </PhoneView>
+        {props.package.level && (
+          <SimpleText text={'سطح دوره ' + props.package.level} />
+        )}
       </MyView>
     </CommonWebBox>
   );

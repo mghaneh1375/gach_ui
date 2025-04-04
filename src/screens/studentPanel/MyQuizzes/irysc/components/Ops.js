@@ -300,6 +300,7 @@ function Ops(props) {
                 theme={'transparent'}
                 onPress={() => {
                   props.setWantedQuizId(state.selectedQuiz.id);
+                  props.setWantedQuizMode(state.selectedQuiz.generalMode);
                   props.setMode('students');
                 }}
                 title={translator.studentsList}

@@ -15,7 +15,7 @@ import {
 } from '../../../panel/package/card/Style';
 import Translate from '../Translate';
 
-function GiftOffsCard(props) {
+function OffsCard(props) {
   return (
     <CommonWebBox
       style={{...styleCard, ...styles.BlueBold, ...styles.padding10}}>
@@ -43,15 +43,6 @@ function GiftOffsCard(props) {
             text={Translate.placeUse}
             val={props.placeUse}
             icon={faBuilding}
-            background={false}
-            textFontSize={11}
-            valFontSize={15}
-            color={'orange'}
-          />
-          <QuizItemCard
-            text={Translate.expiredAt}
-            val={props.expiredAt === undefined ? '' : props.expiredAt}
-            icon={faTimesCircle}
             background={false}
             textFontSize={11}
             valFontSize={15}
@@ -147,4 +138,4 @@ function GiftOffsCard(props) {
   );
 }
 
-export default GiftOffsCard;
+export default OffsCard;

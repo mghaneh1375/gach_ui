@@ -11,6 +11,7 @@ import AdvisorTags from './components/AdvisorTags';
 import SetIRYSCPercent from './components/SetIRYSCPercent';
 import SetPriority from './components/SetPriority';
 import Transactions from './components/Transactions/Transactions';
+import CreateUser from './components/CreateUser';
 
 const Users = props => {
   const [mode, setMode] = useState();
@@ -45,6 +46,14 @@ const Users = props => {
             setLoading={setLoading}
             token={props.token}
             setSelectedUser={setSelectedUser}
+          />
+        )}
+        {mode === 'create' && (
+          <CreateUser
+            navigate={navigate}
+            setMode={setMode}
+            setLoading={setLoading}
+            token={props.token}
           />
         )}
 

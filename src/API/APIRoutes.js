@@ -49,6 +49,7 @@ export const routes = {
   createSettlementRequest: 'admin/settled/createSettlementRequest/',
   setSettlementRequestStatus: 'admin/settled/changeSettlementRequestStatus/',
   adminLogin: 'admin/user/signIn/',
+  createUserByAdmin: 'admin/user/createUser',
   fetchTinyUser: 'admin/user/fetchTinyUser?',
   addAccess: 'admin/user/addAccess/',
   removeAccess: 'admin/user/removeAccess/',
@@ -529,4 +530,8 @@ export const routes = {
   setCommentStatus: 'comment/admin/setCommentStatus/',
   toggleTopStatus: 'comment/admin/toggleTopStatus/',
   getCommentsCount: 'comment/admin/getCommentsCount/',
+  getListOfPackageLevels: 'admin/package_level/list',
+  storePackageLevel: 'admin/package_level/store',
+  updatePackageLevel: 'admin/package_level/update/',
+  removePackageLevel: 'admin/package_level/remove/',
 };

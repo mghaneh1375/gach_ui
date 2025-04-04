@@ -67,6 +67,7 @@ function Create(props) {
 
   const [off, setOff] = useState();
   const [offType, setOffType] = useState();
+  const [level, setLevel] = useState();
   const [offStartAt, setOffStartAt] = useState();
   const [offExpireAt, setOffExpireAt] = useState();
 
@@ -95,6 +96,7 @@ function Create(props) {
     });
 
   const [fetchedTeacherBio, setFetchedTeacherBio] = useState();
+  const [levels, setLevels] = useState();
 
   const getTeacherBio = React.useCallback(() => {
     if (isWorking || fetchedTeacherBio !== undefined) return;
@@ -167,6 +169,13 @@ function Create(props) {
         'data',
         props.token,
       ),
+      generalRequest(
+        routes.getListOfPackageLevels,
+        'get',
+        undefined,
+        'data',
+        props.token,
+      ),
     ]).then(res => {
       if (!props.isInEditMode) props.setLoading(false);
 
@@ -174,7 +183,8 @@ function Create(props) {
         res[0] === null ||
         res[1] === null ||
         res[2] === null ||
-        res[3] === null
+        res[3] === null ||
+        res[4] === null
       ) {
         props.setMode('list');
         props.setLoading(false);
@@ -194,6 +204,13 @@ function Create(props) {
       );
       setCerts(res[0]);
       setQuizzes(res[2]);
+      setLevels(
+        res[4].map(e => ({
+          id: e.id,
+          item: e.title,
+        })),
+      );
+      const levelsTmp = res[4];
 
       if (!props.isInEditMode) setIsWorking(false);
 
@@ -226,6 +243,7 @@ function Create(props) {
           setOffType(res[0].offType);
           setOffExpireAt(res[0].offExpiration);
           setOffStartAt(res[0].offStart);
+          setLevel(levelsTmp.find(e => e.title === res[0].level).id);
 
           if (res[0].hasCert) setCertId(res[0].certId);
           setTags(res[0].tags);
@@ -464,6 +482,15 @@ function Create(props) {
             placeholder={Translator.offExpire}
             subText={Translator.offExpire}
           />
+          {levels && (
+            <JustBottomBorderSelect
+              placeholder={Translator.level}
+              subText={Translator.level}
+              setter={setLevel}
+              values={levels}
+              value={levels.find(elem => elem.id === level)}
+            />
+          )}
         </PhoneView>
       )}
 
@@ -479,7 +506,7 @@ function Create(props) {
         onReady={editor => {
           ckEditor = editor;
         }}
-        onChange={(event, editor) => {
+        onChange={(_, editor) => {
           setDescription(editor.getData());
         }}
       />
@@ -496,7 +523,7 @@ function Create(props) {
         onReady={editor => {
           ckEditor = editor;
         }}
-        onChange={(event, editor) => {
+        onChange={(_, editor) => {
           setTeacherBio(editor.getData());
         }}
       />
@@ -513,7 +540,7 @@ function Create(props) {
         onReady={editor => {
           ckEditor = editor;
         }}
-        onChange={(event, editor) => {
+        onChange={(_, editor) => {
           setPreReq(editor.getData());
         }}
       />
@@ -575,6 +602,7 @@ function Create(props) {
               slug: slug,
               duration: duration,
               priority: priority,
+              levelId: level,
             };
 
             if (hasCert) {
