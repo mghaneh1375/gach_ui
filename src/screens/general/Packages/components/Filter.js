@@ -38,6 +38,7 @@ function Filter(props) {
   const [tag, setTag] = useState();
   const [teacher, setTeacher] = useState();
   const [hasCert, setHasCert] = useState();
+  const [level, setLevel] = useState();
 
   const rangeSelector = (event, newValue) => {
     setValue(newValue);
@@ -51,6 +52,7 @@ function Filter(props) {
     setTag(undefined);
     setTeacher(undefined);
     setHasCert(undefined);
+    setLevel(undefined);
     setValue([props.min, props.max]);
     setValueDuration([props.minDuration, props.maxDuration]);
 
@@ -133,6 +135,19 @@ function Filter(props) {
             subText={'استاد'}
           />
         )}
+        {props.levels?.length > 0 && (
+          <JustBottomBorderSelect
+            values={props.levels}
+            setter={setLevel}
+            value={
+              level === undefined
+                ? undefined
+                : props.levels.find(elem => elem.id === level)
+            }
+            placeholder={'سطح دوره'}
+            subText={'سطح دوره'}
+          />
+        )}
         <JustBottomBorderSelect
           values={allTrueFalseValues}
           setter={setHasCert}
@@ -152,6 +167,7 @@ function Filter(props) {
             valueDuration[1],
             hasCert,
             props.token,
+            level,
           );
           dispatch({
             selectableItems: res,

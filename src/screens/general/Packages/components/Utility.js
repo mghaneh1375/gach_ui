@@ -50,6 +50,7 @@ export const filter = async (
   maxDuration,
   hasCert,
   token,
+  level = undefined,
 ) => {
   let query = new URLSearchParams();
 
@@ -68,6 +69,8 @@ export const filter = async (
 
   if (hasCert !== undefined && hasCert !== 'all')
     query.append('hasCert', hasCert);
+
+  if (level !== undefined && level !== 'all') query.append('level', level);
 
   return await generalRequest(
     routes.fetchContents + '?' + query.toString(),

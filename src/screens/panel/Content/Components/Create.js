@@ -243,7 +243,10 @@ function Create(props) {
           setOffType(res[0].offType);
           setOffExpireAt(res[0].offExpiration);
           setOffStartAt(res[0].offStart);
-          setLevel(levelsTmp.find(e => e.title === res[0].level).id);
+          if (res[0].level?.length > 0) {
+            const ttt = levelsTmp.find(e => e.title === res[0].level);
+            if (ttt !== undefined) setLevel(ttt.id);
+          }
 
           if (res[0].hasCert) setCertId(res[0].certId);
           setTags(res[0].tags);

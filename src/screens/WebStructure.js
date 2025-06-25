@@ -156,6 +156,9 @@ const CommentsAboutMe = lazy(() =>
   import('./studentPanel/Comment/CommentsAboutMe'),
 );
 const Advisors = lazy(() => import('./general/Advisors/Advisors'));
+const AdvisorsBeforeLogin = lazy(() =>
+  import('./general/Advisors/AdvisorsBeforeLogin'),
+);
 const AllTeachers = lazy(() => import('./general/Teachers/Teachers'));
 const RequestLogsForAdvisors = lazy(() =>
   import('./studentPanel/RequestLogsForAdvisors/RequestLogsForAdvisors'),
@@ -682,9 +685,13 @@ const WebStructue = props => {
                   {props.page === 'myScheduleRequests' && (
                     <MyScheduleRequests navigate={navigate} />
                   )}
-                  {props.page === 'advisors' && (
-                    <Advisors navigate={navigate} />
-                  )}
+                  {props.page === 'advisors' &&
+                    state.user !== undefined &&
+                    state.user !== null && <Advisors navigate={navigate} />}
+                  {props.page === 'advisors' &&
+                    (state.user === undefined || state.user === null) && (
+                      <AdvisorsBeforeLogin navigate={navigate} />
+                    )}
                   {props.page === 'myAdvisor' && (
                     <MyAdvisor navigate={navigate} />
                   )}

@@ -41,6 +41,30 @@ function AccountCharge(props) {
       childStyle={{paddingLeft: 25}}>
       <SimpleText
         style={{
+          ...styles.colorRed,
+          ...styles.fontSize13,
+          ...styles.FontWeight600,
+        }}
+        text={'1 تا 2 میلیون تومان واریز: 50 هزار تومان شارژ بیشتر'}
+      />
+      <SimpleText
+        style={{
+          ...styles.colorRed,
+          ...styles.fontSize13,
+          ...styles.FontWeight600,
+        }}
+        text={'2 تا 4 میلیون تومان واریز: 100 هزار تومان شارژ بیشتر'}
+      />
+      <SimpleText
+        style={{
+          ...styles.colorRed,
+          ...styles.fontSize13,
+          ...styles.FontWeight600,
+        }}
+        text={'بیشتر از 4 میلیون تومان واریز: 200 هزار تومان شارژ بیشتر'}
+      />
+      <SimpleText
+        style={{
           ...styles.colorOrange,
           ...styles.fontSize15,
           ...styles.FontWeight600,

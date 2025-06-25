@@ -771,7 +771,7 @@ function Detail(props) {
                       <PhoneView>
                         <SimpleFontIcon
                           style={{color: vars.ORANGE_RED}}
-                          icon={faListOl}
+                          icon={faCheck}
                           kind={'normal'}
                         />
                         <SimpleText
@@ -782,10 +782,19 @@ function Detail(props) {
                           text={Translator.level}
                         />
                       </PhoneView>
-                      <SimpleText
-                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
-                        text={item.level}
-                      />
+                      <PhoneView style={{gap: '10px'}}>
+                        <SimpleText
+                          style={{
+                            ...styles.alignSelfCenter,
+                            ...styles.BlueBold,
+                          }}
+                          text={item.level}
+                        />
+                        <img
+                          style={{width: '30px', height: '30px'}}
+                          src={item.icon}
+                        />
+                      </PhoneView>
                     </EqualTwoTextInputs>
                   )}
                   {packageRate !== undefined && (

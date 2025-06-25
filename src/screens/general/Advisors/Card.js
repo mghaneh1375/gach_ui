@@ -281,6 +281,20 @@ function Card(props) {
             />
           </PhoneView>
         )}
+      {(state.token === undefined || state.token === undefined) && (
+        <EqualTwoTextInputs style={{...styles.alignItemsCenter}}>
+          <SimpleText
+            style={{...styles.dark_blue_color}}
+            text="برای مشاهده برنامه‌های مشاوره یا نظرات کاربران و یا درخواست مشاوره
+            لطفا ابتدا به سامانه ورود فرمایید"
+          />
+          <CommonButton
+            theme="dark"
+            onPress={() => props.navigate('/login')}
+            title={'ورود به سامانه'}
+          />
+        </EqualTwoTextInputs>
+      )}
       {props.isMyAdvisor &&
         (props.showMyAdvisor === undefined || props.showMyAdvisor) && (
           <PhoneView style={{justifyContent: 'end'}}>

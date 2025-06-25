@@ -2,7 +2,7 @@ import {
   faExchange,
   faEye,
   faIdCard,
-  faWallet,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {routes} from '../../../API/APIRoutes';
@@ -284,7 +284,8 @@ function Dashboard(props) {
               btnColor={'yellow'}
               borderRight={true}
               borderRightWidth={18}
-              icon={faWallet}
+              icon={faPlus}
+              onPress={() => navigate('/charge')}
             />
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}

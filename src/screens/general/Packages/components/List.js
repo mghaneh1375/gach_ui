@@ -38,6 +38,7 @@ function List(props) {
   const [clearFilter, setClearFilter] = useState(false);
   const [bestComments, setBestComments] = useState();
   const [viewableItems, setViewableItems] = useState();
+  const [levels, setLevels] = useState();
 
   React.useEffect(() => {
     if (state.selectableItems === undefined) return;
@@ -63,10 +64,16 @@ function List(props) {
         undefined,
         'data',
       ),
+      generalRequest(
+        routes.publicGetListOfPackageLevels,
+        'get',
+        undefined,
+        'data',
+      ),
     ]).then(res => {
       props.setLoading(false);
 
-      if (res[0] === null || res[1] == null) {
+      if (res[0] === null || res[1] === null || res[2] === null) {
         props.navigate('/');
         return;
       }
@@ -74,7 +81,16 @@ function List(props) {
       setMin(res[0].min);
       setMax(res[0].max);
       setBestComments(res[1]);
-
+      setLevels([
+        {
+          id: 'all',
+          item: 'همه',
+        },
+        ...res[2].map(e => ({
+          id: e.id,
+          item: e.title,
+        })),
+      ]);
       setMinDuration(res[0].minDuration);
       setMaxDuration(res[0].maxDuration);
 
@@ -229,6 +245,7 @@ function List(props) {
                 tags={tags}
                 teachers={teachers}
                 token={props.token}
+                levels={levels}
                 setClearFilter={setClearFilter}
                 clearFilter={clearFilter}
                 show={showFilter}

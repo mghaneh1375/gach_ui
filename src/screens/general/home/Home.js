@@ -7,6 +7,7 @@ import {Image} from 'react-native';
 import {getDevice, getWidthHeight} from './../../../services/Utility';
 
 import {
+  EqualTwoTextInputs,
   MyView,
   PhoneView,
   ScreenScroll,
@@ -320,59 +321,145 @@ const Home = props => {
           style={{
             zIndex: 10,
             position: 'absolute',
-            paddingRight: 50,
-            paddingLeft: 50,
-            bottom: isInPhone ? 80 : 0,
-            width: 'calc(100% - 100px)',
+            paddingRight: isInPhone ? 30 : 50,
+            paddingLeft: isInPhone ? 30 : 50,
+            bottom: isInPhone ? 70 : 0,
+            width: isInPhone ? 'calc(100% - 60px)' : 'calc(100% - 100px)',
             // height: '5px',
           }}>
-          <img src="./assets/images/irysc.png" width={200} />
-          <MyView
-            style={{
-              ...styles.gap10,
-              ...styles.marginTop10,
-              marginBottom: '10px',
-            }}>
-            <PhoneView style={{...styles.gap10}}>
-              <img src="./assets/images/address.svg" height={30} />
-              <SimpleText
+          {!isInPhone && (
+            <EqualTwoTextInputs style={{alignItems: 'end'}}>
+              <MyView
                 style={{
-                  ...styles.alignSelfCenter,
-                  ...styles.BlueBold,
-                  ...{width: 'calc(100% - 30px)'},
-                }}
-                text={'نشانی: دانشگاه صنعتی شریف، ساختمان ابن سینا، طبقه چهارم'}
-              />
-            </PhoneView>
-            <PhoneView style={{...styles.gap10}}>
-              <img src="./assets/images/phone.svg" height={25} />
-              <SimpleText
-                style={{
-                  ...styles.alignSelfCenter,
-                  ...styles.BlueBold,
-                }}
-                text={'021-91096320'}
-              />
-            </PhoneView>
-            <PhoneView style={{...styles.gap10}}>
-              <img src="./assets/images/email.svg" height={25} />
-              <SimpleText
-                style={{
-                  ...styles.alignSelfCenter,
-                  ...styles.BlueBold,
-                }}
-                text={'info@irysc.com'}
-              />
-            </PhoneView>
-            <SimpleText
+                  ...styles.gap10,
+                  ...styles.marginTop10,
+                  marginBottom: '10px',
+                }}>
+                <img src="./assets/images/irysc.png" width={200} />
+                <PhoneView style={{...styles.gap10}}>
+                  <img src="./assets/images/address.svg" height={30} />
+                  <SimpleText
+                    style={{
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                      ...{width: 'calc(100% - 30px)'},
+                    }}
+                    text={
+                      'نشانی: دانشگاه صنعتی شریف، ساختمان ابن سینا، طبقه چهارم'
+                    }
+                  />
+                </PhoneView>
+                <PhoneView style={{...styles.gap10}}>
+                  <img src="./assets/images/phone.svg" height={25} />
+                  <SimpleText
+                    style={{
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                    }}
+                    text={'021-91096320'}
+                  />
+                </PhoneView>
+                <PhoneView style={{...styles.gap10}}>
+                  <img src="./assets/images/email.svg" height={25} />
+                  <SimpleText
+                    style={{
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                    }}
+                    text={'info@irysc.com'}
+                  />
+                </PhoneView>
+                <SimpleText
+                  style={{
+                    ...styles.dark_blue_color,
+                  }}
+                  text={
+                    'تمام حقوق این وبسایت، مطالب، سوالات و دوره‌های موجود در آن متعلق به کانون دانش پژوهان ایران (آیریسک) است. هر گونه استفاده بدون مجوز از مطالب می تواند پیگرد قانونی داشته باشد.'
+                  }
+                />
+              </MyView>
+              <a
+                referrerPolicy="origin"
+                target="_blank"
+                href="https://trustseal.enamad.ir/?id=605281&Code=6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl">
+                <img
+                  referrerPolicy="origin"
+                  src="https://trustseal.enamad.ir/logo.aspx?id=605281&Code=6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl"
+                  alt=""
+                  style={{cursor: 'pointer'}}
+                  code="6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl"
+                />
+              </a>
+            </EqualTwoTextInputs>
+          )}
+          {isInPhone && (
+            <MyView
               style={{
-                ...styles.dark_blue_color,
-              }}
-              text={
-                'تمام حقوق این وبسایت، مطالب، سوالات و دوره‌های موجود در آن متعلق به کانون دانش پژوهان ایران (آیریسک) است. هر گونه استفاده بدون مجوز از مطالب می تواند پیگرد قانونی داشته باشد.'
-              }
-            />
-          </MyView>
+                ...styles.gap10,
+                ...styles.marginTop10,
+                marginBottom: '10px',
+              }}>
+              <img src="./assets/images/irysc.png" width={200} />
+              <PhoneView style={{...styles.gap10}}>
+                <img src="./assets/images/address.svg" height={20} />
+                <SimpleText
+                  style={{
+                    ...styles.fontSize12,
+                    ...styles.alignSelfCenter,
+                    ...styles.BlueBold,
+                    ...{width: 'calc(100% - 30px)'},
+                  }}
+                  text={
+                    'نشانی: دانشگاه صنعتی شریف، ساختمان ابن سینا، طبقه چهارم'
+                  }
+                />
+              </PhoneView>
+              <PhoneView style={{...styles.gap10}}>
+                <img src="./assets/images/phone.svg" height={20} />
+                <SimpleText
+                  style={{
+                    ...styles.fontSize12,
+                    ...styles.alignSelfCenter,
+                    ...styles.BlueBold,
+                  }}
+                  text={'021-91096320'}
+                />
+              </PhoneView>
+              <PhoneView style={{...styles.gap10}}>
+                <img src="./assets/images/email.svg" height={20} />
+                <SimpleText
+                  style={{
+                    ...styles.fontSize12,
+                    ...styles.alignSelfCenter,
+                    ...styles.BlueBold,
+                  }}
+                  text={'info@irysc.com'}
+                />
+              </PhoneView>
+              <SimpleText
+                style={{
+                  ...styles.fontSize12,
+                  ...styles.dark_blue_color,
+                }}
+                text={
+                  'تمام حقوق این وبسایت، مطالب، سوالات و دوره‌های موجود در آن متعلق به کانون دانش پژوهان ایران (آیریسک) است. هر گونه استفاده بدون مجوز از مطالب می تواند پیگرد قانونی داشته باشد.'
+                }
+              />
+              <a
+                style={{margin: '0 auto'}}
+                referrerPolicy="origin"
+                target="_blank"
+                href="https://trustseal.enamad.ir/?id=605281&Code=6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl">
+                <img
+                  referrerPolicy="origin"
+                  src="https://trustseal.enamad.ir/logo.aspx?id=605281&Code=6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl"
+                  alt=""
+                  style={{cursor: 'pointer'}}
+                  code="6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl"
+                />
+              </a>
+            </MyView>
+          )}
         </div>
       </div>
     </ScreenScroll>

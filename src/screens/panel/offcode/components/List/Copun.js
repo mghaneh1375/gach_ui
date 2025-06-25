@@ -42,7 +42,10 @@ function Copun(props) {
   }, [data, fetchData]);
 
   return (
-    <CommonWebBox header={translator.offs} backBtn={true}>
+    <CommonWebBox
+      onBackClick={() => props.setMode('list')}
+      header={translator.offs}
+      backBtn={true}>
       {data !== undefined && (
         <CommonDataTable columns={columnsForCopun} data={data} />
       )}
