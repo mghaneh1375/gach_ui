@@ -1,4 +1,11 @@
+import Slider from '@material-ui/core/Slider';
 import React, {useState} from 'react';
+import {
+  allTrueFalseValues,
+  convertSecToMinWithOutSecAndDay,
+  formatPrice,
+  getDevice,
+} from '../../../../services/Utility';
 import {
   CommonButton,
   EqualTwoTextInputs,
@@ -6,26 +13,16 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
-import Slider from '@material-ui/core/Slider';
 import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {
-  allTrueFalseValues,
-  convertSecToMinWithOutSecAndDay,
-  formatPrice,
-  getDevice,
-} from '../../../../services/Utility';
 import {styles} from '../../../../styles/Common/Styles';
 import commonTranslator from '../../../../translator/Common';
+import {dispatchPackagesContext} from './Context';
 import {filter} from './Utility';
-import {packagesContext, dispatchPackagesContext} from './Context';
 
 function Filter(props) {
-  const useGlobalState = () => [
-    React.useContext(packagesContext),
-    React.useContext(dispatchPackagesContext),
-  ];
+  const useGlobalState = () => [React.useContext(dispatchPackagesContext)];
 
-  const [state, dispatch] = useGlobalState();
+  const [dispatch] = useGlobalState();
 
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
 
@@ -40,11 +37,11 @@ function Filter(props) {
   const [hasCert, setHasCert] = useState();
   const [level, setLevel] = useState();
 
-  const rangeSelector = (event, newValue) => {
+  const rangeSelector = (_, newValue) => {
     setValue(newValue);
   };
 
-  const rangeSelectorDuration = (event, newValue) => {
+  const rangeSelectorDuration = (_, newValue) => {
     setValueDuration(newValue);
   };
 
@@ -65,7 +62,15 @@ function Filter(props) {
 
   return (
     <MyView>
-      <PhoneView style={{...styles.gap30}}>
+      <PhoneView
+        style={
+          isInPhone
+            ? {
+                ...styles.gap30,
+                ...styles.justifyContentCenter,
+              }
+            : {...styles.gap30}
+        }>
         {props.max !== props.min && (
           <MyView style={{width: isInPhone ? 260 : 300}}>
             <SimpleText
@@ -158,7 +163,7 @@ function Filter(props) {
       </PhoneView>
       <CommonButton
         onPress={async () => {
-          let res = await filter(
+          const res = await filter(
             tag,
             teacher,
             value[0],
@@ -174,6 +179,7 @@ function Filter(props) {
           });
           if (isInPhone) props.close();
         }}
+        style={isInPhone ? {marginBottom: '60px', marginTop: '30px'} : {}}
         title={'اعمال فیلتر'}
       />
     </MyView>

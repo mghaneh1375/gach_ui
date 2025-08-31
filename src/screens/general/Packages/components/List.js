@@ -150,7 +150,15 @@ function List(props) {
         <CommonWebBox
           style={
             showFilter && isInPhone
-              ? {position: 'fixed', zIndex: '1', margin: '0px'}
+              ? {
+                  position: 'fixed',
+                  padding: '0 0 50px 0',
+                  zIndex: '1',
+                  margin: '0px',
+                  maxHeight: '100vh',
+                  overflowY: 'auto',
+                  overflowX: 'hidden',
+                }
               : {}
           }>
           {!isInPhone && (
@@ -254,57 +262,61 @@ function List(props) {
             )}
         </CommonWebBox>
       )}
-      <BestComments isInPhone={isInPhone} bestComments={bestComments} />
-      <MyView>
-        <SimpleText
-          style={{
-            ...styles.BlueBold,
-            ...styles.fontSize25,
-            ...styles.textCenter,
-            ...styles.marginTop20,
-            ...styles.marginBottom20,
-          }}
-          text={' دوره‌های آموزشی'}
-        />
-      </MyView>
-      <PhoneView style={{...styles.gap10, justifyContent: 'space-around'}}>
-        {viewableItems !== undefined &&
-          viewableItems.map((elem, index) => {
-            return (
-              <Card
-                isInMyMode={props.isInMyMode}
-                isInPhone={isInPhone}
-                package={elem}
-                key={index}
-                navigate={props.navigate}
+      {(!isInPhone || !showFilter) && (
+        <>
+          <BestComments isInPhone={isInPhone} bestComments={bestComments} />
+          <MyView>
+            <SimpleText
+              style={{
+                ...styles.BlueBold,
+                ...styles.fontSize25,
+                ...styles.textCenter,
+                ...styles.marginTop20,
+                ...styles.marginBottom20,
+              }}
+              text={' دوره‌های آموزشی'}
+            />
+          </MyView>
+          <PhoneView style={{...styles.gap10, justifyContent: 'space-around'}}>
+            {viewableItems !== undefined &&
+              viewableItems.map((elem, index) => {
+                return (
+                  <Card
+                    isInMyMode={props.isInMyMode}
+                    isInPhone={isInPhone}
+                    package={elem}
+                    key={index}
+                    navigate={props.navigate}
+                  />
+                );
+              })}
+          </PhoneView>
+          {viewableItems !== undefined &&
+            viewableItems.length < state.selectableItems.length && (
+              <SimpleText
+                text={'نمایش بیشتر'}
+                style={{
+                  ...styles.alignSelfCenter,
+                  ...styles.cursor_pointer,
+                  ...styles.BlueBold,
+                  ...styles.fontSize20,
+                  ...styles.margin25,
+                }}
+                onPress={() => {
+                  setViewableItems(
+                    state.selectableItems.slice(
+                      0,
+                      Math.min(
+                        viewableItems.length + 6,
+                        state.selectableItems.length,
+                      ),
+                    ),
+                  );
+                }}
               />
-            );
-          })}
-      </PhoneView>
-      {viewableItems !== undefined &&
-        viewableItems.length < state.selectableItems.length && (
-          <SimpleText
-            text={'نمایش بیشتر'}
-            style={{
-              ...styles.alignSelfCenter,
-              ...styles.cursor_pointer,
-              ...styles.BlueBold,
-              ...styles.fontSize20,
-              ...styles.margin25,
-            }}
-            onPress={() => {
-              setViewableItems(
-                state.selectableItems.slice(
-                  0,
-                  Math.min(
-                    viewableItems.length + 6,
-                    state.selectableItems.length,
-                  ),
-                ),
-              );
-            }}
-          />
-        )}
+            )}
+        </>
+      )}
     </MyView>
   );
 }
