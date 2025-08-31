@@ -73,8 +73,22 @@ function Ops(props) {
           <CommonButton
             dir={'rtl'}
             theme={'transparent'}
-            onPress={() => props.setSelectedContentId(state.selectedContent.id)}
+            onPress={() => {
+              props.setMode('seo');
+              props.setSelectedContentId(state.selectedContent.id);
+            }}
             title={Translator.manageSeo}
+          />
+        )}
+        {props.isAdmin && (
+          <CommonButton
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => {
+              props.setMode('faq');
+              props.setSelectedContentId(state.selectedContent.id);
+            }}
+            title={Translator.manageFAQ}
           />
         )}
         <CommonButton

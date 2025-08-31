@@ -9,6 +9,7 @@ import Attach from './Components/Session/Attach';
 import Students from './Components/StudentsList/Students';
 import Seo from './Seo/Seo';
 import {isUserAdmin, isUserEditorAccess} from '../../../services/Utility';
+import IndividualFAQ from './IndividualFAQ/IndividualFAQ';
 
 function Content(props) {
   const navigate = props.navigate;
@@ -25,10 +26,10 @@ function Content(props) {
   };
 
   const [selectedContentId, setSelectedContentId] = useState();
-  React.useEffect(() => {
-    if (selectedContentId === undefined) return;
-    setMode('seo');
-  }, [selectedContentId]);
+  // React.useEffect(() => {
+  //   if (selectedContentId === undefined) return;
+  //   setMode('seo');
+  // }, [selectedContentId]);
 
   const isEditor = isUserEditorAccess(state.user);
   const isAdmin = isUserAdmin(state.user);
@@ -48,6 +49,19 @@ function Content(props) {
       )}
       {mode === 'seo' && (
         <Seo
+          onBackClick={() => {
+            setSelectedContentId(undefined);
+            setMode('list');
+          }}
+          token={state.token}
+          setLoading={setLoading}
+          setMode={setMode}
+          navigate={navigate}
+          packageId={selectedContentId}
+        />
+      )}
+      {mode === 'faq' && (
+        <IndividualFAQ
           onBackClick={() => {
             setSelectedContentId(undefined);
             setMode('list');

@@ -77,12 +77,7 @@ export function convertSecToMinWithOutSec2(sec) {
   if (sec < 0) return '';
 
   const d = new Date(sec * 1000).toISOString();
-
-  console.log(d);
-
   let day = parseInt(d.substr(8, 2)) - 1;
-
-  console.log(d.substr(8, 2));
 
   let h = d.substr(11, 2);
 
