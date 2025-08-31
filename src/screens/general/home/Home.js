@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
-import BackgroundScrollView from './../../../components/BackgroundScrollView';
-import translator from './translator';
-import {Device} from './../../../models/Device';
 import {Image} from 'react-native';
-
+import BackgroundScrollView from './../../../components/BackgroundScrollView';
+import {Device} from './../../../models/Device';
+import translator from './translator';
 import {getDevice, getWidthHeight} from './../../../services/Utility';
-
+import {useEffectOnce} from 'usehooks-ts';
+import {routes} from '../../../API/APIRoutes';
+import {generalRequest} from '../../../API/Utility';
+import {dispatchStateContext, globalStateContext} from '../../../App';
 import {
   EqualTwoTextInputs,
   MyView,
@@ -13,14 +15,11 @@ import {
   ScreenScroll,
   SimpleText,
 } from '../../../styles/Common';
-import vars from '../../../styles/root';
-import {globalStateContext, dispatchStateContext} from '../../../App';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
-import {useEffectOnce} from 'usehooks-ts';
 import {styles} from '../../../styles/Common/Styles';
+import vars from '../../../styles/root';
 import HomeBox from './HomeBox/HomeBox';
 import RSS from './RSS/RSS';
+import {useTheme} from 'styled-components';
 
 const device = getDevice();
 
@@ -44,13 +43,13 @@ const Home = props => {
 
   const [isWorking, setIsWorking] = useState(false);
   const [data, setData] = useState();
+  const theme = useTheme();
 
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [news, setNews] = useState([]);
 
   const fetchNews = React.useCallback(() => {
@@ -173,6 +172,7 @@ const Home = props => {
           width: '100%',
           height: '100vh',
           background: 'url(./assets/images/back3.png)',
+          backgroundColor: state.theme === 'dark' ? vars.DARK_BLUE : 'unset',
         }}></div>
       <BackgroundScrollView
         images={[
@@ -217,12 +217,12 @@ const Home = props => {
           marginTop: whiteDividerH,
           width: '100%',
           height: grayFooterH,
-          backgroundColor: 'white',
+          backgroundColor: state.theme === 'dark' ? vars.DARK_BLUE : 'white',
         }}>
         <MyView
           className={'transparent-cards'}
           style={{
-            background: '#ffffffcc',
+            background: `${theme.colors.background.primary}cc`,
             zIndex: 20,
             position: 'absolute',
             // top: width < 440 ? -320 : -170,
@@ -269,7 +269,7 @@ const Home = props => {
             maxWidth: '100%',
             width: whiteDividerW,
             height: whiteDividerH,
-            background: 'url(./assets/images/whitedevider.svg)',
+            background: 'url(./assets/images/whitedevider-dark.svg)',
             backgroundSize: 'cover',
             backgroundPosition: 'right',
             backgroundRepeat: 'no-repeat',
@@ -311,7 +311,10 @@ const Home = props => {
             width: grayFooterW,
             height: grayFooterH,
             top: 0,
-            background: 'url(./assets/images/footergray.svg)',
+            background:
+              state.theme === 'light'
+                ? 'url(./assets/images/footergray.svg)'
+                : 'url(./assets/images/footergray-dark.svg)',
             backgroundSize: 'cover',
             backgroundPosition: 'right',
             backgroundRepeat: 'no-repeat',

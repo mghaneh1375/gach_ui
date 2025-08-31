@@ -3,6 +3,7 @@ import {getWidthHeight} from '../../../../services/Utility';
 import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
 import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
 import vars from '../../../../styles/root';
+import {useTheme} from 'styled-components';
 
 const width = getWidthHeight()[0];
 
@@ -149,10 +150,11 @@ export const style = {
     marginTop: 10,
   },
   MenuJustLarge: {
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
+    // borderTopRightRadius: 10,
+    // borderTopLeftRadius: 10,
     width: vars.RIGHT_MENU_WIDTH,
-    minHeight: 'calc(100vh - 60px - 10px)',
+    // minHeight: 'calc(100vh - 60px - 10px)',
+    minHeight: 'calc(100vh - 60px)',
     height: 'max-content',
   },
   width100: {
@@ -207,6 +209,7 @@ export const style = {
 };
 
 export const MenuItem = props => {
+  const theme = useTheme();
   return (
     <div
       onClick={props.onClick}
@@ -215,17 +218,6 @@ export const MenuItem = props => {
           ? 'menu-item menu-item-selected'
           : 'menu-item'
       }>
-      <SimpleText
-        style={{
-          padding: 3,
-          paddingRight: 12,
-          color:
-            props.selected !== undefined && props.selected
-              ? vars.WHITE
-              : vars.LIGHT_SILVER,
-        }}
-        text={props.text}
-      />
       {props.icon !== undefined && (
         <div
           className={
@@ -235,11 +227,21 @@ export const MenuItem = props => {
           }>
           <SimpleFontIcon
             parentStyle={{width: 30}}
-            style={{color: vars.WHITE}}
+            style={{color: theme.components.menu.colors.icon}}
             icon={props.icon}
           />
         </div>
       )}
+      <SimpleText
+        style={{
+          padding: theme.components.menu.spaces.padding,
+          color:
+            props.selected !== undefined && props.selected
+              ? vars.WHITE
+              : theme.components.menu.colors.text,
+        }}
+        text={props.text}
+      />
     </div>
   );
 };

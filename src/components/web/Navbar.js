@@ -4,6 +4,7 @@ import {CommonButton, MyView} from '../../styles/Common';
 import {styles} from '../../styles/Common/Styles';
 import vars from '../../styles/root';
 import {Nav, NavLink, NavLinkExternal} from '../../styles/web/NavbarElement';
+import {useTheme} from 'styled-components';
 
 const Navbar = props => {
   const [isLogin, setIsLogin] = useState(props.user !== null);
@@ -13,10 +14,11 @@ const Navbar = props => {
   }, [props.user]);
 
   const width = getWidthHeight()[0];
+  const theme = useTheme();
 
   return (
     <MyView style={{width: '100%'}}>
-      <Nav>
+      <Nav style={{backgroundColor: theme.colors.background.secondary}}>
         <NavLinkExternal
           rel="noopener noreferrer"
           target="_blank"

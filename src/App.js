@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
-import {Platform, LogBox} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {LogBox, Platform} from 'react-native';
 import {fetchUser, getToken, getUser} from './API/User';
 
+import {ThemeProvider} from 'styled-components';
 import AppRouter from './router/app/Router';
 import WebRouter from './router/web/Router';
+import vars from './styles/root';
 
 const defaultGlobalState = {
   showBottonNav: true,
@@ -16,6 +18,7 @@ const defaultGlobalState = {
   token: undefined,
   user: undefined,
   isInPhone: false,
+  theme: 'dark',
 };
 
 export const globalStateContext = React.createContext(defaultGlobalState);
@@ -161,7 +164,117 @@ console.warn = (...arg) => {
 
 LogBox.ignoreLogs(ignoreWarns);
 
+const lightTheme = {
+  components: {
+    button: {
+      colors: {
+        primary: vars.ORANGE,
+      },
+    },
+    menu: {
+      spaces: {
+        padding: 7,
+        subItemPadding: 5,
+        subItemPaddingRight: 35,
+      },
+      colors: {
+        text: vars.LIGHT_SILVER,
+        background: vars.WHITE,
+        selected: vars.ORANGE,
+        hover: vars.BLACK,
+        icon: '#4D4354',
+      },
+    },
+  },
+  colors: {
+    background: {
+      primary: vars.WHITE,
+      secondary: vars.WHITE,
+      shadow: 'rgb(170, 170, 170)',
+      modal: '#ffffff',
+      card: '#ffffff',
+    },
+    primary: vars.LIGHT_SILVER,
+    text: vars.DARK_BLUE,
+    light: vars.LIGHT_SILVER,
+  },
+};
+
+const darkTheme = {
+  components: {
+    button: {
+      colors: {
+        primary: vars.ORANGE,
+      },
+    },
+    menu: {
+      spaces: {
+        padding: 7,
+        subItemPadding: 5,
+        subItemPaddingRight: 35,
+      },
+      colors: {
+        text: 'rgb(152, 134, 165)',
+        background: '#15051F',
+        selected: '#492455',
+        icon: 'rgb(152, 134, 165)',
+        hover: vars.WHITE,
+      },
+    },
+  },
+  colors: {
+    background: {
+      primary: '#15051F',
+      secondary: vars.DARK_BLUE_LIGHT,
+      modal: '#292929',
+      shadow: '#334d56',
+      card: '#AC46BD',
+    },
+    primary: vars.DARK_BLUE,
+    text: '#ffffff',
+    light: '#ffffff',
+  },
+};
+
 export default function App() {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    // Check localStorage or system preference for initial value
+    const saved = localStorage.getItem('darkMode');
+    return saved !== undefined && saved !== null
+      ? saved === true || saved === 'true'
+      : false;
+  });
+
+  const theme = isDarkMode ? darkTheme : lightTheme;
+
+  // Save theme preference to localStorage
+  useEffect(() => {
+    localStorage.setItem('darkMode', isDarkMode);
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(prev => !prev);
+  };
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      '--menu-text-color',
+      theme.components.menu.colors.text,
+    );
+    document.documentElement.style.setProperty(
+      '--menu-background-color',
+      theme.components.menu.colors.background,
+    );
+    document.documentElement.style.setProperty(
+      '--menu-selected-color',
+      theme.components.menu.colors.selected,
+    );
+    document.documentElement.style.setProperty(
+      '--menu-hover-color',
+      theme.components.menu.colors.hover,
+    );
+  }, [theme]);
+
   if (Platform.OS === 'ios' || Platform.OS === 'android') {
     return (
       <GlobalStateProvider>
@@ -169,9 +282,15 @@ export default function App() {
       </GlobalStateProvider>
     );
   }
+
   return (
     <GlobalStateProvider>
-      <WebRouter />
+      <ThemeProvider theme={theme}>
+        {/* <button onClick={toggleTheme}>
+          Switch to {isDarkMode ? 'Light' : 'Dark'} Mode
+        </button> */}
+        <WebRouter />
+      </ThemeProvider>
     </GlobalStateProvider>
   );
 }

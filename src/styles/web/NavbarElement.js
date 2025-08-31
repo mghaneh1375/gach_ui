@@ -8,7 +8,7 @@ export const Nav = styled.nav`
   height: ${vars.NAV_BAR_H};
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
-  box-shadow: 5px 5px 5px #aaaaaa;
+  box-shadow: ${props => `5px 5px 5px ${props.theme.colors.background.shadow}`};
   margin: 0 auto;
   max-width: 85%;
   width: 85%;
@@ -22,7 +22,7 @@ export const Nav = styled.nav`
   }
 `;
 export const NavLink = styled(Link)`
-  color: ${vars.LIGHT_SILVER} !important;
+  color: ${props => props.theme.colors.light} !important;
   display: flex;
   font-family: IRANSans;
   align-items: center;
@@ -35,7 +35,7 @@ export const NavLink = styled(Link)`
   }
 `;
 export const NavLinkExternal = styled.a`
-  color: ${vars.LIGHT_SILVER} !important;
+  color: ${props => props.theme.colors.light} !important;
   display: flex;
   font-family: IRANSans;
   align-items: center;

@@ -1,13 +1,12 @@
-import vars from './../root';
 import {Platform, Pressable} from 'react-native';
 import styled from 'styled-components';
 import {getDevice} from '../../services/Utility';
-import {Device} from '../../models/Device';
+import vars from './../root';
 
 const style = {
   textAlign: 'center',
   color: vars.WHITE,
-  backgroundColor: vars.ORANGE,
+  backgroundColor: porps => porps.theme.components.button.colors.primary,
   borderRadius: 10,
   paddingTop: 5,
   paddingBottom: 5,

@@ -1,28 +1,28 @@
-import React, {useState, lazy, Suspense, useMemo, useEffect} from 'react';
+import React, {lazy, Suspense, useEffect, useMemo, useState} from 'react';
 
-import {
-  MinFullHeightView,
-  LargeContentConianerStyle,
-  PhoneContentConianerStyle,
-  MyView,
-  PhoneContentConianerStyle2,
-} from '../styles/Common';
 import {useNavigate, useParams} from 'react-router-dom';
+import {getToday, isUserEditorAccess} from '../services/Utility';
+import {
+  LargeContentConianer,
+  MinFullHeightView,
+  MyView,
+} from '../styles/Common';
 import Home from './general/home/Home';
 const Login = lazy(() => import('./general/login/Login'));
 const WebLogin = lazy(() => import('./general/login/web/Login'));
 const WebProfile = lazy(() => import('./general/profile/web/Profile'));
-import {getToday, isUserEditorAccess} from '../services/Utility';
 
-import 'react-notifications-component/dist/theme.css';
 import {ReactNotifications} from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 
-import {globalStateContext, dispatchStateContext} from '../App';
-import Logo from '../components/web/LargeScreen/Header/Logo';
+import {routes} from '../API/APIRoutes';
+import {generalRequest} from '../API/Utility';
+import {dispatchStateContext, globalStateContext} from '../App';
+import BottomNavBar from '../components/web/BottomNavBar';
 import Header from '../components/web/LargeScreen/Header/Header';
+import Logo from '../components/web/LargeScreen/Header/Logo';
 import Menu from '../components/web/LargeScreen/Header/Menu';
 import Navbar from '../components/web/Navbar';
-import BottomNavBar from '../components/web/BottomNavBar';
 const Quiz = lazy(() => import('./panel/quiz/Quiz'));
 const Course = lazy(() => import('./panel/consultants/Course'));
 const LifeStyle = lazy(() => import('./panel/consultants/LifeStyle'));
@@ -101,8 +101,6 @@ const Notif = lazy(() => import('./panel/notifs/Notif'));
 const SingleNotif = lazy(() => import('./studentPanel/Notif/Notif'));
 const Barcode = lazy(() => import('./panel/Barcode/Barcode'));
 const PackageLevel = lazy(() => import('./panel/Content/Level/PackageLevel'));
-import {routes} from '../API/APIRoutes';
-import {generalRequest} from '../API/Utility';
 
 const MyAdvisorHistory = lazy(() =>
   import('./studentPanel/Advisor/MyAdvisor/MyAdvisorHistory'),
@@ -401,15 +399,16 @@ const WebStructue = props => {
                   }
                 />
 
-                <MyView
-                  style={
-                    (!state.isInPhone && state.isRightMenuVisible) ||
-                    (!state.isInPhone && state.isFilterMenuVisible)
-                      ? LargeContentConianerStyle
-                      : state.isInPhone && state.isRightMenuVisible
-                      ? PhoneContentConianerStyle2
-                      : PhoneContentConianerStyle
-                  }>
+                <LargeContentConianer
+                // style={
+                //   (!state.isInPhone && state.isRightMenuVisible) ||
+                //   (!state.isInPhone && state.isFilterMenuVisible)
+                //     ? LargeContentConianerStyle
+                //     : state.isInPhone && state.isRightMenuVisible
+                //     ? PhoneContentConianerStyle2
+                //     : PhoneContentConianerStyle
+                // }
+                >
                   {props.page === 'home' && (
                     <Home
                       isRightMenuVisible={state.isRightMenuVisible}
@@ -1050,7 +1049,7 @@ const WebStructue = props => {
                     />
                   )}
                   {props.page === '404' && <PageNotFound navigate={navigate} />}
-                </MyView>
+                </LargeContentConianer>
               </MyView>
 
               {props.page === 'login' && !state.isInPhone && (
