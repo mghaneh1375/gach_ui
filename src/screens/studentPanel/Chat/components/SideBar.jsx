@@ -1,21 +1,15 @@
 import React, {useEffect, useState} from 'react';
-
 import {chatContext, dispatchChatContext} from './Context';
-import {GetChatsApi} from './MessangerApi';
-
+import {GetChatsApi} from './messangerApi';
 function SideBar(props) {
   const useGlobalState = () => [
     React.useContext(chatContext),
     React.useContext(dispatchChatContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [users, setUsers] = useState([]);
   const [showUser, setShowUser] = useState(null);
-
   const [userListToShow, setUserListToShow] = useState([]);
-
   const getUsers = async () => {
     props.setLoading(true);
     const res = await GetChatsApi(props.socketToken);
@@ -24,7 +18,6 @@ function SideBar(props) {
       .sort((a, b) => b.newMsgs - a.newMsgs)
       .map((item, index) => {
         const name = item.receiverName;
-
         return {
           ...item,
           id: item.receiverId,
@@ -33,29 +26,26 @@ function SideBar(props) {
           order: -(res.length - index),
         };
       });
-
     props.updateGroups(res);
     setUserListToShow(res);
     setUsers(res);
   };
-
   const changePerson = id => {
     setShowUser(id);
-
     setUsers(prev => {
       const updated = prev.map(item => {
         if (item.id === id) {
           item.notReadMessage = 0;
           props.changePerson(item);
         }
-        return {...item};
+        return {
+          ...item,
+        };
       });
-
       setUserListToShow([...updated]);
       return [...updated];
     });
   };
-
   useEffect(() => {
     if (state.sideBarRowIds) {
       let minOrder = 0;
@@ -63,22 +53,22 @@ function SideBar(props) {
         minOrder = Math.min(minOrder, item.order);
       });
       minOrder -= 2;
-
       const newUsers = users.map(item => {
         if (item.id === state.sideBarRowIds) {
           item.order = minOrder;
         }
-
         if (showUser === item.id) {
           item.notReadMessage = 0;
         }
-
-        return {...item};
+        return {
+          ...item,
+        };
       });
-
       setUserListToShow(newUsers);
       setUsers(newUsers);
-      dispatch({sideBarRowIds: null});
+      dispatch({
+        sideBarRowIds: null,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.sideBarRowIds]);
@@ -99,20 +89,21 @@ function SideBar(props) {
         if (item.id === state.notReadMessageInfo?.sideBarRowUpdateNotif) {
           item.notReadMessage = state.notReadMessageInfo?.notifCount;
         }
-
-        return {...item};
+        return {
+          ...item,
+        };
       });
-
       setUserListToShow(newUsers);
       setUsers(newUsers);
-
       dispatch({
-        notReadMessageInfo: {sideBarRowUpdateNotif: null, notifCount: 0},
+        notReadMessageInfo: {
+          sideBarRowUpdateNotif: null,
+          notifCount: 0,
+        },
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.notReadMessageInfo]);
-
   useEffect(() => {
     if (props.sideBarList?.length > 0) {
       props.updateGroups(props.sideBarList);
@@ -123,13 +114,16 @@ function SideBar(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.sideBarList]);
-
   return (
     <div
       className={`mesenger_userList ${
         props.selectedGroup !== null && 'notOpen'
       }`}>
-      <div style={{display: 'flex', flexDirection: 'column'}}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
         {userListToShow.map(item => {
           return (
             <div
@@ -140,7 +134,9 @@ function SideBar(props) {
               onClick={() => {
                 changePerson(item.id);
               }}
-              style={{order: item.order}}>
+              style={{
+                order: item.order,
+              }}>
               <div className="img">
                 <img src={item.pic} />
               </div>

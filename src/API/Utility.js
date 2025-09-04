@@ -1,7 +1,7 @@
 import Axios from 'axios';
-import {showError} from '../services/Utility';
-import commonTranslator from './../translator/Common';
-import {removeAuthCache} from './User';
+import {showError} from '../services/utility';
+import commonTranslator from '../translator/common';
+import {removeAuthCache} from './user';
 
 // export const BASE_SITE_NAME = 'http://localhost:3000/';
 export const BASE_SITE_NAME = 'https://e.irysc.com/';
@@ -11,7 +11,6 @@ export const CV_BASE_URL = 'https://cv.irysc.com/api/';
 
 // export const VIDEO_BASE_URL = 'http://127.0.0.1:8086/video_api/';
 export const VIDEO_BASE_URL = 'https://video.irysc.com/video_api/';
-
 export const BASE_URL = 'http://127.0.0.1:8080/api/';
 // export const BASE_URL = 'https://dev.irysc.com/api/';
 // export const BASE_URL = 'https://e.irysc.com/api/';
@@ -20,7 +19,6 @@ export const COMMON_HEADER = {
   'content-type': 'application/json',
   accept: 'application/json',
 };
-
 export const COMMON_HEADER_AUTH = token => {
   return {
     'content-type': 'application/json',
@@ -28,39 +26,33 @@ export const COMMON_HEADER_AUTH = token => {
     Authorization: 'Bearer ' + token,
   };
 };
-
 export const COMMON_FILE_HEADER = () => {
   return {
     accept: 'application/json',
   };
 };
-
 export const COMMON_FILE_HEADER_AUTH = token => {
   return {
     accept: 'application/json',
     Authorization: 'Bearer ' + token,
   };
 };
-
 export const COMMON_DOWNLOAD_HEADER = () => {
   return {
     'content-type': 'application/json',
   };
 };
-
 export const COMMON_DOWNLOAD_HEADER_AUTH = token => {
   return {
     'content-type': 'application/json',
     Authorization: 'Bearer ' + token,
   };
 };
-
 export const COMMON_FILE_REQUEST_DOWNLOAD_RES_HEADER_AUTH = token => {
   return {
     Authorization: 'Bearer ' + token,
   };
 };
-
 export const generalRequest = async (
   url,
   method,
@@ -74,7 +66,6 @@ export const generalRequest = async (
     (token === undefined || token === null)
   )
     return null;
-
   if (data !== undefined && data !== null) {
     try {
       data = preProcess(data, mandatoryFields);
@@ -102,11 +93,9 @@ export const generalRequest = async (
           return undefined;
           // return null;
         }
-
         showError(data.msg);
         return null;
       }
-
       if (data.status === 'ok') {
         if (dataShouldReturnKey === undefined) return true;
         if (dataShouldReturnKey instanceof Array) {
@@ -128,7 +117,6 @@ export const generalRequest = async (
         error.response.data.msg === 'Token is not valid'
       ) {
         if (token !== null) await removeAuthCache();
-
         showError('توکن شما منقضی شده است و نیاز است لاگین کنید');
         window.location.href = '/login';
         return undefined;
@@ -139,10 +127,8 @@ export const generalRequest = async (
       }
       return null;
     });
-
   return res;
 };
-
 export const videoGeneralRequest = async (
   url,
   method,
@@ -175,11 +161,9 @@ export const videoGeneralRequest = async (
           await removeAuthCache();
           return undefined;
         }
-
         showError(data.msg);
         return null;
       }
-
       if (data.status === 'ok') {
         if (dataShouldReturnKey === undefined) return true;
         if (dataShouldReturnKey instanceof Array) {
@@ -198,10 +182,8 @@ export const videoGeneralRequest = async (
       showError(commonTranslator.opErr);
       return null;
     });
-
   return res;
 };
-
 export const downloadRequest = async (
   url,
   data,
@@ -245,10 +227,8 @@ export const downloadRequest = async (
       showError(commonTranslator.opErr);
       return null;
     });
-
   return res;
 };
-
 export const fileRequestWithDownloadResponse = async (
   url,
   method,
@@ -284,10 +264,8 @@ export const fileRequestWithDownloadResponse = async (
       showError(commonTranslator.opErr);
       return null;
     });
-
   return res;
 };
-
 export const fileRequest = async (
   url,
   method,
@@ -306,7 +284,6 @@ export const fileRequest = async (
       throw 'preProccess err';
     }
   }
-
   const res = await Axios({
     url: url,
     method: method,
@@ -323,7 +300,6 @@ export const fileRequest = async (
         showError(data.msg);
         return null;
       }
-
       if (data.status === 'ok') {
         if (dataShouldReturnKey === undefined) return true;
         if (dataShouldReturnKey instanceof Array) {
@@ -333,10 +309,8 @@ export const fileRequest = async (
             key = dataShouldReturnKey[i];
             output[key] = data[key];
           }
-
           return output;
         }
-
         return data[dataShouldReturnKey];
       }
     })
@@ -345,10 +319,8 @@ export const fileRequest = async (
       showError(commonTranslator.opErr);
       return null;
     });
-
   return res;
 };
-
 export const videoFileRequest = async (
   url,
   data,
@@ -368,7 +340,6 @@ export const videoFileRequest = async (
         showError(data.msg);
         return null;
       }
-
       if (data.status === 'ok') {
         if (dataShouldReturnKey === undefined) return true;
         if (dataShouldReturnKey instanceof Array) {
@@ -378,10 +349,8 @@ export const videoFileRequest = async (
             key = dataShouldReturnKey[i];
             output[key] = data[key];
           }
-
           return output;
         }
-
         return data[dataShouldReturnKey];
       }
     })
@@ -390,10 +359,8 @@ export const videoFileRequest = async (
       showError(commonTranslator.opErr);
       return null;
     });
-
   return res;
 };
-
 export const preProcess = (data, mandatoryFields = undefined) => {
   if (mandatoryFields !== undefined) {
     for (let i = 0; i < mandatoryFields.length; i++) {
@@ -406,12 +373,9 @@ export const preProcess = (data, mandatoryFields = undefined) => {
       }
     }
   }
-
   const newData = {};
-
   for (const [key, value] of Object.entries(data)) {
     if (value === undefined || value.length === 0) continue;
-
     if (typeof value === 'boolean') newData[key] = value;
     else if (typeof value !== 'object' && !isNaN(value)) {
       if (typeof value === 'string' && value[0] == '0' && value[1] !== '.')
@@ -421,6 +385,5 @@ export const preProcess = (data, mandatoryFields = undefined) => {
       else newData[key] = Number(value);
     } else newData[key] = value;
   }
-
   return newData;
 };

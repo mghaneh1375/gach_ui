@@ -4,18 +4,17 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import {styles} from '../../../styles/Common/Styles';
-import Translate from './Translate';
-import commonTranslator from '../../../translator/Common';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
+} from '../../../styles/CommonComponents';
+import {LargePopUp} from '../../../styles/common/PopUp';
+import {styles} from '../../../styles/common/styles';
+import Translate from './translate';
+import commonTranslator from '../../../translator/common';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
 import React, {useState} from 'react';
 import Card from './Card';
-import {FontIcon} from '../../../styles/Common/FontIcon';
+import {FontIcon} from '../../../styles/common/FontIcon';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
-import {showError, showSuccess} from '../../../services/Utility';
-
+import {showError, showSuccess} from '../../../services/utility';
 function Search(props) {
   const [filter, setFilter] = useState('branch');
   const [boxes, setBoxes] = useState();
@@ -27,7 +26,6 @@ function Search(props) {
   const [hard, setHard] = useState(0);
   const [selectingItem, setSelectingItem] = useState();
   const [lastMode, setLastMode] = useState();
-
   React.useEffect(() => {
     if (filter === undefined) return;
     if (filter === 'branch') {
@@ -46,7 +44,6 @@ function Search(props) {
       );
     }
   }, [filter, props.flags]);
-
   const back = React.useCallback(() => {
     if (mode === 'author' || mode === 'branch') return;
     if (mode === 'lesson' || (mode === 'finalize' && lastMode === 'branch')) {
@@ -81,7 +78,6 @@ function Search(props) {
       setMode('subject');
     }
   }, [mode, props.flags, filterId, lastMode]);
-
   const addToSelected = shouldReturn => {
     if (
       easy > selectingItem.limitEasy ||
@@ -97,7 +93,6 @@ function Search(props) {
       const obj = JSON.parse(JSON.stringify(selectingItem));
       obj.level = 'easy';
       obj.count = easy;
-
       tmp.push(obj);
     }
     if (mid > 0) {
@@ -123,7 +118,6 @@ function Search(props) {
       props.toggleShowPopUp();
     } else back();
   };
-
   return (
     <LargePopUp
       title={Translate.search}
@@ -199,7 +193,7 @@ function Search(props) {
               title={commonTranslator.author}
             />
           </PhoneView>
-        )} */}
+         )} */}
 
         {mode === 'finalize' && selectingItem !== undefined && (
           <MyView>
@@ -213,24 +207,38 @@ function Search(props) {
               />
             </EqualTwoTextInputs>
 
-            <PhoneView style={{...styles.gap10, ...styles.alignSelfCenter}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+                ...styles.alignSelfCenter,
+              }}>
               <JustBottomBorderTextInput
                 placeholder={0}
                 value={easy}
                 justNum={true}
                 onChangeText={e => setEasy(e)}
                 subText={'تعداد کل سوالات آسان: ' + selectingItem.limitEasy}
-                style={{textAlign: 'center'}}
-                parentStyle={{width: 105, minWidth: 105}}
+                style={{
+                  textAlign: 'center',
+                }}
+                parentStyle={{
+                  width: 105,
+                  minWidth: 105,
+                }}
               />
               <JustBottomBorderTextInput
                 placeholder={0}
                 value={mid}
                 justNum={true}
                 onChangeText={e => setMid(e)}
-                style={{textAlign: 'center'}}
+                style={{
+                  textAlign: 'center',
+                }}
                 subText={'تعداد کل سوالات متوسط: ' + selectingItem.limitMid}
-                parentStyle={{width: 105, minWidth: 105}}
+                parentStyle={{
+                  width: 105,
+                  minWidth: 105,
+                }}
               />
               <JustBottomBorderTextInput
                 placeholder={0}
@@ -238,8 +246,13 @@ function Search(props) {
                 justNum={true}
                 onChangeText={e => setHard(e)}
                 subText={'تعداد کل سوالات سخت: ' + selectingItem.limitHard}
-                style={{textAlign: 'center'}}
-                parentStyle={{width: 105, minWidth: 105}}
+                style={{
+                  textAlign: 'center',
+                }}
+                parentStyle={{
+                  width: 105,
+                  minWidth: 105,
+                }}
               />
             </PhoneView>
           </MyView>
@@ -323,5 +336,4 @@ function Search(props) {
     </LargePopUp>
   );
 }
-
 export default Search;

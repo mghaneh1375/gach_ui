@@ -1,25 +1,19 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
-import Translate from '../../../Translate';
-import commonTranslate from '../../../../../../translator/Common';
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
+import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
+import Translate from '../../../translate';
+import commonTranslate from '../../../../../../translator/common';
 import {
   typeGiftKeyVals,
   offCodeKeyVals,
   typeOffCodeKeyVals,
   siteAppKeyVals,
 } from './keyVals';
-import commonTranslator from '../../../../../../translator/Common';
-import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBottomBorderDatePicker';
-import {addGift, editGift} from '../../configGift/Utility';
-import {changeText} from '../../../../../../services/Utility';
-
+import commonTranslator from '../../../../../../translator/common';
+import JustBottomBorderDatePicker from '../../../../../../styles/common/JustBottomBorderDatePicker';
+import {addGift, editGift} from '../../configGift/utility';
+import {changeText} from '../../../../../../services/utility';
 function Create(props) {
   const [giftType, setGiftType] = useState(
     props.gift !== undefined ? props.gift.type : '',
@@ -48,14 +42,16 @@ function Create(props) {
   const [prob, setProb] = useState(
     props.gift !== undefined ? props.gift.prob : '',
   );
-
   return (
     <CommonWebBox
       header={Translate.selectGift}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <MyView>
-        <PhoneView style={{gap: 9}}>
+        <PhoneView
+          style={{
+            gap: 9,
+          }}>
           <JustBottomBorderSelect
             placeholder={Translate.giftType}
             subText={Translate.giftType}
@@ -158,7 +154,6 @@ function Create(props) {
               props.gift === undefined
                 ? await addGift(data, props.token)
                 : await editGift(props.gift.id, data, props.token);
-
             props.setLoading(false);
             if (res !== null) {
               if (props.gift === undefined) props.addItem(res);
@@ -178,5 +173,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

@@ -1,29 +1,19 @@
 import {faMedal, faQuestion} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {Image} from 'react-native';
-import {globalStateContext} from '../../../App';
-import Circle from '../../../components/web/Circle';
-import QuizItemCard from '../../../components/web/QuizItemCard';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+import {globalStateContext} from '../../../App.jsx';
+import Circle from '@/components/web/Circle';
+import QuizItemCard from '@/components/web/QuizItemCard';
+import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-
 function BoxRanking(props) {
   const [pic, setPic] = useState();
-
   React.useEffect(() => {
     setPic(props.pic);
   }, [props.pic]);
-
   const useGlobalState = () => [React.useContext(globalStateContext)];
-
   const [state] = useGlobalState();
-
   return (
     <CommonWebBox width={state.isInPhone ? 320 : 390}>
       <Circle
@@ -57,7 +47,10 @@ function BoxRanking(props) {
           ...styles.gap15,
         }}>
         <SimpleText
-          style={{...styles.colorDarkBlue, ...styles.alignSelfCenter}}
+          style={{
+            ...styles.colorDarkBlue,
+            ...styles.alignSelfCenter,
+          }}
           text={props.useFilter ? 'رتبه در پایه تحصیلی' : 'رتبه در آیریسک'}
         />
         <Circle
@@ -68,8 +61,15 @@ function BoxRanking(props) {
         />
       </PhoneView>
       <MyView
-        style={{paddingRight: 70, ...styles.gap15, ...styles.marginTop20}}>
-        <PhoneView style={{...styles.justifyContentSpaceBetween}}>
+        style={{
+          paddingRight: 70,
+          ...styles.gap15,
+          ...styles.marginTop20,
+        }}>
+        <PhoneView
+          style={{
+            ...styles.justifyContentSpaceBetween,
+          }}>
           <QuizItemCard
             textFontSize={10}
             valFontSize={16}
@@ -100,26 +100,41 @@ function BoxRanking(props) {
             marginRight: 0,
           }}>
           <SimpleText
-            style={{...styles.BlueBold, ...styles.fontSize15}}
+            style={{
+              ...styles.BlueBold,
+              ...styles.fontSize15,
+            }}
             text={'نام و نام خانوادگی :' + ' ' + props.name}
           />
         </MyView>
-        <MyView style={{marginTop: -10, ...styles.gap5}}>
+        <MyView
+          style={{
+            marginTop: -10,
+            ...styles.gap5,
+          }}>
           <SimpleText
-            style={{...styles.colorDarkBlue}}
+            style={{
+              ...styles.colorDarkBlue,
+            }}
             text={'مدرسه : ' + ' ' + props.school}
           />
           <SimpleText
-            style={{...styles.colorDarkBlue}}
+            style={{
+              ...styles.colorDarkBlue,
+            }}
             text={'شهر : ' + ' ' + props.city}
           />
           <SimpleText
-            style={{...styles.colorDarkBlue}}
+            style={{
+              ...styles.colorDarkBlue,
+            }}
             text={'پایه : ' + ' ' + props.grade}
           />
           {props.field !== undefined && props.field !== '' && (
             <SimpleText
-              style={{...styles.colorDarkBlue}}
+              style={{
+                ...styles.colorDarkBlue,
+              }}
               text={'رشته : ' + ' ' + props.field}
             />
           )}
@@ -128,5 +143,4 @@ function BoxRanking(props) {
     </CommonWebBox>
   );
 }
-
 export default BoxRanking;

@@ -1,7 +1,6 @@
-import {formatPrice} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
-import Translator from '../../Translate';
-
+import {formatPrice} from '../../../../../services/utility';
+import commonTranslator from '@/translator/common';
+import Translator from '../../translate';
 const columns = [
   {
     name: Translator.title,

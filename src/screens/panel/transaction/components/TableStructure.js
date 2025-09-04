@@ -1,7 +1,6 @@
-import {formatPrice} from '../../../../services/Utility';
-import commonTranslator from '../../../../translator/Common';
-import translator from '../Translate';
-
+import {formatPrice} from '@/services/utility';
+import commonTranslator from '@/translator/common';
+import translator from '../translate';
 const columns = [
   {
     name: commonTranslator.nameAndLast,
@@ -58,5 +57,4 @@ const columns = [
     },
   },
 ];
-
 export default columns;

@@ -1,25 +1,25 @@
 import React, {useState} from 'react';
-import {PhoneView, MyView} from '../../../../../styles/Common';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import translator from '../../Translator';
-import {changeText} from '../../../../../services/Utility';
-
+import {PhoneView, MyView} from '@/styles';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import translator from '../../translator';
+import {changeText} from '../../../../../services/utility';
 const QuizRegistryInfo = props => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
-
   React.useEffect(() => {
     setStart(props.start);
   }, [props.start]);
-
   React.useEffect(() => {
     setEnd(props.end);
   }, [props.end]);
-
   return (
     <MyView>
-      <PhoneView style={{gap: 10, marginBottom: 10}}>
+      <PhoneView
+        style={{
+          gap: 10,
+          marginBottom: 10,
+        }}>
         <JustBottomBorderTextInput
           placeholder={translator.price}
           subText={translator.price}
@@ -69,5 +69,4 @@ const QuizRegistryInfo = props => {
     </MyView>
   );
 };
-
 export default QuizRegistryInfo;

@@ -1,14 +1,11 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-import {showError, showSuccess} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
+import {showError, showSuccess} from '../../../../../services/utility';
+import commonTranslator from '@/translator/common';
 export const getAll = async token => {
   return await generalRequest(routes.getFAQ, 'get', undefined, 'data', token);
 };
-
 const mandatoryFields = ['question', 'answer', 'visibility', 'priority'];
-
 export const store = async (data, token) => {
   const res = await generalRequest(
     routes.addFAQ,
@@ -21,7 +18,6 @@ export const store = async (data, token) => {
   if (res !== null) showSuccess();
   return res;
 };
-
 export const update = async (id, data, token) => {
   try {
     const res = await generalRequest(
@@ -39,7 +35,6 @@ export const update = async (id, data, token) => {
     return null;
   }
 };
-
 export const remove = async (id, token) => {
   const res = await generalRequest(
     routes.removeFAQ + id,

@@ -1,15 +1,13 @@
 import {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-import {CommonButton} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {showSuccess} from '../../../../services/utility';
+import {CommonButton} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import commonTranslator from '@/translator/common';
 function OffCode(props) {
   const [offcode, setOffcode] = useState();
-
   const checkCode = async () => {
     props.setLoading(true);
     try {
@@ -34,7 +32,6 @@ function OffCode(props) {
       props.setLoading(false);
     }
   };
-
   return (
     <LargePopUp
       btns={
@@ -55,5 +52,4 @@ function OffCode(props) {
     </LargePopUp>
   );
 }
-
 export default OffCode;

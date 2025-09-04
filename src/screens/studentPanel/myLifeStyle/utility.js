@@ -1,7 +1,6 @@
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {showSuccess} from '../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {showSuccess} from '../../../services/utility';
 export const fetchMyLifeStyle = (token, userId) => {
   return generalRequest(
     userId === undefined ? routes.myLifeStyle : routes.myLifeStyle + userId,
@@ -11,14 +10,12 @@ export const fetchMyLifeStyle = (token, userId) => {
     token,
   );
 };
-
 export const fetchLifeStyleTags = token => {
   return generalRequest(routes.getAllLife, 'get', undefined, 'data', token);
 };
 export const fetchExamTags = token => {
   return generalRequest(routes.getAllExamTags, 'get', undefined, 'data', token);
 };
-
 export const fetchMySchedulesDigest = token => {
   return generalRequest(
     routes.getMySchedulesDigest,
@@ -28,14 +25,12 @@ export const fetchMySchedulesDigest = token => {
     token,
   );
 };
-
 export const fetchStudentSchedulesDigest = (
   wantedUserId,
   token,
   isInEditMode,
 ) => {
   if (!isInEditMode) return [];
-
   return generalRequest(
     routes.getStudentSchedulesDigest + wantedUserId,
     'get',
@@ -44,7 +39,6 @@ export const fetchStudentSchedulesDigest = (
     token,
   );
 };
-
 export const setMyExamInLifeStyle = async (data, token) => {
   const res = await generalRequest(
     routes.setMyExamInLifeStyle,
@@ -56,7 +50,6 @@ export const setMyExamInLifeStyle = async (data, token) => {
   if (res != null) showSuccess();
   return res;
 };
-
 export const addItemToDay = async (data, token) => {
   const res = await generalRequest(
     routes.addItemToMyLifeStyle,
@@ -68,7 +61,6 @@ export const addItemToDay = async (data, token) => {
   if (res != null) showSuccess();
   return res;
 };
-
 export const removeItemFromDay = async (data, token) => {
   const res = await generalRequest(
     routes.removeItemFromMyLifeStyle,

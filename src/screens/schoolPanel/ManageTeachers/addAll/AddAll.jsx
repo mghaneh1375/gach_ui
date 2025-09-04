@@ -1,5 +1,4 @@
 import {CommonWebBox} from '../../../../styles/Common';
-
 function AddAll(props) {
   return (
     <CommonWebBox
@@ -9,5 +8,4 @@ function AddAll(props) {
     />
   );
 }
-
 export default AddAll;

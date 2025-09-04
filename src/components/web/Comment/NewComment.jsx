@@ -1,15 +1,13 @@
 import {useState} from 'react';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {showSuccess} from '../../../services/Utility';
-import {CommonButton, MyView} from '../../../styles/Common';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../translator/Common';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {showSuccess} from '../../../services/utility';
+import {CommonButton, MyView} from '../../../styles/CommonComponents';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '../../../translator/common';
 import Translate from './translate';
-
 function NewComment(props) {
   const [desc, setDesc] = useState();
-
   return (
     <MyView>
       <JustBottomBorderTextInput
@@ -27,7 +25,9 @@ function NewComment(props) {
           const res = await generalRequest(
             routes.writeComments + props.refId + '/' + props.section,
             'post',
-            {comment: desc},
+            {
+              comment: desc,
+            },
             undefined,
             props.token,
           );
@@ -41,5 +41,4 @@ function NewComment(props) {
     </MyView>
   );
 }
-
 export default NewComment;

@@ -1,6 +1,5 @@
-import {convertSecToMinWithOutSec} from '../../../../services/Utility';
-import Translator from './Translator';
-
+import {convertSecToMinWithOutSec} from '../../../../services/utility';
+import Translator from './translator';
 const columns = [
   {
     name: Translator.weekStartAt,
@@ -23,5 +22,4 @@ const columns = [
     grow: 1,
   },
 ];
-
 export default columns;

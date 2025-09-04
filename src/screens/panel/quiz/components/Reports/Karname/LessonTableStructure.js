@@ -1,15 +1,11 @@
-import {getWidthHeight} from '../../../../../../services/Utility';
-
+import {getWidthHeight} from '../../../../../../services/utility';
 let width = getWidthHeight()[0];
 let colWidth;
-
 if (width < 768) colWidth = 100;
 else {
   width -= 200;
   colWidth = width > 1200 || width < 768 ? '25%' : width * 0.5 - 30 - 3 * 90;
-
   let numColsWidth = '90px';
-
   if ((width > 1200 || width < 768) && colWidth > 200) {
     colWidth = width * 0.5 - 30 - 3 * 110;
     numColsWidth = '110px';
@@ -18,7 +14,6 @@ else {
     numColsWidth = '70px';
   }
 }
-
 const commonCols = [
   {
     name: 'تعداد سوال',
@@ -66,7 +61,6 @@ const commonCols = [
     center: true,
   },
 ];
-
 const commonColsTashrihi = [
   {
     name: 'تعداد سوال',
@@ -107,7 +101,6 @@ const commonColsTashrihi = [
     center: true,
   },
 ];
-
 const commonColsCustomQuiz = [
   {
     name: 'تعداد سوال',
@@ -138,7 +131,6 @@ const commonColsCustomQuiz = [
     center: true,
   },
 ];
-
 export const lessonCols = [
   {
     name: 'نام درس',
@@ -146,11 +138,12 @@ export const lessonCols = [
     grow: 1,
     maxWidth: colWidth,
     minWidth: colWidth,
-    style: {wordBreak: 'normal'},
+    style: {
+      wordBreak: 'normal',
+    },
   },
   ...commonCols,
 ];
-
 export const lessonColsTashrihi = [
   {
     name: 'نام درس',
@@ -158,11 +151,12 @@ export const lessonColsTashrihi = [
     grow: 1,
     maxWidth: colWidth,
     minWidth: colWidth,
-    style: {wordBreak: 'normal'},
+    style: {
+      wordBreak: 'normal',
+    },
   },
   ...commonColsTashrihi,
 ];
-
 export const lessonColsCustomQuiz = [
   {
     name: 'نام درس',
@@ -170,11 +164,12 @@ export const lessonColsCustomQuiz = [
     grow: 1,
     maxWidth: colWidth,
     minWidth: colWidth,
-    style: {wordBreak: 'normal'},
+    style: {
+      wordBreak: 'normal',
+    },
   },
   ...commonColsCustomQuiz,
 ];
-
 export const subjectCols = [
   {
     name: 'نام مبحث',
@@ -182,11 +177,12 @@ export const subjectCols = [
     grow: 1,
     maxWidth: colWidth,
     minWidth: colWidth,
-    style: {wordBreak: 'normal'},
+    style: {
+      wordBreak: 'normal',
+    },
   },
   ...commonCols,
 ];
-
 export const subjectColsTashrihi = [
   {
     name: 'نام مبحث',
@@ -194,11 +190,12 @@ export const subjectColsTashrihi = [
     grow: 1,
     maxWidth: colWidth,
     minWidth: colWidth,
-    style: {wordBreak: 'normal'},
+    style: {
+      wordBreak: 'normal',
+    },
   },
   ...commonColsTashrihi,
 ];
-
 export const subjectColsCustomQuiz = [
   {
     name: 'نام مبحث',
@@ -206,7 +203,9 @@ export const subjectColsCustomQuiz = [
     grow: 1,
     maxWidth: colWidth,
     minWidth: colWidth,
-    style: {wordBreak: 'normal'},
+    style: {
+      wordBreak: 'normal',
+    },
   },
   ...commonColsCustomQuiz,
 ];

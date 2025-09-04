@@ -6,24 +6,22 @@ import {
   EqualTwoTextInputs,
   MyView,
   PhoneView,
-} from '../../../../styles/Common';
-import {RoleCard} from '../../../../styles/Common/RoleCard';
-import commonTranslator from './../../../../translator/Common';
-import vars from '../../../../styles/root';
-import {checkSendRoleForm, getRoleForms} from './Utility';
+} from '@/styles';
+import {RoleCard} from '../../../../styles/common/RoleCard';
+import commonTranslator from '@/translator/common';
+import vars from '@/styles/root';
+import {checkSendRoleForm, getRoleForms} from './utility';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
+import {FontIcon} from '../../../../styles/common/FontIcon';
 import SpecificRoleForm from './SpecificRoleForm';
-import {styles} from '../../../../styles/Common/Styles';
-import {style} from '../../../../components/web/LargeScreen/Header/style';
-
+import {styles} from '../../../../styles/common/styles';
+import {style} from '../../../../components/web/largeScreen/header/Style';
 const RoleForm = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});
   const [roleForms, setRoleForms] = useState();
   const [role, setRole] = useState('student');
   const [step, setStep] = useState('role'); // available values: [role, form]
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (isWorking || roleForms !== undefined) return;
     setIsWorking(true);
@@ -34,7 +32,6 @@ const RoleForm = props => {
       setIsWorking(false);
     });
   }, [props, roleForms, isWorking]);
-
   const changeRole = r => {
     setRole(r);
     if (
@@ -45,15 +42,12 @@ const RoleForm = props => {
     else {
       const form = props.forms.find(elem => elem.role === r);
       let allForms = roleForms;
-
       allForms = allForms.map(elem => {
         if (elem.role === form.role) return form;
         return elem;
       });
-
       setRoleForms(allForms);
       const newUserData = {};
-
       form.data.forEach(elem => {
         newUserData[elem.key] = elem.value;
       });
@@ -61,14 +55,15 @@ const RoleForm = props => {
     }
     setStep('form');
   };
-
   const setFormUserData = (key, val) => {
     userRoleFormData[key] = val;
     setUserRoleFormData(userRoleFormData);
   };
-
   return (
-    <MyView style={{...style.paddingLeft50}}>
+    <MyView
+      style={{
+        ...style.paddingLeft50,
+      }}>
       {step === 'role' && (
         <MyView>
           {props.signUp && (
@@ -76,14 +71,18 @@ const RoleForm = props => {
           )}
 
           <BlueTextFromStart
-            style={{marginTop: 20}}
+            style={{
+              marginTop: 20,
+            }}
             text={commonTranslator.chooseOne}
           />
           <EqualTwoTextInputs>
             <RoleCard
               text={commonTranslator.student}
               onPress={() => changeRole('student')}
-              style={{marginTop: 20}}
+              style={{
+                marginTop: 20,
+              }}
               color={vars.ORANGE}
               source={require('./../../../../images/student.png')}
             />
@@ -93,27 +92,38 @@ const RoleForm = props => {
             <RoleCard
               text={commonTranslator.teacher}
               onPress={() => changeRole('teacher')}
-              style={{marginTop: 20}}
+              style={{
+                marginTop: 20,
+              }}
               source={require('./../../../../images/teacher.png')}
             />
             <RoleCard
               text={commonTranslator.agent}
-              style={{marginTop: 20}}
+              style={{
+                marginTop: 20,
+              }}
               onPress={() => changeRole('agent')}
               source={require('./../../../../images/agent.png')}
             />
           </EqualTwoTextInputs>
 
-          <EqualTwoTextInputs style={{marginBottom: 20}}>
+          <EqualTwoTextInputs
+            style={{
+              marginBottom: 20,
+            }}>
             <RoleCard
               text={commonTranslator.school}
-              style={{marginTop: 20}}
+              style={{
+                marginTop: 20,
+              }}
               onPress={() => changeRole('school')}
               source={require('./../../../../images/school.png')}
             />
             <RoleCard
               text={commonTranslator.advisor}
-              style={{marginTop: 20}}
+              style={{
+                marginTop: 20,
+              }}
               onPress={() => changeRole('advisor')}
               source={require('./../../../../images/consultant.png')}
             />
@@ -122,8 +132,15 @@ const RoleForm = props => {
       )}
 
       {step === 'form' && role !== undefined && (
-        <MyView style={{marginTop: 20, gap: 10}}>
-          <PhoneView style={{...styles.alignSelfEnd}}>
+        <MyView
+          style={{
+            marginTop: 20,
+            gap: 10,
+          }}>
+          <PhoneView
+            style={{
+              ...styles.alignSelfEnd,
+            }}>
             <FontIcon
               onPress={() => setStep('role')}
               parentStyle={{
@@ -172,5 +189,4 @@ const RoleForm = props => {
     </MyView>
   );
 };
-
 export default RoleForm;

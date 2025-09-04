@@ -1,20 +1,16 @@
 import React, {useState} from 'react';
-import {CommonWebBox} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import commonTranslator from '../../../../translator/Common';
-import columns from '../../../schoolPanel/ManageStudents/list/TableStructure';
-import {getAllStudent} from '../../../schoolPanel/ManageStudents/Utility';
-
+import {CommonWebBox} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import commonTranslator from '@/translator/common';
+import columns from '../../../schoolPanel/manageStudents/list/tableStructure';
+import {getAllStudent} from '../../../schoolPanel/manageStudents/utility';
 function Students(props) {
   const [isWorking, setIsWorking] = useState();
   const [data, setData] = useState();
-
   const fetchData = React.useCallback(() => {
     if (isWorking || data !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([getAllStudent(props.token, props.wantedUser.id)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) {
@@ -25,11 +21,9 @@ function Students(props) {
       setIsWorking(false);
     });
   }, [props, data, isWorking]);
-
   React.useEffect(() => {
     if (props.wantedUser !== undefined) fetchData();
   }, [props.wantedUser, fetchData]);
-
   return (
     <CommonWebBox
       header={commonTranslator.view + ' ' + commonTranslator.students}
@@ -39,5 +33,4 @@ function Students(props) {
     </CommonWebBox>
   );
 }
-
 export default Students;

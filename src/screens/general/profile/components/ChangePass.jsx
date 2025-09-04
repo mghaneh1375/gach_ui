@@ -1,21 +1,15 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  EqualTwoTextInputs,
-  MyView,
-} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import vars from '../../../../styles/root';
+import {CommonButton, EqualTwoTextInputs, MyView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import vars from '@/styles/root';
 import translator from '../translate';
-import commonTranslator from '../../../../translator/Common';
-import {changePass} from './Utility';
-import {changeText} from '../../../../services/Utility';
-
+import commonTranslator from '@/translator/common';
+import {changePass} from './utility';
+import {changeText} from '../../../../services/utility';
 const ChangePass = props => {
   const [oldPass, setOldPass] = useState('');
   const [pass, setPass] = useState('');
   const [rpass, setRpass] = useState('');
-
   return (
     <MyView>
       <MyView>
@@ -45,7 +39,9 @@ const ChangePass = props => {
           />
         </EqualTwoTextInputs>
         <CommonButton
-          style={{backgroundColor: vars.DARK_BLUE}}
+          style={{
+            backgroundColor: vars.DARK_BLUE,
+          }}
           title={commonTranslator.change}
           padding={'5px 50px'}
           onPress={() =>
@@ -64,5 +60,4 @@ const ChangePass = props => {
     </MyView>
   );
 };
-
 export default ChangePass;

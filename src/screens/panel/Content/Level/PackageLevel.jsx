@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import Create from './Create';
 import List from './List';
-
 function PackageLevel(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -10,12 +9,12 @@ function PackageLevel(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
   const [selectedLevel, setSelectedLevel] = useState();
-
   return (
     <>
       {mode === 'list' && (
@@ -41,5 +40,4 @@ function PackageLevel(props) {
     </>
   );
 }
-
 export default PackageLevel;

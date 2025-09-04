@@ -1,39 +1,36 @@
 import {faCheck, faInfo, faRemove} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {showSuccess} from '../../../services/Utility';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../styles/Common';
-import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import {FontIcon} from '../../../styles/Common/FontIcon';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import {styles} from '../../../styles/Common/Styles';
-import commonTranslator from '../../../translator/Common';
-import FinancePlan from '../../general/Advisors/FinancePlan';
-import Translate from './Translate';
-import Schedule from '../../studentPanel/MyLifeStyle.js/components/Schedule';
-import {ScheduleProvider} from '../../studentPanel/MyLifeStyle.js/components/Context';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {showSuccess} from '../../../services/utility';
+import {CommonButton, CommonWebBox, PhoneView, FontIcon} from '@/styles';
+import CommonDataTable from '../../../styles/common/CommonDataTable';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
+import {LargePopUp} from '../../../styles/common/PopUp';
+import {styles} from '../../../styles/common/styles';
+import commonTranslator from '../../../translator/common';
+import FinancePlan from '../../general/advisors/FinancePlan';
+import Translate from './translate';
+import Schedule from '../../studentPanel/myLifeStyle/components/Schedule';
+import {ScheduleProvider} from '../../studentPanel/myLifeStyle/components/Context';
 function MyRequests(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
   const [filteredData, setFilteredData] = useState();
   const [filter, setFilter] = useState('inProgress');
   const [mode, setMode] = useState();
   const [selectedRequest, setSelectedRequest] = useState();
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.myStudentRequests,
@@ -43,24 +40,21 @@ function MyRequests(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
       }
-
       setData(res[0]);
     });
   }, [dispatch, state.token, navigate]);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   React.useEffect(() => {
     if (data === undefined) return;
-
     setFilteredData(
       data.filter(e => {
         if (filter === 'all') return true;
@@ -70,19 +64,16 @@ function MyRequests(props) {
             (e.status === 'accept' && e.paid === undefined))
         )
           return false;
-
         if (
           filter === 'inProgress' &&
           (e.status === 'reject' ||
             (e.status === 'accept' && e.paid !== undefined))
         )
           return false;
-
         return true;
       }),
     );
   }, [filter, data]);
-
   const columns = [
     {
       name: 'عملیات',
@@ -97,9 +88,11 @@ function MyRequests(props) {
             />
           );
         if (row.status !== 'pending') return <></>;
-
         return (
-          <PhoneView style={{...styles.gap10}}>
+          <PhoneView
+            style={{
+              ...styles.gap10,
+            }}>
             <FontIcon
               icon={faInfo}
               kind={'normal'}
@@ -114,7 +107,9 @@ function MyRequests(props) {
                   kind={'normal'}
                   theme={'square'}
                   onPress={async () => {
-                    dispatch({loading: true});
+                    dispatch({
+                      loading: true,
+                    });
                     const res = await generalRequest(
                       routes.answerStudentRequest + row.id + '/no',
                       'post',
@@ -122,8 +117,9 @@ function MyRequests(props) {
                       undefined,
                       state.token,
                     );
-                    dispatch({loading: false});
-
+                    dispatch({
+                      loading: false,
+                    });
                     if (res != null) {
                       const tmp = data.map(elem => {
                         if (elem.id !== row.id) return elem;
@@ -141,7 +137,9 @@ function MyRequests(props) {
                   back={'blue'}
                   theme={'square'}
                   onPress={async () => {
-                    dispatch({loading: true});
+                    dispatch({
+                      loading: true,
+                    });
                     const res = await generalRequest(
                       routes.answerStudentRequest + row.id + '/yes',
                       'post',
@@ -149,8 +147,9 @@ function MyRequests(props) {
                       undefined,
                       state.token,
                     );
-                    dispatch({loading: false});
-
+                    dispatch({
+                      loading: false,
+                    });
                     if (res != null) {
                       const tmp = data.map(elem => {
                         if (elem.id !== row.id) return elem;
@@ -210,15 +209,21 @@ function MyRequests(props) {
       center: true,
     },
   ];
-
   const filterKeyVals = [
-    {item: 'در جریان', id: 'inProgress'},
-    {item: 'اتمام یافته', id: 'finished'},
-    {item: 'همه', id: 'all'},
+    {
+      item: 'در جریان',
+      id: 'inProgress',
+    },
+    {
+      item: 'اتمام یافته',
+      id: 'finished',
+    },
+    {
+      item: 'همه',
+      id: 'all',
+    },
   ];
-
   const [studentInfo, setStudentInfo] = useState();
-
   return (
     <>
       {studentInfo && (
@@ -227,7 +232,11 @@ function MyRequests(props) {
             token={state.token}
             navigate={navigate}
             onBack={() => setStudentInfo(undefined)}
-            setLoading={newStatus => dispatch({loading: newStatus})}
+            setLoading={newStatus =>
+              dispatch({
+                loading: newStatus,
+              })
+            }
             userId={studentInfo}
             isInPhone={state.isInPhone}
           />
@@ -252,7 +261,10 @@ function MyRequests(props) {
             />
           )}
           {mode === undefined && (
-            <PhoneView style={{...styles.gap15}}>
+            <PhoneView
+              style={{
+                ...styles.gap15,
+              }}>
               <CommonButton
                 onPress={() =>
                   // window.open('/studentLifeStyle/' + selectedRequest.userId)
@@ -304,5 +316,4 @@ function MyRequests(props) {
     </>
   );
 }
-
 export default MyRequests;

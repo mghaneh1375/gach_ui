@@ -1,30 +1,25 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import columns from './TableStructure';
-import commonTranslator from '../../../../../translator/Common';
+import {routes} from '@/api/apiRoutes';
+import columns from './tableStructure';
+import commonTranslator from '@/translator/common';
 import Ops from '../Ops';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {CommonWebBox, MyView} from '../../../../../styles/Common';
-import {removeItems} from '../../../../../services/Utility';
-
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import {CommonWebBox, MyView} from '@/styles';
+import {removeItems} from '../../../../../services/utility';
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selected, setSelected] = useState();
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const changeMode = newMode => {
     props.setMode(newMode);
   };
-
   const handleOp = idx => {
     props.setSelectedLesson(props.lessons[idx]);
     setSelected(props.lessons[idx]);
     toggleShowOpPopUp();
   };
-
   return (
     <MyView>
       {showOpPopUp && (
@@ -62,5 +57,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

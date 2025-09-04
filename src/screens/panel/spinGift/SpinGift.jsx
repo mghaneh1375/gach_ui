@@ -1,27 +1,25 @@
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import Spinner from './spinner/spinner';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import Spinner from './spinner/Spinner';
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-
 function SpinGift(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
   const [id, setId] = useState();
   const params = useParams();
-
   React.useEffect(() => {
     if (params.id === undefined) return;
     setId(params.id);
   }, [params.id]);
-
   return (
     <>
       {id && (
@@ -31,12 +29,13 @@ function SpinGift(props) {
           navigate={navigate}
           id={id}
           updateAlerts={alerts => {
-            dispatch({newAlerts: alerts});
+            dispatch({
+              newAlerts: alerts,
+            });
           }}
         />
       )}
     </>
   );
 }
-
 export default SpinGift;

@@ -1,27 +1,21 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {CommonButton, CommonWebBox} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {CommonButton, CommonWebBox} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
 import {courseContext, dispatchCourseContext} from './Context';
-
 function CreateExamTag(props) {
   const useGlobalState = () => [
     React.useContext(courseContext),
     React.useContext(dispatchCourseContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [title, setTitle] = useState();
-
   const createData = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.createExamTag,
-
         'post',
         {
           label: title,
@@ -31,19 +25,18 @@ function CreateExamTag(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       const tmp = state.tags;
       tmp.push({
         id: res[0],
         label: title,
       });
-
-      dispatch({tags: tmp});
+      dispatch({
+        tags: tmp,
+      });
       props.setMode('list');
     });
   }, [props, title, dispatch, state.tags]);
@@ -60,5 +53,4 @@ function CreateExamTag(props) {
     </CommonWebBox>
   );
 }
-
 export default CreateExamTag;

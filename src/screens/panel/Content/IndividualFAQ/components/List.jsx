@@ -1,22 +1,19 @@
 import React from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
-import {styles} from '../../../../../styles/Common/Styles';
-import {contentContext, dispatchContentContext} from '../../Components/Context';
-import Translator from '../../Translate';
+import {CommonWebBox, MyView, PhoneView} from '@/styles';
+import {styles} from '@/styles/common/styles';
+import {contentContext, dispatchContentContext} from '../../components/Context';
+import Translator from '../../translate';
 import Card from './Card';
-import {getAll} from './Utility';
-
+import {getAll} from './utility';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),
     React.useContext(dispatchContentContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const fetchData = React.useCallback(() => {
     if (state.allFaq !== undefined) return;
-
     props.setLoading(true);
     Promise.all([getAll(props.token, props.packageId)]).then(res => {
       props.setLoading(false);
@@ -24,15 +21,14 @@ function List(props) {
         props.navigate('/');
         return;
       }
-
-      dispatch({allFaq: res[0].data});
+      dispatch({
+        allFaq: res[0].data,
+      });
     });
   }, [props, dispatch, state.allFaq]);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   return (
     <MyView>
       <CommonWebBox
@@ -53,13 +49,17 @@ function List(props) {
                   if (itr.id !== elem.id) return itr;
                   return res;
                 });
-                dispatch({allFaq: tmp});
+                dispatch({
+                  allFaq: tmp,
+                });
               }}
               onDelete={() => {
                 const tmp = state.allFaq.filter(itr => {
                   return itr.id !== elem.id;
                 });
-                dispatch({allFaq: tmp});
+                dispatch({
+                  allFaq: tmp,
+                });
               }}
               id={props.packageId}
               token={props.token}
@@ -72,5 +72,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

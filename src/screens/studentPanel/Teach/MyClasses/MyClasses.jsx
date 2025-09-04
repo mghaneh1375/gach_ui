@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import List from './components/List';
 import Report from './components/Report';
 import {MyTeachClassesForStudentProvider} from './components/Context';
-
 function MyClasses(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -11,9 +10,10 @@ function MyClasses(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = new_status => {
-    dispatch({loading: new_status});
+    dispatch({
+      loading: new_status,
+    });
   };
   return (
     <MyTeachClassesForStudentProvider>
@@ -31,5 +31,4 @@ function MyClasses(props) {
     </MyTeachClassesForStudentProvider>
   );
 }
-
 export default MyClasses;

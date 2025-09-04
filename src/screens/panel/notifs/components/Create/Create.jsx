@@ -1,15 +1,9 @@
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../../styles/Common/Styles';
+import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
+import {FontIcon} from '../../../../../styles/common/FontIcon';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '@/styles/common/styles';
 import {dispatchNotifContext, notifContext} from '../Context';
 import {
   fetchContentDigests,
@@ -20,27 +14,23 @@ import {
   getNotif,
   simpleStore,
   store,
-} from '../Utility';
+} from '../utility';
 import BuiltFilter from './BuiltFilter';
 import Filter from './Filter';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter';
-import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
+import MyCustomUploadAdapterPlugin from '../../../../../services/myUploadAdapter';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
 import RenderHTML from 'react-native-render-html';
-import {CKEditorToolbar} from '../../../../../services/Utility';
+import {CKEditorToolbar} from '../../../../../services/utility';
 import Attach from './Attach';
 import Excel from './Excel';
-
 function Create(props) {
-  let ckEditor = null;
-
   const [isWorking, setIsWorking] = useState(false);
   const useGlobalState = () => [
     React.useContext(notifContext),
     React.useContext(dispatchNotifContext),
   ];
-
   const removeUploadedAttach = async filename => {
     // props.setLoading(true);
     // let res = await removeFile(props.token, filename, state.selectedQuiz.id);
@@ -54,7 +44,6 @@ function Create(props) {
     // state.selectedQuiz.attaches = tmp;
     // dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
   };
-
   const [state, dispatch] = useGlobalState();
   const [attaches, setAttaches] = useState();
   const [sendSMS, setSendSMS] = useState('no');
@@ -65,7 +54,6 @@ function Create(props) {
   const [desc, setDesc] = useState();
   const [attachesFilesContent, setAttachesFilesContent] = useState();
   const [excelsFilesContent, setExcelsFilesContent] = useState();
-
   const fetchNotif = React.useCallback(() => {
     if (
       !props.isInReviewMode ||
@@ -74,18 +62,14 @@ function Create(props) {
       state.selectedNotif.desc !== undefined
     )
       return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([getNotif(props.token, state.selectedNotif.id)]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       state.selectedNotif = res[0];
       dispatch({
         selectedNotif: state.selectedNotif,
@@ -93,17 +77,13 @@ function Create(props) {
       });
       setDesc(res[0].desc);
       setTitle(res[0].title);
-
       setIsWorking(false);
     });
   }, [props, dispatch, isWorking, state]);
-
   const fetchPreReq = React.useCallback(() => {
     if (props.isInReviewMode || isWorking || state.states !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       fetchQuizDigests(props.token),
       fetchStates(props.token),
@@ -122,19 +102,20 @@ function Create(props) {
         props.navigate('/');
         return;
       }
-
       const cities = [];
       res[1].forEach(elem => {
         elem.cities.forEach(e => {
           cities.push(e);
         });
       });
-
       dispatch({
         quizzes: res[0],
         cities: cities,
         states: res[1].map(elem => {
-          return {id: elem.id, name: elem.name};
+          return {
+            id: elem.id,
+            name: elem.name,
+          };
         }),
         grades: res[2].filter(elem => {
           return elem.isOlympiad;
@@ -144,21 +125,21 @@ function Create(props) {
         }),
         schools: res[3],
         packages: res[4].map(elem => {
-          return {id: elem.id, name: elem.title};
+          return {
+            id: elem.id,
+            name: elem.title,
+          };
         }),
       });
       setIsWorking(false);
     });
   }, [props, state.states, dispatch, isWorking]);
-
   React.useEffect(() => {
     if (state.states === undefined) fetchPreReq();
   }, [state.states, fetchPreReq]);
-
   React.useEffect(() => {
     fetchNotif();
   }, [state.selectedNotif, fetchNotif]);
-
   return (
     <>
       {showFilter && state.states !== undefined && !props.isInReviewMode && (
@@ -173,7 +154,10 @@ function Create(props) {
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
         {!props.isInReviewMode && (
-          <PhoneView style={{...styles.gap10}}>
+          <PhoneView
+            style={{
+              ...styles.gap10,
+            }}>
             <FontIcon
               theme={'rect'}
               back={'yellow'}
@@ -182,13 +166,19 @@ function Create(props) {
               onPress={() => setShowFilter(true)}
             />
             <SimpleText
-              style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+              style={{
+                ...styles.BlueBold,
+                ...styles.alignSelfCenter,
+              }}
               text={'افزودن فیلتر'}
             />
           </PhoneView>
         )}
 
-        <PhoneView style={{...styles.gap10}}>
+        <PhoneView
+          style={{
+            ...styles.gap10,
+          }}>
           {filters.map((elem, index) => {
             return (
               <BuiltFilter
@@ -220,16 +210,15 @@ function Create(props) {
             editor={ClassicEditor}
             config={{
               title: false,
-              customValues: {token: props.token},
+              customValues: {
+                token: props.token,
+              },
               extraPlugins: [MyCustomUploadAdapterPlugin],
               placeholder: 'متن پیام',
               ...CKEditorToolbar,
             }}
             data={desc}
-            onReady={editor => {
-              ckEditor = editor;
-            }}
-            onChange={(event, editor) => {
+            onChange={(_, editor) => {
               setDesc(editor.getData());
             }}
           />
@@ -263,7 +252,6 @@ function Create(props) {
           <CommonButton
             onPress={async () => {
               props.setLoading(true);
-
               const data = {
                 via: props.sendVia,
                 title: title,
@@ -271,11 +259,9 @@ function Create(props) {
                 sendMail: sendMail === 'yes',
                 sendSMS: sendSMS === 'yes',
               };
-
               filters.map(elem => {
                 data[elem.key] = elem.value;
               });
-
               const res =
                 attachesFilesContent?.length > 0 ||
                 excelsFilesContent?.length > 0
@@ -291,7 +277,6 @@ function Create(props) {
                     )
                   : await simpleStore(props.token, data);
               props.setLoading(false);
-
               if (res !== null) {
                 state.notifs.push({
                   id: res.id,
@@ -299,7 +284,9 @@ function Create(props) {
                   title: title,
                   createdAt: res.createdAt,
                 });
-                dispatch({notifs: state.notifs});
+                dispatch({
+                  notifs: state.notifs,
+                });
                 props.setMode('list');
               }
             }}
@@ -311,5 +298,4 @@ function Create(props) {
     </>
   );
 }
-
 export default Create;

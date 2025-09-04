@@ -1,14 +1,14 @@
 import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../API/APIRoutes';
-import {fetchUser, setCacheItem} from '../../../API/User';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import BestComments from '../../../components/web/Comment/BestComments';
-import Comment from '../../../components/web/Comment/Comment';
-import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
-import {addItem, removeItems, showSuccess} from '../../../services/Utility';
+import {routes} from '@/api/apiRoutes';
+import {fetchUser, setCacheItem} from '../../../api/user';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import BestComments from '../../../components/web/comment/BestComments';
+import Comment from '../../../components/web/comment/Comment';
+import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction';
+import {addItem, removeItems, showSuccess} from '../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -16,38 +16,32 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import {styles} from '../../../styles/Common/Styles';
-import commonTranslator from '../../../translator/Common';
+} from '../../../styles/CommonComponents.jsx';
+import {LargePopUp} from '../../../styles/common/PopUp';
+import {styles} from '../../../styles/common/styles';
+import commonTranslator from '../../../translator/common';
 import OffCode from '../buy/components/OffCode';
 import Card from './Card';
 import Filter from './Filter';
 import FinancePlan from './FinancePlan';
 import vars from '../../../styles/root';
-
 function Advisors(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [data, setData] = useState();
   const [myAdvisors, setMyAdvisors] = useState();
   const [openRequests, setOpenRequests] = useState();
   const [fetchedPlans, setFetchedPlans] = useState([]);
   const [advisorPlans, setAdvisorPlans] = useState();
-
   const [refId, setRefId] = useState();
-
   React.useEffect(() => {
     if (refId === undefined) return;
     ref.current.submit();
   }, [refId]);
-
   const ref = React.useRef();
-
   const goToPay = async (token, data, advisorId) => {
     return await generalRequest(
       routes.payAdvisorPrice + advisorId,
@@ -57,38 +51,31 @@ function Advisors(props) {
       token,
     );
   };
-
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [showOffCodePane, setShowOffCodePane] = useState();
   const [selectedAdvisor, setSelectedAdvisor] = useState();
   const [userOff, setUserOff] = useState();
   const [bestComments, setBestComments] = useState();
-
   const [min, setMin] = useState();
   const [max, setMax] = useState();
-
   const [minAge, setMinAge] = useState();
   const [maxAge, setMaxAge] = useState();
   const [tags, setTags] = useState();
-
   const [offAmount, setOffAmount] = useState(0);
   const [userMoney, setUserMoney] = useState(state.user.user.money);
-
   const [showComments, setShowComments] = useState(false);
   const [selectedAdvisorForComment, setSelectedAdvisorForComment] = useState();
-
   const goToPayLocal = async advisorId => {
     const data = {};
-
     if (userOff !== undefined && userOff.code !== undefined)
       data.off = userOff.code;
-
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     const res = await goToPay(state.token, data, advisorId);
-
-    dispatch({loading: false});
-
+    dispatch({
+      loading: false,
+    });
     if (res !== null) {
       if (res.action === 'success') {
         await setCacheItem('user', undefined);
@@ -99,14 +86,14 @@ function Advisors(props) {
       }
     }
   };
-
   const [selectedAdvisorPlanId, setSelectedAdvisorPlanId] = useState();
   const [pageIndex, setPageIndex] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [totalCount, setTotalCount] = useState();
-
   const sendRequestForAdvisor = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.sendAdvisorAcceptanceRequest +
@@ -119,7 +106,9 @@ function Advisors(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] !== null) {
         addItem(openRequests, setOpenRequests, res[0]);
         showSuccess(
@@ -132,9 +121,10 @@ function Advisors(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [advisorPlans?.advisorId, selectedAdvisorPlanId]);
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all(
       state.token !== undefined && state.token !== null
         ? [
@@ -194,20 +184,25 @@ function Advisors(props) {
             ),
           ],
     ).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null || res[1] == null || res[2] == null) {
         props.navigate('/');
         return;
       }
-
       setTags([
-        ...res[1].map(elem => ({id: elem, item: elem})),
-        {id: 'all', item: 'همه'},
+        ...res[1].map(elem => ({
+          id: elem,
+          item: elem,
+        })),
+        {
+          id: 'all',
+          item: 'همه',
+        },
       ]);
-
       if (state.token !== undefined && state.token !== null) {
         setMyAdvisors(res[3].length > 0 ? res[3] : undefined);
-
         if (
           res[4] !== null &&
           res[4] !== undefined &&
@@ -215,10 +210,8 @@ function Advisors(props) {
           res[4][0].userMoney !== undefined
         )
           setUserMoney(res[4][0].userMoney);
-
         setOpenRequests(res[4]);
       }
-
       setMax(res[0].filters.maxPrice);
       setMin(res[0].filters.minPrice);
       setMinAge(res[0].filters.minAge);
@@ -231,27 +224,26 @@ function Advisors(props) {
       if (totalCount === undefined) setTotalCount(res[0].totalCount);
     });
   }, [dispatch, state.token, props, pageIndex, totalCount]);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   const setOffCodeResult = (amount, type, code) => {
-    setUserOff({type: type, amount: amount, code: code});
-
+    setUserOff({
+      type: type,
+      amount: amount,
+      code: code,
+    });
     const openReq = openRequests.find(e => e.advisorId === selectedAdvisor);
     const offAmountTmp =
       type === 'percent' ? (openReq.price * amount) / 100 : amount;
     setOffAmount(offAmountTmp);
     openReq.shouldPay = Math.max(0, openReq.price - offAmountTmp - userMoney);
   };
-
   const [selectableItems, setSelectableItems] = useState();
   const [totalSelectableItemsSize, setTotalSelectableItemsSize] = useState();
   const [clearFilter, setClearFilter] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const [doFilter, setDoFilter] = useState(false);
-
   return (
     <>
       {showSuccessTransaction && (
@@ -294,7 +286,11 @@ function Advisors(props) {
         <OffCode
           token={state.token}
           for={'counseling'}
-          setLoading={new_status => dispatch({loading: new_status})}
+          setLoading={new_status =>
+            dispatch({
+              loading: new_status,
+            })
+          }
           setResult={setOffCodeResult}
           toggleShowPopUp={() => setShowOffCodePane(false)}
         />
@@ -320,12 +316,18 @@ function Advisors(props) {
                     ...styles.alignItemsCenter,
                   }}>
                   <SimpleText
-                    style={{...styles.BlueBold, ...styles.fontSize17}}
+                    style={{
+                      ...styles.BlueBold,
+                      ...styles.fontSize17,
+                    }}
                     text={'لیست مشاوران'}
                   />
                   {selectableItems !== undefined && (
                     <SimpleText
-                      style={{...styles.fontSize13, ...styles.dark_blue_color}}
+                      style={{
+                        ...styles.fontSize13,
+                        ...styles.dark_blue_color,
+                      }}
                       text={
                         'نمایش ' +
                         totalSelectableItemsSize +
@@ -336,7 +338,11 @@ function Advisors(props) {
                     />
                   )}
                 </PhoneView>
-                <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.alignSelfCenter,
+                    ...styles.gap10,
+                  }}>
                   <SimpleText
                     style={{
                       ...styles.alignSelfCenter,
@@ -349,7 +355,10 @@ function Advisors(props) {
                   />
                   <CommonButton
                     iconDir={'left'}
-                    textStyle={{...styles.fontSize17, ...styles.bold}}
+                    textStyle={{
+                      ...styles.fontSize17,
+                      ...styles.bold,
+                    }}
                     icon={showFilter ? faChevronDown : faChevronRight}
                     onPress={() => {
                       setShowFilter(!showFilter);
@@ -371,7 +380,11 @@ function Advisors(props) {
                   maxAge={maxAge}
                   tags={tags}
                   token={props.token}
-                  setLoading={new_status => dispatch({loading: new_status})}
+                  setLoading={new_status =>
+                    dispatch({
+                      loading: new_status,
+                    })
+                  }
                   setClearFilter={setClearFilter}
                   clearFilter={clearFilter}
                   doFilter={doFilter}
@@ -409,7 +422,6 @@ function Advisors(props) {
                       elem.id !== selectedAdvisor
                     )
                       return;
-
                     const openReq = openRequests.find(
                       e => e.advisorId === elem.id,
                     );
@@ -417,13 +429,11 @@ function Advisors(props) {
                       openReq !== undefined && openReq.shouldPay !== undefined
                         ? openReq.shouldPay
                         : undefined;
-
                     const isMyAdvisor =
                       myAdvisors !== undefined
                         ? myAdvisors.find(eeee => eeee.id === elem.id) !==
                           undefined
                         : false;
-
                     if (shouldPay !== undefined) {
                       return (
                         <Card
@@ -451,7 +461,9 @@ function Advisors(props) {
                             goToPayLocal(elem.id);
                           }}
                           onCancel={async () => {
-                            dispatch({loading: true});
+                            dispatch({
+                              loading: true,
+                            });
                             const res = await generalRequest(
                               routes.cancelAdvisorRequest + openReq.id,
                               'delete',
@@ -459,7 +471,9 @@ function Advisors(props) {
                               undefined,
                               state.token,
                             );
-                            dispatch({loading: false});
+                            dispatch({
+                              loading: false,
+                            });
                             if (res !== null) {
                               showSuccess();
                               const tmp = data.map(e => {
@@ -478,14 +492,15 @@ function Advisors(props) {
                         />
                       );
                     }
-
                     if (openReq !== undefined) {
                       return (
                         <Card
                           isMyAdvisor={isMyAdvisor}
                           navigate={props.navigate}
                           onCancel={async () => {
-                            dispatch({loading: true});
+                            dispatch({
+                              loading: true,
+                            });
                             const res = await generalRequest(
                               routes.cancelAdvisorRequest + openReq.id,
                               'delete',
@@ -493,7 +508,9 @@ function Advisors(props) {
                               undefined,
                               state.token,
                             );
-                            dispatch({loading: false});
+                            dispatch({
+                              loading: false,
+                            });
                             if (res !== null) {
                               showSuccess();
                               const tmp = data.map(e => {
@@ -515,7 +532,6 @@ function Advisors(props) {
                         />
                       );
                     }
-
                     return (
                       <Card
                         isMyAdvisor={isMyAdvisor}
@@ -536,7 +552,9 @@ function Advisors(props) {
                           );
                           setSelectedAdvisor(elem.id);
                           if (plans === undefined) {
-                            dispatch({loading: true});
+                            dispatch({
+                              loading: true,
+                            });
                             const res = await generalRequest(
                               routes.getMyFinancePlans + elem.id,
                               'get',
@@ -544,14 +562,14 @@ function Advisors(props) {
                               'data',
                               state.token,
                             );
-
-                            dispatch({loading: false});
+                            dispatch({
+                              loading: false,
+                            });
                             if (res == null) return;
                             const tmp = [];
                             fetchedPlans.forEach(e => {
                               tmp.push(e);
                             });
-
                             plans = {
                               advisorId: elem.id,
                               plans: res.data,
@@ -559,7 +577,6 @@ function Advisors(props) {
                             tmp.push(plans);
                             setFetchedPlans(tmp);
                           }
-
                           setAdvisorPlans(plans);
                         }}
                         onBackClick={() => {
@@ -597,7 +614,11 @@ function Advisors(props) {
               refId={selectedAdvisorForComment}
               section="advisor"
               token={state.token}
-              setLoading={status => dispatch({loading: status})}
+              setLoading={status =>
+                dispatch({
+                  loading: status,
+                })
+              }
             />
           )}
 
@@ -612,8 +633,12 @@ function Advisors(props) {
                 <PhoneView
                   style={
                     state.isInPhone
-                      ? {...styles.justifyContentCenter}
-                      : {...styles.gap15}
+                      ? {
+                          ...styles.justifyContentCenter,
+                        }
+                      : {
+                          ...styles.gap15,
+                        }
                   }>
                   {advisorPlans.plans.map((elem, index) => {
                     return (
@@ -647,5 +672,4 @@ function Advisors(props) {
     </>
   );
 }
-
 export default Advisors;

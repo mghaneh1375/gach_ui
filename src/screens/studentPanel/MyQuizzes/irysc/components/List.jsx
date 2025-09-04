@@ -1,67 +1,56 @@
 import React, {useState} from 'react';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import Card from '../../../../panel/quiz/components/Card/Card';
+import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
+import Card from '../../../../panel/quiz/components/card/Card';
 import {
   quizContext,
   dispatchQuizContext,
 } from '../../../../panel/quiz/components/Context';
 import Ops from './Ops';
-import {fetchMyQuizze} from './Utility';
-import commonTranslator from '../../../../../translator/Common';
-import ProgressCard from '../../../‌MyOffs/ProgressCard/ProgressCard';
-import {styles} from '../../../../../styles/Common/Styles';
-import vars from '../../../../../styles/root';
-
+import {fetchMyQuizze} from './utility';
+import commonTranslator from '@/translator/common';
+import ProgressCard from '../../../myOffs/progressCard/ProgressCard';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [quizzes, setQuizzes] = useState();
   const [showOpPane, setShowOpPane] = useState(false);
   const [mode, setMode] = useState();
-
   React.useEffect(() => {
     setMode(props.status);
   }, [props.status]);
-
   React.useEffect(() => {
     if (isWorking) return;
-
     if (state.quizzes !== undefined) {
       setQuizzes(state.quizzes);
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([fetchMyQuizze(props.token)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
-      dispatch({quizzes: res[0]});
+      dispatch({
+        quizzes: res[0],
+      });
       setQuizzes(res[0]);
       setIsWorking(false);
     });
   }, [props, dispatch, state.quizzes, isWorking]);
-
   const openOpBox = quiz => {
-    dispatch({selectedQuiz: quiz});
+    dispatch({
+      selectedQuiz: quiz,
+    });
     setShowOpPane(true);
   };
-
   return (
     <MyView>
       {showOpPane && (
@@ -79,7 +68,11 @@ function List(props) {
       )}
       {quizzes !== undefined && quizzes.length > 0 && (
         <MyView>
-          <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
+          <PhoneView
+            style={{
+              ...styles.alignSelfCenter,
+              ...styles.marginTop20,
+            }}>
             <ProgressCard
               header={'آزمونهای گذشته'}
               theme={vars.ORANGE}
@@ -90,7 +83,9 @@ function List(props) {
                 if (mode === 'passed') return;
                 setMode('passed');
               }}
-              style={{...styles.cursor_pointer}}
+              style={{
+                ...styles.cursor_pointer,
+              }}
             />
             <ProgressCard
               header={'آزمونهای پیش رو'}
@@ -102,7 +97,9 @@ function List(props) {
                 if (mode === 'future') return;
                 setMode('future');
               }}
-              style={{...styles.cursor_pointer}}
+              style={{
+                ...styles.cursor_pointer,
+              }}
             />
             <ProgressCard
               header={'همه آزمونها'}
@@ -114,10 +111,16 @@ function List(props) {
                 if (mode === 'all') return;
                 setMode('all');
               }}
-              style={{...styles.cursor_pointer}}
+              style={{
+                ...styles.cursor_pointer,
+              }}
             />
           </PhoneView>
-          <PhoneView style={{gap: 15, padding: 15}}>
+          <PhoneView
+            style={{
+              gap: 15,
+              padding: 15,
+            }}>
             {quizzes !== undefined &&
               mode !== undefined &&
               quizzes.map((quiz, index) => {
@@ -168,5 +171,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

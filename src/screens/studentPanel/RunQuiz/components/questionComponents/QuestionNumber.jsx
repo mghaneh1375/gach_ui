@@ -1,13 +1,12 @@
 import {faBookmark} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import {PhoneView, SimpleText} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {PhoneView, SimpleText} from '@/styles';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
 import {style} from '../../style';
-import vars from '../../../../../styles/root';
-import {styles} from '../../../../../styles/Common/Styles';
+import vars from '@/styles/root';
+import {styles} from '@/styles/common/styles';
 import {Pressable} from 'react-native';
-import {getDevice} from '../../../../../services/Utility';
-
+import {getDevice} from '@/services/utility';
 function QuestionNumber(props) {
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
@@ -28,7 +27,6 @@ function QuestionNumber(props) {
         ? vars.WHITE
         : vars.DARK_BLUE,
   };
-
   return (
     <Pressable onPress={() => props.jump()}>
       <PhoneView
@@ -48,8 +46,12 @@ function QuestionNumber(props) {
             style={
               (props.theme !== undefined && props.theme === 'transparent') ||
               (props.selected !== undefined && props.selected)
-                ? {...style.bookMarkWrapperWithBorder}
-                : {...style.bookMarkWrapper}
+                ? {
+                    ...style.bookMarkWrapperWithBorder,
+                  }
+                : {
+                    ...style.bookMarkWrapper,
+                  }
             }>
             <SimpleFontIcon
               kind={'small'}
@@ -78,5 +80,4 @@ function QuestionNumber(props) {
     </Pressable>
   );
 }
-
 export default QuestionNumber;

@@ -5,61 +5,56 @@ import {
   faBell,
   faGift,
 } from '@fortawesome/free-solid-svg-icons';
-import {style} from './style';
+import {style} from './Style';
 import {
   MyView,
   PhoneView,
   SimpleText,
   TextLink,
-} from '../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+} from '../../../../styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
 import UserTinyPic from '../UserTinyPic';
 import {TouchableOpacity} from 'react-native';
-import {Device} from '../../../../models/Device';
-import {getDevice, getWidthHeight} from '../../../../services/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
-import vars from '../../../../styles/root';
-import newAlertsKeyVals from './NewAlertsKeyVals';
-import commonTranslator from '../../../../translator/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import {logout} from '../../../../API/User';
-
+import {Device} from '../../../../models/device';
+import {getDevice, getWidthHeight} from '../../../../services/utility';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import vars from '@/styles/root';
+import newAlertsKeyVals from './newAlertsKeyVals';
+import commonTranslator from '@/translator/common';
+import {styles} from '../../../../styles/common/styles';
+import {logout} from '../../../../api/user';
 function MobileLogout(props) {
   const device = getDevice();
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const isApp = device.indexOf(Device.App) !== -1;
   const width = getWidthHeight()[0];
   const [pic, setPic] = useState('url(../../../../images/slider.png)');
   const [newAlerts, setNewAlerts] = useState();
-
   React.useEffect(() => {
     setPic(state.user.user.pic);
   }, [state.user.user.pic]);
-
   const callLogout = async () => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     await logout(state.token, props.navigate);
-    dispatch({loading: false, user: null});
+    dispatch({
+      loading: false,
+      user: null,
+    });
   };
-
   const changeShowNotif = newStatus => {
     setShowNotif(newStatus);
   };
-
   const [showProfilePane, setShowProfilePane] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
-
   React.useEffect(() => {
     setNewAlerts(state.newAlerts);
   }, [state.newAlerts]);
-
   return (
     <PhoneView
       style={
@@ -78,8 +73,12 @@ function MobileLogout(props) {
       <PhoneView
         style={
           newAlerts !== undefined && newAlerts.gift_id !== undefined
-            ? {...style.Gift_Header_Profile}
-            : {...style.Header_Profile}
+            ? {
+                ...style.Gift_Header_Profile,
+              }
+            : {
+                ...style.Header_Profile,
+              }
         }>
         <UserTinyPic
           onPress={() => {
@@ -236,7 +235,10 @@ function MobileLogout(props) {
         )}
       </PhoneView>
 
-      <PhoneView style={{gap: 10}}>
+      <PhoneView
+        style={{
+          gap: 10,
+        }}>
         {newAlerts !== undefined && newAlerts.gift_id !== undefined && (
           <MyView style={style.Header_NOTIF}>
             <SimpleFontIcon
@@ -278,14 +280,20 @@ function MobileLogout(props) {
 
           {showNotif && (
             <MyView style={style.Header_Profile_Notif}>
-              <MyView style={{...styles.gap15}}>
+              <MyView
+                style={{
+                  ...styles.gap15,
+                }}>
                 {newAlerts !== undefined &&
                   newAlerts.events !== undefined &&
                   newAlerts.events.map((elem, index) => {
                     return (
                       <MyView key={index}>
                         <TextLink
-                          style={{...styles.fontSize12, ...styles.BlueBold}}
+                          style={{
+                            ...styles.fontSize12,
+                            ...styles.BlueBold,
+                          }}
                           // text={
                           //   newAlertsKeyVals.find(itr => itr.id === elem.key)
                           //     .title + newAlerts.events.length
@@ -301,19 +309,22 @@ function MobileLogout(props) {
                           }
                         />
                         <SimpleText
-                          style={{fontSize: 10, color: vars.DARK_BLUE}}
+                          style={{
+                            fontSize: 10,
+                            color: vars.DARK_BLUE,
+                          }}
                           text={elem.value}
                         />
                       </MyView>
                     );
                   })}
                 {/* {newAlerts !== undefined && newAlerts.gift_id !== undefined && (
-                <TextLink
+                 <TextLink
                   style={{...styles.fontSize12, ...styles.BlueBold}}
                   text={'گردونه شانس'}
                   href={'/spinner/' + newAlerts.gift_id}
-                />
-              )} */}
+                 />
+                 )} */}
               </MyView>
               <TextLink
                 style={{
@@ -331,5 +342,4 @@ function MobileLogout(props) {
     </PhoneView>
   );
 }
-
 export default MobileLogout;

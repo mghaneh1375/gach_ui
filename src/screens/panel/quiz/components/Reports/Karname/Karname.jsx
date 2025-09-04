@@ -7,10 +7,10 @@ import {
   PhoneView,
   MyView,
   MyViewWithRef,
-} from '../../../../../../styles/Common';
-import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
+} from '@/styles';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
-import {fetchStudentAnswerSheet, getKarname} from '../../Utility';
+import {fetchStudentAnswerSheet, getKarname} from '../../utility';
 import {
   lessonCols,
   lessonColsCustomQuiz,
@@ -18,14 +18,14 @@ import {
   subjectCols,
   subjectColsCustomQuiz,
   subjectColsTashrihi,
-} from './LessonTableStructure.js';
+} from './lessonTableStructure';
 import {
   lessonRankingCols,
   subjectRankingCols,
   totalRankCols,
-} from './LessonRankingTableStructure';
-import generalStatTableStructure from './GeneralStatTableStructure';
-import commonTranslator from '../../../../../../translator/Common';
+} from './lessonRankingTableStructure';
+import generalStatTableStructure from './generalStatTableStructure';
+import commonTranslator from '../../../../../../translator/common';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
 import {
@@ -35,27 +35,23 @@ import {
   VictoryAxis,
   VictoryLegend,
 } from 'victory-native';
-import AnswerSheet from '../../AnswerSheet/AnswerSheet';
+import AnswerSheet from '../../answerSheet/AnswerSheet';
 import StudentCard from '../../../../../../components/web/StudentCard';
-import CopyBox from '../../../../../../components/CopyBox';
-import {BASE_SITE_NAME} from '../../../../../../API/Utility';
-import {getDevice, showError} from '../../../../../../services/Utility';
-import {getMyAnswerSheet} from '../../../../../studentPanel/MyQuizzes/irysc/components/Utility';
-import {styleCard100Percent} from '../../../../package/card/Style';
-
+import CopyBox from '@/components/CopyBox';
+import {BASE_SITE_NAME} from '../../../../../../api/utility';
+import {getDevice, showError} from '../../../../../../services/utility';
+import {getMyAnswerSheet} from '../../../../../studentPanel/myQuizzes/irysc/components/utility';
+import {styleCard100Percent} from '../../../../package/card/style';
 function Karname(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState(false);
   const [karname, setKarname] = useState();
-
   const fetchAnswerSheet = useCallback(async () => {
     if (props.user === null || props.user === undefined) return 'ok';
-
     if (props.user.accesses.indexOf('student') !== -1)
       return await getMyAnswerSheet(
         state.selectedQuiz.id,
@@ -64,7 +60,6 @@ function Karname(props) {
           : props.generalQuizMode,
         props.token,
       );
-
     return await fetchStudentAnswerSheet(
       state.selectedQuiz.id,
       props.generalQuizMode === undefined
@@ -74,18 +69,18 @@ function Karname(props) {
       props.token,
     );
   }, [props, state.selectedQuiz, state.selectedStudentId]);
-
   React.useEffect(() => {
     if (state.selectedQuiz === undefined) {
       dispatch({
-        selectedQuiz: {id: props.quizId, generalMode: props.quizMode},
+        selectedQuiz: {
+          id: props.quizId,
+          generalMode: props.quizMode,
+        },
         selectedStudentId: props.studentId,
       });
       return;
     }
-
     if (isWorking || state.selectedStudentId === undefined) return;
-
     if (
       state.selectedQuiz.allKarname !== undefined &&
       state.selectedQuiz.allKarname.find(
@@ -98,10 +93,8 @@ function Karname(props) {
       setKarname(tmp);
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       getKarname(
         props.token,
@@ -117,19 +110,15 @@ function Karname(props) {
         props.setMode('list');
         return;
       }
-
       Promise.all([fetchAnswerSheet()]).then(res2 => {
         props.setLoading(false);
-
         if (res2[0] === null) {
           props.setMode('list');
           return;
         }
-
         if (state.selectedQuiz.allKarname === undefined)
           state.selectedQuiz.allKarname = [res[0]];
         else state.selectedQuiz.allKarname.push(res[0]);
-
         dispatch({
           wanted_answer_sheet: res2[0] === 'ok' ? undefined : res2[0],
           showAnswers: true,
@@ -150,22 +139,19 @@ function Karname(props) {
     isWorking,
     fetchAnswerSheet,
   ]);
-
   const ref = useRef();
   const ref2 = useRef();
   const ref3 = useRef();
-
   const [pdf, setPdf] = useState(new jsPDF('p', 'pt', 'a4'));
-
   const callToPng = async (filled, counter, currentRef) => {
-    await toPng(currentRef, {cacheBust: true})
+    await toPng(currentRef, {
+      cacheBust: true,
+    })
       .then(async dataUrl => {
         const imgProps = pdf.getImageProperties(dataUrl);
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
         let y = 0;
-
         if (filled + pdfHeight + 50 > 822) {
           pdf.addPage();
           filled = 0;
@@ -173,9 +159,7 @@ function Karname(props) {
         } else {
           y = filled + 50;
         }
-
         pdf.addImage(dataUrl, 'PNG', 0, y, pdfWidth, pdfHeight);
-
         if (counter === 0) callToPng(filled + pdfHeight, 1, ref2.current);
         else if (counter === 1) callToPng(filled + pdfHeight, 2, ref3.current);
         else if (counter === 2) {
@@ -190,11 +174,9 @@ function Karname(props) {
         props.setLoading(false);
       });
   };
-
   const print = () => {
     if (pdf === undefined) return;
     props.setLoading(true);
-
     if (
       ref.current === null ||
       ref.current === undefined ||
@@ -207,15 +189,11 @@ function Karname(props) {
       showError('عملیات موردنظر با خطا رو به رو شده است.');
       return;
     }
-
     callToPng(0, 0, ref.current);
   };
-
   const [conditionalRowStyles, setConditionalRowStyles] = useState();
-
   React.useEffect(() => {
     if (karname === undefined || karname.conditions === undefined) return;
-
     const conditions = karname.conditions.map(elem => {
       return {
         when: row => row.taraz <= elem.max && row.taraz >= elem.min,
@@ -224,12 +202,9 @@ function Karname(props) {
         },
       };
     });
-
     setConditionalRowStyles(conditions);
   }, [karname]);
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   return (
     <MyView>
       <CommonWebBox
@@ -293,14 +268,16 @@ function Karname(props) {
             }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
+                style={{
+                  alignSelf: 'center',
+                }}
                 text={'جدول شماره 1 - نتایج دروس'}
               />
               {/* <SimpleFontIcon
                 kind={'normal'}
                 onPress={() => setShowLessonChart(!showLessonChart)}
                 icon={showLessonChart ? faAngleUp : faAngleDown}
-              /> */}
+               /> */}
             </EqualTwoTextInputs>
             {karname !== undefined && (
               <MyView>
@@ -336,7 +313,9 @@ function Karname(props) {
               }}>
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
+                  style={{
+                    alignSelf: 'center',
+                  }}
                   text={'جدول شماره 2 - نتایج آماری دروس'}
                 />
               </EqualTwoTextInputs>
@@ -366,7 +345,9 @@ function Karname(props) {
             }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
+                style={{
+                  alignSelf: 'center',
+                }}
                 text={
                   props.generalQuizMode === undefined
                     ? 'جدول شماره 3 - نتایج حیطه\u200cها'
@@ -377,7 +358,7 @@ function Karname(props) {
                 kind={'normal'}
                 onPress={() => setShowSubjectChart(!showSubjectChart)}
                 icon={showSubjectChart ? faAngleUp : faAngleDown}
-              /> */}
+               /> */}
             </EqualTwoTextInputs>
             <MyView>
               {karname !== undefined && (
@@ -412,7 +393,9 @@ function Karname(props) {
               }}>
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
+                  style={{
+                    alignSelf: 'center',
+                  }}
                   text={'جدول شماره 4 - نتایج آماری حیطه\u200cها'}
                 />
               </EqualTwoTextInputs>
@@ -443,11 +426,16 @@ function Karname(props) {
               }}>
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
+                  style={{
+                    alignSelf: 'center',
+                  }}
                   text={'جدول شماره 5 - نتایج رتبه بندی دروس'}
                 />
               </EqualTwoTextInputs>
-              <MyView style={{gap: 20}}>
+              <MyView
+                style={{
+                  gap: 20,
+                }}>
                 {karname !== undefined && (
                   <CommonDataTable
                     columns={lessonRankingCols}
@@ -460,7 +448,9 @@ function Karname(props) {
                 )}
                 <EqualTwoTextInputs>
                   <BigBoldBlueTextInline
-                    style={{alignSelf: 'center'}}
+                    style={{
+                      alignSelf: 'center',
+                    }}
                     text={'جدول شماره 7 - نتایج کلی'}
                   />
                 </EqualTwoTextInputs>
@@ -490,11 +480,16 @@ function Karname(props) {
               }}>
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
+                  style={{
+                    alignSelf: 'center',
+                  }}
                   text={'جدول شماره 5 - نتایج رتبه بندی دروس'}
                 />
               </EqualTwoTextInputs>
-              <MyView style={{gap: 20}}>
+              <MyView
+                style={{
+                  gap: 20,
+                }}>
                 {karname !== undefined && (
                   <CommonDataTable
                     columns={lessonRankingCols}
@@ -521,7 +516,9 @@ function Karname(props) {
               }}>
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
+                  style={{
+                    alignSelf: 'center',
+                  }}
                   text={'جدول شماره 6 - نتایج رتبه بندی حیطه\u200cها'}
                 />
               </EqualTwoTextInputs>
@@ -549,10 +546,15 @@ function Karname(props) {
                 paddingRight: 5,
                 ...styleCard100Percent,
               }}>
-              <MyView style={{gap: 20}}>
+              <MyView
+                style={{
+                  gap: 20,
+                }}>
                 <EqualTwoTextInputs>
                   <BigBoldBlueTextInline
-                    style={{alignSelf: 'center'}}
+                    style={{
+                      alignSelf: 'center',
+                    }}
                     text={'جدول شماره 7 - نتایج کلی'}
                   />
                 </EqualTwoTextInputs>
@@ -576,12 +578,21 @@ function Karname(props) {
         !isInPhone &&
         (state.selectedStudentId === undefined ||
           state.selectedQuiz.generalMode !== 'content') && (
-          <MyViewWithRef style={{justifyContent: 'center'}} ref={ref2}>
+          <MyViewWithRef
+            style={{
+              justifyContent: 'center',
+            }}
+            ref={ref2}>
             <CommonWebBox width={'100%'}>
               <MyView>
                 {karname !== undefined && (
                   <VictoryChart
-                    padding={{top: 150, left: 100, bottom: 50, right: 80}}
+                    padding={{
+                      top: 150,
+                      left: 100,
+                      bottom: 50,
+                      right: 80,
+                    }}
                     height={500}
                     theme={VictoryTheme.material}>
                     <VictoryLegend
@@ -591,14 +602,36 @@ function Karname(props) {
                       orientation="horizontal"
                       gutter={40}
                       style={{
-                        data: {fontSize: 20, fontFamily: 'IRANSans'},
-                        labels: {fontSize: 20, fontFamily: 'IRANSans', dx: 100},
-                        border: {stroke: 'black'},
-                        title: {fontSize: 20, fontFamily: 'IRANSans'},
+                        data: {
+                          fontSize: 20,
+                          fontFamily: 'IRANSans',
+                        },
+                        labels: {
+                          fontSize: 20,
+                          fontFamily: 'IRANSans',
+                          dx: 100,
+                        },
+                        border: {
+                          stroke: 'black',
+                        },
+                        title: {
+                          fontSize: 20,
+                          fontFamily: 'IRANSans',
+                        },
                       }}
                       data={[
-                        {name: 'درصد شما', symbol: {fill: '#c43a31'}},
-                        {name: 'میانگین', symbol: {fill: '#777777'}},
+                        {
+                          name: 'درصد شما',
+                          symbol: {
+                            fill: '#c43a31',
+                          },
+                        },
+                        {
+                          name: 'میانگین',
+                          symbol: {
+                            fill: '#777777',
+                          },
+                        },
                       ]}
                     />
 
@@ -615,7 +648,9 @@ function Karname(props) {
                         },
                       }}
                       interpolation={'natural'}
-                      domain={{y: [-60, 120]}}
+                      domain={{
+                        y: [-60, 120],
+                      }}
                       data={[
                         0,
                         ...karname.subjects.map(elem => {
@@ -696,5 +731,4 @@ function Karname(props) {
     </MyView>
   );
 }
-
 export default Karname;

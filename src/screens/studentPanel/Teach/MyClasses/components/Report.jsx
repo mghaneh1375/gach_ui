@@ -1,17 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-} from '../../../../../styles/Common';
-import {Translator} from '../../Translate';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import {Translator} from '../../translate';
 import {dispatchMyTeachClassesContext, myTeachClassesContext} from './Context';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import commonTranslator from '../../../../../translator/Common';
-import {showSuccess} from '../../../../../services/Utility';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import commonTranslator from '@/translator/common';
+import {showSuccess} from '@/services/utility';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
 function Report(props) {
   const useGlobalState = () => [
     React.useContext(myTeachClassesContext),
@@ -20,10 +15,8 @@ function Report(props) {
   const [state, dispatch] = useGlobalState();
   const [tags, setTags] = useState();
   const [desc, setDesc] = useState();
-
   const fetchReport = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getMyTeachScheduleReportProblems + state.selectedScheduleId,
@@ -47,7 +40,9 @@ function Report(props) {
       }
       setTags(
         res[1].map(e => ({
-          ...{isSelected: res[0].tags.indexOf(e.label) !== -1},
+          ...{
+            isSelected: res[0].tags.indexOf(e.label) !== -1,
+          },
           ...e,
         })),
       );
@@ -55,22 +50,25 @@ function Report(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedScheduleId]);
-
   useEffect(() => {
     fetchReport();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedScheduleId]);
-
   return (
     <CommonWebBox
       header={Translator.report}
       backBtn={true}
       onBackClick={() => {
         props.setMode('list');
-        dispatch({selectedScheduleId: undefined});
+        dispatch({
+          selectedScheduleId: undefined,
+        });
       }}>
       {tags && (
-        <PhoneView style={{gap: '10px'}}>
+        <PhoneView
+          style={{
+            gap: '10px',
+          }}>
           {tags.map((e, index) => {
             return (
               <CommonButton
@@ -123,5 +121,4 @@ function Report(props) {
     </CommonWebBox>
   );
 }
-
 export default Report;

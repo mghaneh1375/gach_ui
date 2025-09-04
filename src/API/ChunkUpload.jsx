@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import {CommonButton, MyView, SimpleText} from '../styles/Common';
-import {videoGeneralRequest} from './Utility';
-import {routes} from './APIRoutes';
-
+import {videoGeneralRequest} from './utility';
+import {routes} from './aPIRoutes';
 function ChunkUpload(props) {
   const [progress, setProgress] = useState(0);
   const chunkSize = 1048576 * 3;
-
   const getFileContext = () => {
     resetChunkProperties();
     const _totalCount =
@@ -17,7 +15,6 @@ function ChunkUpload(props) {
 
     getGrantForUpload(_totalCount);
   };
-
   const getGrantForUpload = _totalCount => {
     Promise.all([
       videoGeneralRequest(
@@ -38,11 +35,9 @@ function ChunkUpload(props) {
       }
     });
   };
-
   const resetChunkProperties = () => {
     setProgress(0);
   };
-
   const fileUpload = (
     counter,
     chunkCount,
@@ -55,7 +50,6 @@ function ChunkUpload(props) {
       uploadChunk(counter, chunkCount, filename, endOfTheChunk, chunk);
     }
   };
-
   const uploadChunk = async (
     counter,
     chunkCount,
@@ -99,7 +93,6 @@ function ChunkUpload(props) {
       console.log('error', error);
     }
   };
-
   const uploadCompleted = async () => {
     const response = await axios.post(
       'http://localhost:8086/api/package_content/manage/completeUploadSessionVideo/' +
@@ -120,7 +113,6 @@ function ChunkUpload(props) {
       setProgress(100);
     }
   };
-
   return (
     <MyView>
       <CommonButton title="salam" onPress={async () => getFileContext()} />
@@ -128,5 +120,4 @@ function ChunkUpload(props) {
     </MyView>
   );
 }
-
 export default ChunkUpload;

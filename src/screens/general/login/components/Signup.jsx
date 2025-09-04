@@ -6,17 +6,15 @@ import {
   TextWithLink,
   MyView,
   PhoneView,
-} from '../../../../styles/Common';
-
-import {generalRequest} from '../../../../API/Utility';
+} from '@/styles';
+import {generalRequest} from '@/api/utility';
 import translator from '../translate';
-import commonTranslator from './../../../../translator/Common';
-import {routes} from '../../../../API/APIRoutes';
-import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import {changeText, showError} from '../../../../services/Utility';
-import {style} from '../../../../components/web/LargeScreen/Header/style';
-import {styles} from '../../../../styles/Common/Styles';
-
+import commonTranslator from '@/translator/common';
+import {routes} from '@/api/apiRoutes';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import {changeText, showError} from '../../../../services/utility';
+import {style} from '../../../../components/web/largeScreen/header/Style';
+import {styles} from '../../../../styles/common/styles';
 const Signup = props => {
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
@@ -24,12 +22,10 @@ const Signup = props => {
   const [password, setPassword] = useState();
   const [rPassword, setRPassword] = useState();
   const [authVia, setAuthVia] = useState('sms');
-
   const changeAuthVia = newMode => {
     setAuthVia(newMode);
     props.setUsername('');
   };
-
   const changeInput = (label, text) => {
     if (label === 'username') props.setUsername(text);
     else if (label === 'password') setPassword(text);
@@ -37,18 +33,15 @@ const Signup = props => {
     else if (label === 'lastname') setLastname(text);
     else if (label === 'NID') setNID(text);
   };
-
   const submit = () => {
     if (password === undefined || rPassword === useDebugValue) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
     }
-
     if (password !== rPassword) {
       showError('رمزعبور و تکرار آن مطابقت ندارد.');
       return;
     }
-
     var data = {
       username: props.username,
       password: password,
@@ -57,16 +50,13 @@ const Signup = props => {
       NID: NID,
       authVia: authVia,
     };
-
     for (const [key, value] of Object.entries(data)) {
       if (value.length === 0) {
         showError(commonTranslator.pleaseFillAllFields);
         return;
       }
     }
-
     props.setLoading(true);
-
     Promise.all([
       generalRequest(routes.signup, 'post', data, ['token', 'reminder']),
     ]).then(res => {
@@ -85,7 +75,10 @@ const Signup = props => {
         ...style.ParentLoginModule,
         ...styles.marginBottom20,
       }}>
-      <PhoneView style={{...styles.gap15}}>
+      <PhoneView
+        style={{
+          ...styles.gap15,
+        }}>
         <CommonTextInput
           isHalf={true}
           placeholder={commonTranslator.firstname}
@@ -106,7 +99,9 @@ const Signup = props => {
         placeholder={commonTranslator.NID}
         subText={commonTranslator.NID}
         justNum={true}
-        style={{marginTop: 20}}
+        style={{
+          marginTop: 20,
+        }}
         value={NID}
         onChangeText={e => changeInput('NID', e)}
       />
@@ -149,7 +144,9 @@ const Signup = props => {
         placeholder={commonTranslator.password}
         subText={commonTranslator.password}
         value={password}
-        style={{marginTop: 40}}
+        style={{
+          marginTop: 40,
+        }}
         type="password"
         onChangeText={e => changeInput('password', e)}
       />
@@ -162,10 +159,18 @@ const Signup = props => {
         onChangeText={e => changeText(e, setRPassword)}
       />
 
-      <SilverTextInline style={{marginTop: 20}} text={translator.acceptTerms} />
+      <SilverTextInline
+        style={{
+          marginTop: 20,
+        }}
+        text={translator.acceptTerms}
+      />
 
       <CommonButton
-        style={{alignSelf: 'flex-start', marginTop: 10}}
+        style={{
+          alignSelf: 'flex-start',
+          marginTop: 10,
+        }}
         onPress={() => submit()}
         title={commonTranslator.signUp}
       />
@@ -174,11 +179,12 @@ const Signup = props => {
           link={translator.login}
           text={translator.ifSubscribe}
           onPress={() => props.setMode('login')}
-          style={{marginTop: 30}}
+          style={{
+            marginTop: 30,
+          }}
         />
       )}
     </MyView>
   );
 };
-
 export default Signup;

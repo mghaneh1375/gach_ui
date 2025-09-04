@@ -1,6 +1,5 @@
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
 export const fetchAllPackages = async (isInMyMode, token = undefined) => {
   return await generalRequest(
     isInMyMode ? routes.fetchMyContents : routes.fetchContents,
@@ -20,7 +19,6 @@ export const fetchAllPackages = async (isInMyMode, token = undefined) => {
     token,
   );
 };
-
 export const fetchPackage = async (slug, token) => {
   return await generalRequest(
     routes.fetchContent + slug,
@@ -30,7 +28,6 @@ export const fetchPackage = async (slug, token) => {
     token,
   );
 };
-
 export const goToPay = async (token, data, id) => {
   return await generalRequest(
     routes.buyContent + id,
@@ -40,7 +37,6 @@ export const goToPay = async (token, data, id) => {
     token,
   );
 };
-
 export const filter = async (
   tag,
   teacher,
@@ -53,25 +49,16 @@ export const filter = async (
   level = undefined,
 ) => {
   const query = new URLSearchParams();
-
   if (tag !== undefined && tag !== 'all') query.append('tag', tag);
-
   if (teacher !== undefined && teacher !== 'all')
     query.append('teacher', teacher);
-
   if (min !== undefined) query.append('minPrice', min);
-
   if (max !== undefined) query.append('maxPrice', max);
-
   if (minDuration !== undefined) query.append('minDuration', minDuration);
-
   if (maxDuration !== undefined) query.append('maxDuration', maxDuration);
-
   if (hasCert !== undefined && hasCert !== 'all')
     query.append('hasCert', hasCert);
-
   if (level !== undefined && level !== 'all') query.append('level', level);
-
   return await generalRequest(
     routes.fetchContents + '?' + query.toString(),
     'get',

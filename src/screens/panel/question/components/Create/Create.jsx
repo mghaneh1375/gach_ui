@@ -5,26 +5,26 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
-} from '../../../../../styles/Common';
-import translator from '../../Translator';
+} from '@/styles';
+import translator from '../../translator';
 import AddBatch from './AddBatch';
 import AddBatchFiles from './AddBatchFiles';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
 import {
   typeOfQuestionKeyVals,
   levelKeyVals,
   statusKeyVals,
   choicesCountKeyVals,
   sentencesCountKeyVals,
-} from '../KeyVals';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
+} from '../keyVals';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
 import {
   changeText,
   showError,
   trueFalseValues,
-} from '../../../../../services/Utility';
-import {styleGap10Wrap} from '../Detail/style';
-import commonTranslator from '../../../../../translator/Common';
+} from '../../../../../services/utility';
+import {styleGap10Wrap} from '../detail/style';
+import commonTranslator from '@/translator/common';
 import MultiSentenceType from './MultiSentenceType';
 import {
   addQuestion,
@@ -32,20 +32,18 @@ import {
   getAuthorsKeyVals,
   getSubjectsKeyVals,
   getTagsKeyVals,
-} from '../Utility';
+} from '../utility';
 import QuestionFile from './QuestionFile';
-import {dispatchQuestionContext, questionContext} from '../Detail/Context';
-import UploadFile from '../../../../../components/web/UploadFile';
-import {CV_BASE_URL} from '../../../../../API/Utility';
+import {dispatchQuestionContext, questionContext} from '../detail/Context';
+import UploadFile from '@/components/web/UploadFile';
+import {CV_BASE_URL} from '../../../../../api/utility';
 import RenderHTML from 'react-native-render-html';
-
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(questionContext),
     React.useContext(dispatchQuestionContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     if (props.isInEditMode && state.selectedQuestion !== undefined) {
       setNeededTime(state.selectedQuestion.neededTime);
@@ -57,13 +55,11 @@ function Create(props) {
       setIsPublic(state.selectedQuestion.isPublic);
       setVisibility(state.selectedQuestion.visibility);
       setOrganizationId(state.selectedQuestion.organizationId);
-
       setSubject(state.selectedQuestion.subject);
       setAuthor({
         id: state.selectedQuestion.author,
         name: state.selectedQuestion.author,
       });
-
       if (state.selectedQuestion.kindQuestion === 'test')
         setChoicesCount(state.selectedQuestion.choicesCount);
       else if (state.selectedQuestion.kindQuestion === 'short_answer')
@@ -73,9 +69,7 @@ function Create(props) {
       }
     }
   }, [state.selectedQuestion, props.isInEditMode]);
-
   const [finalMsg, setFinalMsg] = useState();
-
   const setResult = res => {
     setFinalMsg(
       <RenderHTML
@@ -89,7 +83,6 @@ function Create(props) {
       />,
     );
   };
-
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
   const [showAddPDFPopUp, setShowAddPDFPopUp] = useState(false);
   const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
@@ -109,17 +102,13 @@ function Create(props) {
   const [year, setYear] = useState();
   const [organizationId, setOrganizationId] = useState();
   const [isPublic, setIsPublic] = useState();
-
   const [questionFile, setQuestionFile] = useState();
   const [answerFile, setAnswerFile] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (isWorking || state.authorsKeyVals !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       getAuthorsKeyVals(props.token),
       getSubjectsKeyVals(),
@@ -130,7 +119,6 @@ function Create(props) {
         props.setMode('list');
         return;
       }
-
       dispatch({
         authorsKeyVals: res[0],
         subjectsKeyVals: res[1],
@@ -139,29 +127,26 @@ function Create(props) {
       setIsWorking(false);
     });
   }, [props, state, isWorking, dispatch]);
-
   React.useEffect(() => {
     if (choicesCount === undefined) return;
-
     const choicesTmp = [];
     for (let i = 0; i < choicesCount; i++) {
-      choicesTmp.push({id: i + 1, item: 'گزینه ' + (i + 1)});
+      choicesTmp.push({
+        id: i + 1,
+        item: 'گزینه ' + (i + 1),
+      });
     }
     setChoices(choicesTmp);
   }, [choicesCount]);
-
   const toggleShowAddBatchPopUp = () => {
     setShowAddBatchPopUp(!showAddBatchPopUp);
   };
-
   const toggleShowAddBatchFilesPopUp = () => {
     setShowAddBatchFilesPopUp(!showAddBatchFilesPopUp);
   };
-
   const toggleShowAddPDFFilePopUp = () => {
     setShowAddPDFPopUp(!showAddPDFPopUp);
   };
-
   const sendData = async () => {
     if (
       (props.isAdmin && author === undefined) ||
@@ -171,7 +156,6 @@ function Create(props) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
     }
-
     const data = {
       level: level,
       neededTime: neededTime,
@@ -181,19 +165,14 @@ function Create(props) {
       visibility: visibility,
       isPublic: isPublic,
     };
-
     if (type === 'tashrihi') data.neededLine = neededLine;
     else if (type === 'short_answer') data.telorance = telorance;
     else if (type === 'multi_sentence') data.sentencesCount = sentencesCount;
     else if (type === 'test') data.choicesCount = choicesCount;
-
     if (props.isAdmin && author.id !== author.name) data.authorId = author.id;
-
     if (props.isInEditMode) data.subjectId = subject.id;
-
     if (tags !== undefined && tags.length > 0) data.tags = tags;
     if (year !== undefined) data.year = year;
-
     props.setLoading(true);
     const res = props.isInEditMode
       ? await editQuestion(
@@ -211,21 +190,20 @@ function Create(props) {
           props.token,
         );
     props.setLoading(false);
-
     if (res !== null) {
       props.flushSubjectQuestionsInc(subject.id);
-
       if (
         props.isInEditMode &&
         state.selectedQuestion.subject.id !== subject.id
       ) {
         props.flushSubjectQuestionsInc(state.selectedQuestion.subject.id);
-        dispatch({selectedQuestion: undefined});
+        dispatch({
+          selectedQuestion: undefined,
+        });
         props.setMode('detail');
       } else props.setMode('list');
     }
   };
-
   return (
     <MyView>
       <CommonWebBox
@@ -262,7 +240,10 @@ function Create(props) {
             setLoading={props.setLoading}
           />
         )}
-        <PhoneView style={{...styleGap10Wrap}}>
+        <PhoneView
+          style={{
+            ...styleGap10Wrap,
+          }}>
           <CommonButton
             onPress={() => toggleShowAddBatchPopUp()}
             theme={'dark'}
@@ -279,7 +260,10 @@ function Create(props) {
             title={translator.uploadPDFFile}
           />
         </PhoneView>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderSelect
             placeholder={translator.typeOfQuestion}
             subText={translator.typeOfQuestion}
@@ -422,20 +406,28 @@ function Create(props) {
             />
           )}
           {type === 'tashrihi' && (
-            <PhoneView style={{width: '100%'}}>
+            <PhoneView
+              style={{
+                width: '100%',
+              }}>
               <JustBottomBorderTextInput
                 placeholder={translator.answer}
                 subText={translator.answer}
                 value={answer}
                 multiline={true}
-                style={{minWidth: 400}}
+                style={{
+                  minWidth: 400,
+                }}
                 onChangeText={e => changeText(e, setAnswer)}
               />
             </PhoneView>
           )}
 
           {state.tagsKeyVals !== undefined && (
-            <PhoneView style={{width: '100%'}}>
+            <PhoneView
+              style={{
+                width: '100%',
+              }}>
               <JustBottomBorderTextInput
                 multi={true}
                 addNotFound={true}
@@ -456,14 +448,19 @@ function Create(props) {
                         tmp.push(itr);
                       }
                     });
-                    dispatch({tagsKeyVals: tmp});
+                    dispatch({
+                      tagsKeyVals: tmp,
+                    });
                   }
                 }}
                 values={state.tagsKeyVals}
                 value={
                   tags !== undefined
                     ? tags.map((elem, index) => {
-                        return {id: index, name: elem};
+                        return {
+                          id: index,
+                          name: elem,
+                        };
                       })
                     : []
                 }
@@ -486,7 +483,10 @@ function Create(props) {
           </PhoneView>
 
           {props.isInEditMode && state.selectedQuestion !== undefined && (
-            <PhoneView style={{width: '100%'}}>
+            <PhoneView
+              style={{
+                width: '100%',
+              }}>
               <BigBoldBlueText text={'تصویر صورت سوال فعلی'} />
               <img width={'75%'} src={state.selectedQuestion.questionFile} />
             </PhoneView>
@@ -495,7 +495,10 @@ function Create(props) {
           {props.isInEditMode &&
             state.selectedQuestion !== undefined &&
             state.selectedQuestion.answerFile !== undefined && (
-              <PhoneView style={{width: '100%'}}>
+              <PhoneView
+                style={{
+                  width: '100%',
+                }}>
                 <BigBoldBlueText text={'تصویرپاسخ تشریحی فعلی'} />
                 <img width={'75%'} src={state.selectedQuestion.answerFile} />
               </PhoneView>
@@ -509,5 +512,4 @@ function Create(props) {
     </MyView>
   );
 }
-
 export default Create;

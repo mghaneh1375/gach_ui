@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '../../../../../App';
 import List from './list/List';
-import {getConfig} from './Utility';
-import {MyView} from '../../../../../styles/Common';
+import {getConfig} from './utility';
+import {MyView} from '@/styles';
+import {dispatchStateContext, globalStateContext} from '@/App';
 
 function ConfigGift(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -15,15 +14,19 @@ function ConfigGift(props) {
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
   const [selectedId, setSelectedId] = useState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getConfig(props.token)]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -46,5 +49,4 @@ function ConfigGift(props) {
     </MyView>
   );
 }
-
 export default ConfigGift;

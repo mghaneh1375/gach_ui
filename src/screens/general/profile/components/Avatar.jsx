@@ -1,17 +1,14 @@
 import React, {useState} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {showSuccess} from '../../../../services/utility';
+import commonTranslator from '@/translator/common';
 function Avatar(props) {
   const [pic, setPic] = useState(undefined);
-
   React.useEffect(() => {
     setPic(props.pic);
   }, [props.pic]);
-
   const choose = () => {
     props.setLoading(true);
     Promise.all([
@@ -36,7 +33,6 @@ function Avatar(props) {
       }
     });
   };
-
   return (
     <TouchableOpacity
       onPress={() => choose()}
@@ -52,10 +48,11 @@ function Avatar(props) {
           cursor: 'pointer',
           alignSelf: 'center',
         }}
-        source={{uri: pic}}
+        source={{
+          uri: pic,
+        }}
       />
     </TouchableOpacity>
   );
 }
-
 export default Avatar;

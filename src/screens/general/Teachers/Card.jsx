@@ -8,9 +8,9 @@ import {
 import React, {useState} from 'react';
 import {Image, Pressable} from 'react-native';
 import {Rating} from 'react-native-ratings';
-import {globalStateContext} from '../../../App';
-import Circle from '../../../components/web/Circle';
-import QuizItemCard from '../../../components/web/QuizItemCard';
+import {globalStateContext} from '../../../App.jsx';
+import Circle from '@/components/web/Circle';
+import QuizItemCard from '@/components/web/QuizItemCard';
 import {
   CommonButton,
   CommonWebBox,
@@ -18,20 +18,17 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {FontIcon} from '../../../styles/Common/FontIcon';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents.jsx';
+import {FontIcon} from '../../../styles/common/FontIcon';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-
 function Card(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
   const [state] = useGlobalState();
   const [pic, setPic] = useState();
-
   React.useEffect(() => {
     setPic(props.data.pic);
   }, [props.data.pic]);
-
   return (
     <CommonWebBox
       width={
@@ -65,7 +62,10 @@ function Card(props) {
             ...styles.gap15,
           }}>
           <SimpleText
-            style={{...styles.colorDarkBlue, ...styles.alignSelfCenter}}
+            style={{
+              ...styles.colorDarkBlue,
+              ...styles.alignSelfCenter,
+            }}
             text={'امتیاز'}
           />
           <Circle
@@ -91,7 +91,15 @@ function Card(props) {
       </EqualTwoTextInputs>
 
       <PhoneView
-        style={state.isInPhone ? {...styles.gap15} : {...styles.gap100}}>
+        style={
+          state.isInPhone
+            ? {
+                ...styles.gap15,
+              }
+            : {
+                ...styles.gap100,
+              }
+        }>
         <PhoneView
           style={{
             maxWidth: state.isInPhone ? '100%' : '520px',
@@ -128,7 +136,11 @@ function Card(props) {
               ...styles.gap15,
               ...styles.marginTop20,
             }}>
-            <MyView style={{marginTop: -10, ...styles.gap5}}>
+            <MyView
+              style={{
+                marginTop: -10,
+                ...styles.gap5,
+              }}>
               <QuizItemCard
                 maxWidth={350}
                 text={'تعداد تدریس\u200Cهای انجام شده در سایت'}
@@ -259,7 +271,9 @@ function Card(props) {
             {props.data.videoLink !== undefined && props.data.videoLink !== '' && (
               <MyView>
                 <a
-                  style={{fontFamily: 'IRANSans'}}
+                  style={{
+                    fontFamily: 'IRANSans',
+                  }}
                   target="_blank"
                   href={props.data.videoLink}>
                   معرفی ویدیویی
@@ -273,15 +287,26 @@ function Card(props) {
       {props.data.tags && props.data.tags.length > 0 && (
         <>
           <SimpleText
-            style={{...styles.dark_blue_color, ...styles.marginTop10}}
+            style={{
+              ...styles.dark_blue_color,
+              ...styles.marginTop10,
+            }}
             text={'تگ\u200cها'}
           />
-          <PhoneView style={{...styles.gap10, ...{marginTop: -10}}}>
+          <PhoneView
+            style={{
+              ...styles.gap10,
+              ...{
+                marginTop: -10,
+              },
+            }}>
             {props.data.tags.map((e, index) => {
               return (
                 <SimpleText
                   key={index}
-                  style={{...styles.colorDarkBlue}}
+                  style={{
+                    ...styles.colorDarkBlue,
+                  }}
                   text={'#' + e}
                 />
               );
@@ -289,7 +314,10 @@ function Card(props) {
           </PhoneView>
         </>
       )}
-      <PhoneView style={{justifyContent: 'end'}}>
+      <PhoneView
+        style={{
+          justifyContent: 'end',
+        }}>
         <CommonButton
           theme={'dark'}
           onPress={() => props.seeComments()}
@@ -301,7 +329,10 @@ function Card(props) {
         />
       </PhoneView>
       {props.setRate !== undefined && (
-        <MyView style={{marginTop: -50}}>
+        <MyView
+          style={{
+            marginTop: -50,
+          }}>
           <PhoneView
             style={{
               ...styles.alignSelfEnd,
@@ -310,7 +341,9 @@ function Card(props) {
               ...styles.marginLeft15,
             }}>
             <SimpleText
-              style={{...styles.dark_blue_color}}
+              style={{
+                ...styles.dark_blue_color,
+              }}
               text={'امتیاز شما به دبیر'}
             />
             <Rating
@@ -331,5 +364,4 @@ function Card(props) {
     </CommonWebBox>
   );
 }
-
 export default Card;

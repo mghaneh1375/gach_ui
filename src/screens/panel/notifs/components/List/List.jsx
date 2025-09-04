@@ -1,55 +1,47 @@
 import React, {useState} from 'react';
 import {dispatchNotifContext, notifContext} from '../Context';
-import {routes} from '../../../../../API/APIRoutes';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import Translator from '../../Translate';
-import {fetchAllNotifs} from '../Utility';
+import {routes} from '@/api/apiRoutes';
+import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import Translator from '../../translate';
+import {fetchAllNotifs} from '../utility';
 import Ops from './Ops';
-import columns from './TableStructure';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-
+import columns from './tableStructure';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(notifContext),
     React.useContext(dispatchNotifContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [showOp, setShowOp] = useState(false);
   const [from, setFrom] = useState(Date.now() - 2592000000);
   const [to, setTo] = useState();
   const [minUsersCount, setMinUsersCount] = useState(2);
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       fetchAllNotifs(props.token, props.sendVia, from, to, minUsersCount),
     ]).then(res => {
       props.setLoading(false);
       if (res[0] === null) return props.navigate('/');
-      dispatch({notifs: res[0]});
+      dispatch({
+        notifs: res[0],
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from, to, minUsersCount]);
-
   React.useEffect(() => {
     if (state.notifs === undefined) fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.notifs]);
-
   const handleOp = (idx, row) => {
-    dispatch({selectedNotif: state.notifs[idx]});
+    dispatch({
+      selectedNotif: state.notifs[idx],
+    });
     setShowOp(true);
   };
-
   return (
     <MyView>
       {showOp && (
@@ -64,7 +56,10 @@ function List(props) {
         onAddClick={() => props.setMode('create')}>
         {state.notifs !== undefined && (
           <>
-            <PhoneView style={{gap: '10px'}}>
+            <PhoneView
+              style={{
+                gap: '10px',
+              }}>
               <JustBottomBorderDatePicker
                 value={from}
                 setter={setFrom}
@@ -94,7 +89,9 @@ function List(props) {
               data={state.notifs}
               token={props.token}
               setData={newData => {
-                dispatch({notifs: newData});
+                dispatch({
+                  notifs: newData,
+                });
               }}
             />
           </>
@@ -103,5 +100,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

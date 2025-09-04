@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Image, Pressable} from 'react-native';
 import {Rating} from 'react-native-ratings';
-import {globalStateContext} from '../../../App';
-import Circle from '../../../components/web/Circle';
+import {globalStateContext} from '../../../App.jsx';
+import Circle from '@/components/web/Circle';
 import {
   CommonButton,
   CommonWebBox,
@@ -10,10 +10,10 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+} from '@/styles';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import {formatPrice} from '../../../services/Utility';
+import {formatPrice} from '@/services/utility';
 import {
   faArrowLeft,
   faBook,
@@ -21,24 +21,19 @@ import {
   faSchool,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import QuizItemCard from '../../../components/web/QuizItemCard';
-import {FontIcon} from '../../../styles/Common/FontIcon';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-
+import QuizItemCard from '@/components/web/QuizItemCard';
+import {FontIcon} from '../../../styles/common/FontIcon';
+import {LargePopUp} from '../../../styles/common/PopUp';
 function Card(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
   const [state] = useGlobalState();
   const [pic, setPic] = useState();
-
   const isInApp =
     window.navigator.userAgent.toLowerCase().indexOf('android') !== -1;
-
   React.useEffect(() => {
     setPic(props.data.pic);
   }, [props.data.pic]);
-
   const [showConfirmationMessage, setShowConfirmationMessage] = useState(false);
-
   return (
     <CommonWebBox
       width={
@@ -72,7 +67,10 @@ function Card(props) {
             ...styles.gap15,
           }}>
           <SimpleText
-            style={{...styles.colorDarkBlue, ...styles.alignSelfCenter}}
+            style={{
+              ...styles.colorDarkBlue,
+              ...styles.alignSelfCenter,
+            }}
             text={'امتیاز'}
           />
           <Circle
@@ -98,7 +96,15 @@ function Card(props) {
       </EqualTwoTextInputs>
 
       <PhoneView
-        style={state.isInPhone ? {...styles.gap15} : {...styles.gap100}}>
+        style={
+          state.isInPhone
+            ? {
+                ...styles.gap15,
+              }
+            : {
+                ...styles.gap100,
+              }
+        }>
         <PhoneView
           style={{
             maxWidth: state.isInPhone ? '100%' : '520px',
@@ -137,7 +143,11 @@ function Card(props) {
               ...styles.gap15,
               ...styles.marginTop20,
             }}>
-            <MyView style={{marginTop: -10, ...styles.gap5}}>
+            <MyView
+              style={{
+                marginTop: -10,
+                ...styles.gap5,
+              }}>
               <QuizItemCard
                 text={'تعداد دانش آموزان'}
                 val={props.data.stdCount + ' نفر'}
@@ -234,7 +244,9 @@ function Card(props) {
             {props.data.videoLink !== undefined && props.data.videoLink !== '' && (
               <MyView>
                 <a
-                  style={{fontFamily: 'IRANSans'}}
+                  style={{
+                    fontFamily: 'IRANSans',
+                  }}
                   target="_blank"
                   href={props.data.videoLink}>
                   معرفی ویدیویی
@@ -248,15 +260,26 @@ function Card(props) {
       {props.data.tags && props.data.tags.length > 0 && (
         <>
           <SimpleText
-            style={{...styles.dark_blue_color, ...styles.marginTop10}}
+            style={{
+              ...styles.dark_blue_color,
+              ...styles.marginTop10,
+            }}
             text={'تگ\u200cها'}
           />
-          <PhoneView style={{...styles.gap10, ...{marginTop: -10}}}>
+          <PhoneView
+            style={{
+              ...styles.gap10,
+              ...{
+                marginTop: -10,
+              },
+            }}>
             {props.data.tags.map((e, index) => {
               return (
                 <SimpleText
                   key={index}
-                  style={{...styles.colorDarkBlue}}
+                  style={{
+                    ...styles.colorDarkBlue,
+                  }}
                   text={'#' + e}
                 />
               );
@@ -269,7 +292,10 @@ function Card(props) {
         !props.hasOpenRequest &&
         state.token !== undefined &&
         state.token !== null && (
-          <PhoneView style={{justifyContent: 'end'}}>
+          <PhoneView
+            style={{
+              justifyContent: 'end',
+            }}>
             <CommonButton
               theme={'dark'}
               onPress={() => props.seeComments()}
@@ -282,9 +308,14 @@ function Card(props) {
           </PhoneView>
         )}
       {(state.token === undefined || state.token === undefined) && (
-        <EqualTwoTextInputs style={{...styles.alignItemsCenter}}>
+        <EqualTwoTextInputs
+          style={{
+            ...styles.alignItemsCenter,
+          }}>
           <SimpleText
-            style={{...styles.dark_blue_color}}
+            style={{
+              ...styles.dark_blue_color,
+            }}
             text="برای مشاهده برنامه‌های مشاوره یا نظرات کاربران و یا درخواست مشاوره
             لطفا ابتدا به سامانه ورود فرمایید"
           />
@@ -297,7 +328,10 @@ function Card(props) {
       )}
       {props.isMyAdvisor &&
         (props.showMyAdvisor === undefined || props.showMyAdvisor) && (
-          <PhoneView style={{justifyContent: 'end'}}>
+          <PhoneView
+            style={{
+              justifyContent: 'end',
+            }}>
             <CommonButton
               theme={'dark'}
               onPress={() => props.seeComments()}
@@ -329,13 +363,17 @@ function Card(props) {
       {props.shouldPay !== undefined && (
         <>
           <SimpleText
-            style={{...styles.dark_blue_color}}
+            style={{
+              ...styles.dark_blue_color,
+            }}
             text={'وضعیت: در انتظار پرداخت'}
           />
 
           <EqualTwoTextInputs>
             <SimpleText
-              style={{...styles.dark_blue_color}}
+              style={{
+                ...styles.dark_blue_color,
+              }}
               text={
                 'مبلغ مشاوره برای یک ماه: ' +
                 formatPrice(props.price) +
@@ -344,14 +382,18 @@ function Card(props) {
             />
             {props.offAmount !== undefined && (
               <SimpleText
-                style={{...styles.dark_blue_color}}
+                style={{
+                  ...styles.dark_blue_color,
+                }}
                 text={
                   'تخفیف اعمال شده: ' + formatPrice(props.offAmount) + ' تومان'
                 }
               />
             )}
             <SimpleText
-              style={{...styles.dark_blue_color}}
+              style={{
+                ...styles.dark_blue_color,
+              }}
               text={
                 'مبلغ قابل کسر از حساب کاربری: ' +
                 formatPrice(props.userMoney) +
@@ -359,14 +401,20 @@ function Card(props) {
               }
             />
             <SimpleText
-              style={{...styles.BlueBold, ...styles.fontSize17}}
+              style={{
+                ...styles.BlueBold,
+                ...styles.fontSize17,
+              }}
               text={
                 'مبلغ قابل پرداخت: ' + formatPrice(props.shouldPay) + ' تومان'
               }
             />
           </EqualTwoTextInputs>
 
-          <PhoneView style={{...styles.alignSelfEnd}}>
+          <PhoneView
+            style={{
+              ...styles.alignSelfEnd,
+            }}>
             <CommonButton
               theme={'orangeRed'}
               onPress={() => setShowConfirmationMessage(true)}
@@ -404,7 +452,10 @@ function Card(props) {
       )}
 
       {props.setRate !== undefined && (
-        <MyView style={{marginTop: -50}}>
+        <MyView
+          style={{
+            marginTop: -50,
+          }}>
           <PhoneView
             style={{
               ...styles.alignSelfEnd,
@@ -413,7 +464,9 @@ function Card(props) {
               ...styles.marginLeft15,
             }}>
             <SimpleText
-              style={{...styles.dark_blue_color}}
+              style={{
+                ...styles.dark_blue_color,
+              }}
               text={'امتیاز شما به مشاور'}
             />
             <Rating
@@ -430,7 +483,10 @@ function Card(props) {
             />
           </PhoneView>
 
-          <PhoneView style={{...styles.alignSelfEnd}}>
+          <PhoneView
+            style={{
+              ...styles.alignSelfEnd,
+            }}>
             {props.onRemove !== undefined && (
               <CommonButton
                 theme={'orangeRed'}
@@ -446,11 +502,16 @@ function Card(props) {
       {props.onCancel !== undefined && props.shouldPay === undefined && (
         <EqualTwoTextInputs>
           <SimpleText
-            style={{...styles.dark_blue_color}}
+            style={{
+              ...styles.dark_blue_color,
+            }}
             text={'وضعیت: در حال بررسی توسط مشاور'}
           />
           <SimpleText
-            style={{...styles.red, ...styles.cursor_pointer}}
+            style={{
+              ...styles.red,
+              ...styles.cursor_pointer,
+            }}
             onPress={() => setShowConfirmationMessage(true)}
             text={'انصراف از درخواست'}
           />
@@ -461,5 +522,4 @@ function Card(props) {
     </CommonWebBox>
   );
 }
-
 export default Card;

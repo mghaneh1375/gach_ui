@@ -1,30 +1,29 @@
 import React, {useMemo, useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import commonTranslator from '../../../../translator/Common';
-import Translate from './Translate';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import columns from './TableStructure';
-import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
+} from '../../../../styles/CommonComponents.jsx';
+import commonTranslator from '@/translator/common';
+import Translate from './translate';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import columns from './tableStructure';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
-import {styles} from '../../../../styles/Common/Styles';
-import {formatPrice, showSuccess} from '../../../../services/Utility';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {styles} from '../../../../styles/common/styles';
+import {formatPrice, showSuccess} from '../../../../services/utility';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon';
 import {
   faArrowDown,
   faArrowUp,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-
 function MyTeachTransactions(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [
@@ -44,21 +43,44 @@ function MyTeachTransactions(props) {
   });
   const [needCanRequestSettlement, setNeedCanRequestSettlement] =
     useState(true);
-
   const [settlementStatusValues, settlementValues, settlementColumns] =
     useMemo(() => {
       return [
         [
-          {id: 'all', item: commonTranslator.all},
-          {id: 'paid', item: Translate.paid},
-          {id: 'wait_for_pay', item: Translate.waitForPay},
-          {id: 'pending', item: Translate.pending},
-          {id: 'reject', item: Translate.reject},
+          {
+            id: 'all',
+            item: commonTranslator.all,
+          },
+          {
+            id: 'paid',
+            item: Translate.paid,
+          },
+          {
+            id: 'wait_for_pay',
+            item: Translate.waitForPay,
+          },
+          {
+            id: 'pending',
+            item: Translate.pending,
+          },
+          {
+            id: 'reject',
+            item: Translate.reject,
+          },
         ],
         [
-          {id: 'all', item: commonTranslator.all},
-          {id: 'notSettlements', item: Translate.notSettlements},
-          {id: 'settlements', item: Translate.settlements},
+          {
+            id: 'all',
+            item: commonTranslator.all,
+          },
+          {
+            id: 'notSettlements',
+            item: Translate.notSettlements,
+          },
+          {
+            id: 'settlements',
+            item: Translate.settlements,
+          },
         ],
         [
           {
@@ -70,7 +92,9 @@ function MyTeachTransactions(props) {
                   kind={'med'}
                   key={index}
                   onPress={async () => {
-                    dispatch({loading: true});
+                    dispatch({
+                      loading: true,
+                    });
                     const res = await generalRequest(
                       routes.cancelTeachSettlementRequest,
                       'delete',
@@ -78,7 +102,9 @@ function MyTeachTransactions(props) {
                       undefined,
                       state.token,
                     );
-                    dispatch({loading: false});
+                    dispatch({
+                      loading: false,
+                    });
                     if (res != null) {
                       setSettlementHistory(
                         settlementHistory.filter(e => e.id !== row.id),
@@ -135,21 +161,19 @@ function MyTeachTransactions(props) {
       ];
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [settlementHistory]);
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     const params = new URLSearchParams();
     params.append('needCanRequestSettlement', needCanRequestSettlement);
-
     if (filter.settlementStatus !== 'all')
       params.append(
         'justSettlements',
         filter.settlementStatus === 'settlements',
       );
-
     if (filter.from && filter.from !== null) params.append('from', filter.from);
     if (filter.to && filter.to !== null) params.append('to', filter.to);
-
     Promise.all([
       generalRequest(
         routes.getMyTeachTransactions + '?' + params.toString(),
@@ -159,7 +183,9 @@ function MyTeachTransactions(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
@@ -170,9 +196,10 @@ function MyTeachTransactions(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
-
   const fetchHistory = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     const param = new URLSearchParams();
     if (settledFilter.status !== 'all')
       param.append('status', settledFilter.status);
@@ -193,16 +220,16 @@ function MyTeachTransactions(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] != null) setSettlementHistory(res[0]);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settledFilter]);
-
   useEffectOnce(() => {
     fetchData();
   }, []);
-
   return (
     <>
       {canRequestSettlement && (
@@ -216,7 +243,9 @@ function MyTeachTransactions(props) {
               fontWeight: 'bold',
             }}
             onPress={async () => {
-              dispatch({loading: true});
+              dispatch({
+                loading: true,
+              });
               const res = await generalRequest(
                 routes.teachSettlementRequest,
                 'post',
@@ -224,7 +253,9 @@ function MyTeachTransactions(props) {
                 undefined,
                 state.token,
               );
-              dispatch({loading: false});
+              dispatch({
+                loading: false,
+              });
               if (res != null) {
                 setSettlementHistory(undefined);
                 setNeedCanRequestSettlement(false);
@@ -259,7 +290,10 @@ function MyTeachTransactions(props) {
         }>
         {showHistory && (
           <>
-            <PhoneView style={{gap: '20px'}}>
+            <PhoneView
+              style={{
+                gap: '20px',
+              }}>
               <JustBottomBorderSelect
                 placeholder={Translate.settlementValues}
                 subText={Translate.settlementValues}
@@ -332,7 +366,10 @@ function MyTeachTransactions(props) {
         )}
       </CommonWebBox>
       <CommonWebBox header={Translate.transactions}>
-        <PhoneView style={{gap: '20px'}}>
+        <PhoneView
+          style={{
+            gap: '20px',
+          }}>
           <JustBottomBorderSelect
             placeholder={Translate.settlementValues}
             subText={Translate.settlementValues}
@@ -377,7 +414,11 @@ function MyTeachTransactions(props) {
         {data && (
           <>
             <MyView
-              style={{marginTop: '10px', gap: '10px', alignItems: 'center'}}>
+              style={{
+                marginTop: '10px',
+                gap: '10px',
+                alignItems: 'center',
+              }}>
               <SimpleText
                 stlye={styles.textCenter}
                 text={Translate.totalPrice + formatPrice(data.totalPrice)}
@@ -394,5 +435,4 @@ function MyTeachTransactions(props) {
     </>
   );
 }
-
 export default MyTeachTransactions;

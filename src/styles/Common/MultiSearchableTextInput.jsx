@@ -1,56 +1,44 @@
 import React, {useState} from 'react';
 import {Platform, Pressable} from 'react-native';
-import {CommonWebBox, SimpleText, MyView} from '../Common';
+import {CommonWebBox, SimpleText, MyView} from '../CommonComponents';
 import vars from '../root';
 import {
   calcInputWidth,
   CommonHalfTextInputStyleWeb,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
-} from './CommonText';
-
-import translator from '../../translator/Common';
-import SubInputText from './SubInputText';
-import MultiBox from '../../components/web/MultiBox/MultiBox';
-
+} from './commonText';
+import translator from '../../translator/common';
+import SubInputText from './subInputText';
+import MultiBox from '../../components/web/multiBox/MultiBox';
 export const MultiSearchableTextInput = props => {
   const [suggests, setSuggests] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectFromChoices, setSelectFromChoices] = useState(false);
   const [showResultPane, setShowResultPane] = useState(false);
-
   let cancelOnFocusOut = false;
-
   React.useEffect(() => {
     if (!props.reset) return;
-
     setUserInput('');
     setSelectFromChoices(false);
   }, [props.reset]);
-
   React.useEffect(() => {
     if (selectedItems.length > 0) return;
-
     if (props.value === undefined || props.value.length === 0) {
       setSelectFromChoices(true);
       return;
     }
-
     setSelectedItems(props.value);
   }, [props.value, selectedItems]);
-
   const select = item => {
     setUserInput('');
     setShowResultPane(false);
     setSelectFromChoices(true);
     const items = selectedItems;
-
     if (items.find(elem => elem.id === item.id) === undefined) items.push(item);
-
     props.setSelectedItem(items);
   };
-
   const removeFormSeletedItems = id => {
     const items = [];
     selectedItems.forEach(item => {
@@ -60,7 +48,6 @@ export const MultiSearchableTextInput = props => {
     setSelectedItems(items);
     props.setSelectedItem(items);
   };
-
   const setSelectingStatue = status => {
     if (!status) {
       setShowResultPane(false);
@@ -71,21 +58,23 @@ export const MultiSearchableTextInput = props => {
       }
     } else cancelOnFocusOut = true;
   };
-
   const SuggestListItems = () => {
     if (suggests.length === 0) return <SimpleText text={translator.noResult} />;
-
     return suggests.map(suggest => (
       <Pressable
         onFocus={() => setSelectingStatue(true)}
         onBlur={() => setSelectingStatue(false)}
         key={suggest.id}
         onPress={e => select(suggest)}>
-        <SimpleText style={{cursor: 'pointer'}} text={suggest.name} />
+        <SimpleText
+          style={{
+            cursor: 'pointer',
+          }}
+          text={suggest.name}
+        />
       </Pressable>
     ));
   };
-
   const SelectedListItems = () => {
     return (
       <MultiBox
@@ -96,7 +85,6 @@ export const MultiSearchableTextInput = props => {
       />
     );
   };
-
   const checkSelect = () => {
     setTimeout(function () {
       if (cancelOnFocusOut) return;
@@ -107,7 +95,6 @@ export const MultiSearchableTextInput = props => {
       }
     }, 400);
   };
-
   const changeUserInput = text => {
     setUserInput(text);
     setSelectFromChoices(false);
@@ -133,13 +120,14 @@ export const MultiSearchableTextInput = props => {
       }
     }
     if (props.addNotFound && newSuggests.length === 0) {
-      newSuggests.push({id: text, name: text});
+      newSuggests.push({
+        id: text,
+        name: text,
+      });
     }
-
     setSuggests(newSuggests);
     setShowResultPane(true);
   };
-
   const isHalf = props.isHalf !== undefined && props.isHalf;
   const style1 =
     Platform.OS === 'web'
@@ -148,8 +136,12 @@ export const MultiSearchableTextInput = props => {
         : CommonTextInputStyleWeb
       : {};
   const allStyle =
-    props.style !== undefined ? {...style1, ...props.style} : style1;
-
+    props.style !== undefined
+      ? {
+          ...style1,
+          ...props.style,
+        }
+      : style1;
   const inputProps = {
     placeholder: props.placeholder,
     onChangeText: e => changeUserInput(e),
@@ -157,7 +149,6 @@ export const MultiSearchableTextInput = props => {
     value: userInput,
     onBlur: () => checkSelect(),
   };
-
   let parentAllStyles = isHalf
     ? {
         ...{
@@ -174,10 +165,11 @@ export const MultiSearchableTextInput = props => {
         paddingBottom: 0,
         border: 0,
       };
-
   if (props.parentStyle !== undefined)
-    parentAllStyles = {...parentAllStyles, ...props.parentStyle};
-
+    parentAllStyles = {
+      ...parentAllStyles,
+      ...props.parentStyle,
+    };
   parentAllStyles = calcInputWidth(15, isHalf, parentAllStyles);
   return (
     <MyView style={parentAllStyles}>

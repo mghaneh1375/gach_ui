@@ -1,6 +1,5 @@
-import translator from '../../Translate';
-import commonTranslator from '../../../../../translator/Common';
-
+import translator from '../../translate';
+import commonTranslator from '@/translator/common';
 const columns = [
   {
     name: translator.sendFrom,
@@ -33,5 +32,4 @@ const columns = [
     center: true,
   },
 ];
-
 export default columns;

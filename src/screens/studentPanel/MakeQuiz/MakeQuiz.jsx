@@ -1,39 +1,36 @@
 import {faCheck, faSearch} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {showError} from '../../../services/Utility';
+import {showError} from '../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents.jsx';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
 import MakeQuizBox from './MakeQuizBox';
-import Translate from './Translate';
-import {dispatchStateContext} from '../../../App';
-import {fetchAllFlags, finalized} from './Utility';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
+import Translate from './translate';
+import {dispatchStateContext} from '@/App';
+import {fetchAllFlags, finalized} from './utility';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon';
 import Basket from '../../../components/web/Basket';
-import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
-import commonTranslator from '../../../translator/Common';
+import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction';
+import commonTranslator from '../../../translator/common';
 import BuyBasket from './BuyBasket';
 import OffCode from '../../general/buy/components/OffCode';
 import {LoadingCommonWebBox} from '../../../components/LoadingCommonWebBox';
 import Search from './Search';
-
 function MakeQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();
   const [flags, setFlags] = useState();
   const [boxes, setBoxes] = useState([]);
-
   const [total, setTotal] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [name, setName] = useState();
-
   const [off, setOff] = useState(0);
   const [shouldPay, setShouldPay] = useState(0);
   const [showOffCodePane, setShowOffCodePane] = useState(false);
@@ -43,21 +40,16 @@ function MakeQuiz(props) {
   );
   const [userOff, setUserOff] = useState();
   const [usedFromWallet, setUsedFromWallet] = useState(0);
-
   const [id, setId] = useState();
   const [price, setPrice] = useState();
   const [mode, setMode] = useState('choose');
   const [transactionId, setTransactionId] = useState();
   const [showSearch, setShowSearch] = useState(false);
   const navigate = props.navigate;
-
   const calc = (accountOff, totalPrice) => {
     let off = 0;
-
     const allOffs = [];
-
     let shouldPayTmp = totalPrice - off;
-
     if (shouldPayTmp > 0 && accountOff !== undefined) {
       if (accountOff.type === 'percent') {
         off += (shouldPayTmp * accountOff.amount) / 100.0;
@@ -67,20 +59,16 @@ function MakeQuiz(props) {
         allOffs.push(accountOff.amount + ' تومان بابت کد تخفیف');
       }
     }
-
     shouldPayTmp = totalPrice - off;
-
     if (shouldPayTmp > 0) {
       setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
       shouldPayTmp -= userMoney;
     } else setUsedFromWallet(0);
-
     setOffs(allOffs);
     setOff(Math.min(off, totalPrice));
     setPrice(totalPrice);
     setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 0);
   };
-
   const calcPrice = async () => {
     if (name === undefined || name === '' || boxes.length === 0) {
       showError(commonTranslator.pleaseFillAllFields);
@@ -96,21 +84,30 @@ function MakeQuiz(props) {
       calc(res.off, res.price);
     }
   };
-
   const setOffCodeResult = (amount, type, code) => {
-    setUserOff({type: type, amount: amount, code: code});
-    calc({type: type, amount: amount, code: code}, price);
+    setUserOff({
+      type: type,
+      amount: amount,
+      code: code,
+    });
+    calc(
+      {
+        type: type,
+        amount: amount,
+        code: code,
+      },
+      price,
+    );
   };
-
   React.useEffect(() => {
     if (id === undefined) return;
     setMode('pay');
   }, [id]);
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
     let tmp = 0;
     boxes.forEach(elem => {
@@ -118,11 +115,14 @@ function MakeQuiz(props) {
     });
     setTotal(tmp);
   }, [boxes]);
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([fetchAllFlags(props.token)]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -130,9 +130,11 @@ function MakeQuiz(props) {
       setFlags(res[0]);
     });
   }, [navigate, props.token, dispatch]);
-
   return (
-    <MyView style={{...styles.marginBottom20}}>
+    <MyView
+      style={{
+        ...styles.marginBottom20,
+      }}>
       {showSearch && (
         <Search
           setSelected={items => {
@@ -203,7 +205,9 @@ function MakeQuiz(props) {
             {mode !== 'choose' && (
               <LoadingCommonWebBox>
                 <SimpleFontIcon
-                  style={{color: 'green'}}
+                  style={{
+                    color: 'green',
+                  }}
                   parentStyle={{
                     border: '2px solid green',
                     width: 60,
@@ -228,7 +232,9 @@ function MakeQuiz(props) {
             {mode !== 'choose' && (
               <LoadingCommonWebBox>
                 <SimpleFontIcon
-                  style={{color: 'green'}}
+                  style={{
+                    color: 'green',
+                  }}
                   parentStyle={{
                     border: '2px solid green',
                     width: 60,
@@ -241,7 +247,10 @@ function MakeQuiz(props) {
               </LoadingCommonWebBox>
             )}
             <MyView>
-              <PhoneView style={{...styles.gap15}}>
+              <PhoneView
+                style={{
+                  ...styles.gap15,
+                }}>
                 {flags !== undefined && (
                   <CommonButton
                     icon={faSearch}
@@ -256,11 +265,15 @@ function MakeQuiz(props) {
             <CommonWebBox
               rowId={3}
               header={Translate.sortQuiz}
-              style={{...styles.marginBottom20}}>
+              style={{
+                ...styles.marginBottom20,
+              }}>
               {mode !== 'choose' && (
                 <LoadingCommonWebBox>
                   <SimpleFontIcon
-                    style={{color: 'green'}}
+                    style={{
+                      color: 'green',
+                    }}
                     parentStyle={{
                       border: '2px solid green',
                       width: 60,
@@ -272,7 +285,11 @@ function MakeQuiz(props) {
                   />
                 </LoadingCommonWebBox>
               )}
-              <MyView style={{...styles.padding20, ...styles.gap10}}>
+              <MyView
+                style={{
+                  ...styles.padding20,
+                  ...styles.gap10,
+                }}>
                 {boxes.map((elem, index) => {
                   return (
                     <MakeQuizBox
@@ -330,5 +347,4 @@ function MakeQuiz(props) {
     </MyView>
   );
 }
-
 export default MakeQuiz;

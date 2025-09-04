@@ -1,39 +1,38 @@
 import React, {useState} from 'react';
-import List from './components/List/List';
-import {filter} from '../../panel/ticket/components/List/Utility';
-import {globalStateContext, dispatchStateContext} from '../../../App';
-import Show from '../../panel/ticket/components/Show/Show';
+import List from './components/list/List';
+import {filter} from '../../panel/ticket/components/list/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import Show from '../../panel/ticket/components/show/Show';
 import Create from '../../panel/ticket/components/Create';
-import {addItem, isUserAdvisor, removeItems} from '../../../services/Utility';
-import {MyView} from '../../../styles/Common';
+import {addItem, isUserAdvisor, removeItems} from '../../../services/utility';
+import {MyView} from '@/styles';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
 import {useSearchParams} from 'react-router-dom';
-
 function Ticketstd(props) {
   const [mode, setMode] = useState();
   const [tickets, setTickets] = useState();
   const [selectedTicket, setSelectedTicket] = useState();
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const isAdvisor = isUserAdvisor(state.user);
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const [searchParams, setSearchParams] = useSearchParams();
-
   React.useEffect(() => {
     filter(
       {
-        setLoading: status => dispatch({loading: status}),
+        setLoading: status =>
+          dispatch({
+            loading: status,
+          }),
         token: props.token,
         setTickets: setTickets,
         navigate: navigate,
@@ -53,9 +52,7 @@ function Ticketstd(props) {
       isAdvisor ? searchParams.get('userId') : undefined,
     );
   }, [navigate, props.token, dispatch, searchParams, isAdvisor]);
-
   const params = useParams();
-
   useEffectOnce(() => {
     if (
       params.section === undefined ||
@@ -65,7 +62,6 @@ function Ticketstd(props) {
       setMode('list');
     else setMode('create');
   }, [params]);
-
   return (
     <MyView>
       {mode !== undefined && mode === 'list' && (
@@ -113,5 +109,4 @@ function Ticketstd(props) {
     </MyView>
   );
 }
-
 export default Ticketstd;

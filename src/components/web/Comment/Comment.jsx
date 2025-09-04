@@ -4,15 +4,18 @@ import {
   faAngleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {CommonWebBox, MyView, SimpleText} from '../../../styles/Common';
-import {FontIcon, SimpleFontIcon} from '../../../styles/Common/FontIcon';
-import commonTranslator from '../../../translator/Common';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {
+  CommonWebBox,
+  MyView,
+  SimpleText,
+} from '../../../styles/CommonComponents';
+import {FontIcon, SimpleFontIcon} from '../../../styles/common/FontIcon';
+import commonTranslator from '../../../translator/common';
 import Card from './Card';
 import NewComment from './NewComment';
 import Translate from './translate';
-
 function Comment(props) {
   const [isOpen, setIsOpen] = useState(props.defaultIsOpen);
   const [writeNewComment, setWriteNewComment] = useState(false);
@@ -20,7 +23,6 @@ function Comment(props) {
   const [comments, setComments] = useState();
   const [showMore, setShowMore] = useState(false);
   const [canWriteComment, setCanWriteComment] = useState(props.canWriteComment);
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -40,19 +42,16 @@ function Comment(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
-
   React.useEffect(() => {
     if (!isOpen || comments) return;
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
-
   React.useEffect(() => {
     if (page == 1) return;
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
-
   return (
     <CommonWebBox
       btn={
@@ -75,10 +74,16 @@ function Comment(props) {
       }
       header={commonTranslator.comments}>
       {isOpen && (
-        <MyView style={{gap: '10px'}}>
+        <MyView
+          style={{
+            gap: '10px',
+          }}>
           {canWriteComment && !writeNewComment && (
             <SimpleText
-              style={{cursor: 'pointer', color: 'red'}}
+              style={{
+                cursor: 'pointer',
+                color: 'red',
+              }}
               onPress={() => {
                 setWriteNewComment(true);
               }}
@@ -129,5 +134,4 @@ function Comment(props) {
     </CommonWebBox>
   );
 }
-
 export default Comment;

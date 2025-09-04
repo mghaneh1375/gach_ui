@@ -1,10 +1,8 @@
-import {CommonButton, PhoneView, SimpleText} from '../styles/Common';
+import {CommonButton, PhoneView, SimpleText} from '../styles/CommonComponents';
 import {useState} from 'react';
-import commonTranslator from '../translator/Common';
-
+import commonTranslator from '../translator/common';
 const CopyBox = props => {
   const [copying, setCopying] = useState(false);
-
   const doCopy = () => {
     navigator.clipboard.writeText(props.url);
     setCopying(true);
@@ -12,13 +10,16 @@ const CopyBox = props => {
       setCopying(false);
     }, 1300);
   };
-
   return (
-    <PhoneView style={{height: 'max-content', alignSelf: 'flex-end'}}>
+    <PhoneView
+      style={{
+        height: 'max-content',
+        alignSelf: 'flex-end',
+      }}>
       {/* <SimpleText
         style={{border: '1px solid', padding: 10}}
         text={props.text}
-      /> */}
+       /> */}
       <CommonButton
         theme={props.theme !== undefined ? props.theme : 'yellow'}
         onPress={() => doCopy()}
@@ -38,5 +39,4 @@ const CopyBox = props => {
     </PhoneView>
   );
 };
-
 export default CopyBox;

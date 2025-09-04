@@ -5,25 +5,22 @@ import {
   faTasks,
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import {globalStateContext} from '../../../../../App';
-import {Device} from '../../../../../models/Device';
-import {getDevice} from '../../../../../services/Utility';
-import {MyView} from '../../../../../styles/Common';
-import translator from '../../../../../translator/Common';
+import {globalStateContext} from '@/App';
+import {Device} from '../../../../../models/device';
+import {getDevice} from '@/services/utility';
+import {MyView} from '@/styles';
+import translator from '../../../../../translator/common';
 import MobileLogout from '../MobileLogout';
-import {MenuItem, MenuItemPhone, style} from '../style';
+import {MenuItem, MenuItemPhone, style} from '../Style';
 import MenuItemRepeat from './MenuItemRepeat';
 import MenuItemRepeatForPhone from './MenuItemRepeatForPhone';
 import {SuperMenuItem} from './SuperMenuItem';
-
 function AdvisorMenu(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
   const navigate = props.navigate;
-
   const useGlobalState = () => [React.useContext(globalStateContext)];
   const [state] = useGlobalState();
-
   if (isLargePage) {
     return (
       <MenuItemRepeat
@@ -202,5 +199,4 @@ function AdvisorMenu(props) {
     </MyView>
   );
 }
-
 export default AdvisorMenu;

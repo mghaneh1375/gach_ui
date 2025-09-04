@@ -1,8 +1,6 @@
 import {Platform} from 'react-native';
-import {getWidthHeight} from './../services/Utility';
-
+import {getWidthHeight} from './../services/utility';
 const width = getWidthHeight()[0];
-
 const vars = {
   RIGHT_MENU_WIDTH: width > 1500 ? 250 : 200,
   LEFT_SECTION_WIDTH:
@@ -37,5 +35,4 @@ const vars = {
   flexDirection: Platform.OS === 'web' ? 'row' : 'row-reverse',
   flexDirectionRev: Platform.OS === 'web' ? 'row-reverse' : 'row',
 };
-
 export default vars;

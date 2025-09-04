@@ -5,8 +5,8 @@ import {
   PhoneView,
   SimpleText,
   MyView,
-} from '../../../../../styles/Common';
-import Translate from '../../Translate';
+} from '@/styles';
+import Translate from '../../translate';
 import {
   styleFontSize11,
   styleFontSize13,
@@ -14,48 +14,68 @@ import {
   styleItem,
   styleItemsGrandParent,
   styleItemsParent,
-} from './../../card/Style';
-import commonTranslator from '../../../../../translator/Common';
+} from '../../card/style';
+import commonTranslator from '@/translator/common';
 import {dispatchQuizzesContext} from './Utility';
-import {styles} from '../../../../../styles/Common/Styles';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
+import {styles} from '@/styles/common/styles';
+import {FontIcon} from '../../../../../styles/common/FontIcon';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
-import {getDevice} from '../../../../../services/Utility';
-
+import {getDevice} from '@/services/utility';
 function Info(props) {
   const useGlobalState = () => [React.useContext(dispatchQuizzesContext)];
   const [dispatch] = useGlobalState();
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   return (
     <CommonWebBox
       header={props.package.title}
       onBackClick={() => props.setMode('list')}
       backBtn={true}>
-      <MyView style={{marginTop: 20}}>
+      <MyView
+        style={{
+          marginTop: 20,
+        }}>
         <SimpleText
-          style={{...styleFontSize13, ...styles.BlueBold}}
+          style={{
+            ...styleFontSize13,
+            ...styles.BlueBold,
+          }}
           text={commonTranslator.grade + ' : ' + props.package.grade.name}
         />
         {props.package.lesson !== undefined && (
           <SimpleText
-            style={{...styleFontSize13, ...styles.BlueBold}}
+            style={{
+              ...styleFontSize13,
+              ...styles.BlueBold,
+            }}
             text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
           />
         )}
-        <MyView style={{...styleItemsGrandParent}}>
-          <PhoneView style={{...styleItemsParent}}>
-            <PhoneView style={{...styleItem}}>
+        <MyView
+          style={{
+            ...styleItemsGrandParent,
+          }}>
+          <PhoneView
+            style={{
+              ...styleItemsParent,
+            }}>
+            <PhoneView
+              style={{
+                ...styleItem,
+              }}>
               <FontIcon
                 kind={'small'}
                 icon={faQuestion}
-                parentStyle={{marginLeft: 5}}
+                parentStyle={{
+                  marginLeft: 5,
+                }}
               />
               {!isInPhone && (
                 <MyView>
                   <SimpleText
-                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    style={{
+                      ...styleFontSize11,
+                      ...styles.BlueBold,
+                    }}
                     text={Translate.quizCount}
                   />
                   <SimpleText
@@ -71,7 +91,10 @@ function Info(props) {
               {isInPhone && (
                 <PhoneView>
                   <SimpleText
-                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    style={{
+                      ...styleFontSize11,
+                      ...styles.BlueBold,
+                    }}
                     text={Translate.quizCount}
                   />
                   <SimpleText
@@ -85,17 +108,25 @@ function Info(props) {
               )}
             </PhoneView>
 
-            <PhoneView style={{...styleItem}}>
+            <PhoneView
+              style={{
+                ...styleItem,
+              }}>
               <FontIcon
                 kind={'small'}
                 icon={faQuestion}
-                parentStyle={{marginLeft: 5}}
+                parentStyle={{
+                  marginLeft: 5,
+                }}
               />
 
               {!isInPhone && (
                 <MyView>
                   <SimpleText
-                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    style={{
+                      ...styleFontSize11,
+                      ...styles.BlueBold,
+                    }}
                     text={Translate.minSelect}
                   />
                   <SimpleText
@@ -112,7 +143,10 @@ function Info(props) {
               {isInPhone && (
                 <PhoneView>
                   <SimpleText
-                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    style={{
+                      ...styleFontSize11,
+                      ...styles.BlueBold,
+                    }}
                     text={Translate.minSelect}
                   />
                   <SimpleText
@@ -126,16 +160,24 @@ function Info(props) {
               )}
             </PhoneView>
 
-            <PhoneView style={{...styleItem}}>
+            <PhoneView
+              style={{
+                ...styleItem,
+              }}>
               <FontIcon
                 kind={'small'}
                 icon={faQuestion}
-                parentStyle={{marginLeft: 5}}
+                parentStyle={{
+                  marginLeft: 5,
+                }}
               />
               {!isInPhone && (
                 <MyView>
                   <SimpleText
-                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    style={{
+                      ...styleFontSize11,
+                      ...styles.BlueBold,
+                    }}
                     text={Translate.mizanTakhfif}
                   />
                   <SimpleText
@@ -151,7 +193,10 @@ function Info(props) {
               {isInPhone && (
                 <PhoneView>
                   <SimpleText
-                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    style={{
+                      ...styleFontSize11,
+                      ...styles.BlueBold,
+                    }}
                     text={Translate.mizanTakhfif}
                   />
                   <SimpleText
@@ -166,15 +211,23 @@ function Info(props) {
             </PhoneView>
 
             {props.isAdmin && (
-              <PhoneView style={{...styleItem}}>
+              <PhoneView
+                style={{
+                  ...styleItem,
+                }}>
                 <FontIcon
                   kind={'small'}
                   icon={faQuestion}
-                  parentStyle={{marginLeft: 5}}
+                  parentStyle={{
+                    marginLeft: 5,
+                  }}
                 />
                 <MyView>
                   <SimpleText
-                    style={{...styleFontSize11, ...styles.BlueBold}}
+                    style={{
+                      ...styleFontSize11,
+                      ...styles.BlueBold,
+                    }}
                     text={Translate.buyersCount}
                   />
                   <SimpleText
@@ -193,25 +246,36 @@ function Info(props) {
           {props.package.description !== undefined &&
             props.package.description !== '' && (
               <SimpleText
-                style={{marginTop: 20}}
+                style={{
+                  marginTop: 20,
+                }}
                 text={props.package.description}
               />
             )}
         </MyView>
 
         {props.isAdmin && (
-          <PhoneView style={{justifyContent: 'end'}}>
+          <PhoneView
+            style={{
+              justifyContent: 'end',
+            }}>
             <CommonButton
               title={Translate.addQuiz}
               theme={'dark'}
               onPress={() =>
-                dispatch({selectingQuiz: true, showIryscQuizzes: true})
+                dispatch({
+                  selectingQuiz: true,
+                  showIryscQuizzes: true,
+                })
               }
             />
             <CommonButton
               title={Translate.addOpenQuiz}
               onPress={() =>
-                dispatch({selectingQuiz: true, showIryscQuizzes: false})
+                dispatch({
+                  selectingQuiz: true,
+                  showIryscQuizzes: false,
+                })
               }
             />
           </PhoneView>
@@ -220,5 +284,4 @@ function Info(props) {
     </CommonWebBox>
   );
 }
-
 export default Info;

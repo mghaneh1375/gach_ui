@@ -1,8 +1,5 @@
-import React from 'react';
-
-import {MyView, PhoneView} from '../styles/Common';
-import {styles} from '../styles/Common/Styles';
-
+import {MyView, PhoneView} from '../styles/CommonComponents';
+import {styles} from '../styles/common/styles';
 export const LoadingCommonWebBox = props => (
   <MyView
     style={{
@@ -15,6 +12,11 @@ export const LoadingCommonWebBox = props => (
       borderRadius: 7,
       zIndex: 1,
     }}>
-    <PhoneView style={{...styles.marginAuto}}>{props.children}</PhoneView>
+    <PhoneView
+      style={{
+        ...styles.marginAuto,
+      }}>
+      {props.children}
+    </PhoneView>
   </MyView>
 );

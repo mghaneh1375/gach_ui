@@ -1,25 +1,23 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useLocation} from 'react-router';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {showError, showSuccess} from '../../../services/Utility';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {showError, showSuccess} from '../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
-} from '../../../styles/Common';
-import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import JustBottomBorderDatePicker from '../../../styles/Common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import commonTranslator from '../../../translator/Common';
-import Translate from '../../advisorPanel/Teach/Transaction/Translate';
-
+} from '../../../styles/CommonComponents.jsx';
+import CommonDataTable from '../../../styles/common/CommonDataTable';
+import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import {LargePopUp} from '../../../styles/common/PopUp';
+import commonTranslator from '../../../translator/common';
+import Translate from '../../advisorPanel/teach/transaction/translate';
 const queryString = require('query-string');
-
 function SettlementRequests(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [
@@ -35,35 +33,55 @@ function SettlementRequests(props) {
   const [settledFilter, setSettledFilter] = useState();
   const [params, setParams] = useState();
   const {search} = useLocation();
-
   useEffect(() => {
     if (search) setParams(queryString.parse(search));
     else setParams(new URLSearchParams());
   }, [search]);
-
   useEffect(() => {
     if (!params) return;
-
     setSettledFilter({
       status: params.status ? params.status : 'all',
       from: params.from ? params.from : undefined,
       to: params.to ? params.to : undefined,
     });
   }, [params]);
-
   const [settlementStatusValues, settlementStatuses, columns] = useMemo(() => {
     return [
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'paid', item: Translate.paid},
-        {id: 'wait_for_pay', item: Translate.waitForPay},
-        {id: 'pending', item: Translate.pending},
-        {id: 'reject', item: Translate.reject},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'paid',
+          item: Translate.paid,
+        },
+        {
+          id: 'wait_for_pay',
+          item: Translate.waitForPay,
+        },
+        {
+          id: 'pending',
+          item: Translate.pending,
+        },
+        {
+          id: 'reject',
+          item: Translate.reject,
+        },
       ],
       [
-        {id: 'paid', item: Translate.paid},
-        {id: 'wait_for_pay', item: Translate.waitForPay},
-        {id: 'reject', item: Translate.reject},
+        {
+          id: 'paid',
+          item: Translate.paid,
+        },
+        {
+          id: 'wait_for_pay',
+          item: Translate.waitForPay,
+        },
+        {
+          id: 'reject',
+          item: Translate.reject,
+        },
       ],
       [
         {
@@ -119,7 +137,6 @@ function SettlementRequests(props) {
     ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     if (!showOp) {
       setSelectedRow(undefined);
@@ -127,14 +144,14 @@ function SettlementRequests(props) {
       setNewStatus(undefined);
     }
   }, [showOp]);
-
   const fetchHistory = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     const param = new URLSearchParams();
     if (settledFilter.status !== 'all')
       param.append('status', settledFilter.status);
     console.log(settledFilter);
-
     if (settledFilter.from) param.append('createdFrom', settledFilter.from);
     if (settledFilter.to) param.append('createdTo', settledFilter.to);
     if (settledFilter.answerFrom)
@@ -150,7 +167,9 @@ function SettlementRequests(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
@@ -159,23 +178,23 @@ function SettlementRequests(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settledFilter]);
-
   useEffect(() => {
     if (!settledFilter) return;
     fetchHistory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settledFilter]);
-
   const handleOp = (_, row) => {
     setSelectedRow(row);
     setShowOp(true);
   };
-
   return (
     <>
       <CommonWebBox>
         {settledFilter && (
-          <PhoneView style={{gap: '20px'}}>
+          <PhoneView
+            style={{
+              gap: '20px',
+            }}>
             <JustBottomBorderSelect
               placeholder={Translate.settlementValues}
               subText={Translate.settlementValues}
@@ -246,7 +265,10 @@ function SettlementRequests(props) {
           <LargePopUp
             title={Translate.changeStatus}
             toggleShowPopUp={() => setShowOp(false)}>
-            <MyView style={{gap: '10px'}}>
+            <MyView
+              style={{
+                gap: '10px',
+              }}>
               <PhoneView>
                 <JustBottomBorderSelect
                   placeholder={Translate.newStatus}
@@ -275,8 +297,12 @@ function SettlementRequests(props) {
                   showError(commonTranslator.pleaseFillAllFields);
                   return;
                 }
-                dispatch({loading: true});
-                const data = {status: newStatus};
+                dispatch({
+                  loading: true,
+                });
+                const data = {
+                  status: newStatus,
+                };
                 if (desc) data.desc = desc;
                 const res = await generalRequest(
                   routes.setSettlementRequestStatus + selectedRow.id,
@@ -285,7 +311,9 @@ function SettlementRequests(props) {
                   undefined,
                   state.token,
                 );
-                dispatch({loading: false});
+                dispatch({
+                  loading: false,
+                });
                 if (res != null) {
                   setSettlementHistory(
                     settlementHistory.map(e => {
@@ -307,5 +335,4 @@ function SettlementRequests(props) {
     </>
   );
 }
-
 export default SettlementRequests;

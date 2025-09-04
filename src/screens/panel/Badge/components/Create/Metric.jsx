@@ -1,32 +1,42 @@
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
-import {PhoneView, SimpleText} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {PhoneView, SimpleText} from '@/styles';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
 import {translator} from '../../translate';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import {styles} from '@/styles/common/styles';
 function Metric(props) {
   return (
-    <PhoneView style={{gap: '30px', width: '100%'}}>
+    <PhoneView
+      style={{
+        gap: '30px',
+        width: '100%',
+      }}>
       <SimpleFontIcon
         onPress={props.onRemove}
         kind={'normal'}
-        style={{alignSelf: 'center', color: 'red'}}
+        style={{
+          alignSelf: 'center',
+          color: 'red',
+        }}
         icon={faTrash}
       />
       <SimpleText
         style={{
           ...styles.fontSize17,
           ...styles.BlueBold,
-          ...{minWidth: '300px'},
+          ...{
+            minWidth: '300px',
+          },
         }}
         text={translator.metric + ': ' + props.metric.actionFa}
       />
       <SimpleText
-        style={{...styles.fontSize17, ...styles.BlueBold}}
+        style={{
+          ...styles.fontSize17,
+          ...styles.BlueBold,
+        }}
         text={translator.count + ': ' + props.metric.count}
       />
     </PhoneView>
   );
 }
-
 export default Metric;

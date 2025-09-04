@@ -1,61 +1,114 @@
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
 import React, {useState} from 'react';
-import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
+import {CommonButton, MyView, PhoneView} from '@/styles';
 import {
   convertTimestampToJustDate,
   removeItems,
   sexKeyVals,
   showError,
-} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
+} from '../../../../../services/utility';
+import commonTranslator from '@/translator/common';
 import {notifContext, dispatchNotifContext} from '../Context';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../../../../styles/Common/Styles';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-
+import {styles} from '@/styles/common/styles';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(notifContext),
     React.useContext(dispatchNotifContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const filters = [
-    {item: 'پایه تحصیلی', id: 'grades'},
-    {item: 'رشته المپیادی', id: 'branches'},
-    {item: 'استان', id: 'states'},
-    {item: 'شهر', id: 'cities'},
-    {item: 'آزمون', id: 'quizzes'},
-    {item: 'جنسیت', id: 'sex'},
-    {item: 'مدرسه', id: 'schools'},
-    {item: 'ایکس پول', id: 'coin'},
-    {item: 'پول', id: 'money'},
-    {item: 'کدملی', id: 'nids'},
-    {item: 'شماره همراه', id: 'phones'},
-    {item: 'سطح دسترسی', id: 'accesses'},
-    {item: 'رتبه در سایت', id: 'rank'},
-    {item: 'دوره آموزشی', id: 'packages'},
-    {item: 'تاریخ عضویت', id: 'createdAt'},
+    {
+      item: 'پایه تحصیلی',
+      id: 'grades',
+    },
+    {
+      item: 'رشته المپیادی',
+      id: 'branches',
+    },
+    {
+      item: 'استان',
+      id: 'states',
+    },
+    {
+      item: 'شهر',
+      id: 'cities',
+    },
+    {
+      item: 'آزمون',
+      id: 'quizzes',
+    },
+    {
+      item: 'جنسیت',
+      id: 'sex',
+    },
+    {
+      item: 'مدرسه',
+      id: 'schools',
+    },
+    {
+      item: 'ایکس پول',
+      id: 'coin',
+    },
+    {
+      item: 'پول',
+      id: 'money',
+    },
+    {
+      item: 'کدملی',
+      id: 'nids',
+    },
+    {
+      item: 'شماره همراه',
+      id: 'phones',
+    },
+    {
+      item: 'سطح دسترسی',
+      id: 'accesses',
+    },
+    {
+      item: 'رتبه در سایت',
+      id: 'rank',
+    },
+    {
+      item: 'دوره آموزشی',
+      id: 'packages',
+    },
+    {
+      item: 'تاریخ عضویت',
+      id: 'createdAt',
+    },
   ];
-
   const accesses = [
-    {item: 'مدارس', id: 'school'},
-    {item: 'دانش آموزان', id: 'student'},
-    {item: 'دبیران', id: 'teacher'},
-    {item: 'مشاوران', id: 'advisor'},
-    {item: 'نمایندگی\u200cها', id: 'agent'},
+    {
+      item: 'مدارس',
+      id: 'school',
+    },
+    {
+      item: 'دانش آموزان',
+      id: 'student',
+    },
+    {
+      item: 'دبیران',
+      id: 'teacher',
+    },
+    {
+      item: 'مشاوران',
+      id: 'advisor',
+    },
+    {
+      item: 'نمایندگی\u200cها',
+      id: 'agent',
+    },
   ];
-
   const [selectedFilter, setSelectedFilter] = useState();
   const [items, setItems] = useState();
   const [selectedVal, setSelectedVal] = useState();
   const [itemType, setItemType] = useState();
   const [allSelectedVals, setAllSelectedVals] = useState();
-
   const changeItems = wanted => {
     if (
       wanted === 'grades' ||
@@ -83,7 +136,6 @@ function Filter(props) {
     else if (wanted === 'sex') setItems(sexKeyVals);
     else if (wanted === 'accesses') setItems(accesses);
   };
-
   React.useEffect(() => {
     if (
       selectedFilter !== undefined &&
@@ -91,10 +143,12 @@ function Filter(props) {
         selectedFilter.id === 'money' ||
         selectedFilter.id === 'rank')
     ) {
-      setSelectedVal({min: undefined, max: undefined});
+      setSelectedVal({
+        min: undefined,
+        max: undefined,
+      });
     } else setSelectedVal(undefined);
   }, [selectedFilter]);
-
   const addToSelected = selected => {
     if (allSelectedVals === undefined) setAllSelectedVals([selected]);
     else {
@@ -105,16 +159,13 @@ function Filter(props) {
       tmp.push(selected);
       setAllSelectedVals(tmp);
     }
-
     setSelectedVal(undefined);
   };
-
   const returnFilter = () => {
     if (selectedFilter === undefined) {
       props.toggleShowPopUp();
       return;
     }
-
     if (
       selectedVal === undefined &&
       (allSelectedVals === undefined || allSelectedVals.length === 0)
@@ -122,9 +173,7 @@ function Filter(props) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
     }
-
     let id;
-
     if (itemType === 'minMax') {
       if (selectedVal.min === undefined && selectedVal.max === undefined) {
         showError(commonTranslator.pleaseFillAllFields);
@@ -152,11 +201,9 @@ function Filter(props) {
           label: 'ماکزیمم - ' + selectedFilter.item,
           valueText: selectedVal.max,
         });
-
       props.toggleShowPopUp();
       return;
     }
-
     if (itemType === 'date') {
       if (selectedVal.from === undefined && selectedVal.to === undefined) {
         showError(commonTranslator.pleaseFillAllFields);
@@ -184,16 +231,13 @@ function Filter(props) {
           label: 'تا - ' + selectedFilter.item,
           valueText: convertTimestampToJustDate(selectedVal.to),
         });
-
       props.toggleShowPopUp();
       return;
     }
-
     if (itemType === 'multiText') id = selectedFilter.id;
     else if (selectedVal !== undefined)
       id = selectedFilter.id + '_' + selectedVal.id;
     else id = selectedFilter.id + '_' + allSelectedVals[0].id;
-
     props.setFilter({
       id: id,
       key: selectedFilter.id,
@@ -218,10 +262,8 @@ function Filter(props) {
           ? selectedVal.name
           : selectedVal.item,
     });
-
     props.toggleShowPopUp();
   };
-
   return (
     <LargePopUp
       btns={
@@ -232,7 +274,10 @@ function Filter(props) {
         />
       }
       toggleShowPopUp={() => props.toggleShowPopUp()}>
-      <MyView style={{minHeight: 200}}>
+      <MyView
+        style={{
+          minHeight: 200,
+        }}>
         <JustBottomBorderSelect
           setter={selected => {
             setSelectedFilter(filters.find(e => e.id === selected));
@@ -268,7 +313,10 @@ function Filter(props) {
             />
           )}
         {selectedFilter !== undefined && itemType === 'date' && (
-          <PhoneView style={{...styles.gap10}}>
+          <PhoneView
+            style={{
+              ...styles.gap10,
+            }}>
             <JustBottomBorderDatePicker
               value={selectedVal?.from}
               setter={e =>
@@ -360,7 +408,11 @@ function Filter(props) {
             </PhoneView>
           )}
 
-        <PhoneView style={{...styles.marginTop20, ...styles.gap10}}>
+        <PhoneView
+          style={{
+            ...styles.marginTop20,
+            ...styles.gap10,
+          }}>
           {allSelectedVals !== undefined &&
             allSelectedVals.map((elem, index) => {
               return (
@@ -381,5 +433,4 @@ function Filter(props) {
     </LargePopUp>
   );
 }
-
 export default Filter;

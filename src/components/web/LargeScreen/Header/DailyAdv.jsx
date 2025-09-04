@@ -1,9 +1,8 @@
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
 import Video from '../../../../screens/panel/Video';
-import {showError, showSuccess} from '../../../../services/Utility';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-
+import {showError, showSuccess} from '../../../../services/utility';
+import {LargePopUp} from '../../../../styles/common/PopUp';
 function DailyAdv(props) {
   return (
     <LargePopUp removeCancel={true}>
@@ -34,5 +33,4 @@ function DailyAdv(props) {
     </LargePopUp>
   );
 }
-
 export default DailyAdv;

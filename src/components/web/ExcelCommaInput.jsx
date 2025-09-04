@@ -1,20 +1,18 @@
 import React, {useState} from 'react';
 import {faPlus, faSearch} from '@fortawesome/free-solid-svg-icons';
-import {generalRequest} from '../../API/Utility';
-import {CommonButton, MyView, PhoneView} from '../../styles/Common';
-import {FontIcon} from '../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../translator/Common';
+import {generalRequest} from '../../api/utility';
+import {CommonButton, MyView, PhoneView} from '../../styles/CommonComponents';
+import {FontIcon} from '../../styles/common/FontIcon';
+import JustBottomBorderTextInput from '../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '../../translator/common';
 import UploadFile from './UploadFile';
-import {showSuccess} from '../../services/Utility';
-import {styles} from '../../styles/Common/Styles';
-
+import {showSuccess} from '../../services/utility';
+import {styles} from '../../styles/common/styles';
 const ExcelComma = props => {
   const [codes, setCodes] = useState('');
   const [showUploadPopUp, setShowUploadPopUp] = useState(false);
   const [additionalData, setAdditionalData] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (
       isWorking ||
@@ -23,7 +21,6 @@ const ExcelComma = props => {
       props.newItems.length === 0
     )
       return;
-
     setIsWorking(true);
     let ids;
     if (codes == undefined) ids = [];
@@ -32,40 +29,34 @@ const ExcelComma = props => {
       ids = ids.split(',');
       ids = ids.filter(n => n);
     }
-
     const removeDuplicates = props.newItems.filter(elem => {
       return ids.indexOf(elem) === -1;
     });
-
     const newArr = ids.concat(removeDuplicates);
     setCodes(newArr.join(','));
-
     props.setNewItems([]);
     setIsWorking(false);
   }, [codes, props, isWorking]);
-
   const toggleShowUploadPopUp = () => {
     setShowUploadPopUp(!showUploadPopUp);
   };
-
   const changeInput = text => {
     setCodes(text);
   };
-
   const addItems = () => {
     if (codes === undefined || codes.length === 0) return;
-
     let ids = codes.replaceAll(' ', '');
     ids = ids.split(',');
     ids = ids.filter(n => n);
-
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         props.url,
         'put',
-        {items: ids, ...props.additionalData},
+        {
+          items: ids,
+          ...props.additionalData,
+        },
         ['excepts', 'doneIds'],
         props.token,
         props.mandatoryFields,
@@ -73,27 +64,21 @@ const ExcelComma = props => {
     ])
       .then(res => {
         if (res[0] !== null) localAfterCallBack(res[0]);
-
         props.setLoading(false);
       })
       .catch(() => {
         props.setLoading(false);
       });
   };
-
   const localAfterCallBack = res => {
     props.afterAddingCallBack(res.doneIds);
-
     if (showUploadPopUp) setShowUploadPopUp(false);
-
     showSuccess(res.excepts);
     setCodes('');
   };
-
   React.useEffect(() => {
     setAdditionalData(props.additionalData);
   }, [props.additionalData]);
-
   return (
     <MyView>
       {showUploadPopUp && (
@@ -112,7 +97,12 @@ const ExcelComma = props => {
           mandatoryFields={props.mandatoryFields}
         />
       )}
-      <PhoneView style={{gap: 15}}>{props.children}</PhoneView>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
+        {props.children}
+      </PhoneView>
       <PhoneView>
         <MyView
           style={{
@@ -121,7 +111,9 @@ const ExcelComma = props => {
             justifyContent: 'center',
           }}>
           <JustBottomBorderTextInput
-            style={{minWidth: '80%'}}
+            style={{
+              minWidth: '80%',
+            }}
             onChangeText={e => changeInput(e)}
             placeholder={props.placeholder}
             subText={props.help}
@@ -149,7 +141,9 @@ const ExcelComma = props => {
           kind={'normal'}
           theme={'rect'}
           back={'yellow'}
-          parentStyle={{marginTop: 15}}
+          parentStyle={{
+            marginTop: 15,
+          }}
           icon={faPlus}
         />
       </PhoneView>
@@ -157,7 +151,11 @@ const ExcelComma = props => {
         <PhoneView style={styles.justifyContentEnd}>
           <CommonButton
             onPress={() => toggleShowUploadPopUp()}
-            style={{marginRight: 20, marginTop: -5, alignSelf: 'center'}}
+            style={{
+              marginRight: 20,
+              marginTop: -5,
+              alignSelf: 'center',
+            }}
             title={commonTranslator.upload}
             theme={'dark'}
           />
@@ -166,5 +164,4 @@ const ExcelComma = props => {
     </MyView>
   );
 };
-
 export default ExcelComma;

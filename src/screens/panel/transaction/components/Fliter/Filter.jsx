@@ -4,26 +4,21 @@ import {
   faAngleDoubleUp,
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  CommonButton,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import {MyView} from '../../../../../styles/Common';
-import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import translator from '../../../ticket/Translator';
-import commonTranslator from '../../../../../translator/Common';
+import {CommonButton, PhoneView, SimpleText} from '@/styles';
+import {MyView} from '@/styles';
+import {FontIcon, SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import translator from '../../../ticket/translator';
+import commonTranslator from '@/translator/common';
 import {
   sectionKeyVals,
   usedOffKeyVals,
-} from '../../../offcode/components/Utility';
-import Translate from '../../Translate';
-import {styles} from '../../../../../styles/Common/Styles';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-import {getTransactions} from '../Utility';
-
+} from '../../../offcode/components/utility';
+import Translate from '../../translate';
+import {styles} from '@/styles/common/styles';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import {getTransactions} from '../utility';
 function Filter(props) {
   const [section, setSection] = useState();
   const [usedOff, setUsedOff] = useState();
@@ -31,13 +26,11 @@ function Filter(props) {
   const [createdAtEndLimit, setCreatedAtEndLimit] = useState();
   const [showProSearch, setShowProSearch] = useState(false);
   const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
-
   const toggleShowProSearch = () => {
     if (showProSearch) setWantedIcon(faAngleDoubleDown);
     else setWantedIcon(faAngleDoubleUp);
     setShowProSearch(!showProSearch);
   };
-
   const doFilter = async () => {
     props.setLoading(true);
     const res = await getTransactions(
@@ -55,17 +48,24 @@ function Filter(props) {
       props.setAccountMoneySum(res.accountMoneySum);
     }
   };
-
   return (
     <MyView>
-      <PhoneView style={{...styles.gap15}}>
-        <PhoneView style={{...styles.gap15}}>
+      <PhoneView
+        style={{
+          ...styles.gap15,
+        }}>
+        <PhoneView
+          style={{
+            ...styles.gap15,
+          }}>
           <JustBottomBorderTextInput
             placeholder={translator.nameOfReciver}
             subText={translator.nameOfReciver}
           />
           <FontIcon
-            parentStyle={{marginTop: 6}}
+            parentStyle={{
+              marginTop: 6,
+            }}
             kind={'normal'}
             theme={'rect'}
             back={'yellow'}
@@ -82,7 +82,9 @@ function Filter(props) {
         <CommonButton
           onPress={() => doFilter()}
           title={commonTranslator.show}
-          style={{alignSelf: 'flex-start'}}
+          style={{
+            alignSelf: 'flex-start',
+          }}
         />
       </PhoneView>
       <MyView>
@@ -115,7 +117,10 @@ function Filter(props) {
         </PhoneView>
       </MyView>
       {showProSearch && (
-        <PhoneView style={{...styles.gap15}}>
+        <PhoneView
+          style={{
+            ...styles.gap15,
+          }}>
           <JustBottomBorderSelect
             setter={setUsedOff}
             values={usedOffKeyVals}
@@ -140,5 +145,4 @@ function Filter(props) {
     </MyView>
   );
 }
-
 export default Filter;

@@ -1,22 +1,16 @@
 import React, {useState} from 'react';
 import {Rating} from 'react-native-ratings';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-import {getSimpleCurrTime, showSuccess} from '../../../../../services/Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
+import {getSimpleCurrTime, showSuccess} from '../../../../../services/utility';
+import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
 import {dispatchTeachScheduleContext, teachScheduleContext} from './Context';
-import {studentsColumns} from './TableStructure';
-import Translator from './Translator';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../../translator/Common';
-
+import {studentsColumns} from './tableStructure';
+import Translator from './translator';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '@/translator/common';
 function Students(props) {
   const useGlobalState = () => [
     React.useContext(teachScheduleContext),
@@ -30,10 +24,8 @@ function Students(props) {
   const [tags, setTags] = useState();
   const [desc, setDesc] = useState();
   const [showReportPane, setShowReportPane] = useState(false);
-
   const fetchReport = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getMyTeachScheduleReportProblemsForTeacher +
@@ -58,7 +50,9 @@ function Students(props) {
       }
       setTags(
         res[1].map(e => ({
-          ...{isSelected: res[0].tags.indexOf(e.label) !== -1},
+          ...{
+            isSelected: res[0].tags.indexOf(e.label) !== -1,
+          },
           ...e,
         })),
       );
@@ -67,7 +61,6 @@ function Students(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedScheduleId]);
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -89,17 +82,14 @@ function Students(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedScheduleId]);
-
   React.useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedScheduleId]);
-
   const handleOp = (idx, row) => {
     setSelectedRow(row);
     setShowOp(true);
   };
-
   return (
     <>
       {!showOp && (
@@ -126,7 +116,10 @@ function Students(props) {
             setShowReportPane(false);
             setSelectedRow(undefined);
           }}>
-          <PhoneView style={{gap: '10px'}}>
+          <PhoneView
+            style={{
+              gap: '10px',
+            }}>
             <CommonButton
               onPress={() =>
                 window.open(
@@ -148,7 +141,10 @@ function Students(props) {
           {showReportPane && (
             <>
               {tags && (
-                <PhoneView style={{gap: '10px'}}>
+                <PhoneView
+                  style={{
+                    gap: '10px',
+                  }}>
                   {tags.map((e, index) => {
                     return (
                       <CommonButton
@@ -212,7 +208,11 @@ function Students(props) {
           )}
           {canRate && (
             <PhoneView
-              style={{gap: '10px', alignItems: 'center', marginTop: '20px'}}>
+              style={{
+                gap: '10px',
+                alignItems: 'center',
+                marginTop: '20px',
+              }}>
               <SimpleText text={'امتیاز شما به دانش آموز'} />
               <Rating
                 type="star"
@@ -260,5 +260,4 @@ function Students(props) {
     </>
   );
 }
-
 export default Students;

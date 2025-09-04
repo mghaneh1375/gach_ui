@@ -1,6 +1,5 @@
-import {PhoneView, SimpleText} from '../../styles/Common';
-import {styles} from '../../styles/Common/Styles';
-
+import {PhoneView, SimpleText} from '../../styles/CommonComponents';
+import {styles} from '../../styles/common/styles';
 function Circle(props) {
   return (
     <PhoneView
@@ -15,9 +14,13 @@ function Circle(props) {
         backgroundColor: props.backgroundColor,
       }}>
       {props.child}
-      <SimpleText text={props.text} style={{color: props.color}} />
+      <SimpleText
+        text={props.text}
+        style={{
+          color: props.color,
+        }}
+      />
     </PhoneView>
   );
 }
-
 export default Circle;

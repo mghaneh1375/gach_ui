@@ -1,20 +1,17 @@
 import React from 'react';
-import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../translator/Common';
-import {login, toggleStatus} from './Utility';
+import {CommonButton, PhoneView, MyView} from '@/styles';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import commonTranslator from '@/translator/common';
+import {login, toggleStatus} from './utility';
 import {usersContext, dispatchUsersContext} from './Context';
-import {isUserAdvisor} from '../../../../services/Utility';
-
+import {isUserAdvisor} from '../../../../services/utility';
 function Ops(props) {
   const useGlobalState = () => [
     React.useContext(usersContext),
     React.useContext(dispatchUsersContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const isAdvisor = isUserAdvisor(state.selectedUser);
-
   return (
     <MyView>
       <LargePopUp
@@ -55,7 +52,9 @@ function Ops(props) {
                 res => {
                   if (res !== null) {
                     state.selectedUser.status = res;
-                    dispatch({needUpdate: true});
+                    dispatch({
+                      needUpdate: true,
+                    });
                     props.toggleShowPopUp();
                   }
                 },
@@ -120,5 +119,4 @@ function Ops(props) {
     </MyView>
   );
 }
-
 export default Ops;

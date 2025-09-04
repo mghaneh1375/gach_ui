@@ -1,19 +1,11 @@
 import React, {useState} from 'react';
-import {
-  CommonRadioButton,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import {styles} from '../../../../../styles/Common/Styles';
-import commonTranslator from '../../../../../translator/Common';
-
+import {CommonRadioButton, MyView, PhoneView, SimpleText} from '@/styles';
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
 function MultiSentence(props) {
   const [choices, setChoices] = useState();
-
   const buildChoices = React.useCallback(() => {
     const tmp = [];
-
     for (let i = 0; i < props.sentencesCount; i++) {
       let a = '_';
       if (
@@ -26,20 +18,16 @@ function MultiSentence(props) {
         (props.selected[i] === '0' || props.selected[i] === 'no')
       )
         a = 'no';
-
       tmp.push({
         selected: a,
         idx: i,
       });
     }
-
     setChoices(tmp);
   }, [props.sentencesCount, props.selected]);
-
   React.useEffect(() => {
     buildChoices();
   }, [props.sentencesCount, props.selected, buildChoices]);
-
   const onChange = (sentenceIdx, newStatus) => {
     if (props.onChange === undefined) return;
     const tmp = [];
@@ -51,20 +39,17 @@ function MultiSentence(props) {
           idx: sentenceIdx,
         });
     });
-
     props.onChange(
       tmp
         .map(elem => {
           let a = '_';
           if (elem.selected === 'yes' || elem.selected === '1') a = '1';
           else if (elem.selected === 'no' || elem.selected === '0') a = '0';
-
           return a;
         })
         .join(''),
     );
   };
-
   return (
     <MyView
       style={{
@@ -75,7 +60,9 @@ function MultiSentence(props) {
           return (
             <PhoneView key={index}>
               <SimpleText
-                style={{alignSelf: 'center'}}
+                style={{
+                  alignSelf: 'center',
+                }}
                 text={'گزاره ' + (index + 1) + ':'}
               />
 
@@ -102,5 +89,4 @@ function MultiSentence(props) {
     </MyView>
   );
 }
-
 export default MultiSentence;

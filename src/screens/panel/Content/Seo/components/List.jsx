@@ -1,23 +1,19 @@
 import React from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
-import {styles} from '../../../../../styles/Common/Styles';
-import {contentContext, dispatchContentContext} from '../../Components/Context';
-import Translator from '../../Translate';
+import {CommonWebBox, MyView, PhoneView} from '@/styles';
+import {styles} from '@/styles/common/styles';
+import {contentContext, dispatchContentContext} from '../../components/Context';
+import Translator from '../../translate';
 import Card from './Card';
-import {getAll} from './Utility';
-
+import {getAll} from './utility';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),
     React.useContext(dispatchContentContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const fetchData = React.useCallback(() => {
     if (state.allSeo !== undefined) return;
-
     props.setLoading(true);
     Promise.all([getAll(props.token, props.packageId)]).then(res => {
       props.setLoading(false);
@@ -25,14 +21,15 @@ function List(props) {
         props.navigate('/');
         return;
       }
-      dispatch({allSeo: res[0].data, allSeoId: res[0].id});
+      dispatch({
+        allSeo: res[0].data,
+        allSeoId: res[0].id,
+      });
     });
   }, [props, dispatch, state.allSeo]);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   return (
     <MyView>
       <CommonWebBox
@@ -54,7 +51,9 @@ function List(props) {
                   const tmp = state.allSeo.filter(itr => {
                     return itr.key !== elem.key;
                   });
-                  dispatch({allSeo: tmp});
+                  dispatch({
+                    allSeo: tmp,
+                  });
                 }}
                 id={state.allSeoId}
                 token={props.token}
@@ -68,5 +67,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

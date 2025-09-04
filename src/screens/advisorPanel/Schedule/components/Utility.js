@@ -1,13 +1,10 @@
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {showSuccess} from '../../../../services/utility';
 export const fetchSubjects = () => {};
-
 export const fetchTags = token => {
   return generalRequest(routes.getAllTags, 'get', undefined, 'data', token);
 };
-
 export const fetchSchedules = (token, userId, filter = undefined) => {
   return generalRequest(
     filter === undefined
@@ -19,7 +16,6 @@ export const fetchSchedules = (token, userId, filter = undefined) => {
     token,
   );
 };
-
 export const copy = (token, scheduleId, scheduleFor, students) => {
   return generalRequest(
     routes.copySchedule + scheduleId,
@@ -32,7 +28,6 @@ export const copy = (token, scheduleId, scheduleFor, students) => {
     token,
   );
 };
-
 export const fetchMySchedules = (token, filter = undefined) => {
   return generalRequest(
     filter === undefined
@@ -44,7 +39,6 @@ export const fetchMySchedules = (token, filter = undefined) => {
     token,
   );
 };
-
 export const lessonsInSchedule = (token, id, isAdvisor) => {
   return generalRequest(
     isAdvisor
@@ -56,7 +50,6 @@ export const lessonsInSchedule = (token, id, isAdvisor) => {
     token,
   );
 };
-
 export const fetchSchedule = (
   token,
   id = undefined,
@@ -73,7 +66,6 @@ export const fetchSchedule = (
     token,
   );
 };
-
 export const addItemToSchedule = async (token, userId, data) => {
   const res = await generalRequest(
     routes.addItemToSchedule + userId,
@@ -85,10 +77,8 @@ export const addItemToSchedule = async (token, userId, data) => {
   if (res != null) {
     showSuccess();
   }
-
   return res;
 };
-
 export const updateScheduleItem = async (token, userId, data) => {
   const res = await generalRequest(
     routes.updateScheduleItem + userId,
@@ -98,16 +88,12 @@ export const updateScheduleItem = async (token, userId, data) => {
     token,
   );
   if (res != null) showSuccess();
-
   return res;
 };
-
 export const getLessons = (gradeId, isOlympiad) => {
   const query = new URLSearchParams();
   query.append('parentId', gradeId);
-
   if (isOlympiad) query.append('searchInBranches', true);
-
   return generalRequest(
     routes.getLessonsDigest + '?' + query.toString(),
     'get',
@@ -115,7 +101,6 @@ export const getLessons = (gradeId, isOlympiad) => {
     'data',
   );
 };
-
 export const removeItemFromSchedule = async (token, userId, id) => {
   const res = await generalRequest(
     routes.removeItemFromSchedule + userId + '/' + id,
@@ -127,7 +112,6 @@ export const removeItemFromSchedule = async (token, userId, id) => {
   if (res != null) showSuccess();
   return res;
 };
-
 export const setDoneInSchedule = async (token, id, itemId, data) => {
   const res = await generalRequest(
     routes.setDoneInSchedule + id + '/' + itemId,
@@ -139,7 +123,6 @@ export const setDoneInSchedule = async (token, id, itemId, data) => {
   if (res != null) showSuccess();
   return res;
 };
-
 export const removeSchedule = async (token, id) => {
   const res = await generalRequest(
     routes.removeSchedule + id,

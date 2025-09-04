@@ -1,30 +1,25 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {CommonWebBox, MyView} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
+import {routes} from '@/api/apiRoutes';
+import {CommonWebBox, MyView} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
 import {contentContext, dispatchContentContext} from '../Context';
 import Ops from './Ops';
 import React, {useState} from 'react';
-import {fetchSessions} from '../Utility';
-import Translator from '../../Translate';
-import columns from './TableStructure';
-import {VIDEO_BASE_URL} from '../../../../../API/Utility';
-
+import {fetchSessions} from '../utility';
+import Translator from '../../translate';
+import columns from './tableStructure';
+import {VIDEO_BASE_URL} from '../../../../../api/utility';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),
     React.useContext(dispatchContentContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [showOp, setShowOp] = useState(false);
-
   const fetchData = React.useCallback(() => {
     if (isWorking || state.selectedContent.sessions !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([fetchSessions(props.token, state.selectedContent.id)]).then(
       res => {
         props.setLoading(false);
@@ -38,16 +33,15 @@ function List(props) {
       },
     );
   }, [isWorking, state.selectedContent, dispatch, props]);
-
   React.useEffect(() => {
     if (state.selectedContent.sessions === undefined) fetchData();
   }, [state.selectedContent, fetchData]);
-
   const handleOp = (idx, row) => {
-    dispatch({selectedSession: state.selectedContent.sessions[idx]});
+    dispatch({
+      selectedSession: state.selectedContent.sessions[idx],
+    });
     setShowOp(true);
   };
-
   return (
     <MyView>
       {showOp && (
@@ -90,5 +84,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

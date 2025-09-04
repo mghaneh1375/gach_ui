@@ -1,7 +1,6 @@
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {showSuccess} from '../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {showSuccess} from '../../../services/utility';
 export const getAllAgent = async token => {
   return await generalRequest(
     routes.getAllAgent,
@@ -11,7 +10,6 @@ export const getAllAgent = async token => {
     token,
   );
 };
-
 export const addSchool = async (data, token) => {
   try {
     const res = await generalRequest(
@@ -23,13 +21,11 @@ export const addSchool = async (data, token) => {
       ['tel', 'NID', 'phone', 'name', 'address', 'managerName'],
     );
     if (res !== null) showSuccess('درخواست شما در انتظار تایید قرار گرفت');
-
     return res;
   } catch (error) {
     return null;
   }
 };
-
 export const addExistSchool = async (data, token) => {
   try {
     const res = await generalRequest(
@@ -41,13 +37,11 @@ export const addExistSchool = async (data, token) => {
       ['NID', 'phone'],
     );
     if (res !== null) showSuccess('درخواست شما در انتظار تایید قرار گرفت');
-
     return res;
   } catch (error) {
     return null;
   }
 };
-
 export const checkDuplicate = async (data, token) => {
   return await generalRequest(
     routes.checkDuplicate,

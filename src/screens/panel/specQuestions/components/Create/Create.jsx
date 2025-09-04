@@ -5,36 +5,32 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
-} from '../../../../../styles/Common';
-import translator from '../../Translator';
+} from '@/styles';
+import translator from '../../translator';
 import AddBatch from './AddBatch';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {changeText, showError} from '../../../../../services/Utility';
-import {styleGap10Wrap} from '../Detail/style';
-import commonTranslator from '../../../../../translator/Common';
-import {addQuestion, editQuestion} from '../Utility';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {changeText, showError} from '../../../../../services/utility';
+import {styleGap10Wrap} from '../detail/style';
+import commonTranslator from '@/translator/common';
+import {addQuestion, editQuestion} from '../utility';
 import QuestionFile from './QuestionFile';
-import {dispatchQuestionContext, questionContext} from '../Detail/Context';
-import UploadFile from '../../../../../components/web/UploadFile';
-import {CV_BASE_URL} from '../../../../../API/Utility';
+import {dispatchQuestionContext, questionContext} from '../detail/Context';
+import UploadFile from '@/components/web/UploadFile';
+import {CV_BASE_URL} from '../../../../../api/utility';
 import RenderHTML from 'react-native-render-html';
-
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(questionContext),
     React.useContext(dispatchQuestionContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     if (props.isInEditMode && state.selectedQuestion !== undefined) {
       setOrganizationId(state.selectedQuestion.organizationId);
       setAnswer(state.selectedQuestion.answer);
     }
   }, [state.selectedQuestion, props.isInEditMode]);
-
   const [finalMsg, setFinalMsg] = useState();
-
   const setResult = res => {
     setFinalMsg(
       <RenderHTML
@@ -48,35 +44,27 @@ function Create(props) {
       />,
     );
   };
-
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
   const [showAddPDFPopUp, setShowAddPDFPopUp] = useState(false);
-
   const [answer, setAnswer] = useState();
   const [organizationId, setOrganizationId] = useState();
-
   const [questionFile, setQuestionFile] = useState();
   const [answerFile, setAnswerFile] = useState();
-
   const toggleShowAddBatchPopUp = () => {
     setShowAddBatchPopUp(!showAddBatchPopUp);
   };
-
   const toggleShowAddPDFFilePopUp = () => {
     setShowAddPDFPopUp(!showAddPDFPopUp);
   };
-
   const sendData = async () => {
     if (!props.isInEditMode && questionFile === undefined) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
     }
-
     const data = {
       answer: answer,
       organizationId: organizationId,
     };
-
     props.setLoading(true);
     const res = props.isInEditMode
       ? await editQuestion(
@@ -88,13 +76,13 @@ function Create(props) {
         )
       : await addQuestion(data, questionFile, answerFile, props.token);
     props.setLoading(false);
-
     if (res !== null) {
-      dispatch({questions: undefined});
+      dispatch({
+        questions: undefined,
+      });
       props.setMode('detail');
     }
   };
-
   return (
     <MyView>
       <CommonWebBox
@@ -124,7 +112,10 @@ function Create(props) {
             setLoading={props.setLoading}
           />
         )}
-        <PhoneView style={{...styleGap10Wrap}}>
+        <PhoneView
+          style={{
+            ...styleGap10Wrap,
+          }}>
           <CommonButton
             onPress={() => toggleShowAddBatchPopUp()}
             theme={'dark'}
@@ -137,7 +128,10 @@ function Create(props) {
             title={translator.uploadPDFFile}
           />
         </PhoneView>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderTextInput
             placeholder={translator.organizationCode}
             subText={translator.organizationCode}
@@ -164,7 +158,10 @@ function Create(props) {
           </PhoneView>
 
           {props.isInEditMode && state.selectedQuestion !== undefined && (
-            <PhoneView style={{width: '100%'}}>
+            <PhoneView
+              style={{
+                width: '100%',
+              }}>
               <BigBoldBlueText text={'تصویر صورت سوال فعلی'} />
               <img width={'75%'} src={state.selectedQuestion.questionFile} />
             </PhoneView>
@@ -173,7 +170,10 @@ function Create(props) {
           {props.isInEditMode &&
             state.selectedQuestion !== undefined &&
             state.selectedQuestion.answerFile !== undefined && (
-              <PhoneView style={{width: '100%'}}>
+              <PhoneView
+                style={{
+                  width: '100%',
+                }}>
                 <BigBoldBlueText text={'تصویرپاسخ تشریحی فعلی'} />
                 <img width={'75%'} src={state.selectedQuestion.answerFile} />
               </PhoneView>
@@ -187,5 +187,4 @@ function Create(props) {
     </MyView>
   );
 }
-
 export default Create;

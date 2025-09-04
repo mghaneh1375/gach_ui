@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
-import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import vars from '../../../../styles/root';
-
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import vars from '@/styles/root';
 function SpecificRoleForm(props) {
   const [obj, setObj] = useState();
   const [data, setData] = useState();
-
   React.useEffect(() => {
     setObj(props.obj);
     if (props.obj !== undefined && props.obj.value !== undefined)
       setData(props.obj.value);
   }, [props.obj]);
-
   if (obj === undefined) return <></>;
   if (obj.keyVals !== undefined)
     return (
@@ -43,7 +40,6 @@ function SpecificRoleForm(props) {
       />
     );
   }
-
   return (
     <JustBottomBorderTextInput
       placeholder={obj.isMandatory ? '* ' + obj.title : obj.title}
@@ -51,7 +47,9 @@ function SpecificRoleForm(props) {
       justNum={obj.isJustNum ? true : undefined}
       type={obj.type}
       value={data}
-      style={{backgroundColor: vars.transparent}}
+      style={{
+        backgroundColor: vars.transparent,
+      }}
       onChangeText={e => {
         setData(e);
         props.setFormUserData(obj.key, e);
@@ -59,5 +57,4 @@ function SpecificRoleForm(props) {
     />
   );
 }
-
 export default SpecificRoleForm;

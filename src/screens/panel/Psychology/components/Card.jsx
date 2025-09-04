@@ -1,38 +1,38 @@
 import React, {useState} from 'react';
-import {getDevice} from '../../../../services/Utility';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {styles} from '../../../../styles/Common/Styles';
+import {getDevice} from '../../../../services/utility';
+import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {styles} from '../../../../styles/common/styles';
 import {faMessage, faUser, faQuestion} from '@fortawesome/free-solid-svg-icons';
 import {Image, Pressable} from 'react-native';
-
 function Card(props) {
   const navigate = props.navigate;
-
   const [view, setView] = useState(props.show);
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   return (
     <>
       <PhoneView>
         <CommonWebBox width={isInPhone ? '100%' : '80%'}>
           <PhoneView>
-            <PhoneView style={{...styles.width15}}>
+            <PhoneView
+              style={{
+                ...styles.width15,
+              }}>
               <Image
-                style={{width: '100%', height: '100%'}}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
                 source={{
                   uri: 'https://symbiosisonlinepublishing.com/flyers/Psychologycoverpage.jpg',
                 }}
               />
             </PhoneView>
 
-            <PhoneView style={{...styles.width80}}>
+            <PhoneView
+              style={{
+                ...styles.width80,
+              }}>
               <MyView
                 style={{
                   backgroundColor: '#FFEFCE',
@@ -50,10 +50,16 @@ function Card(props) {
         </CommonWebBox>
         {view && (
           <CommonWebBox width={isInPhone ? '100%' : '20%'}>
-            <MyView style={{height: '125px', ...styles.gap10}}>
+            <MyView
+              style={{
+                height: '125px',
+                ...styles.gap10,
+              }}>
               <PhoneView>
                 <SimpleFontIcon
-                  style={{color: '#FFAA00'}}
+                  style={{
+                    color: '#FFAA00',
+                  }}
                   kind={'normal'}
                   theme="rect"
                   back={'yellow'}
@@ -64,7 +70,9 @@ function Card(props) {
 
               <PhoneView>
                 <SimpleFontIcon
-                  style={{color: '#FFAA00'}}
+                  style={{
+                    color: '#FFAA00',
+                  }}
                   kind={'normal'}
                   theme="rect"
                   back={'yellow'}
@@ -75,7 +83,9 @@ function Card(props) {
               {props.price === undefined && (
                 <PhoneView>
                   <SimpleFontIcon
-                    style={{color: '#FFAA00'}}
+                    style={{
+                      color: '#FFAA00',
+                    }}
                     kind={'normal'}
                     theme="rect"
                     back={'yellow'}
@@ -107,12 +117,20 @@ function Card(props) {
         )}
         {!view && (
           <CommonWebBox
-            style={{...styles.gap0}}
+            style={{
+              ...styles.gap0,
+            }}
             width={isInPhone ? '100%' : '20%'}>
-            <MyView style={{height: '125px', ...styles.gap10}}>
+            <MyView
+              style={{
+                height: '125px',
+                ...styles.gap10,
+              }}>
               <PhoneView>
                 <SimpleFontIcon
-                  style={{color: '#FFAA00'}}
+                  style={{
+                    color: '#FFAA00',
+                  }}
                   kind={'normal'}
                   theme="rect"
                   back={'yellow'}
@@ -148,7 +166,10 @@ function Card(props) {
                 style={{
                   ...styles.flexDirectionRow,
                 }}>
-                <Pressable style={{padding: '5px'}}>
+                <Pressable
+                  style={{
+                    padding: '5px',
+                  }}>
                   <SimpleText text={' جزئیات '} />
                 </Pressable>
                 <Pressable
@@ -175,5 +196,4 @@ function Card(props) {
     </>
   );
 }
-
 export default Card;

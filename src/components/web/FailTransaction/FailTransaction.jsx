@@ -1,15 +1,20 @@
 import React from 'react';
 import {faXmark} from '@fortawesome/free-solid-svg-icons';
 import {CommonWebBox, MyView, SimpleText} from '../../../styles/Common';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
-import {styles} from '../../../styles/Common/Styles';
-import Translate from './Translate';
-
+import {SimpleFontIcon} from '../../../styles/common/FontIcon';
+import {styles} from '../../../styles/common/styles';
+import Translate from './translate';
 function FailTransaction(props) {
   return (
     <CommonWebBox header={Translate.backSuccessTransaction}>
-      <MyView style={{...styles.marginRight25}}>
-        <MyView style={{...styles.flexDirectionRow}}>
+      <MyView
+        style={{
+          ...styles.marginRight25,
+        }}>
+        <MyView
+          style={{
+            ...styles.flexDirectionRow,
+          }}>
           <SimpleFontIcon
             style={{
               ...styles.padding0,
@@ -20,7 +25,10 @@ function FailTransaction(props) {
             kind={'large'}
           />
         </MyView>
-        <MyView style={{...styles.gap15}}>
+        <MyView
+          style={{
+            ...styles.gap15,
+          }}>
           <SimpleText
             style={{
               ...styles.colorRed,
@@ -32,7 +40,10 @@ function FailTransaction(props) {
         </MyView>
         <SimpleText
           text={Translate.failMessage}
-          style={{...styles.BlueBold, ...styles.marginTop20}}
+          style={{
+            ...styles.BlueBold,
+            ...styles.marginTop20,
+          }}
         />
         {props.link !== undefined && props.link}
         <SimpleText
@@ -80,5 +91,4 @@ function FailTransaction(props) {
     </CommonWebBox>
   );
 }
-
 export default FailTransaction;

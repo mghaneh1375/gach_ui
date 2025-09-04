@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {PhoneView, SimpleText} from '../../../styles/Common';
+import {PhoneView, SimpleText} from '../../../styles/CommonComponents';
 import vars from '../../../styles/root';
-
 function Pagination({perPage, totalCount, pageIndex, setPageIndex}) {
   const [elems, setElems] = useState();
   React.useEffect(() => {
@@ -19,7 +18,6 @@ function Pagination({perPage, totalCount, pageIndex, setPageIndex}) {
     }
     setElems(arr);
   }, [totalCount, perPage, pageIndex]);
-
   return (
     <PhoneView
       style={{
@@ -56,5 +54,4 @@ function Pagination({perPage, totalCount, pageIndex, setPageIndex}) {
     </PhoneView>
   );
 }
-
 export default Pagination;

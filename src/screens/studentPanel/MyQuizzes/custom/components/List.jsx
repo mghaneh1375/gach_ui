@@ -1,59 +1,49 @@
 import React, {useState} from 'react';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import Card from '../../../../panel/quiz/components/Card/Card';
+import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
+import Card from '../../../../panel/quiz/components/card/Card';
 import {
   quizContext,
   dispatchQuizContext,
 } from '../../../../panel/quiz/components/Context';
 import Ops from './Ops';
-import {fetchMyQuizzes} from './Utility';
-import commonTranslator from '../../../../../translator/Common';
-
+import {fetchMyQuizzes} from './utility';
+import commonTranslator from '@/translator/common';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [customQuizzes, setQuizzes] = useState();
   const [showOpPane, setShowOpPane] = useState(false);
-
   React.useEffect(() => {
     if (isWorking) return;
-
     if (state.customQuizzes !== undefined) {
       setQuizzes(state.customQuizzes);
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([fetchMyQuizzes(props.token)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
-      dispatch({customQuizzes: res[0]});
+      dispatch({
+        customQuizzes: res[0],
+      });
       setQuizzes(res[0]);
       setIsWorking(false);
     });
   }, [props, dispatch, state.customQuizzes, isWorking]);
-
   const openOpBox = quiz => {
-    dispatch({selectedQuiz: quiz});
+    dispatch({
+      selectedQuiz: quiz,
+    });
     setShowOpPane(true);
   };
-
   return (
     <MyView>
       {showOpPane && (
@@ -68,7 +58,11 @@ function List(props) {
         />
       )}
       {customQuizzes !== undefined && customQuizzes.length > 0 && (
-        <PhoneView style={{gap: 15, padding: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+            padding: 15,
+          }}>
           {customQuizzes.map((quiz, index) => {
             return (
               <Card
@@ -98,5 +92,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import UploadFile from '../../../../../components/web/UploadFile';
-import {showSuccess} from '../../../../../services/Utility';
-import {CommonButton, SimpleText, MyView} from '../../../../../styles/Common';
-import commonTranslator from '../../../../../translator/Common';
-import {correct} from '../Utility';
-
+import {routes} from '@/api/apiRoutes';
+import UploadFile from '@/components/web/UploadFile';
+import {showSuccess} from '@/services/utility';
+import {CommonButton, SimpleText, MyView} from '@/styles';
+import commonTranslator from '@/translator/common';
+import {correct} from '../utility';
 function Card({
   index,
   setLoading,
@@ -32,12 +31,14 @@ function Card({
     if (res !== null) {
       // setAnswerSheet(res);
       state.selectedQuiz.answer_sheets[index].answerSheet = res;
-      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+      dispatch({
+        selectedQuiz: state.selectedQuiz,
+        needUpdate: true,
+      });
       showSuccess(commonTranslator.success);
       setShowUploadPane(false);
     }
   };
-
   return (
     <MyView>
       {showUploadPane && (
@@ -61,14 +62,18 @@ function Card({
         />
       )}
       <SimpleText
-        style={{alignSelf: 'center'}}
+        style={{
+          alignSelf: 'center',
+        }}
         text={state.selectedQuiz.answer_sheets[index].student.name}
       />
       {index !== undefined &&
         state.selectedQuiz.answer_sheets[index].answerSheet !== undefined &&
         state.selectedQuiz.answer_sheets[index].answerSheet !== '' && (
           <img
-            style={{width: 100}}
+            style={{
+              width: 100,
+            }}
             src={state.selectedQuiz.answer_sheets[index].answerSheet}
           />
         )}
@@ -124,7 +129,10 @@ function Card({
                 state.selectedQuiz.answer_sheets[
                   index
                 ].answerSheetAfterCorrection = res.path;
-                dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+                dispatch({
+                  selectedQuiz: state.selectedQuiz,
+                  needUpdate: true,
+                });
               }
             }}
             theme={'dark'}
@@ -134,5 +142,4 @@ function Card({
     </MyView>
   );
 }
-
 export default Card;

@@ -5,20 +5,18 @@ import {
   PhoneView,
   MyView,
   SimpleText,
-} from '../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import translator from '../Translator';
-import commonTranslator from '../../../../../translator/Common';
-import {create, update} from './Utility';
-import {changeText} from '../../../../../services/Utility';
+} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import translator from '../translator';
+import commonTranslator from '@/translator/common';
+import {create, update} from './utility';
+import {changeText} from '../../../../../services/utility';
 import {HexColorPicker} from 'react-colorful';
-
 function Create(props) {
   const [min, setMin] = useState();
   const [max, setMax] = useState();
   const [color, setColor] = useState();
   const [priority, setPriority] = useState();
-
   React.useState(() => {
     if (props.selectedLevel === undefined) return;
     setMin(props.selectedLevel.min);
@@ -26,7 +24,6 @@ function Create(props) {
     setColor(props.selectedLevel.color);
     setPriority(props.selectedLevel.priority);
   }, [props.selectedLevel]);
-
   return (
     <MyView>
       <CommonWebBox
@@ -37,7 +34,10 @@ function Create(props) {
         }
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderTextInput
             onChangeText={e => changeText(e, setMin)}
             value={min}
@@ -83,12 +83,9 @@ function Create(props) {
                 props.selectedLevel === undefined
                   ? res
                   : props.selectedLevel.id;
-
               if (props.selectedLevel === undefined) props.addLevel(data);
               else props.editLevel(data);
-
               console.log(data);
-
               props.setMode('list');
             }
           }}
@@ -99,5 +96,4 @@ function Create(props) {
     </MyView>
   );
 }
-
 export default Create;

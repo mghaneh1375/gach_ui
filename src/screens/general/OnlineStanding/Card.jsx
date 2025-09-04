@@ -5,29 +5,31 @@ import {
   faUser,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import QuizItemCard from '../../../components/web/QuizItemCard';
+import QuizItemCard from '@/components/web/QuizItemCard';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents';
+import {styles} from '../../../styles/common/styles';
 import {
   styleCard,
   styleItemsParent,
   styleTitle,
   styleYellowBox,
-} from '../../panel/package/card/Style';
-import {faNums} from '../../../services/Utility';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
-
+} from '../../panel/package/card/style';
+import {faNums} from '../../../services/utility';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon';
 function Card(props) {
   const colors = ['#FFAA00', '#c5c5c5', '#D27F66'];
-
   return (
-    <CommonWebBox style={{...styleCard, ...styles.BlueBold}}>
+    <CommonWebBox
+      style={{
+        ...styleCard,
+        ...styles.BlueBold,
+      }}>
       <MyView>
         <MyView
           style={{
@@ -52,9 +54,16 @@ function Card(props) {
               <SimpleFontIcon
                 kind={'large'}
                 icon={faTrophy}
-                style={{color: colors[props.rank - 1]}}
+                style={{
+                  color: colors[props.rank - 1],
+                }}
               />
-              <SimpleText style={{fontSize: 17}} text={'#' + props.rank} />
+              <SimpleText
+                style={{
+                  fontSize: 17,
+                }}
+                text={'#' + props.rank}
+              />
             </MyView>
           )}
           <SimpleText
@@ -65,7 +74,11 @@ function Card(props) {
             text={props.team.teamName}
           />
         </MyView>
-        <MyView style={{...styles.gap15, ...styles.padding10}}>
+        <MyView
+          style={{
+            ...styles.gap15,
+            ...styles.padding10,
+          }}>
           {props.rank === undefined && (
             <QuizItemCard
               text={'عضو ارشد'}
@@ -76,7 +89,10 @@ function Card(props) {
             />
           )}
           {props.rank !== undefined && (
-            <PhoneView style={{...styles.gap15}}>
+            <PhoneView
+              style={{
+                ...styles.gap15,
+              }}>
               <QuizItemCard
                 text={'عضو ارشد'}
                 val={props.team.student.name}
@@ -101,7 +117,13 @@ function Card(props) {
             </PhoneView>
           )}
           <PhoneView
-            style={{...styleItemsParent, ...styles.gap15, ...{minHeight: 100}}}>
+            style={{
+              ...styleItemsParent,
+              ...styles.gap15,
+              ...{
+                minHeight: 100,
+              },
+            }}>
             {props.team.team !== undefined &&
               props.team.team.length > 0 &&
               props.team.team.map((e, index) => {
@@ -130,5 +152,4 @@ function Card(props) {
     </CommonWebBox>
   );
 }
-
 export default Card;

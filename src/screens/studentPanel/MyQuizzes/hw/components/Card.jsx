@@ -1,10 +1,9 @@
 import React from 'react';
-
 import {
   faHourglassEnd,
   faHourglassStart,
 } from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../../../../styles/Common/Styles';
+import {styles} from '@/styles/common/styles';
 import QuizItemCard from '../../../../../components/web/QuizItemCard';
 import {
   CommonButton,
@@ -12,25 +11,26 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
+} from '@/styles';
 import {
   styleCard,
   styleItemsGrandParent,
   styleItemsParent,
   styleTitle,
   styleYellowBox,
-} from '../../../../panel/package/card/Style';
-import {convertTimestamp, getDevice} from '../../../../../services/Utility';
-import Translate from '../../../../schoolPanel/MyHWs/components/Translator';
-
+} from '../../../../panel/package/card/style';
+import {convertTimestamp, getDevice} from '../../../../../services/utility';
+import Translate from '../../../../schoolPanel/myHWs/components/translator';
 function Card(props) {
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const fontSize = isInPhone ? 10 : 11;
-
   return (
-    <CommonWebBox style={{...styleCard, ...styles.BlueBold}}>
+    <CommonWebBox
+      style={{
+        ...styleCard,
+        ...styles.BlueBold,
+      }}>
       <MyView
         style={{
           ...styleYellowBox,
@@ -44,7 +44,11 @@ function Card(props) {
           text={props.quiz.title}
         />
       </MyView>
-      <MyView style={{...styleItemsGrandParent, ...styles.gap15}}>
+      <MyView
+        style={{
+          ...styleItemsGrandParent,
+          ...styles.gap15,
+        }}>
         <MyView>
           <PhoneView
             style={{
@@ -78,7 +82,11 @@ function Card(props) {
                   padding={isInPhone ? '5px 5px' : undefined}
                   textStyle={
                     isInPhone
-                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      ? {
+                          fontSize: 14,
+                          paddingLeft: 20,
+                          paddingRight: 20,
+                        }
                       : {}
                   }
                   title={Translate.startHW}
@@ -93,7 +101,11 @@ function Card(props) {
                   padding={isInPhone ? '5px 5px' : undefined}
                   textStyle={
                     isInPhone
-                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      ? {
+                          fontSize: 14,
+                          paddingLeft: 20,
+                          paddingRight: 20,
+                        }
                       : {}
                   }
                   title={Translate.startHW}
@@ -106,5 +118,4 @@ function Card(props) {
     </CommonWebBox>
   );
 }
-
 export default Card;

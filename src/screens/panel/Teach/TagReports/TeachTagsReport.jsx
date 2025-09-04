@@ -1,23 +1,21 @@
 import React, {useState} from 'react';
 import List from './components/List';
 import Create from './components/Create';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {TeachTagReportProvider} from './components/Context';
-
 function TeachTagsReport(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   return (
     <TeachTagReportProvider>
       {mode === 'list' && (
@@ -49,5 +47,4 @@ function TeachTagsReport(props) {
     </TeachTagReportProvider>
   );
 }
-
 export default TeachTagsReport;

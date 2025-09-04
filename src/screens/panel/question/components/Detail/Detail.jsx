@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {addQuestionToQuizzes, filter, removeQuestion} from '../Utility';
+import {addQuestionToQuizzes, filter, removeQuestion} from '../utility';
 import Question from './Question';
-import Quizzes from './../../../../../components/web/Quizzes';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {showError, showSuccess} from '../../../../../services/Utility';
+import Quizzes from '../../../../../components/web/Quizzes';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showError, showSuccess} from '../../../../../services/utility';
 import {
   BigBoldBlueText,
   CommonButton,
@@ -12,24 +12,24 @@ import {
   EqualTwoTextInputs,
   PhoneView,
   MyView,
-} from '../../../../../styles/Common';
-import translator from '../../Translator';
-import commonTranslator from '../../../../../translator/Common';
-import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+  FontIcon,
+  SimpleFontIcon,
+} from '@/styles';
+import translator from '../../translator';
+import commonTranslator from '@/translator/common';
 import {
   faAngleDoubleDown,
   faAngleDoubleUp,
   faAngleLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import Author from './Filter/Author';
+import Author from './filter/Author';
 import {questionContext, dispatchQuestionContext} from './Context';
-import Level from './Filter/Level';
+import Level from './filter/Level';
 import Report from './Report';
-import Type from './Filter/Type';
+import Type from './filter/Type';
 import {styleYellowMarginTop7} from './style';
-import {styles} from '../../../../../styles/Common/Styles';
-import {getQuestions} from '../../../quiz/components/Utility';
-
+import {styles} from '@/styles/common/styles';
+import {getQuestions} from '../../../quiz/components/utility';
 function Detail(props) {
   const [selectingQuiz, setSelectingQuiz] = useState(false);
   const [questionOrganizationId, setQuestionOrganizationId] = useState();
@@ -38,13 +38,11 @@ function Detail(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [showFilters, setShowFilters] = useState(true);
   const [showReports, setShowReports] = useState(true);
-
   const useGlobalState = () => [
     React.useContext(questionContext),
     React.useContext(dispatchQuestionContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const localFilter = (
     showEasy,
     showMid,
@@ -57,7 +55,6 @@ function Detail(props) {
   ) => {
     if (isWorking || props.subject.questions === undefined) return;
     setIsWorking(true);
-
     const tmp = props.subject.questions.filter(elem => {
       if (
         (showEasy && elem.level === 'easy') ||
@@ -67,7 +64,6 @@ function Detail(props) {
         if (!authors.find(itr => itr.author === elem.author).selected)
           return false;
       } else return false;
-
       if (
         (showTest && elem.kindQuestion === 'test') ||
         (showShortAnswer && elem.kindQuestion === 'short_answer') ||
@@ -75,20 +71,18 @@ function Detail(props) {
         (showTashrihi && elem.kindQuestion === 'tashrihi')
       )
         return true;
-
       return false;
     });
-
-    dispatch({questionsAfterFilter: tmp, currPage: 1});
+    dispatch({
+      questionsAfterFilter: tmp,
+      currPage: 1,
+    });
     setIsWorking(false);
   };
-
   React.useEffect(() => {
     if (isWorking || !selectingQuiz || quizzes !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.fetchIRYSCRegistrableQuizzes,
@@ -99,17 +93,14 @@ function Detail(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         setSelectingQuiz(false);
         return;
       }
-
       setQuizzes(res[0].items);
       setIsWorking(false);
     });
   }, [props, isWorking, quizzes, selectingQuiz]);
-
   React.useEffect(() => {
     if (props.subject.questions === undefined) return;
     const allAuthors = [];
@@ -123,18 +114,20 @@ function Detail(props) {
     props.subject.questions.forEach(element => {
       const a = allAuthors.find(elem => elem.author === element.author);
       if (a === undefined)
-        allAuthors.push({author: element.author, qNo: 1, selected: true});
+        allAuthors.push({
+          author: element.author,
+          qNo: 1,
+          selected: true,
+        });
       else a.qNo = a.qNo + 1;
       if (element.level === 'easy') easy++;
       else if (element.level === 'mid') mid++;
       else hard++;
-
       if (element.kindQuestion === 'test') test++;
       else if (element.kindQuestion === 'short_answer') short_answer++;
       else if (element.kindQuestion === 'multi_sentence') multi_sentence++;
       else tashrihi++;
     });
-
     dispatch({
       allowShow: true,
       authors: allAuthors,
@@ -148,7 +141,6 @@ function Detail(props) {
       questionsAfterFilter: props.subject.questions,
     });
   }, [props.subject.questions, dispatch]);
-
   React.useEffect(() => {
     if (
       state.allowShow === undefined ||
@@ -157,15 +149,16 @@ function Detail(props) {
     )
       return;
     props.setLoading(!state.allowShow);
-    dispatch({isLoadingOn: !state.allowShow});
+    dispatch({
+      isLoadingOn: !state.allowShow,
+    });
   }, [state.allowShow, state.isLoadingOn, dispatch, props]);
-
   React.useEffect(() => {
     if (isWorking || props.subject.questions !== undefined) return;
-
-    dispatch({allowShow: false});
+    dispatch({
+      allowShow: false,
+    });
     setIsWorking(true);
-
     Promise.all([
       filter(
         props.token,
@@ -182,17 +175,18 @@ function Detail(props) {
         props.setMode('list');
         return;
       }
-
       props.setSubject(res[0][0]);
       setIsWorking(false);
     });
   }, [props, isWorking, dispatch]);
-
   return (
     <MyView>
       {!selectingQuiz && state.allowShow && (
         <MyView>
-          <PhoneView style={{...styles.alignSelfEnd}}>
+          <PhoneView
+            style={{
+              ...styles.alignSelfEnd,
+            }}>
             <FontIcon
               kind={'normal'}
               theme={'rect'}
@@ -202,17 +196,30 @@ function Detail(props) {
                   ? props.onBack()
                   : props.setMode('list')
               }
-              parentStyle={{alignSelf: 'flex-end', margin: 20}}
+              parentStyle={{
+                alignSelf: 'flex-end',
+                margin: 20,
+              }}
               back={'yellow'}
             />
           </PhoneView>
-          <CommonWebBox style={{gap: 20}}>
-            <EqualTwoTextInputs style={{marginTop: -15}}>
+          <CommonWebBox
+            style={{
+              gap: 20,
+            }}>
+            <EqualTwoTextInputs
+              style={{
+                marginTop: -15,
+              }}>
               <BigBoldBlueText text={'فیلتر سوالات'} />
               <SimpleFontIcon
                 onPress={() => setShowFilters(!showFilters)}
-                parentStyle={{alignSelf: 'flex-end'}}
-                style={{...styleYellowMarginTop7}}
+                parentStyle={{
+                  alignSelf: 'flex-end',
+                }}
+                style={{
+                  ...styleYellowMarginTop7,
+                }}
                 kind={'normal'}
                 icon={showFilters ? faAngleDoubleDown : faAngleDoubleUp}
               />
@@ -227,12 +234,19 @@ function Detail(props) {
           </CommonWebBox>
 
           <CommonWebBox>
-            <EqualTwoTextInputs style={{marginTop: -15}}>
+            <EqualTwoTextInputs
+              style={{
+                marginTop: -15,
+              }}>
               <BigBoldBlueText text={'گزارش کلی'} />
               <SimpleFontIcon
                 onPress={() => setShowReports(!showReports)}
-                parentStyle={{alignSelf: 'flex-end'}}
-                style={{...styleYellowMarginTop7}}
+                parentStyle={{
+                  alignSelf: 'flex-end',
+                }}
+                style={{
+                  ...styleYellowMarginTop7,
+                }}
                 kind={'normal'}
                 icon={showReports ? faAngleDoubleDown : faAngleDoubleUp}
               />
@@ -304,7 +318,9 @@ function Detail(props) {
                           question.organizationId +
                           '/3',
                         'put',
-                        {items: [props.preSelectedQuizId]},
+                        {
+                          items: [props.preSelectedQuizId],
+                        },
                         ['doneIds', 'excepts'],
                         props.token,
                       );
@@ -318,10 +334,8 @@ function Detail(props) {
                           props.preSelectedQuizId,
                           'school',
                         );
-
                         props.setLoading(false);
                         showSuccess();
-
                         if (res2 != null) {
                           props.dispatch({
                             clearQuestions: true,
@@ -361,7 +375,9 @@ function Detail(props) {
           setSelectedQuizzes={setSelectedQuizzes}
           quizzes={quizzes}>
           <CommonButton
-            style={{alignSelf: 'flex-end'}}
+            style={{
+              alignSelf: 'flex-end',
+            }}
             title={translator.addQuiz}
             theme={'dark'}
             onPress={async () => {
@@ -391,5 +407,4 @@ function Detail(props) {
     </MyView>
   );
 }
-
 export default Detail;

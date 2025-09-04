@@ -1,8 +1,8 @@
 import React from 'react';
-import {Device} from '../../../../../models/Device';
-import {getDevice} from '../../../../../services/Utility';
-import {MenuItem, style, MenuItemPhone} from '../style';
-import translator from '../../../../../translator/Common';
+import {Device} from '../../../../../models/device';
+import {getDevice} from '@/services/utility';
+import {MenuItem, style, MenuItemPhone} from '../Style';
+import translator from '../../../../../translator/common';
 import {
   faHome,
   faCog,
@@ -17,21 +17,16 @@ import {
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import {SuperMenuItem} from './SuperMenuItem';
-import {MyView} from '../../../../../styles/Common';
+import {MyView} from '@/styles';
 import MobileLogout from '../MobileLogout';
-import {globalStateContext} from '../../../../../App';
-
+import {globalStateContext} from '@/App';
 function EditorMenu(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
   const navigate = props.navigate;
-
   const useGlobalState = () => [React.useContext(globalStateContext)];
-
   const [state] = useGlobalState();
-
   const hasAdvisor = state.user?.user?.hasAdvisor;
-
   if (isLargePage) {
     return (
       <div className="menu-item-container" style={style.MenuJustLarge}>
@@ -202,7 +197,6 @@ function EditorMenu(props) {
               text: 'برنامه‌ی روزانه‌ی من',
               url: '/myLifeStyle',
             },
-
             {
               text: translator.advisors,
               url: '/advisors',
@@ -238,7 +232,6 @@ function EditorMenu(props) {
       </div>
     );
   }
-
   return (
     <MyView
       className={'menu-container-in-phone'}
@@ -420,7 +413,6 @@ function EditorMenu(props) {
             text: 'برنامه‌ی روزانه‌ی من',
             url: '/myLifeStyle',
           },
-
           {
             text: translator.advisors,
             url: '/advisors',
@@ -458,5 +450,4 @@ function EditorMenu(props) {
     </MyView>
   );
 }
-
 export default EditorMenu;

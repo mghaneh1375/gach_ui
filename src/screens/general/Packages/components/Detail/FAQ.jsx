@@ -1,17 +1,18 @@
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
-import {EqualTwoTextInputs, SimpleText} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import {EqualTwoTextInputs, SimpleText} from '@/styles';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {styles} from '@/styles/common/styles';
 function FAQ(props) {
   const [show, setShow] = useState(false);
-
   return (
     <Pressable
       onPress={() => setShow(!show)}
-      style={{...styles.borderBottom1, ...styles.paddingBottomUp5}}>
+      style={{
+        ...styles.borderBottom1,
+        ...styles.paddingBottomUp5,
+      }}>
       <EqualTwoTextInputs>
         <SimpleText text={props.elem.question} />
         <SimpleFontIcon
@@ -24,5 +25,4 @@ function FAQ(props) {
     </Pressable>
   );
 }
-
 export default FAQ;

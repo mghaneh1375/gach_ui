@@ -1,28 +1,25 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {isUserAdvisor} from '../../../services/Utility';
-import {MyQuizzesProvider} from '../MyQuizzes/components/Context';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {isUserAdvisor} from '../../../services/utility';
+import {MyQuizzesProvider} from '../myQuizzes/components/Context';
 import Copy from './components/Copy';
 import Create from './components/Create';
 import List from './components/List';
 import Recp from './components/Recp';
-import Students from './components/Students/Students';
-
+import Students from './components/students/Students';
 function MyHWs(props) {
   const navigate = props.navigate;
   const [mode, setMode] = useState('list');
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const [state, dispatch] = useGlobalState();
-
   return (
     <>
       <MyQuizzesProvider>
@@ -72,5 +69,4 @@ function MyHWs(props) {
     </>
   );
 }
-
 export default MyHWs;

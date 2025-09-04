@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
 import {
   CommonButton,
@@ -9,16 +9,15 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
-import commonTranslator from '../../../../translator/Common';
-import {formatPrice} from '../../../../services/Utility';
-import Translate from '../../../advisorPanel/Teach/Transaction/Translate';
-import {styles} from '../../../../styles/Common/Styles';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import columns from './TableStructure';
-
+} from '../../../../styles/CommonComponents.jsx';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import commonTranslator from '@/translator/common';
+import {formatPrice} from '@/services/utility';
+import Translate from '../../../advisorPanel/teach/transaction/translate';
+import {styles} from '../../../../styles/common/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import columns from './tableStructure';
 function Transactions(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [
@@ -33,30 +32,36 @@ function Transactions(props) {
   const [teachers, setTeachers] = useState();
   const settlementValues = useMemo(() => {
     return [
-      {id: 'all', item: commonTranslator.all},
-      {id: 'notSettlements', item: Translate.notSettlements},
-      {id: 'settlements', item: Translate.settlements},
+      {
+        id: 'all',
+        item: commonTranslator.all,
+      },
+      {
+        id: 'notSettlements',
+        item: Translate.notSettlements,
+      },
+      {
+        id: 'settlements',
+        item: Translate.settlements,
+      },
     ];
   }, []);
-
   useEffectOnce(() => {
     fetchData();
   }, []);
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     const params = new URLSearchParams();
-
     if (filter.settlementStatus !== 'all')
       params.append(
         'justSettlements',
         filter.settlementStatus === 'settlements',
       );
-
     if (filter.from && filter.from !== null) params.append('from', filter.from);
     if (filter.to && filter.to !== null) params.append('to', filter.to);
     if (filter.teacherId) params.append('teacher_id', filter.teacherId);
-
     Promise.all(
       teachers === undefined
         ? [
@@ -85,7 +90,9 @@ function Transactions(props) {
             ),
           ],
     ).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null || (teachers === undefined && res[1] == null)) {
         navigate('/');
         return;
@@ -108,10 +115,12 @@ function Transactions(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
-
   return (
     <CommonWebBox header={commonTranslator.allTeachTransactions}>
-      <PhoneView style={{gap: '20px'}}>
+      <PhoneView
+        style={{
+          gap: '20px',
+        }}>
         <JustBottomBorderSelect
           placeholder={Translate.settlementValues}
           subText={Translate.settlementValues}
@@ -157,7 +166,11 @@ function Transactions(props) {
       {data && (
         <>
           <MyView
-            style={{marginTop: '10px', gap: '10px', alignItems: 'center'}}>
+            style={{
+              marginTop: '10px',
+              gap: '10px',
+              alignItems: 'center',
+            }}>
             <SimpleText
               stlye={styles.textCenter}
               text={Translate.totalPrice + formatPrice(data.totalPrice)}
@@ -173,5 +186,4 @@ function Transactions(props) {
     </CommonWebBox>
   );
 }
-
 export default Transactions;

@@ -1,27 +1,31 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '../../../../App';
-import {getGrades} from '../Utility';
-import List from './List/List';
+import {dispatchStateContext} from '@/App';
+import {getGrades} from '../utility';
+import List from './list/List';
 import Create from './create/Create';
-import Translate from '../Translate';
-import {addItem, editItem} from '../../../../services/Utility';
-import {MyView} from '../../../../styles/Common';
-
+import Translate from '../translate';
+import {addItem, editItem} from '../../../../services/utility';
+import {MyView} from '@/styles';
 function Grade(props) {
   const [mode, setMode] = useState('list');
   const [selectedGrade, setSelectedGrade] = useState();
   const [grades, setGrades] = useState();
   const navigate = props.navigate;
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getGrades(props.token)]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
@@ -30,7 +34,6 @@ function Grade(props) {
       setMode('list');
     });
   }, [navigate, props.token, dispatch]);
-
   return (
     <MyView>
       {mode === 'list' && grades !== undefined && (
@@ -64,5 +67,4 @@ function Grade(props) {
     </MyView>
   );
 }
-
 export default Grade;

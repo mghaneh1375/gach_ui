@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {MyView} from '../../../styles/Common';
+import {MyView} from '@/styles';
 import {useParams} from 'react-router';
 import List from './components/List';
 import {
@@ -7,43 +7,38 @@ import {
   dispatchQuizContext,
   quizContext,
 } from './components/Context';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import CreateEscapeQuiz from './components/CreateEscapeQuiz';
-import Key from './components/Key/Key';
-import Students from './components/Students/Students';
-import Questions from './components/Questions/Questions';
-import CreateGift from './components/Gift/Create';
-import ListGift from './components/Gift/List';
-import Ranking from './components/Reports/Ranking/Ranking';
+import Key from './components/key/Key';
+import Students from './components/students/Students';
+import Questions from './components/questions/Questions';
+import CreateGift from './components/gift/Create';
+import ListGift from './components/gift/List';
+import Ranking from './components/reports/ranking/Ranking';
 import {
   isUserAdmin,
   isUserContentAccess,
   isUserEditorAccess,
-} from '../../../services/Utility';
-
+} from '../../../services/utility';
 function EscapeQuiz(props) {
   const [mode, setMode] = useState('karname');
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const params = useParams();
-
   React.useEffect(() => {
     if (props.mode !== undefined) {
       setMode(props.mode);
     } else setMode('list');
   }, [props.mode]);
-
   return (
     <MyView>
       <QuizProvider>
@@ -136,5 +131,4 @@ function EscapeQuiz(props) {
     </MyView>
   );
 }
-
 export default EscapeQuiz;

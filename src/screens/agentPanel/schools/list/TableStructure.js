@@ -1,6 +1,5 @@
-import Translate from '../Translate';
-import commonTranslator from '../../../../translator/Common';
-
+import Translate from '../translate';
+import commonTranslator from '@/translator/common';
 const commonCols = [
   {
     name: Translate.name,
@@ -45,9 +44,7 @@ const commonCols = [
     grow: 1,
   },
 ];
-
 export const columnsForAgent = [...commonCols];
-
 export const columnsForAdmin = [
   {
     name: Translate.agentName,

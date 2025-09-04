@@ -4,15 +4,14 @@ import {
   EqualTwoTextInputs,
   MyView,
   PhoneView,
-} from '../../../../../styles/Common';
+  FontIcon,
+} from '@/styles';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
-import {getPDFQuestions, getPDFQuizAnswerSheet, savePDF} from '../Utility';
-import AnswerSheet from '../AnswerSheet/AnswerSheet';
-import {showError, showSuccess} from '../../../../../services/Utility';
-
+import {getPDFQuestions, getPDFQuizAnswerSheet, savePDF} from '../utility';
+import AnswerSheet from '../answerSheet/AnswerSheet';
+import {showError, showSuccess} from '../../../../../services/utility';
 function PDFQuizKey(props) {
   const ref = useRef();
   const [isWorking, setIsWorking] = useState(false);
@@ -21,37 +20,31 @@ function PDFQuizKey(props) {
     React.useContext(props.dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     if (isWorking) return;
     if (state.selectedQuiz.qNo !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
     Promise.all([getPDFQuestions(props.token, state.selectedQuiz.id)]).then(
       res => {
         props.setLoading(false);
-
         if (res[0] !== null) {
           state.selectedQuiz.qNo = res[0].qNo;
-
           dispatch({
             selectedQuiz: state.selectedQuiz,
             needUpdate: true,
           });
         } else props.setMode('list');
-
         setIsWorking(false);
       },
     );
   }, [props, isWorking, state.selectedQuiz, dispatch]);
-
   const print = useCallback(() => {
     if (ref.current === null) return;
-
     props.setLoading(true);
-
-    toPng(ref.current, {cacheBust: true})
+    toPng(ref.current, {
+      cacheBust: true,
+    })
       .then(async dataUrl => {
         const link = document.createElement('a');
         link.download = 'my-image-name.png';
@@ -67,24 +60,20 @@ function PDFQuizKey(props) {
         console.log(err);
       });
   }, [ref, props]);
-
   React.useEffect(() => {
     if (isWorking) return;
-
     if (state.selectedQuiz.answer_sheet !== undefined) {
       dispatch({
         wanted_answer_sheet: state.selectedQuiz.answer_sheet,
       });
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
     Promise.all([
       getPDFQuizAnswerSheet(state.selectedQuiz.id, props.token),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] !== null) {
         state.selectedQuiz.answer_sheet = res[0];
         dispatch({
@@ -100,11 +89,9 @@ function PDFQuizKey(props) {
         showError('باید ابتدا تعداد سوالات آزمون را مشخص نمایید');
         props.setMode('list');
       }
-
       setIsWorking(false);
     });
   }, [props, isWorking, state.selectedQuiz, dispatch]);
-
   return (
     <MyView>
       <EqualTwoTextInputs>
@@ -113,7 +100,6 @@ function PDFQuizKey(props) {
             title={'ذخیره'}
             onPress={() => {
               let isValid = true;
-
               state.wanted_answer_sheet.forEach(element => {
                 if (element.answer === 0) {
                   isValid = false;
@@ -166,5 +152,4 @@ function PDFQuizKey(props) {
     </MyView>
   );
 }
-
 export default PDFQuizKey;

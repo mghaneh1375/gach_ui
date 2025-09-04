@@ -1,26 +1,23 @@
 import React, {useState} from 'react';
-import RadioButtonYesOrNo from '../../../../components/web/RadioButtonYesOrNo';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../styles/Common/Styles';
-import translator from '../../../panel/quiz/Translator';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '../../../../styles/common/styles';
+import translator from '../../../panel/quiz/translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
-import commonTranslator from '../../../../translator/Common';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {showSuccess} from '../../../../services/Utility';
-import {launchModeKeyVals} from '../../../panel/quiz/components/KeyVals';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-
+import commonTranslator from '@/translator/common';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '../../../../services/utility';
+import {launchModeKeyVals} from '../../../panel/quiz/components/keyVals';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
 function Copy(props) {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
   const [name, setName] = useState();
@@ -28,13 +25,15 @@ function Copy(props) {
   const [launchMode, setLaunchMode] = useState(
     props.isAdvisor ? 'online' : undefined,
   );
-
   return (
     <CommonWebBox
       header={translator.copy + ' ' + state.selectedQuiz.title}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{...styles.gap15}}>
+      <PhoneView
+        style={{
+          ...styles.gap15,
+        }}>
         <JustBottomBorderTextInput
           placeholder={translator.name}
           onChangeText={e => setName(e)}
@@ -98,13 +97,13 @@ function Copy(props) {
               props.token,
               ['start', 'end', 'title', 'copyStudents', 'launchMode'],
             );
-
             props.setLoading(false);
-
             if (res !== null) {
               showSuccess();
               state.quizzes.unshift(res);
-              dispatch({quizzes: state.quizzes});
+              dispatch({
+                quizzes: state.quizzes,
+              });
               props.setMode('list');
             }
           } catch (x) {
@@ -115,5 +114,4 @@ function Copy(props) {
     </CommonWebBox>
   );
 }
-
 export default Copy;

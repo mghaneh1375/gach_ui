@@ -1,11 +1,6 @@
-import {
-  EqualTwoTextInputs,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
+import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
 import React, {useState} from 'react';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
 import {
   faAngleDown,
   faAngleUp,
@@ -15,30 +10,38 @@ import {
   faPlay,
 } from '@fortawesome/free-solid-svg-icons';
 import RenderHTML from 'react-native-render-html';
-import {styles} from '../../../../../styles/Common/Styles';
+import {styles} from '@/styles/common/styles';
 import {
   convertSecToMin,
   convertSecToMinWithOutHour,
   systemFonts,
   tagsStyles,
-} from '../../../../../services/Utility';
-import {SimpleTextIcon} from '../../../../../styles/Common/TextIcon';
-
+} from '../../../../../services/utility';
+import {SimpleTextIcon} from '../../../../../styles/common/TextIcon';
 function Session(props) {
   const [show, setShow] = useState(true);
   const [showMore, setShowMore] = useState(true);
-
   return (
-    <MyView style={{...styles.borderBottom1, ...styles.paddingBottomUp5}}>
+    <MyView
+      style={{
+        ...styles.borderBottom1,
+        ...styles.paddingBottomUp5,
+      }}>
       <EqualTwoTextInputs>
         <SimpleText
           text={'جلسه ' + (props.index + 1) + ': ' + props.session.title}
-          style={{...styles.BlueBold}}
+          style={{
+            ...styles.BlueBold,
+          }}
         />
         <PhoneView style={styles.gap15}>
           {props.session.attachesCount !== undefined &&
             props.session.attachesCount > 0 && (
-              <PhoneView style={{...styles.gap5, ...styles.marginLeft15}}>
+              <PhoneView
+                style={{
+                  ...styles.gap5,
+                  ...styles.marginLeft15,
+                }}>
                 <SimpleFontIcon kind={'med'} icon={faPaperclip} />
                 <SimpleText
                   style={styles.alignSelfCenter}
@@ -62,7 +65,9 @@ function Session(props) {
             props.session.video === '') && (
             <SimpleFontIcon
               kind={'normal'}
-              style={{color: 'red'}}
+              style={{
+                color: 'red',
+              }}
               icon={faLock}
             />
           )}
@@ -128,7 +133,9 @@ function Session(props) {
                         direction: 'ltr',
                       },
                     }}
-                    iconStyle={{...styles.yellow_color}}
+                    iconStyle={{
+                      ...styles.yellow_color,
+                    }}
                     textStyle={{
                       ...styles.yellow_color,
                       ...styles.cursor_pointer,
@@ -156,11 +163,10 @@ function Session(props) {
                 showMore ? commonTranslator.showLess : commonTranslator.showMore
               }
             />
-          )} */}
+           )} */}
         </MyView>
       )}
     </MyView>
   );
 }
-
 export default Session;

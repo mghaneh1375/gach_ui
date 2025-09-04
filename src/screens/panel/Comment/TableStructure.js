@@ -1,7 +1,9 @@
-import commonTranslator from '../../../translator/Common';
-
+import commonTranslator from '../../../translator/common';
 const columns = [
-  {name: 'کاربر', selector: row => row.student.name},
+  {
+    name: 'کاربر',
+    selector: row => row.student.name,
+  },
   {
     name: 'بخش',
     selector: row =>
@@ -53,5 +55,4 @@ const columns = [
     grow: 3,
   },
 ];
-
 export default columns;

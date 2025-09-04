@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"],
+      "@styles": ["styles/index.js"],
+      "@styles/*": ["styles/*"]
+    }
+  },
+  "include": ["src"]
+}

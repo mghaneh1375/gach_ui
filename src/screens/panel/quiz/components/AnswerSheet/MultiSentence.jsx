@@ -1,12 +1,6 @@
 import React, {useState} from 'react';
-import {
-  EqualTwoTextInputs,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-
+import {EqualTwoTextInputs, PhoneView, SimpleText} from '@/styles';
 import {dispatchQuizContext, quizContext} from '../Context';
-
 function MultiSentence(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
@@ -15,9 +9,7 @@ function MultiSentence(props) {
   const [state, dispatch] = useGlobalState();
   const [stdAns, setStdAns] = useState();
   const [answer, setAnswer] = useState();
-
   const index = props.index;
-
   React.useEffect(() => {
     setStdAns(
       state.wanted_answer_sheet[index].studentAns
@@ -37,25 +29,37 @@ function MultiSentence(props) {
     state.showStdAnswers,
   ]);
   return (
-    <PhoneView style={{direction: 'ltr', marginBottom: 10}}>
+    <PhoneView
+      style={{
+        direction: 'ltr',
+        marginBottom: 10,
+      }}>
       <SimpleText
-        style={{alignSelf: 'center', width: 25}}
+        style={{
+          alignSelf: 'center',
+          width: 25,
+        }}
         text={index + 1 + ' - '}
       />
 
-      <EqualTwoTextInputs style={{width: 180}}>
+      <EqualTwoTextInputs
+        style={{
+          width: 180,
+        }}>
         {stdAns !== undefined && <SimpleText text={'پاسخ شما: ' + stdAns} />}
         {answer !== undefined && <SimpleText text={'پاسخ صحیح: ' + answer} />}
       </EqualTwoTextInputs>
 
       {state.wanted_answer_sheet[index].percent !== undefined && (
         <SimpleText
-          style={{alignSelf: 'center', marginLeft: 3}}
+          style={{
+            alignSelf: 'center',
+            marginLeft: 3,
+          }}
           text={'%' + state.wanted_answer_sheet[index].percent}
         />
       )}
     </PhoneView>
   );
 }
-
 export default MultiSentence;

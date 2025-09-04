@@ -6,24 +6,23 @@ import {
   MyView,
   PhoneView,
   ScreenScroll,
-} from '../../../../styles/Common';
+} from '../../../../styles/CommonComponents.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {BlurLoginBack} from './style';
-import LoginModule from './../components/Login';
-import ForgetPassModule from './../components/ForgetPass';
-import VerificationModule from './../components/Verification';
-import SignupModule from './../components/Signup';
-import ResetPassModule from './../components/ResetPass';
-import RoleFormModule from './../components/RoleForm';
-import commonTranlator from './../../../../translator/Common';
-import translator from './../translate';
+import LoginModule from '../components/Login';
+import ForgetPassModule from '../components/ForgetPass';
+import VerificationModule from '../components/Verification';
+import SignupModule from '../components/Signup';
+import ResetPassModule from '../components/ResetPass';
+import RoleFormModule from '../components/RoleForm';
+import commonTranlator from '../../../../translator/common';
+import translator from '../translate';
 import {Container, Row, Col} from 'react-grid-system';
-import vars from '../../../../styles/root';
-import {dispatchStateContext, globalStateContext} from './../../../../App';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
-import {getToken} from '../../../../API/User';
-import {styles} from '../../../../styles/Common/Styles';
-
+import vars from '@/styles/root';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {FontIcon} from '../../../../styles/common/FontIcon';
+import {getToken} from '../../../../api/user';
+import {styles} from '../../../../styles/common/styles';
 const Login = props => {
   const [mode, setMode] = useState('login');
   const [token, setToken] = useState('');
@@ -31,44 +30,40 @@ const Login = props => {
   const [reminder, setReminder] = useState(0);
   const [username, setUsername] = useState();
   const [isSignUp, setIsSignUp] = useState(false);
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const navigate = props.navigate;
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     if (mode === 'verification' || mode === 'roleForm') return;
     Promise.all([getToken()]).then(res => {
       if (res[0] !== undefined) navigate('/');
     });
   }, [navigate, mode]);
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const changeMode = wantedMode => {
     if (wantedMode === 'signUp') setIsSignUp(true);
     else if (wantedMode === 'forget') setIsSignUp(false);
-
     setMode(wantedMode);
   };
-
   const redirectToHome = () => {
     navigate('/');
   };
-
   React.useEffect(() => {
     if (state.token !== undefined && state.token !== null && state.token !== '')
       window.location.href = '/dashboard';
   }, [state.token]);
-
   return (
-    <ScreenScroll style={{...styles.overFlowHidden}}>
+    <ScreenScroll
+      style={{
+        ...styles.overFlowHidden,
+      }}>
       <MyView
         style={{
           minHeight: '100vh',
@@ -106,11 +101,16 @@ const Login = props => {
           zIndex: 9,
           bottom: '50px',
         }}>
-        <BlurLoginBack style={{zIndex: 10}}>
+        <BlurLoginBack
+          style={{
+            zIndex: 10,
+          }}>
           {mode === 'login' && (
             <LoginModule
               setToken={token => {
-                dispatch({token: token});
+                dispatch({
+                  token: token,
+                });
               }}
               setLoading={setLoading}
               changeMode={changeMode}
@@ -169,16 +169,22 @@ const Login = props => {
             />
           )}
         </BlurLoginBack>
-        <BlurLoginBack style={{marginTop: '20px'}}>
+        <BlurLoginBack
+          style={{
+            marginTop: '20px',
+          }}>
           {/* <InlineTextContainer>
             <BlueTextInline text={translator.ifForget} />
             <TextLink
               text={translator.forgetAction}
               onPress={() => changeMode('forgetPass')}
             />
-          </InlineTextContainer> */}
+           </InlineTextContainer> */}
 
-          <MyView style={{paddingLeft: 30}}>
+          <MyView
+            style={{
+              paddingLeft: 30,
+            }}>
             {/* <EqualTwoTextInputs style={{marginTop: 10}}>
               <BlueTextInline
                 style={{alignSelf: 'center'}}
@@ -189,14 +195,23 @@ const Login = props => {
                 title={commonTranlator.signUp}
                 onPress={() => changeMode('signUp')}
               />
-            </EqualTwoTextInputs> */}
-            <PhoneView style={{marginTop: 10, justifyContent: 'space-between'}}>
+             </EqualTwoTextInputs> */}
+            <PhoneView
+              style={{
+                marginTop: 10,
+                justifyContent: 'space-between',
+              }}>
               <BlueTextInline
-                style={{alignSelf: 'center'}}
+                style={{
+                  alignSelf: 'center',
+                }}
                 text={translator.ifHaveProblem}
               />
               <CommonButton
-                style={{marginRight: 'auto', backgroundColor: vars.DARK_BLUE}}
+                style={{
+                  marginRight: 'auto',
+                  backgroundColor: vars.DARK_BLUE,
+                }}
                 title={commonTranlator.support}
                 onPress={() =>
                   (window.location.href = 'https://www.irysc.com/contact-us/')
@@ -212,18 +227,34 @@ const Login = props => {
           width: '100%',
         }}>
         <Row>
-          <Col style={{padding: '20px'}} sm={6} />
-          <Col sm={6} style={{padding: '20px'}}>
+          <Col
+            style={{
+              padding: '20px',
+            }}
+            sm={6}
+          />
+          <Col
+            sm={6}
+            style={{
+              padding: '20px',
+            }}>
             <img
-              style={{height: '100px', display: 'block'}}
+              style={{
+                height: '100px',
+                display: 'block',
+              }}
               src={require('./../../../../images/irysc.png')}
             />
             <BigBoldBlueText
-              style={{marginTop: '10px'}}
+              style={{
+                marginTop: '10px',
+              }}
               text={'سامانه آموزش و آزمون آیریسک'}
             />
             <BlueTextInline
-              style={{display: 'block'}}
+              style={{
+                display: 'block',
+              }}
               text={translator.sliderDesc}
             />
           </Col>
@@ -232,5 +263,4 @@ const Login = props => {
     </ScreenScroll>
   );
 };
-
 export default Login;

@@ -1,24 +1,20 @@
 import React, {useState} from 'react';
-import {MyView, PhoneView, SimpleText} from '../../../../../styles/Common';
+import {MyView, PhoneView, SimpleText} from '@/styles';
 import Card from '../../../../panel/package/card/Card';
 import {packagesContext, dispatchPackagesContext} from '../Context';
-import {fetchAllPackages} from '../../../../panel/package/components/Utility';
-import QuizList from './../Detail/List';
-import {getDevice, getWidthHeight} from '../../../../../services/Utility';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import {fetchAllPackages} from '../../../../panel/package/components/utility';
+import QuizList from '../detail/List';
+import {getDevice, getWidthHeight} from '../../../../../services/utility';
+import {styles} from '@/styles/common/styles';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(packagesContext),
     React.useContext(dispatchPackagesContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [quizzes, setQuizzes] = useState();
-
   const [registered, setRegistered] = useState(false);
-
   React.useEffect(() => {
     if (state.selectableItems === undefined) return;
     setQuizzes(
@@ -27,13 +23,10 @@ function List(props) {
       }),
     );
   }, [state.selectableItems]);
-
   React.useEffect(() => {
     if (isWorking || state.allItems !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       fetchAllPackages(
         props.token === null || props.token === undefined || props.token === ''
@@ -43,17 +36,14 @@ function List(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       if (props.quizId !== undefined && res[0].registered !== undefined) {
         setRegistered(true);
         return;
       }
-
       dispatch({
         off: res[0].off,
         groupRegistrationOff: res[0].groupRegistrationOff,
@@ -87,22 +77,33 @@ function List(props) {
           },
         },
       });
-
       setIsWorking(false);
     });
   }, [dispatch, props, isWorking, state.allItems]);
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   return (
-    <MyView style={!isInPhone ? {minHeight: '130vh'} : {}}>
+    <MyView
+      style={
+        !isInPhone
+          ? {
+              minHeight: '130vh',
+            }
+          : {}
+      }>
       {!registered && (
         <PhoneView
           style={
             isInPhone
-              ? {padding: 20, gap: 10, width: getWidthHeight[0]}
-              : {gap: 15, padding: 20}
+              ? {
+                  padding: 20,
+                  gap: 10,
+                  width: getWidthHeight[0],
+                }
+              : {
+                  gap: 15,
+                  padding: 20,
+                }
           }>
           {state.selectableItems !== undefined &&
             state.selectableItems.map((item, index) => {
@@ -118,7 +119,9 @@ function List(props) {
                     key={index}
                     package={item}
                     onPress={() => {
-                      dispatch({package: item});
+                      dispatch({
+                        package: item,
+                      });
                       props.setMode('detail');
                     }}
                   />
@@ -156,5 +159,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

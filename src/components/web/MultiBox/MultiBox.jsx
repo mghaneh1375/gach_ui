@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
-import {PhoneView} from '../../../styles/Common';
+import {PhoneView} from '@/styles';
 import Box from './Box';
-
 const MultiBox = props => {
   const [items, setItems] = useState();
-
   React.useEffect(() => {
     setItems(props.items);
   }, [props.items]);
-
   return (
-    <PhoneView style={{border: 0}}>
+    <PhoneView
+      style={{
+        border: 0,
+      }}>
       {items !== undefined &&
         items.map((elem, index) => {
           return (
@@ -30,5 +30,4 @@ const MultiBox = props => {
     </PhoneView>
   );
 };
-
 export default MultiBox;

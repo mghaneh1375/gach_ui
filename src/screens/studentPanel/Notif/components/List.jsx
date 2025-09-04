@@ -1,23 +1,18 @@
 import {faEye} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {
-  CommonWebBox,
-  EqualTwoTextInputs,
-  SimpleText,
-} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import Translator from '../Translate';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {CommonWebBox, EqualTwoTextInputs, SimpleText} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import Translator from '../translate';
 import {dispatchPublicNotifContext, publicNotifContext} from './Context';
-import commonTranslator from '../../../../translator/Common';
-import {styles} from '../../../../styles/Common/Styles';
+import commonTranslator from '@/translator/common';
+import {styles} from '../../../../styles/common/styles';
 import RenderHTML from 'react-native-render-html';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
-import {systemFonts, tagsStyles} from '../../../../services/Utility';
-
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import {systemFonts, tagsStyles} from '../../../../services/utility';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(publicNotifContext),
@@ -26,16 +21,12 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
   const [selectedNotif, setSelectedNotif] = useState();
   const [data, setData] = useState();
-
   React.useEffect(() => {
     setData(state.notifs);
   }, [state.notifs]);
-
   const fetchMyNotifs = React.useCallback(() => {
     if (state.notifs !== undefined) return;
-
     props.setLoading(true);
-
     Promise.all([
       generalRequest(routes.myNotifs, 'get', undefined, 'data', props.token),
     ]).then(res => {
@@ -44,15 +35,14 @@ function List(props) {
         props.navigate('/');
         return;
       }
-
-      dispatch({notifs: res[0]});
+      dispatch({
+        notifs: res[0],
+      });
     });
   }, [props, state.notifs, dispatch]);
-
   useEffectOnce(() => {
     fetchMyNotifs();
   }, [fetchMyNotifs]);
-
   const columns = [
     {
       name: '',
@@ -67,11 +57,11 @@ function List(props) {
                   if (state.notifs[index].id === elem.id) {
                     elem.seen = true;
                   }
-
                   return elem;
                 });
-                dispatch({notifs: tmp});
-
+                dispatch({
+                  notifs: tmp,
+                });
                 generalRequest(
                   routes.setSeenNotif + state.notifs[index].id,
                   'put',
@@ -108,7 +98,6 @@ function List(props) {
       center: true,
     },
   ];
-
   return (
     <>
       {selectedNotif !== undefined && (
@@ -118,17 +107,23 @@ function List(props) {
           onBackClick={() => setSelectedNotif(undefined)}>
           <EqualTwoTextInputs>
             <SimpleText
-              style={{...styles.BlueBold}}
+              style={{
+                ...styles.BlueBold,
+              }}
               text={selectedNotif.title}
             />
             <SimpleText
-              style={{...styles.BlueBold}}
+              style={{
+                ...styles.BlueBold,
+              }}
               text={selectedNotif.createdAt}
             />
           </EqualTwoTextInputs>
 
           <RenderHTML
-            source={{html: selectedNotif.desc}}
+            source={{
+              html: selectedNotif.desc,
+            }}
             tagsStyles={tagsStyles}
             systemFonts={systemFonts}
           />
@@ -161,5 +156,4 @@ function List(props) {
     </>
   );
 }
-
 export default List;

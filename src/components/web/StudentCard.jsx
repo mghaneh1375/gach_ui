@@ -1,6 +1,5 @@
 import React from 'react';
-import MiniCard from '../../screens/panel/quiz/components/CV/MiniCard';
-
+import MiniCard from '../../screens/panel/quiz/components/cv/MiniCard';
 function StudentCard(props) {
   return (
     <MiniCard
@@ -31,17 +30,32 @@ function StudentCard(props) {
               value: props.std.cumSum,
             }
           : undefined,
-        {label: 'نام مدرسه: ', value: props.std.student.school},
-        {label: 'نام شهر: ', value: props.std.student.city},
+        {
+          label: 'نام مدرسه: ',
+          value: props.std.student.school,
+        },
+        {
+          label: 'نام شهر: ',
+          value: props.std.student.city,
+        },
         props.std.student.grade !== undefined
-          ? {label: 'پایه تحصیلی: ', value: props.std.student.grade}
+          ? {
+              label: 'پایه تحصیلی: ',
+              value: props.std.student.grade,
+            }
           : undefined,
         props.std.student.branches !== undefined
-          ? {label: 'رشته: ', value: props.std.student.branches}
+          ? {
+              label: 'رشته: ',
+              value: props.std.student.branches,
+            }
           : undefined,
         props.std.student.rank === -1
           ? undefined
-          : {label: 'رتبه کل در آیریسک: ', value: props.std.student.rank},
+          : {
+              label: 'رتبه کل در آیریسک: ',
+              value: props.std.student.rank,
+            },
       ]}
       header={props.std.student.name}
       ops={false}
@@ -49,5 +63,4 @@ function StudentCard(props) {
     />
   );
 }
-
 export default StudentCard;

@@ -1,23 +1,17 @@
 import React, {useMemo, useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {teachScheduleContext, dispatchTeachScheduleContext} from './Context';
-import columns from './TableStructure';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import {routes} from '../../../../../API/APIRoutes';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {removeItems, showSuccess} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
-import {generalRequest} from '../../../../../API/Utility';
-import Translator from './Translator';
-
+import columns from './tableStructure';
+import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
+import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {routes} from '@/api/apiRoutes';
+import CommonDataTable from '@/styles/common/CommonDataTable';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import {removeItems, showSuccess} from '../../../../../services/utility';
+import commonTranslator from '@/translator/common';
+import {generalRequest} from '../../../../../api/utility';
+import Translator from './translator';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(teachScheduleContext),
@@ -26,7 +20,6 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
   const [showOp, setShowOp] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
-
   const [
     activeValues,
     teachValues,
@@ -36,45 +29,79 @@ function List(props) {
   ] = useMemo(() => {
     return [
       [
-        {item: 'شروع نشده', id: 'not_start'},
-        {item: 'در جریان', id: 'active'},
-        {item: 'برگزار شده', id: 'expired'},
-        {item: 'همه', id: 'all'},
+        {
+          item: 'شروع نشده',
+          id: 'not_start',
+        },
+        {
+          item: 'در جریان',
+          id: 'active',
+        },
+        {
+          item: 'برگزار شده',
+          id: 'expired',
+        },
+        {
+          item: 'همه',
+          id: 'all',
+        },
       ],
       [
-        {item: 'خصوصی', id: 'private'},
-        {item: 'گروهی', id: 'semi_private'},
-        {item: 'همه', id: 'all'},
+        {
+          item: 'خصوصی',
+          id: 'private',
+        },
+        {
+          item: 'گروهی',
+          id: 'semi_private',
+        },
+        {
+          item: 'همه',
+          id: 'all',
+        },
       ],
       [
         {
           item: 'تنها آنهایی که دانش آموز ثبت نام شده دارند',
           id: 'justHasStudents',
         },
-        {item: 'همه', id: 'all'},
+        {
+          item: 'همه',
+          id: 'all',
+        },
       ],
       [
         {
           item: 'تنها آنهایی که درخواست دهنده دارند',
           id: 'justHasRequests',
         },
-        {item: 'همه', id: 'all'},
+        {
+          item: 'همه',
+          id: 'all',
+        },
       ],
       [
-        {item: 'همه', id: 'all'},
-        {item: Translator.individual, id: 'individual'},
-        {item: Translator.multi, id: 'multi'},
+        {
+          item: 'همه',
+          id: 'all',
+        },
+        {
+          item: Translator.individual,
+          id: 'individual',
+        },
+        {
+          item: Translator.multi,
+          id: 'multi',
+        },
       ],
     ];
   }, []);
-
   const [activeMode, setActiveMode] = useState('active');
   const [sessionMode, setSessionMode] = useState('all');
   const [teachMode, setTeachMode] = useState('all');
   const [registryStatus, setRegistryStatus] = useState('all');
   const [requestStatus, setRequestStatus] = useState('all');
   const [selectedRow, setSelectedRow] = useState();
-
   const fetchMySchedules = (
     token,
     activeMode,
@@ -98,7 +125,6 @@ function List(props) {
       token,
     );
   };
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -116,7 +142,9 @@ function List(props) {
         props.navigate('/');
         return;
       }
-      dispatch({schedules: res[0]});
+      dispatch({
+        schedules: res[0],
+      });
     });
   }, [
     props,
@@ -127,12 +155,10 @@ function List(props) {
     requestStatus,
     sessionMode,
   ]);
-
   useEffectOnce(() => {
     if (state.schedules !== undefined) return;
     fetchData();
   }, [fetchData]);
-
   const handleOp = (idx, row) => {
     dispatch({
       selectedScheduleId: row.id,
@@ -141,7 +167,6 @@ function List(props) {
     setSelectedRow(row);
     setShowOp(true);
   };
-
   return (
     <>
       {showConfirmation && (
@@ -153,11 +178,12 @@ function List(props) {
             removeItems(
               state.schedules,
               items => {
-                dispatch({schedules: items});
+                dispatch({
+                  schedules: items,
+                });
               },
               [state.selectedScheduleId],
             );
-
             showSuccess();
             setShowConfirmation(false);
             setShowOp(false);
@@ -250,7 +276,10 @@ function List(props) {
           header={'لیست برنامه\u200Cهای تدریس'}
           addBtn={true}
           onAddClick={() => props.setMode('create')}>
-          <PhoneView style={{gap: '10px'}}>
+          <PhoneView
+            style={{
+              gap: '10px',
+            }}>
             <JustBottomBorderSelect
               values={activeValues}
               setter={setActiveMode}
@@ -320,5 +349,4 @@ function List(props) {
     </>
   );
 }
-
 export default List;

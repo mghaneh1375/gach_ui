@@ -1,21 +1,19 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {dispatchStateContext} from '../../../App';
-import {formatPrice} from '../../../services/Utility';
-import {MyView, PhoneView} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+import {dispatchStateContext} from '@/App';
+import {formatPrice} from '@/services/utility';
+import {MyView, PhoneView} from '@/styles';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import OffsCard from './OffsCard/OffsCard';
-import ProgressCard from './ProgressCard/ProgressCard';
-import Translate from './Translate';
-import {getMyOffs} from './Utility';
-import {giveMyGifts} from './UtilityBonus';
-import GiftOffsCard from './OffsCard/OffsCard';
-
+import OffsCard from './offsCard/OffsCard';
+import ProgressCard from './progressCard/ProgressCard';
+import Translate from './translate';
+import {getMyOffs} from './utility';
+import {giveMyGifts} from './utilityBonus';
+import GiftOffsCard from './offsCard/OffsCard';
 function MyOffs(props) {
   const [discount, setDiscount] = useState(true);
   const [bonus, setBonus] = useState(false);
-
   const [data, setData] = useState();
   const [dataBonus, setDataBonus] = useState();
   const toggleDiscount = () => {
@@ -33,13 +31,15 @@ function MyOffs(props) {
   // const queryString = require('query-string');
   const navigate = props.navigate;
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
-
   const [dispatch] = useGlobalState();
-
   const fetchDiscount = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getMyOffs(props.token)]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -47,11 +47,14 @@ function MyOffs(props) {
       setData(res[0]);
     });
   }, [navigate, props.token, dispatch]);
-
   const fetchBonus = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([giveMyGifts(props.token)]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -59,12 +62,10 @@ function MyOffs(props) {
       setDataBonus(res[0]);
     });
   }, [navigate, props.token, dispatch]);
-
   useEffectOnce(() => {
     fetchBonus();
     fetchDiscount();
   }, [fetchBonus, fetchDiscount]);
-
   return (
     <MyView>
       <PhoneView>
@@ -75,7 +76,9 @@ function MyOffs(props) {
           width={250}
           percent={discount ? '90%' : '10%'}
           onPress={() => toggleDiscount()}
-          style={{...styles.cursor_pointer}}
+          style={{
+            ...styles.cursor_pointer,
+          }}
           circleText={data === undefined ? 0 : data.length}
         />
         <ProgressCard
@@ -85,7 +88,9 @@ function MyOffs(props) {
           width={250}
           percent={bonus ? '90%' : '10%'}
           onPress={() => toggleBonus()}
-          style={{...styles.cursor_pointer}}
+          style={{
+            ...styles.cursor_pointer,
+          }}
           circleText={dataBonus === undefined ? 0 : dataBonus.length}
         />
       </PhoneView>
@@ -144,5 +149,4 @@ function MyOffs(props) {
     </MyView>
   );
 }
-
 export default MyOffs;

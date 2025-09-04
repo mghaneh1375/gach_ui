@@ -1,8 +1,7 @@
 import React from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import UploadFile from '../../../../../components/web/UploadFile';
-import translator from '../../Translator';
-
+import {routes} from '@/api/apiRoutes';
+import UploadFile from '@/components/web/UploadFile';
+import translator from '../../translator';
 const AddBatchFiles = props => {
   return (
     <UploadFile
@@ -16,5 +15,4 @@ const AddBatchFiles = props => {
     />
   );
 };
-
 export default AddBatchFiles;

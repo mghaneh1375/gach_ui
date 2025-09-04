@@ -5,41 +5,36 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
+} from '@/styles';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
 import {
   quizContext,
   dispatchQuizContext,
 } from '../../../../panel/quiz/components/Context';
-import {getRanking} from '../../../../panel/quiz/components/Utility';
-import Translate from '../../Translate';
-import {getMyAnswerSheet, getRecpForQuiz} from './Utility';
-import translator from '../../../../panel/quiz/Translator';
-import commonTranslator from '../../../../../translator/Common';
+import {getRanking} from '../../../../panel/quiz/components/utility';
+import Translate from '../../translate';
+import {getMyAnswerSheet, getRecpForQuiz} from './utility';
+import translator from '../../../../panel/quiz/translator';
+import commonTranslator from '@/translator/common';
 import {Rating} from 'react-native-ratings';
-import vars from '../../../../../styles/root';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {showError, showSuccess} from '../../../../../services/Utility';
-
+import vars from '@/styles/root';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showError, showSuccess} from '../../../../../services/utility';
 function Ops(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [showRatePane, setShowRatePane] = useState(false);
   const [rate, setRate] = useState(
     state.selectedQuiz.stdRate === undefined ? 0 : state.selectedQuiz.stdRate,
   );
-
   React.useEffect(() => {
     if (state.selectedQuiz.stdRate !== undefined)
       setRate(state.selectedQuiz.stdRate);
   }, [state.selectedQuiz.stdRate]);
-
   const prepareShowAnswerSheet = async () => {
     if (state.selectedQuiz.mode === 'tashrihi') {
       props.navigate(
@@ -52,7 +47,6 @@ function Ops(props) {
       );
       return;
     }
-
     if (state.selectedQuiz.answer_sheet !== undefined) {
       dispatch({
         showAnswers: true,
@@ -61,25 +55,19 @@ function Ops(props) {
         allowChangeAns: false,
         wanted_answer_sheet: state.selectedQuiz.answer_sheet,
       });
-
       props.toggleShowPopUp();
       props.setMode('answerSheet');
       return;
     }
-
     props.setLoading(true);
     const res = await getMyAnswerSheet(
       state.selectedQuiz.id,
       state.selectedQuiz.generalMode,
       props.token,
     );
-
     props.setLoading(false);
-
     if (res === null) return;
-
     state.selectedQuiz.answer_sheet = res;
-
     dispatch({
       showAnswers: true,
       showStdAnswers: true,
@@ -89,46 +77,38 @@ function Ops(props) {
       selectedQuiz: state.selectedQuiz,
       needUpdate: true,
     });
-
     props.toggleShowPopUp();
     props.setMode('answerSheet');
   };
-
   const prepareShowRanking = async () => {
     if (state.selectedQuiz.ranking !== undefined) {
       props.toggleShowPopUp();
       props.setMode('ranking');
       return;
     }
-
     props.setLoading(true);
     const res = await getRanking(
       state.selectedQuiz.id,
       state.selectedQuiz.generalMode,
       state.selectedQuiz.generalMode === 'open' ? props.token : undefined,
     );
-
     props.setLoading(false);
-
     if (res === null) return;
-
     state.selectedQuiz.ranking = res;
-
     dispatch({
       selectedQuiz: state.selectedQuiz,
       needUpdate: true,
     });
-
     props.toggleShowPopUp();
     props.setMode('ranking');
   };
-
   const prepareShowResult = async () => {
-    dispatch({selectedStudentId: props.user.user.id});
+    dispatch({
+      selectedStudentId: props.user.user.id,
+    });
     props.toggleShowPopUp();
     props.setMode('result');
   };
-
   const getRecp = async () => {
     if (state.selectedQuiz.recp !== undefined) {
       props.setRecp(state.selectedQuiz.recp);
@@ -136,29 +116,22 @@ function Ops(props) {
       props.setMode('recp');
       return;
     }
-
     props.setLoading(true);
     const res = await getRecpForQuiz(
       state.selectedQuiz.id,
       state.selectedQuiz.generalMode,
       props.token,
     );
-
     props.setLoading(false);
-
     if (res === null) return;
-
     state.selectedQuiz.recp = res;
-
     dispatch({
       selectedQuiz: state.selectedQuiz,
       needUpdate: true,
     });
-
     props.toggleShowPopUp();
     props.setRecp(res);
   };
-
   const prepareReview = () => {
     props.navigate(
       '/reviewQuiz/' +
@@ -167,7 +140,6 @@ function Ops(props) {
         state.selectedQuiz.id,
     );
   };
-
   return (
     <LargePopUp
       toggleShowPopUp={props.toggleShowPopUp}
@@ -186,7 +158,9 @@ function Ops(props) {
                   '/' +
                   state.selectedQuiz.id,
                 'put',
-                {rate: rate},
+                {
+                  rate: rate,
+                },
                 'data',
                 props.token,
               );
@@ -194,7 +168,10 @@ function Ops(props) {
               if (res != null) {
                 state.selectedQuiz.stdRate = rate;
                 state.selectedQuiz.rate = res;
-                dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+                dispatch({
+                  selectedQuiz: state.selectedQuiz,
+                  needUpdate: true,
+                });
                 showSuccess();
                 setShowRatePane(false);
               }
@@ -209,7 +186,10 @@ function Ops(props) {
       {!showRatePane && (
         <>
           {props.user.accesses.indexOf('student') !== -1 && (
-            <PhoneView style={{gap: 10}}>
+            <PhoneView
+              style={{
+                gap: 10,
+              }}>
               {state.selectedQuiz.status === 'finished' &&
                 state.selectedQuiz.generalMode !== 'onlineStanding' &&
                 state.selectedQuiz.generalMode !== 'escape' && (
@@ -294,7 +274,10 @@ function Ops(props) {
             </PhoneView>
           )}
           {props.user.accesses.indexOf('student') === -1 && (
-            <PhoneView style={{gap: 10}}>
+            <PhoneView
+              style={{
+                gap: 10,
+              }}>
               <CommonButton
                 dir={'rtl'}
                 theme={'transparent'}
@@ -335,7 +318,11 @@ function Ops(props) {
       {showRatePane && rate !== undefined && (
         <MyView>
           <EqualTwoTextInputs
-            style={{width: 300, alignItems: 'center', alignSelf: 'center'}}>
+            style={{
+              width: 300,
+              alignItems: 'center',
+              alignSelf: 'center',
+            }}>
             <SimpleText text={Translate.yourRate} />
             <Rating
               type="star"
@@ -355,5 +342,4 @@ function Ops(props) {
     </LargePopUp>
   );
 }
-
 export default Ops;

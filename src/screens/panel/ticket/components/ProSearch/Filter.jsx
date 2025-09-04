@@ -1,31 +1,24 @@
 import React, {useState} from 'react';
-import commonTranslator from '../../../../../translator/Common';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-import translator from '../../Translator';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import translator from '../../translator';
 import {
   startWithVals,
   statusKeyVals,
   sectionKeyValsForFilter,
   priorityKeyValsForFilter,
-} from '../KeyVals';
-import {
-  PhoneView,
-  SimpleText,
-  CommonButton,
-  MyView,
-} from '../../../../../styles/Common';
-
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
+} from '../keyVals';
+import {PhoneView, SimpleText, CommonButton, MyView} from '@/styles';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
 import {
   faAngleDoubleDown,
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
-import {filter} from '../List/Utility';
-import vars from '../../../../../styles/root';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import {filter} from '../list/utility';
+import vars from '@/styles/root';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
+import {styles} from '@/styles/common/styles';
 function Filter(props) {
   const [showProSearch, setShowProSearch] = useState(false);
   const [status, setStatus] = useState();
@@ -39,57 +32,46 @@ function Filter(props) {
   const [priority, setPriority] = useState();
   const [section, setSection] = useState();
   const [item, setItem] = useState();
-
   React.useEffect(() => {
     if (!section && props.section) {
       setSection(props.section);
     }
   }, [props.section, section]);
-
   React.useEffect(() => {
     if (!status && props.status) {
       setStatus(props.status);
     }
   }, [props.status, status]);
-
   React.useEffect(() => {
     if (props.userId !== undefined) {
       setItem(props.userId);
     }
   }, [props.userId]);
-
   React.useEffect(() => {
     if (section === 'advisor' && props.section !== 'advisor')
       props.setSection('advisor');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [section]);
-
   const toggleShowProSearch = () => {
     if (showProSearch) setWantedIcon(faAngleDoubleDown);
     else setWantedIcon(faAngleDoubleUp);
     setShowProSearch(!showProSearch);
   };
-
   const [items, setItems] = useState();
   const [refId, setRefId] = useState();
-
   React.useEffect(() => {
     if (section === undefined || props.items === undefined) {
       setItems(undefined);
       return;
     }
-
     const list = props.items.find(e => e.key === section);
-
     if (list !== undefined) setItems(list.list);
     else setItems(undefined);
   }, [section, props.items]);
-
   React.useEffect(() => {
     if (items === undefined) setRefId(undefined);
   }, [items]);
-
   return (
     <MyView>
       <PhoneView style={styles.gap15}>
@@ -154,7 +136,9 @@ function Filter(props) {
             )
           }
           title={commonTranslator.show}
-          style={{alignSelf: 'flex-start'}}
+          style={{
+            alignSelf: 'flex-start',
+          }}
         />
         {item !== undefined && section === 'advisor' && (
           <CommonButton
@@ -197,7 +181,10 @@ function Filter(props) {
       </PhoneView>
       {showProSearch && (
         <MyView>
-          <PhoneView style={{gap: 15}}>
+          <PhoneView
+            style={{
+              gap: 15,
+            }}>
             <JustBottomBorderDatePicker
               placeholder={translator.dateStartRequest}
               subText={translator.dateStartRequest}
@@ -220,7 +207,10 @@ function Filter(props) {
               />
             )}
           </PhoneView>
-          <PhoneView style={{gap: 15}}>
+          <PhoneView
+            style={{
+              gap: 15,
+            }}>
             <JustBottomBorderDatePicker
               placeholder={translator.lastStartUpdate}
               subText={translator.lastStartUpdate}
@@ -234,7 +224,10 @@ function Filter(props) {
               value={answerDateSolarEndLimit}
             />
             {props.isAdmin && (
-              <MyView style={{marginTop: 10}}>
+              <MyView
+                style={{
+                  marginTop: 10,
+                }}>
                 <RadioButtonYesOrNo
                   label={translator.searchArchive}
                   selected={searchArchive}
@@ -248,5 +241,4 @@ function Filter(props) {
     </MyView>
   );
 }
-
 export default Filter;

@@ -1,22 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {
   CommonButton,
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
+} from '../../../styles/CommonComponents.jsx';
 import {useFilePicker} from 'use-file-picker';
-import {fileRequest, generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
-import {styles} from '../../../styles/Common/Styles';
+import {fileRequest, generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {styles} from '../../../styles/common/styles';
 import Card from './Card';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
-import JustBottomBorderDatePicker from '../../../styles/Common/JustBottomBorderDatePicker';
-import {showError, showSuccess} from '../../../services/Utility';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-
+import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker';
+import {showError, showSuccess} from '../../../services/utility';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
 function DailyAdv(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -26,9 +25,10 @@ function DailyAdv(props) {
   const [advs, setAdvs] = useState();
   const [expireAt, setExpireAt] = useState();
   const [title, setTitle] = useState();
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getAllDailyAdvs,
@@ -38,7 +38,9 @@ function DailyAdv(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         props.navigate('/');
         return;
@@ -47,7 +49,6 @@ function DailyAdv(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,12 +59,17 @@ function DailyAdv(props) {
     readAs: 'DataURL',
     multiple: false,
   });
-
   return (
     <>
       <CommonWebBox header={'افزودن مورد جدید'}>
-        <PhoneView style={{...styles.gap50}}>
-          <PhoneView style={{...styles.alignItemsCenter}}>
+        <PhoneView
+          style={{
+            ...styles.gap50,
+          }}>
+          <PhoneView
+            style={{
+              ...styles.alignItemsCenter,
+            }}>
             <SimpleText text={'فایل ویدیو تبلیغات'} />
             <SimpleFontIcon
               onPress={() => openFileSelector()}
@@ -108,7 +114,9 @@ function DailyAdv(props) {
                 const params = new URLSearchParams();
                 params.append('expireAt', expireAt);
                 params.append('title', title);
-                dispatch({loading: true});
+                dispatch({
+                  loading: true,
+                });
                 const res = await fileRequest(
                   routes.createDailyAdvs + params.toString(),
                   'post',
@@ -116,7 +124,9 @@ function DailyAdv(props) {
                   'data',
                   state.token,
                 );
-                dispatch({loading: false});
+                dispatch({
+                  loading: false,
+                });
                 if (res != null) {
                   showSuccess();
                   setAdvs([...advs, res]);
@@ -130,7 +140,13 @@ function DailyAdv(props) {
         />
       </CommonWebBox>
       <CommonWebBox header={'موارد افزوده شده'}>
-        <PhoneView style={{...styles.gap100, ...{rowGap: '10px'}}}>
+        <PhoneView
+          style={{
+            ...styles.gap100,
+            ...{
+              rowGap: '10px',
+            },
+          }}>
           {advs &&
             advs.map((e, index) => {
               return (
@@ -141,7 +157,9 @@ function DailyAdv(props) {
                   index={index + 1}
                   key={index}
                   onRemove={async () => {
-                    dispatch({loading: true});
+                    dispatch({
+                      loading: true,
+                    });
                     const res = await generalRequest(
                       routes.removeDailyAdvs + e.id,
                       'delete',
@@ -149,7 +167,9 @@ function DailyAdv(props) {
                       undefined,
                       state.token,
                     );
-                    dispatch({loading: false});
+                    dispatch({
+                      loading: false,
+                    });
                     if (res !== null) {
                       setAdvs(advs.filter(itr => e.id !== itr.id));
                       showSuccess();
@@ -163,5 +183,4 @@ function DailyAdv(props) {
     </>
   );
 }
-
 export default DailyAdv;

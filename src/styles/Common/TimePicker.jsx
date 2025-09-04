@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
-import {EqualTwoTextInputs, MyView} from '../Common';
+import {EqualTwoTextInputs, MyView} from '../CommonComponents';
 import {
   calcInputWidth,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
-} from './CommonText';
-import SubInputText from './SubInputText';
-
+} from './commonText';
+import SubInputText from './subInputText';
 function TimePicker(props) {
   const [value, setValue] = useState(
     props.value !== undefined ? props.value : '',
   );
-
   const style1 = CommonTextInputStyleWeb;
-
   const allStyle = {
     ...style1,
     ...{
@@ -25,33 +22,26 @@ function TimePicker(props) {
       direction: 'ltr',
     },
   };
-
   if (props.disable !== undefined && props.disable) {
     if (props.backgroundColor === undefined)
       allStyle.backgroundColor = '#d1d1d1';
     else allStyle.backgroundColor = props.backgroundColor;
   }
-
   const inputProps = {
     placeholder: props.placeholder,
     onChangeText: e => {
       let v = e.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
       v = v.replace(/[^0-9]/g, '');
-
       if (v.length >= 2) v = v.slice(0, 2) + ':' + v.slice(2);
-
       setValue(v);
       props.onChangeText(v);
     },
     style: allStyle,
     editable: !props.disable,
   };
-
   if (value !== undefined) inputProps.value = value;
-
   inputProps.onKeyPress = e => {
     var charCode = e.which ? e.which : e.keyCode;
-
     if (
       charCode == 9 ||
       charCode == 8 ||
@@ -65,17 +55,14 @@ function TimePicker(props) {
       }
       return;
     }
-
     if (value.length === 5) {
       e.preventDefault();
       return;
     }
-
     if (charCode >= 96 && charCode <= 105) {
       // Numpad keys
       charCode -= 48;
     }
-
     if (value.length < 1) {
       if (
         charCode !== 96 &&
@@ -147,18 +134,12 @@ function TimePicker(props) {
       e.preventDefault();
       return;
     }
-
     let v = value + String.fromCharCode(charCode);
-
     for (let i = v.length; i < 5; i++) v += '0';
-
     if (v.indexOf(':') === -1) v = v.slice(0, 2) + ':' + v.slice(2);
-
     if (!v.match(/([01][01]?[0-9]|2[0-3]):[0-5][0-9]/g)) e.preventDefault();
   };
-
   inputProps.keyboardType = 'numeric';
-
   let parentAllStyles = false
     ? {
         paddingLeft: 0,
@@ -166,13 +147,18 @@ function TimePicker(props) {
         paddingTop: 5,
         paddingBottom: 0,
       }
-    : {paddingLeft: 0, paddingRight: 0, paddingTop: 5, paddingBottom: 0};
-
+    : {
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 5,
+        paddingBottom: 0,
+      };
   if (props.parentStyle !== undefined)
-    parentAllStyles = {...parentAllStyles, ...props.parentStyle};
-
+    parentAllStyles = {
+      ...parentAllStyles,
+      ...props.parentStyle,
+    };
   parentAllStyles = calcInputWidth(15, false, parentAllStyles);
-
   return (
     <MyView style={parentAllStyles}>
       <CommonTextInputElem {...inputProps} />
@@ -184,5 +170,4 @@ function TimePicker(props) {
     </MyView>
   );
 }
-
 export default TimePicker;

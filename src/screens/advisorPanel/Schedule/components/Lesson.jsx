@@ -1,41 +1,29 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {convertSecToMinWithOutSec} from '../../../../services/Utility';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
+import {convertSecToMinWithOutSec} from '../../../../services/utility';
+import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
 import {
   advisorScheduleContext,
   dispatchAdvisorScheduleContext,
 } from './Context';
-import {lessonsInSchedule} from './Utility';
-
+import {lessonsInSchedule} from './utility';
 function Lesson(props) {
   const [boxes, setBoxes] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   const useGlobalState = () => [
     React.useContext(advisorScheduleContext),
     React.useContext(dispatchAdvisorScheduleContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     setBoxes(props.boxes);
   }, [props.boxes]);
-
   const fetchData = React.useCallback(() => {
     if (isWorking || state.selectedSchedule.lessonsStats !== undefined) return;
-
     props.setLoading(true);
     setIsWorking(true);
-
     Promise.all([
       lessonsInSchedule(
         props.token,
@@ -48,15 +36,13 @@ function Lesson(props) {
         props.setMode('list');
         return;
       }
-
       state.selectedSchedule.lessonsStats = res[0];
-
-      dispatch({selectedSchedule: state.selectedSchedule});
-
+      dispatch({
+        selectedSchedule: state.selectedSchedule,
+      });
       setIsWorking(false);
     });
   }, [state.selectedSchedule, dispatch, props, isWorking]);
-
   React.useEffect(() => {
     if (
       state.selectedSchedule === undefined ||
@@ -65,7 +51,6 @@ function Lesson(props) {
       return;
     fetchData();
   }, [state.selectedSchedule, fetchData]);
-
   return (
     <CommonWebBox
       header={
@@ -78,7 +63,12 @@ function Lesson(props) {
           return (
             <PhoneView
               key={index}
-              style={{...styles.gap15, ...{flexWrap: 'nowrap'}}}>
+              style={{
+                ...styles.gap15,
+                ...{
+                  flexWrap: 'nowrap',
+                },
+              }}>
               <MyView
                 style={{
                   backgroundColor: vars.DARK_BLUE,
@@ -91,21 +81,32 @@ function Lesson(props) {
                 }}>
                 <SimpleText
                   text={e.lesson}
-                  style={{fontSize: 18, color: 'white'}}
+                  style={{
+                    fontSize: 18,
+                    color: 'white',
+                  }}
                 />
                 <SimpleText
                   text={
                     'مدت برنامه ریزی شده: ' +
                     convertSecToMinWithOutSec(e.stats.total * 60)
                   }
-                  style={{fontSize: 12, color: 'white', maxWidth: 130}}
+                  style={{
+                    fontSize: 12,
+                    color: 'white',
+                    maxWidth: 130,
+                  }}
                 />
                 <SimpleText
                   text={
                     'مدت انجام شده: ' +
                     convertSecToMinWithOutSec(e.stats.done * 60)
                   }
-                  style={{fontSize: 12, color: 'white', maxWidth: 130}}
+                  style={{
+                    fontSize: 12,
+                    color: 'white',
+                    maxWidth: 130,
+                  }}
                 />
               </MyView>
               <View
@@ -131,21 +132,32 @@ function Lesson(props) {
                       }}>
                       <SimpleText
                         text={itr.tag}
-                        style={{fontSize: 14, color: 'white'}}
+                        style={{
+                          fontSize: 14,
+                          color: 'white',
+                        }}
                       />
                       <SimpleText
                         text={
                           'مدت برنامه ریزی شده: ' +
                           convertSecToMinWithOutSec(itr.stats.total * 60)
                         }
-                        style={{fontSize: 12, color: 'white', maxWidth: 130}}
+                        style={{
+                          fontSize: 12,
+                          color: 'white',
+                          maxWidth: 130,
+                        }}
                       />
                       <SimpleText
                         text={
                           'مدت انجام شده: ' +
                           convertSecToMinWithOutSec(itr.stats.done * 60)
                         }
-                        style={{fontSize: 12, color: 'white', maxWidth: 130}}
+                        style={{
+                          fontSize: 12,
+                          color: 'white',
+                          maxWidth: 130,
+                        }}
                       />
 
                       {itr.stats.additionalLabel !== undefined && (
@@ -155,7 +167,11 @@ function Lesson(props) {
                             ' تعریف شده : ' +
                             itr.stats.additionalTotal
                           }
-                          style={{fontSize: 12, color: 'white', maxWidth: 130}}
+                          style={{
+                            fontSize: 12,
+                            color: 'white',
+                            maxWidth: 130,
+                          }}
                         />
                       )}
 
@@ -166,7 +182,11 @@ function Lesson(props) {
                             ' انجام شده : ' +
                             itr.stats.additionalDone
                           }
-                          style={{fontSize: 12, color: 'white', maxWidth: 130}}
+                          style={{
+                            fontSize: 12,
+                            color: 'white',
+                            maxWidth: 130,
+                          }}
                         />
                       )}
                     </MyView>
@@ -179,5 +199,4 @@ function Lesson(props) {
     </CommonWebBox>
   );
 }
-
 export default Lesson;

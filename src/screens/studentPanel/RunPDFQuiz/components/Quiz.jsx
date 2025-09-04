@@ -1,30 +1,20 @@
 import React from 'react';
-import {getDevice, getWidthHeight} from '../../../../services/Utility';
-import {
-  CommonButton,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
+import {getDevice, getWidthHeight} from '../../../../services/utility';
+import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
+import {LargePopUp} from '../../../../styles/common/PopUp';
 import {dispatchDoQuizContext, doQuizContext} from './Context';
 import AnswerSheet from './AnswerSheet';
-import vars from '../../../../styles/root';
-
+import vars from '@/styles/root';
 function Quiz(props) {
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [w, h] = getWidthHeight();
-
   const [hasRightSection, setHasRightSection] = React.useState(true);
-
   React.useEffect(() => {
     setHasRightSection(
       !(
@@ -35,19 +25,25 @@ function Quiz(props) {
       ),
     );
   }, [state.quizInfo, props.isInReviewMode]);
-
   return (
     <>
       {state.showExitConfirmation && (
         <LargePopUp
           toggleShowPopUp={() =>
-            dispatch({showExitConfirmation: false, exit: false})
+            dispatch({
+              showExitConfirmation: false,
+              exit: false,
+            })
           }
           btns={
             <CommonButton
               title={'بله'}
               theme={'dark'}
-              onPress={() => dispatch({imSureExit: true})}
+              onPress={() =>
+                dispatch({
+                  imSureExit: true,
+                })
+              }
             />
           }>
           <SimpleText
@@ -58,7 +54,11 @@ function Quiz(props) {
         </LargePopUp>
       )}
       {!state.showExitConfirmation && state.file && (
-        <PhoneView style={{margin: 10, gap: 10}}>
+        <PhoneView
+          style={{
+            margin: 10,
+            gap: 10,
+          }}>
           <MyView
             style={{
               display:
@@ -85,7 +85,7 @@ function Quiz(props) {
                 Alternative text - include a link{' '}
                 <a href={state.file}>to the PDF!</a>
               </p>
-            </object> */}
+             </object> */}
           </MyView>
           <MyView
             style={{
@@ -112,5 +112,4 @@ function Quiz(props) {
     </>
   );
 }
-
 export default Quiz;

@@ -1,11 +1,10 @@
-import {routes} from '../../../../API/APIRoutes';
-import {fetchUser, removeAuthCache, setCacheItem} from '../../../../API/User';
-import {generalRequest} from '../../../../API/Utility';
-import {Device} from '../../../../models/Device';
-import {getDevice, showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../translator/Common';
+import {routes} from '@/api/apiRoutes';
+import {fetchUser, removeAuthCache, setCacheItem} from '../../../../api/user';
+import {generalRequest} from '@/api/utility';
+import {Device} from '../../../../models/device';
+import {getDevice, showSuccess} from '../../../../services/utility';
+import commonTranslator from '@/translator/common';
 import translator from '../translate';
-
 const changePassMandatoryFields = ['oldPass', 'newPass', 'confirmNewPass'];
 const changeUsernameMandatoryFields = ['username', 'mode'];
 const changeInfoMandatoryFields = [
@@ -15,7 +14,6 @@ const changeInfoMandatoryFields = [
   'NID',
   'sex',
 ];
-
 export const changePass = async (
   setLoading,
   token,
@@ -26,7 +24,6 @@ export const changePass = async (
   rpass,
 ) => {
   setLoading(true);
-
   const res = await generalRequest(
     userId !== undefined ? routes.changePass + userId : routes.changePass,
     'post',
@@ -39,9 +36,7 @@ export const changePass = async (
     token,
     changePassMandatoryFields,
   );
-
   setLoading(false);
-
   if (res) {
     if (userId === undefined) {
       showSuccess(translator.changePassSuccessfully);
@@ -53,7 +48,6 @@ export const changePass = async (
     } else showSuccess(commonTranslator.success);
   }
 };
-
 export const changeUsername = async (
   setLoading,
   token,
@@ -62,7 +56,6 @@ export const changeUsername = async (
   newUsername,
 ) => {
   setLoading(true);
-
   const res = await generalRequest(
     userId !== undefined
       ? routes.updateUsername + userId
@@ -76,11 +69,9 @@ export const changeUsername = async (
     token,
     changeUsernameMandatoryFields,
   );
-
   setLoading(false);
   return res;
 };
-
 export const fetchAvatars = async (setLoading, token) => {
   setLoading(true);
   const res = await generalRequest(
@@ -93,7 +84,6 @@ export const fetchAvatars = async (setLoading, token) => {
   setLoading(false);
   return res;
 };
-
 export const updateUserPic = async (
   newFilename,
   isAdmin,
@@ -109,7 +99,6 @@ export const updateUserPic = async (
   await setCacheItem('user', JSON.stringify(newUserModel));
   setUser(newUserModel);
 };
-
 export const getPreRequirements = async () => {
   return Promise.all([
     generalRequest(routes.fetchState, 'get', undefined, 'data'),
@@ -120,10 +109,8 @@ export const getPreRequirements = async () => {
     return res;
   });
 };
-
 export const updateInfo = async (setLoading, token, userId, data) => {
   setLoading(true);
-
   try {
     const res = await generalRequest(
       userId !== undefined ? routes.updateInfo + userId : routes.updateInfo,
@@ -133,7 +120,6 @@ export const updateInfo = async (setLoading, token, userId, data) => {
       token,
       changeInfoMandatoryFields,
     );
-
     if (res !== null) {
       if (userId === undefined) {
         setCacheItem('user', undefined);
@@ -150,7 +136,6 @@ export const updateInfo = async (setLoading, token, userId, data) => {
     setLoading(false);
   }
 };
-
 export const updateForm = async (token, userId, data) => {
   return await generalRequest(
     userId !== undefined ? routes.sendRoleForm + userId : routes.sendRoleForm,

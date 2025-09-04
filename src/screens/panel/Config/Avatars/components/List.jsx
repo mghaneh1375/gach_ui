@@ -1,8 +1,7 @@
 import React from 'react';
-import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
-import Show from './Show/Show';
-import translator from '../Translator';
-
+import {CommonWebBox, MyView, PhoneView} from '@/styles';
+import Show from './show/Show';
+import translator from '../translator';
 function List(props) {
   const setDefaultAvatar = avatarId => {
     const allAvatars = props.avatars.map(elem => {
@@ -15,7 +14,6 @@ function List(props) {
     const allAvatars = props.avatars.filter(elem => {
       return elem.id !== avatarId;
     });
-
     props.setAvatars(allAvatars);
   };
   return (
@@ -24,7 +22,10 @@ function List(props) {
         header={translator.avatars}
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
-        <PhoneView style={{gap: 30}}>
+        <PhoneView
+          style={{
+            gap: 30,
+          }}>
           {props.avatars !== undefined &&
             props.avatars.map((elem, index) => {
               return (
@@ -45,5 +46,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

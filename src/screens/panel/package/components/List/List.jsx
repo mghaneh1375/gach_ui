@@ -1,8 +1,7 @@
 import React from 'react';
-import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
+import {CommonWebBox, PhoneView, MyView} from '@/styles';
 import Card from '../../card/Card';
-import commonTranslator from '../../../../../translator/Common';
-
+import commonTranslator from '@/translator/common';
 function List(props) {
   return (
     <CommonWebBox
@@ -10,7 +9,11 @@ function List(props) {
       addBtn={true}
       onAddClick={() => props.setMode('create')}>
       <MyView>
-        <PhoneView style={{gap: 15, paddingRight: 5}}>
+        <PhoneView
+          style={{
+            gap: 15,
+            paddingRight: 5,
+          }}>
           {props.packages !== undefined &&
             props.packages.map((package_, index) => {
               return (
@@ -32,5 +35,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

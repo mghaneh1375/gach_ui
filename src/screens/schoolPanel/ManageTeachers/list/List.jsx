@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import columns from '../../ManageTeachers/list/TableStructure';
-import Ops from '../list/Ops/Ops';
-import Translate from '../Translate';
-
+import {CommonWebBox, MyView} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import columns from '../../manageTeachers/list/tableStructure';
+import Ops from '../list/ops/Ops';
+import Translate from '../translate';
 function List(props) {
   const [selectedId, setSelectedId] = useState();
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -69,9 +68,8 @@ function List(props) {
           text={'توضیحات '}
         />
         <MiniCard />
-      </PhoneView> */}
+       </PhoneView> */}
     </MyView>
   );
 }
-
 export default List;

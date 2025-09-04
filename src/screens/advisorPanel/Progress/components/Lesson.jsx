@@ -5,7 +5,7 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
+} from '@/styles';
 import {
   VictoryLine,
   VictoryTheme,
@@ -13,17 +13,14 @@ import {
   VictoryAxis,
 } from 'victory-native';
 import Tag from './Tag';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
 function Lesson(props) {
   const [selectedTagReport, setSelectedTagReport] = useState();
   const [tagReports, setTagReports] = useState();
-
   React.useEffect(() => {
     if (props.data?.tags === undefined) return;
-
     setTagReports(
       props.data?.tags.map(e => {
         return {
@@ -33,13 +30,16 @@ function Lesson(props) {
       }),
     );
   }, [props.data?.tags]);
-
   return (
     <CommonWebBox header={props.data.lesson}>
       <EqualTwoTextInputs>
         <MyView>
           <PhoneView
-            style={{gap: 5, padding: 7, backgroundColor: vars.DARK_BLUE}}>
+            style={{
+              gap: 5,
+              padding: 7,
+              backgroundColor: vars.DARK_BLUE,
+            }}>
             <SimpleText
               text={'تاریخ'}
               style={{
@@ -49,11 +49,17 @@ function Lesson(props) {
               }}
             />
             <SimpleText
-              style={{color: 'white', width: props.isInPhone ? 100 : 150}}
+              style={{
+                color: 'white',
+                width: props.isInPhone ? 100 : 150,
+              }}
               text={'زمان تعریف شده (دقیقه)'}
             />
             <SimpleText
-              style={{color: 'white', width: props.isInPhone ? 100 : 150}}
+              style={{
+                color: 'white',
+                width: props.isInPhone ? 100 : 150,
+              }}
               text={'زمان انجام شده (دقیقه)'}
             />
           </PhoneView>
@@ -94,7 +100,10 @@ function Lesson(props) {
             );
           })}
         </MyView>
-        <MyView style={{width: props.isInPhone ? '100%' : 500}}>
+        <MyView
+          style={{
+            width: props.isInPhone ? '100%' : 500,
+          }}>
           <VictoryChart height={300} width={350} theme={VictoryTheme.material}>
             <VictoryLine
               categories={{
@@ -169,9 +178,13 @@ function Lesson(props) {
       </EqualTwoTextInputs>
 
       <MyView
-        style={{marginBottom: selectedTagReport === undefined ? 200 : 10}}>
+        style={{
+          marginBottom: selectedTagReport === undefined ? 200 : 10,
+        }}>
         <SimpleText
-          style={{...styles.BlueBold}}
+          style={{
+            ...styles.BlueBold,
+          }}
           text={'آمار بر اساس تگ\u200cها'}
         />
         {tagReports !== undefined && (
@@ -201,5 +214,4 @@ function Lesson(props) {
     </CommonWebBox>
   );
 }
-
 export default Lesson;

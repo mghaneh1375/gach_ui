@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-
 import {
   faArrowLeft,
   faListNumeric,
@@ -8,10 +7,9 @@ import {
   faTasks,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-
 import RenderHTML from 'react-native-render-html';
 import {dispatchDoCorrectContext, doCorrectContext} from './Context';
-import {getDevice, systemFonts, tagsStyles} from '../../../../services/Utility';
+import {getDevice, systemFonts, tagsStyles} from '../../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -19,43 +17,36 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
+} from '@/styles';
 import {
   basketBox,
   basketBoxInPhone,
   styleTitle,
   styleYellowBox,
-} from '../../../panel/package/card/Style';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
-import {styles} from '../../../../styles/Common/Styles';
+} from '../../../panel/package/card/style';
+import {FontIcon} from '../../../../styles/common/FontIcon';
+import {styles} from '../../../../styles/common/styles';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
-import vars from '../../../../styles/root';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
-import commonTranslator from '../../../../translator/Common';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
+import vars from '@/styles/root';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import commonTranslator from '@/translator/common';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
-
 function Splash(props) {
   const useGlobalState = () => [
     React.useContext(doCorrectContext),
     React.useContext(dispatchDoCorrectContext),
   ];
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState(false);
-
   const params = useParams();
-
   const redirect = React.useCallback(() => {
     props.navigate('/');
   }, [props]);
-
   React.useEffect(() => {
     if (
       params.generalQuizMode === undefined ||
@@ -66,13 +57,10 @@ function Splash(props) {
       redirect();
     }
   }, [params, redirect]);
-
   const fetchData = React.useCallback(() => {
     if (isWorking || state.questions !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         props.isCorrector
@@ -101,7 +89,6 @@ function Splash(props) {
         props.navigate('/');
         return;
       }
-
       if (params.mode === 'student') {
         if (props.isCorrector)
           dispatch({
@@ -127,18 +114,23 @@ function Splash(props) {
       setIsWorking(false);
     });
   }, [params, props, dispatch, isWorking, state.questions]);
-
   useEffectOnce(() => {
     fetchData();
   }, [fetchData]);
-
   return (
     <MyView>
       {state.quizInfo !== undefined && (
         <MyView>
           <CommonWebBox>
             <EqualTwoTextInputs>
-              <PhoneView style={isInPhone ? {width: '90%'} : {}}>
+              <PhoneView
+                style={
+                  isInPhone
+                    ? {
+                        width: '90%',
+                      }
+                    : {}
+                }>
                 <MyView
                   style={{
                     ...styleYellowBox,
@@ -155,7 +147,10 @@ function Splash(props) {
                 </MyView>
               </PhoneView>
               {!isInPhone && (
-                <PhoneView style={{marginTop: -10}}>
+                <PhoneView
+                  style={{
+                    marginTop: -10,
+                  }}>
                   <FontIcon
                     kind={'normal'}
                     theme={'rect'}
@@ -172,7 +167,15 @@ function Splash(props) {
               )}
             </EqualTwoTextInputs>
             <PhoneView
-              style={isInPhone ? {...styles.gap15} : {...styles.gap100}}>
+              style={
+                isInPhone
+                  ? {
+                      ...styles.gap15,
+                    }
+                  : {
+                      ...styles.gap100,
+                    }
+              }>
               {params.mode === 'student' && (
                 <QuizItemCard
                   icon={faMessage}
@@ -319,7 +322,11 @@ function Splash(props) {
                 padding={isInPhone ? '5px 5px' : undefined}
                 textStyle={
                   isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    ? {
+                        fontSize: 14,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                      }
                     : {}
                 }
                 onPress={props.onBack}
@@ -331,7 +338,11 @@ function Splash(props) {
                 padding={isInPhone ? '5px 5px' : undefined}
                 textStyle={
                   isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    ? {
+                        fontSize: 14,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                      }
                     : {}
                 }
                 title={props.isCorrector ? 'تصحیح آزمون' : 'مشاهده پاسخبرگ'}
@@ -344,5 +355,4 @@ function Splash(props) {
     </MyView>
   );
 }
-
 export default Splash;

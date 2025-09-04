@@ -1,26 +1,24 @@
 import React, {useState} from 'react';
-import {showError} from '../../../../../services/Utility';
+import {showError} from '../../../../../services/utility';
 import {
   BigBoldBlueText,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
-import commonTranslator from '../../../../../translator/Common';
+  FontIcon,
+} from '@/styles';
+import commonTranslator from '@/translator/common';
 import {dispatchPackagesContext, packagesContext} from '../Context';
 import OffCode from '../OffCode';
 import Quizzes from './Quizzes';
-
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import {styles} from '../../../../../styles/Common/Styles';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import {styles} from '@/styles/common/styles';
 import BuyBasket from '../BuyBasket';
-import columns from './../../../../schoolPanel/ManageStudents/list/TableStructure';
+import columns from '../../../../schoolPanel/manageStudents/list/tableStructure';
 import StudentList from './MyStudenstList';
-
 function SchoolList(props) {
   const [price, setPrice] = useState(0);
   const [off, setOff] = useState(0);
@@ -31,7 +29,6 @@ function SchoolList(props) {
   const [quizzesTotalPrice, setQuizzesTotalPrice] = useState(0);
   const [offs, setOffs] = useState([]);
   const [userOff, setUserOff] = useState();
-
   const useGlobalState = () => [
     React.useContext(packagesContext),
     React.useContext(dispatchPackagesContext),
@@ -42,13 +39,11 @@ function SchoolList(props) {
   );
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
-
   const calc = React.useCallback(() => {
     let off = 0;
     let totalPrice = 0;
     let totalQuizzes = 0;
     let quizzesTotalPriceTmp = 0;
-
     if (
       state.selectedStudents !== undefined &&
       state.selectedStudents.length > 0 &&
@@ -62,9 +57,7 @@ function SchoolList(props) {
         totalPrice += quiz.price * state.selectedStudents.length;
       });
     }
-
     const allOffs = [];
-
     if (
       props.package.offPercent > 0 &&
       props.package.minSelect <= totalQuizzes &&
@@ -73,15 +66,12 @@ function SchoolList(props) {
       off += (totalPrice * props.package.offPercent) / 100;
       allOffs.push(props.package.offPercent + ' % بابت بسته آزمونی');
     }
-
     let shouldPayTmp = totalPrice - off;
-
     if (state.groupRegistrationOff > 0 && shouldPayTmp > 0) {
       off += (shouldPayTmp * state.groupRegistrationOff) / 100;
       allOffs.push(state.groupRegistrationOff + ' % بابت ثبت نام دست جمعی');
       shouldPayTmp = totalPrice - off;
     }
-
     if (shouldPayTmp > 0 && userOff !== undefined) {
       if (userOff.type === 'percent') {
         off += (shouldPayTmp * userOff.amount) / 100.0;
@@ -91,14 +81,11 @@ function SchoolList(props) {
         allOffs.push(userOff.amount + ' تومان بابت کد تخفیف');
       }
     }
-
     shouldPayTmp = totalPrice - off;
-
     if (shouldPayTmp > 0) {
       setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
       shouldPayTmp -= userMoney;
     } else setUsedFromWallet(0);
-
     setQuizzesTotalPrice(quizzesTotalPriceTmp);
     setOffs(allOffs);
     setOff(Math.min(off, totalPrice));
@@ -112,7 +99,6 @@ function SchoolList(props) {
     props.package,
     userMoney,
   ]);
-
   React.useEffect(() => {
     setQuizzes(
       props.package.quizzesDoc.map(elem => {
@@ -121,11 +107,9 @@ function SchoolList(props) {
       }),
     );
   }, [props.package]);
-
   React.useEffect(() => {
     setUserOff(state.off);
   }, [state.off]);
-
   const toggleShowOffCodePane = () => {
     if (
       !showOffCodePane &&
@@ -136,11 +120,13 @@ function SchoolList(props) {
     }
     setShowOffCodePane(!showOffCodePane);
   };
-
   const setOffCodeResult = (amount, type, code) => {
-    setUserOff({type: type, amount: amount, code: code});
+    setUserOff({
+      type: type,
+      amount: amount,
+      code: code,
+    });
   };
-
   React.useEffect(() => {
     if (
       state.wantedQuizzes === undefined &&
@@ -149,7 +135,6 @@ function SchoolList(props) {
       return;
     calc();
   }, [state.wantedQuizzes, state.selectedStudents, userOff, calc]);
-
   return (
     <MyView>
       {showOffCodePane && (
@@ -252,8 +237,15 @@ function SchoolList(props) {
             />
           </Quizzes>
 
-          <CommonWebBox style={{marginTop: 20, marginBottom: 100}}>
-            <PhoneView style={{gap: 20}}>
+          <CommonWebBox
+            style={{
+              marginTop: 20,
+              marginBottom: 100,
+            }}>
+            <PhoneView
+              style={{
+                gap: 20,
+              }}>
               <SimpleText text="لیست دانش آموزان" />
               <FontIcon
                 onPress={() => setShowStudenListPane(true)}
@@ -281,7 +273,9 @@ function SchoolList(props) {
                     const tmp = data.filter(elem => {
                       return res.find(e => e.id === elem.id) === undefined;
                     });
-                    dispatch({selectedStudents: tmp});
+                    dispatch({
+                      selectedStudents: tmp,
+                    });
                   },
                 },
               ]}
@@ -292,5 +286,4 @@ function SchoolList(props) {
     </MyView>
   );
 }
-
 export default SchoolList;

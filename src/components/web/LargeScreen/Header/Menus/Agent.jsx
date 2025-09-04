@@ -1,17 +1,15 @@
 import React from 'react';
-import {Device} from '../../../../../models/Device';
-import {getDevice} from '../../../../../services/Utility';
-import {MenuItem, style, MenuItemPhone} from '../style';
-import translator from '../../../../../translator/Common';
+import {Device} from '../../../../../models/device';
+import {getDevice} from '@/services/utility';
+import {MenuItem, style, MenuItemPhone} from '../Style';
+import translator from '../../../../../translator/common';
 import {faUsers} from '@fortawesome/free-solid-svg-icons';
-import {MyView} from '../../../../../styles/Common';
+import {MyView} from '@/styles';
 import MenuItemRepeat from './MenuItemRepeat';
-
 function Agent(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
   const navigate = props.navigate;
-
   if (isLargePage) {
     return (
       <MenuItemRepeat
@@ -29,7 +27,6 @@ function Agent(props) {
       />
     );
   }
-
   return (
     <MyView
       style={{
@@ -47,5 +44,4 @@ function Agent(props) {
     </MyView>
   );
 }
-
 export default Agent;

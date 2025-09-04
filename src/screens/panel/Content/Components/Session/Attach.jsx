@@ -7,34 +7,30 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
-import Translator from '../../Translate';
+} from '@/styles';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import AttachBox from '../../../ticket/components/show/attachBox/AttachBox';
+import Translator from '../../translate';
 import {contentContext, dispatchContentContext} from '../Context';
-import {removeSessionFile, setSessionFile} from '../Utility';
+import {removeSessionFile, setSessionFile} from '../utility';
 import React from 'react';
-import {styles} from '../../../../../styles/Common/Styles';
-import commonTranslator from '../../../../../translator/Common';
-
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
 function Attach(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),
     React.useContext(dispatchContentContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [openFileSelector, {filesContent, remove}] = useFilePicker({
     maxFileSize: 8,
     accept: ['image/*', '.pdf', '.docx', '.ppt', '.pptx', 'video/*', '.zip'],
     readAs: 'DataURL',
     multiple: true,
   });
-
   const removeUploadedAttach = async filename => {
     props.setLoading(true);
     const splited_filename = filename.split('/');
-
     const res = await removeSessionFile(
       props.token,
       state.selectedContent.id,
@@ -44,24 +40,30 @@ function Attach(props) {
     );
     props.setLoading(false);
     if (res === null) return;
-
     const attaches = state.selectedSession.attaches.filter(elem => {
       return elem !== filename;
     });
-
     state.selectedSession.attaches = attaches;
-    dispatch({selectedSession: state.selectedSession, needUpdateSession: true});
+    dispatch({
+      selectedSession: state.selectedSession,
+      needUpdateSession: true,
+    });
   };
-
   return (
     <CommonWebBox
       header={''}
       backBtn={true}
       onBackClick={() => props.setMode('sessions')}>
       <MyView>
-        <PhoneView style={{...styles.gap15}}>
+        <PhoneView
+          style={{
+            ...styles.gap15,
+          }}>
           <SimpleText
-            style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+            style={{
+              ...styles.alignSelfCenter,
+              ...styles.BlueBold,
+            }}
             text={Translator.attaches}
           />
           <SimpleFontIcon
@@ -70,7 +72,10 @@ function Attach(props) {
             icon={faPaperclip}
           />
 
-          <PhoneView style={{marginTop: 20}}>
+          <PhoneView
+            style={{
+              marginTop: 20,
+            }}>
             {state.selectedSession !== undefined &&
               state.selectedSession.attaches !== undefined &&
               state.selectedSession.attaches.length > 0 &&
@@ -111,10 +116,8 @@ function Attach(props) {
             onPress={async () => {
               const session = state.selectedSession;
               let all_attaches = session.attaches;
-
               if (filesContent.length > 0) {
                 props.setLoading(true);
-
                 for (let i = 0; i < filesContent.length; i++) {
                   const fileRes = await setSessionFile(
                     props.token,
@@ -127,23 +130,18 @@ function Attach(props) {
                     all_attaches.push(fileRes);
                   }
                 }
-
                 props.setLoading(false);
                 session.attaches = all_attaches;
               }
-
               const sessions = state.selectedContent.sessions.map(elem => {
                 if (elem.id === session.id) return session;
                 return elem;
               });
-
               state.selectedContent.sessions = sessions;
-
               dispatch({
                 selectedContent: state.selectedContent,
                 needUpdate: true,
               });
-
               props.setMode('sessions');
             }}
             title={commonTranslator.confirm}
@@ -154,5 +152,4 @@ function Attach(props) {
     </CommonWebBox>
   );
 }
-
 export default Attach;

@@ -1,30 +1,14 @@
-import {faTrash} from '@fortawesome/free-solid-svg-icons';
-import React, {useState} from 'react';
-import {Pressable} from 'react-native';
-import {changeText} from '../../../services/Utility';
 import {
   BigBoldBlueTextInline,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import commonTranslator from '../../../translator/Common';
-import SymbolsFace from './SymbolsFace';
-import Translate from './Translate';
-
+import commonTranslator from '../../../translator/common';
 function MakeQuizBox(props) {
-  const [count, setCount] = useState();
-  const [numberOfQuiz, setNumberOfQuiz] = useState();
-  const [detail, setDetail] = useState();
-  const ToggleDetail = () => {
-    setDetail(!detail);
-  };
-
   return (
     <MyView
       style={{
@@ -63,7 +47,10 @@ function MakeQuizBox(props) {
             />
           </PhoneView>
           <EqualTwoTextInputs
-            style={{marginRight: 40, width: 'calc(100% - 40px)'}}>
+            style={{
+              marginRight: 40,
+              width: 'calc(100% - 40px)',
+            }}>
             <BigBoldBlueTextInline
               style={{
                 color: props.color !== undefined ? props.color : vars.DARK_BLUE,
@@ -97,7 +84,7 @@ function MakeQuizBox(props) {
         </PhoneView>
       )}
       {/* </Pressable> */}
-      {detail && (
+      {/* {detail && (
         <MyView
           style={{
             ...styles.width100,
@@ -121,23 +108,38 @@ function MakeQuizBox(props) {
               value={count}
               justNum={true}
             />
-            <Pressable style={{...styles.alignSelfCenter}}>
+            <Pressable
+              style={{
+                ...styles.alignSelfCenter,
+              }}>
               <PhoneView>
                 <SimpleText
-                  style={{...styles.colorOrangeRed, ...styles.alignSelfCenter}}
+                  style={{
+                    ...styles.colorOrangeRed,
+                    ...styles.alignSelfCenter,
+                  }}
                   text={commonTranslator.delete}
                 />
                 <SimpleFontIcon
                   kind={'normal'}
                   icon={faTrash}
-                  style={{...styles.colorOrangeRed}}
+                  style={{
+                    ...styles.colorOrangeRed,
+                  }}
                 />
               </PhoneView>
             </Pressable>
           </EqualTwoTextInputs>
-          <PhoneView style={{...styles.gap15, ...styles.marginTop20}}>
+          <PhoneView
+            style={{
+              ...styles.gap15,
+              ...styles.marginTop20,
+            }}>
             <SimpleText
-              style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+              style={{
+                ...styles.BlueBold,
+                ...styles.alignSelfCenter,
+              }}
               text={Translate.transBack}
             />
             <JustBottomBorderTextInput
@@ -150,9 +152,8 @@ function MakeQuizBox(props) {
             />
           </PhoneView>
         </MyView>
-      )}
+      )} */}
     </MyView>
   );
 }
-
 export default MakeQuizBox;

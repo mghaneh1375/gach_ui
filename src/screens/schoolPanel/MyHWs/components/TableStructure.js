@@ -1,5 +1,4 @@
-import {convertTimestamp} from '../../../../services/Utility';
-
+import {convertTimestamp} from '../../../../services/utility';
 const columns = [
   {
     name: 'نام آزمون',
@@ -57,5 +56,4 @@ const columns = [
     center: true,
   },
 ];
-
 export default columns;

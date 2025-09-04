@@ -1,7 +1,6 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-import {showSuccess} from '../../../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
+import {showSuccess} from '@/services/utility';
 export const fetchData = async token => {
   return await generalRequest(
     routes.fetchAllTarazLevels,
@@ -11,7 +10,6 @@ export const fetchData = async token => {
     token,
   );
 };
-
 export const create = async (data, token) => {
   const res = await generalRequest(
     routes.createTarazLevel,
@@ -20,12 +18,9 @@ export const create = async (data, token) => {
     'id',
     token,
   );
-
   if (res !== null) showSuccess();
-
   return res;
 };
-
 export const update = async (id, data, token) => {
   const res = await generalRequest(
     routes.updateTarazLevel + id,
@@ -34,8 +29,6 @@ export const update = async (id, data, token) => {
     undefined,
     token,
   );
-
   if (res !== null) showSuccess();
-
   return res;
 };

@@ -1,25 +1,16 @@
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {
-  EqualTwoTextInputs,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
-import commonTranslator from '../../../../translator/Common';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
-import Translate from '../Translate';
+import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import Translate from '../translate';
 import {doQuizContext} from './Context';
-
 function PhoneFilter(props) {
   const useGlobalState = () => [React.useContext(doQuizContext)];
-
   const [state] = useGlobalState();
-
   const [mode, setMode] = useState('menu');
-
   return (
     <PhoneView
       style={{
@@ -33,9 +24,19 @@ function PhoneFilter(props) {
         background: mode === 'menu' ? vars.WHITE : 'rgb(112, 112, 112)',
       }}>
       {mode === 'menu' && (
-        <EqualTwoTextInputs style={{width: '100%', height: 60, padding: 10}}>
+        <EqualTwoTextInputs
+          style={{
+            width: '100%',
+            height: 60,
+            padding: 10,
+          }}>
           <SimpleText
-            style={{...styles.BlueBold, ...{alignSelf: 'center'}}}
+            style={{
+              ...styles.BlueBold,
+              ...{
+                alignSelf: 'center',
+              },
+            }}
             text={
               commonTranslator.question +
               ' ' +
@@ -49,7 +50,10 @@ function PhoneFilter(props) {
               state.quizInfo.attaches !== undefined &&
               state.quizInfo.attaches.length > 0 && (
                 <SimpleText
-                  style={{alignSelf: 'center', cursor: 'pointer'}}
+                  style={{
+                    alignSelf: 'center',
+                    cursor: 'pointer',
+                  }}
                   text={'فایل\u200cها'}
                   onPress={() => setMode('attaches')}
                 />
@@ -59,7 +63,12 @@ function PhoneFilter(props) {
       )}
 
       {mode === 'attaches' && (
-        <MyView style={{width: '100%', height: '100%', gap: 5}}>
+        <MyView
+          style={{
+            width: '100%',
+            height: '100%',
+            gap: 5,
+          }}>
           <EqualTwoTextInputs
             style={{
               boxShadow: 'rgb(0 0 0 / 16%) 0px 3px 16px 4px',
@@ -73,9 +82,16 @@ function PhoneFilter(props) {
               background: 'white',
               alignSelf: 'center',
             }}>
-            <SimpleText style={{...styles.BlueBold}} text={'فایل\u200cها'} />
             <SimpleText
-              style={{...styles.cursor_pointer}}
+              style={{
+                ...styles.BlueBold,
+              }}
+              text={'فایل\u200cها'}
+            />
+            <SimpleText
+              style={{
+                ...styles.cursor_pointer,
+              }}
               onPress={() => setMode('menu')}
               text={'بستن'}
             />
@@ -124,5 +140,4 @@ function PhoneFilter(props) {
     </PhoneView>
   );
 }
-
 export default PhoneFilter;

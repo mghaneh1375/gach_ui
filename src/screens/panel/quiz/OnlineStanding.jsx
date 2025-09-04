@@ -1,46 +1,41 @@
 import React, {useState} from 'react';
 import List from './components/List';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import Students from './components/Students/Students';
-import Questions from './components/Questions/Questions';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import Students from './components/students/Students';
+import Questions from './components/questions/Questions';
 import {
   dispatchQuizContext,
   quizContext,
   QuizProvider,
 } from './components/Context';
-import Key from './components/Key/Key';
+import Key from './components/key/Key';
 import {useParams} from 'react-router';
-import {MyView} from '../../../styles/Common';
+import {MyView} from '@/styles';
 import CreateOnlineQuiz from './components/CreateOnlineQuiz';
 import {
   isUserAdmin,
   isUserContentAccess,
   isUserEditorAccess,
-} from '../../../services/Utility';
-
+} from '../../../services/utility';
 const OnlineStanding = props => {
   const [mode, setMode] = useState('karname');
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const params = useParams();
-
   React.useEffect(() => {
     if (props.mode !== undefined) {
       setMode(props.mode);
     } else setMode('list');
   }, [props.mode]);
-
   return (
     <MyView>
       <QuizProvider>
@@ -100,5 +95,4 @@ const OnlineStanding = props => {
     </MyView>
   );
 };
-
 export default OnlineStanding;

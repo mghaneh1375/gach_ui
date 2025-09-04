@@ -1,35 +1,26 @@
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState, useRef, useCallback} from 'react';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import AnswerSheet from '../AnswerSheet/AnswerSheet';
-import {getAnswerSheet} from '../Utility';
+import {FontIcon} from '../../../../../styles/common/FontIcon';
+import AnswerSheet from '../answerSheet/AnswerSheet';
+import {getAnswerSheet} from '../utility';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
-import {
-  CommonButton,
-  EqualTwoTextInputs,
-  MyView,
-} from '../../../../../styles/Common';
-
+import {CommonButton, EqualTwoTextInputs, MyView} from '@/styles';
 function Key(props) {
   const useGlobalState = () => [
     React.useContext(props.stateContext),
     React.useContext(props.dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (isWorking) return;
-
     if (state.selectedQuiz.answer_sheet !== undefined) {
       dispatch({
         wanted_answer_sheet: state.selectedQuiz.answer_sheet,
       });
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
     Promise.all([
@@ -40,7 +31,6 @@ function Key(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] !== null) {
         state.selectedQuiz.answer_sheet = res[0];
         dispatch({
@@ -52,19 +42,16 @@ function Key(props) {
           showStdAnswers: false,
         });
       } else props.setMode('list');
-
       setIsWorking(false);
     });
   }, [props, isWorking, state.selectedQuiz, dispatch]);
-
   const ref = useRef();
-
   const print = useCallback(() => {
     if (ref.current === null) return;
-
     props.setLoading(true);
-
-    toPng(ref.current, {cacheBust: true})
+    toPng(ref.current, {
+      cacheBust: true,
+    })
       .then(async dataUrl => {
         const link = document.createElement('a');
         link.download = 'my-image-name.png';
@@ -80,7 +67,6 @@ function Key(props) {
         console.log(err);
       });
   }, [ref, props]);
-
   return (
     <MyView>
       <EqualTwoTextInputs>
@@ -90,7 +76,11 @@ function Key(props) {
           theme="rect"
           kind="normal"
           icon={faArrowLeft}
-          parentStyle={{alignSelf: 'flex-end', marginLeft: 20, marginTop: 20}}
+          parentStyle={{
+            alignSelf: 'flex-end',
+            marginLeft: 20,
+            marginTop: 20,
+          }}
         />
       </EqualTwoTextInputs>
       <MyView ref={ref}>
@@ -107,5 +97,4 @@ function Key(props) {
     </MyView>
   );
 }
-
 export default Key;

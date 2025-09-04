@@ -4,30 +4,24 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
+} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
 import React from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
-
 import Timer from './Timer';
-
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
-import commonTranslator from '../../../../translator/Common';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
-import {getDevice} from '../../../../services/Utility';
-
+import commonTranslator from '@/translator/common';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import {getDevice} from '../../../../services/utility';
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   if (
     state.quizInfo === undefined ||
     (props.isInReviewMode &&
@@ -35,11 +29,15 @@ function Filter(props) {
         state.quizInfo.attaches.length === 0))
   )
     return <></>;
-
   return (
     <CommonWebBox
-      childStyle={{...styles.padding5}}
-      style={{...styles.padding0, ...styles.marginTop10}}
+      childStyle={{
+        ...styles.padding5,
+      }}
+      style={{
+        ...styles.padding0,
+        ...styles.marginTop10,
+      }}
       width={isInPhone ? '100%' : vars.RIGHT_MENU_WIDTH}>
       {!props.isInReviewMode &&
         state.quizInfo.duration > 0 &&
@@ -49,19 +47,29 @@ function Filter(props) {
               refresh={state.refresh}
               reminder={state.reminder}
               duration={state.quizInfo.duration}
-              callNeedStore={() => dispatch({needStore: true})}
+              callNeedStore={() =>
+                dispatch({
+                  needStore: true,
+                })
+              }
             />
 
             <PhoneView>
               <CommonButton
-                onPress={() => dispatch({needStore: true})}
+                onPress={() =>
+                  dispatch({
+                    needStore: true,
+                  })
+                }
                 theme={'dark'}
                 title={'ذخیره'}
               />
               <CommonButton
                 title={'خروج'}
                 onPress={() => {
-                  dispatch({exit: true});
+                  dispatch({
+                    exit: true,
+                  });
                 }}
               />
             </PhoneView>
@@ -104,7 +112,10 @@ function Filter(props) {
       {props.isInReviewMode &&
         state.questions !== undefined &&
         props.mode !== 'splash' && (
-          <MyView style={{padding: 20}}>
+          <MyView
+            style={{
+              padding: 20,
+            }}>
             {/* {state.questions[state.currIdx].subject !== undefined && (
               <EqualTwoTextInputs>
                 <SimpleText text={'مبحث: '} />
@@ -112,28 +123,26 @@ function Filter(props) {
                   text={state.questions[state.currIdx].subject.name}
                 />
               </EqualTwoTextInputs>
-            )}
-            {state.questions[state.currIdx].levelFa !== undefined && (
+             )}
+             {state.questions[state.currIdx].levelFa !== undefined && (
               <EqualTwoTextInputs>
                 <SimpleText text={'سطح سختی: '} />
                 <SimpleText text={state.questions[state.currIdx].levelFa} />
               </EqualTwoTextInputs>
-            )} */}
+             )} */}
 
             {/* <EqualTwoTextInputs>
               <SimpleText text={'پاسخ دانش آموز: '} />
-
-              <SimpleText
+                <SimpleText
                 text={'گزینه ' + state.questions[state.currIdx].stdAns}
               />
-            </EqualTwoTextInputs>
-
-            <EqualTwoTextInputs>
+             </EqualTwoTextInputs>
+              <EqualTwoTextInputs>
               <SimpleText text={'پاسخ صحیح: '} />
               <SimpleText
                 text={'گزینه ' + state.questions[state.currIdx].answer}
               />
-            </EqualTwoTextInputs> */}
+             </EqualTwoTextInputs> */}
 
             {/* {state.questions[state.currIdx].oldCorrect +
               state.questions[state.currIdx].oldIncorrect +
@@ -153,23 +162,22 @@ function Filter(props) {
                   }
                 />
               </EqualTwoTextInputs>
-            )}
-            {state.questions[state.currIdx].stdMark !== undefined && (
+             )}
+             {state.questions[state.currIdx].stdMark !== undefined && (
               <EqualTwoTextInputs>
                 <SimpleText text={'نمره دانش آموز: '} />
                 <SimpleText text={state.questions[state.currIdx].stdMark} />
               </EqualTwoTextInputs>
-            )}
-            {state.questions[state.currIdx].stdMark !== undefined && (
+             )}
+             {state.questions[state.currIdx].stdMark !== undefined && (
               <EqualTwoTextInputs>
                 <SimpleText text={'نمره سوال: '} />
                 <SimpleText text={state.questions[state.currIdx].mark} />
               </EqualTwoTextInputs>
-            )} */}
+             )} */}
           </MyView>
         )}
     </CommonWebBox>
   );
 }
-
 export default Filter;

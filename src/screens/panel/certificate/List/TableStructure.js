@@ -1,6 +1,5 @@
-import Translate from '../Translator';
-import commonTranslator from '../../../../translator/Common';
-
+import Translate from '../translator';
+import commonTranslator from '@/translator/common';
 const columns = [
   {
     name: Translate.certName,

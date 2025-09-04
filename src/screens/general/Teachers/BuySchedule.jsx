@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {formatPrice, getDevice} from '../../../services/Utility';
+import {formatPrice, getDevice} from '../../../services/utility';
 import {
   BigBoldBlueText,
   CommonButton,
@@ -7,41 +7,33 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents';
+import {styles} from '../../../styles/common/styles';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
 import vars from '../../../styles/root';
 import React, {useRef, useState} from 'react';
-import {fetchUser, setCacheItem} from '../../../API/User';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import Translate from '../buy/Translate';
-
+import {fetchUser, setCacheItem} from '../../../api/user';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import Translate from '../buy/translate';
 function BuySchedule(props) {
   const [refId, setRefId] = useState();
   const ref = useRef();
   const [isShown, setIsShown] = useState(false);
-
   React.useEffect(() => {
     if (refId === undefined) return;
-
     setTimeout(() => {
       ref.current.submit();
     }, 1000);
   }, [refId]);
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   const goToPayLocal = async () => {
     const data = {};
-
     if (props.userOff !== undefined && props.userOff.code !== undefined)
       data.code = props.userOff.code;
-
     props.setLoading(true);
     const res = await goToPay(props.token, data, props.id);
     props.setLoading(false);
-
     if (res !== null) {
       if (res.action === 'success') {
         await setCacheItem('user', undefined);
@@ -52,7 +44,6 @@ function BuySchedule(props) {
       }
     }
   };
-
   const goToPay = async (token, data, scheduleId) => {
     return await generalRequest(
       props.canUseOff
@@ -64,17 +55,31 @@ function BuySchedule(props) {
       token,
     );
   };
-
   return (
     <PhoneView
       style={{
-        ...{alignSelf: 'flex-end', gap: 5},
+        ...{
+          alignSelf: 'flex-end',
+          gap: 5,
+        },
         ...styles.alignItemsCenter,
       }}>
       {props.price > 0 && (
         <MyView>
-          <PhoneView style={isInPhone ? {flexDirection: 'column'} : {}}>
-            <BigBoldBlueText style={{marginTop: 5}} text={Translate.amount} />
+          <PhoneView
+            style={
+              isInPhone
+                ? {
+                    flexDirection: 'column',
+                  }
+                : {}
+            }>
+            <BigBoldBlueText
+              style={{
+                marginTop: 5,
+              }}
+              text={Translate.amount}
+            />
 
             {(props.off > 0 || props.usedFromWallet > 0) && (
               <MyView>
@@ -83,14 +88,18 @@ function BuySchedule(props) {
                     <SimpleText
                       text={formatPrice(props.off)}
                       style={{
-                        ...{marginRight: 10},
+                        ...{
+                          marginRight: 10,
+                        },
                         ...styles.yellow_color,
                         ...styles.fontSize13,
                       }}
                     />
                     <SimpleText
                       style={{
-                        ...{marginRight: 5},
+                        ...{
+                          marginRight: 5,
+                        },
                         ...styles.dark_blue_color,
                         ...styles.fontSize13,
                       }}
@@ -110,7 +119,10 @@ function BuySchedule(props) {
                           isShown ? setIsShown(false) : setIsShown(true)
                         }>
                         <FontAwesomeIcon
-                          style={{color: 'white', padding: 3}}
+                          style={{
+                            color: 'white',
+                            padding: 3,
+                          }}
                           icon={faQuestion}
                         />
                       </button>
@@ -148,14 +160,18 @@ function BuySchedule(props) {
                     <SimpleText
                       text={formatPrice(props.usedFromWallet)}
                       style={{
-                        ...{marginRight: 10},
+                        ...{
+                          marginRight: 10,
+                        },
                         ...styles.yellow_color,
                         ...styles.fontSize13,
                       }}
                     />
                     <SimpleText
                       style={{
-                        ...{marginRight: 5},
+                        ...{
+                          marginRight: 5,
+                        },
                         ...styles.dark_blue_color,
                         ...styles.fontSize13,
                       }}
@@ -168,14 +184,18 @@ function BuySchedule(props) {
                     <SimpleText
                       text={formatPrice(props.prePaid)}
                       style={{
-                        ...{marginRight: 10},
+                        ...{
+                          marginRight: 10,
+                        },
                         ...styles.yellow_color,
                         ...styles.fontSize13,
                       }}
                     />
                     <SimpleText
                       style={{
-                        ...{marginRight: 5},
+                        ...{
+                          marginRight: 5,
+                        },
                         ...styles.dark_blue_color,
                         ...styles.fontSize13,
                       }}
@@ -194,13 +214,20 @@ function BuySchedule(props) {
                       ...styles.dark_blue_color,
                       ...styles.textDecorRed,
                     }
-                  : {...styles.dark_blue_color}
+                  : {
+                      ...styles.dark_blue_color,
+                    }
               }
               text={formatPrice(props.price) + ' تومان '}
             />
             {props.shouldPay !== props.price && (
               <SimpleText
-                style={{...{marginRight: 15}, ...styles.red}}
+                style={{
+                  ...{
+                    marginRight: 15,
+                  },
+                  ...styles.red,
+                }}
                 text={formatPrice(props.shouldPay) + ' تومان '}
               />
             )}
@@ -209,7 +236,13 @@ function BuySchedule(props) {
       )}
 
       {props.price > 0 && !isInPhone && (
-        <MyView style={{...{marginRight: 40}, ...styles.alignItemsCenter}}>
+        <MyView
+          style={{
+            ...{
+              marginRight: 40,
+            },
+            ...styles.alignItemsCenter,
+          }}>
           <CommonButton
             theme={'dark'}
             title={props.shouldPay > 0 ? Translate.goToPay : 'ثبت نام در جلسه'}
@@ -264,5 +297,4 @@ function BuySchedule(props) {
     </PhoneView>
   );
 }
-
 export default BuySchedule;

@@ -1,32 +1,28 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {getDevice, showError} from '../../../services/Utility';
+import {getDevice, showError} from '../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
-import {verifyCert} from '../../panel/certificate/Utility';
-import {dispatchStateContext} from '../../../App';
-
+} from '../../../styles/CommonComponents.jsx';
+import {styles} from '../../../styles/common/styles';
+import {verifyCert} from '../../panel/certificate/utility';
+import {dispatchStateContext} from '@/App';
 function CheckCert(props) {
   const params = useParams();
   const [certId, setCertId] = useState();
   const [NID, setNID] = useState();
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const navigate = props.navigate;
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
-
   const [dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
     if (
       params.certId === undefined ||
@@ -42,7 +38,6 @@ function CheckCert(props) {
     setCertId(params.certId);
     setNID(params.NID);
   }, [params, navigate]);
-
   return (
     <MyView>
       <div
@@ -59,7 +54,9 @@ function CheckCert(props) {
 
       <CommonWebBox
         width={isInPhone ? '100%' : '80%'}
-        style={{...styles.alignSelfCenter}}
+        style={{
+          ...styles.alignSelfCenter,
+        }}
         header={'بررسی گواهی'}>
         <SimpleText text="برای اطمینان از اصالت گواهی ای که در دست دارید مراحل زیر را انجام دهید." />
         <SimpleText text="۱- اطمینان پیدا کنید که این آدرس با e.irysc.ir شروع می شود." />
@@ -69,9 +66,7 @@ function CheckCert(props) {
           onPress={async () => {
             setLoading(true);
             const res = await verifyCert(certId, NID);
-
             if (!res) showError('گواهی مدنظر نامعتبر است');
-
             setLoading(false);
           }}
           title={'دانلود گواهی'}
@@ -81,5 +76,4 @@ function CheckCert(props) {
     </MyView>
   );
 }
-
 export default CheckCert;

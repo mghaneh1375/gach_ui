@@ -1,7 +1,6 @@
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {showSuccess} from '../../../../services/utility';
 export const getRoleForms = async () => {
   const res = await generalRequest(
     routes.getRoleForms,
@@ -11,7 +10,6 @@ export const getRoleForms = async () => {
   );
   return res;
 };
-
 export const checkSendRoleForm = async (
   userRoleFormData,
   setLoading,
@@ -27,7 +25,6 @@ export const checkSendRoleForm = async (
     if (redirectTo !== undefined) window.location.href = redirectTo;
     return;
   }
-
   setLoading(true);
   Promise.all([
     generalRequest(

@@ -1,13 +1,12 @@
 import React from 'react';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
 import translator from '../translate';
-import commonTranslator from '../../../../translator/Common';
+import commonTranslator from '@/translator/common';
 import {
   BigBoldBlueText,
   EqualTwoTextInputs,
   MyView,
 } from '../../../../styles/Common';
-
 const UpdatePassword = () => {
   return (
     <MyView>

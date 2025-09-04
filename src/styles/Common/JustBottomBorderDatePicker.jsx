@@ -1,5 +1,4 @@
 import {CommonDatePicker} from './CommonDatePicker';
-
 const JustBottomBorderDatePicker = props => {
   return (
     <CommonDatePicker
@@ -11,5 +10,4 @@ const JustBottomBorderDatePicker = props => {
     />
   );
 };
-
 export default JustBottomBorderDatePicker;

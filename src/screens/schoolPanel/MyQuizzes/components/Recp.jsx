@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {formatPrice} from '../../../../services/Utility';
-import {CommonWebBox, SimpleText} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import translator from '../../../panel/quiz/Translator';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {formatPrice} from '@/services/utility';
+import {CommonWebBox, SimpleText} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import translator from '../../../panel/quiz/translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
-
 function Recp(props) {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
@@ -15,17 +14,14 @@ function Recp(props) {
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   const fetchData = React.useCallback(() => {
     if (isWorking || state.selectedQuiz === undefined) return;
-
     if (state.selectedQuiz.recp !== undefined) {
       setData(state.selectedQuiz.recp);
       return;
     }
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getQuizRecpForSchool + state.selectedQuiz.id,
@@ -36,30 +32,27 @@ function Recp(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.setMode('list');
         return;
       }
-
       state.selectedQuiz.recp = res[0];
       setData(res[0]);
-
-      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+      dispatch({
+        selectedQuiz: state.selectedQuiz,
+        needUpdate: true,
+      });
       setIsWorking(false);
     });
   }, [isWorking, dispatch, props, state.selectedQuiz]);
-
   React.useEffect(() => {
     if (state.selectedQuiz === undefined) return;
-
     if (state.selectedQuiz.recp !== undefined) {
       setData(state.selectedQuiz.recp);
       return;
     }
     fetchData();
   }, [state.selectedQuiz, fetchData]);
-
   const columns = [
     {
       name: 'نام حیطه',
@@ -92,7 +85,6 @@ function Recp(props) {
       center: true,
     },
   ];
-
   const columns2 = [
     {
       name: 'تعداد سوال',
@@ -113,7 +105,6 @@ function Recp(props) {
       center: true,
     },
   ];
-
   return (
     <>
       <CommonWebBox
@@ -139,5 +130,4 @@ function Recp(props) {
     </>
   );
 }
-
 export default Recp;

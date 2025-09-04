@@ -1,21 +1,20 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {CourseProvider} from './components/Context';
 import ListLifestyle from './components/ListLifestyle';
 import CreateLifestyle from './components/CreateLifestyle';
-
 function LifeStyle(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
   return (
     <CourseProvider>
@@ -38,5 +37,4 @@ function LifeStyle(props) {
     </CourseProvider>
   );
 }
-
 export default LifeStyle;

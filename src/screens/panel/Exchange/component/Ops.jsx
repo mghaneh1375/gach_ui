@@ -1,12 +1,14 @@
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {CommonButton, PhoneView} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {CommonButton, PhoneView} from '@/styles';
+import {LargePopUp} from '../../../../styles/common/PopUp';
 function Ops(props) {
   return (
     <LargePopUp toggleShowPopUp={props.toggleShowPopUp}>
-      <PhoneView style={{gap: '10px'}}>
+      <PhoneView
+        style={{
+          gap: '10px',
+        }}>
         <CommonButton
           onPress={async () => {
             props.setLoading(true);
@@ -27,5 +29,4 @@ function Ops(props) {
     </LargePopUp>
   );
 }
-
 export default Ops;

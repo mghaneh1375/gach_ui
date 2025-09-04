@@ -16,10 +16,10 @@ import {Image} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import RenderHTML from 'react-native-render-html';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../../../API/APIRoutes';
-import {setCacheItem} from '../../../../../API/User';
-import {generalRequest} from '../../../../../API/Utility';
-import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
+import {routes} from '@/api/apiRoutes';
+import {setCacheItem} from '@/api/user';
+import {generalRequest} from '@/api/utility';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction';
 import {
   convertSecToMinWithOutSecAndDay,
   faNums,
@@ -28,7 +28,7 @@ import {
   showSuccess,
   systemFonts,
   tagsStyles,
-} from '../../../../../services/Utility';
+} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -36,22 +36,21 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import {styles} from '../../../../../styles/Common/Styles';
-import vars from '../../../../../styles/root';
-import commonTranslator from '../../../../../translator/Common';
-import {downloadCert} from '../../../../panel/certificate/Utility';
+} from '@/styles';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
+import {downloadCert} from '../../../../panel/certificate/utility';
 import OffCode from '../../../buy/components/OffCode';
-import {Translator} from '../../Translator';
+import {Translator} from '../../translator';
 import Card from '../Card';
-import {fetchPackage, goToPay} from '../Utility';
+import {fetchPackage, goToPay} from '../utility';
 import Chapter from './Chapter';
 import FAQ from './FAQ';
 import LastBuyer from './LastBuyer';
 import SessionDetail from './SessionDetail';
-
 function PhoneDetail(props) {
   const [item, setItem] = useState();
   const [img, setImg] = useState();
@@ -76,9 +75,7 @@ function PhoneDetail(props) {
   const [showTeacher, setShowTeacher] = useState(false);
   const [packageRate, setPackageRate] = useState();
   const [teacherBio, setTeacherBio] = useState();
-
   const ref = React.useRef();
-
   const toggleShowOffCodePane = () => {
     if (
       !showOffCodePane &&
@@ -89,18 +86,14 @@ function PhoneDetail(props) {
     }
     setShowOffCodePane(!showOffCodePane);
   };
-
   React.useEffect(() => {
     if (refId === undefined) return;
     ref.current.submit();
   }, [refId]);
-
   const calc = accountOff => {
     let off = 0;
     const totalPrice = item.afterOff !== undefined ? item.afterOff : item.price;
-
     let shouldPayTmp = totalPrice;
-
     if (shouldPayTmp > 0 && accountOff !== undefined) {
       if (accountOff.type === 'percent') {
         off += (shouldPayTmp * accountOff.amount) / 100.0;
@@ -108,23 +101,26 @@ function PhoneDetail(props) {
         off += accountOff.amount;
       }
     }
-
     shouldPayTmp = totalPrice - off;
-
     if (shouldPayTmp > 0) {
       setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
       shouldPayTmp -= userMoney;
     } else setUsedFromWallet(0);
-
     setOff(Math.min(off, totalPrice));
     setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 10);
   };
-
   const setOffCodeResult = (amount, type, code) => {
-    setUserOff({type: type, amount: amount, code: code});
-    calc({type: type, amount: amount, code: code});
+    setUserOff({
+      type: type,
+      amount: amount,
+      code: code,
+    });
+    calc({
+      type: type,
+      amount: amount,
+      code: code,
+    });
   };
-
   const fetchPackageLocal = React.useCallback(() => {
     if (isWorking || item !== undefined) return;
     props.setLoading(true);
@@ -138,15 +134,12 @@ function PhoneDetail(props) {
       else setShouldPay(res[0].price);
     });
   }, [props, isWorking, item]);
-
   React.useEffect(() => {
     if (item !== undefined) setImg(item.img);
   }, [item]);
-
   useEffectOnce(() => {
     fetchPackageLocal();
   }, [props.slug]);
-
   const fontSize = 10;
   const valFontSize = 12;
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -154,27 +147,23 @@ function PhoneDetail(props) {
     const position = window.pageYOffset;
     setScrollPosition(position);
   };
-
   const [rate, setRate] = useState();
   const [teacherPackages, setTeacherPackages] = useState();
   const [selectedTeacher, setSelectedTeacher] = useState();
-
   React.useEffect(() => {
     if (item !== undefined && item.rate !== undefined)
       setPackageRate(item.rate);
-
     if (item !== undefined && item.stdRate !== undefined) setRate(item.stdRate);
     else if (item !== undefined && item.stdRate === undefined) setRate(0);
   }, [item]);
-
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, {passive: true});
-
+    window.addEventListener('scroll', handleScroll, {
+      passive: true,
+    });
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
   const goToPayLocal = async () => {
     if (
       props.token === null ||
@@ -184,18 +173,12 @@ function PhoneDetail(props) {
       showError(commonTranslator.shouldLogin);
       return;
     }
-
     const data = {};
-
     if (userOff !== undefined && userOff.code !== undefined)
       data.off = userOff.code;
-
     props.setLoading(true);
-
     const res = await goToPay(props.token, data, item.id);
-
     props.setLoading(false);
-
     if (res !== null) {
       if (res.action === 'success') {
         const user = props.user;
@@ -207,9 +190,7 @@ function PhoneDetail(props) {
       }
     }
   };
-
   const [copying, setCopying] = useState();
-
   const doCopy = () => {
     navigator.clipboard.writeText(decodeURIComponent(document.URL));
     setCopying(true);
@@ -217,7 +198,6 @@ function PhoneDetail(props) {
       setCopying(false);
     }, 1300);
   };
-
   return (
     <>
       {item === undefined && <></>}
@@ -251,7 +231,10 @@ function PhoneDetail(props) {
           backBtn={true}
           onBackClick={() => setShowTeacher(false)}
           header={
-            <PhoneView style={{...styles.gap30}}>
+            <PhoneView
+              style={{
+                ...styles.gap30,
+              }}>
               {item.teacher.map((e, index) => {
                 return (
                   <SimpleText
@@ -260,7 +243,6 @@ function PhoneDetail(props) {
                       const params = new URLSearchParams();
                       params.append('teacher', e);
                       setSelectedTeacher(e);
-
                       const res = await generalRequest(
                         routes.teacherPackages + params.toString(),
                         'get',
@@ -310,9 +292,15 @@ function PhoneDetail(props) {
             <MyView>
               <SimpleText
                 text={'دوره‌های دیگر این استاد'}
-                style={{...styles.BlueBold, ...styles.fontSize22}}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.fontSize22,
+                }}
               />
-              <PhoneView style={{...styles.gap10}}>
+              <PhoneView
+                style={{
+                  ...styles.gap10,
+                }}>
                 {teacherPackages.map((elem, index) => {
                   return (
                     <Card
@@ -396,7 +384,10 @@ function PhoneDetail(props) {
               <Image
                 source={img}
                 resizeMode={'contain'}
-                style={{width: '100%', height: 300}}
+                style={{
+                  width: '100%',
+                  height: 300,
+                }}
               />
             </CommonWebBox>
 
@@ -407,7 +398,10 @@ function PhoneDetail(props) {
                     <SimpleText
                       onPress={() => setShowRunQuizWarning(true)}
                       text={'شرکت در آزمون پایان دوره'}
-                      style={{...styles.BlueBold, ...styles.cursor_pointer}}
+                      style={{
+                        ...styles.BlueBold,
+                        ...styles.cursor_pointer,
+                      }}
                     />
                   )}
                   {item.quizStatus === 'result' && (
@@ -461,81 +455,130 @@ function PhoneDetail(props) {
                 </CommonWebBox>
               )}
               <CommonWebBox>
-                <EqualTwoTextInputs style={{paddingLeft: 30, paddingRight: 30}}>
+                <EqualTwoTextInputs
+                  style={{
+                    paddingLeft: 30,
+                    paddingRight: 30,
+                  }}>
                   <PhoneView>
                     <SimpleFontIcon
-                      style={{color: vars.ORANGE_RED}}
+                      style={{
+                        color: vars.ORANGE_RED,
+                      }}
                       icon={faClock}
                       kind={'normal'}
                     />
                     <SimpleText
-                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.BlueBold,
+                      }}
                       text={Translator.packageDuration}
                     />
                   </PhoneView>
                   <SimpleText
-                    style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                    style={{
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                    }}
                     text={convertSecToMinWithOutSecAndDay(item.duration)}
                   />
                 </EqualTwoTextInputs>
-                <EqualTwoTextInputs style={{paddingLeft: 30, paddingRight: 30}}>
+                <EqualTwoTextInputs
+                  style={{
+                    paddingLeft: 30,
+                    paddingRight: 30,
+                  }}>
                   <PhoneView>
                     <SimpleFontIcon
-                      style={{color: vars.ORANGE_RED}}
+                      style={{
+                        color: vars.ORANGE_RED,
+                      }}
                       icon={faListSquares}
                       kind={'normal'}
                     />
                     <SimpleText
-                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.BlueBold,
+                      }}
                       text={Translator.chaptersCount}
                     />
                   </PhoneView>
                   <SimpleText
-                    style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                    style={{
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                    }}
                     text={item.chapters.length + ' فصل'}
                   />
                 </EqualTwoTextInputs>
 
-                <EqualTwoTextInputs style={{paddingLeft: 30, paddingRight: 30}}>
+                <EqualTwoTextInputs
+                  style={{
+                    paddingLeft: 30,
+                    paddingRight: 30,
+                  }}>
                   <PhoneView>
                     <SimpleFontIcon
-                      style={{color: vars.ORANGE_RED}}
+                      style={{
+                        color: vars.ORANGE_RED,
+                      }}
                       icon={faListSquares}
                       kind={'normal'}
                     />
                     <SimpleText
-                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.BlueBold,
+                      }}
                       text={Translator.sessionsCount}
                     />
                   </PhoneView>
                   <SimpleText
-                    style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                    style={{
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                    }}
                     text={item.sessionsCount + ' جلسه'}
                   />
                 </EqualTwoTextInputs>
 
-                <EqualTwoTextInputs style={{paddingLeft: 30, paddingRight: 30}}>
+                <EqualTwoTextInputs
+                  style={{
+                    paddingLeft: 30,
+                    paddingRight: 30,
+                  }}>
                   <PhoneView>
                     <SimpleFontIcon
-                      style={{color: vars.ORANGE_RED}}
+                      style={{
+                        color: vars.ORANGE_RED,
+                      }}
                       icon={faSun}
                       kind={'normal'}
                     />
                     <SimpleText
-                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.BlueBold,
+                      }}
                       text={Translator.cert}
                     />
                   </PhoneView>
                   {item.hasCert && (
                     <SimpleFontIcon
-                      style={{color: vars.GREEN}}
+                      style={{
+                        color: vars.GREEN,
+                      }}
                       kind={'normal'}
                       icon={faCheck}
                     />
                   )}
                   {!item.hasCert && (
                     <SimpleFontIcon
-                      style={{color: vars.YELLOW}}
+                      style={{
+                        color: vars.YELLOW,
+                      }}
                       kind={'normal'}
                       icon={faRemove}
                     />
@@ -543,10 +586,15 @@ function PhoneDetail(props) {
                 </EqualTwoTextInputs>
                 {item.level && (
                   <EqualTwoTextInputs
-                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    style={{
+                      paddingLeft: 30,
+                      paddingRight: 30,
+                    }}>
                     <PhoneView>
                       <SimpleFontIcon
-                        style={{color: vars.ORANGE_RED}}
+                        style={{
+                          color: vars.ORANGE_RED,
+                        }}
                         icon={faListOl}
                         kind={'normal'}
                       />
@@ -559,17 +607,25 @@ function PhoneDetail(props) {
                       />
                     </PhoneView>
                     <SimpleText
-                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.BlueBold,
+                      }}
                       text={item.level}
                     />
                   </EqualTwoTextInputs>
                 )}
                 {item.hasCert && (
                   <EqualTwoTextInputs
-                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    style={{
+                      paddingLeft: 30,
+                      paddingRight: 30,
+                    }}>
                     <PhoneView>
                       <SimpleFontIcon
-                        style={{color: vars.ORANGE_RED}}
+                        style={{
+                          color: vars.ORANGE_RED,
+                        }}
                         icon={faHourglassEnd}
                         kind={'normal'}
                       />
@@ -582,7 +638,10 @@ function PhoneDetail(props) {
                       />
                     </PhoneView>
                     <SimpleText
-                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.BlueBold,
+                      }}
                       text={item.certDuration + ' روز'}
                     />
                   </EqualTwoTextInputs>
@@ -608,11 +667,16 @@ function PhoneDetail(props) {
                   </PhoneView>
                 )}
                 {(item.afterBuy === undefined || !item.afterBuy) && (
-                  <MyView style={{...styles.flexNoWrap}}>
+                  <MyView
+                    style={{
+                      ...styles.flexNoWrap,
+                    }}>
                     <PhoneView>
                       {/* style={{...styles.alignSelfCenter}} */}
                       <SimpleText
-                        style={{...styles.BlueBold}}
+                        style={{
+                          ...styles.BlueBold,
+                        }}
                         text={commonTranslator.price + ' '}
                       />
                       <SimpleText
@@ -695,7 +759,9 @@ function PhoneDetail(props) {
                         />
                         <SimpleText
                           style={{
-                            ...{marginRight: 5},
+                            ...{
+                              marginRight: 5,
+                            },
                             ...styles.dark_blue_color,
                             ...styles.fontSize13,
                           }}
@@ -714,7 +780,9 @@ function PhoneDetail(props) {
                         />
                         <SimpleText
                           style={{
-                            ...{marginRight: 5},
+                            ...{
+                              marginRight: 5,
+                            },
                             ...styles.dark_blue_color,
                             ...styles.fontSize13,
                           }}
@@ -733,7 +801,9 @@ function PhoneDetail(props) {
                         />
                         <SimpleText
                           style={{
-                            ...{marginRight: 5},
+                            ...{
+                              marginRight: 5,
+                            },
                             ...styles.dark_blue_color,
                             ...styles.fontSize13,
                           }}
@@ -788,7 +858,9 @@ function PhoneDetail(props) {
                           const res = await generalRequest(
                             routes.rateContent + item.id,
                             'put',
-                            {rate: rate},
+                            {
+                              rate: rate,
+                            },
                             'data',
                             props.token,
                           );
@@ -819,7 +891,9 @@ function PhoneDetail(props) {
                   },
                 }}>
                 <SimpleText
-                  style={{...styles.BlueBold}}
+                  style={{
+                    ...styles.BlueBold,
+                  }}
                   text={Translator.desc}
                 />
                 <RenderHTML
@@ -879,7 +953,6 @@ function PhoneDetail(props) {
                           const params = new URLSearchParams();
                           params.append('teacher', item.teacher[0]);
                           setSelectedTeacher(item.teacher[0]);
-
                           const res = await generalRequest(
                             routes.teacherPackages + params.toString(),
                             'get',
@@ -967,14 +1040,22 @@ function PhoneDetail(props) {
               )}
 
             <CommonWebBox>
-              <PhoneView style={{...styles.gap10}}>
+              <PhoneView
+                style={{
+                  ...styles.gap10,
+                }}>
                 <SimpleFontIcon
-                  style={{color: vars.DARK_BLUE}}
+                  style={{
+                    color: vars.DARK_BLUE,
+                  }}
                   kind={'normal'}
                   icon={faPaperPlane}
                 />
                 <SimpleText
-                  style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.alignSelfCenter,
+                  }}
                   text="اشتراک گذاری"
                 />
               </PhoneView>
@@ -1071,27 +1152,42 @@ function PhoneDetail(props) {
 
             {item.lastBuyers !== undefined && item.lastBuyers.length > 0 && (
               <CommonWebBox>
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   <SimpleFontIcon
-                    style={{color: vars.DARK_BLUE}}
+                    style={{
+                      color: vars.DARK_BLUE,
+                    }}
                     kind={'normal'}
                     icon={faUsers}
                   />
                   <SimpleText
-                    style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+                    style={{
+                      ...styles.BlueBold,
+                      ...styles.alignSelfCenter,
+                    }}
                     text="آخرین خریداران"
                   />
                 </PhoneView>
                 <EqualTwoTextInputs>
                   <SimpleText
-                    style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                    style={{
+                      ...styles.alignSelfCenter,
+                      ...styles.BlueBold,
+                    }}
                     text={
                       item.buyers !== undefined && item.buyers > 0
                         ? '+' + (item.buyers - item.lastBuyers?.length)
                         : ''
                     }
                   />
-                  <PhoneView style={{justifyContent: 'end', marginLeft: 20}}>
+                  <PhoneView
+                    style={{
+                      justifyContent: 'end',
+                      marginLeft: 20,
+                    }}>
                     {item.lastBuyers.map((e, index) => {
                       return (
                         <LastBuyer
@@ -1158,7 +1254,9 @@ function PhoneDetail(props) {
                 props.token === null ||
                 props.token === undefined ||
                 props.token === ''
-                  ? {marginBottom: '100px'}
+                  ? {
+                      marginBottom: '100px',
+                    }
                   : {}
               }
               btn={
@@ -1199,5 +1297,4 @@ function PhoneDetail(props) {
     </>
   );
 }
-
 export default PhoneDetail;

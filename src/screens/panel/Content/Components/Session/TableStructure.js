@@ -1,6 +1,5 @@
-import commonTranslator from '../../../../../translator/Common';
-import Translator from '../../Translate';
-
+import commonTranslator from '@/translator/common';
+import Translator from '../../translate';
 const columns = [
   {
     name: Translator.sessionTitle,

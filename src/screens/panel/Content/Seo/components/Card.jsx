@@ -1,24 +1,16 @@
 import React, {useState} from 'react';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../../styles/Common/Styles';
-import commonTranslator from '../../../../../translator/Common';
-import Translator from '../../Translate';
-import {remove, store} from './Utility';
-
+import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
+import Translator from '../../translate';
+import {remove, store} from './utility';
 function Card(props) {
   const [show, setShow] = useState(false);
-
   const [key, setKey] = useState();
   const [value, setValue] = useState();
-
   React.useEffect(() => {
     if (props.elem === undefined) {
       setShow(true);
@@ -27,7 +19,6 @@ function Card(props) {
     setKey(props.elem.key);
     setValue(props.elem.value);
   }, [props.elem]);
-
   return (
     <CommonWebBox
       header={key !== undefined ? key : ''}
@@ -53,7 +44,11 @@ function Card(props) {
           />
 
           {props.elem !== undefined && (
-            <PhoneView style={{...styles.gap10, ...styles.margin15}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+                ...styles.margin15,
+              }}>
               <CommonButton
                 onPress={async () => {
                   props.setLoading(true);
@@ -94,5 +89,4 @@ function Card(props) {
     </CommonWebBox>
   );
 }
-
 export default Card;

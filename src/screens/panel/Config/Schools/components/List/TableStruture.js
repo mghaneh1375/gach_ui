@@ -1,6 +1,5 @@
-import translator from '../../Translator';
-import commonTranslator from '../../../../../../translator/Common';
-
+import translator from '../../translator';
+import commonTranslator from '../../../../../../translator/common';
 const columns = [
   {
     name: translator.name,
@@ -40,7 +39,6 @@ const columns = [
     grow: 4,
   },
 ];
-
 export const columnsForUsers = [
   {
     name: translator.name,
@@ -63,5 +61,4 @@ export const columnsForUsers = [
     grow: 1,
   },
 ];
-
 export default columns;

@@ -1,24 +1,23 @@
 import React, {useMemo, useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {
   CommonButton,
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import commonTranslator from '../../../../translator/Common';
-import Translator from '../../../advisorPanel/Teach/Schedule/components/Translator';
-import translator from '../Translate';
-import columns, {studentsColumns} from './components/TableStructure';
-import reportColumns from '../TeachReport/components/TableStructure';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-
+} from '../../../../styles/CommonComponents.jsx';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import commonTranslator from '@/translator/common';
+import Translator from '../../../advisorPanel/teach/schedule/components/translator';
+import translator from '../translate';
+import columns, {studentsColumns} from './components/tableStructure';
+import reportColumns from '../teachReport/components/tableStructure';
+import {LargePopUp} from '../../../../styles/common/PopUp';
 function Schedules(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [
@@ -39,27 +38,44 @@ function Schedules(props) {
     teachMode: 'all',
     teacherId: 'all',
   });
-
   const [activeModeValues, teachModeValues] = useMemo(() => {
     return [
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'active', item: Translator.active},
-        {id: 'expired', item: Translator.expired},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'active',
+          item: Translator.active,
+        },
+        {
+          id: 'expired',
+          item: Translator.expired,
+        },
       ],
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'private', item: Translator.private},
-        {id: 'semiPrivate', item: Translator.semiPrivate},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'private',
+          item: Translator.private,
+        },
+        {
+          id: 'semiPrivate',
+          item: Translator.semiPrivate,
+        },
       ],
     ];
   }, []);
-
   const handleOp = async (idx, row) => {
     setSelectedSchedule(row);
-
     if (!row.seen) {
-      dispatch({loading: true});
+      dispatch({
+        loading: true,
+      });
       await generalRequest(
         routes.setTeachReportAsSeen + row.id,
         'put',
@@ -67,31 +83,29 @@ function Schedules(props) {
         undefined,
         state.token,
       );
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
     }
-
     setMode('op');
     setShowOp(true);
   };
-
   const handleReportOp = (idx, row) => {
     setSelectedReport(row);
     setMode('reportDetail');
   };
-
   const fetchData = React.useCallback(() => {
     const query = new URLSearchParams();
-
     if (filter.activeMode !== 'all')
       query.append('activeMode', filter.activeMode);
     if (filter.teachMode !== 'all') query.append('teachMode', filter.teachMode);
     if (filter.teacherId && filter.teacherId !== 'all')
       query.append('teacherId', filter.teacherId);
-
     if (filter.from) query.append('from', filter.from);
     if (filter.to) query.append('to', filter.to);
-
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all(
       teachers === undefined
         ? [
@@ -120,13 +134,13 @@ function Schedules(props) {
             ),
           ],
     ).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null || (teachers === undefined && res[1] == null)) {
         navigate('/');
         return;
       }
-
       setSchedules(res[0]);
       if (teachers === undefined) {
         setTeachers([
@@ -145,14 +159,15 @@ function Schedules(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, teachers]);
-
   useEffectOnce(() => {
     fetchData();
   }, []);
-
   return (
     <CommonWebBox header={translator.reports}>
-      <PhoneView style={{gap: '20px'}}>
+      <PhoneView
+        style={{
+          gap: '20px',
+        }}>
         <JustBottomBorderSelect
           value={activeModeValues.find(elem => elem.id === filter.activeMode)}
           placeholder={Translator.activeMode}
@@ -237,11 +252,16 @@ function Schedules(props) {
             setShowOp(false);
             setMode(undefined);
           }}>
-          <PhoneView style={{gap: '20px'}}>
+          <PhoneView
+            style={{
+              gap: '20px',
+            }}>
             <CommonButton
               theme={'transparent'}
               onPress={async () => {
-                dispatch({loading: true});
+                dispatch({
+                  loading: true,
+                });
                 const res = await generalRequest(
                   routes.getScheduleStudents + selectedSchedule.id,
                   'get',
@@ -249,7 +269,9 @@ function Schedules(props) {
                   'data',
                   state.token,
                 );
-                dispatch({loading: false});
+                dispatch({
+                  loading: false,
+                });
                 if (res !== null) {
                   setStudents(res);
                   setMode('students');
@@ -260,7 +282,9 @@ function Schedules(props) {
             <CommonButton
               theme={'transparent'}
               onPress={async () => {
-                dispatch({loading: true});
+                dispatch({
+                  loading: true,
+                });
                 const res = await generalRequest(
                   routes.getTeachReportsForAdmin +
                     '?teachId=' +
@@ -270,7 +294,9 @@ function Schedules(props) {
                   'data',
                   state.token,
                 );
-                dispatch({loading: false});
+                dispatch({
+                  loading: false,
+                });
                 if (res !== null) {
                   setReports(res);
                   setMode('report');
@@ -333,5 +359,4 @@ function Schedules(props) {
     </CommonWebBox>
   );
 }
-
 export default Schedules;

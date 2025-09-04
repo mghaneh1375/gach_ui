@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView, SimpleText} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import commonTranslator from '../../../../translator/Common';
-import columns from './TableStructure';
-import Filter from './Fliter/Filter';
-import Translate from '../Translate';
-import {styles} from '../../../../styles/Common/Styles';
-
+import {CommonWebBox, PhoneView, SimpleText} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import commonTranslator from '@/translator/common';
+import columns from './tableStructure';
+import Filter from './fliter/Filter';
+import Translate from '../translate';
+import {styles} from '../../../../styles/common/styles';
 function List(props) {
   const [items, setItems] = useState();
-
   React.useEffect(() => {
     setItems(props.transactions);
   }, [props.transactions]);
-
   return (
     <CommonWebBox header={commonTranslator.transactionFinantial}>
       <Filter
@@ -23,7 +20,10 @@ function List(props) {
         setAccountMoneySum={props.setAccountMoneySum}
         setSum={props.setSum}
       />
-      <PhoneView style={{...styles.gap30}}>
+      <PhoneView
+        style={{
+          ...styles.gap30,
+        }}>
         <SimpleText
           text={Translate.amountSum + commonTranslator.col + props.sum}
         />
@@ -41,5 +41,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

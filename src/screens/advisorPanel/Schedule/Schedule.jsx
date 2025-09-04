@@ -1,47 +1,43 @@
 import React, {useState} from 'react';
 import Create from './components/Create';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {AdvisorScheduleProvider} from './components/Context';
 import {useParams} from 'react-router';
 import List from './components/List';
-import {isUserAdvisor} from '../../../services/Utility';
+import {isUserAdvisor} from '../../../services/utility';
 import Lesson from './components/Lesson';
 import Copy from './components/Copy';
-
 function Schedule(props) {
   const [mode, setMode] = useState();
   const [studentId, setStudentId] = useState();
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const isAdvisor = isUserAdvisor(state.user);
-
   const params = useParams();
-
   React.useEffect(() => {
     if (mode === 'create' || mode === 'edit')
-      dispatch({isRightMenuVisible: false});
+      dispatch({
+        isRightMenuVisible: false,
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
-
   React.useEffect(() => {
     if (params.studentId === undefined) return;
     setStudentId(params.studentId);
   }, [params]);
-
   React.useEffect(() => {
     if (studentId !== undefined || !isAdvisor) setMode('list');
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentId]);
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   return (
     <AdvisorScheduleProvider>
       {mode === 'list' && (
@@ -100,5 +96,4 @@ function Schedule(props) {
     </AdvisorScheduleProvider>
   );
 }
-
 export default Schedule;

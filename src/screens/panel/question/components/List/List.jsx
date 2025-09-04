@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../../../styles/Common';
-import translator from '../../Translator';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import columns from './TableStructure';
+import {CommonWebBox, MyView} from '@/styles';
+import translator from '../../translator';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import columns from './tableStructure';
 import Filter from './Filter';
 import Ops from '../Ops';
-
 const List = props => {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
-
   const handleOp = index => {
     props.setSelected(props.data[index]);
     setShowOpPopUp(true);
   };
-
   return (
     <MyView>
       {showOpPopUp && (
@@ -46,5 +43,4 @@ const List = props => {
     </MyView>
   );
 };
-
 export default List;

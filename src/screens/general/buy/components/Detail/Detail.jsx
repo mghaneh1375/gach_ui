@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
 import {dispatchPackagesContext, packagesContext} from '../Context';
-
-import {MyView} from '../../../../../styles/Common';
-import Info from '../../../../panel/package/components/Detail/Info';
+import {MyView} from '@/styles';
+import Info from '../../../../panel/package/components/detail/Info';
 import List from './List';
 import SchoolList from './SchoolList';
-import vars from '../../../../../styles/root';
-import {getDevice} from '../../../../../services/Utility';
-import {getPackage} from '../Utility';
-
+import vars from '@/styles/root';
+import {getDevice} from '@/services/utility';
+import {getPackage} from '../utility';
 function Detail(props) {
   const useGlobalState = () => [
     React.useContext(packagesContext),
@@ -17,11 +15,11 @@ function Detail(props) {
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [showInfo, setShowInfo] = useState(true);
-
   React.useEffect(() => {
-    dispatch({isRightMenuVisible: props.isRightMenuVisible});
+    dispatch({
+      isRightMenuVisible: props.isRightMenuVisible,
+    });
   }, [props.isRightMenuVisible, dispatch]);
-
   const localFetchPackage = React.useCallback(() => {
     if (
       state.package !== undefined ||
@@ -29,36 +27,29 @@ function Detail(props) {
       props.packageId === undefined
     )
       return;
-
     setIsWorking(true);
     props.setLoading(true);
     Promise.all([getPackage(props.token, props.packageId)]).then(res => {
       props.setLoading(false);
-
       if (
         res[0] === null ||
         res[0].items === undefined ||
         res[0].items.length !== 1
       )
         return;
-
       dispatch({
         off: res[0].off,
         groupRegistrationOff: res[0].groupRegistrationOff,
         package: res[0].items[0],
       });
-
       setIsWorking(false);
     });
   }, [props, state.package, dispatch, isWorking]);
-
   React.useEffect(() => {
     if (props.packageId === undefined) return;
     localFetchPackage();
   }, [props.packageId, localFetchPackage]);
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   return (
     <>
       {state.package !== undefined && (
@@ -73,7 +64,10 @@ function Detail(props) {
                   alignSelf: 'unset',
                 }
               : !props.isRightMenuVisible
-              ? {maxWidth: vars.LEFT_SECTION_WIDTH, alignSelf: 'center'}
+              ? {
+                  maxWidth: vars.LEFT_SECTION_WIDTH,
+                  alignSelf: 'center',
+                }
               : {}
           }>
           {showInfo && (
@@ -112,5 +106,4 @@ function Detail(props) {
     </>
   );
 }
-
 export default Detail;

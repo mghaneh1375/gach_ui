@@ -1,19 +1,17 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {showError, showSuccess} from '../../../../services/Utility';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../styles/Common/Styles';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {showError, showSuccess} from '../../../../services/utility';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '../../../../styles/common/styles';
 import translator from '../translator';
 import {dispatchLevelContext, levelContext} from './Context';
-
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(levelContext),
     React.useContext(dispatchLevelContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [minPoint, setMinPoint] = useState(
     props.updateMode ? state.selectedLevel.minPoint : undefined,
@@ -27,10 +25,12 @@ function Create(props) {
   const [coin, setCoin] = useState(
     props.updateMode ? state.selectedLevel.coin : undefined,
   );
-
   return (
     <CommonWebBox onBackClick={() => props.setMode('list')} backBtn={true}>
-      <PhoneView style={{...styles.gap10}}>
+      <PhoneView
+        style={{
+          ...styles.gap10,
+        }}>
         <JustBottomBorderTextInput
           placeholder={translator.title}
           subText={translator.title}
@@ -73,7 +73,6 @@ function Create(props) {
             return;
           }
           props.setLoading(true);
-
           const response = await generalRequest(
             props.updateMode
               ? routes.updateLevel + state.selectedLevel.id
@@ -91,8 +90,14 @@ function Create(props) {
           props.setLoading(false);
           if (response != null) {
             if (props.updateMode)
-              dispatch({needUpdate: true, selectedLevel: response});
-            else dispatch({levels: [...state.levels, response]});
+              dispatch({
+                needUpdate: true,
+                selectedLevel: response,
+              });
+            else
+              dispatch({
+                levels: [...state.levels, response],
+              });
             props.setMode('list');
             showSuccess();
           }
@@ -103,5 +108,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

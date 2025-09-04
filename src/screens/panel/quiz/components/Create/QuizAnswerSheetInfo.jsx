@@ -1,36 +1,34 @@
 import React from 'react';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import translator from '../../Translator';
-import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter';
-import {
-  CommonButton,
-  PhoneView,
-  SimpleText,
-  MyView,
-} from '../../../../../styles/Common';
+import translator from '../../translator';
+import MyCustomUploadAdapterPlugin from '../../../../../services/myUploadAdapter';
+import {CommonButton, PhoneView, SimpleText, MyView} from '@/styles';
 import {useState} from 'react';
-import UploadFile from '../../../../../components/web/UploadFile';
-import {routes} from '../../../../../API/APIRoutes';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import UploadFile from '@/components/web/UploadFile';
+import {routes} from '@/api/apiRoutes';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../../../../styles/Common/Styles';
-import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
-import {CKEditorToolbar} from '../../../../../services/Utility';
-
+import {styles} from '@/styles/common/styles';
+import AttachBox from '../../../ticket/components/show/attachBox/AttachBox';
+import {CKEditorToolbar} from '../../../../../services/utility';
 const QuizAnswerSheetInfo = props => {
   let ckEditor = null;
   const [showUploadFile, setShowUploadFile] = useState(false);
-
   const toggleShowUploadFile = () => {
     setShowUploadFile(!showUploadFile);
   };
-
   return (
     <MyView>
-      <PhoneView style={{...styles.gap15}}>
+      <PhoneView
+        style={{
+          ...styles.gap15,
+        }}>
         <SimpleText
-          style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+          style={{
+            ...styles.alignSelfCenter,
+            ...styles.BlueBold,
+          }}
           text={'پیوست آزمون'}
         />
         <SimpleFontIcon
@@ -39,7 +37,10 @@ const QuizAnswerSheetInfo = props => {
           icon={faPaperclip}
         />
 
-        <PhoneView style={{marginTop: 20}}>
+        <PhoneView
+          style={{
+            marginTop: 20,
+          }}>
           {props.attaches !== undefined &&
             props.attaches.map((elem, index) => {
               return (
@@ -90,12 +91,17 @@ const QuizAnswerSheetInfo = props => {
         />
       </PhoneView>
 
-      <MyView style={{marginTop: 20}}>
+      <MyView
+        style={{
+          marginTop: 20,
+        }}>
         <SimpleText text={translator.descBefore} />
         <CKEditor
           editor={ClassicEditor}
           config={{
-            customValues: {token: props.token},
+            customValues: {
+              token: props.token,
+            },
             extraPlugins: [MyCustomUploadAdapterPlugin],
             placeholder: translator.descBefore,
             ...CKEditorToolbar,
@@ -110,12 +116,17 @@ const QuizAnswerSheetInfo = props => {
         />
       </MyView>
 
-      <MyView style={{marginTop: 20}}>
+      <MyView
+        style={{
+          marginTop: 20,
+        }}>
         <SimpleText text={translator.descAfter} />
         <CKEditor
           editor={ClassicEditor}
           config={{
-            customValues: {token: props.token},
+            customValues: {
+              token: props.token,
+            },
             extraPlugins: [MyCustomUploadAdapterPlugin],
             placeholder: translator.descAfter,
             ...CKEditorToolbar,
@@ -132,5 +143,4 @@ const QuizAnswerSheetInfo = props => {
     </MyView>
   );
 };
-
 export default QuizAnswerSheetInfo;

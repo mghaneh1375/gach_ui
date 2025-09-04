@@ -1,20 +1,18 @@
 import React from 'react';
-import {globalStateContext, dispatchStateContext} from '../../../App';
-import AccountCharge from '../../../components/web/AccountCharge/AccountCharge';
-import {MyView} from '../../../styles/Common';
-
+import {globalStateContext, dispatchStateContext} from '@/App';
+import AccountCharge from '../../../components/web/accountCharge/AccountCharge';
+import {MyView} from '@/styles';
 function ChargeAccount(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   return (
     <MyView
       style={{
@@ -31,5 +29,4 @@ function ChargeAccount(props) {
     </MyView>
   );
 }
-
 export default ChargeAccount;

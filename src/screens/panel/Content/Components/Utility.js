@@ -1,12 +1,11 @@
-import {routes} from '../../../../API/APIRoutes';
+import {routes} from '@/api/apiRoutes';
 import {
   generalRequest,
   videoFileRequest,
   videoGeneralRequest,
-} from '../../../../API/Utility';
-import {showError, showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../translator/Common';
-
+} from '@/api/utility';
+import {showError, showSuccess} from '../../../../services/utility';
+import commonTranslator from '@/translator/common';
 export const fetchContents = async (token, filter) => {
   const params = new URLSearchParams();
   filter.teacher &&
@@ -28,7 +27,6 @@ export const fetchContents = async (token, filter) => {
     token,
   );
 };
-
 export const fetchSessions = async (token, id) => {
   return await videoGeneralRequest(
     routes.fetchSessionInContent + id,
@@ -38,7 +36,6 @@ export const fetchSessions = async (token, id) => {
     token,
   );
 };
-
 export const fetchContent = async (id, token = undefined) => {
   return await generalRequest(
     routes.fetchContent + id,
@@ -48,7 +45,6 @@ export const fetchContent = async (id, token = undefined) => {
     token,
   );
 };
-
 const mandatoryFields = [
   'title',
   'description',
@@ -60,9 +56,7 @@ const mandatoryFields = [
   'slug',
   'priority',
 ];
-
 const mandatoryFieldsSession = ['title', 'priority', 'duration', 'visibility'];
-
 export const store = async (token, data) => {
   try {
     const res = await videoGeneralRequest(
@@ -74,14 +68,12 @@ export const store = async (token, data) => {
       mandatoryFields,
     );
     if (res !== null) showSuccess();
-
     return res;
   } catch (e) {
     showError(commonTranslator.pleaseFillAllFields);
     return null;
   }
 };
-
 export const addSession = async (token, data, contentId) => {
   try {
     const res = await videoGeneralRequest(
@@ -93,14 +85,12 @@ export const addSession = async (token, data, contentId) => {
       mandatoryFieldsSession,
     );
     if (res !== null) showSuccess();
-
     return res;
   } catch (e) {
     showError(commonTranslator.pleaseFillAllFields);
     return null;
   }
 };
-
 export const copySession = async (
   token,
   contentId,
@@ -118,10 +108,8 @@ export const copySession = async (
     token,
   );
   if (res !== null) showSuccess();
-
   return res;
 };
-
 export const update = async (token, data, id) => {
   try {
     const res = await videoGeneralRequest(
@@ -133,14 +121,12 @@ export const update = async (token, data, id) => {
       mandatoryFields,
     );
     if (res !== null) showSuccess();
-
     return res;
   } catch (e) {
     showError(commonTranslator.pleaseFillAllFields);
     return null;
   }
 };
-
 export const updateSession = async (token, data, contentId, sessionId) => {
   try {
     const res = await videoGeneralRequest(
@@ -152,14 +138,12 @@ export const updateSession = async (token, data, contentId, sessionId) => {
       mandatoryFieldsSession,
     );
     if (res !== null) showSuccess();
-
     return res;
   } catch (e) {
     showError(commonTranslator.pleaseFillAllFields);
     return null;
   }
 };
-
 export const removeFile = async (token, contentId) => {
   const res = await videoGeneralRequest(
     routes.removeImgContent + contentId,
@@ -168,18 +152,15 @@ export const removeFile = async (token, contentId) => {
     undefined,
     token,
   );
-
   if (res !== null) showSuccess(commonTranslator.removeSuccessfully);
   return res;
 };
-
 export const addFile = async (token, fileContent, contentId) => {
   return await fetch(fileContent.content)
     .then(res => res.blob())
     .then(async blob => {
       const formData = new FormData();
       formData.append('file', blob, fileContent.name);
-
       const res = await videoFileRequest(
         routes.setImgContent + contentId,
         formData,
@@ -189,7 +170,6 @@ export const addFile = async (token, fileContent, contentId) => {
       return res;
     });
 };
-
 export const setSessionFile = async (
   token,
   fileContent,
@@ -201,7 +181,6 @@ export const setSessionFile = async (
     .then(async blob => {
       const formData = new FormData();
       formData.append('file', blob, fileContent.name);
-
       const res = await videoFileRequest(
         routes.addٰAttachToSession + contentId + '/' + sessionId,
         formData,
@@ -211,7 +190,6 @@ export const setSessionFile = async (
       return res;
     });
 };
-
 export const removeSessionFile = async (
   token,
   contentId,
@@ -225,7 +203,6 @@ export const removeSessionFile = async (
       : mode === 'attach'
       ? routes.removeAttachFromSession
       : routes.removeVideoFromSession;
-
   const res = await videoGeneralRequest(
     filename == undefined
       ? base + contentId + '/' + sessionId
@@ -235,7 +212,6 @@ export const removeSessionFile = async (
     undefined,
     token,
   );
-
   if (res !== null) showSuccess(commonTranslator.removeSuccessfully);
   return res;
 };

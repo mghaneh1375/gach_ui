@@ -4,25 +4,24 @@ import {
   PhoneView,
   SimpleText,
   MyView,
-} from '../../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../../../translator/Common';
-import Translate from '../../../Translate';
+} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '../../../../../../translator/common';
+import Translate from '../../../translate';
 import React, {useState} from 'react';
-import {TextIcon} from '../../../../../../styles/Common/TextIcon';
+import {TextIcon} from '../../../../../../styles/common/TextIcon';
 import {faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
-import {convertTimestamp, showError} from '../../../../../../services/Utility';
-import {FontIcon} from '../../../../../../styles/Common/FontIcon';
-import {LargePopUp} from '../../../../../../styles/Common/PopUp';
-import {CommonDatePicker} from '../../../../../../styles/Common/CommonDatePicker';
-import {updateGift} from '../Utility';
-import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
+import {convertTimestamp, showError} from '../../../../../../services/utility';
+import {FontIcon} from '../../../../../../styles/common/FontIcon';
+import {LargePopUp} from '../../../../../../styles/common/PopUp';
+import {CommonDatePicker} from '../../../../../../styles/common/CommonDatePicker';
+import {updateGift} from '../utility';
+import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect';
 import {
   fetchContentDigests,
   fetchQuizDigests,
-} from '../../../../notifs/components/Utility';
-import {styles} from '../../../../../../styles/Common/Styles';
-
+} from '../../../../notifs/components/utility';
+import {styles} from '../../../../../../styles/common/styles';
 function List(props) {
   const [newDate, setNewDate] = useState();
   const [appNewDate, setAppNewDate] = useState();
@@ -36,19 +35,15 @@ function List(props) {
   const appToggleShowPopUpPane = () => {
     setAppShowPane(!appShowPane);
   };
-
   const [webDateList, setWebDateList] = useState([]);
   const [appDateList, setAppDateList] = useState([]);
   const [quizzes, setQuizzes] = useState();
   const [contents, setContents] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   const fetchPreReq = React.useCallback(() => {
     if (isWorking || quizzes !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       fetchQuizDigests(props.token),
       fetchContentDigests(props.token),
@@ -58,22 +53,21 @@ function List(props) {
         props.navigate('/');
         return;
       }
-
       setQuizzes(res[0]);
       setContents(
         res[1].map(elem => {
-          return {id: elem.id, name: elem.title};
+          return {
+            id: elem.id,
+            name: elem.title,
+          };
         }),
       );
-
       setIsWorking(false);
     });
   }, [props, isWorking, quizzes]);
-
   React.useEffect(() => {
     fetchPreReq();
   }, [props.data, fetchPreReq]);
-
   React.useEffect(() => {
     setWebDateList(props.data.webGiftDays);
     setAppDateList(props.data.appGiftDays);
@@ -82,21 +76,31 @@ function List(props) {
     setCoinForForthTime(props.data.coinForForthTime);
     setCoinForFifthTime(props.data.coinForFifthTime);
   }, [props.data]);
-
   const items = [
-    {id: 'public', item: 'عمومی'},
+    {
+      id: 'public',
+      item: 'عمومی',
+    },
     {
       id: 'all_package',
       item: 'دوره‌های آموزشی(خریدار هر دوره آموزشی تعریف شده)',
     },
-    {id: 'all_quiz', item: 'آزمونهای آیریسک(خریدار هر آزمون تعریف شده)'},
-    {id: 'package', item: 'دوره‌های آموزشی(خریداران یک دوره آموزشی خاص)'},
-    {id: 'quiz', item: 'آزمونهای آیریسک(خریداران یک آزمون خاص)'},
+    {
+      id: 'all_quiz',
+      item: 'آزمونهای آیریسک(خریدار هر آزمون تعریف شده)',
+    },
+    {
+      id: 'package',
+      item: 'دوره‌های آموزشی(خریداران یک دوره آموزشی خاص)',
+    },
+    {
+      id: 'quiz',
+      item: 'آزمونهای آیریسک(خریداران یک آزمون خاص)',
+    },
   ];
   const [target, setTarget] = useState();
   const [choices, setChoices] = useState();
   const [allSelectedVals, setAllSelectedVals] = useState();
-
   const addToSelected = selected => {
     if (allSelectedVals === undefined) setAllSelectedVals([selected]);
     else {
@@ -108,16 +112,17 @@ function List(props) {
       setAllSelectedVals(tmp);
     }
   };
-
   const [coinForSecondTime, setCoinForSecondTime] = useState();
   const [coinForThirdTime, setCoinForThirdTime] = useState();
   const [coinForForthTime, setCoinForForthTime] = useState();
   const [coinForFifthTime, setCoinForFifthTime] = useState();
-
   return (
     <MyView>
       <CommonWebBox header={'پیکربندی کلی'}>
-        <PhoneView style={{...styles.gap10}}>
+        <PhoneView
+          style={{
+            ...styles.gap10,
+          }}>
           <JustBottomBorderTextInput
             justNum={true}
             float={true}
@@ -177,7 +182,10 @@ function List(props) {
               removeCancel={true}
               title={commonTranslator.addDate}
               toggleShowPopUp={toggleShowPopUpPane}>
-              <MyView style={{minHeight: 300}}>
+              <MyView
+                style={{
+                  minHeight: 300,
+                }}>
                 <CommonDatePicker
                   isHalf={true}
                   placeholder={Translate.newDate}
@@ -228,7 +236,10 @@ function List(props) {
                 )}
               </MyView>
 
-              <PhoneView style={{flexDirection: 'row-reverse'}}>
+              <PhoneView
+                style={{
+                  flexDirection: 'row-reverse',
+                }}>
                 <CommonButton
                   theme={'dark'}
                   title={commonTranslator.confirm}
@@ -274,20 +285,28 @@ function List(props) {
             value={maxSlot}
             isHalf={true}
           />
-          <PhoneView style={{gap: 15}}>
+          <PhoneView
+            style={{
+              gap: 15,
+            }}>
             <SimpleText text={Translate.launchDates} />
             <PhoneView>
               {webDateList !== undefined &&
                 webDateList.map((elem, index) => {
                   return (
-                    <MyView key={index} style={{marginBottom: 15}}>
+                    <MyView
+                      key={index}
+                      style={{
+                        marginBottom: 15,
+                      }}>
                       <TextIcon
-                        style={{gap: 15}}
+                        style={{
+                          gap: 15,
+                        }}
                         onPress={() => {
                           const allItems = webDateList.filter((elem, idx) => {
                             return index !== idx;
                           });
-
                           setWebDateList(allItems);
                         }}
                         theme={'rect'}
@@ -295,12 +314,16 @@ function List(props) {
                         text={convertTimestamp(elem.date)}
                       />
                       <SimpleText
-                        style={{...styles.fontSize11}}
+                        style={{
+                          ...styles.fontSize11,
+                        }}
                         text={items.find(itr => itr.id === elem.target).item}
                       />
                       {elem.additional !== undefined && (
                         <SimpleText
-                          style={{...styles.fontSize11}}
+                          style={{
+                            ...styles.fontSize11,
+                          }}
                           text={elem.additional.name}
                         />
                       )}
@@ -308,7 +331,10 @@ function List(props) {
                   );
                 })}
               <FontIcon
-                parentStyle={{alignSelf: 'flex-start', marginRight: 15}}
+                parentStyle={{
+                  alignSelf: 'flex-start',
+                  marginRight: 15,
+                }}
                 theme={'rect'}
                 kind={'normal'}
                 back={'yellow'}
@@ -350,7 +376,10 @@ function List(props) {
                 />
               </PhoneView>
 
-              <PhoneView style={{flexDirection: 'row-reverse'}}>
+              <PhoneView
+                style={{
+                  flexDirection: 'row-reverse',
+                }}>
                 <CommonButton
                   theme={'dark'}
                   title={commonTranslator.confirm}
@@ -378,18 +407,26 @@ function List(props) {
               value={appMaxSlot}
             />
           </PhoneView>
-          <PhoneView style={{gap: 15}}>
+          <PhoneView
+            style={{
+              gap: 15,
+            }}>
             <SimpleText text={Translate.launchDates} />
-            <PhoneView style={{gap: 15}}>
+            <PhoneView
+              style={{
+                gap: 15,
+              }}>
               {appDateList.map((elem, index) => {
                 return (
                   <TextIcon
-                    style={{gap: 15, marginBottom: 15}}
+                    style={{
+                      gap: 15,
+                      marginBottom: 15,
+                    }}
                     onPress={() => {
                       const allItems = appDateList.filter((elem, idx) => {
                         return index !== idx;
                       });
-
                       setAppDateList(allItems);
                     }}
                     theme={'rect'}
@@ -400,7 +437,9 @@ function List(props) {
                 );
               })}
               <FontIcon
-                parentStyle={{alignSelf: 'flex-start'}}
+                parentStyle={{
+                  alignSelf: 'flex-start',
+                }}
                 theme={'rect'}
                 kind={'normal'}
                 back={'yellow'}
@@ -428,5 +467,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

@@ -1,16 +1,13 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {fileRequest, generalRequest} from '../../../../../API/Utility';
-import {showSuccess} from '../../../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {fileRequest, generalRequest} from '../../../../../api/utility';
+import {showSuccess} from '@/services/utility';
 export const getAll = async token => {
   return await generalRequest(routes.getAdv, 'get', undefined, 'data', token);
 };
-
 export const store = async (file, data, token) => {
   const formData = new FormData();
   var myblob = new Blob([new Uint8Array(file.content)]);
   formData.append('file', myblob, file.name);
-
   const res = await fileRequest(
     routes.addAdv,
     'post',
@@ -22,7 +19,6 @@ export const store = async (file, data, token) => {
   if (res !== null) showSuccess();
   return res;
 };
-
 export const update = async (id, data, token) => {
   const res = await generalRequest(
     routes.updateAdv + id,
@@ -34,7 +30,6 @@ export const update = async (id, data, token) => {
   if (res !== null) showSuccess();
   return res;
 };
-
 export const removeAd = async (id, token) => {
   const res = await generalRequest(
     routes.removeAdv + id,

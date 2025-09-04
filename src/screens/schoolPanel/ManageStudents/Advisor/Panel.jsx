@@ -10,17 +10,17 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import commonTranslator from '../../../../translator/Common';
-import Card from '../../../general/Advisors/Card';
-import {styles} from '../../../../styles/Common/Styles';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {showSuccess} from '../../../../services/Utility';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
+} from '@/styles';
+import commonTranslator from '@/translator/common';
+import Card from '../../../general/advisors/Card';
+import {styles} from '../../../../styles/common/styles';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '@/services/utility';
+import {LargePopUp} from '../../../../styles/common/PopUp';
 import {Image} from 'react-native';
-import vars from '../../../../styles/root';
-import translator from '../../../../screens/advisorPanel/MyFinancePlans/components/Translator';
+import vars from '@/styles/root';
+import translator from '../../../../screens/advisorPanel/myFinancePlans/components/translator';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
 import {
   faClockRotateLeft,
@@ -29,31 +29,25 @@ import {
   faQuestion,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
-import DashboardCard from '../../../studentPanel/dashboard/DashboardCard/DashboardCard';
-
+import DashboardCard from '../../../studentPanel/dashboard/dashboardCard/DashboardCard';
 function Panel(props) {
   const useGlobalState = () => [
     React.useContext(advicePanelContext),
     React.useContext(dispatchAdvicePanelContext),
   ];
-
   const [data, setData] = useState();
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [url, setUrl] = useState();
   const [src, setSrc] = useState();
   const [showConfirmation, setShowConfirmation] = useState(false);
-
   React.useEffect(() => {
     setSrc(data?.pic);
   }, [data?.pic]);
-
   const fetchData = React.useCallback(() => {
     if (data !== undefined || isWorking) return;
-
     props.setLoading(true);
     setIsWorking(true);
-
     Promise.all([
       generalRequest(
         routes.getStudentDigestForAdvisor + props.wantedUserId,
@@ -76,19 +70,21 @@ function Panel(props) {
         props.setMode('list');
         return;
       }
-
-      state.fetchedInfos.push({userId: props.wantedUserId, data: res[0]});
-      dispatch({fetchedInfos: state.fetchedInfos});
+      state.fetchedInfos.push({
+        userId: props.wantedUserId,
+        data: res[0],
+      });
+      dispatch({
+        fetchedInfos: state.fetchedInfos,
+      });
       setData(res[0]);
       setUrl(res[1] === '' ? undefined : res[1]);
       setIsWorking(false);
     });
   }, [dispatch, state, props, isWorking, data]);
-
   React.useEffect(() => {
     fetchData();
   }, [props.wantedUserId, fetchData]);
-
   return (
     <>
       {showConfirmation && (
@@ -132,10 +128,16 @@ function Panel(props) {
       <CommonWebBox>
         <EqualTwoTextInputs>
           {data !== undefined && (
-            <PhoneView style={{...styles.gap10}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+              }}>
               <MyView>
                 <SimpleText
-                  style={{...styles.BlueBold, ...styles.textCenter}}
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.textCenter,
+                  }}
                   text={data.name}
                 />
                 {src !== undefined && (
@@ -154,21 +156,32 @@ function Panel(props) {
                 )}
               </MyView>
 
-              <MyView style={{...styles.justifyContentCenter}}>
+              <MyView
+                style={{
+                  ...styles.justifyContentCenter,
+                }}>
                 <SimpleText
-                  style={{...styles.dark_blue_color}}
+                  style={{
+                    ...styles.dark_blue_color,
+                  }}
                   text={'رشته: ' + data.branches}
                 />
                 <SimpleText
-                  style={{...styles.dark_blue_color}}
+                  style={{
+                    ...styles.dark_blue_color,
+                  }}
                   text={'پایه تحصیلی: ' + data.grade}
                 />
                 <SimpleText
-                  style={{...styles.dark_blue_color}}
+                  style={{
+                    ...styles.dark_blue_color,
+                  }}
                   text={'نام مدرسه: ' + data.school}
                 />
                 <SimpleText
-                  style={{...styles.dark_blue_color}}
+                  style={{
+                    ...styles.dark_blue_color,
+                  }}
                   text={'نام شهر: ' + data.city}
                 />
               </MyView>
@@ -177,16 +190,30 @@ function Panel(props) {
 
           <MyView
             style={
-              props.isInPhone ? {width: '100%', alignItems: 'center'} : {}
+              props.isInPhone
+                ? {
+                    width: '100%',
+                    alignItems: 'center',
+                  }
+                : {}
             }>
             <CommonButton
               style={
                 props.isInPhone
-                  ? {minWidth: 290, justifyContent: 'center'}
-                  : {minWidth: 260}
+                  ? {
+                      minWidth: 290,
+                      justifyContent: 'center',
+                    }
+                  : {
+                      minWidth: 260,
+                    }
               }
               parentStyle={
-                props.isInPhone ? {alignSelf: 'center !important'} : {}
+                props.isInPhone
+                  ? {
+                      alignSelf: 'center !important',
+                    }
+                  : {}
               }
               onPress={() =>
                 window.open('/studentLifeStyle/' + props.wantedUserId)
@@ -198,8 +225,14 @@ function Panel(props) {
                 padding={props.isInPhone ? '5px' : '5px 15px'}
                 style={
                   props.isInPhone
-                    ? {minWidth: 140, marginRight: 3, marginLeft: 3}
-                    : {minWidth: 120}
+                    ? {
+                        minWidth: 140,
+                        marginRight: 3,
+                        marginLeft: 3,
+                      }
+                    : {
+                        minWidth: 120,
+                      }
                 }
                 onPress={() =>
                   window.open('/studentSchedules/' + props.wantedUserId)
@@ -211,8 +244,14 @@ function Panel(props) {
                 padding={props.isInPhone ? '5px' : '5px 15px'}
                 style={
                   props.isInPhone
-                    ? {minWidth: 140, marginRight: 3, marginLeft: 3}
-                    : {minWidth: 120}
+                    ? {
+                        minWidth: 140,
+                        marginRight: 3,
+                        marginLeft: 3,
+                      }
+                    : {
+                        minWidth: 120,
+                      }
                 }
                 onPress={() =>
                   window.open('/studentProgress/' + props.wantedUserId)
@@ -227,8 +266,14 @@ function Panel(props) {
                 padding={props.isInPhone ? '5px' : '5px 15px'}
                 style={
                   props.isInPhone
-                    ? {minWidth: 140, marginRight: 3, marginLeft: 3}
-                    : {minWidth: 120}
+                    ? {
+                        minWidth: 140,
+                        marginRight: 3,
+                        marginLeft: 3,
+                      }
+                    : {
+                        minWidth: 120,
+                      }
                 }
                 onPress={() =>
                   window.open(
@@ -243,8 +288,14 @@ function Panel(props) {
                   padding={props.isInPhone ? '5px' : '5px 15px'}
                   style={
                     props.isInPhone
-                      ? {minWidth: 140, marginRight: 3, marginLeft: 3}
-                      : {minWidth: 120}
+                      ? {
+                          minWidth: 140,
+                          marginRight: 3,
+                          marginLeft: 3,
+                        }
+                      : {
+                          minWidth: 120,
+                        }
                   }
                   onPress={() => setShowConfirmation(true)}
                   title={'ایجاد اتاق جلسه'}
@@ -256,8 +307,14 @@ function Panel(props) {
                   padding={props.isInPhone ? '5px' : '5px 15px'}
                   style={
                     props.isInPhone
-                      ? {minWidth: 140, marginRight: 3, marginLeft: 3}
-                      : {minWidth: 120}
+                      ? {
+                          minWidth: 140,
+                          marginRight: 3,
+                          marginLeft: 3,
+                        }
+                      : {
+                          minWidth: 120,
+                        }
                   }
                   onPress={() => window.open(url)}
                   title={'رفتن به جلسه'}
@@ -270,9 +327,17 @@ function Panel(props) {
       </CommonWebBox>
       <CommonWebBox header={'تعهدات'}>
         {data !== undefined && data.maxKarbarg !== undefined && (
-          <SimpleText text={data.planTitle} style={{...styles.BlueBold}} />
+          <SimpleText
+            text={data.planTitle}
+            style={{
+              ...styles.BlueBold,
+            }}
+          />
         )}
-        <PhoneView style={{...styles.gap15}}>
+        <PhoneView
+          style={{
+            ...styles.gap15,
+          }}>
           {data !== undefined && data.maxKarbarg !== undefined && (
             <>
               <QuizItemCard
@@ -427,5 +492,4 @@ function Panel(props) {
     </>
   );
 }
-
 export default Panel;

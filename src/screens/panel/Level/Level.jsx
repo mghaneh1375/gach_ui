@@ -1,23 +1,21 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {LevelProvider} from './components/Context';
 import Create from './components/Create';
 import List from './components/List';
-
 function Level(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   return (
     <LevelProvider>
       {mode === 'list' && (
@@ -47,5 +45,4 @@ function Level(props) {
     </LevelProvider>
   );
 }
-
 export default Level;

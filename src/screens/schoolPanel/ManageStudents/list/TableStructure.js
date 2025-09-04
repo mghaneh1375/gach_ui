@@ -1,5 +1,4 @@
-import commonTranslator from '../../../../translator/Common';
-
+import commonTranslator from '@/translator/common';
 const columns = [
   {
     name: commonTranslator.name + ' و ' + commonTranslator.lastname,

@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
-import {MyView} from '../../../../../styles/Common';
-import {fetchPackageQuizzes} from '../Utility';
-
+import {MyView} from '@/styles';
+import {fetchPackageQuizzes} from '../utility';
 import Add from './Add';
 import Info from './Info';
 import List from './List';
 import {dispatchQuizzesContext, quizzesContext} from './Utility';
 import AddOpenQuiz from './AddOpenQuiz';
-
 function Detail(props) {
   const useGlobalState = () => [
     React.useContext(quizzesContext),
@@ -15,15 +13,14 @@ function Detail(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (isWorking || state.quizzes !== undefined) return;
-
     if (props.package.quizzesDoc !== undefined) {
-      dispatch({quizzes: props.package.quizzesDoc});
+      dispatch({
+        quizzes: props.package.quizzesDoc,
+      });
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
     Promise.all([fetchPackageQuizzes(props.token, props.package.id)]).then(
@@ -33,16 +30,16 @@ function Detail(props) {
           props.setMode('list');
           return;
         }
-        dispatch({quizzes: res[0]});
+        dispatch({
+          quizzes: res[0],
+        });
         props.package.quizzesDoc = res[0];
         props.setPackage(props.package);
         setIsWorking(false);
       },
     );
   }, [props, isWorking, dispatch, state.quizzes]);
-
   const [isFilterMenuActive, setIsFilterMenuActive] = useState(false);
-
   React.useEffect(() => {
     if (isFilterMenuActive) return;
     if (state.selectingQuiz) {
@@ -50,7 +47,6 @@ function Detail(props) {
       setIsFilterMenuActive(true);
     }
   }, [state.selectingQuiz, isFilterMenuActive, props]);
-
   return (
     <MyView>
       {state.selectingQuiz && (
@@ -96,5 +92,4 @@ function Detail(props) {
     </MyView>
   );
 }
-
 export default Detail;

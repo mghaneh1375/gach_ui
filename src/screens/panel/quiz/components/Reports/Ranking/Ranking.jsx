@@ -1,29 +1,28 @@
 import React, {useState} from 'react';
-import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
-import {getRanking} from '../../Utility';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
+import {getRanking} from '../../utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../../styles/Common';
+} from '@/styles';
 import {quizContext, dispatchQuizContext} from '../../Context';
 import {
   FontIcon,
   SimpleFontIcon,
-} from '../../../../../../styles/Common/FontIcon';
+} from '../../../../../../styles/common/FontIcon';
 import {faArrowLeft, faEye} from '@fortawesome/free-solid-svg-icons';
-import CopyBox from '../../../../../../components/CopyBox';
-import commonTranslator from '../../../Translator';
-import {BASE_SITE_NAME} from '../../../../../../API/Utility';
-import {styles} from '../../../../../../styles/Common/Styles';
+import CopyBox from '@/components/CopyBox';
+import commonTranslator from '../../../translator';
+import {BASE_SITE_NAME} from '../../../../../../api/utility';
+import {styles} from '../../../../../../styles/common/styles';
 import {
   convertSecToMin,
   convertSecToMinWithOutSec3,
   getDevice,
-} from '../../../../../../services/Utility';
-
+} from '../../../../../../services/utility';
 function Ranking(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
@@ -31,13 +30,11 @@ function Ranking(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const [columns, setColumns] = useState();
   const [selectedTeam, setSelectedTeam] = useState();
   const [showDetails, setshowDetails] = useState(false);
   const [selectedTeamRank, setSelectedTeamRank] = useState();
-
   const chooseColumns = React.useCallback(() => {
     if (state.selectedQuiz.generalMode === 'escape') {
       const a = [
@@ -68,7 +65,9 @@ function Ranking(props) {
           cell: (column, id) => {
             return (
               <SimpleText
-                style={{cursor: 'pointer'}}
+                style={{
+                  cursor: 'pointer',
+                }}
                 key={'name_' + id}
                 onPress={() =>
                   window.open(
@@ -110,7 +109,6 @@ function Ranking(props) {
       setColumns(a);
       return;
     }
-
     if (
       state.selectedQuiz.ranking !== undefined &&
       state.selectedQuiz.ranking.length > 0 &&
@@ -279,25 +277,23 @@ function Ranking(props) {
       ]);
     }
   }, [props, dispatch, state.selectedQuiz]);
-
   React.useEffect(() => {
     if (state.selectedQuiz.ranking === undefined) return;
     chooseColumns();
   }, [state.selectedQuiz, chooseColumns]);
-
   React.useEffect(() => {
     if (state.selectedQuiz === undefined) {
       dispatch({
-        selectedQuiz: {id: props.quizId, generalMode: props.quizMode},
+        selectedQuiz: {
+          id: props.quizId,
+          generalMode: props.quizMode,
+        },
       });
       return;
     }
-
     if (isWorking || state.selectedQuiz.ranking !== undefined) return;
-
     props.setLoading(true);
     setIsWorking(true);
-
     Promise.all([
       getRanking(
         state.selectedQuiz.id,
@@ -309,17 +305,18 @@ function Ranking(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.setMode('list');
         return;
       }
       state.selectedQuiz.ranking = res[0];
-      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+      dispatch({
+        selectedQuiz: state.selectedQuiz,
+        needUpdate: true,
+      });
       setIsWorking(false);
     });
   }, [dispatch, state.selectedQuiz, props, isWorking]);
-
   return (
     <CommonWebBox
       header={
@@ -405,7 +402,10 @@ function Ranking(props) {
         showDetails &&
         selectedTeam !== undefined && (
           <>
-            <PhoneView style={{...styles.gap30}}>
+            <PhoneView
+              style={{
+                ...styles.gap30,
+              }}>
               <SimpleText text={'نام: ' + selectedTeam.user} />
               <SimpleText
                 text={'تعداد سوالات حل شده: ' + selectedTeam.solved}
@@ -413,12 +413,17 @@ function Ranking(props) {
               <SimpleText text={'رتبه: ' + selectedTeamRank} />
             </PhoneView>
 
-            <PhoneView style={{...styles.gap30}}>
+            <PhoneView
+              style={{
+                ...styles.gap30,
+              }}>
               {selectedTeam.startAt !== undefined && (
                 <>
                   <SimpleText text={'زمان آغاز: '} />
                   <SimpleText
-                    style={{direction: 'ltr'}}
+                    style={{
+                      direction: 'ltr',
+                    }}
                     text={selectedTeam.startAt}
                   />
                 </>
@@ -427,7 +432,9 @@ function Ranking(props) {
                 <>
                   <SimpleText text={'زمان پایان: '} />
                   <SimpleText
-                    style={{direction: 'ltr'}}
+                    style={{
+                      direction: 'ltr',
+                    }}
                     text={selectedTeam.finishAt}
                   />
                 </>
@@ -436,12 +443,18 @@ function Ranking(props) {
 
             <SimpleText
               text={'سوالات حل شده'}
-              style={{...styles.fontSize17, ...styles.BlueBold}}
+              style={{
+                ...styles.fontSize17,
+                ...styles.BlueBold,
+              }}
             />
             <MyView>
               {selectedTeam.answers.map((e, index) => {
                 return (
-                  <PhoneView style={{...styles.gap50}}>
+                  <PhoneView
+                    style={{
+                      ...styles.gap50,
+                    }}>
                     <SimpleText text={'سوال ' + (index + 1)} />
 
                     {selectedTeam.answers[index].answerAt === '' && (
@@ -470,5 +483,4 @@ function Ranking(props) {
     </CommonWebBox>
   );
 }
-
 export default Ranking;

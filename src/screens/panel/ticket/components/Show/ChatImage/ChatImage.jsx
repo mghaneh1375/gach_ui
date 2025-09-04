@@ -1,5 +1,4 @@
-import {MyView} from '../../../../../../styles/Common';
-
+import {MyView} from '@/styles';
 function ChatImage(props) {
   const style = {
     width: 40,
@@ -18,5 +17,4 @@ function ChatImage(props) {
   };
   return <MyView style={style} />;
 }
-
 export default ChatImage;

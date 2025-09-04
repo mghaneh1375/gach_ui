@@ -1,9 +1,8 @@
 import React from 'react';
-import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../translator/Common';
-import {removeGrade} from '../Utility';
-
+import {CommonButton, PhoneView, MyView} from '@/styles';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import commonTranslator from '@/translator/common';
+import {removeGrade} from '../utility';
 function Ops(props) {
   return (
     <MyView>
@@ -35,5 +34,4 @@ function Ops(props) {
     </MyView>
   );
 }
-
 export default Ops;

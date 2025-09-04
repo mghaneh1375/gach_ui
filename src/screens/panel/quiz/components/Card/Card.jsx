@@ -1,31 +1,3 @@
-import React, {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-  MyView,
-} from './../../../../../styles/Common';
-import Translate from './Translate';
-import commonTranslator from '../../../../../translator/Common';
-import {
-  styleTitle,
-  styleDigest,
-  styleItemsParent,
-  styleItemsGrandParent,
-  styleCard,
-  stylePricaPane,
-  styleYellowBox,
-  styleCircleBox,
-  styleColorWhite,
-} from './../../../package/card/Style';
-import {
-  convertSecToMinWithOutSec,
-  convertTimestamp,
-  formatPrice,
-  getDevice,
-} from '../../../../../services/Utility';
-import {launchModeKeyVals, kindQuizKeyVals} from '../KeyVals';
 import {
   faClock,
   faCog,
@@ -36,21 +8,49 @@ import {
   faPlug,
   faStopwatch,
 } from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../../../../styles/Common/Styles';
-import QuizItemCard from '../../../../../components/web/QuizItemCard';
+import {useState} from 'react';
 import {Rating} from 'react-native-ratings';
-
+import QuizItemCard from '../../../../../components/web/QuizItemCard';
+import {
+  convertSecToMinWithOutSec,
+  convertTimestamp,
+  formatPrice,
+  getDevice,
+} from '../../../../../services/utility';
+import {
+  CommonButton,
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '@/styles';
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
+import {
+  styleCard,
+  styleCircleBox,
+  styleColorWhite,
+  styleDigest,
+  styleItemsGrandParent,
+  styleItemsParent,
+  stylePricaPane,
+  styleTitle,
+  styleYellowBox,
+} from '../../../package/card/style';
+import {kindQuizKeyVals, launchModeKeyVals} from '../keyVals';
+import Translate from './translate';
 function Card(props) {
   const [showMore, setShowMore] = useState(false);
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const fontSize = isInPhone ? 10 : 11;
   const valFontSize = isInPhone ? 12 : 15;
-
   return (
-    <CommonWebBox style={{...styleCard, ...styles.BlueBold}}>
+    <CommonWebBox
+      style={{
+        ...styleCard,
+        ...styles.BlueBold,
+      }}>
       <MyView
         style={
           props.quiz.backColor !== undefined
@@ -82,7 +82,10 @@ function Card(props) {
                         ...styles.fontSize11,
                         ...styles.textCenter,
                       }
-                    : {...styleColorWhite, ...styles.BlueBold}
+                    : {
+                        ...styleColorWhite,
+                        ...styles.BlueBold,
+                      }
                 }
                 text={
                   props.quiz.mode !== undefined &&
@@ -106,9 +109,17 @@ function Card(props) {
           text={props.quiz.title}
         />
       </MyView>
-      <MyView style={{...styleItemsGrandParent, ...styles.gap15}}>
+      <MyView
+        style={{
+          ...styleItemsGrandParent,
+          ...styles.gap15,
+        }}>
         {!showMore && (
-          <PhoneView style={{...styleItemsParent, ...styles.gap15}}>
+          <PhoneView
+            style={{
+              ...styleItemsParent,
+              ...styles.gap15,
+            }}>
             {props.quiz.reportStatus !== 'ready' &&
               props.quiz.status !== 'finished' &&
               props.quiz.reminder !== undefined &&
@@ -311,7 +322,11 @@ function Card(props) {
                   padding={isInPhone ? '5px 5px' : undefined}
                   textStyle={
                     isInPhone
-                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      ? {
+                          fontSize: 14,
+                          paddingLeft: 20,
+                          paddingRight: 20,
+                        }
                       : {}
                   }
                   title={commonTranslator.op}
@@ -326,7 +341,11 @@ function Card(props) {
                     padding={isInPhone ? '5px 5px' : undefined}
                     textStyle={
                       isInPhone
-                        ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                        ? {
+                            fontSize: 14,
+                            paddingLeft: 20,
+                            paddingRight: 20,
+                          }
                         : {}
                     }
                     title={
@@ -345,7 +364,11 @@ function Card(props) {
                     padding={isInPhone ? '5px 5px' : undefined}
                     textStyle={
                       isInPhone
-                        ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                        ? {
+                            fontSize: 14,
+                            paddingLeft: 20,
+                            paddingRight: 20,
+                          }
                         : {}
                     }
                     title={'ادامه آزمون'}
@@ -357,7 +380,11 @@ function Card(props) {
                   padding={isInPhone ? '5px 5px' : undefined}
                   textStyle={
                     isInPhone
-                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      ? {
+                          fontSize: 14,
+                          paddingLeft: 20,
+                          paddingRight: 20,
+                        }
                       : {}
                   }
                   theme={'dark'}
@@ -413,21 +440,34 @@ function Card(props) {
 
           {props.quiz.description !== undefined &&
             props.quiz.description === '' &&
-            !isInPhone && <SimpleText style={{minHeight: 62}} />}
+            !isInPhone && (
+              <SimpleText
+                style={{
+                  minHeight: 62,
+                }}
+              />
+            )}
         </MyView>
       </MyView>
 
       <MyView>
         {props.quiz.price !== undefined && (
-          <PhoneView style={{...stylePricaPane}}>
+          <PhoneView
+            style={{
+              ...stylePricaPane,
+            }}>
             {!props.isAdmin && (
               <PhoneView>
                 <SimpleText
-                  style={{...styles.BlueBold}}
+                  style={{
+                    ...styles.BlueBold,
+                  }}
                   text={Translate.price}
                 />
                 <SimpleText
-                  style={{...styles.BlueBold}}
+                  style={{
+                    ...styles.BlueBold,
+                  }}
                   text={
                     props.quiz.price > 0
                       ? formatPrice(props.quiz.price) + ' تومان'
@@ -443,7 +483,11 @@ function Card(props) {
                   padding={isInPhone ? '5px 5px' : undefined}
                   textStyle={
                     isInPhone
-                      ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                      ? {
+                          fontSize: 14,
+                          paddingLeft: 20,
+                          paddingRight: 20,
+                        }
                       : {}
                   }
                   theme={
@@ -469,7 +513,13 @@ function Card(props) {
             onPress={() => props.onSelect(props.quiz.id)}
             padding={isInPhone ? '5px 5px' : undefined}
             textStyle={
-              isInPhone ? {fontSize: 14, paddingLeft: 20, paddingRight: 20} : {}
+              isInPhone
+                ? {
+                    fontSize: 14,
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                  }
+                : {}
             }
             theme={
               props.quiz.isSelected !== undefined && props.quiz.isSelected
@@ -500,7 +550,9 @@ function Card(props) {
                         ...styles.fontSize15,
                         ...styles.BlueBold,
                         ...styles.margin5,
-                        ...{visibility: 'hidden'},
+                        ...{
+                          visibility: 'hidden',
+                        },
                       }
                 }
                 text={
@@ -515,5 +567,4 @@ function Card(props) {
     </CommonWebBox>
   );
 }
-
 export default Card;

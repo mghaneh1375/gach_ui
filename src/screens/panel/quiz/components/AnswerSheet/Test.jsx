@@ -1,20 +1,15 @@
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
-import {MyView, PhoneView, SimpleText} from '../../../../../styles/Common';
-import vars from '../../../../../styles/root';
-
+import {MyView, PhoneView, SimpleText} from '@/styles';
+import vars from '@/styles/root';
 function Test(props) {
   const index = props.index;
-
   const choicesCount = props.state.wanted_answer_sheet[index].choicesCount;
   const [choicesArr, setChoicesArr] = useState();
-
   React.useEffect(() => {
     if (choicesCount === undefined) return;
-
     const ans = props.state.wanted_answer_sheet[index].answer;
     const studentAns = props.state.wanted_answer_sheet[index].studentAns;
-
     const tmp = [];
     for (let i = 0; i < choicesCount; i++)
       tmp.push({
@@ -25,7 +20,6 @@ function Test(props) {
           studentAns !== undefined &&
           studentAns == i + 1,
       });
-
     setChoicesArr(tmp);
   }, [
     choicesCount,
@@ -34,11 +28,9 @@ function Test(props) {
     props.state.showAnswers,
     props.state.showStdAnswers,
   ]);
-
   const changeAnsSelected = idx => {
     let ans = props.state.wanted_answer_sheet[index].answer;
     let studentAns = props.state.wanted_answer_sheet[index].studentAns;
-
     if (props.state.allowChangeAns) {
       ans = idx + 1;
       props.state.wanted_answer_sheet[index].answer = idx + 1;
@@ -53,9 +45,10 @@ function Test(props) {
         studentAns = idx + 1;
         props.state.new_std_answer_sheet[index] = idx + 1;
       }
-      props.dispatch({new_std_answer_sheet: props.state.new_std_answer_sheet});
+      props.dispatch({
+        new_std_answer_sheet: props.state.new_std_answer_sheet,
+      });
     }
-
     const tmp = [];
     for (let i = 0; i < choicesCount; i++)
       tmp.push({
@@ -66,14 +59,18 @@ function Test(props) {
           studentAns !== undefined &&
           studentAns == i + 1,
       });
-
     setChoicesArr(tmp);
   };
-
   return (
-    <PhoneView style={{direction: 'ltr'}}>
+    <PhoneView
+      style={{
+        direction: 'ltr',
+      }}>
       <SimpleText
-        style={{alignSelf: 'center', width: 25}}
+        style={{
+          alignSelf: 'center',
+          width: 25,
+        }}
         text={index + 1 + ' - '}
       />
 
@@ -138,12 +135,14 @@ function Test(props) {
 
       {props.state.wanted_answer_sheet[index].percent !== undefined && (
         <SimpleText
-          style={{alignSelf: 'center', marginLeft: 3}}
+          style={{
+            alignSelf: 'center',
+            marginLeft: 3,
+          }}
           text={'%' + props.state.wanted_answer_sheet[index].percent}
         />
       )}
     </PhoneView>
   );
 }
-
 export default Test;

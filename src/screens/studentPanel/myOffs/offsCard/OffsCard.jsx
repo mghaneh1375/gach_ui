@@ -1,24 +1,27 @@
-import {faBuilding, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
+import {faBuilding, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
 import {
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
+} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
 import {
   styleCard,
   styleTitle,
   styleYellowBox,
-} from '../../../panel/package/card/Style';
-import Translate from '../Translate';
-
+} from '../../../panel/package/card/style';
+import Translate from '../translate';
 function GiftOffsCard(props) {
   return (
     <CommonWebBox
-      style={{...styleCard, ...styles.BlueBold, ...styles.padding10}}>
+      style={{
+        ...styleCard,
+        ...styles.BlueBold,
+        ...styles.padding10,
+      }}>
       <SimpleText
         style={{
           ...styles.BlueBold,
@@ -38,7 +41,10 @@ function GiftOffsCard(props) {
         }
       />
       <PhoneView>
-        <EqualTwoTextInputs style={{...styles.gap30}}>
+        <EqualTwoTextInputs
+          style={{
+            ...styles.gap30,
+          }}>
           <QuizItemCard
             text={Translate.placeUse}
             val={props.placeUse}
@@ -68,7 +74,11 @@ function GiftOffsCard(props) {
           />
         </EqualTwoTextInputs>
       </PhoneView>
-      <EqualTwoTextInputs style={{width: '100%', gap: 0}}>
+      <EqualTwoTextInputs
+        style={{
+          width: '100%',
+          gap: 0,
+        }}>
         <PhoneView
           style={{
             ...styleYellowBox,
@@ -146,5 +156,4 @@ function GiftOffsCard(props) {
     </CommonWebBox>
   );
 }
-
 export default GiftOffsCard;

@@ -1,20 +1,19 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import {
   advisorScheduleContext,
   dispatchAdvisorScheduleContext,
 } from './Context';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {fetchMySchedules, fetchSchedules} from './Utility';
-import columns from './TableStructure';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import {removeItems, showSuccess} from '../../../../services/Utility';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import {fetchMySchedules, fetchSchedules} from './utility';
+import columns from './tableStructure';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import {removeItems, showSuccess} from '../../../../services/utility';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
-import {routes} from '../../../../API/APIRoutes';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import commonTranslator from '../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import commonTranslator from '@/translator/common';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(advisorScheduleContext),
@@ -23,15 +22,21 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
   const [showOp, setShowOp] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
-
   const statusValues = [
-    {id: 'passed', item: 'گذشته'},
-    {id: 'current', item: 'جاری یا آینده'},
-    {id: 'all', item: 'همه'},
+    {
+      id: 'passed',
+      item: 'گذشته',
+    },
+    {
+      id: 'current',
+      item: 'جاری یا آینده',
+    },
+    {
+      id: 'all',
+      item: 'همه',
+    },
   ];
-
   const [filter, setFilter] = useState('all');
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -40,26 +45,31 @@ function List(props) {
         : fetchSchedules(props.token, props.studentId),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] == null) {
         props.navigate('/');
         return;
       }
-      if (props.studentId === undefined) dispatch({schedules: res[0].items});
-      else dispatch({schedules: res[0].items, student: res[0].student});
+      if (props.studentId === undefined)
+        dispatch({
+          schedules: res[0].items,
+        });
+      else
+        dispatch({
+          schedules: res[0].items,
+          student: res[0].student,
+        });
     });
   }, [props, dispatch]);
-
   useEffectOnce(() => {
     if (state.schedules !== undefined) return;
     fetchData();
   }, [fetchData]);
-
   const handleOp = idx => {
-    dispatch({selectedSchedule: state.schedules[idx]});
+    dispatch({
+      selectedSchedule: state.schedules[idx],
+    });
     setShowOp(true);
   };
-
   return (
     <CommonWebBox
       header={
@@ -78,11 +88,12 @@ function List(props) {
             removeItems(
               state.schedules,
               items => {
-                dispatch({schedules: items});
+                dispatch({
+                  schedules: items,
+                });
               },
               [state.selectedSchedule.id],
             );
-
             showSuccess();
             setShowConfirmation(false);
             setShowOp(false);
@@ -137,7 +148,6 @@ function List(props) {
           title={commonTranslator.filter}
           onPress={async () => {
             props.setLoading(true);
-
             const res =
               props.studentId === undefined
                 ? await fetchMySchedules(
@@ -160,8 +170,14 @@ function List(props) {
             props.setLoading(false);
             if (res != null) {
               if (props.studentId === undefined)
-                dispatch({schedules: res.items});
-              else dispatch({schedules: res.items, student: res.student});
+                dispatch({
+                  schedules: res.items,
+                });
+              else
+                dispatch({
+                  schedules: res.items,
+                  student: res.student,
+                });
             }
           }}
         />
@@ -176,5 +192,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

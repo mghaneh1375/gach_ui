@@ -1,40 +1,32 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
 import {courseContext, dispatchCourseContext} from './Context';
-import commonTranslator from '../../../../translator/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {showError, trueFalseValues} from '../../../../services/Utility';
-
+import commonTranslator from '@/translator/common';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {showError, trueFalseValues} from '../../../../services/utility';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(courseContext),
     React.useContext(dispatchCourseContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [title, setTitle] = useState();
   const [needToNumber, setNeedToNumber] = useState(false);
   const [label, setLabel] = useState();
-
   React.useEffect(() => {
     if (!props.isInEditMode || state.selectedTag === undefined) return;
-
     setTitle(state.selectedTag.label);
     setNeedToNumber(state.selectedTag.numberLabel !== undefined);
     setLabel(state.selectedTag.numberLabel);
   }, [props.isInEditMode, state.selectedTag]);
-
   const createData = React.useCallback(() => {
     props.setLoading(true);
-
     const data = {
       label: title,
     };
-
     if (needToNumber) {
       if (label === undefined) {
         showError('لطفا عنوان عدد را وارد نمایید');
@@ -42,7 +34,6 @@ function Create(props) {
       }
       data.numberLabel = label;
     }
-
     Promise.all([
       generalRequest(
         props.isInEditMode
@@ -55,12 +46,10 @@ function Create(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       let tmp = state.tags;
       if (!props.isInEditMode) {
         tmp.push({
@@ -76,12 +65,12 @@ function Create(props) {
               label: title,
               numberLabel: needToNumber ? label : undefined,
             };
-
           return e;
         });
       }
-
-      dispatch({tags: tmp});
+      dispatch({
+        tags: tmp,
+      });
       props.setMode('list');
     });
   }, [
@@ -93,13 +82,15 @@ function Create(props) {
     label,
     state.selectedTag,
   ]);
-
   return (
     <CommonWebBox
       header={props.isInEditMode ? 'ویرایش' : 'افزودن'}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{gap: 20}}>
+      <PhoneView
+        style={{
+          gap: 20,
+        }}>
         <JustBottomBorderTextInput
           placehoder={commonTranslator.title}
           subText={commonTranslator.title}
@@ -129,5 +120,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

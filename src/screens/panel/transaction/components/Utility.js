@@ -1,6 +1,5 @@
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
 export const getTransactions = async (
   token,
   userId,
@@ -17,7 +16,6 @@ export const getTransactions = async (
     query.append('useOffCode', useOffCode);
   if (section !== undefined && section !== 'all')
     query.append('section', section);
-
   return await generalRequest(
     routes.getTransactions + query.toString(),
     'get',

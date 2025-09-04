@@ -1,27 +1,22 @@
-import React from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Platform, Pressable} from 'react-native';
-import {BigBoldBlueText} from '../Common';
+import {BigBoldBlueText} from '../CommonComponents';
 import vars from './../root';
-
 const FontIconStyle = {
   color: vars.WHITE,
   width: '100%',
   height: '100%',
 };
-
 const FontIconStyleAndroid = {
   ...FontIconStyle,
   padding: 15,
   alignSelf: 'center',
 };
-
 const FontIconStyleWeb = {
   ...FontIconStyle,
   padding: 4,
   alignSelf: 'center',
 };
-
 export const FontIcon = props => {
   const className =
     props.theme === 'transparent' ? 'myBtn-Transparent' : 'myBtn';
@@ -64,12 +59,13 @@ export const FontIcon = props => {
     alignSelf: 'center',
     justifyContent: 'center',
   };
-
   const allStyles =
     props.parentStyle === undefined
       ? style1
-      : {...style1, ...props.parentStyle};
-
+      : {
+          ...style1,
+          ...props.parentStyle,
+        };
   if (Platform.OS === 'web') {
     return (
       <div className={className}>
@@ -81,8 +77,14 @@ export const FontIcon = props => {
                 Platform.OS === 'web' ? FontIconStyleWeb : FontIconStyleAndroid,
                 props.style ? props.style : {},
                 props.kind === undefined || props.kind === 'full'
-                  ? {width: 22, height: 22}
-                  : {width: '100%', height: '100%'},
+                  ? {
+                      width: 22,
+                      height: 22,
+                    }
+                  : {
+                      width: '100%',
+                      height: '100%',
+                    },
               ]}
             />
           )}
@@ -101,7 +103,6 @@ export const FontIcon = props => {
       </div>
     );
   }
-
   return (
     <Pressable style={allStyles} onPress={props.onPress}>
       {props.icon !== undefined && (
@@ -127,7 +128,6 @@ export const FontIcon = props => {
     </Pressable>
   );
 };
-
 export const SimpleFontIcon = props => {
   let allStyles = {
     cursor: props.onPress === undefined ? 'auto' : 'pointer',
@@ -160,8 +160,10 @@ export const SimpleFontIcon = props => {
     justifyContent: 'center',
   };
   if (props.parentStyle !== undefined)
-    allStyles = {...allStyles, ...props.parentStyle};
-
+    allStyles = {
+      ...allStyles,
+      ...props.parentStyle,
+    };
   return (
     <Pressable style={allStyles} onPress={props.onPress}>
       <FontAwesomeIcon

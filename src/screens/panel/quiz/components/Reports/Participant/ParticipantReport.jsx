@@ -1,33 +1,27 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../../../../styles/Common';
-import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
-import {fetchParticipantReport} from '../../Utility';
+import {CommonWebBox, MyView} from '@/styles';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
+import {fetchParticipantReport} from '../../utility';
 import Ops from './Ops';
-import columns from './TableStructure';
-
+import columns from './tableStructure';
 function ParticipantReport(props) {
   const [showOpPane, setShowOpPane] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState();
   const [data, setData] = useState(props.data);
   const [readOnly, setReadOnly] = useState(props.data === undefined);
-
   const handleOp = idx => {
     setSelectedUserId(props.data[idx].id);
     setShowOpPane(true);
   };
-
   const [isWorking, setIsWorking] = useState(false);
-
   const fetchData = React.useCallback(() => {
     if (props.quizId === undefined || isWorking) return;
-
     setIsWorking(true);
     props.setLoading(true);
     Promise.all([
       fetchParticipantReport(props.quizId, props.quizMode, props.token),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.onBackClick();
         return;
@@ -36,11 +30,9 @@ function ParticipantReport(props) {
       setIsWorking(false);
     });
   }, [props, isWorking]);
-
   React.useEffect(() => {
     if (data === undefined) fetchData();
   }, [data, fetchData, props.quizId]);
-
   return (
     <MyView>
       {showOpPane && (
@@ -81,5 +73,4 @@ function ParticipantReport(props) {
     </MyView>
   );
 }
-
 export default ParticipantReport;

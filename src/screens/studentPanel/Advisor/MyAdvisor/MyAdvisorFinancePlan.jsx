@@ -13,30 +13,31 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
+} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
 import QuizItemCard from '../../../../components/web/QuizItemCard';
-import vars from '../../../../styles/root';
-import translator from '../../../../screens/advisorPanel/MyFinancePlans/components/Translator';
+import vars from '@/styles/root';
+import translator from '../../../../screens/advisorPanel/myFinancePlans/components/translator';
 import Circle from '../../../../components/web/Circle';
 import {Image} from 'react-native';
 import {Rating} from 'react-native-ratings';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {showError} from '../../../../services/Utility';
-
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {showError} from '@/services/utility';
 function MyAdvisorFinancePlan(props) {
   const [pic, setPic] = useState();
   const [comment, setComment] = useState();
   const [writeComment, setWriteComment] = useState();
-
   React.useEffect(() => {
     setPic(props.data.pic);
   }, [props.data.pic]);
-
   return (
     <CommonWebBox width={'100%'}>
       <MyView
-        style={{paddingRight: 10, ...styles.gap15, ...styles.marginTop10}}>
+        style={{
+          paddingRight: 10,
+          ...styles.gap15,
+          ...styles.marginTop10,
+        }}>
         <EqualTwoTextInputs
           style={{
             ...styles.alignItemsCenter,
@@ -47,7 +48,10 @@ function MyAdvisorFinancePlan(props) {
             marginRight: 0,
           }}>
           <SimpleText
-            style={{...styles.BlueBold, ...styles.fontSize15}}
+            style={{
+              ...styles.BlueBold,
+              ...styles.fontSize15,
+            }}
             text={props.plan?.title}
           />
 
@@ -59,7 +63,10 @@ function MyAdvisorFinancePlan(props) {
               ...styles.gap15,
             }}>
             <SimpleText
-              style={{...styles.colorDarkBlue, ...styles.alignSelfCenter}}
+              style={{
+                ...styles.colorDarkBlue,
+                ...styles.alignSelfCenter,
+              }}
               text={'امتیاز'}
             />
             <Circle
@@ -72,7 +79,10 @@ function MyAdvisorFinancePlan(props) {
         </EqualTwoTextInputs>
 
         <EqualTwoTextInputs>
-          <PhoneView style={{...styles.gap30}}>
+          <PhoneView
+            style={{
+              ...styles.gap30,
+            }}>
             <MyView
               style={{
                 ...styles.marginTop20,
@@ -111,7 +121,10 @@ function MyAdvisorFinancePlan(props) {
 
               {props.plan !== undefined && (
                 <>
-                  <PhoneView style={{...styles.gap15}}>
+                  <PhoneView
+                    style={{
+                      ...styles.gap15,
+                    }}>
                     <QuizItemCard
                       text={translator.maxKarbarg}
                       val={
@@ -195,8 +208,12 @@ function MyAdvisorFinancePlan(props) {
             <MyView
               style={
                 props.isInPhone
-                  ? {...styles.marginTop10}
-                  : {...styles.justifyContentSpaceBetween}
+                  ? {
+                      ...styles.marginTop10,
+                    }
+                  : {
+                      ...styles.justifyContentSpaceBetween,
+                    }
               }>
               <PhoneView
                 style={{
@@ -206,7 +223,9 @@ function MyAdvisorFinancePlan(props) {
                   ...styles.marginLeft15,
                 }}>
                 <SimpleText
-                  style={{...styles.dark_blue_color}}
+                  style={{
+                    ...styles.dark_blue_color,
+                  }}
                   text={'امتیاز شما به مشاور'}
                 />
                 <Rating
@@ -223,7 +242,10 @@ function MyAdvisorFinancePlan(props) {
                 />
               </PhoneView>
 
-              <PhoneView style={{...styles.alignSelfEnd}}>
+              <PhoneView
+                style={{
+                  ...styles.alignSelfEnd,
+                }}>
                 {props.onRemove !== undefined && (
                   <CommonButton
                     theme={'orangeRed'}
@@ -258,7 +280,10 @@ function MyAdvisorFinancePlan(props) {
               value={comment}
               onChangeText={e => setComment(e)}
             />
-            <PhoneView style={{gap: '10px'}}>
+            <PhoneView
+              style={{
+                gap: '10px',
+              }}>
               <CommonButton
                 title={'انصراف'}
                 onPress={() => {
@@ -296,5 +321,4 @@ function MyAdvisorFinancePlan(props) {
     </CommonWebBox>
   );
 }
-
 export default MyAdvisorFinancePlan;

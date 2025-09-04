@@ -1,9 +1,8 @@
-import {CommonButton, PhoneView} from '../../../../../../styles/Common';
-import {LargePopUp} from '../../../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../../../translator/Common';
-import {resetStudentQuizEntryTime} from '../../Utility';
-import translator from '../List/Translator';
-
+import {CommonButton, PhoneView} from '@/styles';
+import {LargePopUp} from '../../../../../../styles/common/PopUp';
+import commonTranslator from '../../../../../../translator/common';
+import {resetStudentQuizEntryTime} from '../../utility';
+import translator from '../list/translator';
 function Ops(props) {
   return (
     <LargePopUp
@@ -31,5 +30,4 @@ function Ops(props) {
     </LargePopUp>
   );
 }
-
 export default Ops;

@@ -1,27 +1,23 @@
-import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
+import {useState} from 'react';
+import {routes} from '@/api/apiRoutes';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
-import {showSuccess} from '../../../../services/Utility';
-import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import {downloadCert, editUserInCert} from '../Utility';
-
+import {showSuccess} from '../../../../services/utility';
+import {CommonButton, MyView, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import {downloadCert, editUserInCert} from '../utility';
 function Ops(props) {
   const [userData, setUserData] = useState(props.user.params);
   const [showRemovePane, setShowRemovePane] = useState(false);
-
   const afterRemove = res => {
     setShowRemovePane(false);
     showSuccess(res.excepts);
     props.toggleShowPopUp();
     props.setData(undefined);
   };
-
   const toggleShowRemovePane = () => {
     setShowRemovePane(!showRemovePane);
   };
-
   return (
     <MyView>
       {showRemovePane && (
@@ -30,7 +26,9 @@ function Ops(props) {
           token={props.token}
           url={routes.removeStudentsFromCertificate + props.certId}
           expected={['excepts', 'doneIds']}
-          data={{items: [props.user.id]}}
+          data={{
+            items: [props.user.id],
+          }}
           afterFunc={afterRemove}
           toggleShowPopUp={toggleShowRemovePane}
         />
@@ -43,7 +41,9 @@ function Ops(props) {
                 onPress={async () => {
                   props.setLoading(true);
                   const res = await editUserInCert(
-                    {params: userData},
+                    {
+                      params: userData,
+                    },
                     props.certId,
                     props.user.NID,
                     props.token,
@@ -70,7 +70,10 @@ function Ops(props) {
             </PhoneView>
           }
           toggleShowPopUp={props.toggleShowPopUp}>
-          <PhoneView style={{gap: 20}}>
+          <PhoneView
+            style={{
+              gap: 20,
+            }}>
             {props.params.map((elem, index) => {
               return (
                 <JustBottomBorderTextInput
@@ -94,5 +97,4 @@ function Ops(props) {
     </MyView>
   );
 }
-
 export default Ops;

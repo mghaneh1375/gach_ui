@@ -1,44 +1,49 @@
 import React, {useState} from 'react';
-import {addItem, editItem} from '../../../../services/Utility';
-import {getGradeAndBranchesLessons, getSubjects} from '../Utility';
-import {dispatchStateContext} from '../../../../App';
+import {addItem, editItem} from '../../../../services/utility';
+import {getGradeAndBranchesLessons, getSubjects} from '../utility';
+import {dispatchStateContext} from '@/App';
 import Create from './components/Create';
-import List from './components/List/List';
-import {MyView} from '../../../../styles/Common';
+import List from './components/list/List';
+import {MyView} from '@/styles';
 import GroupEdit from './components/GroupEdit';
-
 function Subject(props) {
   const navigate = props.navigate;
   const [mode, setMode] = useState('list');
   const [subjects, setSubjects] = useState();
   const [grades, setGrades] = useState();
   const [selectedSubject, setSelectedSubject] = useState();
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getSubjects(), getGradeAndBranchesLessons()]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null || res[1] === null) {
         navigate('/');
         return;
       }
-
       setGrades(
         res[1].map(elem => {
-          return {id: elem.id, item: elem.name, lessons: elem.lessons};
+          return {
+            id: elem.id,
+            item: elem.name,
+            lessons: elem.lessons,
+          };
         }),
       );
       setSubjects(res[0]);
       setMode('list');
     });
   }, [dispatch, props.token, navigate]);
-
   return (
     <MyView>
       {mode === 'list' && subjects !== undefined && (
@@ -81,5 +86,4 @@ function Subject(props) {
     </MyView>
   );
 }
-
 export default Subject;

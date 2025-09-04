@@ -1,24 +1,25 @@
-import {
-  CommonButton,
-  PhoneView,
-  SimpleText,
-  MyView,
-} from '../../../../../../styles/Common';
-import translator from '../../Translator';
-import commonTranslator from '../../../../../../translator/Common';
-import style from './Style';
-import {remove, setAsDefault} from '../Utility';
-
+import {CommonButton, PhoneView, SimpleText, MyView} from '@/styles';
+import translator from '../../translator';
+import commonTranslator from '../../../../../../translator/common';
+import style from './style';
+import {remove, setAsDefault} from '../utility';
 function Show(props) {
   const edit = () => {
     props.setSelected(props.avatar);
     props.setMode('edit');
   };
-
   return (
     <MyView style={style.avatar}>
-      <MyView style={{alignItems: 'center'}}>
-        <img style={{...style.pic}} src={props.avatar.file} />
+      <MyView
+        style={{
+          alignItems: 'center',
+        }}>
+        <img
+          style={{
+            ...style.pic,
+          }}
+          src={props.avatar.file}
+        />
         <SimpleText
           style={style.defaultText}
           text={props.avatar.isDefault ? translator.default : ''}
@@ -29,9 +30,14 @@ function Show(props) {
         />
       </MyView>
       <MyView>
-        <PhoneView style={{marginBottom: -10}}>
+        <PhoneView
+          style={{
+            marginBottom: -10,
+          }}>
           <CommonButton
-            style={{marginTight: -10}}
+            style={{
+              marginTight: -10,
+            }}
             theme={'transparent'}
             onPress={() => edit()}
             title={commonTranslator.edit}
@@ -65,7 +71,10 @@ function Show(props) {
               theme={'dark'}
               title={translator.setAsDefault}
               textStyle={style.font13}
-              style={{width: 'calc(100% - 20px)', justifyContent: 'center'}}
+              style={{
+                width: 'calc(100% - 20px)',
+                justifyContent: 'center',
+              }}
             />
           )}
         </PhoneView>
@@ -73,5 +82,4 @@ function Show(props) {
     </MyView>
   );
 }
-
 export default Show;

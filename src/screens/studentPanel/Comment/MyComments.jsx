@@ -1,22 +1,21 @@
 import React, {useMemo, useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import commonTranslator from '../../../translator/Common';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import commonTranslator from '../../../translator/common';
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
 import {
   CommonButton,
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../styles/Common/JustBottomBorderDatePicker';
-import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import columns from './TableStructure';
-import {showSuccess} from '../../../services/Utility';
-
+} from '../../../styles/CommonComponents.jsx';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker';
+import CommonDataTable from '../../../styles/common/CommonDataTable';
+import {LargePopUp} from '../../../styles/common/PopUp';
+import columns from './tableStructure';
+import {showSuccess} from '../../../services/utility';
 function MyComments(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [
@@ -31,38 +30,60 @@ function MyComments(props) {
     section: 'all',
     status: 'all',
   });
-
   const [sectionValues, statusValues] = useMemo(
     () => [
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'teach', item: commonTranslator.teach},
-        {id: 'content', item: commonTranslator.contents},
-        {id: 'advice', item: commonTranslator.advisor},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'teach',
+          item: commonTranslator.teach,
+        },
+        {
+          id: 'content',
+          item: commonTranslator.contents,
+        },
+        {
+          id: 'advice',
+          item: commonTranslator.advisor,
+        },
       ],
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'pending', item: commonTranslator.pending},
-        {id: 'accept', item: commonTranslator.accepted},
-        {id: 'reject', item: commonTranslator.rejected},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'pending',
+          item: commonTranslator.pending,
+        },
+        {
+          id: 'accept',
+          item: commonTranslator.accepted,
+        },
+        {
+          id: 'reject',
+          item: commonTranslator.rejected,
+        },
       ],
     ],
     [],
   );
-
   const handleOp = (idx, row) => {
     setShowOp(true);
     setSelectedRow(row);
   };
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     const query = new URLSearchParams();
     if (filter.section !== 'all') query.append('section', filter.section);
     if (filter.status !== 'all') query.append('status', filter.status);
     if (filter.from) query.append('from', filter.from);
     if (filter.to) query.append('to', filter.to);
-
     Promise.all([
       generalRequest(
         routes.getMyComments + '?' + query.toString(),
@@ -72,26 +93,27 @@ function MyComments(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
       }
-
       setComments(res[0]);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
-
   useEffectOnce(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <CommonWebBox>
-      <PhoneView style={{gap: '10px'}}>
+      <PhoneView
+        style={{
+          gap: '10px',
+        }}>
         <JustBottomBorderSelect
           values={statusValues}
           setter={val =>
@@ -170,12 +192,17 @@ function MyComments(props) {
             setSelectedRow(undefined);
           }}>
           <SimpleText text={selectedRow.comment} />
-          <PhoneView style={{gap: '10px'}}>
+          <PhoneView
+            style={{
+              gap: '10px',
+            }}>
             <CommonButton
               theme={'transparent'}
               title={commonTranslator.delete}
               onPress={async () => {
-                dispatch({loading: true});
+                dispatch({
+                  loading: true,
+                });
                 const res = await generalRequest(
                   routes.removeMyComment + selectedRow.id,
                   'delete',
@@ -183,7 +210,9 @@ function MyComments(props) {
                   undefined,
                   state.token,
                 );
-                dispatch({loading: false});
+                dispatch({
+                  loading: false,
+                });
                 if (res != null) {
                   setComments(comments.filter(e => e.id !== selectedRow.id));
                   setSelectedRow(undefined);
@@ -198,5 +227,4 @@ function MyComments(props) {
     </CommonWebBox>
   );
 }
-
 export default MyComments;

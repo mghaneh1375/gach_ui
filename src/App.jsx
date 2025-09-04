@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import {Platform, LogBox} from 'react-native';
-import {fetchUser, getToken, getUser} from './API/User';
-
+import {fetchUser, getToken, getUser} from './api/user';
 import AppRouter from './router/app/Router';
 import WebRouter from './router/web/Router';
-
 const defaultGlobalState = {
   showBottonNav: true,
   showTopNav: true,
@@ -17,10 +15,8 @@ const defaultGlobalState = {
   user: undefined,
   isInPhone: false,
 };
-
 export const globalStateContext = React.createContext(defaultGlobalState);
 export const dispatchStateContext = React.createContext(undefined);
-
 const excludeRightMenu = [
   'login',
   'home',
@@ -33,7 +29,6 @@ const excludeRightMenu = [
 ];
 const excludeTopNav = ['login', 'profile', 'rankingList', 'allSchools', 'buy'];
 const excludeBottomNav = ['login'];
-
 const excludeAuthRoutes = [
   'login',
   'home',
@@ -47,42 +42,45 @@ const excludeAuthRoutes = [
   'myCerts',
   'advisors',
 ];
-
 const hasLeftFilterRoutes = ['buy', 'package'];
-
 const GlobalStateProvider = ({children}) => {
   const [state, dispatch] = React.useReducer(
-    (state, newValue) => ({...state, ...newValue}),
+    (state, newValue) => ({
+      ...state,
+      ...newValue,
+    }),
     defaultGlobalState,
   );
-
   const doFetchUser = React.useCallback(() => {
     Promise.all([getToken(), getUser()]).then(async res => {
-      dispatch({token: res[0]});
+      dispatch({
+        token: res[0],
+      });
       const token = res[0];
-
       if (token !== null && token !== undefined) {
         if (res[1] !== null && res[1] !== undefined) {
-          dispatch({user: res[1] === undefined ? null : res[1]});
+          dispatch({
+            user: res[1] === undefined ? null : res[1],
+          });
           return;
         }
       }
-
       fetchUser(token, user => {
-        dispatch({user: user === undefined ? null : user});
+        dispatch({
+          user: user === undefined ? null : user,
+        });
       });
     });
   }, [dispatch]);
-
   React.useEffect(() => {
     if (state.user !== undefined) return;
     doFetchUser();
   }, [state.user, doFetchUser]);
-
   const size = useWindowSize();
-
   React.useEffect(() => {
-    dispatch({isInPhone: size.width < 768});
+    dispatch({
+      isInPhone: size.width < 768,
+    });
   }, [size]);
 
   // Hook
@@ -111,7 +109,6 @@ const GlobalStateProvider = ({children}) => {
     }, []); // Empty array ensures that effect is only run on mount
     return windowSize;
   }
-
   React.useEffect(() => {
     if (
       state.page === undefined ||
@@ -134,7 +131,6 @@ const GlobalStateProvider = ({children}) => {
         state.user !== undefined,
     });
   }, [state.page, state.user, state.isInPhone]);
-
   return (
     <globalStateContext.Provider value={state}>
       <dispatchStateContext.Provider value={dispatch}>
@@ -143,7 +139,6 @@ const GlobalStateProvider = ({children}) => {
     </globalStateContext.Provider>
   );
 };
-
 const ignoreWarns = [
   'Setting a timer for a long period of time',
   'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation',
@@ -158,9 +153,7 @@ console.warn = (...arg) => {
   }
   warn(...arg);
 };
-
 LogBox.ignoreLogs(ignoreWarns);
-
 export default function App() {
   if (Platform.OS === 'ios' || Platform.OS === 'android') {
     return (

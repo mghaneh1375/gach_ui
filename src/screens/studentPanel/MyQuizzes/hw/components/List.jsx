@@ -1,43 +1,39 @@
 import React, {useState} from 'react';
-import {MyView, PhoneView, SimpleText} from '../../../../../styles/Common';
-
-import {fetchMyHWs} from './Utility';
-import ProgressCard from '../../../‌MyOffs/ProgressCard/ProgressCard';
-import {styles} from '../../../../../styles/Common/Styles';
-import vars from '../../../../../styles/root';
+import {MyView, PhoneView, SimpleText} from '@/styles';
+import {fetchMyHWs} from './utility';
+import ProgressCard from '../../../myOffs/progressCard/ProgressCard';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 import Card from './Card';
-
 function List(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [quizzes, setQuizzes] = useState();
   const [mode, setMode] = useState();
-
   React.useEffect(() => {
     setMode(props.status);
   }, [props.status]);
-
   React.useEffect(() => {
     if (isWorking || quizzes !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([fetchMyHWs(props.token, props.advisor)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       setQuizzes(res[0]);
       setIsWorking(false);
     });
   }, [props, quizzes, isWorking]);
-
   return (
     <MyView>
       <MyView>
-        <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
+        <PhoneView
+          style={{
+            ...styles.alignSelfCenter,
+            ...styles.marginTop20,
+          }}>
           <ProgressCard
             header={'تمرینهای گذشته'}
             theme={vars.ORANGE}
@@ -48,7 +44,9 @@ function List(props) {
               if (mode === 'passed') return;
               setMode('passed');
             }}
-            style={{...styles.cursor_pointer}}
+            style={{
+              ...styles.cursor_pointer,
+            }}
           />
           <ProgressCard
             header={'تمرینهای پیش رو'}
@@ -60,7 +58,9 @@ function List(props) {
               if (mode === 'future') return;
               setMode('future');
             }}
-            style={{...styles.cursor_pointer}}
+            style={{
+              ...styles.cursor_pointer,
+            }}
           />
           <ProgressCard
             header={'همه تمرینها'}
@@ -72,7 +72,9 @@ function List(props) {
               if (mode === 'all') return;
               setMode('all');
             }}
-            style={{...styles.cursor_pointer}}
+            style={{
+              ...styles.cursor_pointer,
+            }}
           />
         </PhoneView>
 
@@ -88,7 +90,11 @@ function List(props) {
         )}
 
         {quizzes !== undefined && quizzes.length > 0 && (
-          <PhoneView style={{gap: 15, padding: 15}}>
+          <PhoneView
+            style={{
+              gap: 15,
+              padding: 15,
+            }}>
             {quizzes !== undefined &&
               mode !== undefined &&
               quizzes.map((quiz, index) => {
@@ -99,7 +105,6 @@ function List(props) {
                 ) {
                   if (quiz.status === 'notStart')
                     return <Card quiz={quiz} key={index} />;
-
                   return (
                     <Card
                       quizOp={() => props.navigate('/startHW/' + quiz.id)}
@@ -115,5 +120,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

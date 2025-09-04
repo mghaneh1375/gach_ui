@@ -1,8 +1,7 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-import {showError, showSuccess} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
+import {showError, showSuccess} from '../../../../../services/utility';
+import commonTranslator from '@/translator/common';
 export const getAll = async (token, packageId = undefined) => {
   return await generalRequest(
     packageId === undefined || packageId == null
@@ -14,9 +13,7 @@ export const getAll = async (token, packageId = undefined) => {
     token,
   );
 };
-
 const mandatoryFields = ['key', 'value'];
-
 export const store = async (data, token, packageId = undefined) => {
   try {
     const res = await generalRequest(
@@ -36,7 +33,6 @@ export const store = async (data, token, packageId = undefined) => {
     return null;
   }
 };
-
 export const remove = async (id, key, token) => {
   const res = await generalRequest(
     routes.removeSeo + id,

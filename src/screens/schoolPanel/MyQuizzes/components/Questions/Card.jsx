@@ -1,33 +1,25 @@
 import React, {useState} from 'react';
-import {
-  CommonRadioButton,
-  MyView,
-  PhoneView,
-} from '../../../../../styles/Common';
-import Question from '../../../../panel/question/components/Detail/Question';
+import {CommonRadioButton, MyView, PhoneView} from '@/styles';
+import Question from '../../../../panel/question/components/detail/Question';
 import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context';
-import commonTranslator from '../../../../../translator/Common';
-
+import commonTranslator from '@/translator/common';
 function Card(props) {
   const [isSelected, setIsSelected] = useState(false);
-
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const toggleSelected = () => {
     setIsSelected(!isSelected);
     const newSelectedIds = state.selectedIds;
-
     newSelectedIds.indexOf(props.idx) === -1
       ? newSelectedIds.push(props.idx)
       : newSelectedIds.splice(newSelectedIds.indexOf(props.idx), 1);
-
-    dispatch({selectedIds: newSelectedIds});
+    dispatch({
+      selectedIds: newSelectedIds,
+    });
   };
-
   return (
     <PhoneView>
       {(props.needUpdate === undefined || props.needUpdate) && (
@@ -37,7 +29,10 @@ function Card(props) {
           text={''}
         />
       )}
-      <MyView style={{width: '90%'}}>
+      <MyView
+        style={{
+          width: '90%',
+        }}>
         <Question
           dispatch={dispatch}
           needOps={false}
@@ -61,5 +56,4 @@ function Card(props) {
     </PhoneView>
   );
 }
-
 export default Card;

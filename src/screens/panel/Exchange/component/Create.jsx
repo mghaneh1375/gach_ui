@@ -1,16 +1,15 @@
 import React, {useMemo, useState} from 'react';
 import {dispatchExchangeContext, exchangeContext} from './Context';
-import {generalRequest} from '../../../../API/Utility';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import {generalRequest} from '@/api/utility';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
 import translator from './translator';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {sectionKeyVals} from '../../offcode/components/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {showError, showSuccess} from '../../../../services/Utility';
-import {styles} from '../../../../styles/Common/Styles';
-import commonTranslator from '../../../../translator/Common';
-
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {sectionKeyVals} from '../../offcode/components/utility';
+import {routes} from '@/api/apiRoutes';
+import {showError, showSuccess} from '../../../../services/utility';
+import {styles} from '../../../../styles/common/styles';
+import commonTranslator from '@/translator/common';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(exchangeContext),
@@ -21,11 +20,13 @@ function Create(props) {
   const [section, setSection] = useState();
   const [rewardAmount, setRewardAmount] = useState();
   const [isPercent, setIsPercent] = useState(false);
-
   const [sectionValues, offCodeTypeValues] = useMemo(() => {
     return [
       [
-        {item: 'تبدیل به پول', id: 'money'},
+        {
+          item: 'تبدیل به پول',
+          id: 'money',
+        },
         ...sectionKeyVals.map(e => {
           return {
             item: 'کد تخفیف - ' + e.item,
@@ -34,19 +35,27 @@ function Create(props) {
         }),
       ],
       [
-        {item: 'مقداری', id: 'value'},
-        {item: 'درصدی', id: 'percent'},
+        {
+          item: 'مقداری',
+          id: 'value',
+        },
+        {
+          item: 'درصدی',
+          id: 'percent',
+        },
       ],
     ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <CommonWebBox
       header={'ایجاد تبدیل جدید'}
       onBackClick={() => props.setMode('list')}
       backBtn={true}>
-      <PhoneView style={{...styles.gap10}}>
+      <PhoneView
+        style={{
+          ...styles.gap10,
+        }}>
         <JustBottomBorderTextInput
           placeholder={translator.neededCoin}
           subText={translator.neededCoin}
@@ -57,7 +66,10 @@ function Create(props) {
         />
       </PhoneView>
 
-      <PhoneView style={{...styles.gap10}}>
+      <PhoneView
+        style={{
+          ...styles.gap10,
+        }}>
         <JustBottomBorderSelect
           placeholder={translator.section}
           subText={translator.section}
@@ -101,7 +113,6 @@ function Create(props) {
             showError(commonTranslator.pleaseFillAllFields);
             return;
           }
-
           props.setLoading(true);
           const data = {
             neededCoin: neededCoin,
@@ -113,7 +124,6 @@ function Create(props) {
           } else {
             data.money = rewardAmount;
           }
-
           const response = await generalRequest(
             routes.createNewExchange,
             'post',
@@ -123,7 +133,9 @@ function Create(props) {
           );
           props.setLoading(false);
           if (response != null) {
-            dispatch({exchanges: [...state.exchanges, response]});
+            dispatch({
+              exchanges: [...state.exchanges, response],
+            });
             props.setMode('list');
             showSuccess();
           }
@@ -134,5 +146,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

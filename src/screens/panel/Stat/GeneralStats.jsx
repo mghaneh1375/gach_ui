@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView} from '../../../styles/Common';
-import DashboardCard from '../../studentPanel/dashboard/DashboardCard/DashboardCard';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import Translate from './Translate';
+import {CommonWebBox, PhoneView} from '../../../styles/CommonComponents.jsx';
+import DashboardCard from '../../studentPanel/dashboard/dashboardCard/DashboardCard';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import Translate from './translate';
 import {faChartBar} from '@fortawesome/free-solid-svg-icons';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
 import vars from '../../../styles/root';
-
 function GeneralStats(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -17,9 +16,10 @@ function GeneralStats(props) {
   const [state, dispatch] = useGlobalState();
   const navigate = props.navigate;
   const [data, setData] = useState();
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.GetGeneralStats,
@@ -29,7 +29,9 @@ function GeneralStats(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
@@ -38,16 +40,18 @@ function GeneralStats(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffectOnce(() => {
     fetchData();
   }, []);
-
   return (
     <CommonWebBox>
       {data && (
         <>
-          <PhoneView style={{gap: '20px', justifyContent: 'center'}}>
+          <PhoneView
+            style={{
+              gap: '20px',
+              justifyContent: 'center',
+            }}>
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
               text={Translate.bankExam}
@@ -76,7 +80,11 @@ function GeneralStats(props) {
               borderRightWidth={18}
             />
           </PhoneView>
-          <PhoneView style={{gap: '20px', justifyContent: 'center'}}>
+          <PhoneView
+            style={{
+              gap: '20px',
+              justifyContent: 'center',
+            }}>
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
               text={Translate.gachExam}
@@ -105,7 +113,11 @@ function GeneralStats(props) {
               borderRightWidth={18}
             />
           </PhoneView>
-          <PhoneView style={{gap: '20px', justifyContent: 'center'}}>
+          <PhoneView
+            style={{
+              gap: '20px',
+              justifyContent: 'center',
+            }}>
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
               text={Translate.content}
@@ -134,7 +146,11 @@ function GeneralStats(props) {
               borderRightWidth={18}
             />
           </PhoneView>
-          <PhoneView style={{gap: '20px', justifyContent: 'center'}}>
+          <PhoneView
+            style={{
+              gap: '20px',
+              justifyContent: 'center',
+            }}>
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
               text={Translate.registry}
@@ -163,7 +179,11 @@ function GeneralStats(props) {
               borderRightWidth={18}
             />
           </PhoneView>
-          <PhoneView style={{gap: '20px', justifyContent: 'center'}}>
+          <PhoneView
+            style={{
+              gap: '20px',
+              justifyContent: 'center',
+            }}>
             <DashboardCard
               width={state.isInPhone ? '100%' : undefined}
               text={Translate.advisorRequest}
@@ -197,5 +217,4 @@ function GeneralStats(props) {
     </CommonWebBox>
   );
 }
-
 export default GeneralStats;

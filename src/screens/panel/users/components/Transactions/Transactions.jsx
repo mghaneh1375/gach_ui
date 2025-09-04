@@ -1,26 +1,20 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
 import adviceColumns, {teachColumns} from './columns';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import {dispatchUsersContext, usersContext} from '../Context';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {showError, showSuccess} from '../../../../../services/Utility';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {showError, showSuccess} from '../../../../../services/utility';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
 function Transactions(props) {
   const useGlobalState = () => [
     React.useContext(usersContext),
     React.useContext(dispatchUsersContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [adviceTransactions, setAdviceTransactions] = useState();
   const [teachTransactions, setTeachTransactions] = useState();
@@ -32,18 +26,35 @@ function Transactions(props) {
     transactionMode: 'all',
     settlementStatus: 'all',
   });
-
   const [transactionsMode, settlementsStatus] = useMemo(() => {
     return [
       [
-        {item: 'همه', id: 'all'},
-        {item: 'تدریس', id: 'teach'},
-        {item: 'مشاوره', id: 'advice'},
+        {
+          item: 'همه',
+          id: 'all',
+        },
+        {
+          item: 'تدریس',
+          id: 'teach',
+        },
+        {
+          item: 'مشاوره',
+          id: 'advice',
+        },
       ],
       [
-        {item: 'همه', id: 'all'},
-        {item: 'تسویه شده', id: 'settled'},
-        {item: 'تسویه نشده', id: 'notSettled'},
+        {
+          item: 'همه',
+          id: 'all',
+        },
+        {
+          item: 'تسویه شده',
+          id: 'settled',
+        },
+        {
+          item: 'تسویه نشده',
+          id: 'notSettled',
+        },
       ],
     ];
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,7 +69,6 @@ function Transactions(props) {
     if (filter.to) params.append('to', filter.to);
     if (filter.fromSettled) params.append('fromSettled', filter.fromSettled);
     if (filter.toSettled) params.append('toSettled', filter.toSettled);
-
     Promise.all([
       generalRequest(
         routes.getAdvisorTransactions +
@@ -80,12 +90,10 @@ function Transactions(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
-
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const handleOp = (idx, selectedRow) => {
     if (selectedRow.settledAt !== 'تسویه نشده') {
       showError('این رکورد قبلا تسویه شده است');
@@ -94,13 +102,15 @@ function Transactions(props) {
     setSelectedRow(selectedRow);
     setShowOp(true);
   };
-
   return (
     <CommonWebBox
       header={'تراکنش ها'}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{gap: '10px'}}>
+      <PhoneView
+        style={{
+          gap: '10px',
+        }}>
         <JustBottomBorderSelect
           values={settlementsStatus}
           setter={new_status => {
@@ -243,5 +253,4 @@ function Transactions(props) {
     </CommonWebBox>
   );
 }
-
 export default Transactions;

@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
 import {useEffectOnce} from 'usehooks-ts';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import commonTranslator from '../../../../translator/Common';
-import {showSuccess} from '../../../../services/Utility';
-
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import commonTranslator from '@/translator/common';
+import {showSuccess} from '../../../../services/utility';
 function SetIRYSCPercent(props) {
   const [advicePercent, setAdvicePercent] = useState();
   const [teachPercent, setTeachPercent] = useState();
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -30,17 +28,18 @@ function SetIRYSCPercent(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   return (
     <CommonWebBox
       backBtn={true}
       onBackClick={() => props.setMode('list')}
       header={'تعیین درصد آیریسک'}>
-      <PhoneView style={{gap: '10px'}}>
+      <PhoneView
+        style={{
+          gap: '10px',
+        }}>
         <JustBottomBorderTextInput
           value={advicePercent}
           onChangeText={e => setAdvicePercent(e)}
@@ -84,5 +83,4 @@ function SetIRYSCPercent(props) {
     </CommonWebBox>
   );
 }
-
 export default SetIRYSCPercent;

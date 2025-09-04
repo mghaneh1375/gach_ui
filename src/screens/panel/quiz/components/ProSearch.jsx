@@ -1,15 +1,14 @@
-import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
-import {styles} from '../../../../styles/Common/Styles';
-import translator from '../Translator';
+import {CommonButton, MyView, PhoneView} from '@/styles';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import {styles} from '../../../../styles/common/styles';
+import translator from '../translator';
 import React, {useState} from 'react';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {getOpenQuizzes, getQuizzes} from './Utility';
-import commonTranslator from '../../../../translator/Common';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {getOpenQuizzes, getQuizzes} from './utility';
+import commonTranslator from '@/translator/common';
 import {dispatchQuizContext} from './Context';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {kindQuizKeyValsForFilter} from './KeyVals';
-
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {kindQuizKeyValsForFilter} from './keyVals';
 function ProSearch(props) {
   const [startDateSolar, setStartDateSolar] = useState('');
   const [startDateSolarEndLimit, setStartDateSolarEndLimit] = useState('');
@@ -18,10 +17,8 @@ function ProSearch(props) {
     useState('');
   const [name, setName] = useState('');
   const [kindQuiz, setKindQuiz] = useState('all');
-
   const useGlobalState = () => [React.useContext(dispatchQuizContext)];
   const [dispatch] = useGlobalState();
-
   return (
     <MyView>
       <PhoneView style={styles.gap15}>
@@ -105,14 +102,18 @@ function ProSearch(props) {
                   )
                 : await getOpenQuizzes(props.token, name);
             props.setLoading(false);
-            if (res !== null) dispatch({quizzes: res});
+            if (res !== null)
+              dispatch({
+                quizzes: res,
+              });
           }}
           title={commonTranslator.show}
-          style={{alignSelf: 'flex-start'}}
+          style={{
+            alignSelf: 'flex-start',
+          }}
         />
       </PhoneView>
     </MyView>
   );
 }
-
 export default ProSearch;

@@ -1,27 +1,24 @@
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import React, {useState} from 'react';
 import {QuizProvider} from '../../../panel/quiz/components/Context';
 import List from './components/List';
 import {useParams} from 'react-router';
-import Karname from '../../../panel/quiz/components/Reports/Karname/Karname';
+import Karname from '../../../panel/quiz/components/reports/karname/Karname';
 import AnswerSheet from '../irysc/components/AnswerSheet';
-
 function MyQuizzes(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const params = useParams();
   const status = params.mode !== undefined ? params.mode : 'all';
-
   return (
     <QuizProvider>
       {mode === 'list' && (
@@ -56,5 +53,4 @@ function MyQuizzes(props) {
     </QuizProvider>
   );
 }
-
 export default MyQuizzes;

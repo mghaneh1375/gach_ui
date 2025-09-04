@@ -1,6 +1,5 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {fileRequest, generalRequest} from '../../../../../API/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {fileRequest, generalRequest} from '../../../../../api/utility';
 export const fetchDetail = async (ticketId, token) => {
   const res = await generalRequest(
     routes.fetchTicket + ticketId,
@@ -9,33 +8,29 @@ export const fetchDetail = async (ticketId, token) => {
     'data',
     token,
   );
-
   return res;
 };
-
 export const changeMode = (setMode, newMode) => {
   setMode(newMode);
 };
-
 export const addMsg = async (ticketId, token, msg) => {
   const res = await generalRequest(
     routes.setAnswerTicket + ticketId,
     'put',
-    {answer: msg},
+    {
+      answer: msg,
+    },
     'ticket',
     token,
   );
-
   return res;
 };
-
 export const addFile = async (token, fileContent, ticketId) => {
   return await fetch(fileContent.content)
     .then(res => res.blob())
     .then(async blob => {
       const formData = new FormData();
       formData.append('file', blob, fileContent.name);
-
       const res = await fileRequest(
         routes.addFileToTicket + ticketId,
         'put',
@@ -46,7 +41,6 @@ export const addFile = async (token, fileContent, ticketId) => {
       return res;
     });
 };
-
 export const sendMsg = (props, ticketId) => {
   Promise.all([
     generalRequest(
@@ -62,7 +56,6 @@ export const sendMsg = (props, ticketId) => {
     }
   });
 };
-
 export const submit = async (data, token) => {
   const res = await generalRequest(
     routes.submitTicket,
@@ -73,7 +66,6 @@ export const submit = async (data, token) => {
   );
   return res;
 };
-
 export const finalize = async (ticketId, token) => {
   const res = await generalRequest(
     routes.sendTicket + ticketId,

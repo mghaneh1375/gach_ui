@@ -1,35 +1,29 @@
 import React, {useRef, useState} from 'react';
-import {changeText, formatPrice, showError} from '../../../services/Utility';
+import {changeText, formatPrice, showError} from '../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   SimpleText,
-} from '../../../styles/Common';
-import {CommonTextInput} from '../../../styles/Common/CommonTextInput';
-import {styles} from '../../../styles/Common/Styles';
-import Translate from './Translate';
-import {chargeAccout} from './Utility';
-
+} from '../../../styles/CommonComponents';
+import {CommonTextInput} from '../../../styles/common/CommonTextInput';
+import {styles} from '../../../styles/common/styles';
+import Translate from './translate';
+import {chargeAccout} from './utility';
 function AccountCharge(props) {
   const [refId, setRefId] = useState();
   const [amount, setAmount] = useState();
-
   const charge = async () => {
     if (amount === undefined) {
       showError('لطفا مبلغ موردنظر خود را وارد نمایید.');
       return;
     }
-
     props.setLoading(true);
     const res = await chargeAccout(amount, props.token);
     props.setLoading(false);
-
     if (res !== null && res.action === 'pay') setRefId(res.refId);
   };
-
   const ref = useRef();
-
   React.useEffect(() => {
     if (refId === undefined) return;
     ref.current.submit();
@@ -38,7 +32,9 @@ function AccountCharge(props) {
     <CommonWebBox
       width={390}
       header={Translate.accountIncrease}
-      childStyle={{paddingLeft: 25}}>
+      childStyle={{
+        paddingLeft: 25,
+      }}>
       <SimpleText
         style={{
           ...styles.colorRed,
@@ -77,9 +73,15 @@ function AccountCharge(props) {
           Translate.toman
         }
       />
-      <MyView style={{...styles.marginRight25}}>
+      <MyView
+        style={{
+          ...styles.marginRight25,
+        }}>
         <SimpleText
-          style={{...styles.BlueBold, ...styles.fontSize17}}
+          style={{
+            ...styles.BlueBold,
+            ...styles.fontSize17,
+          }}
           text={Translate.money}
         />
         <CommonTextInput
@@ -107,5 +109,4 @@ function AccountCharge(props) {
     </CommonWebBox>
   );
 }
-
 export default AccountCharge;

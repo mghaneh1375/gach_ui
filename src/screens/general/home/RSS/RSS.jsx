@@ -1,24 +1,22 @@
-import React, {useState} from 'react';
-import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
+import {useState} from 'react';
+import {getDevice} from '../../../../services/utility';
+import {MyView, PhoneView, SimpleText} from '@/styles';
+import vars from '@/styles/root';
 import ItemCard from './ItemCard';
-import vars from '../../../../styles/root';
-import {getDevice, getWidthHeight} from '../../../../services/Utility';
-
 function RSS({news}) {
   const [selectedNews, setSelectedNews] = useState(
     news.length > 0 ? news[0] : undefined,
   );
-  const [imgWidth, setImgWidth] = useState();
-  const width = getWidthHeight()[0];
-  React.useEffect(() => {
-    setImgWidth(width > 1200 ? 400 : 300);
-  }, [width]);
 
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   if (isInPhone)
     return (
-      <MyView style={{gap: 10, paddingRight: 10, paddingLeft: 10}}>
+      <MyView
+        style={{
+          gap: 10,
+          paddingRight: 10,
+          paddingLeft: 10,
+        }}>
         <SimpleText
           text={'آخرین اخبار'}
           style={{
@@ -121,12 +119,16 @@ function RSS({news}) {
               </MyView>
             </>
           )}
-        </MyView> */}
+         </MyView> */}
       </MyView>
     );
-
   return (
-    <PhoneView style={{gap: 10, paddingRight: 10, paddingLeft: 10}}>
+    <PhoneView
+      style={{
+        gap: 10,
+        paddingRight: 10,
+        paddingLeft: 10,
+      }}>
       <MyView>
         {news &&
           news.slice(0, Math.min(news.length, 5)).map((currNews, index) => {
@@ -216,9 +218,8 @@ function RSS({news}) {
               }}></MyView>
           </>
         )}
-      </PhoneView> */}
+       </PhoneView> */}
     </PhoneView>
   );
 }
-
 export default RSS;

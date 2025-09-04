@@ -1,6 +1,5 @@
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
 export const fetchRankingList = async (gradeId = undefined) => {
   return await generalRequest(
     gradeId === undefined
@@ -12,7 +11,6 @@ export const fetchRankingList = async (gradeId = undefined) => {
     undefined,
   );
 };
-
 export const fetchFinishedQuizzes = async () => {
   return await generalRequest(
     routes.fetchFinishedQuizzes,

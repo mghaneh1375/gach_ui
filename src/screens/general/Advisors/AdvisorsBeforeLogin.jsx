@@ -1,46 +1,42 @@
 import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import BestComments from '../../../components/web/Comment/BestComments';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import BestComments from '../../../components/web/comment/BestComments';
 import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents.jsx';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import commonTranslator from '../../../translator/Common';
+import commonTranslator from '../../../translator/common';
 import Card from './Card';
 import Filter from './Filter';
-
 function AdvisorsBeforeLogin(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [advisorPlans, setAdvisorPlans] = useState();
   const [bestComments, setBestComments] = useState();
-
   const [min, setMin] = useState();
   const [max, setMax] = useState();
-
   const [minAge, setMinAge] = useState();
   const [maxAge, setMaxAge] = useState();
   const [tags, setTags] = useState();
-
   const [pageIndex, setPageIndex] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [totalCount, setTotalCount] = useState();
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getAllAdvisors + '?pageIndex=' + pageIndex,
@@ -57,17 +53,23 @@ function AdvisorsBeforeLogin(props) {
         'data',
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null || res[1] == null || res[2] == null) {
         props.navigate('/');
         return;
       }
-
       setTags([
-        ...res[1].map(elem => ({id: elem, item: elem})),
-        {id: 'all', item: 'همه'},
+        ...res[1].map(elem => ({
+          id: elem,
+          item: elem,
+        })),
+        {
+          id: 'all',
+          item: 'همه',
+        },
       ]);
-
       setMax(res[0].filters.maxPrice);
       setMin(res[0].filters.minPrice);
       setMinAge(res[0].filters.minAge);
@@ -79,17 +81,14 @@ function AdvisorsBeforeLogin(props) {
       if (totalCount === undefined) setTotalCount(res[0].totalCount);
     });
   }, [dispatch, props, pageIndex, totalCount]);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   const [selectableItems, setSelectableItems] = useState();
   const [totalSelectableItemsSize, setTotalSelectableItemsSize] = useState();
   const [clearFilter, setClearFilter] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const [doFilter, setDoFilter] = useState(false);
-
   return (
     <>
       <>
@@ -103,12 +102,18 @@ function AdvisorsBeforeLogin(props) {
                   ...styles.alignItemsCenter,
                 }}>
                 <SimpleText
-                  style={{...styles.BlueBold, ...styles.fontSize17}}
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.fontSize17,
+                  }}
                   text={'لیست مشاوران'}
                 />
                 {selectableItems !== undefined && (
                   <SimpleText
-                    style={{...styles.fontSize13, ...styles.dark_blue_color}}
+                    style={{
+                      ...styles.fontSize13,
+                      ...styles.dark_blue_color,
+                    }}
                     text={
                       'نمایش ' +
                       totalSelectableItemsSize +
@@ -119,7 +124,11 @@ function AdvisorsBeforeLogin(props) {
                   />
                 )}
               </PhoneView>
-              <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
+              <PhoneView
+                style={{
+                  ...styles.alignSelfCenter,
+                  ...styles.gap10,
+                }}>
                 <SimpleText
                   style={{
                     ...styles.alignSelfCenter,
@@ -132,7 +141,10 @@ function AdvisorsBeforeLogin(props) {
                 />
                 <CommonButton
                   iconDir={'left'}
-                  textStyle={{...styles.fontSize17, ...styles.bold}}
+                  textStyle={{
+                    ...styles.fontSize17,
+                    ...styles.bold,
+                  }}
                   icon={showFilter ? faChevronDown : faChevronRight}
                   onPress={() => {
                     setShowFilter(!showFilter);
@@ -154,7 +166,11 @@ function AdvisorsBeforeLogin(props) {
                 maxAge={maxAge}
                 tags={tags}
                 token={props.token}
-                setLoading={new_status => dispatch({loading: new_status})}
+                setLoading={new_status =>
+                  dispatch({
+                    loading: new_status,
+                  })
+                }
                 setClearFilter={setClearFilter}
                 clearFilter={clearFilter}
                 doFilter={doFilter}
@@ -221,5 +237,4 @@ function AdvisorsBeforeLogin(props) {
     </>
   );
 }
-
 export default AdvisorsBeforeLogin;

@@ -1,17 +1,11 @@
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../translator/Common';
-import Translate from '../Translate';
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '@/translator/common';
+import Translate from '../translate';
 import React, {useState} from 'react';
-import {changeText} from '../../../../services/Utility';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {createPackage, editPackage} from './Utility';
-
+import {changeText} from '../../../../services/utility';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {createPackage, editPackage} from './utility';
 function Create(props) {
   const [title, setTitle] = useState(
     props.package !== undefined ? props.package.title : '',
@@ -37,25 +31,28 @@ function Create(props) {
     props.package !== undefined ? props.package.grade.id : undefined,
   );
   const [lessons, setLessons] = useState();
-
   React.useEffect(() => {
     if (grade === undefined) return;
-
     setLessons(
       props.grades
         .find(elem => elem.id === grade)
         .lessons.map(elem => {
-          return {id: elem.id, item: elem.name};
+          return {
+            id: elem.id,
+            item: elem.name,
+          };
         }),
     );
   }, [grade, props.grades]);
-
   return (
     <CommonWebBox
       header={commonTranslator.title}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         <JustBottomBorderTextInput
           placeholder={commonTranslator.title}
           subText={commonTranslator.title}
@@ -98,14 +95,26 @@ function Create(props) {
           setter={setLesson}
           value={
             lessons !== undefined
-              ? [{id: -1, item: 'بدون درس'}].concat(lessons).find(elem => {
-                  return elem.id === lesson;
-                })
+              ? [
+                  {
+                    id: -1,
+                    item: 'بدون درس',
+                  },
+                ]
+                  .concat(lessons)
+                  .find(elem => {
+                    return elem.id === lesson;
+                  })
               : ''
           }
           values={
             lessons !== undefined
-              ? [{id: -1, item: 'بدون درس'}].concat(lessons)
+              ? [
+                  {
+                    id: -1,
+                    item: 'بدون درس',
+                  },
+                ].concat(lessons)
               : []
           }
         />
@@ -131,22 +140,18 @@ function Create(props) {
               offPercent: offPercent,
               priority: priority,
             };
-
             if (props.package !== undefined)
               res = await editPackage(props.package.id, props.token, data);
             else res = await createPackage(props.token, data);
-
             props.setLoading(false);
             if (res !== null) {
               const selectedGrade = props.grades.find(
                 elem => elem.id === grade,
               );
-
               const selectedLesson =
                 lesson === undefined
                   ? undefined
                   : lessons.find(elem => elem.id === lesson);
-
               props.afterFunc({
                 title: title,
                 description: desc,
@@ -155,11 +160,17 @@ function Create(props) {
                 buyers: props.package !== undefined ? props.package.buyers : 0,
                 quizzes:
                   props.package !== undefined ? props.package.quizzes : 0,
-                grade: {id: selectedGrade.id, name: selectedGrade.item},
+                grade: {
+                  id: selectedGrade.id,
+                  name: selectedGrade.item,
+                },
                 lesson:
                   selectedLesson === undefined
                     ? undefined
-                    : {id: selectedLesson.id, name: selectedLesson.item},
+                    : {
+                        id: selectedLesson.id,
+                        name: selectedLesson.item,
+                      },
                 id: props.package !== undefined ? props.package.id : res,
               });
               props.setMode('list');
@@ -171,5 +182,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

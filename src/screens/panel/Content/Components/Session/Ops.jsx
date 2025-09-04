@@ -1,16 +1,13 @@
-import {CommonButton, PhoneView} from '../../../../../styles/Common';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
+import {CommonButton, PhoneView} from '@/styles';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
 import {contentContext} from '../Context';
 import React, {useState} from 'react';
-import Translator from '../../Translate';
+import Translator from '../../translate';
 import Video from '../../../Video';
-
 function Ops(props) {
   const useGlobalState = () => [React.useContext(contentContext)];
-
   const [state] = useGlobalState();
   const [showPreview, setShowPreview] = useState(false);
-
   return (
     <LargePopUp
       title={state.selectedContent.title}
@@ -54,5 +51,4 @@ function Ops(props) {
     </LargePopUp>
   );
 }
-
 export default Ops;

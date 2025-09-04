@@ -6,42 +6,38 @@ import {
   CommonWebBox,
   MyView,
   PhoneView,
-} from '../../../styles/Common';
+} from '../../../styles/CommonComponents.jsx';
 import Splash from './components/Splash';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {DoQuizProvider} from './components/Context';
 import Quiz from './components/Quiz';
 import Filter from './components/Filter';
 import vars from '../../../styles/root';
 import {useEffectOnce} from 'usehooks-ts';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {FontIcon} from '../../../styles/Common/FontIcon';
+import {FontIcon} from '../../../styles/common/FontIcon';
 import {Image} from 'react-native';
 import {
   getDevice,
   getWidthHeight,
   showError,
   showSuccess,
-} from '../../../services/Utility';
+} from '../../../services/utility';
 import PhoneFilter from './components/PhoneFilter';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import commonTranslator from '../../../translator/Common';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
-import {styles} from '../../../styles/Common/Styles';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-
+import {LargePopUp} from '../../../styles/common/PopUp';
+import commonTranslator from '../../../translator/common';
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {styles} from '../../../styles/common/styles';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
 function RunOnlineStandingQuiz(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const params = useParams();
   const [mode, setMode] = useState();
-
   const getParams = React.useCallback(() => {
     if (
       params.quizId === undefined ||
@@ -54,44 +50,39 @@ function RunOnlineStandingQuiz(props) {
     }
     setMode('splash');
   }, [params, props, state.token]);
-
   React.useEffect(() => {
     dispatch({
       isRightMenuVisible: false,
     });
   }, [dispatch]);
-
   useEffectOnce(() => {
     getParams();
   });
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const setLoadingWithText = status => {
     dispatch({
       loading: status,
       loadingText: 'در حال ذخیره کردن پاسخ\u200cها. لطفا شکیبا باشید.',
     });
   };
-
   const [oldMode, setOldMode] = useState();
   const [selectedAttach, setSelectedAttach] = useState();
   const [showReportPane, setShowReportPane] = useState(false);
   const [questionId, setQuestionId] = useState();
   const [tags, setTags] = useState();
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
   const [isWorking, setIsWorking] = useState(false);
-
   const fetchTags = React.useCallback(() => {
     if (tags !== undefined || isWorking) return;
-
     setIsWorking(true);
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getVisibleQuestionReportTags,
@@ -108,10 +99,11 @@ function RunOnlineStandingQuiz(props) {
       }
       setTags(res[0]);
       setIsWorking(false);
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
     });
   }, [dispatch, isWorking, tags, state.token]);
-
   React.useEffect(() => {
     if (showReportPane) {
       fetchTags();
@@ -121,12 +113,17 @@ function RunOnlineStandingQuiz(props) {
       setQuestionId(undefined);
     }
   }, [showReportPane, fetchTags]);
-
   const [selectedQuestionReportTag, setSelectedQuestionReportTag] = useState();
   const [questionReportDesc, setQuestionReportDesc] = useState();
-
   return (
-    <MyView style={isInPhone ? {marginBottom: 20} : {}}>
+    <MyView
+      style={
+        isInPhone
+          ? {
+              marginBottom: 20,
+            }
+          : {}
+      }>
       <DoQuizProvider>
         {showReportPane && tags !== undefined && (
           <LargePopUp
@@ -145,7 +142,6 @@ function RunOnlineStandingQuiz(props) {
                     showError(commonTranslator.pleaseFillAllFields);
                     return;
                   }
-
                   setIsWorking(true);
                   const res = await generalRequest(
                     routes.storeQuestionReport +
@@ -155,14 +151,14 @@ function RunOnlineStandingQuiz(props) {
                     'post',
                     selectedQuestionReportTag.canHasDesc &&
                       questionReportDesc !== undefined
-                      ? {desc: questionReportDesc}
+                      ? {
+                          desc: questionReportDesc,
+                        }
                       : undefined,
                     undefined,
                     state.token,
                   );
-
                   setIsWorking(false);
-
                   if (res !== null) {
                     showSuccess();
                     setShowReportPane(false);
@@ -171,7 +167,10 @@ function RunOnlineStandingQuiz(props) {
               />
             }
             toggleShowPopUp={() => setShowReportPane(false)}>
-            <PhoneView style={{...styles.gap10}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+              }}>
               {tags.map((elem, index) => {
                 return (
                   <CommonRadioButton
@@ -219,7 +218,10 @@ function RunOnlineStandingQuiz(props) {
                 btn={
                   <FontIcon icon={faClose} onPress={() => setMode(oldMode)} />
                 }
-                style={{margin: 20, padding: 5}}>
+                style={{
+                  margin: 20,
+                  padding: 5,
+                }}>
                 <Image
                   resizeMode="contain"
                   style={{
@@ -248,7 +250,13 @@ function RunOnlineStandingQuiz(props) {
           )}
           <MyView
             style={
-              isInPhone ? {width: '100%'} : {width: vars.LEFT_SECTION_WIDTH}
+              isInPhone
+                ? {
+                    width: '100%',
+                  }
+                : {
+                    width: vars.LEFT_SECTION_WIDTH,
+                  }
             }>
             {mode !== undefined && mode === 'splash' && (
               <Splash
@@ -278,5 +286,4 @@ function RunOnlineStandingQuiz(props) {
     </MyView>
   );
 }
-
 export default RunOnlineStandingQuiz;

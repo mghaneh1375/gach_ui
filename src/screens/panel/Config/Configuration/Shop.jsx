@@ -4,32 +4,29 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
-} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import translator from './Translator';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import commonTranslator from '../../../../translator/Common';
-import {showSuccess, trueFalseValues} from '../../../../services/Utility';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-
+} from '../../../../styles/CommonComponents.jsx';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import translator from './translator';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import commonTranslator from '@/translator/common';
+import {showSuccess, trueFalseValues} from '../../../../services/utility';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
 function Shop(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [minBuyAmountForShop, setMinBuyAmountForShop] = useState();
   const [percentOfShopBuy, setPercentOfShopBuy] = useState();
   const [createShopOffVisibility, setCreateShopOffVisibility] = useState();
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getShopConfiguration,
@@ -39,23 +36,23 @@ function Shop(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
       }
-
       const data = res[0];
-
       setMinBuyAmountForShop(data.minBuyAmountForShop);
       setPercentOfShopBuy(data.percentOfShopBuy);
       setCreateShopOffVisibility(data.createShopOffVisibility);
     });
   }, [navigate, state.token, dispatch]);
-
   const update = () => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.updateConfiguration,
@@ -69,17 +66,21 @@ function Shop(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] !== null) {
         showSuccess(commonTranslator.success);
       }
     });
   };
-
   return (
     <MyView>
       <CommonWebBox>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderSelect
             placeholder={translator.createShopOffVisibility}
             subText={translator.createShopOffVisibility}
@@ -119,5 +120,4 @@ function Shop(props) {
     </MyView>
   );
 }
-
 export default Shop;

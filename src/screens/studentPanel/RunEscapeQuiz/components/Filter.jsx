@@ -5,34 +5,34 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
+} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
 import React from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
-
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
-import commonTranslator from '../../../../translator/Common';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
-import {getDevice} from '../../../../services/Utility';
+import commonTranslator from '@/translator/common';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import {getDevice} from '../../../../services/utility';
 import Timer from './Timer';
-
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   if (state.quizInfo === undefined) return <></>;
-
   return (
     <CommonWebBox
-      childStyle={{...styles.padding5}}
-      style={{...styles.padding0, ...styles.marginTop10}}
+      childStyle={{
+        ...styles.padding5,
+      }}
+      style={{
+        ...styles.padding0,
+        ...styles.marginTop10,
+      }}
       width={isInPhone ? '100%' : vars.RIGHT_MENU_WIDTH}>
       {!props.isInReviewMode &&
         state.quizInfo.duration > 0 &&
@@ -41,8 +41,16 @@ function Filter(props) {
             refresh={state.refresh}
             reminder={state.reminder}
             duration={state.quizInfo.duration}
-            callExit={() => dispatch({exit: true})}
-            callNeedStore={() => dispatch({needRanking: true})}
+            callExit={() =>
+              dispatch({
+                exit: true,
+              })
+            }
+            callNeedStore={() =>
+              dispatch({
+                needRanking: true,
+              })
+            }
           />
         )}
 
@@ -82,7 +90,10 @@ function Filter(props) {
       {props.isInReviewMode &&
         state.questions !== undefined &&
         props.mode !== 'splash' && (
-          <MyView style={{padding: 20}}>
+          <MyView
+            style={{
+              padding: 20,
+            }}>
             <EqualTwoTextInputs>
               <SimpleText text={'پاسخ دانش آموز: '} />
 
@@ -105,5 +116,4 @@ function Filter(props) {
     </CommonWebBox>
   );
 }
-
 export default Filter;

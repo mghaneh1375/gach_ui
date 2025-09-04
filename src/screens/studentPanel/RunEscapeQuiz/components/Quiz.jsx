@@ -1,33 +1,36 @@
 import React from 'react';
-import {CommonButton, MyView, SimpleText} from '../../../../styles/Common';
+import {CommonButton, MyView, SimpleText} from '@/styles';
 import Question from './Question';
 import {dispatchDoQuizContext, doQuizContext} from './Context';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import {getDevice} from '../../../../services/Utility';
-
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import {getDevice} from '../../../../services/utility';
 function Quiz(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const [state, dispatch] = useGlobalState();
-
   return (
     <>
       {state.showExitConfirmation && (
         <LargePopUp
           toggleShowPopUp={() =>
-            dispatch({showExitConfirmation: false, exit: false})
+            dispatch({
+              showExitConfirmation: false,
+              exit: false,
+            })
           }
           btns={
             <CommonButton
               title={'بله'}
               theme={'dark'}
-              onPress={() => dispatch({imSureExit: true})}
+              onPress={() =>
+                dispatch({
+                  imSureExit: true,
+                })
+              }
             />
           }>
           <SimpleText
@@ -38,7 +41,14 @@ function Quiz(props) {
         </LargePopUp>
       )}
       {!state.showExitConfirmation && (
-        <MyView style={isInPhone ? {marginBottom: 100} : {}}>
+        <MyView
+          style={
+            isInPhone
+              ? {
+                  marginBottom: 100,
+                }
+              : {}
+          }>
           <Question
             onBack={props.onBack}
             isInReviewMode={props.isInReviewMode}
@@ -48,5 +58,4 @@ function Quiz(props) {
     </>
   );
 }
-
 export default Quiz;

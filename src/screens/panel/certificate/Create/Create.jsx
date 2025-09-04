@@ -9,30 +9,28 @@ import {
   changeText,
   showError,
   trueFalseValues,
-} from '../../../../services/Utility';
+} from '../../../../services/utility';
 import {
   CommonRadioButton,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../styles/Common/Styles';
-import AttachBox from '../../ticket/components/Show/AttachBox/AttachBox';
-import Translate from '../Translator';
+} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '../../../../styles/common/styles';
+import AttachBox from '../../ticket/components/show/attachBox/AttachBox';
+import Translate from '../translator';
 import {useFilePicker} from 'use-file-picker';
-import {addCertificate, editCertificate, getCertificate} from '../Utility';
+import {addCertificate, editCertificate, getCertificate} from '../utility';
 import NextButtons from '../components/NextButtons';
-import commonTranslator from '../../../../translator/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {fileRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-
+import commonTranslator from '@/translator/common';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {fileRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
 let inc = 1;
-
 function Create(props) {
   const [certName, setCertName] = useState();
   const [qrSize, setQrSize] = useState();
@@ -48,7 +46,6 @@ function Create(props) {
   const [isCenter, setIsCenter] = useState(true);
   const [xMode, setXMode] = useState('fromRight');
   const [tableData, setTableData] = useState([]);
-
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
       maxFileSize: 6,
@@ -56,7 +53,6 @@ function Create(props) {
       readAs: 'DataURL',
       multiple: false,
     });
-
   const clearData = React.useCallback(() => {
     setParamName('');
     setFontSize('');
@@ -67,7 +63,6 @@ function Create(props) {
     setIsCenter('');
     setXMode('fromRight');
   }, []);
-
   const addToData = React.useCallback(() => {
     if (
       ((fontSize === undefined || fontSize.length === '') &&
@@ -77,7 +72,6 @@ function Create(props) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
     }
-
     if (
       xMode === 'fromRight' &&
       (fromRightScreen === undefined || fromRightScreen === '')
@@ -85,10 +79,8 @@ function Create(props) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
     }
-
     if (xMode !== 'fromRight' && (offset === undefined || offset === ''))
       setOffset(0);
-
     const data = {
       fontSize: fontSize,
       paramName: paramName,
@@ -100,16 +92,12 @@ function Create(props) {
       xMode: xMode,
       id: inc++,
     };
-
     clearData();
-
     const tableDataTmp = [];
-
     tableDataTmp.push(data);
     tableData.forEach(elem => {
       tableDataTmp.push(elem);
     });
-
     setTableData(tableDataTmp);
   }, [
     paramName,
@@ -123,16 +111,12 @@ function Create(props) {
     tableData,
     clearData,
   ]);
-
   const [data, setData] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (props.certId === undefined || data !== undefined || isWorking) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([getCertificate(props.certId, props.token)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) {
@@ -161,11 +145,9 @@ function Create(props) {
       setIsLandscape(res[0].isLandscape);
       setQrHorizontalDistance(res[0].qrX);
       setQrVerticalDistance(res[0].qrY);
-
       setIsWorking(false);
     });
   }, [props, isWorking, data]);
-
   const columns = [
     {
       name: Translate.param,
@@ -217,7 +199,10 @@ function Create(props) {
               setSelectedIdxForRemove(row.id);
             }}
             kind={'normal'}
-            style={{marginLeft: 100, alignSelf: 'center'}}
+            style={{
+              marginLeft: 100,
+              alignSelf: 'center',
+            }}
             icon={faTrash}
           />
         );
@@ -225,14 +210,11 @@ function Create(props) {
       grow: 1,
     },
   ];
-
   const [selectedIdxForRemove, setSelectedIdxForRemove] = useState();
-
   React.useEffect(() => {
     if (selectedIdxForRemove === undefined) return;
     removeFromTable();
   }, [selectedIdxForRemove, removeFromTable]);
-
   const removeFromTable = React.useCallback(() => {
     const tmp = tableData.filter(elem => {
       return selectedIdxForRemove !== elem.id;
@@ -240,14 +222,16 @@ function Create(props) {
     setTableData(tmp);
     setSelectedIdxForRemove(undefined);
   }, [tableData, selectedIdxForRemove]);
-
   return (
     <MyView>
       <CommonWebBox
         header={Translate.createNewCert}
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
-        <PhoneView style={{...styles.gap15}}>
+        <PhoneView
+          style={{
+            ...styles.gap15,
+          }}>
           <JustBottomBorderTextInput
             onChangeText={text => changeText(text, setCertName)}
             placeholder={Translate.certName}
@@ -255,7 +239,9 @@ function Create(props) {
             value={certName}
           />
           <SimpleText
-            style={{...styles.alignSelfCenter}}
+            style={{
+              ...styles.alignSelfCenter,
+            }}
             text={Translate.certType}
           />
           <CommonRadioButton
@@ -270,7 +256,10 @@ function Create(props) {
           />
         </PhoneView>
         <MyView>
-          <PhoneView style={{...styles.gap15}}>
+          <PhoneView
+            style={{
+              ...styles.gap15,
+            }}>
             <JustBottomBorderTextInput
               placeholder={Translate.qrSize}
               subText={Translate.qrSize}
@@ -296,7 +285,10 @@ function Create(props) {
         </MyView>
       </CommonWebBox>
       <CommonWebBox header={Translate.dynamicParameters}>
-        <PhoneView style={{...styles.gap15}}>
+        <PhoneView
+          style={{
+            ...styles.gap15,
+          }}>
           <CommonRadioButton
             status={xMode === 'fromRight' ? 'checked' : 'unchecked'}
             onPress={() => setXMode('fromRight')}
@@ -356,8 +348,14 @@ function Create(props) {
             justNum={true}
           />
         </PhoneView>
-        <MyView style={{...styles.alignItemsEnd}}>
-          <PhoneView style={{...styles.gap15}}>
+        <MyView
+          style={{
+            ...styles.alignItemsEnd,
+          }}>
+          <PhoneView
+            style={{
+              ...styles.gap15,
+            }}>
             <FontIcon
               theme="rect"
               type={'rect'}
@@ -378,9 +376,15 @@ function Create(props) {
         <CommonDataTable groupOps={[]} columns={columns} data={tableData} />
       </CommonWebBox>
       <CommonWebBox>
-        <PhoneView style={{...styles.gap15}}>
+        <PhoneView
+          style={{
+            ...styles.gap15,
+          }}>
           <SimpleText
-            style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+            style={{
+              ...styles.alignSelfCenter,
+              ...styles.BlueBold,
+            }}
             text={Translate.selectFiles}
           />
           <SimpleFontIcon
@@ -389,7 +393,10 @@ function Create(props) {
             icon={faPaperclip}
           />
           {filesContent !== undefined && filesContent.length > 0 && (
-            <PhoneView style={{marginTop: 20}}>
+            <PhoneView
+              style={{
+                marginTop: 20,
+              }}>
               <AttachBox
                 filename={filesContent[0].name}
                 fileContent={filesContent[0].content}
@@ -412,7 +419,6 @@ function Create(props) {
             showError(commonTranslator.pleaseFillAllFields);
             return;
           }
-
           const certData = {
             title: certName,
             isLandscape: isLandscape,
@@ -429,7 +435,6 @@ function Create(props) {
                 elem.isCenter = true;
                 elem.centerOffset = elem.offset;
               }
-
               elem.paramName = undefined;
               elem.xMode = undefined;
               elem.offset = undefined;
@@ -440,24 +445,19 @@ function Create(props) {
             }),
           };
           props.setLoading(true);
-
           let res =
             props.certId === undefined
               ? await addCertificate(certData, props.token)
               : await editCertificate(props.certId, certData, props.token);
-
           props.setLoading(false);
-
           if (res !== null) {
             certData.id = props.certId === undefined ? res : props.certId;
-
             if (filesContent !== undefined && filesContent.length > 0) {
               await fetch(filesContent[0].content)
                 .then(res => res.blob())
                 .then(async blob => {
                   const formData = new FormData();
                   formData.append('file', blob, filesContent[0].name);
-
                   res = await fileRequest(
                     routes.setCertificateImg + certData.id,
                     'post',
@@ -465,7 +465,6 @@ function Create(props) {
                     'url',
                     props.token,
                   );
-
                   if (res !== null) {
                     certData.img = res;
                     if (props.certId === undefined) props.addItem(certData);
@@ -483,5 +482,4 @@ function Create(props) {
     </MyView>
   );
 }
-
 export default Create;

@@ -1,14 +1,11 @@
-import {routes} from './APIRoutes';
-import {generalRequest} from './Utility';
-
-export const logout = async (token, navigate) => {
+import {routes} from './apiRoutes';
+import {generalRequest} from './utility';
+export const logout = async (token, _) => {
   await generalRequest(routes.logout, 'post', undefined, undefined, token);
-
   await removeAuthCache();
   // navigate(getDevice().indexOf(Device.App) !== -1 ? 'Home' : '/');
   window.location.href = '/';
 };
-
 export const removeAuthCache = async () => {
   const secToken = await getToken('token_sec');
   if (secToken !== undefined) {
@@ -21,11 +18,9 @@ export const removeAuthCache = async () => {
       return;
     }
   }
-
   await setCacheItem('token', undefined);
   await setCacheItem('user', undefined);
 };
-
 export const setCacheItem = async (key, val) => {
   try {
     localStorage.setItem(key, val);
@@ -34,7 +29,6 @@ export const setCacheItem = async (key, val) => {
     console.log(e);
   }
 };
-
 export const getToken = async (key = 'token') => {
   try {
     // const value = await AsyncStorage.getItem(key);
@@ -45,7 +39,6 @@ export const getToken = async (key = 'token') => {
     return null;
   }
 };
-
 export const getUser = async (key = 'user') => {
   try {
     // const value = await AsyncStorage.getItem(key);
@@ -57,7 +50,6 @@ export const getUser = async (key = 'user') => {
     return null;
   }
 };
-
 export const fetchUser = async (token, callBack) => {
   const result = await generalRequest(
     routes.fetchUser,

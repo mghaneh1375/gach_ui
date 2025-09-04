@@ -1,14 +1,15 @@
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {showSuccess} from '../../../services/Utility';
-import commonTranslator from '../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {showSuccess} from '../../../services/utility';
+import commonTranslator from '../../../translator/common';
 export const removeGrade = async (setLoading, token, gradeId, afterFunc) => {
   setLoading(true);
   const res = await generalRequest(
     routes.removeGrades,
     'delete',
-    {items: [gradeId]},
+    {
+      items: [gradeId],
+    },
     ['excepts', 'doneIds'],
     token,
   );
@@ -18,7 +19,6 @@ export const removeGrade = async (setLoading, token, gradeId, afterFunc) => {
     afterFunc(res.doneIds);
   }
 };
-
 export const removeLesson = async (
   setLoading,
   token,
@@ -30,7 +30,9 @@ export const removeLesson = async (
   const res = await generalRequest(
     routes.removeLessons + subMode,
     'delete',
-    {items: [lessonId]},
+    {
+      items: [lessonId],
+    },
     ['excepts', 'doneIds'],
     token,
   );
@@ -40,7 +42,6 @@ export const removeLesson = async (
     afterFunc(res.doneIds);
   }
 };
-
 export const removeSubject = async (
   setLoading,
   token,
@@ -51,7 +52,9 @@ export const removeSubject = async (
   const res = await generalRequest(
     routes.removeSubjects,
     'delete',
-    {items: [subjectId]},
+    {
+      items: [subjectId],
+    },
     ['excepts', 'doneIds'],
     token,
   );
@@ -61,7 +64,6 @@ export const removeSubject = async (
     afterFunc(res.doneIds);
   }
 };
-
 export const getGradesOnly = async (token, subMode) => {
   const res = await generalRequest(
     subMode === 'grade' ? routes.fetchGrades : routes.fetchBranches,
@@ -101,7 +103,6 @@ export const getGrades = async token => {
     token,
   );
 };
-
 export const getSubjects = async token => {
   const res = await generalRequest(
     routes.fetchSubjects,
@@ -112,7 +113,6 @@ export const getSubjects = async token => {
   );
   return res;
 };
-
 export const getLessons = async (token, subMode) => {
   const res = await generalRequest(
     subMode === 'grade' ? routes.fetchLessonGrades : routes.fetchLessonBranch,
@@ -123,7 +123,6 @@ export const getLessons = async (token, subMode) => {
   );
   return res;
 };
-
 export const editGrade = async (id, token, data, isOlympiadOld) => {
   const res = await generalRequest(
     isOlympiadOld ? routes.editBranch + id : routes.editGrade + id,
@@ -133,10 +132,8 @@ export const editGrade = async (id, token, data, isOlympiadOld) => {
     token,
   );
   if (res !== null) showSuccess(commonTranslator.success);
-
   return res;
 };
-
 export const editLesson = async (subMode, id, gradeId, token, data) => {
   const res = await generalRequest(
     routes.editLesson + subMode + '/' + gradeId + '/' + id,
@@ -146,10 +143,8 @@ export const editLesson = async (subMode, id, gradeId, token, data) => {
     token,
   );
   if (res !== null) showSuccess(commonTranslator.success);
-
   return res;
 };
-
 export const createGrade = async (token, data, isOlympiad) => {
   const res = await generalRequest(
     isOlympiad === 'yes' ? routes.addBranch : routes.addGrade,
@@ -197,7 +192,6 @@ export const createSubject = async (token, gradeId, lessonId, data) => {
     return null;
   }
 };
-
 export const editSubject = async (id, token, data) => {
   try {
     const res = await generalRequest(

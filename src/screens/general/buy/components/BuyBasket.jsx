@@ -1,4 +1,4 @@
-import {formatPrice, getDevice, showError} from '../../../../services/Utility';
+import {formatPrice, getDevice, showError} from '../../../../services/utility';
 import {
   BigBoldBlueText,
   CommonButton,
@@ -6,21 +6,18 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import Translate from '../Translate';
-import {styles} from '../../../../styles/Common/Styles';
-import {goToPay, goToPayCustomUrl, goToPayGroup} from './Utility';
-import {setCacheItem} from '../../../../API/User';
-import commonTranslator from '../../../../translator/Common';
+} from '@/styles';
+import Translate from '../translate';
+import {styles} from '../../../../styles/common/styles';
+import {goToPay, goToPayCustomUrl, goToPayGroup} from './utility';
+import {setCacheItem} from '../../../../api/user';
+import commonTranslator from '@/translator/common';
 import React, {useState, useRef} from 'react';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
-
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import vars from '../../../../styles/root';
-
+import vars from '@/styles/root';
 function BuyBasket(props) {
   const [refId, setRefId] = useState();
-
   const goToPayLocal = async () => {
     if (
       props.token === null ||
@@ -30,33 +27,32 @@ function BuyBasket(props) {
       showError(commonTranslator.shouldLogin);
       return;
     }
-
     const data =
       props.payUrl !== undefined
         ? {}
         : {
             ids: props.wantedQuizzes,
           };
-
     if (props.students !== undefined) data.studentIds = props.students;
-
     if (props.userOff !== undefined && props.userOff.code !== undefined)
       data.code = props.userOff.code;
     if (props.packageId !== undefined) data.packageId = props.packageId;
-
     props.setLoading(true);
-
     const res =
       props.payUrl !== undefined
         ? await goToPayCustomUrl(
             props.token,
             props.payUrl,
-            props.data !== undefined ? {...data, ...props.data} : data,
+            props.data !== undefined
+              ? {
+                  ...data,
+                  ...props.data,
+                }
+              : data,
           )
         : props.students === undefined
         ? await goToPay(props.token, data)
         : await goToPayGroup(props.token, data);
-
     props.setLoading(false);
     if (res !== null) {
       if (res.action === 'success') {
@@ -70,31 +66,41 @@ function BuyBasket(props) {
       }
     }
   };
-
   const ref = useRef();
   const [isShown, setIsShown] = useState(false);
-
   React.useEffect(() => {
     if (refId === undefined) return;
-
     setTimeout(() => {
       ref.current.submit();
     }, 1000);
   }, [refId]);
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   return (
     <>
       <PhoneView
         style={{
-          ...{alignSelf: 'flex-end', gap: 5},
+          ...{
+            alignSelf: 'flex-end',
+            gap: 5,
+          },
           ...styles.alignItemsCenter,
         }}>
         {props.price > 10 && (
           <MyView>
-            <PhoneView style={isInPhone ? {flexDirection: 'column'} : {}}>
-              <BigBoldBlueText style={{marginTop: 5}} text={Translate.amount} />
+            <PhoneView
+              style={
+                isInPhone
+                  ? {
+                      flexDirection: 'column',
+                    }
+                  : {}
+              }>
+              <BigBoldBlueText
+                style={{
+                  marginTop: 5,
+                }}
+                text={Translate.amount}
+              />
 
               {(props.off > 0 || props.usedFromWallet > 0) && (
                 <MyView>
@@ -103,14 +109,18 @@ function BuyBasket(props) {
                       <SimpleText
                         text={formatPrice(props.off)}
                         style={{
-                          ...{marginRight: 10},
+                          ...{
+                            marginRight: 10,
+                          },
                           ...styles.yellow_color,
                           ...styles.fontSize13,
                         }}
                       />
                       <SimpleText
                         style={{
-                          ...{marginRight: 5},
+                          ...{
+                            marginRight: 5,
+                          },
                           ...styles.dark_blue_color,
                           ...styles.fontSize13,
                         }}
@@ -130,7 +140,10 @@ function BuyBasket(props) {
                             isShown ? setIsShown(false) : setIsShown(true)
                           }>
                           <FontAwesomeIcon
-                            style={{color: 'white', padding: 3}}
+                            style={{
+                              color: 'white',
+                              padding: 3,
+                            }}
                             icon={faQuestion}
                           />
                         </button>
@@ -168,14 +181,18 @@ function BuyBasket(props) {
                       <SimpleText
                         text={formatPrice(props.usedFromWallet)}
                         style={{
-                          ...{marginRight: 10},
+                          ...{
+                            marginRight: 10,
+                          },
                           ...styles.yellow_color,
                           ...styles.fontSize13,
                         }}
                       />
                       <SimpleText
                         style={{
-                          ...{marginRight: 5},
+                          ...{
+                            marginRight: 5,
+                          },
                           ...styles.dark_blue_color,
                           ...styles.fontSize13,
                         }}
@@ -194,19 +211,31 @@ function BuyBasket(props) {
                         ...styles.dark_blue_color,
                         ...styles.textDecorRed,
                       }
-                    : {...styles.dark_blue_color}
+                    : {
+                        ...styles.dark_blue_color,
+                      }
                 }
                 text={formatPrice(props.price) + ' تومان '}
               />
               {props.shouldPay !== props.price && props.shouldPay > 10 && (
                 <SimpleText
-                  style={{...{marginRight: 15}, ...styles.red}}
+                  style={{
+                    ...{
+                      marginRight: 15,
+                    },
+                    ...styles.red,
+                  }}
                   text={formatPrice(props.shouldPay) + ' تومان '}
                 />
               )}
               {props.shouldPay !== props.price && props.shouldPay <= 10 && (
                 <SimpleText
-                  style={{...{marginRight: 15}, ...styles.red}}
+                  style={{
+                    ...{
+                      marginRight: 15,
+                    },
+                    ...styles.red,
+                  }}
                   text={0 + ' تومان '}
                 />
               )}
@@ -217,7 +246,13 @@ function BuyBasket(props) {
         {props.price > 0 &&
           !isInPhone &&
           (props.disable === undefined || !props.disable) && (
-            <MyView style={{...{marginRight: 40}, ...styles.alignItemsCenter}}>
+            <MyView
+              style={{
+                ...{
+                  marginRight: 40,
+                },
+                ...styles.alignItemsCenter,
+              }}>
               <CommonButton
                 theme={'dark'}
                 title={
@@ -293,5 +328,4 @@ function BuyBasket(props) {
     </>
   );
 }
-
 export default BuyBasket;

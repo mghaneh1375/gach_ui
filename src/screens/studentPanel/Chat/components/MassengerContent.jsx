@@ -1,18 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {getFileType, makeDownload} from '../../../../services/Utility';
-
+import {getFileType, makeDownload} from '../../../../services/utility';
 function MassengerContent(props) {
   const [message, setMessage] = useState([]);
-
   useEffect(() => {
     const msg = props.msg;
-
     let files = [];
     if (msg.files && msg.files.length > 0) {
       files = msg.files.map(file => {
         let fileType = file.split('.');
         fileType = fileType[fileType.length - 1];
-
         const isPdf = fileType === 'pdf';
         return {
           file,
@@ -20,12 +16,9 @@ function MassengerContent(props) {
         };
       });
     }
-
     msg.files = files;
-
     setMessage(msg);
   }, [props.msg]);
-
   let isFileImg = false;
   let isFileVoice = false;
   if (message.isFile) {
@@ -35,15 +28,23 @@ function MassengerContent(props) {
       isFileVoice = true;
     }
   }
-
   const [showBio, setShowBio] = useState(false);
-
   return (
     <div className={`msgBox ${message.myMsg ? 'myBox' : 'otherBox'}`}>
-      <div style={{position: 'relative'}} className="content">
+      <div
+        style={{
+          position: 'relative',
+        }}
+        className="content">
         {props.needPic && (
           <div
-            style={message.isForUser ? {} : {cursor: 'pointer'}}
+            style={
+              message.isForUser
+                ? {}
+                : {
+                    cursor: 'pointer',
+                  }
+            }
             onClick={() => {
               if (message.isForUser || showBio) return;
               setShowBio(true);
@@ -65,7 +66,10 @@ function MassengerContent(props) {
                   cursor: 'initial',
                   boxShadow: '10px 10px 90px 25px #aaaaaa',
                 }}>
-                <div style={{position: 'relative'}}>
+                <div
+                  style={{
+                    position: 'relative',
+                  }}>
                   <i
                     onClick={() => setShowBio(false)}
                     style={{
@@ -124,7 +128,11 @@ function MassengerContent(props) {
                     download={message?.file?.name}>
                     <i className="fas fa-download" />
                   </a>
-                  <div className="messRowFile_name" style={{direction: 'ltr'}}>
+                  <div
+                    className="messRowFile_name"
+                    style={{
+                      direction: 'ltr',
+                    }}>
                     {message?.file?.name}
                   </div>
                 </>
@@ -147,7 +155,9 @@ function MassengerContent(props) {
                 <div
                   key={index}
                   className="file"
-                  style={{cursor: 'pointer'}}
+                  style={{
+                    cursor: 'pointer',
+                  }}
                   onClick={() => makeDownload(file.file)}>
                   <i className="fas fa-book" />
                 </div>
@@ -170,7 +180,6 @@ function MassengerContent(props) {
     </div>
   );
 }
-
 MassengerContent.defaultProps = {
   msg: {
     msg: '',
@@ -189,5 +198,4 @@ MassengerContent.defaultProps = {
   },
   needPic: true,
 };
-
 export default MassengerContent;

@@ -1,20 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import translator from '../translator';
 import {dispatchPointContext, pointContext} from './Context';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../styles/Common/Styles';
-import {showError, showSuccess} from '../../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '../../../../styles/common/styles';
+import {showError, showSuccess} from '../../../../services/utility';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(pointContext),
     React.useContext(dispatchPointContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [metric, setMetric] = useState(
     props.updateMode ? state.selectedPoint?.action : undefined,
@@ -23,7 +21,6 @@ function Create(props) {
     props.updateMode ? state.selectedPoint?.point : undefined,
   );
   const [values, setValues] = useState();
-
   const fetchActions = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -31,7 +28,9 @@ function Create(props) {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] == null) props.setMode('list');
-      dispatch({actions: res[0]});
+      dispatch({
+        actions: res[0],
+      });
       setValues(
         res[0].map(e => ({
           id: e.action,
@@ -41,7 +40,6 @@ function Create(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     if (state.actions) {
       setValues(
@@ -55,12 +53,13 @@ function Create(props) {
     fetchActions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.actions]);
-
   if (!values) return <></>;
-
   return (
     <CommonWebBox onBackClick={() => props.setMode('list')} backBtn={true}>
-      <PhoneView style={{...styles.gap10}}>
+      <PhoneView
+        style={{
+          ...styles.gap10,
+        }}>
         <JustBottomBorderSelect
           placeholder={translator.metric}
           subText={translator.metric}
@@ -88,7 +87,6 @@ function Create(props) {
             return;
           }
           props.setLoading(true);
-
           const response = await generalRequest(
             props.updateMode
               ? routes.updatePoint + state.selectedPoint.id
@@ -104,8 +102,14 @@ function Create(props) {
           props.setLoading(false);
           if (response != null) {
             if (props.updateMode)
-              dispatch({needUpdate: true, selectedPoint: response});
-            else dispatch({points: [...state.points, response]});
+              dispatch({
+                needUpdate: true,
+                selectedPoint: response,
+              });
+            else
+              dispatch({
+                points: [...state.points, response],
+              });
             props.setMode('list');
             showSuccess();
           }
@@ -116,5 +120,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

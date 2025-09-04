@@ -1,13 +1,12 @@
 import {useState} from 'react';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../../translator/Common';
-import {updateQuestionMark} from '../Utility';
-import translator from '../../Translator';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {showSuccess} from '../../../../../services/Utility';
-import {CommonButton} from '../../../../../styles/Common';
-import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
-
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import commonTranslator from '@/translator/common';
+import {updateQuestionMark} from '../utility';
+import translator from '../../translator';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {showSuccess} from '@/services/utility';
+import {CommonButton} from '@/styles';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
 function Edit(props) {
   const [mark, setMark] = useState(
     props.question !== undefined ? props.question.mark : 0,
@@ -15,7 +14,6 @@ function Edit(props) {
   const [canUpload, setCanUpload] = useState(
     props.question.canUpload ? 'yes' : 'no',
   );
-
   return (
     <LargePopUp
       toggleShowPopUp={() => props.setShowEditPane(false)}
@@ -61,5 +59,4 @@ function Edit(props) {
     </LargePopUp>
   );
 }
-
 export default Edit;

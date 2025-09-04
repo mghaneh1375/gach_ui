@@ -1,34 +1,33 @@
 import React, {useState} from 'react';
-import {addItem, editItem, removeItems} from '../../../../services/Utility';
+import {addItem, editItem, removeItems} from '../../../../services/utility';
 import Create from './components/Create';
 import List from './components/List';
-import {dispatchStateContext} from '../../../../App';
-import {MyView} from 'react-native-multi-selectbox';
-import {fetchData} from './components/Utility';
-
+import {dispatchStateContext} from '@/App';
+import {MyView} from '@/styles';
+import {fetchData} from './components/utility';
 function TarazLevels(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
-
   const [dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const [levels, setLevels] = useState();
   const [selectedLevel, setSelectedLevel] = useState();
   const [mode, setMode] = useState('');
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (isWorking || levels !== undefined) return;
-
     setIsWorking(true);
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([fetchData(props.token)]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -37,7 +36,6 @@ function TarazLevels(props) {
       setMode('list');
     });
   }, [navigate, props.token, dispatch, levels, isWorking]);
-
   return (
     <MyView>
       {mode === 'list' && (
@@ -78,5 +76,4 @@ function TarazLevels(props) {
     </MyView>
   );
 }
-
 export default TarazLevels;

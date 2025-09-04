@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import List from './list/List';
 import Create from './create/Create';
 import {
@@ -7,16 +7,14 @@ import {
   editItem,
   addItem,
   isUserAdvisor,
-} from '../../../services/Utility';
-import {MyView} from '../../../styles/Common';
-import {getAllStudent} from './Utility';
+} from '../../../services/utility';
+import {MyView} from '@/styles';
+import {getAllStudent} from './utility';
 import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin';
-import {AdvicePanelProvider} from './Advisor/components/Context';
-import Panel from './Advisor/Panel';
-
+import {AdvicePanelProvider} from './advisor/components/Context';
+import Panel from './advisor/Panel';
 function ManageStudents(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -24,15 +22,20 @@ function ManageStudents(props) {
   const [mode, setMode] = useState('list');
   const [selectedStudent, setSelectedStudent] = useState();
   const [state, dispatch] = useGlobalState();
-
   const [data, setData] = useState();
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getAllStudent(props.token)]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -41,14 +44,11 @@ function ManageStudents(props) {
       setMode('list');
     });
   }, [navigate, props.token, dispatch]);
-
   const [isAdvisor, setIsAdvisor] = useState(false);
-
   React.useEffect(() => {
     if (state.user === undefined) return;
     setIsAdvisor(isUserAdvisor(state.user));
   }, [state.user]);
-
   return (
     <MyView>
       {mode === 'list' && (
@@ -95,5 +95,4 @@ function ManageStudents(props) {
     </MyView>
   );
 }
-
 export default ManageStudents;

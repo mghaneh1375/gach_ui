@@ -4,22 +4,18 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
-} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import translator from './Translator';
-import {dispatchStateContext} from '../../../../App';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import commonTranslator from '../../../../translator/Common';
-import {showSuccess} from '../../../../services/Utility';
-
+} from '../../../../styles/CommonComponents.jsx';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import translator from './translator';
+import {dispatchStateContext} from '@/App';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import commonTranslator from '@/translator/common';
+import {showSuccess} from '../../../../services/utility';
 function General(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
-
   const [dispatch] = useGlobalState();
-
   const [initMoney, setInitMoney] = useState();
   const [initCoin, setInitCoin] = useState();
   const [inviteMoney, setInviteMoney] = useState();
@@ -50,9 +46,10 @@ function General(props) {
   const [maxTeachPrice, setMaxTeachPrice] = useState();
   const [prePayAmount, setPrePayAmount] = useState();
   const [minAmountForSettlement, setMinAmountForSettlement] = useState();
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getAllConfiguration,
@@ -62,15 +59,14 @@ function General(props) {
         props.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
       }
-
       const data = res[0];
-
       setInitMoney(data.initMoney);
       setInitCoin(data.initCoin);
       setInviteMoney(data.inviteMoney);
@@ -103,9 +99,10 @@ function General(props) {
       setMinAmountForSettlement(data.minAmountForSettlement);
     });
   }, [navigate, props.token, dispatch]);
-
   const update = () => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.updateConfiguration,
@@ -146,17 +143,21 @@ function General(props) {
         props.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] !== null) {
         showSuccess(commonTranslator.success);
       }
     });
   };
-
   return (
     <MyView>
       <CommonWebBox>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderTextInput
             placeholder={translator.initMoney}
             subText={translator.initMoney}
@@ -394,5 +395,4 @@ function General(props) {
     </MyView>
   );
 }
-
 export default General;

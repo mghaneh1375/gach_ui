@@ -1,42 +1,34 @@
 import React, {useState} from 'react';
-import {getAllStudent} from '../../screens/schoolPanel/ManageStudents/Utility';
-import CommonDataTable from '../../styles/Common/CommonDataTable';
-import {LargePopUp} from '../../styles/Common/PopUp';
-import commonTranslator from '../../translator/Common';
-
+import {getAllStudent} from '../../screens/schoolPanel/manageStudents/utility';
+import CommonDataTable from '../../styles/common/CommonDataTable';
+import {LargePopUp} from '../../styles/common/PopUp';
+import commonTranslator from '../../translator/common';
 function SelectFromMyStudents(props) {
   const [data, setData] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   const fetchStudents = React.useCallback(() => {
     if (isWorking || props.myStudents !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([getAllStudent(props.token)]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.setMyStudents([]);
         setData([]);
         // dispatch({myStudents: []});
         return;
       }
-
       setData(res[0]);
       props.setMyStudents(res[0]);
       setIsWorking(false);
       //   dispatch({myStudents: res[0]});
     });
   }, [props, isWorking]);
-
   React.useEffect(() => {
     if (data !== undefined) return;
     if (props.myStudents === undefined) fetchStudents();
     else setData(props.myStudents);
   }, [data, props.myStudents, fetchStudents]);
-
   const columns = [
     {
       name: commonTranslator.name + ' و ' + commonTranslator.lastname,
@@ -50,7 +42,6 @@ function SelectFromMyStudents(props) {
       center: true,
     },
   ];
-
   return (
     <LargePopUp
       removeCancel={true}
@@ -74,23 +65,19 @@ function SelectFromMyStudents(props) {
                     )
                       tmp.push(elem);
                   });
-
                   const tmp2 = [];
                   props.selectedStudents.forEach(elem => {
                     tmp2.push(elem);
                   });
-
                   tmp.forEach(e => {
                     tmp2.push(e);
                   });
-
                   props.setSelectedStudents(tmp2);
                   //   dispatch({selectedStudents: tmp2});
                 } else {
                   props.setSelectedStudents(arr);
                   //   dispatch({selectedStudents: arr});
                 }
-
                 props.toggleShowPopUp();
               },
             },
@@ -104,5 +91,4 @@ function SelectFromMyStudents(props) {
     </LargePopUp>
   );
 }
-
 export default SelectFromMyStudents;

@@ -5,20 +5,18 @@ import {
   CommonWebBox,
   MyView,
   PhoneView,
-} from '../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+} from '../../../../styles/CommonComponents.jsx';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {useEffectOnce} from 'usehooks-ts';
-import {generalRequest, videoGeneralRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
+import {generalRequest, videoGeneralRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
 import {useState} from 'react';
 import React from 'react';
-import {showSuccess} from '../../../../services/Utility';
-
+import {showSuccess} from '../../../../services/utility';
 function CopySessions(props) {
   const navigate = props.navigate;
   const [contents, setContents] = useState();
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -27,9 +25,10 @@ function CopySessions(props) {
   const [selectedSrcContent, setSelectedSrcContent] = useState();
   const [selectedDestContent, setSelectedDestContent] = useState();
   const [selectedSessions, setSelectedSessions] = useState([]);
-
   const fetchContentsSessions = useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getAllCotents,
@@ -39,7 +38,9 @@ function CopySessions(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -55,11 +56,9 @@ function CopySessions(props) {
       );
     });
   }, [state.token, navigate, dispatch]);
-
   useEffectOnce(() => {
     fetchContentsSessions();
   });
-
   return (
     <CommonWebBox title={'کپی کردن جلسات'}>
       {contents !== undefined && (
@@ -101,15 +100,23 @@ function CopySessions(props) {
                           ? 'checked'
                           : 'unchecked'
                       }
-                      textStyle={{alignSelf: 'center', fontSize: 12}}
-                      style={{height: 35}}
+                      textStyle={{
+                        alignSelf: 'center',
+                        fontSize: 12,
+                      }}
+                      style={{
+                        height: 35,
+                      }}
                       text={session.name}
                       isCheckBox={true}
                     />
                   );
                 })}
           </MyView>
-          <MyView style={{width: '48%'}}>
+          <MyView
+            style={{
+              width: '48%',
+            }}>
             {selectedSrcContent !== undefined && (
               <>
                 <JustBottomBorderSelect
@@ -127,7 +134,9 @@ function CopySessions(props) {
       {selectedSrcContent !== undefined && selectedDestContent !== undefined && (
         <CommonButton
           onPress={async () => {
-            dispatch({loading: true});
+            dispatch({
+              loading: true,
+            });
             const res = await videoGeneralRequest(
               routes.copySessions,
               'post',
@@ -139,7 +148,9 @@ function CopySessions(props) {
               undefined,
               state.token,
             );
-            dispatch({loading: false});
+            dispatch({
+              loading: false,
+            });
             if (res !== null) {
               showSuccess();
             }
@@ -151,5 +162,4 @@ function CopySessions(props) {
     </CommonWebBox>
   );
 }
-
 export default CopySessions;

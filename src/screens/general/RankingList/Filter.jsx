@@ -1,13 +1,15 @@
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {BigBoldBlueText, MyView, PhoneView} from '../../../styles/Common';
-import {FontIcon} from '../../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import {fetchRankingList} from './Utility';
-
+import {
+  BigBoldBlueText,
+  MyView,
+  PhoneView,
+} from '../../../styles/CommonComponents';
+import {FontIcon} from '../../../styles/common/FontIcon';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import {fetchRankingList} from './utility';
 function Filter(props) {
   const [grade, setGrade] = useState();
-
   const setSelectedGrade = async item => {
     if (item === undefined) return;
     setGrade(item);
@@ -19,10 +21,8 @@ function Filter(props) {
       props.setData(res);
     }
   };
-
   const removeFilter = async () => {
     if (!props.useFilter) return;
-
     setGrade(undefined);
     props.setLoading(true);
     const res = await fetchRankingList();
@@ -32,10 +32,12 @@ function Filter(props) {
       props.setData(res);
     }
   };
-
   return (
     <MyView>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         <BigBoldBlueText text={'رتبه‌های برتر'} />
         <JustBottomBorderTextInput
           isHalf={true}
@@ -62,5 +64,4 @@ function Filter(props) {
     </MyView>
   );
 }
-
 export default Filter;

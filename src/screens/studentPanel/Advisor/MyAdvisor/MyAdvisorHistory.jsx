@@ -1,20 +1,19 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   SimpleText,
-} from '../../../../styles/Common';
+} from '../../../../styles/CommonComponents.jsx';
 import {useParams} from 'react-router';
 import {useCallback} from 'react';
-import {fetchSchedule} from '../../../advisorPanel/Schedule/components/Utility';
-import Day from '../../MyLifeStyle.js/components/Day';
-import vars from '../../../../styles/root';
-
+import {fetchSchedule} from '../../../advisorPanel/schedule/components/utility';
+import Day from '../../myLifeStyle/components/Day.jsx';
+import vars from '@/styles/root';
 function MyAdvisorHistory(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -25,9 +24,10 @@ function MyAdvisorHistory(props) {
   const [selectedSchedule, setSelectedSchedule] = useState();
   const [selectedWeek, setSelectedWeek] = useState();
   const params = useParams();
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getMyAdvisorHistory + params.reqId,
@@ -37,7 +37,9 @@ function MyAdvisorHistory(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         props.navigate('/');
         return;
@@ -46,7 +48,6 @@ function MyAdvisorHistory(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const callFetchSchedule = useCallback(scheduleId => {
     Promise.all([fetchSchedule(state.token, scheduleId)]).then(res => {
       if (res[0] == null) {
@@ -54,16 +55,16 @@ function MyAdvisorHistory(props) {
         return;
       }
       setSelectedSchedule(res[0]);
-      dispatch({isRightMenuVisible: false});
+      dispatch({
+        isRightMenuVisible: false,
+      });
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   return (
     <>
       {!selectedSchedule && (
@@ -105,7 +106,9 @@ function MyAdvisorHistory(props) {
               title={'بازگشت'}
               onPress={() => {
                 setSelectedSchedule(undefined);
-                dispatch({isRightMenuVisible: true});
+                dispatch({
+                  isRightMenuVisible: true,
+                });
               }}
             />
           </EqualTwoTextInputs>
@@ -127,5 +130,4 @@ function MyAdvisorHistory(props) {
     </>
   );
 }
-
 export default MyAdvisorHistory;

@@ -1,23 +1,24 @@
 import React from 'react';
-import {globalStateContext} from '../../../../App';
-import {isUserAdmin} from '../../../../services/Utility';
-import {MyView} from '../../../../styles/Common';
+import {globalStateContext} from '../../../../App.jsx';
+import {isUserAdmin} from '../../../../services/utility';
+import {MyView} from '@/styles';
 import Filter from './Filter';
-import AdminMenu from './Menus/AdminMenu';
-import AdvisorMenu from './Menus/AdvisorMenu';
-import Agent from './Menus/Agent';
-import ContentMenu from './Menus/ContentMenu';
-import EditorMenu from './Menus/EditorMenu';
-import SchoolMenu from './Menus/SchoolMenu';
-import StudentMenu from './Menus/Student';
-import Teacher from './Menus/Teacher';
-
+import AdminMenu from './menus/AdminMenu';
+import AdvisorMenu from './menus/AdvisorMenu';
+import Agent from './menus/Agent';
+import ContentMenu from './menus/ContentMenu';
+import EditorMenu from './menus/EditorMenu';
+import SchoolMenu from './menus/SchoolMenu';
+import StudentMenu from './menus/Student';
+import Teacher from './menus/Teacher';
 const Menu = props => {
   const useGlobalState = () => [React.useContext(globalStateContext)];
   const [state] = useGlobalState();
-
   return (
-    <MyView style={{width: state.isInPhone ? '100%' : 'unset'}}>
+    <MyView
+      style={{
+        width: state.isInPhone ? '100%' : 'unset',
+      }}>
       {state.isRightMenuVisible && props.accesses !== null && (
         <>
           {props.accesses.indexOf('student') !== -1 && (
@@ -58,5 +59,4 @@ const Menu = props => {
     </MyView>
   );
 };
-
 export default Menu;

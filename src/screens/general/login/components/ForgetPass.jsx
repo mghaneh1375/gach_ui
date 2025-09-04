@@ -1,18 +1,17 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {style} from '../../../../components/web/LargeScreen/Header/style';
-import {showError} from '../../../../services/Utility';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {style} from '../../../../components/web/largeScreen/header/Style';
+import {showError} from '@/services/utility';
 import {
   BlueTextFromStart,
   CommonButton,
   CommonRadioButton,
   MyView,
-} from '../../../../styles/Common';
-import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import commonTranslator from './../../../../translator/Common';
-import translator from './../translate';
-
+} from '@/styles';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import commonTranslator from '@/translator/common';
+import translator from '../translate';
 const ForgetPass = props => {
   const [authVia, setAuthVia] = useState('sms');
   const [step, setStep] = useState('forget'); // available values: []
@@ -20,13 +19,11 @@ const ForgetPass = props => {
   const changeNID = value => {
     props.setUsername(value);
   };
-
   const getWhichKindOfAuthIsAvailable = () => {
     if (props.username.length === 0) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
     }
-
     props.setLoading(true);
     Promise.all([
       generalRequest(
@@ -46,19 +43,15 @@ const ForgetPass = props => {
           return;
         }
       }
-
       props.setLoading(false);
     });
   };
-
   const requestForgetPass = (via = undefined) => {
     var data = {
       NID: props.username,
       authVia: via !== undefined ? via : authVia,
     };
-
     props.setLoading(true);
-
     Promise.all([
       generalRequest(routes.forgetPassword, 'post', data, [
         'token',
@@ -73,14 +66,18 @@ const ForgetPass = props => {
       }
     });
   };
-
   return (
     <MyView style={props.style !== undefined ? props.style : {}}>
       <BlueTextFromStart text={translator.forgetPass} />
       {step === 'forget' && (
-        <MyView style={{...style.ParentLoginModule}}>
+        <MyView
+          style={{
+            ...style.ParentLoginModule,
+          }}>
           <CommonTextInput
-            style={{marginTop: 20}}
+            style={{
+              marginTop: 20,
+            }}
             value={props.username}
             justNum={true}
             placeholder={commonTranslator.NID}
@@ -88,7 +85,10 @@ const ForgetPass = props => {
             onChangeText={e => changeNID(e)}
           />
 
-          <MyView style={{marginTop: 40}}>
+          <MyView
+            style={{
+              marginTop: 40,
+            }}>
             <CommonButton
               onPress={() => getWhichKindOfAuthIsAvailable()}
               title={commonTranslator.continue}
@@ -98,7 +98,10 @@ const ForgetPass = props => {
       )}
 
       {step === 'chooseAuthMethod' && (
-        <MyView style={{paddingLeft: 50}}>
+        <MyView
+          style={{
+            paddingLeft: 50,
+          }}>
           <CommonRadioButton
             text={translator.viaSMS}
             value="sms"
@@ -114,7 +117,10 @@ const ForgetPass = props => {
           />
 
           <CommonButton
-            style={{alignSelf: 'flex-start', marginTop: 10}}
+            style={{
+              alignSelf: 'flex-start',
+              marginTop: 10,
+            }}
             onPress={() => requestForgetPass()}
             title={commonTranslator.confirm}
           />
@@ -123,5 +129,4 @@ const ForgetPass = props => {
     </MyView>
   );
 };
-
 export default ForgetPass;

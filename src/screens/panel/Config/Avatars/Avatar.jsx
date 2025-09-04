@@ -1,28 +1,27 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {dispatchStateContext} from '../../../../App';
-import {MyView} from '../../../../styles/Common';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {dispatchStateContext} from '@/App';
+import {MyView} from '@/styles';
 import Create from './components/Create';
 import List from './components/List';
 import Update from './components/Update';
-
 function Avatar(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
-
   const [dispatch] = useGlobalState();
   const [avatars, setAvatars] = useState();
   const [mode, setMode] = useState('list');
   const [selected, setSelected] = useState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.fetchAllAvatars,
@@ -32,7 +31,9 @@ function Avatar(props) {
         props.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
@@ -40,20 +41,17 @@ function Avatar(props) {
       setAvatars(res[0]);
     });
   }, [navigate, props.token, dispatch]);
-
   const updateAvatar = (avatarId, newFilename) => {
     const allAvatars = avatars;
     const wanted = allAvatars.find(elem => elem.id === avatarId);
     wanted.file = newFilename;
     setAvatars(allAvatars);
   };
-
   const addAvatar = avatar => {
     const allAvatars = avatars;
     allAvatars.push(avatar);
     setAvatars(allAvatars);
   };
-
   return (
     <MyView>
       {mode === 'list' && (
@@ -87,5 +85,4 @@ function Avatar(props) {
     </MyView>
   );
 }
-
 export default Avatar;

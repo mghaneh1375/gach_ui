@@ -1,25 +1,20 @@
 import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {useState} from 'react';
-import {globalStateContext} from '../../../../../App';
-import {SimpleText} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import vars from '../../../../../styles/root';
+import {globalStateContext} from '@/App';
+import {SimpleText} from '../../../../../styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import vars from '@/styles/root';
 import React from 'react';
-
 export const SuperMenuItem = props => {
   const [isOpen, setIsOpen] = useState(false);
   const [wantedIcon, setWantedIcon] = useState(faPlus);
-
   const toggleIsOpen = () => {
     if (isOpen) setWantedIcon(faPlus);
     else setWantedIcon(faMinus);
     setIsOpen(!isOpen);
   };
-
   const useGlobalState = () => [React.useContext(globalStateContext)];
-
   const [state] = useGlobalState();
-
   return (
     <div
       style={{
@@ -47,17 +42,26 @@ export const SuperMenuItem = props => {
         }>
         <SimpleFontIcon
           onPress={() => toggleIsOpen()}
-          style={{color: props.selected ? vars.WHITE : vars.LIGHT_SILVER}}
+          style={{
+            color: props.selected ? vars.WHITE : vars.LIGHT_SILVER,
+          }}
           icon={wantedIcon}
         />
         {!isOpen && (
           <SimpleFontIcon
             parentStyle={
               state.isInPhone
-                ? {width: 40, left: 50}
-                : {width: '30px !important'}
+                ? {
+                    width: 40,
+                    left: 50,
+                  }
+                : {
+                    width: '30px !important',
+                  }
             }
-            style={{color: vars.WHITE}}
+            style={{
+              color: vars.WHITE,
+            }}
             icon={props.icon}
           />
         )}

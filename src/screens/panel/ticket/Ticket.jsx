@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
 import {useLocation} from 'react-router';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {addItem, editItem, isUserEditorAccess} from '../../../services/Utility';
-import {MyView} from '../../../styles/Common';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {addItem, editItem, isUserEditorAccess} from '../../../services/utility';
+import {MyView} from '@/styles';
 import ChangeLevel from './components/ChangeLevel';
 import Create from './components/Create';
-import List from './components/List/List';
-import {filter} from './components/List/Utility';
-import Show from './components/Show/Show';
-
+import List from './components/list/List';
+import {filter} from './components/list/utility';
+import Show from './components/show/Show';
 const queryString = require('query-string');
-
 function Ticket(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -24,19 +21,20 @@ function Ticket(props) {
   const [selectedTicket, setSelectedTicket] = useState({});
   const isAdmin = isUserEditorAccess(state.user);
   const [items, setItems] = useState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const {search} = useLocation();
-
   React.useEffect(() => {
     const params = queryString.parse(search);
-
     filter(
       {
-        setLoading: status => dispatch({loading: status}),
+        setLoading: status =>
+          dispatch({
+            loading: status,
+          }),
         token: state.token,
         setTickets: setTickets,
         setItems: setItems,
@@ -54,7 +52,6 @@ function Ticket(props) {
       undefined,
     );
   }, [navigate, state.token, isAdmin, search, dispatch]);
-
   return (
     <MyView>
       {mode === 'list' && (
@@ -102,5 +99,4 @@ function Ticket(props) {
     </MyView>
   );
 }
-
 export default Ticket;

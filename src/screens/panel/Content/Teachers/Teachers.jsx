@@ -1,21 +1,20 @@
 import {useEffectOnce} from 'usehooks-ts';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
-import {CommonWebBox} from '../../../../styles/Common';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {CommonWebBox} from '../../../../styles/CommonComponents.jsx';
 import React, {useState} from 'react';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
 import Teacher from './Teacher';
-
 function Teachers(props) {
   const [teachers, setTeachers] = useState();
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.distinctTeachersContentsForAdmin,
@@ -25,22 +24,22 @@ function Teachers(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) props.navigate('/');
       setTeachers(res[0]);
     });
   }, [state, dispatch, props]);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = new_statue => {
-    dispatch({loading: new_statue});
+    dispatch({
+      loading: new_statue,
+    });
   };
-
   return (
     <CommonWebBox>
       {teachers !== undefined &&
@@ -59,5 +58,4 @@ function Teachers(props) {
     </CommonWebBox>
   );
 }
-
 export default Teachers;

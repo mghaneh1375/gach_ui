@@ -1,6 +1,5 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
 export const fetchMyQuizze = async (
   token,
   generalMode = undefined,
@@ -9,7 +8,6 @@ export const fetchMyQuizze = async (
   const query = new URLSearchParams();
   if (generalMode !== undefined) query.append('generalMode', generalMode);
   if (status !== undefined) query.append('status', status);
-
   return await generalRequest(
     routes.fetchMyQuizzes + '?' + query.toString(),
     'get',
@@ -18,7 +16,6 @@ export const fetchMyQuizze = async (
     token,
   );
 };
-
 export const getMyAnswerSheet = async (quizId, generalMode, token) => {
   return await generalRequest(
     routes.fetchMyAnswerSheet + generalMode + '/' + quizId,
@@ -28,7 +25,6 @@ export const getMyAnswerSheet = async (quizId, generalMode, token) => {
     token,
   );
 };
-
 export const getRecpForQuiz = async (quizId, generalMode, token) => {
   return await generalRequest(
     routes.getRecpForQuiz + generalMode + '/' + quizId,

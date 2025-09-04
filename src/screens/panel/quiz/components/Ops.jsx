@@ -1,40 +1,31 @@
-import {CommonButton, SimpleText, PhoneView} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import translator from '../Translator';
-import commonTranslator from '../../../../translator/Common';
-import {
-  BASE_SITE_NAME,
-  CV_BASE_URL,
-  generalRequest,
-} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
+import {CommonButton, SimpleText, PhoneView} from '@/styles';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import translator from '../translator';
+import commonTranslator from '@/translator/common';
+import {BASE_SITE_NAME, CV_BASE_URL, generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
 import {
   createTaraz,
   finalizeQuizResult,
   generateQuestionPDF,
   transferToOpenQuiz,
-} from './Utility';
+} from './utility';
 import {dispatchQuizContext, quizContext} from './Context';
 import React, {useState} from 'react';
-import Translate from '../../../studentPanel/RunQuiz/Translate';
-import {showSuccess} from '../../../../services/Utility';
+import Translate from '../../../studentPanel/runQuiz/translate';
+import {showSuccess} from '../../../../services/utility';
 import UploadFile from '../../../../components/web/UploadFile';
-
 let timerVar;
-
 const Ops = props => {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [showUploadPane, setShowUploadPane] = useState(false);
   const [showLogPane, setShowLogPane] = useState(false);
-
   const downloadAnswerSheet = async () => {
     props.setLoading(true);
-
     const res = await generalRequest(
       CV_BASE_URL + 'generateTashrihiAnswerSheet/' + state.selectedQuiz.id,
       'post',
@@ -44,9 +35,7 @@ const Ops = props => {
       'data',
       props.token,
     );
-
     props.setLoading(false);
-
     if (res != null) {
       fetch(res, {
         method: 'GET',
@@ -58,14 +47,12 @@ const Ops = props => {
           const link = document.createElement('a');
           link.href = url;
           link.setAttribute('download', 'پاسخنامه.pdf');
-
           document.body.appendChild(link);
           link.click();
           link.parentNode.removeChild(link);
         });
     }
   };
-
   const toggleVisibility = () => {
     props.setLoading(true);
     Promise.all([
@@ -85,21 +72,20 @@ const Ops = props => {
       props.setLoading(false);
       if (res[0] !== null) {
         state.selectedQuiz.visibility = !state.selectedQuiz.visibility;
-        dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+        dispatch({
+          selectedQuiz: state.selectedQuiz,
+          needUpdate: true,
+        });
       }
     });
   };
-
   const transferToOpenQuizLocal = async () => {
     props.setLoading(true);
-
     await transferToOpenQuiz(state.selectedQuiz.id, props.token);
     props.setLoading(false);
   };
-
   const createTarazLocal = async () => {
     props.setLoading(true);
-
     await createTaraz(
       state.selectedQuiz.id,
       state.selectedQuiz.generalMode,
@@ -107,7 +93,6 @@ const Ops = props => {
     );
     props.setLoading(false);
   };
-
   const changeMode = newMode => {
     if (
       newMode === 'update' &&
@@ -128,7 +113,10 @@ const Ops = props => {
       ]).then(res => {
         props.setLoading(false);
         if (res[0] !== null) {
-          dispatch({selectedQuiz: res[0], needUpdate: true});
+          dispatch({
+            selectedQuiz: res[0],
+            needUpdate: true,
+          });
           props.setMode(newMode);
           props.toggleShowPopUp();
         }
@@ -138,10 +126,8 @@ const Ops = props => {
       props.toggleShowPopUp();
     }
   };
-
   const timer = React.useCallback(() => {
     if (state.selectedQuiz.cropped) return;
-
     timerVar = setTimeout(() => {
       props.setLoading(true);
       Promise.all([
@@ -157,27 +143,25 @@ const Ops = props => {
         ),
       ]).then(res => {
         props.setLoading(false);
-
         if (res[0] != null) {
           state.selectedQuiz.logs = res[0].logs;
           state.selectedQuiz.cropped = res[0].cropped;
-          dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+          dispatch({
+            selectedQuiz: state.selectedQuiz,
+            needUpdate: true,
+          });
         }
-
         if (res[0] == null || res[0].cropped) {
           clearTimeout(timerVar);
           return;
         }
-
         timer();
       });
     }, [10000]);
   }, [dispatch, props, state.selectedQuiz]);
-
   React.useEffect(() => {
     if (showLogPane) timer();
   }, [showLogPane, timer]);
-
   return (
     <>
       {!showUploadPane && (
@@ -342,7 +326,6 @@ const Ops = props => {
                         state.selectedQuiz.generalMode,
                         props.token,
                       );
-
                       props.setLoading(false);
                     }}
                     title={translator.generateQuestionPDF}
@@ -485,7 +468,9 @@ const Ops = props => {
             if (res) {
               state.selectedQuiz.logs = undefined;
               state.selectedQuiz.cropped = false;
-              dispatch({selectedQuiz: state.selectedQuiz});
+              dispatch({
+                selectedQuiz: state.selectedQuiz,
+              });
               showSuccess();
               setShowUploadPane(false);
               setShowLogPane(true);
@@ -496,5 +481,4 @@ const Ops = props => {
     </>
   );
 };
-
 export default Ops;

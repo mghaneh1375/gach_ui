@@ -1,9 +1,12 @@
 import {useEffect, useState} from 'react';
-import {CommonWebBox, MyView, SimpleText} from '../../../styles/Common';
+import {
+  CommonWebBox,
+  MyView,
+  SimpleText,
+} from '../../../styles/CommonComponents';
 import {Image} from 'react-native';
 import {Rating} from 'react-native-ratings';
-import {styles} from '../../../styles/Common/Styles';
-
+import {styles} from '../../../styles/common/styles';
 function TeacherCard(props) {
   const [pic, setPic] = useState();
   useEffect(() => {
@@ -34,7 +37,12 @@ function TeacherCard(props) {
             source={pic}
           />
           <SimpleText
-            style={{...{textAlign: 'center'}, ...styles.BlueBold}}
+            style={{
+              ...{
+                textAlign: 'center',
+              },
+              ...styles.BlueBold,
+            }}
             text={props.teacher.name}
           />
           {props.teacher.rate !== 0 && (
@@ -58,5 +66,4 @@ function TeacherCard(props) {
     </CommonWebBox>
   );
 }
-
 export default TeacherCard;

@@ -1,5 +1,4 @@
-import Translator from '../../../../advisorPanel/Teach/Schedule/components/Translator';
-
+import Translator from '../../../../advisorPanel/teach/schedule/components/translator';
 const columns = [
   {
     name: Translator.teacher,
@@ -66,5 +65,4 @@ const columns = [
     center: true,
   },
 ];
-
 export default columns;

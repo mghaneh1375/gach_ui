@@ -1,61 +1,47 @@
 import React, {useState} from 'react';
-import {
-  CommonRadioButton,
-  PhoneView,
-  MyView,
-} from '../../../../../styles/Common';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import translator from '../../Translator';
-import {launchModeKeyVals} from '../KeyVals';
-import {trueFalseValues} from '../../../../../services/Utility';
-
+import {CommonRadioButton, PhoneView, MyView} from '@/styles';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import translator from '../../translator';
+import {launchModeKeyVals} from '../keyVals';
+import {trueFalseValues} from '../../../../../services/utility';
 const QuizRunInfo = props => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
   const [registrable, setRegistrable] = useState(props.isRigstrable);
   const [uploadable, setUploadable] = useState(props.isUploadable);
   const [QRNeeded, setQRNeeded] = useState(props.isQRNeeded);
-
   React.useEffect(() => {
     setStart(props.start);
   }, [props.start]);
-
   React.useEffect(() => {
     setEnd(props.end);
   }, [props.end]);
-
   const changeLen = val => {
     props.setLen(val);
   };
-
   React.useEffect(() => {
     if (props.kind === 'regularWithPDF') props.setLenMode('custom');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.kind]);
-
   const changeLenMode = newMode => {
     if (newMode === 'question') props.setLen('');
     props.setLenMode(newMode);
   };
-
   const changeIsRegistrable = newMode => {
     setRegistrable(newMode);
     if (!newMode) changeIsUploadable(false);
     props.setIsRigstrable(newMode);
   };
-
   const changeIsUploadable = newMode => {
     setUploadable(newMode);
     if (!newMode) changeIsQRNeeded(true);
     props.setIsUploadable(newMode);
   };
-
   const changeIsQRNeeded = newMode => {
     setQRNeeded(newMode);
     props.setIsQRNeeded(newMode);
   };
-
   return (
     <MyView>
       <PhoneView>
@@ -122,7 +108,10 @@ const QuizRunInfo = props => {
         )}
       </PhoneView>
       {props.quizGeneralMode !== 'open' && props.quizGeneralMode !== 'content' && (
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           {(props.kind === undefined || props.kind !== 'tashrihi') &&
             props.setLaunchMode !== undefined && (
               <JustBottomBorderSelect
@@ -265,5 +254,4 @@ const QuizRunInfo = props => {
     </MyView>
   );
 };
-
 export default QuizRunInfo;

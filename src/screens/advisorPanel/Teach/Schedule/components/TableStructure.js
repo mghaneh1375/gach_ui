@@ -1,7 +1,6 @@
-import {formatPrice} from '../../../../../services/Utility';
-import Translator from './Translator';
-import commonTranslator from '../../../../../translator/Common';
-
+import {formatPrice} from '../../../../../services/utility';
+import Translator from './translator';
+import commonTranslator from '@/translator/common';
 export const studentsColumns = [
   {
     name: commonTranslator.name,
@@ -57,7 +56,6 @@ export const studentsColumns = [
     grow: 3,
   },
 ];
-
 const columns = [
   {
     name: Translator.title,
@@ -118,5 +116,4 @@ const columns = [
     grow: 1,
   },
 ];
-
 export default columns;

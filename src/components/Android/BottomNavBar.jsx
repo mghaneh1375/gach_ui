@@ -1,18 +1,14 @@
-import {Text, Image, Pressable} from 'react-native';
-import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {Image, Pressable, Text} from 'react-native';
 import {
-  NavItemStyle,
+  NavContainerStyle,
   NavItemContainerStyle,
   NavItemImageStyle,
-  NavContainerStyle,
-} from '../../styles/Android/BottomNavBar';
-
-import {useNavigation} from '@react-navigation/native';
-import {MyView} from '../../styles/Common';
-
+  NavItemStyle,
+} from '../../styles/android/bottomNavBar';
+import {MyView} from '@/styles';
 export default function BottomNavBar(props) {
   const navigation = useNavigation();
-
   return !props.show ? null : (
     <MyView style={NavContainerStyle}>
       <MyView style={NavItemContainerStyle}>
@@ -36,7 +32,7 @@ export default function BottomNavBar(props) {
           />
         </MyView>
         <Text>پشتیبانی</Text>
-      </MyView> */}
+       </MyView> */}
       <MyView style={NavItemContainerStyle}>
         <MyView style={NavItemStyle}>
           <Image

@@ -1,33 +1,31 @@
 import React, {useEffect, useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {CommonWebBox} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
+import {routes} from '@/api/apiRoutes';
+import {CommonWebBox} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
 import {translator} from '../translate';
 import {badgeContext, dispatchBadgeContext} from './Context';
 import columns from './columns';
-import {generalRequest} from '../../../../API/Utility';
+import {generalRequest} from '@/api/utility';
 import Ops from './Ops';
-import {showSuccess} from '../../../../services/Utility';
-
+import {showSuccess} from '../../../../services/utility';
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedId, setSelectedId] = useState();
-
   const useGlobalState = () => [
     React.useContext(badgeContext),
     React.useContext(dispatchBadgeContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
   const handleOp = (idx, row) => {
-    dispatch({selectedBadge: row});
+    dispatch({
+      selectedBadge: row,
+    });
     setSelectedId(row.id);
     toggleShowOpPopUp();
   };
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -41,16 +39,16 @@ function List(props) {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] == null) props.navigate('/');
-      dispatch({badges: res[0]});
+      dispatch({
+        badges: res[0],
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     if (state.badges === undefined) fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.badges]);
-
   return (
     <CommonWebBox
       header={translator.badges}
@@ -64,7 +62,9 @@ function List(props) {
           setLoading={props.setLoading}
           setMode={props.setMode}
           onRemove={() => {
-            dispatch({badges: state.badges.filter(e => e.id !== selectedId)});
+            dispatch({
+              badges: state.badges.filter(e => e.id !== selectedId),
+            });
             toggleShowOpPopUp();
             showSuccess();
           }}
@@ -81,5 +81,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

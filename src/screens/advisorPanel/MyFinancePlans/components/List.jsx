@@ -1,26 +1,22 @@
 import React, {useState} from 'react';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import columns from './Columns';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import columns from './columns';
 import {dispatchFinanceContext, financeContext} from './Context';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import commonTranslator from '../../../../translator/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import commonTranslator from '@/translator/common';
+import {LargePopUp} from '../../../../styles/common/PopUp';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(financeContext),
     React.useContext(dispatchFinanceContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [showOpPopUp, setShowOpPopUp] = useState(false);
-
   const fetchData = React.useCallback(() => {
     if (state.data !== undefined || isWorking) return;
-
     setIsWorking(true);
     props.setLoading(true);
     Promise.all([
@@ -42,25 +38,22 @@ function List(props) {
         maxVideoCalls: res[0].maxVideoCalls,
         minPrice: res[0].minPrice,
       });
-
       setIsWorking(false);
     });
   }, [dispatch, props, state.data, isWorking]);
-
   React.useEffect(() => {
     if (state.data !== undefined) return;
     fetchData();
   }, [state.data, fetchData]);
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const handleOp = idx => {
-    dispatch({selectedRow: state.data[idx]});
+    dispatch({
+      selectedRow: state.data[idx],
+    });
     toggleShowOpPopUp();
   };
-
   return (
     <>
       {showOpPopUp && (
@@ -97,5 +90,4 @@ function List(props) {
     </>
   );
 }
-
 export default List;

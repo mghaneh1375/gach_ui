@@ -7,18 +7,21 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
+import {styles} from '../../../../styles/common/styles';
 import {
   styleCard,
   styleTitle,
   styleYellowBox,
-} from '../../../panel/package/card/Style';
-import Translate from '../Translate';
-
+} from '../../../panel/package/card/style';
+import Translate from '../translate';
 function OffsCard(props) {
   return (
     <CommonWebBox
-      style={{...styleCard, ...styles.BlueBold, ...styles.padding10}}>
+      style={{
+        ...styleCard,
+        ...styles.BlueBold,
+        ...styles.padding10,
+      }}>
       <SimpleText
         style={{
           ...styles.BlueBold,
@@ -38,7 +41,10 @@ function OffsCard(props) {
         }
       />
       <PhoneView>
-        <EqualTwoTextInputs style={{...styles.gap30}}>
+        <EqualTwoTextInputs
+          style={{
+            ...styles.gap30,
+          }}>
           <QuizItemCard
             text={Translate.placeUse}
             val={props.placeUse}
@@ -59,7 +65,11 @@ function OffsCard(props) {
           />
         </EqualTwoTextInputs>
       </PhoneView>
-      <EqualTwoTextInputs style={{width: '100%', gap: 0}}>
+      <EqualTwoTextInputs
+        style={{
+          width: '100%',
+          gap: 0,
+        }}>
         <PhoneView
           style={{
             ...styleYellowBox,
@@ -137,5 +147,4 @@ function OffsCard(props) {
     </CommonWebBox>
   );
 }
-
 export default OffsCard;

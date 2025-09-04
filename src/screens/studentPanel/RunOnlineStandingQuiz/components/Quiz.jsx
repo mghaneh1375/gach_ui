@@ -1,29 +1,33 @@
 import React from 'react';
-import {CommonButton, MyView, SimpleText} from '../../../../styles/Common';
+import {CommonButton, MyView, SimpleText} from '@/styles';
 import Question from './Question';
 import {dispatchDoQuizContext, doQuizContext} from './Context';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-
+import {LargePopUp} from '../../../../styles/common/PopUp';
 function Quiz(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   return (
     <>
       {state.showExitConfirmation && (
         <LargePopUp
           toggleShowPopUp={() =>
-            dispatch({showExitConfirmation: false, exit: false})
+            dispatch({
+              showExitConfirmation: false,
+              exit: false,
+            })
           }
           btns={
             <CommonButton
               title={'بله'}
               theme={'dark'}
-              onPress={() => dispatch({imSureExit: true})}
+              onPress={() =>
+                dispatch({
+                  imSureExit: true,
+                })
+              }
             />
           }>
           <SimpleText
@@ -44,5 +48,4 @@ function Quiz(props) {
     </>
   );
 }
-
 export default Quiz;

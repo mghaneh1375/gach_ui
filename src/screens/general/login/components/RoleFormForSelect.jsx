@@ -1,29 +1,21 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import commonTranslator from '../../../../translator/Common';
-import {checkSendRoleForm, getRoleForms} from './Utility';
+import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
+import commonTranslator from '@/translator/common';
+import {checkSendRoleForm, getRoleForms} from './utility';
 import SpecificRoleForm from './SpecificRoleForm';
-import {styles} from '../../../../styles/Common/Styles';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {userKeyVals} from '../../../studentPanel/Upgrade/KeyVals';
-
+import {styles} from '../../../../styles/common/styles';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {userKeyVals} from '../../../studentPanel/upgrade/keyVals';
 const RoleFormForSelect = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});
   const [roleForms, setRoleForms] = useState();
   const [role, setRole] = useState();
   const [step, setStep] = useState('role'); // available values: [role, form]
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (role === undefined) return;
     setStep('form');
   }, [role]);
-
   React.useEffect(() => {
     if (isWorking || roleForms !== undefined) return;
     setIsWorking(true);
@@ -34,7 +26,6 @@ const RoleFormForSelect = props => {
       setIsWorking(false);
     });
   }, [props, roleForms, isWorking]);
-
   const changeRole = r => {
     setRole(r);
     if (
@@ -45,15 +36,12 @@ const RoleFormForSelect = props => {
     else {
       const form = props.forms.find(elem => elem.role === r);
       let allForms = roleForms;
-
       allForms = allForms.map(elem => {
         if (elem.role === form.role) return form;
         return elem;
       });
-
       setRoleForms(allForms);
       const newUserData = {};
-
       form.data.forEach(elem => {
         newUserData[elem.key] = elem.value;
       });
@@ -61,17 +49,18 @@ const RoleFormForSelect = props => {
     }
     setStep('form');
   };
-
   const setFormUserData = (key, val) => {
     userRoleFormData[key] = val;
     setUserRoleFormData(userRoleFormData);
   };
-
   return (
     <MyView>
       <MyView>
         <SimpleText text={commonTranslator.chooseOne} />
-        <PhoneView style={{...styles.gap15}}>
+        <PhoneView
+          style={{
+            ...styles.gap15,
+          }}>
           <JustBottomBorderSelect
             values={userKeyVals}
             setter={setRole}
@@ -82,7 +71,11 @@ const RoleFormForSelect = props => {
       </MyView>
 
       {step === 'form' && role !== undefined && (
-        <PhoneView style={{...styles.gap15, ...styles.marginTop20}}>
+        <PhoneView
+          style={{
+            ...styles.gap15,
+            ...styles.marginTop20,
+          }}>
           {roleForms
             .find(elem => elem.role === role)
             .data.map(function (obj, i) {
@@ -116,5 +109,4 @@ const RoleFormForSelect = props => {
     </MyView>
   );
 };
-
 export default RoleFormForSelect;

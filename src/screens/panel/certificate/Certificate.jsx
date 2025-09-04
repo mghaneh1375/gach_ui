@@ -1,32 +1,33 @@
 import React, {useState} from 'react';
-import {MyView} from '../../../styles/Common';
-
-import {dispatchStateContext} from '../../../App';
-import List from './List/List';
-import {addItem, editItem, removeItems} from '../../../services/Utility';
-import Create from './Create/Create';
-import AddStudent from './AddStudent/AddStudent';
-import {getCertificates} from './Utility';
-import Students from './Students/List';
-
+import {MyView} from '@/styles';
+import {dispatchStateContext} from '@/App';
+import List from './list/List';
+import {addItem, editItem, removeItems} from '../../../services/utility';
+import Create from './create/Create';
+import AddStudent from './addStudent/AddStudent';
+import {getCertificates} from './utility';
+import Students from './students/List';
 const Certificate = props => {
   const navigate = props.navigate;
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [mode, setMode] = useState('list');
   const [dispatch] = useGlobalState();
   const [data, setData] = useState();
   const [selectedCertificate, setSelectedCertificate] = useState();
-
   React.useEffect(() => {}, [selectedCertificate]);
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getCertificates(props.token)]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -34,9 +35,11 @@ const Certificate = props => {
       setData(res[0]);
     });
   }, [navigate, props.token, dispatch]);
-
   return (
-    <MyView style={{zIndex: 'unset'}}>
+    <MyView
+      style={{
+        zIndex: 'unset',
+      }}>
       {mode === 'list' && data !== undefined && (
         <List
           setMode={setMode}
@@ -87,5 +90,4 @@ const Certificate = props => {
     </MyView>
   );
 };
-
 export default Certificate;

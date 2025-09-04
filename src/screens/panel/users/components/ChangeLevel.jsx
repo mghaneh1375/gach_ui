@@ -1,39 +1,30 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../styles/Common';
-import commonTranslator from '../../../../translator/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {levelKeyVals} from '../../ticket/components/KeyVals';
-import {addAccess, removeAccess} from './Utility';
-import MultiBox from '../../../../components/web/MultiBox/MultiBox';
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {levelKeyVals} from '../../ticket/components/keyVals';
+import {addAccess, removeAccess} from './utility';
+import MultiBox from '../../../../components/web/multiBox/MultiBox';
 import {useParams} from 'react-router';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import Translator from '../Translator';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {showError} from '../../../../services/Utility';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import Translator from '../translator';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {showError} from '@/services/utility';
 import {usersContext, dispatchUsersContext} from './Context';
-
 function ChangeLevel(props) {
   const useGlobalState = () => [
     React.useContext(usersContext),
     React.useContext(dispatchUsersContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [newLevel, setNewLevel] = useState();
   const [accesses, setAccesses] = useState();
   const [showChooseSchool, setShowChooseSchool] = useState(false);
   const [schools, setSchools] = useState();
   const [school, setSchool] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (state.selectedUser !== undefined)
       setAccesses(
@@ -46,11 +37,9 @@ function ChangeLevel(props) {
       );
     else setAccesses([]);
   }, [state.selectedUser]);
-
   const setSelectedSchool = item => {
     setSchool(item);
   };
-
   const fetchSchools = React.useCallback(async () => {
     if (schools !== undefined) {
       setShowChooseSchool(true);
@@ -71,14 +60,11 @@ function ChangeLevel(props) {
     }
     setIsWorking(false);
   }, [schools, props]);
-
   React.useEffect(() => {
     if (newLevel === undefined || isWorking) return;
     if (newLevel === 'school') fetchSchools();
   }, [newLevel, fetchSchools, isWorking]);
-
   const currLevel = useParams().level;
-
   const confirmSchool = async () => {
     if (school == undefined) {
       showError(Translator.pleaseSelectSchool);
@@ -98,7 +84,6 @@ function ChangeLevel(props) {
       setShowChooseSchool(false);
     }
   };
-
   const back = () => {
     if (accesses.find(elem => elem.id === currLevel) === undefined) {
       dispatch({
@@ -107,7 +92,6 @@ function ChangeLevel(props) {
     }
     props.setMode('list');
   };
-
   return (
     <MyView>
       {!showChooseSchool && (
@@ -115,7 +99,10 @@ function ChangeLevel(props) {
           header={commonTranslator.changeLevel}
           backBtn={true}
           onBackClick={() => back()}>
-          <PhoneView style={{margin: 10}}>
+          <PhoneView
+            style={{
+              margin: 10,
+            }}>
             <MultiBox
               items={accesses}
               onRemoveClick={id =>
@@ -135,7 +122,10 @@ function ChangeLevel(props) {
               placeholder={commonTranslator.newLevel}
             />
           </PhoneView>
-          <PhoneView style={{alignSelf: 'end'}}>
+          <PhoneView
+            style={{
+              alignSelf: 'end',
+            }}>
             <CommonButton
               onPress={async () => {
                 if (!newLevel) {
@@ -170,7 +160,9 @@ function ChangeLevel(props) {
           title={Translator.chooseSchool}
           toggleShowPopUp={() => setShowChooseSchool(false)}>
           <JustBottomBorderTextInput
-            style={{maxWidth: 'unset'}}
+            style={{
+              maxWidth: 'unset',
+            }}
             placeholder={commonTranslator.school}
             resultPane={true}
             setSelectedItem={setSelectedSchool}
@@ -183,5 +175,4 @@ function ChangeLevel(props) {
     </MyView>
   );
 }
-
 export default ChangeLevel;

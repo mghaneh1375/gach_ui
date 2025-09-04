@@ -1,49 +1,44 @@
 import React, {useState} from 'react';
 import List from './components/List';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import Students from './components/Students/Students';
-import Questions from './components/Questions/Questions';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import Students from './components/students/Students';
+import Questions from './components/questions/Questions';
 import {
   dispatchQuizContext,
   quizContext,
   QuizProvider,
 } from './components/Context';
-import Key from './components/Key/Key';
-import Ranking from './components/Reports/Ranking/Ranking';
-import Karname from './components/Reports/Karname/Karname';
-import ReportList from './components/Reports/List/List';
+import Key from './components/key/Key';
+import Ranking from './components/reports/ranking/Ranking';
+import Karname from './components/reports/karname/Karname';
+import ReportList from './components/reports/list/List';
 import {useParams} from 'react-router';
-import {MyView} from '../../../styles/Common';
+import {MyView} from '@/styles';
 import CreateContentQuiz from './components/CreateContentQuiz';
 import {
   isUserAdmin,
   isUserContentAccess,
   isUserEditorAccess,
-} from '../../../services/Utility';
-
+} from '../../../services/utility';
 const ContentQuiz = props => {
   const [mode, setMode] = useState('karname');
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const params = useParams();
-
   React.useEffect(() => {
     if (props.mode !== undefined) {
       setMode(props.mode);
     } else setMode('list');
   }, [props.mode]);
-
   return (
     <MyView>
       <QuizProvider>
@@ -133,5 +128,4 @@ const ContentQuiz = props => {
     </MyView>
   );
 };
-
 export default ContentQuiz;

@@ -1,22 +1,18 @@
 import React, {useState} from 'react';
-import {CommonRadioButton, MyView, PhoneView} from '../../../../styles/Common';
-import vars from '../../../../styles/root';
-
+import {CommonRadioButton, MyView, PhoneView} from '@/styles';
+import vars from '@/styles/root';
 function FilterItem(props) {
   const [status, setStatus] = useState();
-
   React.useEffect(() => {
     if (props.status === undefined) return;
     setStatus(props.status);
   }, [props.status]);
-
   const changeStatus = label => {
     if (props.isAll !== undefined && status === 'checked') return;
     setStatus(status === 'checked' ? 'unchecked' : 'checked');
     props.onPress(label);
   };
   const [subCats, setSubCats] = useState();
-
   React.useEffect(() => {
     if (props.item.subCats === undefined) return;
     const tmp = [];
@@ -32,21 +28,23 @@ function FilterItem(props) {
     setSubCats(tmp);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.item]);
-
   if (status === undefined) return <></>;
-
   if (props.item.subCats === undefined)
     return (
       <CommonRadioButton
         onPress={() => changeStatus(props.item.label)}
         status={status}
-        textStyle={{alignSelf: 'center', fontSize: 12}}
-        style={{height: 35}}
+        textStyle={{
+          alignSelf: 'center',
+          fontSize: 12,
+        }}
+        style={{
+          height: 35,
+        }}
         text={props.item.label}
         isCheckBox={props.checkbox !== undefined ? props.checkbox : undefined}
       />
     );
-
   const changeSubCatStatus = idx => {
     let currLabel = '';
     setSubCats(
@@ -57,15 +55,20 @@ function FilterItem(props) {
         return elem;
       }),
     );
-
     props.onPress(currLabel);
   };
-
   return (
     <MyView>
-      <PhoneView style={{paddingBottom: 10}} />
+      <PhoneView
+        style={{
+          paddingBottom: 10,
+        }}
+      />
 
-      <MyView style={{minWidth: 200}}>
+      <MyView
+        style={{
+          minWidth: 200,
+        }}>
         {subCats !== undefined &&
           subCats.map((elem, index) => {
             return (
@@ -73,7 +76,10 @@ function FilterItem(props) {
                 onPress={() => changeSubCatStatus(index)}
                 status={elem.status}
                 text={elem.label}
-                textStyle={{fontSize: 13, color: vars.DARK_SILVER}}
+                textStyle={{
+                  fontSize: 13,
+                  color: vars.DARK_SILVER,
+                }}
                 key={index}
                 isCheckBox={true}
               />
@@ -83,5 +89,4 @@ function FilterItem(props) {
     </MyView>
   );
 }
-
 export default FilterItem;

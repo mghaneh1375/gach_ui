@@ -1,32 +1,26 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {CommonWebBox, MyView} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {getCertificate} from '../Utility';
+import {routes} from '@/api/apiRoutes';
+import {CommonWebBox, MyView} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import {getCertificate} from '../utility';
 import Ops from './Ops';
-import columns from './TableStructure';
-
+import columns from './tableStructure';
 function List(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [data, setData] = useState();
   const [selectedStudent, setSelectedStudent] = useState();
   const [showOpPane, setShowOpPane] = useState(false);
-
   const toggleShowOpPopUp = () => {
     setShowOpPane(!showOpPane);
   };
-
   const handleOp = idx => {
     setSelectedStudent(data.users[idx]);
     toggleShowOpPopUp();
   };
-
   React.useEffect(() => {
     if (data !== undefined || isWorking) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       getCertificate(props.selectedCertificate.id, props.token),
     ]).then(res => {
@@ -39,7 +33,6 @@ function List(props) {
       setIsWorking(false);
     });
   }, [props, isWorking, data]);
-
   return (
     <MyView>
       {showOpPane && selectedStudent !== undefined && (
@@ -71,5 +64,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

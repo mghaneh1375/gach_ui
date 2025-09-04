@@ -1,30 +1,24 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import translator from '../../Translator';
+import {routes} from '@/api/apiRoutes';
+import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import translator from '../../translator';
 import {dispatchQuizContext, quizContext} from '../Context';
 import {
   addCorrector,
   fetchCorrector,
   fetchCorrectors,
   getQuestions,
-} from '../Utility';
-import columns from './TableStructure';
-import commonTranslator from '../../../../../translator/Common';
+} from '../utility';
+import columns from './tableStructure';
+import commonTranslator from '@/translator/common';
 import Ops from './Ops';
 import StudentCard from './StudentCard';
-import {generalRequest} from '../../../../../API/Utility';
-import {styles} from '../../../../../styles/Common/Styles';
-import {showSuccess} from '../../../../../services/Utility';
+import {generalRequest} from '../../../../../api/utility';
+import {styles} from '@/styles/common/styles';
+import {showSuccess} from '@/services/utility';
 import QuestionCard from './QuestionCard';
-
 function Correctors(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
@@ -33,13 +27,10 @@ function Correctors(props) {
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [showOpPane, setShowOpPane] = useState(false);
-
   const fetchData = React.useCallback(() => {
     if (state.selectedQuiz.correctors !== undefined || isWorking) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       fetchCorrectors(
         state.selectedQuiz.id,
@@ -48,32 +39,30 @@ function Correctors(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.setMode('list');
         return;
       }
-
       state.selectedQuiz.correctors = res[0];
-      dispatch({selectedQuiz: state.selectedQuiz});
+      dispatch({
+        selectedQuiz: state.selectedQuiz,
+      });
       setIsWorking(false);
     });
   }, [props, isWorking, dispatch, state.selectedQuiz]);
-
   React.useEffect(() => {
     if (state.selectedQuiz.correctors !== undefined) return;
     fetchData();
   }, [state.selectedQuiz.id, state.selectedQuiz.correctors, fetchData]);
-
   const handleOp = idx => {
-    dispatch({selectedCorrector: state.selectedQuiz.correctors[idx]});
+    dispatch({
+      selectedCorrector: state.selectedQuiz.correctors[idx],
+    });
     setShowOpPane(true);
   };
-
   const [showAddPane, setShowAddPane] = useState(false);
   const [NID, setNID] = useState();
   const [taskMode, setTaskMode] = useState();
-
   const getCorrector = React.useCallback(() => {
     if (
       (state.selectedCorrector.allQuestions !== undefined &&
@@ -85,10 +74,8 @@ function Correctors(props) {
       isWorking
     )
       return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all(
       taskMode === 'studentList'
         ? [
@@ -124,20 +111,16 @@ function Correctors(props) {
           ],
     ).then(res => {
       props.setLoading(false);
-
       if (res[0] === null || res[1] === null) {
         setTaskMode(undefined);
         return;
       }
-
       state.selectedCorrector.allQuestions = res[0].allQuestions;
       state.selectedCorrector.allMarked = res[0].allMarked;
       if (taskMode === 'studentList') {
         const tmp = state.selectedQuiz;
         tmp.students = res[1];
-
         const myStudents = [];
-
         res[1].forEach(elem => {
           if (
             elem.correctorId !== undefined &&
@@ -145,15 +128,14 @@ function Correctors(props) {
           )
             myStudents.push(elem.id);
         });
-
         state.selectedCorrector.myStudents = myStudents;
-        dispatch({selectedQuiz: tmp});
+        dispatch({
+          selectedQuiz: tmp,
+        });
       } else {
         const tmp = state.selectedQuiz;
         tmp.questions = res[1];
-
         const myQuestions = [];
-
         res[1].forEach(elem => {
           if (
             elem.correctorId !== undefined &&
@@ -161,12 +143,14 @@ function Correctors(props) {
           )
             myQuestions.push(elem.id);
         });
-
         state.selectedCorrector.myQuestions = myQuestions;
-        dispatch({selectedQuiz: tmp});
+        dispatch({
+          selectedQuiz: tmp,
+        });
       }
-
-      dispatch({selectedCorrector: state.selectedCorrector});
+      dispatch({
+        selectedCorrector: state.selectedCorrector,
+      });
       setIsWorking(false);
     });
   }, [
@@ -177,13 +161,10 @@ function Correctors(props) {
     state.selectedQuiz,
     taskMode,
   ]);
-
   React.useEffect(() => {
     if (taskMode == undefined) return;
-
     getCorrector();
   }, [taskMode, getCorrector]);
-
   return (
     <>
       {taskMode !== undefined &&
@@ -206,7 +187,10 @@ function Correctors(props) {
                 state.selectedCorrector.allMarked
               }
             />
-            <PhoneView style={{...styles.gap10}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+              }}>
               {state.selectedQuiz.students.map((elem, index) => {
                 return (
                   <StudentCard
@@ -217,16 +201,16 @@ function Correctors(props) {
                         state.selectedCorrector.myStudents.forEach(e => {
                           tmp.push(e);
                         });
-
                         tmp.push(elem.id);
                       } else {
                         tmp = state.selectedCorrector.myStudents.filter(e => {
                           return elem.id !== e;
                         });
                       }
-
                       state.selectedCorrector.myStudents = tmp;
-                      dispatch({selectedCorrector: state.selectedCorrector});
+                      dispatch({
+                        selectedCorrector: state.selectedCorrector,
+                      });
                     }}
                     showAnswerSheet={() =>
                       window.open(
@@ -257,7 +241,9 @@ function Correctors(props) {
                     '/' +
                     state.selectedCorrector.id,
                   'put',
-                  {students: state.selectedCorrector.myStudents},
+                  {
+                    students: state.selectedCorrector.myStudents,
+                  },
                   ['excepts', 'doneIds'],
                   props.token,
                 );
@@ -266,7 +252,9 @@ function Correctors(props) {
                   showSuccess(res.excepts);
                   setTaskMode(undefined);
                   state.selectedQuiz.correctors = undefined;
-                  dispatch({selectedQuiz: state.selectedQuiz});
+                  dispatch({
+                    selectedQuiz: state.selectedQuiz,
+                  });
                 }
               }}
               theme={'dark'}
@@ -294,7 +282,10 @@ function Correctors(props) {
                 state.selectedCorrector.allMarked
               }
             />
-            <PhoneView style={{...styles.gap10}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+              }}>
               {state.selectedQuiz.questions.map((elem, index) => {
                 return (
                   <QuestionCard
@@ -305,16 +296,16 @@ function Correctors(props) {
                         state.selectedCorrector.myQuestions.forEach(e => {
                           tmp.push(e);
                         });
-
                         tmp.push(elem.id);
                       } else {
                         tmp = state.selectedCorrector.myQuestions.filter(e => {
                           return elem.id !== e;
                         });
                       }
-
                       state.selectedCorrector.myQuestions = tmp;
-                      dispatch({selectedCorrector: state.selectedCorrector});
+                      dispatch({
+                        selectedCorrector: state.selectedCorrector,
+                      });
                     }}
                     showAnswerSheet={() => {
                       elem.correctorId !== undefined &&
@@ -352,7 +343,9 @@ function Correctors(props) {
                     '/' +
                     state.selectedCorrector.id,
                   'put',
-                  {questions: state.selectedCorrector.myQuestions},
+                  {
+                    questions: state.selectedCorrector.myQuestions,
+                  },
                   ['excepts', 'doneIds'],
                   props.token,
                 );
@@ -361,7 +354,9 @@ function Correctors(props) {
                   showSuccess(res.excepts);
                   setTaskMode(undefined);
                   state.selectedQuiz.correctors = undefined;
-                  dispatch({selectedQuiz: state.selectedQuiz});
+                  dispatch({
+                    selectedQuiz: state.selectedQuiz,
+                  });
                 }
               }}
               theme={'dark'}
@@ -430,7 +425,10 @@ function Correctors(props) {
               token={props.token}
               setData={newData => {
                 state.selectedQuiz.correctors = newData;
-                dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+                dispatch({
+                  selectedQuiz: state.selectedQuiz,
+                  needUpdate: true,
+                });
               }}
               removeUrl={
                 routes.removeCorrectors +
@@ -445,5 +443,4 @@ function Correctors(props) {
     </>
   );
 }
-
 export default Correctors;

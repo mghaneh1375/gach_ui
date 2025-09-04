@@ -13,31 +13,30 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
+} from '@/styles';
 import {Image} from 'react-native';
-import {styles} from '../../../../../styles/Common/Styles';
+import {styles} from '@/styles/common/styles';
 import QuizItemCard from '../../../../../components/web/QuizItemCard';
-import Translator from '../../../../advisorPanel/Teach/Schedule/components/Translator';
-import vars from '../../../../../styles/root';
+import Translator from '../../../../advisorPanel/teach/schedule/components/translator';
+import vars from '@/styles/root';
 import Circle from '../../../../../components/web/Circle';
 import {Rating} from 'react-native-ratings';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {showError} from '../../../../../services/Utility';
-
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {showError} from '../../../../../services/utility';
 function Card(props) {
   const [showMore, setShowMore] = useState(false);
   const [pic, setPic] = useState();
-
   React.useEffect(() => {
     setPic(props.plan.teacher.pic);
   }, [props.plan.teacher.pic]);
-
   const [writeComment, setWriteComment] = useState(false);
   const [comment, setComment] = useState();
-
   return (
     <CommonWebBox width={'350px'} title={props.plan.title}>
-      <PhoneView style={{...styles.justifyContentCenter}}>
+      <PhoneView
+        style={{
+          ...styles.justifyContentCenter,
+        }}>
         <PhoneView
           style={{
             border: '2px solid',
@@ -56,7 +55,9 @@ function Card(props) {
               height: '100%',
               alignSelf: 'center',
             }}
-            source={{uri: pic}}
+            source={{
+              uri: pic,
+            }}
           />
         </PhoneView>
       </PhoneView>
@@ -70,7 +71,10 @@ function Card(props) {
           marginRight: 0,
         }}>
         <SimpleText
-          style={{...styles.BlueBold, ...styles.fontSize15}}
+          style={{
+            ...styles.BlueBold,
+            ...styles.fontSize15,
+          }}
           text={'استاد ' + props.plan.teacher.name}
         />
 
@@ -82,7 +86,10 @@ function Card(props) {
             ...styles.gap15,
           }}>
           <SimpleText
-            style={{...styles.colorDarkBlue, ...styles.alignSelfCenter}}
+            style={{
+              ...styles.colorDarkBlue,
+              ...styles.alignSelfCenter,
+            }}
             text={'امتیاز'}
           />
           <Circle
@@ -145,7 +152,10 @@ function Card(props) {
 
           {!showMore && (
             <>
-              <PhoneView style={{...styles.gap15}}>
+              <PhoneView
+                style={{
+                  ...styles.gap15,
+                }}>
                 {props.plan.startAt && (
                   <QuizItemCard
                     text={Translator.start}
@@ -186,7 +196,10 @@ function Card(props) {
                 )}
               </PhoneView>
               {props.plan.startDate && (
-                <PhoneView style={{gap: '10px'}}>
+                <PhoneView
+                  style={{
+                    gap: '10px',
+                  }}>
                   <QuizItemCard
                     text={Translator.startDate}
                     val={props.plan.startDate}
@@ -242,7 +255,11 @@ function Card(props) {
             </>
           )}
 
-          <PhoneView style={{justifyContent: 'start', flexWrap: 'wrap'}}>
+          <PhoneView
+            style={{
+              justifyContent: 'start',
+              flexWrap: 'wrap',
+            }}>
             {props.plan.skyRoomUrl !== undefined &&
               props.plan.skyRoomUrl !== '' && (
                 <CommonButton
@@ -265,7 +282,10 @@ function Card(props) {
               </>
             )}
           </PhoneView>
-          <PhoneView style={{justifyContent: 'end'}}>
+          <PhoneView
+            style={{
+              justifyContent: 'end',
+            }}>
             {props.plan.canRate && (
               <>
                 <Rating
@@ -321,5 +341,4 @@ function Card(props) {
     </CommonWebBox>
   );
 }
-
 export default Card;

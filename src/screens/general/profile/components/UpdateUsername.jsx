@@ -1,10 +1,9 @@
 import React from 'react';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../translator/Common';
-import {CommonButton, PhoneView, MyView} from '../../../../styles/Common';
-import vars from '../../../../styles/root';
-import {styles} from '../../../../styles/Common/Styles';
-
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '@/translator/common';
+import {CommonButton, PhoneView, MyView} from '@/styles';
+import vars from '@/styles/root';
+import {styles} from '../../../../styles/common/styles';
 const UpdateUsername = props => {
   const changePhone = () => {
     props.setMode('sms');
@@ -14,10 +13,12 @@ const UpdateUsername = props => {
     props.setMode('mail');
     props.toggleModal();
   };
-
   return (
     <MyView>
-      <PhoneView style={{...styles.alignItemsStart}}>
+      <PhoneView
+        style={{
+          ...styles.alignItemsStart,
+        }}>
         <JustBottomBorderTextInput
           value={props.phone}
           isHalf={props.isInPhone ? undefined : true}
@@ -25,7 +26,10 @@ const UpdateUsername = props => {
           placeholder={commonTranslator.phone}
           subText={commonTranslator.phone}
         />
-        <PhoneView style={{marginTop: 0}}>
+        <PhoneView
+          style={{
+            marginTop: 0,
+          }}>
           <CommonButton
             style={{
               backgroundColor: vars.DARK_BLUE,
@@ -36,7 +40,10 @@ const UpdateUsername = props => {
           />
         </PhoneView>
       </PhoneView>
-      <PhoneView style={{...styles.alignItemsStart}}>
+      <PhoneView
+        style={{
+          ...styles.alignItemsStart,
+        }}>
         <JustBottomBorderTextInput
           isHalf={props.isInPhone ? undefined : true}
           value={props.mail}
@@ -44,7 +51,10 @@ const UpdateUsername = props => {
           placeholder={commonTranslator.mail}
           subText={commonTranslator.mail}
         />
-        <PhoneView style={{...styles.alignItemsStart}}>
+        <PhoneView
+          style={{
+            ...styles.alignItemsStart,
+          }}>
           <CommonButton
             style={{
               backgroundColor: vars.DARK_BLUE,

@@ -1,42 +1,27 @@
 import React, {useState} from 'react';
-
 import {doQuizContext} from './Context';
 import Test from './Test';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
+import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
 import Circle from '../../../../components/web/Circle';
-import vars from '../../../../styles/root';
-import {styles} from '../../../../styles/Common/Styles';
-
+import vars from '@/styles/root';
+import {styles} from '../../../../styles/common/styles';
 const perBox = 10;
-
 function AnswerSheet(props) {
   const useGlobalState = () => [React.useContext(doQuizContext)];
-
   const [state] = useGlobalState();
-
   const [boxes, setBoxes] = useState();
-
   React.useEffect(() => {
     if (state.answers === undefined) return;
-
     const tmp = [];
     let idx = 0;
     const end = state.answers.length;
-
     while (idx < end) {
       const limit = idx + perBox > end ? end : idx + perBox;
       tmp.push(state.answers.slice(idx, limit));
       idx += perBox;
     }
-
     setBoxes(tmp);
   }, [state.answers]);
-
   return (
     <MyView style={styles.marginTop20}>
       {state.showAnswers && (
@@ -64,7 +49,12 @@ function AnswerSheet(props) {
         {boxes !== undefined &&
           boxes.map((box, index) => {
             return (
-              <CommonWebBox no_gap={true} style={{padding: 5}} key={index}>
+              <CommonWebBox
+                no_gap={true}
+                style={{
+                  padding: 5,
+                }}
+                key={index}>
                 {box.map((elem, idx) => {
                   return (
                     <Test
@@ -82,5 +72,4 @@ function AnswerSheet(props) {
     </MyView>
   );
 }
-
 export default AnswerSheet;

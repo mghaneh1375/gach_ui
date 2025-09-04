@@ -1,43 +1,82 @@
 import {useMemo, useState} from 'react';
-import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import commonTranslator from '../../../../translator/Common';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import Translator from '../Schedule/components/Translator';
-
+import {CommonButton, MyView, PhoneView} from '@/styles';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import commonTranslator from '@/translator/common';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import Translator from '../schedule/components/translator';
 function Filter(props) {
   const [statusValues, expireValues, teachModes] = useMemo(() => {
     return [
       [
-        {item: Translator.pending, id: 'pending'},
-        {item: Translator.accept, id: 'accept'},
-        {item: Translator.reject, id: 'reject'},
-        {item: Translator.answered, id: 'answered'},
-        {item: Translator.paid, id: 'paid'},
-        {item: Translator.cancel, id: 'cancel'},
-        {item: commonTranslator.all, id: 'all'},
+        {
+          item: Translator.pending,
+          id: 'pending',
+        },
+        {
+          item: Translator.accept,
+          id: 'accept',
+        },
+        {
+          item: Translator.reject,
+          id: 'reject',
+        },
+        {
+          item: Translator.answered,
+          id: 'answered',
+        },
+        {
+          item: Translator.paid,
+          id: 'paid',
+        },
+        {
+          item: Translator.cancel,
+          id: 'cancel',
+        },
+        {
+          item: commonTranslator.all,
+          id: 'all',
+        },
       ],
       [
-        {item: Translator.active, id: 'active'},
-        {item: Translator.expired, id: 'expired'},
-        {item: commonTranslator.all, id: 'all'},
+        {
+          item: Translator.active,
+          id: 'active',
+        },
+        {
+          item: Translator.expired,
+          id: 'expired',
+        },
+        {
+          item: commonTranslator.all,
+          id: 'all',
+        },
       ],
       [
-        {item: Translator.private, id: 'private'},
-        {item: Translator.semiPrivate, id: 'semi_private'},
-        {item: commonTranslator.all, id: 'all'},
+        {
+          item: Translator.private,
+          id: 'private',
+        },
+        {
+          item: Translator.semiPrivate,
+          id: 'semi_private',
+        },
+        {
+          item: commonTranslator.all,
+          id: 'all',
+        },
       ],
     ];
   }, []);
-
   const [statusMode, setStatusMode] = useState(props.initFilter.statusMode);
   const [expireMode, setExpireMode] = useState(props.initFilter.expireMode);
   const [teachMode, setTeachMode] = useState(props.initFilter.teachMode);
-
   return (
     <MyView>
-      <PhoneView style={{gap: '10px'}}>
+      <PhoneView
+        style={{
+          gap: '10px',
+        }}>
         <JustBottomBorderSelect
           values={statusValues}
           setter={setStatusMode}
@@ -113,5 +152,4 @@ function Filter(props) {
     </MyView>
   );
 }
-
 export default Filter;

@@ -1,55 +1,43 @@
 import React, {useState} from 'react';
-import BackgroundScrollView from './../../../components/BackgroundScrollView';
+import BackgroundScrollView from '../../../components/BackgroundScrollView';
 import translator from './translator';
-import {Device} from './../../../models/Device';
+import {Device} from '../../../models/device';
 import {Image} from 'react-native';
-
-import {getDevice, getWidthHeight} from './../../../services/Utility';
-
+import {getDevice, getWidthHeight} from '../../../services/utility';
 import {
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   ScreenScroll,
   SimpleText,
-} from '../../../styles/Common';
+} from '../../../styles/CommonComponents.jsx';
 import vars from '../../../styles/root';
-import {dispatchStateContext} from '../../../App';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
+import {dispatchStateContext} from '@/App';
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
-import {styles} from '../../../styles/Common/Styles';
-import HomeBox from './HomeBox/HomeBox';
-import RSS from './RSS/RSS';
-
+import {styles} from '../../../styles/common/styles';
+import HomeBox from './homeBox/HomeBox';
+import RSS from './rss/RSS';
 const device = getDevice();
-
 const Home = props => {
   const wH = getWidthHeight();
   const width = wH[0];
   const height = wH[1];
   const isRightMenuVisible = props.isRightMenuVisible;
-
   const [grayFooterW, setGrayFooterW] = useState('100%');
   const [grayFooterH, setGrayFooterH] = useState('100%');
-
   const [orangelineupW, setorangelineupW] = useState('100%');
   const [orangelineupH, setorangelineupH] = useState('100%');
-
   const [orangelineupDownW, setorangelineupDownW] = useState('100%');
   const [orangelineupDownH, setorangelineupDownH] = useState('100%');
-
   const [whiteDividerW, setWhiteDividerW] = useState('100%');
   const [whiteDividerH, setWhiteDividerH] = useState('100%');
-
   const [isWorking, setIsWorking] = useState(false);
   const [data, setData] = useState();
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();
-
   const [news, setNews] = useState([]);
-
   const fetchNews = React.useCallback(() => {
     Promise.all([
       generalRequest(routes.fetchRSS, 'get', undefined, 'data'),
@@ -59,7 +47,6 @@ const Home = props => {
       }
     });
   }, []);
-
   useEffectOnce(() => {
     Image.getSize(
       'https://e.irysc.com/assets/images/footergray.svg',
@@ -91,15 +78,13 @@ const Home = props => {
     );
     fetchNews();
   });
-
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   React.useEffect(() => {
     if (isWorking || data !== undefined) return;
-
     setIsWorking(true);
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.fetchSiteStats,
@@ -109,17 +94,19 @@ const Home = props => {
         undefined,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) return;
-
       setData(res[0]);
       setIsWorking(false);
     });
   }, [dispatch, props, isWorking, data]);
-
   return (
-    <ScreenScroll style={{background: 'transparent'}}>
+    <ScreenScroll
+      style={{
+        background: 'transparent',
+      }}>
       {/* <div className={'rise-container'}>
         <div className={'rise'}>
           <div className={'lamp'}></div>
@@ -128,39 +115,35 @@ const Home = props => {
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
         </div>
-
-        <div className={'rise'}>
+          <div className={'rise'}>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
         </div>
-
-        <div className={'rise'}>
+          <div className={'rise'}>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
         </div>
-
-        <div className={'rise'}>
+          <div className={'rise'}>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
         </div>
-
-        <div className={'rise'}>
+          <div className={'rise'}>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
           <div className={'lamp'}></div>
         </div>
-      </div> */}
+       </div> */}
       <div
         style={{
           position: 'fixed',
@@ -330,7 +313,10 @@ const Home = props => {
             // height: '5px',
           }}>
           {!isInPhone && (
-            <EqualTwoTextInputs style={{alignItems: 'end'}}>
+            <EqualTwoTextInputs
+              style={{
+                alignItems: 'end',
+              }}>
               <MyView
                 style={{
                   ...styles.gap10,
@@ -338,20 +324,28 @@ const Home = props => {
                   marginBottom: '10px',
                 }}>
                 <img src="./assets/images/irysc.png" width={200} />
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   <img src="./assets/images/address.svg" height={30} />
                   <SimpleText
                     style={{
                       ...styles.alignSelfCenter,
                       ...styles.BlueBold,
-                      ...{width: 'calc(100% - 30px)'},
+                      ...{
+                        width: 'calc(100% - 30px)',
+                      },
                     }}
                     text={
                       'نشانی: دانشگاه صنعتی شریف، ساختمان ابن سینا، طبقه چهارم'
                     }
                   />
                 </PhoneView>
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   <img src="./assets/images/phone.svg" height={25} />
                   <SimpleText
                     style={{
@@ -361,7 +355,10 @@ const Home = props => {
                     text={'021-91096320'}
                   />
                 </PhoneView>
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   <img src="./assets/images/email.svg" height={25} />
                   <SimpleText
                     style={{
@@ -388,7 +385,9 @@ const Home = props => {
                   referrerPolicy="origin"
                   src="https://trustseal.enamad.ir/logo.aspx?id=605281&Code=6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl"
                   alt=""
-                  style={{cursor: 'pointer'}}
+                  style={{
+                    cursor: 'pointer',
+                  }}
                   code="6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl"
                 />
               </a>
@@ -402,21 +401,29 @@ const Home = props => {
                 marginBottom: '10px',
               }}>
               <img src="./assets/images/irysc.png" width={200} />
-              <PhoneView style={{...styles.gap10}}>
+              <PhoneView
+                style={{
+                  ...styles.gap10,
+                }}>
                 <img src="./assets/images/address.svg" height={20} />
                 <SimpleText
                   style={{
                     ...styles.fontSize12,
                     ...styles.alignSelfCenter,
                     ...styles.BlueBold,
-                    ...{width: 'calc(100% - 30px)'},
+                    ...{
+                      width: 'calc(100% - 30px)',
+                    },
                   }}
                   text={
                     'نشانی: دانشگاه صنعتی شریف، ساختمان ابن سینا، طبقه چهارم'
                   }
                 />
               </PhoneView>
-              <PhoneView style={{...styles.gap10}}>
+              <PhoneView
+                style={{
+                  ...styles.gap10,
+                }}>
                 <img src="./assets/images/phone.svg" height={20} />
                 <SimpleText
                   style={{
@@ -427,7 +434,10 @@ const Home = props => {
                   text={'021-91096320'}
                 />
               </PhoneView>
-              <PhoneView style={{...styles.gap10}}>
+              <PhoneView
+                style={{
+                  ...styles.gap10,
+                }}>
                 <img src="./assets/images/email.svg" height={20} />
                 <SimpleText
                   style={{
@@ -448,7 +458,9 @@ const Home = props => {
                 }
               />
               <a
-                style={{margin: '0 auto'}}
+                style={{
+                  margin: '0 auto',
+                }}
                 referrerPolicy="origin"
                 target="_blank"
                 href="https://trustseal.enamad.ir/?id=605281&Code=6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl">
@@ -456,7 +468,9 @@ const Home = props => {
                   referrerPolicy="origin"
                   src="https://trustseal.enamad.ir/logo.aspx?id=605281&Code=6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl"
                   alt=""
-                  style={{cursor: 'pointer'}}
+                  style={{
+                    cursor: 'pointer',
+                  }}
                   code="6psLtLxVxYPeOkE2BAMj4vrq3LTCWopl"
                 />
               </a>
@@ -467,5 +481,4 @@ const Home = props => {
     </ScreenScroll>
   );
 };
-
 export default Home;

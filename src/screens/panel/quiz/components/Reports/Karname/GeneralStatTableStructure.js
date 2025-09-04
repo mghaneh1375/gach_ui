@@ -1,14 +1,11 @@
-import {getWidthHeight} from '../../../../../../services/Utility';
-
+import {getWidthHeight} from '../../../../../../services/utility';
 let width = getWidthHeight()[0];
 let colWidth;
 let numColsWidth = '90px';
-
 if (width < 768) colWidth = 100;
 else {
   width -= 200;
   colWidth = width > 1200 || width < 768 ? '25%' : width * 0.5 - 30 - 3 * 90;
-
   if ((width > 1200 || width < 768) && colWidth > 200) {
     colWidth = width * 0.5 - 30 - 3 * 110;
     numColsWidth = '110px';
@@ -17,7 +14,6 @@ else {
     numColsWidth = '70px';
   }
 }
-
 const commonCols = [
   {
     name: 'میانگین درصد پاسخگویی',
@@ -51,16 +47,16 @@ const commonCols = [
     },
   },
 ];
-
 const columns = [
   {
     name: 'نام درس ',
     selector: row => row.name,
     minWidth: colWidth + 'px',
     maxWidth: colWidth + 'px',
-    style: {wordBreak: 'normal'},
+    style: {
+      wordBreak: 'normal',
+    },
   },
   ...commonCols,
 ];
-
 export default columns;

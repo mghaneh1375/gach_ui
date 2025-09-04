@@ -12,38 +12,33 @@ import {
   EqualTwoTextInputs,
   MyView,
   PhoneView,
-} from '../../../../styles/Common';
-import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import Translate from '../Translate';
-import {styles} from '../../../../styles/Common/Styles';
+} from '@/styles';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import Translate from '../translate';
+import {styles} from '../../../../styles/common/styles';
 import React, {useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import MultiChoice from './questionComponents/MultiChoice';
-import vars from '../../../../styles/root';
+import vars from '@/styles/root';
 import {
   getDevice,
   getWidthHeight,
   setImgSize,
-} from '../../../../services/Utility';
-import {basketBox, basketBoxInPhone} from '../../../panel/package/card/Style';
-import commonTranslator from '../../../../translator/Common';
+} from '../../../../services/utility';
+import {basketBox, basketBoxInPhone} from '../../../panel/package/card/style';
+import commonTranslator from '@/translator/common';
 import MultiSentence from './questionComponents/MultiSentence';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
-
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
 function Question(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const [state, dispatch] = useGlobalState();
-
   const [question, setQuestion] = useState();
-
   React.useEffect(() => {
     if (question === undefined) return;
     Image.getSize(question.questionFile, (width, height) => {
@@ -69,23 +64,18 @@ function Question(props) {
       });
     }
   }, [question, totalWidth, isInPhone]);
-
   React.useEffect(() => {
     if (state.questions === undefined) return;
     setQuestion(state.questions[state.currIdx]);
   }, [state.questions, state.currIdx]);
-
   const [imgWidth, setImgWidth] = useState(200);
   const [imgHeight, setImgHeight] = useState(200);
   const [answerHeight, setAnswerHeight] = useState(200);
   const [isInZoomMode, setIsInZoomMode] = useState();
   const [zoomImg, setZoomImg] = useState();
-
   const [zoomW, setZoomW] = useState();
   const [zoomH, setZoomH] = useState();
-
   const [totalWidth, totalHeight] = getWidthHeight();
-
   React.useEffect(() => {
     if (zoomImg === undefined) {
       setIsInZoomMode(false);
@@ -97,9 +87,7 @@ function Question(props) {
         setZoomH((height * (totalWidth - 50)) / width);
         return;
       }
-
       const h = (height * 0.75 * totalWidth) / width;
-
       if (h < totalHeight) {
         setZoomW(totalWidth - 20);
         setZoomH(h);
@@ -110,18 +98,15 @@ function Question(props) {
       }
     });
   }, [zoomImg, totalWidth, totalHeight, isInPhone]);
-
   React.useEffect(() => {
     if (zoomH === undefined) return;
     setIsInZoomMode(true);
   }, [zoomH]);
-
   const closeZoom = () => {
     setZoomImg(undefined);
     setZoomH(undefined);
     setZoomW(undefined);
   };
-
   return (
     <MyView>
       {isInZoomMode && (
@@ -138,7 +123,14 @@ function Question(props) {
           <CommonWebBox
             header={''}
             btn={<FontIcon icon={faClose} onPress={() => closeZoom()} />}
-            style={!isInPhone ? {margin: 20, padding: 5} : {}}>
+            style={
+              !isInPhone
+                ? {
+                    margin: 20,
+                    padding: 5,
+                  }
+                : {}
+            }>
             <Image
               resizeMode="contain"
               style={{
@@ -152,8 +144,14 @@ function Question(props) {
         </MyView>
       )}
       {question !== undefined && (
-        <MyView style={{marginBottom: 70}}>
-          <CommonWebBox style={{padding: 15}}>
+        <MyView
+          style={{
+            marginBottom: 70,
+          }}>
+          <CommonWebBox
+            style={{
+              padding: 15,
+            }}>
             {question.questionFile !== undefined && (
               <Image
                 resizeMode="contain"
@@ -196,7 +194,10 @@ function Question(props) {
                                 needUpdateAnswer: true,
                               });
                             } else
-                              dispatch({answer: idx, needUpdateAnswer: true});
+                              dispatch({
+                                answer: idx,
+                                needUpdateAnswer: true,
+                              });
                           }
                     }
                   />
@@ -225,10 +226,18 @@ function Question(props) {
                     float={true}
                     value={state.answers[state.currIdx]}
                     onChangeText={e =>
-                      dispatch({answer: e, needUpdateAnswer: true})
+                      dispatch({
+                        answer: e,
+                        needUpdateAnswer: true,
+                      })
                     }
-                    parentStyle={{width: '100%'}}
-                    style={{backgroundColor: '#efefef', border: 0}}
+                    parentStyle={{
+                      width: '100%',
+                    }}
+                    style={{
+                      backgroundColor: '#efefef',
+                      border: 0,
+                    }}
                   />
                 )}
                 {question.kindQuestion === 'tashrihi' &&
@@ -249,7 +258,9 @@ function Question(props) {
                         needUpdateAnswer: true,
                       })
                     }
-                    parentStyle={{width: '100%'}}
+                    parentStyle={{
+                      width: '100%',
+                    }}
                     style={{
                       height: 200,
                       maxWidth: '100%',
@@ -259,9 +270,17 @@ function Question(props) {
                   />
                 )}
                 {question.kindQuestion === 'tashrihi' && question.canUpload && (
-                  <MyView style={{width: 40, height: 40}}>
+                  <MyView
+                    style={{
+                      width: 40,
+                      height: 40,
+                    }}>
                     <SimpleFontIcon
-                      onPress={() => dispatch({openFileSelectorFlag: true})}
+                      onPress={() =>
+                        dispatch({
+                          openFileSelectorFlag: true,
+                        })
+                      }
                       icon={faFolder}
                     />
                   </MyView>
@@ -288,8 +307,13 @@ function Question(props) {
                       subText={Translate.resInput}
                       disable={true}
                       value={question.answer}
-                      parentStyle={{width: '100%'}}
-                      style={{backgroundColor: '#efefef', border: 0}}
+                      parentStyle={{
+                        width: '100%',
+                      }}
+                      style={{
+                        backgroundColor: '#efefef',
+                        border: 0,
+                      }}
                     />
                   )}
                   {question.kindQuestion === 'multi_sentence' && (
@@ -300,8 +324,13 @@ function Question(props) {
                       value={question.answer
                         .replaceAll('1', 'ص ')
                         .replaceAll('0', 'غ ')}
-                      parentStyle={{width: '100%'}}
-                      style={{backgroundColor: '#efefef', border: 0}}
+                      parentStyle={{
+                        width: '100%',
+                      }}
+                      style={{
+                        backgroundColor: '#efefef',
+                        border: 0,
+                      }}
                     />
                   )}
                   {question.kindQuestion === 'tashrihi' && (
@@ -311,7 +340,9 @@ function Question(props) {
                       subText={Translate.resInput}
                       value={question.answer}
                       disable={true}
-                      parentStyle={{width: '100%'}}
+                      parentStyle={{
+                        width: '100%',
+                      }}
                       style={{
                         height: 200,
                         maxWidth: '100%',
@@ -324,7 +355,11 @@ function Question(props) {
               </CommonWebBox>
             )}
           {question.answerFile !== undefined && (
-            <CommonWebBox header={Translate.answerFile} style={{padding: 15}}>
+            <CommonWebBox
+              header={Translate.answerFile}
+              style={{
+                padding: 15,
+              }}>
               <Image
                 resizeMode="contain"
                 style={{
@@ -355,24 +390,37 @@ function Question(props) {
           isInPhone
             ? {
                 ...basketBoxInPhone,
-                ...{width: 'calc(100% - 20px)'},
+                ...{
+                  width: 'calc(100% - 20px)',
+                },
               }
             : {
                 ...basketBox,
-                ...{width: vars.BASKET_WIDTH_WITH_OPEN_MENU},
+                ...{
+                  width: vars.BASKET_WIDTH_WITH_OPEN_MENU,
+                },
               }
         }>
-        <CommonWebBox style={{padding: 0}}>
+        <CommonWebBox
+          style={{
+            padding: 0,
+          }}>
           <EqualTwoTextInputs>
             {!props.isInReviewMode && (
               <CommonButton
                 onPress={() => {
-                  dispatch({exit: true});
+                  dispatch({
+                    exit: true,
+                  });
                 }}
                 padding={isInPhone ? '5px 5px' : undefined}
                 textStyle={
                   isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    ? {
+                        fontSize: 14,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                      }
                     : {}
                 }
                 title={Translate.finish}
@@ -385,7 +433,11 @@ function Question(props) {
                 padding={isInPhone ? '5px 5px' : undefined}
                 textStyle={
                   isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    ? {
+                        fontSize: 14,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                      }
                     : {}
                 }
                 title={commonTranslator.back}
@@ -402,21 +454,37 @@ function Question(props) {
                 {state.currIdx > 0 && (
                   <CommonButton
                     onPress={() => {
-                      dispatch({currIdx: state.currIdx - 1});
+                      dispatch({
+                        currIdx: state.currIdx - 1,
+                      });
                     }}
                     padding={isInPhone ? '5px 5px' : undefined}
-                    textStyle={isInPhone ? {fontSize: 14} : {}}
+                    textStyle={
+                      isInPhone
+                        ? {
+                            fontSize: 14,
+                          }
+                        : {}
+                    }
                     title={Translate.prev}
                   />
                 )}
                 {state.currIdx < state.questions.length - 1 && (
                   <CommonButton
                     onPress={() => {
-                      dispatch({currIdx: state.currIdx + 1});
+                      dispatch({
+                        currIdx: state.currIdx + 1,
+                      });
                     }}
                     theme={'dark'}
                     padding={isInPhone ? '5px 5px' : undefined}
-                    textStyle={isInPhone ? {fontSize: 14} : {}}
+                    textStyle={
+                      isInPhone
+                        ? {
+                            fontSize: 14,
+                          }
+                        : {}
+                    }
                     title={Translate.next}
                   />
                 )}
@@ -433,7 +501,9 @@ function Question(props) {
                 {state.currIdx > 0 && (
                   <FontIcon
                     onPress={() => {
-                      dispatch({currIdx: state.currIdx - 1});
+                      dispatch({
+                        currIdx: state.currIdx - 1,
+                      });
                     }}
                     icon={faArrowRight}
                     theme={'rect'}
@@ -442,7 +512,9 @@ function Question(props) {
                 {state.currIdx < state.questions.length - 1 && (
                   <FontIcon
                     onPress={() => {
-                      dispatch({currIdx: state.currIdx + 1});
+                      dispatch({
+                        currIdx: state.currIdx + 1,
+                      });
                     }}
                     icon={faArrowLeft}
                     theme={'rect'}
@@ -456,5 +528,4 @@ function Question(props) {
     </MyView>
   );
 }
-
 export default Question;

@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
-import {CommonButton, CommonWebBox} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
+import {CommonButton, CommonWebBox} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
 import {quizContext} from '../Context';
-import {downloadRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-
+import {downloadRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 function KarnameReport(props) {
   const useGlobalState = () => [React.useContext(quizContext)];
-
   const [state] = useGlobalState();
   const [columns, setColumns] = useState();
-
   React.useEffect(() => {
     const tmp = [];
     tmp.push({
@@ -34,7 +31,12 @@ function KarnameReport(props) {
                   alignItems: 'center',
                 }}>
                 <span>{elem.name}</span>
-                <div style={{display: 'flex', flexDirection: 'row', gap: 10}}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: 10,
+                  }}>
                   <span>درست</span>
                   <span>نادرست</span>
                   <span>نزده</span>
@@ -51,11 +53,19 @@ function KarnameReport(props) {
                   flexDirection: 'column',
                   alignItems: 'center',
                 }}>
-                <span style={{direction: 'ltr'}}>
+                <span
+                  style={{
+                    direction: 'ltr',
+                  }}>
                   {d.lessonsStats[index].percent}
                 </span>
 
-                <div style={{display: 'flex', flexDirection: 'row', gap: 10}}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    gap: 10,
+                  }}>
                   <span>{d.lessonsStats[index].corrects}</span>
                   <span>{d.lessonsStats[index].inCorrects}</span>
                   <span>{d.lessonsStats[index].whites}</span>
@@ -74,7 +84,10 @@ function KarnameReport(props) {
           grow: 1,
           fontSize: 10,
           cell: d => (
-            <span style={{direction: 'ltr'}}>
+            <span
+              style={{
+                direction: 'ltr',
+              }}>
               {d.lessonsStats[index].percent}
             </span>
           ),
@@ -90,7 +103,12 @@ function KarnameReport(props) {
             alignItems: 'center',
           }}>
           <span>تراز کل</span>
-          <div style={{display: 'flex', flexDirection: 'row', gap: 10}}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 10,
+            }}>
             <span>درست</span>
             <span>نادرست</span>
             <span>نزده</span>
@@ -106,9 +124,19 @@ function KarnameReport(props) {
             flexDirection: 'column',
             alignItems: 'center',
           }}>
-          <span style={{direction: 'ltr'}}>{d.taraz}</span>
+          <span
+            style={{
+              direction: 'ltr',
+            }}>
+            {d.taraz}
+          </span>
 
-          <div style={{display: 'flex', flexDirection: 'row', gap: 10}}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 10,
+            }}>
             <span>{d.totalCorrects}</span>
             <span>{d.totalInCorrects}</span>
             <span>{d.totalWhites}</span>
@@ -126,7 +154,6 @@ function KarnameReport(props) {
     });
     setColumns(tmp);
   }, [state.selectedQuiz, props.quiz]);
-
   return (
     <CommonWebBox
       header={''}
@@ -164,5 +191,4 @@ function KarnameReport(props) {
     </CommonWebBox>
   );
 }
-
 export default KarnameReport;

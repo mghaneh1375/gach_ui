@@ -1,13 +1,12 @@
-import {routes} from '../../../../API/APIRoutes';
+import {routes} from '@/api/apiRoutes';
 import {
   CV_BASE_URL,
   downloadRequest,
   fileRequest,
   generalRequest,
-} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../translator/Common';
-
+} from '@/api/utility';
+import {showSuccess} from '../../../../services/utility';
+import commonTranslator from '@/translator/common';
 export const getQuizzes = async (
   token,
   name = undefined,
@@ -22,7 +21,6 @@ export const getQuizzes = async (
   if (name !== undefined && name !== '') query.append('name', name);
   if (kindQuiz !== undefined && kindQuiz !== 'all')
     query.append('kind', kindQuiz);
-
   if (startDateSolar !== undefined && startDateSolar !== '')
     query.append('startDateSolar', startDateSolar);
   if (startDateSolarEndLimit !== undefined && startDateSolarEndLimit !== '')
@@ -34,7 +32,6 @@ export const getQuizzes = async (
     startRegistrySolarEndLimit !== ''
   )
     query.append('startRegistrySolarEndLimit', startRegistrySolarEndLimit);
-
   return await generalRequest(
     generalQuizMode === undefined
       ? routes.fetchAllQuiz + 'IRYSC?' + query.toString()
@@ -45,11 +42,9 @@ export const getQuizzes = async (
     token,
   );
 };
-
 export const getOnlineStandingQuizzes = async (token, name = undefined) => {
   const query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
-
   return await generalRequest(
     routes.fetchAllQuiz + 'onlineStanding?' + query.toString(),
     'get',
@@ -58,11 +53,9 @@ export const getOnlineStandingQuizzes = async (token, name = undefined) => {
     token,
   );
 };
-
 export const getEscapeQuizzes = async (token, name = undefined) => {
   const query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
-
   return await generalRequest(
     routes.fetchAllQuiz + 'escape?' + query.toString(),
     'get',
@@ -71,11 +64,9 @@ export const getEscapeQuizzes = async (token, name = undefined) => {
     token,
   );
 };
-
 export const getOpenQuizzes = async (token, name = undefined) => {
   const query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
-
   return await generalRequest(
     routes.fetchAllQuiz + 'OPEN?' + query.toString(),
     'get',
@@ -84,11 +75,9 @@ export const getOpenQuizzes = async (token, name = undefined) => {
     token,
   );
 };
-
 export const getContentQuizzes = async (token, name = undefined) => {
   const query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
-
   return await generalRequest(
     routes.fetchAllQuiz + 'content?' + query.toString(),
     'get',
@@ -97,7 +86,6 @@ export const getContentQuizzes = async (token, name = undefined) => {
     token,
   );
 };
-
 export const getQuiz = async (quizId, quizMode, token) => {
   return await generalRequest(
     routes.fetchQuiz + quizMode + '/' + quizId,
@@ -107,7 +95,6 @@ export const getQuiz = async (quizId, quizMode, token) => {
     token,
   );
 };
-
 export const removeQuiz = async (generalMode, quizId, token) => {
   const res = await generalRequest(
     generalMode === 'irysc'
@@ -121,11 +108,9 @@ export const removeQuiz = async (generalMode, quizId, token) => {
   if (res !== null) showSuccess(commonTranslator.success);
   return res;
 };
-
 export const getTags = async () => {
   return await generalRequest(routes.fetchQuizTags, 'get', undefined, 'data');
 };
-
 export const getAnswerSheets = async (
   quizId,
   quizMode,
@@ -147,7 +132,6 @@ export const getAnswerSheets = async (
     token,
   );
 };
-
 export const fetchSchoolReport = async (quizId, generalMode, token) => {
   return await generalRequest(
     routes.fetchSchoolReport + generalMode + '/' + quizId,
@@ -157,7 +141,6 @@ export const fetchSchoolReport = async (quizId, generalMode, token) => {
     token,
   );
 };
-
 export const resetStudentQuizEntryTime = async (
   quizId,
   quizMode,
@@ -179,7 +162,6 @@ export const resetStudentQuizEntryTime = async (
   if (res !== null) showSuccess();
   return res;
 };
-
 export const fetchParticipantReport = async (quizId, generalMode, token) => {
   return await generalRequest(
     routes.fetchParticipantReport + generalMode + '/' + quizId,
@@ -189,7 +171,6 @@ export const fetchParticipantReport = async (quizId, generalMode, token) => {
     token,
   );
 };
-
 export const fetchA1Report = async (quizId, mode, token) => {
   return await generalRequest(
     routes.fetchA1Report + mode + '/' + quizId,
@@ -199,7 +180,6 @@ export const fetchA1Report = async (quizId, mode, token) => {
     token,
   );
 };
-
 export const fetchAuthorReport = async (quizId, generalMode, token) => {
   return await generalRequest(
     routes.fetchAuthorReport + generalMode + '/' + quizId,
@@ -209,7 +189,6 @@ export const fetchAuthorReport = async (quizId, generalMode, token) => {
     token,
   );
 };
-
 export const fetchCityReport = async (quizId, generalMode, token) => {
   return await generalRequest(
     routes.fetchCityReport + generalMode + '/' + quizId,
@@ -219,7 +198,6 @@ export const fetchCityReport = async (quizId, generalMode, token) => {
     token,
   );
 };
-
 export const fetchKarnameReport = async (quizId, generalMode, token) => {
   return await generalRequest(
     routes.fetchKarnameReport + generalMode + '/' + quizId,
@@ -229,7 +207,6 @@ export const fetchKarnameReport = async (quizId, generalMode, token) => {
     token,
   );
 };
-
 export const fetchStateReport = async (quizId, quizMode, token) => {
   return await generalRequest(
     routes.fetchStateReport + quizMode + '/' + quizId,
@@ -239,7 +216,6 @@ export const fetchStateReport = async (quizId, quizMode, token) => {
     token,
   );
 };
-
 export const fetchGenderReport = async (quizId, quizMode, token) => {
   return await generalRequest(
     routes.fetchGenderReport + quizMode + '/' + quizId,
@@ -249,7 +225,6 @@ export const fetchGenderReport = async (quizId, quizMode, token) => {
     token,
   );
 };
-
 export const getPDFQuizAnswerSheet = async (quizId, token) => {
   return await generalRequest(
     routes.fetchPDFQuizAnswerSheet + quizId,
@@ -259,7 +234,6 @@ export const getPDFQuizAnswerSheet = async (quizId, token) => {
     token,
   );
 };
-
 export const getAnswerSheet = async (quizId, quizMode, token) => {
   return await generalRequest(
     routes.fetchQuizAnswerSheet + quizMode + '/' + quizId,
@@ -269,7 +243,6 @@ export const getAnswerSheet = async (quizId, quizMode, token) => {
     token,
   );
 };
-
 export const getQuestions = async (token, quizId, quizMode) => {
   return await generalRequest(
     routes.fetchQuestions + quizMode + '/' + quizId,
@@ -279,7 +252,6 @@ export const getQuestions = async (token, quizId, quizMode) => {
     token,
   );
 };
-
 export const getPDFQuizSubjects = async (token, quizId) => {
   return generalRequest(
     routes.getPDFQuizSubjects + quizId,
@@ -289,7 +261,6 @@ export const getPDFQuizSubjects = async (token, quizId) => {
     token,
   );
 };
-
 export const getPDFQuizInfo = async (token, quizId) => {
   return generalRequest(
     routes.getPDFQuizInfo + quizId,
@@ -299,7 +270,6 @@ export const getPDFQuizInfo = async (token, quizId) => {
     token,
   );
 };
-
 export const getGradesAndBranches = async (token, quizId) => {
   return generalRequest(
     routes.getGradesAndBranches + quizId,
@@ -309,7 +279,6 @@ export const getGradesAndBranches = async (token, quizId) => {
     token,
   );
 };
-
 export const setPDFQuestions = async (quizId, token, count, file) => {
   let formData;
   if (file !== null && file !== undefined) {
@@ -325,12 +294,10 @@ export const setPDFQuestions = async (quizId, token, count, file) => {
     token,
   );
 };
-
 export const setPDFSubjects = async (quizId, token, file) => {
   const formData = new FormData();
   var myblob = new Blob([new Uint8Array(file.content)]);
   formData.append('file', myblob, file.name);
-
   return await fileRequest(
     routes.setPDFQuizSubjectsAndChoicesCount + quizId,
     'put',
@@ -339,7 +306,6 @@ export const setPDFSubjects = async (quizId, token, file) => {
     token,
   );
 };
-
 export const getPDFQuestions = async (token, quizId) => {
   return await generalRequest(
     routes.getPDFQuizQuestions + quizId,
@@ -349,7 +315,6 @@ export const getPDFQuestions = async (token, quizId) => {
     token,
   );
 };
-
 export const getRanking = async (quizId, quizMode, token = undefined) => {
   return await generalRequest(
     routes.fetchQuizRanking + quizMode + '/' + quizId,
@@ -359,7 +324,6 @@ export const getRanking = async (quizId, quizMode, token = undefined) => {
     token,
   );
 };
-
 export const getKarname = async (token, studentId, quizId, quizMode) => {
   return await generalRequest(
     routes.fetchQuizKarname + quizMode + '/' + quizId + '/' + studentId,
@@ -369,17 +333,17 @@ export const getKarname = async (token, studentId, quizId, quizMode) => {
     token,
   );
 };
-
 export const savePDF = async (token, quizId, answers) => {
   return await generalRequest(
     routes.setPDFQuizAnswerSheet + quizId,
     'put',
-    {answers: answers},
+    {
+      answers: answers,
+    },
     undefined,
     token,
   );
 };
-
 export const updateQuestionMark = async (
   token,
   quizId,
@@ -420,7 +384,6 @@ export const updateQuestionMark = async (
     token,
   );
 };
-
 export const generateQuestionPDF = async (quizId, quizMode, token) => {
   await downloadRequest(
     routes.generateQuestionPDF + quizMode + '/' + quizId,
@@ -428,7 +391,6 @@ export const generateQuestionPDF = async (quizId, quizMode, token) => {
     token,
   );
 };
-
 export const removeStudents = async (quizId, quizMode, ids, token) => {
   return await generalRequest(
     routes.forceDeportation + quizMode + '/' + quizId,
@@ -440,7 +402,6 @@ export const removeStudents = async (quizId, quizMode, ids, token) => {
     token,
   );
 };
-
 export const correct = async (quizId, generalMode, userId, token) => {
   return await generalRequest(
     CV_BASE_URL +
@@ -457,7 +418,6 @@ export const correct = async (quizId, generalMode, userId, token) => {
     token,
   );
 };
-
 export const createTaraz = async (quizId, generalMode, token) => {
   const res = await generalRequest(
     routes.createTaraz + generalMode + '/' + quizId,
@@ -466,10 +426,8 @@ export const createTaraz = async (quizId, generalMode, token) => {
     undefined,
     token,
   );
-
   if (res !== null) showSuccess();
 };
-
 export const transferToOpenQuiz = async (quizId, token) => {
   const res = await generalRequest(
     routes.transferToOpenQuiz + quizId,
@@ -478,10 +436,8 @@ export const transferToOpenQuiz = async (quizId, token) => {
     undefined,
     token,
   );
-
   if (res !== null) showSuccess();
 };
-
 export const updateStudentAnswers = async (
   quizId,
   studentId,
@@ -502,7 +458,6 @@ export const updateStudentAnswers = async (
   }
   return null;
 };
-
 export const fetchStudentAnswerSheet = async (
   quizId,
   quizMode,
@@ -517,7 +472,6 @@ export const fetchStudentAnswerSheet = async (
     token,
   );
 };
-
 export const addCorrector = async (NID, quizId, quizMode, token) => {
   const res = await generalRequest(
     routes.addCorrector + quizMode + '/' + quizId + '/' + NID,
@@ -529,7 +483,6 @@ export const addCorrector = async (NID, quizId, quizMode, token) => {
   if (res != null) showSuccess();
   return res;
 };
-
 export const fetchCorrectors = async (quizId, quizMode, token) => {
   return await generalRequest(
     routes.fetchQuizCorrectors + quizMode + '/' + quizId,
@@ -539,7 +492,6 @@ export const fetchCorrectors = async (quizId, quizMode, token) => {
     token,
   );
 };
-
 export const fetchCorrector = async (quizId, quizMode, userId, token) => {
   return await generalRequest(
     routes.fetchQuizCorrector + quizMode + '/' + quizId + '/' + userId,
@@ -549,7 +501,6 @@ export const fetchCorrector = async (quizId, quizMode, userId, token) => {
     token,
   );
 };
-
 export const changeQuestionsArrangeInQuiz = async (
   quizId,
   generalMode,
@@ -566,7 +517,6 @@ export const changeQuestionsArrangeInQuiz = async (
   if (res !== null) showSuccess();
   return res;
 };
-
 export const finalizeQuizResult = async (quizId, quizMode, token) => {
   const res = await generalRequest(
     routes.finalizeQuizResult + quizMode + '/' + quizId,
@@ -578,14 +528,12 @@ export const finalizeQuizResult = async (quizId, quizMode, token) => {
   if (res !== null) showSuccess();
   return res;
 };
-
 export const addFile = async (token, fileContent, quizId, quizMode) => {
   return await fetch(fileContent.content)
     .then(res => res.blob())
     .then(async blob => {
       const formData = new FormData();
       formData.append('file', blob, fileContent.name);
-
       const res = await fileRequest(
         routes.addFileToQuiz + quizMode + '/' + quizId,
         'put',
@@ -596,7 +544,6 @@ export const addFile = async (token, fileContent, quizId, quizMode) => {
       return res;
     });
 };
-
 export const removeFile = async (
   token,
   filename,
@@ -605,7 +552,6 @@ export const removeFile = async (
 ) => {
   const query = new URLSearchParams();
   query.append('attach', filename);
-
   const res = await generalRequest(
     quizGeneralMode === undefined
       ? routes.removeFileToQuiz + 'irysc/' + quizId + '?' + query.toString()
@@ -620,7 +566,6 @@ export const removeFile = async (
     undefined,
     token,
   );
-
   if (res !== null) showSuccess(commonTranslator.removeSuccessfully);
   return res;
 };

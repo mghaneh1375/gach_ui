@@ -1,50 +1,41 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
 import SelectFromMyStudents from '../../../../../components/web/SelectFromMyStudents';
-import {showSuccess} from '../../../../../services/Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import StudentAnswerSheet from '../../../../panel/quiz/components/AnswerSheet/StudentAnswerSheet';
-import {getAnswerSheets} from '../../../../panel/quiz/components/Utility';
-import translator from '../../../../panel/quiz/Translator';
+import {showSuccess} from '@/services/utility';
+import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import StudentAnswerSheet from '../../../../panel/quiz/components/answerSheet/StudentAnswerSheet';
+import {getAnswerSheets} from '../../../../panel/quiz/components/utility';
+import translator from '../../../../panel/quiz/translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context';
-import columns from './TableStructure';
-
+import columns from './tableStructure';
 const Students = props => {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState(false);
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedSudent, setSelectedStudent] = useState(undefined);
-
   const setStudents = newList => {
     state.selectedQuiz.students = newList;
     state.selectedQuiz.studentsCount = newList.length;
     state.selectedQuiz.recp = undefined;
-    dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+    dispatch({
+      selectedQuiz: state.selectedQuiz,
+      needUpdate: true,
+    });
   };
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const fetchStudents = React.useCallback(() => {
     if (isWorking || state.selectedQuiz.students !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getParticipants +
@@ -62,13 +53,14 @@ const Students = props => {
         props.setMode('list');
         return;
       }
-
       state.selectedQuiz.students = res[0];
-      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+      dispatch({
+        selectedQuiz: state.selectedQuiz,
+        needUpdate: true,
+      });
       setIsWorking(false);
     });
   }, [props, isWorking, dispatch, state.selectedQuiz]);
-
   React.useEffect(() => {
     if (
       state.selectedQuiz !== undefined &&
@@ -76,20 +68,16 @@ const Students = props => {
     )
       fetchStudents();
   }, [state.selectedQuiz, fetchStudents]);
-
   const handleOp = idx => {
     setSelectedStudent(state.selectedQuiz.students[idx]);
     toggleShowOpPopUp();
   };
-
   const [studentIdx, setStudentIdx] = useState();
   const [showAnswerSheet, setShowAnswerSheet] = useState(false);
   const [data, setData] = useState();
-
   React.useEffect(() => {
     setData(state.selectedQuiz.students);
   }, [state.selectedQuiz.students]);
-
   const prepareShowAnswerSheet = async () => {
     if (state.selectedQuiz.answer_sheets === undefined) {
       props.setLoading(true);
@@ -98,16 +86,16 @@ const Students = props => {
         'school',
         props.token,
       );
-
       props.setLoading(false);
-
       if (res !== null) {
         state.selectedQuiz.answer_sheet = res.answers;
         state.selectedQuiz.answer_sheets = res.students;
-        dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+        dispatch({
+          selectedQuiz: state.selectedQuiz,
+          needUpdate: true,
+        });
       } else return;
     }
-
     state.selectedQuiz.answer_sheets.forEach((elem, index) => {
       if (elem.student.id == selectedSudent.id) {
         const data = state.selectedQuiz.answer_sheet.map((elem, idx) => {
@@ -115,7 +103,6 @@ const Students = props => {
             state.selectedQuiz.answer_sheets[index].answers[idx];
           return elem;
         });
-
         dispatch({
           showAnswers: true,
           showStdAnswers: true,
@@ -134,10 +121,8 @@ const Students = props => {
       }
     });
   };
-
   const [showSelectStudentsPane, setShowSelectStudentsPane] = useState(false);
   const [selectedStudents, setSelectedStudents] = useState();
-
   const addStudentsToQuiz = React.useCallback(() => {
     if (
       isWorking ||
@@ -145,10 +130,8 @@ const Students = props => {
       selectedStudents.length === 0
     )
       return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.forceRegistry +
@@ -167,22 +150,20 @@ const Students = props => {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] == null) return;
-
       showSuccess(res[0].excepts);
       const addedStudents = state.myStudents.filter(e => {
         return res[0].doneIds.indexOf(e.id) !== -1;
       });
-
       state.selectedQuiz.students = addedStudents.concat(
         state.selectedQuiz.students,
       );
-
       state.selectedQuiz.studentsCount = state.selectedQuiz.students.length;
       state.selectedQuiz.recp = undefined;
-      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
-
+      dispatch({
+        selectedQuiz: state.selectedQuiz,
+        needUpdate: true,
+      });
       setSelectedStudents(undefined);
       setIsWorking(false);
     });
@@ -194,12 +175,10 @@ const Students = props => {
     state.myStudents,
     selectedStudents,
   ]);
-
   React.useEffect(() => {
     if (selectedStudents === undefined || selectedStudents.length === 0) return;
     addStudentsToQuiz();
   }, [selectedStudents, addStudentsToQuiz]);
-
   return (
     <MyView>
       {showAnswerSheet && (
@@ -217,7 +196,11 @@ const Students = props => {
           token={props.token}
           setLoading={props.setLoading}
           myStudents={state.myStudents}
-          setMyStudents={myStudents => dispatch({myStudents: myStudents})}
+          setMyStudents={myStudents =>
+            dispatch({
+              myStudents: myStudents,
+            })
+          }
           setSelectedStudents={selected => setSelectedStudents(selected)}
           toggleShowPopUp={() => setShowSelectStudentsPane(false)}
           title={'افزودن دانش آموز/دانش آموزان به آزمون'}
@@ -227,7 +210,10 @@ const Students = props => {
         <LargePopUp
           toggleShowPopUp={toggleShowOpPopUp}
           title={state.selectedQuiz.title}>
-          <PhoneView style={{gap: 20}}>
+          <PhoneView
+            style={{
+              gap: 20,
+            }}>
             <CommonButton
               onPress={() => prepareShowAnswerSheet()}
               dir={'rtl'}
@@ -279,5 +265,4 @@ const Students = props => {
     </MyView>
   );
 };
-
 export default Students;

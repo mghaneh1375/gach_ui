@@ -1,46 +1,38 @@
 import React, {useState} from 'react';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
 import {useFilePicker} from 'use-file-picker';
-import {routes} from '../../../../API/APIRoutes';
-import {CallAPI} from '../../../panel/quiz/components/Create/CallAPI';
-import {addFile, removeFile} from '../../../panel/quiz/components/Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  EqualTwoTextInputs,
-  MyView,
-} from '../../../../styles/Common';
-import QuizGeneralInfo from '../../../panel/quiz/components/Create/QuizGeneralInfo';
-import translator from '../../../panel/quiz/Translator';
-import commonTranslator from '../../../../translator/Common';
-import QuizAnswerSheetInfo from '../../../panel/quiz/components/Create/QuizAnswerSheetInfo';
-import {showError, showSuccess} from '../../../../services/Utility';
+import {routes} from '@/api/apiRoutes';
+import {CallAPI} from '../../../panel/quiz/components/create/callAPI';
+import {addFile, removeFile} from '../../../panel/quiz/components/utility';
+import {CommonButton, CommonWebBox, EqualTwoTextInputs, MyView} from '@/styles';
+import QuizGeneralInfo from '../../../panel/quiz/components/create/QuizGeneralInfo';
+import translator from '../../../panel/quiz/translator';
+import commonTranslator from '@/translator/common';
+import QuizAnswerSheetInfo from '../../../panel/quiz/components/create/QuizAnswerSheetInfo';
+import {showError, showSuccess} from '../../../../services/utility';
 import QuizRunInfo from './QuizRunInfo';
-
 const Create = props => {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const backToList = React.useCallback(() => {
     props.setMode('list');
   }, [props]);
-
   React.useEffect(() => {
     if (props.editMode === undefined || !props.editMode) {
-      dispatch({selectedQuiz: undefined});
+      dispatch({
+        selectedQuiz: undefined,
+      });
       return;
     }
     if (state.selectedQuiz === undefined) {
       backToList();
       return;
     }
-
     if (state.selectedQuiz.payByStudent !== undefined)
       setPayByStudent(state.selectedQuiz.payByStudent);
-
     setName(state.selectedQuiz.title);
     setLaunchMode(state.selectedQuiz.launchMode);
     setUseFromDatabase(state.selectedQuiz.database);
@@ -49,12 +41,10 @@ const Create = props => {
     setDescBefore(state.selectedQuiz.descBefore);
     setMinusMark(state.selectedQuiz.minusMark);
     setEnd(state.selectedQuiz.end === undefined ? '' : state.selectedQuiz.end);
-
     setShowResultsAfterCorrection(
       state.selectedQuiz.showResultsAfterCorrection,
     );
   }, [state.selectedQuiz, dispatch, props.editMode, backToList]);
-
   const [name, setName] = useState('');
   const [useFromDatabase, setUseFromDatabase] = useState(false);
   const [len, setLen] = useState(props.editMode ? state.selectedQuiz.len : '');
@@ -67,7 +57,6 @@ const Create = props => {
   const [end, setEnd] = useState(props.editMode ? undefined : '');
   const [showResultsAfterCorrection, setShowResultsAfterCorrection] =
     useState(true);
-
   const [minusMark, setMinusMark] = useState(undefined);
   const [kind, setKind] = useState();
   const [descBefore, setDescBefore] = useState(undefined);
@@ -75,7 +64,6 @@ const Create = props => {
   const [attaches, setAttaches] = useState(
     state.selectedQuiz === undefined ? [] : state.selectedQuiz.attaches,
   );
-
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
       maxFileSize: 2,
@@ -83,11 +71,9 @@ const Create = props => {
       readAs: 'DataURL',
       multiple: true,
     });
-
   const removeAttach = index => {
     remove(index);
   };
-
   const removeUploadedAttach = async filename => {
     props.setLoading(true);
     const res = await removeFile(
@@ -103,14 +89,14 @@ const Create = props => {
       if (element !== filename) tmp.push(element);
     });
     setAttaches(tmp);
-
     state.selectedQuiz.attaches = tmp;
-    dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+    dispatch({
+      selectedQuiz: state.selectedQuiz,
+      needUpdate: true,
+    });
   };
-
   const submit = async () => {
     let data = {};
-
     if (kind === 'regularWithPDF' && (len === undefined || len.length === 0)) {
       showError('لطفا مدت آزمون را مشخص نمایید');
       return;
@@ -129,7 +115,6 @@ const Create = props => {
       payByStudent: payByStudent,
       kind: kind,
     };
-
     props.setLoading(true);
     const result = await CallAPI(
       data,
@@ -140,13 +125,10 @@ const Create = props => {
       'school',
       undefined,
     );
-
     if (result !== null) {
       const quizId = props.editMode ? state.selectedQuiz.id : result.id;
-
       if (filesContent.length > 0) {
         const files = [];
-
         for (let i = 0; i < filesContent.length; i++) {
           const fileRes = await addFile(
             props.token,
@@ -156,7 +138,6 @@ const Create = props => {
           );
           if (fileRes !== null && fileRes !== undefined) files.push(fileRes);
         }
-
         if (props.editMode) data.attaches = files;
         else result.attaches = files;
         props.setLoading(false);
@@ -164,25 +145,28 @@ const Create = props => {
         if (props.editMode) data.attaches = state.selectedQuiz.attaches;
         props.setLoading(false);
       }
-
       if (props.editMode) {
         data.id = state.selectedQuiz.id;
         data.status = state.selectedQuiz.status;
         data.visibility = state.selectedQuiz.visibility;
         data.questionsCount = state.selectedQuiz.questionsCount;
         data.studentsCount = state.selectedQuiz.studentsCount;
-        dispatch({selectedQuiz: data, needUpdate: true});
+        dispatch({
+          selectedQuiz: data,
+          needUpdate: true,
+        });
       } else {
         let allQuizzes = state.quizzes;
         if (allQuizzes === undefined) allQuizzes = [];
         allQuizzes.unshift(result);
-        dispatch({quizzes: allQuizzes});
+        dispatch({
+          quizzes: allQuizzes,
+        });
       }
       showSuccess();
       backToList();
     } else props.setLoading(false);
   };
-
   return (
     <MyView>
       <CommonWebBox
@@ -277,5 +261,4 @@ const Create = props => {
     </MyView>
   );
 };
-
 export default Create;

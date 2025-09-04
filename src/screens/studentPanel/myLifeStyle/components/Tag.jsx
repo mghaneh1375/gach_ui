@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
-import {CommonButton} from '../../../../styles/Common';
-
-function Exam(props) {
+import {CommonButton} from '@/styles';
+function Tag(props) {
   const [isSelected, setIsSelected] = useState(false);
-
   React.useEffect(() => {
-    setIsSelected(props.selectedExams.indexOf(props.id) !== -1);
-  }, [props.selectedExams, props.id]);
-
+    setIsSelected(props.selectedTag === props.id);
+  }, [props.selectedTag, props.id]);
   return (
     <CommonButton
       onPress={() => props.onClick()}
@@ -16,5 +13,4 @@ function Exam(props) {
     />
   );
 }
-
-export default Exam;
+export default Tag;

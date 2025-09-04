@@ -5,21 +5,22 @@ import {
   EqualTwoTextInputs,
   MyView,
   SimpleText,
-} from '../../../../../styles/Common';
-import {styles} from '../../../../../styles/Common/Styles';
-import vars from '../../../../../styles/root';
-import {levelKeyVals} from '../../../question/components/KeyVals';
-
+} from '@/styles';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
+import {levelKeyVals} from '../../../question/components/keyVals';
 function QuestionCard(props) {
   const isInPhone = false;
   const [isSelected, setIsSelected] = useState(
     props.elem.correctorId !== undefined &&
       props.elem.correctorId === props.correctorId,
   );
-
   return (
     <CommonWebBox width={isInPhone ? 320 : 390}>
-      <MyView style={{...styles.gap15}}>
+      <MyView
+        style={{
+          ...styles.gap15,
+        }}>
         {props.elem.organizationId !== undefined && (
           <MyView
             style={{
@@ -31,23 +32,39 @@ function QuestionCard(props) {
               marginRight: 0,
             }}>
             <SimpleText
-              style={{...styles.BlueBold, ...styles.fontSize15}}
+              style={{
+                ...styles.BlueBold,
+                ...styles.fontSize15,
+              }}
               text={'کد سازمانی :' + props.elem.organizationId}
             />
           </MyView>
         )}
-        <MyView style={{marginTop: -10, ...styles.gap5}}>
+        <MyView
+          style={{
+            marginTop: -10,
+            ...styles.gap5,
+          }}>
           <SimpleText
-            style={{...styles.BlueBold, ...styles.fontSize15}}
+            style={{
+              ...styles.BlueBold,
+              ...styles.fontSize15,
+            }}
             text={'شماره سوال : ' + props.elem.no}
           />
           <SimpleText
-            style={{...styles.BlueBold, ...styles.fontSize15}}
+            style={{
+              ...styles.BlueBold,
+              ...styles.fontSize15,
+            }}
             text={'نمره : ' + props.elem.mark}
           />
           {props.elem.level !== undefined && (
             <SimpleText
-              style={{...styles.BlueBold, ...styles.fontSize15}}
+              style={{
+                ...styles.BlueBold,
+                ...styles.fontSize15,
+              }}
               text={
                 'سطح سختی :' +
                 ' ' +
@@ -57,19 +74,26 @@ function QuestionCard(props) {
           )}
           {props.elem.author && (
             <SimpleText
-              style={{...styles.BlueBold, ...styles.fontSize15}}
+              style={{
+                ...styles.BlueBold,
+                ...styles.fontSize15,
+              }}
               text={'طراح :' + props.elem.author}
             />
           )}
           <SimpleText
-            style={{...styles.colorDarkBlue}}
+            style={{
+              ...styles.colorDarkBlue,
+            }}
             text={
               'وضعیت تصحیح: ' + props.elem.total + ' / ' + props.elem.allMarked
             }
           />
           {props.onPress !== undefined && (
             <SimpleText
-              style={{...styles.colorDarkBlue}}
+              style={{
+                ...styles.colorDarkBlue,
+              }}
               text={
                 props.elem.corrector !== undefined
                   ? 'مصحح فعلی : ' + props.elem.corrector
@@ -101,5 +125,4 @@ function QuestionCard(props) {
     </CommonWebBox>
   );
 }
-
 export default QuestionCard;

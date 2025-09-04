@@ -1,40 +1,37 @@
 import React, {useMemo, useState} from 'react';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-} from '../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import commonTranslator from '../../../../../translator/Common';
-import {trueFalseValues} from '../../../../../services/Utility';
-import {styles} from '../../../../../styles/Common/Styles';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import commonTranslator from '@/translator/common';
+import {trueFalseValues} from '../../../../../services/utility';
+import {styles} from '@/styles/common/styles';
 import {dispatchTeachTagReportContext, teachTagReportContext} from './Context';
-
 function Create(props) {
   const teachReportTagMode = useMemo(() => {
     return [
-      {item: 'گزارش مشکل توسط دانش آموز', id: 'user'},
-      {item: 'گزارش مشکل توسط دبیر', id: 'teacher'},
+      {
+        item: 'گزارش مشکل توسط دانش آموز',
+        id: 'user',
+      },
+      {
+        item: 'گزارش مشکل توسط دبیر',
+        id: 'teacher',
+      },
     ];
   }, []);
-
   const useGlobalState = () => [
     React.useContext(teachTagReportContext),
     React.useContext(dispatchTeachTagReportContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [title, setTitle] = useState();
   const [priority, setPriority] = useState();
   const [visibility, setVisibility] = useState();
   const [mode, setMode] = useState();
-
   const createData = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.createTeachTagsReport,
@@ -50,12 +47,10 @@ function Create(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       const tmp = state.tags;
       tmp.push({
         id: res[0],
@@ -66,15 +61,14 @@ function Create(props) {
         reportsCount: 0,
         unseenReportsCount: 0,
       });
-
-      dispatch({tags: tmp});
+      dispatch({
+        tags: tmp,
+      });
       props.setMode('list');
     });
   }, [props, title, priority, mode, visibility, dispatch, state.tags]);
-
   const editData = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.editTeachReportTag + state.selectedTag.id,
@@ -90,22 +84,21 @@ function Create(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       state.selectedTag.label = title;
       state.selectedTag.priority = priority;
       state.selectedTag.visibility = visibility;
       state.selectedTag.mode = mode;
-
-      dispatch({selectedTag: state.selectedTag, needUpdate: true});
+      dispatch({
+        selectedTag: state.selectedTag,
+        needUpdate: true,
+      });
       props.setMode('list');
     });
   }, [props, title, priority, visibility, mode, dispatch, state.selectedTag]);
-
   React.useEffect(() => {
     if (props.isInEditMode && state.selectedTag !== undefined) {
       setTitle(state.selectedTag.label);
@@ -114,13 +107,15 @@ function Create(props) {
       setMode(state.selectedTag.mode);
     }
   }, [props.isInEditMode, state.selectedTag]);
-
   return (
     <CommonWebBox
       header={commonTranslator.add}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{...styles.gap10}}>
+      <PhoneView
+        style={{
+          ...styles.gap10,
+        }}>
         <JustBottomBorderTextInput
           placehoder={commonTranslator.title}
           subText={commonTranslator.title}
@@ -168,5 +163,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

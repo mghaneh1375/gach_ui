@@ -6,24 +6,22 @@ import {
   MyView,
   SimpleText,
   EqualTwoTextInputs,
-} from '../../../../styles/Common';
+} from '@/styles';
 import {Image} from 'react-native';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
+import {LargePopUp} from '@/styles/common/PopUp';
 import Avatar from './Avatar';
-import {fetchAvatars} from './Utility';
-import {styles} from '../../../../styles/Common/Styles';
-import UploadFile from '../../../../components/web/UploadFile';
-import {routes} from '../../../../API/APIRoutes';
-import {fetchUser, setCacheItem} from '../../../../API/User';
+import {fetchAvatars} from './utility';
+import {styles} from '../../../../styles/common/styles';
+import UploadFile from '@/components/web/UploadFile';
+import {routes} from '@/api/apiRoutes';
+import {fetchUser, setCacheItem} from '@/api/user';
 import {Slider} from '@material-ui/core';
-
 const UpdatePic = props => {
   const [pic, setPic] = useState(undefined);
   const [showUploadPane, setShowUploadPane] = useState(false);
   const [showAvatars, setShowAvatars] = useState(false);
   const [avatars, setAvatars] = useState();
   const [userId, setUserId] = useState();
-
   const toggleShowChooseAvatar = async () => {
     if (avatars === undefined) {
       const res = await fetchAvatars(props.setLoading, props.token);
@@ -35,21 +33,16 @@ const UpdatePic = props => {
     } else if (avatars.length === 0) return;
     setShowAvatars(!showAvatars);
   };
-
   const toggleShowUploadPic = async () => {
     setShowUploadPane(!showUploadPane);
   };
-
   React.useEffect(() => {
     if (pic === undefined) setPic(props.user.pic);
   }, [pic, props.user.pic]);
-
   React.useEffect(() => {
     if (userId === undefined && props.isAdmin) setUserId(props.user.id);
   }, [props.user.id, props.isAdmin, userId]);
-
   const [finalMsg, setFinalMsg] = useState();
-
   return (
     <MyView>
       {showUploadPane && (
@@ -96,8 +89,12 @@ const UpdatePic = props => {
       )}
       <Image
         resizeMode={'contain'}
-        imageStyle={{boxShadow: 'inset 4px 6px 20px 20px'}}
-        parentStyle={{boxShadow: 'inset 4px 6px 20px 20px'}}
+        imageStyle={{
+          boxShadow: 'inset 4px 6px 20px 20px',
+        }}
+        parentStyle={{
+          boxShadow: 'inset 4px 6px 20px 20px',
+        }}
         style={{
           width: 200,
           height: 200,
@@ -106,7 +103,9 @@ const UpdatePic = props => {
           border: '8px solid rgb(255, 255, 255)',
           boxShadow: 'rgb(0 0 0 / 16%) 0px 1px 20px',
         }}
-        source={{uri: pic}}
+        source={{
+          uri: pic,
+        }}
       />
 
       <MyView
@@ -122,7 +121,9 @@ const UpdatePic = props => {
               theme={'dark'}
               onPress={() => toggleShowUploadPic()}
               title={'بارگذاری تصویر دلخواه'}
-              style={{justifyContent: 'center'}}
+              style={{
+                justifyContent: 'center',
+              }}
             />
           )}
 
@@ -130,7 +131,9 @@ const UpdatePic = props => {
             theme={'dark'}
             onPress={() => toggleShowChooseAvatar()}
             title={translator.chooseAvatar}
-            style={{justifyContent: 'center'}}
+            style={{
+              justifyContent: 'center',
+            }}
           />
         </PhoneView>
         <EqualTwoTextInputs>
@@ -139,9 +142,14 @@ const UpdatePic = props => {
         </EqualTwoTextInputs>
 
         {props.userLevel && (
-          <MyView style={{width: '80%'}}>
+          <MyView
+            style={{
+              width: '80%',
+            }}>
             <SimpleText
-              style={{marginBottom: '40px'}}
+              style={{
+                marginBottom: '40px',
+              }}
               text={'سطح فعلی شما: ' + props.userLevel.name}
             />
             <Slider
@@ -163,7 +171,10 @@ const UpdatePic = props => {
             />
             <a
               href="https://www.irysc.com/%d8%b1%d8%a7%d9%87%d9%86%d9%85%d8%a7%db%8c-%da%af%da%86-%d8%b3%d9%81%db%8c%d8%af-%d8%a2%db%8c%d8%b1%db%8c%d8%b3%da%a9/%d8%a7%d9%85%d8%aa%db%8c%d8%a7%d8%b2-%d9%85%d8%af%d8%a7%d9%84-%da%af%da%86-%d8%b3%d9%81%db%8c%d8%af/"
-              style={{textAlign: 'center', fontFamily: 'IRANSans'}}>
+              style={{
+                textAlign: 'center',
+                fontFamily: 'IRANSans',
+              }}>
               برای مشاهده امتیاز هر فعالیت اینجا رو کلیک کن
             </a>
           </MyView>

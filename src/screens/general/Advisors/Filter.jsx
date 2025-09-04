@@ -1,54 +1,44 @@
 import {Slider} from '@material-ui/core';
-import {formatPrice, getDevice} from '../../../services/Utility';
+import {formatPrice, getDevice} from '../../../services/utility';
 import {
   CommonButton,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
-import commonTranslator from '../../../translator/Common';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
-
+} from '../../../styles/CommonComponents';
+import {styles} from '../../../styles/common/styles';
+import commonTranslator from '../../../translator/common';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
 import React, {useState} from 'react';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
-
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 function Filter(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   const [rate, setRate] = useState([1, 5]);
   const [value, setValue] = useState([props.min, props.max]);
   const [valueAge, setValueAge] = useState([props.minAge, props.maxAge]);
   const [tag, setTag] = useState();
-
   const rangeSelectorRate = (event, newValue) => {
     setRate(newValue);
   };
-
   const rangeSelector = (event, newValue) => {
     setValue(newValue);
   };
-
   const rangeSelectorAge = (event, newValue) => {
     setValueAge(newValue);
   };
-
   const clear = React.useCallback(() => {
     setTag(undefined);
     setValue([props.min, props.max]);
     setValueAge([props.minAge, props.maxAge]);
     setRate([1, 5]);
-
     props.setClearFilter(false);
   }, [props]);
-
   React.useEffect(() => {
     if (props.clearFilter) clear();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.clearFilter]);
-
   React.useEffect(() => {
     if (props.doFilter) {
       filter(props.pageIndex);
@@ -56,30 +46,23 @@ function Filter(props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.doFilter]);
-
   const filter = async pageIndex => {
     const query = new URLSearchParams();
     if (tag !== undefined && tag !== 'all') query.append('tag', tag);
-
     if (value[0] !== undefined && props.min !== value[0])
       query.append('minPrice', value[0]);
-
     if (value[1] !== undefined && props.max !== value[1])
       query.append('maxPrice', value[1]);
-
     if (valueAge !== undefined && props.minAge !== valueAge[0])
       query.append('minAge', valueAge[0]);
-
     if (valueAge !== undefined && props.maxAge !== valueAge[1])
       query.append('maxAge', valueAge[1]);
-
     if (rate !== undefined && rate[0] !== 1) query.append('minRate', rate[0]);
     if (rate !== undefined && rate[1] !== 5) query.append('maxRate', rate[1]);
     if (sort !== undefined) query.append('sortBy', sort);
     query.append('pageIndex', pageIndex);
     query.append('returnFilters', false);
     props.setLoading(true);
-
     const res = await generalRequest(
       routes.getAllAdvisors + '?' + query.toString(),
       'get',
@@ -87,7 +70,6 @@ function Filter(props) {
       'data',
       undefined,
     );
-
     props.setLoading(false);
     if (res != null) {
       props.setHasMore(res.hasMore);
@@ -97,24 +79,38 @@ function Filter(props) {
       } else props.addToSelectableItems(res.data);
     }
   };
-
   const sortByValues = [
-    {id: 'rate', item: 'امتیاز'},
-    {id: 'student', item: 'دانش آموزان'},
-    {id: 'age', item: 'سن'},
+    {
+      id: 'rate',
+      item: 'امتیاز',
+    },
+    {
+      id: 'student',
+      item: 'دانش آموزان',
+    },
+    {
+      id: 'age',
+      item: 'سن',
+    },
   ];
-
   const [sort, setSort] = useState();
-
   return (
     <>
       {props.showFilter && (
         <MyView>
-          <PhoneView style={{...styles.gap30}}>
+          <PhoneView
+            style={{
+              ...styles.gap30,
+            }}>
             {props.max !== props.min && (
-              <MyView style={{width: isInPhone ? 260 : 300}}>
+              <MyView
+                style={{
+                  width: isInPhone ? 260 : 300,
+                }}>
                 <SimpleText
-                  style={{...styles.alignSelfCenter}}
+                  style={{
+                    ...styles.alignSelfCenter,
+                  }}
                   text={'هزینه مشاوره'}
                 />
                 <Slider
@@ -139,9 +135,14 @@ function Filter(props) {
               </MyView>
             )}
             {props.maxAge !== props.minAge && (
-              <MyView style={{width: isInPhone ? 260 : 300}}>
+              <MyView
+                style={{
+                  width: isInPhone ? 260 : 300,
+                }}>
                 <SimpleText
-                  style={{...styles.alignSelfCenter}}
+                  style={{
+                    ...styles.alignSelfCenter,
+                  }}
                   text={'سن مشاوره'}
                 />
                 <Slider
@@ -158,9 +159,14 @@ function Filter(props) {
               </MyView>
             )}
 
-            <MyView style={{width: isInPhone ? 260 : 150}}>
+            <MyView
+              style={{
+                width: isInPhone ? 260 : 150,
+              }}>
               <SimpleText
-                style={{...styles.alignSelfCenter}}
+                style={{
+                  ...styles.alignSelfCenter,
+                }}
                 text={'امتیاز مشاور'}
               />
               <Slider
@@ -214,5 +220,4 @@ function Filter(props) {
     </>
   );
 }
-
 export default Filter;

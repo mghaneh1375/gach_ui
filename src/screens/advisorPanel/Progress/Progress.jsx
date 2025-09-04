@@ -6,11 +6,11 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
+} from '../../../styles/CommonComponents.jsx';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {getProgressData} from './components/Utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {getProgressData} from './components/utility';
 import {
   VictoryLine,
   VictoryTheme,
@@ -19,11 +19,10 @@ import {
 } from 'victory-native';
 import Lesson from './components/Lesson';
 import Tag from './components/Tag';
-import JustBottomBorderDatePicker from '../../../styles/Common/JustBottomBorderDatePicker';
-import {styles} from '../../../styles/Common/Styles';
+import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
-
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
 function Progress(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -31,17 +30,18 @@ function Progress(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
-
   const params = useParams();
-
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getProgressData(state.token, params.userId, start, end)]).then(
       res => {
-        dispatch({loading: false});
+        dispatch({
+          loading: false,
+        });
         if (res[0] == null) {
           props.navigate('/');
           return;
@@ -50,7 +50,6 @@ function Progress(props) {
       },
     );
   }, [dispatch, props, params.userId, state.token, start, end]);
-
   useEffectOnce(() => {
     if (params.userId === undefined) {
       props.navigate('/');
@@ -58,16 +57,12 @@ function Progress(props) {
     }
     fetchData();
   }, [fetchData]);
-
   const [selectedTagReport, setSelectedTagReport] = useState();
   const [tagReports, setTagReports] = useState();
-
   const [lessonReports, setLessonReports] = useState();
   const [selectedLessonReport, setSelectedLessonReport] = useState();
-
   React.useEffect(() => {
     if (data?.tagsGeneralStats === undefined) return;
-
     setTagReports(
       data.tagsGeneralStats.map(e => {
         return {
@@ -77,10 +72,8 @@ function Progress(props) {
       }),
     );
   }, [data?.tagsGeneralStats]);
-
   React.useEffect(() => {
     if (data?.stats === undefined) return;
-
     setLessonReports(
       data.stats.map(e => {
         return {
@@ -90,11 +83,13 @@ function Progress(props) {
       }),
     );
   }, [data?.stats]);
-
   return (
     <>
       <CommonWebBox>
-        <PhoneView style={{...styles.gap10}}>
+        <PhoneView
+          style={{
+            ...styles.gap10,
+          }}>
           <JustBottomBorderDatePicker
             value={start}
             setter={setStart}
@@ -117,7 +112,14 @@ function Progress(props) {
       <CommonWebBox header={'آمار کلی'}>
         {data !== undefined && (
           <EqualTwoTextInputs>
-            <MyView style={state.isInPhone ? {width: '100%'} : {}}>
+            <MyView
+              style={
+                state.isInPhone
+                  ? {
+                      width: '100%',
+                    }
+                  : {}
+              }>
               <PhoneView
                 style={{
                   gap: 30,
@@ -134,11 +136,17 @@ function Progress(props) {
                 />
 
                 <SimpleText
-                  style={{color: 'white', width: state.isInPhone ? 80 : 150}}
+                  style={{
+                    color: 'white',
+                    width: state.isInPhone ? 80 : 150,
+                  }}
                   text="زمان تعریف شده (دقیقه)"
                 />
                 <SimpleText
-                  style={{color: 'white', width: state.isInPhone ? 80 : 150}}
+                  style={{
+                    color: 'white',
+                    width: state.isInPhone ? 80 : 150,
+                  }}
                   text="زمان انجام شده (دقیقه)"
                 />
               </PhoneView>
@@ -180,7 +188,10 @@ function Progress(props) {
                 );
               })}
             </MyView>
-            <MyView style={{width: state.isInPhone ? '100%' : 500}}>
+            <MyView
+              style={{
+                width: state.isInPhone ? '100%' : 500,
+              }}>
               <VictoryChart
                 height={300}
                 width={350}
@@ -373,7 +384,9 @@ function Progress(props) {
 
       <CommonWebBox
         header={'آمار بر اساس دروس'}
-        style={{marginBottom: selectedLessonReport === undefined ? 200 : 10}}>
+        style={{
+          marginBottom: selectedLessonReport === undefined ? 200 : 10,
+        }}>
         {lessonReports !== undefined && (
           <JustBottomBorderSelect
             isHalf={!state.isInPhone}
@@ -401,5 +414,4 @@ function Progress(props) {
     </>
   );
 }
-
 export default Progress;

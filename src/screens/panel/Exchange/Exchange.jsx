@@ -1,23 +1,21 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {ExchangeProvider} from './component/Context';
 import List from './component/List';
 import Create from './component/Create';
-
 function Exchange(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   return (
     <ExchangeProvider>
       {mode === 'list' && (
@@ -39,5 +37,4 @@ function Exchange(props) {
     </ExchangeProvider>
   );
 }
-
 export default Exchange;

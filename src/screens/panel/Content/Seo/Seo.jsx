@@ -1,22 +1,20 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
-import {ContentProvider} from '../Components/Context';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {ContentProvider} from '../components/Context';
 import Create from './components/Create';
 import List from './components/List';
-
 function Seo(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   return (
     <ContentProvider>
       {mode === 'list' && (
@@ -40,5 +38,4 @@ function Seo(props) {
     </ContentProvider>
   );
 }
-
 export default Seo;

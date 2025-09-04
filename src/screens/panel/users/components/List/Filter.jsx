@@ -1,20 +1,18 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useParams} from 'react-router';
-import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../../translator/Common';
-import {filter} from '../Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {downloadRequest} from '../../../../../API/Utility';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {levelsKeyVals} from '../../../ticket/components/KeyVals';
+import {CommonButton, MyView, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '@/translator/common';
+import {filter} from '../utility';
+import {routes} from '@/api/apiRoutes';
+import {downloadRequest} from '../../../../../api/utility';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import {levelsKeyVals} from '../../../ticket/components/keyVals';
 import {dispatchUsersContext} from '../Context';
-
 function Filter(props) {
   const useGlobalState = () => [React.useContext(dispatchUsersContext)];
   const [dispatch] = useGlobalState();
-
   const [NID, setNID] = useState();
   const [phone, setPhone] = useState();
   const [name, setName] = useState();
@@ -26,30 +24,44 @@ function Filter(props) {
   const [settlementStatus, setSettlementStatus] = useState('all');
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
-
   const [additionalLevelValues, settlementStatusValues] = useMemo(() => {
     return [
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'teach', item: 'تدریس'},
-        {id: 'advice', item: 'مشاوره'},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'teach',
+          item: 'تدریس',
+        },
+        {
+          id: 'advice',
+          item: 'مشاوره',
+        },
       ],
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'notSettled', item: 'دارای تراکنش تسویه نشده'},
-        {id: 'settled', item: 'تسویه شده'},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'notSettled',
+          item: 'دارای تراکنش تسویه نشده',
+        },
+        {
+          id: 'settled',
+          item: 'تسویه شده',
+        },
       ],
     ];
   }, []);
-
   const level = useParams().level;
-
   React.useEffect(() => {
     if (!props.clearFilters) return;
     clearFilters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.clearFilters]);
-
   const filterLocal = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -73,7 +85,9 @@ function Filter(props) {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] === null) return;
-      dispatch({users: res[0].users});
+      dispatch({
+        users: res[0].users,
+      });
       props.setTotalCount(res[0].totalCount);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,12 +105,10 @@ function Filter(props) {
     start,
     end,
   ]);
-
   useEffect(() => {
     filterLocal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.pageIndex]);
-
   const clearFilters = React.useCallback(() => {
     setNID('');
     setPhone('');
@@ -107,20 +119,26 @@ function Filter(props) {
     setSettlementStatus('all');
     setStart(undefined);
     setEnd(undefined);
-
     props.setLoading(true);
     Promise.all([filter(props.token, level, props.pageIndex)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) return;
-      dispatch({users: res[0].users});
+      dispatch({
+        users: res[0].users,
+      });
       props.setTotalCount(res[0].totalCount);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.pageIndex, level]);
-
   return (
-    <MyView style={{gap: 20}}>
-      <PhoneView style={{gap: 20}}>
+    <MyView
+      style={{
+        gap: 20,
+      }}>
+      <PhoneView
+        style={{
+          gap: 20,
+        }}>
         <JustBottomBorderTextInput
           value={NID}
           onChangeText={e => setNID(e)}
@@ -210,7 +228,10 @@ function Filter(props) {
         )}
       </PhoneView>
 
-      <PhoneView style={{justifyContent: 'end'}}>
+      <PhoneView
+        style={{
+          justifyContent: 'end',
+        }}>
         <CommonButton
           onPress={() =>
             props.pageIndex !== 1 ? props.setPageIndex(1) : filterLocal()
@@ -248,5 +269,4 @@ function Filter(props) {
     </MyView>
   );
 }
-
 export default Filter;

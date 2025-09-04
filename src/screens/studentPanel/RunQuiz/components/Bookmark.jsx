@@ -5,27 +5,26 @@ import {
   EqualTwoTextInputs,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
-import commonTranslator from '../../../../translator/Common';
-import Translate from '../Translate';
+} from '@/styles';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
+import Translate from '../translate';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
-
 function Bookmark(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   return (
     <CommonWebBox>
       <EqualTwoTextInputs>
         <SimpleText
-          style={{...styles.BlueBold}}
+          style={{
+            ...styles.BlueBold,
+          }}
           text={
             commonTranslator.question +
             ' ' +
@@ -42,7 +41,10 @@ function Bookmark(props) {
               ...styles.alignItemsCenter,
             }}>
             <SimpleText
-              style={{...styles.colorOrange, ...styles.FontWeight600}}
+              style={{
+                ...styles.colorOrange,
+                ...styles.FontWeight600,
+              }}
               text={
                 state.bookmarks[state.currIdx] === undefined ||
                 !state.bookmarks[state.currIdx]
@@ -57,7 +59,10 @@ function Bookmark(props) {
                   !state.bookmarks[state.currIdx]
                     ? true
                     : false;
-                dispatch({bookmarkStatus: b, needUpdateBookmarks: true});
+                dispatch({
+                  bookmarkStatus: b,
+                  needUpdateBookmarks: true,
+                });
               }}
               kind={'normal'}
               style={{
@@ -75,5 +80,4 @@ function Bookmark(props) {
     </CommonWebBox>
   );
 }
-
 export default Bookmark;

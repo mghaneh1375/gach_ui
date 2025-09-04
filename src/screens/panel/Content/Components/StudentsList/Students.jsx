@@ -1,45 +1,40 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../../../styles/Common';
-import Translator from '../../Translate';
-import commonTranslator from '../../../../../translator/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
+import {CommonWebBox, MyView} from '@/styles';
+import Translator from '../../translate';
+import commonTranslator from '@/translator/common';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import ExcelComma from '../../../../../components/web/ExcelCommaInput';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import columns from './TableStructure';
-import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
-import {changeText} from '../../../../../services/Utility';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import columns from './tableStructure';
+import SearchUser from '../../../../../components/web/searchUser/SearchUser';
+import {changeText} from '../../../../../services/utility';
 import {contentContext, dispatchContentContext} from '../Context';
-
 const Students = props => {
   const useGlobalState = () => [
     React.useContext(contentContext),
     React.useContext(dispatchContentContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState(false);
   const [paid, setPaid] = useState();
-
   const afterAdd = items => {
     if (items === undefined) return;
     setStudents(items.concat(state.selectedContent.students));
   };
-
   const setStudents = newList => {
     state.selectedContent.students = newList;
     state.selectedContent.studentsCount = newList.length;
-    dispatch({selectedContent: state.selectedContent, needUpdate: true});
+    dispatch({
+      selectedContent: state.selectedContent,
+      needUpdate: true,
+    });
   };
-
   React.useEffect(() => {
     if (isWorking || state.selectedContent.students !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.contentBuyers + state.selectedContent.id,
@@ -54,16 +49,16 @@ const Students = props => {
         props.setMode('list');
         return;
       }
-
       state.selectedContent.students = res[0];
-      dispatch({selectedContent: state.selectedContent, needUpdate: true});
+      dispatch({
+        selectedContent: state.selectedContent,
+        needUpdate: true,
+      });
       setIsWorking(false);
     });
   }, [props, isWorking, dispatch, state.selectedContent]);
-
   const [showSearchUser, setShowSearchUser] = useState(false);
   const [foundUser, setFoundUser] = useState();
-
   return (
     <MyView>
       <MyView>
@@ -91,9 +86,14 @@ const Students = props => {
             token={props.token}
             url={routes.contentForceRegistry + state.selectedContent.id}
             afterAddingCallBack={afterAdd}
-            additionalData={{paid: paid}}
+            additionalData={{
+              paid: paid,
+            }}
             mandatoryFields={['paid']}>
-            <MyView style={{marginBottom: 10}}>
+            <MyView
+              style={{
+                marginBottom: 10,
+              }}>
               <JustBottomBorderTextInput
                 justNum={true}
                 value={paid}
@@ -115,5 +115,4 @@ const Students = props => {
     </MyView>
   );
 };
-
 export default Students;

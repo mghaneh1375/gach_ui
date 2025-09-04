@@ -1,8 +1,7 @@
-import {routes} from '../../../../API/APIRoutes';
-import {fileRequest, generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {fileRequest, generalRequest} from '@/api/utility';
+import {showSuccess} from '../../../../services/utility';
+import commonTranslator from '@/translator/common';
 export const getSubjects = async token => {
   return await generalRequest(
     routes.getSubjectQuestions,
@@ -12,7 +11,6 @@ export const getSubjects = async token => {
     token,
   );
 };
-
 export const filter = async (
   token,
   grade,
@@ -24,27 +22,20 @@ export const filter = async (
   isQuestionsNeeded = false,
 ) => {
   const query = new URLSearchParams();
-
   if (grade !== undefined && lesson === undefined)
     query.append('gradeId', grade);
-
   if (lesson !== undefined) query.append('lessonId', lesson);
-
   if (subject !== undefined) query.append('subjectId', subject);
-
   if (organizationCode !== undefined)
     query.append('organizationCode', organizationCode);
-
   if (isQuestionsNeeded !== undefined && isQuestionsNeeded)
     query.append('isQuestionNeeded', true);
-
   if (
     justCriticals !== undefined &&
     justCriticals === 'yes' &&
     criticalThresh !== undefined
   )
     query.append('criticalThresh', criticalThresh);
-
   return await generalRequest(
     routes.getSubjectQuestions + '?' + query.toString(),
     'get',
@@ -53,7 +44,6 @@ export const filter = async (
     token,
   );
 };
-
 export const addQuestionToQuizzes = async (
   questionOrganizationId,
   mode,
@@ -63,12 +53,13 @@ export const addQuestionToQuizzes = async (
   return await generalRequest(
     routes.addQuestionToQuizzes + mode + '/' + questionOrganizationId + '/3',
     'put',
-    {items: quizzes},
+    {
+      items: quizzes,
+    },
     ['excepts', 'doneIds'],
     token,
   );
 };
-
 export const removeQuestion = async (questionId, token) => {
   return await generalRequest(
     routes.removeQuestion,
@@ -80,7 +71,6 @@ export const removeQuestion = async (questionId, token) => {
     token,
   );
 };
-
 export const getAuthorsKeyVals = async token => {
   return await generalRequest(
     routes.getAuthorsKeyVals,
@@ -90,7 +80,6 @@ export const getAuthorsKeyVals = async token => {
     token,
   );
 };
-
 export const getSubjectsKeyVals = async (lessonId = undefined) => {
   return await generalRequest(
     lessonId === undefined
@@ -101,7 +90,6 @@ export const getSubjectsKeyVals = async (lessonId = undefined) => {
     'data',
   );
 };
-
 export const getTagsKeyVals = async token => {
   return await generalRequest(
     routes.getTagsKeyVals,
@@ -111,7 +99,6 @@ export const getTagsKeyVals = async token => {
     token,
   );
 };
-
 export const addQuestion = async (
   subjectId,
   data,
@@ -120,15 +107,12 @@ export const addQuestion = async (
   token,
 ) => {
   const formData = new FormData();
-
   var myblob = new Blob([new Uint8Array(questionFile.content)]);
   formData.append('questionFile', myblob, questionFile.name);
-
   if (answerFile !== undefined) {
     var myblob2 = new Blob([new Uint8Array(answerFile.content)]);
     formData.append('answerFile', myblob2, answerFile.name);
   }
-
   try {
     const res = await fileRequest(
       routes.addQuestion + subjectId,
@@ -146,15 +130,12 @@ export const addQuestion = async (
         'kindQuestion',
       ],
     );
-
     if (res !== null) showSuccess(commonTranslator.success);
-
     return res;
   } catch (e) {
     return null;
   }
 };
-
 export const editQuestion = async (
   questionId,
   data,
@@ -163,17 +144,14 @@ export const editQuestion = async (
   token,
 ) => {
   const formData = new FormData();
-
   if (questionFile !== undefined) {
     var myblob = new Blob([new Uint8Array(questionFile.content)]);
     formData.append('questionFile', myblob, questionFile.name);
   }
-
   if (answerFile !== undefined) {
     var myblob2 = new Blob([new Uint8Array(answerFile.content)]);
     formData.append('answerFile', myblob2, answerFile.name);
   }
-
   try {
     const res = await fileRequest(
       routes.editQuestion + questionId,
@@ -191,9 +169,7 @@ export const editQuestion = async (
         'kindQuestion',
       ],
     );
-
     if (res !== null) showSuccess(commonTranslator.success);
-
     return 'ok';
   } catch (e) {
     return null;

@@ -7,7 +7,9 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
+  FontIcon,
+  SimpleFontIcon,
+} from '@/styles';
 import {
   addItemToSchedule,
   fetchSchedule,
@@ -16,49 +18,46 @@ import {
   removeItemFromSchedule,
   setDoneInSchedule,
   updateScheduleItem,
-} from './Utility';
+} from './utility';
 import {
   advisorScheduleContext,
   dispatchAdvisorScheduleContext,
 } from './Context';
-import Day from '../../../studentPanel/MyLifeStyle.js/components/Day';
+import Day from '../../../studentPanel/myLifeStyle/components/Day';
 import {
   fetchExamTags,
   fetchMyLifeStyle,
   fetchMySchedulesDigest,
   fetchStudentSchedulesDigest,
-} from '../../../studentPanel/MyLifeStyle.js/Utility';
+} from '../../../studentPanel/myLifeStyle/utility';
 import {
   faArrowLeft,
   faFilePdf,
   faSave,
 } from '@fortawesome/free-solid-svg-icons';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {styles} from '../../../../styles/Common/Styles';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../translator/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import Tag from '../../../studentPanel/MyLifeStyle.js/components/Tag';
+import {styles} from '../../../../styles/common/styles';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import Tag from '../../../studentPanel/myLifeStyle/components/Tag';
 import {
   removeItems,
   showError,
   showSuccess,
   trueFalseValues,
-} from '../../../../services/Utility';
-import TimePicker from '../../../../styles/Common/TimePicker';
-import {downloadRequest, generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import vars from '../../../../styles/root';
-import LastBuyer from '../../../general/Packages/components/Detail/LastBuyer';
-import {getGrades} from '../../../panel/Basic/Utility';
-
+} from '../../../../services/utility';
+import TimePicker from '../../../../styles/common/TimePicker';
+import {downloadRequest, generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import vars from '@/styles/root';
+import LastBuyer from '../../../general/packages/components/detail/LastBuyer';
+import {getGrades} from '../../../panel/basic/utility';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(advisorScheduleContext),
     React.useContext(dispatchAdvisorScheduleContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [scheduleFor, setScheduleFor] = useState();
   const [description, setDescription] = useState();
@@ -67,7 +66,6 @@ function Create(props) {
   const [startAt, setStartAt] = useState();
   const [lesson, setLesson] = useState();
   const [additional, setAdditional] = useState();
-
   const [showDonePopUp, setShowDonePopUp] = useState(false);
   const [showUpdatePopUp, setShowUpdatePopUp] = useState(false);
   const [selectedItemForUpdate, setSelectedItemForUpdate] = useState();
@@ -75,51 +73,53 @@ function Create(props) {
   const [doneDuration, setDoneDuration] = useState();
   const [selectedItem, setSelectedItem] = useState();
   const [doneAdditional, setDoneAdditional] = useState();
-
   const [selectedDay, setSelectedDay] = useState();
   const [selectedDayForUpdate, setSelectedDayForUpdate] = useState();
   const [showDailySchedule, setShowDailySchedule] = useState(props.isAdvisor);
   const [boxes, setBoxes] = useState();
   const [desc, setDesc] = useState();
-
   const [selectedGrade, setSelectedGrade] = useState();
   const [lessonsKeyVals, setLessonsKeyVals] = useState();
-
   const [selectedDescription, setSelectedDescription] = useState();
   const [showRemoveConfirmation, setShowRemoveConfirmation] = useState(false);
-
   const scheduleForValues = [
-    {id: 0, item: 'هفته جاری'},
-    {id: 1, item: 'هفته بعد'},
-    {id: 2, item: 'دو هفته بعد'},
-    {id: 3, item: 'سه هفته بعد'},
-    {id: 4, item: 'چهار هفته بعد'},
+    {
+      id: 0,
+      item: 'هفته جاری',
+    },
+    {
+      id: 1,
+      item: 'هفته بعد',
+    },
+    {
+      id: 2,
+      item: 'دو هفته بعد',
+    },
+    {
+      id: 3,
+      item: 'سه هفته بعد',
+    },
+    {
+      id: 4,
+      item: 'چهار هفته بعد',
+    },
   ];
-
   const [selectedSchedule, setSelectedSchedule] = useState();
   const [uniqueAdvisors, setUniqueAdvisors] = useState();
-
   const [isWorking, setIsWorking] = useState();
-
   const fetchLessons = React.useCallback(() => {
     if (isWorking) return;
-
     const grade = state.grades.find(e => e.id === selectedGrade);
     if (grade === undefined) return;
-
     if (grade.lessons !== undefined) {
       setLessonsKeyVals(grade.lessons);
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([getLessons(selectedGrade, grade.isOlympiad)]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) return;
-
       grade.lessons = res[0].map(e => {
         return {
           id: e.id,
@@ -130,17 +130,17 @@ function Create(props) {
         if (e.id === selectedGrade) return grade;
         return e;
       });
-      dispatch({grades: state.grades});
+      dispatch({
+        grades: state.grades,
+      });
       setLessonsKeyVals(grade.lessons);
       setIsWorking(false);
     });
   }, [selectedGrade, isWorking, state, dispatch, props]);
-
   React.useEffect(() => {
     if (selectedGrade == null) return;
     fetchLessons();
   }, [selectedGrade, fetchLessons]);
-
   React.useEffect(() => {
     if (state.selectedSchedule?.days === undefined) return;
     const tmp = [];
@@ -149,18 +149,18 @@ function Create(props) {
         if (tmp.find(eee => eee.name == ee.advisor?.name) !== undefined) return;
         tmp.push({
           ...ee.advisor,
-          ...{selected: true},
+          ...{
+            selected: true,
+          },
         });
       });
     });
     setUniqueAdvisors(tmp);
   }, [state.selectedSchedule?.days]);
-
   const fetchScheduleLocal = React.useCallback(() => {
     if (isWorking || state.selectedSchedule?.days !== undefined) return;
     props.setLoading(true);
     setIsWorking(true);
-
     Promise.all([
       fetchSchedule(
         props.token,
@@ -170,12 +170,10 @@ function Create(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] == null) {
         props.navigate('/');
         return;
       }
-
       if (props.isInEditMode) {
         state.selectedSchedule.days = res[0].days;
         if (res[0].advisorsDesc !== undefined)
@@ -188,36 +186,30 @@ function Create(props) {
         dispatch({
           selectedSchedule: res[0],
         });
-
       setIsWorking(false);
     });
   }, [props, isWorking, dispatch, scheduleFor, state.selectedSchedule]);
-
   React.useEffect(() => {
     if (scheduleFor === undefined) return;
     fetchScheduleLocal();
   }, [scheduleFor, fetchScheduleLocal]);
-
   React.useEffect(() => {
     if (!props.isInEditMode) return;
-
     fetchScheduleLocal();
   }, [props.isInEditMode, fetchScheduleLocal]);
-
   React.useEffect(() => {
     if (state.selectedSchedule?.id === undefined) return;
     fetchScheduleLocal();
   }, [state.selectedSchedule?.id, fetchScheduleLocal]);
-
   React.useEffect(() => {
     if (props.isInEditMode || scheduleFor === undefined) return;
-    dispatch({selectedSchedule: undefined});
+    dispatch({
+      selectedSchedule: undefined,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isInEditMode, scheduleFor]);
-
   const [selectedDayForRemove, setSelectedDayForRemove] = useState();
   const [selectedItemForRemove, setSelectedItemForRemove] = useState();
-
   const removeItem = async () => {
     props.setLoading(true);
     const res = await removeItemFromSchedule(
@@ -245,7 +237,6 @@ function Create(props) {
       setShowRemoveConfirmation(false);
     }
   };
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     if (props.isAdvisor) {
@@ -261,7 +252,6 @@ function Create(props) {
         ),
       ]).then(res => {
         props.setLoading(false);
-
         if (
           res[0] == null ||
           res[1] == null ||
@@ -272,12 +262,10 @@ function Create(props) {
           props.navigate('/');
           return;
         }
-
         if (props.isInEditMode)
           setSelectedSchedule(
             res[4].find(e => e.id === state.selectedSchedule.id),
           );
-
         dispatch({
           myLifeStyle: res[1].days,
           myExams: res[2].exams,
@@ -298,7 +286,6 @@ function Create(props) {
         fetchMySchedulesDigest(props.token),
       ]).then(res => {
         props.setLoading(false);
-
         if (res[0] == null || res[1] == null) {
           props.navigate('/');
           return;
@@ -306,7 +293,6 @@ function Create(props) {
         setSelectedSchedule(
           res[1].find(e => e.id === state.selectedSchedule.id),
         );
-
         dispatch({
           myLifeStyle: res[0].days,
           myAllSchedulesDigest: res[1],
@@ -314,12 +300,10 @@ function Create(props) {
       });
     }
   }, [props, dispatch, state.selectedSchedule]);
-
   useEffectOnce(() => {
     if (state.tags !== undefined) return;
     fetchData();
   }, [fetchData]);
-
   React.useEffect(() => {
     if (
       state.myLifeStyle === undefined ||
@@ -333,7 +317,11 @@ function Create(props) {
             day: e.day,
             items: e.items.concat(
               state.myLifeStyle[index].items.map(itr => {
-                return {...itr, canEdit: false, label: 'life'};
+                return {
+                  ...itr,
+                  canEdit: false,
+                  label: 'life',
+                };
               }),
             ),
           };
@@ -342,12 +330,15 @@ function Create(props) {
     } else setBoxes(state.selectedSchedule.days);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedSchedule?.days, state.myLifeStyle, showDailySchedule]);
-
   const doneJob = async () => {
     const data = fullDone
-      ? {fullDone: true}
-      : {fullDone: false, duration: doneDuration};
-
+      ? {
+          fullDone: true,
+        }
+      : {
+          fullDone: false,
+          duration: doneDuration,
+        };
     if (selectedItem.additionalLabel !== undefined) {
       if (doneAdditional === undefined) {
         showError('لطفا ' + selectedItem.additionalLabel + ' را وارد نمایید');
@@ -355,7 +346,6 @@ function Create(props) {
       }
       data.additional = doneAdditional;
     }
-
     props.setLoading(true);
     const res = await setDoneInSchedule(
       props.token,
@@ -366,14 +356,15 @@ function Create(props) {
     props.setLoading(false);
     if (res != null) {
       state.selectedSchedule.days = res.days;
-      dispatch({selectedSchedule: state.selectedSchedule});
+      dispatch({
+        selectedSchedule: state.selectedSchedule,
+      });
       setShowDonePopUp(false);
       setDoneDuration();
       setDoneAdditional();
       setFullDone();
     }
   };
-
   React.useEffect(() => {
     if (selectedItemForUpdate === undefined || state.tags === undefined) return;
     setDuration(selectedItemForUpdate.duration);
@@ -383,14 +374,12 @@ function Create(props) {
     setAdditional(selectedItemForUpdate.additional);
     setShowUpdatePopUp(true);
   }, [selectedItemForUpdate, state.tags]);
-
   React.useEffect(() => {
     if (!showUpdatePopUp) {
       setSelectedItemForUpdate(undefined);
       setSelectedDayForUpdate(undefined);
     }
   }, [showUpdatePopUp]);
-
   return (
     <>
       {showRemoveConfirmation && (
@@ -420,7 +409,10 @@ function Create(props) {
             {selectedDescription && (
               <SimpleText text={'توضیح مشاور: ' + selectedDescription} />
             )}
-            <PhoneView style={{...styles.gap15}}>
+            <PhoneView
+              style={{
+                ...styles.gap15,
+              }}>
               <JustBottomBorderSelect
                 values={trueFalseValues}
                 setter={setFullDone}
@@ -475,7 +467,6 @@ function Create(props) {
                   showError('لطفا حیطه موردنظر را وارد نمایید');
                   return;
                 }
-
                 if (
                   selectedTag?.numberLabel !== undefined &&
                   additional === undefined
@@ -485,9 +476,7 @@ function Create(props) {
                   );
                   return;
                 }
-
                 props.setLoading(true);
-
                 const data = {
                   tag: selectedTag.id,
                   duration: duration,
@@ -495,16 +484,12 @@ function Create(props) {
                   day: selectedDay,
                   lessonId: lesson,
                 };
-
                 if (state.selectedSchedule.id !== undefined)
                   data.id = state.selectedSchedule.id;
                 else data.scheduleFor = scheduleFor;
-
                 if (selectedTag?.numberLabel !== undefined)
                   data.additional = additional;
-
                 if (description !== undefined) data.description = description;
-
                 const res = await addItemToSchedule(
                   props.token,
                   props.studentId,
@@ -514,7 +499,6 @@ function Create(props) {
                 if (res !== null) {
                   if (res.scheduleId !== undefined)
                     state.selectedSchedule.id = res.scheduleId;
-
                   state.selectedSchedule.days = state.selectedSchedule.days.map(
                     e => {
                       if (e.day !== selectedDay) return e;
@@ -538,7 +522,9 @@ function Create(props) {
                       return e;
                     },
                   );
-                  dispatch({selectedSchedule: state.selectedSchedule});
+                  dispatch({
+                    selectedSchedule: state.selectedSchedule,
+                  });
                   setSelectedDay();
                   setDuration();
                   setSelectedTag();
@@ -558,7 +544,10 @@ function Create(props) {
               minHeight: '50vh',
             }}>
             <SimpleText text={'لطفا تگ موردنظر خود را انتخاب نمایید'} />
-            <PhoneView style={{...styles.gap15}}>
+            <PhoneView
+              style={{
+                ...styles.gap15,
+              }}>
               {state.tags !== undefined &&
                 state.tags.map((e, index) => {
                   return (
@@ -587,14 +576,16 @@ function Create(props) {
                 value={state.grades.find(e => e.id === selectedGrade)}
               />
 
-              {selectedGrade != undefined && lessonsKeyVals !== undefined && (
-                <JustBottomBorderSelect
-                  placeholder={commonTranslator.lesson}
-                  subText={commonTranslator.lesson}
-                  setter={setLesson}
-                  values={lessonsKeyVals}
-                  value={lessonsKeyVals.find(e => e.id === lesson)}
-                />
+              {
+                selectedGrade != undefined && lessonsKeyVals !== undefined && (
+                  <JustBottomBorderSelect
+                    placeholder={commonTranslator.lesson}
+                    subText={commonTranslator.lesson}
+                    setter={setLesson}
+                    values={lessonsKeyVals}
+                    value={lessonsKeyVals.find(e => e.id === lesson)}
+                  />
+                )
 
                 // <JustBottomBorderTextInput
                 // placeholder={commonTranslator.lesson}
@@ -608,7 +599,7 @@ function Create(props) {
                 //   value={lesson !== undefined ? lesson.name : ''}
                 //   reset={false}
                 // />
-              )}
+              }
 
               <JustBottomBorderTextInput
                 subText={'مدت (به دقیقه)'}
@@ -659,7 +650,6 @@ function Create(props) {
                   showError('لطفا مدت را تعیین کنید');
                   return;
                 }
-
                 if (
                   selectedTag?.numberLabel !== undefined &&
                   additional === undefined
@@ -669,20 +659,15 @@ function Create(props) {
                   );
                   return;
                 }
-
                 props.setLoading(true);
-
                 const data = {
                   tag: selectedTag.id,
                   duration: duration,
                   startAt: startAt,
                 };
-
                 if (selectedTag?.numberLabel !== undefined)
                   data.additional = additional;
-
                 if (description !== undefined) data.description = description;
-
                 const res = await updateScheduleItem(
                   props.token,
                   selectedItemForUpdate.id,
@@ -704,14 +689,14 @@ function Create(props) {
                           itemItr.additional = additional;
                           itemItr.description = description;
                         }
-
                         return itemItr;
                       });
-
                       return e;
                     },
                   );
-                  dispatch({selectedSchedule: state.selectedSchedule});
+                  dispatch({
+                    selectedSchedule: state.selectedSchedule,
+                  });
                   setDuration();
                   setSelectedTag();
                   setStartAt();
@@ -729,7 +714,10 @@ function Create(props) {
               minHeight: '50vh',
             }}>
             <SimpleText text={'لطفا تگ موردنظر خود را انتخاب نمایید'} />
-            <PhoneView style={{...styles.gap15}}>
+            <PhoneView
+              style={{
+                ...styles.gap15,
+              }}>
               {state.tags !== undefined &&
                 state.tags.map((e, index) => {
                   return (
@@ -797,11 +785,16 @@ function Create(props) {
             : 'برنامه‌های هفتگی'
         }
         btn={
-          <PhoneView style={{...styles.alignItemsCenter}}>
+          <PhoneView
+            style={{
+              ...styles.alignItemsCenter,
+            }}>
             <SimpleFontIcon
               icon={faFilePdf}
               kind={'large'}
-              style={{color: 'orangeRed'}}
+              style={{
+                color: 'orangeRed',
+              }}
               onPress={() =>
                 downloadRequest(
                   routes.exportPDF + state.selectedSchedule.id,
@@ -814,7 +807,10 @@ function Create(props) {
             />
             <FontIcon
               onPress={() => {
-                dispatch({schedules: undefined, selectedSchedule: undefined});
+                dispatch({
+                  schedules: undefined,
+                  selectedSchedule: undefined,
+                });
                 props.setMode('list');
               }}
               theme="rect"
@@ -830,7 +826,9 @@ function Create(props) {
               ...styles.cursor_pointer,
               ...styles.bold,
               ...styles.fontSize13,
-              ...{marginTop: -15},
+              ...{
+                marginTop: -15,
+              },
             }}
             onPress={() => setShowDailySchedule(!showDailySchedule)}
             text={
@@ -846,7 +844,9 @@ function Create(props) {
                 ...styles.cursor_pointer,
                 ...styles.bold,
                 ...styles.fontSize17,
-                ...{marginTop: -15},
+                ...{
+                  marginTop: -15,
+                },
               }}
               onPress={async () => {
                 props.setLoading(true);
@@ -872,7 +872,9 @@ function Create(props) {
                 ...styles.cursor_pointer,
                 ...styles.bold,
                 ...styles.fontSize17,
-                ...{marginTop: -15},
+                ...{
+                  marginTop: -15,
+                },
               }}
               onPress={async () => {
                 props.setLoading(true);
@@ -907,7 +909,9 @@ function Create(props) {
                     const res = await generalRequest(
                       routes.setScheduleDesc + state.selectedSchedule.id,
                       'put',
-                      {description: desc},
+                      {
+                        description: desc,
+                      },
                       undefined,
                       props.token,
                     );
@@ -919,8 +923,12 @@ function Create(props) {
             {props.isAdvisor && state.selectedSchedule?.id !== undefined && (
               <JustBottomBorderTextInput
                 isHalf={false}
-                parentStyle={{width: '100%'}}
-                style={{maxWidth: '100%'}}
+                parentStyle={{
+                  width: '100%',
+                }}
+                style={{
+                  maxWidth: '100%',
+                }}
                 onChangeText={e => setDesc(e)}
                 value={desc}
                 placeholder={'توضیحات'}
@@ -956,11 +964,22 @@ function Create(props) {
         )}
         {props.isInEditMode && state.myAllSchedulesDigest !== undefined && (
           <EqualTwoTextInputs
-            style={{backgroundColor: vars.CREAM, borderRadius: 7, padding: 7}}>
-            <PhoneView style={{minWidth: 'calc(100% - 200px)', gap: 10}}>
+            style={{
+              backgroundColor: vars.CREAM,
+              borderRadius: 7,
+              padding: 7,
+            }}>
+            <PhoneView
+              style={{
+                minWidth: 'calc(100% - 200px)',
+                gap: 10,
+              }}>
               <SimpleText
                 text={'برنامه روزانه'}
-                style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.alignSelfCenter,
+                }}
               />
               <JustBottomBorderSelect
                 parentStyle={{
@@ -974,7 +993,9 @@ function Create(props) {
                   setSelectedSchedule(tmp);
                   state.selectedSchedule.id = item;
                   state.selectedSchedule.days = undefined;
-                  dispatch({selectedSchedule: state.selectedSchedule});
+                  dispatch({
+                    selectedSchedule: state.selectedSchedule,
+                  });
                 }}
                 values={state.myAllSchedulesDigest}
                 value={state.myAllSchedulesDigest.find(
@@ -986,7 +1007,9 @@ function Create(props) {
                 style={{
                   ...styles.gap10,
                   ...styles.marginRight15,
-                  ...{maxHeight: 40},
+                  ...{
+                    maxHeight: 40,
+                  },
                 }}>
                 {uniqueAdvisors !== undefined &&
                   uniqueAdvisors.map((e, index) => {
@@ -1021,7 +1044,10 @@ function Create(props) {
               <PhoneView>
                 <SimpleText
                   text={'تاریخ شروع'}
-                  style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.alignSelfCenter,
+                  }}
                 />
                 {state.myAllSchedulesDigest !== undefined &&
                   selectedSchedule !== undefined && (
@@ -1045,7 +1071,9 @@ function Create(props) {
           </EqualTwoTextInputs>
         )}
         <SimpleText
-          style={{...styles.BlueBold}}
+          style={{
+            ...styles.BlueBold,
+          }}
           text={'برای ارسال گزارش روی کارت\u200cها کلیک کنید'}
         />
         {boxes !== undefined &&
@@ -1109,5 +1137,4 @@ function Create(props) {
     </>
   );
 }
-
 export default Create;

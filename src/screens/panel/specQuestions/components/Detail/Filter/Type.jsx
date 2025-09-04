@@ -7,35 +7,39 @@ import {
   SimpleText,
 } from '../../../../../../styles/Common';
 import {questionContext, dispatchQuestionContext} from '../Context';
-import {styles} from '../../../../../../styles/Common/Styles';
-
+import {styles} from '../../../../../../styles/common/styles';
 function Type(props) {
   const useGlobalState = () => [
     React.useContext(questionContext),
     React.useContext(dispatchQuestionContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const filter = type => {
     let newShowTest = state.showTest;
     let newShowShortAnswer = state.showShortAnswer;
     let newShowMultiSentence = state.showMultiSentence;
     let newShowTashrihi = state.showTashrihi;
-
     if (type === 'test') {
-      dispatch({showTest: !state.showTest});
+      dispatch({
+        showTest: !state.showTest,
+      });
       newShowTest = !newShowTest;
     } else if (type === 'short_answer') {
-      dispatch({showShortAnswer: !state.showShortAnswer});
+      dispatch({
+        showShortAnswer: !state.showShortAnswer,
+      });
       newShowShortAnswer = !newShowShortAnswer;
     } else if (type === 'multi_sentence') {
-      dispatch({showMultiSentence: !state.showMultiSentence});
+      dispatch({
+        showMultiSentence: !state.showMultiSentence,
+      });
       newShowMultiSentence = !newShowMultiSentence;
     } else {
-      dispatch({showTashrihi: !state.showTashrihi});
+      dispatch({
+        showTashrihi: !state.showTashrihi,
+      });
       newShowTashrihi = !newShowTashrihi;
     }
-
     props.localFilter(
       state.showEasy,
       state.showMid,
@@ -47,12 +51,18 @@ function Type(props) {
       state.authors,
     );
   };
-
   return (
     <MyView>
       <BigBoldBlueText text={'نوع سوال'} />
-      <PhoneView style={{gap: 50}}>
-        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
+      <PhoneView
+        style={{
+          gap: 50,
+        }}>
+        <PhoneView
+          style={{
+            ...styles.minWidth200,
+            ...styles.alignItemsCenter,
+          }}>
           <CommonRadioButton
             value="test"
             status={state.showTest ? 'checked' : 'unchecked'}
@@ -62,13 +72,19 @@ function Type(props) {
           <MyView>
             <SimpleText text={'نمایش سوالات تستی'} />
             <SimpleText
-              style={{fontSize: 11}}
+              style={{
+                fontSize: 11,
+              }}
               text={'تعداد سوالات موجود: ' + state.total_test}
             />
           </MyView>
         </PhoneView>
 
-        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
+        <PhoneView
+          style={{
+            ...styles.minWidth200,
+            ...styles.alignItemsCenter,
+          }}>
           <CommonRadioButton
             value="short_answer"
             status={state.showShortAnswer ? 'checked' : 'unchecked'}
@@ -78,13 +94,19 @@ function Type(props) {
           <MyView>
             <SimpleText text={'نمایش سوالات کوتاه پاسخ: '} />
             <SimpleText
-              style={{fontSize: 11}}
+              style={{
+                fontSize: 11,
+              }}
               text={'تعداد سوالات موجود: ' + state.total_short_answer}
             />
           </MyView>
         </PhoneView>
 
-        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
+        <PhoneView
+          style={{
+            ...styles.minWidth200,
+            ...styles.alignItemsCenter,
+          }}>
           <CommonRadioButton
             value="multi_sentence"
             status={state.showMultiSentence ? 'checked' : 'unchecked'}
@@ -94,13 +116,19 @@ function Type(props) {
           <MyView>
             <SimpleText text={'نمایش سوالات چندگزاره ای'} />
             <SimpleText
-              style={{fontSize: 11}}
+              style={{
+                fontSize: 11,
+              }}
               text={'تعداد سوالات موجود: ' + state.total_multi_sentence}
             />
           </MyView>
         </PhoneView>
 
-        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
+        <PhoneView
+          style={{
+            ...styles.minWidth200,
+            ...styles.alignItemsCenter,
+          }}>
           <CommonRadioButton
             value="tashrihi"
             status={state.showTashrihi ? 'checked' : 'unchecked'}
@@ -110,7 +138,9 @@ function Type(props) {
           <MyView>
             <SimpleText text={'نمایش سوالات تشریحی'} />
             <SimpleText
-              style={{fontSize: 11}}
+              style={{
+                fontSize: 11,
+              }}
               text={'تعداد سوالات موجود: ' + state.total_tashrihi}
             />
           </MyView>
@@ -119,5 +149,4 @@ function Type(props) {
     </MyView>
   );
 }
-
 export default Type;

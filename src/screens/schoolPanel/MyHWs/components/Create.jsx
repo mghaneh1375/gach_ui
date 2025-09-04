@@ -2,52 +2,50 @@ import React, {useState} from 'react';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
-} from './../../MyQuizzes/components/Context';
+} from './../../myQuizzes/components/Context';
 import {useFilePicker} from 'use-file-picker';
-import {routes} from '../../../../API/APIRoutes';
-import {CallAPI} from '../../../panel/quiz/components/Create/CallAPI';
-import {addFile, removeFile} from '../../../panel/quiz/components/Utility';
+import {routes} from '@/api/apiRoutes';
+import {CallAPI} from '../../../panel/quiz/components/create/callAPI';
+import {addFile, removeFile} from '../../../panel/quiz/components/utility';
 import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
-} from '../../../../styles/Common';
-import translator from '../../../panel/quiz/Translator';
-import commonTranslator from '../../../../translator/Common';
-import QuizAnswerSheetInfo from '../../../panel/quiz/components/Create/QuizAnswerSheetInfo';
+} from '@/styles';
+import translator from '../../../panel/quiz/translator';
+import commonTranslator from '@/translator/common';
+import QuizAnswerSheetInfo from '../../../panel/quiz/components/create/QuizAnswerSheetInfo';
 import {
   answerTypes,
   showSuccess,
   trueFalseValues,
-} from '../../../../services/Utility';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
-import hwTranslator from './Translator';
-
+} from '../../../../services/utility';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import hwTranslator from './translator';
 const Create = props => {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const backToList = React.useCallback(() => {
     props.setMode('list');
   }, [props]);
-
   React.useEffect(() => {
     if (props.editMode === undefined || !props.editMode) {
-      dispatch({selectedQuiz: undefined});
+      dispatch({
+        selectedQuiz: undefined,
+      });
       return;
     }
     if (state.selectedQuiz === undefined) {
       backToList();
       return;
     }
-
     setName(state.selectedQuiz.title);
     setAllowDelay(state.selectedQuiz.delayEnd !== undefined);
     setDelayEnd(state.selectedQuiz.delayEnd);
@@ -58,30 +56,25 @@ const Create = props => {
     setDescBefore(state.selectedQuiz.desc);
     setStart(state.selectedQuiz.start);
     setEnd(state.selectedQuiz.end);
-
     setShowResultsAfterCorrection(
       state.selectedQuiz.showResultsAfterCorrection,
     );
   }, [state.selectedQuiz, dispatch, props.editMode, backToList]);
-
   const [name, setName] = useState('');
   const [maxUploadSize, setMaxUploadSize] = useState(5);
   const [answerType, setAnswerType] = useState('pdf');
   const [allowDelay, setAllowDelay] = useState(false);
   const [delayEnd, setDelayEnd] = useState();
   const [delayPenalty, setDelayPenalty] = useState();
-
   const [start, setStart] = useState(props.editMode ? undefined : '');
   const [end, setEnd] = useState(props.editMode ? undefined : '');
   const [showResultsAfterCorrection, setShowResultsAfterCorrection] =
     useState(true);
-
   const [descBefore, setDescBefore] = useState(undefined);
   const [descAfter, setDescAfter] = useState(undefined);
   const [attaches, setAttaches] = useState(
     state.selectedQuiz === undefined ? [] : state.selectedQuiz.attaches,
   );
-
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
       maxFileSize: 5,
@@ -100,11 +93,9 @@ const Create = props => {
       readAs: 'DataURL',
       multiple: true,
     });
-
   const removeAttach = index => {
     remove(index);
   };
-
   const removeUploadedAttach = async filename => {
     props.setLoading(true);
     const res = await removeFile(
@@ -120,14 +111,14 @@ const Create = props => {
       if (element !== filename) tmp.push(element);
     });
     setAttaches(tmp);
-
     state.selectedQuiz.attaches = tmp;
-    dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+    dispatch({
+      selectedQuiz: state.selectedQuiz,
+      needUpdate: true,
+    });
   };
-
   const submit = async () => {
     let data = {};
-
     data = {
       title: name,
       start: start,
@@ -138,12 +129,10 @@ const Create = props => {
       descAfter: descAfter,
       desc: descBefore,
     };
-
     if (allowDelay) {
       data.delayEnd = delayEnd;
       data.delayPenalty = delayPenalty;
     }
-
     props.setLoading(true);
     const result = await CallAPI(
       data,
@@ -152,13 +141,10 @@ const Create = props => {
       'hw',
       undefined,
     );
-
     if (result !== null) {
       const quizId = props.editMode ? state.selectedQuiz.id : result.id;
-
       if (filesContent.length > 0) {
         const files = [];
-
         for (let i = 0; i < filesContent.length; i++) {
           const fileRes = await addFile(
             props.token,
@@ -168,7 +154,6 @@ const Create = props => {
           );
           if (fileRes !== null && fileRes !== undefined) files.push(fileRes);
         }
-
         if (props.editMode) data.attaches = files;
         else result.attaches = files;
         props.setLoading(false);
@@ -176,27 +161,33 @@ const Create = props => {
         if (props.editMode) data.attaches = state.selectedQuiz.attaches;
         props.setLoading(false);
       }
-
       if (props.editMode) {
-        dispatch({selectedQuiz: result, needUpdate: true});
+        dispatch({
+          selectedQuiz: result,
+          needUpdate: true,
+        });
       } else {
         let allQuizzes = state.quizzes;
         if (allQuizzes === undefined) allQuizzes = [];
         allQuizzes.unshift(result);
-        dispatch({quizzes: allQuizzes});
+        dispatch({
+          quizzes: allQuizzes,
+        });
       }
       showSuccess();
       backToList();
     } else props.setLoading(false);
   };
-
   return (
     <MyView>
       <CommonWebBox
         header={translator.generalInfo}
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderTextInput
             onChangeText={e => setName(e)}
             value={name}
@@ -206,7 +197,10 @@ const Create = props => {
         </PhoneView>
       </CommonWebBox>
       <CommonWebBox header={translator.runInfo}>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderSelect
             values={trueFalseValues}
             value={
@@ -346,5 +340,4 @@ const Create = props => {
     </MyView>
   );
 };
-
 export default Create;

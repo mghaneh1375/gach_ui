@@ -1,38 +1,26 @@
 import React, {useState} from 'react';
 import Circle from '../../../../../components/web/Circle';
-import {
-  CommonWebBox,
-  PhoneView,
-  MyView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import {styles} from '../../../../../styles/Common/Styles';
-import vars from '../../../../../styles/root';
+import {CommonWebBox, PhoneView, MyView, SimpleText} from '@/styles';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 import MultiSentence from './MultiSentence';
 import ShortAnswer from './ShortAnswer';
 import Test from './Test';
-
 const perBox = 10;
-
 function AnswerSheet(props) {
   const [boxes, setBoxes] = useState();
-
   React.useEffect(() => {
     if (props.answer_sheet === undefined) return;
-
     const tmp = [];
     let idx = 0;
     const end = props.answer_sheet.length;
-
     while (idx < end) {
       const limit = idx + perBox > end ? end : idx + perBox;
       tmp.push(props.answer_sheet.slice(idx, limit));
       idx += perBox;
     }
-
     setBoxes(tmp);
   }, [props.answer_sheet]);
-
   return (
     <MyView style={styles.marginTop20}>
       <PhoneView style={styles.gap15}>
@@ -58,7 +46,12 @@ function AnswerSheet(props) {
         {boxes !== undefined &&
           boxes.map((box, index) => {
             return (
-              <CommonWebBox no_gap={true} style={{padding: 5}} key={index}>
+              <CommonWebBox
+                no_gap={true}
+                style={{
+                  padding: 5,
+                }}
+                key={index}>
                 {box.map((elem, idx) => {
                   if (elem.type === 'test')
                     return (
@@ -97,5 +90,4 @@ function AnswerSheet(props) {
     </MyView>
   );
 }
-
 export default AnswerSheet;

@@ -6,21 +6,18 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../../styles/Common';
-import {styles} from '../../../../../../styles/Common/Styles';
+import {styles} from '../../../../../../styles/common/styles';
 import {questionContext, dispatchQuestionContext} from '../Context';
-
 function Author(props) {
   const useGlobalState = () => [
     React.useContext(questionContext),
     React.useContext(dispatchQuestionContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const toggleSelect = author => {
     const allAuthors = state.authors;
     const tmp = allAuthors.find(elem => elem.author === author);
     tmp.selected = !tmp.selected;
-
     props.localFilter(
       state.showEasy,
       state.showMid,
@@ -31,18 +28,26 @@ function Author(props) {
       state.showTashrihi,
       allAuthors,
     );
-    dispatch({authors: allAuthors});
+    dispatch({
+      authors: allAuthors,
+    });
   };
-
   return (
     <MyView>
       <BigBoldBlueText text={'مولفین'} />
-      <PhoneView style={{gap: 10, marginTop: 10}}>
+      <PhoneView
+        style={{
+          gap: 10,
+          marginTop: 10,
+        }}>
         {state.authors !== undefined &&
           state.authors.map((elem, index) => {
             return (
               <PhoneView
-                style={{...styles.minWidth200, ...styles.alignItemsCenter}}
+                style={{
+                  ...styles.minWidth200,
+                  ...styles.alignItemsCenter,
+                }}
                 key={index}>
                 <CommonRadioButton
                   value={elem.author}
@@ -53,7 +58,9 @@ function Author(props) {
                 <MyView>
                   <SimpleText text={elem.author} />
                   <SimpleText
-                    style={{fontSize: 11}}
+                    style={{
+                      fontSize: 11,
+                    }}
                     text={'تعداد سوالات طراحی شده: ' + elem.qNo}
                   />
                 </MyView>
@@ -64,5 +71,4 @@ function Author(props) {
     </MyView>
   );
 }
-
 export default Author;

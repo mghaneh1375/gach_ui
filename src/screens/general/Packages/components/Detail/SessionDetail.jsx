@@ -9,7 +9,7 @@ import {
   convertSecToMinWithOutHour,
   getDevice,
   showError,
-} from '../../../../../services/Utility';
+} from '../../../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -17,19 +17,18 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import {styles} from '../../../../../styles/Common/Styles';
+} from '../../../../../styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {styles} from '@/styles/common/styles';
 import Video from '../../../../panel/Video';
 import {Pressable} from 'react-native';
 import RenderHTML from 'react-native-render-html';
 import {useEffectOnce} from 'usehooks-ts';
-import {dispatchStateContext, globalStateContext} from '../../../../../App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {useParams} from 'react-router';
-import {downloadRequest, generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import AttachBox from '../../../../panel/ticket/components/Show/AttachBox/AttachBox';
-
+import {downloadRequest, generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import AttachBox from '../../../../panel/ticket/components/show/attachBox/AttachBox';
 function SessionDetail(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const [showAdvertising, setShowAdvertising] = useState(true);
@@ -37,19 +36,17 @@ function SessionDetail(props) {
   const [nextVideo, setNextVideo] = useState();
   const [allSessions, setAllSessions] = useState();
   const [adv, setAdv] = useState();
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [contentId, setContentId] = useState();
   const [state, dispatch] = useGlobalState();
   const params = useParams();
-
   const fetchSessions = React.useCallback(() => {
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.fetchSessions + params.slug + '/' + params.sessionId,
@@ -59,13 +56,13 @@ function SessionDetail(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         props.navigate('/packages');
         return;
       }
-
       setAllSessions(res[0].sessions);
       if (res[0].adv === undefined) setShowAdvertising(false);
       setAdv(res[0].adv);
@@ -73,7 +70,6 @@ function SessionDetail(props) {
       setSelectedSession(res[0].sessions.find(elem => elem.selected));
     });
   }, [dispatch, state.token, params, props]);
-
   useEffectOnce(() => {
     if (params.sessionId === undefined || params.slug === undefined) {
       props.navigate('/packages');
@@ -81,12 +77,10 @@ function SessionDetail(props) {
     }
     fetchSessions();
   }, [fetchSessions, props.navigate]);
-
   React.useEffect(() => {
     if (nextVideo !== undefined && selectedSession === undefined)
       setSelectedSession(nextVideo);
   }, [nextVideo, selectedSession]);
-
   return (
     <MyView>
       {selectedSession !== undefined && (
@@ -111,7 +105,10 @@ function SessionDetail(props) {
                   )}
                   {!selectedSession.canDoQuiz && (
                     <PhoneView
-                      style={{alignItems: 'center', alignContents: 'center'}}>
+                      style={{
+                        alignItems: 'center',
+                        alignContents: 'center',
+                      }}>
                       <CommonButton
                         title="مرور آزمون جلسه"
                         onPress={() =>
@@ -144,7 +141,11 @@ function SessionDetail(props) {
               )}
               {selectedSession.attachesCount !== undefined &&
                 selectedSession.attachesCount > 0 && (
-                  <PhoneView style={{...styles.gap5, ...styles.marginLeft15}}>
+                  <PhoneView
+                    style={{
+                      ...styles.gap5,
+                      ...styles.marginLeft15,
+                    }}>
                     <SimpleFontIcon kind={'med'} icon={faPaperclip} />
                     <SimpleText
                       style={styles.alignSelfCenter}
@@ -188,7 +189,9 @@ function SessionDetail(props) {
                 return (
                   <PhoneView key={index}>
                     <SimpleText
-                      style={{alignSelf: 'center'}}
+                      style={{
+                        alignSelf: 'center',
+                      }}
                       text={'فایل ضمیمه شماره: ' + (index + 1)}
                     />
                     <AttachBox
@@ -225,14 +228,23 @@ function SessionDetail(props) {
                       setNextVideo(elem);
                     }
                   }}
-                  style={{...styles.borderBottom1, ...styles.gap10}}>
+                  style={{
+                    ...styles.borderBottom1,
+                    ...styles.gap10,
+                  }}>
                   <EqualTwoTextInputs>
-                    <PhoneView style={{...styles.gap10}}>
+                    <PhoneView
+                      style={{
+                        ...styles.gap10,
+                      }}>
                       <SimpleFontIcon kind={'med'} icon={faPlayCircle} />
                       <SimpleText text={elem.title} />
                     </PhoneView>
 
-                    <PhoneView style={{...styles.gap10}}>
+                    <PhoneView
+                      style={{
+                        ...styles.gap10,
+                      }}>
                       {(elem.video === null ||
                         elem.video === undefined ||
                         elem.video === 'null' ||
@@ -242,7 +254,10 @@ function SessionDetail(props) {
                       {elem.attachesCount !== undefined &&
                         elem.attachesCount > 0 && (
                           <PhoneView
-                            style={{...styles.gap5, ...styles.marginLeft15}}>
+                            style={{
+                              ...styles.gap5,
+                              ...styles.marginLeft15,
+                            }}>
                             <SimpleFontIcon kind={'med'} icon={faPaperclip} />
                             <SimpleText
                               style={styles.alignSelfCenter}
@@ -265,5 +280,4 @@ function SessionDetail(props) {
     </MyView>
   );
 }
-
 export default SessionDetail;

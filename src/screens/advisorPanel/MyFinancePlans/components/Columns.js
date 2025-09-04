@@ -1,5 +1,4 @@
-import translator from './Translator';
-
+import translator from './translator';
 const columns = [
   {
     name: translator.title,
@@ -37,5 +36,4 @@ const columns = [
     grow: 1,
   },
 ];
-
 export default columns;

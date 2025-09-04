@@ -1,24 +1,20 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import columns from './TableStructure';
+import {CommonWebBox, MyView} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import columns from './tableStructure';
 import Ops from './Ops';
-import Translate from '../Translate';
-import {routes} from '../../../../API/APIRoutes';
-
+import Translate from '../translate';
+import {routes} from '@/api/apiRoutes';
 function List(props) {
   const [selectedId, setSelectedId] = useState();
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const [data, setData] = useState();
-
   React.useEffect(() => {
     if (props.data !== undefined) setData(props.data);
   }, [props.data]);
-
   const handleOp = idx => {
     props.setSelectedStudent(data[idx]);
     setSelectedId(data[idx].id);
@@ -62,5 +58,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

@@ -1,42 +1,34 @@
 import React, {useState} from 'react';
 import {Platform, Pressable} from 'react-native';
-import {CommonWebBox, MyView, SimpleText} from '../Common';
+import {CommonWebBox, MyView, SimpleText} from '../CommonComponents';
 import vars from '../root';
 import {
   calcInputWidth,
   CommonHalfTextInputStyleWeb,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
-} from './CommonText';
-
-import SubInputText from './SubInputText';
-
+} from './commonText';
+import SubInputText from './subInputText';
 export const SearchableTextInput = props => {
   const [suggests, setSuggests] = useState([]);
   const [userInput, setUserInput] = useState('');
   const [selectFromChoices, setSelectFromChoices] = useState(false);
   const [showResultPane, setShowResultPane] = useState(false);
-
   let cancelOnFocusOut = false;
-
   React.useEffect(() => {
     if (!props.reset) return;
-
     setUserInput('');
     setSelectFromChoices(false);
   }, [props.reset]);
-
   React.useEffect(() => {
     setUserInput(props.value);
   }, [props.value]);
-
   const select = item => {
     setUserInput(item.name);
     setShowResultPane(false);
     setSelectFromChoices(true);
     props.setSelectedItem(item);
   };
-
   const setSelectingStatue = status => {
     if (!status) {
       setShowResultPane(false);
@@ -47,7 +39,6 @@ export const SearchableTextInput = props => {
       }
     } else cancelOnFocusOut = true;
   };
-
   const SuggestListItems = () => {
     if (suggests.length === 0) return <SimpleText text="نتیجه ای یافت نشد" />;
     return suggests.map(suggest => (
@@ -68,7 +59,6 @@ export const SearchableTextInput = props => {
       </Pressable>
     ));
   };
-
   const checkSelect = () => {
     setTimeout(function () {
       if (cancelOnFocusOut) return;
@@ -79,7 +69,6 @@ export const SearchableTextInput = props => {
       }
     }, 400);
   };
-
   const changeUserInput = text => {
     setUserInput(text);
     setSelectFromChoices(false);
@@ -94,30 +83,33 @@ export const SearchableTextInput = props => {
       if (props.values[i].name.includes(text))
         newSuggests.push(props.values[i]);
     }
-
     if (
       props.addNotFound !== undefined &&
       props.addNotFound &&
       newSuggests.length === 0
     ) {
-      newSuggests.push({id: text, name: text});
+      newSuggests.push({
+        id: text,
+        name: text,
+      });
     }
-
     setSuggests(newSuggests);
     setShowResultPane(true);
   };
-
   const isHalf = props.isHalf !== undefined && props.isHalf;
   const isApp = Platform.OS !== 'web';
-
   const style1 = !isApp
     ? isHalf
       ? CommonHalfTextInputStyleWeb
       : CommonTextInputStyleWeb
     : {};
   const allStyle =
-    props.style !== undefined ? {...style1, ...props.style} : style1;
-
+    props.style !== undefined
+      ? {
+          ...style1,
+          ...props.style,
+        }
+      : style1;
   const inputProps = {
     placeholder: props.placeholder,
     onChangeText: e => changeUserInput(e),
@@ -125,7 +117,6 @@ export const SearchableTextInput = props => {
     value: userInput,
     onBlur: () => checkSelect(),
   };
-
   if (props.justNum !== undefined && Platform.OS === 'web') {
     inputProps.keyboardType = 'numeric';
     inputProps.onKeyPress = e => {
@@ -143,13 +134,18 @@ export const SearchableTextInput = props => {
           paddingBottom: 0,
         },
       }
-    : {paddingLeft: 0, paddingRight: 0, paddingTop: 5, paddingBottom: 0};
-
+    : {
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 5,
+        paddingBottom: 0,
+      };
   if (props.parentStyle !== undefined)
-    parentAllStyles = {...parentAllStyles, ...props.parentStyle};
-
+    parentAllStyles = {
+      ...parentAllStyles,
+      ...props.parentStyle,
+    };
   parentAllStyles = calcInputWidth(15, isHalf, parentAllStyles);
-
   return (
     <MyView style={parentAllStyles}>
       <CommonTextInputElem {...inputProps} />

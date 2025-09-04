@@ -1,29 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import {fileRequest, generalRequest} from '../../../../../API/Utility';
-import {showError, showSuccess} from '../../../../../services/Utility';
+import {routes} from '@/api/apiRoutes';
+import {fileRequest, generalRequest} from '../../../../../api/utility';
+import {showError, showSuccess} from '../../../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../../styles/Common/Styles';
+} from '@/styles';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '@/styles/common/styles';
 import {translator} from '../../translate';
 import {badgeContext, dispatchBadgeContext} from '../Context';
 import BadgePic from './BadgePic';
 import Metric from './Metric';
-
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(badgeContext),
     React.useContext(dispatchBadgeContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [title, setTitle] = useState(
     props.isInEditMode ? state.selectedBadge.name : undefined,
   );
@@ -41,7 +39,6 @@ function Create(props) {
   const [priority, setPriority] = useState(
     props.isInEditMode ? state.selectedBadge.priority : undefined,
   );
-
   const fetchActions = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -49,7 +46,9 @@ function Create(props) {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] == null) props.setMode('list');
-      dispatch({actions: res[0]});
+      dispatch({
+        actions: res[0],
+      });
       setValues(
         res[0].map(e => ({
           id: e.action,
@@ -59,7 +58,6 @@ function Create(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     if (state.actions) {
       setValues(
@@ -73,15 +71,16 @@ function Create(props) {
     fetchActions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.actions]);
-
   if (!values) return <></>;
-
   return (
     <CommonWebBox
       onBackClick={() => props.setMode('list')}
       backBtn={true}
       header={'افزودن مدال جدید'}>
-      <PhoneView style={{...styles.gap10}}>
+      <PhoneView
+        style={{
+          ...styles.gap10,
+        }}>
         <JustBottomBorderTextInput
           placeholder={translator.title}
           subText={translator.title}
@@ -104,7 +103,11 @@ function Create(props) {
           float={true}
         />
       </PhoneView>
-      <MyView style={{...styles.justifyContentCenter, ...styles.borderBottom1}}>
+      <MyView
+        style={{
+          ...styles.justifyContentCenter,
+          ...styles.borderBottom1,
+        }}>
         <SimpleText
           style={{
             ...styles.BlueBold,
@@ -114,7 +117,10 @@ function Create(props) {
           }}
           text={translator.metrics}
         />
-        <MyView style={{...styles.gap15}}>
+        <MyView
+          style={{
+            ...styles.gap15,
+          }}>
           {actions.length > 0 &&
             actions.map((e, index) => {
               return (
@@ -140,8 +146,14 @@ function Create(props) {
         )}
       </MyView>
 
-      <MyView style={{...styles.borderBottom1}}>
-        <PhoneView style={{...styles.gap10}}>
+      <MyView
+        style={{
+          ...styles.borderBottom1,
+        }}>
+        <PhoneView
+          style={{
+            ...styles.gap10,
+          }}>
           <JustBottomBorderSelect
             placeholder={translator.metric}
             subText={translator.metric}
@@ -173,13 +185,11 @@ function Create(props) {
             }
             const tmp = [];
             for (let i = 0; i < actions.length; i++) tmp.push(actions[i]);
-
             tmp.push({
               count: count,
               action: metric,
               actionFa: state.actions.find(e => e.action === metric).actionFa,
             });
-
             setActions(tmp);
             setMetric(undefined);
             setCount('');
@@ -189,14 +199,20 @@ function Create(props) {
         />
       </MyView>
 
-      <PhoneView style={{gap: '10px'}}>
+      <PhoneView
+        style={{
+          gap: '10px',
+        }}>
         <SimpleText text={translator.lockedImg} />
         <BadgePic
           img={props.isInEditMode ? state.selectedBadge.lockedImg : undefined}
           onChange={img => setLockedImg(img)}
         />
       </PhoneView>
-      <PhoneView style={{gap: '10px'}}>
+      <PhoneView
+        style={{
+          gap: '10px',
+        }}>
         <SimpleText text={translator.unlockedImg} />
         <BadgePic
           img={props.isInEditMode ? state.selectedBadge.unlockedImg : undefined}
@@ -225,7 +241,6 @@ function Create(props) {
             return;
           }
           props.setLoading(true);
-
           Promise.all([
             lockedImg
               ? fetch(lockedImg.content).then(res => res.blob())
@@ -269,7 +284,10 @@ function Create(props) {
                     return e;
                   }),
                 });
-              else dispatch({badges: [...state.badges, response]});
+              else
+                dispatch({
+                  badges: [...state.badges, response],
+                });
               props.setMode('list');
               showSuccess();
             }
@@ -281,5 +299,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

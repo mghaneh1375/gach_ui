@@ -4,22 +4,21 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {Translator} from '../Translate';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import columns from './components/TableStructure';
+} from '../../../../styles/CommonComponents.jsx';
+import {Translator} from '../translate';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import columns from './components/tableStructure';
 import {useEffectOnce} from 'usehooks-ts';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {showSuccess} from '../../../../services/Utility';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '../../../../services/utility';
 import Basket from '../../../../components/web/Basket';
-import BuySchedule from '../../../general/Teachers/BuySchedule';
+import BuySchedule from '../../../general/teachers/BuySchedule';
 import OffCode from '../../../general/buy/components/OffCode';
-import SuccessTransaction from '../../../../components/web/SuccessTransaction/SuccessTransaction';
-import {styles} from '../../../../styles/Common/Styles';
-import commonTranslator from '../../../../translator/Common';
-
+import SuccessTransaction from '../../../../components/web/successTransaction/SuccessTransaction';
+import {styles} from '../../../../styles/common/styles';
+import commonTranslator from '@/translator/common';
 function MyScheduleRequests(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -40,9 +39,10 @@ function MyScheduleRequests(props) {
   const [usedFromWallet, setUsedFromWallet] = useState();
   const [userOff, setUserOff] = useState();
   const [offAmount, setOffAmount] = useState(0);
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.myScheduleRequests,
@@ -52,7 +52,9 @@ function MyScheduleRequests(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         props.navigate('/');
         return;
@@ -66,32 +68,29 @@ function MyScheduleRequests(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffectOnce(() => {
     fetchData();
   }, []);
-
   const handleOp = (idx, row) => {
     setSelectedRequest(row);
     setShowOp(true);
   };
-
   const setOffCodeResult = (amount, type, code) => {
-    setUserOff({type: type, amount: amount, code: code});
+    setUserOff({
+      type: type,
+      amount: amount,
+      code: code,
+    });
     const offAmountTmp =
       type === 'percent' ? (selectedRequest.price * amount) / 100 : amount;
-
     setOffAmount(Math.min(offAmountTmp, selectedRequest.price));
     let shouldPayTmp = selectedRequest.price - offAmountTmp;
-
     if (shouldPayTmp > 0) {
       setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
       shouldPayTmp -= userMoney;
     } else setUsedFromWallet(0);
-
     selectedRequest.shouldPay = Math.max(0, shouldPayTmp);
   };
-
   return (
     <>
       {showSuccessTransaction && (
@@ -123,7 +122,11 @@ function MyScheduleRequests(props) {
         <OffCode
           token={state.token}
           for={'classes'}
-          setLoading={new_status => dispatch({loading: new_status})}
+          setLoading={new_status =>
+            dispatch({
+              loading: new_status,
+            })
+          }
           setResult={setOffCodeResult}
           toggleShowPopUp={() => setShowOffCodePane(false)}
         />
@@ -189,7 +192,11 @@ function MyScheduleRequests(props) {
                 canUseOff={true}
                 off={offAmount}
                 userOff={userOff}
-                setLoading={new_status => dispatch({status: new_status})}
+                setLoading={new_status =>
+                  dispatch({
+                    status: new_status,
+                  })
+                }
                 token={state.token}
                 user={state.user}
                 usedFromWallet={usedFromWallet}
@@ -210,12 +217,17 @@ function MyScheduleRequests(props) {
             setSelectedRequest(undefined);
           }}
           header={Translator.reqDetail}>
-          <PhoneView style={{gap: '10px'}}>
+          <PhoneView
+            style={{
+              gap: '10px',
+            }}>
             {(selectedRequest.status === 'pending' ||
               selectedRequest.status === 'accept') && (
               <CommonButton
                 onPress={async () => {
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.cancelTeachRequest + selectedRequest.id,
                     'put',
@@ -223,7 +235,9 @@ function MyScheduleRequests(props) {
                     undefined,
                     state.token,
                   );
-                  dispatch({loading: false});
+                  dispatch({
+                    loading: false,
+                  });
                   if (res !== null) {
                     showSuccess();
                     setRequests(
@@ -247,5 +261,4 @@ function MyScheduleRequests(props) {
     </>
   );
 }
-
 export default MyScheduleRequests;

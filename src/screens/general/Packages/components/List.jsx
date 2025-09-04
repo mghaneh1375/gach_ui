@@ -1,9 +1,9 @@
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import React, {useEffect, useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import BestComments from '../../../../components/web/Comment/BestComments';
-import {getDevice} from '../../../../services/Utility';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import BestComments from '../../../../components/web/comment/BestComments';
+import {getDevice} from '../../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -11,21 +11,19 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import commonTranslator from '../../../../translator/Common';
-import {Translator} from '../Translator';
+} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import commonTranslator from '@/translator/common';
+import {Translator} from '../translator';
 import Card from './Card';
 import {dispatchPackagesContext, packagesContext} from './Context';
 import Filter from './Filter';
-import {fetchAllPackages} from './Utility';
-
+import {fetchAllPackages} from './utility';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(packagesContext),
     React.useContext(dispatchPackagesContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [min, setMin] = useState();
@@ -39,18 +37,14 @@ function List(props) {
   const [bestComments, setBestComments] = useState();
   const [viewableItems, setViewableItems] = useState();
   const [levels, setLevels] = useState();
-
   React.useEffect(() => {
     if (state.selectableItems === undefined) return;
     setViewableItems(state.selectableItems.slice(0, 9));
   }, [state.selectableItems]);
-
   React.useEffect(() => {
     if (isWorking || state.allItems !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       fetchAllPackages(
         props.isInMyMode,
@@ -72,12 +66,10 @@ function List(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null || res[1] === null || res[2] === null) {
         props.navigate('/');
         return;
       }
-
       setMin(res[0].min);
       setMax(res[0].max);
       setBestComments(res[1]);
@@ -93,23 +85,32 @@ function List(props) {
       ]);
       setMinDuration(res[0].minDuration);
       setMaxDuration(res[0].maxDuration);
-
       if (res[0].tags !== undefined) {
         const tmp = res[0].tags.map(elem => {
-          return {id: elem, item: elem};
+          return {
+            id: elem,
+            item: elem,
+          };
         });
-        tmp.push({id: 'all', item: 'همه'});
+        tmp.push({
+          id: 'all',
+          item: 'همه',
+        });
         setTags(tmp);
       }
-
       if (res[0].teachers !== undefined) {
         const tmp = res[0].teachers.map(elem => {
-          return {id: elem, item: elem};
+          return {
+            id: elem,
+            item: elem,
+          };
         });
-        tmp.push({id: 'all', item: 'همه'});
+        tmp.push({
+          id: 'all',
+          item: 'همه',
+        });
         setTeachers(tmp);
       }
-
       if (props.isInMyMode) {
         dispatch({
           allItems: res[0],
@@ -120,20 +121,16 @@ function List(props) {
           allItems: res[0].data,
           selectableItems: res[0].data,
         });
-
       setIsWorking(false);
     });
   }, [dispatch, props, isWorking, state.allItems]);
-
   const changeMode = React.useCallback(() => {
     props.setMode('detail');
   }, [props]);
-
   React.useEffect(() => {
     if (state.selectedPackage === undefined) return;
     changeMode();
   }, [state.selectedPackage, changeMode]);
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
   useEffect(() => {
@@ -163,11 +160,18 @@ function List(props) {
           }>
           {!isInPhone && (
             <EqualTwoTextInputs>
-              <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
+              <PhoneView
+                style={{
+                  ...styles.alignSelfCenter,
+                  ...styles.gap10,
+                }}>
                 <SimpleText style={styles.BlueBold} text={Translator.buy} />
                 {state.allItems !== undefined && (
                   <SimpleText
-                    style={{...styles.fontSize13, ...styles.dark_blue_color}}
+                    style={{
+                      ...styles.fontSize13,
+                      ...styles.dark_blue_color,
+                    }}
                     text={
                       'نمایش ' +
                       state.selectableItems.length +
@@ -178,7 +182,11 @@ function List(props) {
                   />
                 )}
               </PhoneView>
-              <PhoneView style={{...styles.alignSelfCenter, ...styles.gap10}}>
+              <PhoneView
+                style={{
+                  ...styles.alignSelfCenter,
+                  ...styles.gap10,
+                }}>
                 <SimpleText
                   style={{
                     ...styles.alignSelfCenter,
@@ -191,7 +199,10 @@ function List(props) {
                 />
                 <CommonButton
                   iconDir={'left'}
-                  textStyle={{...styles.fontSize17, ...styles.bold}}
+                  textStyle={{
+                    ...styles.fontSize17,
+                    ...styles.bold,
+                  }}
                   icon={faChevronRight}
                   onPress={() => {
                     setShowFilter(!showFilter);
@@ -202,12 +213,22 @@ function List(props) {
             </EqualTwoTextInputs>
           )}
           {isInPhone && (
-            <MyView style={{...styles.alignSelfCenter, ...styles.gap10}}>
-              <PhoneView style={{...styles.gap10}}>
+            <MyView
+              style={{
+                ...styles.alignSelfCenter,
+                ...styles.gap10,
+              }}>
+              <PhoneView
+                style={{
+                  ...styles.gap10,
+                }}>
                 <SimpleText style={styles.BlueBold} text={Translator.buy} />
                 {state.allItems !== undefined && (
                   <SimpleText
-                    style={{...styles.fontSize13, ...styles.dark_blue_color}}
+                    style={{
+                      ...styles.fontSize13,
+                      ...styles.dark_blue_color,
+                    }}
                     text={
                       'نمایش ' +
                       state.selectableItems.length +
@@ -221,7 +242,10 @@ function List(props) {
 
               <CommonButton
                 iconDir={'left'}
-                textStyle={{...styles.fontSize17, ...styles.bold}}
+                textStyle={{
+                  ...styles.fontSize17,
+                  ...styles.bold,
+                }}
                 icon={faChevronRight}
                 onPress={() => setShowFilter(!showFilter)}
                 title={commonTranslator.showFilters}
@@ -234,7 +258,9 @@ function List(props) {
                 }}
                 onPress={() => {
                   setClearFilter(true);
-                  dispatch({selectableItems: state.allItems});
+                  dispatch({
+                    selectableItems: state.allItems,
+                  });
                 }}
                 text={commonTranslator.clearFilters}
               />
@@ -277,7 +303,11 @@ function List(props) {
               text={' دوره‌های آموزشی'}
             />
           </MyView>
-          <PhoneView style={{...styles.gap10, justifyContent: 'space-around'}}>
+          <PhoneView
+            style={{
+              ...styles.gap10,
+              justifyContent: 'space-around',
+            }}>
             {viewableItems !== undefined &&
               viewableItems.map((elem, index) => {
                 return (
@@ -320,5 +350,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

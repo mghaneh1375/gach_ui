@@ -7,55 +7,50 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {statusKeyVals} from '../../../question/components/KeyVals';
-import Translator from '../../Translate';
-import commonTranslator from '../../../../../translator/Common';
-
+} from '@/styles';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import {statusKeyVals} from '../../../question/components/keyVals';
+import Translator from '../../translate';
+import commonTranslator from '@/translator/common';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import MyCustomUploadAdapterPlugin from '../../../../../services/MyUploadAdapter';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {contentContext, dispatchContentContext} from './../Context';
+import MyCustomUploadAdapterPlugin from '../../../../../services/myUploadAdapter';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {contentContext, dispatchContentContext} from '../Context';
 import {
   addSession,
   copySession,
   removeSessionFile,
   updateSession,
-} from './../Utility';
-import {styles} from '../../../../../styles/Common/Styles';
-import {FontIcon, SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+} from '../utility';
+import {styles} from '@/styles/common/styles';
+import {FontIcon, SimpleFontIcon} from '../../../../../styles/common/FontIcon';
 import {useFilePicker} from 'use-file-picker';
 import {
   faArrowLeft,
   faCopy,
   faPaperclip,
 } from '@fortawesome/free-solid-svg-icons';
-import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
-import {routes} from '../../../../../API/APIRoutes';
+import AttachBox from '../../../ticket/components/show/attachBox/AttachBox';
+import {routes} from '@/api/apiRoutes';
 import axios from 'axios';
 import {
   generalRequest,
   videoGeneralRequest,
   VIDEO_BASE_URL,
-} from '../../../../../API/Utility';
+} from '../../../../../api/utility';
 import {
   CKEditorToolbar,
   showError,
   trueFalseValues,
-} from '../../../../../services/Utility';
-import vars from '../../../../../styles/root';
-
+} from '../../../../../services/utility';
+import vars from '@/styles/root';
 function Create(props) {
-  let ckEditor = null;
-
   const useGlobalState = () => [
     React.useContext(contentContext),
     React.useContext(dispatchContentContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [visibility, setVisibility] = useState(true);
   const [description, setDescription] = useState();
   const [title, setTitle] = useState();
@@ -64,7 +59,6 @@ function Create(props) {
   const [priority, setPriority] = useState();
   const [hasExam, setHasExam] = useState(false);
   const [hasExternalLink, setHasExternalLink] = useState();
-
   const [externalLink, setExternalLink] = useState();
   const [examId, setExamId] = useState();
   // const [examMinMark, setExamMinMark] = useState();
@@ -73,18 +67,13 @@ function Create(props) {
   const [chapters, setChapters] = useState();
   const [chapter, setChapter] = useState();
   const [chapterDesc, setChapterDesc] = useState();
-
   const [isWorking, setIsWorking] = useState(false);
-
   const [uploadVideo, setUploadVideo] = useState(false);
   const [progress, setProgress] = useState(0);
   const chunkSize = 1048576;
-
   const [videoFileForShow, setVideoFileForShow] = useState();
-
   let videoFile;
   let sessionId;
-
   const getFileContext = () => {
     resetChunkProperties();
     const _totalCount =
@@ -94,7 +83,6 @@ function Create(props) {
 
     getGrantForUpload(_totalCount);
   };
-
   const getGrantForUpload = _totalCount => {
     Promise.all([
       videoGeneralRequest(
@@ -115,11 +103,9 @@ function Create(props) {
       }
     });
   };
-
   const resetChunkProperties = () => {
     setProgress(0);
   };
-
   const fileUpload = (
     counter,
     chunkCount,
@@ -132,7 +118,6 @@ function Create(props) {
       uploadChunk(counter, chunkCount, filename, endOfTheChunk, chunk);
     }
   };
-
   const uploadChunk = async (
     counter,
     chunkCount,
@@ -175,7 +160,6 @@ function Create(props) {
       console.log('error', error);
     }
   };
-
   const uploadCompleted = async () => {
     const response = await axios.post(
       VIDEO_BASE_URL +
@@ -197,13 +181,10 @@ function Create(props) {
       setProgress(100);
     }
   };
-
   const fetchQuizzes = React.useCallback(() => {
     if (isWorking || quizzes !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getAllContentQuizzesDigest,
@@ -221,18 +202,14 @@ function Create(props) {
       ),
     ]).then(res => {
       if (!props.isInEditMode) props.setLoading(false);
-
       if (res[0] === null || res[1] === null) {
         props.setMode('list');
         props.setLoading(false);
         return;
       }
-
       setQuizzes(res[0]);
       setChapters(res[1]);
-
       if (!props.isInEditMode) setIsWorking(false);
-
       if (props.isInEditMode !== undefined && props.isInEditMode) {
         setVisibility(state.selectedSession.visibility);
         setDescription(state.selectedSession.description);
@@ -244,10 +221,8 @@ function Create(props) {
         setVideo(state.selectedSession.video);
         setDuration(state.selectedSession.duration);
         setHasExternalLink(state.selectedSession.hasExternalLink);
-
         if (state.selectedSession.hasExternalLink)
           setExternalLink(state.selectedSession.video);
-
         setChapter(state.selectedSession.chapter);
         setChapterDesc(state.selectedSession.chapterDesc);
         setHasExam(state.selectedSession.hasExam);
@@ -255,7 +230,6 @@ function Create(props) {
           setExamId(state.selectedSession.examId);
           // setExamMinMark(state.selectedSession.minMark);
         }
-
         props.setLoading(false);
         setIsWorking(false);
       }
@@ -267,7 +241,6 @@ function Create(props) {
     state.selectedContent.id,
     quizzes,
   ]);
-
   const removeUploadedVideo = async () => {
     props.setLoading(true);
     const res = await removeSessionFile(
@@ -278,11 +251,12 @@ function Create(props) {
     props.setLoading(false);
     if (res === null) return;
     setVideo(undefined);
-
     state.selectedSession.video = undefined;
-    dispatch({selectedSession: state.selectedSession, needUpdateSession: true});
+    dispatch({
+      selectedSession: state.selectedSession,
+      needUpdateSession: true,
+    });
   };
-
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
       maxFileSize: 200,
@@ -290,26 +264,20 @@ function Create(props) {
       readAs: 'ArrayBuffer',
       multiple: false,
     });
-
   React.useEffect(() => {
     fetchQuizzes();
   }, [state.selectedSession, fetchQuizzes]);
-
   React.useEffect(() => {
     if (videoFile !== undefined) {
       setUploadVideo(true);
     }
   }, [videoFile]);
-
   const [showCopyPane, setShowCopyPane] = useState(false);
   const [allContents, setAllContents] = useState();
-
   const fetchAllContents = React.useCallback(() => {
     if (isWorking || allContents !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getAllCotents,
@@ -320,29 +288,23 @@ function Create(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         setAllContents(null);
         setShowCopyPane(false);
         return;
       }
-
       setAllContents(res[0]);
       setShowCopyPane(true);
       setIsWorking(false);
     });
   }, [isWorking, props, allContents]);
-
   React.useEffect(() => {
     if (!showCopyPane) return;
-
     fetchAllContents();
   }, [showCopyPane, fetchAllContents]);
-
   const [selectedContent, setSelectedContent] = useState();
   const [selectedSession, setSelectedSession] = useState();
   const [resetSession, setResetSession] = useState(false);
-
   const setWantedContent = item => {
     setSelectedContent(item);
     if (selectedSession !== undefined) {
@@ -350,12 +312,10 @@ function Create(props) {
       setResetSession(true);
     }
   };
-
   const setWantedSession = item => {
     setSelectedSession(item);
     setResetSession(false);
   };
-
   return (
     <CommonWebBox
       header={
@@ -364,7 +324,12 @@ function Create(props) {
           : Translator.addNewSession
       }
       btn={
-        <PhoneView style={{gap: 10, marginBottom: 10, text: 'center'}}>
+        <PhoneView
+          style={{
+            gap: 10,
+            marginBottom: 10,
+            text: 'center',
+          }}>
           <FontIcon
             onPress={() => setShowCopyPane(true)}
             theme="rect"
@@ -392,7 +357,10 @@ function Create(props) {
         <video controls src={videoFileForShow} />
       )}
       {!isWorking && showCopyPane && (
-        <PhoneView style={{gap: 10}}>
+        <PhoneView
+          style={{
+            gap: 10,
+          }}>
           <JustBottomBorderTextInput
             placeholder={commonTranslator.contents}
             subText={commonTranslator.contents}
@@ -417,7 +385,10 @@ function Create(props) {
         </PhoneView>
       )}
       {!isWorking && videoFileForShow === undefined && !showCopyPane && (
-        <PhoneView style={{gap: 10}}>
+        <PhoneView
+          style={{
+            gap: 10,
+          }}>
           <JustBottomBorderTextInput
             placeholder={Translator.sessionTitle}
             onChangeText={e => setTitle(e)}
@@ -463,7 +434,10 @@ function Create(props) {
                 if (chapter !== undefined) setChapterDesc(chapter.desc);
               }}
               values={chapters.map(e => {
-                return {id: e.title, name: e.title};
+                return {
+                  id: e.title,
+                  name: e.title,
+                };
               })}
             />
           )}
@@ -500,7 +474,7 @@ function Create(props) {
               value={examMinMark}
               justNum={true}
             />
-          )} */}
+           )} */}
 
           {hasExam !== undefined && hasExam && quizzes !== undefined && (
             <JustBottomBorderTextInput
@@ -526,16 +500,15 @@ function Create(props) {
         <CKEditor
           editor={ClassicEditor}
           config={{
-            customValues: {token: props.token},
+            customValues: {
+              token: props.token,
+            },
             extraPlugins: [MyCustomUploadAdapterPlugin],
             placeholder: Translator.sessionDescription,
             ...CKEditorToolbar,
           }}
           data={description === undefined ? '' : description}
-          onReady={editor => {
-            ckEditor = editor;
-          }}
-          onChange={(event, editor) => {
+          onChange={(_, editor) => {
             setDescription(editor.getData());
           }}
         />
@@ -562,9 +535,15 @@ function Create(props) {
             </>
           )}
           {!hasExternalLink && (
-            <PhoneView style={{...styles.gap15}}>
+            <PhoneView
+              style={{
+                ...styles.gap15,
+              }}>
               <SimpleText
-                style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                style={{
+                  ...styles.alignSelfCenter,
+                  ...styles.BlueBold,
+                }}
                 text={Translator.video}
               />
               <SimpleFontIcon
@@ -573,7 +552,10 @@ function Create(props) {
                 icon={faPaperclip}
               />
 
-              <PhoneView style={{marginTop: 20}}>
+              <PhoneView
+                style={{
+                  marginTop: 20,
+                }}>
                 {video !== undefined && (
                   <AttachBox
                     onClick={() => setVideoFileForShow(video)}
@@ -600,7 +582,11 @@ function Create(props) {
 
       {uploadVideo && (
         <SimpleText
-          style={{color: vars.DARK_BLUE, fontSize: 20, alignSelf: 'center'}}
+          style={{
+            color: vars.DARK_BLUE,
+            fontSize: 20,
+            alignSelf: 'center',
+          }}
           text={
             progress !== 100
               ? ' در حال بارگذاری فایل لطفا شکیبا باشید ' + progress + '%'
@@ -623,7 +609,6 @@ function Create(props) {
                     showError('لطفا جلسه موردنظر خود را وارد نمایید');
                     return;
                   }
-
                   props.setLoading(true);
                   const res = await copySession(
                     props.token,
@@ -631,27 +616,19 @@ function Create(props) {
                     selectedContent.id,
                     selectedSession.id,
                   );
-
                   props.setLoading(false);
-
                   if (res != null) {
                     const sessions = state.selectedContent.sessions;
-
                     sessions.push(res);
-
                     state.selectedContent.sessions = sessions;
-
                     dispatch({
                       selectedContent: state.selectedContent,
                       needUpdate: true,
                     });
-
                     props.setMode('sessions');
                   }
-
                   return;
                 }
-
                 if (
                   hasExternalLink &&
                   (externalLink === undefined || externalLink.length === 0)
@@ -659,7 +636,6 @@ function Create(props) {
                   showError('لطفا لینک ویدیو جلسه را وارد نمایید');
                   return;
                 }
-
                 const data = {
                   visibility: visibility,
                   description: description,
@@ -668,24 +644,19 @@ function Create(props) {
                   duration: duration,
                   chapter: chapter,
                 };
-
                 if (price !== undefined) {
                   data.price = price;
                 }
-
                 if (chapterDesc !== undefined) {
                   data.chapterDesc = chapterDesc;
                 }
-
                 if (hasExam) {
                   data.examId = examId;
                   // data.minMark = examMinMark;
                 }
-
                 if (hasExternalLink) {
                   data.hlsUrl = externalLink;
                 }
-
                 props.setLoading(true);
                 const res = props.isInEditMode
                   ? await updateSession(
@@ -699,23 +670,18 @@ function Create(props) {
                       data,
                       state.selectedContent.id,
                     );
-
                 props.setLoading(false);
                 if (res != null) {
                   sessionId = props.isInEditMode
                     ? state.selectedSession.id
                     : res.id;
-
                   if (filesContent.length > 0 && !hasExternalLink) {
                     res.hasVideo = true;
-
                     setUploadVideo(true);
-
                     const buffer = filesContent[0].content;
                     videoFile = new Blob([
                       new Uint8Array(buffer, 0, buffer.length),
                     ]);
-
                     setTimeout(() => {
                       getFileContext();
                     }, 1000);
@@ -727,7 +693,6 @@ function Create(props) {
                     } else res.video = state.selectedContent.video;
                     res.attaches = state.selectedContent.attaches;
                   }
-
                   let sessions = state.selectedContent.sessions;
                   if (props.isInEditMode) {
                     sessions = sessions.map(elem => {
@@ -735,14 +700,11 @@ function Create(props) {
                       return elem;
                     });
                   } else sessions.push(res);
-
                   state.selectedContent.sessions = sessions;
-
                   dispatch({
                     selectedContent: state.selectedContent,
                     needUpdate: true,
                   });
-
                   if (filesContent.length === 0) props.setMode('sessions');
                 }
               }}
@@ -755,5 +717,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

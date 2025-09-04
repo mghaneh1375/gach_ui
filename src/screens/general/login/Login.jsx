@@ -1,67 +1,64 @@
 import React, {useState} from 'react';
-import {getDevice} from '../../../services/Utility';
+import {getDevice} from '../../../services/utility';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import LoginModule from './components/Login';
-
-import {commonStyles, MyView, ScreenScroll} from '../../../styles/Common';
+import {
+  commonStyles,
+  MyView,
+  ScreenScroll,
+} from '../../../styles/CommonComponents.jsx';
 import translator from './translate';
-import {TextIcon} from '../../../styles/Common/TextIcon';
-import {Device} from '../../../models/Device';
-import {globalStateContext, dispatchStateContext} from './../../../App';
+import {TextIcon} from '../../../styles/common/TextIcon';
+import {Device} from '../../../models/device';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import ForgetPassModule from './components/ForgetPass';
 import ResetPassModule from './components/ResetPass';
 import VerificationModule from './components/Verification';
 import SignupModule from './components/Signup';
 import RoleFormModule from './components/RoleForm';
-import {style} from '../../../components/web/LargeScreen/Header/style';
-
+import {style} from '../../../components/web/largeScreen/header/Style';
 const Login = props => {
   const device = getDevice();
   const navigate = props.navigate;
   const isApp = device.indexOf(Device.App) !== -1;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     if (state.token !== undefined && state.token !== null && state.token !== '')
       navigate(isApp ? 'Home' : '/');
   }, [state.token, isApp, state, navigate]);
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const [isSignUp, setIsSignUp] = useState(false);
   const [mode, setMode] = useState('login'); // available values: [signUp, verification, role, form]
   const [token, setToken] = useState('');
   const [reminder, setReminder] = useState(0);
   const [username, setUsername] = useState();
   const [code, setCode] = useState();
-
   const changeMode = wantedMode => {
     if (wantedMode === 'signUp') setIsSignUp(true);
     else if (wantedMode === 'forget') setIsSignUp(false);
     setMode(wantedMode);
   };
-
   const root = device.indexOf(Device.App) !== -1 ? 'Home' : '/';
-
   const redirectToRoot = () => {
     navigate(root);
   };
-
   React.useEffect(() => {
     if (state.token !== undefined && state.token !== null && state.token !== '')
       window.location.href = '/dashboard';
   }, [state.token]);
-
   return (
-    <ScreenScroll style={{background: 'transparent'}}>
+    <ScreenScroll
+      style={{
+        background: 'transparent',
+      }}>
       <div
         style={{
           position: 'fixed',
@@ -73,9 +70,16 @@ const Login = props => {
           background: 'url(./assets/images/back3.png)',
         }}
       />
-      <MyView style={{...commonStyles.ContentView}}>
+      <MyView
+        style={{
+          ...commonStyles.ContentView,
+        }}>
         <TextIcon
-          style={{marginTop: 20, marginRight: 10, marginLeft: 10}}
+          style={{
+            marginTop: 20,
+            marginRight: 10,
+            marginLeft: 10,
+          }}
           text={translator.entryText}
           icon={faClose}
           onPress={() =>
@@ -86,7 +90,9 @@ const Login = props => {
           <MyView>
             <LoginModule
               setToken={token => {
-                dispatch({token: token});
+                dispatch({
+                  token: token,
+                });
               }}
               // style={{marginTop: 20}}
               setLoading={setLoading}
@@ -99,14 +105,14 @@ const Login = props => {
               style={{...styles.margin30}}
               link={translator.subscrible}
               text={translator.ifNotSubscribe}
-            /> */}
+             /> */}
             {/* </button> */}
             {/* <TextWithLink
               onPress={() => changeMode('forget')}
               style={{...styles.margin30}}
               text={translator.ifForget}
               link={translator.forgetAction}
-            /> */}
+             /> */}
           </MyView>
         )}
 
@@ -118,7 +124,9 @@ const Login = props => {
             setLoading={setLoading}
             setReminder={setReminder}
             setToken={setToken}
-            style={{marginTop: 20}}
+            style={{
+              marginTop: 20,
+            }}
           />
         )}
         {mode === 'verification' && (
@@ -151,14 +159,18 @@ const Login = props => {
             setReminder={setReminder}
             setMode={changeMode}
             isInLargeScreen={false}
-            style={{marginTop: 20}}
+            style={{
+              marginTop: 20,
+            }}
             username={username}
             setUsername={setUsername}
           />
         )}
         {mode === 'roleForm' && (
           <RoleFormModule
-            style={{...style.paddingLeft50}}
+            style={{
+              ...style.paddingLeft50,
+            }}
             signUp={true}
             token={token}
             setLoading={setLoading}
@@ -170,5 +182,4 @@ const Login = props => {
     </ScreenScroll>
   );
 };
-
 export default Login;

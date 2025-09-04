@@ -1,22 +1,19 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {style} from '../../../../components/web/LargeScreen/Header/style';
-import {showError, showSuccess} from '../../../../services/Utility';
-import {CommonButton, MyView} from '../../../../styles/Common';
-import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import translator from '..//translate';
-import commonTranslator from './../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {style} from '../../../../components/web/largeScreen/header/Style';
+import {showError, showSuccess} from '../../../../services/utility';
+import {CommonButton, MyView} from '@/styles';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import translator from '../translate';
+import commonTranslator from '@/translator/common';
 const ResetPass = props => {
   const [password, setPassword] = useState('');
   const [rp, setRp] = useState('');
-
   const changeInput = (label, text) => {
     if (label === 'password') setPassword(text);
     else if (label === 'rp') setRp(text);
   };
-
   const resetPassword = () => {
     const data = {
       token: props.token,
@@ -25,16 +22,13 @@ const ResetPass = props => {
       newPass: password,
       rNewPass: rp,
     };
-
     for (const [key, value] of Object.entries(data)) {
       if (value.length === 0) {
         showError(commonTranslator.pleaseFillAllFields);
         return;
       }
     }
-
     props.setLoading(true);
-
     Promise.all([
       generalRequest(routes.resetPassword, 'post', data, undefined),
     ]).then(res => {
@@ -47,9 +41,11 @@ const ResetPass = props => {
       }
     });
   };
-
   return (
-    <MyView style={{...style.ParentLoginModule}}>
+    <MyView
+      style={{
+        ...style.ParentLoginModule,
+      }}>
       <CommonTextInput
         placeholder={translator.password}
         subText={translator.passwordFilter}
@@ -67,12 +63,14 @@ const ResetPass = props => {
       />
 
       <CommonButton
-        style={{alignSelf: 'flex-start', marginTop: 10}}
+        style={{
+          alignSelf: 'flex-start',
+          marginTop: 10,
+        }}
         onPress={() => resetPassword()}
         title={commonTranslator.confirm}
       />
     </MyView>
   );
 };
-
 export default ResetPass;

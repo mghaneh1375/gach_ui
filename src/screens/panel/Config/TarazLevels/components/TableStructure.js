@@ -1,6 +1,5 @@
-import translator from '../Translator';
-import commonTranslator from '../../../../../translator/Common';
-
+import translator from '../translator';
+import commonTranslator from '@/translator/common';
 const columns = [
   {
     name: translator.min,
@@ -23,5 +22,4 @@ const columns = [
     center: true,
   },
 ];
-
 export default columns;

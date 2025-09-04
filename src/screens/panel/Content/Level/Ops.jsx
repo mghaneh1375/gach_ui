@@ -1,7 +1,6 @@
-import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../translator/Common';
-
+import {CommonButton, MyView, PhoneView} from '@/styles';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import commonTranslator from '@/translator/common';
 function Ops(props) {
   return (
     <>
@@ -24,5 +23,4 @@ function Ops(props) {
     </>
   );
 }
-
 export default Ops;

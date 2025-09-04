@@ -1,35 +1,40 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
-import List from './components/List/List';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import List from './components/list/List';
 import Create from './components/Create';
-import {isUserAdmin} from '../../../../services/Utility';
-import {MyView} from '../../../../styles/Common';
-import vars from '../../../../styles/root';
+import {isUserAdmin} from '../../../../services/utility';
+import {MyView} from '@/styles';
+import vars from '@/styles/root';
 import {SchoolProvider} from './components/Context';
-
 function Schools() {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const [mode, setMode] = useState('list');
   const isAdmin = isUserAdmin(state.user);
-
   return (
     <MyView
       style={
         isAdmin
           ? {}
           : state.isInPhone
-          ? {width: '100%', alignSelf: 'center', marginTop: 20}
-          : {width: vars.LEFT_SECTION_WIDTH, alignSelf: 'center', marginTop: 20}
+          ? {
+              width: '100%',
+              alignSelf: 'center',
+              marginTop: 20,
+            }
+          : {
+              width: vars.LEFT_SECTION_WIDTH,
+              alignSelf: 'center',
+              marginTop: 20,
+            }
       }>
       {!isAdmin && (
         <div
@@ -74,5 +79,4 @@ function Schools() {
     </MyView>
   );
 }
-
 export default Schools;

@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {PublicNotifProvider} from './components/Context';
 import Detail from './components/Detail';
 import List from './components/List';
-
 function Notif(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -16,21 +14,19 @@ function Notif(props) {
   const params = useParams();
   const [mode, setMode] = useState();
   const [selectedId, setSelectedId] = useState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
     if (params.id !== undefined) setSelectedId(params.id);
     else setMode('list');
   }, [params]);
-
   React.useEffect(() => {
     if (selectedId === undefined) return;
     setMode('detail');
   }, [selectedId]);
-
   return (
     <PublicNotifProvider>
       {mode === 'detail' && (
@@ -40,7 +36,9 @@ function Notif(props) {
           token={state.token}
           setLoading={setLoading}
           updateAlerts={alerts => {
-            dispatch({newAlerts: alerts});
+            dispatch({
+              newAlerts: alerts,
+            });
           }}
           navigate={navigate}
         />
@@ -56,5 +54,4 @@ function Notif(props) {
     </PublicNotifProvider>
   );
 }
-
 export default Notif;

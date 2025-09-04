@@ -6,52 +6,45 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useRef, useState} from 'react';
 import {TouchableOpacity} from 'react-native';
-import {logout} from '../../../../API/User';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
-import {Device} from '../../../../models/Device';
-import {getDevice, getWidthHeight} from '../../../../services/Utility';
+import {logout} from '../../../../api/user';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {Device} from '../../../../models/device';
+import {getDevice, getWidthHeight} from '../../../../services/utility';
 import {
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
   TextLink,
-} from '../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
-import commonTranslator from '../../../../translator/Common';
+} from '../../../../styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
 import UserTinyPic from '../UserTinyPic';
-import newAlertsKeyVals from './NewAlertsKeyVals';
-import {style} from './style';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
+import newAlertsKeyVals from './newAlertsKeyVals';
+import {style} from './Style';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
 import DailyAdv from './DailyAdv';
-
 const Header = props => {
   const isApp = getDevice().indexOf(Device.App) !== -1;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [showProfilePane, setShowProfilePane] = useState(false);
   const [showNotif, setShowNotif] = useState(false);
   const [pic, setPic] = useState('url(../../../../images/slider.png)');
   const [newAlerts, setNewAlerts] = useState();
   const [srcDailyAdv, setSrcDailyAdv] = useState();
-
   React.useEffect(() => {
     setNewAlerts(props.newAlerts);
   }, [props.newAlerts]);
-
   React.useEffect(() => {
     setShowNotif(false);
   }, [props.navigate]);
-
   React.useEffect(() => {
     if (wrapperRef === undefined || wrapperRef.current === undefined) return;
     function handleClickOutside(event) {
@@ -59,7 +52,6 @@ const Header = props => {
         if (showProfilePane) setShowProfilePane(false);
       }
     }
-
     if (showProfilePane) {
       document.addEventListener('mousedown', handleClickOutside);
       return () => {
@@ -67,32 +59,31 @@ const Header = props => {
       };
     }
   }, [wrapperRef, showProfilePane]);
-
   const callLogout = async () => {
     props.setLoading(true);
     await logout(props.token, props.navigate);
-    dispatch({user: null});
+    dispatch({
+      user: null,
+    });
     props.setLoading(false);
   };
-
   const changeShowNotif = newStatus => {
     setShowNotif(newStatus);
   };
-
   const wrapperRef = useRef(null);
-
   React.useEffect(() => {
     setPic(props.pic);
   }, [props.pic]);
-
   if (!state.isInPhone || props.isRightMenuVisible) {
     const width = getWidthHeight()[0];
-
     return (
       <PhoneView
         style={
           !state.isInPhone
-            ? {...style.Header, ...style.HeaderJustLarge}
+            ? {
+                ...style.Header,
+                ...style.HeaderJustLarge,
+              }
             : isApp
             ? {
                 ...style.Header,
@@ -105,7 +96,10 @@ const Header = props => {
                 ...style.HeaderJustWebPhone,
               }
         }>
-        <MyView style={{...style.Header_Profile}}>
+        <MyView
+          style={{
+            ...style.Header_Profile,
+          }}>
           <div
             style={{
               display: 'flex',
@@ -259,7 +253,10 @@ const Header = props => {
             )}
           </div>
         </MyView>
-        <PhoneView style={{gap: '10px'}}>
+        <PhoneView
+          style={{
+            gap: '10px',
+          }}>
           {newAlerts !== undefined && newAlerts.gift_id !== undefined && (
             <MyView style={style.Header_NOTIF}>
               <SimpleFontIcon
@@ -322,14 +319,20 @@ const Header = props => {
 
             {showNotif && (
               <MyView style={style.Header_Profile_Notif}>
-                <MyView style={{...styles.gap15}}>
+                <MyView
+                  style={{
+                    ...styles.gap15,
+                  }}>
                   {newAlerts !== undefined &&
                     newAlerts.events !== undefined &&
                     newAlerts.events.map((elem, index) => {
                       return (
                         <EqualTwoTextInputs key={index}>
                           <TextLink
-                            style={{...styles.fontSize12, ...styles.BlueBold}}
+                            style={{
+                              ...styles.fontSize12,
+                              ...styles.BlueBold,
+                            }}
                             // text={
                             //   newAlertsKeyVals.find(itr => itr.id === elem.key)
                             //     .title + newAlerts.events.length
@@ -347,9 +350,9 @@ const Header = props => {
                             }
                           />
                           {/* <SimpleText
-                          style={{fontSize: 10, color: vars.DARK_BLUE}}
-                          text={elem.value}
-                        /> */}
+                           style={{fontSize: 10, color: vars.DARK_BLUE}}
+                           text={elem.value}
+                           /> */}
                         </EqualTwoTextInputs>
                       );
                     })}
@@ -385,7 +388,6 @@ const Header = props => {
       </PhoneView>
     );
   }
-
   return <></>;
 };
 export default Header;

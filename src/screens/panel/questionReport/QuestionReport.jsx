@@ -1,24 +1,22 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {QuestionReportProvider} from './components/Context';
 import List from './components/List';
 import Create from './components/Create';
 import Report from './components/Report';
-
 function QuestionReport(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   return (
     <QuestionReportProvider>
       {mode === 'list' && (
@@ -58,5 +56,4 @@ function QuestionReport(props) {
     </QuestionReportProvider>
   );
 }
-
 export default QuestionReport;

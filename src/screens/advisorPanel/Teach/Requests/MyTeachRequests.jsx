@@ -1,23 +1,25 @@
 import React, {useMemo, useState} from 'react';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import {Translator} from './Translator';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+} from '../../../../styles/CommonComponents.jsx';
+import {Translator} from './translator';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
 import {useEffectOnce} from 'usehooks-ts';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import columns from './columns';
-import {showSuccess} from '../../../../services/Utility';
+import {showSuccess} from '../../../../services/utility';
 import Filter from './Filter';
 import StudentCard from '../../../../components/web/StudentCard';
-
 function MyTeachRequests(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [selectedRequest, setSelectedRequest] = useState();
   const [data, setData] = useState();
   const [showOp, setShowOp] = useState(false);
@@ -28,12 +30,13 @@ function MyTeachRequests(props) {
       statusMode: 'pending',
     };
   }, []);
-
   const fetchData = React.useCallback(() => {
     const params = new URLSearchParams();
     params.append('statusMode', initFilter.statusMode);
     params.append('expireMode', initFilter.expireMode);
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getTeachRequests + '?' + params.toString(),
@@ -43,7 +46,9 @@ function MyTeachRequests(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         props.navigate('/');
         return;
@@ -68,16 +73,13 @@ function MyTeachRequests(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   const handleOp = React.useCallback((idx, row) => {
     setSelectedRequest(row);
     setShowOp(true);
   }, []);
-
   const resetData = React.useCallback(
     newStatus => {
       showSuccess();
@@ -125,13 +127,16 @@ function MyTeachRequests(props) {
     },
     [data, selectedRequest],
   );
-
   return (
     <>
       {!showOp && (
         <CommonWebBox header={Translator.requests}>
           <Filter
-            setLoading={newStatus => dispatch({loading: newStatus})}
+            setLoading={newStatus =>
+              dispatch({
+                loading: newStatus,
+              })
+            }
             token={state.token}
             initFilter={initFilter}
             setData={setData}
@@ -156,13 +161,18 @@ function MyTeachRequests(props) {
           }}
           header={Translator.detail}>
           <StudentCard width={200} std={selectedRequest.request} />
-          <PhoneView style={{gap: '10px'}}>
+          <PhoneView
+            style={{
+              gap: '10px',
+            }}>
             {selectedRequest.request.status === 'pending' &&
               selectedRequest.request.canChangeStatue && (
                 <>
                   <CommonButton
                     onPress={async () => {
-                      dispatch({loading: true});
+                      dispatch({
+                        loading: true,
+                      });
                       const res = await generalRequest(
                         routes.setRequestStatus +
                           selectedRequest.id +
@@ -174,7 +184,9 @@ function MyTeachRequests(props) {
                         undefined,
                         state.token,
                       );
-                      dispatch({loading: false});
+                      dispatch({
+                        loading: false,
+                      });
                       if (res !== null) resetData('accept');
                     }}
                     theme={'transparent'}
@@ -182,7 +194,9 @@ function MyTeachRequests(props) {
                   />
                   <CommonButton
                     onPress={async () => {
-                      dispatch({loading: true});
+                      dispatch({
+                        loading: true,
+                      });
                       const res = await generalRequest(
                         routes.setRequestStatus +
                           selectedRequest.id +
@@ -194,7 +208,9 @@ function MyTeachRequests(props) {
                         undefined,
                         state.token,
                       );
-                      dispatch({loading: false});
+                      dispatch({
+                        loading: false,
+                      });
                       if (res !== null) resetData('reject');
                     }}
                     theme={'transparent'}
@@ -218,5 +234,4 @@ function MyTeachRequests(props) {
     </>
   );
 }
-
 export default MyTeachRequests;

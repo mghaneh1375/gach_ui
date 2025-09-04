@@ -1,6 +1,5 @@
-import commonTranslator from '../../../../translator/Common';
-import translator from '../Translate';
-
+import commonTranslator from '@/translator/common';
+import translator from '../translate';
 const columns = [
   {
     name: commonTranslator.title,
@@ -40,7 +39,6 @@ const columns = [
     center: true,
   },
 ];
-
 export const reportColumns = [
   {
     name: commonTranslator.name,
@@ -79,5 +77,4 @@ export const reportColumns = [
     center: true,
   },
 ];
-
 export default columns;

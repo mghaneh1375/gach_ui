@@ -1,5 +1,4 @@
-import translator from './Translator';
-
+import translator from './translator';
 export const typeOfReportKeyVals = [
   {
     id: 'cityReport',
@@ -34,7 +33,6 @@ export const typeOfReportKeyVals = [
     item: translator.A1,
   },
 ];
-
 export const typeOfReportKeyValsSchoolAccess = [
   {
     id: 'cityReport',
@@ -65,7 +63,6 @@ export const typeOfReportKeyValsSchoolAccess = [
     item: translator.A1,
   },
 ];
-
 export const typeOfReportBeforeFinishKeyVals = [
   {
     id: 'participationReport',

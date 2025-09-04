@@ -1,8 +1,6 @@
-import React from 'react';
 import {CommonTextInput} from './CommonTextInput';
 import {MultiSearchableTextInput} from './MultiSearchableTextInput';
 import {SearchableTextInput} from './SearchableTextInput';
-
 const JustBottomBorderTextInput = props => {
   const customStyle =
     props.style === undefined
@@ -21,7 +19,6 @@ const JustBottomBorderTextInput = props => {
           borderRadius: 0,
           padding: 5,
         };
-
   if (props.resultPane === undefined)
     return (
       <CommonTextInput
@@ -43,7 +40,6 @@ const JustBottomBorderTextInput = props => {
         onEnter={props.onEnter}
       />
     );
-
   if (props.multi === undefined)
     return (
       <SearchableTextInput
@@ -63,7 +59,6 @@ const JustBottomBorderTextInput = props => {
         }
       />
     );
-
   return (
     <MultiSearchableTextInput
       onChangeText={props.onChangeText}
@@ -80,5 +75,4 @@ const JustBottomBorderTextInput = props => {
     />
   );
 };
-
 export default JustBottomBorderTextInput;

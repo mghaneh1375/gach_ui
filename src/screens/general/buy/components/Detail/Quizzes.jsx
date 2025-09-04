@@ -1,25 +1,21 @@
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import Basket from '../../../../../components/web/Basket';
-import {MyView, PhoneView} from '../../../../../styles/Common';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import {styles} from '../../../../../styles/Common/Styles';
-import Card from '../../../../panel/quiz/components/Card/Card';
+import {MyView, PhoneView} from '@/styles';
+import {FontIcon} from '../../../../../styles/common/FontIcon';
+import {styles} from '@/styles/common/styles';
+import Card from '../../../../panel/quiz/components/card/Card';
 import {packagesContext, dispatchPackagesContext} from '../Context';
-
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState();
-
   const useGlobalState = () => [
     React.useContext(packagesContext),
     React.useContext(dispatchPackagesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     setQuizzes(props.quizzes);
   }, [props.quizzes]);
-
   const toggleSelectedItems = id => {
     const idx =
       state.wantedQuizzes === undefined ? -1 : state.wantedQuizzes.indexOf(id);
@@ -29,12 +25,11 @@ function Quizzes(props) {
         allSelectedItems.push(elem);
       });
     }
-
     if (idx === -1) allSelectedItems.push(id);
     else allSelectedItems.splice(idx, 1);
-
-    dispatch({wantedQuizzes: allSelectedItems});
-
+    dispatch({
+      wantedQuizzes: allSelectedItems,
+    });
     setQuizzes(
       quizzes.map(elem => {
         elem.isSelected = allSelectedItems.indexOf(elem.id) !== -1;
@@ -42,7 +37,6 @@ function Quizzes(props) {
       }),
     );
   };
-
   return (
     <MyView
       style={{
@@ -51,18 +45,27 @@ function Quizzes(props) {
           props.marginBottom !== undefined ? props.marginBottom : 120,
         ...styles.alignItemsStart,
       }}>
-      <PhoneView style={{...styles.alignSelfEnd}}>
+      <PhoneView
+        style={{
+          ...styles.alignSelfEnd,
+        }}>
         {props.onBackClicked !== undefined && (
           <FontIcon
             icon={faAngleLeft}
             theme={'rect'}
             kind={'normal'}
-            parentStyle={{alignSelf: 'flex-end', margin: 20}}
+            parentStyle={{
+              alignSelf: 'flex-end',
+              margin: 20,
+            }}
             onPress={props.onBackClicked}
           />
         )}
       </PhoneView>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         {quizzes !== undefined &&
           quizzes.map((quiz, index) => {
             return (
@@ -82,5 +85,4 @@ function Quizzes(props) {
     </MyView>
   );
 }
-
 export default Quizzes;

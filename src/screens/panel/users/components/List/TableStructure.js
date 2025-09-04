@@ -1,5 +1,4 @@
-import commonTranslator from '../../../../../translator/Common';
-
+import commonTranslator from '@/translator/common';
 const columns = [
   {
     name: commonTranslator.nameAndLast,
@@ -65,7 +64,6 @@ const columns = [
     grow: 1,
   },
 ];
-
 export const advisorColumns = [
   {
     name: commonTranslator.nameAndLast,
@@ -136,7 +134,6 @@ export const advisorColumns = [
     grow: 1,
   },
 ];
-
 export const allUsersColumns = [
   {
     name: commonTranslator.nameAndLast,
@@ -173,7 +170,6 @@ export const allUsersColumns = [
           case 'content':
             return 'اپراتور محتوای آموزشی';
         }
-
         return e;
       }),
     center: true,
@@ -215,5 +211,4 @@ export const allUsersColumns = [
     grow: 1,
   },
 ];
-
 export default columns;

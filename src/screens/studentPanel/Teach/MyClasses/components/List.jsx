@@ -1,25 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {CommonWebBox, PhoneView} from '../../../../../styles/Common';
-import {styles} from '../../../../../styles/Common/Styles';
-import vars from '../../../../../styles/root';
-import ProgressCard from '../../../‌MyOffs/ProgressCard/ProgressCard';
-import {Translator} from '../../Translate';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
+import {CommonWebBox, PhoneView} from '@/styles';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
+import ProgressCard from '../../../myOffs/progressCard/ProgressCard';
+import {Translator} from '../../translate';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
 import Card from './Card';
-import {showSuccess} from '../../../../../services/Utility';
+import {showSuccess} from '@/services/utility';
 import {myTeachClassesContext, dispatchMyTeachClassesContext} from './Context';
-
 function List(props) {
   const useGlobalState = () => [
     React.useContext(myTeachClassesContext),
     React.useContext(dispatchMyTeachClassesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [mode, setMode] = useState('active');
   const [schedules, setSchedules] = useState();
-
   const fetchClasses = React.useCallback(() => {
     props.setLoading(true);
     const params = new URLSearchParams();
@@ -41,20 +38,24 @@ function List(props) {
       setSchedules(res[0]);
       const myClassesTmp = state.myClasses;
       myClassesTmp[mode] = schedules;
-      dispatch({myClasses: myClassesTmp});
+      dispatch({
+        myClasses: myClassesTmp,
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
-
   useEffect(() => {
     if (state.myClasses?.mode === undefined) fetchClasses();
     else setSchedules(state.myClasses.mode);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.myClasses, mode]);
-
   return (
     <CommonWebBox header={Translator.myClasses}>
-      <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
+      <PhoneView
+        style={{
+          ...styles.alignSelfCenter,
+          ...styles.marginTop20,
+        }}>
         <ProgressCard
           header={Translator.oldClassess}
           theme={vars.ORANGE}
@@ -65,7 +66,9 @@ function List(props) {
             if (mode === 'expired') return;
             setMode('expired');
           }}
-          style={{...styles.cursor_pointer}}
+          style={{
+            ...styles.cursor_pointer,
+          }}
         />
         <ProgressCard
           header={Translator.notStartClasses}
@@ -77,7 +80,9 @@ function List(props) {
             if (mode === 'not_start') return;
             setMode('not_start');
           }}
-          style={{...styles.cursor_pointer}}
+          style={{
+            ...styles.cursor_pointer,
+          }}
         />
         <ProgressCard
           header={Translator.activeClasses}
@@ -89,7 +94,9 @@ function List(props) {
             if (mode === 'active') return;
             setMode('active');
           }}
-          style={{...styles.cursor_pointer}}
+          style={{
+            ...styles.cursor_pointer,
+          }}
         />
         <ProgressCard
           header={Translator.allClasses}
@@ -101,10 +108,15 @@ function List(props) {
             if (mode === 'all') return;
             setMode('all');
           }}
-          style={{...styles.cursor_pointer}}
+          style={{
+            ...styles.cursor_pointer,
+          }}
         />
       </PhoneView>
-      <PhoneView style={{gap: '10px'}}>
+      <PhoneView
+        style={{
+          gap: '10px',
+        }}>
         {schedules &&
           schedules.map((schedule, index) => {
             return (
@@ -114,7 +126,9 @@ function List(props) {
                   const res = await generalRequest(
                     routes.writeComments + schedule.teacher.id + '/teach',
                     'post',
-                    {comment: desc},
+                    {
+                      comment: desc,
+                    },
                     undefined,
                     props.token,
                   );
@@ -125,7 +139,9 @@ function List(props) {
                     );
                 }}
                 onReportClick={() => {
-                  dispatch({selectedScheduleId: schedule.id});
+                  dispatch({
+                    selectedScheduleId: schedule.id,
+                  });
                   props.setMode('report');
                 }}
                 onChangeRate={async rate => {
@@ -158,5 +174,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

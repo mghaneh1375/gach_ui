@@ -6,27 +6,23 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
+} from '@/styles';
 import React, {useState} from 'react';
-import vars from '../../../../styles/root';
-import {styles} from '../../../../styles/Common/Styles';
+import vars from '@/styles/root';
+import {styles} from '../../../../styles/common/styles';
 import {faCheck, faRemove} from '@fortawesome/free-solid-svg-icons';
-import {formatPrice} from '../../../../services/Utility';
-import commonTranslator from '../../../../translator/Common';
-import {Translator} from '../Translator';
+import {formatPrice} from '@/services/utility';
+import commonTranslator from '@/translator/common';
+import {Translator} from '../translator';
 import {Rating} from 'react-native-ratings';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
 import {useMediaQuery} from '@material-ui/core';
-
 function Card(props) {
   const [img, setImg] = useState();
-
   React.useEffect(() => {
     setImg(props.package.img);
   }, [props.package.img]);
-
   const size600 = useMediaQuery('(max-width:600px)');
-
   const isInApp =
     window.navigator.userAgent.toLowerCase().indexOf('android') !== -1;
 
@@ -43,7 +39,13 @@ function Card(props) {
         resizeMode="contain"
         source={img}
       />
-      <MyView style={{...styles.gap10, ...{minHeight: 230}}}>
+      <MyView
+        style={{
+          ...styles.gap10,
+          ...{
+            minHeight: 230,
+          },
+        }}>
         <PhoneView
           style={{
             marginLeft: 10,
@@ -58,7 +60,11 @@ function Card(props) {
         </PhoneView>
         <PhoneView>
           <SimpleText
-            style={{...styles.BlueBold, ...styles.margin15, width: '50%'}}
+            style={{
+              ...styles.BlueBold,
+              ...styles.margin15,
+              width: '50%',
+            }}
             text={props.package.sessionsCount + ' جلسه'}
           />
 
@@ -69,7 +75,7 @@ function Card(props) {
             textFontSize={fontSize}
             color={vars.YELLOW}
             valFontSize={valFontSize}
-          /> */}
+           /> */}
           {/* <QuizItemCard
             text={Translator.cert}
             iconVal={props.package.hasCert ? faCheck : faRemove}
@@ -79,14 +85,19 @@ function Card(props) {
             color={vars.YELLOW}
             textFontSize={fontSize}
             valFontSize={valFontSize}
-          /> */}
+           /> */}
           <PhoneView>
             <SimpleText
-              style={{...styles.BlueBold, ...styles.margin15}}
+              style={{
+                ...styles.BlueBold,
+                ...styles.margin15,
+              }}
               text={Translator.cert + ' '}
             />
             <SimpleFontIcon
-              style={{color: props.package.hasCert ? vars.GREEN : vars.YELLOW}}
+              style={{
+                color: props.package.hasCert ? vars.GREEN : vars.YELLOW,
+              }}
               kind={'normal'}
               icon={props.package.hasCert ? faCheck : faRemove}
             />
@@ -100,7 +111,11 @@ function Card(props) {
         />
 
         {props.package.rate !== undefined && (
-          <PhoneView style={{width: '100%', direction: 'ltr'}}>
+          <PhoneView
+            style={{
+              width: '100%',
+              direction: 'ltr',
+            }}>
             <Rating
               type="star"
               readonly={true}
@@ -115,11 +130,19 @@ function Card(props) {
           </PhoneView>
         )}
 
-        <EqualTwoTextInputs style={{...styles.flexNoWrap}}>
+        <EqualTwoTextInputs
+          style={{
+            ...styles.flexNoWrap,
+          }}>
           {!props.isInMyMode && (
-            <PhoneView style={{...styles.alignSelfCenter}}>
+            <PhoneView
+              style={{
+                ...styles.alignSelfCenter,
+              }}>
               <SimpleText
-                style={{...styles.BlueBold}}
+                style={{
+                  ...styles.BlueBold,
+                }}
                 text={commonTranslator.price + ' '}
               />
               <SimpleText
@@ -183,5 +206,4 @@ function Card(props) {
     </CommonWebBox>
   );
 }
-
 export default Card;

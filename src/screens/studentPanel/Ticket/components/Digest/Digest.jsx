@@ -7,18 +7,17 @@ import {
   PhoneView,
   SimpleText,
   MyView,
-} from '../../../../../styles/Common';
-import {TinyTextIcon} from '../../../../../styles/Common/TextIcon';
-import {Translate} from '../../Translate';
+} from '@/styles';
+import {TinyTextIcon} from '../../../../../styles/common/TextIcon';
+import {Translate} from '../../translate';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
-import commonTranslator from '../../../../../translator/Common';
-import {styleFontSize15, styleFontSize11} from '../List/style';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import {callRemoveTicket} from '../Utility';
-import {showSuccess} from '../../../../../services/Utility';
-import {closeRequest} from '../../../../panel/ticket/components/List/Utility';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import commonTranslator from '@/translator/common';
+import {styleFontSize15, styleFontSize11} from '../list/style';
+import {FontIcon} from '../../../../../styles/common/FontIcon';
+import {callRemoveTicket} from '../utility';
+import {showSuccess} from '@/services/utility';
+import {closeRequest} from '../../../../panel/ticket/components/list/utility';
+import {styles} from '@/styles/common/styles';
 function Digest({
   isAdmin,
   ticket,
@@ -45,11 +44,15 @@ function Digest({
             <TinyTextIcon />
             <MyView>
               <SimpleText
-                style={{...styleFontSize11}}
+                style={{
+                  ...styleFontSize11,
+                }}
                 text={Translate.advisor}
               />
               <SimpleText
-                style={{...styleFontSize15}}
+                style={{
+                  ...styleFontSize15,
+                }}
                 text={ticket.advisor.name}
               />
             </MyView>
@@ -60,30 +63,51 @@ function Digest({
           <TinyTextIcon />
           <MyView>
             <SimpleText
-              style={{...styleFontSize11}}
+              style={{
+                ...styleFontSize11,
+              }}
               text={Translate.sendDate}
             />
-            <SimpleText style={{...styleFontSize15}} text={ticket.sendDate} />
+            <SimpleText
+              style={{
+                ...styleFontSize15,
+              }}
+              text={ticket.sendDate}
+            />
           </MyView>
         </PhoneView>
         <PhoneView>
           <TinyTextIcon />
           <MyView>
             <SimpleText
-              style={{...styleFontSize11}}
+              style={{
+                ...styleFontSize11,
+              }}
               text={commonTranslator.unit}
             />
-            <SimpleText style={{...styleFontSize15}} text={ticket.sectionFa} />
+            <SimpleText
+              style={{
+                ...styleFontSize15,
+              }}
+              text={ticket.sectionFa}
+            />
           </MyView>
         </PhoneView>
         <PhoneView>
           <TinyTextIcon />
           <MyView>
             <SimpleText
-              style={{...styleFontSize11}}
+              style={{
+                ...styleFontSize11,
+              }}
               text={commonTranslator.nes}
             />
-            <SimpleText style={{...styleFontSize15}} text={ticket.priorityFa} />
+            <SimpleText
+              style={{
+                ...styleFontSize15,
+              }}
+              text={ticket.priorityFa}
+            />
           </MyView>
         </PhoneView>
       </PhoneView>
@@ -91,7 +115,10 @@ function Digest({
         <PhoneView>
           <BigBoldBlueText text={ticket.statusFa} />
         </PhoneView>
-        <PhoneView style={{alignItems: 'center'}}>
+        <PhoneView
+          style={{
+            alignItems: 'center',
+          }}>
           {ticket.status !== 'finish' && (
             <FontIcon
               kind={'normal'}
@@ -143,5 +170,4 @@ function Digest({
     </CommonWebBox>
   );
 }
-
 export default Digest;

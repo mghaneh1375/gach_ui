@@ -1,5 +1,4 @@
-import {convertTimestamp} from '../../../../services/Utility';
-
+import {convertTimestamp} from '../../../../services/utility';
 const columns = [
   {
     name: 'نام آزمون',
@@ -45,7 +44,6 @@ const columns = [
     center: true,
   },
 ];
-
 export const columnsForOnlineStanding = [
   {
     name: 'نام آزمون',
@@ -91,7 +89,6 @@ export const columnsForOnlineStanding = [
     center: true,
   },
 ];
-
 export const columnsForOpenQuiz = [
   {
     name: 'نام آزمون',
@@ -123,7 +120,6 @@ export const columnsForOpenQuiz = [
     center: true,
   },
 ];
-
 export const columnsForContentQuiz = [
   {
     name: 'نام آزمون',
@@ -144,5 +140,4 @@ export const columnsForContentQuiz = [
     center: true,
   },
 ];
-
 export default columns;

@@ -1,25 +1,22 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import Create from './components/Create/Create';
-import Detail from './components/Detail/Detail';
-import {QuestionProvider} from './components/Detail/Context';
-import {MyView} from '../../../styles/Common';
-
-const SpecQuestion = props => {
+import {globalStateContext, dispatchStateContext} from '@/App';
+import Create from './components/create/Create';
+import Detail from './components/detail/Detail';
+import {QuestionProvider} from './components/detail/Context';
+import {MyView} from '@/styles';
+const SpecQuestion = () => {
   const [mode, setMode] = useState('detail');
   const [organizationCodeFilter, setOrganizationCodeFilter] = useState();
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   return (
     <MyView>
       <QuestionProvider>
@@ -51,5 +48,4 @@ const SpecQuestion = props => {
     </MyView>
   );
 };
-
 export default SpecQuestion;

@@ -1,16 +1,10 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import Translate from '../Translator';
-import commonTranslate from '../../../../../translator/Common';
-import {createAuthor, editAuthor} from '../List/Utility';
-import {changeText} from '../../../../../services/Utility';
-
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import Translate from '../translator';
+import commonTranslate from '../../../../../translator/common';
+import {createAuthor, editAuthor} from '../list/utility';
+import {changeText} from '../../../../../services/utility';
 function CreateAuthor(props) {
   const [name, setName] = useState(
     props.author !== undefined ? props.author.name : '',
@@ -18,14 +12,16 @@ function CreateAuthor(props) {
   const [tag, setTag] = useState(
     props.author !== undefined ? props.author.tag : '',
   );
-
   return (
     <CommonWebBox
       header={Translate.newAuthor}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
       <MyView>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderTextInput
             placeholder={Translate.authorName}
             subText={Translate.authorName}
@@ -77,5 +73,4 @@ function CreateAuthor(props) {
     </CommonWebBox>
   );
 }
-
 export default CreateAuthor;

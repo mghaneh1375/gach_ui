@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '../../../App';
-import List from './components/List/List';
-import {MyView} from '../../../styles/Common';
+import {dispatchStateContext} from '@/App';
+import List from './components/list/List';
+import {MyView} from '@/styles';
 import ChangeLevel from './components/ChangeLevel';
 import {useParams} from 'react-router';
 import {UsersProvider} from './components/Context';
@@ -10,24 +10,20 @@ import ChargeAccount from './components/ChargeAccount';
 import AdvisorTags from './components/AdvisorTags';
 import SetIRYSCPercent from './components/SetIRYSCPercent';
 import SetPriority from './components/SetPriority';
-import Transactions from './components/Transactions/Transactions';
+import Transactions from './components/transactions/Transactions';
 import CreateUser from './components/CreateUser';
-
 const Users = props => {
   const [mode, setMode] = useState();
   const navigate = props.navigate;
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
-
   const [dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const level = useParams().level;
   const [selectedUser, setSelectedUser] = useState();
-
   React.useEffect(() => {
     if (level === undefined) {
       navigate('/');
@@ -35,7 +31,6 @@ const Users = props => {
     }
     setMode('list');
   }, [level, navigate]);
-
   return (
     <MyView>
       <UsersProvider>
@@ -120,5 +115,4 @@ const Users = props => {
     </MyView>
   );
 };
-
 export default Users;

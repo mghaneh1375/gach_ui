@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {getDevice, showError, showSuccess} from '../../../../services/Utility';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {getDevice, showError, showSuccess} from '../../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -9,31 +9,25 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
-import QuestionNumber from '../../../studentPanel/RunQuiz/components/questionComponents/QuestionNumber';
+} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
+import QuestionNumber from '../../../studentPanel/runQuiz/components/questionComponents/QuestionNumber';
 import {dispatchDoCorrectContext, doCorrectContext} from './Context';
-
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(doCorrectContext),
     React.useContext(dispatchDoCorrectContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const [mark, setMark] = useState();
   const [qMark, setQMark] = useState();
   const [descMark, setDescMark] = useState();
-
   const [showDescMarkPopUp, setShowDescMarkPopUp] = useState(false);
-
   React.useEffect(() => {
     if (mark === undefined || qMark === undefined) return;
     if (mark > qMark) {
@@ -41,13 +35,10 @@ function Filter(props) {
       setMark('');
     }
   }, [mark, qMark]);
-
   React.useEffect(() => {
     if (state.answers === undefined) return;
-
     console.log(state.currIdx);
     console.log(state.answers[state.currIdx]);
-
     setMark(
       state.answers[state.currIdx].stdAns === undefined ||
         state.answers[state.currIdx].stdAns.mark === undefined ||
@@ -62,7 +53,6 @@ function Filter(props) {
     );
     setQMark(state.answers[state.currIdx].mark);
   }, [state.answers, state.currIdx]);
-
   const doMark = async () => {
     const res = await generalRequest(
       state.student !== undefined
@@ -84,18 +74,26 @@ function Filter(props) {
             state.answers[state.currIdx].id,
       'put',
       descMark !== undefined && descMark !== ''
-        ? {mark: mark, description: descMark}
-        : {mark: mark},
+        ? {
+            mark: mark,
+            description: descMark,
+          }
+        : {
+            mark: mark,
+          },
       undefined,
       props.token,
     );
     if (res != null) {
       showSuccess();
-      dispatch({mark: mark, descMark: descMark, needUpdateMark: true});
+      dispatch({
+        mark: mark,
+        descMark: descMark,
+        needUpdateMark: true,
+      });
       setShowDescMarkPopUp(false);
     }
   };
-
   return (
     <>
       {showDescMarkPopUp && (
@@ -134,8 +132,13 @@ function Filter(props) {
         </LargePopUp>
       )}
       <CommonWebBox
-        childStyle={{...styles.padding5}}
-        style={{...styles.padding0, ...styles.marginTop10}}
+        childStyle={{
+          ...styles.padding5,
+        }}
+        style={{
+          ...styles.padding0,
+          ...styles.marginTop10,
+        }}
         width={isInPhone ? '100%' : vars.RIGHT_MENU_WIDTH}>
         <PhoneView
           style={{
@@ -164,14 +167,19 @@ function Filter(props) {
                   number={index + 1}
                   jump={() => {
                     if (props.mode === 'splash') return;
-                    dispatch({currIdx: index});
+                    dispatch({
+                      currIdx: index,
+                    });
                   }}
                 />
               );
             })}
         </PhoneView>
         {state.answers !== undefined && props.mode !== 'splash' && (
-          <MyView style={{padding: 20}}>
+          <MyView
+            style={{
+              padding: 20,
+            }}>
             {props.isCorrector && (
               <EqualTwoTextInputs>
                 <SimpleText text={'نام دانش آموز: '} />
@@ -219,7 +227,10 @@ function Filter(props) {
             )}
 
             {props.isCorrector && (
-              <MyView style={{...styles.gap10}}>
+              <MyView
+                style={{
+                  ...styles.gap10,
+                }}>
                 <JustBottomBorderTextInput
                   placeholder={'نمره داده نشده'}
                   subText={'نمره داده شده'}
@@ -233,7 +244,9 @@ function Filter(props) {
                 )}
                 {state.answers[state.currIdx].stdAns !== '' && (
                   <CommonButton
-                    parentStyle={{...styles.margin15}}
+                    parentStyle={{
+                      ...styles.margin15,
+                    }}
                     onPress={() => {
                       if (mark === undefined || mark.length === 0)
                         showError('لطفا ابتدا نمره موردنظر خود را وارد نمایید');
@@ -251,5 +264,4 @@ function Filter(props) {
     </>
   );
 }
-
 export default Filter;

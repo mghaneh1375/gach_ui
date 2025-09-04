@@ -1,7 +1,6 @@
-import Translator from '../Schedule/components/Translator';
-import commonTranslator from '../../../../translator/Common';
-import {formatPrice} from '../../../../services/Utility';
-
+import Translator from '../schedule/components/translator';
+import commonTranslator from '@/translator/common';
+import {formatPrice} from '@/services/utility';
 const columns = [
   {
     name: Translator.title,
@@ -55,5 +54,4 @@ const columns = [
     grow: 1,
   },
 ];
-
 export default columns;

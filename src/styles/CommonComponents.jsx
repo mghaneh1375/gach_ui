@@ -2,53 +2,45 @@ import React from 'react';
 import {Platform, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {RadioButton} from 'react-native-paper';
 import styled from 'styled-components';
-import BlueTextInlineElem from './Common/BlueTextInline';
+import BlueTextInlineElem from './common/blueTextInline';
 import {
   Button,
   chooseTheme,
   CommonButtonTextStyleAndroid,
   CommonButtonTextStyleWeb,
   CommonButtonTextStyleWebPhone,
-} from './Common/Button';
+} from './common/button';
 import vars from './root';
-
 import {
   BigBoldBlueTextElem,
   BigBoldBlueTextInlineElem,
-} from './Common/BigBoldTextElem';
-
+} from './common/bigBoldTextElem';
 import {Link} from 'react-router-dom';
-import {getDevice, getScreenHeight} from '../services/Utility';
-
+import {getDevice, getScreenHeight} from '../services/utility';
 import {faArrowLeft, faPlus} from '@fortawesome/free-solid-svg-icons';
-import {FontIcon, SimpleFontIcon} from './Common/FontIcon';
-import JustBottomBorderTextInput from './Common/JustBottomBorderTextInput';
-import {styles} from './Common/Styles';
-
+import {FontIcon, SimpleFontIcon} from './common/FontIcon';
+import JustBottomBorderTextInput from './common/JustBottomBorderTextInput';
+import {styles} from './common/styles';
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem
     style={props.style !== undefined ? props.style : {}}>
     {props.text}
   </BigBoldBlueTextInlineElem>
 );
-
 export const BigBoldBlueText = props => (
   <BigBoldBlueTextElem style={props.style !== undefined ? props.style : {}}>
     {props.text}
   </BigBoldBlueTextElem>
 );
-
 export const BlueTextInline = props => (
   <BlueTextInlineElem style={props.style !== undefined ? props.style : {}}>
     {props.text}
   </BlueTextInlineElem>
 );
-
 export const MyViewWithRef = React.forwardRef((props, ref) => {
   if (Platform.OS === 'web') {
     let style = props.style;
     if (props.style instanceof Array) style = undefined;
-
     if (style !== undefined) {
       return (
         <div
@@ -59,26 +51,22 @@ export const MyViewWithRef = React.forwardRef((props, ref) => {
         </div>
       );
     }
-
     return (
       <div ref={ref} className={'myView'}>
         {props.children}
       </div>
     );
   }
-
   return (
     <View ref={ref} style={props.style}>
       {props.children}
     </View>
   );
 });
-
 export const MyView = props => {
   if (Platform.OS === 'web') {
     let style = props.style;
     if (props.style instanceof Array) style = undefined;
-
     if (style !== undefined) {
       return (
         <div
@@ -88,23 +76,21 @@ export const MyView = props => {
         </div>
       );
     }
-
     return <div className={'myView'}>{props.children}</div>;
   }
-
   return <View style={props.style}>{props.children}</View>;
 };
-
 export const OrangeTextInline = props => (
   <BlueTextInlineElem
     style={[
-      {color: vars.ORANGE},
+      {
+        color: vars.ORANGE,
+      },
       props.style !== undefined ? props.style : {},
     ]}>
     {props.text}
   </BlueTextInlineElem>
 );
-
 export const TextLink = props => {
   let allStyles =
     Platform.OS === 'web'
@@ -114,12 +100,20 @@ export const TextLink = props => {
             fontFamily: 'IRANSans',
             textDecoration: 'none',
           }
-        : {color: 'white', cursor: 'pointer'}
-      : {color: 'white'};
-
+        : {
+            color: 'white',
+            cursor: 'pointer',
+          }
+      : {
+          color: 'white',
+        };
   allStyles =
-    props.style !== undefined ? {...allStyles, ...props.style} : allStyles;
-
+    props.style !== undefined
+      ? {
+          ...allStyles,
+          ...props.style,
+        }
+      : allStyles;
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <BlueTextInlineElem onPress={props.onPress} style={allStyles}>
       {props.text}
@@ -134,14 +128,19 @@ export const TextLink = props => {
     </BlueTextInlineElem>
   );
 };
-
 export const SilverTextInline = props => {
-  const style1 = {color: vars.LIGHT_SILVER};
+  const style1 = {
+    color: vars.LIGHT_SILVER,
+  };
   const allStyle =
-    props.style !== undefined ? {...style1, ...props.style} : style1;
+    props.style !== undefined
+      ? {
+          ...style1,
+          ...props.style,
+        }
+      : style1;
   return <BlueTextInlineElem style={allStyle}>{props.text}</BlueTextInlineElem>;
 };
-
 export const ScreenScroll =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(ScrollView)`
@@ -156,37 +155,38 @@ export const ScreenScroll =
 // contentContainerStyle={ScreenContentContainerStyle}
 
 export const CommonButton = props => {
-  let allStyles = props.style !== undefined ? props.style : {...styles.flexEnd};
+  let allStyles =
+    props.style !== undefined
+      ? props.style
+      : {
+          ...styles.flexEnd,
+        };
   let className = props.theme === 'transparent' ? 'myBtn-Transparent' : 'myBtn';
-
   if (props.style === undefined || props.style.justifyContent === undefined)
     className += ' flex-end';
-
   const isInWebPhone =
     Platform.OS === 'web' && getDevice().indexOf('WebPort') !== -1;
-
   let textStyle =
     Platform.OS === 'web'
       ? isInWebPhone
         ? CommonButtonTextStyleWebPhone
         : CommonButtonTextStyleWeb
       : CommonButtonTextStyleAndroid;
-
   if (props.textStyle !== undefined)
     textStyle = {
       ...textStyle,
       ...props.textStyle,
     };
-
   if (props.theme !== undefined) {
     const themeRes = chooseTheme(props.theme, allStyles, textStyle);
     allStyles = themeRes[0];
     textStyle = themeRes[1];
   }
-
   allStyles.alignSelf =
     props.dir !== undefined && props.dir === 'rtl' ? 'flex-start' : 'flex-end';
-  const hrefStyle = {textDecoration: 'none'};
+  const hrefStyle = {
+    textDecoration: 'none',
+  };
   if (props.href === undefined) {
     allStyles.padding =
       props.padding !== undefined && props.padding === 'unset'
@@ -209,13 +209,11 @@ export const CommonButton = props => {
     //     ? 5
     //     : '5px 30px';
   }
-
   if (props.icon !== undefined) {
     allStyles.display = 'flex';
     allStyles.alignItems = 'center';
     allStyles.justifyContent = 'space-around';
   }
-
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <Button style={allStyles} onPress={props.onPress}>
       <Text style={textStyle}>{props.title}</Text>
@@ -236,7 +234,9 @@ export const CommonButton = props => {
           (props.iconDir === undefined || props.iconDir === 'right') && (
             <SimpleFontIcon
               kind={'normal'}
-              style={{color: vars.WHITE}}
+              style={{
+                color: vars.WHITE,
+              }}
               icon={props.icon}
               onPress={props.onPress}
             />
@@ -248,7 +248,9 @@ export const CommonButton = props => {
           props.iconDir === 'left' && (
             <SimpleFontIcon
               kind={'normal'}
-              style={{color: vars.WHITE}}
+              style={{
+                color: vars.WHITE,
+              }}
               icon={props.icon}
               onPress={props.onPress}
             />
@@ -267,7 +269,6 @@ export const CommonButton = props => {
     </div>
   );
 };
-
 export const InlineTextContainer =
   Platform.OS === 'android' || Platform.OS === 'ios'
     ? styled(Text)`
@@ -275,29 +276,37 @@ export const InlineTextContainer =
         align-items: center;
       `
     : styled.div``;
-
 export const SimpleText = props => {
-  const style1 = {fontFamily: 'IRANSans'};
+  const style1 = {
+    fontFamily: 'IRANSans',
+  };
   const allStyle =
-    props.style !== undefined ? {...style1, ...props.style} : style1;
-
+    props.style !== undefined
+      ? {
+          ...style1,
+          ...props.style,
+        }
+      : style1;
   const textProps = {
     style: allStyle,
   };
-
   if (props.onPress !== undefined) textProps.onClick = props.onPress;
   return <Text {...textProps}>{props.text}</Text>;
 };
-
 export const SimpleTextWithRef = React.forwardRef((props, ref) => {
-  const style1 = {fontFamily: 'IRANSans'};
+  const style1 = {
+    fontFamily: 'IRANSans',
+  };
   const allStyle =
-    props.style !== undefined ? {...style1, ...props.style} : style1;
-
+    props.style !== undefined
+      ? {
+          ...style1,
+          ...props.style,
+        }
+      : style1;
   const textProps = {
     style: allStyle,
   };
-
   if (props.onPress !== undefined) textProps.onClick = props.onPress;
   return (
     <Text ref={ref} {...textProps}>
@@ -305,29 +314,39 @@ export const SimpleTextWithRef = React.forwardRef((props, ref) => {
     </Text>
   );
 });
-
 export const ErrorText = props => {
-  const style1 = {fontFamily: 'IRANSans', color: vars.RED};
+  const style1 = {
+    fontFamily: 'IRANSans',
+    color: vars.RED,
+  };
   const allStyle =
-    props.style !== undefined ? {...style1, ...props.style} : style1;
-
+    props.style !== undefined
+      ? {
+          ...style1,
+          ...props.style,
+        }
+      : style1;
   const textProps = {
     style: allStyle,
   };
-
   if (props.onPress !== undefined) textProps.onClick = props.onPress;
   return <Text {...textProps}>{props.text}</Text>;
 };
-
 export const CommonRadioButton = props => (
   <PhoneView
     style={
       props.style !== undefined
         ? {
-            ...{height: props.isCheckBox ? 20 : 60, alignItems: 'center'},
+            ...{
+              height: props.isCheckBox ? 20 : 60,
+              alignItems: 'center',
+            },
             ...props.style,
           }
-        : {height: props.isCheckBox ? 20 : 60, alignItems: 'center'}
+        : {
+            height: props.isCheckBox ? 20 : 60,
+            alignItems: 'center',
+          }
     }>
     {props.isCheckBox === undefined && (
       <RadioButton
@@ -373,11 +392,9 @@ export const CommonRadioButton = props => (
     )}
   </PhoneView>
 );
-
 export const MinFullHeightView = styled(View)`
   min-height: ${getScreenHeight()}px;
 `;
-
 export const commonStyles = StyleSheet.create({
   ContentView: {
     marginTop: 20,
@@ -385,13 +402,15 @@ export const commonStyles = StyleSheet.create({
     marginRight: 20,
   },
 });
-
 export const BlueTextFromStart = props => (
-  <MyView style={{flexDirection: 'row', alignSelf: vars.alignSelf}}>
+  <MyView
+    style={{
+      flexDirection: 'row',
+      alignSelf: vars.alignSelf,
+    }}>
     <BlueTextInline text={props.text} />
   </MyView>
 );
-
 export const TextWithLink = props => {
   return (
     <InlineTextContainer style={props.style !== undefined ? props.style : {}}>
@@ -409,17 +428,21 @@ export const TextWithLink = props => {
     </InlineTextContainer>
   );
 };
-
 export const CommonWebBox = props => {
   const style1 = {
     direction: 'rtl',
     padding: 10,
     width: props.width !== undefined ? props.width : 'auto',
   };
-
   const allStyle =
-    props.style !== undefined ? {...style1, ...props.style} : {...style1};
-
+    props.style !== undefined
+      ? {
+          ...style1,
+          ...props.style,
+        }
+      : {
+          ...style1,
+        };
   return (
     <MyView style={allStyle}>
       <MyView
@@ -466,7 +489,12 @@ export const CommonWebBox = props => {
             />
             {props.btn !== undefined && props.btn}
             {(props.addBtn !== undefined || props.backBtn !== undefined) && (
-              <PhoneView style={{gap: 10, marginBottom: 10, text: 'center'}}>
+              <PhoneView
+                style={{
+                  gap: 10,
+                  marginBottom: 10,
+                  text: 'center',
+                }}>
                 {props.addBtn !== undefined && props.addBtn && (
                   <FontIcon
                     onPress={props.onAddClick}
@@ -494,21 +522,17 @@ export const CommonWebBox = props => {
     </MyView>
   );
 };
-
 export const PhoneContentConianerStyle = {
   width: '100%',
 };
-
 export const PhoneContentConianerStyle2 = {
   width: '100%',
   display: 'none',
 };
-
 export const LargeContentConianerStyle = {
   width: 'calc(100% - ' + vars.RIGHT_MENU_WIDTH + 'px)',
   minHeight: 'calc(100vh - 60px)',
 };
-
 export function EqualTwoTextInputs(props) {
   const allStyle =
     props.style === undefined
@@ -521,48 +545,46 @@ export function EqualTwoTextInputs(props) {
             justifyContent: 'space-between',
           },
         };
-
   return <PhoneView style={allStyle}>{props.children}</PhoneView>;
 }
-
 export function PhoneView(props) {
   const style1 = {
     flexDirection: Platform.OS === 'web' ? 'row' : 'row-reverse',
     flexShrink: 1,
     flexWrap: 'wrap',
   };
-
   const allStyles =
-    props.style !== undefined ? {...style1, ...props.style} : style1;
-
+    props.style !== undefined
+      ? {
+          ...style1,
+          ...props.style,
+        }
+      : style1;
   const viewProps = {
     style: allStyles,
   };
-
   if (props.onClick !== undefined) viewProps.onClick = props.onClick;
-
   return (
     <MyView className={props.className} {...viewProps}>
       {props.children}
     </MyView>
   );
 }
-
 export function ShrinkView(props) {
   const style1 = {
     flexShrink: 1,
   };
-
   const allStyles =
-    props.style !== undefined ? {...style1, ...props.style} : style1;
-
+    props.style !== undefined
+      ? {
+          ...style1,
+          ...props.style,
+        }
+      : style1;
   const viewProps = {
     style: allStyles,
   };
-
   if (props.onClick !== undefined) viewProps.onClick = props.onClick;
-
   return <MyView {...viewProps}>{props.children}</MyView>;
 }
-
 export const ContentView = styled(View)``;

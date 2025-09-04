@@ -4,12 +4,12 @@ import {
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useEffect, useMemo, useState} from 'react';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import Basket from '../../../components/web/Basket';
-import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
-import {getDevice, showSuccess} from '../../../services/Utility';
+import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction';
+import {getDevice, showSuccess} from '../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -17,51 +17,47 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {FontIcon} from '../../../styles/Common/FontIcon';
-import {styles} from '../../../styles/Common/Styles';
-import commonTranslator from '../../../translator/Common';
+} from '../../../styles/CommonComponents.jsx';
+import {FontIcon} from '../../../styles/common/FontIcon';
+import {styles} from '../../../styles/common/styles';
+import commonTranslator from '../../../translator/common';
 import OffCode from '../buy/components/OffCode';
 import BuySchedule from './BuySchedule';
 import Card from './Card';
 import Filter from './Filter';
 import Schedule from './Schedule';
-import Comment from '../../../components/web/Comment/Comment';
-import BestComments from '../../../components/web/Comment/BestComments';
-
+import Comment from '../../../components/web/comment/Comment';
+import BestComments from '../../../components/web/comment/BestComments';
 function Teachers(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [data, setData] = useState();
   const [teacherSchedules, setTeacherSchedules] = useState();
   const [selectedTeachSchedule, setSelectedTeachSchedule] = useState();
-
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [showOffCodePane, setShowOffCodePane] = useState();
   const [selectedTeacher, setSelectedTeacher] = useState();
   const [userOff, setUserOff] = useState();
   const [bestComments, setBestComments] = useState();
-
   const [minAge, setMinAge] = useState(23);
   const [maxAge, setMaxAge] = useState(49);
   const [tags, setTags] = useState();
   const [grades, setGrades] = useState();
   const [branches, setBranches] = useState();
   const [lessons, setLessons] = useState();
-
   const [offAmount, setOffAmount] = useState(0);
   const userMoney = useMemo(
     () => state.user.user.money,
     [state.user.user.money],
   );
   const [usedFromWallet, setUsedFromWallet] = useState();
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getAllTeachers,
@@ -75,21 +71,31 @@ function Teachers(props) {
       generalRequest(routes.fetchBranches, 'get', undefined, 'data'),
       generalRequest(routes.getTopComments + 'teach', 'get', undefined, 'data'),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null || res[1] == null) {
         props.navigate('/');
         return;
       }
-
       setTags([
-        ...res[1].map(elem => ({id: elem, item: elem})),
-        {id: 'all', item: 'همه'},
+        ...res[1].map(elem => ({
+          id: elem,
+          item: elem,
+        })),
+        {
+          id: 'all',
+          item: 'همه',
+        },
       ]);
-
       setMinAge(res[0].filters.minAge);
       setMaxAge(res[0].filters.maxAge);
-      const tmpArr = [{id: 'all', item: 'همه'}];
+      const tmpArr = [
+        {
+          id: 'all',
+          item: 'همه',
+        },
+      ];
       res[3].forEach(element => {
         element.lessons?.forEach(itr => {
           tmpArr.push({
@@ -100,9 +106,11 @@ function Teachers(props) {
       });
       setLessons(tmpArr);
       setBestComments(res[4]);
-
       setBranches([
-        {id: 'all', item: 'همه'},
+        {
+          id: 'all',
+          item: 'همه',
+        },
         ...res[2].map(e => {
           return {
             id: e.id,
@@ -111,7 +119,10 @@ function Teachers(props) {
         }),
       ]);
       setGrades([
-        {id: 'all', item: 'همه'},
+        {
+          id: 'all',
+          item: 'همه',
+        },
         ...res[3].map(e => {
           return {
             id: e.id,
@@ -123,43 +134,38 @@ function Teachers(props) {
       setSelectableItems(res[0].data);
     });
   }, [dispatch, state.token, props]);
-
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const setOffCodeResult = (amount, type, code) => {
-    setUserOff({type: type, amount: amount, code: code});
+    setUserOff({
+      type: type,
+      amount: amount,
+      code: code,
+    });
     const offAmountTmp =
       type === 'percent'
         ? (selectedTeachSchedule.price * amount) / 100
         : amount;
-
     setOffAmount(Math.min(offAmountTmp, selectedTeachSchedule.price));
     let shouldPayTmp = selectedTeachSchedule.price - offAmountTmp;
-
     if (shouldPayTmp > 0) {
       setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
       shouldPayTmp -= userMoney;
     } else setUsedFromWallet(0);
-
     selectedTeachSchedule.shouldPay = Math.max(0, shouldPayTmp);
   };
-
   const [selectableItems, setSelectableItems] = useState();
   const [clearFilter, setClearFilter] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [selectedTeacherForComment, setSelectedTeacherForComment] = useState();
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   useEffect(() => {
     if (clearFilter) setShowFilter(false);
   }, [clearFilter]);
-
   return (
     <>
       {showSuccessTransaction && (
@@ -191,7 +197,11 @@ function Teachers(props) {
         <OffCode
           token={state.token}
           for={'classes'}
-          setLoading={new_status => dispatch({loading: new_status})}
+          setLoading={new_status =>
+            dispatch({
+              loading: new_status,
+            })
+          }
           setResult={setOffCodeResult}
           toggleShowPopUp={() => setShowOffCodePane(false)}
         />
@@ -212,7 +222,11 @@ function Teachers(props) {
             canUseOff={selectedTeachSchedule.canUseOff}
             off={offAmount}
             userOff={userOff}
-            setLoading={new_status => dispatch({status: new_status})}
+            setLoading={new_status =>
+              dispatch({
+                status: new_status,
+              })
+            }
             token={state.token}
             user={state.user}
             usedFromWallet={usedFromWallet}
@@ -236,7 +250,10 @@ function Teachers(props) {
                         ...styles.alignItemsCenter,
                       }}>
                       <SimpleText
-                        style={{...styles.BlueBold, ...styles.fontSize17}}
+                        style={{
+                          ...styles.BlueBold,
+                          ...styles.fontSize17,
+                        }}
                         text={'لیست دبیران'}
                       />
                       {selectableItems !== undefined && (
@@ -256,7 +273,10 @@ function Teachers(props) {
                       )}
                     </PhoneView>
                     <PhoneView
-                      style={{...styles.alignSelfCenter, ...styles.gap10}}>
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.gap10,
+                      }}>
                       <SimpleText
                         style={{
                           ...styles.alignSelfCenter,
@@ -269,7 +289,10 @@ function Teachers(props) {
                       />
                       <CommonButton
                         iconDir={'left'}
-                        textStyle={{...styles.fontSize17, ...styles.bold}}
+                        textStyle={{
+                          ...styles.fontSize17,
+                          ...styles.bold,
+                        }}
                         icon={showFilter ? faChevronDown : faChevronRight}
                         onPress={() => {
                           setShowFilter(!showFilter);
@@ -282,26 +305,26 @@ function Teachers(props) {
                       />
                     </PhoneView>
                   </EqualTwoTextInputs>
-                  {showFilter &&
-                    maxAge !== undefined &&
-                    minAge !== undefined && (
-                      <Filter
-                        minAge={minAge}
-                        maxAge={maxAge}
-                        grades={grades}
-                        branches={branches}
-                        lessons={lessons}
-                        tags={tags}
-                        token={props.token}
-                        setLoading={new_status =>
-                          dispatch({loading: new_status})
-                        }
-                        setClearFilter={setClearFilter}
-                        clearFilter={clearFilter}
-                        close={() => setShowFilter(false)}
-                        setSelectableItems={items => setSelectableItems(items)}
-                      />
-                    )}
+                  {showFilter && maxAge !== undefined && minAge !== undefined && (
+                    <Filter
+                      minAge={minAge}
+                      maxAge={maxAge}
+                      grades={grades}
+                      branches={branches}
+                      lessons={lessons}
+                      tags={tags}
+                      token={props.token}
+                      setLoading={new_status =>
+                        dispatch({
+                          loading: new_status,
+                        })
+                      }
+                      setClearFilter={setClearFilter}
+                      clearFilter={clearFilter}
+                      close={() => setShowFilter(false)}
+                      setSelectableItems={items => setSelectableItems(items)}
+                    />
+                  )}
                 </CommonWebBox>
               }
 
@@ -313,7 +336,9 @@ function Teachers(props) {
               <PhoneView
                 style={{
                   ...styles.gap15,
-                  ...{margin: isInPhone ? 4 : 15},
+                  ...{
+                    margin: isInPhone ? 4 : 15,
+                  },
                 }}>
                 {selectableItems !== undefined &&
                   selectableItems.map((elem, index) => {
@@ -322,7 +347,6 @@ function Teachers(props) {
                       elem.id !== selectedTeacher
                     )
                       return;
-
                     return (
                       <Card
                         navigate={props.navigate}
@@ -334,7 +358,9 @@ function Teachers(props) {
                           setShowComments(true);
                         }}
                         onSelect={async () => {
-                          dispatch({loading: true});
+                          dispatch({
+                            loading: true,
+                          });
                           const res = await generalRequest(
                             routes.getTeacherSchedules + elem.id,
                             'get',
@@ -342,7 +368,9 @@ function Teachers(props) {
                             'data',
                             state.token,
                           );
-                          dispatch({loading: false});
+                          dispatch({
+                            loading: false,
+                          });
                           setTeacherSchedules(res);
                         }}
                         onBackClick={() => {
@@ -364,7 +392,11 @@ function Teachers(props) {
               refId={selectedTeacherForComment}
               section="teach"
               token={state.token}
-              setLoading={status => dispatch({loading: status})}
+              setLoading={status =>
+                dispatch({
+                  loading: status,
+                })
+              }
             />
           )}
 
@@ -375,7 +407,10 @@ function Teachers(props) {
                 ...styles.margin15,
               }}>
               <PhoneView
-                style={{flexDirection: 'row-reverse', padding: '10px'}}>
+                style={{
+                  flexDirection: 'row-reverse',
+                  padding: '10px',
+                }}>
                 <FontIcon
                   onPress={() => setTeacherSchedules(undefined)}
                   theme="rect"
@@ -386,8 +421,12 @@ function Teachers(props) {
               <PhoneView
                 style={
                   state.isInPhone
-                    ? {...styles.justifyContentCenter}
-                    : {...styles.gap15}
+                    ? {
+                        ...styles.justifyContentCenter,
+                      }
+                    : {
+                        ...styles.gap15,
+                      }
                 }>
                 {teacherSchedules.map((elem, index) => {
                   return (
@@ -411,7 +450,6 @@ function Teachers(props) {
                             );
                             setUsedFromWallet(Math.min(userMoney, elem.price));
                           }
-
                           setSelectedTeachSchedule(elem);
                           return;
                         }
@@ -422,8 +460,9 @@ function Teachers(props) {
                           setSelectedTeachSchedule(elem);
                           return;
                         }
-
-                        dispatch({loading: true});
+                        dispatch({
+                          loading: true,
+                        });
                         const res = await generalRequest(
                           routes.sendTeachRequest + elem.id,
                           'post',
@@ -431,12 +470,13 @@ function Teachers(props) {
                           'data',
                           state.token,
                         );
-                        dispatch({loading: false});
+                        dispatch({
+                          loading: false,
+                        });
                         if (res !== null) {
                           showSuccess(
                             'درخواست شما با موفقیت ثبت گردید و پس از بررسی دبیر نتیجه به اطلاع شما خواهد رسید',
                           );
-
                           setTeacherSchedules(undefined);
                           setSelectedTeacher(undefined);
                         }
@@ -455,5 +495,4 @@ function Teachers(props) {
     </>
   );
 }
-
 export default Teachers;

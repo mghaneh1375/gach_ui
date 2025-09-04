@@ -1,31 +1,25 @@
 import RoleFormForSelect from '../../general/login/components/RoleFormForSelect';
 import React, {useState} from 'react';
-import {dispatchStateContext} from '../../../App';
-import {CommonWebBox} from '../../../styles/Common';
+import {dispatchStateContext} from '@/App';
+import {CommonWebBox} from '../../../styles/CommonComponents.jsx';
 import {useParams} from 'react-router';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
-import {isUserAdmin} from '../../../services/Utility';
-
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {isUserAdmin} from '../../../services/utility';
 function Upgrade(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
-
   const [dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const isAdmin = isUserAdmin(props.user);
-
   const params = useParams();
   const userId = isAdmin ? params.userId : undefined;
-
   if (isAdmin && userId === undefined) props.navigate('/');
-
   const [forms, setForms] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   const fetchUser = React.useCallback(() => {
     console.log('fetching');
     Promise.all([
@@ -47,21 +41,22 @@ function Upgrade(props) {
       setIsWorking(false);
     });
   }, [userId, props]);
-
   React.useEffect(() => {
-    if (forms !== undefined) dispatch({loading: false});
+    if (forms !== undefined)
+      dispatch({
+        loading: false,
+      });
   }, [forms, dispatch]);
-
   React.useEffect(() => {
     if (userId === undefined || isWorking || forms !== undefined) return;
     setIsWorking(true);
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
   }, [userId, isWorking, forms, dispatch]);
-
   React.useEffect(() => {
     if (isWorking) fetchUser();
   }, [isWorking, fetchUser]);
-
   return (
     <CommonWebBox>
       {/* <MyView style={{width: 400}}>
@@ -73,7 +68,7 @@ function Upgrade(props) {
           setLoading={setLoading}
           navigate={props.navigate}
         />
-      </MyView> */}
+       </MyView> */}
 
       <RoleFormForSelect
         forms={forms}
@@ -87,5 +82,4 @@ function Upgrade(props) {
     </CommonWebBox>
   );
 }
-
 export default Upgrade;

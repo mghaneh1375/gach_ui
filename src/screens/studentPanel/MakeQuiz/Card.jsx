@@ -3,10 +3,9 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
-import Translate from './Translate';
-
+} from '../../../styles/CommonComponents';
+import {styles} from '../../../styles/common/styles';
+import Translate from './translate';
 function Card(props) {
   return (
     <CommonWebBox width={330}>
@@ -48,5 +47,4 @@ function Card(props) {
     </CommonWebBox>
   );
 }
-
 export default Card;

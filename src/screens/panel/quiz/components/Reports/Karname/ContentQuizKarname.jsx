@@ -5,35 +5,30 @@ import {
   EqualTwoTextInputs,
   PhoneView,
   MyView,
-} from '../../../../../../styles/Common';
-import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
+} from '@/styles';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
 import {quizContext, dispatchQuizContext} from '../../Context';
-import {getKarname} from '../../Utility';
+import {getKarname} from '../../utility';
 import {
   lessonCols,
   lessonColsCustomQuiz,
   subjectCols,
   subjectColsCustomQuiz,
-} from './LessonTableStructure.js';
-
-import AnswerSheet from '../../AnswerSheet/AnswerSheet';
-import {getDevice} from '../../../../../../services/Utility';
-import {getMyAnswerSheet} from '../../../../../studentPanel/MyQuizzes/irysc/components/Utility';
-import {styleCard100Percent} from '../../../../package/card/Style';
-
+} from './lessonTableStructure';
+import AnswerSheet from '../../answerSheet/AnswerSheet';
+import {getDevice} from '../../../../../../services/utility';
+import {getMyAnswerSheet} from '../../../../../studentPanel/myQuizzes/irysc/components/utility';
+import {styleCard100Percent} from '../../../../package/card/style';
 function ContentQuizKarname(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState(false);
   const [karname, setKarname] = useState();
-
   const fetchAnswerSheet = useCallback(async () => {
     if (props.user === null || props.user === undefined) return 'ok';
-
     return await getMyAnswerSheet(
       state.selectedQuiz.id,
       props.generalQuizMode === undefined
@@ -42,18 +37,18 @@ function ContentQuizKarname(props) {
       props.token,
     );
   }, [props, state.selectedQuiz]);
-
   React.useEffect(() => {
     if (state.selectedQuiz === undefined) {
       dispatch({
-        selectedQuiz: {id: props.quizId, generalMode: props.quizMode},
+        selectedQuiz: {
+          id: props.quizId,
+          generalMode: props.quizMode,
+        },
         selectedStudentId: props.studentId,
       });
       return;
     }
-
     if (isWorking || state.selectedStudentId === undefined) return;
-
     if (
       state.selectedQuiz.allKarname !== undefined &&
       state.selectedQuiz.allKarname.find(
@@ -66,10 +61,8 @@ function ContentQuizKarname(props) {
       setKarname(tmp);
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       getKarname(
         props.token,
@@ -85,19 +78,15 @@ function ContentQuizKarname(props) {
         props.setMode('list');
         return;
       }
-
       Promise.all([fetchAnswerSheet()]).then(res2 => {
         props.setLoading(false);
-
         if (res2[0] === null) {
           props.setMode('list');
           return;
         }
-
         if (state.selectedQuiz.allKarname === undefined)
           state.selectedQuiz.allKarname = [res[0]];
         else state.selectedQuiz.allKarname.push(res[0]);
-
         dispatch({
           wanted_answer_sheet: res2[0] === 'ok' ? undefined : res2[0],
           showAnswers: true,
@@ -118,12 +107,9 @@ function ContentQuizKarname(props) {
     isWorking,
     fetchAnswerSheet,
   ]);
-
   const [conditionalRowStyles, setConditionalRowStyles] = useState();
-
   React.useEffect(() => {
     if (karname === undefined || karname.conditions === undefined) return;
-
     const conditions = karname.conditions.map(elem => {
       return {
         when: row => row.taraz <= elem.max && row.taraz >= elem.min,
@@ -132,12 +118,9 @@ function ContentQuizKarname(props) {
         },
       };
     });
-
     setConditionalRowStyles(conditions);
   }, [karname]);
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   return (
     <MyView>
       <CommonWebBox
@@ -163,7 +146,9 @@ function ContentQuizKarname(props) {
             }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
+                style={{
+                  alignSelf: 'center',
+                }}
                 text={'جدول شماره 1 - نتایج دروس'}
               />
             </EqualTwoTextInputs>
@@ -199,7 +184,9 @@ function ContentQuizKarname(props) {
             }}>
             <EqualTwoTextInputs>
               <BigBoldBlueTextInline
-                style={{alignSelf: 'center'}}
+                style={{
+                  alignSelf: 'center',
+                }}
                 text={
                   props.generalQuizMode === undefined
                     ? 'جدول شماره 3 - نتایج حیطه\u200cها'
@@ -241,5 +228,4 @@ function ContentQuizKarname(props) {
     </MyView>
   );
 }
-
 export default ContentQuizKarname;

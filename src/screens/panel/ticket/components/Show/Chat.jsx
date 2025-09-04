@@ -1,13 +1,7 @@
-import {
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-  MyView,
-} from '../../../../../styles/Common';
-import AttachBox from './AttachBox/AttachBox';
-import ChatImage from './ChatImage/ChatImage';
+import {CommonWebBox, PhoneView, SimpleText, MyView} from '@/styles';
+import AttachBox from './attachBox/AttachBox';
+import ChatImage from './chatImage/ChatImage';
 import RenderHtml from 'react-native-render-html';
-
 const Chat = props => {
   const commonStyles = {
     marginTop: 10,
@@ -27,14 +21,22 @@ const Chat = props => {
     alignSelf: 'flex-end',
   };
   const allStyles = props.isForUser
-    ? {...commonStyles, ...myMsgStyle}
-    : {...commonStyles, ...notForMeMsgStyle};
-
+    ? {
+        ...commonStyles,
+        ...myMsgStyle,
+      }
+    : {
+        ...commonStyles,
+        ...notForMeMsgStyle,
+      };
   return (
     <CommonWebBox style={allStyles}>
       <ChatImage dir={props.isForUser ? 'right' : 'left'} src={props.pic} />
       <MyView>
-        <PhoneView style={{alignSelf: props.isForUser ? '' : 'flex-end'}}>
+        <PhoneView
+          style={{
+            alignSelf: props.isForUser ? '' : 'flex-end',
+          }}>
           <SimpleText
             style={{
               fontSize: 10,
@@ -50,10 +52,18 @@ const Chat = props => {
           />
         </PhoneView>
         {props.isHtml && (
-          <RenderHtml contentWidth={'100%'} source={{html: props.msg}} />
+          <RenderHtml
+            contentWidth={'100%'}
+            source={{
+              html: props.msg,
+            }}
+          />
         )}
         {!props.isHtml && <SimpleText text={props.msg} />}
-        <PhoneView style={{alignSelf: props.isForUser ? 'flex-start' : ''}}>
+        <PhoneView
+          style={{
+            alignSelf: props.isForUser ? 'flex-start' : '',
+          }}>
           {props.files.map((elem, index) => {
             return (
               <AttachBox
@@ -70,5 +80,4 @@ const Chat = props => {
     </CommonWebBox>
   );
 };
-
 export default Chat;

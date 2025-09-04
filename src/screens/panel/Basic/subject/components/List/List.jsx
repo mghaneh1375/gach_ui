@@ -1,42 +1,31 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../../API/APIRoutes';
-import {removeItems} from '../../../../../../services/Utility';
-import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
+import {routes} from '@/api/apiRoutes';
+import {removeItems} from '../../../../../../services/utility';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
 import Ops from '../Ops';
-import columns from './TableStructure';
-import commonTranslator from '../../../../../../translator/Common';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../../../styles/Common/Styles';
-import {generalRequest} from '../../../../../../API/Utility';
-
+import columns from './tableStructure';
+import commonTranslator from '../../../../../../translator/common';
+import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '../../../../../../styles/common/styles';
+import {generalRequest} from '../../../../../../api/utility';
 function List(props) {
   const [showOpModel, setShowOpModel] = useState();
   const [selected, setSelected] = useState();
   const [searchKey, setSearchKey] = useState();
   const [code, setCode] = useState();
-
   const toggleShowOpPopUp = () => {
     setShowOpModel(!showOpModel);
   };
-
   const handleOp = idx => {
     props.setSelectedSubject(props.subjects[idx]);
     setSelected(props.subjects[idx]);
     toggleShowOpPopUp();
   };
-
   const [data, setData] = useState();
-
   React.useEffect(() => {
     setData(props.subjects);
   }, [props.subjects]);
-
   return (
     <CommonWebBox
       header={commonTranslator.subjectDefinition}
@@ -56,7 +45,10 @@ function List(props) {
         />
       )}
       <MyView>
-        <PhoneView style={{...styles.gap10}}>
+        <PhoneView
+          style={{
+            ...styles.gap10,
+          }}>
           <JustBottomBorderTextInput
             value={searchKey}
             onChangeText={e => setSearchKey(e)}
@@ -71,13 +63,15 @@ function List(props) {
             subText={'کد حیطه'}
           />
         </PhoneView>
-        <PhoneView style={{justifyContent: 'end'}}>
+        <PhoneView
+          style={{
+            justifyContent: 'end',
+          }}>
           <CommonButton
             onPress={async () => {
               const query = new URLSearchParams();
               if (searchKey !== undefined) query.append('subject', searchKey);
               if (code !== undefined) query.append('code', code);
-
               props.setLoading(true);
               const res = await generalRequest(
                 routes.fetchSubjects + '?' + query.toString(),
@@ -117,5 +111,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

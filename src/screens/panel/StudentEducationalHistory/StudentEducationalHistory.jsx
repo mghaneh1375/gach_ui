@@ -2,38 +2,34 @@ import {faEye} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
-import {styles} from '../../../styles/Common/Styles';
-import commonTranslator from '../../../translator/Common';
-import MiniCard from '../quiz/components/CV/MiniCard';
-import {subjectColsCustomQuiz} from '../quiz/components/Reports/Karname/LessonTableStructure';
-import Card from '../../general/Advisors/Card';
-
+  SimpleFontIcon,
+} from '@/styles';
+import CommonDataTable from '../../../styles/common/CommonDataTable';
+import {styles} from '../../../styles/common/styles';
+import commonTranslator from '../../../translator/common';
+import MiniCard from '../quiz/components/cv/MiniCard.jsx';
+import {subjectColsCustomQuiz} from '../quiz/components/reports/karname/lessonTableStructure';
+import Card from '../../general/advisors/Card';
 function StudentEducationalHistory(props) {
   const params = useParams();
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [iryscQuizzes, setIryscQuizzes] = useState();
   const [openQuizzes, setOpenQuizzes] = useState();
   const [customQuizzes, setCustomQuizzes] = useState();
   const [advisorQuizzes, setAdvisorQuizzes] = useState();
   const [schoolQuizzes, setSchoolQuizzes] = useState();
-
   const commonColumns = [
     {
       name: 'نام آزمون',
@@ -41,7 +37,6 @@ function StudentEducationalHistory(props) {
       grow: 3,
       minWidth: '120px',
     },
-
     {
       name: 'زمان اجرا',
       selector: row => row.date,
@@ -85,7 +80,6 @@ function StudentEducationalHistory(props) {
       center: true,
     },
   ];
-
   const iryscColumns = [
     {
       name: '',
@@ -108,7 +102,6 @@ function StudentEducationalHistory(props) {
     },
     ...commonColumns,
   ];
-
   const openColumns = [
     {
       name: '',
@@ -131,7 +124,6 @@ function StudentEducationalHistory(props) {
     },
     ...commonColumns,
   ];
-
   const schoolColumns = [
     {
       name: '',
@@ -157,7 +149,6 @@ function StudentEducationalHistory(props) {
     },
     ...commonColumns,
   ];
-
   const advisorColumns = [
     {
       name: '',
@@ -183,12 +174,11 @@ function StudentEducationalHistory(props) {
     },
     ...commonColumns,
   ];
-
   const [data, setData] = useState();
-
   const getData = React.useCallback(() => {
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getEducationalHistory + params.userId,
@@ -198,13 +188,13 @@ function StudentEducationalHistory(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         props.navigate('/');
         return;
       }
-
       setIryscQuizzes(res[0].iryscQuizzes);
       setOpenQuizzes(res[0].openQuizzes);
       setAdvisorQuizzes(res[0].advisorQuizzes);
@@ -213,16 +203,13 @@ function StudentEducationalHistory(props) {
       setData(res[0]);
     });
   }, [params.userId, dispatch, state, props]);
-
   useEffectOnce(() => {
     if (params.userId === undefined) {
       props.navigate('/');
       return;
     }
-
     getData();
   }, [params.userId, dispatch, state, props]);
-
   return (
     <>
       <CommonWebBox>
@@ -234,11 +221,26 @@ function StudentEducationalHistory(props) {
                 label: 'تعداد آزمون‌های شرکت کرده: ',
                 value: iryscQuizzes.length,
               },
-              {label: 'نام مدرسه: ', value: data.school},
-              {label: 'نام شهر: ', value: data.city},
-              {label: 'پایه تحصیلی: ', value: data.grade},
-              {label: 'رشته: ', value: data.branches},
-              {label: 'رتبه کل در آیریسک: ', value: data.rank},
+              {
+                label: 'نام مدرسه: ',
+                value: data.school,
+              },
+              {
+                label: 'نام شهر: ',
+                value: data.city,
+              },
+              {
+                label: 'پایه تحصیلی: ',
+                value: data.grade,
+              },
+              {
+                label: 'رشته: ',
+                value: data.branches,
+              },
+              {
+                label: 'رتبه کل در آیریسک: ',
+                value: data.rank,
+              },
             ]}
             header={data.name}
             ops={false}
@@ -249,7 +251,10 @@ function StudentEducationalHistory(props) {
 
       {data !== undefined && data.advisors !== undefined && (
         <CommonWebBox header={commonTranslator.advisors}>
-          <PhoneView style={{gap: 10}}>
+          <PhoneView
+            style={{
+              gap: 10,
+            }}>
             {data.advisors.map((e, index) => {
               return (
                 <Card
@@ -344,5 +349,4 @@ function StudentEducationalHistory(props) {
     </>
   );
 }
-
 export default StudentEducationalHistory;

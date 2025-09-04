@@ -1,4 +1,4 @@
-// import {dispatchStateContext, globalStateContext} from '../../../App';
+// import {globalStateContext, dispatchStateContext} from '@/App';
 // import React, {useState} from 'react';
 // import {BarcodeProvider} from './components/Context';
 // import List from './components/List';

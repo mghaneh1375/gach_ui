@@ -1,17 +1,12 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-} from '../../../../../styles/Common';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
 import {dispatchTeachScheduleContext, teachScheduleContext} from './Context';
-import Translator from './Translator';
-import {routes} from '../../../../../API/APIRoutes';
-import {showError, showSuccess} from '../../../../../services/Utility';
-import {generalRequest} from '../../../../../API/Utility';
-import commonTranslator from '../../../../../translator/Common';
-
+import Translator from './translator';
+import {routes} from '@/api/apiRoutes';
+import {showError, showSuccess} from '../../../../../services/utility';
+import {generalRequest} from '../../../../../api/utility';
+import commonTranslator from '@/translator/common';
 function Copy(props) {
   const useGlobalState = () => [
     React.useContext(teachScheduleContext),
@@ -22,13 +17,15 @@ function Copy(props) {
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
   const [endRegistration, setEndRegistration] = useState();
-
   return (
     <CommonWebBox
       backBtn={true}
       onBackClick={() => props.setMode('list')}
       header={Translator.copy}>
-      <PhoneView style={{gap: '10px'}}>
+      <PhoneView
+        style={{
+          gap: '10px',
+        }}>
         {state.isPackage && (
           <>
             <JustBottomBorderDatePicker
@@ -81,7 +78,6 @@ function Copy(props) {
             : {
                 start: start,
               };
-
           props.setLoading(true);
           const res = await generalRequest(
             routes.copyTeachSchedule + state.selectedScheduleId,
@@ -95,7 +91,9 @@ function Copy(props) {
             showSuccess();
             const tmp = state.schedules;
             tmp.push(res);
-            dispatch({schedules: tmp});
+            dispatch({
+              schedules: tmp,
+            });
             props.setMode('list');
           }
         }}
@@ -105,5 +103,4 @@ function Copy(props) {
     </CommonWebBox>
   );
 }
-
 export default Copy;

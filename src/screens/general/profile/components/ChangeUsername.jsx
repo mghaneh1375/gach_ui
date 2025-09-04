@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
-import {CommonButton, SimpleText, MyView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import vars from '../../../../styles/root';
+import {CommonButton, SimpleText, MyView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import vars from '@/styles/root';
 import translator from '../translate';
-import commonTranslator from '../../../../translator/Common';
+import commonTranslator from '@/translator/common';
 import Verification from '../../login/components/Verification';
-import {removeAuthCache} from '../../../../API/User';
-import {getDevice, showSuccess} from '../../../../services/Utility';
-import {Device} from '../../../../models/Device';
-import {changeUsername} from './Utility';
-
+import {removeAuthCache} from '../../../../api/user';
+import {getDevice, showSuccess} from '../../../../services/utility';
+import {Device} from '../../../../models/device';
+import {changeUsername} from './utility';
 const ChangeUsername = props => {
   const [newUsername, setNewUsername] = useState('');
   const [step, setStep] = useState('chageUsername');
@@ -22,7 +21,6 @@ const ChangeUsername = props => {
   React.useEffect(() => {
     if (step === 'finish') {
       const isApp = getDevice().indexOf(Device.App) !== -1;
-
       setTimeout(function () {
         removeAuthCache();
         window.location.href = '/login';
@@ -33,7 +31,6 @@ const ChangeUsername = props => {
   const changeNewUsername = text => {
     setNewUsername(text);
   };
-
   return (
     <LargePopUp
       toggleShowPopUp={props.toggleModal}
@@ -43,7 +40,9 @@ const ChangeUsername = props => {
       btns={
         step === 'chageUsername' ? (
           <CommonButton
-            style={{backgroundColor: vars.DARK_BLUE}}
+            style={{
+              backgroundColor: vars.DARK_BLUE,
+            }}
             title={
               props.userId === undefined
                 ? translator.sendCode
@@ -57,7 +56,6 @@ const ChangeUsername = props => {
                 props.mode,
                 newUsername,
               );
-
               if (res !== null) {
                 if (props.userId === undefined) {
                   setToken(res.token);
@@ -110,5 +108,4 @@ const ChangeUsername = props => {
     </LargePopUp>
   );
 };
-
 export default ChangeUsername;

@@ -1,12 +1,11 @@
 import {useState} from 'react';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../translator/Common';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {showError, showSuccess} from '../../../../services/Utility';
-import {justifyContentEnd} from '../../../../styles/Common/Button';
-
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '@/translator/common';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showError, showSuccess} from '../../../../services/utility';
+import {justifyContentEnd} from '../../../../styles/common/button';
 function CreateUser(props) {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
@@ -19,7 +18,10 @@ function CreateUser(props) {
       header={'ایجاد دانش آموز جدید'}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{gap: '20px'}}>
+      <PhoneView
+        style={{
+          gap: '20px',
+        }}>
         <JustBottomBorderTextInput
           value={firstName}
           onChangeText={e => setFirstName(e)}
@@ -105,5 +107,4 @@ function CreateUser(props) {
     </CommonWebBox>
   );
 }
-
 export default CreateUser;

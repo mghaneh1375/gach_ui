@@ -1,14 +1,8 @@
 import React, {useState} from 'react';
-import {
-  EqualTwoTextInputs,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import vars from '../../../../../styles/root';
+import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import vars from '@/styles/root';
 import {dispatchQuizContext, quizContext} from '../Context';
-
 function ShortAnswer(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
@@ -17,9 +11,7 @@ function ShortAnswer(props) {
   const [state, dispatch] = useGlobalState();
   const [stdAns, setStdAns] = useState();
   const [answer, setAnswer] = useState();
-
   const index = props.index;
-
   React.useEffect(() => {
     setStdAns(state.wanted_answer_sheet[index].studentAns);
     setAnswer(state.wanted_answer_sheet[index].answer);
@@ -59,17 +51,32 @@ function ShortAnswer(props) {
   //   };
 
   return (
-    <PhoneView style={{direction: 'ltr', marginBottom: 10}}>
+    <PhoneView
+      style={{
+        direction: 'ltr',
+        marginBottom: 10,
+      }}>
       <SimpleText
-        style={{alignSelf: 'center', width: 25}}
+        style={{
+          alignSelf: 'center',
+          width: 25,
+        }}
         text={index + 1 + ' - '}
       />
 
-      <EqualTwoTextInputs style={{width: 180}}>
+      <EqualTwoTextInputs
+        style={{
+          width: 180,
+        }}>
         {stdAns !== undefined && (
-          <MyView style={{width: '45%'}}>
+          <MyView
+            style={{
+              width: '45%',
+            }}>
             <JustBottomBorderTextInput
-              style={{textAlign: 'center'}}
+              style={{
+                textAlign: 'center',
+              }}
               backgroundColor={vars.WHITE}
               placeholder={stdAns}
               disable={!state.allowChangeStdAns}
@@ -101,9 +108,14 @@ function ShortAnswer(props) {
           </MyView>
         )}
         {answer !== undefined && (
-          <MyView style={{width: '45%'}}>
+          <MyView
+            style={{
+              width: '45%',
+            }}>
             <JustBottomBorderTextInput
-              style={{textAlign: 'center'}}
+              style={{
+                textAlign: 'center',
+              }}
               backgroundColor={vars.WHITE}
               placeholder={answer}
               disable={true}
@@ -125,12 +137,14 @@ function ShortAnswer(props) {
 
       {state.wanted_answer_sheet[index].percent !== undefined && (
         <SimpleText
-          style={{alignSelf: 'center', marginLeft: 3}}
+          style={{
+            alignSelf: 'center',
+            marginLeft: 3,
+          }}
           text={'%' + state.wanted_answer_sheet[index].percent}
         />
       )}
     </PhoneView>
   );
 }
-
 export default ShortAnswer;

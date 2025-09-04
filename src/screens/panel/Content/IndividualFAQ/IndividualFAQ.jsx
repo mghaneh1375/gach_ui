@@ -1,22 +1,20 @@
-import {ContentProvider} from '../Components/Context';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {ContentProvider} from '../components/Context';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import React, {useState} from 'react';
 import List from './components/List';
 import Create from './components/Create';
-
 function IndividualFAQ(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   return (
     <ContentProvider>
       {mode === 'list' && (
@@ -40,5 +38,4 @@ function IndividualFAQ(props) {
     </ContentProvider>
   );
 }
-
 export default IndividualFAQ;

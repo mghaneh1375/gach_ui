@@ -1,8 +1,7 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-import {showError, showSuccess} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
+import {showError, showSuccess} from '../../../../../services/utility';
+import commonTranslator from '@/translator/common';
 export const getAll = async (token, packageId = undefined) => {
   return await generalRequest(
     packageId === undefined || packageId == null
@@ -14,9 +13,7 @@ export const getAll = async (token, packageId = undefined) => {
     token,
   );
 };
-
 const mandatoryFields = ['question', 'answer', 'visibility', 'priority'];
-
 export const store = async (data, token, packageId = undefined) => {
   try {
     const res = await generalRequest(
@@ -30,7 +27,6 @@ export const store = async (data, token, packageId = undefined) => {
       mandatoryFields,
     );
     if (res !== null) showSuccess();
-
     return res;
   } catch (e) {
     showError(commonTranslator.pleaseFillAllFields);
@@ -56,7 +52,6 @@ export const update = async (id, data, token, packageId = undefined) => {
     return null;
   }
 };
-
 export const remove = async (id, token, packageId = undefined) => {
   const res = await generalRequest(
     packageId === undefined

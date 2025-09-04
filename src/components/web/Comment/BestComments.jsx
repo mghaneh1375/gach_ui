@@ -1,15 +1,18 @@
 import BestComment from './BestComment';
-import {MyView, PhoneView} from '../../../styles/Common';
-import {getWidthHeight} from '../../../services/Utility';
+import {MyView, PhoneView} from '../../../styles/CommonComponents';
+import {getWidthHeight} from '../../../services/utility';
 import {useMemo} from 'react';
-
 function BestComments(props) {
   const w = useMemo(() => getWidthHeight()[0], []);
   return (
     <>
       {props.bestComments && props.bestComments.length > 0 && (
         <MyView>
-          <PhoneView style={{width: '100%', justifyContent: 'center'}}>
+          <PhoneView
+            style={{
+              width: '100%',
+              justifyContent: 'center',
+            }}>
             <img
               width={props.isInPhone ? '100%' : '800px'}
               src={require('./../../../images/experience.jpg')}
@@ -49,5 +52,4 @@ function BestComments(props) {
     </>
   );
 }
-
 export default BestComments;

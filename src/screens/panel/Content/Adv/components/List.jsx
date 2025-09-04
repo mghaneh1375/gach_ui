@@ -1,23 +1,19 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {CommonWebBox, MyView, PhoneView} from '../../../../../styles/Common';
-import {styles} from '../../../../../styles/Common/Styles';
-import {contentContext, dispatchContentContext} from '../../Components/Context';
-import Translator from '../../Translate';
+import {CommonWebBox, MyView, PhoneView} from '@/styles';
+import {styles} from '@/styles/common/styles';
+import {contentContext, dispatchContentContext} from '../../components/Context';
+import Translator from '../../translate';
 import Card from './Card';
-import {getAll} from './Utility';
-
+import {getAll} from './utility';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),
     React.useContext(dispatchContentContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const fetchData = React.useCallback(() => {
     if (state.allAdv !== undefined) return;
-
     props.setLoading(true);
     Promise.all([getAll(props.token)]).then(res => {
       props.setLoading(false);
@@ -25,16 +21,15 @@ function List(props) {
         props.navigate('/');
         return;
       }
-      dispatch({allAdv: res[0]});
+      dispatch({
+        allAdv: res[0],
+      });
     });
   }, [props, dispatch, state.allAdv]);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   const [videoForShow, setVideoForShow] = useState();
-
   return (
     <MyView>
       <CommonWebBox
@@ -64,13 +59,17 @@ function List(props) {
                       if (itr.id !== elem.id) return itr;
                       return res;
                     });
-                    dispatch({allAdv: tmp});
+                    dispatch({
+                      allAdv: tmp,
+                    });
                   }}
                   onDelete={() => {
                     const tmp = state.allAdv.filter(itr => {
                       return itr.id !== elem.id;
                     });
-                    dispatch({allAdv: tmp});
+                    dispatch({
+                      allAdv: tmp,
+                    });
                   }}
                   setVideoForShow={setVideoForShow}
                   token={props.token}
@@ -85,5 +84,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

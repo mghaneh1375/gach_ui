@@ -1,15 +1,13 @@
 import {ToastAndroid, Dimensions, Platform} from 'react-native';
-import {Device} from '../models/Device';
+import {Device} from '../models/device';
 import moment from 'moment-jalaali';
 import {Store} from 'react-notifications-component';
-import {generalRequest} from '../API/Utility';
-import commonTranslator from '../translator/Common';
+import {generalRequest} from '../api/utility';
+import commonTranslator from '../translator/common';
 import {defaultSystemFonts} from 'react-native-render-html';
-import hwTranslator from '../screens/schoolPanel/MyHWs/components/Translator';
-
+import hwTranslator from '../screens/schoolPanel/myHWs/components/translator';
 export function getDevice() {
   const device = [];
-
   device.push(
     Dimensions.get('window').width < 768 &&
       Dimensions.get('window').height < 400
@@ -18,112 +16,80 @@ export function getDevice() {
       ? Device.WebPort
       : Device.Large,
   );
-
   const os = Platform.OS === 'ios' || Platform.OS === 'android' ? 'app' : 'web';
   if (os === 'app') device.push(Device.App);
-
   return device;
 }
-
 export function getWidthHeight() {
   return [Dimensions.get('window').width, Dimensions.get('window').height];
 }
-
 export function getScreenHeight() {
   return Dimensions.get('window').height - 90;
 }
-
 export const p2e = s => {
   return parseInt(s.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
 };
-
 export function simpleConvertTimestamp(unix_timestamp) {
   return moment.unix(unix_timestamp / 1000).format('jYYYY/jM/jD - HH:mm');
 }
-
 export function convertSecToMin(sec) {
   return new Date(sec * 1000).toISOString().substr(11, 8);
 }
-
 export function convertSecToMinWithOutHour(sec) {
   return new Date(sec * 1000).toISOString().substr(14, 5);
 }
-
 export function convertSecToMinWithOutSecAndDay(sec) {
   if (sec < 0) return '';
-
   const d = new Date(sec * 1000).toISOString();
-
   const day = parseInt(d.substr(8, 2)) - 1;
-
   let h = d.substr(11, 2);
-
   if (h[0] == 0) h = h[1];
-
   h = day * 24 + parseInt(h);
-
   let m = d.substr(14, 2);
   if (m[0] == 0) m = m[1];
-
   if (h > 0) {
     if (m > 0) return h + ' ساعت ' + m + ' دقیقه ';
     return h + ' ساعت ';
   }
-
   return m + ' دقیقه ';
 }
-
 export function convertSecToMinWithOutSec2(sec) {
   if (sec < 0) return '';
-
   const d = new Date(sec * 1000).toISOString();
   const day = parseInt(d.substr(8, 2)) - 1;
-
   let h = d.substr(11, 2);
-
   if (h[0] == 0) h = h[1];
-
   let m = d.substr(14, 2);
   if (m[0] == 0) m = m[1];
-
   if (day > 0) {
     if (h[0] > 0) {
       if (m > 0) return day + ' روز ' + h + ' ساعت ' + m + ' دقیقه ';
       return day + ' روز ' + h + ' ساعت ';
     }
-
     if (m == 0) return day + 'روز ';
-
     return day + 'روز ' + m + ' دقیقه ';
   }
-
   if (h[0] > 0) {
     if (m > 0) return h + ' ساعت ' + m + ' دقیقه ';
     return h + ' ساعت ';
   }
-
   return m + ' دقیقه ';
 }
-
 export function convertSecToMinWithOutSec(sec) {
   if (sec < 0) return '';
-
   const day = Math.floor(sec / (60 * 60 * 24));
   sec -= day * 60 * 60 * 24;
   const h = Math.floor(sec / (60 * 60));
   sec -= h * 60 * 60;
   const m = Math.floor(sec / 60);
   let result = '';
-
   if (day > 0) result += day + ' روز ';
   if (h > 0) result += h + ' ساعت ';
   if (m > 0) result += m + ' دقیقه ';
   return result;
 }
-
 export function convertSecToMinWithOutSec3(sec) {
   if (sec < 0) return '';
-
   const day = Math.floor(sec / (60 * 60 * 24));
   sec -= day * 60 * 60 * 24;
   const h = Math.floor(sec / (60 * 60));
@@ -131,35 +97,29 @@ export function convertSecToMinWithOutSec3(sec) {
   const m = Math.floor(sec / 60);
   let result = '';
   sec -= m * 60;
-
   if (day > 0) result += day + ' روز ';
   if (h > 0) result += h + ' ساعت ';
   if (m > 0) result += m + ' دقیقه ';
   if (sec > 0) result += sec + ' ثانیه';
   return result;
 }
-
 export function convertTimestamp(unix_timestamp) {
   if (unix_timestamp === undefined || unix_timestamp === '') return '...';
   return moment
     .unix(unix_timestamp / 1000)
     .format('تاریخ: jYYYY/jMM/jDD ساعت: HH:mm');
 }
-
 export function convertTimestampToJustTime(unix_timestamp) {
   if (unix_timestamp === undefined || unix_timestamp === '') return '...';
   return moment.unix(unix_timestamp / 1000).format('HH:mm');
 }
-
 export function convertTimestampToJustDate(unix_timestamp) {
   if (unix_timestamp === undefined || unix_timestamp === '') return '...';
   return moment.unix(unix_timestamp / 1000).format('jYYYY/jMM/jDD');
 }
-
 export function getToday() {
   return moment.unix(Date.now() / 1000).format('jYYYY/jMM/jDD');
 }
-
 export function getPast(pastInDays, jalali = true, delimeter = '/') {
   const momentDate = moment.unix(
     (Date.now() - pastInDays * 24 * 60 * 60 * 1000) / 1000,
@@ -168,17 +128,14 @@ export function getPast(pastInDays, jalali = true, delimeter = '/') {
     ? momentDate.format(`jYYYY${delimeter}jMM${delimeter}jDD`)
     : momentDate;
 }
-
 export function getCurrTime() {
   return moment
     .unix(Date.now() / 1000)
     .format('تاریخ: jYYYY/jMM/jDD ساعت: HH:mm');
 }
-
 export function getSimpleCurrTime() {
   return moment.unix(Date.now() / 1000).format('jYYYY/jM/jD - HH:mm');
 }
-
 export function showError(msg) {
   if (Platform.OS === 'android') {
     ToastAndroid.show(msg, ToastAndroid.SHORT);
@@ -202,10 +159,8 @@ export function showError(msg) {
     });
   }
 }
-
 export function showSuccess(msg) {
   if (msg === undefined) msg = commonTranslator.success;
-
   if (Platform.OS === 'android') {
     ToastAndroid.show(msg, ToastAndroid.SHORT);
   }
@@ -228,7 +183,6 @@ export function showSuccess(msg) {
     });
   }
 }
-
 export function showWarnign(msg) {
   if (Platform.OS === 'android') {
     ToastAndroid.show(msg, ToastAndroid.SHORT);
@@ -252,7 +206,6 @@ export function showWarnign(msg) {
     });
   }
 }
-
 export const generalUpdate = (
   url,
   data,
@@ -271,93 +224,93 @@ export const generalUpdate = (
     afterUpdate(res[0]);
   });
 };
-
 export const removeItems = (items, setItems, removedIds) => {
   setItems(items.filter(elem => removedIds.indexOf(elem.id) === -1));
 };
-
 export const changeText = (text, setter) => {
   setter(text);
 };
-
 export const addItem = (items, setItems, item) => {
   const allItems = items;
   allItems.unshift(item);
   setItems(allItems);
 };
-
 export const editItem = (items, setItems, item) => {
   let allItems = items;
-
   allItems = allItems.map(elem => {
     if (elem.id === item.id) return item;
     return elem;
   });
   setItems(allItems);
 };
-
 export const isUserAdmin = user => {
   if (user === undefined || user === null) return false;
-
   if (
     user.accesses.indexOf('admin') === -1 &&
     user.accesses.indexOf('superadmin') === -1
   )
     return false;
-
   return true;
 };
-
 export const isUserContentAccess = user => {
   if (user === undefined || user === null) return false;
-
   if (
     user.accesses.indexOf('content') === -1 &&
     user.accesses.indexOf('admin') === -1 &&
     user.accesses.indexOf('superadmin') === -1
   )
     return false;
-
   return true;
 };
-
 export const isUserEditorAccess = user => {
   if (user === undefined || user === null) return false;
-
   if (
     user.accesses.indexOf('editor') === -1 &&
     user.accesses.indexOf('admin') === -1 &&
     user.accesses.indexOf('superadmin') === -1
   )
     return false;
-
   return true;
 };
-
 export const isUserAdvisor = user => {
   if (user === undefined || user === null) return false;
-
   if (user.accesses.indexOf('advisor') === -1) return false;
-
   return true;
 };
-
 export const sexKeyVals = [
-  {item: 'آقا', id: 'male'},
-  {item: 'خانم', id: 'female'},
+  {
+    item: 'آقا',
+    id: 'male',
+  },
+  {
+    item: 'خانم',
+    id: 'female',
+  },
 ];
-
 export const trueFalseValues = [
-  {item: commonTranslator.yes, id: true},
-  {item: commonTranslator.no, id: false},
+  {
+    item: commonTranslator.yes,
+    id: true,
+  },
+  {
+    item: commonTranslator.no,
+    id: false,
+  },
 ];
-
 export const allTrueFalseValues = [
-  {item: commonTranslator.yes, id: true},
-  {item: commonTranslator.no, id: false},
-  {item: commonTranslator.all, id: 'all'},
+  {
+    item: commonTranslator.yes,
+    id: true,
+  },
+  {
+    item: commonTranslator.no,
+    id: false,
+  },
+  {
+    item: commonTranslator.all,
+    id: 'all',
+  },
 ];
-
 export function formatPrice(Number) {
   Number += '';
   Number = Number.replace(',', '');
@@ -368,7 +321,6 @@ export function formatPrice(Number) {
   while (rgx.test(y)) y = y.replace(rgx, '$1' + ',' + '$2');
   return y + z;
 }
-
 export const tagsStyles = {
   h1: {
     fontFamily: 'IRANSans',
@@ -404,9 +356,7 @@ export const tagsStyles = {
     fontFamily: 'IRANSans',
   },
 };
-
 export const systemFonts = [...defaultSystemFonts, 'IRANSans'];
-
 export const setImgSize = (
   width,
   height,
@@ -430,16 +380,32 @@ export const setImgSize = (
       : ((totalWidth - 50) * height) / width,
   );
 };
-
 export const answerTypes = [
-  {item: hwTranslator.pdf, id: 'pdf'},
-  {item: hwTranslator.word, id: 'word'},
-  {item: hwTranslator.powerpoint, id: 'powerpoint'},
-  {item: hwTranslator.image, id: 'image'},
-  {item: hwTranslator.audio, id: 'audio'},
-  {item: hwTranslator.video, id: 'video'},
+  {
+    item: hwTranslator.pdf,
+    id: 'pdf',
+  },
+  {
+    item: hwTranslator.word,
+    id: 'word',
+  },
+  {
+    item: hwTranslator.powerpoint,
+    id: 'powerpoint',
+  },
+  {
+    item: hwTranslator.image,
+    id: 'image',
+  },
+  {
+    item: hwTranslator.audio,
+    id: 'audio',
+  },
+  {
+    item: hwTranslator.video,
+    id: 'video',
+  },
 ];
-
 export const faNums = [
   'اول',
   'دوم',
@@ -451,7 +417,6 @@ export const faNums = [
   'هشتم',
   'نهم',
 ];
-
 export const CKEditorToolbar = {
   toolbar: {
     items: [
@@ -500,10 +465,8 @@ export const CKEditorToolbar = {
     contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
   },
 };
-
 export const getFileType = file => {
   const fileType = file.split('.').pop().toLowerCase();
-
   if (['png', 'jpeg', 'jpg', 'webp', 'svg'].indexOf(fileType) > -1) {
     return 'img';
   } else if (['mp3'].indexOf(fileType) > -1) {
@@ -512,20 +475,15 @@ export const getFileType = file => {
     return 'other';
   }
 };
-
 export const makeDownload = link => {
   var element = document.createElement('a');
   element.setAttribute('href', link);
   element.setAttribute('target', '_blank');
-
   element.style.display = 'none';
   document.body.appendChild(element);
-
   element.click();
-
   document.body.removeChild(element);
 };
-
 export const f2e = v => {
   return (v + '').replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
 };

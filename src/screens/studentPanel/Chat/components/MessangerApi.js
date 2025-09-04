@@ -1,5 +1,4 @@
-import {generalRequest} from '../../../../API/Utility';
-
+import {generalRequest} from '@/api/utility';
 export const GetMessengerTokenApi = async token => {
   const res = await generalRequest(
     'http://192.168.0.106:8088/api/getToken',
@@ -8,10 +7,8 @@ export const GetMessengerTokenApi = async token => {
     ['token', 'reminder', 'heartBeatInterval', 'validityDuration'],
     token,
   );
-
   return res;
 };
-
 export const GetChatsApi = async socketToken => {
   return await generalRequest(
     'http://192.168.0.106:8088/api/chats',
@@ -21,7 +18,6 @@ export const GetChatsApi = async socketToken => {
     socketToken,
   );
 };
-
 export const GetStudentsMessengerApi = async socketToken => {
   return generalRequest(
     'http://192.168.0.106:8088/api/getStudents',
@@ -31,7 +27,6 @@ export const GetStudentsMessengerApi = async socketToken => {
     socketToken,
   );
 };
-
 export const GetMyAdvisorsMessengerApi = async socketToken => {
   return generalRequest(
     'http://192.168.0.106:8088/api/getMyAdvisors',
@@ -41,7 +36,6 @@ export const GetMyAdvisorsMessengerApi = async socketToken => {
     socketToken,
   );
 };
-
 export const GetMessagesOfChatApi = async (id, socketToken, createdAt = -1) => {
   return await generalRequest(
     `http://192.168.0.106:8088/api/chat/${id}/${createdAt}`,
@@ -51,7 +45,6 @@ export const GetMessagesOfChatApi = async (id, socketToken, createdAt = -1) => {
     socketToken,
   );
 };
-
 export const SendFileToMessenger = (file, userId, socketToken) => {
   //   return new Promise((resolve, reject) => {
   //     openLoading();
@@ -86,7 +79,6 @@ export const SendFileToMessenger = (file, userId, socketToken) => {
   //       });
   //   });
 };
-
 export const GetFilesOfChatApi = (chatId, socketToken) => {
   //   return new Promise((resolve, reject) => {
   //     openLoading();

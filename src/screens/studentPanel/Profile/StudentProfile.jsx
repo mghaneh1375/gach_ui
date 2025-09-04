@@ -1,27 +1,26 @@
 import React, {useEffect, useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {BASE_SITE_NAME, generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
+} from '../../../styles/CommonComponents.jsx';
+import {BASE_SITE_NAME, generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
-import {styles} from '../../../styles/Common/Styles';
+import {styles} from '../../../styles/common/styles';
 import {Image} from 'react-native';
 import vars from '../../../styles/root';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
-import ContentCard from '../../general/Packages/components/Card';
+import ContentCard from '../../general/packages/components/Card';
 import CommentCard from './CommentCard';
 import TeacherCard from './TeacherCard';
-import BadgeCard from './../../general/Badge/Card';
-import Card from '../../panel/quiz/components/Card/Card';
+import BadgeCard from './../../general/badge/Card';
+import Card from '../../panel/quiz/components/card/Card';
 import CopyBox from '../../../components/CopyBox';
-
 function StudentProfile(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -43,9 +42,10 @@ function StudentProfile(props) {
   const [comments, setComments] = useState();
   const [quizzes, setQuizzes] = useState();
   const [badges, setBadges] = useState();
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getStudentProfile + studentId,
@@ -55,20 +55,20 @@ function StudentProfile(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) props.navigate('/');
       setInfo(res[0]);
       setPic(res[0].pic);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentId]);
-
   useEffect(() => {
     if (studentId === undefined) props.navigate('/');
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentId]);
-
   return (
     <>
       <CommonWebBox>
@@ -139,7 +139,10 @@ function StudentProfile(props) {
             </PhoneView>
           </>
         )}
-        <MyView style={{gap: 0}}>
+        <MyView
+          style={{
+            gap: 0,
+          }}>
           {info && info.showContentPackages && (
             <CommonWebBox
               btn={
@@ -150,7 +153,9 @@ function StudentProfile(props) {
                       return;
                     }
                     if (contents === undefined) {
-                      dispatch({loading: true});
+                      dispatch({
+                        loading: true,
+                      });
                       const res = await generalRequest(
                         routes.getStudentContents + studentId,
                         'get',
@@ -158,7 +163,9 @@ function StudentProfile(props) {
                         'data',
                         state.token,
                       );
-                      dispatch({loading: false});
+                      dispatch({
+                        loading: false,
+                      });
                       if (res !== null) setContents(res);
                     }
                     setShowContents(true);
@@ -169,7 +176,10 @@ function StudentProfile(props) {
               }
               header={'معرفی بسته\u200cهای آموزشی'}>
               {showContents && (
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   {contents &&
                     contents.map((elem, index) => {
                       return (
@@ -196,7 +206,9 @@ function StudentProfile(props) {
                       return;
                     }
                     if (advisors === undefined) {
-                      dispatch({loading: true});
+                      dispatch({
+                        loading: true,
+                      });
                       const res = await generalRequest(
                         routes.getStudentAdvisors + studentId,
                         'get',
@@ -204,7 +216,9 @@ function StudentProfile(props) {
                         'data',
                         state.token,
                       );
-                      dispatch({loading: false});
+                      dispatch({
+                        loading: false,
+                      });
                       if (res !== null) setAdvisors(res);
                     }
                     setShowAdvisors(true);
@@ -215,7 +229,10 @@ function StudentProfile(props) {
               }
               header={'مشاوران'}>
               {showAdvisors && (
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   {advisors &&
                     advisors.map((elem, index) => {
                       return <TeacherCard key={index} teacher={elem} />;
@@ -234,7 +251,9 @@ function StudentProfile(props) {
                       return;
                     }
                     if (teachers === undefined) {
-                      dispatch({loading: true});
+                      dispatch({
+                        loading: true,
+                      });
                       const res = await generalRequest(
                         routes.getStudentTeachers + studentId,
                         'get',
@@ -242,7 +261,9 @@ function StudentProfile(props) {
                         'data',
                         state.token,
                       );
-                      dispatch({loading: false});
+                      dispatch({
+                        loading: false,
+                      });
                       if (res !== null) setTeachers(res);
                     }
                     setShowTeachers(true);
@@ -253,7 +274,10 @@ function StudentProfile(props) {
               }
               header={'دبیران'}>
               {showTeachers && (
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   {teachers &&
                     teachers.map((elem, index) => {
                       return <TeacherCard key={index} teacher={elem} />;
@@ -272,7 +296,9 @@ function StudentProfile(props) {
                       return;
                     }
                     if (quizzes === undefined) {
-                      dispatch({loading: true});
+                      dispatch({
+                        loading: true,
+                      });
                       const res = await generalRequest(
                         routes.getStudentQuizzes + studentId,
                         'get',
@@ -280,7 +306,9 @@ function StudentProfile(props) {
                         'data',
                         state.token,
                       );
-                      dispatch({loading: false});
+                      dispatch({
+                        loading: false,
+                      });
                       if (res !== null) setQuizzes(res);
                     }
                     setShowQuizzes(true);
@@ -291,7 +319,10 @@ function StudentProfile(props) {
               }
               header={'آزمون ها'}>
               {showQuizzes && (
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   {quizzes &&
                     quizzes.map((elem, index) => {
                       return (
@@ -317,7 +348,9 @@ function StudentProfile(props) {
                       return;
                     }
                     if (comments === undefined) {
-                      dispatch({loading: true});
+                      dispatch({
+                        loading: true,
+                      });
                       const res = await generalRequest(
                         routes.getStudentComments + studentId,
                         'get',
@@ -325,7 +358,9 @@ function StudentProfile(props) {
                         'data',
                         state.token,
                       );
-                      dispatch({loading: false});
+                      dispatch({
+                        loading: false,
+                      });
                       if (res !== null) setComments(res);
                     }
                     setShowComments(true);
@@ -336,7 +371,10 @@ function StudentProfile(props) {
               }
               header={'نظرات'}>
               {showComments && (
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   {comments &&
                     comments.map((elem, index) => (
                       <CommentCard comment={elem} key={index} />
@@ -355,7 +393,9 @@ function StudentProfile(props) {
                       return;
                     }
                     if (badges === undefined) {
-                      dispatch({loading: true});
+                      dispatch({
+                        loading: true,
+                      });
                       const res = await generalRequest(
                         routes.getStudentBadges + studentId,
                         'get',
@@ -363,7 +403,9 @@ function StudentProfile(props) {
                         'data',
                         state.token,
                       );
-                      dispatch({loading: false});
+                      dispatch({
+                        loading: false,
+                      });
                       if (res !== null) setBadges(res);
                     }
                     setShowBadges(true);
@@ -374,7 +416,10 @@ function StudentProfile(props) {
               }
               header={'مدال ها'}>
               {showBadges && (
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   {badges &&
                     badges.map((elem, index) => (
                       <BadgeCard
@@ -392,5 +437,4 @@ function StudentProfile(props) {
     </>
   );
 }
-
 export default StudentProfile;

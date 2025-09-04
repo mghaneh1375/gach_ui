@@ -1,5 +1,4 @@
-import translator from '../Translator';
-
+import translator from '../translator';
 export const levelKeyVals = [
   {
     id: 'easy',

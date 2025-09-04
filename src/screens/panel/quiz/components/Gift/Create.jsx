@@ -1,45 +1,40 @@
 import React, {useState} from 'react';
-import commonTranslator from '../../../../../translator/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../../../styles/Common';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
 import {
   offCodeKeyVals,
   typeGiftKeyVals,
   typeOffCodeKeyVals,
-} from '../../../spinGift/components/SelectGift/create/keyVals';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-import {changeText} from '../../../../../services/Utility';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
+} from '../../../spinGift/components/selectGift/create/keyVals';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import {changeText} from '../../../../../services/utility';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import {dispatchQuizContext, quizContext} from '../Context';
-
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [giftType, setGiftType] = useState();
   const [amount, setAmount] = useState();
   const [useFor, setUseFor] = useState();
   const [typeOffCode, setTypeOffCode] = useState();
   const [dateExpire, setDateExpire] = useState('');
   const [description, setDescription] = useState();
-
   return (
     <CommonWebBox
       header={'انتخاب جایزه نفر ' + state.selectedRank}
       backBtn={true}
       onBackClick={() => props.setMode('gifts')}>
       <MyView>
-        <PhoneView style={{gap: 9}}>
+        <PhoneView
+          style={{
+            gap: 9,
+          }}>
           <JustBottomBorderSelect
             placeholder={'نوع جایزه'}
             subText={'نوع جایزه'}
@@ -117,7 +112,6 @@ function Create(props) {
             }
             if (giftType === 'free') data.description = description;
             else data.amount = amount;
-
             const res = await generalRequest(
               routes.addEscapeQuizGift + state.selectedQuiz.id,
               'post',
@@ -125,14 +119,15 @@ function Create(props) {
               'data',
               props.token,
             );
-
             props.setLoading(false);
             if (res !== null) {
               state.selectedQuiz.gifts = state.selectedQuiz.gifts.map(e => {
                 if (e.rank === state.selectedRank) return res;
                 return e;
               });
-              dispatch({selectedQuiz: state.selectedQuiz});
+              dispatch({
+                selectedQuiz: state.selectedQuiz,
+              });
               props.setMode('gifts');
             }
           }}
@@ -142,5 +137,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

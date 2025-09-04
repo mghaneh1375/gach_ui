@@ -1,40 +1,35 @@
-import {CommonWebBox, MyView} from '../../../../styles/Common';
-import translator from '../Translator';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
+import {CommonWebBox, MyView} from '@/styles';
+import translator from '../translator';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
 import React, {useState} from 'react';
 import Ops from './Ops';
-import {routes} from '../../../../API/APIRoutes';
+import {routes} from '@/api/apiRoutes';
 import {dispatchQuizContext, quizContext} from './Context';
 import columns, {
   columnsForOpenQuiz,
   columnsForContentQuiz,
   columnsForOnlineStanding,
-} from './TableStructure';
+} from './tableStructure';
 import {
   getContentQuizzes,
   getEscapeQuizzes,
   getOnlineStandingQuizzes,
   getOpenQuizzes,
   getQuizzes,
-} from './Utility';
+} from './utility';
 import ProSearch from './ProSearch';
-
 const List = props => {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [isWorking, setIsWorking] = useState(false);
-
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     if (isWorking || state.quizzes !== undefined) return;
-
     props.setLoading(true);
     setIsWorking(true);
-
     Promise.all([
       props.generalMode !== undefined && props.generalMode === 'openQuiz'
         ? getOpenQuizzes(props.token)
@@ -52,20 +47,21 @@ const List = props => {
         props.navigate('/');
         return;
       }
-      dispatch({quizzes: res[0]});
+      dispatch({
+        quizzes: res[0],
+      });
       setIsWorking(false);
     });
   }, [props, dispatch, isWorking, state.quizzes]);
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const handleOp = idx => {
-    dispatch({selectedQuiz: state.quizzes[idx]});
+    dispatch({
+      selectedQuiz: state.quizzes[idx],
+    });
     toggleShowOpPopUp();
   };
-
   return (
     <MyView>
       {showOpPopUp && (
@@ -109,7 +105,9 @@ const List = props => {
               }
               data={state.quizzes}
               setData={newData => {
-                dispatch({quizzes: newData});
+                dispatch({
+                  quizzes: newData,
+                });
               }}
               handleOp={handleOp}
               token={props.token}
@@ -128,5 +126,4 @@ const List = props => {
     </MyView>
   );
 };
-
 export default List;

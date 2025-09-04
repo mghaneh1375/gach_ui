@@ -1,30 +1,28 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {ContentProvider} from './Components/Context';
-import Create from './Components/Create';
-import List from './Components/List/List';
-import SessionsList from './Components/Session/List';
-import CreateSession from './Components/Session/Create';
-import Attach from './Components/Session/Attach';
-import Students from './Components/StudentsList/Students';
-import Seo from './Seo/Seo';
-import {isUserAdmin, isUserEditorAccess} from '../../../services/Utility';
-import IndividualFAQ from './IndividualFAQ/IndividualFAQ';
-
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {ContentProvider} from './components/Context';
+import Create from './components/Create';
+import List from './components/list/List';
+import SessionsList from './components/session/List';
+import CreateSession from './components/session/Create';
+import Attach from './components/session/Attach';
+import Students from './components/studentsList/Students';
+import Seo from './seo/Seo';
+import {isUserAdmin, isUserEditorAccess} from '../../../services/utility';
+import IndividualFAQ from './individualFAQ/IndividualFAQ';
 function Content(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const [selectedContentId, setSelectedContentId] = useState();
   // React.useEffect(() => {
   //   if (selectedContentId === undefined) return;
@@ -33,7 +31,6 @@ function Content(props) {
 
   const isEditor = isUserEditorAccess(state.user);
   const isAdmin = isUserAdmin(state.user);
-
   return (
     <ContentProvider>
       {mode === 'list' && (
@@ -132,5 +129,4 @@ function Content(props) {
     </ContentProvider>
   );
 }
-
 export default Content;

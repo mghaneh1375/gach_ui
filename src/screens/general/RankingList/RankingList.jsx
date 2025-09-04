@@ -1,93 +1,86 @@
 import React, {useState} from 'react';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents.jsx';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import Card from '../../panel/quiz/components/Card/Card';
-import ProgressCard from '../../studentPanel/‌MyOffs/ProgressCard/ProgressCard';
-import BoxRanking from '../BoxRanking/BoxRanking';
+import Card from '../../panel/quiz/components/card/Card';
+import ProgressCard from '../../studentPanel/myOffs/progressCard/ProgressCard';
+import BoxRanking from '../boxRanking/BoxRanking';
 import Filter from './Filter';
-import {fetchFinishedQuizzes, fetchRankingList} from './Utility';
-
+import {fetchFinishedQuizzes, fetchRankingList} from './utility';
 function RankingList(props) {
   const navigate = props.navigate;
   const [isWorking, setIsWorking] = useState(false);
   const [data, setData] = useState();
   const [grades, setGrades] = useState();
   const [useFilter, setUseFilter] = useState(false);
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('generalRanking');
   const [quizzes, setQuizzes] = useState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
     if (isWorking || data !== undefined) return;
-
     setIsWorking(true);
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       fetchRankingList(),
       generalRequest(routes.fetchBranches, 'get', undefined, 'data'),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null || res[1] === null) {
         navigate('/');
         return;
       }
-
       setData(res[0]);
       setGrades(res[1]);
       setIsWorking(false);
     });
   }, [dispatch, props, isWorking, navigate, data]);
-
   const prepareIRYSCQuizzes = React.useCallback(() => {
     if (quizzes !== undefined) {
       setMode('quizRanking');
       return;
     }
-
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([fetchFinishedQuizzes()]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         setQuizzes([]);
         setMode('quizRanking');
         return;
       }
-
       setQuizzes(res[0]);
       setMode('quizRanking');
     });
   }, [dispatch, quizzes]);
-
   const [viewableItems, setViewableItems] = useState();
-
   React.useEffect(() => {
     if (quizzes === undefined) return;
     setViewableItems(quizzes.slice(0, 9));
   }, [quizzes]);
-
   return (
     <MyView>
       <div
@@ -102,8 +95,15 @@ function RankingList(props) {
         }}
       />
 
-      <MyView style={{marginBottom: 20}}>
-        <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
+      <MyView
+        style={{
+          marginBottom: 20,
+        }}>
+        <PhoneView
+          style={{
+            ...styles.alignSelfCenter,
+            ...styles.marginTop20,
+          }}>
           <ProgressCard
             header={'رتبه بندی کلی'}
             theme={vars.ORANGE}
@@ -114,7 +114,9 @@ function RankingList(props) {
               if (mode === 'generalRanking') return;
               setMode('generalRanking');
             }}
-            style={{...styles.cursor_pointer}}
+            style={{
+              ...styles.cursor_pointer,
+            }}
           />
           <ProgressCard
             header={'رتبه بندی آزمون‌ها'}
@@ -126,7 +128,9 @@ function RankingList(props) {
               if (mode === 'quizRanking') return;
               prepareIRYSCQuizzes();
             }}
-            style={{...styles.cursor_pointer}}
+            style={{
+              ...styles.cursor_pointer,
+            }}
           />
         </PhoneView>
         {mode === 'quizRanking' && (
@@ -138,9 +142,14 @@ function RankingList(props) {
                       ...styles.gap30,
                       ...styles.padding10,
                       ...styles.justifyContentCenter,
-                      ...{marginBottom: 100},
+                      ...{
+                        marginBottom: 100,
+                      },
                     }
-                  : {...styles.gap30, ...styles.justifyContentCenter}
+                  : {
+                      ...styles.gap30,
+                      ...styles.justifyContentCenter,
+                    }
               }>
               {viewableItems !== undefined &&
                 viewableItems.map((elem, index) => {
@@ -188,7 +197,14 @@ function RankingList(props) {
           </>
         )}
         {mode === 'generalRanking' && (
-          <MyView style={state.isInPhone ? {marginBottom: 100} : {}}>
+          <MyView
+            style={
+              state.isInPhone
+                ? {
+                    marginBottom: 100,
+                  }
+                : {}
+            }>
             <CommonWebBox
               style={styles.alignSelfCenter}
               width={
@@ -237,5 +253,4 @@ function RankingList(props) {
     </MyView>
   );
 }
-
 export default RankingList;

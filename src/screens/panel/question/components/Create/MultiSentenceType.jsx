@@ -1,24 +1,20 @@
 import React, {useState} from 'react';
-import {MyView} from '../../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import translator from '../../Translator';
-import {sentencesCountKeyVals} from '../KeyVals';
+import {MyView} from '@/styles';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import translator from '../../translator';
+import {sentencesCountKeyVals} from '../keyVals';
 import MultiSentenceYesOrNo from './MultiSentenceYesOrNo';
-
 function MultiSentenceType(props) {
   const [sentencesAnswer, setSentencesAnswer] = useState();
   const [sentencesCount, setSentencesCount] = useState();
   const [initialed, setInitialed] = useState(false);
-
   React.useEffect(() => {
     if (initialed) return;
-
     if (
       props.initSentencesCount !== undefined &&
       props.initAnswer !== undefined
     ) {
       setSentencesCount(props.initSentencesCount);
-
       const arr = [];
       for (var i = 0; i < props.initAnswer.length; i++) {
         if (props.initAnswer[i] == '1') {
@@ -27,21 +23,21 @@ function MultiSentenceType(props) {
           arr.push('no');
         }
       }
-
       setSentencesAnswer(arr);
       setInitialed(true);
     }
   }, [initialed, props.initSentencesCount, props.initAnswer]);
-
   const buildSentencesAnswer = counter => {
     const arr = [];
     for (var i = 0; i < counter; i++) arr.push('yes');
-
     setSentencesAnswer(arr);
   };
-
   return (
-    <MyView style={{gap: 20, width: '100%'}}>
+    <MyView
+      style={{
+        gap: 20,
+        width: '100%',
+      }}>
       <JustBottomBorderSelect
         placeholder={translator.sentencesCount}
         values={sentencesCountKeyVals}
@@ -70,7 +66,6 @@ function MultiSentenceType(props) {
                   for (let i = 0; i < sentencesAnswer.length; i++) {
                     ans += sentencesAnswer[i] === 'yes' ? '1' : '0';
                   }
-
                   props.setAnswer(ans);
                 }}
               />
@@ -80,5 +75,4 @@ function MultiSentenceType(props) {
     </MyView>
   );
 }
-
 export default MultiSentenceType;

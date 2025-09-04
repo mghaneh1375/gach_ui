@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../../../App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import List from './list/List';
 import Create from './create/Create';
-import {getAllGift} from '../configGift/Utility';
-import {addItem, editItem, removeItems} from '../../../../../services/Utility';
-import {MyView} from '../../../../../styles/Common';
-
+import {getAllGift} from '../configGift/utility';
+import {addItem, editItem, removeItems} from '../../../../../services/utility';
+import {MyView} from '@/styles';
 function SelectGift(props) {
   const queryString = require('query-string');
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -18,15 +16,19 @@ function SelectGift(props) {
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
   const [selectedGift, setSelectedGift] = useState({});
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getAllGift(props.token)]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -71,5 +73,4 @@ function SelectGift(props) {
     </MyView>
   );
 }
-
 export default SelectGift;

@@ -1,29 +1,30 @@
 import {faDownload} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {globalStateContext, dispatchStateContext} from '../../../App';
-import {getDevice} from '../../../services/Utility';
-import {CommonButton, CommonWebBox, MyView} from '../../../styles/Common';
-import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../styles/Common/Styles';
-import {downloadCert} from '../../panel/certificate/Utility';
-import commonTranslator from '../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {getDevice} from '../../../services/utility';
+import {
+  CommonButton,
+  CommonWebBox,
+  MyView,
+} from '../../../styles/CommonComponents.jsx';
+import CommonDataTable from '../../../styles/common/CommonDataTable';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '../../../styles/common/styles';
+import {downloadCert} from '../../panel/certificate/utility';
+import commonTranslator from '../../../translator/common';
 function MyCerts(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [NID, setNID] = useState();
   const [NIDTmp, setNIDTmp] = useState();
   const [isWorking, setIsWorking] = useState(false);
   const [certs, setCerts] = useState();
-
   const columns = [
     {
       name: 'عملیات',
@@ -32,9 +33,13 @@ function MyCerts(props) {
           <SimpleFontIcon
             kind={'med'}
             onPress={async () => {
-              dispatch({loading: true});
+              dispatch({
+                loading: true,
+              });
               await downloadCert(certs[index].id, NID);
-              dispatch({loading: false});
+              dispatch({
+                loading: false,
+              });
             }}
             icon={faDownload}
           />
@@ -57,45 +62,39 @@ function MyCerts(props) {
       center: true,
     },
   ];
-
   React.useEffect(() => {
     if (state.user === undefined || state.user === null) {
       setNID(null);
       return;
     }
-
     setNID(state.user.user.NID);
   }, [state.user]);
-
   const fetchData = React.useCallback(() => {
     if (isWorking || certs !== undefined || NID === undefined || NID === null)
       return;
-
     setIsWorking(true);
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(routes.getMyCerts + NID, 'get', undefined, 'data'),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         props.navigate();
         return;
       }
-
       setCerts(res[0]);
       setIsWorking(false);
     });
   }, [isWorking, certs, props, dispatch, NID]);
-
   React.useEffect(() => {
     if (NID === undefined) return;
     if (NID !== null) fetchData();
   }, [NID, fetchData]);
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   return (
     <MyView>
       <div
@@ -112,7 +111,9 @@ function MyCerts(props) {
       {certs !== undefined && (
         <CommonWebBox
           width={isInPhone ? '100%' : '80%'}
-          style={{...styles.alignSelfCenter}}
+          style={{
+            ...styles.alignSelfCenter,
+          }}
           header={'گواهی‌های من'}>
           <CommonDataTable
             excel={false}
@@ -125,7 +126,9 @@ function MyCerts(props) {
       {NID === null && (
         <CommonWebBox
           width={isInPhone ? '100%' : 400}
-          style={{...styles.alignSelfCenter}}>
+          style={{
+            ...styles.alignSelfCenter,
+          }}>
           <JustBottomBorderTextInput
             placeholder={commonTranslator.NID}
             subText={commonTranslator.NID}
@@ -142,5 +145,4 @@ function MyCerts(props) {
     </MyView>
   );
 }
-
 export default MyCerts;

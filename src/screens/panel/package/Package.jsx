@@ -1,28 +1,26 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '../../../App';
-import List from './components/List/List';
-import {fetchAllPackagesDigest} from './components/Utility';
-import {addItem, editItem, removeItems} from '../../../services/Utility';
+import {dispatchStateContext} from '@/App';
+import List from './components/list/List';
+import {fetchAllPackagesDigest} from './components/utility';
+import {addItem, editItem, removeItems} from '@/services/utility';
 import Create from './components/Create';
-import {getGradeLessons} from '../Basic/Utility';
-import Detail from './components/Detail/Detail';
-import {QuizzesProvider} from './components/Detail/Utility';
-import {MyView} from '../../../styles/Common';
-
+import {getGradeLessons} from '../basic/utility';
+import Detail from './components/detail/Detail';
+import {QuizzesProvider} from './components/detail/Utility';
+import {MyView} from '@/styles';
 function Package(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const [packages, setPackages] = useState();
   const [mode, setMode] = useState('');
   const [grades, setGrades] = useState();
   const [selected, setSelected] = useState();
-
   const showRightMenu = () => {
     dispatch({
       allFilter: true,
@@ -33,12 +31,15 @@ function Package(props) {
       relativeFilterOn: false,
     });
   };
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([fetchAllPackagesDigest(props.token), getGradeLessons()]).then(
       res => {
-        dispatch({loading: false});
+        dispatch({
+          loading: false,
+        });
         if (res[0] === null || res[1] === null) {
           navigate('/');
           return;
@@ -46,14 +47,17 @@ function Package(props) {
         setPackages(res[0].items);
         setGrades(
           res[1].map(elem => {
-            return {id: elem.id, item: elem.name, lessons: elem.lessons};
+            return {
+              id: elem.id,
+              item: elem.name,
+              lessons: elem.lessons,
+            };
           }),
         );
         setMode('list');
       },
     );
   }, [dispatch, props.token, navigate]);
-
   return (
     <MyView>
       {mode === 'list' && (
@@ -103,5 +107,4 @@ function Package(props) {
     </MyView>
   );
 }
-
 export default Package;

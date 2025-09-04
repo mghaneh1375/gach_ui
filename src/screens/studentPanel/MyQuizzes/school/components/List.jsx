@@ -1,87 +1,73 @@
 import React, {useRef, useState} from 'react';
-import {
-  CommonButton,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import Card from '../../../../panel/quiz/components/Card/Card';
+import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
+import Card from '../../../../panel/quiz/components/card/Card';
 import {
   quizContext,
   dispatchQuizContext,
 } from '../../../../panel/quiz/components/Context';
 import Ops from './Ops';
-import {fetchMyQuizzes} from './Utility';
-import ProgressCard from '../../../‌MyOffs/ProgressCard/ProgressCard';
-import {styles} from '../../../../../styles/Common/Styles';
-import vars from '../../../../../styles/root';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {setCacheItem} from '../../../../../API/User';
-import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
-import {formatPrice} from '../../../../../services/Utility';
-
+import {fetchMyQuizzes} from './utility';
+import ProgressCard from '../../../myOffs/progressCard/ProgressCard';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {setCacheItem} from '../../../../../api/user';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction';
+import {formatPrice} from '../../../../../services/utility';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const [quizzes, setQuizzes] = useState();
   const [showOpPane, setShowOpPane] = useState(false);
   const [showPayPopUp, setShowPayPopUp] = useState(false);
   const [mode, setMode] = useState();
-
   React.useEffect(() => {
     setMode(props.status);
   }, [props.status]);
-
   React.useEffect(() => {
     if (isWorking) return;
-
     if (state.quizzes !== undefined) {
       setQuizzes(state.quizzes);
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([fetchMyQuizzes(props.token, props.advisor)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
-      dispatch({quizzes: res[0]});
+      dispatch({
+        quizzes: res[0],
+      });
       setQuizzes(res[0]);
       setIsWorking(false);
     });
   }, [props, dispatch, state.quizzes, isWorking]);
-
   const openOpBox = quiz => {
-    dispatch({selectedQuiz: quiz});
+    dispatch({
+      selectedQuiz: quiz,
+    });
     setShowOpPane(true);
   };
-
   const [selectedQuizForPay, setSelectedQuizForPay] = useState();
   const [refId, setRefId] = useState();
   const ref = useRef();
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [transactionId, setTransactionId] = useState();
-
   React.useEffect(() => {
     if (refId === undefined) return;
-
     setTimeout(() => {
       ref.current.submit();
     }, 1000);
   }, [refId]);
-
   return (
     <MyView>
       {showOpPane && (
@@ -123,7 +109,6 @@ function List(props) {
                 ]).then(async res => {
                   props.setLoading(false);
                   res = res[0];
-
                   if (res.action === 'success') {
                     const user = props.user;
                     user.user.money = res.refId;
@@ -161,7 +146,11 @@ function List(props) {
       )}
       {!showSuccessTransaction && (
         <MyView>
-          <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
+          <PhoneView
+            style={{
+              ...styles.alignSelfCenter,
+              ...styles.marginTop20,
+            }}>
             <ProgressCard
               header={'آزمونهای گذشته'}
               theme={vars.ORANGE}
@@ -172,7 +161,9 @@ function List(props) {
                 if (mode === 'passed') return;
                 setMode('passed');
               }}
-              style={{...styles.cursor_pointer}}
+              style={{
+                ...styles.cursor_pointer,
+              }}
             />
             <ProgressCard
               header={'آزمونهای پیش رو'}
@@ -184,7 +175,9 @@ function List(props) {
                 if (mode === 'future') return;
                 setMode('future');
               }}
-              style={{...styles.cursor_pointer}}
+              style={{
+                ...styles.cursor_pointer,
+              }}
             />
             <ProgressCard
               header={'همه آزمونها'}
@@ -196,7 +189,9 @@ function List(props) {
                 if (mode === 'all') return;
                 setMode('all');
               }}
-              style={{...styles.cursor_pointer}}
+              style={{
+                ...styles.cursor_pointer,
+              }}
             />
           </PhoneView>
 
@@ -212,7 +207,11 @@ function List(props) {
           )}
 
           {quizzes !== undefined && quizzes.length > 0 && (
-            <PhoneView style={{gap: 15, padding: 15}}>
+            <PhoneView
+              style={{
+                gap: 15,
+                padding: 15,
+              }}>
               {quizzes !== undefined &&
                 mode !== undefined &&
                 quizzes.map((quiz, index) => {
@@ -247,7 +246,6 @@ function List(props) {
                         />
                       );
                     }
-
                     return (
                       <Card
                         quizOp={undefined}
@@ -280,5 +278,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

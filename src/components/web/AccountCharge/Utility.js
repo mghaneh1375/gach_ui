@@ -1,6 +1,5 @@
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
 export const chargeAccout = async (amount, token) => {
   return generalRequest(
     routes.chargeAccount,

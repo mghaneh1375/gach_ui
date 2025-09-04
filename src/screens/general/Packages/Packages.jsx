@@ -1,32 +1,29 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {PackageProvider} from './components/Context';
-import Detail from './components/Detail/Detail';
+import Detail from './components/detail/Detail';
 import List from './components/List';
-import {getDevice} from '../../../services/Utility';
-import PhoneDetail from './components/Detail/PhoneDetail';
-
+import {getDevice} from '../../../services/utility';
+import PhoneDetail from './components/detail/PhoneDetail';
 function Packages(props) {
   const [mode, setMode] = useState();
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const params = useParams();
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
     if (params.slug === undefined) setMode('list');
     else setMode('detail');
   }, [params]);
-
   return (
     <PackageProvider>
       {mode !== undefined && mode === 'list' && (
@@ -61,5 +58,4 @@ function Packages(props) {
     </PackageProvider>
   );
 }
-
 export default Packages;

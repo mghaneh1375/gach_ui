@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-import {CommonButton, SimpleText, MyView} from '../../../../styles/Common';
+import {CommonButton, SimpleText, MyView} from '@/styles';
 import translator from '../translate';
-import commonTranslator from '../../../../translator/Common';
-import {updateForm} from './Utility';
-import {fetchUser, setCacheItem} from '../../../../API/User';
-import {showSuccess} from '../../../../services/Utility';
+import commonTranslator from '@/translator/common';
+import {updateForm} from './utility';
+import {fetchUser, setCacheItem} from '../../../../api/user';
+import {showSuccess} from '../../../../services/utility';
 import SpecificRoleForm from '../../login/components/SpecificRoleForm';
-
 const UpdateForm = props => {
   const [forms, setForms] = useState();
-
   React.useEffect(() => {
     if (forms !== undefined || props.forms === undefined) return;
     setForms(
       props.forms.map(elem => {
-        const form = {role: elem.role};
+        const form = {
+          role: elem.role,
+        };
         elem.data.forEach(field => {
           form[field.key] = field.value;
         });
@@ -22,16 +22,13 @@ const UpdateForm = props => {
       }),
     );
   }, [props.forms, forms]);
-
   const changeForm = (role, key, value) => {
     const allForms = forms.map(elem => {
       if (elem.role === role) elem[key] = value;
       return elem;
     });
-
     setForms(allForms);
   };
-
   const change = async index => {
     // let hasAnyChange = false;
     // let hasAnyErr = false;
@@ -52,7 +49,6 @@ const UpdateForm = props => {
           showSuccess(commonTranslator.success);
         });
       } else showSuccess(commonTranslator.success);
-
       props.setLoading(false);
     }
 
@@ -67,7 +63,6 @@ const UpdateForm = props => {
 
     // props.setLoading(false);
   };
-
   return (
     <MyView>
       {forms !== undefined &&
@@ -98,7 +93,7 @@ const UpdateForm = props => {
                     key={idx}
                   />
                 );
-              })} */}
+               })} */}
               <CommonButton
                 onPress={() => change(index)}
                 theme={'dark'}
@@ -110,5 +105,4 @@ const UpdateForm = props => {
     </MyView>
   );
 };
-
 export default UpdateForm;

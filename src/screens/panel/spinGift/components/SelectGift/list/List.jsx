@@ -1,26 +1,22 @@
 import React from 'react';
-import {CommonWebBox, MyView} from '../../../../../../styles/Common';
-import Translate from '../../../Translate';
-import Ops from './Ops/Ops';
+import {CommonWebBox, MyView} from '@/styles';
+import Translate from '../../../translate';
+import Ops from './ops/Ops';
 import {useState} from 'react';
-import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
-import columns from './TableStructure';
-import {routes} from '../../../../../../API/APIRoutes';
-
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
+import columns from './tableStructure';
+import {routes} from '@/api/apiRoutes';
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedId, setSelectedId] = useState();
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const handleOp = idx => {
     props.setSelectedGift(props.data[idx]);
     setSelectedId(props.data[idx].id);
     toggleShowOpPopUp();
   };
-
   return (
     <CommonWebBox
       header={Translate.selectGift}
@@ -54,5 +50,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

@@ -12,14 +12,11 @@ import {
   faSun,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
-import translator from '../../../../../translator/Common';
-import {MenuItemPhone} from '../style';
+import translator from '../../../../../translator/common';
+import {MenuItemPhone} from '../Style';
 import {SuperMenuItem} from './SuperMenuItem';
-
 function MenuItemRepeatForPhone(props) {
   const navigate = props.navigate;
-
   return (
     <>
       <MenuItemPhone
@@ -134,7 +131,6 @@ function MenuItemRepeatForPhone(props) {
                   : undefined,
               url: '/myLifeStyle',
             },
-
             {
               text: translator.advisors,
               url: '/advisors',
@@ -235,7 +231,7 @@ function MenuItemRepeatForPhone(props) {
       )}
 
       {/* <MenuItemPhone
-      isApp={false} text={translator.support} icon={faQuestion} /> */}
+       isApp={false} text={translator.support} icon={faQuestion} /> */}
       <MenuItemPhone
         isApp={false}
         onClick={() => navigate('/ticket')}
@@ -254,5 +250,4 @@ function MenuItemRepeatForPhone(props) {
     </>
   );
 }
-
 export default MenuItemRepeatForPhone;

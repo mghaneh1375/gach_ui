@@ -1,6 +1,5 @@
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
 export const getPackage = async (token, packageId) => {
   return await generalRequest(
     routes.fetchPackage + packageId,
@@ -10,11 +9,9 @@ export const getPackage = async (token, packageId) => {
     token,
   );
 };
-
 export const goToPayCustomUrl = async (token, url, data) => {
   return await generalRequest(url, 'post', data, ['action', 'refId'], token);
 };
-
 export const goToPay = async (token, data) => {
   return await generalRequest(
     routes.buyQuiz,
@@ -24,7 +21,6 @@ export const goToPay = async (token, data) => {
     token,
   );
 };
-
 export const goToPayGroup = async (token, data) => {
   return await generalRequest(
     routes.groupBuyQuiz,

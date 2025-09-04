@@ -1,18 +1,13 @@
-import React from 'react';
-import Login from '../../screens/general/login/Login';
-
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppStructue from '../../screens/AppStructure';
+import Login from '../../screens/general/login/Login';
 import Profile from '../../screens/general/profile/Profile';
-
 const Stack = createNativeStackNavigator();
-
 export default function Router() {
   const HomeComp = props => <AppStructue com={Login} />;
   const LoginComp = props => <AppStructue com={Login} />;
   const ProfileComp = props => <AppStructue com={Profile} />;
-
   return (
     <NavigationContainer>
       <Stack.Navigator

@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {CommonWebBox} from '../../../../styles/Common';
+import {CommonWebBox} from '@/styles';
 import {dispatchLevelContext, levelContext} from './Context';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
 import columns from './columns';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {showSuccess} from '../../../../services/Utility';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '../../../../services/utility';
 import Ops from './Ops';
 import translator from '../translator';
-
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedId, setSelectedId] = useState();
-
   const useGlobalState = () => [
     React.useContext(levelContext),
     React.useContext(dispatchLevelContext),
@@ -22,11 +20,12 @@ function List(props) {
     setShowOpPopUp(!showOpPopUp);
   };
   const handleOp = (idx, row) => {
-    dispatch({selectedLevel: row});
+    dispatch({
+      selectedLevel: row,
+    });
     setSelectedId(row.id);
     toggleShowOpPopUp();
   };
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -40,16 +39,16 @@ function List(props) {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] == null) props.navigate('/');
-      dispatch({levels: res[0]});
+      dispatch({
+        levels: res[0],
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     if (state.levels === undefined) fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.levels]);
-
   return (
     <CommonWebBox
       header={translator.levels}
@@ -63,7 +62,9 @@ function List(props) {
           setLoading={props.setLoading}
           setMode={props.setMode}
           onRemove={() => {
-            dispatch({levels: state.levels.filter(e => e.id !== selectedId)});
+            dispatch({
+              levels: state.levels.filter(e => e.id !== selectedId),
+            });
             toggleShowOpPopUp();
             showSuccess();
           }}
@@ -80,5 +81,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

@@ -1,20 +1,14 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
+import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
 import Ops from '../Ops';
-import translator from '../../Translator';
-import columns from './TableStructure';
-import {routes} from '../../../../../API/APIRoutes';
+import translator from '../../translator';
+import columns from './tableStructure';
 import Filter from './Filter';
+import {routes} from '@/api/apiRoutes';
 
 const List = props => {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
@@ -22,7 +16,6 @@ const List = props => {
     props.setSelectedOff(props.offs[idx]);
     toggleShowOpPopUp();
   };
-
   return (
     <MyView>
       {showOpPopUp && (
@@ -72,5 +65,4 @@ const List = props => {
     </MyView>
   );
 };
-
 export default List;

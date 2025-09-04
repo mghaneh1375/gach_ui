@@ -1,47 +1,37 @@
-import translator from '../../Translator';
-import {
-  CommonButton,
-  CommonWebBox,
-  ShrinkView,
-} from '../../../../../styles/Common';
+import translator from '../../translator';
+import {CommonButton, CommonWebBox, ShrinkView} from '@/styles';
 import React, {useEffect, useState} from 'react';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import {routes} from '../../../../../API/APIRoutes';
-import {closeRequest} from './Utility';
-import {StudentTableStructure, TableStructure} from '../TableStructure';
-import {PhoneView} from '../../../../../styles/Common';
-import Filter from '../ProSearch/Filter';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {routes} from '@/api/apiRoutes';
+import {closeRequest} from './utility';
+import {StudentTableStructure, TableStructure} from '../tableStructure';
+import {PhoneView} from '@/styles';
+import Filter from '../proSearch/Filter';
 import {useLocation} from 'react-router';
-import {login} from '../../../users/components/Utility';
+import {login} from '../../../users/components/utility';
 const queryString = require('query-string');
-
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [isInUpgradeMode, setIsInUpgradeMode] = useState(false);
   const [selected, setSelected] = useState();
   const [params, setParams] = useState();
   const {search} = useLocation();
-
   useEffect(() => {
     if (search) setParams(queryString.parse(search));
   }, [search]);
-
   React.useEffect(() => {
     if (params?.section === 'upgradelevel') setIsInUpgradeMode(true);
   }, [params]);
-
   const handleOp = index => {
     if (index >= props.tickets.length) return;
     props.setSelectedTicket(props.tickets[index]);
     setSelected(props.tickets[index]);
     toggleShowOpPopUp();
   };
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   return (
     <ShrinkView>
       {showOpPopUp && (
@@ -75,7 +65,7 @@ function List(props) {
                 title={translator.showRecords}
                 theme={'transparent'}
               />
-            )} */}
+             )} */}
             {props.isAdmin && (
               <>
                 <CommonButton
@@ -173,5 +163,4 @@ function List(props) {
     </ShrinkView>
   );
 }
-
 export default List;

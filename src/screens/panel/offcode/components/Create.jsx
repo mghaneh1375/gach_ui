@@ -1,22 +1,21 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import ExcelComma from '../../../../components/web/ExcelCommaInput';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
-import translator from '../Translator';
-import commonTranslator from '../../../../translator/Common';
+import {routes} from '@/api/apiRoutes';
+import ExcelComma from '@/components/web/ExcelCommaInput';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import translator from '../translator';
+import commonTranslator from '@/translator/common';
 import {
   typeKeyVals,
   mandatoryFields,
   withCodeKeyVals,
   sectionKeyVals,
   update,
-} from './Utility';
-import {changeText, trueFalseValues} from '../../../../services/Utility';
-import {generalRequest} from '../../../../API/Utility';
-
+} from './utility';
+import {changeText, trueFalseValues} from '../../../../services/utility';
+import {generalRequest} from '@/api/utility';
 const Create = props => {
   const [amount, setAmount] = useState(
     props.off !== undefined ? props.off.amount : '',
@@ -44,7 +43,6 @@ const Create = props => {
   const [section, setSection] = useState(
     props.off !== undefined ? props.off.section : 'all',
   );
-
   React.useEffect(() => {
     setAdditionalData({
       amount: amount,
@@ -56,7 +54,6 @@ const Create = props => {
     });
     if (isPublic) setWithCode('withCode');
   }, [amount, type, expireAt, code, isPublic, withCode, section, props.off]);
-
   const add = async () => {
     props.setLoading(true);
     if (props.off !== undefined) {
@@ -83,7 +80,6 @@ const Create = props => {
         ['expireAt', 'type', 'amount', 'code', 'isPublic', 'section'],
       );
       props.setLoading(false);
-
       if (res !== null) {
         props.addOffs(res.doneIds);
         props.setMode('list');
@@ -92,7 +88,6 @@ const Create = props => {
       props.setLoading(false);
     }
   };
-
   return (
     <CommonWebBox
       header={
@@ -102,7 +97,10 @@ const Create = props => {
       }
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         {props.off === undefined && (
           <JustBottomBorderSelect
             setter={setIsPublic}
@@ -180,5 +178,4 @@ const Create = props => {
     </CommonWebBox>
   );
 };
-
 export default Create;

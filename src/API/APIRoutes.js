@@ -1,5 +1,4 @@
-import {adminRoutes} from './AdminRoutes';
-
+import {adminRoutes} from './adminRoutes';
 export const routes = {
   ...adminRoutes,
   whichKindOfAuthIsAvailable: 'user/whichKindOfAuthIsAvailable?NID=',
@@ -48,7 +47,6 @@ export const routes = {
   logout: 'user/logout',
   getProfileConfig: 'profile/public/getMyConfig',
   setProfileConfig: 'profile/public/setMyConfig',
-
   fetchSiteStats: 'general/getSiteStats',
   fetchRankingList: 'general/getRankingList/',
   fetchFinishedQuizzes: 'quiz/public/getFinishedQuizzes',
@@ -57,13 +55,11 @@ export const routes = {
   getMyAlerts: 'general/getMyAlerts',
   fetchSchoolsDigest: 'general/fetchSchoolsDigest',
   fetchContentDigests: 'general/fetchContentDigests',
-
   getTagsKeyVals: 'general/getTagsKeyVals',
   getQuestionAllFlags: 'general/getAllFlags',
   checkAvailableQuestions: 'general/checkAvailableQuestions',
   prepareCustomQuiz: 'quiz/public/prepareCustomQuiz',
   payCustomQuiz: 'quiz/public/payCustomQuiz/',
-
   uploadQuizAttaches: 'ckeditor/quiz',
   fetchIRYSCRegistrableQuizzes: 'quiz/public/get/irysc',
   fetchOpenQuizzes: 'quiz/public/get/open',
@@ -192,16 +188,13 @@ export const routes = {
   addQuizzesToPackage: 'quiz/manage/addQuizzesToPackage/',
   removeQuizzesFromPackage: 'quiz/manage/removeQuizzesFromPackage/',
   GetGeneralStats: 'admin/stats/report',
-
   addBatchSchoolQuestions: 'quiz/school/addBatchQuestions/',
-
   addBatchFiles: 'admin/general/uploadFiles/',
   fetchMyTickets: 'ticket/getMyRequests',
   submitTicket: 'ticket/submit',
   setAnswerTicket: 'ticket/setAnswer/',
   sendTicket: 'ticket/sendRequest/',
   addFileToTicket: 'ticket/addFileToRequest/',
-
   setAvatarAsMyPic: 'user/setAvatar/',
   blockNotif: 'user/blockNotif/',
   getAllConfiguration: 'admin/config/config/getAll',

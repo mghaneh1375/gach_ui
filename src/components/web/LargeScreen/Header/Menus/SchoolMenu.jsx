@@ -1,8 +1,3 @@
-import React from 'react';
-import {Device} from '../../../../../models/Device';
-import {getDevice} from '../../../../../services/Utility';
-import {MenuItem, style, MenuItemPhone} from '../style';
-import translator from '../../../../../translator/Common';
 import {
   faCog,
   faCreditCard,
@@ -13,15 +8,17 @@ import {
   faUsers,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
-import {MyView} from '../../../../../styles/Common';
+import {Device} from '../../../../../models/device';
+import {getDevice} from '@/services/utility';
+import {MyView} from '@/styles';
+import translator from '../../../../../translator/common';
+import {MenuItem, MenuItemPhone, style} from '../Style';
 import MenuItemRepeat from './MenuItemRepeat';
 import {SuperMenuItem} from './SuperMenuItem';
-
 function SchoolMenu(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
   const navigate = props.navigate;
-
   if (isLargePage) {
     return (
       <MenuItemRepeat
@@ -60,7 +57,6 @@ function SchoolMenu(props) {
       />
     );
   }
-
   return (
     <MyView
       style={{
@@ -170,5 +166,4 @@ function SchoolMenu(props) {
     </MyView>
   );
 }
-
 export default SchoolMenu;

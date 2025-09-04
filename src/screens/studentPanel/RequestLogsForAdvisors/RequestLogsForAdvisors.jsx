@@ -1,29 +1,27 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {CommonButton, CommonWebBox} from '../../../styles/Common';
-import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import Translate from './Translate';
-import commonTranslator from '../../../translator/Common';
-import {showSuccess} from '../../../services/Utility';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {CommonButton, CommonWebBox} from '../../../styles/CommonComponents.jsx';
+import CommonDataTable from '../../../styles/common/CommonDataTable';
+import Translate from './translate';
+import commonTranslator from '../../../translator/common';
+import {showSuccess} from '../../../services/utility';
+import {LargePopUp} from '../../../styles/common/PopUp';
 function RequestLogsForAdvisors(props) {
   const navigate = props.navigate;
   const [selectedRowId, setSelectedRowId] = useState();
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.myAdvisorAcceptanceRequests,
@@ -33,19 +31,20 @@ function RequestLogsForAdvisors(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
       }
-
       setData(res[0]);
     });
   }, [dispatch, state.token, navigate]);
-
   const cancelRequest = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.cancelAdvisorRequest + selectedRowId,
@@ -55,7 +54,9 @@ function RequestLogsForAdvisors(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] != null) {
         setData(data.filter(elem => elem.id !== selectedRowId));
         setSelectedRowId(undefined);
@@ -64,11 +65,9 @@ function RequestLogsForAdvisors(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedRowId]);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   const columns = [
     {
       name: 'عملیات',
@@ -83,7 +82,6 @@ function RequestLogsForAdvisors(props) {
             />
           );
         if (row.status !== 'pending') return <></>;
-
         return (
           <CommonButton
             title={'لغو درخواست'}
@@ -122,7 +120,6 @@ function RequestLogsForAdvisors(props) {
       center: true,
     },
   ];
-
   return (
     <CommonWebBox>
       {data !== undefined && (
@@ -149,5 +146,4 @@ function RequestLogsForAdvisors(props) {
     </CommonWebBox>
   );
 }
-
 export default RequestLogsForAdvisors;

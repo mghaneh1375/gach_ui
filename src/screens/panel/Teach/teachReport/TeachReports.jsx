@@ -1,21 +1,20 @@
 import React, {useMemo, useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {
   CommonButton,
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import translator from '../Translate';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import columns from './components/TableStructure';
+} from '../../../../styles/CommonComponents.jsx';
+import translator from '../translate';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import columns from './components/tableStructure';
 import {useEffectOnce} from 'usehooks-ts';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import commonTranslator from '../../../../translator/Common';
-import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
-
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
 function TeachReports(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [
@@ -32,26 +31,40 @@ function TeachReports(props) {
     sendFrom: 'student',
     teacherId: 'all',
   });
-
   const [seenStatusValues, sendFromValues] = useMemo(() => {
     return [
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'showJustUnSeen', item: translator.justUnSeen},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'showJustUnSeen',
+          item: translator.justUnSeen,
+        },
       ],
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'student', item: 'دانش آموز'},
-        {id: 'teacher', item: 'دبیر'},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'student',
+          item: 'دانش آموز',
+        },
+        {
+          id: 'teacher',
+          item: 'دبیر',
+        },
       ],
     ];
   }, []);
-
   const handleOp = async (idx, row) => {
     setSelectedReport(row);
-
     if (!row.seen) {
-      dispatch({loading: true});
+      dispatch({
+        loading: true,
+      });
       await generalRequest(
         routes.setTeachReportAsSeen + row.id,
         'put',
@@ -59,14 +72,14 @@ function TeachReports(props) {
         undefined,
         state.token,
       );
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
     }
     setShowOp(true);
   };
-
   const fetchData = React.useCallback(() => {
     const query = new URLSearchParams();
-
     if (filter.seenStatus === 'showJustUnSeen')
       query.append('showJustUnSeen', true);
     if (filter.teacherId && filter.teacherId !== 'all')
@@ -75,11 +88,11 @@ function TeachReports(props) {
       query.append('justSendFromStudent', true);
     else if (filter.sendFrom === 'teacher')
       query.append('justSendFromTeacher', true);
-
     if (filter.from) query.append('from', filter.from);
     if (filter.to) query.append('to', filter.to);
-
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all(
       teachers === undefined
         ? [
@@ -108,13 +121,13 @@ function TeachReports(props) {
             ),
           ],
     ).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null || (teachers === undefined && res[1] == null)) {
         navigate('/');
         return;
       }
-
       setReports(res[0]);
       if (teachers === undefined) {
         setTeachers([
@@ -133,14 +146,15 @@ function TeachReports(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, teachers]);
-
   useEffectOnce(() => {
     fetchData();
   }, []);
-
   return (
     <CommonWebBox header={translator.reports}>
-      <PhoneView style={{gap: '20px'}}>
+      <PhoneView
+        style={{
+          gap: '20px',
+        }}>
         <JustBottomBorderSelect
           value={sendFromValues.find(elem => elem.id === filter.sendFrom)}
           placeholder={translator.sendFrom}
@@ -232,5 +246,4 @@ function TeachReports(props) {
     </CommonWebBox>
   );
 }
-
 export default TeachReports;

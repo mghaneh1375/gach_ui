@@ -1,13 +1,11 @@
-import {CommonWebBox} from '../../../../../styles/Common';
+import {CommonWebBox} from '@/styles';
 import React, {useState} from 'react';
-import Card from '../Questions/Card';
+import Card from '../questions/Card';
 import {quizContext} from '../Context';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
 function A1Report(props) {
   const useGlobalState = () => [React.useContext(quizContext)];
-
   const columns = [
     {
       name: 'نوع سوال',
@@ -71,21 +69,31 @@ function A1Report(props) {
       fontSize: 10,
     },
   ];
-
   const [state] = useGlobalState();
   const [showType, setShowType] = useState('card');
-
   return (
     <CommonWebBox>
       <JustBottomBorderSelect
         isHalf={true}
         values={[
-          {id: 'card', item: 'کارتی'},
-          {id: 'table', item: 'جدولی'},
+          {
+            id: 'card',
+            item: 'کارتی',
+          },
+          {
+            id: 'table',
+            item: 'جدولی',
+          },
         ]}
         value={[
-          {id: 'card', item: 'کارتی'},
-          {id: 'table', item: 'جدولی'},
+          {
+            id: 'card',
+            item: 'کارتی',
+          },
+          {
+            id: 'table',
+            item: 'جدولی',
+          },
         ].find(elem => elem.id === showType)}
         setter={id => {
           setShowType(id);
@@ -141,5 +149,4 @@ function A1Report(props) {
     </CommonWebBox>
   );
 }
-
 export default A1Report;

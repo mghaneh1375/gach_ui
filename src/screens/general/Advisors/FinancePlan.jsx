@@ -5,8 +5,8 @@ import {
   faQuestion,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
-import QuizItemCard from '../../../components/web/QuizItemCard';
-import {formatPrice} from '../../../services/Utility';
+import QuizItemCard from '@/components/web/QuizItemCard';
+import {formatPrice} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -14,18 +14,20 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import translator from '../../advisorPanel/MyFinancePlans/components/Translator';
-
+import translator from '../../advisorPanel/myFinancePlans/components/translator';
 function FinancePlan(props) {
   const [showMore, setShowMore] = useState(false);
-
   return (
     <CommonWebBox width={props.isInPhone ? 'calc(100% - 60px)' : 480}>
       <MyView
-        style={{paddingRight: 10, ...styles.gap15, ...styles.marginTop10}}>
+        style={{
+          paddingRight: 10,
+          ...styles.gap15,
+          ...styles.marginTop10,
+        }}>
         <MyView
           style={{
             ...styles.justifyContentCenter,
@@ -36,7 +38,10 @@ function FinancePlan(props) {
             marginRight: 0,
           }}>
           <SimpleText
-            style={{...styles.BlueBold, ...styles.fontSize15}}
+            style={{
+              ...styles.BlueBold,
+              ...styles.fontSize15,
+            }}
             text={props.plan.title}
           />
         </MyView>
@@ -84,7 +89,10 @@ function FinancePlan(props) {
 
         {!showMore && (
           <>
-            <PhoneView style={{...styles.gap15}}>
+            <PhoneView
+              style={{
+                ...styles.gap15,
+              }}>
               <QuizItemCard
                 text={translator.maxKarbarg}
                 val={
@@ -140,12 +148,18 @@ function FinancePlan(props) {
             <EqualTwoTextInputs>
               <MyView>
                 <SimpleText
-                  style={{...styles.BlueBold, ...styles.fontSize17}}
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.fontSize17,
+                  }}
                   text={formatPrice(props.plan.price) + ' تومان'}
                 />
 
                 <SimpleText
-                  style={{...styles.dark_blue_color, ...styles.fontSize13}}
+                  style={{
+                    ...styles.dark_blue_color,
+                    ...styles.fontSize13,
+                  }}
                   text={translator.price}
                 />
               </MyView>
@@ -166,12 +180,17 @@ function FinancePlan(props) {
               </MyView>
             )}
             {(props.plan.videoLink === undefined ||
-              props.plan.videoLink === '') && <MyView style={{height: 40}} />}
+              props.plan.videoLink === '') && (
+              <MyView
+                style={{
+                  height: 40,
+                }}
+              />
+            )}
           </>
         )}
       </MyView>
     </CommonWebBox>
   );
 }
-
 export default FinancePlan;

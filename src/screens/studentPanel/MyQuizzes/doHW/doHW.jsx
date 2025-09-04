@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../../API/APIRoutes';
-import {downloadRequest, generalRequest} from '../../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {routes} from '@/api/apiRoutes';
+import {downloadRequest, generalRequest} from '@/api/utility';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
+} from '../../../../styles/CommonComponents.jsx';
+import {styles} from '../../../../styles/common/styles';
 import RenderHTML from 'react-native-render-html';
 import {
   answerTypes,
@@ -21,24 +21,22 @@ import {
   simpleConvertTimestamp,
   systemFonts,
   tagsStyles,
-} from '../../../../services/Utility';
+} from '../../../../services/utility';
 import Row from './Row';
 import UploadFile from '../../../../components/web/UploadFile';
-
 function DoHW(props) {
   const [hw, setHw] = useState();
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const params = useParams();
   const [showUploadPane, setShowUploadPane] = useState(false);
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getMyHW + params.hwId,
@@ -48,16 +46,16 @@ function DoHW(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         props.navigate('/');
         return;
       }
-
       setHw(res[0]);
     });
   }, [dispatch, params, state.token, props]);
-
   useEffectOnce(() => {
     if (params.hwId === undefined) {
       props.navigate('/');
@@ -65,9 +63,7 @@ function DoHW(props) {
     }
     fetchData();
   });
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   return (
     <CommonWebBox
       header={hw !== undefined ? hw.title : ''}
@@ -128,7 +124,10 @@ function DoHW(props) {
 
           <SimpleText
             text={'وضعیت تحویل تمرین'}
-            style={{...styles.fontSize20, ...styles.textCenter}}
+            style={{
+              ...styles.fontSize20,
+              ...styles.textCenter,
+            }}
           />
 
           <MyView
@@ -138,7 +137,10 @@ function DoHW(props) {
             <MyView
               style={{
                 ...styles.alignSelfCenter,
-                ...{width: isInPhone ? '100%' : 700, borderWidth: 1},
+                ...{
+                  width: isInPhone ? '100%' : 700,
+                  borderWidth: 1,
+                },
               }}>
               <Row
                 title={'وضعیت تحویل تمرین'}
@@ -185,7 +187,13 @@ function DoHW(props) {
                 answer={
                   hw.uploadAt !== undefined ? hw.uploadAt : '1400/01/01 - 12:00'
                 }
-                style={hw.uploadAt === undefined ? {visibility: 'hidden'} : {}}
+                style={
+                  hw.uploadAt === undefined
+                    ? {
+                        visibility: 'hidden',
+                      }
+                    : {}
+                }
               />
 
               <Row
@@ -197,7 +205,9 @@ function DoHW(props) {
                 }
                 style={
                   hw.uploadAt === undefined
-                    ? {visibility: 'hidden'}
+                    ? {
+                        visibility: 'hidden',
+                      }
                     : {
                         cursor: 'pointer',
                         color: '#0000ee',
@@ -260,7 +270,9 @@ function DoHW(props) {
             {hw.canUpload && (
               <CommonButton
                 onPress={() => setShowUploadPane(true)}
-                style={{...styles.justifyContentCenter}}
+                style={{
+                  ...styles.justifyContentCenter,
+                }}
                 title={'بارگذاری تمرین'}
                 theme={'dark'}
               />
@@ -280,5 +292,4 @@ function DoHW(props) {
     </CommonWebBox>
   );
 }
-
 export default DoHW;

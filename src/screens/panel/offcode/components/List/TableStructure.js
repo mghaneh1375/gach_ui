@@ -1,7 +1,6 @@
-import translator from '../../Translator';
-import commonTranslator from '../../../../../translator/Common';
-import {formatPrice} from '../../../../../services/Utility';
-
+import translator from '../../translator';
+import commonTranslator from '@/translator/common';
+import {formatPrice} from '../../../../../services/utility';
 const columns = [
   {
     name: translator.isPublic,
@@ -77,7 +76,6 @@ const columns = [
     },
   },
 ];
-
 export const columnsForCopun = [
   {
     name: commonTranslator.nameAndLast,
@@ -120,7 +118,6 @@ export const columnsForCopun = [
     },
   },
 ];
-
 export const columnsForCopunRev = [
   {
     name: commonTranslator.nameAndLast,
@@ -158,5 +155,4 @@ export const columnsForCopunRev = [
     grow: 2,
   },
 ];
-
 export default columns;

@@ -1,5 +1,4 @@
-import Translate from './Translate';
-
+import Translate from './translate';
 const columns = [
   {
     name: Translate.for,

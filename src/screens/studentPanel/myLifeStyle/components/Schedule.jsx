@@ -1,12 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
+import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
+import {LargePopUp} from '../../../../styles/common/PopUp';
 import {
   addItemToDay,
   fetchExamTags,
@@ -14,23 +9,21 @@ import {
   fetchMyLifeStyle,
   removeItemFromDay,
   setMyExamInLifeStyle,
-} from '../Utility';
+} from '../utility';
 import {dispatchScheduleContext, scheduleContext} from './Context';
 import Day from './Day';
-import commonTranslator from '../../../../translator/Common';
-import {styles} from '../../../../styles/Common/Styles';
+import commonTranslator from '@/translator/common';
+import {styles} from '../../../../styles/common/styles';
 import Tag from './Tag';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {showError} from '../../../../services/Utility';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {showError} from '@/services/utility';
 import Exam from './Exam';
-import TimePicker from '../../../../styles/Common/TimePicker';
-
+import TimePicker from '../../../../styles/common/TimePicker';
 function Schedule(props) {
   const useGlobalState = () => [
     React.useContext(scheduleContext),
     React.useContext(dispatchScheduleContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [selectedDay, setSelectedDay] = useState();
   const [selectedTag, setSelectedTag] = useState();
@@ -41,7 +34,6 @@ function Schedule(props) {
   useEffect(() => {
     setCanEdit(props.userId === undefined);
   }, [props.userId]);
-
   const fetchData = React.useCallback(() => {
     Promise.all([
       fetchMyLifeStyle(props.token, props.userId),
@@ -52,7 +44,6 @@ function Schedule(props) {
         props.navigate('/');
         return;
       }
-
       dispatch({
         myLifeStyle: res[0].days,
         myExams: res[0].exams,
@@ -66,17 +57,14 @@ function Schedule(props) {
       );
     });
   }, [props, dispatch]);
-
   React.useEffect(() => {
     setSelectedTag();
     setStartAt();
     setDuration();
   }, [selectedDay]);
-
   useEffectOnce(() => {
     fetchData();
   }, [fetchData]);
-
   return (
     <>
       {selectedDay !== undefined && (
@@ -122,7 +110,10 @@ function Schedule(props) {
             />
           }>
           <SimpleText text={'لطفا تگ موردنظر خود را انتخاب نمایید'} />
-          <PhoneView style={{...styles.gap15}}>
+          <PhoneView
+            style={{
+              ...styles.gap15,
+            }}>
             {state.lifeStyleTags !== undefined &&
               state.lifeStyleTags.map((e, index) => {
                 return (
@@ -138,7 +129,11 @@ function Schedule(props) {
                 );
               })}
           </PhoneView>
-          <PhoneView style={{...styles.gap15, ...styles.marginTop20}}>
+          <PhoneView
+            style={{
+              ...styles.gap15,
+              ...styles.marginTop20,
+            }}>
             <JustBottomBorderTextInput
               subText={'مدت (به دقیقه)'}
               placeholder={'مدت (به دقیقه)'}
@@ -164,7 +159,14 @@ function Schedule(props) {
             ? props.navigate('/myAdvisor')
             : props.navigate('/manageStudent')
         }>
-        <PhoneView style={props.isInPhone ? {} : {...styles.gap15}}>
+        <PhoneView
+          style={
+            props.isInPhone
+              ? {}
+              : {
+                  ...styles.gap15,
+                }
+          }>
           {state.examTags !== undefined &&
             state.examTags.map((e, index) => {
               return (
@@ -175,7 +177,6 @@ function Schedule(props) {
                     if (!canEdit) return;
                     const tmp = [];
                     let shouldAdd = true;
-
                     selectedExams.forEach(itr => {
                       if (itr === e.id) {
                         shouldAdd = false;
@@ -183,7 +184,6 @@ function Schedule(props) {
                       }
                       tmp.push(itr);
                     });
-
                     if (shouldAdd) tmp.push(e.id);
                     setSelectedExams(tmp);
                   }}
@@ -197,7 +197,12 @@ function Schedule(props) {
         {canEdit && (
           <CommonButton
             onPress={async () => {
-              await setMyExamInLifeStyle({exams: selectedExams}, props.token);
+              await setMyExamInLifeStyle(
+                {
+                  exams: selectedExams,
+                },
+                props.token,
+              );
             }}
             title={commonTranslator.confirm}
             theme={'dark'}
@@ -241,5 +246,4 @@ function Schedule(props) {
     </>
   );
 }
-
 export default Schedule;

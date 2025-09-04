@@ -1,26 +1,23 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '../../../../App';
+import {dispatchStateContext} from '@/App';
 import {QuizProvider} from '../../../panel/quiz/components/Context';
-import Karname from '../../../panel/quiz/components/Reports/Karname/Karname';
+import Karname from '../../../panel/quiz/components/reports/karname/Karname';
 import Recp from '../../../../components/web/Recp';
 import List from './components/List';
-
 function MyQuizzes(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
-
   const [mode, setMode] = useState('list');
   const [dispatch] = useGlobalState();
   const [recp, setRecp] = useState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
     if (recp === undefined) return;
     setMode('recp');
   }, [recp]);
-
   return (
     <QuizProvider>
       {mode === 'list' && (
@@ -55,5 +52,4 @@ function MyQuizzes(props) {
     </QuizProvider>
   );
 }
-
 export default MyQuizzes;

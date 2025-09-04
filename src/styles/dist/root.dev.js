@@ -4,11 +4,8 @@ Object.defineProperty(exports, '__esModule', {
   value: true,
 });
 exports.default = void 0;
-
 var _reactNative = require('react-native');
-
-var _Utility = require('./../services/Utility');
-
+var _Utility = require('./../services/utility');
 var width = (0, _Utility.getWidthHeight)()[0];
 var vars = {
   RIGHT_MENU_WIDTH: width > 1500 ? 250 : 200,

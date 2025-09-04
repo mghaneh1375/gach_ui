@@ -1,24 +1,25 @@
 import {faEdit} from '@fortawesome/free-solid-svg-icons';
-import {PhoneView} from '../../../../styles/Common';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {showSuccess} from '../../../../services/Utility';
+import {PhoneView} from '@/styles';
+import {FontIcon} from '../../../../styles/common/FontIcon';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '../../../../services/utility';
 import React, {useState} from 'react';
-import {styles} from '../../../../styles/Common/Styles';
+import {styles} from '../../../../styles/common/styles';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import MyCustomUploadAdapterPlugin from '../../../../services/MyUploadAdapter';
-import {CKEditorToolbar} from '../../../../services/Utility';
-
+import MyCustomUploadAdapterPlugin from '../../../../services/myUploadAdapter';
+import {CKEditorToolbar} from '../../../../services/utility';
 function Teacher(props) {
   const [name, setName] = useState(props.name);
   const [nid, setNid] = useState(props.nid);
   const [bio, setBio] = useState(props.bio);
-
   return (
-    <PhoneView style={{...styles.gap10}}>
+    <PhoneView
+      style={{
+        ...styles.gap10,
+      }}>
       <JustBottomBorderTextInput value={name} onChangeText={e => setName(e)} />
       <JustBottomBorderTextInput
         placeholder={'کدملی دبیر در سایت آیریسک (اختیاری)'}
@@ -29,7 +30,9 @@ function Teacher(props) {
       <CKEditor
         editor={ClassicEditor}
         config={{
-          customValues: {token: props.token},
+          customValues: {
+            token: props.token,
+          },
           extraPlugins: [MyCustomUploadAdapterPlugin],
           placeholder: 'متن  درباره استاد(اختیاری)',
           ...CKEditorToolbar,
@@ -70,5 +73,4 @@ function Teacher(props) {
     </PhoneView>
   );
 }
-
 export default Teacher;

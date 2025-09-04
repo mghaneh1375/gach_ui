@@ -1,21 +1,18 @@
 import React from 'react';
-import {CommonButton, PhoneView} from '../../../../../styles/Common';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
+import {CommonButton, PhoneView} from '@/styles';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
 import {
   quizContext,
   dispatchQuizContext,
 } from '../../../../panel/quiz/components/Context';
-import Translate from '../../Translate';
-import {getMyAnswerSheet} from './Utility';
-
+import Translate from '../../translate';
+import {getMyAnswerSheet} from './utility';
 function Ops(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const prepareShowAnswerSheet = async () => {
     if (state.selectedQuiz.mode === 'tashrihi') {
       props.navigate(
@@ -28,7 +25,6 @@ function Ops(props) {
       );
       return;
     }
-
     if (state.selectedQuiz.answer_sheet !== undefined) {
       dispatch({
         showAnswers: true,
@@ -37,25 +33,19 @@ function Ops(props) {
         allowChangeAns: false,
         wanted_answer_sheet: state.selectedQuiz.answer_sheet,
       });
-
       props.toggleShowPopUp();
       props.setMode('answerSheet');
       return;
     }
-
     props.setLoading(true);
     const res = await getMyAnswerSheet(
       state.selectedQuiz.id,
       state.selectedQuiz.generalMode,
       props.token,
     );
-
     props.setLoading(false);
-
     if (res === null) return;
-
     state.selectedQuiz.answer_sheet = res;
-
     dispatch({
       showAnswers: true,
       showStdAnswers: true,
@@ -65,17 +55,16 @@ function Ops(props) {
       selectedQuiz: state.selectedQuiz,
       needUpdate: true,
     });
-
     props.toggleShowPopUp();
     props.setMode('answerSheet');
   };
-
   const prepareShowResult = async () => {
-    dispatch({selectedStudentId: props.user.user.id});
+    dispatch({
+      selectedStudentId: props.user.user.id,
+    });
     props.toggleShowPopUp();
     props.setMode('result');
   };
-
   const prepareReview = () => {
     props.navigate(
       '/reviewQuiz/' +
@@ -86,10 +75,12 @@ function Ops(props) {
         state.selectedQuiz.id,
     );
   };
-
   return (
     <LargePopUp toggleShowPopUp={props.toggleShowPopUp}>
-      <PhoneView style={{gap: 10}}>
+      <PhoneView
+        style={{
+          gap: 10,
+        }}>
         <CommonButton
           onPress={() => prepareShowResult()}
           title={Translate.result}
@@ -114,5 +105,4 @@ function Ops(props) {
     </LargePopUp>
   );
 }
-
 export default Ops;

@@ -1,25 +1,21 @@
 import {dispatchDoQuizContext, doQuizContext} from './Context';
 import React, {useState} from 'react';
-import {CommonButton, CommonWebBox} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {getDevice} from '../../../../services/Utility';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
+import {CommonButton, CommonWebBox} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import {getDevice} from '../../../../services/utility';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
 import {faDownload} from '@fortawesome/free-solid-svg-icons';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
 let timerVar;
-
 function Submits(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
   const [showAddBtn, setShowAddBtn] = useState(true);
-
   React.useEffect(() => {
     if (
       state.stdAnswerSheets !== undefined &&
@@ -29,15 +25,12 @@ function Submits(props) {
       setShowAddBtn(false);
     else setShowAddBtn(true);
   }, [state.stdAnswerSheets]);
-
   React.useEffect(() => {
     if (state.stdAnswerSheets !== undefined) setData(state.stdAnswerSheets);
   }, [state.stdAnswerSheets]);
-
   React.useEffect(() => {
     if (state.stdAnswerSheets !== undefined) timer();
   }, [state.stdAnswerSheets, timer]);
-
   const columns = [
     {
       name: 'زمان ثبت',
@@ -91,17 +84,13 @@ function Submits(props) {
       center: true,
     },
   ];
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const timer = React.useCallback(() => {
     const tmp = state.stdAnswerSheets.find(elem => {
       return elem.status === 'pending';
     });
-
     if (tmp === undefined) return;
-
     timerVar = setTimeout(() => {
       props.setLoading(true);
       Promise.all([
@@ -121,16 +110,16 @@ function Submits(props) {
           clearTimeout(timerVar);
           return;
         }
-        dispatch({stdAnswerSheets: res[0]});
+        dispatch({
+          stdAnswerSheets: res[0],
+        });
         const tmp = res[0].find(elem => {
           return elem.status === 'pending';
         });
-
         if (tmp === undefined) {
           clearTimeout(timerVar);
           return;
         }
-
         timer();
       });
     }, [10000]);
@@ -142,18 +131,25 @@ function Submits(props) {
     state.quizInfo.id,
     state.token,
   ]);
-
   return (
     <CommonWebBox>
       {showAddBtn && (
         <CommonButton
           padding={isInPhone ? '5px 5px' : undefined}
           textStyle={
-            isInPhone ? {fontSize: 14, paddingLeft: 20, paddingRight: 20} : {}
+            isInPhone
+              ? {
+                  fontSize: 14,
+                  paddingLeft: 20,
+                  paddingRight: 20,
+                }
+              : {}
           }
           title={'ارسال پاسخ'}
           onPress={() => {
-            dispatch({openFileSelectorFlag: true});
+            dispatch({
+              openFileSelectorFlag: true,
+            });
           }}
         />
       )}
@@ -169,5 +165,4 @@ function Submits(props) {
     </CommonWebBox>
   );
 }
-
 export default Submits;

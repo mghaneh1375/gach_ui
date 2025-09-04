@@ -1,6 +1,5 @@
-import {formatPrice} from '../../../../services/Utility';
-import Translator from '../../../advisorPanel/Teach/Schedule/components/Translator';
-
+import {formatPrice} from '@/services/utility';
+import Translator from '../../../advisorPanel/teach/schedule/components/translator';
 const columns = [
   {
     name: Translator.teacher,
@@ -49,5 +48,4 @@ const columns = [
     grow: 1,
   },
 ];
-
 export default columns;

@@ -1,6 +1,5 @@
-import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-
+import {MyView, PhoneView, SimpleText} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
 function Row(props) {
   if (props.isInPhone)
     return (
@@ -16,14 +15,21 @@ function Row(props) {
           text={props.answer}
           style={
             props.style === undefined
-              ? {textAlign: 'right'}
-              : {...props.style, ...{width: '60%', textAlign: 'right'}}
+              ? {
+                  textAlign: 'right',
+                }
+              : {
+                  ...props.style,
+                  ...{
+                    width: '60%',
+                    textAlign: 'right',
+                  },
+                }
           }
           onPress={props.onPress}
         />
       </MyView>
     );
-
   return (
     <PhoneView
       style={{
@@ -35,20 +41,31 @@ function Row(props) {
         },
       }}>
       <SimpleText
-        style={{width: '30%', textAlign: 'right'}}
+        style={{
+          width: '30%',
+          textAlign: 'right',
+        }}
         text={props.title}
       />
       <SimpleText
         text={props.answer}
         style={
           props.style === undefined
-            ? {width: '70%', textAlign: 'right'}
-            : {...props.style, ...{width: '60%', textAlign: 'right'}}
+            ? {
+                width: '70%',
+                textAlign: 'right',
+              }
+            : {
+                ...props.style,
+                ...{
+                  width: '60%',
+                  textAlign: 'right',
+                },
+              }
         }
         onPress={props.onPress}
       />
     </PhoneView>
   );
 }
-
 export default Row;

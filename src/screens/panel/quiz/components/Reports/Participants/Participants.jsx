@@ -1,7 +1,6 @@
-import {CommonWebBox} from '../../../../../../styles/Common';
-import CommonDataTable from '../../../../../../styles/Common/CommonDataTable';
-import columns from './TableStructure';
-
+import {CommonWebBox} from '@/styles';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
+import columns from './tableStructure';
 function Participants(props) {
   return (
     <CommonWebBox>
@@ -15,5 +14,4 @@ function Participants(props) {
     </CommonWebBox>
   );
 }
-
 export default Participants;

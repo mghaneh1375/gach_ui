@@ -1,15 +1,10 @@
 import {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-} from '../../../../../styles/Common';
-import Translate from '../../Translate';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {showSuccess} from '../../../../../services/Utility';
-
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import Translate from '../../translate';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '@/services/utility';
 function GroupEdit(props) {
   const [easyPrice, setEasyPrice] = useState();
   const [midPrice, setMidPrice] = useState();
@@ -92,5 +87,4 @@ function GroupEdit(props) {
     </CommonWebBox>
   );
 }
-
 export default GroupEdit;

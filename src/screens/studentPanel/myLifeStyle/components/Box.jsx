@@ -4,19 +4,13 @@ import {
   faInfo,
   faQuestion,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  EqualTwoTextInputs,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
-import {justifyContentEnd} from '../../../../styles/Common/Button';
+import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
+import {justifyContentEnd} from '../../../../styles/common/button';
 import {Image, Pressable} from 'react-native';
 import React from 'react';
-
 function Box(props) {
   return (
     <Pressable
@@ -24,7 +18,9 @@ function Box(props) {
       <PhoneView
         style={{
           ...styles.alignSelfCenter,
-          ...{minWidth: props.item.advisor !== undefined ? 225 : 'unset'},
+          ...{
+            minWidth: props.item.advisor !== undefined ? 225 : 'unset',
+          },
         }}>
         <EqualTwoTextInputs
           style={{
@@ -41,7 +37,10 @@ function Box(props) {
               ...styles.alignItemsCenter,
               ...styles.alignSelfCenter,
               ...styles.justifyContentCenter,
-              ...{width: 50, height: 130},
+              ...{
+                width: 50,
+                height: 130,
+              },
             }}>
             <SimpleText
               style={{
@@ -58,7 +57,10 @@ function Box(props) {
               style={{
                 ...justifyContentEnd,
                 ...styles.alignItemsCenter,
-                ...{width: 40, marginRight: 5},
+                ...{
+                  width: 40,
+                  marginRight: 5,
+                },
               }}>
               <Image
                 source={props.item.advisor.pic}
@@ -112,8 +114,12 @@ function Box(props) {
               <SimpleFontIcon
                 icon={faClose}
                 kind={'normal'}
-                parentStyle={{alignSelf: 'end'}}
-                style={{color: 'white'}}
+                parentStyle={{
+                  alignSelf: 'end',
+                }}
+                style={{
+                  color: 'white',
+                }}
                 onPress={() => props.remove()}
               />
             </EqualTwoTextInputs>
@@ -130,7 +136,10 @@ function Box(props) {
                 padding: 7,
               }}>
               <SimpleText
-                style={{color: 'white', fontSize: 11}}
+                style={{
+                  color: 'white',
+                  fontSize: 11,
+                }}
                 text={props.item.lesson}
               />
             </MyView>
@@ -160,7 +169,10 @@ function Box(props) {
                     <SimpleFontIcon
                       kind="normal"
                       icon={faInfo}
-                      style={{color: vars.RED, marginTop: -10}}
+                      style={{
+                        color: vars.RED,
+                        marginTop: -10,
+                      }}
                     />
                   )}
               </EqualTwoTextInputs>
@@ -168,7 +180,10 @@ function Box(props) {
 
             {props.item.startAt === undefined && <MyView />}
 
-            <MyView style={{...styles.gap10}}>
+            <MyView
+              style={{
+                ...styles.gap10,
+              }}>
               {props.item.additional !== undefined && (
                 <PhoneView
                   style={{
@@ -196,7 +211,10 @@ function Box(props) {
                   <MyView>
                     <SimpleText
                       text={props.item.additionalLabel}
-                      style={{...styles.dark_blue_color, ...styles.fontSize10}}
+                      style={{
+                        ...styles.dark_blue_color,
+                        ...styles.fontSize10,
+                      }}
                     />
                     <SimpleText
                       text={
@@ -206,7 +224,12 @@ function Box(props) {
                             ' از ' +
                             props.item.additional
                       }
-                      style={{...styles.dark_blue_color, ...{textAlign: 'end'}}}
+                      style={{
+                        ...styles.dark_blue_color,
+                        ...{
+                          textAlign: 'end',
+                        },
+                      }}
                     />
                   </MyView>
                 </PhoneView>
@@ -229,25 +252,35 @@ function Box(props) {
                       : 'unset',
                 }}>
                 <SimpleFontIcon
-                  style={{color: vars.YELLOW}}
+                  style={{
+                    color: vars.YELLOW,
+                  }}
                   kind={'normal'}
                   icon={faClockRotateLeft}
                 />
                 <MyView>
                   <SimpleText
                     text={'مدت زمان'}
-                    style={{...styles.dark_blue_color, ...styles.fontSize10}}
+                    style={{
+                      ...styles.dark_blue_color,
+                      ...styles.fontSize10,
+                    }}
                   />
                   {props.item.doneDuration === undefined && (
                     <SimpleText
                       text={props.item.duration + ' دقیقه'}
-                      style={{...styles.dark_blue_color}}
+                      style={{
+                        ...styles.dark_blue_color,
+                      }}
                     />
                   )}
 
                   {props.item.doneDuration !== undefined && (
                     <SimpleText
-                      style={{...styles.dark_blue_color, ...styles.fontSize10}}
+                      style={{
+                        ...styles.dark_blue_color,
+                        ...styles.fontSize10,
+                      }}
                       text={
                         props.item.doneDuration +
                         ' دقیقه از ' +
@@ -262,31 +295,28 @@ function Box(props) {
           </MyView>
 
           {/* {props.item.doneAdditional !== undefined && (
-          <SimpleText
+           <SimpleText
             text={
               props.item.additionalLabel +
               ' انجام شده : ' +
               props.item.doneAdditional
             }
-          />
-        )}
-
-        {props.item.description !== undefined && (
-          <SimpleText text={props.item.description} />
-        )}
-
-        {props.onDone !== undefined && (
-          <SimpleFontIcon
+           />
+           )}
+           {props.item.description !== undefined && (
+           <SimpleText text={props.item.description} />
+           )}
+           {props.onDone !== undefined && (
+           <SimpleFontIcon
             onPress={() => props.onDone()}
             style={{cursor: 'pointer'}}
             icon={faEdit}
             kind={'normal'}
-          />
-        )} */}
+           />
+           )} */}
         </MyView>
       </PhoneView>
     </Pressable>
   );
 }
-
 export default Box;

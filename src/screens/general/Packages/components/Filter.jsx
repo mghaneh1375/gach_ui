@@ -5,46 +5,38 @@ import {
   convertSecToMinWithOutSecAndDay,
   formatPrice,
   getDevice,
-} from '../../../../services/Utility';
+} from '../../../../services/utility';
 import {
   CommonButton,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {styles} from '../../../../styles/Common/Styles';
-import commonTranslator from '../../../../translator/Common';
+} from '@/styles';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {styles} from '../../../../styles/common/styles';
+import commonTranslator from '@/translator/common';
 import {dispatchPackagesContext} from './Context';
-import {filter} from './Utility';
-
+import {filter} from './utility';
 function Filter(props) {
   const useGlobalState = () => [React.useContext(dispatchPackagesContext)];
-
   const [dispatch] = useGlobalState();
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   const [value, setValue] = useState([props.min, props.max]);
   const [valueDuration, setValueDuration] = useState([
     props.minDuration,
     props.maxDuration,
   ]);
-
   const [tag, setTag] = useState();
   const [teacher, setTeacher] = useState();
   const [hasCert, setHasCert] = useState();
   const [level, setLevel] = useState();
-
   const rangeSelector = (_, newValue) => {
     setValue(newValue);
   };
-
   const rangeSelectorDuration = (_, newValue) => {
     setValueDuration(newValue);
   };
-
   const clear = React.useCallback(() => {
     setTag(undefined);
     setTeacher(undefined);
@@ -52,14 +44,11 @@ function Filter(props) {
     setLevel(undefined);
     setValue([props.min, props.max]);
     setValueDuration([props.minDuration, props.maxDuration]);
-
     props.setClearFilter(false);
   }, [props]);
-
   React.useEffect(() => {
     clear();
   }, [props.clearFilter, clear]);
-
   return (
     <MyView>
       <PhoneView
@@ -69,12 +58,19 @@ function Filter(props) {
                 ...styles.gap30,
                 ...styles.justifyContentCenter,
               }
-            : {...styles.gap30}
+            : {
+                ...styles.gap30,
+              }
         }>
         {props.max !== props.min && (
-          <MyView style={{width: isInPhone ? 260 : 300}}>
+          <MyView
+            style={{
+              width: isInPhone ? 260 : 300,
+            }}>
             <SimpleText
-              style={{...styles.alignSelfCenter}}
+              style={{
+                ...styles.alignSelfCenter,
+              }}
               text={'هزینه دوره'}
             />
             <Slider
@@ -95,8 +91,16 @@ function Filter(props) {
           </MyView>
         )}
         {props.maxDuration !== props.minDuration && (
-          <MyView style={{width: isInPhone ? 260 : 300}}>
-            <SimpleText style={{...styles.alignSelfCenter}} text={'مدت دوره'} />
+          <MyView
+            style={{
+              width: isInPhone ? 260 : 300,
+            }}>
+            <SimpleText
+              style={{
+                ...styles.alignSelfCenter,
+              }}
+              text={'مدت دوره'}
+            />
             <Slider
               max={props.maxDuration}
               min={props.minDuration}
@@ -179,11 +183,17 @@ function Filter(props) {
           });
           if (isInPhone) props.close();
         }}
-        style={isInPhone ? {marginBottom: '60px', marginTop: '30px'} : {}}
+        style={
+          isInPhone
+            ? {
+                marginBottom: '60px',
+                marginTop: '30px',
+              }
+            : {}
+        }
         title={'اعمال فیلتر'}
       />
     </MyView>
   );
 }
-
 export default Filter;

@@ -1,16 +1,10 @@
 import React, {useState} from 'react';
-import Translate from '../../Translate';
-import commonTranslate from '../../../../../translator/Common';
-import {createGrade, editGrade} from '../../Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
-
+import Translate from '../../translate';
+import commonTranslate from '../../../../../translator/common';
+import {createGrade, editGrade} from '../../utility';
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
 function Create(props) {
   const [isOlympiad, setIsOlympiad] = useState(
     props.grade !== undefined ? (props.grade.isOlympiad ? 'yes' : 'no') : 'no',
@@ -18,7 +12,6 @@ function Create(props) {
   const [name, setName] = useState(
     props.grade !== undefined ? props.grade.name : '',
   );
-
   return (
     <MyView>
       <CommonWebBox
@@ -30,7 +23,10 @@ function Create(props) {
             : commonTranslate.edit
         }>
         <MyView>
-          <PhoneView style={{gap: 15}}>
+          <PhoneView
+            style={{
+              gap: 15,
+            }}>
             <JustBottomBorderTextInput
               value={name}
               onChangeText={e => setName(e)}
@@ -47,18 +43,25 @@ function Create(props) {
             onPress={async () => {
               props.setLoading(true);
               let res;
-
               if (props.grade !== undefined) {
                 res = await editGrade(
                   props.grade.id,
                   props.token,
-                  {name: name, isOlympiad: isOlympiad === 'yes'},
+                  {
+                    name: name,
+                    isOlympiad: isOlympiad === 'yes',
+                  },
                   props.grade.isOlympiad,
                 );
               } else {
-                res = await createGrade(props.token, {name: name}, isOlympiad);
+                res = await createGrade(
+                  props.token,
+                  {
+                    name: name,
+                  },
+                  isOlympiad,
+                );
               }
-
               props.setLoading(false);
               if (res !== null) {
                 props.afterFunc({
@@ -76,5 +79,4 @@ function Create(props) {
     </MyView>
   );
 }
-
 export default Create;

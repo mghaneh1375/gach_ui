@@ -1,8 +1,7 @@
 import React from 'react';
-import {CommonWebBox} from '../../../../styles/Common';
-import Translate from '../Translate';
-import commonTranslator from '../../../../translator/Common';
-
+import {CommonWebBox} from '@/styles';
+import Translate from '../translate';
+import commonTranslator from '@/translator/common';
 function Details(props) {
   return (
     <CommonWebBox
@@ -12,5 +11,4 @@ function Details(props) {
     />
   );
 }
-
 export default Details;

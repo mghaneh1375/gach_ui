@@ -3,21 +3,15 @@ import {
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import RadioButtonYesOrNo from '../../../../../components/web/RadioButtonYesOrNo';
-import {
-  CommonButton,
-  PhoneView,
-  SimpleText,
-  MyView,
-} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import vars from '../../../../../styles/root';
-import commonTranslator from '../../../../../translator/Common';
-import translator from '../../Translator';
-import {filter} from '../Utility';
-
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
+import {CommonButton, PhoneView, SimpleText, MyView} from '@/styles';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
+import translator from '../../translator';
+import {filter} from '../utility';
 function Filter(props) {
   const [showProSearch, setShowProSearch] = useState(false);
   const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
@@ -27,28 +21,33 @@ function Filter(props) {
   const [lessons, setLessons] = useState();
   const [organizationCode, setOrganizationCode] = useState();
   const [justCriticals, setJustCriticals] = useState(false);
-
   React.useEffect(() => {
     if (grade === undefined) return;
-
     const allLessons = props.grades
       .find(elem => elem.id === grade)
       .lessons.map(elem => {
-        return {id: elem.id, item: elem.name};
+        return {
+          id: elem.id,
+          item: elem.name,
+        };
       });
-    allLessons.push({id: undefined, item: commonTranslator.all});
+    allLessons.push({
+      id: undefined,
+      item: commonTranslator.all,
+    });
     setLessons(allLessons);
   }, [grade, props.grades]);
-
   const toggleShowProSearch = () => {
     if (showProSearch) setWantedIcon(faAngleDoubleDown);
     else setWantedIcon(faAngleDoubleUp);
     setShowProSearch(!showProSearch);
   };
-
   return (
     <MyView>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         <JustBottomBorderSelect
           placeholder={translator.grade}
           subText={translator.grade}
@@ -93,12 +92,13 @@ function Filter(props) {
               criticalThresh,
               justCriticals,
             );
-
             props.setLoading(false);
             if (res !== null) props.setData(res);
           }}
           title={commonTranslator.show}
-          style={{alignSelf: 'flex-start'}}
+          style={{
+            alignSelf: 'flex-start',
+          }}
         />
       </PhoneView>
       <PhoneView>
@@ -150,5 +150,4 @@ function Filter(props) {
     </MyView>
   );
 }
-
 export default Filter;

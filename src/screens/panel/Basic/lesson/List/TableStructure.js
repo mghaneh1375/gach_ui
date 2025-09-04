@@ -1,4 +1,4 @@
-import commonTranslator from '../../../../../translator/Common';
+import commonTranslator from '@/translator/common';
 const columns = [
   {
     name: commonTranslator.lesson,
@@ -17,5 +17,4 @@ const columns = [
     minWidth: '200px',
   },
 ];
-
 export default columns;

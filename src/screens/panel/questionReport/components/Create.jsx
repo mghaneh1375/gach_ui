@@ -1,30 +1,26 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
 import {questionReportContext, dispatchQuestionReportContext} from './Context';
-import commonTranslator from '../../../../translator/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import {trueFalseValues} from '../../../../services/Utility';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import translator from '../Translate';
-
+import commonTranslator from '@/translator/common';
+import {styles} from '../../../../styles/common/styles';
+import {trueFalseValues} from '../../../../services/utility';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import translator from '../translate';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(questionReportContext),
     React.useContext(dispatchQuestionReportContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [title, setTitle] = useState();
   const [priority, setPriority] = useState();
   const [visibility, setVisibility] = useState();
   const [canHasDesc, setCanHasDesc] = useState();
-
   const createData = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.addQuestionReportTag,
@@ -40,12 +36,10 @@ function Create(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       const tmp = state.tags;
       tmp.push({
         id: res[0],
@@ -54,15 +48,14 @@ function Create(props) {
         visibility: visibility,
         canHasDesc: canHasDesc,
       });
-
-      dispatch({tags: tmp});
+      dispatch({
+        tags: tmp,
+      });
       props.setMode('list');
     });
   }, [props, title, priority, visibility, canHasDesc, dispatch, state.tags]);
-
   const editData = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.editQuestionReportTag + state.selectedTag.id,
@@ -78,18 +71,18 @@ function Create(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       state.selectedTag.label = title;
       state.selectedTag.priority = priority;
       state.selectedTag.visibility = visibility;
       state.selectedTag.canHasDesc = canHasDesc;
-
-      dispatch({selectedTag: state.selectedTag, needUpdate: true});
+      dispatch({
+        selectedTag: state.selectedTag,
+        needUpdate: true,
+      });
       props.setMode('list');
     });
   }, [
@@ -101,7 +94,6 @@ function Create(props) {
     dispatch,
     state.selectedTag,
   ]);
-
   React.useEffect(() => {
     if (props.isInEditMode && state.selectedTag !== undefined) {
       setTitle(state.selectedTag.label);
@@ -110,13 +102,15 @@ function Create(props) {
       setCanHasDesc(state.selectedTag.canHasDesc);
     }
   }, [props.isInEditMode, state.selectedTag]);
-
   return (
     <CommonWebBox
       header={commonTranslator.add}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{...styles.gap10}}>
+      <PhoneView
+        style={{
+          ...styles.gap10,
+        }}>
         <JustBottomBorderTextInput
           placehoder={commonTranslator.title}
           subText={commonTranslator.title}
@@ -164,5 +158,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

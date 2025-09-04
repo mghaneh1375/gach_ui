@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import commonTranslator from '../../../../translator/Common';
-import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
-import vars from '../../../../styles/root';
-import {updateInfo} from './Utility';
-import {sexKeyVals} from '../../../../services/Utility';
-import {CommonDatePicker} from '../../../../styles/Common/CommonDatePicker';
-
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import commonTranslator from '@/translator/common';
+import {CommonButton, MyView, PhoneView} from '@/styles';
+import vars from '@/styles/root';
+import {updateInfo} from './utility';
+import {sexKeyVals} from '../../../../services/utility';
+import {CommonDatePicker} from '../../../../styles/common/CommonDatePicker';
 const UpdateInfo = props => {
   const [state, setState] = useState(props.user.state);
   const [city, setCity] = useState(props.user.city);
@@ -17,11 +16,9 @@ const UpdateInfo = props => {
   const [school, setSchool] = useState(props.user.school);
   const [birthDay, setBirthDay] = useState(props.user.birthDay);
   const [resetCity, setResetCity] = useState(false);
-
   const [firstname, setFirstname] = useState(props.user.firstName);
   const [lastname, setLastname] = useState(props.user.lastName);
   const [NID, setNID] = useState(props.user.NID);
-
   const setSelectedState = item => {
     setState(item);
     if (city !== undefined) {
@@ -29,27 +26,25 @@ const UpdateInfo = props => {
       setResetCity(true);
     }
   };
-
   const setSelectedCity = item => {
     setCity(item);
     setResetCity(false);
   };
-
   const setSelectedGrade = item => {
     setGrade(item);
   };
-
   const setSelectedBranch = item => {
     setBranch(item);
   };
-
   const setSelectedSchool = item => {
     setSchool(item);
   };
-
   return (
     <MyView>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         <JustBottomBorderTextInput
           isHalf={props.isInPhone ? undefined : true}
           value={firstname}
@@ -81,7 +76,9 @@ const UpdateInfo = props => {
           values={sexKeyVals}
         />
         <JustBottomBorderTextInput
-          style={{marginTop: 10}}
+          style={{
+            marginTop: 10,
+          }}
           isHalf={props.isInPhone ? undefined : true}
           placeholder={commonTranslator.state}
           subText={commonTranslator.state}
@@ -93,7 +90,9 @@ const UpdateInfo = props => {
         />
 
         <JustBottomBorderTextInput
-          style={{marginTop: 10}}
+          style={{
+            marginTop: 10,
+          }}
           isHalf={props.isInPhone ? undefined : true}
           resultPane={true}
           placeholder={commonTranslator.city}
@@ -107,7 +106,9 @@ const UpdateInfo = props => {
           props.accesses.indexOf('student') !== -1 && (
             <JustBottomBorderTextInput
               isHalf={props.isInPhone ? undefined : true}
-              style={{maxWidth: 'unset'}}
+              style={{
+                maxWidth: 'unset',
+              }}
               placeholder={commonTranslator.school}
               subText={commonTranslator.school}
               resultPane={true}
@@ -137,7 +138,9 @@ const UpdateInfo = props => {
         {props.accesses !== undefined &&
           props.accesses.indexOf('student') !== -1 && (
             <JustBottomBorderTextInput
-              style={{marginTop: 10}}
+              style={{
+                marginTop: 10,
+              }}
               isHalf={props.isInPhone ? undefined : true}
               resultPane={true}
               placeholder={commonTranslator.branch}
@@ -154,7 +157,9 @@ const UpdateInfo = props => {
 
         {birthDay !== undefined && (
           <CommonDatePicker
-            parentStyle={{marginTop: 10}}
+            parentStyle={{
+              marginTop: 10,
+            }}
             isHalf={true}
             justDate={true}
             placeholder={commonTranslator.birthDay}

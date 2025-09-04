@@ -1,22 +1,20 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {CourseProvider} from './components/Context';
-
 import Create from './components/Create';
 import List from './components/List';
-
 function Course(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
   return (
     <CourseProvider>
@@ -49,5 +47,4 @@ function Course(props) {
     </CourseProvider>
   );
 }
-
 export default Course;

@@ -1,20 +1,14 @@
 import React, {useState} from 'react';
 import RenderHTML from 'react-native-render-html';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {systemFonts, tagsStyles} from '../../../../services/Utility';
-import {
-  CommonWebBox,
-  EqualTwoTextInputs,
-  SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {systemFonts, tagsStyles} from '../../../../services/utility';
+import {CommonWebBox, EqualTwoTextInputs, SimpleText} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
 function Detail(props) {
   const [notif, setNotif] = useState();
-
   const fetchNotif = React.useCallback(() => {
     if (props.id === undefined) return;
     props.setLoading(true);
@@ -32,7 +26,6 @@ function Detail(props) {
         props.navigate('/');
         return;
       }
-
       if (!res[0].oldSeen) {
         Promise.all([
           generalRequest(
@@ -54,11 +47,9 @@ function Detail(props) {
       }
     });
   }, [props]);
-
   useEffectOnce(() => {
     fetchNotif();
   }, [fetchNotif]);
-
   return (
     <CommonWebBox
       header={'نامه‌های من'}
@@ -66,14 +57,26 @@ function Detail(props) {
       onBackClick={() => props.setMode('list')}>
       {notif !== undefined && (
         <EqualTwoTextInputs>
-          <SimpleText style={{...styles.BlueBold}} text={notif.title} />
-          <SimpleText style={{...styles.BlueBold}} text={notif.createdAt} />
+          <SimpleText
+            style={{
+              ...styles.BlueBold,
+            }}
+            text={notif.title}
+          />
+          <SimpleText
+            style={{
+              ...styles.BlueBold,
+            }}
+            text={notif.createdAt}
+          />
         </EqualTwoTextInputs>
       )}
 
       {notif !== undefined && (
         <RenderHTML
-          source={{html: notif.desc}}
+          source={{
+            html: notif.desc,
+          }}
           tagsStyles={tagsStyles}
           systemFonts={systemFonts}
         />
@@ -89,5 +92,4 @@ function Detail(props) {
     </CommonWebBox>
   );
 }
-
 export default Detail;

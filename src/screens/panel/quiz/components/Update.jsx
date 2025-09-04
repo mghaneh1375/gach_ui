@@ -5,23 +5,21 @@ import {
   EqualTwoTextInputs,
   MyView,
 } from '../../../../styles/Common';
-import QuizAnswerSheetInfo from './Create/QuizAnswerSheetInfo';
-import QuizGeneralInfo from './Create/QuizGeneralInfo';
-import QuizRegistryInfo from './Create/QuizRegistryInfo';
-import QuizRunInfo from './Create/QuizRunInfo';
-import commonTranslator from '../../../../translator/Common';
-import translator from '../Translator';
-import {CallAPI} from './Create/CallAPI';
-import {routes} from '../../../../API/APIRoutes';
+import QuizAnswerSheetInfo from './create/quizAnswerSheetInfo';
+import QuizGeneralInfo from './create/quizGeneralInfo';
+import QuizRegistryInfo from './create/quizRegistryInfo';
+import QuizRunInfo from './create/quizRunInfo';
+import commonTranslator from '@/translator/common';
+import translator from '../translator';
+import {CallAPI} from './create/callAPI';
+import {routes} from '@/api/apiRoutes';
 import {quizContext, dispatchQuizContext} from './Context';
-
 const Update = props => {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [kind, setKind] = useState('');
@@ -39,10 +37,8 @@ const Update = props => {
   const [showResultsAfterCorrection, setShowResultsAfterCorrection] =
     useState(true); //undefined
   const [minusMark, setMinusMark] = useState(undefined);
-
   const [startRegistry, setStartRegistry] = useState();
   const [endRegistry, setEndRegistry] = useState();
-
   const [descBefore, setDescBefore] = useState(undefined);
   const [descAfter, setDescAfter] = useState(undefined);
 
@@ -77,7 +73,6 @@ const Update = props => {
       descAfter: descAfter,
       desc: descBefore,
     };
-
     const result = await CallAPI(
       data,
       routes.editQuiz +
@@ -88,14 +83,15 @@ const Update = props => {
       props.setLoading,
       'regular',
     );
-
     if (result !== null) {
       data.id = state.selectedQuiz.id;
-      dispatch({selectedQuiz: data, needUpdate: true});
+      dispatch({
+        selectedQuiz: data,
+        needUpdate: true,
+      });
       props.setMode('list');
     }
   };
-
   return (
     <MyView>
       <CommonWebBox
@@ -184,5 +180,4 @@ const Update = props => {
     </MyView>
   );
 };
-
 export default Update;

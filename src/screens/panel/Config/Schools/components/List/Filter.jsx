@@ -4,37 +4,28 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import StateAndCity from '../../../../../../components/web/StateAndCity';
-import {allTrueFalseValues} from '../../../../../../services/Utility';
-import {
-  CommonButton,
-  PhoneView,
-  MyView,
-  SimpleText,
-} from '../../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../../styles/Common/FontIcon';
-import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
+import {allTrueFalseValues} from '../../../../../../services/utility';
+import {CommonButton, PhoneView, MyView, SimpleText} from '@/styles';
+import {SimpleFontIcon} from '../../../../../../styles/common/FontIcon';
+import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
 import vars from '../../../../../../styles/root';
-import commonTranslator from '../../../../../../translator/Common';
-import translator from '../../Translator';
+import commonTranslator from '../../../../../../translator/common';
+import translator from '../../translator';
 import {dispatchSchoolContext, schoolContext} from '../Context';
-import {gradesForFilter, kindSchoolsForFilter} from '../KeyVals';
-import {filter} from '../Utility';
-
+import {gradesForFilter, kindSchoolsForFilter} from '../keyVals';
+import {filter} from '../utility';
 function Filter(props) {
   const [kindSchool, setKindSchool] = useState();
   const [grade, setGrade] = useState();
   const [city, setCity] = useState();
   const [state, setState] = useState();
   const [hasUser, setHasUser] = useState('all');
-
   const useGlobalState = () => [
     React.useContext(schoolContext),
     React.useContext(dispatchSchoolContext),
   ];
-
   const [globalState, dispatch] = useGlobalState();
-
   const doFilter = async () => {
     props.setLoading(true);
     const res = await filter(
@@ -46,27 +37,36 @@ function Filter(props) {
       hasUser,
     );
     props.setLoading(false);
-    if (res !== null) dispatch({data: res, selectedSchoolForFilter: undefined});
+    if (res !== null)
+      dispatch({
+        data: res,
+        selectedSchoolForFilter: undefined,
+      });
   };
-
   const [showPro, setShowPro] = useState(false);
   const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
-
   React.useEffect(() => {
     if (showPro) setWantedIcon(faAngleDoubleUp);
     else setWantedIcon(faAngleDoubleDown);
   }, [showPro]);
-
   return (
     <MyView>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         <JustBottomBorderTextInput
-          style={{maxWidth: 'unset'}}
+          style={{
+            maxWidth: 'unset',
+          }}
           placeholder={commonTranslator.school}
           subText={commonTranslator.school}
           resultPane={true}
           setSelectedItem={school => {
-            dispatch({selectedSchoolForFilter: school, needFilter: true});
+            dispatch({
+              selectedSchoolForFilter: school,
+              needFilter: true,
+            });
             setCity(undefined);
             setState(undefined);
             setGrade(undefined);
@@ -110,7 +110,10 @@ function Filter(props) {
       </PhoneView>
 
       {showPro && (
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           {props.isAdmin && (
             <JustBottomBorderSelect
               setter={setHasUser}
@@ -146,12 +149,13 @@ function Filter(props) {
           <CommonButton
             onPress={() => doFilter()}
             title={commonTranslator.filter}
-            style={{alignSelf: 'flex-start'}}
+            style={{
+              alignSelf: 'flex-start',
+            }}
           />
         </PhoneView>
       )}
     </MyView>
   );
 }
-
 export default Filter;

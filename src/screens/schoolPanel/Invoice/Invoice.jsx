@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {MyView} from '../../../styles/Common';
-import {dispatchStateContext} from '../../../App';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
+import {MyView} from '@/styles';
+import {dispatchStateContext} from '@/App';
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import Recp from '../../../components/web/Recp';
-
 function Invoice(props) {
   const params = useParams();
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();
-
   const [invoice, setInvoice] = useState();
   const [isWorking, setIsWorking] = useState();
-
   const fetchInvoice = React.useCallback(() => {
     if (isWorking) return;
     if (
@@ -24,10 +21,10 @@ function Invoice(props) {
       props.navigate('/');
       return;
     }
-
-    dispatch({setLoading: true});
+    dispatch({
+      setLoading: true,
+    });
     setIsWorking(true);
-
     Promise.all([
       generalRequest(
         routes.fetchInvoice + params.refId,
@@ -37,7 +34,9 @@ function Invoice(props) {
         props.token,
       ),
     ]).then(res => {
-      dispatch({setLoading: false});
+      dispatch({
+        setLoading: false,
+      });
       if (res[0] === null) {
         props.navigate('/');
         return;
@@ -45,16 +44,18 @@ function Invoice(props) {
       setInvoice(res[0]);
     });
   }, [params, dispatch, props, isWorking]);
-
   React.useEffect(() => {
     fetchInvoice();
   }, [params, fetchInvoice]);
-
   return (
     <MyView>
       {invoice !== undefined && (
         <Recp
-          setLoading={status => dispatch({loading: status})}
+          setLoading={status =>
+            dispatch({
+              loading: status,
+            })
+          }
           recp={invoice}
           user={props.user.user}
         />
@@ -62,5 +63,4 @@ function Invoice(props) {
     </MyView>
   );
 }
-
 export default Invoice;

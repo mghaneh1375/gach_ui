@@ -1,19 +1,13 @@
 import React, {useState} from 'react';
 import WheelComponent from 'react-wheel-of-prizes';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {getWidthHeight} from '../../../../services/Utility';
-import {
-  CommonButton,
-  MyView,
-  MyViewWithRef,
-  SimpleText,
-} from '../../../../styles/Common';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {getWidthHeight} from '../../../../services/utility';
+import {CommonButton, MyView, MyViewWithRef, SimpleText} from '@/styles';
 import Confetti from 'react-confetti';
-import vars from '../../../../styles/root';
-import {styles} from '../../../../styles/Common/Styles';
-
+import vars from '@/styles/root';
+import {styles} from '../../../../styles/common/styles';
 function Spinner(props) {
   const [spins, setSpins] = useState();
   const [selectedSpin, setSelectedSpin] = useState();
@@ -21,19 +15,16 @@ function Spinner(props) {
   const [showWheelComponent, setShowWheelComponent] = useState(true);
   const [award, setAward] = useState();
   const [repeat, setRepeat] = useState();
-
   function incRepeat() {
     if (repeat === undefined) setRepeat('second');
     else if (repeat === 'second') setRepeat('third');
     else if (repeat === 'third') setRepeat('forth');
     else if (repeat === 'forth') setRepeat('fifth');
   }
-
   const [coinForSecondTime, setCoinForSecondTime] = useState();
   const [coinForThirdTime, setCoinForThirdTime] = useState();
   const [coinForForthTime, setCoinForForthTime] = useState();
   const [coinForFifthTime, setCoinForFifthTime] = useState();
-
   const fetchSpins = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -56,29 +47,22 @@ function Spinner(props) {
         }),
       );
       const now = Date.now();
-
       setSelectedSpin(
         res[0].spins.find(elem => now - elem.created_at > 300000).label,
       );
-
       if (res[0].coinForSecondTime !== undefined)
         setCoinForSecondTime(res[0].coinForSecondTime);
-
       if (res[0].coinForThirdTime !== undefined)
         setCoinForThirdTime(res[0].coinForThirdTime);
-
       if (res[0].coinForForthTime !== undefined)
         setCoinForForthTime(res[0].coinForForthTime);
-
       if (res[0].coinForFifthTime !== undefined)
         setCoinForFifthTime(res[0].coinForFifthTime);
     });
   }, [props]);
-
   useEffectOnce(() => {
     fetchSpins();
   }, [fetchSpins]);
-
   const rotateAgain = async r => {
     props.setLoading(true);
     Promise.all([
@@ -101,16 +85,13 @@ function Spinner(props) {
         }),
       );
       const now = Date.now();
-
       setSelectedSpin(
         res[0].spins.find(elem => now - elem.created_at > 300000).label,
       );
-
       setShowCongratulations(false);
       setShowWheelComponent(true);
     });
   };
-
   const segColors = [
     '#EE4040',
     '#F0CF50',
@@ -122,7 +103,6 @@ function Spinner(props) {
     '#FF9000',
     '#34A24F',
   ];
-
   const onFinished = async gift => {
     props.setLoading(true);
     let res = await generalRequest(
@@ -134,22 +114,18 @@ function Spinner(props) {
       repeat === undefined ? undefined : 'data',
       props.token,
     );
-
     if (res === null) {
       props.setLoading(false);
       return;
     }
-
     if (repeat !== undefined) {
       props.setLoading(false);
       if (res.coinForThirdTime !== undefined)
         setCoinForThirdTime(res.coinForThirdTime);
       else setCoinForThirdTime(undefined);
-
       if (res.coinForForthTime !== undefined)
         setCoinForForthTime(res.coinForForthTime);
       else setCoinForForthTime(undefined);
-
       if (res.coinForFifthTime !== undefined)
         setCoinForFifthTime(res.coinForFifthTime);
       else setCoinForFifthTime(undefined);
@@ -161,24 +137,23 @@ function Spinner(props) {
         'data',
         props.token,
       );
-
       props.setLoading(false);
-
       if (res !== null) props.updateAlerts(res);
       else props.updateAlerts([]);
     }
-
     incRepeat();
     setShowCongratulations(true);
     setShowWheelComponent(false);
     setAward(gift);
   };
-
   return (
     <>
       {spins !== undefined && (
         <MyViewWithRef
-          style={{...styles.alignItemsCenter, ...styles.justifyContentCenter}}>
+          style={{
+            ...styles.alignItemsCenter,
+            ...styles.justifyContentCenter,
+          }}>
           {showCongratulations && (
             <MyView
               style={{
@@ -192,7 +167,9 @@ function Spinner(props) {
                   ...styles.alignSelfCenter,
                   ...styles.fontSize25,
                   ...styles.colorGreen,
-                  ...{marginTop: '200px'},
+                  ...{
+                    marginTop: '200px',
+                  },
                 }}
               />
               <CommonButton

@@ -1,17 +1,12 @@
 import React from 'react';
-import {getGradesAndBranches, getPDFQuizInfo} from '../../Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-} from '../../../../../../styles/Common';
-import translator from '../../../Translator';
+import {getGradesAndBranches, getPDFQuizInfo} from '../../utility';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import translator from '../../../translator';
 import EachQuestion from './EachQuestion';
-import {showError, showSuccess} from '../../../../../../services/Utility';
-import {generalRequest} from '../../../../../../API/Utility';
-import {routes} from '../../../../../../API/APIRoutes';
+import {showError, showSuccess} from '../../../../../../services/utility';
+import {generalRequest} from '../../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import {dispatchSetSubjectContext, setSubjectContext} from './Context';
-
 export default function SetSubjects({
   state,
   dispatch,
@@ -20,17 +15,14 @@ export default function SetSubjects({
   setMode,
 }) {
   const [questions, setQuestions] = React.useState();
-
   const useGlobalState = () => [
     React.useContext(setSubjectContext),
     React.useContext(dispatchSetSubjectContext),
   ];
   const [localState, localDispatch] = useGlobalState();
   const [isWorking, setIsWorking] = React.useState(false);
-
   React.useEffect(() => {
     if (state.selectedQuiz.info === undefined) return;
-
     const questionsTmp = [];
     if (state.selectedQuiz.info.subjects.length === 0) {
       for (let i = 0; i < state.selectedQuiz.qNo; i++)
@@ -54,13 +46,10 @@ export default function SetSubjects({
         });
       }
     }
-
     setQuestions(questionsTmp);
   }, [state.selectedQuiz.info, state.selectedQuiz.qNo]);
-
   React.useEffect(() => {
     if (isWorking || state.selectedQuiz.info !== undefined) return;
-
     setIsWorking(true);
     setLoading(true);
     Promise.all([
@@ -68,24 +57,20 @@ export default function SetSubjects({
       getGradesAndBranches(token, state.selectedQuiz.id),
     ]).then(res => {
       setLoading(false);
-
       if (res[0] !== null && res[1] !== null) {
         state.selectedQuiz.info = res[0];
         localDispatch({
           grades: res[1],
         });
-
         dispatch({
           selectedQuiz: state.selectedQuiz,
           needUpdate: true,
         });
       } else setMode('list');
-
       setIsWorking(false);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedQuiz]);
-
   return (
     <CommonWebBox
       header={translator.subjects}
@@ -113,20 +98,22 @@ export default function SetSubjects({
                 );
                 return;
               }
-
               setLoading(true);
               const response = await generalRequest(
                 routes.setPDFQuizInfo + state.selectedQuiz.id,
                 'put',
-                {info: questions},
+                {
+                  info: questions,
+                },
                 undefined,
                 token,
               );
               setLoading(false);
-
               if (response != null) {
                 state.selectedQuiz.subjects = undefined;
-                dispatch({selectedQuiz: state.selectedQuiz});
+                dispatch({
+                  selectedQuiz: state.selectedQuiz,
+                });
                 showSuccess();
               }
             }}

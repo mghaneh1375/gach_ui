@@ -1,27 +1,27 @@
 import React from 'react';
-import {PhoneView, MyView} from '../../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import translator from '../../Translator';
-import commonTranslator from '../../../../../translator/Common';
-import {kindQuizKeyVals, limitedKindQuizKeyVals} from '../KeyVals';
-import {dispatchQuizContext, quizContext} from './../Context';
-
+import {PhoneView, MyView} from '@/styles';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import translator from '../../translator';
+import commonTranslator from '@/translator/common';
+import {kindQuizKeyVals, limitedKindQuizKeyVals} from '../keyVals';
+import {dispatchQuizContext, quizContext} from '../Context';
 const QuizGeneralInfo = props => {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const changeInput = (label, text) => {
     if (label === 'name') props.setName(text);
     else if (label === 'desc') props.setDesc(text);
   };
-
   return (
     <MyView>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         <JustBottomBorderTextInput
           placeholder={translator.name}
           onChangeText={e => changeInput('name', e)}
@@ -68,12 +68,17 @@ const QuizGeneralInfo = props => {
                     tmp.push(itr);
                   }
                 });
-                dispatch({tags: tmp});
+                dispatch({
+                  tags: tmp,
+                });
               }
             }}
             values={state.tags}
             value={props.tags.map((elem, index) => {
-              return {id: index, title: elem};
+              return {
+                id: index,
+                title: elem,
+              };
             })}
             reset={false}
             placeholder={translator.tag}
@@ -92,7 +97,11 @@ const QuizGeneralInfo = props => {
       </PhoneView>
       {props.setDesc !== undefined && (
         <PhoneView
-          style={{marginTop: 20, marginRight: 10, flexDirection: 'column'}}>
+          style={{
+            marginTop: 20,
+            marginRight: 10,
+            flexDirection: 'column',
+          }}>
           <JustBottomBorderTextInput
             placeholder={commonTranslator.desc}
             subText={commonTranslator.desc}
@@ -105,5 +114,4 @@ const QuizGeneralInfo = props => {
     </MyView>
   );
 };
-
 export default QuizGeneralInfo;

@@ -1,60 +1,50 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
 import SelectFromMyStudents from '../../../../../components/web/SelectFromMyStudents';
 import {
   showError,
   showSuccess,
   simpleConvertTimestamp,
-} from '../../../../../services/Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import translator from '../../../../panel/quiz/Translator';
+} from '../../../../../services/utility';
+import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import translator from '../../../../panel/quiz/translator';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
-} from '../../../MyQuizzes/components/Context';
-
-import commonTranslator from '../../../../../translator/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import hwTranslator from '../Translator';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {styles} from '../../../../../styles/Common/Styles';
-
+} from '../../../myQuizzes/components/Context';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import hwTranslator from '../translator';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import {styles} from '@/styles/common/styles';
 const Students = props => {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState(false);
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedSudent, setSelectedStudent] = useState(undefined);
-
   const setStudents = newList => {
     state.selectedQuiz.students = newList;
     state.selectedQuiz.studentsCount = newList.length;
     state.selectedQuiz.recp = undefined;
-    dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+    dispatch({
+      selectedQuiz: state.selectedQuiz,
+      needUpdate: true,
+    });
   };
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const fetchStudents = React.useCallback(() => {
     if (isWorking || state.selectedQuiz.students !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getParticipants + 'hw/' + state.selectedQuiz.id,
@@ -69,13 +59,14 @@ const Students = props => {
         props.setMode('list');
         return;
       }
-
       state.selectedQuiz.students = res[0];
-      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+      dispatch({
+        selectedQuiz: state.selectedQuiz,
+        needUpdate: true,
+      });
       setIsWorking(false);
     });
   }, [props, isWorking, dispatch, state.selectedQuiz]);
-
   React.useEffect(() => {
     if (
       state.selectedQuiz !== undefined &&
@@ -83,21 +74,17 @@ const Students = props => {
     )
       fetchStudents();
   }, [state.selectedQuiz, fetchStudents]);
-
   const handleOp = idx => {
     setSelectedStudent(state.selectedQuiz.students[idx]);
     toggleShowOpPopUp();
   };
-
   const [data, setData] = useState();
-
   const filter = (markStatus, uploadStatus) => {
     if (
       state.selectedQuiz === undefined ||
       state.selectedQuiz.students === undefined
     )
       return;
-
     setData(
       state.selectedQuiz.students.filter(e => {
         if (markStatus === 'marked' && (e.mark === undefined || e.mark < 0))
@@ -115,15 +102,12 @@ const Students = props => {
           e.uploadAt > 0
         )
           return false;
-
         return true;
       }),
     );
   };
-
   React.useEffect(() => {
     if (columns !== undefined) return;
-
     setColumns([
       {
         name: 'نام دانش آموز',
@@ -163,23 +147,19 @@ const Students = props => {
         name: 'فایل آپلود شده',
         cell: (row, index, column, id) => {
           if (row.filename === undefined) return <></>;
-
           return <a href={row.url}>{row.filename}</a>;
         },
       },
     ]);
   }, [columns]);
-
   React.useEffect(() => {
     setData(state.selectedQuiz.students);
   }, [state.selectedQuiz.students]);
-
   const [showSelectStudentsPane, setShowSelectStudentsPane] = useState(false);
   const [showMarkPopUp, setShowMarkPopUp] = useState();
   const [selectedStudents, setSelectedStudents] = useState();
   const [mark, setMark] = useState();
   const [markDesc, setMarkDesc] = useState();
-
   const addStudentsToQuiz = React.useCallback(() => {
     if (
       isWorking ||
@@ -187,10 +167,8 @@ const Students = props => {
       selectedStudents.length === 0
     )
       return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.forceRegistry + 'hw/' + state.selectedQuiz.id,
@@ -206,22 +184,20 @@ const Students = props => {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] == null) return;
-
       showSuccess(res[0].excepts);
       const addedStudents = state.myStudents.filter(e => {
         return res[0].doneIds.indexOf(e.id) !== -1;
       });
-
       state.selectedQuiz.students = addedStudents.concat(
         state.selectedQuiz.students,
       );
-
       state.selectedQuiz.studentsCount = state.selectedQuiz.students.length;
       state.selectedQuiz.recp = undefined;
-      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
-
+      dispatch({
+        selectedQuiz: state.selectedQuiz,
+        needUpdate: true,
+      });
       setSelectedStudents(undefined);
       setIsWorking(false);
     });
@@ -233,36 +209,47 @@ const Students = props => {
     state.myStudents,
     selectedStudents,
   ]);
-
   React.useEffect(() => {
     if (selectedStudents === undefined || selectedStudents.length === 0) return;
     addStudentsToQuiz();
   }, [selectedStudents, addStudentsToQuiz]);
-
   React.useEffect(() => {
     if (showMarkPopUp && selectedSudent !== undefined) {
       setMark(selectedSudent.mark < 0 ? undefined : selectedSudent.mark);
       setMarkDesc(selectedSudent.markDesc);
     }
   }, [showMarkPopUp, selectedSudent]);
-
   const [columns, setColumns] = useState();
-
   const [markStatus, setMarkStatus] = useState('all');
   const [uploadStatus, setUploadStatus] = useState('all');
-
   const markStatusValues = [
-    {id: 'all', item: 'همه'},
-    {id: 'marked', item: 'نمره داده شده'},
-    {id: 'notMarked', item: 'نمره داده نشده'},
+    {
+      id: 'all',
+      item: 'همه',
+    },
+    {
+      id: 'marked',
+      item: 'نمره داده شده',
+    },
+    {
+      id: 'notMarked',
+      item: 'نمره داده نشده',
+    },
   ];
-
   const uploadStatusValues = [
-    {id: 'all', item: 'همه'},
-    {id: 'uploaded', item: 'آپلود شده'},
-    {id: 'notUploaded', item: 'آپلود نشده'},
+    {
+      id: 'all',
+      item: 'همه',
+    },
+    {
+      id: 'uploaded',
+      item: 'آپلود شده',
+    },
+    {
+      id: 'notUploaded',
+      item: 'آپلود نشده',
+    },
   ];
-
   return (
     <MyView>
       {showMarkPopUp && (
@@ -289,7 +276,10 @@ const Students = props => {
                     '/' +
                     selectedSudent.id,
                   'put',
-                  {mark: mark, markDesc: markDesc},
+                  {
+                    mark: mark,
+                    markDesc: markDesc,
+                  },
                   undefined,
                   props.token,
                 );
@@ -304,7 +294,6 @@ const Students = props => {
                           e.markDesc = markDesc;
                         e.markAt = Date.now();
                       }
-
                       return e;
                     },
                   );
@@ -312,7 +301,6 @@ const Students = props => {
                     selectedQuiz: state.selectedQuiz,
                     needUpdate: true,
                   });
-
                   setMark(undefined);
                   setMarkDesc(undefined);
                   setShowMarkPopUp(false);
@@ -342,7 +330,11 @@ const Students = props => {
           token={props.token}
           setLoading={props.setLoading}
           myStudents={state.myStudents}
-          setMyStudents={myStudents => dispatch({myStudents: myStudents})}
+          setMyStudents={myStudents =>
+            dispatch({
+              myStudents: myStudents,
+            })
+          }
           setSelectedStudents={selected => setSelectedStudents(selected)}
           toggleShowPopUp={() => setShowSelectStudentsPane(false)}
           title={'افزودن دانش آموز/دانش آموزان به تمرین'}
@@ -352,7 +344,10 @@ const Students = props => {
         <LargePopUp
           toggleShowPopUp={toggleShowOpPopUp}
           title={state.selectedQuiz.title}>
-          <PhoneView style={{gap: 20}}>
+          <PhoneView
+            style={{
+              gap: 20,
+            }}>
             <CommonButton
               onPress={() => {
                 setShowMarkPopUp(true);
@@ -384,7 +379,10 @@ const Students = props => {
             </PhoneView>
           }
           header={translator.studentsListInQuiz}>
-          <PhoneView style={{...styles.gap10}}>
+          <PhoneView
+            style={{
+              ...styles.gap10,
+            }}>
             <JustBottomBorderSelect
               setter={e => {
                 setMarkStatus(e);
@@ -426,5 +424,4 @@ const Students = props => {
     </MyView>
   );
 };
-
 export default Students;

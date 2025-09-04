@@ -1,23 +1,20 @@
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import React from 'react';
 import List from './components/List';
 import {useParams} from 'react-router';
-
 function MyHWs(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const params = useParams();
   const status = params.mode !== undefined ? params.mode : 'all';
-
   return (
     <List
       status={status}
@@ -29,5 +26,4 @@ function MyHWs(props) {
     />
   );
 }
-
 export default MyHWs;

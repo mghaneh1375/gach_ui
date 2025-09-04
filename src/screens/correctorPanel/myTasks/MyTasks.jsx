@@ -1,62 +1,57 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {CommonWebBox, PhoneView} from '../../../styles/Common';
-import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import {styles} from '../../../styles/Common/Styles';
-import QuestionCard from '../../panel/quiz/components/Correctors/QuestionCard';
-import StudentCard from '../../panel/quiz/components/Correctors/StudentCard';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {CommonWebBox, PhoneView} from '../../../styles/CommonComponents.jsx';
+import CommonDataTable from '../../../styles/common/CommonDataTable';
+import {styles} from '../../../styles/common/styles';
+import QuestionCard from '../../panel/quiz/components/correctors/QuestionCard';
+import StudentCard from '../../panel/quiz/components/correctors/StudentCard';
 import Ops from './components/Ops';
-import columns from './TableStructure';
-
+import columns from './tableStructure';
 function MyTasks(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
   const [showOps, setShowOps] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState();
   const [taskMode, setTaskMode] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(routes.getMyTasks, 'get', undefined, 'data', state.token),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       setData(res[0]);
     });
   }, [props, state.token, dispatch]);
-
   useEffectOnce(() => {
     fetchData();
   }, [fetchData]);
-
   const handleOp = idx => {
     setSelectedQuiz(data[idx]);
     setShowOps(true);
   };
-
   const getMyStudents = React.useCallback(() => {
     if (isWorking || selectedQuiz === undefined || myStudents !== undefined)
       return;
-
     setIsWorking(true);
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getMyMarkList +
@@ -70,26 +65,24 @@ function MyTasks(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       setMyStudents(res[0]);
-
       setIsWorking(false);
     });
   }, [isWorking, dispatch, props, selectedQuiz, state.token, myStudents]);
-
   const getMyQuestions = React.useCallback(() => {
     if (isWorking || selectedQuiz === undefined || myQuestions !== undefined)
       return;
-
     setIsWorking(true);
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getMyMarkList +
@@ -103,27 +96,24 @@ function MyTasks(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       setMyQuestions(res[0]);
       setIsWorking(false);
     });
   }, [isWorking, dispatch, props, selectedQuiz, state.token, myQuestions]);
-
   const [myStudents, setMyStudents] = useState();
   const [myQuestions, setMyQuestions] = useState();
-
   React.useEffect(() => {
     if (taskMode == undefined) return;
     if (taskMode === 'studentList') getMyStudents();
     if (taskMode === 'questionList') getMyQuestions();
   }, [taskMode, getMyStudents, getMyQuestions]);
-
   return (
     <>
       {taskMode === undefined && !showOps && (
@@ -157,7 +147,10 @@ function MyTasks(props) {
             header={selectedQuiz.title}
             backBtn={true}
             onBackClick={() => setTaskMode(undefined)}>
-            <PhoneView style={{...styles.gap10}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+              }}>
               {myStudents.map((elem, index) => {
                 return (
                   <StudentCard
@@ -187,7 +180,10 @@ function MyTasks(props) {
             header={selectedQuiz.title}
             backBtn={true}
             onBackClick={() => setTaskMode(undefined)}>
-            <PhoneView style={{...styles.gap10}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+              }}>
               {myQuestions.map((elem, index) => {
                 return (
                   <QuestionCard
@@ -213,5 +209,4 @@ function MyTasks(props) {
     </>
   );
 }
-
 export default MyTasks;

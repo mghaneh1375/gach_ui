@@ -1,14 +1,12 @@
 import React from 'react';
 import {dispatchQuizContext, quizContext} from '../Context';
 import PDFQuestion from './PDFQuestion';
-
 function Questions(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   return (
     <PDFQuestion
       state={state}
@@ -19,5 +17,4 @@ function Questions(props) {
     />
   );
 }
-
 export default Questions;

@@ -1,45 +1,35 @@
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {generalRequest} from '../../API/Utility';
-import Card from '../../screens/panel/quiz/components/Card/Card';
-import {MyView, PhoneView, SimpleText} from '../../styles/Common';
-import {FontIcon} from '../../styles/Common/FontIcon';
+import {generalRequest} from '../../api/utility';
+import Card from '../../screens/panel/quiz/components/card/Card';
+import {MyView, PhoneView, SimpleText} from '@/styles';
+import {FontIcon} from '../../styles/common/FontIcon';
 import Basket from './Basket';
-import {dispatchStateContext, globalStateContext} from '../../App';
-import {styles} from '../../styles/Common/Styles';
-import {getDevice} from '../../services/Utility';
-
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {styles} from '../../styles/common/styles';
+import {getDevice} from '../../services/utility';
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState();
   const [isWorking, setIsWorking] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   React.useEffect(() => {
     if (props.quizzes !== undefined) setQuizzes(props.quizzes);
     else fetchQuizzes();
   }, [props.quizzes, fetchQuizzes]);
-
   const toggleSelectedItems = id => {
     const idx = selectedItems.indexOf(id);
     const allSelectedItems = selectedItems;
-
     if (idx === -1) allSelectedItems.push(id);
     else allSelectedItems.splice(idx, 1);
-
     setSelectedItems(allSelectedItems);
-
     props.setSelectedQuizzes(allSelectedItems);
-
     setQuizzes(
       quizzes.map(elem => {
         elem.isSelected = selectedItems.indexOf(elem.id) !== -1;
@@ -47,12 +37,10 @@ function Quizzes(props) {
       }),
     );
   };
-
   const selectAll = () => {
     const allSelectedItems = quizzes.map(elem => {
       return elem.id;
     });
-
     setSelectedItems(allSelectedItems);
     props.setSelectedQuizzes(allSelectedItems);
     setQuizzes(
@@ -62,30 +50,27 @@ function Quizzes(props) {
       }),
     );
   };
-
   const fetchQuizzes = React.useCallback(() => {
     if (isWorking || quizzes !== undefined) return;
-
     if (props.fetchUrl === undefined && props.quizzes !== undefined) {
-      dispatch({isRightMenuVisible: false, isFilterMenuVisible: true});
+      dispatch({
+        isRightMenuVisible: false,
+        isFilterMenuVisible: true,
+      });
       setQuizzes(props.quizzes);
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(props.fetchUrl, 'get', undefined, 'data', state.token),
     ]).then(res => {
       props.setLoading(false);
       setIsWorking(false);
-
       if (res[0] === null) {
         if (props.fail !== undefined) props.fail();
         return;
       }
-
       setQuizzes(res[0].items);
       dispatch({
         isRightMenuVisible: false,
@@ -101,14 +86,11 @@ function Quizzes(props) {
       if (props.setQuizzes !== undefined) props.setQuizzes(res[0].items);
     });
   }, [props, isWorking, quizzes, dispatch, state.token]);
-
   const [viewableItems, setViewableItems] = useState();
-
   React.useEffect(() => {
     if (quizzes === undefined) return;
     setViewableItems(quizzes.slice(0, 12));
   }, [quizzes]);
-
   return (
     <MyView
       style={
@@ -127,18 +109,34 @@ function Quizzes(props) {
               ...styles.alignItemsStart,
             }
       }>
-      <PhoneView style={{...styles.alignSelfEnd}}>
+      <PhoneView
+        style={{
+          ...styles.alignSelfEnd,
+        }}>
         {props.onBackClicked !== undefined && (
           <FontIcon
             icon={faAngleLeft}
             theme={'rect'}
             kind={'normal'}
-            parentStyle={{alignSelf: 'flex-end', margin: 20}}
+            parentStyle={{
+              alignSelf: 'flex-end',
+              margin: 20,
+            }}
             onPress={props.onBackClicked}
           />
         )}
       </PhoneView>
-      <PhoneView style={isInPhone ? {width: '100%', gap: 10} : {gap: 15}}>
+      <PhoneView
+        style={
+          isInPhone
+            ? {
+                width: '100%',
+                gap: 10,
+              }
+            : {
+                gap: 15,
+              }
+        }>
         {viewableItems !== undefined &&
           viewableItems.map((quiz, index) => {
             if (
@@ -163,7 +161,6 @@ function Quizzes(props) {
                   key={index}
                 />
               );
-
             return (
               <Card onClick={toggleSelectedItems} quiz={quiz} key={index} />
             );
@@ -217,5 +214,4 @@ function Quizzes(props) {
     </MyView>
   );
 }
-
 export default Quizzes;

@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {routes} from '../../API/APIRoutes';
-import {generalRequest} from '../../API/Utility';
-import {EqualTwoTextInputs} from '../../styles/Common';
-import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../translator/Common';
-
+import {routes} from '../../api/apiRoutes';
+import {generalRequest} from '../../api/utility';
+import {EqualTwoTextInputs} from '../../styles/CommonComponents';
+import JustBottomBorderTextInput from '../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '../../translator/common';
 function StateAndCity(props) {
   const [fetchedStates, setFetchedStates] = useState(
     props.states !== undefined,
@@ -12,31 +11,24 @@ function StateAndCity(props) {
   const [states, setStates] = useState(
     props.states === undefined ? [] : props.states,
   );
-
   const [state, setState] = useState();
   const [city, setCity] = useState();
-
   const [resetCity, setResetCity] = useState(false);
   const [choose, setChoose] = useState(false);
-
   React.useEffect(() => {
     if (state === undefined || props.city === undefined) return;
     const c = state.cities.find(elem => props.city.id === elem.id);
     setCity(c);
   }, [props.city, state]);
-
   React.useEffect(() => {
     if (states === undefined || props.state === undefined) return;
     const s = states.find(elem => props.state.id === elem.id);
     setState(s);
   }, [props.state, states]);
-
   React.useEffect(() => {
     if (fetchedStates) return;
-
     setFetchedStates(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(routes.fetchState, 'get', undefined, 'data'),
     ]).then(res => {
@@ -46,14 +38,12 @@ function StateAndCity(props) {
       }
     });
   }, [fetchedStates, props]);
-
   React.useEffect(() => {
     if (state === undefined || city === undefined || !choose) return;
     props.setter(city);
     props.stateSetter(state);
     setChoose(false);
   }, [city, state, choose, props]);
-
   const setSelectedState = item => {
     setState(item);
     if (city !== undefined) {
@@ -61,15 +51,16 @@ function StateAndCity(props) {
       setResetCity(true);
     }
   };
-
   const setSelectedCity = item => {
     setCity(item);
     setResetCity(false);
     setChoose(true);
   };
-
   return (
-    <EqualTwoTextInputs style={{gap: 15}}>
+    <EqualTwoTextInputs
+      style={{
+        gap: 15,
+      }}>
       <JustBottomBorderTextInput
         placeholder={commonTranslator.state}
         resultPane={true}
@@ -90,5 +81,4 @@ function StateAndCity(props) {
     </EqualTwoTextInputs>
   );
 }
-
 export default StateAndCity;

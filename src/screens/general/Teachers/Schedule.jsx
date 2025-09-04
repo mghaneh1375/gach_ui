@@ -7,8 +7,8 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import {useState} from 'react';
-import QuizItemCard from '../../../components/web/QuizItemCard';
-import {formatPrice} from '../../../services/Utility';
+import QuizItemCard from '@/components/web/QuizItemCard';
+import {formatPrice} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -16,21 +16,33 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import Translator from '../../advisorPanel/Teach/Schedule/components/Translator';
-
+import Translator from '../../advisorPanel/teach/schedule/components/translator';
 function Schedule(props) {
   const [showMore, setShowMore] = useState(false);
   return (
     <CommonWebBox title={props.plan.title} width={350}>
-      <MyView style={{minHeight: '400px', gap: '5px'}}>
-        <PhoneView style={{position: 'relative', justifyContent: 'center'}}>
+      <MyView
+        style={{
+          minHeight: '400px',
+          gap: '5px',
+        }}>
+        <PhoneView
+          style={{
+            position: 'relative',
+            justifyContent: 'center',
+          }}>
           <SimpleFontIcon
-            style={{color: vars.ORANGE}}
-            parentStyle={{position: 'absolute', left: 0}}
+            style={{
+              color: vars.ORANGE,
+            }}
+            parentStyle={{
+              position: 'absolute',
+              left: 0,
+            }}
             kind="midSize"
             icon={props.plan.teachMode === 'private' ? faUser : faUsers}
           />
@@ -39,7 +51,9 @@ function Schedule(props) {
               ...styles.fontSize17,
               ...styles.BlueBold,
               ...styles.textCenter,
-              ...{marginBottom: '5px'},
+              ...{
+                marginBottom: '5px',
+              },
             }}
             text={
               props.plan.title.length > 30
@@ -51,7 +65,10 @@ function Schedule(props) {
 
         {!showMore && (
           <>
-            <PhoneView style={{gap: '10px'}}>
+            <PhoneView
+              style={{
+                gap: '10px',
+              }}>
               {props.plan.startAt && (
                 <QuizItemCard
                   text={Translator.start}
@@ -94,7 +111,10 @@ function Schedule(props) {
               />
             </PhoneView>
             {props.plan.endRegistration && (
-              <PhoneView style={{gap: '10px'}}>
+              <PhoneView
+                style={{
+                  gap: '10px',
+                }}>
                 <QuizItemCard
                   text={Translator.startDate}
                   val={props.plan.startDate}
@@ -122,7 +142,10 @@ function Schedule(props) {
               </PhoneView>
             )}
             {props.plan.endRegistration && (
-              <PhoneView style={{gap: '10px'}}>
+              <PhoneView
+                style={{
+                  gap: '10px',
+                }}>
                 <QuizItemCard
                   text={Translator.sessionsCount}
                   val={props.plan.sessionsCount}
@@ -139,7 +162,10 @@ function Schedule(props) {
             )}
             {props.plan.teachMode === 'semi_private' && (
               <>
-                <PhoneView style={{justifyContent: 'space-between'}}>
+                <PhoneView
+                  style={{
+                    justifyContent: 'space-between',
+                  }}>
                   <QuizItemCard
                     text={Translator.minCap}
                     val={props.plan.minCap}
@@ -166,7 +192,10 @@ function Schedule(props) {
                     minWidth={'155px'}
                   />
                 </PhoneView>
-                <PhoneView style={{justifyContent: 'space-between'}}>
+                <PhoneView
+                  style={{
+                    justifyContent: 'space-between',
+                  }}>
                   <QuizItemCard
                     text={Translator.requestsCountForStudents}
                     val={props.plan.requestsCount}
@@ -227,10 +256,19 @@ function Schedule(props) {
           </MyView>
         )}
         {!props.plan.description && (
-          <MyView style={{minHeight: showMore ? 260 : 70}} />
+          <MyView
+            style={{
+              minHeight: showMore ? 260 : 70,
+            }}
+          />
         )}
         {!showMore && (
-          <MyView style={{position: 'absolute', bottom: '5px', width: '100%'}}>
+          <MyView
+            style={{
+              position: 'absolute',
+              bottom: '5px',
+              width: '100%',
+            }}>
             {props.plan.needRegistryConfirmation && (
               <SimpleText
                 style={{
@@ -266,14 +304,26 @@ function Schedule(props) {
                   />
                 </>
               )}
-            <EqualTwoTextInputs style={{marginTop: '10px'}}>
-              <MyView style={{justifyContent: 'center'}}>
+            <EqualTwoTextInputs
+              style={{
+                marginTop: '10px',
+              }}>
+              <MyView
+                style={{
+                  justifyContent: 'center',
+                }}>
                 <SimpleText
-                  style={{...styles.BlueBold, ...styles.fontSize15}}
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.fontSize15,
+                  }}
                   text={formatPrice(props.plan.price)}
                 />
                 <SimpleText
-                  style={{...styles.BlueBold, ...styles.fontSize15}}
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.fontSize15,
+                  }}
                   text={' تومان'}
                 />
               </MyView>
@@ -305,5 +355,4 @@ function Schedule(props) {
     </CommonWebBox>
   );
 }
-
 export default Schedule;

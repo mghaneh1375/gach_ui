@@ -1,22 +1,19 @@
-import {getWidthHeight} from '../../../services/Utility';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+import {getWidthHeight} from '@/services/utility';
+import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import Card from '../../panel/quiz/components/Card/Card';
-
+import Card from '../../panel/quiz/components/card/Card';
 function OnlineStanding(props) {
   const totalWidth = getWidthHeight()[0];
   const w = totalWidth - vars.RIGHT_MENU_WIDTH - 390 - 40;
-
   return (
     <MyView>
       <PhoneView>
-        <MyView style={{...styles.paddingRight15, ...styles.paddingTop10}}>
+        <MyView
+          style={{
+            ...styles.paddingRight15,
+            ...styles.paddingTop10,
+          }}>
           {props.quiz !== undefined && <Card quiz={props.quiz} />}
         </MyView>
 
@@ -33,7 +30,9 @@ function OnlineStanding(props) {
               style={{
                 ...styles.padding30,
                 ...styles.fontSize17,
-                ...{height: props.height},
+                ...{
+                  height: props.height,
+                },
               }}
             />
           )}
@@ -42,5 +41,4 @@ function OnlineStanding(props) {
     </MyView>
   );
 }
-
 export default OnlineStanding;

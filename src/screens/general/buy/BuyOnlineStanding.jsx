@@ -5,45 +5,43 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+  FontIcon,
+  SimpleFontIcon,
+} from '@/styles';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {useEffectOnce} from 'usehooks-ts';
 import React, {useState} from 'react';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
-import {styles} from '../../../styles/Common/Styles';
-import commonTranslator from '../../../translator/Common';
+import {styles} from '../../../styles/common/styles';
+import commonTranslator from '../../../translator/common';
 import {
   faNums,
   getDevice,
   showError,
   showSuccess,
-} from '../../../services/Utility';
+} from '../../../services/utility';
 import OffCode from './components/OffCode';
-import SuccessTransaction from '../../../components/web/SuccessTransaction/SuccessTransaction';
+import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction';
 import BuyBasket from './components/BuyBasket';
 import Basket from '../../../components/web/Basket';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import {FontIcon, SimpleFontIcon} from '../../../styles/Common/FontIcon';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
 import {
   faCheck,
   faRemove,
   faUser,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import OnlineStanding from '../OnlineStanding/OnlineStanding';
-import Team from '../OnlineStanding/Team';
-import QuizItemCard from '../../../components/web/QuizItemCard';
-
+import OnlineStanding from '../onlineStanding/OnlineStanding';
+import Team from '../onlineStanding/Team';
+import QuizItemCard from '@/components/web/QuizItemCard';
 function BuyOnlineStanding(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [quiz, setQuiz] = useState();
   const [off, setOff] = useState(0);
@@ -53,20 +51,15 @@ function BuyOnlineStanding(props) {
   const [editMode, setEditMode] = useState(false);
   const userMoney = state.user === null ? 0 : state.user.user.money;
   const [showOffCodePane, setShowOffCodePane] = useState(false);
-
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [accountOff, setAccountOff] = useState();
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   const calc = React.useCallback(() => {
     let off = 0;
     const totalPrice = quiz.price;
-
     const allOffs = [];
-
     let shouldPayTmp = totalPrice;
-
     if (shouldPayTmp > 0 && accountOff !== undefined) {
       if (accountOff.type === 'percent') {
         off += (shouldPayTmp * accountOff.amount) / 100.0;
@@ -76,26 +69,19 @@ function BuyOnlineStanding(props) {
         allOffs.push(accountOff.amount + ' تومان بابت کد تخفیف');
       }
     }
-
     shouldPayTmp = totalPrice - off;
-
     if (shouldPayTmp > 0) {
       setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
       shouldPayTmp -= userMoney;
     } else setUsedFromWallet(0);
-
     setOff(Math.min(off, totalPrice));
     setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 10);
   }, [accountOff, quiz?.price, userMoney]);
-
   const params = useParams();
-
   React.useEffect(() => {
     if (quiz == undefined || quiz.price === undefined) return;
-
     calc();
   }, [quiz, accountOff, calc]);
-
   const toggleShowOffCodePane = () => {
     if (
       !showOffCodePane &&
@@ -106,13 +92,17 @@ function BuyOnlineStanding(props) {
     }
     setShowOffCodePane(!showOffCodePane);
   };
-
   const setOffCodeResult = (amount, type, code) => {
-    setAccountOff({type: type, amount: amount, code: code});
+    setAccountOff({
+      type: type,
+      amount: amount,
+      code: code,
+    });
   };
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.fetchAllPackages + '?quizId=' + params.quizId,
@@ -122,13 +112,13 @@ function BuyOnlineStanding(props) {
         state.token == null ? undefined : state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       if (res[0].items === undefined) {
         setDesc(res[0].description);
         const tmp = res[0];
@@ -163,17 +153,14 @@ function BuyOnlineStanding(props) {
       }
     });
   }, [dispatch, params, props, state.token, state.user]);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   const [canChange, setCanChange] = useState(false);
   const [teamName, setTeamName] = useState();
   const [members, setMembers] = useState([]);
   const [NID, setNID] = useState();
   const [phone, setPhone] = useState();
-
   const addMember = () => {
     if (
       phone === undefined ||
@@ -184,20 +171,16 @@ function BuyOnlineStanding(props) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
     }
-
     if (NID.length !== 10 || phone.length !== 11) {
       showError('کدملی و یا شماره همراه وارد شده معتبر نمی باشد');
       return;
     }
-
     if (state.user.user.NID === NID) {
       showError('کدملی وارد شده مربوط به خودتان است و امکان وارد کردن آن نیست');
       return;
     }
-
     const tmp = [];
     let isValid = true;
-
     members.forEach(e => {
       if (e.NID === NID || e.phone === phone) {
         isValid = false;
@@ -205,18 +188,18 @@ function BuyOnlineStanding(props) {
       }
       tmp.push(e);
     });
-
     if (!isValid) {
       showError('کدملی و یا شماره همراه وارد شده تکراری است');
       return;
     }
-
-    tmp.push({phone: phone, NID: NID});
+    tmp.push({
+      phone: phone,
+      NID: NID,
+    });
     setMembers(tmp);
     setPhone('');
     setNID('');
   };
-
   const removeMember = NID => {
     setMembers(
       members.filter(e => {
@@ -231,7 +214,9 @@ function BuyOnlineStanding(props) {
           token={state.token}
           for={'gach_exam'}
           setLoading={status => {
-            dispatch({loading: status});
+            dispatch({
+              loading: status,
+            });
           }}
           setResult={setOffCodeResult}
           toggleShowPopUp={toggleShowOffCodePane}
@@ -275,7 +260,10 @@ function BuyOnlineStanding(props) {
       )}
 
       {!showSuccessTransaction && (
-        <MyView style={{marginBottom: isInPhone ? 200 : 100}}>
+        <MyView
+          style={{
+            marginBottom: isInPhone ? 200 : 100,
+          }}>
           <OnlineStanding
             height={325}
             onBackClick={() => navigate('/buy')}
@@ -287,7 +275,10 @@ function BuyOnlineStanding(props) {
             (!editMode || amIOwner) &&
             members.length + 1 < quiz.perTeam && (
               <CommonWebBox>
-                <PhoneView style={{...styles.gap15}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap15,
+                  }}>
                   <SimpleText
                     style={{
                       ...styles.BlueBold,
@@ -319,7 +310,10 @@ function BuyOnlineStanding(props) {
                     justNum={true}
                   />
                   <PhoneView
-                    style={{...styles.alignItemsCenter, ...styles.gap15}}>
+                    style={{
+                      ...styles.alignItemsCenter,
+                      ...styles.gap15,
+                    }}>
                     <FontIcon
                       kind={'normal'}
                       theme={'rect'}
@@ -345,7 +339,9 @@ function BuyOnlineStanding(props) {
             {quiz !== undefined && editMode && !amIOwner && canChange && (
               <CommonButton
                 onPress={async () => {
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.leftTeamQuiz + quiz.id,
                     'delete',
@@ -353,11 +349,10 @@ function BuyOnlineStanding(props) {
                     undefined,
                     state.token,
                   );
-
-                  dispatch({loading: false});
-
+                  dispatch({
+                    loading: false,
+                  });
                   if (res === null) return;
-
                   showSuccess();
                   setTimeout(() => {
                     window.location.reload();
@@ -368,7 +363,10 @@ function BuyOnlineStanding(props) {
             )}
             {quiz !== undefined && (!editMode || amIOwner) && (
               <>
-                <MyView style={{...styles.gap10}}>
+                <MyView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   <JustBottomBorderTextInput
                     placeholder={'نام تیم شما'}
                     subText={'نام تیم شما'}
@@ -411,7 +409,9 @@ function BuyOnlineStanding(props) {
 
                             <SimpleFontIcon
                               kind={'normal'}
-                              style={{color: 'red'}}
+                              style={{
+                                color: 'red',
+                              }}
                               icon={faRemove}
                               onPress={() => removeMember(e.NID)}
                             />
@@ -427,7 +427,9 @@ function BuyOnlineStanding(props) {
                 title={commonTranslator.confirmChanges}
                 theme={'dark'}
                 onPress={async () => {
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.updateOnlineQuizProfile + quiz.id,
                     'post',
@@ -438,7 +440,9 @@ function BuyOnlineStanding(props) {
                     undefined,
                     state.token,
                   );
-                  dispatch({loading: false});
+                  dispatch({
+                    loading: false,
+                  });
                   if (res != null) {
                     showSuccess();
                   }
@@ -457,14 +461,21 @@ function BuyOnlineStanding(props) {
               fullWidth={isInPhone}>
               <BuyBasket
                 disable={teamName === undefined || teamName.length < 3}
-                data={{teamName: teamName, members: members}}
+                data={{
+                  teamName: teamName,
+                  members: members,
+                }}
                 price={quiz.price}
                 shouldPay={shouldPay}
                 wantedQuizzes={[quiz.id]}
                 off={off}
                 payUrl={routes.buyOnlineQuiz + quiz.id}
                 userOff={accountOff}
-                setLoading={status => dispatch({loading: status})}
+                setLoading={status =>
+                  dispatch({
+                    loading: status,
+                  })
+                }
                 token={state.token}
                 user={state.user}
                 usedFromWallet={usedFromWallet}
@@ -478,5 +489,4 @@ function BuyOnlineStanding(props) {
     </>
   );
 }
-
 export default BuyOnlineStanding;

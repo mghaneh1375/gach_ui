@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../../../styles/Common';
-import {Translate} from '../../Translate';
-import Digest from '../Digest/Digest';
-import Filter from '../../../../panel/ticket/components/ProSearch/Filter';
-import {editItem} from '../../../../../services/Utility';
-
+import {CommonWebBox, MyView} from '@/styles';
+import {Translate} from '../../translate';
+import Digest from '../digest/Digest';
+import Filter from '../../../../panel/ticket/components/proSearch/Filter';
+import {editItem} from '../../../../../services/utility';
 import {useSearchParams} from 'react-router-dom';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
 import Create from '../../../../panel/ticket/components/Create';
-
 function List(props) {
   const searchParams = useSearchParams();
   const [isWorking, setIsWorking] = useState();
@@ -17,13 +15,10 @@ function List(props) {
   const [myStudents, setMyStudents] = useState();
   const [section, setSection] = useState();
   const [refId, setRefId] = useState();
-
   const fetchMyAdvisors = React.useCallback(() => {
     if (isWorking || myAdvisors !== undefined) return;
-
     props.setLoading(true);
     setIsWorking(true);
-
     Promise.all([
       generalRequest(
         routes.getMyAdvisors,
@@ -34,25 +29,24 @@ function List(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] == null) {
         return;
       }
       setMyAdvisors(
         res[0].map(e => {
-          return {id: e.id, item: e.name};
+          return {
+            id: e.id,
+            item: e.name,
+          };
         }),
       );
       setIsWorking(false);
     });
   }, [props, isWorking, myAdvisors]);
-
   const fetchMyStudents = React.useCallback(() => {
     if (isWorking || myStudents !== undefined) return;
-
     props.setLoading(true);
     setIsWorking(true);
-
     Promise.all([
       generalRequest(
         routes.getStudentsDigest,
@@ -63,32 +57,30 @@ function List(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] == null) {
         return;
       }
       setMyStudents(
         res[0].map(e => {
-          return {id: e.id, item: e.name};
+          return {
+            id: e.id,
+            item: e.name,
+          };
         }),
       );
       setIsWorking(false);
     });
   }, [props, isWorking, myStudents]);
-
   React.useEffect(() => {
     if (section !== 'advisor' || myAdvisors !== undefined) return;
     if (props.isAdmin) fetchMyStudents();
     else fetchMyAdvisors();
   }, [section, myAdvisors, fetchMyAdvisors, fetchMyStudents, props.isAdmin]);
-
   React.useEffect(() => {
     setSection(searchParams.get('section'));
     setRefId(searchParams.get('userId'));
   }, [searchParams]);
-
   const [isInCreateMode, setIsInCreateMode] = useState(false);
-
   return (
     <>
       {isInCreateMode && (
@@ -111,8 +103,14 @@ function List(props) {
             addBtn={true}
             onAddClick={() => props.setMode('create')}
           />
-          <CommonWebBox style={{marginTop: -5}}>
-            <MyView style={{padding: 5}}>
+          <CommonWebBox
+            style={{
+              marginTop: -5,
+            }}>
+            <MyView
+              style={{
+                padding: 5,
+              }}>
               <Filter
                 items={props.isAdmin ? myStudents : myAdvisors}
                 setSection={setSection}
@@ -151,5 +149,4 @@ function List(props) {
     </>
   );
 }
-
 export default List;

@@ -1,6 +1,5 @@
-import Translate from '../../../Translate';
-import commonTranslator from '../../../../../../translator/Common';
-
+import Translate from '../../../translate';
+import commonTranslator from '../../../../../../translator/common';
 const columns = [
   {
     name: Translate.giftType,

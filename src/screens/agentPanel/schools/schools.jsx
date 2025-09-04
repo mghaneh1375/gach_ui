@@ -1,34 +1,36 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import Create from './Create';
 import Details from './details/Details';
 import List from './list/List';
 import Students from './students/Students';
-import {removeItems, editItem, addItem} from '../../../services/Utility';
-import {getAllAgent} from './Utility';
-import {MyView} from '../../../styles/Common';
+import {removeItems, editItem, addItem} from '../../../services/utility';
+import {getAllAgent} from './utility';
+import {MyView} from '@/styles';
 import ChargeAccount from '../../panel/users/components/ChargeAccount';
-
 function Schools(props) {
-  const queryString = require('query-string');
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [mode, setMode] = useState('list');
   const [selectedAgent, setSelectedAgent] = useState({});
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getAllAgent(props.token)]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -37,7 +39,6 @@ function Schools(props) {
       setMode('list');
     });
   }, [navigate, props.token, dispatch]);
-
   return (
     <MyView>
       {mode === 'list' && data !== undefined && (
@@ -92,5 +93,4 @@ function Schools(props) {
     </MyView>
   );
 }
-
 export default Schools;

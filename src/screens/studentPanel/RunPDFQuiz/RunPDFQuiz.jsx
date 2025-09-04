@@ -1,30 +1,30 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {CommonWebBox, MyView, PhoneView} from '../../../styles/Common';
+import {
+  CommonWebBox,
+  MyView,
+  PhoneView,
+} from '../../../styles/CommonComponents.jsx';
 import Splash from './components/Splash';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {DoQuizProvider} from './components/Context';
 import Quiz from './components/Quiz';
 import Filter from './components/Filter';
 import vars from '../../../styles/root';
 import {useEffectOnce} from 'usehooks-ts';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {FontIcon} from '../../../styles/Common/FontIcon';
+import {FontIcon} from '../../../styles/common/FontIcon';
 import {Image} from 'react-native';
-import {getDevice, getWidthHeight} from '../../../services/Utility';
+import {getDevice, getWidthHeight} from '../../../services/utility';
 import PhoneFilter from './components/PhoneFilter';
-
 function RunPDFQuiz(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const params = useParams();
   const [mode, setMode] = useState();
-
   const getParams = React.useCallback(() => {
     if (params.quizMode === undefined || params.quizId === undefined) {
       props.navigate('/');
@@ -32,38 +32,39 @@ function RunPDFQuiz(props) {
     }
     setMode('splash');
   }, [params, props]);
-
   React.useEffect(() => {
     dispatch({
       isRightMenuVisible: false,
     });
   }, [dispatch]);
-
   useEffectOnce(() => {
     getParams();
   });
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const setLoadingWithText = status => {
     dispatch({
       loading: status,
       loadingText: 'در حال ذخیره کردن پاسخ\u200cها. لطفا شکیبا باشید.',
     });
   };
-
   const [oldMode, setOldMode] = useState();
   const [selectedAttach, setSelectedAttach] = useState();
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const [hasRightSection, setHasRightSection] = React.useState(true);
-
   return (
-    <MyView style={isInPhone ? {marginBottom: 20} : {}}>
+    <MyView
+      style={
+        isInPhone
+          ? {
+              marginBottom: 20,
+            }
+          : {}
+      }>
       <DoQuizProvider>
         {isInPhone && mode !== undefined && mode === 'doQuiz' && (
           <PhoneFilter mode={mode} isInReviewMode={props.isInReviewMode} />
@@ -85,7 +86,10 @@ function RunPDFQuiz(props) {
                 btn={
                   <FontIcon icon={faClose} onPress={() => setMode(oldMode)} />
                 }
-                style={{margin: 20, padding: 5}}>
+                style={{
+                  margin: 20,
+                  padding: 5,
+                }}>
                 <Image
                   resizeMode="contain"
                   style={{
@@ -113,8 +117,12 @@ function RunPDFQuiz(props) {
           <MyView
             style={
               isInPhone || !hasRightSection
-                ? {width: '100%'}
-                : {width: vars.LEFT_SECTION_WIDTH}
+                ? {
+                    width: '100%',
+                  }
+                : {
+                    width: vars.LEFT_SECTION_WIDTH,
+                  }
             }>
             {mode !== undefined && mode === 'splash' && (
               <Splash
@@ -165,5 +173,4 @@ function RunPDFQuiz(props) {
     </MyView>
   );
 }
-
 export default RunPDFQuiz;

@@ -1,37 +1,37 @@
-import {CommonButton, MyView, PhoneView, SimpleText} from '../../styles/Common';
-import {LargePopUp} from '../../styles/Common/PopUp';
-import commonTranslator from '../../translator/Common';
-import {useFilePicker} from 'use-file-picker';
-import {fileRequest} from '../../API/Utility';
-import React, {useState} from 'react';
-import CopyBox from '../CopyBox';
-import {SimpleFontIcon} from '../../styles/Common/FontIcon';
 import {faFolder, faTrash} from '@fortawesome/free-solid-svg-icons';
-import JustBottomBorderTextInput from '../../styles/Common/JustBottomBorderTextInput';
+import {useState} from 'react';
+import {useFilePicker} from 'use-file-picker';
+import {fileRequest} from '../../api/utility';
+import {
+  CommonButton,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../styles/CommonComponents';
+import {SimpleFontIcon} from '../../styles/common/FontIcon';
+import JustBottomBorderTextInput from '../../styles/common/JustBottomBorderTextInput';
+import {LargePopUp} from '../../styles/common/PopUp';
+import {styles} from '../../styles/common/styles';
 import vars from '../../styles/root';
-import {styles} from '../../styles/Common/Styles';
-
+import commonTranslator from '../../translator/common';
+import CopyBox from '../CopyBox';
 const UploadFile = props => {
   const [isWorking, setIsWorking] = useState(false);
   const [urls, setUrls] = useState([]);
   const [canUpload, setCanUpload] = useState(true);
   const [finalMsg, setFinalMsg] = useState(undefined);
-
   const [openFileSelector, {filesContent, loading, errors, clear}] =
     useFilePicker({
       maxFileSize: props.maxFileSize,
       accept: props.accept,
       readAs: 'ArrayBuffer',
     });
-
   const doUpload = () => {
     if (!isWorking && filesContent.length === 1) {
       setIsWorking(true);
-
       const data = new FormData();
       var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
       data.append('file', myblob, filesContent[0].name);
-
       Promise.all([
         fileRequest(
           props.url,
@@ -46,22 +46,22 @@ const UploadFile = props => {
         if (res[0] !== null) {
           if (props.copyLink !== undefined) {
             const urlsTmp = urls;
-            urlsTmp.push({url: res[0], file: filesContent[0].name});
+            urlsTmp.push({
+              url: res[0],
+              file: filesContent[0].name,
+            });
             setUrls(urlsTmp);
           } else {
             if (props.setResult !== undefined) props.setResult(res[0]);
             else setFinalMsg(commonTranslator.success);
           }
-
           if (!props.multi) setCanUpload(false);
         }
-
         clear();
         setIsWorking(false);
       });
     }
   };
-
   return (
     <LargePopUp
       toggleShowPopUp={props.toggleShow}
@@ -75,12 +75,17 @@ const UploadFile = props => {
         )
       }
       title={props.title}>
-      <PhoneView style={{marginBottom: 20}}>
+      <PhoneView
+        style={{
+          marginBottom: 20,
+        }}>
         {canUpload && (
           <MyView style={styles.gap15}>
             <PhoneView>
               <JustBottomBorderTextInput
-                style={{minWidth: 250}}
+                style={{
+                  minWidth: 250,
+                }}
                 disable={true}
                 placeholder={
                   filesContent.length > 0
@@ -96,16 +101,27 @@ const UploadFile = props => {
                   props.accept
                 }
               />
-              <MyView style={{width: 40, height: 40, marginRight: 10}}>
+              <MyView
+                style={{
+                  width: 40,
+                  height: 40,
+                  marginRight: 10,
+                }}>
                 <SimpleFontIcon
                   onPress={() => openFileSelector()}
                   icon={faFolder}
                 />
               </MyView>
-              <MyView style={{width: 40, height: 40}}>
+              <MyView
+                style={{
+                  width: 40,
+                  height: 40,
+                }}>
                 <SimpleFontIcon
                   onPress={() => clear()}
-                  style={{color: vars.ORANGE_RED}}
+                  style={{
+                    color: vars.ORANGE_RED,
+                  }}
                   icon={faTrash}
                 />
               </MyView>
@@ -115,7 +131,9 @@ const UploadFile = props => {
                 props.helps.map((elem, index) => {
                   return (
                     <a
-                      style={{fontFamily: 'IRANSans'}}
+                      style={{
+                        fontFamily: 'IRANSans',
+                      }}
                       key={index}
                       target="_blank"
                       href={elem.link}
@@ -158,7 +176,11 @@ const UploadFile = props => {
         ))}
       {props.copyLink !== undefined &&
         urls.map((url, index) => (
-          <div style={{width: 'fit-content'}} key={index}>
+          <div
+            style={{
+              width: 'fit-content',
+            }}
+            key={index}>
             <CopyBox
               theme="dark"
               title={commonTranslator.copyLink}
@@ -172,5 +194,4 @@ const UploadFile = props => {
     </LargePopUp>
   );
 };
-
 export default UploadFile;

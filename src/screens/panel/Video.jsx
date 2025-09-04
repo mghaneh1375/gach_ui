@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import VideoJS from './VideoJS';
-
 function Video(props) {
   const playerRef = React.useRef(null);
-
   const [videoJsOptions, setVideoJsOptions] = useState({
     autoplay: false,
     controls: true,
@@ -17,7 +15,6 @@ function Video(props) {
       },
     ],
   });
-
   React.useEffect(() => {
     setVideoJsOptions({
       autoplay: false,
@@ -32,11 +29,9 @@ function Video(props) {
       ],
     });
   }, [props.src]);
-
   const handlePlayerReady = player => {
     playerRef.current = player;
   };
-
   return (
     <VideoJS
       myOptions={{
@@ -49,5 +44,4 @@ function Video(props) {
     />
   );
 }
-
 export default Video;

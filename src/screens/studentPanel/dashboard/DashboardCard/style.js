@@ -1,4 +1,4 @@
-import vars from '../../../../styles/root';
+import vars from '@/styles/root';
 
 export const styleFontSize25 = {
   fontSize: 22,

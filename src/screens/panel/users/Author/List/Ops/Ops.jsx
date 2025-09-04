@@ -1,8 +1,8 @@
-import {CommonButton, PhoneView, MyView} from '../../../../../../styles/Common';
-import {LargePopUp} from '../../../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../../../translator/Common';
-import Translate from '../../Translator';
-import {removeAuthor} from '../Utility';
+import {CommonButton, PhoneView, MyView} from '@/styles';
+import {LargePopUp} from '../../../../../../styles/common/PopUp';
+import commonTranslator from '../../../../../../translator/common';
+import Translate from '../../translator';
+import {removeAuthor} from '../utility';
 
 //import {login, toggleStatus} from './Utility';
 
@@ -40,5 +40,4 @@ function Ops(props) {
     </MyView>
   );
 }
-
 export default Ops;

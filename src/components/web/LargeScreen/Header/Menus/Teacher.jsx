@@ -1,16 +1,14 @@
 import {faTasks} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import {Device} from '../../../../../models/Device';
-import {getDevice} from '../../../../../services/Utility';
-import {MyView} from '../../../../../styles/Common';
-import {MenuItem, style} from '../style';
+import {Device} from '../../../../../models/device';
+import {getDevice} from '@/services/utility';
+import {MyView} from '@/styles';
+import {MenuItem, style} from '../Style';
 import MenuItemRepeat from './MenuItemRepeat';
-
 function Teacher(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
   const navigate = props.navigate;
-
   if (isLargePage) {
     return (
       <>
@@ -30,7 +28,6 @@ function Teacher(props) {
       </>
     );
   }
-
   return (
     <MyView
       style={{
@@ -40,5 +37,4 @@ function Teacher(props) {
     />
   );
 }
-
 export default Teacher;

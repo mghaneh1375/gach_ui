@@ -7,38 +7,43 @@ import {
   faUser,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import QuizItemCard from '../../../components/web/QuizItemCard';
+import QuizItemCard from '@/components/web/QuizItemCard';
 import {
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents';
+import {styles} from '../../../styles/common/styles';
 import {
   styleCard,
   styleItemsParent,
   styleTitle,
   styleYellowBox,
-} from '../../panel/package/card/Style';
+} from '../../panel/package/card/style';
 import {
   convertSecToMin,
   faNums,
   getWidthHeight,
-} from '../../../services/Utility';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
+} from '../../../services/utility';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon';
 import vars from '../../../styles/root';
-
 function TeamDetail(props) {
   const colors = ['#FFAA00', '#c5c5c5', '#D27F66'];
-
   const totalWidth = getWidthHeight()[0];
   const w = totalWidth - vars.RIGHT_MENU_WIDTH - 390 - 40;
-
   return (
     <PhoneView>
-      <MyView style={{...styles.paddingRight15, ...styles.paddingTop10}}>
-        <CommonWebBox style={{...styleCard, ...styles.BlueBold}}>
+      <MyView
+        style={{
+          ...styles.paddingRight15,
+          ...styles.paddingTop10,
+        }}>
+        <CommonWebBox
+          style={{
+            ...styleCard,
+            ...styles.BlueBold,
+          }}>
           <MyView>
             <MyView
               style={{
@@ -63,9 +68,16 @@ function TeamDetail(props) {
                   <SimpleFontIcon
                     kind={'large'}
                     icon={faTrophy}
-                    style={{color: colors[props.rank - 1]}}
+                    style={{
+                      color: colors[props.rank - 1],
+                    }}
                   />
-                  <SimpleText style={{fontSize: 17}} text={'#' + props.rank} />
+                  <SimpleText
+                    style={{
+                      fontSize: 17,
+                    }}
+                    text={'#' + props.rank}
+                  />
                 </MyView>
               )}
               <SimpleText
@@ -76,8 +88,15 @@ function TeamDetail(props) {
                 text={props.team.teamName}
               />
             </MyView>
-            <MyView style={{...styles.gap15, ...styles.padding10}}>
-              <PhoneView style={{...styles.gap15}}>
+            <MyView
+              style={{
+                ...styles.gap15,
+                ...styles.padding10,
+              }}>
+              <PhoneView
+                style={{
+                  ...styles.gap15,
+                }}>
                 <QuizItemCard
                   text={'عضو ارشد'}
                   val={props.team.student.name}
@@ -102,7 +121,10 @@ function TeamDetail(props) {
               </PhoneView>
 
               {props.team.startAt !== undefined && (
-                <PhoneView style={{...styles.gap15}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap15,
+                  }}>
                   <QuizItemCard
                     text={'زمان شروع آزمون'}
                     val={props.team.startAt}
@@ -124,7 +146,9 @@ function TeamDetail(props) {
                 style={{
                   ...styleItemsParent,
                   ...styles.gap15,
-                  ...{minHeight: 100},
+                  ...{
+                    minHeight: 100,
+                  },
                 }}>
                 {props.team.team !== undefined &&
                   props.team.team.length > 0 &&
@@ -151,12 +175,18 @@ function TeamDetail(props) {
         header={'سوالات حل شده'}
         backBtn={true}
         onBackClick={() => props.back()}>
-        <MyView style={{minHeight: 175}}>
+        <MyView
+          style={{
+            minHeight: 175,
+          }}>
           <MyView>
             {props.team.marks.map((e, index) => {
               if (props.team.answers[index].mark === undefined) return;
               return (
-                <PhoneView style={{...styles.gap50}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap50,
+                  }}>
                   <SimpleText text={'سوال ' + (index + 1)} />
                   <SimpleText text={'نمره سوال: ' + e} />
                   <SimpleText
@@ -181,13 +211,19 @@ function TeamDetail(props) {
             <>
               <SimpleText
                 text={'پاسخ‌های ثبت شده'}
-                style={{...styles.fontSize17, ...styles.BlueBold}}
+                style={{
+                  ...styles.fontSize17,
+                  ...styles.BlueBold,
+                }}
               />
 
               <MyView>
                 {props.team.allAnswers.map((e, index) => {
                   return (
-                    <PhoneView style={{...styles.gap50}}>
+                    <PhoneView
+                      style={{
+                        ...styles.gap50,
+                      }}>
                       <SimpleText text={'سوال ' + (index + 1)} />
                       <SimpleText text={'پاسخ تیم: ' + e} />
                     </PhoneView>
@@ -201,5 +237,4 @@ function TeamDetail(props) {
     </PhoneView>
   );
 }
-
 export default TeamDetail;

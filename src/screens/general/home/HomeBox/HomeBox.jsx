@@ -1,17 +1,14 @@
-import React from 'react';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
+import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
 import translator from '../translator';
-
 function HomeBox(props) {
   return (
-    <CommonWebBox width={300} style={{height: 137}}>
+    <CommonWebBox
+      width={300}
+      style={{
+        height: 137,
+      }}>
       <PhoneView
         style={{
           width: 33,
@@ -30,9 +27,15 @@ function HomeBox(props) {
           right: 0,
         }}
       />
-      <MyView style={{...styles.paddingRight30}}>
+      <MyView
+        style={{
+          ...styles.paddingRight30,
+        }}>
         <SimpleText
-          style={{...styles.BlueBold, ...styles.fontSize25}}
+          style={{
+            ...styles.BlueBold,
+            ...styles.fontSize25,
+          }}
           text={translator.more}
         />
         <SimpleText
@@ -55,5 +58,4 @@ function HomeBox(props) {
     </CommonWebBox>
   );
 }
-
 export default HomeBox;

@@ -1,7 +1,6 @@
-import {routes} from '../../../API/APIRoutes';
-import {downloadRequest, generalRequest} from '../../../API/Utility';
-import {showSuccess} from '../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {downloadRequest, generalRequest} from '../../../api/utility';
+import {showSuccess} from '../../../services/utility';
 export const addCertificate = async (data, token) => {
   const res = await generalRequest(
     routes.addCertificate,
@@ -11,10 +10,8 @@ export const addCertificate = async (data, token) => {
     token,
   );
   if (res !== null) showSuccess();
-
   return res;
 };
-
 export const editCertificate = async (id, data, token) => {
   const res = await generalRequest(
     routes.editCertificate + id,
@@ -24,10 +21,8 @@ export const editCertificate = async (id, data, token) => {
     token,
   );
   if (res !== null) showSuccess();
-
   return res;
 };
-
 export const getCertificates = async token => {
   return await generalRequest(
     routes.fetchAllCertificate,
@@ -55,7 +50,6 @@ export const addUserToCert = async (data, id, nid, token) => {
     token,
   );
   if (res !== null) showSuccess();
-
   return res;
 };
 export const editUserInCert = async (data, id, nid, token) => {
@@ -67,14 +61,11 @@ export const editUserInCert = async (data, id, nid, token) => {
     token,
   );
   if (res !== null) showSuccess();
-
   return res;
 };
-
 export const downloadCert = async (certId, NID) => {
   await downloadRequest(routes.issueMyCert + certId + '/' + NID, undefined);
 };
-
 export const verifyCert = async (certId, NID) => {
   const res = await generalRequest(
     routes.verifyCert + certId + '/' + NID,
@@ -83,9 +74,7 @@ export const verifyCert = async (certId, NID) => {
     undefined,
     undefined,
   );
-
   if (res === null) return false;
-
   await downloadRequest(routes.issueCert + certId + '/' + NID, undefined);
   return true;
 };

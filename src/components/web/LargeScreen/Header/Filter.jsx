@@ -1,27 +1,23 @@
 import React, {useState} from 'react';
-import {Device} from '../../../../models/Device';
-import {getDevice} from '../../../../services/Utility';
-import {style} from './style';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {Device} from '../../../../models/device';
+import {getDevice} from '../../../../services/utility';
+import {style} from './Style';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import FilterItem from './FilterItem';
-import {MyView, SimpleText} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
-import {SimpleTextIcon} from '../../../../styles/Common/TextIcon';
+import {MyView, SimpleText} from '../../../../styles/CommonComponents.jsx';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
+import {SimpleTextIcon} from '../../../../styles/common/TextIcon';
 import {faClose, faFilter} from '@fortawesome/free-solid-svg-icons';
 import {Pressable} from 'react-native';
-
 function Filter() {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;
-
   const [filters, setFilters] = useState();
   const [monthFilter, setMonthFilter] = useState();
   const [allActive, setAllActive] = useState(true);
@@ -33,27 +29,30 @@ function Filter() {
   const [selectedKindQuiz, setSelectedKindQuiz] = useState('all');
   const [selectedKindTag, setSelectedKindTag] = useState('all');
   const [selectedPrice, setSelectedPrice] = useState('all');
-
   const togglePrice = lbl => {
     setSelectedPrice(lbl);
-
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     state.onChangePrice(lbl);
     setTimeout(() => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
     }, 3000);
   };
-
   const toggleKindQuiz = lbl => {
     setSelectedKindQuiz(lbl);
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     state.onChangeKindQuiz(lbl);
     setTimeout(() => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
     }, 3000);
   };
-
   const toggleSelected = lbl => {
     const tmp = [];
     // console.log(selected);
@@ -62,7 +61,6 @@ function Filter() {
     });
     // console.log(tmp);
     const tmpIdx = tmp.indexOf(lbl);
-
     if (tmpIdx === -1) tmp.push(lbl);
     else tmp.splice(tmpIdx, 1);
     if (allAvailable && allActive && tmp.length !== filters.length)
@@ -70,15 +68,16 @@ function Filter() {
 
     // console.log(tmp);
     setSelected(tmp);
-    dispatch({loading: true});
-
+    dispatch({
+      loading: true,
+    });
     state.onChangeFilter(tmp);
-
     setTimeout(() => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
     }, 3000);
   };
-
   const changeKindTag = lbl => {
     let tmpArr;
     if (lbl === 'all') tmpArr = allFilters;
@@ -90,16 +89,17 @@ function Filter() {
       tmpArr = allFilters.filter(e => {
         return e.indexOf('المپیاد') !== -1;
       });
-
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     // setSelected(tmpArr);
     setSelected([]);
     state.onChangeFilter(tmpArr);
-
     setTimeout(() => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
     }, 3000);
-
     setFilters([
       {
         subCats: tmpArr,
@@ -108,7 +108,6 @@ function Filter() {
     ]);
     setSelectedKindTag(lbl);
   };
-
   const toggleMonthSelected = lbl => {
     const tmpIdx = selectedMonth.indexOf(lbl);
     const tmp = selectedMonth;
@@ -123,17 +122,16 @@ function Filter() {
     setSelectedMonth(tmp);
     state.onChangeFilterMonth(tmp);
   };
-
   const setAllFilter = React.useCallback(() => {
     if (filters === undefined) return;
     if (!allAvailable || allActive) setSelected([]);
-    dispatch({allFilter: allAvailable && allActive});
+    dispatch({
+      allFilter: allAvailable && allActive,
+    });
   }, [dispatch, allActive, filters, allAvailable]);
-
   React.useEffect(() => {
     setAllFilter();
   }, [allActive, setAllFilter]);
-
   React.useEffect(() => {
     if (state.month === undefined) return;
     setSelectedMonth([]);
@@ -147,9 +145,7 @@ function Filter() {
       }),
     );
   }, [state.month]);
-
   const [allFilters, setAllFilters] = useState();
-
   React.useEffect(() => {
     if (state.filters === undefined) return;
     if (state.filters instanceof Array) {
@@ -158,7 +154,6 @@ function Filter() {
           return index;
         }),
       );
-
       setAllAvailable(true);
       setFilters(state.filters);
       setAllFilters(state.filters);
@@ -170,14 +165,11 @@ function Filter() {
           subCats: value,
         });
       }
-
       setAllFilters(tmp[0].subCats);
       setFilters(tmp);
     }
   }, [state.filters]);
-
   const [showFilterBox, setShowFilterBox] = useState(isLargePage);
-
   return (
     <>
       {!isLargePage && (
@@ -201,7 +193,10 @@ function Filter() {
               ...styles.colorDarkBlue,
               ...styles.BlueBold,
             }}
-            iconStyle={{...styles.alignSelfCenter, ...styles.colorDarkBlue}}
+            iconStyle={{
+              ...styles.alignSelfCenter,
+              ...styles.colorDarkBlue,
+            }}
             text={'نمایش فیلترها'}
             icon={faFilter}
           />
@@ -246,7 +241,10 @@ function Filter() {
                 ...styles.colorDarkBlue,
                 ...styles.BlueBold,
               }}
-              iconStyle={{...styles.alignSelfCenter, ...styles.colorDarkBlue}}
+              iconStyle={{
+                ...styles.alignSelfCenter,
+                ...styles.colorDarkBlue,
+              }}
               text={'نتایج را بهینه کنید'}
               icon={faClose}
             />
@@ -293,19 +291,25 @@ function Filter() {
                   },
                 }}>
                 <FilterItem
-                  item={{label: 'هوش'}}
+                  item={{
+                    label: 'هوش',
+                  }}
                   status={selectedKindTag === 'hosh' ? 'checked' : 'unchecked'}
                   onPress={label => changeKindTag('hosh')}
                 />
                 <FilterItem
-                  item={{label: 'المپیاد'}}
+                  item={{
+                    label: 'المپیاد',
+                  }}
                   status={
                     selectedKindTag === 'olympiad' ? 'checked' : 'unchecked'
                   }
                   onPress={label => changeKindTag('olympiad')}
                 />
                 <FilterItem
-                  item={{label: 'همه رو ببینم'}}
+                  item={{
+                    label: 'همه رو ببینم',
+                  }}
                   status={selectedKindTag === 'all' ? 'checked' : 'unchecked'}
                   onPress={label => changeKindTag('all')}
                 />
@@ -332,12 +336,16 @@ function Filter() {
                   },
                 }}>
                 <FilterItem
-                  item={{label: 'آزمون باز (تاریخ آزاده)'}}
+                  item={{
+                    label: 'آزمون باز (تاریخ آزاده)',
+                  }}
                   status={selectedKindQuiz === 'open' ? 'checked' : 'unchecked'}
                   onPress={label => toggleKindQuiz('open')}
                 />
                 <FilterItem
-                  item={{label: 'آزمون پشت میز (تاریخ مشخصه)'}}
+                  item={{
+                    label: 'آزمون پشت میز (تاریخ مشخصه)',
+                  }}
                   status={
                     selectedKindQuiz === 'regular' ? 'checked' : 'unchecked'
                   }
@@ -345,7 +353,9 @@ function Filter() {
                 />
 
                 <FilterItem
-                  item={{label: 'آزمون فرار'}}
+                  item={{
+                    label: 'آزمون فرار',
+                  }}
                   status={
                     selectedKindQuiz === 'escape' ? 'checked' : 'unchecked'
                   }
@@ -353,15 +363,17 @@ function Filter() {
                 />
 
                 {/* <FilterItem
-              item={{label: 'آزمون پای تخته (تاریخ مشخصه)'}}
-              status={
-                selectedKindQuiz === 'onlineStanding' ? 'checked' : 'unchecked'
-              }
-              onPress={label => toggleKindQuiz('onlineStanding')}
-            /> */}
+                 item={{label: 'آزمون پای تخته (تاریخ مشخصه)'}}
+                 status={
+                 selectedKindQuiz === 'onlineStanding' ? 'checked' : 'unchecked'
+                 }
+                 onPress={label => toggleKindQuiz('onlineStanding')}
+                 /> */}
 
                 <FilterItem
-                  item={{label: 'همه رو ببینم'}}
+                  item={{
+                    label: 'همه رو ببینم',
+                  }}
                   status={selectedKindQuiz === 'all' ? 'checked' : 'unchecked'}
                   onPress={label => toggleKindQuiz('all')}
                 />
@@ -430,7 +442,7 @@ function Filter() {
                   })}
               </MyView>
             </>
-          )} */}
+           )} */}
 
           {allAvailable && (
             <FilterItem
@@ -463,17 +475,23 @@ function Filter() {
                   },
                 }}>
                 <FilterItem
-                  item={{label: 'رایگان'}}
+                  item={{
+                    label: 'رایگان',
+                  }}
                   status={selectedPrice === 'free' ? 'checked' : 'unchecked'}
                   onPress={label => togglePrice('free')}
                 />
                 <FilterItem
-                  item={{label: 'غیر رایگان'}}
+                  item={{
+                    label: 'غیر رایگان',
+                  }}
                   status={selectedPrice === 'nonFree' ? 'checked' : 'unchecked'}
                   onPress={label => togglePrice('nonFree')}
                 />
                 <FilterItem
-                  item={{label: 'همه'}}
+                  item={{
+                    label: 'همه',
+                  }}
                   status={selectedPrice === 'all' ? 'checked' : 'unchecked'}
                   onPress={label => togglePrice('all')}
                 />
@@ -485,5 +503,4 @@ function Filter() {
     </>
   );
 }
-
 export default Filter;

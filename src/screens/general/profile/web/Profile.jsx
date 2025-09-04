@@ -7,39 +7,37 @@ import {
   CommonButton,
   SimpleText,
   PhoneView,
-} from '../../../../styles/Common';
-
+} from '../../../../styles/CommonComponents.jsx';
 import ChangePass from '../components/ChangePass';
 import ChangeUsername from '../components/ChangeUsername';
 import UpdateInfo from '../components/UpdateInfo';
 import UpdatePic from '../components/UpdatePic';
 import UpdateUsername from '../components/UpdateUsername';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {
   getDevice,
   isUserAdvisor,
   showError,
   showSuccess,
   trueFalseValues,
-} from '../../../../services/Utility';
-import {Device} from '../../../../models/Device';
+} from '../../../../services/utility';
+import {Device} from '../../../../models/device';
 import translator from '../translate';
-import commonTranslator from '../../../../translator/Common';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+import commonTranslator from '@/translator/common';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import {Col, Row} from 'react-grid-system';
 import {useParams} from 'react-router';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {getPreRequirements, updateUserPic} from '../components/Utility';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {getPreRequirements, updateUserPic} from '../components/utility';
 import UpdateForm from '../components/UpdateForm';
-import {fetchUser, setCacheItem} from '../../../../API/User';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import RadioButtonYesOrNo from '../../../../components/web/RadioButtonYesOrNo';
-import commonTranslate from '../../../../translator/Common';
-import {styles} from '../../../../styles/Common/Styles';
-
+import {fetchUser, setCacheItem} from '../../../../api/user';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
+import commonTranslate from '../../../../translator/common';
+import {styles} from '../../../../styles/common/styles';
 const Profile = props => {
   const [user, setUser] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
@@ -47,18 +45,16 @@ const Profile = props => {
   const [aboutMe, setAboutMe] = useState();
   const navigate = props.navigate;
   const params = useParams();
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const [isWorking, setIsWorking] = useState(false);
   const [fetchedStates, setFetchedStates] = useState(false);
   const [states, setStates] = useState();
@@ -67,7 +63,6 @@ const Profile = props => {
   const [schools, setSchools] = useState();
   const [wantToTeach, setWantToTeach] = useState(false);
   const [wantToAdvice, setWantToAdvice] = useState(false);
-
   const [showChangeUsernameModal, setShowChangeUsernameModal] = useState(false);
   const [usernameModalMode, setUsernameModalMode] = useState(false);
   const [showEditInfo, setShowEditInfo] = useState(true);
@@ -88,19 +83,18 @@ const Profile = props => {
   const [iryscTeachPercent, setIryscTeachPercent] = useState();
   const [iryscAdvicePercent, setIryscAdvicePercent] = useState();
   const [userLevel, setUserLevel] = useState();
-
   React.useEffect(() => {
     if (user !== undefined || isWorking) return;
     const isApp = getDevice().indexOf(Device.App) !== -1;
-
     if (props.user === null) {
       navigate(isApp ? 'Home' : '/');
       return;
     }
-
     if (params.userId !== undefined) {
       setIsWorking(true);
-      dispatch({loading: true});
+      dispatch({
+        loading: true,
+      });
       Promise.all([
         generalRequest(
           routes.fetchUser + params.userId,
@@ -110,7 +104,9 @@ const Profile = props => {
           props.token,
         ),
       ]).then(res => {
-        dispatch({loading: false});
+        dispatch({
+          loading: false,
+        });
         if (res[0] === null) {
           props.navigate('/');
           return;
@@ -146,14 +142,17 @@ const Profile = props => {
       });
     }
   }, [props, isWorking, user, dispatch, navigate, params]);
-
   React.useEffect(() => {
     if (fetchedStates) return;
     setFetchedStates(true);
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getPreRequirements()]).then(res => {
       res = res[0];
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] !== null) setStates(res[0]);
       if (res[1] !== null) setGrades(res[1]);
       if (res[2] !== null) setBranches(res[2]);
@@ -178,26 +177,22 @@ const Profile = props => {
                   tmp.push(ee);
                 });
               });
-
             setSelectableLessons(tmp);
             setTeachLessons(
               tmp.filter(lesson => {
                 return r[0].lessons.indexOf(lesson.id) !== -1;
               }),
             );
-
             setTeachGrades(
               res[2].filter(grade => {
                 return r[0].grades.indexOf(grade.id) !== -1;
               }),
             );
-
             setTeachBranches(
               res[1].filter(branch => {
                 return r[0].branches.indexOf(branch.id) !== -1;
               }),
             );
-
             setIryscAdvicePercent(r[0].iryscAdvicePercent);
             setIryscTeachPercent(r[0].iryscTeachPercent);
           }
@@ -207,11 +202,9 @@ const Profile = props => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchedStates, dispatch]);
-
   const toggleChangeUsernameModal = () => {
     setShowChangeUsernameModal(!showChangeUsernameModal);
   };
-
   return (
     <MyView>
       {showChangeUsernameModal && (
@@ -242,7 +235,9 @@ const Profile = props => {
                 <CommonWebBox>
                   <EqualTwoTextInputs>
                     <BigBoldBlueTextInline
-                      style={{alignSelf: 'center'}}
+                      style={{
+                        alignSelf: 'center',
+                      }}
                       text={translator.yourInfo}
                     />
 
@@ -270,7 +265,9 @@ const Profile = props => {
                 <CommonWebBox>
                   <EqualTwoTextInputs>
                     <BigBoldBlueTextInline
-                      style={{alignSelf: 'center'}}
+                      style={{
+                        alignSelf: 'center',
+                      }}
                       text={translator.usernameInfo}
                     />
                     <SimpleFontIcon
@@ -292,7 +289,9 @@ const Profile = props => {
                 <CommonWebBox>
                   <EqualTwoTextInputs>
                     <BigBoldBlueTextInline
-                      style={{alignSelf: 'center'}}
+                      style={{
+                        alignSelf: 'center',
+                      }}
                       text={translator.changePass}
                     />
                     <SimpleFontIcon
@@ -353,7 +352,10 @@ const Profile = props => {
                       )}
 
                       <SimpleText
-                        style={{...styles.BlueBold, ...styles.marginTop20}}
+                        style={{
+                          ...styles.BlueBold,
+                          ...styles.marginTop20,
+                        }}
                         text={'من به عنوان مشاور'}
                       />
                       <RadioButtonYesOrNo
@@ -390,7 +392,6 @@ const Profile = props => {
                             }
                             setter={async selected => {
                               if (selected === acceptStd) return;
-
                               setLoading(true);
                               const res = await generalRequest(
                                 routes.toggleStdAcceptance,
@@ -399,15 +400,12 @@ const Profile = props => {
                                 undefined,
                                 props.token,
                               );
-
                               setLoading(false);
-
                               if (res !== null) {
                                 await setCacheItem('user', undefined);
                                 await fetchUser(props.token, user => {});
                                 showSuccess();
                               }
-
                               setAcceptStd(selected);
                             }}
                           />
@@ -432,33 +430,27 @@ const Profile = props => {
                             return;
                           }
                           setLoading(true);
-
                           const data = {
                             wantToAdvice: wantToAdvice,
                             wantToTeach: wantToTeach,
                           };
-
                           if (wantToAdvice) {
                             data.adviceAboutMe = adviceAboutMe;
-
                             if (
                               adviceVideoLink !== undefined &&
                               adviceVideoLink !== ''
                             )
                               data.adviceVideoLink = adviceVideoLink;
                           }
-
                           if (wantToTeach) {
                             data.teachAboutMe = teachAboutMe;
                             data.defaultTeachPrice = defaultTeachPrice;
-
                             if (
                               teachVideoLink !== undefined &&
                               teachVideoLink !== ''
                             )
                               data.teachVideoLink = teachVideoLink;
                           }
-
                           const res = await generalRequest(
                             routes.setAboutMe,
                             'put',
@@ -466,9 +458,7 @@ const Profile = props => {
                             undefined,
                             props.token,
                           );
-
                           setLoading(false);
-
                           if (res !== null) {
                             await setCacheItem('user', undefined);
                             await fetchUser(props.token, user => {});
@@ -482,10 +472,14 @@ const Profile = props => {
                         header={'تخصص\u200Cهای من برای تدریس (اختیاری)'}>
                         <PhoneView
                           className={'mySpecialties'}
-                          style={{gap: '10px'}}>
+                          style={{
+                            gap: '10px',
+                          }}>
                           {branches && (
                             <JustBottomBorderTextInput
-                              style={{marginTop: 10}}
+                              style={{
+                                marginTop: 10,
+                              }}
                               isHalf={state.isInPhone ? undefined : true}
                               resultPane={true}
                               placeholder={commonTranslator.grade}
@@ -495,7 +489,6 @@ const Profile = props => {
                               setSelectedItem={items => {
                                 setTeachGrades(items);
                                 const teachGradesId = items.map(e => e.id);
-
                                 const tmp = [];
                                 branches
                                   .filter(
@@ -517,7 +510,10 @@ const Profile = props => {
                           )}
 
                           <JustBottomBorderTextInput
-                            style={{marginTop: 10, maxWidth: '100%'}}
+                            style={{
+                              marginTop: 10,
+                              maxWidth: '100%',
+                            }}
                             isHalf={state.isInPhone ? undefined : true}
                             resultPane={true}
                             placeholder={commonTranslator.lesson}
@@ -534,7 +530,9 @@ const Profile = props => {
 
                         {grades && (
                           <JustBottomBorderTextInput
-                            style={{marginTop: 10}}
+                            style={{
+                              marginTop: 10,
+                            }}
                             isHalf={state.isInPhone ? undefined : true}
                             resultPane={true}
                             placeholder={commonTranslator.branch}
@@ -584,7 +582,9 @@ const Profile = props => {
                   <CommonWebBox>
                     <EqualTwoTextInputs>
                       <BigBoldBlueTextInline
-                        style={{alignSelf: 'center'}}
+                        style={{
+                          alignSelf: 'center',
+                        }}
                         text={translator.formInfo}
                       />
                       <SimpleFontIcon
@@ -606,7 +606,9 @@ const Profile = props => {
                 {isAdmin && (
                   <CommonButton
                     onPress={() => window.open('/upgrade/' + user.id, '_blank')}
-                    style={{alignSelf: 'center'}}
+                    style={{
+                      alignSelf: 'center',
+                    }}
                     theme={'dark'}
                     title="وارد کردن اطلاعات فرم\u200cها"
                   />
@@ -619,7 +621,9 @@ const Profile = props => {
             <CommonWebBox>
               <EqualTwoTextInputs>
                 <BigBoldBlueTextInline
-                  style={{alignSelf: 'center'}}
+                  style={{
+                    alignSelf: 'center',
+                  }}
                   text={translator.yourPic}
                 />
                 <SimpleFontIcon
@@ -639,7 +643,9 @@ const Profile = props => {
                   setLoading={setLoading}
                   updateUserPic={newFilePath =>
                     updateUserPic(newFilePath, isAdmin, user, props.user, u => {
-                      dispatch({user: u});
+                      dispatch({
+                        user: u,
+                      });
                     })
                   }
                 />
@@ -675,7 +681,9 @@ const Profile = props => {
                       const newUserModel = props.user;
                       newUserModel.user = u;
                       await setCacheItem('user', JSON.stringify(newUserModel));
-                      dispatch({user: newUserModel});
+                      dispatch({
+                        user: newUserModel,
+                      });
                     } else {
                       location.reload();
                     }
@@ -693,5 +701,4 @@ const Profile = props => {
     </MyView>
   );
 };
-
 export default Profile;

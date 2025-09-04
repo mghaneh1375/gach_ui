@@ -1,16 +1,13 @@
 import {useEffect, useState} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
-import {MyView, PhoneView, SimpleText} from '../../../styles/Common';
+import {MyView, PhoneView, SimpleText} from '../../../styles/CommonComponents';
 import vars from '../../../styles/root';
-import {styles} from '../../../styles/Common/Styles';
-
+import {styles} from '../../../styles/common/styles';
 function BestComment(props) {
   const [pic, setPic] = useState();
-
   useEffect(() => {
     setPic(props.student.pic);
   }, [props.student.pic]);
-
   return (
     <MyView
       style={{
@@ -26,7 +23,10 @@ function BestComment(props) {
         onPress={() =>
           window.open('/student-public-profile/' + props.student.id, '_target')
         }>
-        <PhoneView style={{...styles.justifyContentCenter}}>
+        <PhoneView
+          style={{
+            ...styles.justifyContentCenter,
+          }}>
           <PhoneView
             style={{
               borderRadius: '50%',
@@ -42,21 +42,34 @@ function BestComment(props) {
                 height: '100%',
                 alignSelf: 'center',
               }}
-              source={{uri: pic}}
+              source={{
+                uri: pic,
+              }}
             />
           </PhoneView>
         </PhoneView>
       </TouchableOpacity>
       <SimpleText
-        style={{textAlign: 'center', marginTop: '10px', fontSize: '12px'}}
+        style={{
+          textAlign: 'center',
+          marginTop: '10px',
+          fontSize: '12px',
+        }}
         text={props.student.name}
       />
       <SimpleText
-        style={{color: vars.DARK_BLUE, fontWeight: 'bold', fontSize: '12px'}}
+        style={{
+          color: vars.DARK_BLUE,
+          fontWeight: 'bold',
+          fontSize: '12px',
+        }}
         text={props.reference}
       />
       <SimpleText
-        style={{fontSize: '12px', marginTop: '5px'}}
+        style={{
+          fontSize: '12px',
+          marginTop: '5px',
+        }}
         text={props.comment}
       />
       <SimpleText
@@ -71,5 +84,4 @@ function BestComment(props) {
     </MyView>
   );
 }
-
 export default BestComment;

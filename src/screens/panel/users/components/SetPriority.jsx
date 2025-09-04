@@ -1,34 +1,28 @@
 import React, {useState} from 'react';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
 import {dispatchUsersContext, usersContext} from './Context';
-import Translator from '../Translator';
-import {styles} from '../../../../styles/Common/Styles';
-import commonTranslator from '../../../../translator/Common';
-import {setPriority} from './Utility';
-
+import Translator from '../translator';
+import {styles} from '../../../../styles/common/styles';
+import commonTranslator from '@/translator/common';
+import {setPriority} from './utility';
 function SetPriority(props) {
   const useGlobalState = () => [
     React.useContext(usersContext),
     React.useContext(dispatchUsersContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [teachPriority, setTeachPriority] = useState();
   const [advisorPriority, setAdvisorPriority] = useState();
-
   const [wantedUser, setWantedUser] = useState();
-
   React.useEffect(() => {
     if (props.wantedUser === undefined) return;
     setWantedUser(props.wantedUser);
   }, [props.wantedUser]);
-
   React.useEffect(() => {
     if (state.selectedUser === undefined) return;
     setWantedUser(state.selectedUser);
   }, [state.selectedUser]);
-
   React.useEffect(() => {
     if (wantedUser == undefined) return;
     setAdvisorPriority(
@@ -38,9 +32,7 @@ function SetPriority(props) {
       wantedUser.teachPriority ? wantedUser.teachPriority : 1000,
     );
   }, [wantedUser]);
-
   if (wantedUser === undefined) return <></>;
-
   return (
     <CommonWebBox
       header={'تعیین اولویت نمایش برای  ' + wantedUser.name}
@@ -77,7 +69,9 @@ function SetPriority(props) {
               wantedUser.advisorPriority = advisorPriority;
               wantedUser.teachPriority = teachPriority;
               if (state.selectedUser !== undefined)
-                dispatch({selectedUser: state.selectedUser});
+                dispatch({
+                  selectedUser: state.selectedUser,
+                });
             }
           }}
           title={commonTranslator.confirm}
@@ -87,5 +81,4 @@ function SetPriority(props) {
     </CommonWebBox>
   );
 }
-
 export default SetPriority;

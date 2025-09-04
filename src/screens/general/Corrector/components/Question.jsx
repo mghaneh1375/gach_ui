@@ -7,37 +7,33 @@ import {
 import {Image} from 'react-native';
 import React, {useState} from 'react';
 import {doCorrectContext, dispatchDoCorrectContext} from './Context';
-import vars from '../../../../styles/root';
+import vars from '@/styles/root';
 import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
-import {basketBox, basketBoxInPhone} from '../../../panel/package/card/Style';
-import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import commonTranslator from '../../../../translator/Common';
+} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import {FontIcon} from '../../../../styles/common/FontIcon';
+import {basketBox, basketBoxInPhone} from '../../../panel/package/card/style';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import commonTranslator from '@/translator/common';
 import {
   getDevice,
   getWidthHeight,
   setImgSize,
-} from '../../../../services/Utility';
-
+} from '../../../../services/utility';
 function Question(props) {
   const useGlobalState = () => [
     React.useContext(doCorrectContext),
     React.useContext(dispatchDoCorrectContext),
   ];
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const [state, dispatch] = useGlobalState();
   const [question, setQuestion] = useState();
-
   React.useEffect(() => {
     Image.getSize(
       state.answers[state.currIdx].questionFile,
@@ -52,7 +48,6 @@ function Question(props) {
         );
       },
     );
-
     if (
       state.answers[state.currIdx].stdAns !== undefined &&
       state.answers[state.currIdx].stdAns.answer !== undefined &&
@@ -73,7 +68,6 @@ function Question(props) {
         },
       );
     }
-
     if (state.answers[state.currIdx].answerFile !== undefined) {
       Image.getSize(
         state.answers[state.currIdx].answerFile,
@@ -91,22 +85,17 @@ function Question(props) {
     }
     setQuestion(state.answers[state.currIdx]);
   }, [state.answers, state.currIdx, totalWidth, isInPhone]);
-
   const [stdImgWidth, setStdImgWidth] = useState(200);
   const [stdImgHeight, setStdImgHeight] = useState(200);
-
   const [imgWidth, setImgWidth] = useState(200);
   const [imgHeight, setImgHeight] = useState(200);
   const [answerWidth, setAnswerWidth] = useState(200);
   const [answerHeight, setAnswerHeight] = useState(200);
   const [isInZoomMode, setIsInZoomMode] = useState();
   const [zoomImg, setZoomImg] = useState();
-
   const [zoomW, setZoomW] = useState();
   const [zoomH, setZoomH] = useState();
-
   const [totalWidth, totalHeight] = getWidthHeight();
-
   React.useEffect(() => {
     if (zoomImg === undefined) {
       setIsInZoomMode(false);
@@ -118,9 +107,7 @@ function Question(props) {
         setZoomH((height * (totalWidth - 50)) / width);
         return;
       }
-
       const h = (height * 0.75 * totalWidth) / width;
-
       if (h < totalHeight) {
         setZoomW(totalWidth - 20);
         setZoomH(h);
@@ -131,18 +118,15 @@ function Question(props) {
       }
     });
   }, [zoomImg, totalWidth, totalHeight, isInPhone]);
-
   React.useEffect(() => {
     if (zoomH === undefined) return;
     setIsInZoomMode(true);
   }, [zoomH]);
-
   const closeZoom = () => {
     setZoomImg(undefined);
     setZoomH(undefined);
     setZoomW(undefined);
   };
-
   return (
     <MyView>
       {isInZoomMode && (
@@ -159,7 +143,14 @@ function Question(props) {
           <CommonWebBox
             header={''}
             btn={<FontIcon icon={faClose} onPress={() => closeZoom()} />}
-            style={!isInPhone ? {margin: 20, padding: 5} : {}}>
+            style={
+              !isInPhone
+                ? {
+                    margin: 20,
+                    padding: 5,
+                  }
+                : {}
+            }>
             <Image
               resizeMode="contain"
               style={{
@@ -173,8 +164,14 @@ function Question(props) {
         </MyView>
       )}
       {question !== undefined && (
-        <MyView style={{marginBottom: 70}}>
-          <CommonWebBox style={{padding: 15}}>
+        <MyView
+          style={{
+            marginBottom: 70,
+          }}>
+          <CommonWebBox
+            style={{
+              padding: 15,
+            }}>
             {question.questionFile !== undefined && (
               <Image
                 resizeMode="contain"
@@ -201,7 +198,10 @@ function Question(props) {
           {question.stdAns !== undefined &&
             question.stdAns.type !== undefined &&
             question.stdAns.type === 'file' && (
-              <CommonWebBox style={{padding: 15}}>
+              <CommonWebBox
+                style={{
+                  padding: 15,
+                }}>
                 <Image
                   resizeMode="contain"
                   style={{
@@ -239,7 +239,9 @@ function Question(props) {
                         ? ''
                         : question.stdAns.answer
                     }
-                    parentStyle={{width: '100%'}}
+                    parentStyle={{
+                      width: '100%',
+                    }}
                     style={{
                       height: 200,
                       maxWidth: '100%',
@@ -267,9 +269,13 @@ function Question(props) {
                 />
               </MyView>
             </CommonWebBox>
-          )} */}
+           )} */}
           {question.answerFile !== undefined && (
-            <CommonWebBox header={'پاسخ تشریحی'} style={{padding: 15}}>
+            <CommonWebBox
+              header={'پاسخ تشریحی'}
+              style={{
+                padding: 15,
+              }}>
               <Image
                 resizeMode="contain"
                 style={{
@@ -298,21 +304,32 @@ function Question(props) {
           isInPhone
             ? {
                 ...basketBoxInPhone,
-                ...{width: 'calc(100% - 20px)'},
+                ...{
+                  width: 'calc(100% - 20px)',
+                },
               }
             : {
                 ...basketBox,
-                ...{width: vars.BASKET_WIDTH_WITH_OPEN_MENU},
+                ...{
+                  width: vars.BASKET_WIDTH_WITH_OPEN_MENU,
+                },
               }
         }>
-        <CommonWebBox style={{padding: 0}}>
+        <CommonWebBox
+          style={{
+            padding: 0,
+          }}>
           <EqualTwoTextInputs>
             <CommonButton
               onPress={props.onBack}
               padding={isInPhone ? '5px 5px' : undefined}
               textStyle={
                 isInPhone
-                  ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                  ? {
+                      fontSize: 14,
+                      paddingLeft: 20,
+                      paddingRight: 20,
+                    }
                   : {}
               }
               title={commonTranslator.back}
@@ -329,21 +346,37 @@ function Question(props) {
                 {state.currIdx > 0 && (
                   <CommonButton
                     onPress={() => {
-                      dispatch({currIdx: state.currIdx - 1});
+                      dispatch({
+                        currIdx: state.currIdx - 1,
+                      });
                     }}
                     padding={isInPhone ? '5px 5px' : undefined}
-                    textStyle={isInPhone ? {fontSize: 14} : {}}
+                    textStyle={
+                      isInPhone
+                        ? {
+                            fontSize: 14,
+                          }
+                        : {}
+                    }
                     title={'قبلی'}
                   />
                 )}
                 {state.currIdx < state.answers.length - 1 && (
                   <CommonButton
                     onPress={() => {
-                      dispatch({currIdx: state.currIdx + 1});
+                      dispatch({
+                        currIdx: state.currIdx + 1,
+                      });
                     }}
                     theme={'dark'}
                     padding={isInPhone ? '5px 5px' : undefined}
-                    textStyle={isInPhone ? {fontSize: 14} : {}}
+                    textStyle={
+                      isInPhone
+                        ? {
+                            fontSize: 14,
+                          }
+                        : {}
+                    }
                     title={'بعدی'}
                   />
                 )}
@@ -360,7 +393,9 @@ function Question(props) {
                 {state.currIdx > 0 && (
                   <FontIcon
                     onPress={() => {
-                      dispatch({currIdx: state.currIdx - 1});
+                      dispatch({
+                        currIdx: state.currIdx - 1,
+                      });
                     }}
                     icon={faArrowRight}
                     theme={'rect'}
@@ -369,7 +404,9 @@ function Question(props) {
                 {state.currIdx < state.answers.length - 1 && (
                   <FontIcon
                     onPress={() => {
-                      dispatch({currIdx: state.currIdx + 1});
+                      dispatch({
+                        currIdx: state.currIdx + 1,
+                      });
                     }}
                     icon={faArrowLeft}
                     theme={'rect'}
@@ -383,5 +420,4 @@ function Question(props) {
     </MyView>
   );
 }
-
 export default Question;

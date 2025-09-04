@@ -1,30 +1,25 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import Quizzes from '../../../../../components/web/Quizzes';
-import {CommonButton} from '../../../../../styles/Common';
-import {addQuizzesToPackage} from '../Utility';
-import Translate from '../../Translate';
-import commonTranslator from '../../../../../translator/Common';
-import {showSuccess} from '../../../../../services/Utility';
+import {routes} from '@/api/apiRoutes';
+import Quizzes from '@/components/web/Quizzes';
+import {CommonButton} from '@/styles';
+import {addQuizzesToPackage} from '../utility';
+import Translate from '../../translate';
+import commonTranslator from '@/translator/common';
+import {showSuccess} from '@/services/utility';
 import {dispatchQuizzesContext, quizzesContext} from './Utility';
-import {generalRequest} from '../../../../../API/Utility';
-
+import {generalRequest} from '@/api/utility';
 function Add(props) {
   const [selectedQuizzes, setSelectedQuizzes] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
-
   const useGlobalState = () => [
     React.useContext(quizzesContext),
     React.useContext(dispatchQuizzesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     if (isWorking || state.allItems !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.fetchIRYSCRegistrableQuizzes,
@@ -35,19 +30,16 @@ function Add(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.setMode('list');
         return;
       }
-
       const filtersTmp = res[0].tags.map((elem, index) => {
         return {
           label: elem,
           index: index,
         };
       });
-
       dispatch({
         allItems: res[0].items,
         filters: {
@@ -63,15 +55,20 @@ function Add(props) {
       setIsWorking(false);
     });
   }, [props, isWorking, state, dispatch]);
-
   if (state.selectableQuizzes === undefined) return <></>;
   return (
     <Quizzes
-      onBackClicked={() => dispatch({selectingQuiz: false})}
+      onBackClicked={() =>
+        dispatch({
+          selectingQuiz: false,
+        })
+      }
       quizzes={state.selectableQuizzes}
       setSelectedQuizzes={setSelectedQuizzes}>
       <CommonButton
-        style={{alignSelf: 'flex-end'}}
+        style={{
+          alignSelf: 'flex-end',
+        }}
         title={Translate.addToPackage}
         theme={'dark'}
         onPress={async () => {
@@ -84,7 +81,10 @@ function Add(props) {
           props.setLoading(false);
           if (res !== null) {
             showSuccess(commonTranslator.success);
-            dispatch({quizzes: res, selectingQuiz: false});
+            dispatch({
+              quizzes: res,
+              selectingQuiz: false,
+            });
             props.package.quizzesDoc = res;
             props.package.quizzes = res.length;
             props.setPackage(props.package);
@@ -101,5 +101,4 @@ function Add(props) {
     </Quizzes>
   );
 }
-
 export default Add;

@@ -1,15 +1,13 @@
 import {useState} from 'react';
-import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
-import {showSuccess} from '../../../../../services/Utility';
-import {CommonButton, MyView, PhoneView} from '../../../../../styles/Common';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../../translator/Common';
-import {login} from '../../../../panel/users/components/Utility';
-import Translate from '../../Translate';
-
+import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane';
+import {showSuccess} from '@/services/utility';
+import {CommonButton, MyView, PhoneView} from '@/styles';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import commonTranslator from '@/translator/common';
+import {login} from '../../../../panel/users/components/utility';
+import Translate from '../../translate';
 function Ops(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);
-
   const afterRemove = res => {
     setShowRemovePane(false);
     showSuccess();
@@ -20,7 +18,6 @@ function Ops(props) {
   const toggleShowRemovePane = () => {
     setShowRemovePane(!showRemovePane);
   };
-
   return (
     <MyView>
       {showRemovePane && (
@@ -29,7 +26,9 @@ function Ops(props) {
           token={props.token}
           //   url={routes.}
           expected={['excepts', 'doneIds']}
-          data={{items: [props.selectedId]}}
+          data={{
+            items: [props.selectedId],
+          }}
           afterFunc={afterRemove}
           toggleShowPopUp={toggleShowRemovePane}
         />
@@ -96,5 +95,4 @@ function Ops(props) {
     </MyView>
   );
 }
-
 export default Ops;

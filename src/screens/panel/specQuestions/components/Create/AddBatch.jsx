@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import {BASE_SITE_NAME} from '../../../../../API/Utility';
-import UploadFile from '../../../../../components/web/UploadFile';
-import {showSuccess} from '../../../../../services/Utility';
-import translator from '../../Translator';
-
+import {routes} from '@/api/apiRoutes';
+import {BASE_SITE_NAME} from '@/api/utility';
+import UploadFile from '@/components/web/UploadFile';
+import {showSuccess} from '@/services/utility';
+import translator from '../../translator';
 const AddBatch = props => {
   const [result, setResult] = useState(undefined);
   const [finalMsg, setFinalMsg] = useState();
-
   React.useEffect(() => {
     if (result === undefined || result.length === 0) return;
     if (result.errs === undefined || result.errs.length === 0) {
@@ -16,7 +14,6 @@ const AddBatch = props => {
       showSuccess();
     } else setFinalMsg(result.excepts + '\n' + result.errs);
   }, [result]);
-
   return (
     <UploadFile
       url={routes.addBatchEscapeQuizQuestions}
@@ -38,5 +35,4 @@ const AddBatch = props => {
     />
   );
 };
-
 export default AddBatch;

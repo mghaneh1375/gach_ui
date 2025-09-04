@@ -1,28 +1,21 @@
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
 import {dispatchDoQuizContext, doQuizContext} from './Context';
-import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
-import vars from '../../../../styles/root';
-
+import {MyView, PhoneView, SimpleText} from '@/styles';
+import vars from '@/styles/root';
 function Test(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const index = props.index;
   const qAns = state.showAnswers ? state.questions[index].answer : 0;
-
   const [stdAns, setStdAns] = useState(state.answers[index]);
-
   const choicesCount = state.questions[index].choicesCount;
   const [choicesArr, setChoicesArr] = useState();
-
   React.useEffect(() => {
     if (choicesCount === undefined) return;
-
     const tmp = [];
     for (let i = 0; i < choicesCount; i++)
       tmp.push({
@@ -30,21 +23,25 @@ function Test(props) {
         isAnswer: qAns == i + 1,
         choosen: stdAns !== undefined && stdAns == i + 1,
       });
-
     setChoicesArr(tmp);
   }, [choicesCount, qAns, stdAns]);
-
   const changeAnsSelected = idx => {
     state.answers[index] = idx + 1;
-
-    dispatch({answers: state.answers});
+    dispatch({
+      answers: state.answers,
+    });
     setStdAns(idx + 1);
   };
-
   return (
-    <PhoneView style={{direction: 'ltr'}}>
+    <PhoneView
+      style={{
+        direction: 'ltr',
+      }}>
       <SimpleText
-        style={{alignSelf: 'center', width: 25}}
+        style={{
+          alignSelf: 'center',
+          width: 25,
+        }}
         text={index + 1 + ' - '}
       />
 
@@ -106,9 +103,8 @@ function Test(props) {
           style={{alignSelf: 'center', marginLeft: 3}}
           text={'%' + state.wanted_answer_sheet[index].percent}
         />
-      )} */}
+       )} */}
     </PhoneView>
   );
 }
-
 export default Test;

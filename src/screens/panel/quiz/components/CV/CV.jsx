@@ -1,29 +1,23 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
-import {getAnswerSheets} from '../Utility';
+import {CommonWebBox, PhoneView, MyView} from '@/styles';
+import {getAnswerSheets} from '../utility';
 import Card from './Card';
-import translator from '../../Translator';
-
-import StudentAnswerSheet from '../AnswerSheet/StudentAnswerSheet';
-
+import translator from '../../translator';
+import StudentAnswerSheet from '../answerSheet/StudentAnswerSheet';
 function CV({setMode, setLoading, token, state, dispatch}) {
   const [isWorking, setIsWorking] = useState(false);
   const [showAnswerSheet, setShowAnswerSheet] = useState(false);
   const [selectedAnswerSheetIdx, setSelectedAnswerSheetIdx] = useState();
-
   React.useEffect(() => {
     if (selectedAnswerSheetIdx === undefined) return;
-
     dispatch({
       showAnswers: true,
       showStdAnswers: true,
       allowChangeStdAns: false,
       allowChangeAns: false,
     });
-
     setShowAnswerSheet(true);
   }, [selectedAnswerSheetIdx, dispatch]);
-
   React.useEffect(() => {
     if (!showAnswerSheet) {
       // setStdChangingMode(false);
@@ -38,10 +32,8 @@ function CV({setMode, setLoading, token, state, dispatch}) {
       });
     }
   }, [showAnswerSheet, dispatch]);
-
   React.useEffect(() => {
     if (isWorking || state.selectedQuiz.answer_sheets !== undefined) return;
-
     setIsWorking(true);
     setLoading(true);
     Promise.all([
@@ -52,17 +44,17 @@ function CV({setMode, setLoading, token, state, dispatch}) {
       ),
     ]).then(res => {
       setLoading(false);
-
       if (res[0] !== null) {
         state.selectedQuiz.answer_sheet = res[0].answers;
         state.selectedQuiz.answer_sheets = res[0].students;
-        dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+        dispatch({
+          selectedQuiz: state.selectedQuiz,
+          needUpdate: true,
+        });
       } else setMode('list');
-
       setIsWorking(false);
     });
   }, [isWorking, dispatch, state.selectedQuiz, token, setLoading, setMode]);
-
   return (
     <MyView>
       {showAnswerSheet && (
@@ -101,5 +93,4 @@ function CV({setMode, setLoading, token, state, dispatch}) {
     </MyView>
   );
 }
-
 export default CV;

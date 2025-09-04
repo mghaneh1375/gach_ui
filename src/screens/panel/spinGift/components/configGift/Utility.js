@@ -1,7 +1,6 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-import {showSuccess} from '../../../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
+import {showSuccess} from '@/services/utility';
 export const getConfig = async token => {
   return await generalRequest(
     routes.getGiftConfig,
@@ -33,7 +32,6 @@ export const getAllGift = async token => {
 export const addGift = async (data, token) => {
   const res = await generalRequest(routes.addGift, 'post', data, 'data', token);
   if (res !== null) showSuccess();
-
   return res;
 };
 export const editGift = async (id, data, token) => {
@@ -48,6 +46,5 @@ export const editGift = async (id, data, token) => {
     showSuccess();
     return 'ok';
   }
-
   return null;
 };

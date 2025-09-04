@@ -1,7 +1,6 @@
-import {formatPrice} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
-import Translator from '../../../../advisorPanel/Teach/Schedule/components/Translator';
-
+import {formatPrice} from '../../../../../services/utility';
+import commonTranslator from '@/translator/common';
+import Translator from '../../../../advisorPanel/teach/schedule/components/translator';
 const TableStructure = [
   {
     name: Translator.teacher,
@@ -61,7 +60,6 @@ const TableStructure = [
     grow: 1,
   },
 ];
-
 export const studentsColumns = [
   {
     name: commonTranslator.name,
@@ -110,5 +108,4 @@ export const studentsColumns = [
     grow: 2,
   },
 ];
-
 export default TableStructure;

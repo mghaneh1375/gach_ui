@@ -7,8 +7,7 @@ import {
   fetchParticipantReport,
   fetchSchoolReport,
   fetchStateReport,
-} from '../../Utility';
-
+} from '../../utility';
 export const fetchSchoolReportLocal = async (
   setLoading,
   quiz,
@@ -20,18 +19,17 @@ export const fetchSchoolReportLocal = async (
     setSelectedReport('school');
     return;
   }
-
   setLoading(true);
   const res = await fetchSchoolReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
-
   if (res === null) return;
-
   quiz.schoolReport = res;
-  dispatch({selectedQuiz: quiz, needUpdate: true});
+  dispatch({
+    selectedQuiz: quiz,
+    needUpdate: true,
+  });
   setSelectedReport('school');
 };
-
 export const fetchStateReportLocal = async (
   setLoading,
   quiz,
@@ -43,18 +41,17 @@ export const fetchStateReportLocal = async (
     setSelectedReport('state');
     return;
   }
-
   setLoading(true);
   const res = await fetchStateReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
-
   if (res === null) return;
-
   quiz.stateReport = res;
-  dispatch({selectedQuiz: quiz, needUpdate: true});
+  dispatch({
+    selectedQuiz: quiz,
+    needUpdate: true,
+  });
   setSelectedReport('state');
 };
-
 export const fetchCityReportLocal = async (
   setLoading,
   quiz,
@@ -66,18 +63,17 @@ export const fetchCityReportLocal = async (
     setSelectedReport('city');
     return;
   }
-
   setLoading(true);
   const res = await fetchCityReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
-
   if (res === null) return;
-
   quiz.cityReport = res;
-  dispatch({selectedQuiz: quiz, needUpdate: true});
+  dispatch({
+    selectedQuiz: quiz,
+    needUpdate: true,
+  });
   setSelectedReport('city');
 };
-
 export const fetchKarnameReportLocal = async (
   setLoading,
   quiz,
@@ -89,18 +85,17 @@ export const fetchKarnameReportLocal = async (
     setSelectedReport('karname');
     return;
   }
-
   setLoading(true);
   const res = await fetchKarnameReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
-
   if (res === null) return;
-
   quiz.karnameReport = res;
-  dispatch({selectedQuiz: quiz, needUpdate: true});
+  dispatch({
+    selectedQuiz: quiz,
+    needUpdate: true,
+  });
   setSelectedReport('karnameReport');
 };
-
 export const fetchGenderReportLocal = async (
   setLoading,
   quiz,
@@ -112,18 +107,17 @@ export const fetchGenderReportLocal = async (
     setSelectedReport('gender');
     return;
   }
-
   setLoading(true);
   const res = await fetchGenderReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
-
   if (res === null) return;
-
   quiz.genderReport = res;
-  dispatch({selectedQuiz: quiz, needUpdate: true});
+  dispatch({
+    selectedQuiz: quiz,
+    needUpdate: true,
+  });
   setSelectedReport('gender');
 };
-
 export const fetchAuthorReportLocal = async (
   setLoading,
   quiz,
@@ -135,18 +129,17 @@ export const fetchAuthorReportLocal = async (
     setSelectedReport('author');
     return;
   }
-
   setLoading(true);
   const res = await fetchAuthorReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
-
   if (res === null) return;
-
   quiz.authorReport = res;
-  dispatch({selectedQuiz: quiz, needUpdate: true});
+  dispatch({
+    selectedQuiz: quiz,
+    needUpdate: true,
+  });
   setSelectedReport('author');
 };
-
 export const fetchParticipantReportLocal = async (
   setLoading,
   quiz,
@@ -158,18 +151,17 @@ export const fetchParticipantReportLocal = async (
     setSelectedReport('participant');
     return;
   }
-
   setLoading(true);
   const res = await fetchParticipantReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
-
   if (res === null) return;
-
   quiz.participantReport = res;
-  dispatch({selectedQuiz: quiz, needUpdate: true});
+  dispatch({
+    selectedQuiz: quiz,
+    needUpdate: true,
+  });
   setSelectedReport('participant');
 };
-
 export const fetchA1ReportLocal = async (
   setLoading,
   quiz,
@@ -181,14 +173,14 @@ export const fetchA1ReportLocal = async (
     setSelectedReport('A1');
     return;
   }
-
   setLoading(true);
   const res = await fetchA1Report(quiz.id, quiz.generalMode, token);
   setLoading(false);
-
   if (res === null) return;
-
   quiz.A1Report = res;
-  dispatch({selectedQuiz: quiz, needUpdate: true});
+  dispatch({
+    selectedQuiz: quiz,
+    needUpdate: true,
+  });
   setSelectedReport('A1');
 };

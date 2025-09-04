@@ -1,17 +1,14 @@
 import {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import UploadFile from '../../../../../components/web/UploadFile';
-import {showSuccess} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import UploadFile from '@/components/web/UploadFile';
+import {showSuccess} from '@/services/utility';
+import commonTranslator from '@/translator/common';
 function Update(props) {
   const [showPopUp, setShowPopUp] = useState(true);
   const toggleShowPopUp = () => {
     if (showPopUp) props.setMode('list');
-
     setShowPopUp(!showPopUp);
   };
-
   const afterUpdate = res => {
     if (res !== null) {
       props.updateAvatar(props.avatar.id, res);
@@ -19,7 +16,6 @@ function Update(props) {
       props.setMode('list');
     }
   };
-
   if (showPopUp)
     return (
       <UploadFile
@@ -33,8 +29,6 @@ function Update(props) {
         toggleShow={toggleShowPopUp}
       />
     );
-
   return <></>;
 }
-
 export default Update;

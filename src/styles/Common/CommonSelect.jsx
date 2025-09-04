@@ -1,13 +1,9 @@
-import React from 'react';
-import {calcInputWidth, CommonSelectElem} from './CommonText';
-
+import {MyView} from '@/styles';
 import vars from '../root';
-import SubInputText from './SubInputText';
-import {MyView} from '../Common';
-
+import {calcInputWidth, CommonSelectElem} from './commonText';
+import SubInputText from './subInputText';
 export const CommonSelect = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
-
   const inputProps = {
     options: props.values,
     value: props.value === undefined ? {} : props.value,
@@ -62,9 +58,7 @@ export const CommonSelect = props => {
     },
     hideInputFilter: true,
   };
-
   if (props.value !== undefined) inputProps.defaultValue = props.value;
-
   let parentAllStyles = isHalf
     ? {
         ...{
@@ -77,11 +71,15 @@ export const CommonSelect = props => {
       }
     : {
         ...props.parentStyle,
-        ...{textAlign: 'right'}, // zIndex: 5,
+        ...{
+          textAlign: 'right',
+        }, // zIndex: 5,
       };
   if (props.parentStyle !== undefined)
-    parentAllStyles = {...parentAllStyles, ...props.parentStyle};
-
+    parentAllStyles = {
+      ...parentAllStyles,
+      ...props.parentStyle,
+    };
   parentAllStyles = calcInputWidth(20, isHalf, parentAllStyles);
   return (
     <MyView className={'myView mySelect'} style={parentAllStyles}>
@@ -90,8 +88,15 @@ export const CommonSelect = props => {
         <SubInputText
           style={
             props.style.color !== undefined
-              ? {width: '100%', height: '100%', color: props.style.color}
-              : {width: '100%', height: '100%'}
+              ? {
+                  width: '100%',
+                  height: '100%',
+                  color: props.style.color,
+                }
+              : {
+                  width: '100%',
+                  height: '100%',
+                }
           }>
           {props.subText}
         </SubInputText>

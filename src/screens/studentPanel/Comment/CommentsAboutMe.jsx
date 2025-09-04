@@ -1,22 +1,21 @@
 import React, {useMemo, useState} from 'react';
-import commonTranslator from '../../../translator/Common';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
+import commonTranslator from '../../../translator/common';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
 import {
   CommonButton,
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../styles/Common/JustBottomBorderDatePicker';
-import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import {aboutMeColumns} from './TableStructure';
-import {LargePopUp} from '../../../styles/Common/PopUp';
+} from '../../../styles/CommonComponents.jsx';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker';
+import CommonDataTable from '../../../styles/common/CommonDataTable';
+import {aboutMeColumns} from './tableStructure';
+import {LargePopUp} from '../../../styles/common/PopUp';
 import {useEffectOnce} from 'usehooks-ts';
-import {showSuccess} from '../../../services/Utility';
-
+import {showSuccess} from '../../../services/utility';
 function CommentsAboutMe(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [
@@ -27,18 +26,28 @@ function CommentsAboutMe(props) {
   const [comments, setComments] = useState();
   const [showOp, setShowOp] = useState(false);
   const [selectedRow, setSelectedRow] = useState();
-
   const [filter, setFilter] = useState({
     section: 'all',
   });
-
   const [sectionValues] = useMemo(
     () => [
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'teach', item: commonTranslator.teach},
-        {id: 'content', item: commonTranslator.contents},
-        {id: 'advice', item: commonTranslator.advisor},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'teach',
+          item: commonTranslator.teach,
+        },
+        {
+          id: 'content',
+          item: commonTranslator.contents,
+        },
+        {
+          id: 'advice',
+          item: commonTranslator.advisor,
+        },
       ],
     ],
     [],
@@ -47,14 +56,14 @@ function CommentsAboutMe(props) {
     setShowOp(true);
     setSelectedRow(row);
   };
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     const query = new URLSearchParams();
     if (filter.section !== 'all') query.append('section', filter.section);
     if (filter.from) query.append('from', filter.from);
     if (filter.to) query.append('to', filter.to);
-
     Promise.all([
       generalRequest(
         routes.getCommentsAboutMe + '?' + query.toString(),
@@ -64,26 +73,27 @@ function CommentsAboutMe(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
       }
-
       setComments(res[0]);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
-
   useEffectOnce(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <CommonWebBox>
-      <PhoneView style={{gap: '10px'}}>
+      <PhoneView
+        style={{
+          gap: '10px',
+        }}>
         <JustBottomBorderSelect
           values={sectionValues}
           setter={val =>
@@ -146,7 +156,10 @@ function CommentsAboutMe(props) {
             setSelectedRow(undefined);
           }}>
           <SimpleText text={selectedRow.comment} />
-          <PhoneView style={{gap: '10px'}}>
+          <PhoneView
+            style={{
+              gap: '10px',
+            }}>
             <CommonButton
               theme={'transparent'}
               title={
@@ -155,7 +168,9 @@ function CommentsAboutMe(props) {
                   : 'انتخاب به عنوان نظر منتخب'
               }
               onPress={async () => {
-                dispatch({loading: true});
+                dispatch({
+                  loading: true,
+                });
                 const res = await generalRequest(
                   routes.toggleCommentMarkedStatus + selectedRow.id,
                   'put',
@@ -163,7 +178,9 @@ function CommentsAboutMe(props) {
                   undefined,
                   state.token,
                 );
-                dispatch({loading: false});
+                dispatch({
+                  loading: false,
+                });
                 if (res != null) {
                   setComments(
                     comments.map(e => {
@@ -184,5 +201,4 @@ function CommentsAboutMe(props) {
     </CommonWebBox>
   );
 }
-
 export default CommentsAboutMe;

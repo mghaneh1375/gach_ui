@@ -4,9 +4,9 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
-import vars from '../../../../styles/root';
+} from '@/styles';
+import {FontIcon} from '../../../../styles/common/FontIcon';
+import vars from '@/styles/root';
 import {
   styleFontSize25,
   styleFontSize30,
@@ -14,7 +14,6 @@ import {
   styleMarginRight,
   styleSubText,
 } from './style';
-
 function DashboardCard({
   theme,
   text,
@@ -45,7 +44,10 @@ function DashboardCard({
       style={{
         ...styleJustifyContentCenter,
       }}>
-      <PhoneView style={{justifyContent: 'space-between'}}>
+      <PhoneView
+        style={{
+          justifyContent: 'space-between',
+        }}>
         <SimpleText
           // fontSize={fontSize !== undefined ? fontSize : 25}
           style={{
@@ -63,7 +65,10 @@ function DashboardCard({
           <SimpleText
             style={{
               ...styleFontSize25,
-              ...{color: vars.WHITE, width: 'max-content'},
+              ...{
+                color: vars.WHITE,
+                width: 'max-content',
+              },
             }}
             text={subtext}
           />
@@ -71,12 +76,23 @@ function DashboardCard({
       </PhoneView>
       {icon !== undefined && (
         <MyView>
-          <EqualTwoTextInputs style={{alignItems: 'end'}}>
+          <EqualTwoTextInputs
+            style={{
+              alignItems: 'end',
+            }}>
             <SimpleText
               style={
                 subFontSize !== undefined
-                  ? {...{fontSize: subFontSize}, ...styleSubText}
-                  : {...styleFontSize30, ...styleSubText}
+                  ? {
+                      ...{
+                        fontSize: subFontSize,
+                      },
+                      ...styleSubText,
+                    }
+                  : {
+                      ...styleFontSize30,
+                      ...styleSubText,
+                    }
               }
               text={subtext}
             />
@@ -93,8 +109,16 @@ function DashboardCard({
         <SimpleText
           style={
             subFontSize !== undefined
-              ? {...{fontSize: subFontSize}, ...styleSubText}
-              : {...styleFontSize30, ...styleSubText}
+              ? {
+                  ...{
+                    fontSize: subFontSize,
+                  },
+                  ...styleSubText,
+                }
+              : {
+                  ...styleFontSize30,
+                  ...styleSubText,
+                }
           }
           text={subtext}
         />
@@ -102,5 +126,4 @@ function DashboardCard({
     </CommonWebBox>
   );
 }
-
 export default DashboardCard;

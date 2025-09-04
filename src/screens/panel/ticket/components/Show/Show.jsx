@@ -1,17 +1,15 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView, MyView} from '../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import translator from '../../Translator';
-import commonTranslator from '../../../../../translator/Common';
-import {sectionKeyVals, priorityKeyVals} from '../KeyVals';
-import {fetchDetail} from './Utility';
+import {CommonWebBox, PhoneView, MyView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import translator from '../../translator';
+import commonTranslator from '@/translator/common';
+import {sectionKeyVals, priorityKeyVals} from '../keyVals';
+import {fetchDetail} from './utility';
 import Chat from './Chat';
 import Add from './Add';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import {styles} from '@/styles/common/styles';
 function Show(props) {
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (!isWorking && props.ticket.chats === undefined) {
       setIsWorking(true);
@@ -28,14 +26,11 @@ function Show(props) {
       });
     }
   }, [isWorking, props]);
-
   const [studentPic, setStudentPic] = useState();
-
   React.useEffect(() => {
     if (props.isAdmin) setStudentPic(props.ticket.student.pic);
     else setStudentPic(props.user.user.pic);
   }, [props.ticket, props.isAdmin, props.user]);
-
   return (
     <MyView>
       {props.ticket.chats !== undefined && (
@@ -46,7 +41,10 @@ function Show(props) {
             onBackClick={() => props.setMode('list')}
             child={
               <MyView>
-                <PhoneView style={{...styles.gap10}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                  }}>
                   {props.isAdmin && (
                     <JustBottomBorderTextInput
                       value={props.ticket.student.name}
@@ -131,5 +129,4 @@ function Show(props) {
     </MyView>
   );
 }
-
 export default Show;

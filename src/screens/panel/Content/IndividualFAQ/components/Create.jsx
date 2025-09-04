@@ -1,17 +1,14 @@
-import {CommonWebBox} from '../../../../../styles/Common';
-import Translator from '../../Translate';
-import {contentContext, dispatchContentContext} from '../../Components/Context';
+import {CommonWebBox} from '@/styles';
+import Translator from '../../translate';
+import {contentContext, dispatchContentContext} from '../../components/Context';
 import React from 'react';
 import Card from './Card';
-
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),
     React.useContext(dispatchContentContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   return (
     <CommonWebBox
       header={Translator.manageFAQ}
@@ -23,7 +20,9 @@ function Create(props) {
         onAdd={data => {
           const tmp = state.allFaq;
           tmp.push(data);
-          dispatch({allFaq: tmp});
+          dispatch({
+            allFaq: tmp,
+          });
           props.setMode('list');
         }}
         id={props.packageId}
@@ -32,5 +31,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

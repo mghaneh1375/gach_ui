@@ -26,15 +26,15 @@ exports.basketBox =
   exports.styleYellowBox =
   exports.styleCard =
     void 0;
-
-var _Utility = require('../../../../services/Utility');
-
+var _Utility = require('../../../../services/utility');
 var _root = _interopRequireDefault(require('../../../../styles/root'));
-
 function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {default: obj};
+  return obj && obj.__esModule
+    ? obj
+    : {
+        default: obj,
+      };
 }
-
 var width = (0, _Utility.getWidthHeight)()[0];
 var styleCard = {
   padding: 0,

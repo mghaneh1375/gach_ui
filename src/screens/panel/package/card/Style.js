@@ -1,8 +1,6 @@
-import {getWidthHeight} from '../../../../services/Utility';
-import vars from '../../../../styles/root';
-
+import {getWidthHeight} from '../../../../services/utility';
+import vars from '@/styles/root';
 const width = getWidthHeight()[0];
-
 export const styleCard = {
   padding: 0,
   width: width > 768 ? 390 : '100%',
@@ -12,7 +10,6 @@ export const styleCard100Percent = {
   width: width > 900 ? '50%' : '100%',
   borderRadius: 10,
 };
-
 export const styleYellowBox = {
   width: 'calc(100% - 30px)',
   marginLeft: 15,
@@ -48,9 +45,12 @@ export const styleDigest = {
   width: 'calc(100% - 30px)',
   marginRight: 20,
 };
-export const styleFontSize13 = {fontSize: 13};
-export const styleFontSize17 = {fontSize: 17};
-
+export const styleFontSize13 = {
+  fontSize: 13,
+};
+export const styleFontSize17 = {
+  fontSize: 17,
+};
 export const styleItemsGrandParent = {
   padding: 10,
   marginTop: 5,
@@ -71,7 +71,6 @@ export const styleItem = {
 export const styleFullItem = {
   width: '100%',
 };
-
 export const styleTinyTextIcon = {
   right: -22,
   top: 15,
@@ -119,7 +118,6 @@ export const styleTextDecorRed = {
   textDecoration: 'line-through',
   textDecorationColor: 'red',
 };
-
 export const basketBox = {
   position: 'fixed',
   bottom: 0,
@@ -129,7 +127,6 @@ export const basketBox = {
   paddingBottom: 0,
   zIndex: 3,
 };
-
 export const basketBoxInPhone = {
   position: 'fixed',
   bottom: 0,

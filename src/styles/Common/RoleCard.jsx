@@ -1,9 +1,6 @@
-import React from 'react';
-
-import vars from './../root';
 import {Image, Pressable} from 'react-native';
-import {BlueTextInline, MyView} from '../Common';
-
+import {BlueTextInline, MyView} from '../CommonComponents';
+import vars from './../root';
 export const RoleCard = props => (
   <Pressable
     onPress={props.onPress}
@@ -11,7 +8,10 @@ export const RoleCard = props => (
       {
         backgroundColor: '#FFFFFFD6',
         shadowColor: '#757575',
-        shadowOffset: {width: 0, height: 6},
+        shadowOffset: {
+          width: 0,
+          height: 6,
+        },
         shadowRadius: 18,
         elevation: 3,
         width: '46%',
@@ -22,7 +22,11 @@ export const RoleCard = props => (
         direction: 'row-reverse',
       },
       props.style !== undefined ? props.style : {},
-      pressed ? {opacity: 0.9} : {},
+      pressed
+        ? {
+            opacity: 0.9,
+          }
+        : {},
     ]}>
     <MyView>
       <Image

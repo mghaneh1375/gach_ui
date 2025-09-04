@@ -11,31 +11,29 @@ import {
 import React, {useEffect, useState} from 'react';
 import {Image} from 'react-native';
 import {useParams} from 'react-router';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import QuizItemCard from '../../../components/web/QuizItemCard';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import QuizItemCard from '@/components/web/QuizItemCard';
 import {
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import ContentCard from '../../general/Packages/components/Card';
-import CommentCard from '../../../components/web/Comment/Card';
-import FinancePlan from '../../general/Advisors/FinancePlan';
-import Schedule from '../../general/Teachers/Schedule';
-
+import ContentCard from '../../general/packages/components/Card';
+import CommentCard from '../../../components/web/comment/Card';
+import FinancePlan from '../../general/advisors/FinancePlan';
+import Schedule from '../../general/teachers/Schedule';
 function TeacherProfile(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const teacherId = useParams().teacherId;
   const [state, dispatch] = useGlobalState();
   const [teacherPackages, setTeacherPackages] = useState();
@@ -48,9 +46,10 @@ function TeacherProfile(props) {
   const [showComments, setShowComments] = useState(false);
   const [showAdviceOffers, setShowAdviceOffers] = useState(false);
   const [showTeachSchedules, setShowTeachSchedules] = useState(false);
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getTeacherProfile + teacherId,
@@ -60,20 +59,20 @@ function TeacherProfile(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) props.navigate('/');
       setInfo(res[0]);
       setPic(res[0].pic);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teacherId]);
-
   useEffect(() => {
     if (teacherId === undefined) props.navigate('/');
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teacherId]);
-
   return (
     <>
       <CommonWebBox
@@ -104,7 +103,15 @@ function TeacherProfile(props) {
             </EqualTwoTextInputs>
 
             <PhoneView
-              style={state.isInPhone ? {...styles.gap15} : {...styles.gap100}}>
+              style={
+                state.isInPhone
+                  ? {
+                      ...styles.gap15,
+                    }
+                  : {
+                      ...styles.gap100,
+                    }
+              }>
               <PhoneView
                 style={{
                   maxWidth: state.isInPhone ? '100%' : '520px',
@@ -138,7 +145,11 @@ function TeacherProfile(props) {
                     ...styles.gap15,
                     ...styles.marginTop20,
                   }}>
-                  <MyView style={{marginTop: -10, ...styles.gap5}}>
+                  <MyView
+                    style={{
+                      marginTop: -10,
+                      ...styles.gap5,
+                    }}>
                     {info.age !== undefined && (
                       <QuizItemCard
                         maxWidth={350}
@@ -388,7 +399,9 @@ function TeacherProfile(props) {
                     info.teachVideoLink !== '' && (
                       <MyView>
                         <a
-                          style={{fontFamily: 'IRANSans'}}
+                          style={{
+                            fontFamily: 'IRANSans',
+                          }}
                           target="_blank"
                           href={info.teachVideoLink}>
                           معرفی ویدیویی برای تدریس
@@ -399,7 +412,9 @@ function TeacherProfile(props) {
                     info.adviceVideoLink !== '' && (
                       <MyView>
                         <a
-                          style={{fontFamily: 'IRANSans'}}
+                          style={{
+                            fontFamily: 'IRANSans',
+                          }}
                           target="_blank"
                           href={info.adviceVideoLink}>
                           معرفی ویدیویی برای مشاور
@@ -413,15 +428,26 @@ function TeacherProfile(props) {
             {info.tags && info.tags.length > 0 && (
               <>
                 <SimpleText
-                  style={{...styles.dark_blue_color, ...styles.marginTop10}}
+                  style={{
+                    ...styles.dark_blue_color,
+                    ...styles.marginTop10,
+                  }}
                   text={'تگ\u200cها'}
                 />
-                <PhoneView style={{...styles.gap10, ...{marginTop: -10}}}>
+                <PhoneView
+                  style={{
+                    ...styles.gap10,
+                    ...{
+                      marginTop: -10,
+                    },
+                  }}>
                   {info.tags.map((e, index) => {
                     return (
                       <SimpleText
                         key={index}
-                        style={{...styles.colorDarkBlue}}
+                        style={{
+                          ...styles.colorDarkBlue,
+                        }}
                         text={'#' + e}
                       />
                     );
@@ -442,7 +468,9 @@ function TeacherProfile(props) {
                   return;
                 }
                 if (teacherPackages === undefined) {
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.getTeacherContents + teacherId,
                     'get',
@@ -450,7 +478,9 @@ function TeacherProfile(props) {
                     'data',
                     state.token,
                   );
-                  dispatch({loading: false});
+                  dispatch({
+                    loading: false,
+                  });
                   if (res !== null) setTeacherPackages(res);
                 }
                 setShowContents(true);
@@ -461,7 +491,10 @@ function TeacherProfile(props) {
           }
           header={'معرفی بسته\u200cهای آموزشی'}>
           {showContents && (
-            <PhoneView style={{...styles.gap10}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+              }}>
               {teacherPackages &&
                 teacherPackages.map((elem, index) => {
                   return (
@@ -488,7 +521,9 @@ function TeacherProfile(props) {
                   return;
                 }
                 if (comments === undefined) {
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.getTeacherMarkedComments + teacherId,
                     'get',
@@ -496,7 +531,9 @@ function TeacherProfile(props) {
                     'data',
                     state.token,
                   );
-                  dispatch({loading: false});
+                  dispatch({
+                    loading: false,
+                  });
                   if (res === null) return;
                   setComments(res);
                 }
@@ -508,14 +545,22 @@ function TeacherProfile(props) {
           }
           header={'نظرات منتخب'}>
           {showComments && (
-            <PhoneView style={{...styles.gap10}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+              }}>
               {comments &&
                 comments.map((elem, index) => {
                   return (
                     <MyView
-                      style={{...styles.alignItemsCenter, ...styles.gap10}}>
+                      style={{
+                        ...styles.alignItemsCenter,
+                        ...styles.gap10,
+                      }}>
                       <SimpleText
-                        style={{...styles.BlueBold}}
+                        style={{
+                          ...styles.BlueBold,
+                        }}
                         text={elem.ref}
                       />
                       <CommentCard comment={elem} key={index} />
@@ -536,7 +581,9 @@ function TeacherProfile(props) {
                   return;
                 }
                 if (adviceOffers === undefined) {
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.getMyFinancePlans + teacherId,
                     'get',
@@ -544,7 +591,9 @@ function TeacherProfile(props) {
                     'data',
                     state.token,
                   );
-                  dispatch({loading: false});
+                  dispatch({
+                    loading: false,
+                  });
                   if (res === null) return;
                   setAdviceOffers(res.data);
                 }
@@ -556,7 +605,10 @@ function TeacherProfile(props) {
           }
           header={'برنامه\u200cهای مشاوره'}>
           {showAdviceOffers && (
-            <PhoneView style={{...styles.gap10}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+              }}>
               {adviceOffers &&
                 adviceOffers.map((elem, index) => {
                   return (
@@ -581,7 +633,9 @@ function TeacherProfile(props) {
                   return;
                 }
                 if (teachSchedules === undefined) {
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.getTeacherSchedules + teacherId,
                     'get',
@@ -589,7 +643,9 @@ function TeacherProfile(props) {
                     'data',
                     state.token,
                   );
-                  dispatch({loading: false});
+                  dispatch({
+                    loading: false,
+                  });
                   if (res === null) return;
                   setTeachSchedules(res);
                 }
@@ -601,7 +657,10 @@ function TeacherProfile(props) {
           }
           header={'برنامه\u200cهای تدریس'}>
           {showTeachSchedules && (
-            <PhoneView style={{...styles.gap10}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+              }}>
               {teachSchedules &&
                 teachSchedules.map((elem, index) => {
                   return (
@@ -619,5 +678,4 @@ function TeacherProfile(props) {
     </>
   );
 }
-
 export default TeacherProfile;

@@ -1,8 +1,7 @@
 import {useMemo} from 'react';
-import {formatPrice} from '../../../services/Utility';
-import {CommonWebBox, SimpleText} from '../../../styles/Common';
+import {formatPrice} from '@/services/utility';
+import {CommonWebBox, SimpleText} from '../../../styles/CommonComponents';
 import vars from '../../../styles/root';
-
 function ExchangeOffer(props) {
   const isOff = useMemo(() => {
     return props.offer.section !== 'تبدیل به پول';
@@ -11,7 +10,11 @@ function ExchangeOffer(props) {
   return (
     <CommonWebBox>
       <SimpleText
-        style={{color: vars.DARK_BLUE, fontWeight: 'bold', fontSize: '16px'}}
+        style={{
+          color: vars.DARK_BLUE,
+          fontWeight: 'bold',
+          fontSize: '16px',
+        }}
         text={
           isOff ? 'تخفیف در قسمت ' + props.offer.section : props.offer.section
         }
@@ -52,5 +55,4 @@ function ExchangeOffer(props) {
     </CommonWebBox>
   );
 }
-
 export default ExchangeOffer;

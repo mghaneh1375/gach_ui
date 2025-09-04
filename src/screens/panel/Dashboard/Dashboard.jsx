@@ -1,30 +1,33 @@
 import {faCog} from '@fortawesome/free-solid-svg-icons';
 import React, {useMemo, useState} from 'react';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {CommonWebBox, MyView, PhoneView} from '../../../styles/Common';
-import {FontIcon} from '../../../styles/Common/FontIcon';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {
+  CommonWebBox,
+  MyView,
+  PhoneView,
+} from '../../../styles/CommonComponents.jsx';
+import {FontIcon} from '../../../styles/common/FontIcon';
 import vars from '../../../styles/root';
-import DashboardCard from '../../studentPanel/dashboard/DashboardCard/DashboardCard';
+import DashboardCard from '../../studentPanel/dashboard/dashboardCard/DashboardCard';
 import Config from './components/Config';
 import {itemsIcon, itemsUrl} from './components/items';
 import {Translate} from './components/translate';
 import {useNavigate} from 'react-router';
-
 function Dashboard() {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [data, setData] = useState();
   const [mode, setMode] = useState('dashboard');
   const [state, dispatch] = useGlobalState();
   const navigate = useNavigate();
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.adminDashboardInfo,
@@ -34,8 +37,9 @@ function Dashboard() {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -43,7 +47,6 @@ function Dashboard() {
       setData(res[0]);
     });
   }, [navigate, state.token, dispatch]);
-
   const [colors, icons, urls] = useMemo(
     () => [
       [vars.YELLOW, vars.GREEN, vars.ORANGE_RED, vars.DARK_BLUE],
@@ -52,7 +55,6 @@ function Dashboard() {
     ],
     [],
   );
-
   return (
     <MyView>
       <CommonWebBox
@@ -96,5 +98,4 @@ function Dashboard() {
     </MyView>
   );
 }
-
 export default Dashboard;

@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView, MyView} from '../../../../styles/Common';
-import Translate from '../Translate';
-import commonTranslator from '../../../../translator/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {changeText} from '../../../../services/Utility';
-
+import {CommonWebBox, PhoneView, MyView} from '@/styles';
+import Translate from '../translate';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {changeText} from '../../../../services/utility';
 function Create(props) {
   const [name, setName] = useState();
   const [lastname, setLastname] = useState();
@@ -13,7 +12,6 @@ function Create(props) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [rPassword, setRPassword] = useState();
-
   return (
     <CommonWebBox
       header={Translate.addAll}
@@ -21,7 +19,10 @@ function Create(props) {
       backBtn={true}
       onAddClick={() => props.setMode('addAll')}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         <JustBottomBorderTextInput
           onChangeText={text => changeText(text, setName)}
           placeholder={commonTranslator.name}
@@ -86,5 +87,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

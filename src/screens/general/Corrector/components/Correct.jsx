@@ -1,7 +1,7 @@
 import React from 'react';
-import {MyView} from '../../../../styles/Common';
-import Question from './Question';
 
+import Question from './Question';
+import {MyView} from '@/styles';
 function Correct(props) {
   return (
     <MyView>
@@ -9,5 +9,4 @@ function Correct(props) {
     </MyView>
   );
 }
-
 export default Correct;

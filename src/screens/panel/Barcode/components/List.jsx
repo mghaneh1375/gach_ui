@@ -1,5 +1,4 @@
 import {CommonWebBox} from '../../../../styles/Common';
-
 function List(props) {
   return (
     <CommonWebBox
@@ -9,5 +8,4 @@ function List(props) {
     />
   );
 }
-
 export default List;

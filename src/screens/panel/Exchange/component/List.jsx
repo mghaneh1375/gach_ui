@@ -1,33 +1,28 @@
 import React, {useEffect, useState} from 'react';
 import {dispatchExchangeContext, exchangeContext} from './Context';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {CommonWebBox} from '../../../../styles/Common';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {CommonWebBox} from '@/styles';
 import translator from './translator';
-import {showSuccess} from '../../../../services/Utility';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
+import {showSuccess} from '../../../../services/utility';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
 import columns from './columns';
 import Ops from './Ops';
-
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedId, setSelectedId] = useState();
-
   const useGlobalState = () => [
     React.useContext(exchangeContext),
     React.useContext(dispatchExchangeContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const handleOp = (idx, row) => {
     setSelectedId(row.id);
     toggleShowOpPopUp();
   };
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -41,16 +36,16 @@ function List(props) {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] == null) props.navigate('/');
-      dispatch({exchanges: res[0]});
+      dispatch({
+        exchanges: res[0],
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     if (state.exchanges === undefined) fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.exchanges]);
-
   return (
     <CommonWebBox
       header={translator.exchanges}
@@ -84,5 +79,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

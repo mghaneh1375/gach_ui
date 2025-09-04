@@ -1,23 +1,16 @@
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../../styles/Common';
-import Translate from '../Translator';
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
+import Translate from '../translator';
 import React, {useState} from 'react';
-import Ops from './Ops/Ops';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import columns from './AuthorTableStructure';
-import {routes} from '../../../../../API/APIRoutes';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../../translator/Common';
-import {changeText, removeItems} from '../../../../../services/Utility';
-
+import Ops from './ops/Ops';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import columns from './authorTableStructure';
+import {routes} from '@/api/apiRoutes';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '@/translator/common';
+import {changeText, removeItems} from '../../../../../services/utility';
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [tag, setTag] = useState();
-
   const changeMode = newMode => {
     props.setMode(newMode);
   };
@@ -30,7 +23,6 @@ function List(props) {
     setSelectedUserId(props.authors[idx].id);
     toggleShowOpPopUp();
   };
-
   return (
     <CommonWebBox
       header={Translate.author}
@@ -54,7 +46,10 @@ function List(props) {
         )}
       </MyView>
       <MyView>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderTextInput
             placeholder={commonTranslator.tag}
             subText={commonTranslator.tag}
@@ -79,5 +74,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

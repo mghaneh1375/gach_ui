@@ -1,7 +1,6 @@
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
-import {showSuccess} from '../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
+import {showSuccess} from '../../../services/utility';
 export const getAllStudent = async (token, schoolId = undefined) => {
   return await generalRequest(
     schoolId === undefined
@@ -13,7 +12,6 @@ export const getAllStudent = async (token, schoolId = undefined) => {
     token,
   );
 };
-
 export const addStudents = async (data, token) => {
   const res = await generalRequest(
     routes.addStudents,
@@ -23,6 +21,5 @@ export const addStudents = async (data, token) => {
     token,
   );
   if (res !== null) showSuccess();
-
   return res;
 };

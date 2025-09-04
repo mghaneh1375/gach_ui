@@ -1,10 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {PhoneView} from '../../../styles/Common';
-import {routes} from '../../../API/APIRoutes';
-import {generalRequest} from '../../../API/Utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {PhoneView} from '../../../styles/CommonComponents.jsx';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../api/utility';
 import Card from './Card';
-
 function Badge(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -12,9 +11,10 @@ function Badge(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [badges, setBadges] = useState();
-
   const fetchData = useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getAllBadgesForPublic,
@@ -24,7 +24,9 @@ function Badge(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         props.navigate('/');
         return;
@@ -33,12 +35,10 @@ function Badge(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <PhoneView
       style={{
@@ -54,5 +54,4 @@ function Badge(props) {
     </PhoneView>
   );
 }
-
 export default Badge;

@@ -1,52 +1,42 @@
 import React, {useState, useRef} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {CV_BASE_URL, generalRequest} from '../../../../API/Utility';
+import {routes} from '@/api/apiRoutes';
+import {CV_BASE_URL, generalRequest} from '@/api/utility';
 import UploadFile from '../../../../components/web/UploadFile';
 import {
   formatPrice,
   showError,
   showSuccess,
-} from '../../../../services/Utility';
-import {
-  CommonButton,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import translator from '../../../panel/quiz/Translator';
+} from '../../../../services/utility';
+import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import translator from '../../../panel/quiz/translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
-import commonTranslator from '../../../../translator/Common';
+import commonTranslator from '@/translator/common';
 import {
   createTaraz,
   generateQuestionPDF,
-} from '../../../panel/quiz/components/Utility';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {setCacheItem} from '../../../../API/User';
-import SuccessTransaction from '../../../../components/web/SuccessTransaction/SuccessTransaction';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import CV from '../../../panel/quiz/components/CV/CV';
-import Ranking from './Ranking/Ranking';
+} from '../../../panel/quiz/components/utility';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {setCacheItem} from '../../../../api/user';
+import SuccessTransaction from '../../../../components/web/successTransaction/SuccessTransaction';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import CV from '../../../panel/quiz/components/cv/CV';
+import Ranking from './ranking/Ranking';
 import {QuizProvider} from '../../../panel/quiz/components/Context';
-
 const Ops = props => {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
-
   const [showUploadPane, setShowUploadPane] = useState(false);
   const [state, dispatch] = useGlobalState();
-
   const [showChoosePageTheme, setShowChoosePageTheme] = useState(false);
-
   const downloadAnswerSheet = async () => {
     if (theme === undefined || size === undefined) {
       showError(commonTranslator.pleaseFillAllFields);
       return;
     }
     props.setLoading(true);
-
     const res = await generalRequest(
       CV_BASE_URL +
         'generateSchoolAnswerSheet/' +
@@ -60,9 +50,7 @@ const Ops = props => {
       'data',
       props.token,
     );
-
     props.setLoading(false);
-
     if (res != null) {
       fetch(res, {
         method: 'GET',
@@ -74,20 +62,17 @@ const Ops = props => {
           const link = document.createElement('a');
           link.href = url;
           link.setAttribute('download', 'پاسخنامه.pdf');
-
           document.body.appendChild(link);
           link.click();
           link.parentNode.removeChild(link);
         });
     }
   };
-
   const createTarazLocal = async () => {
     props.setLoading(true);
     await createTaraz(state.selectedQuiz.id, 'school', props.token);
     props.setLoading(false);
   };
-
   const changeMode = newMode => {
     if (
       newMode === 'update' &&
@@ -105,7 +90,10 @@ const Ops = props => {
       ]).then(res => {
         props.setLoading(false);
         if (res[0] !== null) {
-          dispatch({selectedQuiz: res[0], needUpdate: true});
+          dispatch({
+            selectedQuiz: res[0],
+            needUpdate: true,
+          });
           props.setMode(newMode);
           props.toggleShowPopUp();
         }
@@ -115,7 +103,6 @@ const Ops = props => {
       props.toggleShowPopUp();
     }
   };
-
   const [showFinalizeMsg, setShowFinalizeMsg] = useState(false);
   const [offcode, setOffcode] = useState();
   const [priceInfo, setPriceInfo] = useState();
@@ -123,7 +110,6 @@ const Ops = props => {
   const ref = useRef();
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [transactionId, setTransactionId] = useState();
-
   const toggleVisibility = () => {
     props.setLoading(true);
     Promise.all([
@@ -140,45 +126,58 @@ const Ops = props => {
       props.setLoading(false);
       if (res[0] !== null) {
         state.selectedQuiz.visibility = !state.selectedQuiz.visibility;
-        dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+        dispatch({
+          selectedQuiz: state.selectedQuiz,
+          needUpdate: true,
+        });
         showSuccess();
       }
     });
   };
-
   React.useEffect(() => {
     if (refId === undefined) return;
-
     setTimeout(() => {
       ref.current.submit();
     }, 1000);
   }, [refId]);
-
   const themes = [
-    {item: 'قرمز', id: 'RED'},
-    {item: 'آبی ', id: 'BLUE'},
-    {item: 'سبز', id: 'GREEN'},
-    {item: 'سفید', id: 'WHITE'},
+    {
+      item: 'قرمز',
+      id: 'RED',
+    },
+    {
+      item: 'آبی ',
+      id: 'BLUE',
+    },
+    {
+      item: 'سبز',
+      id: 'GREEN',
+    },
+    {
+      item: 'سفید',
+      id: 'WHITE',
+    },
   ];
-
   const sizes = [
-    {item: 'A5', id: 'A5'},
-    {item: 'A4', id: 'A4'},
+    {
+      item: 'A5',
+      id: 'A5',
+    },
+    {
+      item: 'A4',
+      id: 'A4',
+    },
   ];
-
   const [theme, setTheme] = useState();
   const [size, setSize] = useState();
   const [showCV, setShowCV] = useState(false);
   const [showRanking, setShowRanking] = useState(false);
-
   React.useEffect(() => {
     props.setShowList(!showCV);
   }, [showCV, props]);
-
   React.useEffect(() => {
     props.setShowList(!showRanking);
   }, [showRanking, props]);
-
   return (
     <>
       {showRanking && (
@@ -251,7 +250,11 @@ const Ops = props => {
                 const res = await generalRequest(
                   routes.finalizeSchoolQuiz + state.selectedQuiz.id,
                   'post',
-                  offcode === undefined ? undefined : {off: offcode},
+                  offcode === undefined
+                    ? undefined
+                    : {
+                        off: offcode,
+                      },
                   ['action', 'refId', 'transactionId'],
                   props.token,
                 );
@@ -435,7 +438,6 @@ const Ops = props => {
                             'school',
                             props.token,
                           );
-
                           props.setLoading(false);
                         }}
                         title={translator.generateQuestionPDF}
@@ -545,7 +547,9 @@ const Ops = props => {
           setResult={res => {
             if (res) {
               state.selectedQuiz.cropped = false;
-              dispatch({selectedQuiz: state.selectedQuiz});
+              dispatch({
+                selectedQuiz: state.selectedQuiz,
+              });
               showSuccess();
               setShowUploadPane(false);
             }
@@ -564,5 +568,4 @@ const Ops = props => {
     </>
   );
 };
-
 export default Ops;

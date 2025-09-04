@@ -6,22 +6,33 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
-import Translate from './Translate';
-import commonTranslator from '../../../translator/Common';
-
+} from '../../../styles/CommonComponents';
+import {styles} from '../../../styles/common/styles';
+import Translate from './translate';
+import commonTranslator from '../../../translator/common';
 function SuccessTransaction(props) {
   return (
     <CommonWebBox header={Translate.backSuccessTransaction}>
-      <MyView style={{...styles.marginRight25, ...styles.gap10}}>
-        <MyView style={{...styles.flexDirectionRow}}>
+      <MyView
+        style={{
+          ...styles.marginRight25,
+          ...styles.gap10,
+        }}>
+        <MyView
+          style={{
+            ...styles.flexDirectionRow,
+          }}>
           <Image
-            style={{...styles.symbol}}
-            source={require('../../../images/PngSymbol/1F600@2x (2).png')}
+            style={{
+              ...styles.symbol,
+            }}
+            source={require('../../../images/pngSymbol/1F600@2x (2).png')}
           />
         </MyView>
-        <MyView style={{...styles.gap15}}>
+        <MyView
+          style={{
+            ...styles.gap15,
+          }}>
           <SimpleText
             style={{
               ...styles.colorGreen,
@@ -32,13 +43,18 @@ function SuccessTransaction(props) {
           />
           {props.refCode !== undefined && (
             <SimpleText
-              style={{...styles.BlueBold, ...styles.marginTop15}}
+              style={{
+                ...styles.BlueBold,
+                ...styles.marginTop15,
+              }}
               text={Translate.refCode + ' : ' + props.refCode}
             />
           )}
           {props.transactionId !== undefined && (
             <CommonButton
-              style={{justifyContent: 'flex-start'}}
+              style={{
+                justifyContent: 'flex-start',
+              }}
               title={Translate.printRecp}
               onPress={() =>
                 (window.location.href = '/invoice/' + props.transactionId)
@@ -115,5 +131,4 @@ function SuccessTransaction(props) {
     </CommonWebBox>
   );
 }
-
 export default SuccessTransaction;

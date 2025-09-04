@@ -1,31 +1,26 @@
 import React, {useState} from 'react';
-import {CommonWebBox} from '../../../../styles/Common';
+import {CommonWebBox} from '@/styles';
 import {questionReportContext, dispatchQuestionReportContext} from './Context';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {reportColumns} from './TableStructure';
-import commonTranslator from '../../../../translator/Common';
-import translator from '../Translate';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import {reportColumns} from './tableStructure';
+import commonTranslator from '@/translator/common';
+import translator from '../translate';
 function Report(props) {
   const useGlobalState = () => [
     React.useContext(questionReportContext),
     React.useContext(dispatchQuestionReportContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
-
   React.useEffect(() => {
     if (state.selectedTag.reports !== undefined)
       setData(state.selectedTag.reports);
   }, [state.selectedTag.reports]);
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getQuestionReportReports + state.selectedTag.id,
@@ -36,22 +31,21 @@ function Report(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
       state.selectedTag.reports = res[0];
-      dispatch({selectedTag: state.selectedTag, needUpdate: true});
+      dispatch({
+        selectedTag: state.selectedTag,
+        needUpdate: true,
+      });
     });
   }, [props, state.selectedTag, dispatch]);
-
   useEffectOnce(() => {
     if (state.selectedTag.reports !== undefined) return;
     fetchData();
   }, [state.tags, fetchData]);
-
   return (
     <CommonWebBox
       header={commonTranslator.report}
@@ -75,7 +69,10 @@ function Report(props) {
                   },
                 );
                 state.selectedTag.unseenReportsCount -= res.doneIds.length;
-                dispatch({selectedTag: state.selectedTag, needUpdate: true});
+                dispatch({
+                  selectedTag: state.selectedTag,
+                  needUpdate: true,
+                });
               },
             },
           ]}
@@ -88,5 +85,4 @@ function Report(props) {
     </CommonWebBox>
   );
 }
-
 export default Report;

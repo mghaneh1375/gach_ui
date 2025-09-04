@@ -6,20 +6,20 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import vars from '../../../../styles/root';
+} from '@/styles';
+import vars from '@/styles/root';
 import {
   basketBox,
   basketBoxInPhone,
   styleTitle,
   styleYellowBox,
-} from '../../../panel/package/card/Style';
-import Translate from '../Translate';
+} from '../../../panel/package/card/style';
+import Translate from '../translate';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
-import {doQuiz, reviewQuiz} from './Utility';
-import commonTranslator from '../../../../translator/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
+import {doQuiz, reviewQuiz} from './utility';
+import commonTranslator from '@/translator/common';
+import {styles} from '../../../../styles/common/styles';
+import {FontIcon} from '../../../../styles/common/FontIcon';
 import {
   faArrowLeft,
   faClock,
@@ -32,22 +32,18 @@ import {
   getDevice,
   systemFonts,
   tagsStyles,
-} from '../../../../services/Utility';
+} from '../../../../services/utility';
 import RenderHTML from 'react-native-render-html';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
-
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
 function Splash(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (
       isWorking ||
@@ -57,7 +53,6 @@ function Splash(props) {
       return;
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       props.isInReviewMode
         ? reviewQuiz(props.quizId, props.token)
@@ -68,7 +63,6 @@ function Splash(props) {
         props.navigate('/');
         return;
       }
-
       dispatch({
         token: props.token,
         navigate: props.navigate,
@@ -81,18 +75,23 @@ function Splash(props) {
         refresh: res[0].quizInfo.refresh,
         setLoadingWithText: props.setLoadingWithText,
       });
-
       setIsWorking(false);
     });
   }, [dispatch, props, isWorking, state.questions, state.stdAnswerSheets]);
-
   return (
     <MyView>
       {state.quizInfo !== undefined && (
         <MyView>
           <CommonWebBox>
             <EqualTwoTextInputs>
-              <PhoneView style={isInPhone ? {width: '90%'} : {}}>
+              <PhoneView
+                style={
+                  isInPhone
+                    ? {
+                        width: '90%',
+                      }
+                    : {}
+                }>
                 <MyView
                   style={{
                     ...styleYellowBox,
@@ -109,7 +108,10 @@ function Splash(props) {
                 </MyView>
               </PhoneView>
               {!isInPhone && (
-                <PhoneView style={{marginTop: -10}}>
+                <PhoneView
+                  style={{
+                    marginTop: -10,
+                  }}>
                   <FontIcon
                     kind={'normal'}
                     theme={'rect'}
@@ -126,7 +128,15 @@ function Splash(props) {
               )}
             </EqualTwoTextInputs>
             <PhoneView
-              style={isInPhone ? {...styles.gap15} : {...styles.gap100}}>
+              style={
+                isInPhone
+                  ? {
+                      ...styles.gap15,
+                    }
+                  : {
+                      ...styles.gap100,
+                    }
+              }>
               {state.quizInfo.duration > 0 && (
                 <QuizItemCard
                   icon={faClock}
@@ -237,7 +247,11 @@ function Splash(props) {
                 padding={isInPhone ? '5px 5px' : undefined}
                 textStyle={
                   isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    ? {
+                        fontSize: 14,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                      }
                     : {}
                 }
                 onPress={props.onBack}
@@ -249,7 +263,11 @@ function Splash(props) {
                 padding={isInPhone ? '5px 5px' : undefined}
                 textStyle={
                   isInPhone
-                    ? {fontSize: 14, paddingLeft: 20, paddingRight: 20}
+                    ? {
+                        fontSize: 14,
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                      }
                     : {}
                 }
                 title={
@@ -268,5 +286,4 @@ function Splash(props) {
     </MyView>
   );
 }
-
 export default Splash;

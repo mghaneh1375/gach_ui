@@ -1,23 +1,19 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../../../styles/Common';
-import translator from '../Translator';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import columns from './TableStructure';
-import {routes} from '../../../../../API/APIRoutes';
+import {CommonWebBox, MyView} from '@/styles';
+import translator from '../translator';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import columns from './tableStructure';
+import {routes} from '@/api/apiRoutes';
 import Ops from './Ops';
-
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const handleOp = idx => {
     props.setSelectedLevel(props.levels[idx]);
     toggleShowOpPopUp();
   };
-
   return (
     <MyView>
       {showOpPopUp && (
@@ -40,5 +36,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

@@ -1,20 +1,16 @@
-import {CommonWebBox, MyView} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import Translate from '../Translator';
-import columns from './TansactionTableStructure';
+import {CommonWebBox, MyView} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import Translate from '../translator';
+import columns from './tansactionTableStructure';
 import React, {useState} from 'react';
-import {getLastTransaction, getTransations} from '../List/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-
+import {getLastTransaction, getTransations} from '../list/utility';
+import {routes} from '@/api/apiRoutes';
 function Show(props) {
   const [isWorking, setIsWorking] = useState(false);
-
   React.useEffect(() => {
     if (isWorking || props.author.transactions !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([getTransations(props.author.id, props.token)]).then(res => {
       props.setLoading(false);
       if (res[0] !== undefined) props.author.transactions = res[0];
@@ -23,7 +19,6 @@ function Show(props) {
       setIsWorking(false);
     });
   }, [props, isWorking]);
-
   const setTransactions = async items => {
     props.author.transactions = items;
     const res = await getLastTransaction(props.author.id, props.token);
@@ -33,7 +28,6 @@ function Show(props) {
     }
     props.updateAuthor(props.author);
   };
-
   return (
     <CommonWebBox
       header={Translate.showAuthor}
@@ -57,5 +51,4 @@ function Show(props) {
     </CommonWebBox>
   );
 }
-
 export default Show;

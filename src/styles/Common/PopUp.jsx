@@ -1,14 +1,17 @@
 import React from 'react';
-import {CommonButton, CommonWebBox, PhoneView, MyView} from '../Common';
-import translator from '../../translator/Common';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+  MyView,
+} from '../CommonComponents';
+import translator from '../../translator/common';
 import {TextIcon} from './TextIcon';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {styles} from './Styles';
-import {getWidthHeight} from '../../services/Utility';
+import {styles} from './styles';
+import {getWidthHeight} from '../../services/utility';
 import vars from '../root';
-
 const width = getWidthHeight()[0];
-
 const modal = {
   container: {
     flex: 1,
@@ -39,7 +42,6 @@ const modal = {
     padding: '5px 30px',
   },
 };
-
 export function LargePopUp(props) {
   return (
     <MyView style={modal.container}>
@@ -48,7 +50,10 @@ export function LargePopUp(props) {
         btn={
           props.toggleShowPopUp ? (
             <TextIcon
-              style={{...modal.marginBottom20, ...modal.padding0}}
+              style={{
+                ...modal.marginBottom20,
+                ...modal.padding0,
+              }}
               onPress={() => props.toggleShowPopUp()}
               text={props.title}
               icon={faClose}
@@ -60,18 +65,26 @@ export function LargePopUp(props) {
           <MyView>
             {props.toggleShowPopUp && !props.header && (
               <TextIcon
-                style={{...modal.marginBottom20, ...modal.padding0}}
+                style={{
+                  ...modal.marginBottom20,
+                  ...modal.padding0,
+                }}
                 onPress={() => props.toggleShowPopUp()}
                 text={props.title}
                 icon={faClose}
               />
             )}
             {props.children}
-            <PhoneView style={{...styles.marginTop20}}>
+            <PhoneView
+              style={{
+                ...styles.marginTop20,
+              }}>
               {props.btns}
               {(props.removeCancel === undefined || !props.removeCancel) && (
                 <CommonButton
-                  style={{...modal.padding5and30}}
+                  style={{
+                    ...modal.padding5and30,
+                  }}
                   onPress={() => props.toggleShowPopUp()}
                   title={translator.cancel}
                 />

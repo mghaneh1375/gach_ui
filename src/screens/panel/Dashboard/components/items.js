@@ -10,8 +10,7 @@ import {
   faTicket,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
-import {getPast} from '../../../../services/Utility';
-
+import {getPast} from '../../../../services/utility';
 const itemsIcon = {
   pendingChunks: faVideo,
   pendingTickets: faTicket,
@@ -30,7 +29,6 @@ const itemsIcon = {
   lastMonthTeachReportsCount: faBook,
   pendingComments: faComment,
 };
-
 const itemsUrl = {
   pendingChunks: undefined,
   pendingTickets: '/ticket?status=pending',
@@ -50,5 +48,4 @@ const itemsUrl = {
   lastMonthTeachReportsCount: '/admin/teach/reports',
   pendingComments: '/all-comments',
 };
-
 export {itemsIcon, itemsUrl};

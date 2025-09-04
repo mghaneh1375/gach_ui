@@ -6,19 +6,17 @@ import {
   MyView,
   MyViewWithRef,
   PhoneView,
-} from '../../../../../styles/Common';
+  SimpleFontIcon,
+} from '@/styles';
 import AnswerSheet from './AnswerSheet';
 import React, {useState, useRef, useCallback} from 'react';
-
-import {updateStudentAnswers} from '../Utility';
+import {updateStudentAnswers} from '../utility';
 import {faLock, faUnlock} from '@fortawesome/free-solid-svg-icons';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
-import {styles} from '../../../../../styles/Common/Styles';
-import commonTranslator from '../../../../../translator/Common';
-import {getDevice, showError} from '../../../../../services/Utility';
-
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
+import {getDevice, showError} from '../../../../../services/utility';
 function StudentAnswerSheet({
   token,
   setLoading,
@@ -28,23 +26,20 @@ function StudentAnswerSheet({
   onBackClick,
 }) {
   const [stdChangingMode, setStdChangingMode] = useState();
-
   React.useEffect(() => {
     dispatch({
       showAnswers: !stdChangingMode,
     });
   }, [stdChangingMode, dispatch]);
-
   const ref = useRef();
-
   const print = useCallback(() => {
     if (ref.current === null) {
       return;
     }
-
     setLoading(true);
-
-    toPng(ref.current, {cacheBust: true})
+    toPng(ref.current, {
+      cacheBust: true,
+    })
       .then(async dataUrl => {
         const link = document.createElement('a');
         link.download = 'my-image-name.png';
@@ -62,7 +57,6 @@ function StudentAnswerSheet({
         setLoading(false);
       });
   }, [ref, setLoading]);
-
   return (
     <MyView>
       <CommonWebBox
@@ -117,14 +111,15 @@ function StudentAnswerSheet({
                 state.selectedQuiz.answer_sheets[selectedAnswerSheetIdx].student
                   .id,
                 state.selectedQuiz.generalMode,
-                {answers: state.new_std_answer_sheet},
+                {
+                  answers: state.new_std_answer_sheet,
+                },
                 token,
               );
               if (res !== null) {
                 state.selectedQuiz.answer_sheets[
                   selectedAnswerSheetIdx
                 ].answers = state.new_std_answer_sheet;
-
                 const data = state.selectedQuiz.answer_sheet.map(
                   (elem, index) => {
                     elem.studentAns = state.new_std_answer_sheet[index];
@@ -153,5 +148,4 @@ function StudentAnswerSheet({
     </MyView>
   );
 }
-
 export default StudentAnswerSheet;

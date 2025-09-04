@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {columnsForAdmin, columnsForAgent} from './TableStructure';
-import Ops from './Ops/Ops';
-import commonTranslator from '../../../../translator/Common';
-import {routes} from '../../../../API/APIRoutes';
-import {isUserAdmin} from '../../../../services/Utility';
-
+import {CommonWebBox, MyView} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import {columnsForAdmin, columnsForAgent} from './tableStructure';
+import Ops from './ops/Ops';
+import commonTranslator from '@/translator/common';
+import {routes} from '@/api/apiRoutes';
+import {isUserAdmin} from '../../../../services/utility';
 function List(props) {
   const [selectedId, setSelectedId] = useState();
   const [showOpPopUp, setShowOpPopUp] = useState(false);
@@ -65,5 +64,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

@@ -1,23 +1,18 @@
 import React, {useState} from 'react';
-import {getDevice} from '../../../../../services/Utility';
-import {CommonRadioButton, PhoneView} from '../../../../../styles/Common';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import {getDevice} from '@/services/utility';
+import {CommonRadioButton, PhoneView} from '@/styles';
+import {styles} from '@/styles/common/styles';
 function Choice(props) {
   const [isSelected, setIsSelected] = useState(false);
-
   React.useEffect(() => {
     setIsSelected(props.isSelected);
   }, [props.isSelected]);
-
   const change = () => {
     if (props.onChange === undefined) return;
     props.onChange(props.idx);
   };
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   return (
     <PhoneView
       style={{
@@ -30,16 +25,22 @@ function Choice(props) {
       <CommonRadioButton
         status={isSelected ? 'checked' : 'unchecked'}
         onPress={() => change()}
-        style={{height: isInPhone ? 40 : 60}}
+        style={{
+          height: isInPhone ? 40 : 60,
+        }}
         textStyle={
           isInPhone
-            ? {alignSelf: 'center', fontSize: 12}
-            : {alignSelf: 'center'}
+            ? {
+                alignSelf: 'center',
+                fontSize: 12,
+              }
+            : {
+                alignSelf: 'center',
+              }
         }
         text={props.text}
       />
     </PhoneView>
   );
 }
-
 export default Choice;

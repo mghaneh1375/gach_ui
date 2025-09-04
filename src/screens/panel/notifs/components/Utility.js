@@ -1,7 +1,6 @@
-import {routes} from '../../../../API/APIRoutes';
-import {fileRequest, generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {fileRequest, generalRequest} from '@/api/utility';
+import {showSuccess} from '../../../../services/utility';
 export const fetchAllNotifs = async (
   token,
   sendVia,
@@ -11,12 +10,10 @@ export const fetchAllNotifs = async (
 ) => {
   const params = new URLSearchParams();
   params.append('sendVia', sendVia);
-
   if (from !== null && from !== undefined) params.append('from', from);
   if (to !== null && to !== undefined) params.append('to', to);
   if (minUsersCount !== null && minUsersCount !== undefined)
     params.append('minUsersCount', minUsersCount);
-
   return await generalRequest(
     routes.fetchAllNotifs + '?' + params.toString(),
     'get',
@@ -25,7 +22,6 @@ export const fetchAllNotifs = async (
     token,
   );
 };
-
 export const fetchQuizDigests = async token => {
   return await generalRequest(
     routes.getAllQuizzesDigest + '?isOpenQuizzesNeeded=false',
@@ -35,7 +31,6 @@ export const fetchQuizDigests = async token => {
     token,
   );
 };
-
 export const fetchStates = async token => {
   return await generalRequest(
     routes.fetchState,
@@ -45,7 +40,6 @@ export const fetchStates = async token => {
     token,
   );
 };
-
 export const fetchGrades = async token => {
   return await generalRequest(
     routes.fetchGradesAndBranches,
@@ -55,7 +49,6 @@ export const fetchGrades = async token => {
     token,
   );
 };
-
 export const fetchSchools = async token => {
   return await generalRequest(
     routes.fetchSchoolsDigest,
@@ -65,7 +58,6 @@ export const fetchSchools = async token => {
     token,
   );
 };
-
 export const fetchContentDigests = async token => {
   return await generalRequest(
     routes.fetchContentDigests,
@@ -75,7 +67,6 @@ export const fetchContentDigests = async token => {
     token,
   );
 };
-
 export const store = async (
   token,
   data,
@@ -84,7 +75,6 @@ export const store = async (
 ) => {
   const formData = new FormData();
   let hasFile = false;
-
   if (attachFileContent !== null && attachFileContent !== undefined) {
     formData.append(
       'file',
@@ -93,7 +83,6 @@ export const store = async (
     );
     hasFile = true;
   }
-
   if (excelFileContent !== null && excelFileContent !== undefined) {
     formData.append(
       'list',
@@ -102,7 +91,6 @@ export const store = async (
     );
     hasFile = true;
   }
-
   if (hasFile) {
     const res = await fileRequest(
       routes.storeNotif,
@@ -112,11 +100,9 @@ export const store = async (
       token,
       data,
     );
-
     if (res !== null) showSuccess();
     return res;
   }
-
   const res = await generalRequest(
     routes.storeNotif,
     'post',
@@ -127,7 +113,6 @@ export const store = async (
   if (res !== null) showSuccess();
   return res;
 };
-
 export const simpleStore = async (token, data) => {
   const res = await generalRequest(
     routes.simpleStoreNotif,
@@ -139,7 +124,6 @@ export const simpleStore = async (token, data) => {
   if (res !== null) showSuccess();
   return res;
 };
-
 export const getStudents = async (token, id) => {
   return await generalRequest(
     routes.getNotifStudents + id,
@@ -149,7 +133,6 @@ export const getStudents = async (token, id) => {
     token,
   );
 };
-
 export const getNotif = async (token, id) => {
   return await generalRequest(
     routes.getNotif + id,

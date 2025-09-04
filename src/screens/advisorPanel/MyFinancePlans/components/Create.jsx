@@ -3,26 +3,23 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
-} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../styles/Common/Styles';
+} from '@/styles';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '../../../../styles/common/styles';
 import React, {useState} from 'react';
-import translator from './Translator';
-import commonTranslator from '../../../../translator/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
-import {statusKeyVals} from '../../../panel/question/components/KeyVals';
-import {createNewOffer, updateOffer} from './Utility';
+import translator from './translator';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {statusKeyVals} from '../../../panel/question/components/keyVals';
+import {createNewOffer, updateOffer} from './utility';
 import {dispatchFinanceContext, financeContext} from './Context';
-import {formatPrice} from '../../../../services/Utility';
-
+import {formatPrice} from '@/services/utility';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(financeContext),
     React.useContext(dispatchFinanceContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [maxKarbarg, setMaxKarbarg] = useState();
   const [maxExam, setMaxExam] = useState();
   const [price, setPrice] = useState();
@@ -32,7 +29,6 @@ function Create(props) {
   const [description, setDescription] = useState();
   const [maxChat, setMaxChat] = useState();
   const [videoLink, setVideoLink] = useState();
-
   const create = async () => {
     const data = {
       price: price,
@@ -40,23 +36,17 @@ function Create(props) {
       videoCalls: videoCalls,
       visibility: visibility,
     };
-
     if (maxExam) data.maxExam = maxExam;
     if (maxChat) data.maxChat = maxChat;
     if (maxKarbarg) data.maxKarbarg = maxKarbarg;
     if (videoLink) data.videoLink = videoLink;
-
     if (description !== undefined && description.length > 0)
       data.description = description;
-
     props.setLoading(true);
-
     const res = !props.isInEditMode
       ? await createNewOffer(props.token, data)
       : await updateOffer(props.token, state.selectedRow.id, data);
-
     props.setLoading(false);
-
     if (res !== null) {
       if (!props.isInEditMode) state.data.unshift(res);
       else {
@@ -65,11 +55,12 @@ function Create(props) {
           return e;
         });
       }
-      dispatch({data: state.data});
+      dispatch({
+        data: state.data,
+      });
       props.setMode('list');
     }
   };
-
   React.useEffect(() => {
     if (
       price !== undefined ||
@@ -77,13 +68,11 @@ function Create(props) {
       !props.isInEditMode
     )
       return;
-
     setMaxKarbarg(
       state.selectedRow.maxKarbarg === -1
         ? undefined
         : state.selectedRow.maxKarbarg,
     );
-
     setMaxExam(
       state.selectedRow.maxExam === -1 ? undefined : state.selectedRow.maxExam,
     );
@@ -96,13 +85,15 @@ function Create(props) {
       state.selectedRow.maxChat === -1 ? undefined : state.selectedRow.maxChat,
     );
   }, [props.isInEditMode, state.selectedRow, price]);
-
   return (
     <CommonWebBox
       header={'افزودن مورد جدید'}
       backBtn={true}
       onBackClick={() => props.setMode('list')}>
-      <PhoneView style={{...styles.gap15}}>
+      <PhoneView
+        style={{
+          ...styles.gap15,
+        }}>
         <JustBottomBorderTextInput
           placeholder={translator.title}
           subText={translator.title}
@@ -189,5 +180,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

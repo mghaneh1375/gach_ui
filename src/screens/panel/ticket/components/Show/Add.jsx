@@ -5,20 +5,19 @@ import {
   EqualTwoTextInputs,
   PhoneView,
   MyView,
-} from '../../../../../styles/Common';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import translator from '../../Translator';
+  FontIcon,
+} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import translator from '../../translator';
 import {useFilePicker} from 'use-file-picker';
-import AttachBox from './AttachBox/AttachBox';
+import AttachBox from './attachBox/AttachBox';
 import {
   changeText,
   showError,
   showSuccess,
-} from '../../../../../services/Utility';
-import {addFile, addMsg} from './Utility';
-import Translator from '../../Translator';
-
+} from '../../../../../services/utility';
+import {addFile, addMsg} from './utility';
+import Translator from '../../translator';
 const Add = props => {
   const [msg, setMsg] = useState();
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
@@ -27,30 +26,27 @@ const Add = props => {
       accept: ['image/*', '.pdf', '.xls', '.xlsx', '.docx'],
       readAs: 'DataURL',
       multiple: true,
-      limitFilesConfig: {max: 5},
+      limitFilesConfig: {
+        max: 5,
+      },
     });
-
   const sendMsg = async () => {
     if (msg === undefined || msg.length === 0) {
       showError(Translator.insetYourMsg);
       return;
     }
-
     let res;
     let ticket = props.ticket;
     const files = [];
     props.setLoading(true);
-
     if (filesContent.length > 0) {
       for (let i = 0; i < filesContent.length; i++) {
         res = await addFile(props.token, filesContent[i], props.ticket.id);
         if (res !== null) files.push(res);
       }
     }
-
     res = await addMsg(props.ticket.id, props.token, msg);
     props.setLoading(false);
-
     if (res !== null) {
       ticket = res;
       props.setSelectedTicket(ticket);
@@ -60,11 +56,9 @@ const Add = props => {
       setMsg('');
     }
   };
-
   const removeAttach = index => {
     remove(index);
   };
-
   return (
     <MyView>
       <CommonWebBox
@@ -75,8 +69,14 @@ const Add = props => {
                 multiline={true}
                 placeholder={translator.msgText}
                 value={msg}
-                parentStyle={{width: '90%'}}
-                style={{width: '100%', maxWidth: 'unset', height: 40}}
+                parentStyle={{
+                  width: '90%',
+                }}
+                style={{
+                  width: '100%',
+                  maxWidth: 'unset',
+                  height: 40,
+                }}
                 onChangeText={text => changeText(text, setMsg)}
               />
               <PhoneView
@@ -99,7 +99,10 @@ const Add = props => {
                 />
               </PhoneView>
             </EqualTwoTextInputs>
-            <PhoneView style={{marginTop: 20}}>
+            <PhoneView
+              style={{
+                marginTop: 20,
+              }}>
               {filesContent.map((file, index) => {
                 return (
                   <AttachBox
@@ -117,5 +120,4 @@ const Add = props => {
     </MyView>
   );
 };
-
 export default Add;

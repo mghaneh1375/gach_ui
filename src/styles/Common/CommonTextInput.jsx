@@ -1,15 +1,13 @@
 import {Platform} from 'react-native';
-import {EqualTwoTextInputs, MyView} from '../Common';
+import {EqualTwoTextInputs, MyView} from '../CommonComponents';
 import {
   calcInputWidth,
   CommonHalfTextInputStyleWeb,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
-} from './CommonText';
-
-import SubInputText from './SubInputText';
-import SubInputTextTwo from './SubInputTextTwo';
-
+} from './commonText';
+import SubInputText from './subInputText';
+import SubInputTextTwo from './subInputTextTwo';
 export const CommonTextInput = props => {
   const isHalf = props.isHalf !== undefined && props.isHalf;
   const isApp = Platform.OS !== 'web';
@@ -18,10 +16,15 @@ export const CommonTextInput = props => {
       ? CommonHalfTextInputStyleWeb
       : CommonTextInputStyleWeb
     : {};
-
   if (props.multiline !== undefined && props.multiline)
-    style1 = {...style1, ...{height: 100, maxWidth: 500, overflow: 'auto'}};
-
+    style1 = {
+      ...style1,
+      ...{
+        height: 100,
+        maxWidth: 500,
+        overflow: 'auto',
+      },
+    };
   const allStyle =
     props.style !== undefined
       ? {
@@ -29,29 +32,24 @@ export const CommonTextInput = props => {
           ...props.style,
         }
       : style1;
-
   if (props.disable !== undefined && props.disable) {
     if (props.backgroundColor === undefined)
       allStyle.backgroundColor = '#d1d1d1';
     else allStyle.backgroundColor = props.backgroundColor;
   }
-
   const inputProps = {
     placeholder: props.placeholder,
     onChangeText: props.onChangeText,
     style: allStyle,
     editable: !props.disable,
   };
-
   if (props.onEnter !== undefined) {
     inputProps.onKeyPress = e => {
       var charCode = e.which ? e.which : e.keyCode;
       if (charCode === 13) props.onEnter();
     };
   }
-
   if (props.value !== undefined) inputProps.value = props.value;
-
   if (props.type !== undefined && props.type === 'password')
     inputProps.secureTextEntry = true;
   if (props.justNum !== undefined && props.justNum && Platform.OS === 'web') {
@@ -87,12 +85,9 @@ export const CommonTextInput = props => {
     };
   } else if (props.justNum !== undefined && props.justNum)
     inputProps.keyboardType = 'numeric';
-
   if (props.multiline !== undefined && props.multiline)
     inputProps.multiline = true;
-
   if (props.onPress !== undefined) inputProps.onClick = props.onPress;
-
   let parentAllStyles = isHalf
     ? {
         paddingLeft: 0,
@@ -100,13 +95,18 @@ export const CommonTextInput = props => {
         paddingTop: 5,
         paddingBottom: 0,
       }
-    : {paddingLeft: 0, paddingRight: 0, paddingTop: 5, paddingBottom: 0};
-
+    : {
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 5,
+        paddingBottom: 0,
+      };
   if (props.parentStyle !== undefined)
-    parentAllStyles = {...parentAllStyles, ...props.parentStyle};
-
+    parentAllStyles = {
+      ...parentAllStyles,
+      ...props.parentStyle,
+    };
   parentAllStyles = calcInputWidth(15, isHalf, parentAllStyles);
-
   return (
     <MyView style={parentAllStyles}>
       <CommonTextInputElem {...inputProps} />
@@ -115,7 +115,9 @@ export const CommonTextInput = props => {
           <SubInputText
             style={
               props?.style?.color !== undefined
-                ? {color: props.style.color}
+                ? {
+                    color: props.style.color,
+                  }
                 : {}
             }>
             {props.subText}

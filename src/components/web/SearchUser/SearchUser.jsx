@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-
 import {
   CommonButton,
   CommonRadioButton,
@@ -7,16 +6,15 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import commonTranslator from '../../../translator/Common';
-import {search} from './Utility';
-import {SimpleFontIcon} from '../../../styles/Common/FontIcon';
+} from '../../../styles/CommonComponents';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import {LargePopUp} from '../../../styles/common/PopUp';
+import CommonDataTable from '../../../styles/common/CommonDataTable';
+import commonTranslator from '../../../translator/common';
+import {search} from './utility';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../../styles/Common/Styles';
-
+import {styles} from '../../../styles/common/styles';
 const SearchUser = props => {
   const [users, setUsers] = useState(undefined);
   const [mode, setMode] = useState('name');
@@ -26,12 +24,10 @@ const SearchUser = props => {
   const [phone, setPhone] = useState();
   const [mail, setMail] = useState();
   const [selected, setSelected] = useState([]);
-
   const changeMode = new_mode => {
     setMode(new_mode);
   };
   if (!props.show) return <></>;
-
   const columns = [
     {
       name: commonTranslator.nameAndLast,
@@ -65,11 +61,13 @@ const SearchUser = props => {
           selected.indexOf(users[index]) === -1
         )
           return <></>;
-
         return (
           <SimpleFontIcon
             kind={'normal'}
-            style={{marginLeft: 100, alignSelf: 'center'}}
+            style={{
+              marginLeft: 100,
+              alignSelf: 'center',
+            }}
             icon={faTrash}
           />
         );
@@ -77,15 +75,19 @@ const SearchUser = props => {
       grow: 4,
     },
   ];
-
   return (
     <LargePopUp
       toggleShowPopUp={() => props.setShow(false)}
       removeCancel={true}
       title={commonTranslator.searchUser}>
-      <PhoneView style={{gap: 30}}>
+      <PhoneView
+        style={{
+          gap: 30,
+        }}>
         <SimpleText
-          style={{alignSelf: 'center'}}
+          style={{
+            alignSelf: 'center',
+          }}
           text={commonTranslator.searchBy}
         />
         <CommonRadioButton
@@ -109,9 +111,16 @@ const SearchUser = props => {
           text={commonTranslator.phone}
         />
       </PhoneView>
-      <MyView style={{marginTop: 30, marginBottom: 30}}>
+      <MyView
+        style={{
+          marginTop: 30,
+          marginBottom: 30,
+        }}>
         {mode === 'name' && (
-          <PhoneView style={{...styles.gap15}}>
+          <PhoneView
+            style={{
+              ...styles.gap15,
+            }}>
             <JustBottomBorderTextInput
               onChangeText={e => setName(e)}
               placeholder={commonTranslator.firstname}
@@ -187,7 +196,9 @@ const SearchUser = props => {
             props.setFinalResult(selected);
             props.setShow(false);
           }}
-          style={{alignSelf: 'flex-start'}}
+          style={{
+            alignSelf: 'flex-start',
+          }}
           title={commonTranslator.confirmChanges}
           theme={'dark'}
         />
@@ -195,5 +206,4 @@ const SearchUser = props => {
     </LargePopUp>
   );
 };
-
 export default SearchUser;

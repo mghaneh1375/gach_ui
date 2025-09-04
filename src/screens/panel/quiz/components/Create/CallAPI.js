@@ -1,5 +1,4 @@
-import {generalRequest} from '../../../../../API/Utility';
-
+import {generalRequest} from '../../../../../api/utility';
 const IRYSCMandatoryFields = [
   'title',
   'startRegistry',
@@ -10,7 +9,6 @@ const IRYSCMandatoryFields = [
   'showResultsAfterCorrection',
   'priority',
 ];
-
 const OnlineStandingMandatoryFields = [
   'title',
   'startRegistry',
@@ -22,7 +20,6 @@ const OnlineStandingMandatoryFields = [
   'perTeam',
   'priority',
 ];
-
 const EscapeQuizMandatoryFields = [
   'title',
   'startRegistry',
@@ -36,7 +33,6 @@ const EscapeQuizMandatoryFields = [
   'maxTry',
   'shouldComplete',
 ];
-
 const SchoolMandatoryFields = [
   'title',
   'start',
@@ -45,7 +41,6 @@ const SchoolMandatoryFields = [
   'showResultsAfterCorrection',
   'database',
 ];
-
 const HWMandatoryFields = [
   'title',
   'start',
@@ -54,7 +49,6 @@ const HWMandatoryFields = [
   'answerType',
   'maxUploadSize',
 ];
-
 const OpenMandatoryFields = ['title', 'price'];
 const TashrihiMandatoryFields = [
   'title',
@@ -62,7 +56,6 @@ const TashrihiMandatoryFields = [
   'priority',
 ];
 const ContentMandatoryFields = ['title'];
-
 export async function CallAPI(data, url, token, mode, kind = 'regular') {
   const mandatoryFields =
     kind === 'tashrihi'
@@ -80,7 +73,6 @@ export async function CallAPI(data, url, token, mode, kind = 'regular') {
       : 'content'
       ? ContentMandatoryFields
       : OpenMandatoryFields;
-
   let result;
   try {
     result = await generalRequest(

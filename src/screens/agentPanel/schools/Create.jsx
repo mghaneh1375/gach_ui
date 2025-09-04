@@ -5,21 +5,18 @@ import {
   CommonWebBox,
   MyView,
   PhoneView,
-} from '../../../styles/Common';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import Translate from './Translate';
-import commonTranslator from '../../../translator/Common';
-import {checkDuplicate, addSchool, addExistSchool} from './Utility';
-
+} from '../../../styles/CommonComponents';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import Translate from './translate';
+import commonTranslator from '../../../translator/common';
+import {checkDuplicate, addSchool, addExistSchool} from './utility';
 import StateAndCity from '../../../components/web/StateAndCity';
-import {changeText, sexKeyVals, showError} from '../../../services/Utility';
-import {grades} from '../../panel/Config/Schools/components/KeyVals';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
-
+import {changeText, sexKeyVals, showError} from '../../../services/utility';
+import {grades} from '../../panel/config/schools/components/keyVals';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
 function Create(props) {
   const [phone, setPhone] = useState();
   const [nid, setNid] = useState();
-
   const [name, setName] = useState();
   const [sex, setSex] = useState();
   const [manager, setManager] = useState();
@@ -34,7 +31,6 @@ function Create(props) {
   const [grade, setGrade] = useState();
   const [showAllFields, setShowAllFields] = useState();
   const [step, setStep] = useState(1);
-
   return (
     <CommonWebBox
       header={Translate.schoolInfo}
@@ -42,7 +38,10 @@ function Create(props) {
       onBackClick={() => (step === 1 ? props.setMode('list') : setStep(1))}>
       {step === 1 && (
         <MyView>
-          <PhoneView style={{gap: 15}}>
+          <PhoneView
+            style={{
+              gap: 15,
+            }}>
             <JustBottomBorderTextInput
               onChangeText={text => changeText(text, setPhone)}
               placeholder={Translate.phone}
@@ -91,7 +90,10 @@ function Create(props) {
       )}
       {step === 2 && (
         <MyView>
-          <PhoneView style={{gap: 15}}>
+          <PhoneView
+            style={{
+              gap: 15,
+            }}>
             <JustBottomBorderTextInput
               onChangeText={text => changeText(text, setName)}
               placeholder={Translate.name}
@@ -134,7 +136,10 @@ function Create(props) {
                 <PhoneView>
                   <BigBoldBlueTextInline text={Translate.info} />
                 </PhoneView>
-                <PhoneView style={{gap: 15}}>
+                <PhoneView
+                  style={{
+                    gap: 15,
+                  }}>
                   <JustBottomBorderTextInput
                     onChangeText={text => changeText(text, setLiableName)}
                     placeholder={Translate.liableName}
@@ -213,7 +218,6 @@ function Create(props) {
               }
               const res = await addSchool(info, props.token);
               props.setLoading(false);
-
               if (res !== null) {
                 props.setMode('list');
               }
@@ -224,5 +228,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

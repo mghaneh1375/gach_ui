@@ -1,18 +1,12 @@
 import React, {useState} from 'react';
-import {convertTimestamp} from '../../../../../../services/Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../../../styles/Common';
-import JustBottomBorderDatePicker from '../../../../../../styles/Common/JustBottomBorderDatePicker';
-import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../../../styles/Common/Styles';
-import commonTranslator from '../../../../../../translator/Common';
-import {createTransaction} from '../../List/Utility';
-import Translate from '../../Translator';
-
+import {convertTimestamp} from '../../../../../../services/utility';
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
+import JustBottomBorderDatePicker from '../../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '../../../../../../styles/common/styles';
+import commonTranslator from '../../../../../../translator/common';
+import {createTransaction} from '../../list/utility';
+import Translate from '../../translator';
 function CreateTransaction(props) {
   const [amount, setAmount] = useState();
   const [date, setDate] = useState();
@@ -23,7 +17,10 @@ function CreateTransaction(props) {
       backBtn={true}
       onBackClick={() => props.setMode('show')}>
       <MyView>
-        <PhoneView style={{...styles.gap15}}>
+        <PhoneView
+          style={{
+            ...styles.gap15,
+          }}>
           <JustBottomBorderTextInput
             placeholder={Translate.amount}
             subText={Translate.amount}
@@ -76,5 +73,4 @@ function CreateTransaction(props) {
     </CommonWebBox>
   );
 }
-
 export default CreateTransaction;

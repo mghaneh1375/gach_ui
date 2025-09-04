@@ -1,12 +1,18 @@
 import React from 'react';
-import {MyView, PhoneView, SimpleText} from '../../../styles/Common';
-
+import {MyView, PhoneView, SimpleText} from '../../../styles/CommonComponents';
 function CommentCard(props) {
   return (
-    <PhoneView style={{alignItems: 'center', gap: '10px'}}>
+    <PhoneView
+      style={{
+        alignItems: 'center',
+        gap: '10px',
+      }}>
       <MyView>
         <SimpleText
-          style={{textAlign: 'center', fontSize: '11px'}}
+          style={{
+            textAlign: 'center',
+            fontSize: '11px',
+          }}
           text={props.comment.createdAt}
         />
       </MyView>
@@ -14,5 +20,4 @@ function CommentCard(props) {
     </PhoneView>
   );
 }
-
 export default CommentCard;

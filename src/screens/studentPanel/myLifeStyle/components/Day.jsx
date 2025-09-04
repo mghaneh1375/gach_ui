@@ -1,23 +1,16 @@
 import {faAdd} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {f2e, removeItems} from '../../../../services/Utility';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
+import {f2e, removeItems} from '../../../../services/utility';
+import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
+import {FontIcon} from '../../../../styles/common/FontIcon';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
 import Box from './Box';
-
 function Day(props) {
   const [boxes, setBoxes] = useState();
   const [sum, setSum] = useState();
   const [sumLife, setSumLife] = useState();
-
   React.useEffect(() => {
     setBoxes(
       props.boxes.sort((a, b) => {
@@ -30,7 +23,6 @@ function Day(props) {
     );
     let lifeSum = 0;
     let scheduleSum = 0;
-
     props.boxes.forEach(e => {
       if (e.label !== undefined && e.label === 'life')
         lifeSum += parseInt(f2e(e.duration));
@@ -39,9 +31,14 @@ function Day(props) {
     setSumLife(lifeSum);
     setSum(scheduleSum);
   }, [props.boxes]);
-
   return (
-    <PhoneView style={{...styles.gap15, ...{flexWrap: 'nowrap'}}}>
+    <PhoneView
+      style={{
+        ...styles.gap15,
+        ...{
+          flexWrap: 'nowrap',
+        },
+      }}>
       <MyView
         style={{
           backgroundColor: vars.DARK_BLUE,
@@ -58,7 +55,11 @@ function Day(props) {
               ? props.day
               : props.day + ' - ' + props.date
           }
-          style={{fontSize: 18, color: 'white', writingMode: 'tb-rl'}}
+          style={{
+            fontSize: 18,
+            color: 'white',
+            writingMode: 'tb-rl',
+          }}
         />
         {/* {sum !== undefined && sum !== 0 && (
           <SimpleText
@@ -73,7 +74,7 @@ function Day(props) {
               convertSecToMinWithOutSec(sum * 60)
             }
           />
-        )} */}
+         )} */}
         {/* {sumLife !== undefined && sumLife !== 0 && (
           <SimpleText
             style={{
@@ -87,7 +88,7 @@ function Day(props) {
               convertSecToMinWithOutSec(sumLife * 60)
             }
           />
-        )} */}
+         )} */}
       </MyView>
       <View
         style={{
@@ -110,7 +111,6 @@ function Day(props) {
                 undefined
             )
               return;
-
             return (
               <Box
                 remove={
@@ -146,7 +146,9 @@ function Day(props) {
               icon={faAdd}
               back={'blue'}
               kind={'large'}
-              parentStyle={{marginRight: 'auto'}}
+              parentStyle={{
+                marginRight: 'auto',
+              }}
             />
           )}
           {!props.isInPhone && (
@@ -154,14 +156,18 @@ function Day(props) {
               <MyView
                 style={{
                   ...styles.justifyContentSpaceBetween,
-                  ...{height: 140},
+                  ...{
+                    height: 140,
+                  },
                 }}>
                 <FontIcon
                   onPress={() => props.addNewItem()}
                   icon={faAdd}
                   back={'blue'}
                   kind={'large'}
-                  parentStyle={{marginRight: 'auto'}}
+                  parentStyle={{
+                    marginRight: 'auto',
+                  }}
                 />
                 {!props.isInPhone && (
                   <SimpleText
@@ -182,5 +188,4 @@ function Day(props) {
     </PhoneView>
   );
 }
-
 export default Day;

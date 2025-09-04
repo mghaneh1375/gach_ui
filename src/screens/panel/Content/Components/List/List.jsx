@@ -1,33 +1,35 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest, VIDEO_BASE_URL} from '../../../../../API/Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import Translator from '../../Translate';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest, VIDEO_BASE_URL} from '../../../../../api/utility';
+import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import Translator from '../../translate';
 import {contentContext, dispatchContentContext} from '../Context';
-import {fetchContents} from '../Utility';
+import {fetchContents} from '../utility';
 import Ops from './Ops';
-import columns from './TableStruncture';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {justifyContentEnd} from '../../../../../styles/Common/Button';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-
+import columns from './tableStruncture';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {justifyContentEnd} from '../../../../../styles/common/button';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),
     React.useContext(dispatchContentContext),
   ];
-
   const visibilityOptions = useMemo(
     () => [
-      {id: 'all', item: 'همه'},
-      {id: 'true', item: 'نمایش'},
-      {id: 'false', item: 'عدم نمایش'},
+      {
+        id: 'all',
+        item: 'همه',
+      },
+      {
+        id: 'true',
+        item: 'نمایش',
+      },
+      {
+        id: 'false',
+        item: 'عدم نمایش',
+      },
     ],
     [],
   );
@@ -43,7 +45,6 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
   const [showOp, setShowOp] = useState(false);
   const [levels, setLevels] = useState();
-
   useEffect(() => {
     const fetchTeachers = () => {
       props.setLoading(true);
@@ -73,20 +74,38 @@ function List(props) {
         props.setLoading(false);
         if (res[0] !== null) {
           setTeachers([
-            {id: 'all', item: 'همه'},
-            ...res[0].map(e => ({id: e.teacher, item: e.teacher})),
+            {
+              id: 'all',
+              item: 'همه',
+            },
+            ...res[0].map(e => ({
+              id: e.teacher,
+              item: e.teacher,
+            })),
           ]);
         }
         if (res[1] !== null) {
           setTags([
-            {id: 'all', item: 'همه'},
-            ...res[1].map(e => ({id: e, item: e})),
+            {
+              id: 'all',
+              item: 'همه',
+            },
+            ...res[1].map(e => ({
+              id: e,
+              item: e,
+            })),
           ]);
         }
         if (res[2] !== null) {
           setLevels([
-            {id: 'all', item: 'همه'},
-            ...res[2].map(e => ({id: e.id, item: e.title})),
+            {
+              id: 'all',
+              item: 'همه',
+            },
+            ...res[2].map(e => ({
+              id: e.id,
+              item: e.title,
+            })),
           ]);
         }
       });
@@ -94,22 +113,23 @@ function List(props) {
     fetchTeachers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([fetchContents(props.token, filter)]).then(res => {
       props.setLoading(false);
       if (res[0] === null) return props.navigate('/');
-      dispatch({contents: res[0]});
+      dispatch({
+        contents: res[0],
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
-
   const handleOp = (idx, row) => {
-    dispatch({selectedContent: state.contents[idx]});
+    dispatch({
+      selectedContent: state.contents[idx],
+    });
     setShowOp(true);
   };
-
   return (
     <MyView>
       {showOp && (
@@ -128,7 +148,10 @@ function List(props) {
         addBtn={true}
         onAddClick={() => props.setMode('create')}>
         <MyView>
-          <PhoneView style={{gap: 20}}>
+          <PhoneView
+            style={{
+              gap: 20,
+            }}>
             <JustBottomBorderTextInput
               onChangeText={e =>
                 setFilter(prevValues => ({
@@ -212,7 +235,9 @@ function List(props) {
             data={state.contents}
             token={props.token}
             setData={newData => {
-              dispatch({contents: newData});
+              dispatch({
+                contents: newData,
+              });
             }}
           />
         )}
@@ -220,5 +245,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

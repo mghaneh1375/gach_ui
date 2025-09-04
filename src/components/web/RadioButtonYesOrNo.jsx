@@ -1,11 +1,19 @@
-import {CommonRadioButton, PhoneView, SimpleText} from '../../styles/Common';
-import commonTranslator from '../../translator/Common';
+import {
+  CommonRadioButton,
+  PhoneView,
+  SimpleText,
+} from '../../styles/CommonComponents';
+import commonTranslator from '../../translator/common';
 import React from 'react';
-
 function RadioButtonYesOrNo(props) {
   return (
     <PhoneView>
-      <SimpleText style={{alignSelf: 'center'}} text={props.label} />
+      <SimpleText
+        style={{
+          alignSelf: 'center',
+        }}
+        text={props.label}
+      />
       <CommonRadioButton
         status={props.selected === 'yes' ? 'checked' : 'unchecked'}
         onPress={() => props.setSelected('yes')}
@@ -20,5 +28,4 @@ function RadioButtonYesOrNo(props) {
     </PhoneView>
   );
 }
-
 export default RadioButtonYesOrNo;

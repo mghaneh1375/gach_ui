@@ -1,26 +1,22 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import {CommonWebBox, SimpleText} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import translator from '../../../../panel/quiz/Translator';
+import {routes} from '@/api/apiRoutes';
+import {CommonWebBox, SimpleText} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import translator from '../../../../panel/quiz/translator';
 import {
   dispatchQuizContext,
   quizContext,
 } from '../../../../panel/quiz/components/Context';
-import commonTranslator from '../../../../../translator/Common';
-import {styles} from '../../../../../styles/Common/Styles';
-import {columnsForMember} from '../../../../panel/quiz/components/Students/TableStructure';
-
+import commonTranslator from '@/translator/common';
+import {styles} from '@/styles/common/styles';
+import {columnsForMember} from '../../../../panel/quiz/components/students/tableStructure';
 function Team(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-  const [isWorking, setIsWorking] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState();
-
   return (
     <CommonWebBox
       backBtn={true}
@@ -29,7 +25,10 @@ function Team(props) {
       {selectedStudent !== undefined && selectedStudent.team !== undefined && (
         <>
           <SimpleText
-            style={{...styles.BlueBold, ...styles.margin15}}
+            style={{
+              ...styles.BlueBold,
+              ...styles.margin15,
+            }}
             text={translator.members}
           />
 
@@ -47,7 +46,9 @@ function Team(props) {
                 warning: translator.sureChangeMainMember,
                 afterFunc: arr => {
                   state.selectedQuiz.students = undefined;
-                  dispatch({selectedQuiz: state.selectedQuiz});
+                  dispatch({
+                    selectedQuiz: state.selectedQuiz,
+                  });
                   props.setMode('list');
                 },
               },
@@ -63,7 +64,9 @@ function Team(props) {
                 warning: commonTranslator.sureRemove,
                 afterFunc: arr => {
                   state.selectedQuiz.students = undefined;
-                  dispatch({selectedQuiz: state.selectedQuiz});
+                  dispatch({
+                    selectedQuiz: state.selectedQuiz,
+                  });
                   props.setMode('list');
                 },
               },
@@ -80,5 +83,4 @@ function Team(props) {
     </CommonWebBox>
   );
 }
-
 export default Team;

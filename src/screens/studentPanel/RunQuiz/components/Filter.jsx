@@ -5,50 +5,48 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
+} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
 import React, {useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import QuestionNumber from './questionComponents/QuestionNumber';
-import {SimpleTextIcon} from '../../../../styles/Common/TextIcon';
-
+import {SimpleTextIcon} from '../../../../styles/common/TextIcon';
 import Timer from './Timer';
-
 import {
   faAngleDown,
   faAngleUp,
   faBookmark,
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
-import Translate from '../Translate';
-import {FontIcon} from '../../../../styles/Common/FontIcon';
-import commonTranslator from '../../../../translator/Common';
+import Translate from '../translate';
+import {FontIcon} from '../../../../styles/common/FontIcon';
+import commonTranslator from '@/translator/common';
 import Circle from '../../../../components/web/Circle';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
-import {getDevice} from '../../../../services/Utility';
-
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import {getDevice} from '../../../../services/utility';
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [help, setHelp] = useState(false);
   const toggleHelp = () => {
     setHelp(!help);
   };
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
-
   if (state.quizInfo === undefined) return <></>;
-
   return (
     <CommonWebBox
-      childStyle={{...styles.padding5}}
-      style={{...styles.padding0, ...styles.marginTop10}}
+      childStyle={{
+        ...styles.padding5,
+      }}
+      style={{
+        ...styles.padding0,
+        ...styles.marginTop10,
+      }}
       width={isInPhone ? '100%' : vars.RIGHT_MENU_WIDTH}>
       {!props.isInReviewMode &&
         state.quizInfo.duration > 0 &&
@@ -57,13 +55,21 @@ function Filter(props) {
             refresh={state.refresh}
             reminder={state.reminder}
             duration={state.quizInfo.duration}
-            callNeedStore={() => dispatch({needStore: true})}
+            callNeedStore={() =>
+              dispatch({
+                needStore: true,
+              })
+            }
           />
         )}
 
       {!isInPhone && state.quizInfo.duration > 0 && (
         <EqualTwoTextInputs
-          style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
+          style={{
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 10,
+          }}>
           <SimpleText
             style={styles.dark_blue_color}
             text={Translate.quizList}
@@ -73,10 +79,14 @@ function Filter(props) {
             icon={help ? faAngleUp : faAngleDown}
             textStyle={{
               ...styles.colorOrangeRed,
-              ...{marginLeft: -5},
+              ...{
+                marginLeft: -5,
+              },
               ...styles.cursor_pointer,
             }}
-            iconStyle={{...styles.colorOrangeRed}}
+            iconStyle={{
+              ...styles.colorOrangeRed,
+            }}
             iconKind={'midSize'}
             text={Translate.help}
           />
@@ -87,7 +97,10 @@ function Filter(props) {
         <MyView>
           <PhoneView>
             <Circle
-              style={{...styles.alignSelfCenter, marginRight: 3}}
+              style={{
+                ...styles.alignSelfCenter,
+                marginRight: 3,
+              }}
               diameter={14}
               backgroundColor={vars.DARK_BLUE}
             />
@@ -105,7 +118,9 @@ function Filter(props) {
               <FontIcon
                 kind={'small'}
                 icon={faBookmark}
-                style={{color: vars.ORANGE_RED}}
+                style={{
+                  color: vars.ORANGE_RED,
+                }}
                 parentStyle={{
                   ...styles.marginLeft5,
                   backgroundColor: 'transparent',
@@ -124,7 +139,10 @@ function Filter(props) {
           {!isInPhone && (
             <PhoneView>
               <Circle
-                style={{...styles.alignSelfCenter, marginRight: 3}}
+                style={{
+                  ...styles.alignSelfCenter,
+                  marginRight: 3,
+                }}
                 diameter={14}
                 backgroundColor={vars.DARK_WHITE}
               />
@@ -178,7 +196,9 @@ function Filter(props) {
                   }
                   jump={() => {
                     if (props.mode === 'splash') return;
-                    dispatch({currIdx: index});
+                    dispatch({
+                      currIdx: index,
+                    });
                   }}
                   // onChange={() => {
                   //   if (props.mode === 'splash') return;
@@ -231,7 +251,10 @@ function Filter(props) {
         state.questions !== undefined &&
         state.questions[state.currIdx] !== undefined &&
         props.mode !== 'splash' && (
-          <MyView style={{padding: 20}}>
+          <MyView
+            style={{
+              padding: 20,
+            }}>
             {state.questions[state.currIdx].subject !== undefined && (
               <EqualTwoTextInputs>
                 <SimpleText text={'مبحث: '} />
@@ -375,5 +398,4 @@ function Filter(props) {
     </CommonWebBox>
   );
 }
-
 export default Filter;

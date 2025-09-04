@@ -1,29 +1,23 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  PhoneView,
-  MyView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import translator from '../../Translator';
-import commonTranslator from '../../../../../translator/Common';
+import {CommonButton, PhoneView, MyView, SimpleText} from '@/styles';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import translator from '../../translator';
+import commonTranslator from '@/translator/common';
 import {
   allTypeKeyVals,
   filter,
   usedKeyVals,
   allWithCodeKeyVals,
   expiredKeyVals,
-} from '../Utility';
-import {allTrueFalseValues} from '../../../../../services/Utility';
+} from '../utility';
+import {allTrueFalseValues} from '../../../../../services/utility';
 import {
   faAngleDoubleDown,
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../../../../styles/Common/Styles';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-
+import {styles} from '@/styles/common/styles';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
 const Filter = props => {
   const [used, setUsed] = useState();
   const [type, setType] = useState();
@@ -38,16 +32,17 @@ const Filter = props => {
   const [showProSearch, setShowProSearch] = useState(false);
   const [wantedIcon, setWantedIcon] = useState(faAngleDoubleDown);
   const [hasExpired, setHasExpired] = useState(false);
-
   const toggleShowProSearch = () => {
     if (showProSearch) setWantedIcon(faAngleDoubleDown);
     else setWantedIcon(faAngleDoubleUp);
     setShowProSearch(!showProSearch);
   };
-
   return (
     <MyView>
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         <JustBottomBorderSelect
           setter={setUsed}
           values={usedKeyVals}
@@ -88,7 +83,9 @@ const Filter = props => {
             )
           }
           title={commonTranslator.show}
-          style={{alignSelf: 'flex-start'}}
+          style={{
+            alignSelf: 'flex-start',
+          }}
         />
       </PhoneView>
       <PhoneView>
@@ -120,7 +117,10 @@ const Filter = props => {
       </PhoneView>
       {showProSearch && (
         <MyView>
-          <PhoneView style={{...styles.gap15}}>
+          <PhoneView
+            style={{
+              ...styles.gap15,
+            }}>
             <JustBottomBorderSelect
               setter={setIsPublic}
               values={allTrueFalseValues}
@@ -167,5 +167,4 @@ const Filter = props => {
     </MyView>
   );
 };
-
 export default Filter;

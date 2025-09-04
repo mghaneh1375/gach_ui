@@ -1,16 +1,15 @@
 import {Pressable} from 'react-native';
 import Circle from '../../../../components/web/Circle';
-import {
-  BigBoldBlueTextInline,
-  EqualTwoTextInputs,
-  MyView,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
-
+import {BigBoldBlueTextInline, EqualTwoTextInputs, MyView} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
 function ProgressCard(props) {
   return (
-    <MyView style={{...styles.padding10, width: props.width}}>
+    <MyView
+      style={{
+        ...styles.padding10,
+        width: props.width,
+      }}>
       <Pressable
         onPress={props.onPress}
         style={{
@@ -53,5 +52,4 @@ function ProgressCard(props) {
     </MyView>
   );
 }
-
 export default ProgressCard;

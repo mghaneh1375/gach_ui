@@ -1,7 +1,6 @@
 import React from 'react';
-import {showError, showSuccess} from '../../../../services/Utility';
-import {doSaveAnswer} from './Utility';
-
+import {showError, showSuccess} from '../../../../services/utility';
+import {doSaveAnswer} from './utility';
 const defaultGlobalState = {
   questions: undefined,
   answers: undefined,
@@ -19,28 +18,28 @@ const defaultGlobalState = {
   showExitConfirmation: false,
   imSureExit: false,
 };
-
 export const doQuizContext = React.createContext(defaultGlobalState);
 export const dispatchDoQuizContext = React.createContext(undefined);
-
 export const DoQuizProvider = ({children}) => {
   const [state, dispatch] = React.useReducer(
-    (state, newValue) => ({...state, ...newValue}),
+    (state, newValue) => ({
+      ...state,
+      ...newValue,
+    }),
     defaultGlobalState,
   );
-
   const setAnswer = React.useCallback(() => {
     if (
       state.currIdx === undefined ||
       state.currIdx < 0 ||
       state.answer === undefined
     ) {
-      dispatch({needUpdateAnswer: false});
+      dispatch({
+        needUpdateAnswer: false,
+      });
       return;
     }
-
     state.setLoadingWithText(true);
-
     Promise.all([
       doSaveAnswer(
         state.answer,
@@ -56,12 +55,10 @@ export const DoQuizProvider = ({children}) => {
         });
         return;
       }
-
       if (res[0].reminder < 0) {
         window.location.href = '/myIRYSCQuizzes';
         return;
       }
-
       state.answers[state.currIdx] = state.answer;
       if (res[0].isCorrect) {
         if (state.currIdx === state.questions.length - 1) {
@@ -94,44 +91,46 @@ export const DoQuizProvider = ({children}) => {
       }
     });
   }, [state]);
-
   const updateQuestion = React.useCallback(() => {
     if (state.question === undefined || state.questions === undefined) {
-      dispatch({needUpdate: false});
+      dispatch({
+        needUpdate: false,
+      });
       return;
     }
     const newQuestions = state.questions.map(elem => {
       if (elem.id !== state.question.id) return elem;
       return state.question;
     });
-
-    dispatch({questions: newQuestions, needUpdate: false});
+    dispatch({
+      questions: newQuestions,
+      needUpdate: false,
+    });
   }, [state.question, state.questions]);
-
   React.useEffect(() => {
     if (!state.needUpdate) return;
     updateQuestion();
   }, [state.needUpdate, updateQuestion]);
-
   React.useEffect(() => {
     if (!state.needUpdateAnswer) return;
     setAnswer();
   }, [state.needUpdateAnswer, setAnswer]);
-
   React.useEffect(() => {
     if (!state.exit) return;
-    dispatch({showExitConfirmation: true});
+    dispatch({
+      showExitConfirmation: true,
+    });
   }, [state.exit, dispatch]);
-
   React.useEffect(() => {
     if (!state.imSureExit) return;
     window.location.href = '/myIRYSCQuizzes';
   }, [state.imSureExit]);
-
   React.useEffect(() => {
-    if (state.clearTimer) dispatch({clearTimer: false});
+    if (state.clearTimer)
+      dispatch({
+        clearTimer: false,
+      });
   }, [state.clearTimer]);
-
   return (
     <doQuizContext.Provider value={state}>
       <dispatchDoQuizContext.Provider value={dispatch}>

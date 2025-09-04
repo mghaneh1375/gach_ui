@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView, SimpleText} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
+import {
+  CommonWebBox,
+  MyView,
+  SimpleText,
+} from '../../../styles/CommonComponents';
+import {styles} from '../../../styles/common/styles';
 import Card from './components/Card';
-import Description from './components/description';
-
+import Description from './components/Description';
 function Psychology(props) {
   const navigate = props.navigate;
-
   const [show, setShow] = useState(true);
   const [description, setDescription] = useState([
     {
@@ -73,8 +75,16 @@ function Psychology(props) {
         })}
 
         <Description descriptionText={text[0].descriptionText} />
-        <CommonWebBox style={{...styles.width80}}>
-          <SimpleText style={{...styles.BlueBold}} text={' تگ\u200cها '} />
+        <CommonWebBox
+          style={{
+            ...styles.width80,
+          }}>
+          <SimpleText
+            style={{
+              ...styles.BlueBold,
+            }}
+            text={' تگ\u200cها '}
+          />
           <SimpleText
             text={
               ' برنامه‌نویسی یک مهارت اساسی است که در دنیای امروز بسیار پرکاربرد است. ممکن است تصور کنید که برنامه‌نویسی تنها مختص مهندسان کامپیوتر است، در حالی که چنین نیست. نیاز به این تخصص امروزه در تمام رشته‌ها از جمله پزشکی، اقتصاد، علوم انسانی، مدیریت، حمل و نقل و غیره احساس می‌شود  '
@@ -85,5 +95,4 @@ function Psychology(props) {
     </>
   );
 }
-
 export default Psychology;

@@ -1,8 +1,7 @@
 import React from 'react';
 import {Pressable} from 'react-native';
-import {PhoneView, SimpleText} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-
+import {PhoneView, SimpleText} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
 function ItemCard({news, selectItem}) {
   //   const [pic, setPic] = useState();
   //   React.useEffect(() => {
@@ -29,15 +28,19 @@ function ItemCard({news, selectItem}) {
             style={{width: '40px', height: '40px'}}
             source={{uri: pic}}
           />
-        )} */}
+         )} */}
 
         <SimpleText
-          style={{...styles.BlueBold, ...{fontSize: 12}}}
+          style={{
+            ...styles.BlueBold,
+            ...{
+              fontSize: 12,
+            },
+          }}
           text={news.title}
         />
       </PhoneView>
     </Pressable>
   );
 }
-
 export default ItemCard;

@@ -1,12 +1,10 @@
 import React from 'react';
-import {CommonWebBox} from '../../../../styles/Common';
+import {CommonWebBox} from '@/styles';
 import ChangePass from '../../../general/profile/components/ChangePass';
 import {usersContext} from './Context';
-
 function ChangePassByAdmin(props) {
   const useGlobalState = () => [React.useContext(usersContext)];
   const [state] = useGlobalState();
-
   return (
     <CommonWebBox
       header={'تغییر رمزعبور'}
@@ -28,5 +26,4 @@ function ChangePassByAdmin(props) {
     </CommonWebBox>
   );
 }
-
 export default ChangePassByAdmin;

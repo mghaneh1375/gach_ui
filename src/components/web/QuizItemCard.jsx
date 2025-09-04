@@ -1,9 +1,7 @@
-import React from 'react';
-import {MyView, PhoneView, SimpleText} from '../../styles/Common';
-import {FontIcon, SimpleFontIcon} from '../../styles/Common/FontIcon';
-import {styles} from '../../styles/Common/Styles';
-import {getDevice, getWidthHeight} from '../../services/Utility';
-
+import {getDevice, getWidthHeight} from '../../services/utility';
+import {MyView, PhoneView, SimpleText} from '../../styles/CommonComponents';
+import {FontIcon, SimpleFontIcon} from '../../styles/common/FontIcon';
+import {styles} from '../../styles/common/styles';
 function QuizItemCard({
   text,
   val,
@@ -44,7 +42,9 @@ function QuizItemCard({
         <SimpleFontIcon
           kind={iconFontSize !== undefined ? iconFontSize : 'small'}
           icon={icon}
-          style={{color: color === undefined ? 'blue' : color}}
+          style={{
+            color: color === undefined ? 'blue' : color,
+          }}
           parentStyle={{
             marginLeft: 5,
           }}
@@ -101,7 +101,9 @@ function QuizItemCard({
         )}
         {val === 'icon' && (
           <SimpleFontIcon
-            style={{color: iconColor}}
+            style={{
+              color: iconColor,
+            }}
             kind={'normal'}
             icon={iconVal}
           />
@@ -110,5 +112,4 @@ function QuizItemCard({
     </PhoneView>
   );
 }
-
 export default QuizItemCard;

@@ -1,19 +1,16 @@
 import React from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {CommonWebBox} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {CommonWebBox} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
 import {courseContext, dispatchCourseContext} from './Context';
-
 function ListLifestyle(props) {
   const useGlobalState = () => [
     React.useContext(courseContext),
     React.useContext(dispatchCourseContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const columns = [
     {
       name: 'عنوان',
@@ -22,29 +19,25 @@ function ListLifestyle(props) {
       center: true,
     },
   ];
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       generalRequest(routes.getAllLife, 'get', undefined, 'data', props.token),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.navigate('/');
         return;
       }
-
-      dispatch({tags: res[0]});
+      dispatch({
+        tags: res[0],
+      });
     });
   }, [props, dispatch]);
-
   useEffectOnce(() => {
     if (state.tags !== undefined) return;
     fetchData();
   }, [state.tags, fetchData]);
-
   return (
     <CommonWebBox
       header={' جلسات مشاوره '}
@@ -62,5 +55,4 @@ function ListLifestyle(props) {
     </CommonWebBox>
   );
 }
-
 export default ListLifestyle;

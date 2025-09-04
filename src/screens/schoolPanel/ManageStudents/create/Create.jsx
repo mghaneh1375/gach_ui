@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView, CommonButton} from '../../../../styles/Common';
-import Translate from '../Translate';
-import commonTranslator from '../../../../translator/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {changeText, showSuccess} from '../../../../services/Utility';
-import {addStudents} from '../Utility';
+import {CommonWebBox, PhoneView, CommonButton} from '@/styles';
+import Translate from '../translate';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {changeText, showSuccess} from '../../../../services/utility';
+import {addStudents} from '../utility';
 import UploadFile from '../../../../components/web/UploadFile';
-import {BASE_SITE_NAME} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-
+import {BASE_SITE_NAME} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
 function Create(props) {
   const [name, setName] = useState();
   const [lastname, setLastname] = useState();
@@ -16,12 +15,9 @@ function Create(props) {
   const [nid, setNid] = useState();
   const [password, setPassword] = useState();
   const [rPassword, setRPassword] = useState();
-
   const [showUploadPane, setShowUploadPane] = useState(false);
-
   const [result, setResult] = useState(undefined);
   const [finalMsg, setFinalMsg] = useState();
-
   React.useEffect(() => {
     if (result === undefined || result.length === 0) return;
     if (result.errs === undefined || result.errs.length === 0) {
@@ -29,7 +25,6 @@ function Create(props) {
       showSuccess();
     } else setFinalMsg(result.excepts + '\n' + result.errs);
   }, [result]);
-
   return (
     <>
       {showUploadPane && (
@@ -68,7 +63,10 @@ function Create(props) {
               />
             </PhoneView>
           }>
-          <PhoneView style={{gap: 15}}>
+          <PhoneView
+            style={{
+              gap: 15,
+            }}>
             <JustBottomBorderTextInput
               onChangeText={text => setName(text)}
               placeholder={commonTranslator.name}
@@ -146,5 +144,4 @@ function Create(props) {
     </>
   );
 }
-
 export default Create;

@@ -1,19 +1,14 @@
 import React from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-} from '../../../../../styles/Common';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import {dispatchQuizContext, quizContext} from '../Context';
 import {useState} from 'react';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import translator from '../../Translator';
-import commonTranslator from '../../../../../translator/Common';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {showSuccess} from '../../../../../services/Utility';
-
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import translator from '../../translator';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '@/services/utility';
 function Copy(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
@@ -32,12 +27,10 @@ function Copy(props) {
   const [endRegistry, setEndRegistry] = useState(
     state.selectedQuiz.endRegistry,
   );
-
   const changeInput = (label, text) => {
     if (label === 'name') setName(text);
     else if (label === 'desc') setDescription(text);
   };
-
   return (
     <CommonWebBox
       backBtn={true}
@@ -68,7 +61,10 @@ function Copy(props) {
       </PhoneView>
       {state.selectedQuiz.generalMode !== 'open' && (
         <>
-          <PhoneView style={{gap: 10}}>
+          <PhoneView
+            style={{
+              gap: 10,
+            }}>
             <JustBottomBorderDatePicker
               placeholder={translator.startDate}
               subText={translator.startDate}
@@ -82,7 +78,10 @@ function Copy(props) {
               setter={setEnd}
             />
           </PhoneView>
-          <PhoneView style={{gap: 10}}>
+          <PhoneView
+            style={{
+              gap: 10,
+            }}>
             <JustBottomBorderDatePicker
               placeholder={translator.startRegistryDate}
               subText={translator.startRegistryDate}
@@ -125,7 +124,9 @@ function Copy(props) {
           props.setLoading(false);
           if (res != null) {
             showSuccess();
-            dispatch({quizzes: [res, ...state.quizzes]});
+            dispatch({
+              quizzes: [res, ...state.quizzes],
+            });
             props.setMode('list');
           }
         }}
@@ -135,5 +136,4 @@ function Copy(props) {
     </CommonWebBox>
   );
 }
-
 export default Copy;

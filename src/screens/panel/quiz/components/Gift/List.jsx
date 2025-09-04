@@ -5,13 +5,12 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
-import {styles} from '../../../../../styles/Common/Styles';
+} from '@/styles';
+import {styles} from '@/styles/common/styles';
 import {dispatchQuizContext, quizContext} from '../Context';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {showSuccess} from '../../../../../services/Utility';
-
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '@/services/utility';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
@@ -20,18 +19,14 @@ function List(props) {
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState();
   const [data, setData] = useState();
-
   React.useEffect(() => {
     if (state.selectedQuiz?.gifts !== undefined)
       setData(state.selectedQuiz?.gifts);
   }, [state.selectedQuiz?.gifts]);
-
   const fetchData = React.useCallback(() => {
     if (isWorking || state.selectedQuiz.gifts !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getEscapeQuizGift + state.selectedQuiz.id,
@@ -47,15 +42,15 @@ function List(props) {
         return;
       }
       state.selectedQuiz.gifts = res[0];
-      dispatch({selectedQuiz: state.selectedQuiz});
+      dispatch({
+        selectedQuiz: state.selectedQuiz,
+      });
     });
   }, [isWorking, dispatch, state.selectedQuiz, props]);
-
   React.useEffect(() => {
     if (state.selectedQuiz === undefined) return;
     if (state.selectedQuiz.gifts === undefined) fetchData();
   }, [state.selectedQuiz, fetchData]);
-
   return (
     <CommonWebBox
       header={'جوایز'}
@@ -66,7 +61,10 @@ function List(props) {
           return (
             <PhoneView
               key={index}
-              style={{...styles.gap50, ...styles.borderBottom1}}>
+              style={{
+                ...styles.gap50,
+                ...styles.borderBottom1,
+              }}>
               <SimpleText text={'جایزه نفر ' + e.rank} />
               {e.typeFa !== undefined && (
                 <>
@@ -98,12 +96,16 @@ function List(props) {
                         state.selectedQuiz.gifts = state.selectedQuiz.gifts.map(
                           ee => {
                             if (ee.rank === e.rank) {
-                              return {rank: e.rank};
+                              return {
+                                rank: e.rank,
+                              };
                             }
                             return ee;
                           },
                         );
-                        dispatch({selectedQuiz: state.selectedQuiz});
+                        dispatch({
+                          selectedQuiz: state.selectedQuiz,
+                        });
                         showSuccess();
                       }
                     }}
@@ -117,7 +119,9 @@ function List(props) {
                     title={'تعیین جایزه'}
                     theme={'dark'}
                     onPress={async () => {
-                      dispatch({selectedRank: e.rank});
+                      dispatch({
+                        selectedRank: e.rank,
+                      });
                       props.setMode('createGift');
                     }}
                   />
@@ -129,5 +133,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

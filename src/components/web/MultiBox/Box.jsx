@@ -1,10 +1,11 @@
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {CommonButton} from '../../../styles/Common';
-
+import {CommonButton} from '../../../styles/CommonComponents';
 const Box = props => {
   return (
     <CommonButton
-      style={{gap: 15}}
+      style={{
+        gap: 15,
+      }}
       onPress={() => props.removeItem()}
       iconDir="left"
       iconTheme="remove"
@@ -15,5 +16,4 @@ const Box = props => {
     />
   );
 };
-
 export default Box;

@@ -1,13 +1,11 @@
 import React from 'react';
-import translator from '../../Translator';
+import translator from '../../translator';
 import {quizContext} from '../Context';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import {CommonButton, PhoneView} from '../../../../../styles/Common';
-
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {CommonButton, PhoneView} from '@/styles';
 const Ops = props => {
   const useGlobalState = () => [React.useContext(quizContext)];
   const [state] = useGlobalState();
-
   return (
     <LargePopUp
       title={state.selectedQuiz.title}
@@ -29,5 +27,4 @@ const Ops = props => {
     </LargePopUp>
   );
 };
-
 export default Ops;

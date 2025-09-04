@@ -14,13 +14,11 @@ import {
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import translator from '../../../../../translator/Common';
-import {MenuItem, style} from '../style';
+import translator from '../../../../../translator/common';
+import {MenuItem, style} from '../Style';
 import {SuperMenuItem} from './SuperMenuItem';
-
 function MenuItemRepeat(props) {
   const navigate = props.navigate;
-
   return (
     <div className="menu-item-container" style={style.MenuJustLarge}>
       <MenuItem
@@ -259,5 +257,4 @@ function MenuItemRepeat(props) {
     </div>
   );
 }
-
 export default MenuItemRepeat;

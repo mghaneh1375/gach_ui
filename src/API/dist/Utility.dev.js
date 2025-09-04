@@ -16,19 +16,17 @@ exports.preProcess =
   exports.BASE_URL =
   exports.BASE_SITE_NAME =
     void 0;
-
 var _axios = _interopRequireDefault(require('axios'));
-
-var _Utility = require('../services/Utility');
-
-var _Common = _interopRequireDefault(require('./../translator/Common'));
-
-var _User = require('./User');
-
+var _Utility = require('../services/utility');
+var _Common = _interopRequireDefault(require('./../translator/common'));
+var _User = require('./user');
 function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {default: obj};
+  return obj && obj.__esModule
+    ? obj
+    : {
+        default: obj,
+      };
 }
-
 function _typeof(obj) {
   if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
     _typeof = function _typeof(obj) {
@@ -46,17 +44,14 @@ function _typeof(obj) {
   }
   return _typeof(obj);
 }
-
 function _slicedToArray(arr, i) {
   return (
     _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest()
   );
 }
-
 function _nonIterableRest() {
   throw new TypeError('Invalid attempt to destructure non-iterable instance');
 }
-
 function _iterableToArrayLimit(arr, i) {
   if (
     !(
@@ -91,11 +86,9 @@ function _iterableToArrayLimit(arr, i) {
   }
   return _arr;
 }
-
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
-
 var BASE_SITE_NAME = 'http://localhost:3000/'; //export const BASE_URL = 'http://192.168.1.103:8080/api/';
 
 exports.BASE_SITE_NAME = BASE_SITE_NAME;
@@ -108,7 +101,6 @@ var COMMON_HEADER = {
   accept: 'application/json',
 };
 exports.COMMON_HEADER = COMMON_HEADER;
-
 var COMMON_HEADER_AUTH = function COMMON_HEADER_AUTH(token) {
   return {
     'content-type': 'application/json',
@@ -116,43 +108,33 @@ var COMMON_HEADER_AUTH = function COMMON_HEADER_AUTH(token) {
     Authorization: 'Bearer ' + token,
   };
 };
-
 exports.COMMON_HEADER_AUTH = COMMON_HEADER_AUTH;
-
 var COMMON_FILE_HEADER = function COMMON_FILE_HEADER() {
   return {
     accept: 'application/json',
   };
 };
-
 exports.COMMON_FILE_HEADER = COMMON_FILE_HEADER;
-
 var COMMON_FILE_HEADER_AUTH = function COMMON_FILE_HEADER_AUTH(token) {
   return {
     accept: 'application/json',
     Authorization: 'Bearer ' + token,
   };
 };
-
 exports.COMMON_FILE_HEADER_AUTH = COMMON_FILE_HEADER_AUTH;
-
 var COMMON_DOWNLOAD_HEADER = function COMMON_DOWNLOAD_HEADER() {
   return {
     'content-type': 'application/json',
   };
 };
-
 exports.COMMON_DOWNLOAD_HEADER = COMMON_DOWNLOAD_HEADER;
-
 var COMMON_DOWNLOAD_HEADER_AUTH = function COMMON_DOWNLOAD_HEADER_AUTH(token) {
   return {
     'content-type': 'application/json',
     Authorization: 'Bearer ' + token,
   };
 };
-
 exports.COMMON_DOWNLOAD_HEADER_AUTH = COMMON_DOWNLOAD_HEADER_AUTH;
-
 var generalRequest = function generalRequest(
   url,
   method,
@@ -172,22 +154,18 @@ var generalRequest = function generalRequest(
               _args.length > 4 && _args[4] !== undefined ? _args[4] : null;
             mandatoryFields =
               _args.length > 5 && _args[5] !== undefined ? _args[5] : undefined;
-
             if (!(data !== undefined && data !== null)) {
               _context.next = 10;
               break;
             }
-
             _context.prev = 3;
             data = preProcess(data, mandatoryFields);
             _context.next = 10;
             break;
-
           case 7:
             _context.prev = 7;
             _context.t0 = _context.catch(3);
             throw 'preProccess err';
-
           case 10:
             _context.next = 12;
             return regeneratorRuntime.awrap(
@@ -203,29 +181,23 @@ var generalRequest = function generalRequest(
               })
                 .then(function (response) {
                   var data = response.data;
-
                   if (data.status === 'nok') {
                     if (data.msg === 'Token is not valid')
                       (0, _User.removeAuthCache)();
                     (0, _Utility.showError)(data.msg);
                     return null;
                   }
-
                   if (data.status === 'ok') {
                     if (dataShouldReturnKey === undefined) return true;
-
                     if (dataShouldReturnKey instanceof Array) {
                       var output = {};
                       var key;
-
                       for (var i = 0; i < dataShouldReturnKey.length; i++) {
                         key = dataShouldReturnKey[i];
                         output[key] = data[key];
                       }
-
                       return output;
                     }
-
                     return data[dataShouldReturnKey];
                   }
                 })
@@ -234,11 +206,9 @@ var generalRequest = function generalRequest(
                   return null;
                 }),
             );
-
           case 12:
             res = _context.sent;
             return _context.abrupt('return', res);
-
           case 14:
           case 'end':
             return _context.stop();
@@ -250,9 +220,7 @@ var generalRequest = function generalRequest(
     [[3, 7]],
   );
 };
-
 exports.generalRequest = generalRequest;
-
 var downloadRequest = function downloadRequest(url, data) {
   var token,
     mandatoryFields,
@@ -269,22 +237,18 @@ var downloadRequest = function downloadRequest(url, data) {
               _args3.length > 3 && _args3[3] !== undefined
                 ? _args3[3]
                 : undefined;
-
             if (!(data !== undefined && data !== null)) {
               _context3.next = 10;
               break;
             }
-
             _context3.prev = 3;
             data = preProcess(data, mandatoryFields);
             _context3.next = 10;
             break;
-
           case 7:
             _context3.prev = 7;
             _context3.t0 = _context3.catch(3);
             throw 'preProccess err';
-
           case 10:
             _context3.next = 12;
             return regeneratorRuntime.awrap(
@@ -309,10 +273,8 @@ var downloadRequest = function downloadRequest(url, data) {
                             _context2.next = 3;
                             break;
                           }
-
                           (0, _Utility.showError)(data.msg);
                           return _context2.abrupt('return', null);
-
                         case 3:
                           url = window.URL.createObjectURL(
                             new Blob([response.data]),
@@ -323,7 +285,6 @@ var downloadRequest = function downloadRequest(url, data) {
                           document.body.appendChild(link);
                           link.click();
                           return _context2.abrupt('return', 'ok');
-
                         case 10:
                         case 'end':
                           return _context2.stop();
@@ -337,11 +298,9 @@ var downloadRequest = function downloadRequest(url, data) {
                   return null;
                 }),
             );
-
           case 12:
             res = _context3.sent;
             return _context3.abrupt('return', res);
-
           case 14:
           case 'end':
             return _context3.stop();
@@ -353,9 +312,7 @@ var downloadRequest = function downloadRequest(url, data) {
     [[3, 7]],
   );
 };
-
 exports.downloadRequest = downloadRequest;
-
 var fileRequest = function fileRequest(url, method, data, dataShouldReturnKey) {
   var token,
     additionalData,
@@ -377,24 +334,20 @@ var fileRequest = function fileRequest(url, method, data, dataShouldReturnKey) {
               _args4.length > 6 && _args4[6] !== undefined
                 ? _args4[6]
                 : undefined;
-
             if (!(additionalData !== undefined && additionalData !== null)) {
               _context4.next = 12;
               break;
             }
-
             _context4.prev = 4;
             if (mandatoryFields !== undefined)
               additionalData = preProcess(additionalData, mandatoryFields);
             data.append('json', JSON.stringify(additionalData));
             _context4.next = 12;
             break;
-
           case 9:
             _context4.prev = 9;
             _context4.t0 = _context4.catch(4);
             throw 'preProccess err';
-
           case 12:
             _context4.next = 14;
             return regeneratorRuntime.awrap(
@@ -410,27 +363,21 @@ var fileRequest = function fileRequest(url, method, data, dataShouldReturnKey) {
               })
                 .then(function (response) {
                   var data = response.data;
-
                   if (data.status === 'nok') {
                     (0, _Utility.showError)(data.msg);
                     return null;
                   }
-
                   if (data.status === 'ok') {
                     if (dataShouldReturnKey === undefined) return true;
-
                     if (dataShouldReturnKey instanceof Array) {
                       var output = {};
                       var key;
-
                       for (var i = 0; i < dataShouldReturnKey.length; i++) {
                         key = dataShouldReturnKey[i];
                         output[key] = data[key];
                       }
-
                       return output;
                     }
-
                     return data[dataShouldReturnKey];
                   }
                 })
@@ -440,11 +387,9 @@ var fileRequest = function fileRequest(url, method, data, dataShouldReturnKey) {
                   return null;
                 }),
             );
-
           case 14:
             res = _context4.sent;
             return _context4.abrupt('return', res);
-
           case 16:
           case 'end':
             return _context4.stop();
@@ -456,28 +401,22 @@ var fileRequest = function fileRequest(url, method, data, dataShouldReturnKey) {
     [[4, 9]],
   );
 };
-
 exports.fileRequest = fileRequest;
-
 var preProcess = function preProcess(data) {
   var mandatoryFields =
     arguments.length > 1 && arguments[1] !== undefined
       ? arguments[1]
       : undefined;
-
   if (mandatoryFields !== undefined) {
     for (var i = 0; i < mandatoryFields.length; i++) {
       var element = mandatoryFields[i];
-
       if (data[element] === undefined || data[element].length === 0) {
         (0, _Utility.showError)(_Common.default.pleaseFillAllFields);
         throw 'please fill all mandatory fields';
       }
     }
   }
-
   var newData = {};
-
   for (
     var _i = 0, _Object$entries = Object.entries(data);
     _i < _Object$entries.length;
@@ -486,7 +425,6 @@ var preProcess = function preProcess(data) {
     var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
       key = _Object$entries$_i[0],
       value = _Object$entries$_i[1];
-
     if (value === undefined || value.length === 0) continue;
     if (typeof value === 'boolean') newData[key] = value;
     else if (_typeof(value) !== 'object' && !isNaN(value)) {
@@ -497,8 +435,6 @@ var preProcess = function preProcess(data) {
       else newData[key] = Number(value);
     } else newData[key] = value;
   }
-
   return newData;
 };
-
 exports.preProcess = preProcess;

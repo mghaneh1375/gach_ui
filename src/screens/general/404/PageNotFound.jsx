@@ -1,7 +1,6 @@
 import React from 'react';
-import {CommonWebBox, SimpleText} from '../../../styles/Common';
-import commonTranslator from '../../../translator/Common';
-
+import {CommonWebBox, SimpleText} from '../../../styles/CommonComponents';
+import commonTranslator from '../../../translator/common';
 function PageNotFound() {
   return (
     <CommonWebBox>
@@ -9,5 +8,4 @@ function PageNotFound() {
     </CommonWebBox>
   );
 }
-
 export default PageNotFound;

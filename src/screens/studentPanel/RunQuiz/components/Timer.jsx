@@ -4,35 +4,25 @@ import {
   convertSecToMin,
   convertSecToMinWithOutSec,
   showWarnign,
-} from '../../../../services/Utility';
-import {
-  MyView,
-  PhoneView,
-  SimpleText,
-  SimpleTextWithRef,
-} from '../../../../styles/Common';
-import ProgressBar from '../../../../styles/Common/ProgressBar';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
-import Translate from '../Translate';
-
+} from '../../../../services/utility';
+import {MyView, PhoneView, SimpleText, SimpleTextWithRef} from '@/styles';
+import ProgressBar from '../../../../styles/common/ProgressBar';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
+import Translate from '../translate';
 let timerVar;
 let localReminder_;
-
 function Timer(props) {
   const timerRef = useRef();
   const startAt = Date.now();
-
   const [progress, setProgress] = useState(
     ((props.duration - props.reminder) * 100) / props.duration,
   );
-
   React.useEffect(() => {
     if (props.reminder !== undefined && localReminder_ === undefined) {
       localReminder_ = props.reminder;
     }
   }, [props.reminder]);
-
   const timer = React.useCallback(() => {
     const interval_id = window.setInterval(function () {},
     Number.MAX_SAFE_INTEGER);
@@ -41,26 +31,21 @@ function Timer(props) {
     for (let i = 1; i < interval_id; i++) {
       window.clearInterval(i);
     }
-
     setTimeout(() => {
       timerRef.current.innerText =
         convertSecToMinWithOutSec(localReminder_) + Translate.reminder;
-
       timerVar = setInterval(() => {
         setProgress(((props.duration - localReminder_) * 100) / props.duration);
-
         if (
           localReminder_ > 60 &&
           (Date.now() - startAt) / 60000 < props.refresh
         ) {
           localReminder_ -= 60;
-
           if (localReminder_ < 360 && localReminder_ > 300) {
             showWarnign('کمتر از ۵ دقیقه به پایان آزمون شما زمان باقیست.');
           } else if (localReminder_ < 180 && localReminder_ > 120) {
             showWarnign('کمتر از ۲ دقیقه به پایان آزمون شما زمان باقیست.');
           }
-
           timerRef.current.innerText =
             convertSecToMinWithOutSec(localReminder_) + Translate.reminder;
         } else {
@@ -71,14 +56,16 @@ function Timer(props) {
       }, [60000]);
     }, 1000);
   }, [props, startAt]);
-
   useEffectOnce(() => {
     timer();
   });
-
   return (
     <MyView>
-      <PhoneView style={{gap: 1, marginBottom: 20}}>
+      <PhoneView
+        style={{
+          gap: 1,
+          marginBottom: 20,
+        }}>
         <SimpleText
           style={{
             width: 'calc(50% - 1px)',
@@ -139,16 +126,15 @@ function Timer(props) {
           timeLabels={{h: '', s: '', m: ''}}
           size={20}
         />
-      )} */}
+       )} */}
 
       {/* text={convertSecToMinWithOutSec(localReminder_) + Translate.reminder} */}
       {/* {localReminder_ !== undefined && localReminder_ > 300 && (
         <SimpleTextWithRef ref={timerRef} />
-      )} */}
+       )} */}
 
       <SimpleTextWithRef ref={timerRef} />
     </MyView>
   );
 }
-
 export default Timer;

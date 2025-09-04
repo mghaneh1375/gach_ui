@@ -1,28 +1,24 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
 import {
   CommonButton,
   CommonWebBox,
   PhoneView,
   MyView,
-} from '../../../../styles/Common';
-import translator from './Translator';
-import commonTranslator from '../../../../translator/Common';
-import {showSuccess} from '../../../../services/Utility';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-
+} from '../../../../styles/CommonComponents.jsx';
+import translator from './translator';
+import commonTranslator from '@/translator/common';
+import {showSuccess} from '../../../../services/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
 function Ravan(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [hermans, setHermans] = useState();
   const [cattell, setCattell] = useState();
   const [LASSI, setLASSI] = useState();
@@ -40,9 +36,10 @@ function Ravan(props) {
   const [cannor, setCannor] = useState();
   const [GHQ, setGHQ] = useState();
   const [RCMAS, setRCMAS] = useState();
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getAllConfiguration,
@@ -52,15 +49,14 @@ function Ravan(props) {
         props.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
       }
-
       const data = res[0];
-
       setHermans(data.hermans);
       setCattell(data.cattell);
       setLASSI(data.LASSI);
@@ -80,9 +76,10 @@ function Ravan(props) {
       setRCMAS(data.RCMAS);
     });
   }, [navigate, props.token, dispatch]);
-
   const update = () => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.updateConfiguration,
@@ -110,15 +107,19 @@ function Ravan(props) {
         props.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] !== undefined) showSuccess(commonTranslator.success);
     });
   };
-
   return (
     <MyView>
       <CommonWebBox>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderTextInput
             placeholder={translator.beckDep}
             subText={translator.beckDep}
@@ -255,5 +256,4 @@ function Ravan(props) {
     </MyView>
   );
 }
-
 export default Ravan;

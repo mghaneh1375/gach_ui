@@ -1,14 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
-
-import {FontIcon} from '../../../../styles/Common/FontIcon';
+import {FontIcon} from '../../../../styles/common/FontIcon';
 import {faPaperclip, faPaperPlane} from '@fortawesome/free-solid-svg-icons';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
 import {PhoneView} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-
+import {styles} from '../../../../styles/common/styles';
 function FooterInputWithFileUpload(props) {
   const inputRef = useRef(null);
-
   const [answer, setAnswer] = useState('');
   const [file, setFile] = useState({
     code: Math.floor(Math.random() * 10000),
@@ -16,46 +13,59 @@ function FooterInputWithFileUpload(props) {
     url: null,
     file: null,
   });
-
   const doDeleteFile = () => {
     inputRef.current.value = null;
-    setFile({...file, name: '', url: null, file: null});
+    setFile({
+      ...file,
+      name: '',
+      url: null,
+      file: null,
+    });
   };
-
   const handleUploadFile = e => {
     const uFile = e.target.files[0];
-
     file.file = uFile;
     file.name = uFile.name;
     file.url = URL.createObjectURL(uFile);
-
     props.onFileChange(file);
-
     if (props.removeFileAfterOnChage) {
       doDeleteFile();
     } else {
-      setFile({...file});
+      setFile({
+        ...file,
+      });
     }
   };
-
   const handleSubmit = () => {
     props.onSubmit(answer, file.file);
   };
-
   useEffect(() => {
     if (props.removeText) {
       setAnswer('');
     }
   }, [props.removeText]);
-
   return (
-    <div className="footer" style={{flexDirection: 'column'}}>
-      <div className="protestTextDiv" style={{width: '100%'}}>
-        <PhoneView style={{...styles.gap7}}>
+    <div
+      className="footer"
+      style={{
+        flexDirection: 'column',
+      }}>
+      <div
+        className="protestTextDiv"
+        style={{
+          width: '100%',
+        }}>
+        <PhoneView
+          style={{
+            ...styles.gap7,
+          }}>
           <div className="circlePic">
             <img src={props.userPic} alt="img" />
           </div>
-          <div style={{width: 'calc(100% - 170px)'}}>
+          <div
+            style={{
+              width: 'calc(100% - 170px)',
+            }}>
             <JustBottomBorderTextInput
               placeholder={props.text}
               subText={props.text}
@@ -64,7 +74,11 @@ function FooterInputWithFileUpload(props) {
               onChangeText={e => setAnswer(e)}
             />
           </div>
-          <PhoneView style={{...styles.alignItemsCenter, ...styles.gap10}}>
+          <PhoneView
+            style={{
+              ...styles.alignItemsCenter,
+              ...styles.gap10,
+            }}>
             {props.getFile && (
               <>
                 <label htmlFor="file_input_footer" className="attachFileIcon">
@@ -103,14 +117,13 @@ function FooterInputWithFileUpload(props) {
             getVoice={props.getVoice}
             showInput={props.showVoiceInput}
           />
-        )} */}
+         )} */}
       </div>
 
       <div className={'d-flex align-items-center row'} />
     </div>
   );
 }
-
 FooterInputWithFileUpload.defaultProps = {
   text: 'پاسخ شما',
   userPic: '',
@@ -118,17 +131,13 @@ FooterInputWithFileUpload.defaultProps = {
   voiceLabel: 'ضبط صدا',
   getFile: true,
   showUploadFileText: true,
-
   showVoiceRecorder: false,
   showVoiceInput: false,
-
   onSubmit: (text, file) => {},
   onFileChange: file => {},
   getVoice: file => {},
-
   removeText: null,
   removeFileAfterOnChage: false,
   submitWithEnter: false,
 };
-
 export default FooterInputWithFileUpload;

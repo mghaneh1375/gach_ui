@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import {faEye} from '@fortawesome/free-solid-svg-icons';
-import {getDevice} from '../../../../../services/Utility';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import {getRanking} from '../../../../panel/quiz/components/Utility';
-import {CommonWebBox} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import Karname from '../../../../panel/quiz/components/Reports/Karname/Karname';
+import {getDevice} from '@/services/utility';
+import {getRanking} from '../../../../panel/quiz/components/utility';
+import Karname from '../../../../panel/quiz/components/reports/karname/Karname';
 import {
   quizContext,
   dispatchQuizContext,
 } from '../../../../panel/quiz/components/Context';
+import {CommonWebBox, SimpleFontIcon} from '@/styles';
+import CommonDataTable from '@/styles/common/CommonDataTable';
 
 function Ranking(props) {
   const useGlobalState = () => [
@@ -18,16 +17,14 @@ function Ranking(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
-
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const [columns, setColumns] = useState();
   const [ranking, setRanking] = useState();
-
   const chooseColumns = React.useCallback(() => {
     setColumns([
       {
         name: '',
-        cell: (row, index, column, id) => {
+        cell: index => {
           return (
             <SimpleFontIcon
               onPress={() => {
@@ -73,22 +70,17 @@ function Ranking(props) {
       },
     ]);
   }, [dispatch, ranking, props.quiz]);
-
   React.useEffect(() => {
     chooseColumns();
   }, [props.quizId, chooseColumns]);
-
   React.useEffect(() => {
     if (isWorking || ranking !== undefined) return;
-
     props.setLoading(true);
     setIsWorking(true);
-
     Promise.all([
       getRanking(props.quiz.id, props.quiz.generalMode, props.token),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         props.hide();
         return;
@@ -97,20 +89,22 @@ function Ranking(props) {
       setIsWorking(false);
     });
   }, [state.selectedQuiz, ranking, props, isWorking]);
-
   const [showKarname, setShowKarname] = useState(false);
-
   return (
     <>
       {showKarname && state.selectedStudentId !== undefined && (
         <Karname
           setLoading={props.setLoading}
           setMode={() => {
-            dispatch({selectedStudentId: undefined});
+            dispatch({
+              selectedStudentId: undefined,
+            });
             setShowKarname(false);
           }}
           onBackClick={() => {
-            dispatch({selectedStudentId: undefined});
+            dispatch({
+              selectedStudentId: undefined,
+            });
             setShowKarname(false);
           }}
           token={props.token}
@@ -138,5 +132,4 @@ function Ranking(props) {
     </>
   );
 }
-
 export default Ranking;

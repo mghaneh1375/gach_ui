@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
-import {MyView, PhoneView, SimpleText} from '../../../styles/Common';
+import {MyView, PhoneView, SimpleText} from '../../../styles/CommonComponents';
 import {Image, TouchableOpacity} from 'react-native';
-
 function Card(props) {
   const [pic, setPic] = useState();
   React.useEffect(() => {
     setPic(props.comment.student.pic);
   }, [props.comment.student.pic]);
-
   return (
-    <PhoneView style={{alignItems: 'center', gap: '10px'}}>
+    <PhoneView
+      style={{
+        alignItems: 'center',
+        gap: '10px',
+      }}>
       <MyView>
         <TouchableOpacity
           onPress={() =>
@@ -25,15 +27,23 @@ function Card(props) {
               height: '75px',
               alignSelf: 'center',
             }}
-            source={{uri: pic}}
+            source={{
+              uri: pic,
+            }}
           />
         </TouchableOpacity>
         <SimpleText
-          style={{textAlign: 'center', fontSize: '11px'}}
+          style={{
+            textAlign: 'center',
+            fontSize: '11px',
+          }}
           text={props.comment.student.name}
         />
         <SimpleText
-          style={{textAlign: 'center', fontSize: '11px'}}
+          style={{
+            textAlign: 'center',
+            fontSize: '11px',
+          }}
           text={props.comment.createdAt}
         />
       </MyView>
@@ -41,5 +51,4 @@ function Card(props) {
     </PhoneView>
   );
 }
-
 export default Card;

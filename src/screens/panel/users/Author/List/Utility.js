@@ -1,8 +1,7 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-import {showSuccess} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
+import {showSuccess} from '@/services/utility';
+import commonTranslator from '@/translator/common';
 export const createAuthor = async (token, data) => {
   const res = await generalRequest(
     routes.createAuthor,
@@ -14,7 +13,6 @@ export const createAuthor = async (token, data) => {
   if (res !== null) showSuccess(commonTranslator.success);
   return res;
 };
-
 export const editAuthor = async (token, authorId, data) => {
   const res = await generalRequest(
     routes.editAuthor + authorId,
@@ -26,7 +24,6 @@ export const editAuthor = async (token, authorId, data) => {
   if (res !== null) showSuccess(commonTranslator.success);
   return res;
 };
-
 export const filter = async (setLoading, token, setData, tag) => {
   setLoading(true);
   const res = await generalRequest(
@@ -45,7 +42,6 @@ export const filter = async (setLoading, token, setData, tag) => {
   }
   return res;
 };
-
 export const getTransations = async (authorId, token) => {
   return await generalRequest(
     routes.getAuthorTransactions + authorId,
@@ -55,7 +51,6 @@ export const getTransations = async (authorId, token) => {
     token,
   );
 };
-
 export const createTransaction = async (authorId, data, token) => {
   const res = await generalRequest(
     routes.createAuthorTransaction + authorId,
@@ -65,10 +60,8 @@ export const createTransaction = async (authorId, data, token) => {
     token,
   );
   if (res !== null) showSuccess(commonTranslator.success);
-
   return res;
 };
-
 export const getLastTransaction = async (authorId, token) => {
   return await generalRequest(
     routes.getAuthorLastTransaction + authorId,
@@ -83,7 +76,9 @@ export const removeAuthor = async (setLoading, token, authorId, afterFunc) => {
   const res = await generalRequest(
     routes.removeAuthors,
     'delete',
-    {items: [authorId]},
+    {
+      items: [authorId],
+    },
     ['excepts', 'doneIds'],
     token,
   );

@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
-import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
-import {showSuccess} from '../../../../../services/Utility';
-import {CommonButton, PhoneView, MyView} from '../../../../../styles/Common';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../../translator/Common';
-import Translate from '../../Translate';
-
+import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane';
+import {showSuccess} from '@/services/utility';
+import {CommonButton, PhoneView, MyView} from '@/styles';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import commonTranslator from '@/translator/common';
+import Translate from '../../translate';
 function Ops(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);
-
   const afterRemove = res => {
     setShowRemovePane(false);
     showSuccess();
@@ -27,7 +25,9 @@ function Ops(props) {
           token={props.token}
           //   url={routes.}
           expected={['excepts', 'doneIds']}
-          data={{items: [props.id]}}
+          data={{
+            items: [props.id],
+          }}
           afterFunc={afterRemove}
           toggleShowPopUp={toggleShowRemovePane}
         />
@@ -62,5 +62,4 @@ function Ops(props) {
     </MyView>
   );
 }
-
 export default Ops;

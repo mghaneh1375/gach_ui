@@ -1,23 +1,22 @@
 import React, {useCallback, useMemo, useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {
   CommonButton,
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {LargePopUp} from '../../../styles/Common/PopUp';
+} from '../../../styles/CommonComponents.jsx';
+import {LargePopUp} from '../../../styles/common/PopUp';
 import {useEffectOnce} from 'usehooks-ts';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
-import commonTranslator from '../../../translator/Common';
-import {showSuccess} from '../../../services/Utility';
-import CommonDataTable from '../../../styles/Common/CommonDataTable';
-import columns from './TableStructure';
-import JustBottomBorderDatePicker from '../../../styles/Common/JustBottomBorderDatePicker';
-import Pagination from '../../../components/web/Pagination/Pagination';
-
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
+import commonTranslator from '../../../translator/common';
+import {showSuccess} from '../../../services/utility';
+import CommonDataTable from '../../../styles/common/CommonDataTable';
+import columns from './tableStructure';
+import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker';
+import Pagination from '../../../components/web/pagination/Pagination';
 function Comment(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [
@@ -40,36 +39,65 @@ function Comment(props) {
     justTop: false,
     refId: 'all',
   });
-
   const [sectionValues, statusValues, justTopValues] = useMemo(
     () => [
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'teach', item: commonTranslator.teach},
-        {id: 'content', item: commonTranslator.contents},
-        {id: 'advisor', item: commonTranslator.advisor},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'teach',
+          item: commonTranslator.teach,
+        },
+        {
+          id: 'content',
+          item: commonTranslator.contents,
+        },
+        {
+          id: 'advisor',
+          item: commonTranslator.advisor,
+        },
       ],
       [
-        {id: 'all', item: commonTranslator.all},
-        {id: 'pending', item: commonTranslator.pending},
-        {id: 'accept', item: commonTranslator.accepted},
-        {id: 'reject', item: commonTranslator.rejected},
+        {
+          id: 'all',
+          item: commonTranslator.all,
+        },
+        {
+          id: 'pending',
+          item: commonTranslator.pending,
+        },
+        {
+          id: 'accept',
+          item: commonTranslator.accepted,
+        },
+        {
+          id: 'reject',
+          item: commonTranslator.rejected,
+        },
       ],
       [
-        {id: false, item: commonTranslator.all},
-        {id: true, item: 'تنها برترین\u200cها'},
+        {
+          id: false,
+          item: commonTranslator.all,
+        },
+        {
+          id: true,
+          item: 'تنها برترین\u200cها',
+        },
       ],
     ],
     [],
   );
-
   const handleOp = (idx, row) => {
     setShowOp(true);
     setSelectedRow(row);
   };
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     const query = new URLSearchParams();
     if (filter.section !== 'all') query.append('section', filter.section);
     if (filter.status !== 'all') query.append('status', filter.status);
@@ -79,7 +107,6 @@ function Comment(props) {
       query.append('refId', filter.refId);
     if (filter.justTop) query.append('justTop', true);
     query.append('pageIndex', pageIndex);
-
     Promise.all(
       contents === undefined
         ? [
@@ -129,32 +156,45 @@ function Comment(props) {
             ),
           ],
     ).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null || res[1] === null) {
         navigate('/');
         return;
       }
-
       setComments(res[0].comments);
       setTotalCount(res[1].count);
       setPerPage(res[1].perPage);
       if (res.length > 2 && res[2] !== null) {
         setTeachers([
-          {id: 'all', item: commonTranslator.all},
-          ...res[2].map(e => ({id: e.id, item: e.name})),
+          {
+            id: 'all',
+            item: commonTranslator.all,
+          },
+          ...res[2].map(e => ({
+            id: e.id,
+            item: e.name,
+          })),
         ]);
         setContents([
-          {id: 'all', item: commonTranslator.all},
-          ...res[3].map(e => ({id: e.id, item: e.title})),
+          {
+            id: 'all',
+            item: commonTranslator.all,
+          },
+          ...res[3].map(e => ({
+            id: e.id,
+            item: e.title,
+          })),
         ]);
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
-
   const fetchWantedPage = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     const query = new URLSearchParams();
     if (filter.section !== 'all') query.append('section', filter.section);
     if (filter.status !== 'all') query.append('status', filter.status);
@@ -164,7 +204,6 @@ function Comment(props) {
       query.append('refId', filter.refId);
     if (filter.justTop) query.append('justTop', true);
     query.append('pageIndex', pageIndex);
-
     Promise.all([
       generalRequest(
         routes.getAllComments + '?' + query.toString(),
@@ -174,23 +213,21 @@ function Comment(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
       }
-
       setComments(res[0].comments);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, pageIndex]);
-
   useEffectOnce(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   React.useEffect(() => {
     if (pageIndex === undefined) return;
     if (firstFetch) {
@@ -200,10 +237,11 @@ function Comment(props) {
     fetchWantedPage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageIndex]);
-
   const setStatus = useCallback(
     newStatus => {
-      dispatch({loading: true});
+      dispatch({
+        loading: true,
+      });
       Promise.all([
         generalRequest(
           routes.setCommentStatus +
@@ -216,7 +254,9 @@ function Comment(props) {
           state.token,
         ),
       ]).then(res => {
-        dispatch({loading: false});
+        dispatch({
+          loading: false,
+        });
         if (res[0] != null) {
           showSuccess();
           if (
@@ -239,9 +279,10 @@ function Comment(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedRow],
   );
-
   const toggleIsTop = useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.toggleTopStatus + selectedRow.id,
@@ -251,7 +292,9 @@ function Comment(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] != null) {
         setComments(
           comments.map(e => {
@@ -266,11 +309,13 @@ function Comment(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedRow]);
-
   return (
     <>
       <CommonWebBox>
-        <PhoneView style={{gap: '10px'}}>
+        <PhoneView
+          style={{
+            gap: '10px',
+          }}>
           <JustBottomBorderSelect
             values={statusValues}
             setter={val =>
@@ -381,7 +426,10 @@ function Comment(props) {
         />
         {totalCount !== undefined && (
           <SimpleText
-            style={{fontSize: '18px', textAlign: 'center'}}
+            style={{
+              fontSize: '18px',
+              textAlign: 'center',
+            }}
             text={'تعداد کل: ' + totalCount}
           />
         )}
@@ -410,7 +458,10 @@ function Comment(props) {
               setSelectedRow(undefined);
             }}>
             <SimpleText text={selectedRow.comment} />
-            <PhoneView style={{gap: '10px'}}>
+            <PhoneView
+              style={{
+                gap: '10px',
+              }}>
               {selectedRow.status !== 'accept' && (
                 <CommonButton
                   theme={'transparent'}
@@ -443,5 +494,4 @@ function Comment(props) {
     </>
   );
 }
-
 export default Comment;

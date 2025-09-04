@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-
 import {
   CommonButton,
   CommonWebBox,
   PhoneView,
   SimpleText,
   MyView,
-} from '../../../../styles/Common';
-import Translate from '../Translate';
-import commonTranslator from '../../../../translator/Common';
+} from '@/styles';
+import Translate from '../translate';
+import commonTranslator from '@/translator/common';
 import {
   styleCircleBox,
   styleTitle,
@@ -19,22 +18,20 @@ import {
   styleCard,
   stylePricaPane,
   styleYellowBox,
-} from './Style';
+} from './style';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
-import {routes} from '../../../../API/APIRoutes';
+import {routes} from '@/api/apiRoutes';
 import {
   formatPrice,
   getWidthHeight,
   showSuccess,
-} from '../../../../services/Utility';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
+} from '../../../../services/utility';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
 import {faGift} from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../../../styles/Common/Styles';
-import {BASE_SITE_NAME} from '../../../../API/Utility';
-
+import {styles} from '../../../../styles/common/styles';
+import {BASE_SITE_NAME} from '@/api/utility';
 function Card(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);
-
   const afterRemove = res => {
     setShowRemovePane(false);
     showSuccess(res.excepts);
@@ -50,17 +47,26 @@ function Card(props) {
           token={props.token}
           url={routes.removePackages}
           expected={['excepts', 'doneIds']}
-          data={{items: [props.package.id]}}
+          data={{
+            items: [props.package.id],
+          }}
           afterFunc={afterRemove}
           toggleShowPopUp={() => setShowRemovePane(false)}
         />
       )}
-      <CommonWebBox style={{...styleCard}}>
+      <CommonWebBox
+        style={{
+          ...styleCard,
+        }}>
         <SimpleFontIcon
           kind={'large'}
           icon={faGift}
-          parentStyle={{...styleGiftIconParent}}
-          style={{...styleGiftIcon}}
+          parentStyle={{
+            ...styleGiftIconParent,
+          }}
+          style={{
+            ...styleGiftIcon,
+          }}
         />
 
         <MyView
@@ -79,7 +85,10 @@ function Card(props) {
               ...styleCircleBox,
             }}>
             <SimpleText
-              style={{...styleColorWhite, ...styles.BlueBold}}
+              style={{
+                ...styleColorWhite,
+                ...styles.BlueBold,
+              }}
               text={props.package.offPercent + '%'}
             />
           </MyView>
@@ -91,12 +100,18 @@ function Card(props) {
             ...styles.justifyContentCenter,
           }}>
           <SimpleText
-            style={{...styles.fontSize15, ...styles.BlueBold}}
+            style={{
+              ...styles.fontSize15,
+              ...styles.BlueBold,
+            }}
             text={Translate.grade + ' : ' + props.package.grade.name}
           />
           {props.package.lesson !== undefined && (
             <SimpleText
-              style={{...styles.fontSize15, ...styles.BlueBold}}
+              style={{
+                ...styles.fontSize15,
+                ...styles.BlueBold,
+              }}
               text={commonTranslator.lesson + ' : ' + props.package.lesson.name}
             />
           )}
@@ -176,10 +191,15 @@ function Card(props) {
           )}
         </MyView>
         {(props.isStudent === undefined || props.isStudent) && (
-          <PhoneView style={{...stylePricaPane}}>
+          <PhoneView
+            style={{
+              ...stylePricaPane,
+            }}>
             <PhoneView>
               <SimpleText
-                style={{...styles.BlueBold}}
+                style={{
+                  ...styles.BlueBold,
+                }}
                 text={commonTranslator.price}
               />
               <SimpleText
@@ -259,5 +279,4 @@ function Card(props) {
     </MyView>
   );
 }
-
 export default Card;

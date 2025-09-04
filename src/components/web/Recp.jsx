@@ -6,28 +6,26 @@ import {
   MyViewWithRef,
   PhoneView,
   SimpleText,
-} from '../../styles/Common';
-import commonTranslator from '../../translator/Common';
+} from '../../styles/CommonComponents';
+import commonTranslator from '../../translator/common';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
-import {formatPrice, showError} from '../../services/Utility';
-import {FontIcon} from '../../styles/Common/FontIcon';
+import {formatPrice, showError} from '../../services/utility';
+import {FontIcon} from '../../styles/common/FontIcon';
 import {faArrowLeft, faPrint} from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../styles/Common/Styles';
+import {styles} from '../../styles/common/styles';
 import vars from '../../styles/root';
 import {Image} from 'react-native';
-
 function Recp(props) {
   const ref = useRef();
-
   const print = useCallback(() => {
     if (ref.current === null) {
       return;
     }
-
     props.setLoading(true);
-
-    toPng(ref.current, {cacheBust: true})
+    toPng(ref.current, {
+      cacheBust: true,
+    })
       .then(async dataUrl => {
         const link = document.createElement('a');
         link.download = 'my-image-name.png';
@@ -45,7 +43,6 @@ function Recp(props) {
         props.setLoading(false);
       });
   }, [ref, props]);
-
   const recpStyle = {
     label: {
       fontSize: 15,
@@ -76,7 +73,6 @@ function Recp(props) {
       alignItems: 'center',
     },
   };
-
   return (
     <MyView>
       <CommonWebBox
@@ -112,7 +108,11 @@ function Recp(props) {
           }}>
           <EqualTwoTextInputs>
             <SimpleText
-              style={{marginTop: 20, fontSize: 20, color: vars.DARK_BLUE}}
+              style={{
+                marginTop: 20,
+                fontSize: 20,
+                color: vars.DARK_BLUE,
+              }}
               text={'رسید پرداخت'}
             />
             <Image
@@ -171,7 +171,11 @@ function Recp(props) {
             {props.recp.account !== undefined && props.recp.account !== 0 && (
               <PhoneView style={recpStyle.fullPair}>
                 <SimpleText
-                  style={{fontSize: 15, width: 200, alignSelf: 'center'}}
+                  style={{
+                    fontSize: 15,
+                    width: 200,
+                    alignSelf: 'center',
+                  }}
                   text={'مقدار کسر شده از حساب کاربری'}
                 />
                 <SimpleText
@@ -191,7 +195,11 @@ function Recp(props) {
 
             <PhoneView style={recpStyle.fullPair}>
               <SimpleText
-                style={{fontSize: 15, width: 50, alignSelf: 'center'}}
+                style={{
+                  fontSize: 15,
+                  width: 50,
+                  alignSelf: 'center',
+                }}
                 text={'بابت'}
               />
               <SimpleText
@@ -215,7 +223,10 @@ function Recp(props) {
                 ...styles.width100,
               }}>
               <SimpleText
-                style={{fontSize: 15, width: 80}}
+                style={{
+                  fontSize: 15,
+                  width: 80,
+                }}
                 text={'مهر و امضا'}
               />
               <SimpleText
@@ -235,5 +246,4 @@ function Recp(props) {
     </MyView>
   );
 }
-
 export default Recp;

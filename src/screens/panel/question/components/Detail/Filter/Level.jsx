@@ -5,34 +5,36 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../../styles/Common';
-import {styles} from '../../../../../../styles/Common/Styles';
-import translator from '../../../Translator';
-import {questionContext, dispatchQuestionContext} from './../Context';
-
+} from '@/styles';
+import {styles} from '../../../../../../styles/common/styles';
+import translator from '../../../translator';
+import {questionContext, dispatchQuestionContext} from '../Context';
 function Level(props) {
   const useGlobalState = () => [
     React.useContext(questionContext),
     React.useContext(dispatchQuestionContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const filter = level => {
     let newShowEasy = state.showEasy;
     let newShowMid = state.showMid;
     let newShowHard = state.showHard;
-
     if (level === 'easy') {
-      dispatch({showEasy: !state.showEasy});
+      dispatch({
+        showEasy: !state.showEasy,
+      });
       newShowEasy = !newShowEasy;
     } else if (level === 'mid') {
-      dispatch({showMid: !state.showMid});
+      dispatch({
+        showMid: !state.showMid,
+      });
       newShowMid = !newShowMid;
     } else if (level === 'hard') {
-      dispatch({showHard: !state.showHard});
+      dispatch({
+        showHard: !state.showHard,
+      });
       newShowHard = !newShowHard;
     }
-
     props.localFilter(
       newShowEasy,
       newShowMid,
@@ -44,13 +46,16 @@ function Level(props) {
       state.authors,
     );
   };
-
   return (
     <MyView>
       <BigBoldBlueText text={translator.levelQuestion} />
 
       <PhoneView style={styles.gap50}>
-        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
+        <PhoneView
+          style={{
+            ...styles.minWidth200,
+            ...styles.alignItemsCenter,
+          }}>
           <CommonRadioButton
             value="easy"
             status={state.showEasy ? 'checked' : 'unchecked'}
@@ -66,7 +71,11 @@ function Level(props) {
           </MyView>
         </PhoneView>
 
-        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
+        <PhoneView
+          style={{
+            ...styles.minWidth200,
+            ...styles.alignItemsCenter,
+          }}>
           <CommonRadioButton
             value="mid"
             status={state.showMid ? 'checked' : 'unchecked'}
@@ -82,7 +91,11 @@ function Level(props) {
           </MyView>
         </PhoneView>
 
-        <PhoneView style={{...styles.minWidth200, ...styles.alignItemsCenter}}>
+        <PhoneView
+          style={{
+            ...styles.minWidth200,
+            ...styles.alignItemsCenter,
+          }}>
           <CommonRadioButton
             value="hard"
             status={state.showHard ? 'checked' : 'unchecked'}
@@ -101,5 +114,4 @@ function Level(props) {
     </MyView>
   );
 }
-
 export default Level;

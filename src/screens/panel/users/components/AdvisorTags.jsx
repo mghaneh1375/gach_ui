@@ -1,28 +1,22 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import {dispatchUsersContext, usersContext} from './Context';
-import {showError, showSuccess} from '../../../../services/Utility';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslator from '../../../../translator/Common';
-
+import {showError, showSuccess} from '../../../../services/utility';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import commonTranslator from '@/translator/common';
 function AdvisorTags(props) {
   const [isWorking, setIsWorking] = useState(false);
-
   const useGlobalState = () => [
     React.useContext(usersContext),
     React.useContext(dispatchUsersContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const fetchData = React.useCallback(() => {
     if (state.selectedUser.tags !== undefined || isWorking) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getAdvisorTags +
@@ -37,38 +31,35 @@ function AdvisorTags(props) {
       generalRequest(routes.getDistinctAdvisorsTags, 'get', undefined, 'data'),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] == null || res[1] == null) {
         props.setMode('list');
         return;
       }
-
       state.selectedUser.tags = res[0];
       const allTags = res[1].map(e => {
-        return {name: e, id: e};
+        return {
+          name: e,
+          id: e,
+        };
       });
-
       setNewTag(res[0]);
-      dispatch({selectedUser: state.selectedUser, allTags: allTags});
-
+      dispatch({
+        selectedUser: state.selectedUser,
+        allTags: allTags,
+      });
       setIsWorking(false);
     });
   }, [state.selectedUser, props, dispatch, isWorking]);
-
   React.useEffect(() => {
     fetchData();
   }, [fetchData, state.selectedUser]);
-
   const [newTag, setNewTag] = useState();
-
   const setNewTags = async () => {
     if (newTag === undefined || newTag.length === 0) {
       showError('لطفا تگ موردنظر خود را وارد نمایید');
       return;
     }
-
     props.setLoading(true);
-
     const res = await generalRequest(
       routes.addAdvisorTag + state.selectedUser.id + '?mode=' + props.teachMode,
       'put',
@@ -78,16 +69,16 @@ function AdvisorTags(props) {
       undefined,
       props.token,
     );
-
     props.setLoading(false);
-
     if (res != null) {
       state.selectedUser.tags = undefined;
-      dispatch({selectedUser: state.selectedUser, needUpdate: true});
+      dispatch({
+        selectedUser: state.selectedUser,
+        needUpdate: true,
+      });
       showSuccess();
     }
   };
-
   const setSelectedTags = item => {
     if (item === undefined) return;
     setNewTag(
@@ -102,17 +93,21 @@ function AdvisorTags(props) {
           tmp.push(itr);
         }
       });
-      dispatch({allTags: tmp});
+      dispatch({
+        allTags: tmp,
+      });
     }
   };
-
   return (
     <CommonWebBox
       header={'مدیریت تگ‌های ' + state.selectedUser.name}
       backBtn={true}
       onBackClick={() => {
         state.selectedUser.tags = undefined;
-        dispatch({selectedUser: state.selectedUser, needUpdate: true});
+        dispatch({
+          selectedUser: state.selectedUser,
+          needUpdate: true,
+        });
         props.setMode('list');
       }}>
       {state.selectedUser.tags !== undefined && (
@@ -130,7 +125,10 @@ function AdvisorTags(props) {
               newTag === undefined
                 ? []
                 : newTag.map((elem, index) => {
-                    return {id: index, name: elem};
+                    return {
+                      id: index,
+                      name: elem,
+                    };
                   })
             }
           />
@@ -145,5 +143,4 @@ function AdvisorTags(props) {
     </CommonWebBox>
   );
 }
-
 export default AdvisorTags;

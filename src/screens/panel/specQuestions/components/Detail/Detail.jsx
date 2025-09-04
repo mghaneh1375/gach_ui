@@ -1,34 +1,29 @@
 import React, {useState} from 'react';
-import {addQuestionToQuizzes, filter, removeQuestion} from '../Utility';
+import {addQuestionToQuizzes, filter, removeQuestion} from '../utility';
 import Question from './Question';
 import Quizzes from '../../../../../components/web/Quizzes';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {showSuccess} from '../../../../../services/Utility';
-import {CommonButton, MyView, CommonWebBox} from '../../../../../styles/Common';
-import translator from '../../Translator';
-import commonTranslator from '../../../../../translator/Common';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '@/services/utility';
+import {CommonButton, MyView, CommonWebBox} from '@/styles';
+import translator from '../../translator';
+import commonTranslator from '@/translator/common';
 import {questionContext, dispatchQuestionContext} from './Context';
-
 function Detail(props) {
   const [selectingQuiz, setSelectingQuiz] = useState(false);
   const [questionOrganizationId, setQuestionOrganizationId] = useState();
   const [selectedQuizzes, setSelectedQuizzes] = useState();
   const [quizzes, setQuizzes] = useState();
   const [isWorking, setIsWorking] = useState(false);
-
   const useGlobalState = () => [
     React.useContext(questionContext),
     React.useContext(dispatchQuestionContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     if (isWorking || !selectingQuiz || quizzes !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.fetchEscapeQuizRegistrableQuizzes,
@@ -39,33 +34,30 @@ function Detail(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] === null) {
         setSelectingQuiz(false);
         return;
       }
-
       setQuizzes(res[0].items);
       setIsWorking(false);
     });
   }, [props, isWorking, quizzes, selectingQuiz]);
-
   React.useEffect(() => {
     if (isWorking || state.questions !== undefined) return;
     setIsWorking(true);
-
     Promise.all([filter(props.token, props.organizationCodeFilter)]).then(
       res => {
         if (res[0] === null) {
           props.setMode('list');
           return;
         }
-        dispatch({questions: res[0]});
+        dispatch({
+          questions: res[0],
+        });
         setIsWorking(false);
       },
     );
   }, [props, isWorking, dispatch, state.questions]);
-
   return (
     <CommonWebBox
       header={'سوالات آزمون فرار'}
@@ -129,7 +121,9 @@ function Detail(props) {
             setSelectedQuizzes={setSelectedQuizzes}
             quizzes={quizzes}>
             <CommonButton
-              style={{alignSelf: 'flex-end'}}
+              style={{
+                alignSelf: 'flex-end',
+              }}
               title={translator.addQuiz}
               theme={'dark'}
               onPress={async () => {
@@ -159,5 +153,4 @@ function Detail(props) {
     </CommonWebBox>
   );
 }
-
 export default Detail;

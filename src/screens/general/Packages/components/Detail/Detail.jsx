@@ -9,7 +9,7 @@ import {
   showSuccess,
   systemFonts,
   tagsStyles,
-} from '../../../../../services/Utility';
+} from '../../../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -17,11 +17,11 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
+} from '@/styles';
 import RenderHTML from 'react-native-render-html';
-import {styles} from '../../../../../styles/Common/Styles';
-import {fetchPackage, goToPay} from '../Utility';
-import {Translator} from '../../Translator';
+import {styles} from '@/styles/common/styles';
+import {fetchPackage, goToPay} from '../utility';
+import {Translator} from '../../translator';
 import {
   faAngleDown,
   faAngleUp,
@@ -34,25 +34,24 @@ import {
   faSun,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import vars from '../../../../../styles/root';
-import commonTranslator from '../../../../../translator/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
 import {useEffectOnce} from 'usehooks-ts';
 import FAQ from './FAQ';
-import {setCacheItem} from '../../../../../API/User';
-import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
+import {setCacheItem} from '../../../../../api/user';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction';
 import OffCode from '../../../buy/components/OffCode';
 import SessionDetail from './SessionDetail';
 import Chapter from './Chapter';
 import {Rating} from 'react-native-ratings';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import Card from '../Card';
 import LastBuyer from './LastBuyer';
-import {downloadCert} from '../../../../panel/certificate/Utility';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import Comment from '../../../../../components/web/Comment/Comment';
-
+import {downloadCert} from '../../../../panel/certificate/utility';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import Comment from '../../../../../components/web/comment/Comment';
 function Detail(props) {
   const [item, setItem] = useState();
   const device = getDevice();
@@ -79,9 +78,7 @@ function Detail(props) {
   const [showTeacher, setShowTeacher] = useState(false);
   const [packageRate, setPackageRate] = useState();
   const [teacherBio, setTeacherBio] = useState();
-
   const ref = React.useRef();
-
   const toggleShowOffCodePane = () => {
     if (
       !showOffCodePane &&
@@ -92,18 +89,14 @@ function Detail(props) {
     }
     setShowOffCodePane(!showOffCodePane);
   };
-
   React.useEffect(() => {
     if (refId === undefined) return;
     ref.current.submit();
   }, [refId]);
-
   const calc = accountOff => {
     let off = 0;
     const totalPrice = item.afterOff !== undefined ? item.afterOff : item.price;
-
     let shouldPayTmp = totalPrice;
-
     if (shouldPayTmp > 0 && accountOff !== undefined) {
       if (accountOff.type === 'percent') {
         off += (shouldPayTmp * accountOff.amount) / 100.0;
@@ -111,23 +104,26 @@ function Detail(props) {
         off += accountOff.amount;
       }
     }
-
     shouldPayTmp = totalPrice - off;
-
     if (shouldPayTmp > 0) {
       setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
       shouldPayTmp -= userMoney;
     } else setUsedFromWallet(0);
-
     setOff(Math.min(off, totalPrice));
     setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 10);
   };
-
   const setOffCodeResult = (amount, type, code) => {
-    setUserOff({type: type, amount: amount, code: code});
-    calc({type: type, amount: amount, code: code});
+    setUserOff({
+      type: type,
+      amount: amount,
+      code: code,
+    });
+    calc({
+      type: type,
+      amount: amount,
+      code: code,
+    });
   };
-
   const fetchPackageLocal = React.useCallback(() => {
     if (isWorking || item !== undefined) return;
     props.setLoading(true);
@@ -141,15 +137,12 @@ function Detail(props) {
       else setShouldPay(res[0].price);
     });
   }, [props, isWorking, item]);
-
   React.useEffect(() => {
     if (item !== undefined) setImg(item.img);
   }, [item]);
-
   useEffectOnce(() => {
     fetchPackageLocal();
   }, [props.slug]);
-
   const fontSize = props.isInPhone ? 10 : 11;
   const valFontSize = props.isInPhone ? 12 : 15;
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -157,27 +150,23 @@ function Detail(props) {
     const position = window.pageYOffset;
     setScrollPosition(position);
   };
-
   const [rate, setRate] = useState();
   const [teacherPackages, setTeacherPackages] = useState();
   const [selectedTeacher, setSelectedTeacher] = useState();
-
   React.useEffect(() => {
     if (item !== undefined && item.rate !== undefined)
       setPackageRate(item.rate);
-
     if (item !== undefined && item.stdRate !== undefined) setRate(item.stdRate);
     else if (item !== undefined && item.stdRate === undefined) setRate(0);
   }, [item]);
-
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, {passive: true});
-
+    window.addEventListener('scroll', handleScroll, {
+      passive: true,
+    });
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
   const goToPayLocal = async () => {
     if (
       props.token === null ||
@@ -187,18 +176,12 @@ function Detail(props) {
       showError(commonTranslator.shouldLogin);
       return;
     }
-
     const data = {};
-
     if (userOff !== undefined && userOff.code !== undefined)
       data.off = userOff.code;
-
     props.setLoading(true);
-
     const res = await goToPay(props.token, data, item.id);
-
     props.setLoading(false);
-
     if (res !== null) {
       if (res.action === 'success') {
         const user = props.user;
@@ -210,9 +193,7 @@ function Detail(props) {
       }
     }
   };
-
   const [copying, setCopying] = useState();
-
   const doCopy = () => {
     navigator.clipboard.writeText(decodeURIComponent(document.URL));
     setCopying(true);
@@ -220,7 +201,6 @@ function Detail(props) {
       setCopying(false);
     }, 1300);
   };
-
   return (
     <>
       {item === undefined && <></>}
@@ -255,7 +235,10 @@ function Detail(props) {
           backBtn={true}
           onBackClick={() => setShowTeacher(false)}
           header={
-            <PhoneView style={{...styles.gap30}}>
+            <PhoneView
+              style={{
+                ...styles.gap30,
+              }}>
               {item.teacher.map((e, index) => {
                 return (
                   <SimpleText
@@ -264,7 +247,6 @@ function Detail(props) {
                       const params = new URLSearchParams();
                       params.append('teacher', e);
                       setSelectedTeacher(e);
-
                       const res = await generalRequest(
                         routes.teacherPackages + params.toString(),
                         'get',
@@ -314,9 +296,15 @@ function Detail(props) {
             <MyView>
               <SimpleText
                 text={'دوره‌های دیگر این استاد'}
-                style={{...styles.BlueBold, ...styles.fontSize22}}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.fontSize22,
+                }}
               />
-              <PhoneView style={{...styles.gap10}}>
+              <PhoneView
+                style={{
+                  ...styles.gap10,
+                }}>
                 {teacherPackages.map((elem, index) => {
                   return (
                     <Card
@@ -407,7 +395,10 @@ function Detail(props) {
                     <Image
                       source={img}
                       resizeMode={'contain'}
-                      style={{width: isInPhone ? '100%' : '60%', height: 300}}
+                      style={{
+                        width: isInPhone ? '100%' : '60%',
+                        height: 300,
+                      }}
                     />
                     <MyView
                       style={{
@@ -421,7 +412,9 @@ function Detail(props) {
                         },
                       }}>
                       <SimpleText
-                        style={{...styles.BlueBold}}
+                        style={{
+                          ...styles.BlueBold,
+                        }}
                         text={Translator.desc}
                       />
                       <RenderHTML
@@ -602,7 +595,10 @@ function Detail(props) {
                       <SimpleText
                         onPress={() => setShowRunQuizWarning(true)}
                         text={'شرکت در آزمون پایان دوره'}
-                        style={{...styles.BlueBold, ...styles.cursor_pointer}}
+                        style={{
+                          ...styles.BlueBold,
+                          ...styles.cursor_pointer,
+                        }}
                       />
                     )}
                     {item.quizStatus === 'result' && (
@@ -657,84 +653,129 @@ function Detail(props) {
                 )}
                 <CommonWebBox>
                   <EqualTwoTextInputs
-                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    style={{
+                      paddingLeft: 30,
+                      paddingRight: 30,
+                    }}>
                     <PhoneView>
                       <SimpleFontIcon
-                        style={{color: vars.ORANGE_RED}}
+                        style={{
+                          color: vars.ORANGE_RED,
+                        }}
                         icon={faClock}
                         kind={'normal'}
                       />
                       <SimpleText
-                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        style={{
+                          ...styles.alignSelfCenter,
+                          ...styles.BlueBold,
+                        }}
                         text={Translator.packageDuration}
                       />
                     </PhoneView>
                     <SimpleText
-                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.BlueBold,
+                      }}
                       text={convertSecToMinWithOutSecAndDay(item.duration)}
                     />
                   </EqualTwoTextInputs>
                   <EqualTwoTextInputs
-                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    style={{
+                      paddingLeft: 30,
+                      paddingRight: 30,
+                    }}>
                     <PhoneView>
                       <SimpleFontIcon
-                        style={{color: vars.ORANGE_RED}}
+                        style={{
+                          color: vars.ORANGE_RED,
+                        }}
                         icon={faListSquares}
                         kind={'normal'}
                       />
                       <SimpleText
-                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        style={{
+                          ...styles.alignSelfCenter,
+                          ...styles.BlueBold,
+                        }}
                         text={Translator.chaptersCount}
                       />
                     </PhoneView>
                     <SimpleText
-                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.BlueBold,
+                      }}
                       text={item.chapters.length + ' فصل'}
                     />
                   </EqualTwoTextInputs>
 
                   <EqualTwoTextInputs
-                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    style={{
+                      paddingLeft: 30,
+                      paddingRight: 30,
+                    }}>
                     <PhoneView>
                       <SimpleFontIcon
-                        style={{color: vars.ORANGE_RED}}
+                        style={{
+                          color: vars.ORANGE_RED,
+                        }}
                         icon={faListSquares}
                         kind={'normal'}
                       />
                       <SimpleText
-                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        style={{
+                          ...styles.alignSelfCenter,
+                          ...styles.BlueBold,
+                        }}
                         text={Translator.sessionsCount}
                       />
                     </PhoneView>
                     <SimpleText
-                      style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                      style={{
+                        ...styles.alignSelfCenter,
+                        ...styles.BlueBold,
+                      }}
                       text={item.sessionsCount + ' جلسه'}
                     />
                   </EqualTwoTextInputs>
 
                   <EqualTwoTextInputs
-                    style={{paddingLeft: 30, paddingRight: 30}}>
+                    style={{
+                      paddingLeft: 30,
+                      paddingRight: 30,
+                    }}>
                     <PhoneView>
                       <SimpleFontIcon
-                        style={{color: vars.ORANGE_RED}}
+                        style={{
+                          color: vars.ORANGE_RED,
+                        }}
                         icon={faSun}
                         kind={'normal'}
                       />
                       <SimpleText
-                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        style={{
+                          ...styles.alignSelfCenter,
+                          ...styles.BlueBold,
+                        }}
                         text={Translator.cert}
                       />
                     </PhoneView>
                     {item.hasCert && (
                       <SimpleFontIcon
-                        style={{color: vars.GREEN}}
+                        style={{
+                          color: vars.GREEN,
+                        }}
                         kind={'normal'}
                         icon={faCheck}
                       />
                     )}
                     {!item.hasCert && (
                       <SimpleFontIcon
-                        style={{color: vars.YELLOW}}
+                        style={{
+                          color: vars.YELLOW,
+                        }}
                         kind={'normal'}
                         icon={faRemove}
                       />
@@ -743,10 +784,15 @@ function Detail(props) {
 
                   {item.hasCert && (
                     <EqualTwoTextInputs
-                      style={{paddingLeft: 30, paddingRight: 30}}>
+                      style={{
+                        paddingLeft: 30,
+                        paddingRight: 30,
+                      }}>
                       <PhoneView>
                         <SimpleFontIcon
-                          style={{color: vars.ORANGE_RED}}
+                          style={{
+                            color: vars.ORANGE_RED,
+                          }}
                           icon={faHourglassEnd}
                           kind={'normal'}
                         />
@@ -759,17 +805,25 @@ function Detail(props) {
                         />
                       </PhoneView>
                       <SimpleText
-                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        style={{
+                          ...styles.alignSelfCenter,
+                          ...styles.BlueBold,
+                        }}
                         text={item.certDuration + ' روز'}
                       />
                     </EqualTwoTextInputs>
                   )}
                   {item.level && (
                     <EqualTwoTextInputs
-                      style={{paddingLeft: 30, paddingRight: 30}}>
+                      style={{
+                        paddingLeft: 30,
+                        paddingRight: 30,
+                      }}>
                       <PhoneView>
                         <SimpleFontIcon
-                          style={{color: vars.ORANGE_RED}}
+                          style={{
+                            color: vars.ORANGE_RED,
+                          }}
                           icon={faCheck}
                           kind={'normal'}
                         />
@@ -781,7 +835,10 @@ function Detail(props) {
                           text={Translator.level}
                         />
                       </PhoneView>
-                      <PhoneView style={{gap: '10px'}}>
+                      <PhoneView
+                        style={{
+                          gap: '10px',
+                        }}>
                         <SimpleText
                           style={{
                             ...styles.alignSelfCenter,
@@ -790,7 +847,10 @@ function Detail(props) {
                           text={item.level}
                         />
                         <img
-                          style={{width: '30px', height: '30px'}}
+                          style={{
+                            width: '30px',
+                            height: '30px',
+                          }}
                           src={item.icon}
                         />
                       </PhoneView>
@@ -817,11 +877,16 @@ function Detail(props) {
                     </PhoneView>
                   )}
                   {(item.afterBuy === undefined || !item.afterBuy) && (
-                    <MyView style={{...styles.flexNoWrap}}>
+                    <MyView
+                      style={{
+                        ...styles.flexNoWrap,
+                      }}>
                       <PhoneView>
                         {/* style={{...styles.alignSelfCenter}} */}
                         <SimpleText
-                          style={{...styles.BlueBold}}
+                          style={{
+                            ...styles.BlueBold,
+                          }}
                           text={commonTranslator.price + ' '}
                         />
                         <SimpleText
@@ -904,7 +969,9 @@ function Detail(props) {
                           />
                           <SimpleText
                             style={{
-                              ...{marginRight: 5},
+                              ...{
+                                marginRight: 5,
+                              },
                               ...styles.dark_blue_color,
                               ...styles.fontSize13,
                             }}
@@ -923,7 +990,9 @@ function Detail(props) {
                           />
                           <SimpleText
                             style={{
-                              ...{marginRight: 5},
+                              ...{
+                                marginRight: 5,
+                              },
                               ...styles.dark_blue_color,
                               ...styles.fontSize13,
                             }}
@@ -942,7 +1011,9 @@ function Detail(props) {
                           />
                           <SimpleText
                             style={{
-                              ...{marginRight: 5},
+                              ...{
+                                marginRight: 5,
+                              },
                               ...styles.dark_blue_color,
                               ...styles.fontSize13,
                             }}
@@ -999,7 +1070,9 @@ function Detail(props) {
                             const res = await generalRequest(
                               routes.rateContent + item.id,
                               'put',
-                              {rate: rate},
+                              {
+                                rate: rate,
+                              },
                               'data',
                               props.token,
                             );
@@ -1017,14 +1090,22 @@ function Detail(props) {
                   )}
 
                 <CommonWebBox>
-                  <PhoneView style={{...styles.gap10}}>
+                  <PhoneView
+                    style={{
+                      ...styles.gap10,
+                    }}>
                     <SimpleFontIcon
-                      style={{color: vars.DARK_BLUE}}
+                      style={{
+                        color: vars.DARK_BLUE,
+                      }}
                       kind={'normal'}
                       icon={faPaperPlane}
                     />
                     <SimpleText
-                      style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+                      style={{
+                        ...styles.BlueBold,
+                        ...styles.alignSelfCenter,
+                      }}
                       text="اشتراک گذاری"
                     />
                   </PhoneView>
@@ -1121,20 +1202,31 @@ function Detail(props) {
 
                 {item.lastBuyers !== undefined && item.lastBuyers.length > 0 && (
                   <CommonWebBox>
-                    <PhoneView style={{...styles.gap10}}>
+                    <PhoneView
+                      style={{
+                        ...styles.gap10,
+                      }}>
                       <SimpleFontIcon
-                        style={{color: vars.DARK_BLUE}}
+                        style={{
+                          color: vars.DARK_BLUE,
+                        }}
                         kind={'normal'}
                         icon={faUsers}
                       />
                       <SimpleText
-                        style={{...styles.BlueBold, ...styles.alignSelfCenter}}
+                        style={{
+                          ...styles.BlueBold,
+                          ...styles.alignSelfCenter,
+                        }}
                         text="آخرین خریداران"
                       />
                     </PhoneView>
                     <EqualTwoTextInputs>
                       <SimpleText
-                        style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                        style={{
+                          ...styles.alignSelfCenter,
+                          ...styles.BlueBold,
+                        }}
                         text={
                           item.buyers !== undefined && item.buyers > 0
                             ? '+' + (item.buyers - item.lastBuyers?.length)
@@ -1142,7 +1234,10 @@ function Detail(props) {
                         }
                       />
                       <PhoneView
-                        style={{justifyContent: 'end', marginLeft: 20}}>
+                        style={{
+                          justifyContent: 'end',
+                          marginLeft: 20,
+                        }}>
                         {item.lastBuyers.map((e, index) => {
                           return (
                             <LastBuyer
@@ -1165,7 +1260,9 @@ function Detail(props) {
                 )}
 
                 <CommonWebBox
-                  style={{marginBottom: '75px'}}
+                  style={{
+                    marginBottom: '75px',
+                  }}
                   header={Translator.teacherBio}>
                   <SimpleText
                     style={styles.BlueBold}
@@ -1200,7 +1297,6 @@ function Detail(props) {
                               const params = new URLSearchParams();
                               params.append('teacher', item.teacher[0]);
                               setSelectedTeacher(item.teacher[0]);
-
                               const res = await generalRequest(
                                 routes.teacherPackages + params.toString(),
                                 'get',
@@ -1245,5 +1341,4 @@ function Detail(props) {
     </>
   );
 }
-
 export default Detail;

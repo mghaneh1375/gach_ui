@@ -1,28 +1,20 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import translator from '../Translator';
-import commonTranslator from '../../../../../translator/Common';
-import {grades, kindSchools} from './KeyVals';
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import translator from '../translator';
+import commonTranslator from '@/translator/common';
+import {grades, kindSchools} from './keyVals';
 import StateAndCity from '../../../../../components/web/StateAndCity';
-import {create, update} from './Utility';
-import {changeText} from '../../../../../services/Utility';
+import {create, update} from './utility';
+import {changeText} from '../../../../../services/utility';
 import {dispatchSchoolContext, schoolContext} from './Context';
-
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(schoolContext),
     React.useContext(dispatchSchoolContext),
   ];
-
   const [globalState, dispatch] = useGlobalState();
-
   const [id, setId] = useState();
   const [city, setCity] = useState();
   const [name, setName] = useState();
@@ -30,7 +22,6 @@ function Create(props) {
   const [grade, setGrade] = useState();
   const [kind, setKind] = useState();
   const [state, setState] = useState();
-
   React.useState(() => {
     if (!props.isInEditMode || globalState.selectedSchool === undefined) return;
     setName(globalState.selectedSchool.name);
@@ -40,7 +31,6 @@ function Create(props) {
     setCity(globalState.selectedSchool.city);
     setAddress(globalState.selectedSchool.address);
   }, [globalState.selectedSchool, props.isInEditMode]);
-
   return (
     <MyView>
       <CommonWebBox
@@ -51,7 +41,10 @@ function Create(props) {
         }
         backBtn={true}
         onBackClick={() => props.setMode('list')}>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderTextInput
             onChangeText={e => changeText(e, setName)}
             value={name}
@@ -74,7 +67,10 @@ function Create(props) {
           />
         </PhoneView>
 
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <StateAndCity
             state={
               props.isInEditMode ? globalState.selectedSchool.state : undefined
@@ -87,7 +83,9 @@ function Create(props) {
         </PhoneView>
 
         <JustBottomBorderTextInput
-          style={{marginTop: 20}}
+          style={{
+            marginTop: 20,
+          }}
           placeholder={commonTranslator.address}
           value={address}
           subText={commonTranslator.optional}
@@ -110,7 +108,10 @@ function Create(props) {
                   newItem => {
                     const allItems = globalState.schools;
                     allItems.push(newItem);
-                    dispatch({data: allItems, schools: allItems});
+                    dispatch({
+                      data: allItems,
+                      schools: allItems,
+                    });
                     props.setMode('list');
                   },
                 )
@@ -138,12 +139,14 @@ function Create(props) {
                   props.token,
                   item => {
                     let allItems = globalState.schools;
-
                     allItems = allItems.map(elem => {
                       if (elem.id === item.id) return item;
                       return elem;
                     });
-                    dispatch({schools: allItems, data: allItems});
+                    dispatch({
+                      schools: allItems,
+                      data: allItems,
+                    });
                     props.setMode('list');
                   },
                 )
@@ -155,5 +158,4 @@ function Create(props) {
     </MyView>
   );
 }
-
 export default Create;

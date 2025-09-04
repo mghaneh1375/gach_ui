@@ -1,15 +1,9 @@
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../../../styles/Common';
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
 import React, {useState} from 'react';
 import {quizContext, dispatchQuizContext} from '../../Context';
-import Participants from '../Participants/Participants';
-
-import translator from './Translator';
-import commonTranslator from '../../../../../../translator/Common';
+import Participants from '../participants/Participants';
+import translator from './translator';
+import commonTranslator from '../../../../../../translator/common';
 import {
   fetchKarnameReportLocal,
   fetchCityReportLocal,
@@ -19,33 +13,29 @@ import {
   fetchAuthorReportLocal,
   fetchParticipantReportLocal,
   fetchA1ReportLocal,
-} from './Utility';
-import AuthorReport from '../Author/AuthorReport';
-import ParticipantReport from '../Participant/ParticipantReport';
-import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
+} from './utility';
+import AuthorReport from '../author/AuthorReport';
+import ParticipantReport from '../participant/ParticipantReport';
+import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect';
 import {
   typeOfReportBeforeFinishKeyVals,
   typeOfReportKeyVals,
   typeOfReportKeyValsSchoolAccess,
-} from './KeyVals';
+} from './keyVals';
 import A1Report from '../A1Report';
 import KarnameReport from '../KarnameReport';
-
 function List(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [selectedReport, setSelectedReport] = useState('');
   const [type, setType] = useState();
-
   const fetchWantedReport = React.useCallback(() => {
     if (type === undefined) {
       return;
     }
-
     let func;
     if (type === 'cityReport') func = fetchCityReportLocal;
     if (type === 'karnameReport') func = fetchKarnameReportLocal;
@@ -55,7 +45,6 @@ function List(props) {
     if (type === 'participationReport') func = fetchParticipantReportLocal;
     if (type === 'authorReport') func = fetchAuthorReportLocal;
     if (type === 'A1') func = fetchA1ReportLocal;
-
     func(
       props.setLoading,
       state.selectedQuiz,
@@ -64,7 +53,6 @@ function List(props) {
       props.token,
     );
   }, [props, type, state.selectedQuiz, dispatch]);
-
   return (
     <MyView>
       <CommonWebBox
@@ -136,7 +124,6 @@ function List(props) {
             data={state.selectedQuiz.participantReport}
             setData={newData => {
               state.selectedQuiz.participantReport = newData;
-
               dispatch({
                 selectedQuiz: state.selectedQuiz,
                 needUpdate: true,
@@ -147,5 +134,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

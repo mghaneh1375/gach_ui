@@ -1,41 +1,32 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  EqualTwoTextInputs,
-  MyView,
-} from '../../../../styles/Common';
-import QuizAnswerSheetInfo from './Create/QuizAnswerSheetInfo';
-import QuizGeneralInfo from './Create/QuizGeneralInfo';
-import QuizRegistryInfo from './Create/QuizRegistryInfo';
-import QuizRunInfo from './Create/QuizRunInfo';
-import commonTranslator from '../../../../translator/Common';
-import translator from '../Translator';
-import {CallAPI} from './Create/CallAPI';
-import {routes} from '../../../../API/APIRoutes';
+import {CommonButton, CommonWebBox, EqualTwoTextInputs, MyView} from '@/styles';
+import QuizAnswerSheetInfo from './create/QuizAnswerSheetInfo';
+import QuizGeneralInfo from './create/QuizGeneralInfo';
+import QuizRegistryInfo from './create/QuizRegistryInfo';
+import QuizRunInfo from './create/QuizRunInfo';
+import commonTranslator from '@/translator/common';
+import translator from '../translator';
+import {CallAPI} from './create/callAPI';
+import {routes} from '@/api/apiRoutes';
 import {dispatchQuizContext, quizContext} from './Context';
-import {addFile, getTags, removeFile} from './Utility';
+import {addFile, getTags, removeFile} from './utility';
 import {useFilePicker} from 'use-file-picker';
-import {showSuccess} from '../../../../services/Utility';
-
+import {showSuccess} from '../../../../services/utility';
 const CreateQuiz = props => {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const backToList = React.useCallback(() => {
     props.setMode('list');
   }, [props]);
-
   React.useEffect(() => {
     if (props.editMode === undefined || !props.editMode) return;
     if (state.selectedQuiz === undefined) {
       backToList();
       return;
     }
-
     setName(state.selectedQuiz.title);
     setPriority(state.selectedQuiz.priority);
     setDesc(state.selectedQuiz.description);
@@ -56,7 +47,6 @@ const CreateQuiz = props => {
     setIsQRNeeded(state.selectedQuiz.isQRNeeded);
     setIsUploadable(state.selectedQuiz.isUploadable);
     setIsRigstrable(state.selectedQuiz.isRegistrable);
-
     setEnd(state.selectedQuiz.end === undefined ? '' : state.selectedQuiz.end);
     setStartRegistry(state.selectedQuiz.startRegistry);
     setEndRegistry(
@@ -71,7 +61,6 @@ const CreateQuiz = props => {
       state.selectedQuiz.showResultsAfterCorrectionNotLoginUsers,
     );
   }, [state.selectedQuiz, props.editMode, backToList]);
-
   const [name, setName] = useState('');
   const [desc, setDesc] = useState('');
   const [kind, setKind] = useState();
@@ -99,21 +88,18 @@ const CreateQuiz = props => {
     setShowResultsAfterCorrectionNotLoginUsers,
   ] = useState(false);
   const [minusMark, setMinusMark] = useState(undefined);
-
   const [startRegistry, setStartRegistry] = useState(
     props.editMode ? undefined : '',
   );
   const [endRegistry, setEndRegistry] = useState(
     props.editMode ? undefined : '',
   );
-
   const [descBefore, setDescBefore] = useState(undefined);
   const [descAfter, setDescAfter] = useState(undefined);
   const [isWorking, setIsWorking] = useState(false);
   const [attaches, setAttaches] = useState(
     state.selectedQuiz === undefined ? [] : state.selectedQuiz.attaches,
   );
-
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
       maxFileSize: 6,
@@ -121,11 +107,9 @@ const CreateQuiz = props => {
       readAs: 'DataURL',
       multiple: true,
     });
-
   const removeAttach = index => {
     remove(index);
   };
-
   const removeUploadedAttach = async filename => {
     props.setLoading(true);
     const res = await removeFile(props.token, filename, state.selectedQuiz.id);
@@ -136,14 +120,14 @@ const CreateQuiz = props => {
       if (element !== filename) tmp.push(element);
     });
     setAttaches(tmp);
-
     state.selectedQuiz.attaches = tmp;
-    dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+    dispatch({
+      selectedQuiz: state.selectedQuiz,
+      needUpdate: true,
+    });
   };
-
   React.useEffect(() => {
     if (isWorking || state.tags !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
     Promise.all([getTags()]).then(res => {
@@ -151,13 +135,15 @@ const CreateQuiz = props => {
       if (res[0] !== undefined)
         dispatch({
           tags: res[0].map(elem => {
-            return {id: elem, name: elem};
+            return {
+              id: elem,
+              name: elem,
+            };
           }),
         });
       setIsWorking(false);
     });
   }, [props, dispatch, state.tags, isWorking]);
-
   const submit = async () => {
     let data = {};
     if (kind === 'tashrihi') {
@@ -213,7 +199,6 @@ const CreateQuiz = props => {
         data.kind = kind;
       }
     }
-
     props.setLoading(true);
     const result = await CallAPI(
       data,
@@ -224,13 +209,10 @@ const CreateQuiz = props => {
       props.quizGeneralMode,
       kind !== undefined && kind === 'tashrihi' ? 'tashrihi' : undefined,
     );
-
     if (result !== null) {
       const quizId = props.editMode ? state.selectedQuiz.id : result.id;
-
       if (filesContent.length > 0) {
         const files = [];
-
         for (let i = 0; i < filesContent.length; i++) {
           const fileRes = await addFile(
             props.token,
@@ -240,7 +222,6 @@ const CreateQuiz = props => {
           );
           if (fileRes !== null && fileRes !== undefined) files.push(fileRes);
         }
-
         if (props.editMode) data.attaches = files;
         else result.attaches = files;
         props.setLoading(false);
@@ -248,20 +229,23 @@ const CreateQuiz = props => {
         if (props.editMode) data.attaches = state.selectedQuiz.attaches;
         props.setLoading(false);
       }
-
       if (props.editMode) {
         data.id = state.selectedQuiz.id;
-        dispatch({selectedQuiz: data, needUpdate: true});
+        dispatch({
+          selectedQuiz: data,
+          needUpdate: true,
+        });
       } else {
         const allQuizzes = state.quizzes;
         allQuizzes.unshift(result);
-        dispatch({quizzes: allQuizzes});
+        dispatch({
+          quizzes: allQuizzes,
+        });
       }
       showSuccess();
       backToList();
     } else props.setLoading(false);
   };
-
   return (
     <MyView>
       <CommonWebBox
@@ -379,5 +363,4 @@ const CreateQuiz = props => {
     </MyView>
   );
 };
-
 export default CreateQuiz;

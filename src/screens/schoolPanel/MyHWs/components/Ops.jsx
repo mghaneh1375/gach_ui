@@ -1,33 +1,25 @@
 import React, {useState, useRef} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {formatPrice} from '../../../../services/Utility';
-import {
-  CommonButton,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-import translator from '../../../panel/quiz/Translator';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {formatPrice} from '@/services/utility';
+import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
+import {LargePopUp} from '../../../../styles/common/PopUp';
+import translator from '../../../panel/quiz/translator';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
-} from './../../MyQuizzes/components/Context';
-import commonTranslator from '../../../../translator/Common';
-import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
-import {setCacheItem} from '../../../../API/User';
-import SuccessTransaction from '../../../../components/web/SuccessTransaction/SuccessTransaction';
-import hwTranslator from './Translator';
-
+} from './../../myQuizzes/components/Context';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {setCacheItem} from '../../../../api/user';
+import SuccessTransaction from '../../../../components/web/successTransaction/SuccessTransaction';
+import hwTranslator from './translator';
 const Ops = props => {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const changeMode = newMode => {
     if (
       newMode === 'update' &&
@@ -45,7 +37,10 @@ const Ops = props => {
       ]).then(res => {
         props.setLoading(false);
         if (res[0] !== null) {
-          dispatch({selectedQuiz: res[0], needUpdate: true});
+          dispatch({
+            selectedQuiz: res[0],
+            needUpdate: true,
+          });
           props.setMode(newMode);
           props.toggleShowPopUp();
         }
@@ -55,7 +50,6 @@ const Ops = props => {
       props.toggleShowPopUp();
     }
   };
-
   const [showFinalizeMsg, setShowFinalizeMsg] = useState(false);
   const [offcode, setOffcode] = useState();
   const [priceInfo, setPriceInfo] = useState();
@@ -63,7 +57,6 @@ const Ops = props => {
   const ref = useRef();
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [transactionId, setTransactionId] = useState();
-
   const toggleVisibility = () => {
     props.setLoading(true);
     Promise.all([
@@ -78,19 +71,19 @@ const Ops = props => {
       props.setLoading(false);
       if (res[0] !== null) {
         state.selectedQuiz.visibility = !state.selectedQuiz.visibility;
-        dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+        dispatch({
+          selectedQuiz: state.selectedQuiz,
+          needUpdate: true,
+        });
       }
     });
   };
-
   React.useEffect(() => {
     if (refId === undefined) return;
-
     setTimeout(() => {
       ref.current.submit();
     }, 1000);
   }, [refId]);
-
   return (
     <>
       {showFinalizeMsg && (
@@ -103,7 +96,11 @@ const Ops = props => {
                 const res = await generalRequest(
                   routes.finalizeHW + state.selectedQuiz.id,
                   'post',
-                  offcode === undefined ? undefined : {off: offcode},
+                  offcode === undefined
+                    ? undefined
+                    : {
+                        off: offcode,
+                      },
                   ['action', 'refId', 'transactionId'],
                   props.token,
                 );
@@ -252,5 +249,4 @@ const Ops = props => {
     </>
   );
 };
-
 export default Ops;

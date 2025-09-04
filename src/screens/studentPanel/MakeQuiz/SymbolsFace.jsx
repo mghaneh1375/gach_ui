@@ -1,22 +1,30 @@
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 import {PhoneView} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
-
+import {styles} from '../../../styles/common/styles';
 function SymbolsFace(props) {
   return (
-    <PhoneView style={{...styles.alignSelfCenter}}>
+    <PhoneView
+      style={{
+        ...styles.alignSelfCenter,
+      }}>
       {/* //frist */}
-      <PhoneView style={{paddingLeft: 10}}>
+      <PhoneView
+        style={{
+          paddingLeft: 10,
+        }}>
         <Pressable
           onPress={() => {
             props.setLevel('hard');
           }}>
           {props.level !== 'hard' && (
             <Image
-              style={{width: 35, height: 35}}
+              style={{
+                width: 35,
+                height: 35,
+              }}
               resizeMode="contain"
-              source={require('../../../images/Symbol/5.png')}
+              source={require('../../../images/symbol/5.png')}
             />
           )}
         </Pressable>
@@ -26,24 +34,33 @@ function SymbolsFace(props) {
           }}>
           {props.level === 'hard' && (
             <Image
-              style={{width: 35, height: 35}}
+              style={{
+                width: 35,
+                height: 35,
+              }}
               resizeMode="contain"
-              source={require('../../../images/Symbol/6.png')}
+              source={require('../../../images/symbol/6.png')}
             />
           )}
         </Pressable>
       </PhoneView>
       {/* second */}
-      <PhoneView style={{paddingLeft: 10}}>
+      <PhoneView
+        style={{
+          paddingLeft: 10,
+        }}>
         <Pressable
           onPress={() => {
             props.setLevel('mid');
           }}>
           {props.level !== 'mid' && (
             <Image
-              style={{width: 35, height: 35}}
+              style={{
+                width: 35,
+                height: 35,
+              }}
               resizeMode="contain"
-              source={require('../../../images/Symbol/3.png')}
+              source={require('../../../images/symbol/3.png')}
             />
           )}
         </Pressable>
@@ -53,24 +70,33 @@ function SymbolsFace(props) {
           }}>
           {props.level === 'mid' && (
             <Image
-              style={{width: 35, height: 35}}
+              style={{
+                width: 35,
+                height: 35,
+              }}
               resizeMode="contain"
-              source={require('../../../images/Symbol/4.png')}
+              source={require('../../../images/symbol/4.png')}
             />
           )}
         </Pressable>
       </PhoneView>
       {/* third */}
-      <PhoneView style={{paddingLeft: 10}}>
+      <PhoneView
+        style={{
+          paddingLeft: 10,
+        }}>
         <Pressable
           onPress={() => {
             props.setLevel('easy');
           }}>
           {props.level !== 'easy' && (
             <Image
-              style={{width: 35, height: 35}}
+              style={{
+                width: 35,
+                height: 35,
+              }}
               resizeMode="contain"
-              source={require('../../../images/Symbol/1.png')}
+              source={require('../../../images/symbol/1.png')}
             />
           )}
         </Pressable>
@@ -80,9 +106,12 @@ function SymbolsFace(props) {
           }}>
           {props.level === 'easy' && (
             <Image
-              style={{width: 35, height: 35}}
+              style={{
+                width: 35,
+                height: 35,
+              }}
               resizeMode="contain"
-              source={require('../../../images/Symbol/2.png')}
+              source={require('../../../images/symbol/2.png')}
             />
           )}
         </Pressable>
@@ -90,5 +119,4 @@ function SymbolsFace(props) {
     </PhoneView>
   );
 }
-
 export default SymbolsFace;

@@ -4,21 +4,14 @@ import {
   getDevice,
   getWidthHeight,
   showError,
-} from '../../../../../services/Utility';
-import {
-  BigBoldBlueText,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
+} from '../../../../../services/utility';
+import {BigBoldBlueText, MyView, PhoneView, SimpleText} from '@/styles';
 import {packagesContext} from '../Context';
-import commonTranslator from '../../../../../translator/Common';
+import commonTranslator from '@/translator/common';
 import OffCode from '../OffCode';
-
-import SuccessTransaction from '../../../../../components/web/SuccessTransaction/SuccessTransaction';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction';
 import BuyBasket from '../BuyBasket';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import {styles} from '@/styles/common/styles';
 function List(props) {
   const [price, setPrice] = useState(0);
   const [off, setOff] = useState(0);
@@ -26,9 +19,7 @@ function List(props) {
   const [quizzes, setQuizzes] = useState();
   const [showOffCodePane, setShowOffCodePane] = useState(false);
   const [offs, setOffs] = useState([]);
-
   const [userOff, setUserOff] = useState();
-
   const useGlobalState = () => [React.useContext(packagesContext)];
   const [state] = useGlobalState();
   const [wantedQuizzes, setWantedQuizzes] = useState();
@@ -37,22 +28,18 @@ function List(props) {
   );
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
-
   const calc = (ids, accountOff) => {
     let off = 0;
     let totalPrice = 0;
     let totalQuizzes = 0;
     setWantedQuizzes(ids);
-
     ids.forEach(elem => {
       const quiz = props.package.quizzesDoc.find(itr => itr.id === elem);
       if (quiz === undefined) return;
       totalQuizzes++;
       totalPrice += quiz.price;
     });
-
     const allOffs = [];
-
     if (
       props.package.offPercent > 0 &&
       props.package.minSelect <= totalQuizzes &&
@@ -61,9 +48,7 @@ function List(props) {
       off += (totalPrice * props.package.offPercent) / 100;
       allOffs.push(props.package.offPercent + ' درصد بابت بسته آزمونی');
     }
-
     let shouldPayTmp = totalPrice - off;
-
     if (shouldPayTmp > 0 && accountOff !== undefined) {
       if (accountOff.type === 'percent') {
         off += (shouldPayTmp * accountOff.amount) / 100.0;
@@ -73,20 +58,16 @@ function List(props) {
         allOffs.push(accountOff.amount + ' تومان بابت کد تخفیف');
       }
     }
-
     shouldPayTmp = totalPrice - off;
-
     if (shouldPayTmp > 0) {
       setUsedFromWallet(Math.min(userMoney, shouldPayTmp));
       shouldPayTmp -= userMoney;
     } else setUsedFromWallet(0);
-
     setOffs(allOffs);
     setOff(Math.min(off, totalPrice));
     setPrice(totalPrice === 0 ? 10 : totalPrice);
     setShouldPay(shouldPayTmp > 0 ? shouldPayTmp : 10);
   };
-
   React.useEffect(() => {
     setQuizzes(
       props.package.quizzesDoc.map(elem => {
@@ -95,11 +76,9 @@ function List(props) {
       }),
     );
   }, [props.package]);
-
   React.useEffect(() => {
     setUserOff(state.off);
   }, [state.off]);
-
   const toggleShowOffCodePane = () => {
     if (
       !showOffCodePane &&
@@ -110,16 +89,21 @@ function List(props) {
     }
     setShowOffCodePane(!showOffCodePane);
   };
-
   const setOffCodeResult = (amount, type, code) => {
-    setUserOff({type: type, amount: amount, code: code});
-    calc(wantedQuizzes, {type: type, amount: amount, code: code});
+    setUserOff({
+      type: type,
+      amount: amount,
+      code: code,
+    });
+    calc(wantedQuizzes, {
+      type: type,
+      amount: amount,
+      code: code,
+    });
   };
-
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;
   const w = getWidthHeight()[0];
-
   return (
     <MyView>
       {showOffCodePane && (
@@ -178,7 +162,11 @@ function List(props) {
                   minHeight: '100vh',
                   marginBottom: 60,
                 }
-              : {padding: 10, alignSelf: 'start', minHeight: '100vh'}
+              : {
+                  padding: 10,
+                  alignSelf: 'start',
+                  minHeight: '100vh',
+                }
           }>
           <BigBoldBlueText
             style={{
@@ -217,5 +205,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

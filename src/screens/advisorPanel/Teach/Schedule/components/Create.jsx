@@ -3,41 +3,46 @@ import {
   showError,
   showSuccess,
   trueFalseValues,
-} from '../../../../../services/Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-} from '../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import Translator from './Translator';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../../../styles/Common/JustBottomBorderDatePicker';
-import commonTranslator from '../../../../../translator/Common';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
+} from '../../../../../services/utility';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import Translator from './translator';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import commonTranslator from '@/translator/common';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import {dispatchTeachScheduleContext, teachScheduleContext} from './Context';
-
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(teachScheduleContext),
     React.useContext(dispatchTeachScheduleContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [teachModes, sessionsMode] = useMemo(() => {
     return [
       [
-        {item: Translator.private, id: 'private'},
-        {item: Translator.semiPrivate, id: 'semi_private'},
+        {
+          item: Translator.private,
+          id: 'private',
+        },
+        {
+          item: Translator.semiPrivate,
+          id: 'semi_private',
+        },
       ],
       [
-        {item: Translator.individual, id: 'individual'},
-        {item: Translator.multi, id: 'multi'},
+        {
+          item: Translator.individual,
+          id: 'individual',
+        },
+        {
+          item: Translator.multi,
+          id: 'multi',
+        },
       ],
     ];
   }, []);
-
   const [sessionMode, setSessionMode] = useState('individual');
   const [sessionsCount, setSessionsCount] = useState();
   const [endRegistration, setEndRegistration] = useState();
@@ -54,7 +59,6 @@ function Create(props) {
   const [maxCap, setMaxCap] = useState();
   const [needRegistryConfirmation, setNeedRegistryConfirmation] =
     useState(true);
-
   const fetchSchedule = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -79,7 +83,6 @@ function Create(props) {
         setNeedRegistryConfirmation(res[0].needRegistryConfirmation);
         const mode = res[0].startAt ? 'individual' : 'multi';
         setSessionMode(mode);
-
         res[0].startAt && setStart(res[0].startAt);
         res[0].sessionsCount && setSessionsCount(res[0].sessionsCount);
         res[0].endRegistration && setEndRegistration(res[0].endRegistration);
@@ -89,19 +92,20 @@ function Create(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedScheduleId, props.token]);
-
   useEffect(() => {
     if (!props.isInEditMode) return;
     fetchSchedule();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isInEditMode]);
-
   return (
     <CommonWebBox
       backBtn={true}
       onBackClick={() => props.setMode('list')}
       header={props.isInEditMode ? Translator.update : Translator.create}>
-      <PhoneView style={{gap: '20px'}}>
+      <PhoneView
+        style={{
+          gap: '20px',
+        }}>
         {!props.isInEditMode && (
           <JustBottomBorderSelect
             values={sessionsMode}
@@ -268,16 +272,13 @@ function Create(props) {
             data.minCap = minCap;
             data.maxCap = maxCap;
           } else data.needRegistryConfirmation = needRegistryConfirmation;
-
           if (sessionMode === 'multi') {
             data.sessionsCount = sessionsCount;
             data.endRegistration = endRegistration;
             data.startDate = startDate;
             data.endDate = endDate;
           } else data.start = start;
-
           if (price !== undefined) data.price = price;
-
           props.setLoading(true);
           const res = await generalRequest(
             props.isInEditMode
@@ -305,7 +306,9 @@ function Create(props) {
             } else {
               const tmp = state.schedules;
               tmp.push(res);
-              dispatch({schedules: tmp});
+              dispatch({
+                schedules: tmp,
+              });
             }
             props.setMode('list');
           }
@@ -316,5 +319,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

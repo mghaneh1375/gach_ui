@@ -1,15 +1,13 @@
 import {useEffect, useState} from 'react';
 import {Image} from 'react-native';
-import {MyView, SimpleText} from '../../../styles/Common';
+import {MyView, SimpleText} from '../../../styles/CommonComponents';
 import vars from '../../../styles/root';
-
 function Card(props) {
   const [pic, setPic] = useState();
   const [showInfo, setShowInfo] = useState(false);
   useEffect(() => {
     setPic(props.badge.img);
   }, [props.badge]);
-
   return (
     <div
       onMouseEnter={() => setShowInfo(true)}
@@ -99,5 +97,4 @@ function Card(props) {
     </div>
   );
 }
-
 export default Card;

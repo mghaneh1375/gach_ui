@@ -1,8 +1,7 @@
 import {useState} from 'react';
 import {CommonButton, PhoneView} from '../../../../styles/Common';
-import commonTranslator from '../../../../translator/Common';
-import {filter} from './Utility';
-
+import commonTranslator from '@/translator/common';
+import {filter} from './utility';
 function Button(props) {
   const [criticalThresh, setCriticalThresh] = useState();
   const [grade, setGrade] = useState();
@@ -10,7 +9,6 @@ function Button(props) {
   const [lessons, setLessons] = useState();
   const [organizationCode, setOrganizationCode] = useState();
   const [justCriticals, setJustCriticals] = useState(false);
-
   return (
     <PhoneView>
       <CommonButton
@@ -37,5 +35,4 @@ function Button(props) {
     </PhoneView>
   );
 }
-
 export default Button;

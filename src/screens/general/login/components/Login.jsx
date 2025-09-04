@@ -1,25 +1,21 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {setCacheItem} from '../../../../API/User';
-import {generalRequest} from '../../../../API/Utility';
-import {style} from '../../../../components/web/LargeScreen/Header/style';
-import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
-import {CommonTextInput} from '../../../../styles/Common/CommonTextInput';
-import commonTranlator from './../../../../translator/Common';
-import translator from './../translate';
-
+import {routes} from '@/api/apiRoutes';
+import {setCacheItem} from '../../../../api/user';
+import {generalRequest} from '@/api/utility';
+import {style} from '../../../../components/web/largeScreen/header/Style';
+import {CommonButton, MyView, PhoneView} from '@/styles';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import commonTranlator from '../../../../translator/common';
+import translator from '../translate';
 const Login = props => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   const changeInput = (label, value) => {
     if (label === 'username') setUsername(value);
     else if (label === 'password') setPassword(value);
   };
-
   const requestLogin = React.useCallback(() => {
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.signIn,
@@ -49,9 +45,12 @@ const Login = props => {
         props.setLoading(false);
       });
   }, [props, username, password]);
-
   return (
-    <MyView style={{...style.ParentLoginModule, ...style.marginTop25}}>
+    <MyView
+      style={{
+        ...style.ParentLoginModule,
+        ...style.marginTop25,
+      }}>
       <CommonTextInput
         placeholder={translator.phoneOrMail}
         subText={translator.phoneOrMail}
@@ -64,11 +63,15 @@ const Login = props => {
         type={'password'}
         onEnter={() => requestLogin()}
         onChangeText={e => changeInput('password', e)}
-        style={{marginTop: 20}}
+        style={{
+          marginTop: 20,
+        }}
       />
       <PhoneView>
         <CommonButton
-          style={{marginTop: 50}}
+          style={{
+            marginTop: 50,
+          }}
           onPress={() => requestLogin()}
           title={commonTranlator.entrance}
         />
@@ -87,5 +90,4 @@ const Login = props => {
     </MyView>
   );
 };
-
 export default Login;

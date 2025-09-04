@@ -1,6 +1,4 @@
-import React from 'react';
-import {MyView} from '../Common';
-
+import {MyView} from '@/styles';
 function ProgressBar(props) {
   return (
     <MyView
@@ -22,5 +20,4 @@ function ProgressBar(props) {
     </MyView>
   );
 }
-
 export default ProgressBar;

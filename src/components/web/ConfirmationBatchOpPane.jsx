@@ -1,8 +1,7 @@
-import {generalRequest} from '../../API/Utility';
-import {CommonButton} from '../../styles/Common';
-import {LargePopUp} from '../../styles/Common/PopUp';
-import commonTranslator from '../../translator/Common';
-
+import {generalRequest} from '../../api/utility';
+import {CommonButton} from '../../styles/CommonComponents';
+import {LargePopUp} from '../../styles/common/PopUp';
+import commonTranslator from '../../translator/common';
 const ConfirmationBatchOpPane = props => {
   const doOp = () => {
     if (props.url === undefined || props.url === null) {
@@ -10,7 +9,6 @@ const ConfirmationBatchOpPane = props => {
       return;
     }
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         props.url,
@@ -26,7 +24,6 @@ const ConfirmationBatchOpPane = props => {
       }
     });
   };
-
   return (
     <LargePopUp
       toggleShowPopUp={props.toggleShowPopUp}
@@ -47,5 +44,4 @@ const ConfirmationBatchOpPane = props => {
     />
   );
 };
-
 export default ConfirmationBatchOpPane;

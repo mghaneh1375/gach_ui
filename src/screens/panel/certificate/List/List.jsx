@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {CommonWebBox} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import certTranslator from '../Translator';
-import Ops from './Ops/Ops';
-import columns from './TableStructure';
-
+import {routes} from '@/api/apiRoutes';
+import {CommonWebBox} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import certTranslator from '../translator';
+import Ops from './ops/Ops';
+import columns from './tableStructure';
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedId, setSelectedId] = useState();
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
@@ -47,5 +45,4 @@ function List(props) {
     </CommonWebBox>
   );
 }
-
 export default List;

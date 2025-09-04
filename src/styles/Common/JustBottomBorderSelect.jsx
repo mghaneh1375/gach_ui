@@ -1,5 +1,4 @@
 import {CommonSelect} from './CommonSelect';
-
 const JustBottomBorderSelect = props => {
   const customStyle =
     props.style === undefined
@@ -20,7 +19,6 @@ const JustBottomBorderSelect = props => {
           paddingBottom: 0,
           marginTop: -3,
         };
-
   return (
     <CommonSelect
       setter={props.setter}
@@ -38,5 +36,4 @@ const JustBottomBorderSelect = props => {
     />
   );
 };
-
 export default JustBottomBorderSelect;

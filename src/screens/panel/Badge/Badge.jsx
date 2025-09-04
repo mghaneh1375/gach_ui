@@ -1,23 +1,21 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import {BadgeProvider} from './components/Context';
 import List from './components/List';
-import Create from './components/Create/Create';
-
+import Create from './components/create/Create';
 function Badge(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('list');
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   return (
     <BadgeProvider>
       {mode === 'list' && (
@@ -47,5 +45,4 @@ function Badge(props) {
     </BadgeProvider>
   );
 }
-
 export default Badge;

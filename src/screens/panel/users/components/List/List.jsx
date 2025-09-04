@@ -1,51 +1,46 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-import Pagination from '../../../../../components/web/Pagination/Pagination';
-import {CommonWebBox, MyView, SimpleText} from '../../../../../styles/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {levelsKeyVals} from '../../../ticket/components/KeyVals';
-import Translator from '../../Translator';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
+import Pagination from '@/components/web/pagination/Pagination';
+import {CommonWebBox, MyView, SimpleText} from '@/styles';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import {levelsKeyVals} from '../../../ticket/components/keyVals';
+import Translator from '../../translator';
 import {dispatchUsersContext, usersContext} from '../Context';
 import Ops from '../Ops';
 import Filter from './Filter';
-import columns, {advisorColumns, allUsersColumns} from './TableStructure';
-
+import columns, {advisorColumns, allUsersColumns} from './tableStructure';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(usersContext),
     React.useContext(dispatchUsersContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [showOpPopUp, setShowOpPopUp] = useState(false);
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const changeMode = newMode => {
     props.setMode(newMode);
   };
-
   const handleOp = React.useCallback(
     (idx, selectedUser) => {
-      dispatch({selectedUser: selectedUser});
+      dispatch({
+        selectedUser: selectedUser,
+      });
       props.setSelectedUser(selectedUser);
       setShowOpPopUp(true);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [dispatch],
   );
-
   const currLevel = useParams().level;
   const [branches, setBranches] = useState();
   const [grades, setGrades] = useState();
   const [clearFilters, setClearFilters] = useState(false);
   const [pageIndex, setPageIndex] = useState(1);
   const [totalCount, setTotalCount] = useState();
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -59,16 +54,16 @@ function List(props) {
       }
       setGrades(res[0]);
       setBranches(res[1]);
-      dispatch({fetched: currLevel});
+      dispatch({
+        fetched: currLevel,
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currLevel, pageIndex]);
-
   React.useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <MyView>
       {showOpPopUp && (
@@ -121,7 +116,11 @@ function List(props) {
                     : allUsersColumns
                 }
                 data={state.users}
-                setData={data => dispatch({users: data})}
+                setData={data =>
+                  dispatch({
+                    users: data,
+                  })
+                }
                 removeUrl={routes.removeUsers}
                 handleOp={handleOp}
                 token={props.token}
@@ -141,5 +140,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

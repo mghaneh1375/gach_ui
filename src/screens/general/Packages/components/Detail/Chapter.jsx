@@ -3,9 +3,9 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
+  SimpleFontIcon,
+} from '@/styles';
 import React, {useState} from 'react';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
 import {
   faAngleDown,
   faAngleUp,
@@ -13,24 +13,21 @@ import {
   faListNumeric,
 } from '@fortawesome/free-solid-svg-icons';
 import RenderHTML from 'react-native-render-html';
-import {styles} from '../../../../../styles/Common/Styles';
+import {styles} from '@/styles/common/styles';
 import {
   convertSecToMin,
   convertSecToMinWithOutHour,
   systemFonts,
   tagsStyles,
-} from '../../../../../services/Utility';
+} from '@/services/utility';
 import Session from './Session';
-
 function Chapter(props) {
   const [show, setShow] = useState(false);
   const [sessions, setSessions] = useState();
   const [showSessions, setShowSessions] = useState(true);
-
   React.useEffect(() => {
     setSessions(props.sessions);
   }, [props.sessions]);
-
   return (
     <CommonWebBox
       btn={
@@ -75,7 +72,11 @@ function Chapter(props) {
             />
           </MyView>
 
-          <MyView style={{...styles.gap15, ...styles.marginTop20}}>
+          <MyView
+            style={{
+              ...styles.gap15,
+              ...styles.marginTop20,
+            }}>
             {showSessions &&
               sessions !== undefined &&
               sessions.map((elem, index) => {
@@ -110,5 +111,4 @@ function Chapter(props) {
     </CommonWebBox>
   );
 }
-
 export default Chapter;

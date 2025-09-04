@@ -1,10 +1,9 @@
-import {routes} from '../../../../API/APIRoutes';
-import {getUser, setCacheItem} from '../../../../API/User';
-import {generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../translator/Common';
-import {levelKeyVals} from '../../ticket/components/KeyVals';
-
+import {routes} from '@/api/apiRoutes';
+import {getUser, setCacheItem} from '../../../../api/user';
+import {generalRequest} from '@/api/utility';
+import {showSuccess} from '../../../../services/utility';
+import commonTranslator from '@/translator/common';
+import {levelKeyVals} from '../../ticket/components/keyVals';
 export const filter = async (
   token,
   level,
@@ -21,7 +20,6 @@ export const filter = async (
   to = undefined,
 ) => {
   console.log(from);
-
   const query = new URLSearchParams();
   query.append('level', level);
   if (NID !== undefined && NID !== '') query.append('NID', NID);
@@ -47,7 +45,6 @@ export const filter = async (
   );
   return res;
 };
-
 export const removeAccess = props => {
   props.setLoading(true);
   Promise.all([
@@ -73,7 +70,6 @@ export const removeAccess = props => {
     }
   });
 };
-
 export const addAccess = async (
   setLoading,
   token,
@@ -107,7 +103,6 @@ export const addAccess = async (
   }
   return null;
 };
-
 export const toggleStatus = async (setLoading, token, userId, afterFunc) => {
   setLoading(true);
   const res = await generalRequest(
@@ -123,7 +118,6 @@ export const toggleStatus = async (setLoading, token, userId, afterFunc) => {
     afterFunc(res);
   }
 };
-
 export const login = async (setLoading, token, userId) => {
   setLoading(true);
   const res = await generalRequest(
@@ -144,7 +138,6 @@ export const login = async (setLoading, token, userId) => {
   }
   return false;
 };
-
 export const chargeAccount = async (coin, money, userId, token) => {
   const res = await generalRequest(
     routes.chargeAccount + userId,
@@ -156,10 +149,8 @@ export const chargeAccount = async (coin, money, userId, token) => {
     undefined,
     token,
   );
-
   if (res !== null) showSuccess();
 };
-
 export const setPriority = async (
   advisorPriority,
   teachPriority,
@@ -176,6 +167,5 @@ export const setPriority = async (
     undefined,
     token,
   );
-
   if (res !== null) showSuccess();
 };

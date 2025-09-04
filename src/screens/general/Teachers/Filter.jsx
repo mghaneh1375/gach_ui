@@ -1,22 +1,19 @@
 import {Slider} from '@material-ui/core';
-import {getDevice} from '../../../services/Utility';
+import {getDevice} from '../../../services/utility';
 import {
   CommonButton,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import {styles} from '../../../styles/Common/Styles';
-import JustBottomBorderSelect from '../../../styles/Common/JustBottomBorderSelect';
-
+} from '../../../styles/CommonComponents';
+import {styles} from '../../../styles/common/styles';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
 import React, {useMemo, useState} from 'react';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
-
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 function Filter(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
-
   const [rate, setRate] = useState([1, 5]);
   const [valueAge, setValueAge] = useState([props.minAge, props.maxAge]);
   const [justHasFreeSchedule, setJustHasFreeSchedule] = useState('all');
@@ -24,15 +21,12 @@ function Filter(props) {
   const [wantedBranch, setWantedBranch] = useState();
   const [wantedLesson, setWantedLesson] = useState();
   const [tag, setTag] = useState();
-
   const rangeSelectorRate = (event, newValue) => {
     setRate(newValue);
   };
-
   const rangeSelectorAge = (event, newValue) => {
     setValueAge(newValue);
   };
-
   const clear = React.useCallback(() => {
     setTag(undefined);
     setValueAge([props.minAge, props.maxAge]);
@@ -43,40 +37,27 @@ function Filter(props) {
     setWantedLesson(undefined);
     props.setClearFilter(false);
   }, [props]);
-
   React.useEffect(() => {
     if (props.clearFilter) clear();
   }, [props.clearFilter, clear]);
-
   const filter = async () => {
     const query = new URLSearchParams();
-
     if (tag !== undefined && tag !== 'all') query.append('tag', tag);
-
     if (valueAge !== undefined && props.minAge !== valueAge[0])
       query.append('minAge', valueAge[0]);
-
     if (valueAge !== undefined && props.maxAge !== valueAge[1])
       query.append('maxAge', valueAge[1]);
-
     if (rate !== undefined && rate[0] !== 1) query.append('minRate', rate[0]);
-
     if (rate !== undefined && rate[1] !== 5) query.append('maxRate', rate[1]);
-
     if (sort !== undefined) query.append('sortBy', sort);
-
     if (justHasFreeSchedule !== undefined && justHasFreeSchedule !== 'all')
       query.append('justHasFreeSchedule', justHasFreeSchedule);
-
     if (wantedBranch !== undefined && wantedBranch !== 'all')
       query.append('branchId', wantedBranch);
-
     if (wantedGrade !== undefined && wantedGrade !== 'all')
       query.append('gradeId', wantedGrade);
-
     query.append('returnFilters', false);
     props.setLoading(true);
-
     const res = await generalRequest(
       routes.getAllTeachers + '?' + query.toString(),
       'get',
@@ -84,33 +65,53 @@ function Filter(props) {
       'data',
       undefined,
     );
-
     props.setLoading(false);
-
     if (res != null) props.setSelectableItems(res);
   };
-
   const sortByValues = useMemo(() => {
     [
-      {id: 'rate', item: 'امتیاز'},
-      {id: 'student', item: 'دانش آموزان'},
-      {id: 'age', item: 'سن'},
+      {
+        id: 'rate',
+        item: 'امتیاز',
+      },
+      {
+        id: 'student',
+        item: 'دانش آموزان',
+      },
+      {
+        id: 'age',
+        item: 'سن',
+      },
     ];
   }, []);
-
   const justHasFreeScheduleValues = [
-    {id: 'all', item: 'همه'},
-    {id: 'true', item: 'تنها آنهایی که جلسه آزاد دارند'},
+    {
+      id: 'all',
+      item: 'همه',
+    },
+    {
+      id: 'true',
+      item: 'تنها آنهایی که جلسه آزاد دارند',
+    },
   ];
-
   const [sort, setSort] = useState();
-
   return (
     <MyView>
-      <PhoneView style={{...styles.gap30}}>
+      <PhoneView
+        style={{
+          ...styles.gap30,
+        }}>
         {props.maxAge !== props.minAge && (
-          <MyView style={{width: isInPhone ? 260 : 300}}>
-            <SimpleText style={{...styles.alignSelfCenter}} text={'سن دبیر'} />
+          <MyView
+            style={{
+              width: isInPhone ? 260 : 300,
+            }}>
+            <SimpleText
+              style={{
+                ...styles.alignSelfCenter,
+              }}
+              text={'سن دبیر'}
+            />
             <Slider
               max={props.maxAge}
               min={props.minAge}
@@ -125,9 +126,14 @@ function Filter(props) {
           </MyView>
         )}
 
-        <MyView style={{width: isInPhone ? 260 : 150}}>
+        <MyView
+          style={{
+            width: isInPhone ? 260 : 150,
+          }}>
           <SimpleText
-            style={{...styles.alignSelfCenter}}
+            style={{
+              ...styles.alignSelfCenter,
+            }}
             text={'امتیاز دبیر'}
           />
           <Slider
@@ -228,7 +234,6 @@ function Filter(props) {
       <CommonButton
         onPress={async () => {
           await filter();
-
           if (isInPhone) props.close();
         }}
         title={'اعمال فیلتر'}
@@ -236,5 +241,4 @@ function Filter(props) {
     </MyView>
   );
 }
-
 export default Filter;

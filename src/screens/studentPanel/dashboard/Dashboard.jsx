@@ -5,12 +5,12 @@ import {
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {routes} from '../../../API/APIRoutes';
-import {fetchUser, setCacheItem} from '../../../API/User';
-import {generalRequest} from '../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../App';
+import {routes} from '@/api/apiRoutes';
+import {fetchUser, setCacheItem} from '../../../api/user';
+import {generalRequest} from '../../../api/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
 import CopyBox from '../../../components/CopyBox';
-import {formatPrice, showError, showSuccess} from '../../../services/Utility';
+import {formatPrice, showError, showSuccess} from '../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -18,36 +18,36 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common';
-import JustBottomBorderTextInput from '../../../styles/Common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../styles/Common/PopUp';
-import {styles} from '../../../styles/Common/Styles';
+} from '../../../styles/CommonComponents.jsx';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import {LargePopUp} from '../../../styles/common/PopUp';
+import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import commonTranslator from '../../../translator/Common';
-import ProgressCard from '../‌MyOffs/ProgressCard/ProgressCard';
-import DashboardCard from './DashboardCard/DashboardCard';
+import commonTranslator from '../../../translator/common';
+import ProgressCard from '../myOffs/progressCard/ProgressCard';
+import DashboardCard from './dashboardCard/DashboardCard';
 import ExchangeOffer from './ExchangeOffer';
-import {Translate} from './Translate';
-import {getMySummary} from './Utility';
-
+import {Translate} from './translate';
+import {getMySummary} from './utility';
 function Dashboard(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [exchangeOffers, setExchangeOffers] = useState();
   const [data, setData] = useState();
   const [exchangeCoinToMoneyRate, setExchangeCoinToMoneyRate] = useState();
   const [createOff, setCreateOff] = useState(false);
   const [state, dispatch] = useGlobalState();
   const navigate = props.navigate;
-
   React.useEffect(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([getMySummary(state.token)]).then(res => {
-      dispatch({loading: false});
-
+      dispatch({
+        loading: false,
+      });
       if (res[0] === null) {
         navigate('/');
         return;
@@ -56,14 +56,11 @@ function Dashboard(props) {
       setExchangeCoinToMoneyRate(res[0].coinToMoneyExchange);
     });
   }, [navigate, state.token, dispatch]);
-
   const [showExchangeCoinToMoneyPopup, setShowExchangeCoinToMoneyPopup] =
     useState(false);
-
   const [mode, setMode] = useState('coin');
   const [offCodeAmount, setOffCodeAmount] = useState();
   const [code, setCode] = useState();
-
   const check = React.useCallback(() => {
     if (data === undefined || offCodeAmount === undefined) return;
     if (mode === 'coin' && offCodeAmount > data.coin) {
@@ -82,11 +79,9 @@ function Dashboard(props) {
       );
     }
   }, [data, mode, offCodeAmount]);
-
   React.useEffect(() => {
     if (offCodeAmount !== undefined) check();
   }, [offCodeAmount, check]);
-
   return (
     <MyView>
       {createOff && (
@@ -101,8 +96,9 @@ function Dashboard(props) {
                     showError('لطفا مقدار موردنظر خود را وارد نمایید');
                     return;
                   }
-
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.createOff,
                     'post',
@@ -117,7 +113,9 @@ function Dashboard(props) {
                     setCode(res);
                     await setCacheItem('user', undefined);
                     await fetchUser(state.token, user => {
-                      dispatch({loading: false});
+                      dispatch({
+                        loading: false,
+                      });
                       showSuccess();
                       const tmp = data;
                       tmp.coin = user.user.coin;
@@ -126,14 +124,20 @@ function Dashboard(props) {
                     });
                     // setCreateOff(false);
                   } else {
-                    dispatch({loading: false});
+                    dispatch({
+                      loading: false,
+                    });
                   }
                 }}
                 title={'ساخت کد تخفیف'}
               />
             )
           }>
-          <PhoneView style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
+          <PhoneView
+            style={{
+              ...styles.alignSelfCenter,
+              ...styles.marginTop20,
+            }}>
             <ProgressCard
               header={'استفاده از ایکس پول'}
               theme={vars.ORANGE}
@@ -144,7 +148,9 @@ function Dashboard(props) {
                 if (mode === 'coin') return;
                 setMode('coin');
               }}
-              style={{...styles.cursor_pointer}}
+              style={{
+                ...styles.cursor_pointer,
+              }}
             />
             <ProgressCard
               header={'استفاده از اعتبار'}
@@ -156,7 +162,9 @@ function Dashboard(props) {
                 if (mode === 'charge') return;
                 setMode('charge');
               }}
-              style={{...styles.cursor_pointer}}
+              style={{
+                ...styles.cursor_pointer,
+              }}
             />
           </PhoneView>
 
@@ -214,10 +222,15 @@ function Dashboard(props) {
           )}
           {code !== undefined && (
             <PhoneView
-              style={{...styles.alignSelfCenter, ...styles.marginTop20}}>
+              style={{
+                ...styles.alignSelfCenter,
+                ...styles.marginTop20,
+              }}>
               <EqualTwoTextInputs>
                 <SimpleText
-                  style={{...styles.alignSelfCenter}}
+                  style={{
+                    ...styles.alignSelfCenter,
+                  }}
                   text={'کد تخفیف: ' + code}
                 />
                 <CopyBox url={code} />
@@ -230,13 +243,18 @@ function Dashboard(props) {
         <LargePopUp
           header={'موجودی فعلی شما: ' + data.coin + ' ' + commonTranslator.coin}
           toggleShowPopUp={() => setShowExchangeCoinToMoneyPopup(false)}>
-          <PhoneView style={{gap: '10px'}}>
+          <PhoneView
+            style={{
+              gap: '10px',
+            }}>
             {exchangeOffers &&
               exchangeOffers.map((e, index) => {
                 return (
                   <ExchangeOffer
                     onPress={async () => {
-                      dispatch({loading: true});
+                      dispatch({
+                        loading: true,
+                      });
                       const res = await generalRequest(
                         routes.getReward + e.id,
                         'post',
@@ -250,10 +268,11 @@ function Dashboard(props) {
                             'کدتخفیف شما با موفقیت ساخته شد. برای رویت کدهای تخفیف خود از قسمت تخفیف و جایزه اقدام فرمایید',
                           );
                         else showSuccess();
-
                         await setCacheItem('user', undefined);
                         await fetchUser(state.token, user => {
-                          dispatch({loading: false});
+                          dispatch({
+                            loading: false,
+                          });
                           const tmp = data;
                           tmp.coin = user.user.coin;
                           tmp.money = user.user.money;
@@ -261,7 +280,9 @@ function Dashboard(props) {
                         });
                         setShowExchangeCoinToMoneyPopup(false);
                       } else {
-                        dispatch({loading: false});
+                        dispatch({
+                          loading: false,
+                        });
                       }
                     }}
                     key={index}
@@ -300,7 +321,9 @@ function Dashboard(props) {
                   setShowExchangeCoinToMoneyPopup(true);
                   return;
                 }
-                dispatch({loading: true});
+                dispatch({
+                  loading: true,
+                });
                 const res = await generalRequest(
                   routes.exchangeOffers,
                   'get',
@@ -308,7 +331,9 @@ function Dashboard(props) {
                   'data',
                   state.token,
                 );
-                dispatch({loading: false});
+                dispatch({
+                  loading: false,
+                });
                 if (res != null) {
                   setExchangeOffers(res);
                   setShowExchangeCoinToMoneyPopup(true);
@@ -388,5 +413,4 @@ function Dashboard(props) {
     </MyView>
   );
 }
-
 export default Dashboard;

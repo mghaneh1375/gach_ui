@@ -1,35 +1,29 @@
 import React, {useState} from 'react';
-import {trueFalseValues} from '../../../../services/Utility';
-import {CommonRadioButton, MyView, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderDatePicker from '../../../../styles/Common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import {trueFalseValues} from '../../../../services/utility';
+import {CommonRadioButton, MyView, PhoneView} from '@/styles';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
 import {
   justOnlineLaunchModeKeyVals,
   launchModeKeyVals,
-} from '../../../panel/quiz/components/KeyVals';
-import translator from '../../../panel/quiz/Translator';
-
+} from '../../../panel/quiz/components/keyVals';
+import translator from '../../../panel/quiz/translator';
 const QuizRunInfo = props => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
-
   React.useEffect(() => {
     setStart(props.start);
   }, [props.start]);
-
   React.useEffect(() => {
     setEnd(props.end);
   }, [props.end]);
-
   const changeLen = val => {
     props.setLen(val);
   };
-
   const changeLenMode = newMode => {
     if (newMode === 'question') props.setLen('');
     props.setLenMode(newMode);
   };
-
   return (
     <MyView>
       {(props.isEnd === undefined || !props.isEnd) && (
@@ -60,7 +54,10 @@ const QuizRunInfo = props => {
         </PhoneView>
       )}
 
-      <PhoneView style={{gap: 15}}>
+      <PhoneView
+        style={{
+          gap: 15,
+        }}>
         {(props.kind === undefined || props.kind !== 'tashrihi') &&
           (props.editMode === undefined || !props.editMode) && (
             <JustBottomBorderSelect
@@ -160,5 +157,4 @@ const QuizRunInfo = props => {
     </MyView>
   );
 };
-
 export default QuizRunInfo;

@@ -1,26 +1,18 @@
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {
-  EqualTwoTextInputs,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-import vars from '../../../../styles/root';
-import AttachBox from '../../../panel/ticket/components/Show/AttachBox/AttachBox';
+import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
+import {styles} from '../../../../styles/common/styles';
+import vars from '@/styles/root';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
 import {doQuizContext, dispatchDoQuizContext} from './Context';
 import {Pressable} from 'react-native-web';
-
 function PhoneFilter(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [mode, setMode] = useState('menu');
-
   return (
     <PhoneView
       style={{
@@ -34,9 +26,17 @@ function PhoneFilter(props) {
         background: mode === 'menu' ? vars.WHITE : 'rgb(112, 112, 112)',
       }}>
       {mode === 'menu' && (
-        <PhoneView style={{width: '100%', height: 60}}>
+        <PhoneView
+          style={{
+            width: '100%',
+            height: 60,
+          }}>
           <Pressable
-            onPress={() => dispatch({activeTab: 'questions'})}
+            onPress={() =>
+              dispatch({
+                activeTab: 'questions',
+              })
+            }
             style={{
               alignSelf: 'center',
               flexGrow: 1,
@@ -60,7 +60,11 @@ function PhoneFilter(props) {
             />
           </Pressable>
           <Pressable
-            onPress={() => dispatch({activeTab: 'answerSheet'})}
+            onPress={() =>
+              dispatch({
+                activeTab: 'answerSheet',
+              })
+            }
             style={{
               alignSelf: 'center',
               flexGrow: 1,
@@ -86,7 +90,10 @@ function PhoneFilter(props) {
             state.quizInfo.attaches !== undefined &&
             state.quizInfo.attaches.length > 0 && (
               <SimpleText
-                style={{alignSelf: 'center', cursor: 'pointer'}}
+                style={{
+                  alignSelf: 'center',
+                  cursor: 'pointer',
+                }}
                 text={'فایل\u200cها'}
                 onPress={() => setMode('attaches')}
               />
@@ -95,7 +102,12 @@ function PhoneFilter(props) {
       )}
 
       {mode === 'attaches' && (
-        <MyView style={{width: '100%', height: '100%', gap: 5}}>
+        <MyView
+          style={{
+            width: '100%',
+            height: '100%',
+            gap: 5,
+          }}>
           <EqualTwoTextInputs
             style={{
               boxShadow: 'rgb(0 0 0 / 16%) 0px 3px 16px 4px',
@@ -109,9 +121,16 @@ function PhoneFilter(props) {
               background: 'white',
               alignSelf: 'center',
             }}>
-            <SimpleText style={{...styles.BlueBold}} text={'فایل\u200cها'} />
             <SimpleText
-              style={{...styles.cursor_pointer}}
+              style={{
+                ...styles.BlueBold,
+              }}
+              text={'فایل\u200cها'}
+            />
+            <SimpleText
+              style={{
+                ...styles.cursor_pointer,
+              }}
               onPress={() => setMode('menu')}
               text={'بستن'}
             />
@@ -160,5 +179,4 @@ function PhoneFilter(props) {
     </PhoneView>
   );
 }
-
 export default PhoneFilter;

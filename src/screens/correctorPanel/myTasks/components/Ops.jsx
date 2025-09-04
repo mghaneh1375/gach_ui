@@ -1,7 +1,6 @@
 import React from 'react';
-import {CommonButton, PhoneView} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/Common/PopUp';
-
+import {CommonButton, PhoneView} from '@/styles';
+import {LargePopUp} from '../../../../styles/common/PopUp';
 function Ops(props) {
   return (
     <LargePopUp
@@ -24,5 +23,4 @@ function Ops(props) {
     </LargePopUp>
   );
 }
-
 export default Ops;

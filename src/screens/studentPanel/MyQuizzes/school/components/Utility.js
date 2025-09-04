@@ -1,11 +1,9 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
 export const fetchMyQuizzes = async (token, advisor, status = undefined) => {
   const query = new URLSearchParams();
   query.append('forAdvisor', advisor);
   if (status !== undefined) query.append('status', status);
-
   return await generalRequest(
     routes.fetchMySchoolQuizzes + '?' + query.toString(),
     'get',
@@ -14,7 +12,6 @@ export const fetchMyQuizzes = async (token, advisor, status = undefined) => {
     token,
   );
 };
-
 export const getMyAnswerSheet = async (quizId, generalMode, token) => {
   return await generalRequest(
     routes.fetchMyAnswerSheet + generalMode + '/' + quizId,

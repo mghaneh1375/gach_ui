@@ -1,21 +1,20 @@
 import React, {useState} from 'react';
-import {getWidthHeight} from '../../services/Utility';
-import {CommonButton, MyView} from '../../styles/Common';
-import {styles} from '../../styles/Common/Styles';
+import {getWidthHeight} from '../../services/utility';
+import {CommonButton, MyView} from '../../styles/CommonComponents';
+import {styles} from '../../styles/common/styles';
 import vars from '../../styles/root';
-import {Nav, NavLink, NavLinkExternal} from '../../styles/web/NavbarElement';
-
+import {Nav, NavLink, NavLinkExternal} from '../../styles/web/navbarElement';
 const Navbar = props => {
   const [isLogin, setIsLogin] = useState(props.user !== null);
-
   React.useEffect(() => {
     setIsLogin(props.user !== null);
   }, [props.user]);
-
   const width = getWidthHeight()[0];
-
   return (
-    <MyView style={{width: '100%'}}>
+    <MyView
+      style={{
+        width: '100%',
+      }}>
       <Nav>
         <NavLinkExternal
           rel="noopener noreferrer"
@@ -26,7 +25,11 @@ const Navbar = props => {
           href="https://www.irysc.com/category/irysc-news/gachesefid/">
           اخبار
         </NavLinkExternal>
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/rankinglist">
+        <NavLink
+          style={{
+            ...styles.whiteSpaceNoWrap,
+          }}
+          to="/rankinglist">
           رتبه بندی
         </NavLink>
 
@@ -36,14 +39,20 @@ const Navbar = props => {
           target="_blank"
           href="https://www.irysc.com/%d9%87%d9%85%da%a9%d8%a7%d8%b1%d8%a7%d9%86-%d8%a2%db%8c%d8%b1%db%8c%d8%b3%da%a9/">
           همکاران
-        </NavLinkExternal> */}
-        <NavLink style={{...styles.whiteSpaceNoWrap}} to="/showAllSchools">
+         </NavLinkExternal> */}
+        <NavLink
+          style={{
+            ...styles.whiteSpaceNoWrap,
+          }}
+          to="/showAllSchools">
           مدارس
         </NavLink>
         <NavLinkExternal
           target="_blank"
           rel="noopener noreferrer"
-          style={{...styles.whiteSpaceNoWrap}}
+          style={{
+            ...styles.whiteSpaceNoWrap,
+          }}
           href="https://www.irysc.com/%d8%b1%d8%a7%d9%87%d9%86%d9%85%d8%a7%db%8c-%da%af%da%86-%d8%b3%d9%81%db%8c%d8%af-%d8%a2%db%8c%d8%b1%db%8c%d8%b3%da%a9/">
           راهنما
         </NavLinkExternal>
@@ -59,7 +68,7 @@ const Navbar = props => {
         </NavLinkExternal>
         {/* <NavLink style={{...styles.whiteSpaceNoWrap}} to="/packages">
           دوره‌های آموزشی
-        </NavLink> */}
+         </NavLink> */}
         <CommonButton
           style={{
             backgroundColor: vars.DARK_BLUE,
@@ -111,14 +120,22 @@ const Navbar = props => {
 
         {!isLogin && (
           <CommonButton
-            style={{minWidth: 'unset', paddingLeft: 10, paddingRight: 10}}
+            style={{
+              minWidth: 'unset',
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
             onPress={() => (window.location.href = '/login')}
             title={'ورود/ثبت نام'}
           />
         )}
         {isLogin && (
           <CommonButton
-            style={{minWidth: 'unset', paddingLeft: 25, paddingRight: 25}}
+            style={{
+              minWidth: 'unset',
+              paddingLeft: 25,
+              paddingRight: 25,
+            }}
             href="/dashboard"
             title={'پروفایل'}
           />
@@ -127,5 +144,4 @@ const Navbar = props => {
     </MyView>
   );
 };
-
 export default Navbar;

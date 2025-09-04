@@ -1,44 +1,38 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
-import {showSuccess} from '../../../../../services/Utility';
-import {CommonButton, PhoneView, MyView} from '../../../../../styles/Common';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import commonTranslator from '../../../../../translator/Common';
+import {routes} from '@/api/apiRoutes';
+import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane';
+import {showSuccess} from '@/services/utility';
+import {CommonButton, PhoneView, MyView} from '@/styles';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import commonTranslator from '@/translator/common';
 import {dispatchSchoolContext, schoolContext} from './Context';
-
 function Ops(props) {
   const useGlobalState = () => [
     React.useContext(schoolContext),
     React.useContext(dispatchSchoolContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const changeMode = newMode => {
     props.setMode(newMode);
   };
-
   const [showRemovePane, setShowRemovePane] = useState(false);
-
   const toggleShowRemovePane = () => {
     setShowRemovePane(!showRemovePane);
   };
-
   const afterRemove = res => {
     setShowRemovePane(false);
     showSuccess(res.excepts);
-
     if (res.doneIds.indexOf(state.selectedSchool.id) !== -1) {
       let allItems = state.schools;
       allItems = allItems.filter(elem => state.selectedSchool.id !== elem.id);
-      dispatch({schools: allItems, data: allItems});
+      dispatch({
+        schools: allItems,
+        data: allItems,
+      });
     }
-
     props.setMode('list');
     props.toggleShowPopUp();
   };
-
   return (
     <MyView>
       {showRemovePane && (
@@ -47,7 +41,9 @@ function Ops(props) {
           token={props.token}
           url={routes.removeSchools}
           expected={['excepts', 'doneIds']}
-          data={{items: [state.selectedSchool.id]}}
+          data={{
+            items: [state.selectedSchool.id],
+          }}
           afterFunc={afterRemove}
           toggleShowPopUp={toggleShowRemovePane}
         />
@@ -75,5 +71,4 @@ function Ops(props) {
     </MyView>
   );
 }
-
 export default Ops;

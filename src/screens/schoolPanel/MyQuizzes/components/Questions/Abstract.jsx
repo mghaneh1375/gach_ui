@@ -1,15 +1,13 @@
 import React from 'react';
 import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context';
-import PDFQuestion from '../../../../panel/quiz/components/PDFQuestion/PDFQuestion';
+import PDFQuestion from '../../../../panel/quiz/components/pdfQuestion/PDFQuestion';
 import Questions from './Questions';
-
 function Abstract(props) {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   if (state.selectedQuiz.pdfQuiz) {
     return (
       <PDFQuestion
@@ -21,7 +19,6 @@ function Abstract(props) {
       />
     );
   }
-
   return (
     <Questions
       setLoading={props.setLoading}
@@ -32,5 +29,4 @@ function Abstract(props) {
     />
   );
 }
-
 export default Abstract;

@@ -1,14 +1,11 @@
-import {routes} from '../../../../API/APIRoutes';
-import {fileRequest, generalRequest} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-import commonTranslator from '../../../../translator/Common';
-
+import {routes} from '@/api/apiRoutes';
+import {fileRequest, generalRequest} from '@/api/utility';
+import {showSuccess} from '../../../../services/utility';
+import commonTranslator from '@/translator/common';
 export const filter = async (token, organizationCode) => {
   const query = new URLSearchParams();
-
   if (organizationCode !== undefined)
     query.append('organizationCode', organizationCode);
-
   return await generalRequest(
     routes.getEscapeQuizQuestions + '?' + query.toString(),
     'get',
@@ -17,7 +14,6 @@ export const filter = async (token, organizationCode) => {
     token,
   );
 };
-
 export const addQuestionToQuizzes = async (
   questionOrganizationId,
   quizzes,
@@ -26,12 +22,13 @@ export const addQuestionToQuizzes = async (
   return await generalRequest(
     routes.addQuestionToQuizzes + 'escape/' + questionOrganizationId + '/3',
     'put',
-    {items: quizzes},
+    {
+      items: quizzes,
+    },
     ['excepts', 'doneIds'],
     token,
   );
 };
-
 export const removeQuestion = async (questionId, token) => {
   return await generalRequest(
     routes.removeEscapeQuizQuestion,
@@ -43,18 +40,14 @@ export const removeQuestion = async (questionId, token) => {
     token,
   );
 };
-
 export const addQuestion = async (data, questionFile, answerFile, token) => {
   const formData = new FormData();
-
   var myblob = new Blob([new Uint8Array(questionFile.content)]);
   formData.append('questionFile', myblob, questionFile.name);
-
   if (answerFile !== undefined) {
     var myblob2 = new Blob([new Uint8Array(answerFile.content)]);
     formData.append('answerFile', myblob2, answerFile.name);
   }
-
   try {
     const res = await fileRequest(
       routes.addEscapeQuizQuestion,
@@ -65,15 +58,12 @@ export const addQuestion = async (data, questionFile, answerFile, token) => {
       data,
       ['answer', 'organizationId'],
     );
-
     if (res !== null) showSuccess(commonTranslator.success);
-
     return res;
   } catch (e) {
     return null;
   }
 };
-
 export const editQuestion = async (
   questionId,
   data,
@@ -82,17 +72,14 @@ export const editQuestion = async (
   token,
 ) => {
   const formData = new FormData();
-
   if (questionFile !== undefined) {
     var myblob = new Blob([new Uint8Array(questionFile.content)]);
     formData.append('questionFile', myblob, questionFile.name);
   }
-
   if (answerFile !== undefined) {
     var myblob2 = new Blob([new Uint8Array(answerFile.content)]);
     formData.append('answerFile', myblob2, answerFile.name);
   }
-
   try {
     const res = await fileRequest(
       routes.editEscapeQuizQuestion + questionId,
@@ -103,9 +90,7 @@ export const editQuestion = async (
       data,
       ['answer', 'organizationId'],
     );
-
     if (res !== null) showSuccess(commonTranslator.success);
-
     return 'ok';
   } catch (e) {
     return null;

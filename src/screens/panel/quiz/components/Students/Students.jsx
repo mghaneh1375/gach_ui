@@ -6,57 +6,54 @@ import {
   MyView,
   CommonRadioButton,
   SimpleText,
-} from '../../../../../styles/Common';
-import translator from '../../Translator';
-import commonTranslator from '../../../../../translator/Common';
-import CommonDataTable from '../../../../../styles/Common/CommonDataTable';
-import {generalRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
+} from '@/styles';
+import translator from '../../translator';
+import commonTranslator from '@/translator/common';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import {generalRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
 import ExcelComma from '../../../../../components/web/ExcelCommaInput';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
 import columns, {
   columnsForEscapeQuiz,
   columnsForMember,
   columnsForOnlineStanding,
   columnsForQRTashtihi,
-} from './TableStructure';
-import {columnsForTashtihi} from './TableStructure';
-import SearchUser from '../../../../../components/web/SearchUser/SearchUser';
-import {changeText, showSuccess} from '../../../../../services/Utility';
-import {getAnswerSheets, removeStudents} from '../Utility';
+} from './tableStructure';
+import {columnsForTashtihi} from './tableStructure';
+import SearchUser from '../../../../../components/web/searchUser/SearchUser';
+import {changeText, showSuccess} from '../../../../../services/utility';
+import {getAnswerSheets, removeStudents} from '../utility';
 import {dispatchQuizContext, quizContext} from '../Context';
-import StudentAnswerSheet from '../AnswerSheet/StudentAnswerSheet';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import StudentAnswerSheet from '../answerSheet/StudentAnswerSheet';
+import {styles} from '@/styles/common/styles';
 const Students = props => {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState(false);
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedSudent, setSelectedStudent] = useState(undefined);
   const [paid, setPaid] = useState();
   const [teamName, setTeamName] = useState();
-
   const afterAdd = items => {
     if (items === undefined) return;
     setStudents(items.concat(state.selectedQuiz.students));
   };
-
   const setStudents = newList => {
     state.selectedQuiz.students = newList;
     state.selectedQuiz.studentsCount = newList.length;
-    dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+    dispatch({
+      selectedQuiz: state.selectedQuiz,
+      needUpdate: true,
+    });
   };
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const removeStudent = () => {
     props.setLoading(true);
     Promise.all([
@@ -72,20 +69,16 @@ const Students = props => {
         const stds = state.selectedQuiz.students.filter(elem => {
           return res[0].doneIds.indexOf(elem.id) === -1;
         });
-
         setStudents(stds);
         toggleShowOpPopUp();
         showSuccess(res[0].excepts);
       }
     });
   };
-
   React.useEffect(() => {
     if (isWorking || state.selectedQuiz.students !== undefined) return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       generalRequest(
         routes.getParticipants +
@@ -103,29 +96,27 @@ const Students = props => {
         props.setMode('list');
         return;
       }
-
       state.selectedQuiz.students = res[0];
-      dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+      dispatch({
+        selectedQuiz: state.selectedQuiz,
+        needUpdate: true,
+      });
       setIsWorking(false);
     });
   }, [props, isWorking, dispatch, state.selectedQuiz]);
-
   const handleOp = idx => {
     setSelectedStudent(state.selectedQuiz.students[idx]);
     toggleShowOpPopUp();
   };
-
   const [showSearchUser, setShowSearchUser] = useState(false);
   const [foundUser, setFoundUser] = useState();
   const [studentIdx, setStudentIdx] = useState();
   const [showAnswerSheet, setShowAnswerSheet] = useState(false);
   const [showJustRate, setShowJustRate] = useState(false);
   const [data, setData] = useState();
-
   React.useEffect(() => {
     setData(state.selectedQuiz.students);
   }, [state.selectedQuiz.students]);
-
   const prepareShowAnswerSheet = async () => {
     if (state.selectedQuiz.mode === 'tashrihi') {
       window.open(
@@ -138,7 +129,6 @@ const Students = props => {
         '_blank',
       );
     }
-
     if (state.selectedQuiz.answer_sheets === undefined) {
       props.setLoading(true);
       const res = await getAnswerSheets(
@@ -146,16 +136,16 @@ const Students = props => {
         state.selectedQuiz.generalMode,
         props.token,
       );
-
       props.setLoading(false);
-
       if (res !== null) {
         state.selectedQuiz.answer_sheet = res.answers;
         state.selectedQuiz.answer_sheets = res.students;
-        dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+        dispatch({
+          selectedQuiz: state.selectedQuiz,
+          needUpdate: true,
+        });
       } else return;
     }
-
     state.selectedQuiz.answer_sheets.forEach((elem, index) => {
       if (elem.student.id == selectedSudent.id) {
         const data = state.selectedQuiz.answer_sheet.map((elem, idx) => {
@@ -163,7 +153,6 @@ const Students = props => {
             state.selectedQuiz.answer_sheets[index].answers[idx];
           return elem;
         });
-
         dispatch({
           showAnswers: true,
           showStdAnswers: true,
@@ -182,7 +171,6 @@ const Students = props => {
       }
     });
   };
-
   return (
     <MyView>
       {showAnswerSheet && (
@@ -199,7 +187,10 @@ const Students = props => {
         <LargePopUp
           toggleShowPopUp={toggleShowOpPopUp}
           title={state.selectedQuiz.title}>
-          <PhoneView style={{gap: 20}}>
+          <PhoneView
+            style={{
+              gap: 20,
+            }}>
             <CommonButton
               onPress={() => removeStudent()}
               dir={'rtl'}
@@ -247,7 +238,10 @@ const Students = props => {
           {selectedSudent !== undefined && selectedSudent.team !== undefined && (
             <>
               <SimpleText
-                style={{...styles.BlueBold, ...styles.margin15}}
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.margin15,
+                }}
                 text={translator.members}
               />
               <ExcelComma
@@ -269,7 +263,9 @@ const Students = props => {
                 }
                 afterAddingCallBack={items => {
                   state.selectedQuiz.students = undefined;
-                  dispatch({selectedQuiz: state.selectedQuiz});
+                  dispatch({
+                    selectedQuiz: state.selectedQuiz,
+                  });
                   props.setMode('list');
                 }}
               />
@@ -287,7 +283,9 @@ const Students = props => {
                     warning: translator.sureChangeMainMember,
                     afterFunc: arr => {
                       state.selectedQuiz.students = undefined;
-                      dispatch({selectedQuiz: state.selectedQuiz});
+                      dispatch({
+                        selectedQuiz: state.selectedQuiz,
+                      });
                       props.setMode('list');
                     },
                   },
@@ -303,7 +301,9 @@ const Students = props => {
                     warning: commonTranslator.sureRemove,
                     afterFunc: arr => {
                       state.selectedQuiz.students = undefined;
-                      dispatch({selectedQuiz: state.selectedQuiz});
+                      dispatch({
+                        selectedQuiz: state.selectedQuiz,
+                      });
                       props.setMode('list');
                     },
                   },
@@ -318,7 +318,10 @@ const Students = props => {
             </>
           )}
           {props.isAdmin && (
-            <PhoneView style={{gap: 20}}>
+            <PhoneView
+              style={{
+                gap: 20,
+              }}>
               <CommonButton
                 onPress={() => prepareShowAnswerSheet()}
                 dir={'rtl'}
@@ -366,15 +369,24 @@ const Students = props => {
                 afterAddingCallBack={afterAdd}
                 additionalData={
                   state.selectedQuiz.generalMode === 'onlineStanding'
-                    ? {paid: paid, teamName: teamName}
-                    : {paid: paid}
+                    ? {
+                        paid: paid,
+                        teamName: teamName,
+                      }
+                    : {
+                        paid: paid,
+                      }
                 }
                 mandatoryFields={
                   state.selectedQuiz.generalMode === 'onlineStanding'
                     ? ['paid', 'teamName']
                     : ['paid'].paid
                 }>
-                <PhoneView style={{marginBottom: 10, gap: 10}}>
+                <PhoneView
+                  style={{
+                    marginBottom: 10,
+                    gap: 10,
+                  }}>
                   {state.selectedQuiz.generalMode === 'onlineStanding' && (
                     <JustBottomBorderTextInput
                       value={teamName}
@@ -445,5 +457,4 @@ const Students = props => {
     </MyView>
   );
 };
-
 export default Students;

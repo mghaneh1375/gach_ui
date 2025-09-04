@@ -1,11 +1,6 @@
-import {routes} from '../../../../API/APIRoutes';
-import {
-  CV_BASE_URL,
-  fileRequest,
-  generalRequest,
-} from '../../../../API/Utility';
-import {showSuccess} from '../../../../services/Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {CV_BASE_URL, fileRequest, generalRequest} from '@/api/utility';
+import {showSuccess} from '../../../../services/utility';
 export const reviewQuiz = async (
   quizId,
   generalMode,
@@ -27,7 +22,6 @@ export const reviewQuiz = async (
     token,
   );
 };
-
 export const doQuiz = async (
   quizId,
   generalMode,
@@ -44,7 +38,6 @@ export const doQuiz = async (
     token,
   );
 };
-
 export const doUploadAnswer = async (
   generalQuizMode,
   quizId,
@@ -55,7 +48,6 @@ export const doUploadAnswer = async (
   const data = new FormData();
   var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
   data.append('file', myblob, filesContent[0].name);
-
   const res = await fileRequest(
     routes.uploadStudentAnswers +
       generalQuizMode +
@@ -71,7 +63,6 @@ export const doUploadAnswer = async (
   if (res !== null) showSuccess();
   return res;
 };
-
 export const doUploadAnswerSheet = async (
   generalQuizMode,
   quizId,
@@ -81,7 +72,6 @@ export const doUploadAnswerSheet = async (
   const data = new FormData();
   var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
   data.append('file', myblob, filesContent[0].name);
-
   const res = await fileRequest(
     CV_BASE_URL + 'uploadAnswersSheet/' + generalQuizMode + '/' + quizId,
     'put',
@@ -92,7 +82,6 @@ export const doUploadAnswerSheet = async (
   if (res !== null) showSuccess();
   return res;
 };
-
 export const doSaveAnswers = async (answers, quizId, generalMode, token) => {
   return await generalRequest(
     routes.storeStudentAnswers + generalMode + '/' + quizId,

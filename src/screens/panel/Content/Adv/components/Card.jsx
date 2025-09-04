@@ -10,21 +10,19 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../../styles/Common/Styles';
-import commonTranslator from '../../../../../translator/Common';
-import Translator from '../../Translate';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {statusKeyVals} from '../../../question/components/KeyVals';
-import {removeAd, store, update} from './Utility';
+} from '@/styles';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
+import Translator from '../../translate';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import {statusKeyVals} from '../../../question/components/keyVals';
+import {removeAd, store, update} from './utility';
 import {useFilePicker} from 'use-file-picker';
-import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
-
+import AttachBox from '../../../ticket/components/show/attachBox/AttachBox';
 function Card(props) {
   const [show, setShow] = useState(false);
-
   const [file, setFile] = useState();
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
     useFilePicker({
@@ -33,14 +31,11 @@ function Card(props) {
       readAs: 'ArrayBuffer',
       multiple: false,
     });
-
   const removeFile = index => {
     remove(index);
   };
-
   const [title, setTitle] = useState();
   const [visibility, setVisibility] = useState();
-
   React.useEffect(() => {
     if (props.elem === undefined) {
       setShow(true);
@@ -50,7 +45,6 @@ function Card(props) {
     setVisibility(props.elem.visibility);
     setFile(props.elem.file);
   }, [props.elem]);
-
   return (
     <>
       <CommonWebBox
@@ -71,10 +65,17 @@ function Card(props) {
               subText={Translator.advTitle}
             />
 
-            <PhoneView style={{...styles.gap15, ...styles.margin15}}>
+            <PhoneView
+              style={{
+                ...styles.gap15,
+                ...styles.margin15,
+              }}>
               {file === undefined && (
                 <SimpleText
-                  style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+                  style={{
+                    ...styles.alignSelfCenter,
+                    ...styles.BlueBold,
+                  }}
                   text={Translator.adv}
                 />
               )}
@@ -86,10 +87,16 @@ function Card(props) {
                 />
               )}
 
-              <PhoneView style={{marginTop: 20}}>
+              <PhoneView
+                style={{
+                  marginTop: 20,
+                }}>
                 {file !== undefined && (
                   <SimpleText
-                    style={{...styles.BlueBold, ...styles.cursor_pointer}}
+                    style={{
+                      ...styles.BlueBold,
+                      ...styles.cursor_pointer,
+                    }}
                     text={'مشاهده فایل ویدیو بارگذاری شده'}
                     onPress={() => props.setVideoForShow(file)}
                   />
@@ -120,7 +127,11 @@ function Card(props) {
               value={statusKeyVals.find(elem => elem.id === visibility)}
             />
             {props.elem !== undefined && (
-              <PhoneView style={{...styles.gap10, ...styles.margin15}}>
+              <PhoneView
+                style={{
+                  ...styles.gap10,
+                  ...styles.margin15,
+                }}>
                 <CommonButton
                   onPress={async () => {
                     props.setLoading(true);
@@ -136,12 +147,10 @@ function Card(props) {
                 <CommonButton
                   onPress={async () => {
                     props.setLoading(true);
-
                     const data = {
                       visibility: visibility,
                       title: title,
                     };
-
                     const res = await update(props.elem.id, data, props.token);
                     props.setLoading(false);
                     if (res !== null) {
@@ -159,12 +168,10 @@ function Card(props) {
               <CommonButton
                 onPress={async () => {
                   props.setLoading(true);
-
                   const data = {
                     visibility: visibility,
                     title: title,
                   };
-
                   const res = await store(filesContent[0], data, props.token);
                   props.setLoading(false);
                   if (res !== null) {
@@ -182,5 +189,4 @@ function Card(props) {
     </>
   );
 }
-
 export default Card;

@@ -1,23 +1,20 @@
 import React, {useState} from 'react';
 import {CommonWebBox} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {getCertificate} from '../Utility';
-import columns from './TableStructure';
-import {routes} from '../../../../API/APIRoutes';
-import {Ops} from './Ops';
-
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import {getCertificate} from '../utility';
+import columns from './tableStructure';
+import {routes} from '@/api/apiRoutes';
+import {Ops} from './ops';
 function Report(props) {
   const [cert, setCert] = useState();
   const [isWorking, setIsWorking] = useState(false);
   const [selectedId, setSelectedId] = useState();
-
   React.useEffect(() => {
     if (cert !== undefined || isWorking) {
       return;
     }
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       getCertificate(props.selectedCertificate.id, props.token),
     ]).then(res => {
@@ -26,25 +23,20 @@ function Report(props) {
         props.setMode('list');
         return;
       }
-
       setCert(res[0]);
       setIsWorking(false);
     });
   }, [props, cert, isWorking]);
-
   const [showOpPopUp, setShowOpPopUp] = useState(false);
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
   const [selectedUser, setSelectedUser] = useState();
-
   const handleOp = idx => {
     setSelectedUser(props.data[idx]);
     // setSelectedId(props.data[idx].id);
     toggleShowOpPopUp();
   };
-
   return (
     <CommonWebBox
       header={'لیست'}
@@ -73,5 +65,4 @@ function Report(props) {
     </CommonWebBox>
   );
 }
-
 export default Report;

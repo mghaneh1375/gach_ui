@@ -1,20 +1,14 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../../API/APIRoutes';
-import {BASE_SITE_NAME} from '../../../../../API/Utility';
-import UploadFile from '../../../../../components/web/UploadFile';
-import {showSuccess} from '../../../../../services/Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import commonTranslate from '../../../../../translator/Common';
-import Translate from '../../Translate';
-import {createSubject, editSubject, getSubjects} from '../../Utility';
-
+import {routes} from '@/api/apiRoutes';
+import {BASE_SITE_NAME} from '@/api/utility';
+import UploadFile from '@/components/web/UploadFile';
+import {showSuccess} from '@/services/utility';
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import commonTranslate from '../../../../../translator/common';
+import Translate from '../../translate';
+import {createSubject, editSubject, getSubjects} from '../../utility';
 function Create(props) {
   const [name, setName] = useState(
     props.subject !== undefined ? props.subject.name : undefined,
@@ -48,19 +42,19 @@ function Create(props) {
   );
   const [lessons, setLessons] = useState();
   const [showUploadPane, setShowUploadPane] = useState(false);
-
   React.useEffect(() => {
     if (grade === undefined) return;
-
     setLessons(
       props.grades
         .find(elem => elem.id === grade)
         .lessons.map(elem => {
-          return {id: elem.id, item: elem.name};
+          return {
+            id: elem.id,
+            item: elem.name,
+          };
         }),
     );
   }, [grade, props.grades]);
-
   return (
     <MyView>
       {showUploadPane && (
@@ -69,7 +63,6 @@ function Create(props) {
             Promise.all([getSubjects()]).then(res => {
               showSuccess(commonTranslate.success);
               setShowUploadPane(false);
-
               if (res[0] !== null) {
                 props.setSubjects(res[0]);
                 props.setMode('list');
@@ -100,7 +93,10 @@ function Create(props) {
             : commonTranslate.subjectDefinition
         }>
         <MyView>
-          <PhoneView style={{gap: 20}}>
+          <PhoneView
+            style={{
+              gap: 20,
+            }}>
             <JustBottomBorderTextInput
               value={name}
               subText={commonTranslate.name}
@@ -178,12 +174,17 @@ function Create(props) {
             value={description}
             onChangeText={e => setDescription(e)}
             multiline={true}
-            style={{marginTop: 20}}
+            style={{
+              marginTop: 20,
+            }}
             placeholder={commonTranslate.desc}
             subText={commonTranslate.desc}
           />
 
-          <PhoneView style={{alignSelf: 'flex-end'}}>
+          <PhoneView
+            style={{
+              alignSelf: 'flex-end',
+            }}>
             {props.subject === undefined && (
               <CommonButton
                 theme={'dark'}
@@ -205,15 +206,16 @@ function Create(props) {
                   schoolEasyPrice: schoolEasyPrice,
                   schoolHardPrice: schoolHardPrice,
                 };
-
                 if (props.subject !== undefined)
                   res = await editSubject(props.subject.id, props.token, {
                     ...data,
-                    ...{gradeId: grade, lessonId: lesson},
+                    ...{
+                      gradeId: grade,
+                      lessonId: lesson,
+                    },
                   });
                 else
                   res = await createSubject(props.token, grade, lesson, data);
-
                 props.setLoading(false);
                 if (res !== null) {
                   const selectedGrade = props.grades.find(
@@ -222,7 +224,6 @@ function Create(props) {
                   const selectedLesson = lessons.find(
                     elem => elem.id === lesson,
                   );
-
                   props.afterFunc({
                     name: name,
                     description: description,
@@ -232,8 +233,14 @@ function Create(props) {
                     schoolEasyPrice: schoolEasyPrice,
                     schoolHardPrice: schoolHardPrice,
                     schoolMidPrice: schoolMidPrice,
-                    grade: {id: selectedGrade.id, name: selectedGrade.item},
-                    lesson: {id: selectedLesson.id, name: selectedLesson.item},
+                    grade: {
+                      id: selectedGrade.id,
+                      name: selectedGrade.item,
+                    },
+                    lesson: {
+                      id: selectedLesson.id,
+                      name: selectedLesson.item,
+                    },
                     code:
                       props.subject !== undefined
                         ? props.subject.code
@@ -251,5 +258,4 @@ function Create(props) {
     </MyView>
   );
 }
-
 export default Create;

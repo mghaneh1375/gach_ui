@@ -1,5 +1,4 @@
-import Translator from '../Schedule/components/Translator';
-
+import Translator from '../schedule/components/translator';
 const columns = [
   {
     name: 'عنوان جلسه',
@@ -84,5 +83,4 @@ const columns = [
     fontSize: 10,
   },
 ];
-
 export default columns;

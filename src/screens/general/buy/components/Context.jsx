@@ -1,5 +1,5 @@
 import React from 'react';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
+import {globalStateContext, dispatchStateContext} from '@/App';
 const defaultGlobalState = {
   allItems: undefined,
   selectableItems: undefined,
@@ -14,28 +14,26 @@ const defaultGlobalState = {
 };
 export const packagesContext = React.createContext(defaultGlobalState);
 export const dispatchPackagesContext = React.createContext(undefined);
-
 export const PackageProvider = ({children}) => {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [globalState, globalDispatch] = useGlobalState();
-
   const [state, dispatch] = React.useReducer(
-    (state, newValue) => ({...state, ...newValue}),
+    (state, newValue) => ({
+      ...state,
+      ...newValue,
+    }),
     defaultGlobalState,
   );
-
   const selectAll = React.useCallback(() => {
     if (state.filters === undefined) return;
-
     dispatch({
       selectableItems: state.allItems,
       checkedFilterIndices: [],
     });
   }, [state.allItems, state.filters]);
-
   const doFilter = React.useCallback(() => {
     if (
       state.checkedFilterIndices === undefined ||
@@ -44,7 +42,6 @@ export const PackageProvider = ({children}) => {
       state.allItems === undefined
     )
       return;
-
     const allFilters =
       state.filters.items instanceof Array ? state.filters.items : [];
     if (state.filters.items instanceof Object) {
@@ -54,13 +51,10 @@ export const PackageProvider = ({children}) => {
         });
       }
     }
-
     const newItems = [];
-
     state.allItems.forEach(elem => {
       if (state.checkedFilterIndices.length > 0) {
         let hasWantedTag = false;
-
         for (let i = 0; i < state.checkedFilterIndices.length; i++) {
           if (
             elem.tags !== undefined &&
@@ -70,10 +64,8 @@ export const PackageProvider = ({children}) => {
             break;
           }
         }
-
         if (!hasWantedTag) return;
       }
-
       if (
         state.checkedFilterIndicesMonth !== undefined &&
         state.checkedFilterIndicesMonth.length > 0
@@ -81,7 +73,6 @@ export const PackageProvider = ({children}) => {
         let hasWantedMonth = false;
         for (let i = 0; i < state.checkedFilterIndicesMonth.length; i++) {
           if (elem.month === undefined) continue;
-
           if (
             typeof elem.month === 'string' &&
             elem.month === state.checkedFilterIndicesMonth[i]
@@ -89,7 +80,6 @@ export const PackageProvider = ({children}) => {
             hasWantedMonth = true;
             break;
           }
-
           if (
             typeof elem.month !== 'string' &&
             elem.month.indexOf(state.checkedFilterIndicesMonth[i]) !== -1
@@ -98,11 +88,9 @@ export const PackageProvider = ({children}) => {
             break;
           }
         }
-
         if (!hasWantedMonth) return;
       }
       let isValidInKindQuizFilter = state.selectedKindQuiz === 'all';
-
       if (!isValidInKindQuizFilter) {
         if (
           (state.selectedKindQuiz === 'open' &&
@@ -131,9 +119,7 @@ export const PackageProvider = ({children}) => {
         )
           isValidInKindQuizFilter = true;
       }
-
       if (!isValidInKindQuizFilter) return;
-
       if (
         (state.selectedKindQuiz === 'open' &&
           elem.type !== undefined &&
@@ -143,7 +129,6 @@ export const PackageProvider = ({children}) => {
           elem.generalMode === 'open')
       )
         return;
-
       if (
         (state.selectedPrice === 'free' &&
           ((elem.realPrice !== undefined && elem.realPrice > 0) ||
@@ -153,22 +138,18 @@ export const PackageProvider = ({children}) => {
             (elem.price !== undefined && elem.price === 0)))
       )
         return;
-
       newItems.push(elem);
     });
     dispatch({
       selectableItems: newItems,
       needUpdateFilters: false,
     });
-
     globalDispatch({
       selectableItems: newItems.length,
     });
   }, [state, globalDispatch]);
-
   const setFilters = React.useCallback(() => {
     if (state.filters === undefined || state.setGlobalStates) return;
-
     globalDispatch({
       isRightMenuVisible: false,
       isFilterMenuVisible: true,
@@ -182,25 +163,22 @@ export const PackageProvider = ({children}) => {
       onChangePrice: state.filters.onChangePrice,
       allFilter: true,
     });
-
-    dispatch({setGlobalStates: true});
+    dispatch({
+      setGlobalStates: true,
+    });
   }, [globalDispatch, state.setGlobalStates, state.filters, state.allItems]);
-
   React.useEffect(() => {
     setFilters();
   }, [state.filters, setFilters]);
-
   React.useEffect(() => {
     if (state.needUpdateFilters === undefined || !state.needUpdateFilters)
       return;
     doFilter();
   }, [state.checkedFilterIndices, state.needUpdateFilters, doFilter]);
-
   React.useEffect(() => {
     if (globalState.allFilter === undefined || !globalState.allFilter) return;
     selectAll();
   }, [globalState.allFilter, selectAll]);
-
   return (
     <packagesContext.Provider value={state}>
       <dispatchPackagesContext.Provider value={dispatch}>

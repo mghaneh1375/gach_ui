@@ -1,91 +1,74 @@
 import React, {useState} from 'react';
-import ConfirmationBatchOpPane from '../../../../../components/web/ConfirmationBatchOpPane';
+import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane';
 import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context';
 import Card from './Card';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../../../styles/Common';
-import {routes} from '../../../../../API/APIRoutes';
-import {showSuccess} from '../../../../../services/Utility';
-import commonTranslator from '../../../../../translator/Common';
-import translator from '../../../../panel/quiz/Translator';
+import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '@/services/utility';
+import commonTranslator from '@/translator/common';
+import translator from '../../../../panel/quiz/translator';
 import QuestionsModule from '../../../../panel/question/Question';
-import qTranslator from '../../../../panel/question/Translator';
+import qTranslator from '../../../../panel/question/translator';
 import {
   changeQuestionsArrangeInQuiz,
   getQuestions,
-} from '../../../../panel/quiz/components/Utility';
-import UploadFile from '../../../../../components/web/UploadFile';
-import {CV_BASE_URL} from '../../../../../API/Utility';
+} from '../../../../panel/quiz/components/utility';
+import UploadFile from '@/components/web/UploadFile';
+import {CV_BASE_URL} from '../../../../../api/utility';
 import RenderHTML from 'react-native-render-html';
 import AddBatch from './AddBatch';
-
 const Questions = props => {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   const [isWorking, setIsWorking] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState();
   const [showRemovePane, setShowRemovePane] = useState(false);
   const [selectingMode, setSelectingMode] = useState(false);
   const [showAddPDFPopUp, setShowAddPDFPopUp] = useState(false);
   const [showAddExcelPopUp, setShowAddExcelPopUp] = useState();
-
   const toggleShowRemovePopUp = () => {
     setShowRemovePane(!showRemovePane);
   };
-
   const callRemoveAll = () => {
     setShowRemovePane(true);
   };
-
   const afterRemove = res => {
     toggleShowRemovePopUp();
     showSuccess(res.excepts);
-
     state.selectedQuiz.questions = state.selectedQuiz.questions.filter(
       element => {
         return res.doneIds.indexOf(element.id) === -1;
       },
     );
-
     state.selectedQuiz.recp = undefined;
-
     dispatch({
       selectedQuiz: state.selectedQuiz,
       needUpdate: true,
       selectedIds: [],
     });
   };
-
   const fetchQuestions = React.useCallback(() => {
     if (isWorking) return;
     if (state.selectedQuiz.questions !== undefined) {
-      dispatch({selectedIds: []});
+      dispatch({
+        selectedIds: [],
+      });
       return;
     }
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       getQuestions(props.token, state.selectedQuiz.id, 'school'),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] == null) {
         props.setMode('list');
         return;
       }
-
       state.selectedQuiz.questions = res[0];
-
       dispatch({
         selectedQuiz: state.selectedQuiz,
         needUpdate: true,
@@ -94,11 +77,9 @@ const Questions = props => {
       setIsWorking(false);
     });
   }, [props, isWorking, state.selectedQuiz, dispatch]);
-
   React.useEffect(() => {
     if (state.selectedQuiz !== undefined) fetchQuestions();
   }, [state.selectedQuiz, fetchQuestions]);
-
   const changeSort = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -117,14 +98,15 @@ const Questions = props => {
       if (res !== null) {
         if (state.selectedQuiz.answer_sheet !== undefined) {
           state.selectedQuiz.answer_sheet = undefined;
-          dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
+          dispatch({
+            selectedQuiz: state.selectedQuiz,
+            needUpdate: true,
+          });
         }
       }
     });
   }, [props, state.selectedQuiz, dispatch]);
-
   const [finalMsg, setFinalMsg] = useState();
-
   const setResult = res => {
     setFinalMsg(
       <RenderHTML
@@ -138,7 +120,6 @@ const Questions = props => {
       />,
     );
   };
-
   return (
     <MyView>
       {showRemovePane && state.selectedIds !== undefined && (
@@ -194,7 +175,9 @@ const Questions = props => {
             <PhoneView>
               {state.selectedQuiz.status === 'init' && (
                 <CommonButton
-                  style={{alignSelf: 'center'}}
+                  style={{
+                    alignSelf: 'center',
+                  }}
                   onPress={() => changeSort()}
                   title={translator.changeSort}
                 />
@@ -202,7 +185,9 @@ const Questions = props => {
               {state.selectedQuiz.status === 'init' &&
                 state.selectedQuiz.database && (
                   <CommonButton
-                    style={{alignSelf: 'center'}}
+                    style={{
+                      alignSelf: 'center',
+                    }}
                     onPress={() => setSelectingMode(true)}
                     title={'انتخاب سوال'}
                     theme={'dark'}
@@ -272,5 +257,4 @@ const Questions = props => {
     </MyView>
   );
 };
-
 export default Questions;

@@ -1,34 +1,26 @@
 import React, {useState} from 'react';
-import {setPDFQuestions} from '../Utility';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  SimpleText,
-} from '../../../../../styles/Common';
-import translator from '../../Translator';
-import commonTranslator from '../../../../../translator/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
+import {setPDFQuestions} from '../utility';
+import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
+import translator from '../../translator';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
 import {
   changeText,
   showError,
   showSuccess,
-} from '../../../../../services/Utility';
+} from '../../../../../services/utility';
 import {useFilePicker} from 'use-file-picker';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
-import AttachBox from '../../../ticket/components/Show/AttachBox/AttachBox';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import AttachBox from '../../../ticket/components/show/attachBox/AttachBox';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {styles} from '@/styles/common/styles';
 function UploadQuestions(props) {
-  const [openFileSelector, {filesContent, loading, errors, clear}] =
-    useFilePicker({
-      maxFileSize: 6,
-      accept: ['pdf/*'],
-      readAs: 'ArrayBuffer',
-      multiple: false,
-    });
-
+  const [openFileSelector, {filesContent, errors, clear}] = useFilePicker({
+    maxFileSize: 6,
+    accept: ['pdf/*'],
+    readAs: 'ArrayBuffer',
+    multiple: false,
+  });
   const [count, setCount] = useState(props.state.selectedQuiz.qNo);
   React.useEffect(() => {
     if (errors[0]?.fileSizeToolarge)
@@ -48,9 +40,15 @@ function UploadQuestions(props) {
         justNum={true}
       />
 
-      <PhoneView style={{...styles.gap15}}>
+      <PhoneView
+        style={{
+          ...styles.gap15,
+        }}>
         <SimpleText
-          style={{...styles.alignSelfCenter, ...styles.BlueBold}}
+          style={{
+            ...styles.alignSelfCenter,
+            ...styles.BlueBold,
+          }}
           text={translator.questionFile}
         />
         <SimpleFontIcon
@@ -59,7 +57,10 @@ function UploadQuestions(props) {
           icon={faPaperclip}
         />
 
-        <PhoneView style={{marginTop: 20}}>
+        <PhoneView
+          style={{
+            marginTop: 20,
+          }}>
           {props.state.selectedQuiz.pdfQuestionFile && (
             <AttachBox
               onClick={() =>
@@ -92,7 +93,6 @@ function UploadQuestions(props) {
             showError('لطفا تعداد سوالات را وارد نمایید');
             return;
           }
-
           props.setLoading(true);
           const res = await setPDFQuestions(
             props.state.selectedQuiz.id,
@@ -100,15 +100,15 @@ function UploadQuestions(props) {
             count,
             filesContent[0],
           );
-
           props.setLoading(false);
           if (res == null) return;
-
           showSuccess();
           props.state.selectedQuiz.qNo = count;
           props.state.selectedQuiz.questionsCount = count;
           props.state.selectedQuiz.subjects = undefined;
-          props.dispatch({selectedQuiz: props.state.selectedQuiz});
+          props.dispatch({
+            selectedQuiz: props.state.selectedQuiz,
+          });
         }}
         theme={'dark'}
         title={commonTranslator.confirm}
@@ -116,5 +116,4 @@ function UploadQuestions(props) {
     </CommonWebBox>
   );
 }
-
 export default UploadQuestions;

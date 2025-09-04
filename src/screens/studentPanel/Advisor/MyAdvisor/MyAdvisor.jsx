@@ -1,20 +1,18 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {routes} from '../../../../API/APIRoutes';
-import {generalRequest} from '../../../../API/Utility';
-import {dispatchStateContext, globalStateContext} from '../../../../App';
-import {showSuccess} from '../../../../services/Utility';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {showSuccess} from '../../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import {styles} from '../../../../styles/Common/Styles';
-
+} from '../../../../styles/CommonComponents.jsx';
+import {styles} from '../../../../styles/common/styles';
 import MyAdvisorFinancePlan from './MyAdvisorFinancePlan';
-
 function MyAdvisor(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -22,11 +20,11 @@ function MyAdvisor(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [myAdvisors, setMyAdvisors] = useState();
-
   const [sessions, setSessions] = useState();
-
   const fetchData = React.useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getMyAdvisors,
@@ -37,14 +35,14 @@ function MyAdvisor(props) {
       ),
     ]).then(res => {
       if (res[0] === null) {
-        dispatch({loading: false});
+        dispatch({
+          loading: false,
+        });
         props.navigate('/');
         return;
       }
-
       if (res[0].length > 0) {
         setMyAdvisors(res[0]);
-
         Promise.all([
           generalRequest(
             routes.getMyCurrentRoom,
@@ -54,23 +52,24 @@ function MyAdvisor(props) {
             state.token,
           ),
         ]).then(r => {
-          dispatch({loading: false});
-
+          dispatch({
+            loading: false,
+          });
           if (r[0] != null) {
             setSessions(r[0]);
           }
         });
       } else {
-        dispatch({loading: false});
+        dispatch({
+          loading: false,
+        });
         setMyAdvisors(null);
       }
     });
   }, [dispatch, state.token, props]);
-
   useEffectOnce(() => {
     fetchData();
   });
-
   return (
     <>
       <CommonWebBox header={'لیست عملیات'}>
@@ -114,7 +113,9 @@ function MyAdvisor(props) {
                 isInPhone={state.isInPhone}
                 plan={myAdvisor.plan}
                 setRate={async rate => {
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.rateToAdvisor + myAdvisor.id,
                     'put',
@@ -124,7 +125,9 @@ function MyAdvisor(props) {
                     'rate',
                     state.token,
                   );
-                  dispatch({loading: false});
+                  dispatch({
+                    loading: false,
+                  });
                   if (res !== null) {
                     showSuccess();
                     myAdvisor.myRate = rate;
@@ -142,15 +145,21 @@ function MyAdvisor(props) {
                 hasOpenRequest={false}
                 data={myAdvisor}
                 onWriteComment={async comment => {
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.writeComments + myAdvisor.id + '/advisor',
                     'post',
-                    {comment: comment},
+                    {
+                      comment: comment,
+                    },
                     undefined,
                     state.token,
                   );
-                  dispatch({loading: false});
+                  dispatch({
+                    loading: false,
+                  });
                   if (res !== null) {
                     showSuccess(
                       'نظر شما با موفقیت ثبت گردید و بعد از تایید ادمین نمایش داده خواهد شد',
@@ -158,7 +167,9 @@ function MyAdvisor(props) {
                   }
                 }}
                 onRemove={async () => {
-                  dispatch({loading: true});
+                  dispatch({
+                    loading: true,
+                  });
                   const res = await generalRequest(
                     routes.cancelAdvisor + myAdvisor.id,
                     'delete',
@@ -166,7 +177,9 @@ function MyAdvisor(props) {
                     undefined,
                     state.token,
                   );
-                  dispatch({loading: false});
+                  dispatch({
+                    loading: false,
+                  });
                   if (res !== null) {
                     showSuccess();
                     props.navigate('/advisors');
@@ -177,9 +190,14 @@ function MyAdvisor(props) {
           })}
       </PhoneView>
       {myAdvisors === null && (
-        <MyView style={{...styles.alignItemsCenter}}>
+        <MyView
+          style={{
+            ...styles.alignItemsCenter,
+          }}>
           <SimpleText
-            style={{...styles.BlueBold}}
+            style={{
+              ...styles.BlueBold,
+            }}
             text={'شما در حال حاضر مشاوری ندارید'}
           />
           <CommonButton
@@ -208,5 +226,4 @@ function MyAdvisor(props) {
     </>
   );
 }
-
 export default MyAdvisor;

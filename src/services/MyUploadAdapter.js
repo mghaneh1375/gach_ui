@@ -1,5 +1,4 @@
-import {BASE_URL} from '../API/Utility';
-
+import {BASE_URL} from '../api/utility';
 class MyUploadAdapter {
   constructor(loader, token) {
     this.loader = loader;
@@ -39,12 +38,10 @@ class MyUploadAdapter {
     const xhr = this.xhr;
     const loader = this.loader;
     const genericErrorText = "Couldn't upload file:" + ` ${loader.file.name}.`;
-
     xhr.addEventListener('error', () => reject(genericErrorText));
     xhr.addEventListener('abort', () => reject());
     xhr.addEventListener('load', () => {
       const response = xhr.response;
-
       if (!response || response.status !== 'ok' || response.msg) {
         return reject(
           response && response.msg ? response.msg : genericErrorText,
@@ -57,7 +54,6 @@ class MyUploadAdapter {
         default: response.url,
       });
     });
-
     if (xhr.upload) {
       xhr.upload.addEventListener('progress', evt => {
         if (evt.lengthComputable) {
@@ -75,7 +71,6 @@ class MyUploadAdapter {
     this.xhr.send(data);
   }
 }
-
 export default function MyCustomUploadAdapterPlugin(editor) {
   editor.plugins.get('FileRepository').createUploadAdapter = loader => {
     return new MyUploadAdapter(

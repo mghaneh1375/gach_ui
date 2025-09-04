@@ -5,24 +5,24 @@ import {
   EqualTwoTextInputs,
   MyView,
   SimpleText,
-} from '../../../../../styles/Common';
-import {styles} from '../../../../../styles/Common/Styles';
-import vars from '../../../../../styles/root';
-
+} from '@/styles';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 function StudentCard(props) {
   const isInPhone = false;
   const [isSelected, setIsSelected] = useState(
     props.elem.correctorId !== undefined &&
       props.elem.correctorId === props.correctorId,
   );
-
   const isMyTask =
     props.elem.correctorId !== undefined &&
     props.elem.correctorId === props.correctorId;
-
   return (
     <CommonWebBox width={isInPhone ? 320 : 390}>
-      <MyView style={{...styles.gap15}}>
+      <MyView
+        style={{
+          ...styles.gap15,
+        }}>
         <MyView
           style={{
             ...styles.justifyContentCenter,
@@ -33,45 +33,66 @@ function StudentCard(props) {
             marginRight: 0,
           }}>
           <SimpleText
-            style={{...styles.BlueBold, ...styles.fontSize15}}
+            style={{
+              ...styles.BlueBold,
+              ...styles.fontSize15,
+            }}
             text={'نام و نام خانوادگی :' + ' ' + props.elem.student.name}
           />
         </MyView>
-        <MyView style={{marginTop: -10, ...styles.gap5}}>
+        <MyView
+          style={{
+            marginTop: -10,
+            ...styles.gap5,
+          }}>
           <SimpleText
-            style={{...styles.colorDarkBlue}}
+            style={{
+              ...styles.colorDarkBlue,
+            }}
             text={'مدرسه : ' + ' ' + props.elem.student.school}
           />
           <SimpleText
-            style={{...styles.colorDarkBlue}}
+            style={{
+              ...styles.colorDarkBlue,
+            }}
             text={'شهر : ' + ' ' + props.elem.student.city}
           />
           <SimpleText
-            style={{...styles.colorDarkBlue}}
+            style={{
+              ...styles.colorDarkBlue,
+            }}
             text={'پایه : ' + ' ' + props.elem.student.grade}
           />
           {props.elem.student.field !== undefined &&
             props.elem.student.field !== '' && (
               <SimpleText
-                style={{...styles.colorDarkBlue}}
+                style={{
+                  ...styles.colorDarkBlue,
+                }}
                 text={'رشته : ' + ' ' + props.elem.student.field}
               />
             )}
           <SimpleText
-            style={{...styles.colorDarkBlue}}
+            style={{
+              ...styles.colorDarkBlue,
+            }}
             text={
               props.elem.allMarked ? 'وضعیت : تصحیح شده' : 'وضعیت : تصحیح نشده'
             }
           />
           {props.elem.allMarked && (
             <SimpleText
-              style={{...styles.colorDarkBlue}}
+              style={{
+                ...styles.colorDarkBlue,
+              }}
               text={'نمره کل : ' + ' ' + props.elem.totalMark}
             />
           )}
           {props.onPress !== undefined && (
             <SimpleText
-              style={{...styles.colorDarkBlue}}
+              style={{
+                ...styles.colorDarkBlue,
+              }}
               text={
                 props.elem.corrector !== undefined
                   ? 'مصحح فعلی : ' + props.elem.corrector
@@ -104,5 +125,4 @@ function StudentCard(props) {
     </CommonWebBox>
   );
 }
-
 export default StudentCard;

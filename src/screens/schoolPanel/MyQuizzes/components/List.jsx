@@ -1,29 +1,24 @@
 import React, {useState} from 'react';
-import {routes} from '../../../../API/APIRoutes';
-import {CommonWebBox, MyView} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
-import {getQuizzes} from '../../../panel/quiz/components/Utility';
-import translator from '../../../panel/quiz/Translator';
+import {routes} from '@/api/apiRoutes';
+import {CommonWebBox, MyView} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import {getQuizzes} from '../../../panel/quiz/components/utility';
+import translator from '../../../panel/quiz/translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
 import Ops from './Ops';
-import columns from './TableStructure';
-
+import columns from './tableStructure';
 const List = props => {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [isWorking, setIsWorking] = useState(false);
-
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),
     React.useContext(dispatchMyQuizzesContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     if (isWorking || state.quizzes !== undefined) return;
-
     props.setLoading(true);
     setIsWorking(true);
-
     Promise.all([
       getQuizzes(
         props.token,
@@ -41,22 +36,22 @@ const List = props => {
         props.navigate('/');
         return;
       }
-      dispatch({quizzes: res[0]});
+      dispatch({
+        quizzes: res[0],
+      });
       setIsWorking(false);
     });
   }, [props, dispatch, isWorking, state.quizzes]);
-
   const toggleShowOpPopUp = () => {
     setShowOpPopUp(!showOpPopUp);
   };
-
   const handleOp = idx => {
-    dispatch({selectedQuiz: state.quizzes[idx]});
+    dispatch({
+      selectedQuiz: state.quizzes[idx],
+    });
     setShowOpPopUp(true);
   };
-
   const [showList, setShowList] = useState(true);
-
   return (
     <MyView>
       {showOpPopUp && (
@@ -81,7 +76,9 @@ const List = props => {
                 columns={columns}
                 data={state.quizzes}
                 setData={newData => {
-                  dispatch({quizzes: newData});
+                  dispatch({
+                    quizzes: newData,
+                  });
                 }}
                 handleOp={handleOp}
                 token={props.token}
@@ -95,5 +92,4 @@ const List = props => {
     </MyView>
   );
 };
-
 export default List;

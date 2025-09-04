@@ -1,33 +1,36 @@
 import {faEye, faPen, faTrash, faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {Image} from 'react-native';
-
 import {
   BigBoldBlueText,
   CommonWebBox,
   PhoneView,
   SimpleText,
   MyView,
-} from '../../../../../styles/Common';
-import {FontIcon} from '../../../../../styles/Common/FontIcon';
-import {styles} from '../../../../../styles/Common/Styles';
-import vars from '../../../../../styles/root';
-import {styleCard100Percent} from '../../../package/card/Style';
+} from '@/styles';
+import {FontIcon} from '../../../../../styles/common/FontIcon';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
+import {styleCard100Percent} from '../../../package/card/style';
 import {TouchableOpacity} from 'react-native';
-
 function MiniCard(props) {
   const [src, setSrc] = useState();
-
   React.useEffect(() => {
     setSrc(props.src);
   }, [props.src]);
-
   return (
     <CommonWebBox
       style={
         props.styleCard100Percent
-          ? {...styleCard100Percent, padding: 0, ...styles.overFlowHidden}
-          : {padding: 0, ...styles.overFlowHidden}
+          ? {
+              ...styleCard100Percent,
+              padding: 0,
+              ...styles.overFlowHidden,
+            }
+          : {
+              padding: 0,
+              ...styles.overFlowHidden,
+            }
       }>
       <MyView>
         <PhoneView>
@@ -65,7 +68,10 @@ function MiniCard(props) {
               }}>
               <FontIcon
                 theme={'transparent'}
-                style={{width: 30, marginTop: 32}}
+                style={{
+                  width: 30,
+                  marginTop: 32,
+                }}
                 icon={faPlus}
                 textColor={'#efefef'}
                 text={'فایل را اضافه کنید'}
@@ -84,8 +90,16 @@ function MiniCard(props) {
                   return (
                     <PhoneView
                       key={index}
-                      style={{padding: 0, paddingRight: 10}}>
-                      <SimpleText style={{fontSize: 11}} text={elem.label} />
+                      style={{
+                        padding: 0,
+                        paddingRight: 10,
+                      }}>
+                      <SimpleText
+                        style={{
+                          fontSize: 11,
+                        }}
+                        text={elem.label}
+                      />
                       <SimpleText
                         style={{
                           fontSize: 13,
@@ -100,10 +114,18 @@ function MiniCard(props) {
           </MyView>
         </PhoneView>
 
-        <MyView style={{justifyContent: 'space-around', marginTop: -15}}>
+        <MyView
+          style={{
+            justifyContent: 'space-around',
+            marginTop: -15,
+          }}>
           <MyView>
             <BigBoldBlueText
-              style={{padding: 0, paddingRight: 10, fontSize: 15}}
+              style={{
+                padding: 0,
+                paddingRight: 10,
+                fontSize: 15,
+              }}
               text={props.header}
             />
             {src === undefined && (
@@ -117,12 +139,19 @@ function MiniCard(props) {
               />
             )}
             <SimpleText
-              style={{padding: 0, paddingRight: 10}}
+              style={{
+                padding: 0,
+                paddingRight: 10,
+              }}
               text={props.text}
             />
           </MyView>
           {src !== undefined && (props.ops === undefined || props.ops) && (
-            <PhoneView style={{paddingRight: 15, gap: 15}}>
+            <PhoneView
+              style={{
+                paddingRight: 15,
+                gap: 15,
+              }}>
               <FontIcon
                 onPress={() => window.open(props.src)}
                 theme="rect"

@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
-import List from './List/List';
-import Show from './Show/Show';
-import CreateAuthor from './Create/Create';
-import CreateTransaction from './Show/CreateTransaction/CreateTransaction';
-import {addItem, editItem} from '../../../../services/Utility';
-import {globalStateContext, dispatchStateContext} from '../../../../App';
-import {filter} from './List/Utility';
-import {MyView} from '../../../../styles/Common';
-
+import List from './list/List';
+import Show from './show/Show';
+import CreateAuthor from './create/Create';
+import CreateTransaction from './show/createTransaction/CreateTransaction';
+import {addItem, editItem} from '../../../../services/utility';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {filter} from './list/utility';
+import {MyView} from '@/styles';
 function Author(props) {
   const [mode, setMode] = useState('list');
   const [authors, setAuthors] = useState();
@@ -20,13 +19,17 @@ function Author(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   React.useEffect(() => {
     Promise.all([
       filter(
-        status => dispatch({loading: status}),
+        status =>
+          dispatch({
+            loading: status,
+          }),
         props.token,
         setAuthors,
         tag,
@@ -87,5 +90,4 @@ function Author(props) {
     </MyView>
   );
 }
-
 export default Author;

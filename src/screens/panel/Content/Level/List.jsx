@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {generalRequest} from '../../../../API/Utility';
-import {routes} from '../../../../API/APIRoutes';
-import {CommonWebBox, MyView} from '../../../../styles/Common';
-import CommonDataTable from '../../../../styles/Common/CommonDataTable';
+import {generalRequest} from '@/api/utility';
+import {routes} from '@/api/apiRoutes';
+import {CommonWebBox, MyView} from '@/styles';
+import CommonDataTable from '../../../../styles/common/CommonDataTable';
 import Ops from './Ops';
-
 function List(props) {
   const [levels, setLevels] = useState();
   const [selectedLevel, setSelectedLevel] = useState();
-
   const columns = [
     {
       name: 'عنوان',
@@ -21,7 +19,10 @@ function List(props) {
       cell: (row, index) => {
         return (
           <img
-            style={{width: '100px', height: '100px'}}
+            style={{
+              width: '100px',
+              height: '100px',
+            }}
             key={'pic_' + index}
             resizeMode="contain"
             src={row.icon}
@@ -30,7 +31,6 @@ function List(props) {
       },
     },
   ];
-
   const fetchData = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -52,17 +52,14 @@ function List(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [showOp, setShowOp] = useState(false);
-
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const handleOp = (_, row) => {
     setSelectedLevel(row);
     setShowOp(true);
   };
-
   return (
     <MyView>
       {showOp && (
@@ -93,5 +90,4 @@ function List(props) {
     </MyView>
   );
 }
-
 export default List;

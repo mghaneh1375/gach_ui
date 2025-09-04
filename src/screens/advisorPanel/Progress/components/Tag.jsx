@@ -4,27 +4,35 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
+} from '@/styles';
 import {
   VictoryLine,
   VictoryTheme,
   VictoryChart,
   VictoryAxis,
 } from 'victory-native';
-import vars from '../../../../styles/root';
-import {styles} from '../../../../styles/Common/Styles';
-
+import vars from '@/styles/root';
+import {styles} from '../../../../styles/common/styles';
 function Tag(props) {
   return (
     <CommonWebBox header={props.header}>
       <EqualTwoTextInputs>
         <MyView>
           {props.header === undefined && (
-            <SimpleText text={props.data.tag} style={{...styles.margin15}} />
+            <SimpleText
+              text={props.data.tag}
+              style={{
+                ...styles.margin15,
+              }}
+            />
           )}
 
           <PhoneView
-            style={{gap: 5, padding: 7, backgroundColor: vars.DARK_BLUE}}>
+            style={{
+              gap: 5,
+              padding: 7,
+              backgroundColor: vars.DARK_BLUE,
+            }}>
             <SimpleText
               text={'تاریخ'}
               style={{
@@ -34,7 +42,10 @@ function Tag(props) {
               }}
             />
             <SimpleText
-              style={{color: 'white', width: props.isInPhone ? 100 : 150}}
+              style={{
+                color: 'white',
+                width: props.isInPhone ? 100 : 150,
+              }}
               text={
                 props.isForTest === undefined
                   ? 'زمان تعریف شده (دقیقه)'
@@ -42,7 +53,10 @@ function Tag(props) {
               }
             />
             <SimpleText
-              style={{color: 'white', width: props.isInPhone ? 100 : 150}}
+              style={{
+                color: 'white',
+                width: props.isInPhone ? 100 : 150,
+              }}
               text={
                 props.isForTest === undefined
                   ? 'زمان انجام شده (دقیقه)'
@@ -89,7 +103,10 @@ function Tag(props) {
             );
           })}
         </MyView>
-        <MyView style={{width: props.isInPhone ? '100%' : 500}}>
+        <MyView
+          style={{
+            width: props.isInPhone ? '100%' : 500,
+          }}>
           <VictoryChart height={300} width={350} theme={VictoryTheme.material}>
             <VictoryLine
               categories={{
@@ -165,5 +182,4 @@ function Tag(props) {
     </CommonWebBox>
   );
 }
-
 export default Tag;

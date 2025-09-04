@@ -1,24 +1,27 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../styles/Common';
-import {generalRequest} from '../../../API/Utility';
-import {routes} from '../../../API/APIRoutes';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {
+  CommonButton,
+  CommonWebBox,
+  PhoneView,
+} from '../../../styles/CommonComponents.jsx';
+import {generalRequest} from '../../../api/utility';
+import {routes} from '@/api/apiRoutes';
 import RadioButtonYesOrNo from '../../../components/web/RadioButtonYesOrNo';
-import commonTranslator from '../../../translator/Common';
-import {showSuccess} from '../../../services/Utility';
-
+import commonTranslator from '../../../translator/common';
+import {showSuccess} from '../../../services/utility';
 function ProfileConfig(props) {
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [config, setConfig] = useState();
-
   const fetchData = useCallback(() => {
-    dispatch({loading: true});
+    dispatch({
+      loading: true,
+    });
     Promise.all([
       generalRequest(
         routes.getProfileConfig,
@@ -28,7 +31,9 @@ function ProfileConfig(props) {
         state.token,
       ),
     ]).then(res => {
-      dispatch({loading: false});
+      dispatch({
+        loading: false,
+      });
       if (res[0] == null) {
         navigate('/');
         return;
@@ -37,18 +42,23 @@ function ProfileConfig(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <CommonWebBox>
-      <PhoneView style={{gap: '20px', rowGap: '5px'}}>
+      <PhoneView
+        style={{
+          gap: '20px',
+          rowGap: '5px',
+        }}>
         {config && (
           <>
-            <PhoneView style={{width: '500px'}}>
+            <PhoneView
+              style={{
+                width: '500px',
+              }}>
               <RadioButtonYesOrNo
                 label={'نمایش دوره های آموزشی ثبت نامی'}
                 selected={config.showContentPackages ? 'yes' : 'no'}
@@ -60,7 +70,10 @@ function ProfileConfig(props) {
                 }}
               />
             </PhoneView>
-            <PhoneView style={{width: '500px'}}>
+            <PhoneView
+              style={{
+                width: '500px',
+              }}>
               <RadioButtonYesOrNo
                 label={'نمایش آزمون های ثبت نامی'}
                 selected={config.showQuizzes ? 'yes' : 'no'}
@@ -72,7 +85,10 @@ function ProfileConfig(props) {
                 }}
               />
             </PhoneView>
-            <PhoneView style={{width: '500px'}}>
+            <PhoneView
+              style={{
+                width: '500px',
+              }}>
               <RadioButtonYesOrNo
                 label={'نمایش مشاور من'}
                 selected={config.showMyAdvisor ? 'yes' : 'no'}
@@ -84,7 +100,10 @@ function ProfileConfig(props) {
                 }}
               />
             </PhoneView>
-            <PhoneView style={{width: '500px'}}>
+            <PhoneView
+              style={{
+                width: '500px',
+              }}>
               <RadioButtonYesOrNo
                 label={'نمایش معلم های خصوصی من'}
                 selected={config.showTeachers ? 'yes' : 'no'}
@@ -96,7 +115,10 @@ function ProfileConfig(props) {
                 }}
               />
             </PhoneView>
-            <PhoneView style={{width: '500px'}}>
+            <PhoneView
+              style={{
+                width: '500px',
+              }}>
               <RadioButtonYesOrNo
                 label={'نمایش نظرات من'}
                 selected={config.showMyComments ? 'yes' : 'no'}
@@ -108,7 +130,10 @@ function ProfileConfig(props) {
                 }}
               />
             </PhoneView>
-            <PhoneView style={{width: '500px'}}>
+            <PhoneView
+              style={{
+                width: '500px',
+              }}>
               <RadioButtonYesOrNo
                 label={'نمایش امتیاز دبیران به من'}
                 selected={config.showMyRate ? 'yes' : 'no'}
@@ -120,7 +145,10 @@ function ProfileConfig(props) {
                 }}
               />
             </PhoneView>
-            <PhoneView style={{width: '500px'}}>
+            <PhoneView
+              style={{
+                width: '500px',
+              }}>
               <RadioButtonYesOrNo
                 label={'نمایش مقطع من'}
                 selected={config.showGrade ? 'yes' : 'no'}
@@ -132,7 +160,10 @@ function ProfileConfig(props) {
                 }}
               />
             </PhoneView>
-            <PhoneView style={{width: '500px'}}>
+            <PhoneView
+              style={{
+                width: '500px',
+              }}>
               <RadioButtonYesOrNo
                 label={'نمایش رشته المپیادی من'}
                 selected={config.showBranch ? 'yes' : 'no'}
@@ -144,7 +175,10 @@ function ProfileConfig(props) {
                 }}
               />
             </PhoneView>
-            <PhoneView style={{width: '500px'}}>
+            <PhoneView
+              style={{
+                width: '500px',
+              }}>
               <RadioButtonYesOrNo
                 label={'نمایش مدرسه من'}
                 selected={config.showSchool ? 'yes' : 'no'}
@@ -156,7 +190,10 @@ function ProfileConfig(props) {
                 }}
               />
             </PhoneView>
-            <PhoneView style={{width: '500px'}}>
+            <PhoneView
+              style={{
+                width: '500px',
+              }}>
               <RadioButtonYesOrNo
                 label={'نمایش شهر من'}
                 selected={config.showCity ? 'yes' : 'no'}
@@ -173,7 +210,9 @@ function ProfileConfig(props) {
       </PhoneView>
       <CommonButton
         onPress={async () => {
-          dispatch({loading: true});
+          dispatch({
+            loading: true,
+          });
           const res = await generalRequest(
             routes.setProfileConfig,
             'put',
@@ -181,7 +220,9 @@ function ProfileConfig(props) {
             undefined,
             state.token,
           );
-          dispatch({loading: false});
+          dispatch({
+            loading: false,
+          });
           if (res != null) showSuccess();
         }}
         theme={'dark'}
@@ -190,5 +231,4 @@ function ProfileConfig(props) {
     </CommonWebBox>
   );
 }
-
 export default ProfileConfig;

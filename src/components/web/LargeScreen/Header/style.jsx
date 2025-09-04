@@ -1,11 +1,9 @@
 import {TouchableOpacity} from 'react-native';
-import {getWidthHeight} from '../../../../services/Utility';
-import {MyView, PhoneView, SimpleText} from '../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../styles/Common/FontIcon';
-import vars from '../../../../styles/root';
-
+import {getWidthHeight} from '../../../../services/utility';
+import {MyView, PhoneView, SimpleText} from '@/styles';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import vars from '@/styles/root';
 const width = getWidthHeight()[0];
-
 export const style = {
   LogoJustLarge: {
     width: vars.RIGHT_MENU_WIDTH,
@@ -205,7 +203,6 @@ export const style = {
     paddingLeft: width > 768 ? 50 : 0,
   },
 };
-
 export const MenuItem = props => {
   return (
     <div
@@ -234,8 +231,12 @@ export const MenuItem = props => {
               : 'menu-item-font-container'
           }>
           <SimpleFontIcon
-            parentStyle={{width: 30}}
-            style={{color: vars.WHITE}}
+            parentStyle={{
+              width: 30,
+            }}
+            style={{
+              color: vars.WHITE,
+            }}
             icon={props.icon}
           />
         </div>
@@ -243,9 +244,13 @@ export const MenuItem = props => {
     </div>
   );
 };
-
 export const MenuItemPhone = props => {
-  const styles = {...style.MenuItem, ...{marginTop: 2}};
+  const styles = {
+    ...style.MenuItem,
+    ...{
+      marginTop: 2,
+    },
+  };
   // if (props.selected !== undefined && props.selected)
   //   styles = {...styles, ...style.MenuItemSelected};
   return (
@@ -274,7 +279,12 @@ export const MenuItemPhone = props => {
             //     ]
             //   :
           }>
-          <SimpleFontIcon style={{color: vars.WHITE}} icon={props.icon} />
+          <SimpleFontIcon
+            style={{
+              color: vars.WHITE,
+            }}
+            icon={props.icon}
+          />
         </MyView>
       </PhoneView>
     </TouchableOpacity>

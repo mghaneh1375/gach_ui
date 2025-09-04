@@ -1,13 +1,12 @@
 import React from 'react';
-import {CommonButton, PhoneView} from '../../../../../styles/Common';
-import {LargePopUp} from '../../../../../styles/Common/PopUp';
-import Translator from '../../Translate';
+import {CommonButton, PhoneView} from '@/styles';
+import {LargePopUp} from '../../../../../styles/common/PopUp';
+import Translator from '../../translate';
 import {contentContext, dispatchContentContext} from '../Context';
-import commonTranslator from '../../../../../translator/Common';
-import {videoGeneralRequest} from '../../../../../API/Utility';
-import {routes} from '../../../../../API/APIRoutes';
-import {showSuccess} from '../../../../../services/Utility';
-
+import commonTranslator from '@/translator/common';
+import {videoGeneralRequest} from '../../../../../api/utility';
+import {routes} from '@/api/apiRoutes';
+import {showSuccess} from '@/services/utility';
 function Ops(props) {
   const toggleVisibility = () => {
     props.setLoading(true);
@@ -26,18 +25,18 @@ function Ops(props) {
       if (res[0] !== null) {
         showSuccess();
         state.selectedContent.visibility = !state.selectedContent.visibility;
-        dispatch({selectedContent: state.selectedContent, needUpdate: true});
+        dispatch({
+          selectedContent: state.selectedContent,
+          needUpdate: true,
+        });
       }
     });
   };
-
   const useGlobalState = () => [
     React.useContext(contentContext),
     React.useContext(dispatchContentContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   return (
     <LargePopUp
       title={state.selectedContent.title}
@@ -101,5 +100,4 @@ function Ops(props) {
     </LargePopUp>
   );
 }
-
 export default Ops;

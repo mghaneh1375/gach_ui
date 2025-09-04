@@ -1,26 +1,23 @@
 import React, {useState, lazy, Suspense, useMemo, useEffect} from 'react';
-
 import {
   MinFullHeightView,
   LargeContentConianerStyle,
   PhoneContentConianerStyle,
   MyView,
   PhoneContentConianerStyle2,
-} from '../styles/Common';
+} from '../styles/CommonComponents.jsx';
 import {useNavigate, useParams} from 'react-router-dom';
 import Home from './general/home/Home';
 const Login = lazy(() => import('./general/login/Login'));
 const WebLogin = lazy(() => import('./general/login/web/Login'));
 const WebProfile = lazy(() => import('./general/profile/web/Profile'));
-import {getToday, isUserAdmin, isUserEditorAccess} from '../services/Utility';
-
+import {getToday, isUserAdmin, isUserEditorAccess} from '../services/utility';
 import 'react-notifications-component/dist/theme.css';
 import {ReactNotifications} from 'react-notifications-component';
-
-import {globalStateContext, dispatchStateContext} from '../App';
-import Logo from '../components/web/LargeScreen/Header/Logo';
-import Header from '../components/web/LargeScreen/Header/Header';
-import Menu from '../components/web/LargeScreen/Header/Menu';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import Logo from '../components/web/largeScreen/header/Logo';
+import Header from '../components/web/largeScreen/header/Header';
+import Menu from '../components/web/largeScreen/header/Menu';
 import Navbar from '../components/web/Navbar';
 import BottomNavBar from '../components/web/BottomNavBar';
 const Quiz = lazy(() => import('./panel/quiz/Quiz'));
@@ -29,199 +26,193 @@ const LifeStyle = lazy(() => import('./panel/consultants/LifeStyle'));
 const Question = lazy(() => import('./panel/question/Question'));
 const Off = lazy(() => import('./panel/offcode/Off'));
 const Users = lazy(() => import('./panel/users/Users'));
-const Avatar = lazy(() => import('./panel/Config/Avatars/Avatar'));
+const Avatar = lazy(() => import('./panel/config/avatars/Avatar'));
 const PageNotFound = lazy(() => import('./general/404/PageNotFound'));
-const General = lazy(() => import('./panel/Config/Configuration/General'));
-const CertConf = lazy(() => import('./panel/Config/Configuration/Certificate'));
-const Ravan = lazy(() => import('./panel/Config/Configuration/Ravan'));
-const Schools = lazy(() => import('./panel/Config/Schools/Schools'));
-const Grade = lazy(() => import('./panel/Basic/grade/Grade'));
-const Lesson = lazy(() => import('./panel/Basic/lesson/Lesson'));
+const General = lazy(() => import('./panel/config/configuration/General'));
+const CertConf = lazy(() => import('./panel/config/configuration/Certificate'));
+const Ravan = lazy(() => import('./panel/config/configuration/Ravan'));
+const Schools = lazy(() => import('./panel/config/schools/Schools'));
+const Grade = lazy(() => import('./panel/basic/grade/Grade'));
+const Lesson = lazy(() => import('./panel/basic/lesson/Lesson'));
 const Package = lazy(() => import('./panel/package/Package'));
-const Subject = lazy(() => import('./panel/Basic/subject/Subject'));
+const Subject = lazy(() => import('./panel/basic/subject/Subject'));
 const Certificate = lazy(() => import('./panel/certificate/Certificate'));
 const Ticket = lazy(() => import('./panel/ticket/Ticket'));
 const Dashboard = lazy(() => import('./studentPanel/dashboard/Dashboard'));
-const AdminDashboard = lazy(() => import('./panel/Dashboard/Dashboard'));
+const AdminDashboard = lazy(() => import('./panel/dashboard/Dashboard'));
 const BuyReport = lazy(() => import('./panel/reports/buyReport/BuyReport'));
-const Ticketstd = lazy(() => import('./studentPanel/Ticket/Ticket'));
-const Author = lazy(() => import('./panel/users/Author/Author'));
+const Ticketstd = lazy(() => import('./studentPanel/ticket/Ticket'));
+const Author = lazy(() => import('./panel/users/author/Author'));
 const SpinGift = lazy(() => import('./panel/spinGift/SpinGift'));
-const Psychology = lazy(() => import('./panel/Psychology/Psychology'));
+const Psychology = lazy(() => import('./panel/psychology/Psychology'));
 const SelectGift = lazy(() =>
-  import('./panel/spinGift/components/SelectGift/SelectGift'),
+  import('./panel/spinGift/components/selectGift/SelectGift'),
 );
-const Upgrade = lazy(() => import('./studentPanel/Upgrade/Upgrade'));
+const Upgrade = lazy(() => import('./studentPanel/upgrade/Upgrade'));
 const ConfigGift = lazy(() =>
-  import('./panel/spinGift/components/configGift/configGift'),
+  import('./panel/spinGift/components/configGift/ConfigGift'),
 );
-const SchoolUsers = lazy(() => import('./agentPanel/schools/schools'));
-const AcceptInvite = lazy(() => import('./SinglePages/AcceptInvite'));
+const SchoolUsers = lazy(() => import('./agentPanel/schools/Schools'));
+const AcceptInvite = lazy(() => import('./singlePages/AcceptInvite'));
 const Teachers = lazy(() => import('./teacher/teachers/Teachers'));
 const TarazLevels = lazy(() =>
-  import('./panel/Config/TarazLevels/TarazLevels'),
+  import('./panel/config/tarazLevels/TarazLevels'),
 );
 const Buy = lazy(() => import('./general/buy/Buy'));
 const MyIRYSCQuizzes = lazy(() =>
-  import('./studentPanel/MyQuizzes/irysc/MyQuizzes'),
+  import('./studentPanel/myQuizzes/irysc/MyQuizzes'),
 );
 const MyCustomQuizzes = lazy(() =>
-  import('./studentPanel/MyQuizzes/custom/MyQuizzes'),
+  import('./studentPanel/myQuizzes/custom/MyQuizzes'),
 );
-const MySchoolQuizzes = lazy(() => import('./schoolPanel/MyQuizzes/MyQuizzes'));
+const MySchoolQuizzes = lazy(() => import('./schoolPanel/myQuizzes/MyQuizzes'));
 const Transaction = lazy(() => import('./panel/transaction/Transaction'));
 const ChargeAccount = lazy(() =>
-  import('./studentPanel/ChargeAccount/ChargeAccount'),
+  import('./studentPanel/chargeAccount/ChargeAccount'),
 );
-const RunQuiz = lazy(() => import('./studentPanel/RunQuiz/RunQuiz'));
-const MyOffs = lazy(() => import('./studentPanel/‌MyOffs/MyOffs'));
+const RunQuiz = lazy(() => import('./studentPanel/runQuiz/RunQuiz'));
+const MyOffs = lazy(() => import('./studentPanel/myOffs/MyOffs'));
 const ManageStudents = lazy(() =>
-  import('./schoolPanel/ManageStudents/ManageStudents'),
+  import('./schoolPanel/manageStudents/ManageStudents'),
 );
 const ManageTeachers = lazy(() =>
-  import('./schoolPanel/ManageTeachers/ManageTeachers'),
+  import('./schoolPanel/manageTeachers/ManageTeachers'),
 );
-const Invoice = lazy(() => import('./schoolPanel/Invoice/Invoice'));
-const RankingList = lazy(() => import('./general/RankingList/RankingList'));
-const MakeQuiz = lazy(() => import('./studentPanel/MakeQuiz/MakeQuiz'));
-const History = lazy(() => import('./studentPanel/History/History'));
+const Invoice = lazy(() => import('./schoolPanel/invoice/Invoice'));
+const RankingList = lazy(() => import('./general/rankingList/RankingList'));
+const MakeQuiz = lazy(() => import('./studentPanel/makeQuiz/MakeQuiz'));
+const History = lazy(() => import('./studentPanel/history/History'));
 const OpenQuiz = lazy(() => import('./panel/quiz/OpenQuiz'));
-const Content = lazy(() => import('./panel/Content/Content'));
-const ShowRecp = lazy(() => import('./studentPanel/Recp/ShowRecp'));
-const Packages = lazy(() => import('./general/Packages/Packages'));
-const FAQ = lazy(() => import('./panel/Content/FAQ/FAQ'));
+const Content = lazy(() => import('./panel/content/Content'));
+const ShowRecp = lazy(() => import('./studentPanel/recp/ShowRecp'));
+const Packages = lazy(() => import('./general/packages/Packages'));
+const FAQ = lazy(() => import('./panel/content/faq/FAQ.jsx'));
 const Video = lazy(() => import('./panel/Video'));
-const CheckCert = lazy(() => import('./general/CheckCert/CheckCert'));
-const MyCerts = lazy(() => import('./general/CheckCert/MyCerts'));
-const Seo = lazy(() => import('./panel/Content/Seo/Seo'));
-const CopySessions = lazy(() => import('./panel/Content/Copy/Copy'));
+const CheckCert = lazy(() => import('./general/checkCert/CheckCert'));
+const MyCerts = lazy(() => import('./general/checkCert/MyCerts'));
+const Seo = lazy(() => import('./panel/content/seo/Seo'));
+const CopySessions = lazy(() => import('./panel/content/copy/Copy'));
 const ContentsTeachers = lazy(() =>
-  import('./panel/Content/Teachers/Teachers'),
+  import('./panel/content/teachers/Teachers'),
 );
-const Adv = lazy(() => import('./panel/Content/Adv/Adv'));
+const Adv = lazy(() => import('./panel/content/adv/Adv'));
 const Notif = lazy(() => import('./panel/notifs/Notif'));
-const SingleNotif = lazy(() => import('./studentPanel/Notif/Notif'));
-const Barcode = lazy(() => import('./panel/Barcode/Barcode'));
-const PackageLevel = lazy(() => import('./panel/Content/Level/PackageLevel'));
-import {routes} from '../API/APIRoutes';
-import {generalRequest} from '../API/Utility';
-
+const SingleNotif = lazy(() => import('./studentPanel/notif/Notif'));
+const PackageLevel = lazy(() => import('./panel/content/level/PackageLevel'));
+import {routes} from '../api/apiRoutes';
+import {generalRequest} from '../api/utility';
 const MyAdvisorHistory = lazy(() =>
-  import('./studentPanel/Advisor/MyAdvisor/MyAdvisorHistory'),
+  import('./studentPanel/advisor/myAdvisor/MyAdvisorHistory'),
 );
-
 const TeachReports = lazy(() =>
-  import('./panel/Teach/TeachReport/TeachReports'),
+  import('./panel/teach/teachReport/TeachReports'),
 );
-const TeachSchedules = lazy(() => import('./panel/Teach/Schedules/Schedules'));
+const TeachSchedules = lazy(() => import('./panel/teach/schedules/Schedules'));
 const TeacherProfile = lazy(() =>
-  import('./advisorPanel/Profile/TeacherProfile'),
+  import('./advisorPanel/profile/TeacherProfile'),
 );
 const StudentProfile = lazy(() =>
-  import('./studentPanel/Profile/StudentProfile'),
+  import('./studentPanel/profile/StudentProfile'),
 );
 const MyTeachSchedule = lazy(() =>
-  import('./advisorPanel/Teach/Schedule/MyTeachSchedule'),
+  import('./advisorPanel/teach/schedule/MyTeachSchedule'),
 );
 const MyTeachTransactions = lazy(() =>
-  import('./advisorPanel/Teach/Transaction/MyTeachTransactions'),
+  import('./advisorPanel/teach/transaction/MyTeachTransactions'),
 );
 const MyTeachRequests = lazy(() =>
-  import('./advisorPanel/Teach/Requests/MyTeachRequests'),
+  import('./advisorPanel/teach/requests/MyTeachRequests'),
 );
 const MyScheduleRequests = lazy(() =>
-  import('./studentPanel/Teach/MyScheduleRequests/MyScheduleRequests'),
+  import('./studentPanel/teach/myScheduleRequests/MyScheduleRequests'),
 );
 const MyTeachClasses = lazy(() =>
-  import('./studentPanel/Teach/MyClasses/MyClasses'),
+  import('./studentPanel/teach/myClasses/MyClasses'),
 );
-const Report = lazy(() => import('./panel/spinGift/components/Report/Report'));
-const AllComments = lazy(() => import('./panel/Comment/Comment'));
+const Report = lazy(() => import('./panel/spinGift/components/report/Report'));
+const AllComments = lazy(() => import('./panel/comment/Comment'));
 const SessionDetail = lazy(() =>
-  import('./general/Packages/components/Detail/SessionDetail'),
+  import('./general/packages/components/detail/SessionDetail'),
 );
 const ContentQuiz = lazy(() => import('./panel/quiz/ContentQuiz'));
-const AnswerSheet = lazy(() => import('./general/Corrector/AnswerSheet'));
+const AnswerSheet = lazy(() => import('./general/corrector/AnswerSheet'));
 const MyTasks = lazy(() => import('./correctorPanel/myTasks/MyTasks'));
 const QuestionReport = lazy(() =>
   import('./panel/questionReport/QuestionReport'),
 );
 const TeachTagsReport = lazy(() =>
-  import('./panel/Teach/TagReports/TeachTagsReport'),
+  import('./panel/teach/tagReports/TeachTagsReport'),
 );
-const GeneralStats = lazy(() => import('./panel/Stat/GeneralStats'));
+const GeneralStats = lazy(() => import('./panel/stat/GeneralStats'));
 const MyQuizzes = lazy(() =>
-  import('./studentPanel/MyQuizzes/school/MyQuizzes'),
+  import('./studentPanel/myQuizzes/school/MyQuizzes'),
 );
-const MyComments = lazy(() => import('./studentPanel/Comment/MyComments'));
+const MyComments = lazy(() => import('./studentPanel/comment/MyComments'));
 const CommentsAboutMe = lazy(() =>
-  import('./studentPanel/Comment/CommentsAboutMe'),
+  import('./studentPanel/comment/CommentsAboutMe'),
 );
-const Advisors = lazy(() => import('./general/Advisors/Advisors'));
+const Advisors = lazy(() => import('./general/advisors/Advisors'));
 const AdvisorsBeforeLogin = lazy(() =>
-  import('./general/Advisors/AdvisorsBeforeLogin'),
+  import('./general/advisors/AdvisorsBeforeLogin'),
 );
-const AllTeachers = lazy(() => import('./general/Teachers/Teachers'));
+const AllTeachers = lazy(() => import('./general/teachers/Teachers'));
 const RequestLogsForAdvisors = lazy(() =>
-  import('./studentPanel/RequestLogsForAdvisors/RequestLogsForAdvisors'),
+  import('./studentPanel/requestLogsForAdvisors/RequestLogsForAdvisors'),
 );
-const MyRequests = lazy(() => import('./advisorPanel/MyRequests/MyRequests'));
+const MyRequests = lazy(() => import('./advisorPanel/myRequests/MyRequests'));
 const MyAdvisor = lazy(() =>
-  import('./studentPanel/Advisor/MyAdvisor/MyAdvisor'),
+  import('./studentPanel/advisor/myAdvisor/MyAdvisor'),
 );
 const StudentEducationalHistory = lazy(() =>
-  import('./panel/StudentEducationalHistory/StudentEducationalHistory'),
+  import('./panel/studentEducationalHistory/StudentEducationalHistory'),
 );
-const MyHWs = lazy(() => import('./schoolPanel/MyHWs/MyHWs'));
-const StudentHWs = lazy(() => import('./studentPanel/MyQuizzes/hw/MyHWs'));
-const DoHW = lazy(() => import('./studentPanel/MyQuizzes/doHW/doHW'));
+const MyHWs = lazy(() => import('./schoolPanel/myHWs/MyHWs'));
+const StudentHWs = lazy(() => import('./studentPanel/myQuizzes/hw/MyHWs'));
+const DoHW = lazy(() => import('./studentPanel/myQuizzes/doHW/DoHW'));
 const OnlineStanding = lazy(() => import('./panel/quiz/OnlineStanding'));
 const BuyOnlineStanding = lazy(() => import('./general/buy/BuyOnlineStanding'));
 const EscapeQuiz = lazy(() => import('./panel/quiz/EscapeQuiz'));
 const SpecQuestion = lazy(() => import('./panel/specQuestions/SpecQuestion'));
 const AllTeachTransactions = lazy(() =>
-  import('./panel/Teach/Transactions/Transactions'),
+  import('./panel/teach/transactions/Transactions'),
 );
 const RunOnlineStandingQuiz = lazy(() =>
-  import('./studentPanel/RunOnlineStandingQuiz/RunOnlineStandingQuiz'),
+  import('./studentPanel/runOnlineStandingQuiz/RunOnlineStandingQuiz'),
 );
 const ExamTags = lazy(() => import('./panel/consultants/ExamTags'));
 const MyLifeStyle = lazy(() =>
-  import('./studentPanel/MyLifeStyle.js/MyLifeStyle'),
+  import('./studentPanel/myLifeStyle/MyLifeStyle.jsx'),
 );
 const RunEscapeQuiz = lazy(() =>
-  import('./studentPanel/RunEscapeQuiz/RunEscapeQuiz'),
+  import('./studentPanel/runEscapeQuiz/RunEscapeQuiz'),
 );
-const Ranking = lazy(() => import('./general/OnlineStanding/Ranking'));
-const Exchanges = lazy(() => import('./panel/Exchange/Exchange'));
-const Badges = lazy(() => import('./panel/Badge/Badge'));
-const PublicBadges = lazy(() => import('./general/Badge/Badge'));
-const Points = lazy(() => import('./panel/Point/Point'));
-const Levels = lazy(() => import('./panel/Level/Level'));
-const DailyAdv = lazy(() => import('./panel/DailyAdv/DailyAdv'));
+const Ranking = lazy(() => import('./general/onlineStanding/Ranking'));
+const Exchanges = lazy(() => import('./panel/exchange/Exchange'));
+const Badges = lazy(() => import('./panel/badge/Badge'));
+const PublicBadges = lazy(() => import('./general/badge/Badge'));
+const Points = lazy(() => import('./panel/point/Point'));
+const Levels = lazy(() => import('./panel/level/Level'));
+const DailyAdv = lazy(() => import('./panel/dailyAdv/DailyAdv'));
 const MyFinancePlans = lazy(() =>
-  import('./advisorPanel/MyFinancePlans/MyFinancePlans'),
+  import('./advisorPanel/myFinancePlans/MyFinancePlans'),
 );
-const ChatRoom = lazy(() => import('./studentPanel/Chat/ChatRoom'));
+const ChatRoom = lazy(() => import('./studentPanel/chat/ChatRoom'));
 const ProfileConfig = lazy(() =>
-  import('./studentPanel/ProfileConfig/ProfileConfig'),
+  import('./studentPanel/profileConfig/ProfileConfig'),
 );
-const Schedule = lazy(() => import('./advisorPanel/Schedule/Schedule'));
-const Progress = lazy(() => import('./advisorPanel/Progress/Progress'));
-const Shop = lazy(() => import('./panel/Config/Configuration/Shop'));
+const Schedule = lazy(() => import('./advisorPanel/schedule/Schedule'));
+const Progress = lazy(() => import('./advisorPanel/progress/Progress'));
+const Shop = lazy(() => import('./panel/config/configuration/Shop'));
 const SettlementRequests = lazy(() =>
-  import('./panel/Settlements/SettlementRequests'),
+  import('./panel/settlements/SettlementRequests'),
 );
-const RunPDFQuiz = lazy(() => import('./studentPanel/RunPDFQuiz/RunPDFQuiz'));
-
+const RunPDFQuiz = lazy(() => import('./studentPanel/runPDFQuiz/RunPDFQuiz'));
 const WebStructue = props => {
   const navigate = useNavigate();
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
   const [allowRenderPage, setAllowRenderPage] = useState(false);
   const includeFilterMenu = ['buy', 'quiz'];
@@ -230,17 +221,14 @@ const WebStructue = props => {
   const [canRequestForAdv, setCanRequestForAdv] = useState(
     window.localStorage.getItem('can_request_for_adv'),
   );
-
   useEffect(() => {
     setCanRequestForAdv(window.localStorage.getItem('can_request_for_adv'));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [window.localStorage]);
-
   const [lastFetchDailyAdv, today] = useMemo(
     () => [window.localStorage.getItem('last_fetch_daily_adv'), getToday()],
     [],
   );
-
   const fetchCanReq = React.useCallback(() => {
     window.localStorage.setItem('can_request_for_adv', undefined);
     Promise.all([
@@ -259,26 +247,20 @@ const WebStructue = props => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.token]);
-
   useEffect(() => {
     if (state.token && today !== lastFetchDailyAdv) fetchCanReq();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastFetchDailyAdv, state.token]);
-
   React.useEffect(() => {
     setAllowRenderPage(state.user !== undefined);
   }, [state.user]);
-
   React.useEffect(() => {
     fetchAlerts();
   }, [state.user, fetchAlerts]);
-
   const [myAlerts, setMyAlerts] = useState();
-
   React.useEffect(() => {
     setMyAlerts(state.newAlerts);
   }, [state.newAlerts]);
-
   const fetchAlerts = React.useCallback(() => {
     if (
       !isWorking &&
@@ -300,46 +282,56 @@ const WebStructue = props => {
           state.token,
         ),
       ]).then(res => {
-        if (res[0] !== null) dispatch({newAlerts: res[0]});
-        else dispatch({newAlerts: []});
+        if (res[0] !== null)
+          dispatch({
+            newAlerts: res[0],
+          });
+        else
+          dispatch({
+            newAlerts: [],
+          });
         setIsWorking(false);
       });
     }
   }, [state.token, state.newAlerts, dispatch, state.user, isWorking]);
-
   React.useEffect(() => {
     setCurrPage(props.page);
   }, [props.page, setCurrPage]);
-
   const setCurrPage = React.useCallback(
     param => {
-      dispatch({page: param});
+      dispatch({
+        page: param,
+      });
     },
     [dispatch],
   );
-
   const setLoading = status => {
     dispatch({
       loading: status,
     });
   };
-
   const toggleRightMenuVisibility = () => {
     dispatch({
       isRightMenuVisible:
         state.user === null ? false : !state.isRightMenuVisible,
     });
   };
-
   const params = useParams();
-
   return (
     <>
       <Suspense fallback={<div />}>
-        <MyView style={{flex: 1, height: '100%'}}>
+        <MyView
+          style={{
+            flex: 1,
+            height: '100%',
+          }}>
           {allowRenderPage && (
             <MinFullHeightView>
-              <MyView style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+              <MyView
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                }}>
                 {state.isInPhone && state.showTopNav && (
                   <Logo
                     isLogin={state.user !== null}
@@ -362,8 +354,8 @@ const WebStructue = props => {
                   !state.isInPhone && <Navbar user={state.user} />}
 
                 {/* {device.indexOf(Device.WebPort) !== -1 && state.user === null && (
-              <TopNavBar />
-            )} */}
+                 <TopNavBar />
+                 )} */}
 
                 {!state.isInPhone &&
                   myAlerts !== undefined &&
@@ -663,7 +655,6 @@ const WebStructue = props => {
                       navigate={navigate}
                     />
                   )}
-                  {props.page === 'barcodes' && <Barcode navigate={navigate} />}
                   {props.page === 'spinner' && <SpinGift navigate={navigate} />}
                   {props.page === 'psychology' && (
                     <Psychology navigate={navigate} />
@@ -989,8 +980,8 @@ const WebStructue = props => {
                     <Notif sendVia={params.mode} navigate={navigate} />
                   )}
                   {/* {props.page === 'gift' && (
-                <SpinGift token={state.token} user={state.user} navigate={navigate} />
-              )} */}
+                   <SpinGift token={state.token} user={state.user} navigate={navigate} />
+                   )} */}
                   {props.page === 'gift' &&
                     params !== undefined &&
                     params.mode !== undefined &&
@@ -1079,5 +1070,4 @@ const WebStructue = props => {
     </>
   );
 };
-
 export default WebStructue;

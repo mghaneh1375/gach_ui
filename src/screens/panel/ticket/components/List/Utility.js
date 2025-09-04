@@ -1,15 +1,16 @@
-import {routes} from '../../../../../API/APIRoutes';
-import {generalRequest} from '../../../../../API/Utility';
-import {showSuccess} from '../../../../../services/Utility';
-import translator from '../../Translator';
-
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '../../../../../api/utility';
+import {showSuccess} from '@/services/utility';
+import translator from '../../translator';
 export const closeRequest = async (props, selectedId, toggleShowOpPopUp) => {
   props.setLoading(true);
   const res = await Promise.all([
     generalRequest(
       routes.closeTicketRequest,
       'post',
-      {items: [selectedId]},
+      {
+        items: [selectedId],
+      },
       ['excepts', 'closedIds'],
       props.token,
     ),
@@ -31,10 +32,8 @@ export const closeRequest = async (props, selectedId, toggleShowOpPopUp) => {
     }
     return res;
   });
-
   return res;
 };
-
 export const filter = (
   props,
   priority,
@@ -51,7 +50,6 @@ export const filter = (
   studentId = undefined,
 ) => {
   const query = new URLSearchParams();
-
   if (priority !== undefined && priority !== 'all') {
     query.append('priority', priority);
   }
@@ -61,42 +59,33 @@ export const filter = (
   if (status !== undefined && status !== 'all') {
     query.append('status', status);
   }
-
   if (refId !== undefined) {
     query.append('refId', refId);
   }
-
   if (advisorId !== undefined && advisorId !== null) {
     query.append('advisorId', advisorId);
   }
-
   if (studentId !== undefined && studentId !== null) {
     query.append('studentId', studentId);
   }
-
   if (searchArchive !== undefined && searchArchive !== '') {
     query.append('searchInArchive', searchArchive === 'yes');
   }
-
   if (startWith !== undefined && startWith !== 'all') {
     query.append('startByAdmin', startWith === 'admin');
   }
-
   if (sendDateSolar !== undefined && sendDateSolar.toString().length > 0) {
     query.append('sendDateSolar', sendDateSolar);
   }
-
   if (
     sendDateSolarEndLimit !== undefined &&
     sendDateSolarEndLimit.toString().length > 0
   ) {
     query.append('sendDateSolarEndLimit', sendDateSolarEndLimit);
   }
-
   if (answerDateSolar !== undefined && answerDateSolar.toString().length > 0) {
     query.append('answerDateSolar', answerDateSolar);
   }
-
   if (
     answerDateSolarEndLimit !== undefined &&
     answerDateSolarEndLimit.toString().length > 0

@@ -1,5 +1,4 @@
-import commonTranslator from '../../../translator/Common';
-
+import commonTranslator from '../../../translator/common';
 const columns = [
   {
     name: 'بخش',
@@ -47,7 +46,6 @@ const columns = [
     grow: 3,
   },
 ];
-
 export const aboutMeColumns = [
   {
     name: 'بخش',
@@ -83,5 +81,4 @@ export const aboutMeColumns = [
     grow: 3,
   },
 ];
-
 export default columns;

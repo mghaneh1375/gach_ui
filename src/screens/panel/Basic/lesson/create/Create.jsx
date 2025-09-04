@@ -1,17 +1,11 @@
 import React, {useState} from 'react';
-import {
-  CommonButton,
-  CommonWebBox,
-  PhoneView,
-  MyView,
-} from '../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import Translate from '../../Translate';
-import commonTranslate from '../../../../../translator/Common';
-import {editLesson, createLesson} from '../../Utility';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {styles} from '../../../../../styles/Common/Styles';
-
+import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import Translate from '../../translate';
+import commonTranslate from '../../../../../translator/common';
+import {editLesson, createLesson} from '../../utility';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import {styles} from '@/styles/common/styles';
 function Create(props) {
   const [name, setName] = useState(
     props.lesson !== undefined ? props.lesson.name : '',
@@ -22,7 +16,6 @@ function Create(props) {
   const [description, setDescription] = useState(
     props.lesson !== undefined ? props.lesson.description : '',
   );
-
   return (
     <CommonWebBox
       backBtn={true}
@@ -33,7 +26,10 @@ function Create(props) {
           : commonTranslate.edit
       }>
       <MyView>
-        <PhoneView style={{gap: 15}}>
+        <PhoneView
+          style={{
+            gap: 15,
+          }}>
           <JustBottomBorderTextInput
             value={name}
             onChangeText={e => setName(e)}
@@ -64,7 +60,6 @@ function Create(props) {
           onPress={async () => {
             props.setLoading(true);
             let res;
-
             if (props.lesson !== undefined) {
               res = await editLesson(
                 props.subMode,
@@ -91,7 +86,10 @@ function Create(props) {
               props.afterFunc({
                 name: name,
                 description: description,
-                grade: {id: selectedGrade.id, name: selectedGrade.item},
+                grade: {
+                  id: selectedGrade.id,
+                  name: selectedGrade.item,
+                },
                 id: props.lesson !== undefined ? props.lesson.id : res,
               });
               props.setMode('list');
@@ -103,5 +101,4 @@ function Create(props) {
     </CommonWebBox>
   );
 }
-
 export default Create;

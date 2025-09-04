@@ -1,28 +1,20 @@
 import React, {useState} from 'react';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../../../styles/Common';
-import {SimpleFontIcon} from '../../../../../styles/Common/FontIcon';
-import JustBottomBorderTextInput from '../../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../../styles/Common/Styles';
-import commonTranslator from '../../../../../translator/Common';
-import Translator from '../../Translate';
-import JustBottomBorderSelect from '../../../../../styles/Common/JustBottomBorderSelect';
-import {statusKeyVals} from '../../../question/components/KeyVals';
-import {remove, store, update} from './Utility';
-
+import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
+import Translator from '../../translate';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import {statusKeyVals} from '../../../question/components/keyVals';
+import {remove, store, update} from './utility';
 function Card(props) {
   const [show, setShow] = useState(false);
-
   const [question, setQuestion] = useState();
   const [answer, setAnswer] = useState();
   const [priority, setPriority] = useState();
   const [visibility, setVisibility] = useState();
-
   React.useEffect(() => {
     if (props.elem === undefined) {
       setShow(true);
@@ -33,7 +25,6 @@ function Card(props) {
     setPriority(props.elem.priority);
     setVisibility(props.elem.visibility);
   }, [props.elem]);
-
   return (
     <CommonWebBox
       header={question !== undefined ? question : ''}
@@ -73,7 +64,11 @@ function Card(props) {
             value={statusKeyVals.find(elem => elem.id === visibility)}
           />
           {props.elem !== undefined && (
-            <PhoneView style={{...styles.gap10, ...styles.margin15}}>
+            <PhoneView
+              style={{
+                ...styles.gap10,
+                ...styles.margin15,
+              }}>
               <CommonButton
                 onPress={async () => {
                   props.setLoading(true);
@@ -141,5 +136,4 @@ function Card(props) {
     </CommonWebBox>
   );
 }
-
 export default Card;

@@ -1,14 +1,13 @@
 import React from 'react';
-import {MyView, PhoneView, SimpleText} from '../../../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../../../styles/Common/JustBottomBorderTextInput';
-import {styles} from '../../../../../../styles/Common/Styles';
-import {showError} from '../../../../../../services/Utility';
-import JustBottomBorderSelect from '../../../../../../styles/Common/JustBottomBorderSelect';
-import commonTranslator from '../../../../../../translator/Common';
-import {getLessons} from '../../../../../advisorPanel/Schedule/components/Utility';
-import {getSubjectsKeyVals} from '../../../../question/components/Utility';
+import {MyView, PhoneView, SimpleText} from '@/styles';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
+import {styles} from '../../../../../../styles/common/styles';
+import {showError} from '../../../../../../services/utility';
+import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect';
+import commonTranslator from '../../../../../../translator/common';
+import {getLessons} from '../../../../../advisorPanel/schedule/components/utility';
+import {getSubjectsKeyVals} from '../../../../question/components/utility';
 import {dispatchSetSubjectContext, setSubjectContext} from './Context';
-
 export default function EachQuestion({question, setQuestion, setLoading}) {
   const [mark, setMark] = React.useState(question.mark);
   const [choicesCount, setChoicesCount] = React.useState(question.choicesCount);
@@ -17,17 +16,14 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
   const [saved, setSaved] = React.useState(false);
   const [grade, setGrade] = React.useState(question.grade);
   const [lesson, setLesson] = React.useState(question.lesson);
-
   const [lessonsKeyVals, setLessonsKeyVals] = React.useState();
   const [subjectsKeyVals, setSubjectsKeyVals] = React.useState();
   const [isWorking, setIsWorking] = React.useState(false);
-
   const useGlobalState = () => [
     React.useContext(setSubjectContext),
     React.useContext(dispatchSetSubjectContext),
   ];
   const [state, dispatch] = useGlobalState();
-
   React.useEffect(() => {
     if (
       mark === undefined ||
@@ -36,7 +32,6 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
       choicesCount === undefined
     )
       return;
-
     setQuestion({
       qNo: question.qNo,
       mark: mark,
@@ -47,55 +42,47 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
     setSaved(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ans, choicesCount, mark, subject]);
-
   React.useEffect(() => {
     if (state.currGrade === undefined || grade !== undefined) return;
     setGrade(state.currGrade);
   }, [grade, state.currGrade]);
-
   React.useEffect(() => {
     if (state.currGrade === undefined && grade !== undefined)
-      dispatch({currGrade: grade});
+      dispatch({
+        currGrade: grade,
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [grade, state.currGrade]);
-
   React.useEffect(() => {
     if (state.currLesson === undefined || lesson !== undefined) return;
     setLesson(state.currLesson);
   }, [lesson, state.currLesson]);
-
   React.useEffect(() => {
     if (state.currLesson === undefined && lesson !== undefined)
-      dispatch({currLesson: lesson});
+      dispatch({
+        currLesson: lesson,
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lesson, state.currLesson]);
-
   const fetchLessons = React.useCallback(() => {
     if (isWorking || state.grades === undefined) return;
-
     const selectedGrade = state.grades.find(e => e.id === grade);
-
     if (selectedGrade === undefined || selectedGrade.lessons !== undefined) {
       if (selectedGrade.lessons !== undefined)
         setLessonsKeyVals(selectedGrade.lessons);
       return;
     }
-
     setIsWorking(true);
     setLoading(true);
-
     Promise.all([getLessons(grade, selectedGrade.isOlympiad)]).then(res => {
       setLoading(false);
-
       if (res[0] === null) return;
-
       selectedGrade.lessons = res[0].map(e => {
         return {
           id: e.id,
           item: e.name,
         };
       });
-
       setLessonsKeyVals(selectedGrade.lessons);
       dispatch({
         grades: state.grades.map(e => {
@@ -107,33 +94,25 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [grade, isWorking]);
-
   React.useEffect(() => {
     if (grade == undefined) return;
     fetchLessons();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [grade, isWorking]);
-
   React.useEffect(() => {
     if (lesson == undefined || isWorking || lessonsKeyVals === undefined)
       return;
-
     const fetchSubjects = async selectedLesson => {
       setLoading(true);
-
       const res = await getSubjectsKeyVals(lesson);
-
       setLoading(false);
-
       if (res === null) return;
-
       selectedLesson.subjects = res.map(e => {
         return {
           id: e.id,
           item: e.name,
         };
       });
-
       dispatch({
         grades: state.grades.map(e => {
           if (e.id === grade) {
@@ -147,12 +126,9 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
           return e;
         }),
       });
-
       setSubjectsKeyVals(selectedLesson.subjects);
     };
-
     const selectedLesson = lessonsKeyVals.find(e => e.id === lesson);
-
     if (selectedLesson === undefined || selectedLesson.subjects !== undefined) {
       if (selectedLesson?.subjects !== undefined)
         setSubjectsKeyVals(selectedLesson.subjects);
@@ -165,7 +141,6 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lesson, lessonsKeyVals, isWorking]);
-
   return (
     <MyView
       style={{
@@ -180,7 +155,9 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
       />
       <PhoneView style={styles.gap10}>
         <JustBottomBorderTextInput
-          style={{color: 'black'}}
+          style={{
+            color: 'black',
+          }}
           placeholder={'نمره سوال'}
           subText={'نمره سوال'}
           justNum={true}
@@ -188,7 +165,9 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
           onChangeText={e => setMark(e)}
         />
         <JustBottomBorderTextInput
-          style={{color: 'black'}}
+          style={{
+            color: 'black',
+          }}
           placeholder={'تعداد گزینه'}
           subText={'تعداد گزینه'}
           justNum={true}
@@ -206,7 +185,9 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
           }}
         />
         <JustBottomBorderTextInput
-          style={{color: 'black'}}
+          style={{
+            color: 'black',
+          }}
           placeholder={'گزینه صحیح'}
           subText={'گزینه صحیح'}
           justNum={true}
@@ -224,7 +205,9 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
           }}
         />
         <JustBottomBorderSelect
-          style={{color: 'black'}}
+          style={{
+            color: 'black',
+          }}
           placeholder={commonTranslator.grade}
           subText={commonTranslator.grade}
           setter={setGrade}
@@ -234,7 +217,9 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
 
         {grade != undefined && lessonsKeyVals !== undefined && (
           <JustBottomBorderSelect
-            style={{color: 'black'}}
+            style={{
+              color: 'black',
+            }}
             placeholder={commonTranslator.lesson}
             subText={commonTranslator.lesson}
             setter={setLesson}
@@ -245,7 +230,9 @@ export default function EachQuestion({question, setQuestion, setLoading}) {
 
         {lesson != undefined && subjectsKeyVals !== undefined && (
           <JustBottomBorderSelect
-            style={{color: 'black'}}
+            style={{
+              color: 'black',
+            }}
             placeholder={commonTranslator.subject}
             subText={commonTranslator.subject}
             setter={setSubject}

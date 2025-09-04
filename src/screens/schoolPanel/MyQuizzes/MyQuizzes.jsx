@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import {isUserAdvisor} from '../../../services/Utility';
-import Key from '../../panel/quiz/components/Key/Key';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import {isUserAdvisor} from '@/services/utility';
+import Key from '../../panel/quiz/components/key/Key';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
@@ -12,27 +12,23 @@ import Create from './components/Create';
 import List from './components/List';
 import Recp from './components/Recp';
 import Report from './components/Report';
-import Students from './components/Students/Students';
-import Abstract from './components/Questions/Abstract';
-import PDFQuizKey from '../../panel/quiz/components/Key/PDFQuizKey';
-
+import Students from './components/students/Students';
+import Abstract from './components/questions/Abstract';
+import PDFQuizKey from '../../panel/quiz/components/key/PDFQuizKey';
 function MyQuizzes(props) {
   const navigate = props.navigate;
   const [mode, setMode] = useState('list');
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const [state, dispatch] = useGlobalState();
-
   const isAdvisor = isUserAdvisor(state.user);
-
   return (
     <>
       <MyQuizzesProvider>
@@ -122,5 +118,4 @@ function MyQuizzes(props) {
     </>
   );
 }
-
 export default MyQuizzes;

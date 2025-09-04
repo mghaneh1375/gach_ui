@@ -1,6 +1,5 @@
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {CommonButton} from '../../../../../styles/Common';
-
+import {CommonButton} from '@/styles';
 function BuiltFilter(props) {
   return (
     <CommonButton
@@ -16,5 +15,4 @@ function BuiltFilter(props) {
     />
   );
 }
-
 export default BuiltFilter;

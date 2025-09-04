@@ -1,36 +1,45 @@
 import React, {useState} from 'react';
 import SelectFromMyStudents from '../../../../components/web/SelectFromMyStudents';
-import {showSuccess} from '../../../../services/Utility';
-import {CommonButton, CommonWebBox, PhoneView} from '../../../../styles/Common';
-import JustBottomBorderSelect from '../../../../styles/Common/JustBottomBorderSelect';
+import {showSuccess} from '../../../../services/utility';
+import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
 import {
   advisorScheduleContext,
   dispatchAdvisorScheduleContext,
 } from './Context';
-import {copy} from './Utility';
-
+import {copy} from './utility';
 function Copy(props) {
   const useGlobalState = () => [
     React.useContext(advisorScheduleContext),
     React.useContext(dispatchAdvisorScheduleContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const [showSelectStudentsPane, setShowSelectStudentsPane] = useState(false);
   const [selectedStudents, setSelectedStudents] = useState();
-
   const [isWorking, setIsWorking] = useState(false);
   const [scheduleFor, setScheduleFor] = useState();
-
   const scheduleForValues = [
-    {id: 0, item: 'هفته جاری'},
-    {id: 1, item: 'هفته بعد'},
-    {id: 2, item: 'دو هفته بعد'},
-    {id: 3, item: 'سه هفته بعد'},
-    {id: 4, item: 'چهار هفته بعد'},
+    {
+      id: 0,
+      item: 'هفته جاری',
+    },
+    {
+      id: 1,
+      item: 'هفته بعد',
+    },
+    {
+      id: 2,
+      item: 'دو هفته بعد',
+    },
+    {
+      id: 3,
+      item: 'سه هفته بعد',
+    },
+    {
+      id: 4,
+      item: 'چهار هفته بعد',
+    },
   ];
-
   const doCopy = React.useCallback(() => {
     if (
       isWorking ||
@@ -39,10 +48,8 @@ function Copy(props) {
       selectedStudents.length === 0
     )
       return;
-
     setIsWorking(true);
     props.setLoading(true);
-
     Promise.all([
       copy(
         props.token,
@@ -52,11 +59,8 @@ function Copy(props) {
       ),
     ]).then(res => {
       props.setLoading(false);
-
       if (res[0] == null) return;
-
       showSuccess(res[0].excepts);
-
       if (res[0].doneIds.indexOf(props.studentId) !== -1) {
         window.location.reload();
       } else {
@@ -71,12 +75,10 @@ function Copy(props) {
     scheduleFor,
     state.selectedSchedule.id,
   ]);
-
   React.useEffect(() => {
     if (selectedStudents === undefined || selectedStudents.length === 0) return;
     doCopy();
   }, [selectedStudents, doCopy]);
-
   return (
     <CommonWebBox>
       {showSelectStudentsPane && (
@@ -84,7 +86,11 @@ function Copy(props) {
           token={props.token}
           setLoading={props.setLoading}
           myStudents={state.myStudents}
-          setMyStudents={myStudents => dispatch({myStudents: myStudents})}
+          setMyStudents={myStudents =>
+            dispatch({
+              myStudents: myStudents,
+            })
+          }
           setSelectedStudents={selected => setSelectedStudents(selected)}
           toggleShowPopUp={() => setShowSelectStudentsPane(false)}
           title={'انتخاب دانش آموز/دانش آموزان'}
@@ -110,5 +116,4 @@ function Copy(props) {
     </CommonWebBox>
   );
 }
-
 export default Copy;

@@ -2,10 +2,9 @@ import React, {useReducer, useState} from 'react';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import ConfirmationBatchOpPane from '../../components/web/ConfirmationBatchOpPane';
-import {showSuccess} from '../../services/Utility';
-import commonTranslator from '../../translator/Common';
-import {CommonButton, MyView} from '../Common';
-
+import {showSuccess} from '../../services/utility';
+import commonTranslator from '../../translator/common';
+import {CommonButton, MyView} from '../CommonComponents';
 const CommonDataTable = props => {
   const customStyles = {
     rows: {
@@ -25,23 +24,19 @@ const CommonDataTable = props => {
       },
     },
   };
-
   const [res, setRes] = useState();
   const [toggledClearRows, setToggleClearRows] = useState(false);
   const [selected, setSelected] = useState([]);
   const [showRemovePopUp, setShowRemovePopUp] = useState(false);
   const [selectedOp, setSelectedOp] = useState();
-
   const onChangeSelectedRows = selectedRows => {
     setSelected(selectedRows);
   };
-
   const changeOpSelect = e => {
     if (selected.length === 0 || e.target.value === 'none') {
       setSelectedOp(undefined);
       return;
     }
-
     setSelectedOp(
       state.ops.find(elem => {
         return elem.key === e.target.value;
@@ -49,17 +44,13 @@ const CommonDataTable = props => {
     );
     setShowRemovePopUp(true);
   };
-
   const toggleShowRemovePopUp = () => {
     if (showRemovePopUp) setSelectedOp(undefined);
     setShowRemovePopUp(!showRemovePopUp);
   };
-
   const localAfterFunc = res => {
     toggleShowRemovePopUp();
-
     if (selectedOp.url !== undefined) showSuccess(res.excepts);
-
     if (selectedOp.needData !== undefined && selectedOp.needData)
       selectedOp.afterFunc(res, state.data);
     else selectedOp.afterFunc(res);
@@ -67,11 +58,9 @@ const CommonDataTable = props => {
     setSelectedOp(undefined);
     handleClearRows();
   };
-
   const handleClearRows = () => {
     setToggleClearRows(!toggledClearRows);
   };
-
   const initialState = {
     data: undefined,
     ops: undefined,
@@ -81,7 +70,6 @@ const CommonDataTable = props => {
     perPage: 10,
     columns: [],
   };
-
   function reducer(state, action) {
     switch (action.type) {
       case 'set':
@@ -90,16 +78,23 @@ const CommonDataTable = props => {
           (action.data.length === 0 &&
             (state.data === undefined || state.data.length === 0))
         )
-          return {...state, data: []};
-
-        return {...state, data: [], handleOpRender: true, tmpData: action.data};
-
+          return {
+            ...state,
+            data: [],
+          };
+        return {
+          ...state,
+          data: [],
+          handleOpRender: true,
+          tmpData: action.data,
+        };
       case 'updateData':
-        return {...state, data: state.tmpData};
-
+        return {
+          ...state,
+          data: state.tmpData,
+        };
       case 'renderCols':
         let columns = [];
-
         if (props.show_row_no === undefined || props.show_row_no) {
           columns[0] = {
             name: 'ردیف',
@@ -113,7 +108,6 @@ const CommonDataTable = props => {
             center: true,
           };
         }
-
         if (props.handleOp !== undefined)
           columns[columns.length === 0 ? 0 : columns.length] = {
             name: commonTranslator.operation,
@@ -145,21 +139,25 @@ const CommonDataTable = props => {
             center: true,
             ignoreRowClick: true,
           };
-
         columns = [...columns, ...props.columns];
-
         columns.map(elem => {
           elem.wrap = true;
           return elem;
         });
-        return {...state, columns: columns};
-
+        return {
+          ...state,
+          columns: columns,
+        };
       case 'remove':
         const data = state.data;
         const newData = data.filter(elem => {
           return res.doneIds.indexOf(elem.id) === -1;
         });
-        return {...state, data: newData, shouldUpdateParent: true};
+        return {
+          ...state,
+          data: newData,
+          shouldUpdateParent: true,
+        };
       case 'op':
         let ops = [];
         if (props.groupOps === undefined && props.removeUrl !== undefined) {
@@ -195,57 +193,75 @@ const CommonDataTable = props => {
           }
           ops = props.groupOps;
         }
-        return {...state, ops: ops};
+        return {
+          ...state,
+          ops: ops,
+        };
       case 'changeCurrPage':
-        return {...state, currentPage: action.page};
+        return {
+          ...state,
+          currentPage: action.page,
+        };
       case 'changePerPage':
-        return {...state, perPage: action.perPage, currentPage: action.page};
+        return {
+          ...state,
+          perPage: action.perPage,
+          currentPage: action.page,
+        };
       case 'parentUpdated':
-        return {...state, shouldUpdateParent: false};
+        return {
+          ...state,
+          shouldUpdateParent: false,
+        };
       default:
-        return {...state};
+        return {
+          ...state,
+        };
     }
   }
-
   const [state, dispatch] = useReducer(reducer, initialState);
-
   React.useEffect(() => {
     if (props.data === undefined) return;
-    dispatch({type: 'set', data: props.data});
+    dispatch({
+      type: 'set',
+      data: props.data,
+    });
   }, [props.data]);
-
   React.useEffect(() => {
     if (state.tmpData === undefined) return;
-    dispatch({type: 'updateData'});
+    dispatch({
+      type: 'updateData',
+    });
   }, [state.tmpData]);
-
   React.useEffect(() => {
     if (state.handleOpRender === undefined || state.handleOpRender) return;
-    dispatch({type: 'op'});
+    dispatch({
+      type: 'op',
+    });
   }, [state.handleOpRender]);
-
   React.useEffect(() => {
-    dispatch({type: 'renderCols'});
+    dispatch({
+      type: 'renderCols',
+    });
   }, [state.currentPage, state.perPage]);
-
   React.useEffect(() => {
     if (res === undefined) return;
-    dispatch({type: 'remove'});
+    dispatch({
+      type: 'remove',
+    });
   }, [res]);
-
   React.useEffect(() => {
     if (!state.shouldUpdateParent || props.setData === undefined) return;
-
     props.setData(state.data);
-    dispatch({type: 'parentUpdated'});
+    dispatch({
+      type: 'parentUpdated',
+    });
   }, [props, state.data, state.shouldUpdateParent]);
-
   const paginationComponentOptions = {
     selectAllRowsItem: true,
     rowsPerPageText: 'نمایش در هر صفحه',
     selectAllRowsItemText: 'همه',
   };
-
   return (
     <MyView>
       {showRemovePopUp &&
@@ -324,10 +340,17 @@ const CommonDataTable = props => {
             clearSelectedRows={toggledClearRows}
             conditionalRowStyles={props.conditionalRowStyles}
             onChangePage={page => {
-              dispatch({type: 'changeCurrPage', page: page});
+              dispatch({
+                type: 'changeCurrPage',
+                page: page,
+              });
             }}
             onChangeRowsPerPage={(perPage, page) => {
-              dispatch({type: 'changePerPage', perPage: perPage, page: page});
+              dispatch({
+                type: 'changePerPage',
+                perPage: perPage,
+                page: page,
+              });
             }}
           />
         </DataTableExtensions>
@@ -355,10 +378,17 @@ const CommonDataTable = props => {
           clearSelectedRows={toggledClearRows}
           conditionalRowStyles={props.conditionalRowStyles}
           onChangePage={page => {
-            dispatch({type: 'changeCurrPage', page: page});
+            dispatch({
+              type: 'changeCurrPage',
+              page: page,
+            });
           }}
           onChangeRowsPerPage={(perPage, page) => {
-            dispatch({type: 'changePerPage', perPage: perPage, page: page});
+            dispatch({
+              type: 'changePerPage',
+              perPage: perPage,
+              page: page,
+            });
           }}
         />
       )}
@@ -382,5 +412,4 @@ const CommonDataTable = props => {
     </MyView>
   );
 };
-
 export default CommonDataTable;

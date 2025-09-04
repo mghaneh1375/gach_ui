@@ -1,5 +1,4 @@
-import {formatPrice} from '../../../../../services/Utility';
-
+import {formatPrice} from '../../../../../services/utility';
 const adviceColumns = [
   {
     name: 'عنوان',
@@ -51,9 +50,7 @@ const adviceColumns = [
     fontSize: 10,
   },
 ];
-
 export default adviceColumns;
-
 export const teachColumns = [
   {
     name: 'عنوان',

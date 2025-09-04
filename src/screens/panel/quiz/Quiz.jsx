@@ -1,55 +1,50 @@
 import React, {useState} from 'react';
 import CreateQuiz from './components/CreateQuiz';
 import List from './components/List';
-import {dispatchStateContext, globalStateContext} from '../../../App';
-import Students from './components/Students/Students';
-import Questions from './components/Questions/Questions';
-import CV from './components/CV/CV';
+import {globalStateContext, dispatchStateContext} from '@/App';
+import Students from './components/students/Students';
+import Questions from './components/questions/Questions';
+import CV from './components/cv/CV.jsx';
 import {
   dispatchQuizContext,
   quizContext,
   QuizProvider,
 } from './components/Context';
-import Key from './components/Key/Key';
-import Ranking from './components/Reports/Ranking/Ranking';
-import Karname from './components/Reports/Karname/Karname';
-import ReportList from './components/Reports/List/List';
+import Key from './components/key/Key';
+import Ranking from './components/reports/ranking/Ranking';
+import Karname from './components/reports/karname/Karname';
+import ReportList from './components/reports/list/List';
 import {useParams} from 'react-router';
-import {MyView} from '../../../styles/Common';
-import ContentQuizKarname from './components/Reports/Karname/ContentQuizKarname';
-import Correctors from './components/Correctors/Correctors';
-import PDF from './components/PDFQuestion/Questions';
-import PDFQuizKey from './components/Key/PDFQuizKey';
+import {MyView} from '@/styles';
+import ContentQuizKarname from './components/reports/karname/ContentQuizKarname';
+import Correctors from './components/correctors/Correctors';
+import PDF from './components/pdfQuestion/Questions';
+import PDFQuizKey from './components/key/PDFQuizKey';
 import {
   isUserAdmin,
   isUserContentAccess,
   isUserEditorAccess,
-} from '../../../services/Utility';
-import Copy from './components/Copy/Copy';
-
+} from '../../../services/utility';
+import Copy from './components/copy/Copy';
 const Quiz = props => {
   const [mode, setMode] = useState('karname');
   const navigate = props.navigate;
-
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-
   const [state, dispatch] = useGlobalState();
-
   const setLoading = status => {
-    dispatch({loading: status});
+    dispatch({
+      loading: status,
+    });
   };
-
   const params = useParams();
-
   React.useEffect(() => {
     if (props.mode !== undefined) {
       setMode(props.mode);
     } else setMode('list');
   }, [props.mode]);
-
   return (
     <MyView>
       <QuizProvider>
@@ -180,5 +175,4 @@ const Quiz = props => {
     </MyView>
   );
 };
-
 export default Quiz;

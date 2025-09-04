@@ -1,17 +1,17 @@
 import {Image, TouchableOpacity} from 'react-native';
-
 import {useNavigation} from '@react-navigation/native';
-import {MyView} from '../../styles/Common';
-
+import {MyView} from '@/styles';
 export function TopNavBar() {
   const navigation = useNavigation();
-
   return (
     <MyView
       style={{
         shadowColor: 'black',
         shadowOpacity: 0.8,
-        shadowOffset: {width: 0, height: 10},
+        shadowOffset: {
+          width: 0,
+          height: 10,
+        },
         shadowRadius: 10,
         elevation: 10,
         backgroundColor: 'white',
@@ -19,7 +19,10 @@ export function TopNavBar() {
       }}>
       <TouchableOpacity onPress={() => navigation.navigate('Home')}>
         <Image
-          style={{width: '100%', height: '90%'}}
+          style={{
+            width: '100%',
+            height: '90%',
+          }}
           resizeMode="contain"
           source={require('./../../images/irysc.png')}
         />

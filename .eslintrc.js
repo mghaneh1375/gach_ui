@@ -7,6 +7,7 @@ module.exports = {
     curly: 'off',
     'react/style-prop-object': 'off',
     'react-native/no-inline-styles': 'off',
+    'react/react-in-jsx-scope': 'off',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
       'warn',
@@ -19,5 +20,12 @@ module.exports = {
     ],
     'prefer-const': 'error',
     'react/jsx-filename-extension': ['error', {extensions: ['.jsx']}],
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx'],
+      },
+    },
   },
 };

@@ -3,8 +3,8 @@ import {
   basketBox,
   styleFontSize13,
   styleFontSize15,
-} from '../../screens/panel/package/card/Style';
-import {getDevice} from '../../services/Utility';
+} from '../../screens/panel/package/card/style';
+import {getDevice} from '../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -12,29 +12,27 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../styles/Common';
-import {styles} from '../../styles/Common/Styles';
+} from '../../styles/CommonComponents';
+import {styles} from '../../styles/common/styles';
 import vars from '../../styles/root';
-
-import commonTranslator from '../../translator/Common';
-
+import commonTranslator from '../../translator/common';
 function Basket(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const [width, setWidth] = useState(
     isInPhone ? 'calc(100% - 20px)' : vars.BASKET_WIDTH_WITH_OPEN_MENU,
   );
-
   React.useEffect(() => {
     if (props.fullWidth === undefined) return;
     if (props.fullWidth) setWidth(vars.BASKET_WIDTH_WITH_CLOSE_MENU);
     else setWidth(vars.BASKET_WIDTH_WITH_OPEN_MENU);
   }, [props.fullWidth]);
-
   return (
     <CommonWebBox
       style={{
         ...basketBox,
-        ...{width: width},
+        ...{
+          width: width,
+        },
         marginBottom: '5px',
       }}>
       <EqualTwoTextInputs>
@@ -49,7 +47,10 @@ function Basket(props) {
               )}
             {props.disable && props.disableText && (
               <SimpleText
-                style={{...styles.marginTop10, ...styles.red}}
+                style={{
+                  ...styles.marginTop10,
+                  ...styles.red,
+                }}
                 text={props.disableText}
               />
             )}
@@ -140,5 +141,4 @@ function Basket(props) {
     </CommonWebBox>
   );
 }
-
 export default Basket;
