@@ -27,7 +27,7 @@ export const changePass = async (
 ) => {
   setLoading(true);
 
-  let res = await generalRequest(
+  const res = await generalRequest(
     userId !== undefined ? routes.changePass + userId : routes.changePass,
     'post',
     {
@@ -63,7 +63,7 @@ export const changeUsername = async (
 ) => {
   setLoading(true);
 
-  let res = await generalRequest(
+  const res = await generalRequest(
     userId !== undefined
       ? routes.updateUsername + userId
       : routes.updateUsername,
@@ -83,7 +83,7 @@ export const changeUsername = async (
 
 export const fetchAvatars = async (setLoading, token) => {
   setLoading(true);
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.fetchAllAvatars,
     'get',
     undefined,
@@ -102,9 +102,9 @@ export const updateUserPic = async (
   setUser,
 ) => {
   if (user === undefined || isAdmin) return;
-  let u = user;
+  const u = user;
   u.pic = newFilename;
-  let newUserModel = passedUser;
+  const newUserModel = passedUser;
   newUserModel.user = u;
   await setCacheItem('user', JSON.stringify(newUserModel));
   setUser(newUserModel);
@@ -125,7 +125,7 @@ export const updateInfo = async (setLoading, token, userId, data) => {
   setLoading(true);
 
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       userId !== undefined ? routes.updateInfo + userId : routes.updateInfo,
       'post',
       data,

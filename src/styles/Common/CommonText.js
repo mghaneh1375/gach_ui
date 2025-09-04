@@ -56,7 +56,7 @@ export const calcInputWidth = (padding, isHalf, style) => {
   }
 
   const isApp = Platform.OS !== 'web';
-  let width = getWidthHeight()[0];
+  const width = getWidthHeight()[0];
 
   style.minWidth = isApp
     ? '100%'

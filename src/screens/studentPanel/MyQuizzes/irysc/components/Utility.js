@@ -6,7 +6,7 @@ export const fetchMyQuizze = async (
   generalMode = undefined,
   status = undefined,
 ) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   if (generalMode !== undefined) query.append('generalMode', generalMode);
   if (status !== undefined) query.append('status', status);
 

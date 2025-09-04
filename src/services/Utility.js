@@ -54,7 +54,7 @@ export function convertSecToMinWithOutSecAndDay(sec) {
 
   const d = new Date(sec * 1000).toISOString();
 
-  let day = parseInt(d.substr(8, 2)) - 1;
+  const day = parseInt(d.substr(8, 2)) - 1;
 
   let h = d.substr(11, 2);
 
@@ -77,7 +77,7 @@ export function convertSecToMinWithOutSec2(sec) {
   if (sec < 0) return '';
 
   const d = new Date(sec * 1000).toISOString();
-  let day = parseInt(d.substr(8, 2)) - 1;
+  const day = parseInt(d.substr(8, 2)) - 1;
 
   let h = d.substr(11, 2);
 
@@ -158,6 +158,15 @@ export function convertTimestampToJustDate(unix_timestamp) {
 
 export function getToday() {
   return moment.unix(Date.now() / 1000).format('jYYYY/jMM/jDD');
+}
+
+export function getPast(pastInDays, jalali = true, delimeter = '/') {
+  const momentDate = moment.unix(
+    (Date.now() - pastInDays * 24 * 60 * 60 * 1000) / 1000,
+  );
+  return jalali
+    ? momentDate.format(`jYYYY${delimeter}jMM${delimeter}jDD`)
+    : momentDate;
 }
 
 export function getCurrTime() {
@@ -272,7 +281,7 @@ export const changeText = (text, setter) => {
 };
 
 export const addItem = (items, setItems, item) => {
-  let allItems = items;
+  const allItems = items;
   allItems.unshift(item);
   setItems(allItems);
 };
@@ -352,9 +361,9 @@ export const allTrueFalseValues = [
 export function formatPrice(Number) {
   Number += '';
   Number = Number.replace(',', '');
-  let x = Number.split('.');
+  const x = Number.split('.');
   let y = x[0];
-  let z = x.length > 1 ? '.' + x[1] : '';
+  const z = x.length > 1 ? '.' + x[1] : '';
   var rgx = /(\d+)(\d{3})/;
   while (rgx.test(y)) y = y.replace(rgx, '$1' + ',' + '$2');
   return y + z;
@@ -493,7 +502,7 @@ export const CKEditorToolbar = {
 };
 
 export const getFileType = file => {
-  let fileType = file.split('.').pop().toLowerCase();
+  const fileType = file.split('.').pop().toLowerCase();
 
   if (['png', 'jpeg', 'jpg', 'webp', 'svg'].indexOf(fileType) > -1) {
     return 'img';

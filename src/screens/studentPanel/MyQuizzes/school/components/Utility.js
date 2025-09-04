@@ -2,7 +2,7 @@ import {routes} from '../../../../../API/APIRoutes';
 import {generalRequest} from '../../../../../API/Utility';
 
 export const fetchMyQuizzes = async (token, advisor, status = undefined) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   query.append('forAdvisor', advisor);
   if (status !== undefined) query.append('status', status);
 

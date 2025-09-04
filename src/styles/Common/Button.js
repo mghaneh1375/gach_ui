@@ -1,8 +1,6 @@
-import vars from './../root';
 import {Platform, Pressable} from 'react-native';
 import styled from 'styled-components';
-import {getDevice} from '../../services/Utility';
-import {Device} from '../../models/Device';
+import vars from './../root';
 
 const style = {
   textAlign: 'center',
@@ -41,8 +39,6 @@ export const CommonButtonTextStyleAndroid = {
   color: vars.WHITE,
   fontSize: 20,
 };
-
-const device = getDevice();
 
 export const CommonButtonTextStyleWebPhone = {
   textAlign: 'center',

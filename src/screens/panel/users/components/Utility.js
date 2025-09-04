@@ -22,7 +22,7 @@ export const filter = async (
 ) => {
   console.log(from);
 
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   query.append('level', level);
   if (NID !== undefined && NID !== '') query.append('NID', NID);
   if (phone !== undefined && phone !== '') query.append('phone', phone);
@@ -83,7 +83,7 @@ export const addAccess = async (
   schoolId = undefined,
 ) => {
   setLoading(true);
-  let res = await generalRequest(
+  const res = await generalRequest(
     schoolId === undefined
       ? routes.addAccess + userId + '/' + newRole
       : routes.addAccess + userId + '/' + newRole + '/' + schoolId,
@@ -110,7 +110,7 @@ export const addAccess = async (
 
 export const toggleStatus = async (setLoading, token, userId, afterFunc) => {
   setLoading(true);
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.toggleStatus + userId,
     'put',
     undefined,
@@ -126,7 +126,7 @@ export const toggleStatus = async (setLoading, token, userId, afterFunc) => {
 
 export const login = async (setLoading, token, userId) => {
   setLoading(true);
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.adminLogin + userId,
     'post',
     undefined,
@@ -136,7 +136,7 @@ export const login = async (setLoading, token, userId) => {
   setLoading(false);
   if (res !== null) {
     await setCacheItem('token_sec', token);
-    let adminUser = await getUser();
+    const adminUser = await getUser();
     await setCacheItem('user_sec', adminUser);
     await setCacheItem('token', res.token);
     await setCacheItem('user', JSON.stringify(res.user));
@@ -146,7 +146,7 @@ export const login = async (setLoading, token, userId) => {
 };
 
 export const chargeAccount = async (coin, money, userId, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.chargeAccount + userId,
     'post',
     {
@@ -166,7 +166,7 @@ export const setPriority = async (
   userId,
   token,
 ) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.setDisplayPriority + userId,
     'put',
     {

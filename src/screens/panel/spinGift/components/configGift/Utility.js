@@ -12,7 +12,7 @@ export const getConfig = async token => {
   );
 };
 export const updateGift = async (data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.updateGiftConfig,
     'put',
     data,
@@ -31,13 +31,13 @@ export const getAllGift = async token => {
   );
 };
 export const addGift = async (data, token) => {
-  let res = await generalRequest(routes.addGift, 'post', data, 'data', token);
+  const res = await generalRequest(routes.addGift, 'post', data, 'data', token);
   if (res !== null) showSuccess();
 
   return res;
 };
 export const editGift = async (id, data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.editGift + id,
     'post',
     data,

@@ -10,9 +10,9 @@ export const logout = async (token, navigate) => {
 };
 
 export const removeAuthCache = async () => {
-  let secToken = await getToken('token_sec');
+  const secToken = await getToken('token_sec');
   if (secToken !== undefined) {
-    let secUser = await getUser('user_sec');
+    const secUser = await getUser('user_sec');
     if (secUser !== undefined) {
       await setCacheItem('token', secToken);
       await setCacheItem('user', secUser);
@@ -59,7 +59,7 @@ export const getUser = async (key = 'user') => {
 };
 
 export const fetchUser = async (token, callBack) => {
-  let result = await generalRequest(
+  const result = await generalRequest(
     routes.fetchUser,
     'get',
     undefined,

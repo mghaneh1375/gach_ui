@@ -7,10 +7,10 @@ export const getAll = async token => {
   return await generalRequest(routes.getFAQ, 'get', undefined, 'data', token);
 };
 
-let mandatoryFields = ['question', 'answer', 'visibility', 'priority'];
+const mandatoryFields = ['question', 'answer', 'visibility', 'priority'];
 
 export const store = async (data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.addFAQ,
     'post',
     data,
@@ -24,7 +24,7 @@ export const store = async (data, token) => {
 
 export const update = async (id, data, token) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       routes.updateFAQ + id,
       'put',
       data,
@@ -41,7 +41,7 @@ export const update = async (id, data, token) => {
 };
 
 export const remove = async (id, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.removeFAQ + id,
     'delete',
     undefined,

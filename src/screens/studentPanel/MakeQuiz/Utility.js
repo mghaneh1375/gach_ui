@@ -12,7 +12,7 @@ export const fetchAllFlags = async token => {
 };
 
 export const checkExistance = async (token, section, id, qNo, level) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
 
   if (section === 'subject') query.append('subjectId', id);
   else if (section === 'lesson') query.append('lessonId', id);
@@ -24,7 +24,7 @@ export const checkExistance = async (token, section, id, qNo, level) => {
 
   query.append('qNo', qNo);
 
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.checkAvailableQuestions + '?' + query.toString(),
     'post',
     undefined,
@@ -42,7 +42,7 @@ export const finalized = async (token, boxes, name) => {
     {
       name: name,
       filters: boxes.map(elem => {
-        let obj = {
+        const obj = {
           qNo: elem.count,
           level: elem.level,
         };

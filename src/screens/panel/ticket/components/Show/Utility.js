@@ -18,7 +18,7 @@ export const changeMode = (setMode, newMode) => {
 };
 
 export const addMsg = async (ticketId, token, msg) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.setAnswerTicket + ticketId,
     'put',
     {answer: msg},
@@ -33,10 +33,10 @@ export const addFile = async (token, fileContent, ticketId) => {
   return await fetch(fileContent.content)
     .then(res => res.blob())
     .then(async blob => {
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append('file', blob, fileContent.name);
 
-      let res = await fileRequest(
+      const res = await fileRequest(
         routes.addFileToTicket + ticketId,
         'put',
         formData,
@@ -64,7 +64,7 @@ export const sendMsg = (props, ticketId) => {
 };
 
 export const submit = async (data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.submitTicket,
     'post',
     data,
@@ -75,7 +75,7 @@ export const submit = async (data, token) => {
 };
 
 export const finalize = async (ticketId, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.sendTicket + ticketId,
     'post',
     undefined,

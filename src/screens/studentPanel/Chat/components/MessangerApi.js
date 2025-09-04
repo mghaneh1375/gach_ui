@@ -1,8 +1,8 @@
 import {generalRequest} from '../../../../API/Utility';
 
 export const GetMessengerTokenApi = async token => {
-  let res = await generalRequest(
-    `http://192.168.0.106:8088/api/getToken`,
+  const res = await generalRequest(
+    'http://192.168.0.106:8088/api/getToken',
     'get',
     undefined,
     ['token', 'reminder', 'heartBeatInterval', 'validityDuration'],
@@ -14,7 +14,7 @@ export const GetMessengerTokenApi = async token => {
 
 export const GetChatsApi = async socketToken => {
   return await generalRequest(
-    `http://192.168.0.106:8088/api/chats`,
+    'http://192.168.0.106:8088/api/chats',
     'get',
     undefined,
     'chats',
@@ -24,7 +24,7 @@ export const GetChatsApi = async socketToken => {
 
 export const GetStudentsMessengerApi = async socketToken => {
   return generalRequest(
-    `http://192.168.0.106:8088/api/getStudents`,
+    'http://192.168.0.106:8088/api/getStudents',
     'get',
     undefined,
     'students',
@@ -34,7 +34,7 @@ export const GetStudentsMessengerApi = async socketToken => {
 
 export const GetMyAdvisorsMessengerApi = async socketToken => {
   return generalRequest(
-    `http://192.168.0.106:8088/api/getMyAdvisors`,
+    'http://192.168.0.106:8088/api/getMyAdvisors',
     'get',
     undefined,
     'advisors',

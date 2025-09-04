@@ -5,7 +5,7 @@ import commonTranslator from '../../../translator/Common';
 
 export const removeGrade = async (setLoading, token, gradeId, afterFunc) => {
   setLoading(true);
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.removeGrades,
     'delete',
     {items: [gradeId]},
@@ -27,7 +27,7 @@ export const removeLesson = async (
   afterFunc,
 ) => {
   setLoading(true);
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.removeLessons + subMode,
     'delete',
     {items: [lessonId]},
@@ -48,7 +48,7 @@ export const removeSubject = async (
   afterFunc,
 ) => {
   setLoading(true);
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.removeSubjects,
     'delete',
     {items: [subjectId]},
@@ -63,7 +63,7 @@ export const removeSubject = async (
 };
 
 export const getGradesOnly = async (token, subMode) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     subMode === 'grade' ? routes.fetchGrades : routes.fetchBranches,
     'get',
     undefined,
@@ -73,7 +73,7 @@ export const getGradesOnly = async (token, subMode) => {
   return res;
 };
 export const getGradeLessons = async token => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.fetchGradeLessons,
     'get',
     undefined,
@@ -83,7 +83,7 @@ export const getGradeLessons = async token => {
   return res;
 };
 export const getGradeAndBranchesLessons = async token => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.fetchGradeLessonsInGradesAndBranches,
     'get',
     undefined,
@@ -103,7 +103,7 @@ export const getGrades = async token => {
 };
 
 export const getSubjects = async token => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.fetchSubjects,
     'get',
     undefined,
@@ -114,7 +114,7 @@ export const getSubjects = async token => {
 };
 
 export const getLessons = async (token, subMode) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     subMode === 'grade' ? routes.fetchLessonGrades : routes.fetchLessonBranch,
     'get',
     undefined,
@@ -125,7 +125,7 @@ export const getLessons = async (token, subMode) => {
 };
 
 export const editGrade = async (id, token, data, isOlympiadOld) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     isOlympiadOld ? routes.editBranch + id : routes.editGrade + id,
     'put',
     data,
@@ -138,7 +138,7 @@ export const editGrade = async (id, token, data, isOlympiadOld) => {
 };
 
 export const editLesson = async (subMode, id, gradeId, token, data) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.editLesson + subMode + '/' + gradeId + '/' + id,
     'put',
     data,
@@ -151,7 +151,7 @@ export const editLesson = async (subMode, id, gradeId, token, data) => {
 };
 
 export const createGrade = async (token, data, isOlympiad) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     isOlympiad === 'yes' ? routes.addBranch : routes.addGrade,
     'post',
     data,
@@ -162,7 +162,7 @@ export const createGrade = async (token, data, isOlympiad) => {
   return res;
 };
 export const createLesson = async (token, subMode, gradeId, data) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.addLesson + subMode + '/' + gradeId,
     'post',
     data,
@@ -172,7 +172,7 @@ export const createLesson = async (token, subMode, gradeId, data) => {
   if (res !== null) showSuccess(commonTranslator.success);
   return res;
 };
-let mandatoryFields = [
+const mandatoryFields = [
   'name',
   'easyPrice',
   'midPrice',
@@ -183,7 +183,7 @@ let mandatoryFields = [
 ];
 export const createSubject = async (token, gradeId, lessonId, data) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       routes.addSubject + gradeId + '/' + lessonId,
       'post',
       data,
@@ -200,7 +200,7 @@ export const createSubject = async (token, gradeId, lessonId, data) => {
 
 export const editSubject = async (id, token, data) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       routes.editSubject + id,
       'put',
       data,

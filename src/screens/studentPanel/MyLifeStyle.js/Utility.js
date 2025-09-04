@@ -46,7 +46,7 @@ export const fetchStudentSchedulesDigest = (
 };
 
 export const setMyExamInLifeStyle = async (data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.setMyExamInLifeStyle,
     'put',
     data,
@@ -58,7 +58,7 @@ export const setMyExamInLifeStyle = async (data, token) => {
 };
 
 export const addItemToDay = async (data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.addItemToMyLifeStyle,
     'put',
     data,
@@ -70,7 +70,7 @@ export const addItemToDay = async (data, token) => {
 };
 
 export const removeItemFromDay = async (data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.removeItemFromMyLifeStyle,
     'delete',
     data,

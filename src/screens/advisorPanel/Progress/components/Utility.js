@@ -7,7 +7,7 @@ export const getProgressData = (
   start = undefined,
   end = undefined,
 ) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
 
   if (start !== undefined) query.append('start', start);
   if (end !== undefined) query.append('end', end);

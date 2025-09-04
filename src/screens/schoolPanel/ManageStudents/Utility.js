@@ -15,7 +15,7 @@ export const getAllStudent = async (token, schoolId = undefined) => {
 };
 
 export const addStudents = async (data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.addStudents,
     'post',
     data,

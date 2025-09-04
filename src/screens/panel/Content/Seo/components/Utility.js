@@ -15,11 +15,11 @@ export const getAll = async (token, packageId = undefined) => {
   );
 };
 
-let mandatoryFields = ['key', 'value'];
+const mandatoryFields = ['key', 'value'];
 
 export const store = async (data, token, packageId = undefined) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       packageId == null || packageId === undefined
         ? routes.addSeo
         : routes.addSeo + packageId,
@@ -38,7 +38,7 @@ export const store = async (data, token, packageId = undefined) => {
 };
 
 export const remove = async (id, key, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.removeSeo + id,
     'delete',
     {

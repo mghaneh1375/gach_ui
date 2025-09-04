@@ -15,11 +15,11 @@ export const getAll = async (token, packageId = undefined) => {
   );
 };
 
-let mandatoryFields = ['question', 'answer', 'visibility', 'priority'];
+const mandatoryFields = ['question', 'answer', 'visibility', 'priority'];
 
 export const store = async (data, token, packageId = undefined) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       packageId == null || packageId === undefined
         ? routes.addFAQ
         : routes.addFAQ + '?contentId=' + packageId,
@@ -39,7 +39,7 @@ export const store = async (data, token, packageId = undefined) => {
 };
 export const update = async (id, data, token, packageId = undefined) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       packageId === undefined
         ? routes.updateFAQ + id
         : routes.updateFAQ + id + '?contentId=' + packageId,
@@ -58,7 +58,7 @@ export const update = async (id, data, token, packageId = undefined) => {
 };
 
 export const remove = async (id, token, packageId = undefined) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     packageId === undefined
       ? routes.removeFAQ + id
       : routes.removeFAQ + id + '?contentId=' + packageId,

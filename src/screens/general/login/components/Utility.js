@@ -3,7 +3,12 @@ import {generalRequest} from '../../../../API/Utility';
 import {showSuccess} from '../../../../services/Utility';
 
 export const getRoleForms = async () => {
-  let res = await generalRequest(routes.getRoleForms, 'get', undefined, 'data');
+  const res = await generalRequest(
+    routes.getRoleForms,
+    'get',
+    undefined,
+    'data',
+  );
   return res;
 };
 
@@ -16,7 +21,7 @@ export const checkSendRoleForm = async (
   userId = undefined,
 ) => {
   if (
-    userRoleFormData['role'] === 'student' &&
+    userRoleFormData.role === 'student' &&
     Object.keys(userRoleFormData).length === 1
   ) {
     if (redirectTo !== undefined) window.location.href = redirectTo;
@@ -35,7 +40,7 @@ export const checkSendRoleForm = async (
   ]).then(res => {
     setLoading(false);
     if (res[0] != null) {
-      if (userRoleFormData['role'] === 'student')
+      if (userRoleFormData.role === 'student')
         showSuccess('کد معرف به درستی ثبت گردید.');
       else
         showSuccess(

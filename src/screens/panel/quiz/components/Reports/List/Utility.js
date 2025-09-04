@@ -22,7 +22,7 @@ export const fetchSchoolReportLocal = async (
   }
 
   setLoading(true);
-  let res = await fetchSchoolReport(quiz.id, quiz.generalMode, token);
+  const res = await fetchSchoolReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
 
   if (res === null) return;
@@ -45,7 +45,7 @@ export const fetchStateReportLocal = async (
   }
 
   setLoading(true);
-  let res = await fetchStateReport(quiz.id, quiz.generalMode, token);
+  const res = await fetchStateReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
 
   if (res === null) return;
@@ -68,7 +68,7 @@ export const fetchCityReportLocal = async (
   }
 
   setLoading(true);
-  let res = await fetchCityReport(quiz.id, quiz.generalMode, token);
+  const res = await fetchCityReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
 
   if (res === null) return;
@@ -91,7 +91,7 @@ export const fetchKarnameReportLocal = async (
   }
 
   setLoading(true);
-  let res = await fetchKarnameReport(quiz.id, quiz.generalMode, token);
+  const res = await fetchKarnameReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
 
   if (res === null) return;
@@ -114,7 +114,7 @@ export const fetchGenderReportLocal = async (
   }
 
   setLoading(true);
-  let res = await fetchGenderReport(quiz.id, quiz.generalMode, token);
+  const res = await fetchGenderReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
 
   if (res === null) return;
@@ -137,7 +137,7 @@ export const fetchAuthorReportLocal = async (
   }
 
   setLoading(true);
-  let res = await fetchAuthorReport(quiz.id, quiz.generalMode, token);
+  const res = await fetchAuthorReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
 
   if (res === null) return;
@@ -160,7 +160,7 @@ export const fetchParticipantReportLocal = async (
   }
 
   setLoading(true);
-  let res = await fetchParticipantReport(quiz.id, quiz.generalMode, token);
+  const res = await fetchParticipantReport(quiz.id, quiz.generalMode, token);
   setLoading(false);
 
   if (res === null) return;
@@ -183,7 +183,7 @@ export const fetchA1ReportLocal = async (
   }
 
   setLoading(true);
-  let res = await fetchA1Report(quiz.id, quiz.generalMode, token);
+  const res = await fetchA1Report(quiz.id, quiz.generalMode, token);
   setLoading(false);
 
   if (res === null) return;

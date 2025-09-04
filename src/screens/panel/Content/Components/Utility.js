@@ -49,7 +49,7 @@ export const fetchContent = async (id, token = undefined) => {
   );
 };
 
-let mandatoryFields = [
+const mandatoryFields = [
   'title',
   'description',
   'teacher',
@@ -61,11 +61,11 @@ let mandatoryFields = [
   'priority',
 ];
 
-let mandatoryFieldsSession = ['title', 'priority', 'duration', 'visibility'];
+const mandatoryFieldsSession = ['title', 'priority', 'duration', 'visibility'];
 
 export const store = async (token, data) => {
   try {
-    let res = await videoGeneralRequest(
+    const res = await videoGeneralRequest(
       routes.storeContent,
       'post',
       data,
@@ -84,7 +84,7 @@ export const store = async (token, data) => {
 
 export const addSession = async (token, data, contentId) => {
   try {
-    let res = await videoGeneralRequest(
+    const res = await videoGeneralRequest(
       routes.addSessionToContent + contentId,
       'put',
       data,
@@ -107,7 +107,7 @@ export const copySession = async (
   copyContentId,
   copySessionId,
 ) => {
-  let res = await videoGeneralRequest(
+  const res = await videoGeneralRequest(
     routes.copySessionInContent + contentId,
     'put',
     {
@@ -124,7 +124,7 @@ export const copySession = async (
 
 export const update = async (token, data, id) => {
   try {
-    let res = await videoGeneralRequest(
+    const res = await videoGeneralRequest(
       routes.updateContent + id,
       'put',
       data,
@@ -143,7 +143,7 @@ export const update = async (token, data, id) => {
 
 export const updateSession = async (token, data, contentId, sessionId) => {
   try {
-    let res = await videoGeneralRequest(
+    const res = await videoGeneralRequest(
       routes.updateSessionContent + contentId + '/' + sessionId,
       'put',
       data,
@@ -161,7 +161,7 @@ export const updateSession = async (token, data, contentId, sessionId) => {
 };
 
 export const removeFile = async (token, contentId) => {
-  let res = await videoGeneralRequest(
+  const res = await videoGeneralRequest(
     routes.removeImgContent + contentId,
     'delete',
     undefined,
@@ -177,10 +177,10 @@ export const addFile = async (token, fileContent, contentId) => {
   return await fetch(fileContent.content)
     .then(res => res.blob())
     .then(async blob => {
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append('file', blob, fileContent.name);
 
-      let res = await videoFileRequest(
+      const res = await videoFileRequest(
         routes.setImgContent + contentId,
         formData,
         'url',
@@ -199,10 +199,10 @@ export const setSessionFile = async (
   return await fetch(fileContent.content)
     .then(res => res.blob())
     .then(async blob => {
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append('file', blob, fileContent.name);
 
-      let res = await videoFileRequest(
+      const res = await videoFileRequest(
         routes.addٰAttachToSession + contentId + '/' + sessionId,
         formData,
         'link',
@@ -219,14 +219,14 @@ export const removeSessionFile = async (
   mode,
   filename = undefined,
 ) => {
-  let base =
+  const base =
     mode === 'img'
       ? routes.removeSessionImgContent
       : mode === 'attach'
       ? routes.removeAttachFromSession
       : routes.removeVideoFromSession;
 
-  let res = await videoGeneralRequest(
+  const res = await videoGeneralRequest(
     filename == undefined
       ? base + contentId + '/' + sessionId
       : base + contentId + '/' + sessionId + '/' + filename,

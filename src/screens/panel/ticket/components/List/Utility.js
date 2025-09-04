@@ -5,7 +5,7 @@ import translator from '../../Translator';
 
 export const closeRequest = async (props, selectedId, toggleShowOpPopUp) => {
   props.setLoading(true);
-  let res = await Promise.all([
+  const res = await Promise.all([
     generalRequest(
       routes.closeTicketRequest,
       'post',
@@ -50,7 +50,7 @@ export const filter = (
   advisorId = undefined,
   studentId = undefined,
 ) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
 
   if (priority !== undefined && priority !== 'all') {
     query.append('priority', priority);

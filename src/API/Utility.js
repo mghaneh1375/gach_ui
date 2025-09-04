@@ -12,9 +12,9 @@ export const CV_BASE_URL = 'https://cv.irysc.com/api/';
 // export const VIDEO_BASE_URL = 'http://127.0.0.1:8086/video_api/';
 export const VIDEO_BASE_URL = 'https://video.irysc.com/video_api/';
 
-// export const BASE_URL = 'http://127.0.0.1:8080/api/';
+export const BASE_URL = 'http://127.0.0.1:8080/api/';
 // export const BASE_URL = 'https://dev.irysc.com/api/';
-export const BASE_URL = 'https://e.irysc.com/api/';
+// export const BASE_URL = 'https://e.irysc.com/api/';
 
 export const COMMON_HEADER = {
   'content-type': 'application/json',
@@ -82,7 +82,7 @@ export const generalRequest = async (
       throw 'preProccess err';
     }
   }
-  let res = await Axios({
+  const res = await Axios({
     url: url,
     method: method,
     baseURL: url.indexOf('https:') === -1 ? BASE_URL : '',
@@ -158,7 +158,7 @@ export const videoGeneralRequest = async (
       throw 'preProccess err';
     }
   }
-  let res = await Axios({
+  const res = await Axios({
     url: url,
     method: method,
     baseURL: VIDEO_BASE_URL,
@@ -216,7 +216,7 @@ export const downloadRequest = async (
       throw 'preProccess err';
     }
   }
-  let res = await Axios({
+  const res = await Axios({
     url: url,
     method: 'get',
     baseURL: BASE_URL,
@@ -255,7 +255,7 @@ export const fileRequestWithDownloadResponse = async (
   data,
   token = null,
 ) => {
-  let res = await Axios({
+  const res = await Axios({
     url: url,
     method: method,
     baseURL: BASE_URL,
@@ -307,7 +307,7 @@ export const fileRequest = async (
     }
   }
 
-  let res = await Axios({
+  const res = await Axios({
     url: url,
     method: method,
     baseURL: BASE_URL,
@@ -355,7 +355,7 @@ export const videoFileRequest = async (
   dataShouldReturnKey,
   token,
 ) => {
-  let res = await Axios({
+  const res = await Axios({
     url: url,
     method: 'put',
     baseURL: VIDEO_BASE_URL,
@@ -407,7 +407,7 @@ export const preProcess = (data, mandatoryFields = undefined) => {
     }
   }
 
-  let newData = {};
+  const newData = {};
 
   for (const [key, value] of Object.entries(data)) {
     if (value === undefined || value.length === 0) continue;

@@ -4,7 +4,7 @@ import {showSuccess} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../translator/Common';
 
 export const createAuthor = async (token, data) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.createAuthor,
     'post',
     data,
@@ -16,7 +16,7 @@ export const createAuthor = async (token, data) => {
 };
 
 export const editAuthor = async (token, authorId, data) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.editAuthor + authorId,
     'post',
     data,
@@ -29,7 +29,7 @@ export const editAuthor = async (token, authorId, data) => {
 
 export const filter = async (setLoading, token, setData, tag) => {
   setLoading(true);
-  let res = await generalRequest(
+  const res = await generalRequest(
     tag === undefined || tag.length === 0
       ? routes.getAllAuthors
       : routes.getAllAuthors + '?tag=' + tag,
@@ -57,7 +57,7 @@ export const getTransations = async (authorId, token) => {
 };
 
 export const createTransaction = async (authorId, data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.createAuthorTransaction + authorId,
     'post',
     data,
@@ -80,7 +80,7 @@ export const getLastTransaction = async (authorId, token) => {
 };
 export const removeAuthor = async (setLoading, token, authorId, afterFunc) => {
   setLoading(true);
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.removeAuthors,
     'delete',
     {items: [authorId]},

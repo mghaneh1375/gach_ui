@@ -82,7 +82,7 @@ export const store = async (
   attachFileContent,
   excelFileContent,
 ) => {
-  let formData = new FormData();
+  const formData = new FormData();
   let hasFile = false;
 
   if (attachFileContent !== null && attachFileContent !== undefined) {
@@ -104,7 +104,7 @@ export const store = async (
   }
 
   if (hasFile) {
-    let res = await fileRequest(
+    const res = await fileRequest(
       routes.storeNotif,
       'post',
       formData,
@@ -117,7 +117,7 @@ export const store = async (
     return res;
   }
 
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.storeNotif,
     'post',
     data,
@@ -129,7 +129,7 @@ export const store = async (
 };
 
 export const simpleStore = async (token, data) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.simpleStoreNotif,
     'post',
     data,

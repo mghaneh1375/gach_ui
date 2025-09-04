@@ -7,11 +7,11 @@ export const getAll = async token => {
 };
 
 export const store = async (file, data, token) => {
-  let formData = new FormData();
+  const formData = new FormData();
   var myblob = new Blob([new Uint8Array(file.content)]);
   formData.append('file', myblob, file.name);
 
-  let res = await fileRequest(
+  const res = await fileRequest(
     routes.addAdv,
     'post',
     formData,
@@ -24,7 +24,7 @@ export const store = async (file, data, token) => {
 };
 
 export const update = async (id, data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.updateAdv + id,
     'put',
     data,
@@ -36,7 +36,7 @@ export const update = async (id, data, token) => {
 };
 
 export const removeAd = async (id, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.removeAdv + id,
     'delete',
     undefined,

@@ -3,7 +3,7 @@ import {downloadRequest, generalRequest} from '../../../API/Utility';
 import {showSuccess} from '../../../services/Utility';
 
 export const addCertificate = async (data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.addCertificate,
     'post',
     data,
@@ -16,7 +16,7 @@ export const addCertificate = async (data, token) => {
 };
 
 export const editCertificate = async (id, data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.editCertificate + id,
     'post',
     data,
@@ -47,7 +47,7 @@ export const getCertificate = async (id, token) => {
   );
 };
 export const addUserToCert = async (data, id, nid, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.addUserToCert + id + '/' + nid,
     'put',
     data,
@@ -59,7 +59,7 @@ export const addUserToCert = async (data, id, nid, token) => {
   return res;
 };
 export const editUserInCert = async (data, id, nid, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.editUserInCert + id + '/' + nid,
     'put',
     data,
@@ -76,7 +76,7 @@ export const downloadCert = async (certId, NID) => {
 };
 
 export const verifyCert = async (certId, NID) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.verifyCert + certId + '/' + NID,
     'post',
     undefined,

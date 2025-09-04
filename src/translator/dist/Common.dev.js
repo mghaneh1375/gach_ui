@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
-exports['default'] = void 0;
+exports.default = void 0;
 var translator = {
   username: 'نام کاربری',
   password: 'رمزعبور',
@@ -192,4 +192,4 @@ var translator = {
   successTransaction: 'تراکنش موردنظر با موفقیت انجام شد.',
 };
 var _default = translator;
-exports['default'] = _default;
+exports.default = _default;

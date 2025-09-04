@@ -18,7 +18,7 @@ export const getQuizzes = async (
   kindQuiz = undefined,
   generalQuizMode = undefined,
 ) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
   if (kindQuiz !== undefined && kindQuiz !== 'all')
     query.append('kind', kindQuiz);
@@ -47,7 +47,7 @@ export const getQuizzes = async (
 };
 
 export const getOnlineStandingQuizzes = async (token, name = undefined) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
 
   return await generalRequest(
@@ -60,7 +60,7 @@ export const getOnlineStandingQuizzes = async (token, name = undefined) => {
 };
 
 export const getEscapeQuizzes = async (token, name = undefined) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
 
   return await generalRequest(
@@ -73,7 +73,7 @@ export const getEscapeQuizzes = async (token, name = undefined) => {
 };
 
 export const getOpenQuizzes = async (token, name = undefined) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
 
   return await generalRequest(
@@ -86,7 +86,7 @@ export const getOpenQuizzes = async (token, name = undefined) => {
 };
 
 export const getContentQuizzes = async (token, name = undefined) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   if (name !== undefined && name !== '') query.append('name', name);
 
   return await generalRequest(
@@ -109,7 +109,7 @@ export const getQuiz = async (quizId, quizMode, token) => {
 };
 
 export const removeQuiz = async (generalMode, quizId, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     generalMode === 'irysc'
       ? routes.removeIRYSCQuiz + quizId
       : routes.removeSchoolQuiz + quizId,
@@ -164,7 +164,7 @@ export const resetStudentQuizEntryTime = async (
   studentId,
   token,
 ) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.resetStudentQuizEntryTime +
       quizMode +
       '/' +
@@ -311,7 +311,7 @@ export const getGradesAndBranches = async (token, quizId) => {
 };
 
 export const setPDFQuestions = async (quizId, token, count, file) => {
-  let formData = undefined;
+  let formData;
   if (file !== null && file !== undefined) {
     formData = new FormData();
     var myblob = new Blob([new Uint8Array(file.content)]);
@@ -327,10 +327,7 @@ export const setPDFQuestions = async (quizId, token, count, file) => {
 };
 
 export const setPDFSubjects = async (quizId, token, file) => {
-  let formData = undefined;
-
-  formData = new FormData();
-
+  const formData = new FormData();
   var myblob = new Blob([new Uint8Array(file.content)]);
   formData.append('file', myblob, file.name);
 
@@ -462,7 +459,7 @@ export const correct = async (quizId, generalMode, userId, token) => {
 };
 
 export const createTaraz = async (quizId, generalMode, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.createTaraz + generalMode + '/' + quizId,
     'put',
     undefined,
@@ -474,7 +471,7 @@ export const createTaraz = async (quizId, generalMode, token) => {
 };
 
 export const transferToOpenQuiz = async (quizId, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.transferToOpenQuiz + quizId,
     'post',
     undefined,
@@ -492,7 +489,7 @@ export const updateStudentAnswers = async (
   data,
   token,
 ) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.storeAnswers + quizGeneralMode + '/' + quizId + '/' + studentId,
     'put',
     data,
@@ -522,7 +519,7 @@ export const fetchStudentAnswerSheet = async (
 };
 
 export const addCorrector = async (NID, quizId, quizMode, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.addCorrector + quizMode + '/' + quizId + '/' + NID,
     'post',
     undefined,
@@ -559,7 +556,7 @@ export const changeQuestionsArrangeInQuiz = async (
   data,
   token,
 ) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.changeArrangeQuestions + generalMode + '/' + quizId,
     'put',
     data,
@@ -571,7 +568,7 @@ export const changeQuestionsArrangeInQuiz = async (
 };
 
 export const finalizeQuizResult = async (quizId, quizMode, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.finalizeQuizResult + quizMode + '/' + quizId,
     'post',
     undefined,
@@ -586,10 +583,10 @@ export const addFile = async (token, fileContent, quizId, quizMode) => {
   return await fetch(fileContent.content)
     .then(res => res.blob())
     .then(async blob => {
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append('file', blob, fileContent.name);
 
-      let res = await fileRequest(
+      const res = await fileRequest(
         routes.addFileToQuiz + quizMode + '/' + quizId,
         'put',
         formData,
@@ -606,10 +603,10 @@ export const removeFile = async (
   quizId,
   quizGeneralMode = undefined,
 ) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   query.append('attach', filename);
 
-  let res = await generalRequest(
+  const res = await generalRequest(
     quizGeneralMode === undefined
       ? routes.removeFileToQuiz + 'irysc/' + quizId + '?' + query.toString()
       : routes.removeFileToQuiz +

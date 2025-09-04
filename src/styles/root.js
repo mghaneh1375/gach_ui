@@ -1,7 +1,7 @@
 import {Platform} from 'react-native';
 import {getWidthHeight} from './../services/Utility';
 
-let width = getWidthHeight()[0];
+const width = getWidthHeight()[0];
 
 const vars = {
   RIGHT_MENU_WIDTH: width > 1500 ? 250 : 200,

@@ -1,13 +1,13 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
-var _reactNative = require("react-native");
+var _reactNative = require('react-native');
 
-var _Utility = require("./../services/Utility");
+var _Utility = require('./../services/Utility');
 
 var width = (0, _Utility.getWidthHeight)()[0];
 var vars = {
@@ -29,7 +29,7 @@ var vars = {
   alignSelf: _reactNative.Platform.OS === 'web' ? 'flex-start' : 'flex-end',
   alignSelfRev: _reactNative.Platform.OS === 'web' ? 'flex-end' : 'flex-start',
   flexDirection: _reactNative.Platform.OS === 'web' ? 'row' : 'row-reverse',
-  flexDirectionRev: _reactNative.Platform.OS === 'web' ? 'row-reverse' : 'row'
+  flexDirectionRev: _reactNative.Platform.OS === 'web' ? 'row-reverse' : 'row',
 };
 var _default = vars;
-exports["default"] = _default;
+exports.default = _default;

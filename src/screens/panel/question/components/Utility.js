@@ -23,7 +23,7 @@ export const filter = async (
   justCriticals,
   isQuestionsNeeded = false,
 ) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
 
   if (grade !== undefined && lesson === undefined)
     query.append('gradeId', grade);
@@ -119,7 +119,7 @@ export const addQuestion = async (
   answerFile,
   token,
 ) => {
-  let formData = new FormData();
+  const formData = new FormData();
 
   var myblob = new Blob([new Uint8Array(questionFile.content)]);
   formData.append('questionFile', myblob, questionFile.name);
@@ -130,7 +130,7 @@ export const addQuestion = async (
   }
 
   try {
-    let res = await fileRequest(
+    const res = await fileRequest(
       routes.addQuestion + subjectId,
       'post',
       formData,
@@ -162,7 +162,7 @@ export const editQuestion = async (
   answerFile,
   token,
 ) => {
-  let formData = new FormData();
+  const formData = new FormData();
 
   if (questionFile !== undefined) {
     var myblob = new Blob([new Uint8Array(questionFile.content)]);
@@ -175,7 +175,7 @@ export const editQuestion = async (
   }
 
   try {
-    let res = await fileRequest(
+    const res = await fileRequest(
       routes.editQuestion + questionId,
       'post',
       formData,

@@ -1,4 +1,3 @@
-import {generalUpdate} from '../../../../services/Utility';
 import translator from '../Translator';
 import commonTranslator from '../../../../translator/Common';
 import {generalRequest} from '../../../../API/Utility';
@@ -75,7 +74,7 @@ export const filter = (
   usedAt,
   usedAtEndLimit,
 ) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
 
   if (type !== undefined && type !== 'all') query.append('type', type);
 

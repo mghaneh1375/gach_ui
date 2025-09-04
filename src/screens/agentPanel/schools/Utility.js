@@ -14,7 +14,7 @@ export const getAllAgent = async token => {
 
 export const addSchool = async (data, token) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       routes.addSchoolByAgent,
       'post',
       data,
@@ -32,7 +32,7 @@ export const addSchool = async (data, token) => {
 
 export const addExistSchool = async (data, token) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       routes.addExistSchoolByAgent,
       'post',
       data,

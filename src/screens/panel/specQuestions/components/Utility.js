@@ -4,7 +4,7 @@ import {showSuccess} from '../../../../services/Utility';
 import commonTranslator from '../../../../translator/Common';
 
 export const filter = async (token, organizationCode) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
 
   if (organizationCode !== undefined)
     query.append('organizationCode', organizationCode);
@@ -45,7 +45,7 @@ export const removeQuestion = async (questionId, token) => {
 };
 
 export const addQuestion = async (data, questionFile, answerFile, token) => {
-  let formData = new FormData();
+  const formData = new FormData();
 
   var myblob = new Blob([new Uint8Array(questionFile.content)]);
   formData.append('questionFile', myblob, questionFile.name);
@@ -56,7 +56,7 @@ export const addQuestion = async (data, questionFile, answerFile, token) => {
   }
 
   try {
-    let res = await fileRequest(
+    const res = await fileRequest(
       routes.addEscapeQuizQuestion,
       'post',
       formData,
@@ -81,7 +81,7 @@ export const editQuestion = async (
   answerFile,
   token,
 ) => {
-  let formData = new FormData();
+  const formData = new FormData();
 
   if (questionFile !== undefined) {
     var myblob = new Blob([new Uint8Array(questionFile.content)]);
@@ -94,7 +94,7 @@ export const editQuestion = async (
   }
 
   try {
-    let res = await fileRequest(
+    const res = await fileRequest(
       routes.editEscapeQuizQuestion + questionId,
       'post',
       formData,

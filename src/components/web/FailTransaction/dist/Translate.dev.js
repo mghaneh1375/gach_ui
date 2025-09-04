@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
-exports['default'] = void 0;
+exports.default = void 0;
 var Translate = {
   backSuccessTransaction: 'بازگشت از درگاه',
   failPay: 'پرداخت ناموفق بود.',
@@ -16,4 +16,4 @@ var Translate = {
   problem: 'مشکل موقتی در سایت و یا درگاه پرداخت به وجود آمده است.',
 };
 var _default = Translate;
-exports['default'] = _default;
+exports.default = _default;

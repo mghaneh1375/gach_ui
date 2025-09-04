@@ -45,7 +45,7 @@ const mandatoryFields = [
 
 export const editPackage = async (id, token, data) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       routes.updatePackage + id,
       'put',
       data,
@@ -63,7 +63,7 @@ export const editPackage = async (id, token, data) => {
 
 export const createPackage = async (token, data) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       routes.createPackage,
       'post',
       data,

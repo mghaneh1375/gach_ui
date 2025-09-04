@@ -75,7 +75,7 @@ export const fetchSchedule = (
 };
 
 export const addItemToSchedule = async (token, userId, data) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.addItemToSchedule + userId,
     'put',
     data,
@@ -90,7 +90,7 @@ export const addItemToSchedule = async (token, userId, data) => {
 };
 
 export const updateScheduleItem = async (token, userId, data) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.updateScheduleItem + userId,
     'put',
     data,
@@ -103,7 +103,7 @@ export const updateScheduleItem = async (token, userId, data) => {
 };
 
 export const getLessons = (gradeId, isOlympiad) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   query.append('parentId', gradeId);
 
   if (isOlympiad) query.append('searchInBranches', true);
@@ -117,7 +117,7 @@ export const getLessons = (gradeId, isOlympiad) => {
 };
 
 export const removeItemFromSchedule = async (token, userId, id) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.removeItemFromSchedule + userId + '/' + id,
     'delete',
     undefined,
@@ -129,7 +129,7 @@ export const removeItemFromSchedule = async (token, userId, id) => {
 };
 
 export const setDoneInSchedule = async (token, id, itemId, data) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.setDoneInSchedule + id + '/' + itemId,
     'post',
     data,
@@ -141,7 +141,7 @@ export const setDoneInSchedule = async (token, id, itemId, data) => {
 };
 
 export const removeSchedule = async (token, id) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.removeSchedule + id,
     'delete',
     undefined,

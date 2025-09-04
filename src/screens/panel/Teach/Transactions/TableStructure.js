@@ -1,4 +1,3 @@
-import commonTranslator from '../../../../translator/Common';
 import {formatPrice} from '../../../../services/Utility';
 import Translator from '../../../advisorPanel/Teach/Schedule/components/Translator';
 

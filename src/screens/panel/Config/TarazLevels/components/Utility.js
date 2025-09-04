@@ -13,7 +13,7 @@ export const fetchData = async token => {
 };
 
 export const create = async (data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.createTarazLevel,
     'post',
     data,
@@ -27,7 +27,7 @@ export const create = async (data, token) => {
 };
 
 export const update = async (id, data, token) => {
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.updateTarazLevel + id,
     'put',
     data,

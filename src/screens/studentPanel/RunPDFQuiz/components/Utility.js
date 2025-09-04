@@ -33,11 +33,11 @@ export const doUploadAnswer = async (
   filesContent,
   token,
 ) => {
-  let data = new FormData();
+  const data = new FormData();
   var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
   data.append('file', myblob, filesContent[0].name);
 
-  let res = await fileRequest(
+  const res = await fileRequest(
     routes.uploadStudentAnswers +
       generalQuizMode +
       '/' +
@@ -59,11 +59,11 @@ export const doUploadAnswerSheet = async (
   filesContent,
   token,
 ) => {
-  let data = new FormData();
+  const data = new FormData();
   var myblob = new Blob([new Uint8Array(filesContent[0].content)]);
   data.append('file', myblob, filesContent[0].name);
 
-  let res = await fileRequest(
+  const res = await fileRequest(
     CV_BASE_URL + 'uploadAnswersSheet/' + generalQuizMode + '/' + quizId,
     'put',
     data,

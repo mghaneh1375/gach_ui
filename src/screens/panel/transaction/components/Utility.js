@@ -9,7 +9,7 @@ export const getTransactions = async (
   useOffCode,
   section,
 ) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
   if (userId !== undefined) query.append('userId', userId);
   if (from !== undefined) query.append('from', from);
   if (to !== undefined) query.append('to', to);

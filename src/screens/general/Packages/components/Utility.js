@@ -52,7 +52,7 @@ export const filter = async (
   token,
   level = undefined,
 ) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
 
   if (tag !== undefined && tag !== 'all') query.append('tag', tag);
 

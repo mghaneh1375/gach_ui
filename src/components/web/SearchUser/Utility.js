@@ -2,7 +2,7 @@ import {routes} from '../../../API/APIRoutes';
 import {generalRequest} from '../../../API/Utility';
 
 export const search = async (token, mode, name, lastName, phone, mail, NID) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
 
   if (mode === 'name') {
     if (name !== undefined) query.append('name', name);

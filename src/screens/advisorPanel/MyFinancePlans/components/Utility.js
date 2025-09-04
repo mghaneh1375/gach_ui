@@ -6,7 +6,7 @@ const mandatoryFields = ['price', 'title', 'videoCalls', 'visibility'];
 
 export const createNewOffer = async (token, data) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       routes.createNewOffer,
       'post',
       data,
@@ -24,7 +24,7 @@ export const createNewOffer = async (token, data) => {
 
 export const updateOffer = async (token, id, data) => {
   try {
-    let res = await generalRequest(
+    const res = await generalRequest(
       routes.updateOffer + id,
       'put',
       data,

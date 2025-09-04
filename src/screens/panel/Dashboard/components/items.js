@@ -1,0 +1,54 @@
+import {
+  faBook,
+  faClock,
+  faCode,
+  faComment,
+  faLevelUp,
+  faMoneyBills,
+  faMoneyCheck,
+  faRegistered,
+  faTicket,
+  faVideo,
+} from '@fortawesome/free-solid-svg-icons';
+import {getPast} from '../../../../services/Utility';
+
+const itemsIcon = {
+  pendingChunks: faVideo,
+  pendingTickets: faTicket,
+  pendingSettleRequests: faMoneyCheck,
+  pendingRequestForAdvisorAnswer: faClock,
+  pendingRequestForStudentPay: faMoneyBills,
+  lastMonthKarbargs: faBook,
+  lastMonthMeetings: faMoneyCheck,
+  lastMonthSettled: faMoneyCheck,
+  pendingUpgradeLevelRequests: faLevelUp,
+  lastMonthCustomQuizRegistry: faRegistered,
+  lastMonthOpenQuizRegistry: faRegistered,
+  lastMonthTutorialCount: faCode,
+  lastMonthContentBuyCount: faLevelUp,
+  lastMonthAdviceMeetings: faBook,
+  lastMonthTeachReportsCount: faBook,
+  pendingComments: faComment,
+};
+
+const itemsUrl = {
+  pendingChunks: undefined,
+  pendingTickets: '/ticket?status=pending',
+  pendingSettleRequests: '/settlementRequests?status=pending',
+  pendingRequestForAdvisorAnswer: undefined,
+  pendingRequestForStudentPay: undefined,
+  lastMonthKarbargs: undefined,
+  lastMonthMeetings: undefined,
+  lastMonthSettled:
+    '/settlementRequests?status=paid&from=' + getPast(30, false),
+  pendingUpgradeLevelRequests: '/ticket?section=upgradelevel&status=pending',
+  lastMonthCustomQuizRegistry: undefined,
+  lastMonthOpenQuizRegistry: undefined,
+  lastMonthTutorialCount: undefined,
+  lastMonthContentBuyCount: undefined,
+  lastMonthAdviceMeetings: undefined,
+  lastMonthTeachReportsCount: '/admin/teach/reports',
+  pendingComments: '/all-comments',
+};
+
+export {itemsIcon, itemsUrl};

@@ -84,7 +84,7 @@ function _iterableToArrayLimit(arr, i) {
     _e = err;
   } finally {
     try {
-      if (!_n && _i['return'] != null) _i['return']();
+      if (!_n && _i.return != null) _i.return();
     } finally {
       if (_d) throw _e;
     }
@@ -185,13 +185,13 @@ var generalRequest = function generalRequest(
 
           case 7:
             _context.prev = 7;
-            _context.t0 = _context['catch'](3);
+            _context.t0 = _context.catch(3);
             throw 'preProccess err';
 
           case 10:
             _context.next = 12;
             return regeneratorRuntime.awrap(
-              (0, _axios['default'])({
+              (0, _axios.default)({
                 url: url,
                 method: method,
                 baseURL: BASE_URL,
@@ -229,8 +229,8 @@ var generalRequest = function generalRequest(
                     return data[dataShouldReturnKey];
                   }
                 })
-                ['catch'](function (error) {
-                  (0, _Utility.showError)(_Common['default'].opErr);
+                .catch(function (error) {
+                  (0, _Utility.showError)(_Common.default.opErr);
                   return null;
                 }),
             );
@@ -282,13 +282,13 @@ var downloadRequest = function downloadRequest(url, data) {
 
           case 7:
             _context3.prev = 7;
-            _context3.t0 = _context3['catch'](3);
+            _context3.t0 = _context3.catch(3);
             throw 'preProccess err';
 
           case 10:
             _context3.next = 12;
             return regeneratorRuntime.awrap(
-              (0, _axios['default'])({
+              (0, _axios.default)({
                 url: url,
                 method: 'get',
                 baseURL: BASE_URL,
@@ -331,9 +331,9 @@ var downloadRequest = function downloadRequest(url, data) {
                     }
                   });
                 })
-                ['catch'](function (error) {
+                .catch(function (error) {
                   console.log(error);
-                  (0, _Utility.showError)(_Common['default'].opErr);
+                  (0, _Utility.showError)(_Common.default.opErr);
                   return null;
                 }),
             );
@@ -392,13 +392,13 @@ var fileRequest = function fileRequest(url, method, data, dataShouldReturnKey) {
 
           case 9:
             _context4.prev = 9;
-            _context4.t0 = _context4['catch'](4);
+            _context4.t0 = _context4.catch(4);
             throw 'preProccess err';
 
           case 12:
             _context4.next = 14;
             return regeneratorRuntime.awrap(
-              (0, _axios['default'])({
+              (0, _axios.default)({
                 url: url,
                 method: method,
                 baseURL: BASE_URL,
@@ -434,9 +434,9 @@ var fileRequest = function fileRequest(url, method, data, dataShouldReturnKey) {
                     return data[dataShouldReturnKey];
                   }
                 })
-                ['catch'](function (error) {
+                .catch(function (error) {
                   console.log(error);
-                  (0, _Utility.showError)(_Common['default'].opErr);
+                  (0, _Utility.showError)(_Common.default.opErr);
                   return null;
                 }),
             );
@@ -470,7 +470,7 @@ var preProcess = function preProcess(data) {
       var element = mandatoryFields[i];
 
       if (data[element] === undefined || data[element].length === 0) {
-        (0, _Utility.showError)(_Common['default'].pleaseFillAllFields);
+        (0, _Utility.showError)(_Common.default.pleaseFillAllFields);
         throw 'please fill all mandatory fields';
       }
     }

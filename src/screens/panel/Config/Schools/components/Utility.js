@@ -4,7 +4,7 @@ import {showSuccess} from '../../../../../services/Utility';
 import commonTranslator from '../../../../../translator/Common';
 
 export const filter = async (token, kind, grade, state, city, hasUser) => {
-  let query = new URLSearchParams();
+  const query = new URLSearchParams();
 
   if (kind !== undefined && kind !== 'all') query.append('kind', kind);
 
@@ -17,7 +17,7 @@ export const filter = async (token, kind, grade, state, city, hasUser) => {
   if (hasUser !== undefined && hasUser !== 'all')
     query.append('hasUser', hasUser);
 
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.fetchSchools + '?' + query.toString(),
     'get',
     undefined,
@@ -33,7 +33,7 @@ export const filter = async (token, kind, grade, state, city, hasUser) => {
 const mandatoryFields = ['name', 'cityId', 'grade', 'kind'];
 
 export const create = async (data, setLoading, token, afterAdd) => {
-  let postData = data;
+  const postData = data;
   if (postData.city !== undefined) {
     postData.cityId = postData.city.id;
     postData.city = undefined;
@@ -41,7 +41,7 @@ export const create = async (data, setLoading, token, afterAdd) => {
 
   setLoading(true);
 
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.addSchool,
     'post',
     data,

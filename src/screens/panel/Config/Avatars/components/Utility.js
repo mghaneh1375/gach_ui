@@ -6,7 +6,7 @@ import commonTranslator from '../../../../../translator/Common';
 export const setAsDefault = async (avatarId, setLoading, token, setDefault) => {
   setLoading(true);
 
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.setAvatarAsDefault + avatarId,
     'post',
     undefined,
@@ -30,7 +30,7 @@ export const remove = async (
 ) => {
   setLoading(true);
 
-  let res = await generalRequest(
+  const res = await generalRequest(
     routes.deleteAvatar + avatarId,
     'delete',
     undefined,
