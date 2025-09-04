@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import Create from './components/create/Create';
-import Detail from './components/detail/Detail';
-import {QuestionProvider} from './components/detail/Context';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import Create from './components/create/Create.jsx';
+import Detail from './components/detail/Detail.jsx';
+import {QuestionProvider} from './components/detail/Context.jsx';
 import {MyView} from '@/styles';
 const SpecQuestion = () => {
   const [mode, setMode] = useState('detail');

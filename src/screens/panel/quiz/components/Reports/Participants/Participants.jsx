@@ -1,5 +1,5 @@
 import {CommonWebBox} from '@/styles';
-import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable.jsx';
 import columns from './tableStructure';
 function Participants(props) {
   return (

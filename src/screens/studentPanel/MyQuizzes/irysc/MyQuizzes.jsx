@@ -1,15 +1,15 @@
-import List from './components/List';
-import {dispatchStateContext} from '@/App';
+import List from './components/List.jsx';
+import {dispatchStateContext} from '@/App.jsx';
 import React, {useState} from 'react';
-import {QuizProvider} from '../../../panel/quiz/components/Context';
-import Ranking from '../../../panel/quiz/components/reports/ranking/Ranking';
-import Recp from '../../../../components/web/Recp';
-import Karname from '../../../panel/quiz/components/reports/karname/Karname';
-import ParticipantReport from '../../../panel/quiz/components/reports/participant/ParticipantReport';
-import ReportList from '../../../panel/quiz/components/reports/list/List';
+import {QuizProvider} from '../../../panel/quiz/components/Context.jsx';
+import Ranking from '../../../panel/quiz/components/reports/ranking/Ranking.jsx';
+import Recp from '../../../../components/web/Recp.jsx';
+import Karname from '../../../panel/quiz/components/reports/karname/Karname.jsx';
+import ParticipantReport from '../../../panel/quiz/components/reports/participant/ParticipantReport.jsx';
+import ReportList from '../../../panel/quiz/components/reports/list/List.jsx';
 import {useParams} from 'react-router';
-import AnswerSheet from './components/AnswerSheet';
-import Team from './components/Team';
+import AnswerSheet from './components/AnswerSheet.jsx';
+import Team from './components/Team.jsx';
 function MyQuizzes(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();

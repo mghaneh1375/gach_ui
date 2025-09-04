@@ -3,8 +3,8 @@ import React from 'react';
 import {Device} from '../../../../../models/device';
 import {getDevice} from '@/services/utility';
 import {MyView} from '@/styles';
-import {MenuItem, style} from '../Style';
-import MenuItemRepeat from './MenuItemRepeat';
+import {MenuItem, style} from '../Style.jsx';
+import MenuItemRepeat from './MenuItemRepeat.jsx';
 function Teacher(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;

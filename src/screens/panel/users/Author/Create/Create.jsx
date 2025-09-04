@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import Translate from '../translator';
 import commonTranslate from '../../../../../translator/common';
 import {createAuthor, editAuthor} from '../list/utility';

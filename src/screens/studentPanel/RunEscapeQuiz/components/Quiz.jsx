@@ -1,8 +1,8 @@
 import React from 'react';
 import {CommonButton, MyView, SimpleText} from '@/styles';
-import Question from './Question';
-import {dispatchDoQuizContext, doQuizContext} from './Context';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import Question from './Question.jsx';
+import {dispatchDoQuizContext, doQuizContext} from './Context.jsx';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 import {getDevice} from '../../../../services/utility';
 function Quiz(props) {
   const useGlobalState = () => [

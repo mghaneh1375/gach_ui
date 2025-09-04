@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {MyView, PhoneView, SimpleText} from '@/styles';
 import {fetchMyHWs} from './utility';
-import ProgressCard from '../../../myOffs/progressCard/ProgressCard';
+import ProgressCard from '../../../myOffs/progressCard/ProgressCard.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import Card from './Card';
+import Card from './Card.jsx';
 function List(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [quizzes, setQuizzes] = useState();

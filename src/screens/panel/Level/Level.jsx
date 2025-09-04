@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {LevelProvider} from './components/Context';
-import Create from './components/Create';
-import List from './components/List';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {LevelProvider} from './components/Context.jsx';
+import Create from './components/Create.jsx';
+import List from './components/List.jsx';
 function Level(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
-} from './../../myQuizzes/components/Context';
+} from './../../myQuizzes/components/Context.jsx';
 import {useFilePicker} from 'use-file-picker';
 import {routes} from '@/api/apiRoutes';
 import {CallAPI} from '../../../panel/quiz/components/create/callAPI';
@@ -16,15 +16,15 @@ import {
 } from '@/styles';
 import translator from '../../../panel/quiz/translator';
 import commonTranslator from '@/translator/common';
-import QuizAnswerSheetInfo from '../../../panel/quiz/components/create/QuizAnswerSheetInfo';
+import QuizAnswerSheetInfo from '../../../panel/quiz/components/create/QuizAnswerSheetInfo.jsx';
 import {
   answerTypes,
   showSuccess,
   trueFalseValues,
 } from '../../../../services/utility';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import hwTranslator from './translator';
 const Create = props => {
   const useGlobalState = () => [

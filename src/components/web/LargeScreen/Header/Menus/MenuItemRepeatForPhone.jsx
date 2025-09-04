@@ -13,8 +13,8 @@ import {
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import translator from '../../../../../translator/common';
-import {MenuItemPhone} from '../Style';
-import {SuperMenuItem} from './SuperMenuItem';
+import {MenuItemPhone} from '../Style.jsx';
+import {SuperMenuItem} from './SuperMenuItem.jsx';
 function MenuItemRepeatForPhone(props) {
   const navigate = props.navigate;
   return (

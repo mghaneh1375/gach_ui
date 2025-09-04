@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {CommonButton, PhoneView, MyView, SimpleText} from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
 import {
@@ -16,8 +16,8 @@ import {
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import {styles} from '@/styles/common/styles';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
 const Filter = props => {
   const [used, setUsed] = useState();
   const [type, setType] = useState();

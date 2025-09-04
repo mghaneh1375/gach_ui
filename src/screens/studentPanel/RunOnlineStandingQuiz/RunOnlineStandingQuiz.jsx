@@ -7,15 +7,15 @@ import {
   MyView,
   PhoneView,
 } from '../../../styles/CommonComponents.jsx';
-import Splash from './components/Splash';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {DoQuizProvider} from './components/Context';
-import Quiz from './components/Quiz';
-import Filter from './components/Filter';
+import Splash from './components/Splash.jsx';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {DoQuizProvider} from './components/Context.jsx';
+import Quiz from './components/Quiz.jsx';
+import Filter from './components/Filter.jsx';
 import vars from '../../../styles/root';
 import {useEffectOnce} from 'usehooks-ts';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {FontIcon} from '../../../styles/common/FontIcon';
+import {FontIcon} from '../../../styles/common/FontIcon.jsx';
 import {Image} from 'react-native';
 import {
   getDevice,
@@ -23,13 +23,13 @@ import {
   showError,
   showSuccess,
 } from '../../../services/utility';
-import PhoneFilter from './components/PhoneFilter';
-import {LargePopUp} from '../../../styles/common/PopUp';
+import PhoneFilter from './components/PhoneFilter.jsx';
+import {LargePopUp} from '../../../styles/common/PopUp.jsx';
 import commonTranslator from '../../../translator/common';
 import {generalRequest} from '../../../api/utility';
 import {routes} from '@/api/apiRoutes';
 import {styles} from '../../../styles/common/styles';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
 function RunOnlineStandingQuiz(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

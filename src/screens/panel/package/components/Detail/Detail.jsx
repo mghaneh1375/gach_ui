@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {MyView} from '@/styles';
 import {fetchPackageQuizzes} from '../utility';
-import Add from './Add';
-import Info from './Info';
-import List from './List';
-import {dispatchQuizzesContext, quizzesContext} from './Utility';
-import AddOpenQuiz from './AddOpenQuiz';
+import Add from './Add.jsx';
+import Info from './Info.jsx';
+import List from './List.jsx';
+import {dispatchQuizzesContext, quizzesContext} from './Utility.jsx';
+import AddOpenQuiz from './AddOpenQuiz.jsx';
 function Detail(props) {
   const useGlobalState = () => [
     React.useContext(quizzesContext),

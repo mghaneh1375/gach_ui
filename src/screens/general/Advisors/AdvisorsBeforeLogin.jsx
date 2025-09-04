@@ -3,8 +3,8 @@ import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import BestComments from '../../../components/web/comment/BestComments';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import BestComments from '../../../components/web/comment/BestComments.jsx';
 import {
   CommonButton,
   CommonWebBox,
@@ -15,8 +15,8 @@ import {
 import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
 import commonTranslator from '../../../translator/common';
-import Card from './Card';
-import Filter from './Filter';
+import Card from './Card.jsx';
+import Filter from './Filter.jsx';
 function AdvisorsBeforeLogin(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

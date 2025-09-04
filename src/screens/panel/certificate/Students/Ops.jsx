@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
+import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane.jsx';
 import {showSuccess} from '../../../../services/utility';
 import {CommonButton, MyView, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 import {downloadCert, editUserInCert} from '../utility';
 function Ops(props) {
   const [userData, setUserData] = useState(props.user.params);

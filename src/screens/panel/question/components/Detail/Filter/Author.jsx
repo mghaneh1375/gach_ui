@@ -7,7 +7,7 @@ import {
   SimpleText,
 } from '@/styles';
 import {styles} from '../../../../../../styles/common/styles';
-import {questionContext, dispatchQuestionContext} from '../Context';
+import {questionContext, dispatchQuestionContext} from '../Context.jsx';
 function Author(props) {
   const useGlobalState = () => [
     React.useContext(questionContext),

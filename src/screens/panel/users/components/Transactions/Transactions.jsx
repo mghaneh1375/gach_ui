@@ -1,15 +1,15 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
 import adviceColumns, {teachColumns} from './columns';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 import {generalRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
-import {dispatchUsersContext, usersContext} from '../Context';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {dispatchUsersContext, usersContext} from '../Context.jsx';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {showError, showSuccess} from '../../../../../services/utility';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
 function Transactions(props) {
   const useGlobalState = () => [
     React.useContext(usersContext),

@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
-import Ops from '../Ops';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import Ops from '../Ops.jsx';
 import translator from '../../translator';
 import columns from './tableStructure';
-import Filter from './Filter';
+import Filter from './Filter.jsx';
 import {routes} from '@/api/apiRoutes';
 
 const List = props => {

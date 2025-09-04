@@ -1,12 +1,12 @@
 import {useState} from 'react';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
 import {updateQuestionMark} from '../utility';
 import translator from '../../translator';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {showSuccess} from '@/services/utility';
 import {CommonButton} from '@/styles';
-import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 function Edit(props) {
   const [mark, setMark] = useState(
     props.question !== undefined ? props.question.mark : 0,

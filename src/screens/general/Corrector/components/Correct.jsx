@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Question from './Question';
+import Question from './Question.jsx';
 import {MyView} from '@/styles';
 function Correct(props) {
   return (

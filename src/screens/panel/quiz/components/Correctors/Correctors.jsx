@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../translator';
-import {dispatchQuizContext, quizContext} from '../Context';
+import {dispatchQuizContext, quizContext} from '../Context.jsx';
 import {
   addCorrector,
   fetchCorrector,
@@ -13,12 +13,12 @@ import {
 } from '../utility';
 import columns from './tableStructure';
 import commonTranslator from '@/translator/common';
-import Ops from './Ops';
-import StudentCard from './StudentCard';
+import Ops from './Ops.jsx';
+import StudentCard from './StudentCard.jsx';
 import {generalRequest} from '../../../../../api/utility';
 import {styles} from '@/styles/common/styles';
 import {showSuccess} from '@/services/utility';
-import QuestionCard from './QuestionCard';
+import QuestionCard from './QuestionCard.jsx';
 function Correctors(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

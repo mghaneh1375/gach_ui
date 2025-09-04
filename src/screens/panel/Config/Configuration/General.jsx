@@ -5,9 +5,9 @@ import {
   PhoneView,
   MyView,
 } from '../../../../styles/CommonComponents.jsx';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import translator from './translator';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import commonTranslator from '@/translator/common';

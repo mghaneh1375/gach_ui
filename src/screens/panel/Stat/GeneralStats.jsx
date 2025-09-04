@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CommonWebBox, PhoneView} from '../../../styles/CommonComponents.jsx';
-import DashboardCard from '../../studentPanel/dashboard/dashboardCard/DashboardCard';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import DashboardCard from '../../studentPanel/dashboard/dashboardCard/DashboardCard.jsx';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import Translate from './translate';
 import {faChartBar} from '@fortawesome/free-solid-svg-icons';
 import {generalRequest} from '../../../api/utility';

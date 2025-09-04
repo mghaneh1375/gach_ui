@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '@/App';
-import {QuizProvider} from '../../../panel/quiz/components/Context';
-import Karname from '../../../panel/quiz/components/reports/karname/Karname';
-import Recp from '../../../../components/web/Recp';
-import List from './components/List';
+import {dispatchStateContext} from '@/App.jsx';
+import {QuizProvider} from '../../../panel/quiz/components/Context.jsx';
+import Karname from '../../../panel/quiz/components/reports/karname/Karname.jsx';
+import Recp from '../../../../components/web/Recp.jsx';
+import List from './components/List.jsx';
 function MyQuizzes(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [mode, setMode] = useState('list');

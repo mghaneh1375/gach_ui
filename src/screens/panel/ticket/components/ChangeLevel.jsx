@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {levelKeyVals} from '../../ticket/components/keyVals';
-import MultiBox from '../../../../components/web/multiBox/MultiBox';
+import MultiBox from '../../../../components/web/multiBox/MultiBox.jsx';
 import {useParams} from 'react-router';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 import Translator from '../translator';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {showError} from '@/services/utility';
 import {addAccess, removeAccess} from '../../users/components/utility';
 function ChangeLevel(props) {

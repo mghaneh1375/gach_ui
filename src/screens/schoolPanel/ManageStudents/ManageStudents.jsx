@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import List from './list/List';
-import Create from './create/Create';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import List from './list/List.jsx';
+import Create from './create/Create.jsx';
 import {
   removeItems,
   editItem,
@@ -10,9 +10,9 @@ import {
 } from '../../../services/utility';
 import {MyView} from '@/styles';
 import {getAllStudent} from './utility';
-import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin';
-import {AdvicePanelProvider} from './advisor/components/Context';
-import Panel from './advisor/Panel';
+import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin.jsx';
+import {AdvicePanelProvider} from './advisor/components/Context.jsx';
+import Panel from './advisor/Panel.jsx';
 function ManageStudents(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

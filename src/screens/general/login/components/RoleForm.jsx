@@ -7,15 +7,15 @@ import {
   MyView,
   PhoneView,
 } from '@/styles';
-import {RoleCard} from '../../../../styles/common/RoleCard';
+import {RoleCard} from '../../../../styles/common/RoleCard.jsx';
 import commonTranslator from '@/translator/common';
 import vars from '@/styles/root';
 import {checkSendRoleForm, getRoleForms} from './utility';
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
-import {FontIcon} from '../../../../styles/common/FontIcon';
-import SpecificRoleForm from './SpecificRoleForm';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
+import SpecificRoleForm from './SpecificRoleForm.jsx';
 import {styles} from '../../../../styles/common/styles';
-import {style} from '../../../../components/web/largeScreen/header/Style';
+import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
 const RoleForm = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});
   const [roleForms, setRoleForms] = useState();

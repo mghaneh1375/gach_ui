@@ -1,9 +1,9 @@
 import {CommonButton, PhoneView} from '@/styles';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
-import {contentContext} from '../Context';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import {contentContext} from '../Context.jsx';
 import React, {useState} from 'react';
 import Translator from '../../translate';
-import Video from '../../../Video';
+import Video from '../../../Video.jsx';
 function Ops(props) {
   const useGlobalState = () => [React.useContext(contentContext)];
   const [state] = useGlobalState();

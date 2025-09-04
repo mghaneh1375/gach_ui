@@ -1,6 +1,6 @@
 import {ActivityIndicator} from 'react-native';
 import commonTranslator from '../../translator/common';
-import {MyView, SimpleText} from '../CommonComponents';
+import {MyView, SimpleText} from '../CommonComponents.jsx';
 import vars from '../root';
 import {styles} from './styles';
 export const Loader = props => (

@@ -6,7 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {Image} from 'react-native';
 import React, {useState} from 'react';
-import {doCorrectContext, dispatchDoCorrectContext} from './Context';
+import {doCorrectContext, dispatchDoCorrectContext} from './Context.jsx';
 import vars from '@/styles/root';
 import {
   CommonButton,
@@ -16,9 +16,9 @@ import {
   PhoneView,
 } from '@/styles';
 import {styles} from '../../../../styles/common/styles';
-import {FontIcon} from '../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {basketBox, basketBoxInPhone} from '../../../panel/package/card/style';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
 import commonTranslator from '@/translator/common';
 import {
   getDevice,

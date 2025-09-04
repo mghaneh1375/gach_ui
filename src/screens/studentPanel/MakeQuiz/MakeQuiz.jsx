@@ -8,21 +8,21 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/CommonComponents.jsx';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import MakeQuizBox from './MakeQuizBox';
+import MakeQuizBox from './MakeQuizBox.jsx';
 import Translate from './translate';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 import {fetchAllFlags, finalized} from './utility';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon';
-import Basket from '../../../components/web/Basket';
-import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
+import Basket from '../../../components/web/Basket.jsx';
+import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction.jsx';
 import commonTranslator from '../../../translator/common';
-import BuyBasket from './BuyBasket';
-import OffCode from '../../general/buy/components/OffCode';
-import {LoadingCommonWebBox} from '../../../components/LoadingCommonWebBox';
-import Search from './Search';
+import BuyBasket from './BuyBasket.jsx';
+import OffCode from '../../general/buy/components/OffCode.jsx';
+import {LoadingCommonWebBox} from '../../../components/LoadingCommonWebBox.jsx';
+import Search from './Search.jsx';
 function MakeQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();

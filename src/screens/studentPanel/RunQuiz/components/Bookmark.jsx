@@ -6,12 +6,12 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
 import Translate from '../translate';
-import {doQuizContext, dispatchDoQuizContext} from './Context';
+import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 function Bookmark(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),

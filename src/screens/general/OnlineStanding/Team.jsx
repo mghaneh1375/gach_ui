@@ -2,9 +2,9 @@ import {
   CommonWebBox,
   MyView,
   PhoneView,
-} from '../../../styles/CommonComponents';
+} from '../../../styles/CommonComponents.jsx';
 import {styles} from '../../../styles/common/styles';
-import Card from './Card';
+import Card from './Card.jsx';
 function Team(props) {
   return (
     <MyView>

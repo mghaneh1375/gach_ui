@@ -1,6 +1,6 @@
 import React from 'react';
 import {CommonButton, PhoneView} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 function Ops(props) {
   return (
     <LargePopUp

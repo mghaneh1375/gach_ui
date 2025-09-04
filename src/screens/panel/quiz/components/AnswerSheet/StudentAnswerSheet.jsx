@@ -8,7 +8,7 @@ import {
   PhoneView,
   SimpleFontIcon,
 } from '@/styles';
-import AnswerSheet from './AnswerSheet';
+import AnswerSheet from './AnswerSheet.jsx';
 import React, {useState, useRef, useCallback} from 'react';
 import {updateStudentAnswers} from '../utility';
 import {faLock, faUnlock} from '@fortawesome/free-solid-svg-icons';

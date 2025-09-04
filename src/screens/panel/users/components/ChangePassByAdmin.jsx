@@ -1,7 +1,7 @@
 import React from 'react';
 import {CommonWebBox} from '@/styles';
-import ChangePass from '../../../general/profile/components/ChangePass';
-import {usersContext} from './Context';
+import ChangePass from '../../../general/profile/components/ChangePass.jsx';
+import {usersContext} from './Context.jsx';
 function ChangePassByAdmin(props) {
   const useGlobalState = () => [React.useContext(usersContext)];
   const [state] = useGlobalState();

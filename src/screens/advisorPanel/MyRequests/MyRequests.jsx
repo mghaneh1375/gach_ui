@@ -3,18 +3,18 @@ import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {showSuccess} from '../../../services/utility';
 import {CommonButton, CommonWebBox, PhoneView, FontIcon} from '@/styles';
-import CommonDataTable from '../../../styles/common/CommonDataTable';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
-import {LargePopUp} from '../../../styles/common/PopUp';
+import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
+import {LargePopUp} from '../../../styles/common/PopUp.jsx';
 import {styles} from '../../../styles/common/styles';
 import commonTranslator from '../../../translator/common';
-import FinancePlan from '../../general/advisors/FinancePlan';
+import FinancePlan from '../../general/advisors/FinancePlan.jsx';
 import Translate from './translate';
-import Schedule from '../../studentPanel/myLifeStyle/components/Schedule';
-import {ScheduleProvider} from '../../studentPanel/myLifeStyle/components/Context';
+import Schedule from '../../studentPanel/myLifeStyle/components/Schedule.jsx';
+import {ScheduleProvider} from '../../studentPanel/myLifeStyle/components/Context.jsx';
 function MyRequests(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

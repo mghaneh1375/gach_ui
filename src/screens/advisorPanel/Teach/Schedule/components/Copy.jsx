@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
-import {dispatchTeachScheduleContext, teachScheduleContext} from './Context';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import {
+  dispatchTeachScheduleContext,
+  teachScheduleContext,
+} from './Context.jsx';
 import Translator from './translator';
 import {routes} from '@/api/apiRoutes';
 import {showError, showSuccess} from '../../../../../services/utility';

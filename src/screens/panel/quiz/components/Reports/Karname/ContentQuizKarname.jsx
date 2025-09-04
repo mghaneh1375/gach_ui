@@ -6,8 +6,8 @@ import {
   PhoneView,
   MyView,
 } from '@/styles';
-import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
-import {quizContext, dispatchQuizContext} from '../../Context';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable.jsx';
+import {quizContext, dispatchQuizContext} from '../../Context.jsx';
 import {getKarname} from '../../utility';
 import {
   lessonCols,
@@ -15,7 +15,7 @@ import {
   subjectCols,
   subjectColsCustomQuiz,
 } from './lessonTableStructure';
-import AnswerSheet from '../../answerSheet/AnswerSheet';
+import AnswerSheet from '../../answerSheet/AnswerSheet.jsx';
 import {getDevice} from '../../../../../../services/utility';
 import {getMyAnswerSheet} from '../../../../../studentPanel/myQuizzes/irysc/components/utility';
 import {styleCard100Percent} from '../../../../package/card/style';

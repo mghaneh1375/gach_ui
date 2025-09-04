@@ -5,10 +5,10 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../../styles/Common';
+} from '../../../../../../styles/Common.jsx';
 import {styles} from '../../../../../../styles/common/styles';
 import translator from '../../../translator';
-import {questionContext, dispatchQuestionContext} from '../Context';
+import {questionContext, dispatchQuestionContext} from '../Context.jsx';
 function Level(props) {
   const useGlobalState = () => [
     React.useContext(questionContext),

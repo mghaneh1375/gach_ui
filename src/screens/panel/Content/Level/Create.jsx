@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import AttachBox from '../../ticket/components/show/attachBox/AttachBox';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import AttachBox from '../../ticket/components/show/attachBox/AttachBox.jsx';
 import {useFilePicker} from 'use-file-picker';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {fileRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showError} from '@/services/utility';

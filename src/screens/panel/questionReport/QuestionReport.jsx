@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {QuestionReportProvider} from './components/Context';
-import List from './components/List';
-import Create from './components/Create';
-import Report from './components/Report';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {QuestionReportProvider} from './components/Context.jsx';
+import List from './components/List.jsx';
+import Create from './components/Create.jsx';
+import Report from './components/Report.jsx';
 function QuestionReport(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

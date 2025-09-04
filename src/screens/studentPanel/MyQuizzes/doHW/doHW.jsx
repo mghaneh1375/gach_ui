@@ -22,8 +22,8 @@ import {
   systemFonts,
   tagsStyles,
 } from '../../../../services/utility';
-import Row from './Row';
-import UploadFile from '../../../../components/web/UploadFile';
+import Row from './Row.jsx';
+import UploadFile from '../../../../components/web/UploadFile.jsx';
 function DoHW(props) {
   const [hw, setHw] = useState();
   const useGlobalState = () => [

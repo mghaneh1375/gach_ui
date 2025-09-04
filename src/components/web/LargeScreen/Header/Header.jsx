@@ -17,16 +17,16 @@ import {
   SimpleText,
   TextLink,
 } from '../../../../styles/CommonComponents.jsx';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
-import UserTinyPic from '../UserTinyPic';
+import UserTinyPic from '../UserTinyPic.jsx';
 import newAlertsKeyVals from './newAlertsKeyVals';
-import {style} from './Style';
+import {style} from './Style.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import DailyAdv from './DailyAdv';
+import DailyAdv from './DailyAdv.jsx';
 const Header = props => {
   const isApp = getDevice().indexOf(Device.App) !== -1;
   const useGlobalState = () => [

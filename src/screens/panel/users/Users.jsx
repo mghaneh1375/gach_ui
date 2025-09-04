@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '@/App';
-import List from './components/list/List';
+import {dispatchStateContext} from '@/App.jsx';
+import List from './components/list/List.jsx';
 import {MyView} from '@/styles';
-import ChangeLevel from './components/ChangeLevel';
+import ChangeLevel from './components/ChangeLevel.jsx';
 import {useParams} from 'react-router';
-import {UsersProvider} from './components/Context';
-import ChangePassByAdmin from './components/ChangePassByAdmin';
-import ChargeAccount from './components/ChargeAccount';
-import AdvisorTags from './components/AdvisorTags';
-import SetIRYSCPercent from './components/SetIRYSCPercent';
-import SetPriority from './components/SetPriority';
-import Transactions from './components/transactions/Transactions';
-import CreateUser from './components/CreateUser';
+import {UsersProvider} from './components/Context.jsx';
+import ChangePassByAdmin from './components/ChangePassByAdmin.jsx';
+import ChargeAccount from './components/ChargeAccount.jsx';
+import AdvisorTags from './components/AdvisorTags.jsx';
+import SetIRYSCPercent from './components/SetIRYSCPercent.jsx';
+import SetPriority from './components/SetPriority.jsx';
+import Transactions from './components/transactions/Transactions.jsx';
+import CreateUser from './components/CreateUser.jsx';
 const Users = props => {
   const [mode, setMode] = useState();
   const navigate = props.navigate;

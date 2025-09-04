@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {CommonWebBox} from '@/styles';
-import {questionReportContext, dispatchQuestionReportContext} from './Context';
+import {
+  questionReportContext,
+  dispatchQuestionReportContext,
+} from './Context.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import {reportColumns} from './tableStructure';
 import commonTranslator from '@/translator/common';
 import translator from '../translate';

@@ -1,10 +1,10 @@
 import {CommonWebBox, MyView} from '@/styles';
 import translator from '../translator';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import React, {useState} from 'react';
-import Ops from './Ops';
+import Ops from './Ops.jsx';
 import {routes} from '@/api/apiRoutes';
-import {dispatchQuizContext, quizContext} from './Context';
+import {dispatchQuizContext, quizContext} from './Context.jsx';
 import columns, {
   columnsForOpenQuiz,
   columnsForContentQuiz,
@@ -17,7 +17,7 @@ import {
   getOpenQuizzes,
   getQuizzes,
 } from './utility';
-import ProSearch from './ProSearch';
+import ProSearch from './ProSearch.jsx';
 const List = props => {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [isWorking, setIsWorking] = useState(false);

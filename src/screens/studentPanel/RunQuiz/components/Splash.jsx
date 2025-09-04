@@ -15,11 +15,11 @@ import {
   styleYellowBox,
 } from '../../../panel/package/card/style';
 import Translate from '../translate';
-import {doQuizContext, dispatchDoQuizContext} from './Context';
+import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import {doQuiz, reviewQuiz} from './utility';
 import commonTranslator from '@/translator/common';
 import {styles} from '../../../../styles/common/styles';
-import {FontIcon} from '../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {
   faArrowLeft,
   faClock,
@@ -28,7 +28,7 @@ import {
   faInfo,
   faQuestion,
 } from '@fortawesome/free-solid-svg-icons';
-import QuizItemCard from '../../../../components/web/QuizItemCard';
+import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import {
   convertSecToMin,
   getDevice,
@@ -36,7 +36,7 @@ import {
   tagsStyles,
 } from '../../../../services/utility';
 import RenderHTML from 'react-native-render-html';
-import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 import {CV_BASE_URL, downloadRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 function Splash(props) {

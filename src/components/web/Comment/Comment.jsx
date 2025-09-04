@@ -10,11 +10,11 @@ import {
   CommonWebBox,
   MyView,
   SimpleText,
-} from '../../../styles/CommonComponents';
-import {FontIcon, SimpleFontIcon} from '../../../styles/common/FontIcon';
+} from '../../../styles/CommonComponents.jsx';
+import {FontIcon, SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
 import commonTranslator from '../../../translator/common';
-import Card from './Card';
-import NewComment from './NewComment';
+import Card from './Card.jsx';
+import NewComment from './NewComment.jsx';
 import Translate from './translate';
 function Comment(props) {
   const [isOpen, setIsOpen] = useState(props.defaultIsOpen);

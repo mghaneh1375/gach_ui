@@ -1,5 +1,5 @@
-import {globalStateContext, dispatchStateContext} from '@/App';
-import Spinner from './spinner/Spinner';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import Spinner from './spinner/Spinner.jsx';
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
 function SpinGift(props) {

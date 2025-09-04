@@ -1,6 +1,6 @@
 import {generalRequest} from '../../api/utility';
-import {CommonButton} from '../../styles/CommonComponents';
-import {LargePopUp} from '../../styles/common/PopUp';
+import {CommonButton} from '../../styles/CommonComponents.jsx';
+import {LargePopUp} from '../../styles/common/PopUp.jsx';
 import commonTranslator from '../../translator/common';
 const ConfirmationBatchOpPane = props => {
   const doOp = () => {

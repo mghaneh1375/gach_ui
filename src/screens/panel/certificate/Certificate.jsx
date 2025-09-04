@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {MyView} from '@/styles';
-import {dispatchStateContext} from '@/App';
-import List from './list/List';
+import {dispatchStateContext} from '@/App.jsx';
+import List from './list/List.jsx';
 import {addItem, editItem, removeItems} from '../../../services/utility';
-import Create from './create/Create';
-import AddStudent from './addStudent/AddStudent';
+import Create from './create/Create.jsx';
+import AddStudent from './addStudent/AddStudent.jsx';
 import {getCertificates} from './utility';
-import Students from './students/List';
+import Students from './students/List.jsx';
 const Certificate = props => {
   const navigate = props.navigate;
   const useGlobalState = () => [React.useContext(dispatchStateContext)];

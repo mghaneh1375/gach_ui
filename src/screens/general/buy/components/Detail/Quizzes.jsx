@@ -1,11 +1,11 @@
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import Basket from '../../../../../components/web/Basket';
+import Basket from '../../../../../components/web/Basket.jsx';
 import {MyView, PhoneView} from '@/styles';
-import {FontIcon} from '../../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../../styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
-import Card from '../../../../panel/quiz/components/card/Card';
-import {packagesContext, dispatchPackagesContext} from '../Context';
+import Card from '../../../../panel/quiz/components/card/Card.jsx';
+import {packagesContext, dispatchPackagesContext} from '../Context.jsx';
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState();
   const useGlobalState = () => [

@@ -1,4 +1,4 @@
-import {CommonDatePicker} from './CommonDatePicker';
+import {CommonDatePicker} from './CommonDatePicker.jsx';
 const JustBottomBorderDatePicker = props => {
   return (
     <CommonDatePicker

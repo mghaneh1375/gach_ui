@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, MyView} from '@/styles';
 import {getAnswerSheets} from '../utility';
-import Card from './Card';
+import Card from './Card.jsx';
 import translator from '../../translator';
-import StudentAnswerSheet from '../answerSheet/StudentAnswerSheet';
+import StudentAnswerSheet from '../answerSheet/StudentAnswerSheet.jsx';
 function CV({setMode, setLoading, token, state, dispatch}) {
   const [isWorking, setIsWorking] = useState(false);
   const [showAnswerSheet, setShowAnswerSheet] = useState(false);

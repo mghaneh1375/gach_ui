@@ -9,15 +9,15 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../styles/CommonComponents.jsx';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common';
 import Translator from '../../../advisorPanel/teach/schedule/components/translator';
 import translator from '../translate';
 import columns, {studentsColumns} from './components/tableStructure';
 import reportColumns from '../teachReport/components/tableStructure';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 function Schedules(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

@@ -5,7 +5,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {FontIcon} from '../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
 import vars from '@/styles/root';
 import {
   styleFontSize25,

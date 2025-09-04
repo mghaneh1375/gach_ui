@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 import {getGrades} from '../utility';
-import List from './list/List';
-import Create from './create/Create';
+import List from './list/List.jsx';
+import Create from './create/Create.jsx';
 import Translate from '../translate';
 import {addItem, editItem} from '../../../../services/utility';
 import {MyView} from '@/styles';

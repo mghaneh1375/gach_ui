@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import {courseContext, dispatchCourseContext} from './Context';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {courseContext, dispatchCourseContext} from './Context.jsx';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {showError, trueFalseValues} from '../../../../services/utility';
 function Create(props) {
   const useGlobalState = () => [

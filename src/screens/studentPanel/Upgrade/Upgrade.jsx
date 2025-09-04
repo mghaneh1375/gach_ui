@@ -1,6 +1,6 @@
-import RoleFormForSelect from '../../general/login/components/RoleFormForSelect';
+import RoleFormForSelect from '../../general/login/components/RoleFormForSelect.jsx';
 import React, {useState} from 'react';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 import {CommonWebBox} from '../../../styles/CommonComponents.jsx';
 import {useParams} from 'react-router';
 import {generalRequest} from '../../../api/utility';

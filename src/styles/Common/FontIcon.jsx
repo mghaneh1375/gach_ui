@@ -1,6 +1,6 @@
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Platform, Pressable} from 'react-native';
-import {BigBoldBlueText} from '../CommonComponents';
+import {BigBoldBlueText} from '../CommonComponents.jsx';
 import vars from './../root';
 const FontIconStyle = {
   color: vars.WHITE,

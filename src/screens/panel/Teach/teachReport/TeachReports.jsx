@@ -7,14 +7,14 @@ import {
   SimpleText,
 } from '../../../../styles/CommonComponents.jsx';
 import translator from '../translate';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import columns from './components/tableStructure';
 import {useEffectOnce} from 'usehooks-ts';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
 function TeachReports(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

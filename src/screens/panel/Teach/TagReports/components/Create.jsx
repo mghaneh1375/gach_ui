@@ -2,12 +2,15 @@ import React, {useMemo, useState} from 'react';
 import {generalRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common';
 import {trueFalseValues} from '../../../../../services/utility';
 import {styles} from '@/styles/common/styles';
-import {dispatchTeachTagReportContext, teachTagReportContext} from './Context';
+import {
+  dispatchTeachTagReportContext,
+  teachTagReportContext,
+} from './Context.jsx';
 function Create(props) {
   const teachReportTagMode = useMemo(() => {
     return [

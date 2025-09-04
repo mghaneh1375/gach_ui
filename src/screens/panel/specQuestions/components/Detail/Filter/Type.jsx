@@ -5,8 +5,8 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../../../styles/Common';
-import {questionContext, dispatchQuestionContext} from '../Context';
+} from '../../../../../../styles/Common.jsx';
+import {questionContext, dispatchQuestionContext} from '../Context.jsx';
 import {styles} from '../../../../../../styles/common/styles';
 function Type(props) {
   const useGlobalState = () => [

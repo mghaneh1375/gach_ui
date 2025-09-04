@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Image, Pressable} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {globalStateContext} from '../../../App.jsx';
-import Circle from '@/components/web/Circle';
+import Circle from '@/components/web/Circle.jsx';
 import {
   CommonButton,
   CommonWebBox,
@@ -21,9 +21,9 @@ import {
   faSchool,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import QuizItemCard from '@/components/web/QuizItemCard';
-import {FontIcon} from '../../../styles/common/FontIcon';
-import {LargePopUp} from '../../../styles/common/PopUp';
+import QuizItemCard from '@/components/web/QuizItemCard.jsx';
+import {FontIcon} from '../../../styles/common/FontIcon.jsx';
+import {LargePopUp} from '../../../styles/common/PopUp.jsx';
 function Card(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
   const [state] = useGlobalState();

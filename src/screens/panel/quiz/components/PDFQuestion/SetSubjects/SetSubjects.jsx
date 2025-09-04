@@ -2,11 +2,11 @@ import React from 'react';
 import {getGradesAndBranches, getPDFQuizInfo} from '../../utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import translator from '../../../translator';
-import EachQuestion from './EachQuestion';
+import EachQuestion from './EachQuestion.jsx';
 import {showError, showSuccess} from '../../../../../../services/utility';
 import {generalRequest} from '../../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
-import {dispatchSetSubjectContext, setSubjectContext} from './Context';
+import {dispatchSetSubjectContext, setSubjectContext} from './Context.jsx';
 export default function SetSubjects({
   state,
   dispatch,

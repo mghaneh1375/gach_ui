@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {CommonButton, PhoneView, MyView, SimpleText} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
-import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
+import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane.jsx';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '../../../../services/utility';
 const Ops = props => {

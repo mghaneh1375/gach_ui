@@ -6,9 +6,9 @@ import {
 import React, {useEffect, useMemo, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import Basket from '../../../components/web/Basket';
-import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import Basket from '../../../components/web/Basket.jsx';
+import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction.jsx';
 import {getDevice, showSuccess} from '../../../services/utility';
 import {
   CommonButton,
@@ -18,16 +18,16 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/CommonComponents.jsx';
-import {FontIcon} from '../../../styles/common/FontIcon';
+import {FontIcon} from '../../../styles/common/FontIcon.jsx';
 import {styles} from '../../../styles/common/styles';
 import commonTranslator from '../../../translator/common';
-import OffCode from '../buy/components/OffCode';
-import BuySchedule from './BuySchedule';
-import Card from './Card';
-import Filter from './Filter';
-import Schedule from './Schedule';
-import Comment from '../../../components/web/comment/Comment';
-import BestComments from '../../../components/web/comment/BestComments';
+import OffCode from '../buy/components/OffCode.jsx';
+import BuySchedule from './BuySchedule.jsx';
+import Card from './Card.jsx';
+import Filter from './Filter.jsx';
+import Schedule from './Schedule.jsx';
+import Comment from '../../../components/web/comment/Comment.jsx';
+import BestComments from '../../../components/web/comment/BestComments.jsx';
 function Teachers(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

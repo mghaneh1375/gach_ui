@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {
   CommonWebBox,
   MyView,
@@ -10,10 +10,10 @@ import {
 } from '../../../styles/CommonComponents.jsx';
 import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import Card from '../../panel/quiz/components/card/Card';
-import ProgressCard from '../../studentPanel/myOffs/progressCard/ProgressCard';
-import BoxRanking from '../boxRanking/BoxRanking';
-import Filter from './Filter';
+import Card from '../../panel/quiz/components/card/Card.jsx';
+import ProgressCard from '../../studentPanel/myOffs/progressCard/ProgressCard.jsx';
+import BoxRanking from '../boxRanking/BoxRanking.jsx';
+import Filter from './Filter.jsx';
 import {fetchFinishedQuizzes, fetchRankingList} from './utility';
 function RankingList(props) {
   const navigate = props.navigate;

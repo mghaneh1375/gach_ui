@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import Quizzes from '../../../../../components/web/Quizzes';
+import Quizzes from '../../../../../components/web/Quizzes.jsx';
 import {showSuccess} from '@/services/utility';
 import {BigBoldBlueText, CommonButton, MyView} from '@/styles';
 import Translate from '../../translate';
 import {removeQuizzesFromPackage} from '../utility';
 import commonTranslator from '@/translator/common';
-import {dispatchQuizzesContext, quizzesContext} from './Utility';
+import {dispatchQuizzesContext, quizzesContext} from './Utility.jsx';
 function List(props) {
   const [selectedQuizzes, setSelectedQuizzes] = useState([]);
   const useGlobalState = () => [

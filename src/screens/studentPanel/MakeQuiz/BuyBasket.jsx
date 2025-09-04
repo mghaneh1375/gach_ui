@@ -8,7 +8,7 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents';
+} from '../../../styles/CommonComponents.jsx';
 import {styles} from '../../../styles/common/styles';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import List from './components/List';
-import Report from './components/Report';
-import {MyTeachClassesForStudentProvider} from './components/Context';
+import List from './components/List.jsx';
+import Report from './components/Report.jsx';
+import {MyTeachClassesForStudentProvider} from './components/Context.jsx';
 function MyClasses(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

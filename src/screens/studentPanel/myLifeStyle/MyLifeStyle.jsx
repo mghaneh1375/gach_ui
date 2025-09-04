@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {ScheduleProvider} from './components/Context.jsx';
 import Schedule from './components/Schedule.jsx';
 import {useParams} from 'react-router';

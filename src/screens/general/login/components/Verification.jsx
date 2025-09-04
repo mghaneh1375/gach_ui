@@ -3,10 +3,10 @@ import CodeInput from 'react-native-confirmation-code-input';
 import {routes} from '@/api/apiRoutes';
 import {fetchUser, setCacheItem} from '../../../../api/user';
 import {generalRequest} from '@/api/utility';
-import {style} from '../../../../components/web/largeScreen/header/Style';
+import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
 import {showError, showSuccess} from '../../../../services/utility';
 import {BlueTextInline, CommonButton, MyView} from '@/styles';
-import {MyCountDown} from '../../../../styles/common/MyCountDown';
+import {MyCountDown} from '../../../../styles/common/MyCountDown.jsx';
 import vars from '@/styles/root';
 import translator from '../translate';
 const Verification = props => {

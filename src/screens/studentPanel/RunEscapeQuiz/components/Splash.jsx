@@ -15,18 +15,18 @@ import {
   styleYellowBox,
 } from '../../../panel/package/card/style';
 import Translate from '../translate';
-import {doQuizContext, dispatchDoQuizContext} from './Context';
+import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import {doQuiz, reviewQuiz} from './utility';
 import commonTranslator from '@/translator/common';
 import {styles} from '../../../../styles/common/styles';
-import {FontIcon} from '../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {
   faArrowLeft,
   faClock,
   faMagnifyingGlass,
   faMessage,
 } from '@fortawesome/free-solid-svg-icons';
-import QuizItemCard from '../../../../components/web/QuizItemCard';
+import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import {
   convertSecToMinWithOutSec,
   getDevice,
@@ -34,7 +34,7 @@ import {
   tagsStyles,
 } from '../../../../services/utility';
 import RenderHTML from 'react-native-render-html';
-import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 function Splash(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),

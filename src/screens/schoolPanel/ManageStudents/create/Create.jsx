@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, CommonButton} from '@/styles';
 import Translate from '../translate';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {changeText, showSuccess} from '../../../../services/utility';
 import {addStudents} from '../utility';
-import UploadFile from '../../../../components/web/UploadFile';
+import UploadFile from '../../../../components/web/UploadFile.jsx';
 import {BASE_SITE_NAME} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 function Create(props) {

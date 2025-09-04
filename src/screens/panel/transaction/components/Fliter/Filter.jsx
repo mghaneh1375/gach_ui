@@ -6,9 +6,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {CommonButton, PhoneView, SimpleText} from '@/styles';
 import {MyView} from '@/styles';
-import {FontIcon, SimpleFontIcon} from '../../../../../styles/common/FontIcon';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {
+  FontIcon,
+  SimpleFontIcon,
+} from '../../../../../styles/common/FontIcon.jsx';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../../ticket/translator';
 import commonTranslator from '@/translator/common';
 import {
@@ -17,7 +20,7 @@ import {
 } from '../../../offcode/components/utility';
 import Translate from '../../translate';
 import {styles} from '@/styles/common/styles';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import {getTransactions} from '../utility';
 function Filter(props) {
   const [section, setSection] = useState();

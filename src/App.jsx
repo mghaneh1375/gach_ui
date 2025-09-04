@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {Platform, LogBox} from 'react-native';
 import {fetchUser, getToken, getUser} from './api/user';
-import AppRouter from './router/app/Router';
-import WebRouter from './router/web/Router';
+import AppRouter from './router/app/Router.jsx';
+import WebRouter from './router/web/Router.jsx';
 const defaultGlobalState = {
   showBottonNav: true,
   showTopNav: true,

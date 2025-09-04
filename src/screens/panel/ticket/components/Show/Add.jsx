@@ -7,10 +7,10 @@ import {
   MyView,
   FontIcon,
 } from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../translator';
 import {useFilePicker} from 'use-file-picker';
-import AttachBox from './attachBox/AttachBox';
+import AttachBox from './attachBox/AttachBox.jsx';
 import {
   changeText,
   showError,

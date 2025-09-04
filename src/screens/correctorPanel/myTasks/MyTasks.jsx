@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {CommonWebBox, PhoneView} from '../../../styles/CommonComponents.jsx';
-import CommonDataTable from '../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
 import {styles} from '../../../styles/common/styles';
-import QuestionCard from '../../panel/quiz/components/correctors/QuestionCard';
-import StudentCard from '../../panel/quiz/components/correctors/StudentCard';
-import Ops from './components/Ops';
+import QuestionCard from '../../panel/quiz/components/correctors/QuestionCard.jsx';
+import StudentCard from '../../panel/quiz/components/correctors/StudentCard.jsx';
+import Ops from './components/Ops.jsx';
 import columns from './tableStructure';
 function MyTasks(props) {
   const useGlobalState = () => [

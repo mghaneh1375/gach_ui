@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {style} from '../../../../components/web/largeScreen/header/Style';
+import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
 import {showError, showSuccess} from '../../../../services/utility';
 import {CommonButton, MyView} from '@/styles';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
 import translator from '../translate';
 import commonTranslator from '@/translator/common';
 const ResetPass = props => {

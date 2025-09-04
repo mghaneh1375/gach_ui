@@ -2,12 +2,15 @@ import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import {questionReportContext, dispatchQuestionReportContext} from './Context';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {
+  questionReportContext,
+  dispatchQuestionReportContext,
+} from './Context.jsx';
 import commonTranslator from '@/translator/common';
 import {styles} from '../../../../styles/common/styles';
 import {trueFalseValues} from '../../../../services/utility';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import translator from '../translate';
 function Create(props) {
   const useGlobalState = () => [

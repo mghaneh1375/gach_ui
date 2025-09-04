@@ -1,5 +1,5 @@
 import {Image, Pressable} from 'react-native';
-import {BlueTextInline, MyView} from '../CommonComponents';
+import {BlueTextInline, MyView} from '../CommonComponents.jsx';
 import vars from './../root';
 export const RoleCard = props => (
   <Pressable

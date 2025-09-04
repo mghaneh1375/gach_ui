@@ -7,7 +7,7 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import {useState} from 'react';
-import QuizItemCard from '@/components/web/QuizItemCard';
+import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 import {formatPrice} from '@/services/utility';
 import {
   CommonButton,
@@ -16,8 +16,8 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon';
+} from '../../../styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
 import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
 import Translator from '../../advisorPanel/teach/schedule/components/translator';

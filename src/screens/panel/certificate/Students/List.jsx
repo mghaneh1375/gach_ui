@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {CommonWebBox, MyView} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import {getCertificate} from '../utility';
-import Ops from './Ops';
+import Ops from './Ops.jsx';
 import columns from './tableStructure';
 function List(props) {
   const [isWorking, setIsWorking] = useState(false);

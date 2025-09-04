@@ -5,8 +5,8 @@ import {
   CommonWebBox,
   MyView,
   SimpleText,
-} from '../../../styles/CommonComponents';
-import {CommonTextInput} from '../../../styles/common/CommonTextInput';
+} from '../../../styles/CommonComponents.jsx';
+import {CommonTextInput} from '../../../styles/common/CommonTextInput.jsx';
 import {styles} from '../../../styles/common/styles';
 import Translate from './translate';
 import {chargeAccout} from './utility';

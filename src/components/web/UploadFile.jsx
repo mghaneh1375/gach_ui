@@ -7,14 +7,14 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../styles/CommonComponents';
-import {SimpleFontIcon} from '../../styles/common/FontIcon';
-import JustBottomBorderTextInput from '../../styles/common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../styles/common/PopUp';
+} from '../../styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '../../styles/common/FontIcon.jsx';
+import JustBottomBorderTextInput from '../../styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '../../styles/common/PopUp.jsx';
 import {styles} from '../../styles/common/styles';
 import vars from '../../styles/root';
 import commonTranslator from '../../translator/common';
-import CopyBox from '../CopyBox';
+import CopyBox from '../CopyBox.jsx';
 const UploadFile = props => {
   const [isWorking, setIsWorking] = useState(false);
   const [urls, setUrls] = useState([]);

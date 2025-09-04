@@ -9,16 +9,16 @@ import {
   FontIcon,
 } from '@/styles';
 import commonTranslator from '@/translator/common';
-import {dispatchPackagesContext, packagesContext} from '../Context';
-import OffCode from '../OffCode';
-import Quizzes from './Quizzes';
+import {dispatchPackagesContext, packagesContext} from '../Context.jsx';
+import OffCode from '../OffCode.jsx';
+import Quizzes from './Quizzes.jsx';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
 import {styles} from '@/styles/common/styles';
-import BuyBasket from '../BuyBasket';
+import BuyBasket from '../BuyBasket.jsx';
 import columns from '../../../../schoolPanel/manageStudents/list/tableStructure';
-import StudentList from './MyStudenstList';
+import StudentList from './MyStudenstList.jsx';
 function SchoolList(props) {
   const [price, setPrice] = useState(0);
   const [off, setOff] = useState(0);

@@ -3,7 +3,7 @@ import {getDevice} from '@/services/utility';
 import {PhoneView} from '@/styles';
 import {styles} from '@/styles/common/styles';
 import Translate from '../../translate';
-import Choice from './Choice';
+import Choice from './Choice.jsx';
 function MultiChoice(props) {
   const [choices, setChoices] = useState();
   const device = getDevice();

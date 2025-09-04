@@ -4,14 +4,14 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonWebBox, EqualTwoTextInputs, SimpleText} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import Translator from '../translate';
-import {dispatchPublicNotifContext, publicNotifContext} from './Context';
+import {dispatchPublicNotifContext, publicNotifContext} from './Context.jsx';
 import commonTranslator from '@/translator/common';
 import {styles} from '../../../../styles/common/styles';
 import RenderHTML from 'react-native-render-html';
-import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 import {systemFonts, tagsStyles} from '../../../../services/utility';
 function List(props) {
   const useGlobalState = () => [

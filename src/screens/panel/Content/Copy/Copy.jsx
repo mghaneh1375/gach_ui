@@ -6,7 +6,7 @@ import {
   MyView,
   PhoneView,
 } from '../../../../styles/CommonComponents.jsx';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import {generalRequest, videoGeneralRequest} from '@/api/utility';

@@ -2,7 +2,7 @@ import {
   CommonRadioButton,
   PhoneView,
   SimpleText,
-} from '../../styles/CommonComponents';
+} from '../../styles/CommonComponents.jsx';
 import commonTranslator from '../../translator/common';
 import React from 'react';
 function RadioButtonYesOrNo(props) {

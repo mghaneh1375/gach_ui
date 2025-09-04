@@ -9,8 +9,8 @@ import React, {useState} from 'react';
 import {Image, Pressable} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {globalStateContext} from '../../../App.jsx';
-import Circle from '@/components/web/Circle';
-import QuizItemCard from '@/components/web/QuizItemCard';
+import Circle from '@/components/web/Circle.jsx';
+import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 import {
   CommonButton,
   CommonWebBox,
@@ -19,7 +19,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/CommonComponents.jsx';
-import {FontIcon} from '../../../styles/common/FontIcon';
+import {FontIcon} from '../../../styles/common/FontIcon.jsx';
 import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
 function Card(props) {

@@ -1,10 +1,10 @@
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import React, {useState} from 'react';
-import {QuizProvider} from '../../../panel/quiz/components/Context';
-import List from './components/List';
+import {QuizProvider} from '../../../panel/quiz/components/Context.jsx';
+import List from './components/List.jsx';
 import {useParams} from 'react-router';
-import Karname from '../../../panel/quiz/components/reports/karname/Karname';
-import AnswerSheet from '../irysc/components/AnswerSheet';
+import Karname from '../../../panel/quiz/components/reports/karname/Karname.jsx';
+import AnswerSheet from '../irysc/components/AnswerSheet.jsx';
 function MyQuizzes(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

@@ -1,9 +1,9 @@
 import React from 'react';
-import StudentAnswerSheet from '../../../../panel/quiz/components/answerSheet/StudentAnswerSheet';
+import StudentAnswerSheet from '../../../../panel/quiz/components/answerSheet/StudentAnswerSheet.jsx';
 import {
   dispatchQuizContext,
   quizContext,
-} from '../../../../panel/quiz/components/Context';
+} from '../../../../panel/quiz/components/Context.jsx';
 function AnswerSheet(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

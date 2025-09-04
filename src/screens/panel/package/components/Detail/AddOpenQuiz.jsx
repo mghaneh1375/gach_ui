@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import Quizzes from '@/components/web/Quizzes';
+import Quizzes from '@/components/web/Quizzes.jsx';
 import {showSuccess} from '@/services/utility';
 import {CommonButton} from '@/styles';
 import commonTranslator from '@/translator/common';
 import Translate from '../../translate';
 import {addQuizzesToPackage} from '../utility';
-import {dispatchQuizzesContext, quizzesContext} from './Utility';
+import {dispatchQuizzesContext, quizzesContext} from './Utility.jsx';
 function AddOpenQuiz(props) {
   const [selectedQuizzes, setSelectedQuizzes] = useState([]);
   const [isWorking, setIsWorking] = useState(false);

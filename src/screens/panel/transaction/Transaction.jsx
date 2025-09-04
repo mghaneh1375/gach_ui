@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {MyView} from '@/styles';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 import {getTransactions} from './components/utility';
-import List from './components/List';
+import List from './components/List.jsx';
 function Transaction(props) {
   const [mode, setMode] = useState('list');
   const [transactions, setTransactions] = useState();

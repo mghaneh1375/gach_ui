@@ -1,8 +1,8 @@
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import Video from '../../../../screens/panel/Video';
+import Video from '../../../../screens/panel/Video.jsx';
 import {showError, showSuccess} from '../../../../services/utility';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 function DailyAdv(props) {
   return (
     <LargePopUp removeCancel={true}>

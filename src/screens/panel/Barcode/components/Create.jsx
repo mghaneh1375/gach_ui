@@ -4,15 +4,15 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+} from '../../../../styles/Common.jsx';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import React, {useState} from 'react';
 import {styles} from '../../../../styles/common/styles';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
-import {barcodeContext, dispatchBarcodeContext} from './Context';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import {barcodeContext, dispatchBarcodeContext} from './Context.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import columns from './tableStructure';

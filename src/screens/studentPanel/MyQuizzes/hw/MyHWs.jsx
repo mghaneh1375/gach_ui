@@ -1,6 +1,6 @@
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import React from 'react';
-import List from './components/List';
+import List from './components/List.jsx';
 import {useParams} from 'react-router';
 function MyHWs(props) {
   const useGlobalState = () => [

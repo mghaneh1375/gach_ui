@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import {CommonButton, MyView, SimpleText} from '../styles/Common';
+import {CommonButton, MyView, SimpleText} from '../styles/Common.jsx';
 import {videoGeneralRequest} from './utility';
 import {routes} from './aPIRoutes';
 function ChunkUpload(props) {

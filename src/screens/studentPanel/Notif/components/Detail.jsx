@@ -6,7 +6,7 @@ import {generalRequest} from '@/api/utility';
 import {systemFonts, tagsStyles} from '../../../../services/utility';
 import {CommonWebBox, EqualTwoTextInputs, SimpleText} from '@/styles';
 import {styles} from '../../../../styles/common/styles';
-import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 function Detail(props) {
   const [notif, setNotif] = useState();
   const fetchNotif = React.useCallback(() => {

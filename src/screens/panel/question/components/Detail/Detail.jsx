@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {addQuestionToQuizzes, filter, removeQuestion} from '../utility';
-import Question from './Question';
-import Quizzes from '../../../../../components/web/Quizzes';
+import Question from './Question.jsx';
+import Quizzes from '../../../../../components/web/Quizzes.jsx';
 import {generalRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showError, showSuccess} from '../../../../../services/utility';
@@ -22,11 +22,11 @@ import {
   faAngleDoubleUp,
   faAngleLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import Author from './filter/Author';
-import {questionContext, dispatchQuestionContext} from './Context';
-import Level from './filter/Level';
-import Report from './Report';
-import Type from './filter/Type';
+import Author from './filter/Author.jsx';
+import {questionContext, dispatchQuestionContext} from './Context.jsx';
+import Level from './filter/Level.jsx';
+import Report from './Report.jsx';
+import Type from './filter/Type.jsx';
 import {styleYellowMarginTop7} from './style';
 import {styles} from '@/styles/common/styles';
 import {getQuestions} from '../../../quiz/components/utility';

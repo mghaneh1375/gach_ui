@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {CommonButton, CommonWebBox} from '../../../styles/CommonComponents.jsx';
-import CommonDataTable from '../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
 import Translate from './translate';
 import commonTranslator from '../../../translator/common';
 import {showSuccess} from '../../../services/utility';
-import {LargePopUp} from '../../../styles/common/PopUp';
+import {LargePopUp} from '../../../styles/common/PopUp.jsx';
 function RequestLogsForAdvisors(props) {
   const navigate = props.navigate;
   const [selectedRowId, setSelectedRowId] = useState();

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {EqualTwoTextInputs, PhoneView, SimpleText} from '@/styles';
-import {dispatchQuizContext, quizContext} from '../Context';
+import {dispatchQuizContext, quizContext} from '../Context.jsx';
 function MultiSentence(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

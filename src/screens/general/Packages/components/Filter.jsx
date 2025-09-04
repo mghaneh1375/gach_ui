@@ -13,10 +13,10 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {styles} from '../../../../styles/common/styles';
 import commonTranslator from '@/translator/common';
-import {dispatchPackagesContext} from './Context';
+import {dispatchPackagesContext} from './Context.jsx';
 import {filter} from './utility';
 function Filter(props) {
   const useGlobalState = () => [React.useContext(dispatchPackagesContext)];

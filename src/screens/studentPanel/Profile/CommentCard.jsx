@@ -1,5 +1,9 @@
 import React from 'react';
-import {MyView, PhoneView, SimpleText} from '../../../styles/CommonComponents';
+import {
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../styles/CommonComponents.jsx';
 function CommentCard(props) {
   return (
     <PhoneView

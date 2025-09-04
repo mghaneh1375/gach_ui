@@ -17,17 +17,17 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '../../../../styles/common/styles';
-import AttachBox from '../../ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../ticket/components/show/attachBox/AttachBox.jsx';
 import Translate from '../translator';
 import {useFilePicker} from 'use-file-picker';
 import {addCertificate, editCertificate, getCertificate} from '../utility';
-import NextButtons from '../components/NextButtons';
+import NextButtons from '../components/NextButtons.jsx';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {fileRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 let inc = 1;

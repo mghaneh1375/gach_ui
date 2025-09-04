@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {faEye} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '@/services/utility';
 import {getRanking} from '../../../../panel/quiz/components/utility';
-import Karname from '../../../../panel/quiz/components/reports/karname/Karname';
+import Karname from '../../../../panel/quiz/components/reports/karname/Karname.jsx';
 import {
   quizContext,
   dispatchQuizContext,
-} from '../../../../panel/quiz/components/Context';
+} from '../../../../panel/quiz/components/Context.jsx';
 import {CommonWebBox, SimpleFontIcon} from '@/styles';
-import CommonDataTable from '@/styles/common/CommonDataTable';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 
 function Ranking(props) {
   const useGlobalState = () => [

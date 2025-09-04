@@ -3,12 +3,12 @@ import {routes} from '@/api/apiRoutes';
 import {CommonButton, CommonWebBox, MyView} from '@/styles';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
-import ExcelComma from '../../../../../components/web/ExcelCommaInput';
-import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane';
+import ExcelComma from '../../../../../components/web/ExcelCommaInput.jsx';
+import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane.jsx';
 import {changeQuestionsArrangeInQuiz, getQuestions} from '../utility';
-import Edit from './Edit';
-import {dispatchQuizContext, quizContext} from '../Context';
-import Card from './Card';
+import Edit from './Edit.jsx';
+import {dispatchQuizContext, quizContext} from '../Context.jsx';
+import Card from './Card.jsx';
 import {BASE_SITE_NAME} from '@/api/utility';
 import {showSuccess} from '@/services/utility';
 const Questions = props => {

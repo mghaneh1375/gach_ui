@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import Circle from '../../../../../components/web/Circle';
+import Circle from '../../../../../components/web/Circle.jsx';
 import {CommonWebBox, PhoneView, MyView, SimpleText} from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import MultiSentence from './MultiSentence';
-import ShortAnswer from './ShortAnswer';
-import Test from './Test';
+import MultiSentence from './MultiSentence.jsx';
+import ShortAnswer from './ShortAnswer.jsx';
+import Test from './Test.jsx';
 const perBox = 10;
 function AnswerSheet(props) {
   const [boxes, setBoxes] = useState();

@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {CommonWebBox, MyView} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import {getQuizzes} from '../../../panel/quiz/components/utility';
 import translator from '../../../panel/quiz/translator';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
-} from './../../myQuizzes/components/Context';
-import Ops from './Ops';
+} from './../../myQuizzes/components/Context.jsx';
+import Ops from './Ops.jsx';
 import columns from './tableStructure';
 const List = props => {
   const [showOpPopUp, setShowOpPopUp] = useState(false);

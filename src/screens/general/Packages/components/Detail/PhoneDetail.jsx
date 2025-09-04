@@ -19,7 +19,7 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {setCacheItem} from '@/api/user';
 import {generalRequest} from '@/api/utility';
-import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
 import {
   convertSecToMinWithOutSecAndDay,
   faNums,
@@ -37,20 +37,20 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
 import {downloadCert} from '../../../../panel/certificate/utility';
-import OffCode from '../../../buy/components/OffCode';
+import OffCode from '../../../buy/components/OffCode.jsx';
 import {Translator} from '../../translator';
-import Card from '../Card';
+import Card from '../Card.jsx';
 import {fetchPackage, goToPay} from '../utility';
-import Chapter from './Chapter';
-import FAQ from './FAQ';
-import LastBuyer from './LastBuyer';
-import SessionDetail from './SessionDetail';
+import Chapter from './Chapter.jsx';
+import FAQ from './FAQ.jsx';
+import LastBuyer from './LastBuyer.jsx';
+import SessionDetail from './SessionDetail.jsx';
 function PhoneDetail(props) {
   const [item, setItem] = useState();
   const [img, setImg] = useState();

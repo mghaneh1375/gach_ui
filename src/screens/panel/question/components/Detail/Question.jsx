@@ -12,7 +12,7 @@ import {
 } from '@/styles';
 import commonTranslator from '@/translator/common';
 import translator from '../../translator';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
 import {
   faAngleDoubleDown,
   faAngleDoubleUp,
@@ -29,7 +29,7 @@ import {
   styleMaxHeight300,
 } from './style';
 import {levelKeyVals, statusKeyVals, typeOfQuestionKeyVals} from '../keyVals';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 import vars from '@/styles/root';
 import {styles} from '@/styles/common/styles';
 function Question(props) {

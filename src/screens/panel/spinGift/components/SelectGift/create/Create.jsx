@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
-import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import Translate from '../../../translate';
 import commonTranslate from '../../../../../../translator/common';
 import {
@@ -11,7 +11,7 @@ import {
   siteAppKeyVals,
 } from './keyVals';
 import commonTranslator from '../../../../../../translator/common';
-import JustBottomBorderDatePicker from '../../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderDatePicker from '../../../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import {addGift, editGift} from '../../configGift/utility';
 import {changeText} from '../../../../../../services/utility';
 function Create(props) {

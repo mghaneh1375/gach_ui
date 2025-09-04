@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {
   CommonButton,
   CommonWebBox,
@@ -7,7 +7,7 @@ import {
 } from '../../../styles/CommonComponents.jsx';
 import {generalRequest} from '../../../api/utility';
 import {routes} from '@/api/apiRoutes';
-import RadioButtonYesOrNo from '../../../components/web/RadioButtonYesOrNo';
+import RadioButtonYesOrNo from '../../../components/web/RadioButtonYesOrNo.jsx';
 import commonTranslator from '../../../translator/common';
 import {showSuccess} from '../../../services/utility';
 function ProfileConfig(props) {

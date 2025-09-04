@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import {Translator} from '../../translate';
-import {dispatchMyTeachClassesContext, myTeachClassesContext} from './Context';
+import {
+  dispatchMyTeachClassesContext,
+  myTeachClassesContext,
+} from './Context.jsx';
 import {generalRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
 import commonTranslator from '@/translator/common';
 import {showSuccess} from '@/services/utility';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 function Report(props) {
   const useGlobalState = () => [
     React.useContext(myTeachClassesContext),

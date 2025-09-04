@@ -1,6 +1,6 @@
 import React from 'react';
 import {routes} from '@/api/apiRoutes';
-import UploadFile from '@/components/web/UploadFile';
+import UploadFile from '@/components/web/UploadFile.jsx';
 import translator from '../../translator';
 const AddBatchFiles = props => {
   return (

@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import UploadFile from '@/components/web/UploadFile';
+import UploadFile from '@/components/web/UploadFile.jsx';
 import {showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 function Create(props) {

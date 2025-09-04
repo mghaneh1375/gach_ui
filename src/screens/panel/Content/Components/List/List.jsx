@@ -2,15 +2,15 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest, VIDEO_BASE_URL} from '../../../../../api/utility';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
 import Translator from '../../translate';
-import {contentContext, dispatchContentContext} from '../Context';
+import {contentContext, dispatchContentContext} from '../Context.jsx';
 import {fetchContents} from '../utility';
-import Ops from './Ops';
+import Ops from './Ops.jsx';
 import columns from './tableStruncture';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {justifyContentEnd} from '../../../../../styles/common/button';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),

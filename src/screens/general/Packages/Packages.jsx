@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {PackageProvider} from './components/Context';
-import Detail from './components/detail/Detail';
-import List from './components/List';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {PackageProvider} from './components/Context.jsx';
+import Detail from './components/detail/Detail.jsx';
+import List from './components/List.jsx';
 import {getDevice} from '../../../services/utility';
-import PhoneDetail from './components/detail/PhoneDetail';
+import PhoneDetail from './components/detail/PhoneDetail.jsx';
 function Packages(props) {
   const [mode, setMode] = useState();
   const useGlobalState = () => [

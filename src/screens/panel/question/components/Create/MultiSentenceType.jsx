@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {MyView} from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 import translator from '../../translator';
 import {sentencesCountKeyVals} from '../keyVals';
-import MultiSentenceYesOrNo from './MultiSentenceYesOrNo';
+import MultiSentenceYesOrNo from './MultiSentenceYesOrNo.jsx';
 function MultiSentenceType(props) {
   const [sentencesAnswer, setSentencesAnswer] = useState();
   const [sentencesCount, setSentencesCount] = useState();

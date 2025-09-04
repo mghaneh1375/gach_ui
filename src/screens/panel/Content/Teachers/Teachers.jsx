@@ -4,7 +4,7 @@ import {CommonWebBox} from '../../../../styles/CommonComponents.jsx';
 import React, {useState} from 'react';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import Teacher from './Teacher';
+import Teacher from './Teacher.jsx';
 function Teachers(props) {
   const [teachers, setTeachers] = useState();
   const useGlobalState = () => [

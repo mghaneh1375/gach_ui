@@ -1,7 +1,7 @@
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState, useRef, useCallback} from 'react';
-import {FontIcon} from '../../../../../styles/common/FontIcon';
-import AnswerSheet from '../answerSheet/AnswerSheet';
+import {FontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import AnswerSheet from '../answerSheet/AnswerSheet.jsx';
 import {getAnswerSheet} from '../utility';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';

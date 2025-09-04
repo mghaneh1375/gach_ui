@@ -1,6 +1,6 @@
 import {CommonWebBox, PhoneView, SimpleText, MyView} from '@/styles';
-import AttachBox from './attachBox/AttachBox';
-import ChatImage from './chatImage/ChatImage';
+import AttachBox from './attachBox/AttachBox.jsx';
+import ChatImage from './chatImage/ChatImage.jsx';
 import RenderHtml from 'react-native-render-html';
 const Chat = props => {
   const commonStyles = {

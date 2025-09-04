@@ -18,9 +18,9 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../styles/CommonComponents.jsx';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
-import Video from '../../../../panel/Video';
+import Video from '../../../../panel/Video.jsx';
 import {Pressable} from 'react-native';
 import RenderHTML from 'react-native-render-html';
 import {useEffectOnce} from 'usehooks-ts';
@@ -28,7 +28,7 @@ import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {useParams} from 'react-router';
 import {downloadRequest, generalRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
-import AttachBox from '../../../../panel/ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 function SessionDetail(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const [showAdvertising, setShowAdvertising] = useState(true);

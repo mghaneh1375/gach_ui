@@ -4,10 +4,10 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {fetchUser, setCacheItem} from '../../../api/user';
 import {generalRequest} from '../../../api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import BestComments from '../../../components/web/comment/BestComments';
-import Comment from '../../../components/web/comment/Comment';
-import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import BestComments from '../../../components/web/comment/BestComments.jsx';
+import Comment from '../../../components/web/comment/Comment.jsx';
+import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction.jsx';
 import {addItem, removeItems, showSuccess} from '../../../services/utility';
 import {
   CommonButton,
@@ -17,13 +17,13 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/CommonComponents.jsx';
-import {LargePopUp} from '../../../styles/common/PopUp';
+import {LargePopUp} from '../../../styles/common/PopUp.jsx';
 import {styles} from '../../../styles/common/styles';
 import commonTranslator from '../../../translator/common';
-import OffCode from '../buy/components/OffCode';
-import Card from './Card';
-import Filter from './Filter';
-import FinancePlan from './FinancePlan';
+import OffCode from '../buy/components/OffCode.jsx';
+import Card from './Card.jsx';
+import Filter from './Filter.jsx';
+import FinancePlan from './FinancePlan.jsx';
 import vars from '../../../styles/root';
 function Advisors(props) {
   const useGlobalState = () => [

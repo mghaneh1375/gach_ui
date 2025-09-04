@@ -1,8 +1,8 @@
 import {routes} from '@/api/apiRoutes';
 import {CommonWebBox, MyView} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
-import {contentContext, dispatchContentContext} from '../Context';
-import Ops from './Ops';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import {contentContext, dispatchContentContext} from '../Context.jsx';
+import Ops from './Ops.jsx';
 import React, {useState} from 'react';
 import {fetchSessions} from '../utility';
 import Translator from '../../translate';

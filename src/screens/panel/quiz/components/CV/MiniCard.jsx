@@ -8,7 +8,7 @@ import {
   SimpleText,
   MyView,
 } from '@/styles';
-import {FontIcon} from '../../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../../styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import {styleCard100Percent} from '../../../package/card/style';

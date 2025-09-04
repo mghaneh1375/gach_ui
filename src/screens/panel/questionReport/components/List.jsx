@@ -3,9 +3,12 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
-import {LargePopUp} from '../../../../styles/common/PopUp';
-import {questionReportContext, dispatchQuestionReportContext} from './Context';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {
+  questionReportContext,
+  dispatchQuestionReportContext,
+} from './Context.jsx';
 import columns from './tableStructure';
 import commonTranslator from '@/translator/common';
 function List(props) {

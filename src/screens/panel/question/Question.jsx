@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 import {
   editItem,
   isUserContentAccess,
   isUserEditorAccess,
 } from '../../../services/utility';
 import {getGradeLessons} from '../basic/utility';
-import Create from './components/create/Create';
-import Detail from './components/detail/Detail';
-import List from './components/list/List';
+import Create from './components/create/Create.jsx';
+import Detail from './components/detail/Detail.jsx';
+import List from './components/list/List.jsx';
 import {filter, getSubjects} from './components/utility';
 import {isUserAdmin} from '../../../services/utility';
-import {QuestionProvider} from './components/detail/Context';
+import {QuestionProvider} from './components/detail/Context.jsx';
 import {MyView} from '@/styles';
 const Question = props => {
   const [subjects, setSubjects] = useState();

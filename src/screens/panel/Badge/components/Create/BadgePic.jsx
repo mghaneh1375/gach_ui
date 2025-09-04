@@ -1,9 +1,9 @@
 import {useFilePicker} from 'use-file-picker';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import {useEffect} from 'react';
 import {PhoneView} from '@/styles';
-import AttachBox from '../../../ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
 function BadgePic(props) {
   const [openFileSelector, {filesContent}] = useFilePicker({
     maxFileSize: 1,

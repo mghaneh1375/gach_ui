@@ -5,7 +5,7 @@ import commonTranslator from '@/translator/common';
 import {updateForm} from './utility';
 import {fetchUser, setCacheItem} from '../../../../api/user';
 import {showSuccess} from '../../../../services/utility';
-import SpecificRoleForm from '../../login/components/SpecificRoleForm';
+import SpecificRoleForm from '../../login/components/SpecificRoleForm.jsx';
 const UpdateForm = props => {
   const [forms, setForms] = useState();
   React.useEffect(() => {

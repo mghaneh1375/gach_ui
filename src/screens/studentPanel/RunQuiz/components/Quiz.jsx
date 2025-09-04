@@ -1,10 +1,10 @@
 import React from 'react';
 import {getDevice} from '../../../../services/utility';
 import {CommonButton, MyView, SimpleText} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp';
-import Bookmark from './Bookmark';
-import {dispatchDoQuizContext, doQuizContext} from './Context';
-import Question from './Question';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import Bookmark from './Bookmark.jsx';
+import {dispatchDoQuizContext, doQuizContext} from './Context.jsx';
+import Question from './Question.jsx';
 function Quiz(props) {
   const device = getDevice();
   const isInPhone = device.indexOf('WebPort') !== -1;

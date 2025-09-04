@@ -10,12 +10,12 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
-import QuestionNumber from '../../../studentPanel/runQuiz/components/questionComponents/QuestionNumber';
-import {dispatchDoCorrectContext, doCorrectContext} from './Context';
+import QuestionNumber from '../../../studentPanel/runQuiz/components/questionComponents/QuestionNumber.jsx';
+import {dispatchDoCorrectContext, doCorrectContext} from './Context.jsx';
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(doCorrectContext),

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CommonWebBox, PhoneView} from '../../../styles/CommonComponents.jsx';
-import UpdateInfo from './components/UpdateInfo';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import UpdateInfo from './components/UpdateInfo.jsx';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {getDevice, getWidthHeight} from '../../../services/utility';
 import {Device} from '../../../models/device';
 const Profile = props => {

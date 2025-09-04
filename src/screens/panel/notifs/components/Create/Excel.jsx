@@ -1,7 +1,7 @@
 import {useFilePicker} from 'use-file-picker';
 import {PhoneView, SimpleText} from '@/styles';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
-import AttachBox from '../../../ticket/components/show/attachBox/AttachBox';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '@/styles/common/styles';
 import React from 'react';

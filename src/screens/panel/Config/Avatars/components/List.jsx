@@ -1,6 +1,6 @@
 import React from 'react';
 import {CommonWebBox, MyView, PhoneView} from '@/styles';
-import Show from './show/Show';
+import Show from './show/Show.jsx';
 import translator from '../translator';
 function List(props) {
   const setDefaultAvatar = avatarId => {

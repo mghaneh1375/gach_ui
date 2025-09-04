@@ -1,5 +1,5 @@
 import React from 'react';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '@/translator/common';
 import {CommonButton, PhoneView, MyView} from '@/styles';
 import vars from '@/styles/root';

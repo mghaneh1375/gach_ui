@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {addItem, editItem, removeItems} from '../../../../services/utility';
-import Create from './components/Create';
-import List from './components/List';
-import {dispatchStateContext} from '@/App';
+import Create from './components/Create.jsx';
+import List from './components/List.jsx';
+import {dispatchStateContext} from '@/App.jsx';
 import {MyView} from '@/styles';
 import {fetchData} from './components/utility';
 function TarazLevels(props) {

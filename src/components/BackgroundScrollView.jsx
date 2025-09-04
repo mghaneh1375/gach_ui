@@ -11,8 +11,12 @@ import {
   ArrowStyleRight,
 } from '../styles/common/scrollView';
 import {Device} from '../models/device';
-import {BlueTextInline, MyView, PhoneView} from '../styles/CommonComponents';
-import {SimpleFontIcon} from '../styles/common/FontIcon';
+import {
+  BlueTextInline,
+  MyView,
+  PhoneView,
+} from '../styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '../styles/common/FontIcon.jsx';
 function BackgroundScrollView(props) {
   const [items, setItems] = useState();
   const [currentNode, setCurrentNode] = useState();

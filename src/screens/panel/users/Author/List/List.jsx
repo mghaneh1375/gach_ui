@@ -1,11 +1,11 @@
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
 import Translate from '../translator';
 import React, {useState} from 'react';
-import Ops from './ops/Ops';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import Ops from './ops/Ops.jsx';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
 import columns from './authorTableStructure';
 import {routes} from '@/api/apiRoutes';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '@/translator/common';
 import {changeText, removeItems} from '../../../../../services/utility';
 function List(props) {

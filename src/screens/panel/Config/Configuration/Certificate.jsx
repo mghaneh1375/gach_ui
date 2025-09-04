@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
 } from '../../../../styles/CommonComponents.jsx';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {styles} from '../../../../styles/common/styles';
 import translator from './translator';
 import commonTranslator from '@/translator/common';

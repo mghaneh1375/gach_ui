@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, MyView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
 import {sectionKeyVals, priorityKeyVals} from '../keyVals';
 import {fetchDetail} from './utility';
-import Chat from './Chat';
-import Add from './Add';
+import Chat from './Chat.jsx';
+import Add from './Add.jsx';
 import {styles} from '@/styles/common/styles';
 function Show(props) {
   const [isWorking, setIsWorking] = useState(false);

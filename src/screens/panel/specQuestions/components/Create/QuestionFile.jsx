@@ -1,7 +1,7 @@
 import {CommonButton, MyView} from '@/styles';
 import {useFilePicker} from 'use-file-picker';
 import React from 'react';
-import {TextIcon} from '../../../../../styles/common/TextIcon';
+import {TextIcon} from '../../../../../styles/common/TextIcon.jsx';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 function QuestionFile(props) {
   const [openFileSelector, {filesContent, loading, errors, clear, remove}] =

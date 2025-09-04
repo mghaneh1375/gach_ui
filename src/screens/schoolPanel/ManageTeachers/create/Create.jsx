@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, MyView} from '@/styles';
 import Translate from '../translate';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {changeText} from '../../../../services/utility';
 function Create(props) {
   const [name, setName] = useState();

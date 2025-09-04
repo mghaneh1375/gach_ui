@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import VideoJS from './VideoJS';
+import VideoJS from './VideoJS.jsx';
 function Video(props) {
   const playerRef = React.useRef(null);
   const [videoJsOptions, setVideoJsOptions] = useState({

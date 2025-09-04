@@ -7,7 +7,7 @@ import vars from '@/styles/root';
 import {
   advisorScheduleContext,
   dispatchAdvisorScheduleContext,
-} from './Context';
+} from './Context.jsx';
 import {lessonsInSchedule} from './utility';
 function Lesson(props) {
   const [boxes, setBoxes] = useState();

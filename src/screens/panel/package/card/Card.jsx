@@ -19,14 +19,14 @@ import {
   stylePricaPane,
   styleYellowBox,
 } from './style';
-import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
+import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane.jsx';
 import {routes} from '@/api/apiRoutes';
 import {
   formatPrice,
   getWidthHeight,
   showSuccess,
 } from '../../../../services/utility';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {faGift} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../styles/common/styles';
 import {BASE_SITE_NAME} from '@/api/utility';

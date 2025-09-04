@@ -1,11 +1,11 @@
 import React from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import {dispatchQuizContext, quizContext} from '../Context';
+import {dispatchQuizContext, quizContext} from '../Context.jsx';
 import {useState} from 'react';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import {generalRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';

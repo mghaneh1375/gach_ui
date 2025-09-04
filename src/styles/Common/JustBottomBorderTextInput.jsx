@@ -1,6 +1,6 @@
-import {CommonTextInput} from './CommonTextInput';
-import {MultiSearchableTextInput} from './MultiSearchableTextInput';
-import {SearchableTextInput} from './SearchableTextInput';
+import {CommonTextInput} from './CommonTextInput.jsx';
+import {MultiSearchableTextInput} from './MultiSearchableTextInput.jsx';
+import {SearchableTextInput} from './SearchableTextInput.jsx';
 const JustBottomBorderTextInput = props => {
   const customStyle =
     props.style === undefined

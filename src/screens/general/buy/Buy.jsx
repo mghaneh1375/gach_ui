@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import List from './components/list/List';
-import {PackageProvider} from './components/Context';
-import Detail from './components/detail/Detail';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import List from './components/list/List.jsx';
+import {PackageProvider} from './components/Context.jsx';
+import Detail from './components/detail/Detail.jsx';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
 import {getDevice} from '../../../services/utility';

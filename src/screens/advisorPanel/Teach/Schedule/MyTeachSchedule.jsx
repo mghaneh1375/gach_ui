@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import List from './components/List';
+import List from './components/List.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {TeachScheduleProvider} from './components/Context';
-import Create from './components/Create';
-import Students from './components/Students';
-import Copy from './components/Copy';
+import {TeachScheduleProvider} from './components/Context.jsx';
+import Create from './components/Create.jsx';
+import Students from './components/Students.jsx';
+import Copy from './components/Copy.jsx';
 function MyTeachSchedule(props) {
   const [mode, setMode] = useState('list');
   const useGlobalState = () => [

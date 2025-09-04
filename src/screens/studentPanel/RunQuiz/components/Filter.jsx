@@ -9,10 +9,10 @@ import {
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
 import React, {useState} from 'react';
-import {doQuizContext, dispatchDoQuizContext} from './Context';
-import QuestionNumber from './questionComponents/QuestionNumber';
-import {SimpleTextIcon} from '../../../../styles/common/TextIcon';
-import Timer from './Timer';
+import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
+import QuestionNumber from './questionComponents/QuestionNumber.jsx';
+import {SimpleTextIcon} from '../../../../styles/common/TextIcon.jsx';
+import Timer from './Timer.jsx';
 import {
   faAngleDown,
   faAngleUp,
@@ -20,10 +20,10 @@ import {
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import Translate from '../translate';
-import {FontIcon} from '../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
 import commonTranslator from '@/translator/common';
-import Circle from '../../../../components/web/Circle';
-import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import Circle from '../../../../components/web/Circle.jsx';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 import {getDevice} from '../../../../services/utility';
 function Filter(props) {
   const useGlobalState = () => [

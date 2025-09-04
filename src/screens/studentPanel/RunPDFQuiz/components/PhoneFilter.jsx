@@ -3,8 +3,8 @@ import React, {useState} from 'react';
 import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
-import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
-import {doQuizContext, dispatchDoQuizContext} from './Context';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
+import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import {Pressable} from 'react-native-web';
 function PhoneFilter(props) {
   const useGlobalState = () => [

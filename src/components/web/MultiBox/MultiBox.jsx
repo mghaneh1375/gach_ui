@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {PhoneView} from '@/styles';
-import Box from './Box';
+import Box from './Box.jsx';
 const MultiBox = props => {
   const [items, setItems] = useState();
   React.useEffect(() => {

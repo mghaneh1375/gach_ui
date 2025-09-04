@@ -2,15 +2,15 @@ import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '@/styles';
 import Translator from '../../translate';
 import commonTranslator from '@/translator/common';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
 import {generalRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
-import ExcelComma from '../../../../../components/web/ExcelCommaInput';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import ExcelComma from '../../../../../components/web/ExcelCommaInput.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import columns from './tableStructure';
-import SearchUser from '../../../../../components/web/searchUser/SearchUser';
+import SearchUser from '../../../../../components/web/searchUser/SearchUser.jsx';
 import {changeText} from '../../../../../services/utility';
-import {contentContext, dispatchContentContext} from '../Context';
+import {contentContext, dispatchContentContext} from '../Context.jsx';
 const Students = props => {
   const useGlobalState = () => [
     React.useContext(contentContext),

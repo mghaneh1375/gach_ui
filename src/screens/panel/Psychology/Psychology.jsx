@@ -3,10 +3,10 @@ import {
   CommonWebBox,
   MyView,
   SimpleText,
-} from '../../../styles/CommonComponents';
+} from '../../../styles/CommonComponents.jsx';
 import {styles} from '../../../styles/common/styles';
-import Card from './components/Card';
-import Description from './components/Description';
+import Card from './components/Card.jsx';
+import Description from './components/Description.jsx';
 function Psychology(props) {
   const navigate = props.navigate;
   const [show, setShow] = useState(true);

@@ -5,15 +5,15 @@ import {
   PhoneView,
 } from '../../../../styles/CommonComponents.jsx';
 import {Translator} from './translator';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import columns from './columns';
 import {showSuccess} from '../../../../services/utility';
-import Filter from './Filter';
-import StudentCard from '../../../../components/web/StudentCard';
+import Filter from './Filter.jsx';
+import StudentCard from '../../../../components/web/StudentCard.jsx';
 function MyTeachRequests(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

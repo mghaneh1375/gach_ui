@@ -6,9 +6,9 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents';
+} from '../../../styles/CommonComponents.jsx';
 import {styles} from '../../../styles/common/styles';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
 import React, {useMemo, useState} from 'react';
 import {generalRequest} from '../../../api/utility';
 import {routes} from '@/api/apiRoutes';

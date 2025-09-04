@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {convertTimestamp} from '../../../../../../services/utility';
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
-import JustBottomBorderDatePicker from '../../../../../../styles/common/JustBottomBorderDatePicker';
-import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderDatePicker from '../../../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '../../../../../../styles/common/styles';
 import commonTranslator from '../../../../../../translator/common';
 import {createTransaction} from '../../list/utility';

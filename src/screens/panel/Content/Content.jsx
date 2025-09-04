@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {ContentProvider} from './components/Context';
-import Create from './components/Create';
-import List from './components/list/List';
-import SessionsList from './components/session/List';
-import CreateSession from './components/session/Create';
-import Attach from './components/session/Attach';
-import Students from './components/studentsList/Students';
-import Seo from './seo/Seo';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {ContentProvider} from './components/Context.jsx';
+import Create from './components/Create.jsx';
+import List from './components/list/List.jsx';
+import SessionsList from './components/session/List.jsx';
+import CreateSession from './components/session/Create.jsx';
+import Attach from './components/session/Attach.jsx';
+import Students from './components/studentsList/Students.jsx';
+import Seo from './seo/Seo.jsx';
 import {isUserAdmin, isUserEditorAccess} from '../../../services/utility';
-import IndividualFAQ from './individualFAQ/IndividualFAQ';
+import IndividualFAQ from './individualFAQ/IndividualFAQ.jsx';
 function Content(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

@@ -12,17 +12,17 @@ import {
 import translator from '../translator';
 import commonTranslator from '@/translator/common';
 import React, {useState} from 'react';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {priorityKeyVals, sectionKeyVals} from './keyVals';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {faPaperclip, faPlus} from '@fortawesome/free-solid-svg-icons';
-import SearchUser from '../../../../components/web/searchUser/SearchUser';
+import SearchUser from '../../../../components/web/searchUser/SearchUser.jsx';
 import {addFile, finalize, submit} from './show/utility';
 import {changeText, showError} from '../../../../services/utility';
 import {useFilePicker} from 'use-file-picker';
-import UserTinyPic from '../../../../components/web/largeScreen/UserTinyPic';
-import AttachBox from './show/attachBox/AttachBox';
+import UserTinyPic from '../../../../components/web/largeScreen/UserTinyPic.jsx';
+import AttachBox from './show/attachBox/AttachBox.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 function Create(props) {

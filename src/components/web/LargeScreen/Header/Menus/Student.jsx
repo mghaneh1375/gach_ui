@@ -1,14 +1,14 @@
 import {faMedal, faSun} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import {globalStateContext} from '@/App';
+import {globalStateContext} from '@/App.jsx';
 import {Device} from '../../../../../models/device';
 import {getDevice} from '@/services/utility';
 import {MyView} from '@/styles';
 import translator from '../../../../../translator/common';
-import MobileLogout from '../MobileLogout';
-import {MenuItemPhone, style} from '../Style';
-import MenuItemRepeat from './MenuItemRepeat';
-import MenuItemRepeatForPhone from './MenuItemRepeatForPhone';
+import MobileLogout from '../MobileLogout.jsx';
+import {MenuItemPhone, style} from '../Style.jsx';
+import MenuItemRepeat from './MenuItemRepeat.jsx';
+import MenuItemRepeatForPhone from './MenuItemRepeatForPhone.jsx';
 function StudentMenu(props) {
   const device = getDevice();
   const navigate = props.navigate;

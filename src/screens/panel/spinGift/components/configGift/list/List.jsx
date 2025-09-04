@@ -5,18 +5,18 @@ import {
   SimpleText,
   MyView,
 } from '@/styles';
-import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '../../../../../../translator/common';
 import Translate from '../../../translate';
 import React, {useState} from 'react';
-import {TextIcon} from '../../../../../../styles/common/TextIcon';
+import {TextIcon} from '../../../../../../styles/common/TextIcon.jsx';
 import {faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {convertTimestamp, showError} from '../../../../../../services/utility';
-import {FontIcon} from '../../../../../../styles/common/FontIcon';
-import {LargePopUp} from '../../../../../../styles/common/PopUp';
-import {CommonDatePicker} from '../../../../../../styles/common/CommonDatePicker';
+import {FontIcon} from '../../../../../../styles/common/FontIcon.jsx';
+import {LargePopUp} from '../../../../../../styles/common/PopUp.jsx';
+import {CommonDatePicker} from '../../../../../../styles/common/CommonDatePicker.jsx';
 import {updateGift} from '../utility';
-import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect.jsx';
 import {
   fetchContentDigests,
   fetchQuizDigests,

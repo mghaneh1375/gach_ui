@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {FontIcon} from '../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {faPaperclip, faPaperPlane} from '@fortawesome/free-solid-svg-icons';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import {PhoneView} from '../../../../styles/Common';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {PhoneView} from '../../../../styles/Common.jsx';
 import {styles} from '../../../../styles/common/styles';
 function FooterInputWithFileUpload(props) {
   const inputRef = useRef(null);

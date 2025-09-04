@@ -3,7 +3,7 @@ import {
   CommonWebBox,
   MyView,
   SimpleText,
-} from '../../../styles/CommonComponents';
+} from '../../../styles/CommonComponents.jsx';
 import {Image} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {styles} from '../../../styles/common/styles';

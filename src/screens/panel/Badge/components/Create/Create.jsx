@@ -9,13 +9,13 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '@/styles/common/styles';
 import {translator} from '../../translate';
-import {badgeContext, dispatchBadgeContext} from '../Context';
-import BadgePic from './BadgePic';
-import Metric from './Metric';
+import {badgeContext, dispatchBadgeContext} from '../Context.jsx';
+import BadgePic from './BadgePic.jsx';
+import Metric from './Metric.jsx';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(badgeContext),

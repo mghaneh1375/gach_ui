@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane';
+import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane.jsx';
 import {showSuccess} from '../../../../services/utility';
-import {CommonButton, MyView, PhoneView} from '../../../../styles/Common';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import {CommonButton, MyView, PhoneView} from '../../../../styles/Common.jsx';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
 function Ops(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);

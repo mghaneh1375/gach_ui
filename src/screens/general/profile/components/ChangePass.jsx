@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {CommonButton, EqualTwoTextInputs, MyView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import vars from '@/styles/root';
 import translator from '../translate';
 import commonTranslator from '@/translator/common';

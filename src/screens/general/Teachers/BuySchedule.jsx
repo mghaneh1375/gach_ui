@@ -7,7 +7,7 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents';
+} from '../../../styles/CommonComponents.jsx';
 import {styles} from '../../../styles/common/styles';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
 import vars from '../../../styles/root';

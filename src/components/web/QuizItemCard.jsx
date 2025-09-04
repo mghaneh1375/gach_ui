@@ -1,6 +1,6 @@
 import {getDevice, getWidthHeight} from '../../services/utility';
-import {MyView, PhoneView, SimpleText} from '../../styles/CommonComponents';
-import {FontIcon, SimpleFontIcon} from '../../styles/common/FontIcon';
+import {MyView, PhoneView, SimpleText} from '../../styles/CommonComponents.jsx';
+import {FontIcon, SimpleFontIcon} from '../../styles/common/FontIcon.jsx';
 import {styles} from '../../styles/common/styles';
 function QuizItemCard({
   text,

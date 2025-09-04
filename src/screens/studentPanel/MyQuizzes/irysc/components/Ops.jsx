@@ -6,11 +6,11 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
 import {
   quizContext,
   dispatchQuizContext,
-} from '../../../../panel/quiz/components/Context';
+} from '../../../../panel/quiz/components/Context.jsx';
 import {getRanking} from '../../../../panel/quiz/components/utility';
 import Translate from '../../translate';
 import {getMyAnswerSheet, getRecpForQuiz} from './utility';

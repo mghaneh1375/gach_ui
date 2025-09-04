@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {setCacheItem} from '../../../../api/user';
 import {generalRequest} from '@/api/utility';
-import {style} from '../../../../components/web/largeScreen/header/Style';
+import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
 import {CommonButton, MyView, PhoneView} from '@/styles';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
 import commonTranlator from '../../../../translator/common';
 import translator from '../translate';
 const Login = props => {

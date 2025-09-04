@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import vars from '@/styles/root';
 function SpecificRoleForm(props) {
   const [obj, setObj] = useState();

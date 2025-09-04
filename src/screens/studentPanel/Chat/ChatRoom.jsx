@@ -1,6 +1,6 @@
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import Chat from './chat';
-import {ChatProvider} from './components/Context';
+import {ChatProvider} from './components/Context.jsx';
 import React from 'react';
 function ChatRoom(props) {
   const useGlobalState = () => [

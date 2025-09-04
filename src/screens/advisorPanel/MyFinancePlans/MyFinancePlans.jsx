@@ -1,8 +1,8 @@
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import React, {useState} from 'react';
-import {FinanceProvider} from './components/Context';
-import List from './components/List';
-import Create from './components/Create';
+import {FinanceProvider} from './components/Context.jsx';
+import List from './components/List.jsx';
+import Create from './components/Create.jsx';
 function MyFinancePlans(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

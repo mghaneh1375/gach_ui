@@ -2,7 +2,7 @@ import {
   CommonButton,
   MyView,
   SimpleText,
-} from '../../../styles/CommonComponents';
+} from '../../../styles/CommonComponents.jsx';
 import {styles} from '../../../styles/common/styles';
 function Card(props) {
   return (

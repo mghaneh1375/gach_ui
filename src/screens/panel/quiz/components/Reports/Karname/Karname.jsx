@@ -8,8 +8,8 @@ import {
   MyView,
   MyViewWithRef,
 } from '@/styles';
-import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
-import {quizContext, dispatchQuizContext} from '../../Context';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable.jsx';
+import {quizContext, dispatchQuizContext} from '../../Context.jsx';
 import {fetchStudentAnswerSheet, getKarname} from '../../utility';
 import {
   lessonCols,
@@ -35,9 +35,9 @@ import {
   VictoryAxis,
   VictoryLegend,
 } from 'victory-native';
-import AnswerSheet from '../../answerSheet/AnswerSheet';
-import StudentCard from '../../../../../../components/web/StudentCard';
-import CopyBox from '@/components/CopyBox';
+import AnswerSheet from '../../answerSheet/AnswerSheet.jsx';
+import StudentCard from '../../../../../../components/web/StudentCard.jsx';
+import CopyBox from '@/components/CopyBox.jsx';
 import {BASE_SITE_NAME} from '../../../../../../api/utility';
 import {getDevice, showError} from '../../../../../../services/utility';
 import {getMyAnswerSheet} from '../../../../../studentPanel/myQuizzes/irysc/components/utility';

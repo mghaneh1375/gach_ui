@@ -6,19 +6,19 @@ import {
   MyView,
   PhoneView,
 } from '@/styles';
-import QuizAnswerSheetInfo from './create/QuizAnswerSheetInfo';
-import QuizGeneralInfo from './create/QuizGeneralInfo';
-import QuizRegistryInfo from './create/QuizRegistryInfo';
+import QuizAnswerSheetInfo from './create/QuizAnswerSheetInfo.jsx';
+import QuizGeneralInfo from './create/QuizGeneralInfo.jsx';
+import QuizRegistryInfo from './create/QuizRegistryInfo.jsx';
 import commonTranslator from '@/translator/common';
 import translator from '../translator';
 import {CallAPI} from './create/callAPI';
 import {routes} from '@/api/apiRoutes';
-import {dispatchQuizContext, quizContext} from './Context';
+import {dispatchQuizContext, quizContext} from './Context.jsx';
 import {addFile, getTags, removeFile} from './utility';
 import {useFilePicker} from 'use-file-picker';
 import {showSuccess} from '../../../../services/utility';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '../../../../styles/common/styles';
 const CreateOnlineQuiz = props => {
   const useGlobalState = () => [

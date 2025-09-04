@@ -9,18 +9,18 @@ import {
 } from '../../../../styles/CommonComponents.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {BlurLoginBack} from './style';
-import LoginModule from '../components/Login';
-import ForgetPassModule from '../components/ForgetPass';
-import VerificationModule from '../components/Verification';
-import SignupModule from '../components/Signup';
-import ResetPassModule from '../components/ResetPass';
-import RoleFormModule from '../components/RoleForm';
+import LoginModule from '../components/Login.jsx';
+import ForgetPassModule from '../components/ForgetPass.jsx';
+import VerificationModule from '../components/Verification.jsx';
+import SignupModule from '../components/Signup.jsx';
+import ResetPassModule from '../components/ResetPass.jsx';
+import RoleFormModule from '../components/RoleForm.jsx';
 import commonTranlator from '../../../../translator/common';
 import translator from '../translate';
 import {Container, Row, Col} from 'react-grid-system';
 import vars from '@/styles/root';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {FontIcon} from '../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {getToken} from '../../../../api/user';
 import {styles} from '../../../../styles/common/styles';
 const Login = props => {

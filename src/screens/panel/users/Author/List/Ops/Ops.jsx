@@ -1,10 +1,10 @@
 import {CommonButton, PhoneView, MyView} from '@/styles';
-import {LargePopUp} from '../../../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../../../styles/common/PopUp.jsx';
 import commonTranslator from '../../../../../../translator/common';
 import Translate from '../../translator';
 import {removeAuthor} from '../utility';
 
-//import {login, toggleStatus} from './Utility';
+//import {login, toggleStatus} from './Utility.jsx';
 
 function Ops(props) {
   return (

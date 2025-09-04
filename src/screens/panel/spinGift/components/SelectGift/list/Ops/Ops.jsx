@@ -1,11 +1,11 @@
 import {PhoneView, MyView} from '@/styles';
-import {LargePopUp} from '../../../../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../../../../styles/common/PopUp.jsx';
 import commonTranslator from '../../../../../../../translator/common';
-import {CommonButton} from '../../../../../../../styles/CommonComponents';
+import {CommonButton} from '../../../../../../../styles/CommonComponents.jsx';
 import {showSuccess} from '../../../../../../../services/utility';
 import {useState} from 'react';
 import {routes} from '../../../../../../../api/apiRoutes';
-import ConfirmationBatchOpPane from '../../../../../../../components/web/ConfirmationBatchOpPane';
+import ConfirmationBatchOpPane from '../../../../../../../components/web/ConfirmationBatchOpPane.jsx';
 function Ops(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);
   const afterRemove = res => {

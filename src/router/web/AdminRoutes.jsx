@@ -1,5 +1,5 @@
 import {Route} from 'react-router-dom';
-import WebStructue from '../../screens/WebStructure';
+import WebStructue from '../../screens/WebStructure.jsx';
 
 function AdminRoutes() {
   return (

@@ -1,10 +1,10 @@
 import React from 'react';
 import {CommonButton, PhoneView} from '@/styles';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
 import {
   quizContext,
   dispatchQuizContext,
-} from '../../../../panel/quiz/components/Context';
+} from '../../../../panel/quiz/components/Context.jsx';
 import {getRecpForQuiz} from '../../irysc/components/utility';
 import Translate from '../../translate';
 function Ops(props) {

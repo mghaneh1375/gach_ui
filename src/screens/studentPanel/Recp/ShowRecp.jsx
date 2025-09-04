@@ -1,6 +1,6 @@
-import Recp from '../../../components/web/Recp';
+import Recp from '../../../components/web/Recp.jsx';
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {generalRequest} from '../../../api/utility';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';

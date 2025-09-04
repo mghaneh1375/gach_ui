@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
-import Card from '../../../../panel/quiz/components/card/Card';
+import Card from '../../../../panel/quiz/components/card/Card.jsx';
 import {
   quizContext,
   dispatchQuizContext,
-} from '../../../../panel/quiz/components/Context';
-import Ops from './Ops';
+} from '../../../../panel/quiz/components/Context.jsx';
+import Ops from './Ops.jsx';
 import {fetchMyQuizze} from './utility';
 import commonTranslator from '@/translator/common';
-import ProgressCard from '../../../myOffs/progressCard/ProgressCard';
+import ProgressCard from '../../../myOffs/progressCard/ProgressCard.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 function List(props) {

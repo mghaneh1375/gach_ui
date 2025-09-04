@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '@/App';
-import List from './components/list/List';
+import {dispatchStateContext} from '@/App.jsx';
+import List from './components/list/List.jsx';
 import {fetchAllPackagesDigest} from './components/utility';
 import {addItem, editItem, removeItems} from '@/services/utility';
-import Create from './components/Create';
+import Create from './components/Create.jsx';
 import {getGradeLessons} from '../basic/utility';
-import Detail from './components/detail/Detail';
-import {QuizzesProvider} from './components/detail/Utility';
+import Detail from './components/detail/Detail.jsx';
+import {QuizzesProvider} from './components/detail/Utility.jsx';
 import {MyView} from '@/styles';
 function Package(props) {
   const navigate = props.navigate;

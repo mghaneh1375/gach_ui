@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import List from './list/List';
-import Create from './create/Create';
+import List from './list/List.jsx';
+import Create from './create/Create.jsx';
 import {getAllGift} from '../configGift/utility';
 import {addItem, editItem, removeItems} from '../../../../../services/utility';
 import {MyView} from '@/styles';

@@ -9,7 +9,7 @@ import React from 'react';
 import {Text} from 'react-native';
 import {Link} from 'react-router-dom';
 import {MyView} from '@/styles';
-import {SimpleFontIcon} from '../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../styles/common/FontIcon.jsx';
 import {styles} from '../../styles/common/styles';
 import {
   NavItemStyle,

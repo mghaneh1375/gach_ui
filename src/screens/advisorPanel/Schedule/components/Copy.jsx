@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import SelectFromMyStudents from '../../../../components/web/SelectFromMyStudents';
+import SelectFromMyStudents from '../../../../components/web/SelectFromMyStudents.jsx';
 import {showSuccess} from '../../../../services/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {
   advisorScheduleContext,
   dispatchAdvisorScheduleContext,
-} from './Context';
+} from './Context.jsx';
 import {copy} from './utility';
 function Copy(props) {
   const useGlobalState = () => [

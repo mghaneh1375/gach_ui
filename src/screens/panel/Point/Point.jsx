@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {PointProvider} from './components/Context';
-import List from './components/List';
-import Create from './components/Create';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {PointProvider} from './components/Context.jsx';
+import List from './components/List.jsx';
+import Create from './components/Create.jsx';
 function Point(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

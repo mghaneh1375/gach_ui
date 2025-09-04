@@ -2,13 +2,16 @@ import React, {useEffect, useState} from 'react';
 import {CommonWebBox, PhoneView} from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import ProgressCard from '../../../myOffs/progressCard/ProgressCard';
+import ProgressCard from '../../../myOffs/progressCard/ProgressCard.jsx';
 import {Translator} from '../../translate';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../../../api/utility';
-import Card from './Card';
+import Card from './Card.jsx';
 import {showSuccess} from '@/services/utility';
-import {myTeachClassesContext, dispatchMyTeachClassesContext} from './Context';
+import {
+  myTeachClassesContext,
+  dispatchMyTeachClassesContext,
+} from './Context.jsx';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(myTeachClassesContext),

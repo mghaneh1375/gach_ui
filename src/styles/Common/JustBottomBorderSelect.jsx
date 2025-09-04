@@ -1,4 +1,4 @@
-import {CommonSelect} from './CommonSelect';
+import {CommonSelect} from './CommonSelect.jsx';
 const JustBottomBorderSelect = props => {
   const customStyle =
     props.style === undefined

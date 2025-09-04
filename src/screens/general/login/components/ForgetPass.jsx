@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {style} from '../../../../components/web/largeScreen/header/Style';
+import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
 import {showError} from '@/services/utility';
 import {
   BlueTextFromStart,
@@ -9,7 +9,7 @@ import {
   CommonRadioButton,
   MyView,
 } from '@/styles';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
 import commonTranslator from '@/translator/common';
 import translator from '../translate';
 const ForgetPass = props => {

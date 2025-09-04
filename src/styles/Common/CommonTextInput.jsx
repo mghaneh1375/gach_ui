@@ -1,5 +1,5 @@
 import {Platform} from 'react-native';
-import {EqualTwoTextInputs, MyView} from '../CommonComponents';
+import {EqualTwoTextInputs, MyView} from '../CommonComponents.jsx';
 import {
   calcInputWidth,
   CommonHalfTextInputStyleWeb,

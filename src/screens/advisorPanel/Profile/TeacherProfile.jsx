@@ -13,8 +13,8 @@ import {Image} from 'react-native';
 import {useParams} from 'react-router';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import QuizItemCard from '@/components/web/QuizItemCard';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 import {
   CommonWebBox,
   EqualTwoTextInputs,
@@ -22,13 +22,13 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/CommonComponents.jsx';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
 import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import ContentCard from '../../general/packages/components/Card';
-import CommentCard from '../../../components/web/comment/Card';
-import FinancePlan from '../../general/advisors/FinancePlan';
-import Schedule from '../../general/teachers/Schedule';
+import ContentCard from '../../general/packages/components/Card.jsx';
+import CommentCard from '../../../components/web/comment/Card.jsx';
+import FinancePlan from '../../general/advisors/FinancePlan.jsx';
+import Schedule from '../../general/teachers/Schedule.jsx';
 function TeacherProfile(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

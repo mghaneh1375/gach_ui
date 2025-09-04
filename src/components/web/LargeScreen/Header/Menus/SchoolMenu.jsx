@@ -12,9 +12,9 @@ import {Device} from '../../../../../models/device';
 import {getDevice} from '@/services/utility';
 import {MyView} from '@/styles';
 import translator from '../../../../../translator/common';
-import {MenuItem, MenuItemPhone, style} from '../Style';
-import MenuItemRepeat from './MenuItemRepeat';
-import {SuperMenuItem} from './SuperMenuItem';
+import {MenuItem, MenuItemPhone, style} from '../Style.jsx';
+import MenuItemRepeat from './MenuItemRepeat.jsx';
+import {SuperMenuItem} from './SuperMenuItem.jsx';
 function SchoolMenu(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;

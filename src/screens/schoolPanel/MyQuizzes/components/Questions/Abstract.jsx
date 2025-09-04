@@ -1,7 +1,7 @@
 import React from 'react';
-import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context';
-import PDFQuestion from '../../../../panel/quiz/components/pdfQuestion/PDFQuestion';
-import Questions from './Questions';
+import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context.jsx';
+import PDFQuestion from '../../../../panel/quiz/components/pdfQuestion/PDFQuestion.jsx';
+import Questions from './Questions.jsx';
 function Abstract(props) {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),

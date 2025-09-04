@@ -1,7 +1,7 @@
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
 import React, {useState} from 'react';
-import {quizContext, dispatchQuizContext} from '../../Context';
-import Participants from '../participants/Participants';
+import {quizContext, dispatchQuizContext} from '../../Context.jsx';
+import Participants from '../participants/Participants.jsx';
 import translator from './translator';
 import commonTranslator from '../../../../../../translator/common';
 import {
@@ -14,16 +14,16 @@ import {
   fetchParticipantReportLocal,
   fetchA1ReportLocal,
 } from './utility';
-import AuthorReport from '../author/AuthorReport';
-import ParticipantReport from '../participant/ParticipantReport';
-import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect';
+import AuthorReport from '../author/AuthorReport.jsx';
+import ParticipantReport from '../participant/ParticipantReport.jsx';
+import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect.jsx';
 import {
   typeOfReportBeforeFinishKeyVals,
   typeOfReportKeyVals,
   typeOfReportKeyValsSchoolAccess,
 } from './keyVals';
-import A1Report from '../A1Report';
-import KarnameReport from '../KarnameReport';
+import A1Report from '../A1Report.jsx';
+import KarnameReport from '../KarnameReport.jsx';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

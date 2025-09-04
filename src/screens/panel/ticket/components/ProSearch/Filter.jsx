@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import translator from '../../translator';
 import {
   startWithVals,
@@ -9,15 +9,15 @@ import {
   priorityKeyValsForFilter,
 } from '../keyVals';
 import {PhoneView, SimpleText, CommonButton, MyView} from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 import {
   faAngleDoubleDown,
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import {filter} from '../list/utility';
 import vars from '@/styles/root';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
-import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 import {styles} from '@/styles/common/styles';
 function Filter(props) {
   const [showProSearch, setShowProSearch] = useState(false);

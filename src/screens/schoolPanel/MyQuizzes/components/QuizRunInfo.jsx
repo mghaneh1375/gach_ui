@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {trueFalseValues} from '../../../../services/utility';
 import {CommonRadioButton, MyView, PhoneView} from '@/styles';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {
   justOnlineLaunchModeKeyVals,
   launchModeKeyVals,

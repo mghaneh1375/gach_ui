@@ -4,9 +4,9 @@ import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
-import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 import Translate from '../translate';
-import {doQuizContext} from './Context';
+import {doQuizContext} from './Context.jsx';
 function PhoneFilter(props) {
   const useGlobalState = () => [React.useContext(doQuizContext)];
   const [state] = useGlobalState();

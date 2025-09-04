@@ -10,7 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {useState} from 'react';
 import {Rating} from 'react-native-ratings';
-import QuizItemCard from '../../../../../components/web/QuizItemCard';
+import QuizItemCard from '../../../../../components/web/QuizItemCard.jsx';
 import {
   convertSecToMinWithOutSec,
   convertTimestamp,

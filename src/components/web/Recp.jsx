@@ -6,12 +6,12 @@ import {
   MyViewWithRef,
   PhoneView,
   SimpleText,
-} from '../../styles/CommonComponents';
+} from '../../styles/CommonComponents.jsx';
 import commonTranslator from '../../translator/common';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
 import {formatPrice, showError} from '../../services/utility';
-import {FontIcon} from '../../styles/common/FontIcon';
+import {FontIcon} from '../../styles/common/FontIcon.jsx';
 import {faArrowLeft, faPrint} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../styles/common/styles';
 import vars from '../../styles/root';

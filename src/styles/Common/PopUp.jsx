@@ -4,9 +4,9 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
-} from '../CommonComponents';
+} from '../CommonComponents.jsx';
 import translator from '../../translator/common';
-import {TextIcon} from './TextIcon';
+import {TextIcon} from './TextIcon.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {styles} from './styles';
 import {getWidthHeight} from '../../services/utility';

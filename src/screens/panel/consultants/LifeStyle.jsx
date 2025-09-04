@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {CourseProvider} from './components/Context';
-import ListLifestyle from './components/ListLifestyle';
-import CreateLifestyle from './components/CreateLifestyle';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {CourseProvider} from './components/Context.jsx';
+import ListLifestyle from './components/ListLifestyle.jsx';
+import CreateLifestyle from './components/CreateLifestyle.jsx';
 function LifeStyle(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

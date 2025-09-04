@@ -2,16 +2,16 @@ import {faDownload} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {getDevice} from '../../../services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
 } from '../../../styles/CommonComponents.jsx';
-import CommonDataTable from '../../../styles/common/CommonDataTable';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '../../../styles/common/styles';
 import {downloadCert} from '../../panel/certificate/utility';
 import commonTranslator from '../../../translator/common';

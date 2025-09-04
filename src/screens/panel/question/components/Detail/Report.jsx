@@ -1,6 +1,6 @@
 import {MyView, PhoneView, SimpleText} from '@/styles';
 import React from 'react';
-import {questionContext, dispatchQuestionContext} from './Context';
+import {questionContext, dispatchQuestionContext} from './Context.jsx';
 function Report() {
   const useGlobalState = () => [
     React.useContext(questionContext),

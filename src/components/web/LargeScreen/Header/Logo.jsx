@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image} from 'react-native';
-import {FontIcon} from '../../../../styles/common/FontIcon';
-import {style} from './Style';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
+import {style} from './Style.jsx';
 import {faClose, faNavicon} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '../../../../services/utility';
 import {Device} from '../../../../models/device';

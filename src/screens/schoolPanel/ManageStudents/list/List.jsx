@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import columns from './tableStructure';
-import Ops from './Ops';
+import Ops from './Ops.jsx';
 import Translate from '../translate';
 import {routes} from '@/api/apiRoutes';
 function List(props) {

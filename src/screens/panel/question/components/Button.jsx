@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {CommonButton, PhoneView} from '../../../../styles/Common';
+import {CommonButton, PhoneView} from '../../../../styles/Common.jsx';
 import commonTranslator from '@/translator/common';
 import {filter} from './utility';
 function Button(props) {

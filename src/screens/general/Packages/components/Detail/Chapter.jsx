@@ -20,7 +20,7 @@ import {
   systemFonts,
   tagsStyles,
 } from '@/services/utility';
-import Session from './Session';
+import Session from './Session.jsx';
 function Chapter(props) {
   const [show, setShow] = useState(false);
   const [sessions, setSessions] = useState();

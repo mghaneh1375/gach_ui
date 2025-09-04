@@ -5,15 +5,15 @@ import {
   faBell,
   faGift,
 } from '@fortawesome/free-solid-svg-icons';
-import {style} from './Style';
+import {style} from './Style.jsx';
 import {
   MyView,
   PhoneView,
   SimpleText,
   TextLink,
 } from '../../../../styles/CommonComponents.jsx';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
-import UserTinyPic from '../UserTinyPic';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
+import UserTinyPic from '../UserTinyPic.jsx';
 import {TouchableOpacity} from 'react-native';
 import {Device} from '../../../../models/device';
 import {getDevice, getWidthHeight} from '../../../../services/utility';

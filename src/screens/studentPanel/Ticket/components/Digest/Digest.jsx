@@ -8,12 +8,12 @@ import {
   SimpleText,
   MyView,
 } from '@/styles';
-import {TinyTextIcon} from '../../../../../styles/common/TextIcon';
+import {TinyTextIcon} from '../../../../../styles/common/TextIcon.jsx';
 import {Translate} from '../../translate';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import commonTranslator from '@/translator/common';
 import {styleFontSize15, styleFontSize11} from '../list/style';
-import {FontIcon} from '../../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../../styles/common/FontIcon.jsx';
 import {callRemoveTicket} from '../utility';
 import {showSuccess} from '@/services/utility';
 import {closeRequest} from '../../../../panel/ticket/components/list/utility';

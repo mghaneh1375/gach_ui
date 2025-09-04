@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {getPDFQuestions} from '../utility';
-import UploadQuestions from './UploadQuestions';
-import UploadSubjects from './UploadSubjects';
-import SetSubjects from './setSubjects/SetSubjects';
-import {SetSubjectProvider} from './setSubjects/Context';
+import UploadQuestions from './UploadQuestions.jsx';
+import UploadSubjects from './UploadSubjects.jsx';
+import SetSubjects from './setSubjects/SetSubjects.jsx';
+import {SetSubjectProvider} from './setSubjects/Context.jsx';
 function PDFQuestion(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [selectionMode, setSelectionMode] = useState('individual');

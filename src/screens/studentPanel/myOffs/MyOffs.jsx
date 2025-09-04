@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 import {formatPrice} from '@/services/utility';
 import {MyView, PhoneView} from '@/styles';
 import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
-import OffsCard from './offsCard/OffsCard';
-import ProgressCard from './progressCard/ProgressCard';
+import OffsCard from './offsCard/OffsCard.jsx';
+import ProgressCard from './progressCard/ProgressCard.jsx';
 import Translate from './translate';
 import {getMyOffs} from './utility';
 import {giveMyGifts} from './utilityBonus';
-import GiftOffsCard from './offsCard/OffsCard';
+import GiftOffsCard from './offsCard/OffsCard.jsx';
 function MyOffs(props) {
   const [discount, setDiscount] = useState(true);
   const [bonus, setBonus] = useState(false);

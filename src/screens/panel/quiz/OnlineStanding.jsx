@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
-import List from './components/List';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import Students from './components/students/Students';
-import Questions from './components/questions/Questions';
+import List from './components/List.jsx';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import Students from './components/students/Students.jsx';
+import Questions from './components/questions/Questions.jsx';
 import {
   dispatchQuizContext,
   quizContext,
   QuizProvider,
-} from './components/Context';
-import Key from './components/key/Key';
+} from './components/Context.jsx';
+import Key from './components/key/Key.jsx';
 import {useParams} from 'react-router';
 import {MyView} from '@/styles';
-import CreateOnlineQuiz from './components/CreateOnlineQuiz';
+import CreateOnlineQuiz from './components/CreateOnlineQuiz.jsx';
 import {
   isUserAdmin,
   isUserContentAccess,

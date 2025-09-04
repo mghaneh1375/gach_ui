@@ -1,10 +1,10 @@
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {generalRequest} from '../../api/utility';
-import Card from '../../screens/panel/quiz/components/card/Card';
+import Card from '../../screens/panel/quiz/components/card/Card.jsx';
 import {MyView, PhoneView, SimpleText} from '@/styles';
-import {FontIcon} from '../../styles/common/FontIcon';
-import Basket from './Basket';
+import {FontIcon} from '../../styles/common/FontIcon.jsx';
+import Basket from './Basket.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {styles} from '../../styles/common/styles';
 import {getDevice} from '../../services/utility';

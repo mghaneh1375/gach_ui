@@ -1,9 +1,9 @@
 import {CommonWebBox} from '@/styles';
 import React, {useState} from 'react';
-import Card from '../questions/Card';
-import {quizContext} from '../Context';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import Card from '../questions/Card.jsx';
+import {quizContext} from '../Context.jsx';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
 function A1Report(props) {
   const useGlobalState = () => [React.useContext(quizContext)];
   const columns = [

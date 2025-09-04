@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from 'react';
 import commonTranslator from '../../../translator/common';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../api/utility';
 import {
@@ -9,11 +9,11 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/CommonComponents.jsx';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker';
-import CommonDataTable from '../../../styles/common/CommonDataTable';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker.jsx';
+import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
 import {aboutMeColumns} from './tableStructure';
-import {LargePopUp} from '../../../styles/common/PopUp';
+import {LargePopUp} from '../../../styles/common/PopUp.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import {showSuccess} from '../../../services/utility';
 function CommentsAboutMe(props) {

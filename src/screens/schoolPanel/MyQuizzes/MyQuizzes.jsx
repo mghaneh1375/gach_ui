@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {isUserAdvisor} from '@/services/utility';
-import Key from '../../panel/quiz/components/key/Key';
+import Key from '../../panel/quiz/components/key/Key.jsx';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
   MyQuizzesProvider,
-} from './components/Context';
-import Copy from './components/Copy';
-import Create from './components/Create';
-import List from './components/List';
-import Recp from './components/Recp';
-import Report from './components/Report';
-import Students from './components/students/Students';
-import Abstract from './components/questions/Abstract';
-import PDFQuizKey from '../../panel/quiz/components/key/PDFQuizKey';
+} from './components/Context.jsx';
+import Copy from './components/Copy.jsx';
+import Create from './components/Create.jsx';
+import List from './components/List.jsx';
+import Recp from './components/Recp.jsx';
+import Report from './components/Report.jsx';
+import Students from './components/students/Students.jsx';
+import Abstract from './components/questions/Abstract.jsx';
+import PDFQuizKey from '../../panel/quiz/components/key/PDFQuizKey.jsx';
 function MyQuizzes(props) {
   const navigate = props.navigate;
   const [mode, setMode] = useState('list');

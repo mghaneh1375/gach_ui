@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../translator';
 import commonTranslator from '@/translator/common';
 import {grades, kindSchools} from './keyVals';
-import StateAndCity from '../../../../../components/web/StateAndCity';
+import StateAndCity from '../../../../../components/web/StateAndCity.jsx';
 import {create, update} from './utility';
 import {changeText} from '../../../../../services/utility';
-import {dispatchSchoolContext, schoolContext} from './Context';
+import {dispatchSchoolContext, schoolContext} from './Context.jsx';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(schoolContext),

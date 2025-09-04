@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {getAllStudent} from '../../screens/schoolPanel/manageStudents/utility';
-import CommonDataTable from '../../styles/common/CommonDataTable';
-import {LargePopUp} from '../../styles/common/PopUp';
+import CommonDataTable from '../../styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '../../styles/common/PopUp.jsx';
 import commonTranslator from '../../translator/common';
 function SelectFromMyStudents(props) {
   const [data, setData] = useState();

@@ -6,7 +6,7 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents';
+} from '../../../styles/CommonComponents.jsx';
 import {styles} from '../../../styles/common/styles';
 import Translate from './translate';
 import commonTranslator from '../../../translator/common';

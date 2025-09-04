@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import Quizzes from '@/components/web/Quizzes';
+import Quizzes from '@/components/web/Quizzes.jsx';
 import {CommonButton} from '@/styles';
 import {addQuizzesToPackage} from '../utility';
 import Translate from '../../translate';
 import commonTranslator from '@/translator/common';
 import {showSuccess} from '@/services/utility';
-import {dispatchQuizzesContext, quizzesContext} from './Utility';
+import {dispatchQuizzesContext, quizzesContext} from './Utility.jsx';
 import {generalRequest} from '@/api/utility';
 function Add(props) {
   const [selectedQuizzes, setSelectedQuizzes] = useState([]);

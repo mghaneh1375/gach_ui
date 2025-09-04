@@ -3,16 +3,16 @@ import {
   faAngleDoubleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import StateAndCity from '../../../../../../components/web/StateAndCity';
+import StateAndCity from '../../../../../../components/web/StateAndCity.jsx';
 import {allTrueFalseValues} from '../../../../../../services/utility';
 import {CommonButton, PhoneView, MyView, SimpleText} from '@/styles';
-import {SimpleFontIcon} from '../../../../../../styles/common/FontIcon';
-import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
+import {SimpleFontIcon} from '../../../../../../styles/common/FontIcon.jsx';
+import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import vars from '../../../../../../styles/root';
 import commonTranslator from '../../../../../../translator/common';
 import translator from '../../translator';
-import {dispatchSchoolContext, schoolContext} from '../Context';
+import {dispatchSchoolContext, schoolContext} from '../Context.jsx';
 import {gradesForFilter, kindSchoolsForFilter} from '../keyVals';
 import {filter} from '../utility';
 function Filter(props) {

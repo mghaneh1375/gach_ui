@@ -1,5 +1,9 @@
 import React, {useState} from 'react';
-import {MyView, PhoneView, SimpleText} from '../../../styles/CommonComponents';
+import {
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '../../../styles/CommonComponents.jsx';
 import {Image, TouchableOpacity} from 'react-native';
 function Card(props) {
   const [pic, setPic] = useState();

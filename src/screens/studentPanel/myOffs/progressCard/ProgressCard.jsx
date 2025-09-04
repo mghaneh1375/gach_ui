@@ -1,5 +1,5 @@
 import {Pressable} from 'react-native';
-import Circle from '../../../../components/web/Circle';
+import Circle from '../../../../components/web/Circle.jsx';
 import {BigBoldBlueTextInline, EqualTwoTextInputs, MyView} from '@/styles';
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';

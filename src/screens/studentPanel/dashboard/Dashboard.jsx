@@ -8,8 +8,8 @@ import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {fetchUser, setCacheItem} from '../../../api/user';
 import {generalRequest} from '../../../api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import CopyBox from '../../../components/CopyBox';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import CopyBox from '../../../components/CopyBox.jsx';
 import {formatPrice, showError, showSuccess} from '../../../services/utility';
 import {
   CommonButton,
@@ -19,14 +19,14 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/CommonComponents.jsx';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../styles/common/PopUp';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '../../../styles/common/PopUp.jsx';
 import {styles} from '../../../styles/common/styles';
 import vars from '../../../styles/root';
 import commonTranslator from '../../../translator/common';
-import ProgressCard from '../myOffs/progressCard/ProgressCard';
-import DashboardCard from './dashboardCard/DashboardCard';
-import ExchangeOffer from './ExchangeOffer';
+import ProgressCard from '../myOffs/progressCard/ProgressCard.jsx';
+import DashboardCard from './dashboardCard/DashboardCard.jsx';
+import ExchangeOffer from './ExchangeOffer.jsx';
 import {Translate} from './translate';
 import {getMySummary} from './utility';
 function Dashboard(props) {

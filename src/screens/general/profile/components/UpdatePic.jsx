@@ -8,11 +8,11 @@ import {
   EqualTwoTextInputs,
 } from '@/styles';
 import {Image} from 'react-native';
-import {LargePopUp} from '@/styles/common/PopUp';
-import Avatar from './Avatar';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
+import Avatar from './Avatar.jsx';
 import {fetchAvatars} from './utility';
 import {styles} from '../../../../styles/common/styles';
-import UploadFile from '@/components/web/UploadFile';
+import UploadFile from '@/components/web/UploadFile.jsx';
 import {routes} from '@/api/apiRoutes';
 import {fetchUser, setCacheItem} from '@/api/user';
 import {Slider} from '@material-ui/core';

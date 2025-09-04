@@ -3,8 +3,8 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonWebBox} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
-import {courseContext, dispatchCourseContext} from './Context';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import {courseContext, dispatchCourseContext} from './Context.jsx';
 function ListExamTags(props) {
   const useGlobalState = () => [
     React.useContext(courseContext),

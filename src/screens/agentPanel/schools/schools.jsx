@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import Create from './Create';
-import Details from './details/Details';
-import List from './list/List';
-import Students from './students/Students';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import Create from './Create.jsx';
+import Details from './details/Details.jsx';
+import List from './list/List.jsx';
+import Students from './students/Students.jsx';
 import {removeItems, editItem, addItem} from '../../../services/utility';
 import {getAllAgent} from './utility';
 import {MyView} from '@/styles';
-import ChargeAccount from '../../panel/users/components/ChargeAccount';
+import ChargeAccount from '../../panel/users/components/ChargeAccount.jsx';
 function Schools(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

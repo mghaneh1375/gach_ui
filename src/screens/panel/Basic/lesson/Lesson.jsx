@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import List from './list/List';
+import List from './list/List.jsx';
 import React from 'react';
 import {getGradesOnly, getLessons} from '../utility';
-import Create from './create/Create';
+import Create from './create/Create.jsx';
 import {addItem, editItem} from '../../../../services/utility';
 import {MyView} from '@/styles';
 import {useParams} from 'react-router';

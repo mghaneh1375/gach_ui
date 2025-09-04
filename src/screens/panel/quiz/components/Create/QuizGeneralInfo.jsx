@@ -1,11 +1,11 @@
 import React from 'react';
 import {PhoneView, MyView} from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
 import {kindQuizKeyVals, limitedKindQuizKeyVals} from '../keyVals';
-import {dispatchQuizContext, quizContext} from '../Context';
+import {dispatchQuizContext, quizContext} from '../Context.jsx';
 const QuizGeneralInfo = props => {
   const useGlobalState = () => [
     React.useContext(quizContext),

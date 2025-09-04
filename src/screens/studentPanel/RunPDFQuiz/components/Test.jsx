@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
-import {dispatchDoQuizContext, doQuizContext} from './Context';
+import {dispatchDoQuizContext, doQuizContext} from './Context.jsx';
 import {MyView, PhoneView, SimpleText} from '@/styles';
 import vars from '@/styles/root';
 function Test(props) {

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {EqualTwoTextInputs, MyView} from '../CommonComponents';
+import {EqualTwoTextInputs, MyView} from '../CommonComponents.jsx';
 import {
   calcInputWidth,
   CommonTextInputElem,

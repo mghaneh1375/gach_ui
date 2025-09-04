@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '@/translator/common';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';

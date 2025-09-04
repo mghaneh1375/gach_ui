@@ -1,13 +1,13 @@
 import {CommonButton, MyView, PhoneView} from '@/styles';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import {styles} from '../../../../styles/common/styles';
 import translator from '../translator';
 import React, {useState} from 'react';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {getOpenQuizzes, getQuizzes} from './utility';
 import commonTranslator from '@/translator/common';
-import {dispatchQuizContext} from './Context';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import {dispatchQuizContext} from './Context.jsx';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {kindQuizKeyValsForFilter} from './keyVals';
 function ProSearch(props) {
   const [startDateSolar, setStartDateSolar] = useState('');

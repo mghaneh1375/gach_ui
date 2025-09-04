@@ -4,7 +4,7 @@ import {
   faHourglassStart,
 } from '@fortawesome/free-solid-svg-icons';
 import {styles} from '@/styles/common/styles';
-import QuizItemCard from '../../../../../components/web/QuizItemCard';
+import QuizItemCard from '../../../../../components/web/QuizItemCard.jsx';
 import {
   CommonButton,
   CommonWebBox,

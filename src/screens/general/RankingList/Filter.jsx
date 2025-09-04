@@ -4,9 +4,9 @@ import {
   BigBoldBlueText,
   MyView,
   PhoneView,
-} from '../../../styles/CommonComponents';
-import {FontIcon} from '../../../styles/common/FontIcon';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+} from '../../../styles/CommonComponents.jsx';
+import {FontIcon} from '../../../styles/common/FontIcon.jsx';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
 import {fetchRankingList} from './utility';
 function Filter(props) {
   const [grade, setGrade] = useState();

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable.jsx';
 import {getRanking} from '../../utility';
 import {
   CommonButton,
@@ -8,13 +8,13 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {quizContext, dispatchQuizContext} from '../../Context';
+import {quizContext, dispatchQuizContext} from '../../Context.jsx';
 import {
   FontIcon,
   SimpleFontIcon,
-} from '../../../../../../styles/common/FontIcon';
+} from '../../../../../../styles/common/FontIcon.jsx';
 import {faArrowLeft, faEye} from '@fortawesome/free-solid-svg-icons';
-import CopyBox from '@/components/CopyBox';
+import CopyBox from '@/components/CopyBox.jsx';
 import commonTranslator from '../../../translator';
 import {BASE_SITE_NAME} from '../../../../../../api/utility';
 import {styles} from '../../../../../../styles/common/styles';

@@ -13,13 +13,13 @@ import {
   MyView,
   PhoneView,
 } from '@/styles';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import Translate from '../translate';
 import {styles} from '../../../../styles/common/styles';
 import React, {useState} from 'react';
-import {doQuizContext, dispatchDoQuizContext} from './Context';
-import MultiChoice from './questionComponents/MultiChoice';
+import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
+import MultiChoice from './questionComponents/MultiChoice.jsx';
 import vars from '@/styles/root';
 import {
   getDevice,
@@ -28,8 +28,8 @@ import {
 } from '../../../../services/utility';
 import {basketBox, basketBoxInPhone} from '../../../panel/package/card/style';
 import commonTranslator from '@/translator/common';
-import MultiSentence from './questionComponents/MultiSentence';
-import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import MultiSentence from './questionComponents/MultiSentence.jsx';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 function Question(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),

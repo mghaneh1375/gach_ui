@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {PhoneView, SimpleText} from '../../../styles/CommonComponents';
+import {PhoneView, SimpleText} from '../../../styles/CommonComponents.jsx';
 import vars from '../../../styles/root';
 function Pagination({perPage, totalCount, pageIndex, setPageIndex}) {
   const [elems, setElems] = useState();

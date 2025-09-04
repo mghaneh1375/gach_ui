@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import {useNavigation, useIsFocused} from '@react-navigation/native';
-import BottomNavBar from '../components/android/BottomNavBar';
-import {TopNavBar} from '../components/android/TopNavBar';
+import BottomNavBar from '../components/android/BottomNavBar.jsx';
+import {TopNavBar} from '../components/android/TopNavBar.jsx';
 import {
   ScreenScroll,
   MinFullHeightView,
   MyView,
 } from '../styles/CommonComponents.jsx';
-import {Loader} from '../styles/common/Loader';
+import {Loader} from '../styles/common/Loader.jsx';
 import {globalStateContext} from '../App.jsx';
 import {fetchUser, getToken, getUser} from '../api/user';
-import Logo from '../components/web/largeScreen/header/Logo';
-import Header from '../components/web/largeScreen/header/Header';
-import Menu from '../components/web/largeScreen/header/Menu';
+import Logo from '../components/web/largeScreen/header/Logo.jsx';
+import Header from '../components/web/largeScreen/header/Header.jsx';
+import Menu from '../components/web/largeScreen/header/Menu.jsx';
 
 const AppStructue = props => {
   const navigation = useNavigation();

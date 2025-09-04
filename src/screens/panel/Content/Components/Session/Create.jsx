@@ -8,15 +8,15 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 import {statusKeyVals} from '../../../question/components/keyVals';
 import Translator from '../../translate';
 import commonTranslator from '@/translator/common';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '../../../../../services/myUploadAdapter';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
-import {contentContext, dispatchContentContext} from '../Context';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {contentContext, dispatchContentContext} from '../Context.jsx';
 import {
   addSession,
   copySession,
@@ -24,14 +24,17 @@ import {
   updateSession,
 } from '../utility';
 import {styles} from '@/styles/common/styles';
-import {FontIcon, SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {
+  FontIcon,
+  SimpleFontIcon,
+} from '../../../../../styles/common/FontIcon.jsx';
 import {useFilePicker} from 'use-file-picker';
 import {
   faArrowLeft,
   faCopy,
   faPaperclip,
 } from '@fortawesome/free-solid-svg-icons';
-import AttachBox from '../../../ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
 import {routes} from '@/api/apiRoutes';
 import axios from 'axios';
 import {

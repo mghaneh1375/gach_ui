@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {routes} from '../../api/apiRoutes';
 import {generalRequest} from '../../api/utility';
-import {EqualTwoTextInputs} from '../../styles/CommonComponents';
-import JustBottomBorderTextInput from '../../styles/common/JustBottomBorderTextInput';
+import {EqualTwoTextInputs} from '../../styles/CommonComponents.jsx';
+import JustBottomBorderTextInput from '../../styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '../../translator/common';
 function StateAndCity(props) {
   const [fetchedStates, setFetchedStates] = useState(

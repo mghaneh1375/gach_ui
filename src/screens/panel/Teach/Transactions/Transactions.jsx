@@ -10,13 +10,13 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../styles/CommonComponents.jsx';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import commonTranslator from '@/translator/common';
 import {formatPrice} from '@/services/utility';
 import Translate from '../../../advisorPanel/teach/transaction/translate';
 import {styles} from '../../../../styles/common/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import columns from './tableStructure';
 function Transactions(props) {
   const navigate = props.navigate;

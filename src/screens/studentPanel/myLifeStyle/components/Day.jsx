@@ -3,10 +3,10 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {f2e, removeItems} from '../../../../services/utility';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
-import {FontIcon} from '../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
-import Box from './Box';
+import Box from './Box.jsx';
 function Day(props) {
   const [boxes, setBoxes] = useState();
   const [sum, setSum] = useState();

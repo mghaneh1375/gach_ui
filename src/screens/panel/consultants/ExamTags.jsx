@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {CourseProvider} from './components/Context';
-import CreateExamTag from './components/CreateExamTag';
-import ListExamTags from './components/ListExamTags';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {CourseProvider} from './components/Context.jsx';
+import CreateExamTag from './components/CreateExamTag.jsx';
+import ListExamTags from './components/ListExamTags.jsx';
 function ExamTags(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

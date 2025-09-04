@@ -1,13 +1,16 @@
 import React, {useMemo, useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
-import {teachScheduleContext, dispatchTeachScheduleContext} from './Context';
+import {
+  teachScheduleContext,
+  dispatchTeachScheduleContext,
+} from './Context.jsx';
 import columns from './tableStructure';
 import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
-import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
+import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane.jsx';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
 import {routes} from '@/api/apiRoutes';
-import CommonDataTable from '@/styles/common/CommonDataTable';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 import {removeItems, showSuccess} from '../../../../../services/utility';
 import commonTranslator from '@/translator/common';
 import {generalRequest} from '../../../../../api/utility';

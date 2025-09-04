@@ -5,9 +5,9 @@ import {
   EqualTwoTextInputs,
   MyView,
   SimpleText,
-} from '../CommonComponents';
+} from '../CommonComponents.jsx';
 import vars from '../root';
-import {FontIcon, SimpleFontIcon} from './FontIcon';
+import {FontIcon, SimpleFontIcon} from './FontIcon.jsx';
 import {styles} from './styles';
 const style = {
   paddingRight: 10,

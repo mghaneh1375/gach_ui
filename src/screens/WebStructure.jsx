@@ -7,7 +7,7 @@ import {
   PhoneContentConianerStyle2,
 } from '../styles/CommonComponents.jsx';
 import {useNavigate, useParams} from 'react-router-dom';
-import Home from './general/home/Home';
+import Home from './general/home/Home.jsx';
 const Login = lazy(() => import('./general/login/Login'));
 const WebLogin = lazy(() => import('./general/login/web/Login'));
 const WebProfile = lazy(() => import('./general/profile/web/Profile'));
@@ -15,11 +15,11 @@ import {getToday, isUserAdmin, isUserEditorAccess} from '../services/utility';
 import 'react-notifications-component/dist/theme.css';
 import {ReactNotifications} from 'react-notifications-component';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import Logo from '../components/web/largeScreen/header/Logo';
-import Header from '../components/web/largeScreen/header/Header';
-import Menu from '../components/web/largeScreen/header/Menu';
-import Navbar from '../components/web/Navbar';
-import BottomNavBar from '../components/web/BottomNavBar';
+import Logo from '../components/web/largeScreen/header/Logo.jsx';
+import Header from '../components/web/largeScreen/header/Header.jsx';
+import Menu from '../components/web/largeScreen/header/Menu.jsx';
+import Navbar from '../components/web/Navbar.jsx';
+import BottomNavBar from '../components/web/BottomNavBar.jsx';
 const Quiz = lazy(() => import('./panel/quiz/Quiz'));
 const Course = lazy(() => import('./panel/consultants/Course'));
 const LifeStyle = lazy(() => import('./panel/consultants/LifeStyle'));

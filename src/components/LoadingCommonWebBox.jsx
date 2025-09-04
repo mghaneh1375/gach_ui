@@ -1,4 +1,4 @@
-import {MyView, PhoneView} from '../styles/CommonComponents';
+import {MyView, PhoneView} from '../styles/CommonComponents.jsx';
 import {styles} from '../styles/common/styles';
 export const LoadingCommonWebBox = props => (
   <MyView

@@ -12,10 +12,10 @@ import {
   VictoryChart,
   VictoryAxis,
 } from 'victory-native';
-import Tag from './Tag';
+import Tag from './Tag.jsx';
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 function Lesson(props) {
   const [selectedTagReport, setSelectedTagReport] = useState();
   const [tagReports, setTagReports] = useState();

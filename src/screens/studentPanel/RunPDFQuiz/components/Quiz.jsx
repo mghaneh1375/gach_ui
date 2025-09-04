@@ -1,9 +1,9 @@
 import React from 'react';
 import {getDevice, getWidthHeight} from '../../../../services/utility';
 import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp';
-import {dispatchDoQuizContext, doQuizContext} from './Context';
-import AnswerSheet from './AnswerSheet';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {dispatchDoQuizContext, doQuizContext} from './Context.jsx';
+import AnswerSheet from './AnswerSheet.jsx';
 import vars from '@/styles/root';
 function Quiz(props) {
   const device = getDevice();

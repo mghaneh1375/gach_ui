@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import columns from '../../manageTeachers/list/tableStructure';
-import Ops from '../list/ops/Ops';
+import Ops from '../list/ops/Ops.jsx';
 import Translate from '../translate';
 function List(props) {
   const [selectedId, setSelectedId] = useState();

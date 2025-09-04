@@ -1,22 +1,22 @@
 import React, {useState} from 'react';
-import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane';
-import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context';
-import Card from './Card';
+import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane.jsx';
+import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context.jsx';
+import Card from './Card.jsx';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 import translator from '../../../../panel/quiz/translator';
-import QuestionsModule from '../../../../panel/question/Question';
+import QuestionsModule from '../../../../panel/question/Question.jsx';
 import qTranslator from '../../../../panel/question/translator';
 import {
   changeQuestionsArrangeInQuiz,
   getQuestions,
 } from '../../../../panel/quiz/components/utility';
-import UploadFile from '@/components/web/UploadFile';
+import UploadFile from '@/components/web/UploadFile.jsx';
 import {CV_BASE_URL} from '../../../../../api/utility';
 import RenderHTML from 'react-native-render-html';
-import AddBatch from './AddBatch';
+import AddBatch from './AddBatch.jsx';
 const Questions = props => {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),

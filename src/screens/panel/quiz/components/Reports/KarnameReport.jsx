@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
-import {quizContext} from '../Context';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import {quizContext} from '../Context.jsx';
 import {downloadRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
 function KarnameReport(props) {

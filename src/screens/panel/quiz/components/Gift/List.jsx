@@ -7,7 +7,7 @@ import {
   SimpleText,
 } from '@/styles';
 import {styles} from '@/styles/common/styles';
-import {dispatchQuizContext, quizContext} from '../Context';
+import {dispatchQuizContext, quizContext} from '../Context.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';

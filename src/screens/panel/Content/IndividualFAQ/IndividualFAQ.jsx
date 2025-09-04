@@ -1,8 +1,8 @@
-import {ContentProvider} from '../components/Context';
+import {ContentProvider} from '../components/Context.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import React, {useState} from 'react';
-import List from './components/List';
-import Create from './components/Create';
+import List from './components/List.jsx';
+import Create from './components/Create.jsx';
 function IndividualFAQ(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

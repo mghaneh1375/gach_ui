@@ -1,6 +1,6 @@
 import React from 'react';
 import {faBuilding, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
-import QuizItemCard from '../../../../components/web/QuizItemCard';
+import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import {
   CommonWebBox,
   EqualTwoTextInputs,

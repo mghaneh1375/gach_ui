@@ -7,12 +7,12 @@ import {
   MyView,
   PhoneView,
 } from '@/styles';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput';
-import {FontIcon} from '../../../../styles/common/FontIcon';
+import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
+import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
 import Translate from '../translate';
 import {styles} from '../../../../styles/common/styles';
 import React, {useState} from 'react';
-import {doQuizContext, dispatchDoQuizContext} from './Context';
+import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import vars from '@/styles/root';
 import {
   getDevice,

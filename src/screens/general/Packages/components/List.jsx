@@ -2,7 +2,7 @@ import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import React, {useEffect, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import BestComments from '../../../../components/web/comment/BestComments';
+import BestComments from '../../../../components/web/comment/BestComments.jsx';
 import {getDevice} from '../../../../services/utility';
 import {
   CommonButton,
@@ -15,9 +15,9 @@ import {
 import {styles} from '../../../../styles/common/styles';
 import commonTranslator from '@/translator/common';
 import {Translator} from '../translator';
-import Card from './Card';
-import {dispatchPackagesContext, packagesContext} from './Context';
-import Filter from './Filter';
+import Card from './Card.jsx';
+import {dispatchPackagesContext, packagesContext} from './Context.jsx';
+import Filter from './Filter.jsx';
 import {fetchAllPackages} from './utility';
 function List(props) {
   const useGlobalState = () => [

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {
   advicePanelContext,
   dispatchAdvicePanelContext,
-} from './components/Context';
+} from './components/Context.jsx';
 import {
   CommonButton,
   CommonWebBox,
@@ -12,16 +12,16 @@ import {
   SimpleText,
 } from '@/styles';
 import commonTranslator from '@/translator/common';
-import Card from '../../../general/advisors/Card';
+import Card from '../../../general/advisors/Card.jsx';
 import {styles} from '../../../../styles/common/styles';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 import {Image} from 'react-native';
 import vars from '@/styles/root';
 import translator from '../../../../screens/advisorPanel/myFinancePlans/components/translator';
-import QuizItemCard from '../../../../components/web/QuizItemCard';
+import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import {
   faClockRotateLeft,
   faNewspaper,
@@ -29,7 +29,7 @@ import {
   faQuestion,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
-import DashboardCard from '../../../studentPanel/dashboard/dashboardCard/DashboardCard';
+import DashboardCard from '../../../studentPanel/dashboard/dashboardCard/DashboardCard.jsx';
 function Panel(props) {
   const useGlobalState = () => [
     React.useContext(advicePanelContext),

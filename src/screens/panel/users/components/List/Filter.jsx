@@ -1,15 +1,15 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useParams} from 'react-router';
 import {CommonButton, MyView, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '@/translator/common';
 import {filter} from '../utility';
 import {routes} from '@/api/apiRoutes';
 import {downloadRequest} from '../../../../../api/utility';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 import {levelsKeyVals} from '../../../ticket/components/keyVals';
-import {dispatchUsersContext} from '../Context';
+import {dispatchUsersContext} from '../Context.jsx';
 function Filter(props) {
   const useGlobalState = () => [React.useContext(dispatchUsersContext)];
   const [dispatch] = useGlobalState();

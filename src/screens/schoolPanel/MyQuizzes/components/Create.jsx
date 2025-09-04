@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
-import {dispatchMyQuizzesContext, myQuizzesContext} from './Context';
+import {dispatchMyQuizzesContext, myQuizzesContext} from './Context.jsx';
 import {useFilePicker} from 'use-file-picker';
 import {routes} from '@/api/apiRoutes';
 import {CallAPI} from '../../../panel/quiz/components/create/callAPI';
 import {addFile, removeFile} from '../../../panel/quiz/components/utility';
 import {CommonButton, CommonWebBox, EqualTwoTextInputs, MyView} from '@/styles';
-import QuizGeneralInfo from '../../../panel/quiz/components/create/QuizGeneralInfo';
+import QuizGeneralInfo from '../../../panel/quiz/components/create/QuizGeneralInfo.jsx';
 import translator from '../../../panel/quiz/translator';
 import commonTranslator from '@/translator/common';
-import QuizAnswerSheetInfo from '../../../panel/quiz/components/create/QuizAnswerSheetInfo';
+import QuizAnswerSheetInfo from '../../../panel/quiz/components/create/QuizAnswerSheetInfo.jsx';
 import {showError, showSuccess} from '../../../../services/utility';
-import QuizRunInfo from './QuizRunInfo';
+import QuizRunInfo from './QuizRunInfo.jsx';
 const Create = props => {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),

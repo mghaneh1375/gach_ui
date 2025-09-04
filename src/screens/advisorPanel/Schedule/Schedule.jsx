@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import Create from './components/Create';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {AdvisorScheduleProvider} from './components/Context';
+import Create from './components/Create.jsx';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {AdvisorScheduleProvider} from './components/Context.jsx';
 import {useParams} from 'react-router';
-import List from './components/List';
+import List from './components/List.jsx';
 import {isUserAdvisor} from '../../../services/utility';
-import Lesson from './components/Lesson';
-import Copy from './components/Copy';
+import Lesson from './components/Lesson.jsx';
+import Copy from './components/Copy.jsx';
 function Schedule(props) {
   const [mode, setMode] = useState();
   const [studentId, setStudentId] = useState();

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Platform, Pressable} from 'react-native';
-import {CommonWebBox, SimpleText, MyView} from '../CommonComponents';
+import {CommonWebBox, SimpleText, MyView} from '../CommonComponents.jsx';
 import vars from '../root';
 import {
   calcInputWidth,
@@ -10,7 +10,7 @@ import {
 } from './commonText';
 import translator from '../../translator/common';
 import SubInputText from './subInputText';
-import MultiBox from '../../components/web/multiBox/MultiBox';
+import MultiBox from '../../components/web/multiBox/MultiBox.jsx';
 export const MultiSearchableTextInput = props => {
   const [suggests, setSuggests] = useState([]);
   const [userInput, setUserInput] = useState('');

@@ -5,14 +5,14 @@ import {
   faUser,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import QuizItemCard from '@/components/web/QuizItemCard';
+import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents';
+} from '../../../styles/CommonComponents.jsx';
 import {styles} from '../../../styles/common/styles';
 import {
   styleCard,
@@ -21,7 +21,7 @@ import {
   styleYellowBox,
 } from '../../panel/package/card/style';
 import {faNums} from '../../../services/utility';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
 function Card(props) {
   const colors = ['#FFAA00', '#c5c5c5', '#D27F66'];
   return (

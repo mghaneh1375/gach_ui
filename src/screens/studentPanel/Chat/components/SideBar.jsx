@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {chatContext, dispatchChatContext} from './Context';
+import {chatContext, dispatchChatContext} from './Context.jsx';
 import {GetChatsApi} from './messangerApi';
 function SideBar(props) {
   const useGlobalState = () => [

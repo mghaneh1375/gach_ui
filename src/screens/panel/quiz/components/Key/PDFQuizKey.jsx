@@ -10,7 +10,7 @@ import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {getPDFQuestions, getPDFQuizAnswerSheet, savePDF} from '../utility';
-import AnswerSheet from '../answerSheet/AnswerSheet';
+import AnswerSheet from '../answerSheet/AnswerSheet.jsx';
 import {showError, showSuccess} from '../../../../../services/utility';
 function PDFQuizKey(props) {
   const ref = useRef();

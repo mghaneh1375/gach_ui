@@ -16,9 +16,9 @@ import {
   styleItemsParent,
 } from '../../card/style';
 import commonTranslator from '@/translator/common';
-import {dispatchQuizzesContext} from './Utility';
+import {dispatchQuizzesContext} from './Utility.jsx';
 import {styles} from '@/styles/common/styles';
-import {FontIcon} from '../../../../../styles/common/FontIcon';
+import {FontIcon} from '../../../../../styles/common/FontIcon.jsx';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '@/services/utility';
 function Info(props) {

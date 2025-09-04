@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
 import commonTranslator from '@/translator/common';
 import {checkSendRoleForm, getRoleForms} from './utility';
-import SpecificRoleForm from './SpecificRoleForm';
+import SpecificRoleForm from './SpecificRoleForm.jsx';
 import {styles} from '../../../../styles/common/styles';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {userKeyVals} from '../../../studentPanel/upgrade/keyVals';
 const RoleFormForSelect = props => {
   const [userRoleFormData, setUserRoleFormData] = useState({});

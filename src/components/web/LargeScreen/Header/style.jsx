@@ -1,7 +1,7 @@
 import {TouchableOpacity} from 'react-native';
 import {getWidthHeight} from '../../../../services/utility';
 import {MyView, PhoneView, SimpleText} from '@/styles';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import vars from '@/styles/root';
 const width = getWidthHeight()[0];
 export const style = {

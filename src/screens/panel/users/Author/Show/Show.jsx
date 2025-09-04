@@ -1,5 +1,5 @@
 import {CommonWebBox, MyView} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
 import Translate from '../translator';
 import columns from './tansactionTableStructure';
 import React, {useState} from 'react';

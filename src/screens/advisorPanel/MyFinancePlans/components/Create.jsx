@@ -4,15 +4,15 @@ import {
   EqualTwoTextInputs,
   PhoneView,
 } from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '../../../../styles/common/styles';
 import React, {useState} from 'react';
 import translator from './translator';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {statusKeyVals} from '../../../panel/question/components/keyVals';
 import {createNewOffer, updateOffer} from './utility';
-import {dispatchFinanceContext, financeContext} from './Context';
+import {dispatchFinanceContext, financeContext} from './Context.jsx';
 import {formatPrice} from '@/services/utility';
 function Create(props) {
   const useGlobalState = () => [

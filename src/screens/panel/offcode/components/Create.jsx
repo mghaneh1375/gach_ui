@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import ExcelComma from '@/components/web/ExcelCommaInput';
+import ExcelComma from '@/components/web/ExcelCommaInput.jsx';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import translator from '../translator';
 import commonTranslator from '@/translator/common';
 import {

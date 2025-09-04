@@ -1,13 +1,13 @@
 import React from 'react';
 import {MyView, PhoneView, SimpleText} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '../../../../../../styles/common/styles';
 import {showError} from '../../../../../../services/utility';
-import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '../../../../../../translator/common';
 import {getLessons} from '../../../../../advisorPanel/schedule/components/utility';
 import {getSubjectsKeyVals} from '../../../../question/components/utility';
-import {dispatchSetSubjectContext, setSubjectContext} from './Context';
+import {dispatchSetSubjectContext, setSubjectContext} from './Context.jsx';
 export default function EachQuestion({question, setQuestion, setLoading}) {
   const [mark, setMark] = React.useState(question.mark);
   const [choicesCount, setChoicesCount] = React.useState(question.choicesCount);

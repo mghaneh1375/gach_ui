@@ -9,16 +9,16 @@ import {
 } from '../../../../styles/CommonComponents.jsx';
 import commonTranslator from '@/translator/common';
 import Translate from './translate';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import columns from './tableStructure';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
 import {styles} from '../../../../styles/common/styles';
 import {formatPrice, showSuccess} from '../../../../services/utility';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {
   faArrowDown,
   faArrowUp,

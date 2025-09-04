@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import List from './components/list/List';
+import List from './components/list/List.jsx';
 import {filter} from '../../panel/ticket/components/list/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import Show from '../../panel/ticket/components/show/Show';
-import Create from '../../panel/ticket/components/Create';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import Show from '../../panel/ticket/components/show/Show.jsx';
+import Create from '../../panel/ticket/components/Create.jsx';
 import {addItem, isUserAdvisor, removeItems} from '../../../services/utility';
 import {MyView} from '@/styles';
 import {useParams} from 'react-router';

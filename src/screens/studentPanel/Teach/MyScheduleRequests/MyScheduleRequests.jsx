@@ -7,16 +7,16 @@ import {
 } from '../../../../styles/CommonComponents.jsx';
 import {Translator} from '../translate';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import columns from './components/tableStructure';
 import {useEffectOnce} from 'usehooks-ts';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '../../../../services/utility';
-import Basket from '../../../../components/web/Basket';
-import BuySchedule from '../../../general/teachers/BuySchedule';
-import OffCode from '../../../general/buy/components/OffCode';
-import SuccessTransaction from '../../../../components/web/successTransaction/SuccessTransaction';
+import Basket from '../../../../components/web/Basket.jsx';
+import BuySchedule from '../../../general/teachers/BuySchedule.jsx';
+import OffCode from '../../../general/buy/components/OffCode.jsx';
+import SuccessTransaction from '../../../../components/web/successTransaction/SuccessTransaction.jsx';
 import {styles} from '../../../../styles/common/styles';
 import commonTranslator from '@/translator/common';
 function MyScheduleRequests(props) {

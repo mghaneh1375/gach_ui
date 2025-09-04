@@ -10,8 +10,8 @@ import {
 import translator from './translator';
 import commonTranslator from '@/translator/common';
 import {showSuccess} from '../../../../services/utility';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 function Ravan(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

@@ -1,14 +1,14 @@
 import {faBookmark, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
-import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 import Translate from '../translate';
-import {doQuizContext, dispatchDoQuizContext} from './Context';
-import QuestionNumber from './questionComponents/QuestionNumber';
+import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
+import QuestionNumber from './questionComponents/QuestionNumber.jsx';
 function PhoneFilter(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),

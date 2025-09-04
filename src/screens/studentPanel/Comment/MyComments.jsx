@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import commonTranslator from '../../../translator/common';
 import {generalRequest} from '../../../api/utility';
 import {routes} from '@/api/apiRoutes';
@@ -10,10 +10,10 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../styles/CommonComponents.jsx';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker';
-import CommonDataTable from '../../../styles/common/CommonDataTable';
-import {LargePopUp} from '../../../styles/common/PopUp';
+import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker.jsx';
+import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '../../../styles/common/PopUp.jsx';
 import columns from './tableStructure';
 import {showSuccess} from '../../../services/utility';
 function MyComments(props) {

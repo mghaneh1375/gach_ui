@@ -1,4 +1,8 @@
-import {CommonButton, PhoneView, SimpleText} from '../styles/CommonComponents';
+import {
+  CommonButton,
+  PhoneView,
+  SimpleText,
+} from '../styles/CommonComponents.jsx';
 import {useState} from 'react';
 import commonTranslator from '../translator/common';
 const CopyBox = props => {

@@ -1,5 +1,5 @@
-import BestComment from './BestComment';
-import {MyView, PhoneView} from '../../../styles/CommonComponents';
+import BestComment from './BestComment.jsx';
+import {MyView, PhoneView} from '../../../styles/CommonComponents.jsx';
 import {getWidthHeight} from '../../../services/utility';
 import {useMemo} from 'react';
 function BestComments(props) {

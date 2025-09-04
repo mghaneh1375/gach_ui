@@ -1,6 +1,6 @@
 import {useMemo, useState} from 'react';
 import {CommonButton, MyView, PhoneView} from '@/styles';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';

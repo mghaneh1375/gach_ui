@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {doQuizContext} from './Context';
-import Test from './Test';
+import {doQuizContext} from './Context.jsx';
+import Test from './Test.jsx';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
-import Circle from '../../../../components/web/Circle';
+import Circle from '../../../../components/web/Circle.jsx';
 import vars from '@/styles/root';
 import {styles} from '../../../../styles/common/styles';
 const perBox = 10;

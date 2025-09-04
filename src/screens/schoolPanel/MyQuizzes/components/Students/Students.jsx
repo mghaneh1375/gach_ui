@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../../../api/utility';
-import SelectFromMyStudents from '../../../../../components/web/SelectFromMyStudents';
+import SelectFromMyStudents from '../../../../../components/web/SelectFromMyStudents.jsx';
 import {showSuccess} from '@/services/utility';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
-import StudentAnswerSheet from '../../../../panel/quiz/components/answerSheet/StudentAnswerSheet';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import StudentAnswerSheet from '../../../../panel/quiz/components/answerSheet/StudentAnswerSheet.jsx';
 import {getAnswerSheets} from '../../../../panel/quiz/components/utility';
 import translator from '../../../../panel/quiz/translator';
-import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context';
+import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context.jsx';
 import columns from './tableStructure';
 const Students = props => {
   const useGlobalState = () => [

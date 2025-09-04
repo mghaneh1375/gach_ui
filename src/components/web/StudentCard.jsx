@@ -1,5 +1,5 @@
 import React from 'react';
-import MiniCard from '../../screens/panel/quiz/components/cv/MiniCard';
+import MiniCard from '../../screens/panel/quiz/components/cv/MiniCard.jsx';
 function StudentCard(props) {
   return (
     <MiniCard

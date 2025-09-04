@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import List from './components/list/List';
-import Create from './components/Create';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import List from './components/list/List.jsx';
+import Create from './components/Create.jsx';
 import {isUserAdmin} from '../../../../services/utility';
 import {MyView} from '@/styles';
 import vars from '@/styles/root';
-import {SchoolProvider} from './components/Context';
+import {SchoolProvider} from './components/Context.jsx';
 function Schools() {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

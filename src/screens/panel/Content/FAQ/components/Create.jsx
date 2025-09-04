@@ -1,7 +1,10 @@
 import {CommonWebBox} from '@/styles';
 import Translator from '../../translate';
-import Card from './Card';
-import {contentContext, dispatchContentContext} from '../../components/Context';
+import Card from './Card.jsx';
+import {
+  contentContext,
+  dispatchContentContext,
+} from '../../components/Context.jsx';
 import React from 'react';
 function Create(props) {
   const useGlobalState = () => [

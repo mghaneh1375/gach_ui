@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {CommonWebBox} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import certTranslator from '../translator';
-import Ops from './ops/Ops';
+import Ops from './ops/Ops.jsx';
 import columns from './tableStructure';
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);

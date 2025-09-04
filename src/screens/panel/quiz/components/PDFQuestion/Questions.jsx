@@ -1,6 +1,6 @@
 import React from 'react';
-import {dispatchQuizContext, quizContext} from '../Context';
-import PDFQuestion from './PDFQuestion';
+import {dispatchQuizContext, quizContext} from '../Context.jsx';
+import PDFQuestion from './PDFQuestion.jsx';
 function Questions(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

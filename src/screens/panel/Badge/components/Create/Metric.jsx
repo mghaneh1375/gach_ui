@@ -1,6 +1,6 @@
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {PhoneView, SimpleText} from '@/styles';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
 import {translator} from '../../translate';
 import {styles} from '@/styles/common/styles';
 function Metric(props) {

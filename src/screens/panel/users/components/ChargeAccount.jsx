@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import {dispatchUsersContext, usersContext} from './Context';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {dispatchUsersContext, usersContext} from './Context.jsx';
 import Translator from '../translator';
 import {styles} from '../../../../styles/common/styles';
 import commonTranslator from '@/translator/common';

@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '@/styles';
 import translator from '../../translator';
-import Filter from './Filter';
-import CommonDataTable from '../../../../../../styles/common/CommonDataTable';
+import Filter from './Filter.jsx';
+import CommonDataTable from '../../../../../../styles/common/CommonDataTable.jsx';
 import columns, {columnsForUsers} from './tableStruture';
 import {routes} from '@/api/apiRoutes';
-import Ops from '../Ops';
-import {dispatchSchoolContext, schoolContext} from '../Context';
+import Ops from '../Ops.jsx';
+import {dispatchSchoolContext, schoolContext} from '../Context.jsx';
 import {filter} from '../utility';
 import {generalRequest} from '../../../../../../api/utility';
 function List(props) {

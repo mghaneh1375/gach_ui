@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {PublicNotifProvider} from './components/Context';
-import Detail from './components/Detail';
-import List from './components/List';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {PublicNotifProvider} from './components/Context.jsx';
+import Detail from './components/Detail.jsx';
+import List from './components/List.jsx';
 function Notif(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

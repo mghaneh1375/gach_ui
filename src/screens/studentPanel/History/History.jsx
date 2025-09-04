@@ -1,12 +1,12 @@
 import {CommonWebBox, MyView} from '../../../styles/CommonComponents.jsx';
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import {generalRequest} from '../../../api/utility';
 import {routes} from '@/api/apiRoutes';
-import CommonDataTable from '../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
 import columns from './tableStructure';
-import Recp from '../../../components/web/Recp';
+import Recp from '../../../components/web/Recp.jsx';
 function History(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

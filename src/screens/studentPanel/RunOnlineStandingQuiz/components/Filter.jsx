@@ -9,8 +9,8 @@ import {
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
 import React, {useState} from 'react';
-import {doQuizContext, dispatchDoQuizContext} from './Context';
-import {SimpleTextIcon} from '../../../../styles/common/TextIcon';
+import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
+import {SimpleTextIcon} from '../../../../styles/common/TextIcon.jsx';
 import {
   faAngleDown,
   faAngleUp,
@@ -18,14 +18,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Translate from '../translate';
 import commonTranslator from '@/translator/common';
-import Circle from '../../../../components/web/Circle';
-import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox';
+import Circle from '../../../../components/web/Circle.jsx';
+import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 import {
   convertTimestampToJustTime,
   getDevice,
 } from '../../../../services/utility';
-import QuestionNumber from '../../runQuiz/components/questionComponents/QuestionNumber';
-import Timer from './Timer';
+import QuestionNumber from '../../runQuiz/components/questionComponents/QuestionNumber.jsx';
+import Timer from './Timer.jsx';
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),

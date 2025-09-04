@@ -4,7 +4,7 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
-} from '../../../../styles/Common';
+} from '../../../../styles/Common.jsx';
 import QuizAnswerSheetInfo from './create/quizAnswerSheetInfo';
 import QuizGeneralInfo from './create/quizGeneralInfo';
 import QuizRegistryInfo from './create/quizRegistryInfo';
@@ -13,7 +13,7 @@ import commonTranslator from '@/translator/common';
 import translator from '../translator';
 import {CallAPI} from './create/callAPI';
 import {routes} from '@/api/apiRoutes';
-import {quizContext, dispatchQuizContext} from './Context';
+import {quizContext, dispatchQuizContext} from './Context.jsx';
 const Update = props => {
   const useGlobalState = () => [
     React.useContext(quizContext),

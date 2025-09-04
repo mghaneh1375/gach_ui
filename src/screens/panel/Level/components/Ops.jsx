@@ -1,7 +1,7 @@
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonButton, PhoneView} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 function Ops(props) {
   return (
     <LargePopUp toggleShowPopUp={props.toggleShowPopUp}>

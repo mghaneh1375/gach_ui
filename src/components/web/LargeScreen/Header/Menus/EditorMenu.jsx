@@ -1,7 +1,7 @@
 import React from 'react';
 import {Device} from '../../../../../models/device';
 import {getDevice} from '@/services/utility';
-import {MenuItem, style, MenuItemPhone} from '../Style';
+import {MenuItem, style, MenuItemPhone} from '../Style.jsx';
 import translator from '../../../../../translator/common';
 import {
   faHome,
@@ -16,10 +16,10 @@ import {
   faVideo,
   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
-import {SuperMenuItem} from './SuperMenuItem';
+import {SuperMenuItem} from './SuperMenuItem.jsx';
 import {MyView} from '@/styles';
-import MobileLogout from '../MobileLogout';
-import {globalStateContext} from '@/App';
+import MobileLogout from '../MobileLogout.jsx';
+import {globalStateContext} from '@/App.jsx';
 function EditorMenu(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;

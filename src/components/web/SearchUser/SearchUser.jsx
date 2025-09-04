@@ -6,13 +6,13 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../styles/common/PopUp';
-import CommonDataTable from '../../../styles/common/CommonDataTable';
+} from '../../../styles/CommonComponents.jsx';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '../../../styles/common/PopUp.jsx';
+import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
 import commonTranslator from '../../../translator/common';
 import {search} from './utility';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../styles/common/styles';
 const SearchUser = props => {

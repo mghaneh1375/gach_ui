@@ -1,10 +1,10 @@
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '@/translator/common';
 import Translate from '../translate';
 import React, {useState} from 'react';
 import {changeText} from '../../../../services/utility';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
 import {createPackage, editPackage} from './utility';
 function Create(props) {
   const [title, setTitle] = useState(

@@ -1,12 +1,12 @@
 import {faBuilding, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import QuizItemCard from '../../../../components/web/QuizItemCard';
+import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import {
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common';
+} from '../../../../styles/Common.jsx';
 import {styles} from '../../../../styles/common/styles';
 import {
   styleCard,

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import List from './list/List';
+import List from './list/List.jsx';
 import {getConfig} from './utility';
 import {MyView} from '@/styles';
-import {dispatchStateContext, globalStateContext} from '@/App';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 
 function ConfigGift(props) {
   const navigate = props.navigate;

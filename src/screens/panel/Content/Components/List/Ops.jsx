@@ -1,8 +1,8 @@
 import React from 'react';
 import {CommonButton, PhoneView} from '@/styles';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
 import Translator from '../../translate';
-import {contentContext, dispatchContentContext} from '../Context';
+import {contentContext, dispatchContentContext} from '../Context.jsx';
 import commonTranslator from '@/translator/common';
 import {videoGeneralRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';

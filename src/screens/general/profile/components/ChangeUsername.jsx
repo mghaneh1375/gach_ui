@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {CommonButton, SimpleText, MyView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 import vars from '@/styles/root';
 import translator from '../translate';
 import commonTranslator from '@/translator/common';
-import Verification from '../../login/components/Verification';
+import Verification from '../../login/components/Verification.jsx';
 import {removeAuthCache} from '../../../../api/user';
 import {getDevice, showSuccess} from '../../../../services/utility';
 import {Device} from '../../../../models/device';

@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonButton, CommonWebBox} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import {courseContext, dispatchCourseContext} from './Context';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {courseContext, dispatchCourseContext} from './Context.jsx';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(courseContext),

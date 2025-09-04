@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
-import Quizzes from '../../../../../components/web/Quizzes';
+import Quizzes from '../../../../../components/web/Quizzes.jsx';
 import {
   getDevice,
   getWidthHeight,
   showError,
 } from '../../../../../services/utility';
 import {BigBoldBlueText, MyView, PhoneView, SimpleText} from '@/styles';
-import {packagesContext} from '../Context';
+import {packagesContext} from '../Context.jsx';
 import commonTranslator from '@/translator/common';
-import OffCode from '../OffCode';
-import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction';
-import BuyBasket from '../BuyBasket';
+import OffCode from '../OffCode.jsx';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
+import BuyBasket from '../BuyBasket.jsx';
 import {styles} from '@/styles/common/styles';
 function List(props) {
   const [price, setPrice] = useState(0);

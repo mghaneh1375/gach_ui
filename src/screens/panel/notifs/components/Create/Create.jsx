@@ -1,10 +1,10 @@
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
-import {FontIcon} from '../../../../../styles/common/FontIcon';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {FontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '@/styles/common/styles';
-import {dispatchNotifContext, notifContext} from '../Context';
+import {dispatchNotifContext, notifContext} from '../Context.jsx';
 import {
   fetchContentDigests,
   fetchGrades,
@@ -15,16 +15,16 @@ import {
   simpleStore,
   store,
 } from '../utility';
-import BuiltFilter from './BuiltFilter';
-import Filter from './Filter';
+import BuiltFilter from './BuiltFilter.jsx';
+import Filter from './Filter.jsx';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '../../../../../services/myUploadAdapter';
-import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 import RenderHTML from 'react-native-render-html';
 import {CKEditorToolbar} from '../../../../../services/utility';
-import Attach from './Attach';
-import Excel from './Excel';
+import Attach from './Attach.jsx';
+import Excel from './Excel.jsx';
 function Create(props) {
   const [isWorking, setIsWorking] = useState(false);
   const useGlobalState = () => [

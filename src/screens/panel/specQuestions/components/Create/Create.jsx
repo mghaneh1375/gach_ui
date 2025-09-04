@@ -7,15 +7,15 @@ import {
   MyView,
 } from '@/styles';
 import translator from '../../translator';
-import AddBatch from './AddBatch';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import AddBatch from './AddBatch.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {changeText, showError} from '../../../../../services/utility';
 import {styleGap10Wrap} from '../detail/style';
 import commonTranslator from '@/translator/common';
 import {addQuestion, editQuestion} from '../utility';
-import QuestionFile from './QuestionFile';
-import {dispatchQuestionContext, questionContext} from '../detail/Context';
-import UploadFile from '@/components/web/UploadFile';
+import QuestionFile from './QuestionFile.jsx';
+import {dispatchQuestionContext, questionContext} from '../detail/Context.jsx';
+import UploadFile from '@/components/web/UploadFile.jsx';
 import {CV_BASE_URL} from '../../../../../api/utility';
 import RenderHTML from 'react-native-render-html';
 function Create(props) {

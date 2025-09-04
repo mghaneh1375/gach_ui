@@ -6,7 +6,7 @@ import {
   MyView,
   SimpleText,
 } from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../translator';
 import commonTranslator from '@/translator/common';
 import {create, update} from './utility';

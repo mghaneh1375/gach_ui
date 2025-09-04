@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {useLocation} from 'react-router';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {addItem, editItem, isUserEditorAccess} from '../../../services/utility';
 import {MyView} from '@/styles';
-import ChangeLevel from './components/ChangeLevel';
-import Create from './components/Create';
-import List from './components/list/List';
+import ChangeLevel from './components/ChangeLevel.jsx';
+import Create from './components/Create.jsx';
+import List from './components/list/List.jsx';
 import {filter} from './components/list/utility';
-import Show from './components/show/Show';
+import Show from './components/show/Show.jsx';
 const queryString = require('query-string');
 function Ticket(props) {
   const navigate = props.navigate;

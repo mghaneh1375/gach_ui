@@ -15,8 +15,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import translator from '../../../../../translator/common';
-import {MenuItem, style} from '../Style';
-import {SuperMenuItem} from './SuperMenuItem';
+import {MenuItem, style} from '../Style.jsx';
+import {SuperMenuItem} from './SuperMenuItem.jsx';
 function MenuItemRepeat(props) {
   const navigate = props.navigate;
   return (

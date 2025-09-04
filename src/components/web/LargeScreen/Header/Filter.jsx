@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {Device} from '../../../../models/device';
 import {getDevice} from '../../../../services/utility';
-import {style} from './Style';
+import {style} from './Style.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import FilterItem from './FilterItem';
+import FilterItem from './FilterItem.jsx';
 import {MyView, SimpleText} from '../../../../styles/CommonComponents.jsx';
 import {styles} from '../../../../styles/common/styles';
 import vars from '@/styles/root';
-import {SimpleTextIcon} from '../../../../styles/common/TextIcon';
+import {SimpleTextIcon} from '../../../../styles/common/TextIcon.jsx';
 import {faClose, faFilter} from '@fortawesome/free-solid-svg-icons';
 import {Pressable} from 'react-native';
 function Filter() {

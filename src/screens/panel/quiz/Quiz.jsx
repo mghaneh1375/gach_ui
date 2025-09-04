@@ -1,31 +1,31 @@
 import React, {useState} from 'react';
-import CreateQuiz from './components/CreateQuiz';
-import List from './components/List';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import Students from './components/students/Students';
-import Questions from './components/questions/Questions';
+import CreateQuiz from './components/CreateQuiz.jsx';
+import List from './components/List.jsx';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import Students from './components/students/Students.jsx';
+import Questions from './components/questions/Questions.jsx';
 import CV from './components/cv/CV.jsx';
 import {
   dispatchQuizContext,
   quizContext,
   QuizProvider,
-} from './components/Context';
-import Key from './components/key/Key';
-import Ranking from './components/reports/ranking/Ranking';
-import Karname from './components/reports/karname/Karname';
-import ReportList from './components/reports/list/List';
+} from './components/Context.jsx';
+import Key from './components/key/Key.jsx';
+import Ranking from './components/reports/ranking/Ranking.jsx';
+import Karname from './components/reports/karname/Karname.jsx';
+import ReportList from './components/reports/list/List.jsx';
 import {useParams} from 'react-router';
 import {MyView} from '@/styles';
-import ContentQuizKarname from './components/reports/karname/ContentQuizKarname';
-import Correctors from './components/correctors/Correctors';
-import PDF from './components/pdfQuestion/Questions';
-import PDFQuizKey from './components/key/PDFQuizKey';
+import ContentQuizKarname from './components/reports/karname/ContentQuizKarname.jsx';
+import Correctors from './components/correctors/Correctors.jsx';
+import PDF from './components/pdfQuestion/Questions.jsx';
+import PDFQuizKey from './components/key/PDFQuizKey.jsx';
 import {
   isUserAdmin,
   isUserContentAccess,
   isUserEditorAccess,
 } from '../../../services/utility';
-import Copy from './components/copy/Copy';
+import Copy from './components/copy/Copy.jsx';
 const Quiz = props => {
   const [mode, setMode] = useState('karname');
   const navigate = props.navigate;

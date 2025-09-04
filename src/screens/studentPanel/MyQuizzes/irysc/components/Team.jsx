@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {CommonWebBox, SimpleText} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
 import translator from '../../../../panel/quiz/translator';
 import {
   dispatchQuizContext,
   quizContext,
-} from '../../../../panel/quiz/components/Context';
+} from '../../../../panel/quiz/components/Context.jsx';
 import commonTranslator from '@/translator/common';
 import {styles} from '@/styles/common/styles';
 import {columnsForMember} from '../../../../panel/quiz/components/students/tableStructure';

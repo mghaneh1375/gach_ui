@@ -8,10 +8,10 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
-import AttachBox from '../../../ticket/components/show/attachBox/AttachBox';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
 import Translator from '../../translate';
-import {contentContext, dispatchContentContext} from '../Context';
+import {contentContext, dispatchContentContext} from '../Context.jsx';
 import {removeSessionFile, setSessionFile} from '../utility';
 import React from 'react';
 import {styles} from '@/styles/common/styles';

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CommonButton, MyView, PhoneView} from '@/styles';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
 import {styles} from '@/styles/common/styles';
 import {filter} from './utility';
 function Filter(props) {

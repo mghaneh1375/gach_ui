@@ -1,20 +1,20 @@
 import React, {useRef, useState} from 'react';
 import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
-import Card from '../../../../panel/quiz/components/card/Card';
+import Card from '../../../../panel/quiz/components/card/Card.jsx';
 import {
   quizContext,
   dispatchQuizContext,
-} from '../../../../panel/quiz/components/Context';
-import Ops from './Ops';
+} from '../../../../panel/quiz/components/Context.jsx';
+import Ops from './Ops.jsx';
 import {fetchMyQuizzes} from './utility';
-import ProgressCard from '../../../myOffs/progressCard/ProgressCard';
+import ProgressCard from '../../../myOffs/progressCard/ProgressCard.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
 import {generalRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
 import {setCacheItem} from '../../../../../api/user';
-import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
 import {formatPrice} from '../../../../../services/utility';
 function List(props) {
   const useGlobalState = () => [

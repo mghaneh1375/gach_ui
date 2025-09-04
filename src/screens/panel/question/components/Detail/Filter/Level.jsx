@@ -8,7 +8,7 @@ import {
 } from '@/styles';
 import {styles} from '../../../../../../styles/common/styles';
 import translator from '../../../translator';
-import {questionContext, dispatchQuestionContext} from '../Context';
+import {questionContext, dispatchQuestionContext} from '../Context.jsx';
 function Level(props) {
   const useGlobalState = () => [
     React.useContext(questionContext),

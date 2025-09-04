@@ -2,9 +2,12 @@ import React from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {CommonWebBox, MyView, PhoneView} from '@/styles';
 import {styles} from '@/styles/common/styles';
-import {contentContext, dispatchContentContext} from '../../components/Context';
+import {
+  contentContext,
+  dispatchContentContext,
+} from '../../components/Context.jsx';
 import Translator from '../../translate';
-import Card from './Card';
+import Card from './Card.jsx';
 import {getAll} from './utility';
 function List(props) {
   const useGlobalState = () => [

@@ -9,7 +9,7 @@ import {
 } from '../../../styles/CommonComponents.jsx';
 import {styles} from '../../../styles/common/styles';
 import {verifyCert} from '../../panel/certificate/utility';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 function CheckCert(props) {
   const params = useParams();
   const [certId, setCertId] = useState();

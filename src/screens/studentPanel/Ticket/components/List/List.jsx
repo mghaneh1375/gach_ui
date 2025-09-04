@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '@/styles';
 import {Translate} from '../../translate';
-import Digest from '../digest/Digest';
-import Filter from '../../../../panel/ticket/components/proSearch/Filter';
+import Digest from '../digest/Digest.jsx';
+import Filter from '../../../../panel/ticket/components/proSearch/Filter.jsx';
 import {editItem} from '../../../../../services/utility';
 import {useSearchParams} from 'react-router-dom';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../../../api/utility';
-import Create from '../../../../panel/ticket/components/Create';
+import Create from '../../../../panel/ticket/components/Create.jsx';
 function List(props) {
   const searchParams = useSearchParams();
   const [isWorking, setIsWorking] = useState();

@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
-import CreateQuiz from './components/CreateOpenQuiz';
-import List from './components/List';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import Students from './components/students/Students';
-import Questions from './components/questions/Questions';
+import CreateQuiz from './components/CreateOpenQuiz.jsx';
+import List from './components/List.jsx';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import Students from './components/students/Students.jsx';
+import Questions from './components/questions/Questions.jsx';
 import {
   dispatchQuizContext,
   quizContext,
   QuizProvider,
-} from './components/Context';
-import Key from './components/key/Key';
-import Ranking from './components/reports/ranking/Ranking';
-import Karname from './components/reports/karname/Karname';
-import ReportList from './components/reports/list/List';
+} from './components/Context.jsx';
+import Key from './components/key/Key.jsx';
+import Ranking from './components/reports/ranking/Ranking.jsx';
+import Karname from './components/reports/karname/Karname.jsx';
+import ReportList from './components/reports/list/List.jsx';
 import {useParams} from 'react-router';
 import {MyView} from '@/styles';
 import {

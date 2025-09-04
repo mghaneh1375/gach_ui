@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 import {MyView} from '@/styles';
-import Create from './components/Create';
-import List from './components/list/List';
+import Create from './components/Create.jsx';
+import List from './components/list/List.jsx';
 import {filter} from './components/utility';
 import {editItem} from '../../../services/utility';
-import Copun from './components/list/Copun';
-import CopunRev from './components/list/CopunRev';
+import Copun from './components/list/Copun.jsx';
+import CopunRev from './components/list/CopunRev.jsx';
 const Off = props => {
   const [mode, setMode] = useState('list');
   const [offs, setOffs] = useState();

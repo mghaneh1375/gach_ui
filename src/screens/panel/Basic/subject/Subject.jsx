@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {addItem, editItem} from '../../../../services/utility';
 import {getGradeAndBranchesLessons, getSubjects} from '../utility';
-import {dispatchStateContext} from '@/App';
-import Create from './components/Create';
-import List from './components/list/List';
+import {dispatchStateContext} from '@/App.jsx';
+import Create from './components/Create.jsx';
+import List from './components/list/List.jsx';
 import {MyView} from '@/styles';
-import GroupEdit from './components/GroupEdit';
+import GroupEdit from './components/GroupEdit.jsx';
 function Subject(props) {
   const navigate = props.navigate;
   const [mode, setMode] = useState('list');

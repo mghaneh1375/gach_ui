@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {BASE_SITE_NAME} from '@/api/utility';
-import UploadFile from '@/components/web/UploadFile';
+import UploadFile from '@/components/web/UploadFile.jsx';
 import {showSuccess} from '@/services/utility';
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslate from '../../../../../translator/common';
 import Translate from '../../translate';
 import {createSubject, editSubject, getSubjects} from '../../utility';

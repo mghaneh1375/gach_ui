@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CommonWebBox} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
-import {dispatchNotifContext, notifContext} from './Context';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import {dispatchNotifContext, notifContext} from './Context.jsx';
 import columns from './tableStructure';
 import {getStudents} from './utility';
 function Students(props) {

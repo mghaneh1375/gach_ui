@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {dispatchPackagesContext, packagesContext} from '../Context';
+import {dispatchPackagesContext, packagesContext} from '../Context.jsx';
 import {MyView} from '@/styles';
-import Info from '../../../../panel/package/components/detail/Info';
-import List from './List';
-import SchoolList from './SchoolList';
+import Info from '../../../../panel/package/components/detail/Info.jsx';
+import List from './List.jsx';
+import SchoolList from './SchoolList.jsx';
 import vars from '@/styles/root';
 import {getDevice} from '@/services/utility';
 import {getPackage} from '../utility';

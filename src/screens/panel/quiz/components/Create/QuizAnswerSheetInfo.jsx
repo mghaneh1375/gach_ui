@@ -5,12 +5,12 @@ import translator from '../../translator';
 import MyCustomUploadAdapterPlugin from '../../../../../services/myUploadAdapter';
 import {CommonButton, PhoneView, SimpleText, MyView} from '@/styles';
 import {useState} from 'react';
-import UploadFile from '@/components/web/UploadFile';
+import UploadFile from '@/components/web/UploadFile.jsx';
 import {routes} from '@/api/apiRoutes';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '@/styles/common/styles';
-import AttachBox from '../../../ticket/components/show/attachBox/AttachBox';
+import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
 import {CKEditorToolbar} from '../../../../../services/utility';
 const QuizAnswerSheetInfo = props => {
   let ckEditor = null;

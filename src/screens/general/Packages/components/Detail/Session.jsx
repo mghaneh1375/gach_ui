@@ -1,6 +1,6 @@
 import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
 import React, {useState} from 'react';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
 import {
   faAngleDown,
   faAngleUp,
@@ -17,7 +17,7 @@ import {
   systemFonts,
   tagsStyles,
 } from '../../../../../services/utility';
-import {SimpleTextIcon} from '../../../../../styles/common/TextIcon';
+import {SimpleTextIcon} from '../../../../../styles/common/TextIcon.jsx';
 function Session(props) {
   const [show, setShow] = useState(true);
   const [showMore, setShowMore] = useState(true);

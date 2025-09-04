@@ -13,14 +13,14 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import {globalStateContext} from '@/App';
+import {globalStateContext} from '@/App.jsx';
 import {Device} from '../../../../../models/device';
 import {getDevice} from '@/services/utility';
 import {MyView} from '@/styles';
 import translator from '../../../../../translator/common';
-import MobileLogout from '../MobileLogout';
-import {MenuItem, MenuItemPhone, style} from '../Style';
-import {SuperMenuItem} from './SuperMenuItem';
+import MobileLogout from '../MobileLogout.jsx';
+import {MenuItem, MenuItemPhone, style} from '../Style.jsx';
+import {SuperMenuItem} from './SuperMenuItem.jsx';
 function AdminMenu(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;

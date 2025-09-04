@@ -1,5 +1,5 @@
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
 import React, {useState} from 'react';
 import {CommonButton, MyView, PhoneView} from '@/styles';
 import {
@@ -9,11 +9,11 @@ import {
   showError,
 } from '../../../../../services/utility';
 import commonTranslator from '@/translator/common';
-import {notifContext, dispatchNotifContext} from '../Context';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import {notifContext, dispatchNotifContext} from '../Context.jsx';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '@/styles/common/styles';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(notifContext),

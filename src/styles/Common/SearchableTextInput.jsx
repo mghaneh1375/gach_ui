@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Platform, Pressable} from 'react-native';
-import {CommonWebBox, MyView, SimpleText} from '../CommonComponents';
+import {CommonWebBox, MyView, SimpleText} from '../CommonComponents.jsx';
 import vars from '../root';
 import {
   calcInputWidth,

@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
 import {MyView} from '@/styles';
 import {useParams} from 'react-router';
-import List from './components/List';
+import List from './components/List.jsx';
 import {
   QuizProvider,
   dispatchQuizContext,
   quizContext,
-} from './components/Context';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import CreateEscapeQuiz from './components/CreateEscapeQuiz';
-import Key from './components/key/Key';
-import Students from './components/students/Students';
-import Questions from './components/questions/Questions';
-import CreateGift from './components/gift/Create';
-import ListGift from './components/gift/List';
-import Ranking from './components/reports/ranking/Ranking';
+} from './components/Context.jsx';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import CreateEscapeQuiz from './components/CreateEscapeQuiz.jsx';
+import Key from './components/key/Key.jsx';
+import Students from './components/students/Students.jsx';
+import Questions from './components/questions/Questions.jsx';
+import CreateGift from './components/gift/Create.jsx';
+import ListGift from './components/gift/List.jsx';
+import Ranking from './components/reports/ranking/Ranking.jsx';
 import {
   isUserAdmin,
   isUserContentAccess,

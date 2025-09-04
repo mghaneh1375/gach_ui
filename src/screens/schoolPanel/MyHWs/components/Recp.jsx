@@ -3,12 +3,12 @@ import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {formatPrice} from '@/services/utility';
 import {CommonWebBox, SimpleText} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import translator from '../../../panel/quiz/translator';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
-} from './../../myQuizzes/components/Context';
+} from './../../myQuizzes/components/Context.jsx';
 function Recp(props) {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),

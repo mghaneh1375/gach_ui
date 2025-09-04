@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
 import {faPlus, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {generalRequest} from '../../api/utility';
-import {CommonButton, MyView, PhoneView} from '../../styles/CommonComponents';
-import {FontIcon} from '../../styles/common/FontIcon';
-import JustBottomBorderTextInput from '../../styles/common/JustBottomBorderTextInput';
+import {
+  CommonButton,
+  MyView,
+  PhoneView,
+} from '../../styles/CommonComponents.jsx';
+import {FontIcon} from '../../styles/common/FontIcon.jsx';
+import JustBottomBorderTextInput from '../../styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '../../translator/common';
-import UploadFile from './UploadFile';
+import UploadFile from './UploadFile.jsx';
 import {showSuccess} from '../../services/utility';
 import {styles} from '../../styles/common/styles';
 const ExcelComma = props => {

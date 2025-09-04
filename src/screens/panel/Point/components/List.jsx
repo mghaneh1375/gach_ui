@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {CommonWebBox} from '@/styles';
-import {dispatchPointContext, pointContext} from './Context';
-import CommonDataTable from '../../../../styles/common/CommonDataTable';
+import {dispatchPointContext, pointContext} from './Context.jsx';
+import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
 import columns from './columns';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '../../../../services/utility';
-import Ops from './Ops';
+import Ops from './Ops.jsx';
 import translator from '../translator';
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);

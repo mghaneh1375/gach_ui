@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {dispatchStateContext} from '@/App';
+import {dispatchStateContext} from '@/App.jsx';
 import {MyView} from '@/styles';
-import Create from './components/Create';
-import List from './components/List';
-import Update from './components/Update';
+import Create from './components/Create.jsx';
+import List from './components/List.jsx';
+import Update from './components/Update.jsx';
 function Avatar(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [React.useContext(dispatchStateContext)];

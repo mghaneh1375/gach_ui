@@ -15,7 +15,7 @@ import {formatPrice} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 import {Translator} from '../translator';
 import {Rating} from 'react-native-ratings';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon';
+import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
 import {useMediaQuery} from '@material-ui/core';
 function Card(props) {
   const [img, setImg] = useState();

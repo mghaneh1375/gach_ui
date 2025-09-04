@@ -1,8 +1,8 @@
 import React from 'react';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable';
-import {LargePopUp} from '../../../../../styles/common/PopUp';
+import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
 import {getAllStudent} from '../../../../schoolPanel/manageStudents/utility';
-import {dispatchPackagesContext, packagesContext} from '../Context';
+import {dispatchPackagesContext, packagesContext} from '../Context.jsx';
 import columns from '../../../../schoolPanel/manageStudents/list/tableStructure';
 import commonTranslator from '@/translator/common';
 function StudentList(props) {

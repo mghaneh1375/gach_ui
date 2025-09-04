@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import Create from './Create';
-import List from './List';
+import Create from './Create.jsx';
+import List from './List.jsx';
 function PackageLevel(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

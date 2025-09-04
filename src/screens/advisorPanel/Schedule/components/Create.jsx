@@ -22,8 +22,8 @@ import {
 import {
   advisorScheduleContext,
   dispatchAdvisorScheduleContext,
-} from './Context';
-import Day from '../../../studentPanel/myLifeStyle/components/Day';
+} from './Context.jsx';
+import Day from '../../../studentPanel/myLifeStyle/components/Day.jsx';
 import {
   fetchExamTags,
   fetchMyLifeStyle,
@@ -36,22 +36,22 @@ import {
   faSave,
 } from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../../../styles/common/styles';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect';
-import {LargePopUp} from '../../../../styles/common/PopUp';
+import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput';
-import Tag from '../../../studentPanel/myLifeStyle/components/Tag';
+import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import Tag from '../../../studentPanel/myLifeStyle/components/Tag.jsx';
 import {
   removeItems,
   showError,
   showSuccess,
   trueFalseValues,
 } from '../../../../services/utility';
-import TimePicker from '../../../../styles/common/TimePicker';
+import TimePicker from '../../../../styles/common/TimePicker.jsx';
 import {downloadRequest, generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import vars from '@/styles/root';
-import LastBuyer from '../../../general/packages/components/detail/LastBuyer';
+import LastBuyer from '../../../general/packages/components/detail/LastBuyer.jsx';
 import {getGrades} from '../../../panel/basic/utility';
 function Create(props) {
   const useGlobalState = () => [

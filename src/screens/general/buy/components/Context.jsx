@@ -1,5 +1,5 @@
 import React from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 const defaultGlobalState = {
   allItems: undefined,
   selectableItems: undefined,

@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {PhoneView} from '../../../styles/CommonComponents.jsx';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '../../../api/utility';
-import Card from './Card';
+import Card from './Card.jsx';
 function Badge(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

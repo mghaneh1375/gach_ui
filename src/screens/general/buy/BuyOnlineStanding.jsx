@@ -8,7 +8,7 @@ import {
   FontIcon,
   SimpleFontIcon,
 } from '@/styles';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import React, {useState} from 'react';
 import {generalRequest} from '../../../api/utility';
@@ -22,20 +22,20 @@ import {
   showError,
   showSuccess,
 } from '../../../services/utility';
-import OffCode from './components/OffCode';
-import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction';
-import BuyBasket from './components/BuyBasket';
-import Basket from '../../../components/web/Basket';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput';
+import OffCode from './components/OffCode.jsx';
+import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction.jsx';
+import BuyBasket from './components/BuyBasket.jsx';
+import Basket from '../../../components/web/Basket.jsx';
+import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
 import {
   faCheck,
   faRemove,
   faUser,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import OnlineStanding from '../onlineStanding/OnlineStanding';
-import Team from '../onlineStanding/Team';
-import QuizItemCard from '@/components/web/QuizItemCard';
+import OnlineStanding from '../onlineStanding/OnlineStanding.jsx';
+import Team from '../onlineStanding/Team.jsx';
+import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 function BuyOnlineStanding(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

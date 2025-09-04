@@ -5,14 +5,17 @@ import {
   trueFalseValues,
 } from '../../../../../services/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput';
+import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import Translator from './translator';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker';
+import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import commonTranslator from '@/translator/common';
 import {generalRequest} from '../../../../../api/utility';
 import {routes} from '@/api/apiRoutes';
-import {dispatchTeachScheduleContext, teachScheduleContext} from './Context';
+import {
+  dispatchTeachScheduleContext,
+  teachScheduleContext,
+} from './Context.jsx';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(teachScheduleContext),

@@ -1,14 +1,14 @@
 import {useEffectOnce} from 'usehooks-ts';
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {useParams} from 'react-router';
 import {generalRequest} from '../../../api/utility';
 import {routes} from '@/api/apiRoutes';
 import {MyView} from '@/styles';
-import OnlineStanding from './OnlineStanding';
-import Team from './Team';
+import OnlineStanding from './OnlineStanding.jsx';
+import Team from './Team.jsx';
 import {getDevice, isUserAdmin} from '../../../services/utility';
-import TeamDetail from './TeamDetail';
+import TeamDetail from './TeamDetail.jsx';
 import vars from '../../../styles/root';
 function Ranking(props) {
   const navigate = props.navigate;

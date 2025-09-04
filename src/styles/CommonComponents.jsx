@@ -18,8 +18,8 @@ import {
 import {Link} from 'react-router-dom';
 import {getDevice, getScreenHeight} from '../services/utility';
 import {faArrowLeft, faPlus} from '@fortawesome/free-solid-svg-icons';
-import {FontIcon, SimpleFontIcon} from './common/FontIcon';
-import JustBottomBorderTextInput from './common/JustBottomBorderTextInput';
+import {FontIcon, SimpleFontIcon} from './common/FontIcon.jsx';
+import JustBottomBorderTextInput from './common/JustBottomBorderTextInput.jsx';
 import {styles} from './common/styles';
 export const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem

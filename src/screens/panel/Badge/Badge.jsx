@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App';
-import {BadgeProvider} from './components/Context';
-import List from './components/List';
-import Create from './components/create/Create';
+import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {BadgeProvider} from './components/Context.jsx';
+import List from './components/List.jsx';
+import Create from './components/create/Create.jsx';
 function Badge(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

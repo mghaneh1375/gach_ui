@@ -1,4 +1,4 @@
-import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 import {useState} from 'react';
 function MultiSentenceYesOrNo(props) {
   const [status, setStatus] = useState(props.status);
