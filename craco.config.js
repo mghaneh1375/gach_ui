@@ -9,6 +9,7 @@ module.exports = {
       '@components': path.resolve(__dirname, 'src/components'),
       '@services': path.resolve(__dirname, 'src/services'),
       '@translator': path.resolve(__dirname, 'src/translator'),
+      '@constants': path.resolve(__dirname, 'src/constants'),
     },
   },
   configure: webpackConfig => {

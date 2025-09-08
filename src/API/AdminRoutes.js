@@ -77,5 +77,5 @@ export const adminRoutes = {
   setAvatarAsDefault: 'admin/config/avatar/setDefault/',
 
   // BUY REPORTS API
-  buyReport: 'admin/report/buyReport',
+  buyReport: 'admin/report/buyersReport',
 };

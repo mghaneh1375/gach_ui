@@ -260,13 +260,12 @@ function Create(props) {
       needUpdateSession: true,
     });
   };
-  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
-    useFilePicker({
-      maxFileSize: 200,
-      accept: ['video/*'],
-      readAs: 'ArrayBuffer',
-      multiple: false,
-    });
+  const [openFileSelector, {filesContent, remove}] = useFilePicker({
+    maxFileSize: 200,
+    accept: ['video/*'],
+    readAs: 'ArrayBuffer',
+    multiple: false,
+  });
   React.useEffect(() => {
     fetchQuizzes();
   }, [state.selectedSession, fetchQuizzes]);

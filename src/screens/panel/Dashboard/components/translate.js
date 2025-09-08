@@ -16,4 +16,6 @@ export const Translate = {
   pendingUpgradeLevelRequests: 'درخواست‌های ارتقای سطح در انتظار تایید',
   lastMonthAdviceMeetings: 'تعداد جلسات مشاوره در 30 روز گذشته',
   lastMonthTeachReportsCount: 'مشکلات گزارش شده درباره تدریس در 30 روز گذشته',
+  activeTeachers: 'تعداد مدرسان فعال',
+  activeAdvisors: 'تعداد مشاوران فعال',
 };

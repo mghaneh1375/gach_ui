@@ -8,6 +8,8 @@ import {
   faMoneyCheck,
   faRegistered,
   faTicket,
+  faUser,
+  faUserAlt,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import {getPast} from '../../../../services/utility';
@@ -28,6 +30,8 @@ const itemsIcon = {
   lastMonthAdviceMeetings: faBook,
   lastMonthTeachReportsCount: faBook,
   pendingComments: faComment,
+  activeTeachers: faUser,
+  activeAdvisors: faUserAlt,
 };
 const itemsUrl = {
   pendingChunks: undefined,
@@ -40,12 +44,14 @@ const itemsUrl = {
   lastMonthSettled:
     '/settlementRequests?status=paid&from=' + getPast(30, false),
   pendingUpgradeLevelRequests: '/ticket?section=upgradelevel&status=pending',
-  lastMonthCustomQuizRegistry: undefined,
-  lastMonthOpenQuizRegistry: undefined,
+  lastMonthCustomQuizRegistry: '/admin/report/general?section=custom_quiz',
+  lastMonthOpenQuizRegistry: '/admin/report/general?section=open_quiz',
   lastMonthTutorialCount: undefined,
-  lastMonthContentBuyCount: undefined,
+  lastMonthContentBuyCount: '/admin/report/general?section=content',
   lastMonthAdviceMeetings: undefined,
   lastMonthTeachReportsCount: '/admin/teach/reports',
   pendingComments: '/all-comments',
+  activeTeachers: undefined,
+  activeAdvisors: undefined,
 };
 export {itemsIcon, itemsUrl};

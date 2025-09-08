@@ -387,6 +387,18 @@ function AdminMenu(props) {
             },
           ]}
         />
+        <SuperMenuItem
+          text={translator.report}
+          icon={faChartBar}
+          selected={props.selected === 'admin'}
+          navigate={navigate}
+          items={[
+            {
+              text: translator.generalStats,
+              url: '/admin/report/general',
+            },
+          ]}
+        />
         <MenuItem
           onClick={() => navigate('/all-comments')}
           text={translator.comments}

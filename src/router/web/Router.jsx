@@ -22,10 +22,12 @@ export default function WebRouter() {
             path="admin/stats/general"
             element={<WebStructue page="generalStats" />}
           />
-
+          <Route
+            path="admin/report/general"
+            element={<WebStructue page="buyReport" />}
+          />
           <Route exact path="/" element={<WebStructue page="home" />} />
           <Route path="dashboard" element={<WebStructue page="dashboard" />} />
-
           <Route
             path="buy/package/:packageId"
             element={<WebStructue page="buy" />}
@@ -402,7 +404,6 @@ export default function WebRouter() {
             path="/rankingList"
             element={<WebStructue page="rankingList" />}
           />
-
           <Route path="*" element={<WebStructue page="404" />} />
         </Routes>
       </Router>
