@@ -3,7 +3,7 @@ import vars from './../root';
 import {Platform, TextInput} from 'react-native';
 import {DatePicker, DateTimePicker} from 'react-advance-jalaali-datepicker';
 import SelectBox from 'react-native-multi-selectbox';
-import {getWidthHeight} from '../../services/utility';
+import {getWidthHeight} from '@/services/utility';
 const CommonTextInputStyle = {
   backgroundColor: 'white',
   borderWidth: 1,

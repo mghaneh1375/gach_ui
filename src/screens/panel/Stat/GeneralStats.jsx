@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import {CommonWebBox, PhoneView} from '../../../styles/CommonComponents.jsx';
+import {CommonWebBox, PhoneView} from '@/styles/CommonComponents.jsx';
 import DashboardCard from '../../studentPanel/dashboard/dashboardCard/DashboardCard.jsx';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import Translate from './translate';
 import {faChartBar} from '@fortawesome/free-solid-svg-icons';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
-import vars from '../../../styles/root';
+import vars from '@/styles/root';
 function GeneralStats(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

@@ -1,4 +1,4 @@
-import {convertTimestamp} from '../../../../services/utility';
+import {convertTimestamp} from '@/services/utility';
 const columns = [
   {
     name: 'نام آزمون',

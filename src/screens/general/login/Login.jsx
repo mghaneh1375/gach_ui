@@ -1,22 +1,22 @@
 import React, {useState} from 'react';
-import {getDevice} from '../../../services/utility';
+import {getDevice} from '@/services/utility';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import LoginModule from './components/Login.jsx';
 import {
   commonStyles,
   MyView,
   ScreenScroll,
-} from '../../../styles/CommonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import translator from './translate';
-import {TextIcon} from '../../../styles/common/TextIcon.jsx';
-import {Device} from '../../../models/device';
+import {TextIcon} from '@/styles/common/TextIcon.jsx';
+import {Device} from '@/models/device';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import ForgetPassModule from './components/ForgetPass.jsx';
 import ResetPassModule from './components/ResetPass.jsx';
 import VerificationModule from './components/Verification.jsx';
 import SignupModule from './components/Signup.jsx';
 import RoleFormModule from './components/RoleForm.jsx';
-import {style} from '../../../components/web/largeScreen/header/Style.jsx';
+import {style} from '@/components/web/largeScreen/header/Style.jsx';
 const Login = props => {
   const device = getDevice();
   const navigate = props.navigate;

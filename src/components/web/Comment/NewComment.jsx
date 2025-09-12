@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
-import {showSuccess} from '../../../services/utility';
-import {CommonButton, MyView} from '../../../styles/CommonComponents.jsx';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
-import commonTranslator from '../../../translator/common';
+import {generalRequest} from '@/api/utility';
+import {showSuccess} from '@/services/utility';
+import {CommonButton, MyView} from '@/styles/CommonComponents.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import commonTranslator from '@/translator/common';
 import Translate from './translate';
 function NewComment(props) {
   const [desc, setDesc] = useState();

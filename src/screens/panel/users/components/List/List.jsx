@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import Pagination from '@/components/web/pagination/Pagination.jsx';
 import {CommonWebBox, MyView, SimpleText} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {levelsKeyVals} from '../../../ticket/components/keyVals';
 import Translator from '../../translator';
 import {dispatchUsersContext, usersContext} from '../Context.jsx';

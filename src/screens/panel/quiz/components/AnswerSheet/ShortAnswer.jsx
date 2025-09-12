@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import vars from '@/styles/root';
 import {dispatchQuizContext, quizContext} from '../Context.jsx';
 function ShortAnswer(props) {

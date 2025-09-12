@@ -4,7 +4,7 @@ import {
   videoFileRequest,
   videoGeneralRequest,
 } from '@/api/utility';
-import {showError, showSuccess} from '../../../../services/utility';
+import {showError, showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 export const fetchContents = async (token, filter) => {
   const params = new URLSearchParams();

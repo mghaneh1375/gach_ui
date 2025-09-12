@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {Platform, LogBox} from 'react-native';
+import {LogBox} from 'react-native';
 import {fetchUser, getToken, getUser} from './api/user';
-import AppRouter from './router/app/Router.jsx';
 import WebRouter from './router/web/Router.jsx';
 const defaultGlobalState = {
   showBottonNav: true,
@@ -155,13 +154,13 @@ console.warn = (...arg) => {
 };
 LogBox.ignoreLogs(ignoreWarns);
 export default function App() {
-  if (Platform.OS === 'ios' || Platform.OS === 'android') {
-    return (
-      <GlobalStateProvider>
-        <AppRouter />
-      </GlobalStateProvider>
-    );
-  }
+  // if (Platform.OS === 'ios' || Platform.OS === 'android') {
+  //   return (
+  //     <GlobalStateProvider>
+  //       <AppRouter />
+  //     </GlobalStateProvider>
+  //   );
+  // }
   return (
     <GlobalStateProvider>
       <WebRouter />

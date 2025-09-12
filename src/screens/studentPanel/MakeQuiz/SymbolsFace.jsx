@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, Pressable} from 'react-native';
-import {PhoneView} from '../../../styles/Common.jsx';
-import {styles} from '../../../styles/common/styles';
+import {PhoneView} from '@/styles/common.jsx';
+import {styles} from '@/styles/common/styles';
 function SymbolsFace(props) {
   return (
     <PhoneView

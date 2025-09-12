@@ -3,9 +3,9 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {courseContext, dispatchCourseContext} from './Context.jsx';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
 function List(props) {
   const useGlobalState = () => [

@@ -24,7 +24,7 @@ import {
   isUserAdmin,
   isUserContentAccess,
   isUserEditorAccess,
-} from '../../../services/utility';
+} from '@/services/utility';
 import Copy from './components/copy/Copy.jsx';
 const Quiz = props => {
   const [mode, setMode] = useState('karname');

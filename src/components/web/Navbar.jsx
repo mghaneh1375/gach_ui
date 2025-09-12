@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {getWidthHeight} from '../../services/utility';
+import {getWidthHeight} from '@/services/utility';
 import {CommonButton, MyView} from '../../styles/CommonComponents.jsx';
 import {styles} from '../../styles/common/styles';
 import vars from '../../styles/root';

@@ -1,6 +1,6 @@
 import React from 'react';
 import {CommonButton, PhoneView, MyView} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
 import {removeLesson} from '../utility';
 function Ops(props) {

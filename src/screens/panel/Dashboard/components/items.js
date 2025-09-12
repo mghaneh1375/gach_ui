@@ -12,7 +12,7 @@ import {
   faUserAlt,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
-import {getPast} from '../../../../services/utility';
+import {getPast} from '@/services/utility';
 const itemsIcon = {
   pendingChunks: faVideo,
   pendingTickets: faTicket,

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import Translate from '../../translate';
-import commonTranslate from '../../../../../translator/common';
+import commonTranslate from '@/translator/common';
 import {createGrade, editGrade} from '../../utility';
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 function Create(props) {
   const [isOlympiad, setIsOlympiad] = useState(

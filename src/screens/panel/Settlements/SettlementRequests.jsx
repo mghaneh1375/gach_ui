@@ -1,21 +1,21 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {useLocation} from 'react-router';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {showError, showSuccess} from '../../../services/utility';
+import {showError, showSuccess} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
-} from '../../../styles/CommonComponents.jsx';
-import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
-import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker.jsx';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
-import {LargePopUp} from '../../../styles/common/PopUp.jsx';
-import commonTranslator from '../../../translator/common';
+} from '@/styles/CommonComponents.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
+import commonTranslator from '@/translator/common';
 import Translate from '../../advisorPanel/teach/transaction/translate';
 const queryString = require('query-string');
 function SettlementRequests(props) {

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {addItem, editItem} from '../../../../services/utility';
+import {addItem, editItem} from '@/services/utility';
 import {getGradeAndBranchesLessons, getSubjects} from '../utility';
 import {dispatchStateContext} from '@/App.jsx';
 import Create from './components/Create.jsx';

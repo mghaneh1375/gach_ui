@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {CommonWebBox} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import translator from '../../translator';
 import {columnsForCopun} from './tableStructure';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 function Copun(props) {
   const [data, setData] = useState();

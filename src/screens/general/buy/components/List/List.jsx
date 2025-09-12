@@ -4,7 +4,7 @@ import Card from '../../../../panel/package/card/Card.jsx';
 import {packagesContext, dispatchPackagesContext} from '../Context.jsx';
 import {fetchAllPackages} from '../../../../panel/package/components/utility';
 import QuizList from '../detail/List.jsx';
-import {getDevice, getWidthHeight} from '../../../../../services/utility';
+import {getDevice, getWidthHeight} from '@/services/utility';
 import {styles} from '@/styles/common/styles';
 function List(props) {
   const useGlobalState = () => [

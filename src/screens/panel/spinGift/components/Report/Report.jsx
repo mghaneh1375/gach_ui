@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {CommonWebBox} from '../../../../../styles/CommonComponents.jsx';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import {CommonWebBox} from '@/styles/CommonComponents.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import Filter from './Filter.jsx';
 import columns from './tableStructure';
 import {filter} from './utility';

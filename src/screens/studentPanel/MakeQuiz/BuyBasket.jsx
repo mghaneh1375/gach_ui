@@ -1,5 +1,5 @@
 import {setCacheItem} from '../../../api/user';
-import {formatPrice, getDevice} from '../../../services/utility';
+import {formatPrice, getDevice} from '@/services/utility';
 import React, {useRef, useState} from 'react';
 import {
   BigBoldBlueText,
@@ -8,11 +8,11 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
-import vars from '../../../styles/root';
+import vars from '@/styles/root';
 import Translate from '../../general/buy/translate';
 import {goToPay} from './utility';
 function BuyBasket(props) {

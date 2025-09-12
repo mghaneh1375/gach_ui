@@ -4,15 +4,15 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
-} from '../../../../styles/CommonComponents.jsx';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+} from '@/styles/commonComponents.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from './translator';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import commonTranslator from '@/translator/common';
-import {showSuccess, trueFalseValues} from '../../../../services/utility';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import {showSuccess, trueFalseValues} from '@/services/utility';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 function Shop(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

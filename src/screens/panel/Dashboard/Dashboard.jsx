@@ -1,15 +1,11 @@
 import {faCog} from '@fortawesome/free-solid-svg-icons';
 import React, {useMemo, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../styles/CommonComponents.jsx';
-import {FontIcon} from '../../../styles/common/FontIcon.jsx';
-import vars from '../../../styles/root';
+import {CommonWebBox, MyView, PhoneView} from '@/styles/CommonComponents.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import vars from '@/styles/root';
 import DashboardCard from '../../studentPanel/dashboard/dashboardCard/DashboardCard.jsx';
 import Config from './components/Config.jsx';
 import {itemsIcon, itemsUrl} from './components/items';

@@ -9,7 +9,7 @@ import {
   CommonRadioButton,
   MyView,
 } from '@/styles';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
+import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';
 import commonTranslator from '@/translator/common';
 import translator from '../translate';
 const ForgetPass = props => {

@@ -1,21 +1,17 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../styles/CommonComponents.jsx';
+import {CommonWebBox, MyView, PhoneView} from '@/styles/CommonComponents.jsx';
 import Splash from './components/Splash.jsx';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {DoQuizProvider} from './components/Context.jsx';
 import Quiz from './components/Quiz.jsx';
 import Filter from './components/Filter.jsx';
-import vars from '../../../styles/root';
+import vars from '@/styles/root';
 import {useEffectOnce} from 'usehooks-ts';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {FontIcon} from '../../../styles/common/FontIcon.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import {Image} from 'react-native';
-import {getDevice, getWidthHeight} from '../../../services/utility';
+import {getDevice, getWidthHeight} from '@/services/utility';
 import PhoneFilter from './components/PhoneFilter.jsx';
 function RunPDFQuiz(props) {
   const useGlobalState = () => [

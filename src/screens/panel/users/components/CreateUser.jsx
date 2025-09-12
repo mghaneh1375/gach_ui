@@ -1,11 +1,11 @@
 import {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '@/translator/common';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import {showError, showSuccess} from '../../../../services/utility';
-import {justifyContentEnd} from '../../../../styles/common/button';
+import {showError, showSuccess} from '@/services/utility';
+import {justifyContentEnd} from '@/styles/common/button';
 function CreateUser(props) {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();

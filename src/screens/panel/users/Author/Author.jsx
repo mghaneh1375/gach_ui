@@ -3,7 +3,7 @@ import List from './list/List.jsx';
 import Show from './show/Show.jsx';
 import CreateAuthor from './create/Create.jsx';
 import CreateTransaction from './show/createTransaction/CreateTransaction.jsx';
-import {addItem, editItem} from '../../../../services/utility';
+import {addItem, editItem} from '@/services/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {filter} from './list/utility';
 import {MyView} from '@/styles';

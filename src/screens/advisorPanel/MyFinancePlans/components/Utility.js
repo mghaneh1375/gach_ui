@@ -1,6 +1,6 @@
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 const mandatoryFields = ['price', 'title', 'videoCalls', 'visibility'];
 export const createNewOffer = async (token, data) => {
   try {

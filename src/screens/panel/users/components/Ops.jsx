@@ -1,10 +1,10 @@
 import React from 'react';
 import {CommonButton, PhoneView, MyView} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
 import {login, toggleStatus} from './utility';
 import {usersContext, dispatchUsersContext} from './Context.jsx';
-import {isUserAdvisor} from '../../../../services/utility';
+import {isUserAdvisor} from '@/services/utility';
 function Ops(props) {
   const useGlobalState = () => [
     React.useContext(usersContext),

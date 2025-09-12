@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {PhoneView, MyView} from '@/styles';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../translator';
-import {changeText} from '../../../../../services/utility';
+import {changeText} from '@/services/utility';
 const QuizRegistryInfo = props => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();

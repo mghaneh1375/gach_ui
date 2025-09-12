@@ -1,7 +1,7 @@
 import React from 'react';
 import {Pressable} from 'react-native';
 import {PhoneView, SimpleText} from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 function ItemCard({news, selectItem}) {
   //   const [pic, setPic] = useState();
   //   React.useEffect(() => {

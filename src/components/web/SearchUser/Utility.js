@@ -1,5 +1,5 @@
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 export const search = async (token, mode, name, lastName, phone, mail, NID) => {
   const query = new URLSearchParams();
   if (mode === 'name') {

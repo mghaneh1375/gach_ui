@@ -4,7 +4,7 @@ import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {AdvisorScheduleProvider} from './components/Context.jsx';
 import {useParams} from 'react-router';
 import List from './components/List.jsx';
-import {isUserAdvisor} from '../../../services/utility';
+import {isUserAdvisor} from '@/services/utility';
 import Lesson from './components/Lesson.jsx';
 import Copy from './components/Copy.jsx';
 function Schedule(props) {

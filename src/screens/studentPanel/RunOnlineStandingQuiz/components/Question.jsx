@@ -14,17 +14,13 @@ import {
   SimpleText,
   FontIcon,
 } from '@/styles';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
+import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';
 import Translate from '../translate';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import React, {useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import vars from '@/styles/root';
-import {
-  getDevice,
-  getWidthHeight,
-  setImgSize,
-} from '../../../../services/utility';
+import {getDevice, getWidthHeight, setImgSize} from '@/services/utility';
 import {basketBox, basketBoxInPhone} from '../../../panel/package/card/style';
 import commonTranslator from '@/translator/common';
 import MultiChoice from '../../runQuiz/components/questionComponents/MultiChoice.jsx';

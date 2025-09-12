@@ -4,10 +4,10 @@ import {dispatchPointContext, pointContext} from './Context.jsx';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
-import {styles} from '../../../../styles/common/styles';
-import {showError, showSuccess} from '../../../../services/utility';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {styles} from '@/styles/common/styles';
+import {showError, showSuccess} from '@/services/utility';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(pointContext),

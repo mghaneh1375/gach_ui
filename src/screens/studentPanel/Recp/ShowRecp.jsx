@@ -1,7 +1,7 @@
-import Recp from '../../../components/web/Recp.jsx';
+import Recp from '@/components/web/Recp.jsx';
 import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
 function ShowRecp(props) {

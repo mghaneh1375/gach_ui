@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import commonTranslator from '@/translator/common';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 function SetIRYSCPercent(props) {
   const [advicePercent, setAdvicePercent] = useState();
   const [teachPercent, setTeachPercent] = useState();

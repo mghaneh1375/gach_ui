@@ -1,11 +1,11 @@
 // import React from 'react';
-// import JustBottomBorderTextInput from '../../../../styles/Common/JustBottomBorderTextInput';
+// import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput';
 // import {RadioButton} from 'react-native-paper';
 // import {
 //   PhoneView,
 //   SimpleText,
 //   BigBoldBlueText,
-// } from '../../../../styles/Common';
+// } from '@/styles/common';
 // import certTranslator from '../Translator';
 // import translator from '../../../../translator/Common';
 // // import './Style.css';

@@ -5,14 +5,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
-import {
-  CommonWebBox,
-  MyView,
-  SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {FontIcon, SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
-import commonTranslator from '../../../translator/common';
+import {generalRequest} from '@/api/utility';
+import {CommonWebBox, MyView, SimpleText} from '@/styles/CommonComponents.jsx';
+import {FontIcon, SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import commonTranslator from '@/translator/common';
 import Card from './Card.jsx';
 import NewComment from './NewComment.jsx';
 import Translate from './translate';

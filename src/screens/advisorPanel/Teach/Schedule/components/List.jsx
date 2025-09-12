@@ -7,13 +7,13 @@ import {
 import columns from './tableStructure';
 import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
 import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane.jsx';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {routes} from '@/api/apiRoutes';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
-import {removeItems, showSuccess} from '../../../../../services/utility';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import {removeItems, showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import Translator from './translator';
 function List(props) {
   const useGlobalState = () => [

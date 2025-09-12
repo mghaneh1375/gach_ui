@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common';
 import {CommonButton, MyView, PhoneView} from '@/styles';
 import vars from '@/styles/root';
 import {updateInfo} from './utility';
-import {sexKeyVals} from '../../../../services/utility';
-import {CommonDatePicker} from '../../../../styles/common/CommonDatePicker.jsx';
+import {sexKeyVals} from '@/services/utility';
+import {CommonDatePicker} from '@/styles/common/CommonDatePicker.jsx';
 const UpdateInfo = props => {
   const [state, setState] = useState(props.user.state);
   const [city, setCity] = useState(props.user.city);

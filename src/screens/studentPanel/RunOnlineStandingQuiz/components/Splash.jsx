@@ -18,8 +18,8 @@ import Translate from '../translate';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import {doQuiz, reviewQuiz} from './utility';
 import commonTranslator from '@/translator/common';
-import {styles} from '../../../../styles/common/styles';
-import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import {
   faArrowLeft,
   faClock,
@@ -32,7 +32,7 @@ import {
   getDevice,
   systemFonts,
   tagsStyles,
-} from '../../../../services/utility';
+} from '@/services/utility';
 import RenderHTML from 'react-native-render-html';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 function Splash(props) {

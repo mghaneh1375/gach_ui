@@ -1,6 +1,6 @@
 import {routes} from '@/api/apiRoutes';
-import {downloadRequest, generalRequest} from '../../../api/utility';
-import {showSuccess} from '../../../services/utility';
+import {downloadRequest, generalRequest} from '@/api/utility';
+import {showSuccess} from '@/services/utility';
 export const addCertificate = async (data, token) => {
   const res = await generalRequest(
     routes.addCertificate,

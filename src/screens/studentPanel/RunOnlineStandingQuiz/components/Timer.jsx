@@ -3,12 +3,12 @@ import {
   convertSecToMin,
   convertSecToMinWithOutSec,
   showWarnign,
-} from '../../../../services/utility';
+} from '@/services/utility';
 import {MyView, PhoneView, SimpleText, SimpleTextWithRef} from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import Translate from '../translate';
-import ProgressBar from '../../../../styles/common/ProgressBar.jsx';
+import ProgressBar from '@/styles/common/ProgressBar.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 let localReminder_;
 function Timer(props) {

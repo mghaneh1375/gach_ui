@@ -6,23 +6,23 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/Common.jsx';
+} from '@/styles/common.jsx';
 import {Translate} from './translate';
 import DashboardCard from './dashboardCard/dashboardCard';
-import vars from '../../../styles/root';
+import vars from '@/styles/root';
 import {faExchange, faEye, faIdCard} from '@fortawesome/free-solid-svg-icons';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {getMySummary} from './utility';
-import commonTranslator from '../../../translator/common';
-import {formatPrice, showError, showSuccess} from '../../../services/utility';
-import {LargePopUp} from '../../../styles/common/PopUp.jsx';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
-import {generalRequest} from '../../../aPI/utility';
+import commonTranslator from '@/translator/common';
+import {formatPrice, showError, showSuccess} from '@/services/utility';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {fetchUser, setCacheItem} from '../../../aPI/user';
 import ProgressCard from '../myOffs/progressCard/ProgressCard.jsx';
-import {styles} from '../../../styles/common/styles';
-import CopyBox from '../../../components/CopyBox.jsx';
+import {styles} from '@/styles/common/styles';
+import CopyBox from '@/components/CopyBox.jsx';
 function Dashboard(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

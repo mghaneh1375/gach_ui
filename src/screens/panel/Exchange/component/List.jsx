@@ -4,8 +4,8 @@ import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonWebBox} from '@/styles';
 import translator from './translator';
-import {showSuccess} from '../../../../services/utility';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import {showSuccess} from '@/services/utility';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import columns from './columns';
 import Ops from './Ops.jsx';
 function List(props) {

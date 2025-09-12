@@ -11,8 +11,8 @@ export const CV_BASE_URL = 'https://cv.irysc.com/api/';
 
 // export const VIDEO_BASE_URL = 'http://127.0.0.1:8086/video_api/';
 export const VIDEO_BASE_URL = 'https://video.irysc.com/video_api/';
-export const BASE_URL = 'http://127.0.0.1:8080/api/';
-// export const BASE_URL = 'https://dev.irysc.com/api/';
+// export const BASE_URL = 'http://127.0.0.1:8080/api/';
+export const BASE_URL = 'https://dev.irysc.com/api/';
 // export const BASE_URL = 'https://e.irysc.com/api/';
 
 export const COMMON_HEADER = {
@@ -112,15 +112,15 @@ export const generalRequest = async (
     })
     .catch(async function (error) {
       if (
-        error.response !== undefined &&
-        error.response.data !== undefined &&
-        error.response.data.msg === 'Token is not valid'
+        error.response.status === 401 ||
+        (error.response?.data &&
+          error.response.data.msg === 'Token is not valid')
       ) {
         if (token !== null) await removeAuthCache();
         showError('توکن شما منقضی شده است و نیاز است لاگین کنید');
         window.location.href = '/login';
         return undefined;
-      } else if (error.response.status === 401) {
+      } else if (error.response.status === 403) {
         showError('شما دسترسی لازم برای انجام این کار را ندارید');
       } else {
         showError(commonTranslator.opErr);

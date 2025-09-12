@@ -1,24 +1,24 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../../../api/utility';
-import SelectFromMyStudents from '../../../../../components/web/SelectFromMyStudents.jsx';
+import {generalRequest} from '@/api/utility';
+import SelectFromMyStudents from '@/components/web/SelectFromMyStudents.jsx';
 import {
   showError,
   showSuccess,
   simpleConvertTimestamp,
-} from '../../../../../services/utility';
+} from '@/services/utility';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import translator from '../../../../panel/quiz/translator';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
 } from '../../../myQuizzes/components/Context.jsx';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import hwTranslator from '../translator';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {styles} from '@/styles/common/styles';
 const Students = props => {
   const useGlobalState = () => [

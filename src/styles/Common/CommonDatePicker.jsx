@@ -1,7 +1,4 @@
-import {
-  convertTimestamp,
-  convertTimestampToJustDate,
-} from '../../services/utility';
+import {convertTimestamp, convertTimestampToJustDate} from '@/services/utility';
 import {MyView} from '@/styles';
 import {
   calcInputWidth,

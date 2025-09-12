@@ -7,9 +7,11 @@ module.exports = {
       '@styles': path.resolve(__dirname, 'src/styles'),
       '@api': path.resolve(__dirname, 'src/api'),
       '@components': path.resolve(__dirname, 'src/components'),
+      '@models': path.resolve(__dirname, 'src/models'),
       '@services': path.resolve(__dirname, 'src/services'),
       '@translator': path.resolve(__dirname, 'src/translator'),
       '@constants': path.resolve(__dirname, 'src/constants'),
+      '@screens': path.resolve(__dirname, 'src/screens'),
     },
   },
   configure: webpackConfig => {
@@ -28,4 +30,5 @@ module.exports = {
       extensions: ['.jsx', '.js', '.json', '.ts', '.tsx'],
     },
   },
+  devtool: 'hidden-source-map',
 };

@@ -6,7 +6,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {
   quizContext,
   dispatchQuizContext,
@@ -18,9 +18,9 @@ import translator from '../../../../panel/quiz/translator';
 import commonTranslator from '@/translator/common';
 import {Rating} from 'react-native-ratings';
 import vars from '@/styles/root';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import {showError, showSuccess} from '../../../../../services/utility';
+import {showError, showSuccess} from '@/services/utility';
 function Ops(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

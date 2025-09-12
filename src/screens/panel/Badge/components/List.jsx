@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {CommonWebBox} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {translator} from '../translate';
 import {badgeContext, dispatchBadgeContext} from './Context.jsx';
 import columns from './columns';
 import {generalRequest} from '@/api/utility';
 import Ops from './Ops.jsx';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedId, setSelectedId] = useState();

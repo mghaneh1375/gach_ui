@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, MyView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
 import {sectionKeyVals, priorityKeyVals} from '../keyVals';

@@ -1,8 +1,8 @@
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
-import {FontIcon} from '../../../../../styles/common/FontIcon.jsx';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '@/styles/common/styles';
 import {dispatchNotifContext, notifContext} from '../Context.jsx';
 import {
@@ -19,10 +19,10 @@ import BuiltFilter from './BuiltFilter.jsx';
 import Filter from './Filter.jsx';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import MyCustomUploadAdapterPlugin from '../../../../../services/myUploadAdapter';
+import MyCustomUploadAdapterPlugin from '@/services/myUploadAdapter';
 import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 import RenderHTML from 'react-native-render-html';
-import {CKEditorToolbar} from '../../../../../services/utility';
+import {CKEditorToolbar} from '@/services/utility';
 import Attach from './Attach.jsx';
 import Excel from './Excel.jsx';
 function Create(props) {

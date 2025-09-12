@@ -6,11 +6,11 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import React, {useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
-import {SimpleTextIcon} from '../../../../styles/common/TextIcon.jsx';
+import {SimpleTextIcon} from '@/styles/common/TextIcon.jsx';
 import {
   faAngleDown,
   faAngleUp,
@@ -20,10 +20,7 @@ import Translate from '../translate';
 import commonTranslator from '@/translator/common';
 import Circle from '../../../../components/web/Circle.jsx';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
-import {
-  convertTimestampToJustTime,
-  getDevice,
-} from '../../../../services/utility';
+import {convertTimestampToJustTime, getDevice} from '@/services/utility';
 import QuestionNumber from '../../runQuiz/components/questionComponents/QuestionNumber.jsx';
 import Timer from './Timer.jsx';
 function Filter(props) {

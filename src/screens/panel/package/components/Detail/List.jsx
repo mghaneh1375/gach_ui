@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Quizzes from '../../../../../components/web/Quizzes.jsx';
+import Quizzes from '@/components/web/Quizzes.jsx';
 import {showSuccess} from '@/services/utility';
 import {BigBoldBlueText, CommonButton, MyView} from '@/styles';
 import Translate from '../../translate';

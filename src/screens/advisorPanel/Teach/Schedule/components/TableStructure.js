@@ -1,4 +1,4 @@
-import {formatPrice} from '../../../../../services/utility';
+import {formatPrice} from '@/services/utility';
 import Translator from './translator';
 import commonTranslator from '@/translator/common';
 export const studentsColumns = [

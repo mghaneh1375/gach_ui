@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {useParams} from 'react-router';
-import {getDevice, showError} from '../../../services/utility';
+import {getDevice, showError} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
 import {verifyCert} from '../../panel/certificate/utility';
 import {dispatchStateContext} from '@/App.jsx';
 function CheckCert(props) {

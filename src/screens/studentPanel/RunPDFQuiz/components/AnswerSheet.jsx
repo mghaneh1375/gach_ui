@@ -4,7 +4,7 @@ import Test from './Test.jsx';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
 import Circle from '../../../../components/web/Circle.jsx';
 import vars from '@/styles/root';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 const perBox = 10;
 function AnswerSheet(props) {
   const useGlobalState = () => [React.useContext(doQuizContext)];

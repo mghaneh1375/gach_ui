@@ -1,5 +1,5 @@
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {CommonButton} from '../../../styles/CommonComponents.jsx';
+import {CommonButton} from '@/styles/CommonComponents.jsx';
 const Box = props => {
   return (
     <CommonButton

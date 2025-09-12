@@ -1,8 +1,8 @@
 import React from 'react';
 import {faXmark} from '@fortawesome/free-solid-svg-icons';
-import {CommonWebBox, MyView, SimpleText} from '../../../styles/Common.jsx';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
-import {styles} from '../../../styles/common/styles';
+import {CommonWebBox, MyView, SimpleText} from '@/styles/common.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
 import Translate from './translate';
 function FailTransaction(props) {
   return (

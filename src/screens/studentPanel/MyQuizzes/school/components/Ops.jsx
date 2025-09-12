@@ -1,6 +1,6 @@
 import React from 'react';
 import {CommonButton, PhoneView} from '@/styles';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {
   quizContext,
   dispatchQuizContext,

@@ -1,6 +1,6 @@
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
-import {formatPrice} from '../../../../../services/utility';
+import {formatPrice} from '@/services/utility';
 const columns = [
   {
     name: translator.isPublic,

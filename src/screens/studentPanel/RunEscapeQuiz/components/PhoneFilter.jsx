@@ -1,7 +1,7 @@
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';

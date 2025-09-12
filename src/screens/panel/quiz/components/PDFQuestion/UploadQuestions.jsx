@@ -3,16 +3,12 @@ import {setPDFQuestions} from '../utility';
 import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
-import {
-  changeText,
-  showError,
-  showSuccess,
-} from '../../../../../services/utility';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {changeText, showError, showSuccess} from '@/services/utility';
 import {useFilePicker} from 'use-file-picker';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
 function UploadQuestions(props) {
   const [openFileSelector, {filesContent, errors, clear}] = useFilePicker({

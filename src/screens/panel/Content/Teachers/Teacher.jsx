@@ -1,16 +1,16 @@
 import {faEdit} from '@fortawesome/free-solid-svg-icons';
 import {PhoneView} from '@/styles';
-import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 import React, {useState} from 'react';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import MyCustomUploadAdapterPlugin from '../../../../services/myUploadAdapter';
-import {CKEditorToolbar} from '../../../../services/utility';
+import MyCustomUploadAdapterPlugin from '@/services/myUploadAdapter';
+import {CKEditorToolbar} from '@/services/utility';
 function Teacher(props) {
   const [name, setName] = useState(props.name);
   const [nid, setNid] = useState(props.nid);

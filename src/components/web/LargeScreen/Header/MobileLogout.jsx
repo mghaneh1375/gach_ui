@@ -11,18 +11,18 @@ import {
   PhoneView,
   SimpleText,
   TextLink,
-} from '../../../../styles/CommonComponents.jsx';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
+} from '@/styles/commonComponents.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import UserTinyPic from '../UserTinyPic.jsx';
 import {TouchableOpacity} from 'react-native';
-import {Device} from '../../../../models/device';
-import {getDevice, getWidthHeight} from '../../../../services/utility';
+import {Device} from '@/models/device';
+import {getDevice, getWidthHeight} from '@/services/utility';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import vars from '@/styles/root';
 import newAlertsKeyVals from './newAlertsKeyVals';
 import commonTranslator from '@/translator/common';
-import {styles} from '../../../../styles/common/styles';
-import {logout} from '../../../../api/user';
+import {styles} from '@/styles/common/styles';
+import {logout} from '@/api/user';
 function MobileLogout(props) {
   const device = getDevice();
   const useGlobalState = () => [

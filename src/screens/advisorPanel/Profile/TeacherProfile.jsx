@@ -12,7 +12,7 @@ import React, {useEffect, useState} from 'react';
 import {Image} from 'react-native';
 import {useParams} from 'react-router';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 import {
@@ -21,12 +21,12 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
+} from '@/styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 import ContentCard from '../../general/packages/components/Card.jsx';
-import CommentCard from '../../../components/web/comment/Card.jsx';
+import CommentCard from '@/components/web/comment/Card.jsx';
 import FinancePlan from '../../general/advisors/FinancePlan.jsx';
 import Schedule from '../../general/teachers/Schedule.jsx';
 function TeacherProfile(props) {

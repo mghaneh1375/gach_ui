@@ -9,7 +9,7 @@ import {
   showSuccess,
   systemFonts,
   tagsStyles,
-} from '../../../../../services/utility';
+} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -36,22 +36,22 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import FAQ from './FAQ.jsx';
-import {setCacheItem} from '../../../../../api/user';
+import {setCacheItem} from '@/api/user';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
 import OffCode from '../../../buy/components/OffCode.jsx';
 import SessionDetail from './SessionDetail.jsx';
 import Chapter from './Chapter.jsx';
 import {Rating} from 'react-native-ratings';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import Card from '../Card.jsx';
 import LastBuyer from './LastBuyer.jsx';
 import {downloadCert} from '../../../../panel/certificate/utility';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
-import Comment from '../../../../../components/web/comment/Comment.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
+import Comment from '@/components/web/comment/Comment.jsx';
 function Detail(props) {
   const [item, setItem] = useState();
   const device = getDevice();

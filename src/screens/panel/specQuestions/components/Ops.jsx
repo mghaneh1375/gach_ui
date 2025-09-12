@@ -1,5 +1,5 @@
-import {CommonButton, PhoneView} from '../../../../styles/Common.jsx';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {CommonButton, PhoneView} from '@/styles/common.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
 function Ops(props) {
   return (

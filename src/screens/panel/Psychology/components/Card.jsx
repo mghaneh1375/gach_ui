@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {getDevice} from '../../../../services/utility';
+import {getDevice} from '@/services/utility';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
-import {FontIcon, SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
-import {styles} from '../../../../styles/common/styles';
+import {FontIcon, SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
 import {faMessage, faUser, faQuestion} from '@fortawesome/free-solid-svg-icons';
 import {Image, Pressable} from 'react-native';
 function Card(props) {

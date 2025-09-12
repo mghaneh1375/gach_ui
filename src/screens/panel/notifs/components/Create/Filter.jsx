@@ -1,5 +1,5 @@
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import React, {useState} from 'react';
 import {CommonButton, MyView, PhoneView} from '@/styles';
 import {
@@ -7,13 +7,13 @@ import {
   removeItems,
   sexKeyVals,
   showError,
-} from '../../../../../services/utility';
+} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 import {notifContext, dispatchNotifContext} from '../Context.jsx';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '@/styles/common/styles';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(notifContext),

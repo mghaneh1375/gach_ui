@@ -4,7 +4,7 @@ import {filter} from '../../panel/ticket/components/list/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import Show from '../../panel/ticket/components/show/Show.jsx';
 import Create from '../../panel/ticket/components/Create.jsx';
-import {addItem, isUserAdvisor, removeItems} from '../../../services/utility';
+import {addItem, isUserAdvisor, removeItems} from '@/services/utility';
 import {MyView} from '@/styles';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';

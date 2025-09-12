@@ -8,10 +8,10 @@ import {
   faUsers,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
-import {Device} from '../../../../../models/device';
+import {Device} from '@/models/device';
 import {getDevice} from '@/services/utility';
 import {MyView} from '@/styles';
-import translator from '../../../../../translator/common';
+import translator from '@/translator/common';
 import {MenuItem, MenuItemPhone, style} from '../Style.jsx';
 import MenuItemRepeat from './MenuItemRepeat.jsx';
 import {SuperMenuItem} from './SuperMenuItem.jsx';

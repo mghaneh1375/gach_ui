@@ -5,7 +5,7 @@ import vars from '@/styles/root';
 import ProgressCard from '../../../myOffs/progressCard/ProgressCard.jsx';
 import {Translator} from '../../translate';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import Card from './Card.jsx';
 import {showSuccess} from '@/services/utility';
 import {

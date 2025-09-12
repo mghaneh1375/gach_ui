@@ -7,8 +7,8 @@ import {
   PhoneContentConianerStyle2,
 } from '../styles/CommonComponents.jsx';
 import {useNavigate, useParams} from 'react-router-dom';
-import Home from './general/home/Home.jsx';
-const Login = lazy(() => import('./general/login/Login'));
+const Home = lazy(() => import('./general/home/Home.jsx'));
+const Login = lazy(() => import('./general/login/Login.jsx'));
 const WebLogin = lazy(() => import('./general/login/web/Login'));
 const WebProfile = lazy(() => import('./general/profile/web/Profile'));
 import {getToday, isUserAdmin, isUserEditorAccess} from '../services/utility';

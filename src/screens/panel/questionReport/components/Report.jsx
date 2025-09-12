@@ -7,7 +7,7 @@ import {
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {reportColumns} from './tableStructure';
 import commonTranslator from '@/translator/common';
 import translator from '../translate';

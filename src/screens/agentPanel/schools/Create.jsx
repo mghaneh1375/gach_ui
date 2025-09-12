@@ -5,15 +5,15 @@ import {
   CommonWebBox,
   MyView,
   PhoneView,
-} from '../../../styles/CommonComponents.jsx';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
+} from '@/styles/CommonComponents.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import Translate from './translate';
-import commonTranslator from '../../../translator/common';
+import commonTranslator from '@/translator/common';
 import {checkDuplicate, addSchool, addExistSchool} from './utility';
-import StateAndCity from '../../../components/web/StateAndCity.jsx';
-import {changeText, sexKeyVals, showError} from '../../../services/utility';
+import StateAndCity from '@/components/web/StateAndCity.jsx';
+import {changeText, sexKeyVals, showError} from '@/services/utility';
 import {grades} from '../../panel/config/schools/components/keyVals';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 function Create(props) {
   const [phone, setPhone] = useState();
   const [nid, setNid] = useState();

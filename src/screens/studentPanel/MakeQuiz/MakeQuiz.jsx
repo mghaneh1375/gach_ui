@@ -1,27 +1,27 @@
 import {faCheck, faSearch} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {showError} from '../../../services/utility';
+import {showError} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
+} from '@/styles/CommonComponents.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 import MakeQuizBox from './MakeQuizBox.jsx';
 import Translate from './translate';
 import {dispatchStateContext} from '@/App.jsx';
 import {fetchAllFlags, finalized} from './utility';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
-import Basket from '../../../components/web/Basket.jsx';
-import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction.jsx';
-import commonTranslator from '../../../translator/common';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import Basket from '@/components/web/Basket.jsx';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
+import commonTranslator from '@/translator/common';
 import BuyBasket from './BuyBasket.jsx';
 import OffCode from '../../general/buy/components/OffCode.jsx';
-import {LoadingCommonWebBox} from '../../../components/LoadingCommonWebBox.jsx';
+import {LoadingCommonWebBox} from '@/components/LoadingCommonWebBox.jsx';
 import Search from './Search.jsx';
 function MakeQuiz(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];

@@ -5,7 +5,7 @@ import {
   fileRequest,
   generalRequest,
 } from '@/api/utility';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 export const getQuizzes = async (
   token,

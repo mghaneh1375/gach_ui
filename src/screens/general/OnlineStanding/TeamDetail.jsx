@@ -13,21 +13,17 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
 import {
   styleCard,
   styleItemsParent,
   styleTitle,
   styleYellowBox,
 } from '../../panel/package/card/style';
-import {
-  convertSecToMin,
-  faNums,
-  getWidthHeight,
-} from '../../../services/utility';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
-import vars from '../../../styles/root';
+import {convertSecToMin, faNums, getWidthHeight} from '@/services/utility';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import vars from '@/styles/root';
 function TeamDetail(props) {
   const colors = ['#FFAA00', '#c5c5c5', '#D27F66'];
   const totalWidth = getWidthHeight()[0];

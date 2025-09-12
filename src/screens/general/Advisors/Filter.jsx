@@ -1,17 +1,17 @@
 import {Slider} from '@material-ui/core';
-import {formatPrice, getDevice} from '../../../services/utility';
+import {formatPrice, getDevice} from '@/services/utility';
 import {
   CommonButton,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
-import commonTranslator from '../../../translator/common';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import React, {useState} from 'react';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 function Filter(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;
@@ -19,13 +19,13 @@ function Filter(props) {
   const [value, setValue] = useState([props.min, props.max]);
   const [valueAge, setValueAge] = useState([props.minAge, props.maxAge]);
   const [tag, setTag] = useState();
-  const rangeSelectorRate = (event, newValue) => {
+  const rangeSelectorRate = (_, newValue) => {
     setRate(newValue);
   };
-  const rangeSelector = (event, newValue) => {
+  const rangeSelector = (_, newValue) => {
     setValue(newValue);
   };
-  const rangeSelectorAge = (event, newValue) => {
+  const rangeSelectorAge = (_, newValue) => {
     setValueAge(newValue);
   };
   const clear = React.useCallback(() => {

@@ -4,7 +4,7 @@ import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {PackageProvider} from './components/Context.jsx';
 import Detail from './components/detail/Detail.jsx';
 import List from './components/List.jsx';
-import {getDevice} from '../../../services/utility';
+import {getDevice} from '@/services/utility';
 import PhoneDetail from './components/detail/PhoneDetail.jsx';
 function Packages(props) {
   const [mode, setMode] = useState();

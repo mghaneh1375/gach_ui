@@ -1,4 +1,4 @@
-import {formatPrice, getDevice, showError} from '../../../../services/utility';
+import {formatPrice, getDevice, showError} from '@/services/utility';
 import {
   BigBoldBlueText,
   CommonButton,
@@ -8,9 +8,9 @@ import {
   SimpleText,
 } from '@/styles';
 import Translate from '../translate';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import {goToPay, goToPayCustomUrl, goToPayGroup} from './utility';
-import {setCacheItem} from '../../../../api/user';
+import {setCacheItem} from '@/api/user';
 import commonTranslator from '@/translator/common';
 import React, {useState, useRef} from 'react';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';

@@ -1,9 +1,9 @@
 import {MyView} from '@/styles';
 import React from 'react';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-import {globalStateContext} from '../../App.jsx';
-import WebStructue from '../../screens/WebStructure.jsx';
-import {Loader} from '../../styles/common/Loader.jsx';
+import {globalStateContext} from '@/App.jsx';
+import WebStructue from '@/screens/WebStructure.jsx';
+import {Loader} from '@/styles/common/Loader.jsx';
 
 export default function WebRouter() {
   const useGlobalState = () => [React.useContext(globalStateContext)];

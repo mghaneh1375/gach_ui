@@ -2,7 +2,7 @@ import {useState} from 'react';
 import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane.jsx';
 import {showSuccess} from '@/services/utility';
 import {CommonButton, MyView, PhoneView} from '@/styles';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
 import {login} from '../../../../panel/users/components/utility';
 import Translate from '../../translate';

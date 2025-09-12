@@ -3,11 +3,11 @@ import WheelComponent from 'react-wheel-of-prizes';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {getWidthHeight} from '../../../../services/utility';
+import {getWidthHeight} from '@/services/utility';
 import {CommonButton, MyView, MyViewWithRef, SimpleText} from '@/styles';
 import Confetti from 'react-confetti';
 import vars from '@/styles/root';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 function Spinner(props) {
   const [spins, setSpins] = useState();
   const [selectedSpin, setSelectedSpin] = useState();

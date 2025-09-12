@@ -4,12 +4,12 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
-} from '../../../styles/CommonComponents.jsx';
-import {generalRequest} from '../../../api/utility';
+} from '@/styles/CommonComponents.jsx';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import RadioButtonYesOrNo from '../../../components/web/RadioButtonYesOrNo.jsx';
-import commonTranslator from '../../../translator/common';
-import {showSuccess} from '../../../services/utility';
+import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
+import commonTranslator from '@/translator/common';
+import {showSuccess} from '@/services/utility';
 function ProfileConfig(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

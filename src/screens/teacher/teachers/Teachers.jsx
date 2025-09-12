@@ -1,4 +1,4 @@
-import {CommonWebBox} from '../../../styles/CommonComponents.jsx';
+import {CommonWebBox} from '@/styles/CommonComponents.jsx';
 function Teachers() {
   return <CommonWebBox header={'اساتید'} />;
 }

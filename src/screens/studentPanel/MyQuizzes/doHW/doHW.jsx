@@ -9,8 +9,8 @@ import {
   CommonWebBox,
   MyView,
   SimpleText,
-} from '../../../../styles/CommonComponents.jsx';
-import {styles} from '../../../../styles/common/styles';
+} from '@/styles/commonComponents.jsx';
+import {styles} from '@/styles/common/styles';
 import RenderHTML from 'react-native-render-html';
 import {
   answerTypes,
@@ -21,7 +21,7 @@ import {
   simpleConvertTimestamp,
   systemFonts,
   tagsStyles,
-} from '../../../../services/utility';
+} from '@/services/utility';
 import Row from './Row.jsx';
 import UploadFile from '../../../../components/web/UploadFile.jsx';
 function DoHW(props) {

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 function Avatar(props) {
   const [pic, setPic] = useState(undefined);

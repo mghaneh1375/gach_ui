@@ -4,9 +4,9 @@ import columns from './columns';
 import {dispatchFinanceContext, financeContext} from './Context.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import commonTranslator from '@/translator/common';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(financeContext),

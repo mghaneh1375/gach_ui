@@ -6,12 +6,12 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
-} from '../../../../styles/CommonComponents.jsx';
+} from '@/styles/commonComponents.jsx';
 import translator from './translator';
 import commonTranslator from '@/translator/common';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 function Ravan(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

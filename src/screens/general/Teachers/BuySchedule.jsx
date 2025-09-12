@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {formatPrice, getDevice} from '../../../services/utility';
+import {formatPrice, getDevice} from '@/services/utility';
 import {
   BigBoldBlueText,
   CommonButton,
@@ -7,14 +7,14 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
-import vars from '../../../styles/root';
+import vars from '@/styles/root';
 import React, {useRef, useState} from 'react';
 import {fetchUser, setCacheItem} from '../../../api/user';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import Translate from '../buy/translate';
 function BuySchedule(props) {
   const [refId, setRefId] = useState();

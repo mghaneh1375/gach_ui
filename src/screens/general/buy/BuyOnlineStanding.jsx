@@ -11,22 +11,17 @@ import {
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import React, {useState} from 'react';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
-import {styles} from '../../../styles/common/styles';
-import commonTranslator from '../../../translator/common';
-import {
-  faNums,
-  getDevice,
-  showError,
-  showSuccess,
-} from '../../../services/utility';
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
+import {faNums, getDevice, showError, showSuccess} from '@/services/utility';
 import OffCode from './components/OffCode.jsx';
-import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction.jsx';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
 import BuyBasket from './components/BuyBasket.jsx';
-import Basket from '../../../components/web/Basket.jsx';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
+import Basket from '@/components/web/Basket.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {
   faCheck,
   faRemove,

@@ -2,7 +2,7 @@ import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
 import {EqualTwoTextInputs, SimpleText} from '@/styles';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
 function FAQ(props) {
   const [show, setShow] = useState(false);

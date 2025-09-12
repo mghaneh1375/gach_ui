@@ -1,6 +1,6 @@
 import {routes} from '@/api/apiRoutes';
 import {CV_BASE_URL, fileRequest, generalRequest} from '@/api/utility';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 export const reviewQuiz = async (quizId, generalMode, token) => {
   return await generalRequest(
     routes.reviewQuiz + generalMode + '/' + quizId,

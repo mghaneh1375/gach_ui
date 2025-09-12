@@ -6,7 +6,7 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
@@ -19,10 +19,10 @@ import {
 } from 'victory-native';
 import Lesson from './components/Lesson.jsx';
 import Tag from './components/Tag.jsx';
-import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker.jsx';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 function Progress(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

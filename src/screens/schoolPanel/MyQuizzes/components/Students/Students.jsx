@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../../../api/utility';
-import SelectFromMyStudents from '../../../../../components/web/SelectFromMyStudents.jsx';
+import {generalRequest} from '@/api/utility';
+import SelectFromMyStudents from '@/components/web/SelectFromMyStudents.jsx';
 import {showSuccess} from '@/services/utility';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import StudentAnswerSheet from '../../../../panel/quiz/components/answerSheet/StudentAnswerSheet.jsx';
 import {getAnswerSheets} from '../../../../panel/quiz/components/utility';
 import translator from '../../../../panel/quiz/translator';

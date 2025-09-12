@@ -5,15 +5,15 @@ import {
   CommonWebBox,
   MyView,
   PhoneView,
-} from '../../../../styles/CommonComponents.jsx';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+} from '@/styles/commonComponents.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import {generalRequest, videoGeneralRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {useState} from 'react';
 import React from 'react';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 function CopySessions(props) {
   const navigate = props.navigate;
   const [contents, setContents] = useState();

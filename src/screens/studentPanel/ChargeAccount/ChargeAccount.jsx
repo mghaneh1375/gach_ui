@@ -1,6 +1,6 @@
 import React from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import AccountCharge from '../../../components/web/accountCharge/AccountCharge.jsx';
+import AccountCharge from '@/components/web/accountCharge/AccountCharge.jsx';
 import {MyView} from '@/styles';
 function ChargeAccount(props) {
   const useGlobalState = () => [

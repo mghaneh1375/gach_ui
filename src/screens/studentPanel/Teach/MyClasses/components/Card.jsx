@@ -16,13 +16,13 @@ import {
 } from '@/styles';
 import {Image} from 'react-native';
 import {styles} from '@/styles/common/styles';
-import QuizItemCard from '../../../../../components/web/QuizItemCard.jsx';
+import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 import Translator from '../../../../advisorPanel/teach/schedule/components/translator';
 import vars from '@/styles/root';
-import Circle from '../../../../../components/web/Circle.jsx';
+import Circle from '@/components/web/Circle.jsx';
 import {Rating} from 'react-native-ratings';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
-import {showError} from '../../../../../services/utility';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {showError} from '@/services/utility';
 function Card(props) {
   const [showMore, setShowMore] = useState(false);
   const [pic, setPic] = useState();

@@ -1,6 +1,6 @@
 import React from 'react';
 import {doSaveAnswers} from './utility';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 const defaultGlobalState = {
   questions: undefined,
   answers: undefined,

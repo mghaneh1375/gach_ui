@@ -1,6 +1,6 @@
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {showError, showSuccess} from '../../../../services/utility';
+import {showError, showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 export const fetchAllPackages = async (token, quizId = undefined) => {
   return await generalRequest(

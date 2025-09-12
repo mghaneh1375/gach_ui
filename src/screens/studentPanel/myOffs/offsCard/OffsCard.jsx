@@ -7,7 +7,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import {
   styleCard,
   styleTitle,

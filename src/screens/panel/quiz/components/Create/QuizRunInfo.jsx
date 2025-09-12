@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {CommonRadioButton, PhoneView, MyView} from '@/styles';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import translator from '../../translator';
 import {launchModeKeyVals} from '../keyVals';
-import {trueFalseValues} from '../../../../../services/utility';
+import {trueFalseValues} from '@/services/utility';
 const QuizRunInfo = props => {
   const [start, setStart] = useState();
   const [end, setEnd] = useState();

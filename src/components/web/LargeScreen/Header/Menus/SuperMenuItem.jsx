@@ -1,8 +1,8 @@
 import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {useState} from 'react';
 import {globalStateContext} from '@/App.jsx';
-import {SimpleText} from '../../../../../styles/CommonComponents.jsx';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import {SimpleText} from '@/styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import vars from '@/styles/root';
 import React from 'react';
 export const SuperMenuItem = props => {

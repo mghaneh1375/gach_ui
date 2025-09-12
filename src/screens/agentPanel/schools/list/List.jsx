@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {columnsForAdmin, columnsForAgent} from './tableStructure';
 import Ops from './ops/Ops.jsx';
 import commonTranslator from '@/translator/common';
 import {routes} from '@/api/apiRoutes';
-import {isUserAdmin} from '../../../../services/utility';
+import {isUserAdmin} from '@/services/utility';
 function List(props) {
   const [selectedId, setSelectedId] = useState();
   const [showOpPopUp, setShowOpPopUp] = useState(false);

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {CommonWebBox} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import certTranslator from '../translator';
 import Ops from './ops/Ops.jsx';
 import columns from './tableStructure';

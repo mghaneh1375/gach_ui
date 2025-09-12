@@ -1,5 +1,5 @@
 import {CommonButton, PhoneView} from '@/styles';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {contentContext} from '../Context.jsx';
 import React, {useState} from 'react';
 import Translator from '../../translate';

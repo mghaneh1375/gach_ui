@@ -1,11 +1,11 @@
 import RoleFormForSelect from '../../general/login/components/RoleFormForSelect.jsx';
 import React, {useState} from 'react';
 import {dispatchStateContext} from '@/App.jsx';
-import {CommonWebBox} from '../../../styles/CommonComponents.jsx';
+import {CommonWebBox} from '@/styles/CommonComponents.jsx';
 import {useParams} from 'react-router';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import {isUserAdmin} from '../../../services/utility';
+import {isUserAdmin} from '@/services/utility';
 function Upgrade(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();

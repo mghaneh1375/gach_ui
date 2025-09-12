@@ -10,7 +10,7 @@ import KarnameReport from '../../../panel/quiz/components/reports/KarnameReport.
 import ParticipantReport from '../../../panel/quiz/components/reports/participant/ParticipantReport.jsx';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import translator from '../../../panel/quiz/components/reports/list/translator';
 function Report(props) {
   const useGlobalState = () => [

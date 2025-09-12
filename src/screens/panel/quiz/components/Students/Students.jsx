@@ -9,12 +9,12 @@ import {
 } from '@/styles';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
-import {generalRequest} from '../../../../../api/utility';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
-import ExcelComma from '../../../../../components/web/ExcelCommaInput.jsx';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
+import ExcelComma from '@/components/web/ExcelCommaInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import columns, {
   columnsForEscapeQuiz,
   columnsForMember,
@@ -22,8 +22,8 @@ import columns, {
   columnsForQRTashtihi,
 } from './tableStructure';
 import {columnsForTashtihi} from './tableStructure';
-import SearchUser from '../../../../../components/web/searchUser/SearchUser.jsx';
-import {changeText, showSuccess} from '../../../../../services/utility';
+import SearchUser from '@/components/web/searchUser/SearchUser.jsx';
+import {changeText, showSuccess} from '@/services/utility';
 import {getAnswerSheets, removeStudents} from '../utility';
 import {dispatchQuizContext, quizContext} from '../Context.jsx';
 import StudentAnswerSheet from '../answerSheet/StudentAnswerSheet.jsx';

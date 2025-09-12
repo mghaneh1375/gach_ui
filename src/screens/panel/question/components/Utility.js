@@ -1,6 +1,6 @@
 import {routes} from '@/api/apiRoutes';
 import {fileRequest, generalRequest} from '@/api/utility';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 export const getSubjects = async token => {
   return await generalRequest(

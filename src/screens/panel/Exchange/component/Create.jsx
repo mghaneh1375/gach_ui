@@ -2,13 +2,13 @@ import React, {useMemo, useState} from 'react';
 import {dispatchExchangeContext, exchangeContext} from './Context.jsx';
 import {generalRequest} from '@/api/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from './translator';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {sectionKeyVals} from '../../offcode/components/utility';
 import {routes} from '@/api/apiRoutes';
-import {showError, showSuccess} from '../../../../services/utility';
-import {styles} from '../../../../styles/common/styles';
+import {showError, showSuccess} from '@/services/utility';
+import {styles} from '@/styles/common/styles';
 import commonTranslator from '@/translator/common';
 function Create(props) {
   const useGlobalState = () => [

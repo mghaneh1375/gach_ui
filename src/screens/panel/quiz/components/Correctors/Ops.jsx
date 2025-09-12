@@ -1,7 +1,7 @@
 import React from 'react';
 import translator from '../../translator';
 import {quizContext} from '../Context.jsx';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {CommonButton, PhoneView} from '@/styles';
 const Ops = props => {
   const useGlobalState = () => [React.useContext(quizContext)];

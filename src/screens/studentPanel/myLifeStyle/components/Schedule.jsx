@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {
   addItemToDay,
   fetchExamTags,
@@ -13,12 +13,12 @@ import {
 import {dispatchScheduleContext, scheduleContext} from './Context.jsx';
 import Day from './Day.jsx';
 import commonTranslator from '@/translator/common';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import Tag from './Tag.jsx';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {showError} from '@/services/utility';
 import Exam from './Exam.jsx';
-import TimePicker from '../../../../styles/common/TimePicker.jsx';
+import TimePicker from '@/styles/common/TimePicker.jsx';
 function Schedule(props) {
   const useGlobalState = () => [
     React.useContext(scheduleContext),

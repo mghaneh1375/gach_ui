@@ -1,5 +1,5 @@
 import React from 'react';
-import {showError, showSuccess} from '../../../../services/utility';
+import {showError, showSuccess} from '@/services/utility';
 import {doSaveAnswer} from './utility';
 const defaultGlobalState = {
   questions: undefined,

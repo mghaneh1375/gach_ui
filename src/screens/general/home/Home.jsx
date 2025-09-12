@@ -1,24 +1,25 @@
 import React, {useState} from 'react';
-import BackgroundScrollView from '../../../components/BackgroundScrollView.jsx';
+import BackgroundScrollView from '@/components/BackgroundScrollView.jsx';
 import translator from './translator';
-import {Device} from '../../../models/device';
+import {Device} from '@/models/device';
 import {Image} from 'react-native';
-import {getDevice, getWidthHeight} from '../../../services/utility';
+import {getDevice, getWidthHeight} from '@/services/utility';
 import {
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   ScreenScroll,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import vars from '../../../styles/root';
+} from '@/styles/CommonComponents.jsx';
+import vars from '@/styles/root';
 import {dispatchStateContext} from '@/App.jsx';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
-import {styles} from '../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import HomeBox from './homeBox/HomeBox.jsx';
 import RSS from './rss/RSS.jsx';
+
 const device = getDevice();
 const Home = props => {
   const wH = getWidthHeight();

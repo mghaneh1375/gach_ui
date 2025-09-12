@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {dispatchNotifContext, notifContext} from '../Context.jsx';
 import {routes} from '@/api/apiRoutes';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import Translator from '../../translate';
 import {fetchAllNotifs} from '../utility';
 import Ops from './Ops.jsx';
 import columns from './tableStructure';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(notifContext),

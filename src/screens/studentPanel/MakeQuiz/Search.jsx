@@ -4,17 +4,17 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {LargePopUp} from '../../../styles/common/PopUp.jsx';
-import {styles} from '../../../styles/common/styles';
+} from '@/styles/CommonComponents.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
+import {styles} from '@/styles/common/styles';
 import Translate from './translate';
-import commonTranslator from '../../../translator/common';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
+import commonTranslator from '@/translator/common';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import React, {useState} from 'react';
 import Card from './Card.jsx';
-import {FontIcon} from '../../../styles/common/FontIcon.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
-import {showError, showSuccess} from '../../../services/utility';
+import {showError, showSuccess} from '@/services/utility';
 function Search(props) {
   const [filter, setFilter] = useState('branch');
   const [boxes, setBoxes] = useState();

@@ -37,8 +37,8 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';

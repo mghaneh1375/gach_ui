@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {fileRequest, generalRequest} from '../../../../../api/utility';
-import {showError, showSuccess} from '../../../../../services/utility';
+import {fileRequest, generalRequest} from '@/api/utility';
+import {showError, showSuccess} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -9,8 +9,8 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '@/styles/common/styles';
 import {translator} from '../../translate';
 import {badgeContext, dispatchBadgeContext} from '../Context.jsx';

@@ -4,7 +4,7 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   MyView,
-} from '../../../../styles/Common.jsx';
+} from '@/styles/common.jsx';
 import QuizAnswerSheetInfo from './create/quizAnswerSheetInfo';
 import QuizGeneralInfo from './create/quizGeneralInfo';
 import QuizRegistryInfo from './create/quizRegistryInfo';

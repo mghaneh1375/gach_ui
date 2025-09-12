@@ -14,9 +14,9 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 import translator from '../../advisorPanel/myFinancePlans/components/translator';
 function FinancePlan(props) {
   const [showMore, setShowMore] = useState(false);

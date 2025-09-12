@@ -1,7 +1,7 @@
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
-import {showSuccess} from '../../../services/utility';
-import commonTranslator from '../../../translator/common';
+import {generalRequest} from '@/api/utility';
+import {showSuccess} from '@/services/utility';
+import commonTranslator from '@/translator/common';
 export const removeGrade = async (setLoading, token, gradeId, afterFunc) => {
   setLoading(true);
   const res = await generalRequest(

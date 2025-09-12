@@ -5,11 +5,11 @@ import {
   dispatchMyTeachClassesContext,
   myTeachClassesContext,
 } from './Context.jsx';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import commonTranslator from '@/translator/common';
 import {showSuccess} from '@/services/utility';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 function Report(props) {
   const useGlobalState = () => [
     React.useContext(myTeachClassesContext),

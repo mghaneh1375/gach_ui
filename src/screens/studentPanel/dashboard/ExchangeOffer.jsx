@@ -1,7 +1,7 @@
 import {useMemo} from 'react';
 import {formatPrice} from '@/services/utility';
-import {CommonWebBox, SimpleText} from '../../../styles/CommonComponents.jsx';
-import vars from '../../../styles/root';
+import {CommonWebBox, SimpleText} from '@/styles/CommonComponents.jsx';
+import vars from '@/styles/root';
 function ExchangeOffer(props) {
   const isOff = useMemo(() => {
     return props.offer.section !== 'تبدیل به پول';

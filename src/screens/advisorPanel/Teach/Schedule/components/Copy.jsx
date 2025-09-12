@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 import {
   dispatchTeachScheduleContext,
   teachScheduleContext,
 } from './Context.jsx';
 import Translator from './translator';
 import {routes} from '@/api/apiRoutes';
-import {showError, showSuccess} from '../../../../../services/utility';
-import {generalRequest} from '../../../../../api/utility';
+import {showError, showSuccess} from '@/services/utility';
+import {generalRequest} from '@/api/utility';
 import commonTranslator from '@/translator/common';
 function Copy(props) {
   const useGlobalState = () => [

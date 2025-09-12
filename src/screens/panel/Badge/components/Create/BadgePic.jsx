@@ -1,5 +1,5 @@
 import {useFilePicker} from 'use-file-picker';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import {useEffect} from 'react';
 import {PhoneView} from '@/styles';

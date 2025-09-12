@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {CommonWebBox, SimpleText} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import translator from '../../../../panel/quiz/translator';
 import {
   dispatchQuizContext,

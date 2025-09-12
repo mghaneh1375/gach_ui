@@ -1,16 +1,12 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {
-  showError,
-  showSuccess,
-  trueFalseValues,
-} from '../../../../../services/utility';
+import {showError, showSuccess, trueFalseValues} from '@/services/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import Translator from './translator';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 import commonTranslator from '@/translator/common';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {
   dispatchTeachScheduleContext,

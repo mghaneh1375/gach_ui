@@ -5,18 +5,18 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {LargePopUp} from '../../../styles/common/PopUp.jsx';
+} from '@/styles/CommonComponents.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {useEffectOnce} from 'usehooks-ts';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
-import commonTranslator from '../../../translator/common';
-import {showSuccess} from '../../../services/utility';
-import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import commonTranslator from '@/translator/common';
+import {showSuccess} from '@/services/utility';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import columns from './tableStructure';
-import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker.jsx';
-import Pagination from '../../../components/web/pagination/Pagination.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
+import Pagination from '@/components/web/pagination/Pagination.jsx';
 function Comment(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

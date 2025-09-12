@@ -5,17 +5,17 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import {useFilePicker} from 'use-file-picker';
-import {fileRequest, generalRequest} from '../../../api/utility';
+import {fileRequest, generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import {styles} from '../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import Card from './Card.jsx';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
-import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker.jsx';
-import {showError, showSuccess} from '../../../services/utility';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
+import {showError, showSuccess} from '@/services/utility';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 function DailyAdv(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

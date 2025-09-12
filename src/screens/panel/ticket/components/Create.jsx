@@ -12,14 +12,14 @@ import {
 import translator from '../translator';
 import commonTranslator from '@/translator/common';
 import React, {useState} from 'react';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {priorityKeyVals, sectionKeyVals} from './keyVals';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {faPaperclip, faPlus} from '@fortawesome/free-solid-svg-icons';
 import SearchUser from '../../../../components/web/searchUser/SearchUser.jsx';
 import {addFile, finalize, submit} from './show/utility';
-import {changeText, showError} from '../../../../services/utility';
+import {changeText, showError} from '@/services/utility';
 import {useFilePicker} from 'use-file-picker';
 import UserTinyPic from '../../../../components/web/largeScreen/UserTinyPic.jsx';
 import AttachBox from './show/attachBox/AttachBox.jsx';

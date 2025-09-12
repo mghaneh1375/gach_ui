@@ -1,4 +1,4 @@
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 const IRYSCMandatoryFields = [
   'title',
   'startRegistry',

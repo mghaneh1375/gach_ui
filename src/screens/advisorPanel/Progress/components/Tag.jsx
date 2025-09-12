@@ -12,7 +12,7 @@ import {
   VictoryAxis,
 } from 'victory-native';
 import vars from '@/styles/root';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 function Tag(props) {
   return (
     <CommonWebBox header={props.header}>

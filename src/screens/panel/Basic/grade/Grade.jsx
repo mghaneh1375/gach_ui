@@ -4,7 +4,7 @@ import {getGrades} from '../utility';
 import List from './list/List.jsx';
 import Create from './create/Create.jsx';
 import Translate from '../translate';
-import {addItem, editItem} from '../../../../services/utility';
+import {addItem, editItem} from '@/services/utility';
 import {MyView} from '@/styles';
 function Grade(props) {
   const [mode, setMode] = useState('list');

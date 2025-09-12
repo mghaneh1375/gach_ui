@@ -9,14 +9,14 @@ import {
 } from '@/styles';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
-import {showError, showSuccess} from '../../../../../services/utility';
+import {showError, showSuccess} from '@/services/utility';
 import {useFilePicker} from 'use-file-picker';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
 import {styles} from '@/styles/common/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import columns from './tableStructure';
-import {BASE_SITE_NAME, BASE_URL} from '../../../../../api/utility';
+import {BASE_SITE_NAME, BASE_URL} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 function UploadSubjects(props) {
   const [isWorking, setIsWorking] = React.useState(false);

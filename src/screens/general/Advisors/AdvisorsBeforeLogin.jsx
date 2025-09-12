@@ -2,19 +2,19 @@ import {faChevronDown, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import BestComments from '../../../components/web/comment/BestComments.jsx';
+import BestComments from '@/components/web/comment/BestComments.jsx';
 import {
   CommonButton,
   CommonWebBox,
   EqualTwoTextInputs,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
-import commonTranslator from '../../../translator/common';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
 import Card from './Card.jsx';
 import Filter from './Filter.jsx';
 function AdvisorsBeforeLogin(props) {

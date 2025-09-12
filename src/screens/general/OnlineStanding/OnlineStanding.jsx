@@ -1,7 +1,7 @@
 import {getWidthHeight} from '@/services/utility';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 import Card from '../../panel/quiz/components/card/Card.jsx';
 function OnlineStanding(props) {
   const totalWidth = getWidthHeight()[0];

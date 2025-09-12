@@ -6,10 +6,10 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
 import Translate from './translate';
-import commonTranslator from '../../../translator/common';
+import commonTranslator from '@/translator/common';
 function SuccessTransaction(props) {
   return (
     <CommonWebBox header={Translate.backSuccessTransaction}>

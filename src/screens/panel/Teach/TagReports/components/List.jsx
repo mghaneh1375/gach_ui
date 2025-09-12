@@ -6,11 +6,11 @@ import {
 } from './Context.jsx';
 import columns from './tableStructure';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../../../api/utility';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import {generalRequest} from '@/api/utility';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import commonTranslator from '@/translator/common';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(teachTagReportContext),

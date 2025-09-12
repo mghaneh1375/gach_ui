@@ -1,9 +1,9 @@
 import React from 'react';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import certTranslator from '../translator';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faFolderOpen, faTrash} from '@fortawesome/free-solid-svg-icons';
-import {SimpleText} from '../../../../styles/Common.jsx';
+import {SimpleText} from '@/styles/common.jsx';
 // import './Style.css';
 
 const SelectFile = () => {

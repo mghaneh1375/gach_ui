@@ -3,8 +3,8 @@ import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import {dispatchUsersContext, usersContext} from './Context.jsx';
-import {showError, showSuccess} from '../../../../services/utility';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {showError, showSuccess} from '@/services/utility';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '@/translator/common';
 function AdvisorTags(props) {
   const [isWorking, setIsWorking] = useState(false);

@@ -1,5 +1,5 @@
 import {routes} from '@/api/apiRoutes';
-import {fileRequest, generalRequest} from '../../../../../api/utility';
+import {fileRequest, generalRequest} from '@/api/utility';
 export const fetchDetail = async (ticketId, token) => {
   const res = await generalRequest(
     routes.fetchTicket + ticketId,

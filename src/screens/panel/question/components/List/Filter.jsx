@@ -5,9 +5,9 @@ import {
 import React, {useState} from 'react';
 import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 import {CommonButton, PhoneView, SimpleText, MyView} from '@/styles';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
 import translator from '../../translator';

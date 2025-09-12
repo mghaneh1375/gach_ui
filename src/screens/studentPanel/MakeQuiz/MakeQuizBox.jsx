@@ -4,10 +4,10 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
-import commonTranslator from '../../../translator/common';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
 function MakeQuizBox(props) {
   return (
     <MyView

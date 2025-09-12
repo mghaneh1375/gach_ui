@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import {Rating} from 'react-native-ratings';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../../../api/utility';
-import {getSimpleCurrTime, showSuccess} from '../../../../../services/utility';
+import {generalRequest} from '@/api/utility';
+import {getSimpleCurrTime, showSuccess} from '@/services/utility';
 import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {
   dispatchTeachScheduleContext,
   teachScheduleContext,
 } from './Context.jsx';
 import {studentsColumns} from './tableStructure';
 import Translator from './translator';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '@/translator/common';
 function Students(props) {
   const useGlobalState = () => [

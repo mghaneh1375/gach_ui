@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import RenderHTML from 'react-native-render-html';
 import {dispatchDoCorrectContext, doCorrectContext} from './Context.jsx';
-import {getDevice, systemFonts, tagsStyles} from '../../../../services/utility';
+import {getDevice, systemFonts, tagsStyles} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -24,8 +24,8 @@ import {
   styleTitle,
   styleYellowBox,
 } from '../../../panel/package/card/style';
-import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
-import {styles} from '../../../../styles/common/styles';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
 import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import vars from '@/styles/root';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';

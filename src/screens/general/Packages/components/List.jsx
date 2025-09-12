@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import BestComments from '../../../../components/web/comment/BestComments.jsx';
-import {getDevice} from '../../../../services/utility';
+import {getDevice} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -12,7 +12,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import commonTranslator from '@/translator/common';
 import {Translator} from '../translator';
 import Card from './Card.jsx';

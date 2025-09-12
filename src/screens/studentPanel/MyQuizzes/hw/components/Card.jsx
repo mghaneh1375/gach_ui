@@ -4,7 +4,7 @@ import {
   faHourglassStart,
 } from '@fortawesome/free-solid-svg-icons';
 import {styles} from '@/styles/common/styles';
-import QuizItemCard from '../../../../../components/web/QuizItemCard.jsx';
+import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 import {
   CommonButton,
   CommonWebBox,
@@ -19,7 +19,7 @@ import {
   styleTitle,
   styleYellowBox,
 } from '../../../../panel/package/card/style';
-import {convertTimestamp, getDevice} from '../../../../../services/utility';
+import {convertTimestamp, getDevice} from '@/services/utility';
 import Translate from '../../../../schoolPanel/myHWs/components/translator';
 function Card(props) {
   const device = getDevice();

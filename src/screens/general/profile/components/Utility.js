@@ -1,8 +1,8 @@
 import {routes} from '@/api/apiRoutes';
-import {fetchUser, removeAuthCache, setCacheItem} from '../../../../api/user';
+import {fetchUser, removeAuthCache, setCacheItem} from '@/api/user';
 import {generalRequest} from '@/api/utility';
-import {Device} from '../../../../models/device';
-import {getDevice, showSuccess} from '../../../../services/utility';
+import {Device} from '@/models/device';
+import {getDevice, showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 import translator from '../translate';
 const changePassMandatoryFields = ['oldPass', 'newPass', 'confirmNewPass'];

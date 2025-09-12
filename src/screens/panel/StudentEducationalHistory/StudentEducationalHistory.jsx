@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {
   CommonWebBox,
@@ -12,9 +12,9 @@ import {
   SimpleText,
   SimpleFontIcon,
 } from '@/styles';
-import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
-import {styles} from '../../../styles/common/styles';
-import commonTranslator from '../../../translator/common';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
 import MiniCard from '../quiz/components/cv/MiniCard.jsx';
 import {subjectColsCustomQuiz} from '../quiz/components/reports/karname/lessonTableStructure';
 import Card from '../../general/advisors/Card.jsx';

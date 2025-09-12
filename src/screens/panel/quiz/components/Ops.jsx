@@ -1,5 +1,5 @@
 import {CommonButton, SimpleText, PhoneView} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import translator from '../translator';
 import commonTranslator from '@/translator/common';
 import {BASE_SITE_NAME, CV_BASE_URL, generalRequest} from '@/api/utility';
@@ -13,7 +13,7 @@ import {
 import {dispatchQuizContext, quizContext} from './Context.jsx';
 import React, {useState} from 'react';
 import Translate from '../../../studentPanel/runQuiz/translate';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 import UploadFile from '../../../../components/web/UploadFile.jsx';
 let timerVar;
 const Ops = props => {

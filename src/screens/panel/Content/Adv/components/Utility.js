@@ -1,5 +1,5 @@
 import {routes} from '@/api/apiRoutes';
-import {fileRequest, generalRequest} from '../../../../../api/utility';
+import {fileRequest, generalRequest} from '@/api/utility';
 import {showSuccess} from '@/services/utility';
 export const getAll = async token => {
   return await generalRequest(routes.getAdv, 'get', undefined, 'data', token);

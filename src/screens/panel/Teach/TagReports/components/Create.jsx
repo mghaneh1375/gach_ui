@@ -1,11 +1,11 @@
 import React, {useMemo, useState} from 'react';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common';
-import {trueFalseValues} from '../../../../../services/utility';
+import {trueFalseValues} from '@/services/utility';
 import {styles} from '@/styles/common/styles';
 import {
   dispatchTeachTagReportContext,

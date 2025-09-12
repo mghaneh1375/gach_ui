@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
 import {
   offCodeKeyVals,
   typeGiftKeyVals,
   typeOffCodeKeyVals,
 } from '../../../spinGift/components/selectGift/create/keyVals';
-import JustBottomBorderDatePicker from '../../../../../styles/common/JustBottomBorderDatePicker.jsx';
-import {changeText} from '../../../../../services/utility';
-import {generalRequest} from '../../../../../api/utility';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
+import {changeText} from '@/services/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {dispatchQuizContext, quizContext} from '../Context.jsx';
 function Create(props) {

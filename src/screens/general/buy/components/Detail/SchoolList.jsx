@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {showError} from '../../../../../services/utility';
+import {showError} from '@/services/utility';
 import {
   BigBoldBlueText,
   CommonWebBox,
@@ -14,7 +14,7 @@ import OffCode from '../OffCode.jsx';
 import Quizzes from './Quizzes.jsx';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {styles} from '@/styles/common/styles';
 import BuyBasket from '../BuyBasket.jsx';
 import columns from '../../../../schoolPanel/manageStudents/list/tableStructure';

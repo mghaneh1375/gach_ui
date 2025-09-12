@@ -19,7 +19,7 @@ import {
   isUserAdmin,
   isUserContentAccess,
   isUserEditorAccess,
-} from '../../../services/utility';
+} from '@/services/utility';
 const ContentQuiz = props => {
   const [mode, setMode] = useState('karname');
   const navigate = props.navigate;

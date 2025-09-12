@@ -1,7 +1,7 @@
 import React from 'react';
-import {getDevice} from '../../../../services/utility';
+import {getDevice} from '@/services/utility';
 import {CommonButton, MyView, SimpleText} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import Bookmark from './Bookmark.jsx';
 import {dispatchDoQuizContext, doQuizContext} from './Context.jsx';
 import Question from './Question.jsx';

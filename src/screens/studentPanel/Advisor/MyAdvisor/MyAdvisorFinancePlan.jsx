@@ -14,14 +14,14 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import vars from '@/styles/root';
-import translator from '../../../../screens/advisorPanel/myFinancePlans/components/translator';
+import translator from '@/screens/advisorPanel/myFinancePlans/components/translator';
 import Circle from '../../../../components/web/Circle.jsx';
 import {Image} from 'react-native';
 import {Rating} from 'react-native-ratings';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {showError} from '@/services/utility';
 function MyAdvisorFinancePlan(props) {
   const [pic, setPic] = useState();

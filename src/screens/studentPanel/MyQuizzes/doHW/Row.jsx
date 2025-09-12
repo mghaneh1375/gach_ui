@@ -1,5 +1,5 @@
 import {MyView, PhoneView, SimpleText} from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 function Row(props) {
   if (props.isInPhone)
     return (

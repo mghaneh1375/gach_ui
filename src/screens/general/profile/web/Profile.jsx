@@ -7,7 +7,7 @@ import {
   CommonButton,
   SimpleText,
   PhoneView,
-} from '../../../../styles/CommonComponents.jsx';
+} from '@/styles/commonComponents.jsx';
 import ChangePass from '../components/ChangePass.jsx';
 import ChangeUsername from '../components/ChangeUsername.jsx';
 import UpdateInfo from '../components/UpdateInfo.jsx';
@@ -20,11 +20,11 @@ import {
   showError,
   showSuccess,
   trueFalseValues,
-} from '../../../../services/utility';
-import {Device} from '../../../../models/device';
+} from '@/services/utility';
+import {Device} from '@/models/device';
 import translator from '../translate';
 import commonTranslator from '@/translator/common';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import {Col, Row} from 'react-grid-system';
 import {useParams} from 'react-router';
@@ -32,12 +32,12 @@ import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {getPreRequirements, updateUserPic} from '../components/utility';
 import UpdateForm from '../components/UpdateForm.jsx';
-import {fetchUser, setCacheItem} from '../../../../api/user';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import {fetchUser, setCacheItem} from '@/api/user';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 import commonTranslate from '../../../../translator/common';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 const Profile = props => {
   const [user, setUser] = useState();
   const [isAdmin, setIsAdmin] = useState(false);

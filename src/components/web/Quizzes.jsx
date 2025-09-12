@@ -7,7 +7,7 @@ import {FontIcon} from '../../styles/common/FontIcon.jsx';
 import Basket from './Basket.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {styles} from '../../styles/common/styles';
-import {getDevice} from '../../services/utility';
+import {getDevice} from '@/services/utility';
 function Quizzes(props) {
   const [quizzes, setQuizzes] = useState();
   const [isWorking, setIsWorking] = useState(false);

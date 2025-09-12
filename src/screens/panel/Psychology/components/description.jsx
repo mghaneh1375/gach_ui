@@ -1,6 +1,6 @@
 import React from 'react';
 import {CommonWebBox, PhoneView, SimpleText} from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 export default function Description(props) {
   return (
     <PhoneView>

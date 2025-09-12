@@ -44,6 +44,7 @@ module.exports = {
     ],
     ['@babel/plugin-transform-react-jsx', {}],
     ['@babel/plugin-transform-runtime', {}],
+    ['@babel/plugin-transform-private-property-in-object', {loose: true}],
   ],
   sourceMaps: true,
 };

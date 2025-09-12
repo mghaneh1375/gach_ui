@@ -5,11 +5,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useEffect, useMemo, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import Basket from '../../../components/web/Basket.jsx';
-import SuccessTransaction from '../../../components/web/successTransaction/SuccessTransaction.jsx';
-import {getDevice, showSuccess} from '../../../services/utility';
+import Basket from '@/components/web/Basket.jsx';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
+import {getDevice, showSuccess} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -17,17 +17,17 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {FontIcon} from '../../../styles/common/FontIcon.jsx';
-import {styles} from '../../../styles/common/styles';
-import commonTranslator from '../../../translator/common';
+} from '@/styles/CommonComponents.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
+import commonTranslator from '@/translator/common';
 import OffCode from '../buy/components/OffCode.jsx';
 import BuySchedule from './BuySchedule.jsx';
 import Card from './Card.jsx';
 import Filter from './Filter.jsx';
 import Schedule from './Schedule.jsx';
-import Comment from '../../../components/web/comment/Comment.jsx';
-import BestComments from '../../../components/web/comment/BestComments.jsx';
+import Comment from '@/components/web/comment/Comment.jsx';
+import BestComments from '@/components/web/comment/BestComments.jsx';
 function Teachers(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

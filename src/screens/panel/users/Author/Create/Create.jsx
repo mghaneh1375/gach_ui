@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import Translate from '../translator';
-import commonTranslate from '../../../../../translator/common';
+import commonTranslate from '@/translator/common';
 import {createAuthor, editAuthor} from '../list/utility';
-import {changeText} from '../../../../../services/utility';
+import {changeText} from '@/services/utility';
 function CreateAuthor(props) {
   const [name, setName] = useState(
     props.author !== undefined ? props.author.name : '',

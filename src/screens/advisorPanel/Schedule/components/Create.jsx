@@ -35,19 +35,19 @@ import {
   faFilePdf,
   faSave,
 } from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../../../styles/common/styles';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {styles} from '@/styles/common/styles';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import Tag from '../../../studentPanel/myLifeStyle/components/Tag.jsx';
 import {
   removeItems,
   showError,
   showSuccess,
   trueFalseValues,
-} from '../../../../services/utility';
-import TimePicker from '../../../../styles/common/TimePicker.jsx';
+} from '@/services/utility';
+import TimePicker from '@/styles/common/TimePicker.jsx';
 import {downloadRequest, generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import vars from '@/styles/root';

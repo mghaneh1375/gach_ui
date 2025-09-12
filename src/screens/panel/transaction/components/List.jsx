@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {CommonWebBox, PhoneView, SimpleText} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import commonTranslator from '@/translator/common';
 import columns from './tableStructure';
 import Filter from './fliter/Filter.jsx';
 import Translate from '../translate';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 function List(props) {
   const [items, setItems] = useState();
   React.useEffect(() => {

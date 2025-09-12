@@ -7,15 +7,11 @@ import {
   MyView,
   FontIcon,
 } from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../translator';
 import {useFilePicker} from 'use-file-picker';
 import AttachBox from './attachBox/AttachBox.jsx';
-import {
-  changeText,
-  showError,
-  showSuccess,
-} from '../../../../../services/utility';
+import {changeText, showError, showSuccess} from '@/services/utility';
 import {addFile, addMsg} from './utility';
 import Translator from '../../translator';
 const Add = props => {

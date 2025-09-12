@@ -5,14 +5,14 @@ import {
   advisorScheduleContext,
   dispatchAdvisorScheduleContext,
 } from './Context.jsx';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {fetchMySchedules, fetchSchedules} from './utility';
 import columns from './tableStructure';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
-import {removeItems, showSuccess} from '../../../../services/utility';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
+import {removeItems, showSuccess} from '@/services/utility';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane.jsx';
 import {routes} from '@/api/apiRoutes';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common';
 function List(props) {
   const useGlobalState = () => [

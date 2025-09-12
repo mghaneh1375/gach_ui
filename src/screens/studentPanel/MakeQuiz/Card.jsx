@@ -3,8 +3,8 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
 import Translate from './translate';
 function Card(props) {
   return (

@@ -13,18 +13,18 @@
 // } from './components/MessangerApi';
 // import MassengerContent from './components/MassengerContent';
 // import SideBar from './components/SideBar';
-// import {isUserAdvisor} from '../../../services/Utility';
+// import {isUserAdvisor} from '@/services/Utility';
 // import {
 //   CommonWebBox,
 //   MyView,
 //   PhoneView,
 //   SimpleText,
-// } from '../../../styles/Common';
+// } from '@/styles/common';
 // import {useEffectOnce} from 'usehooks-ts';
 // import {chatContext, dispatchChatContext} from './components/Context';
-// import {FontIcon} from '../../../styles/Common/FontIcon';
+// import {FontIcon} from '@/styles/common/FontIcon';
 // import {faChevronLeft, faEllipsisV} from '@fortawesome/free-solid-svg-icons';
-// import vars from '../../../styles/root';
+// import vars from '@/styles/root';
 // import FooterInputWithFileUpload from './components/FooterInputWithFileUpload';
 
 // function Chat(props) {

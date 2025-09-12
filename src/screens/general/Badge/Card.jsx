@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Image} from 'react-native';
-import {MyView, SimpleText} from '../../../styles/CommonComponents.jsx';
-import vars from '../../../styles/root';
+import {MyView, SimpleText} from '@/styles/CommonComponents.jsx';
+import vars from '@/styles/root';
 function Card(props) {
   const [pic, setPic] = useState();
   const [showInfo, setShowInfo] = useState(false);

@@ -6,12 +6,12 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import React, {useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import QuestionNumber from './questionComponents/QuestionNumber.jsx';
-import {SimpleTextIcon} from '../../../../styles/common/TextIcon.jsx';
+import {SimpleTextIcon} from '@/styles/common/TextIcon.jsx';
 import Timer from './Timer.jsx';
 import {
   faAngleDown,
@@ -20,11 +20,11 @@ import {
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import Translate from '../translate';
-import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import commonTranslator from '@/translator/common';
 import Circle from '../../../../components/web/Circle.jsx';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
-import {getDevice} from '../../../../services/utility';
+import {getDevice} from '@/services/utility';
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),

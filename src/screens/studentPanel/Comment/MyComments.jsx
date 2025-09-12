@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import commonTranslator from '../../../translator/common';
-import {generalRequest} from '../../../api/utility';
+import commonTranslator from '@/translator/common';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
 import {
@@ -9,13 +9,13 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
-import JustBottomBorderDatePicker from '../../../styles/common/JustBottomBorderDatePicker.jsx';
-import CommonDataTable from '../../../styles/common/CommonDataTable.jsx';
-import {LargePopUp} from '../../../styles/common/PopUp.jsx';
+} from '@/styles/CommonComponents.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import columns from './tableStructure';
-import {showSuccess} from '../../../services/utility';
+import {showSuccess} from '@/services/utility';
 function MyComments(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

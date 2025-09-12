@@ -3,15 +3,15 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../../styles/CommonComponents.jsx';
-import {styles} from '../../../../styles/common/styles';
+} from '@/styles/commonComponents.jsx';
+import {styles} from '@/styles/common/styles';
 import MyAdvisorFinancePlan from './MyAdvisorFinancePlan.jsx';
 function MyAdvisor(props) {
   const useGlobalState = () => [

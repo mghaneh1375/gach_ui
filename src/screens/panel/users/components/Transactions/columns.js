@@ -1,4 +1,4 @@
-import {formatPrice} from '../../../../../services/utility';
+import {formatPrice} from '@/services/utility';
 const adviceColumns = [
   {
     name: 'عنوان',

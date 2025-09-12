@@ -6,11 +6,11 @@ import {
   MyView,
   SimpleText,
 } from '@/styles';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../translator';
 import commonTranslator from '@/translator/common';
 import {create, update} from './utility';
-import {changeText} from '../../../../../services/utility';
+import {changeText} from '@/services/utility';
 import {HexColorPicker} from 'react-colorful';
 function Create(props) {
   const [min, setMin] = useState();

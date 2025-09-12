@@ -1,4 +1,4 @@
-import {convertSecToMinWithOutSec} from '../../../../services/utility';
+import {convertSecToMinWithOutSec} from '@/services/utility';
 import Translator from './translator';
 const columns = [
   {

@@ -6,7 +6,7 @@ import {
   MyView,
   PhoneView,
   ScreenScroll,
-} from '../../../../styles/CommonComponents.jsx';
+} from '@/styles/commonComponents.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {BlurLoginBack} from './style';
 import LoginModule from '../components/Login.jsx';
@@ -20,9 +20,9 @@ import translator from '../translate';
 import {Container, Row, Col} from 'react-grid-system';
 import vars from '@/styles/root';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {FontIcon} from '../../../../styles/common/FontIcon.jsx';
-import {getToken} from '../../../../api/user';
-import {styles} from '../../../../styles/common/styles';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import {getToken} from '@/api/user';
+import {styles} from '@/styles/common/styles';
 const Login = props => {
   const [mode, setMode] = useState('login');
   const [token, setToken] = useState('');

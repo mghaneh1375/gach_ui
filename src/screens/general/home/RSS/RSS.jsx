@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {getDevice} from '../../../../services/utility';
+import {getDevice} from '@/services/utility';
 import {MyView, PhoneView, SimpleText} from '@/styles';
 import vars from '@/styles/root';
 import ItemCard from './ItemCard.jsx';

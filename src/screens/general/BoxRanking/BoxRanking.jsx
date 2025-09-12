@@ -5,8 +5,8 @@ import {globalStateContext} from '../../../App.jsx';
 import Circle from '@/components/web/Circle.jsx';
 import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 function BoxRanking(props) {
   const [pic, setPic] = useState();
   React.useEffect(() => {

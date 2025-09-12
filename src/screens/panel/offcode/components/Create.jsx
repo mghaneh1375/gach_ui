@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import ExcelComma from '@/components/web/ExcelCommaInput.jsx';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 import translator from '../translator';
 import commonTranslator from '@/translator/common';
 import {
@@ -14,7 +14,7 @@ import {
   sectionKeyVals,
   update,
 } from './utility';
-import {changeText, trueFalseValues} from '../../../../services/utility';
+import {changeText, trueFalseValues} from '@/services/utility';
 import {generalRequest} from '@/api/utility';
 const Create = props => {
   const [amount, setAmount] = useState(

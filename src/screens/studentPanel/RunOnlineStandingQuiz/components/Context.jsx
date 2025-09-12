@@ -1,7 +1,7 @@
 import React from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {showError, showSuccess} from '../../../../services/utility';
+import {showError, showSuccess} from '@/services/utility';
 import {doSaveAnswer} from './utility';
 const defaultGlobalState = {
   questions: undefined,

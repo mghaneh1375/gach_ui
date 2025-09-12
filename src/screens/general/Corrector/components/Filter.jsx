@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {getDevice, showError, showSuccess} from '../../../../services/utility';
+import {getDevice, showError, showSuccess} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -10,9 +10,9 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
-import {styles} from '../../../../styles/common/styles';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
+import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import QuestionNumber from '../../../studentPanel/runQuiz/components/questionComponents/QuestionNumber.jsx';
 import {dispatchDoCorrectContext, doCorrectContext} from './Context.jsx';

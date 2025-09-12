@@ -93,23 +93,18 @@
       url('IRANSans/ttf/IRANSansWeb(FaNum).ttf') format('truetype');
 }
 
-@font-face {
+/* @font-face {
   font-family: 'AGhasem';
   src: local('AGhasem'), local('AGhasem'),
-    /* url('BNazanin.woff2') format('woff2'), 
-        url('BNazanin.woff') format('woff'),  */
       url('AGhasem.ttf') format('truetype');
   font-weight: 400;
   font-stretch: normal;
-  /*font-style: normal;*/
 }
 
 @font-face {
   font-family: 'AGhasem';
   src: local('AGhasem Bold'), local('AGhasem-Bold'),
-    /* url('BNaznnBd.woff2') format('woff2'), url('BNaznnBd.woff') format('woff'), */
       url('AGhasem.ttf') format('truetype');
   font-weight: 700;
   font-stretch: normal;
-  /*font-style: normal;*/
-}
+} */

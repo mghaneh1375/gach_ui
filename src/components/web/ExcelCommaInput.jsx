@@ -10,7 +10,7 @@ import {FontIcon} from '../../styles/common/FontIcon.jsx';
 import JustBottomBorderTextInput from '../../styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '../../translator/common';
 import UploadFile from './UploadFile.jsx';
-import {showSuccess} from '../../services/utility';
+import {showSuccess} from '@/services/utility';
 import {styles} from '../../styles/common/styles';
 const ExcelComma = props => {
   const [codes, setCodes] = useState('');

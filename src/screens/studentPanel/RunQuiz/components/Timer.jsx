@@ -4,10 +4,10 @@ import {
   convertSecToMin,
   convertSecToMinWithOutSec,
   showWarnign,
-} from '../../../../services/utility';
+} from '@/services/utility';
 import {MyView, PhoneView, SimpleText, SimpleTextWithRef} from '@/styles';
-import ProgressBar from '../../../../styles/common/ProgressBar.jsx';
-import {styles} from '../../../../styles/common/styles';
+import ProgressBar from '@/styles/common/ProgressBar.jsx';
+import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import Translate from '../translate';
 let timerVar;

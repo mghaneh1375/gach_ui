@@ -2,13 +2,9 @@ import React, {useState, useRef} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {CV_BASE_URL, generalRequest} from '@/api/utility';
 import UploadFile from '../../../../components/web/UploadFile.jsx';
-import {
-  formatPrice,
-  showError,
-  showSuccess,
-} from '../../../../services/utility';
+import {formatPrice, showError, showSuccess} from '@/services/utility';
 import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import translator from '../../../panel/quiz/translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context.jsx';
 import commonTranslator from '@/translator/common';
@@ -16,10 +12,10 @@ import {
   createTaraz,
   generateQuestionPDF,
 } from '../../../panel/quiz/components/utility';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
-import {setCacheItem} from '../../../../api/user';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {setCacheItem} from '@/api/user';
 import SuccessTransaction from '../../../../components/web/successTransaction/SuccessTransaction.jsx';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import CV from '../../../panel/quiz/components/cv/CV.jsx';
 import Ranking from './ranking/Ranking.jsx';
 import {QuizProvider} from '../../../panel/quiz/components/Context.jsx';

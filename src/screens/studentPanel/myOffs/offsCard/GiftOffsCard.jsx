@@ -6,8 +6,8 @@ import {
   EqualTwoTextInputs,
   PhoneView,
   SimpleText,
-} from '../../../../styles/Common.jsx';
-import {styles} from '../../../../styles/common/styles';
+} from '@/styles/common.jsx';
+import {styles} from '@/styles/common/styles';
 import {
   styleCard,
   styleTitle,

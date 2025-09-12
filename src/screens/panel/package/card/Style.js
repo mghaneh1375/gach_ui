@@ -1,4 +1,4 @@
-import {getWidthHeight} from '../../../../services/utility';
+import {getWidthHeight} from '@/services/utility';
 import vars from '@/styles/root';
 const width = getWidthHeight()[0];
 export const styleCard = {

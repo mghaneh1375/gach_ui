@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {showError, showSuccess} from '../../../../services/utility';
+import {showError, showSuccess} from '@/services/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
-import {styles} from '../../../../styles/common/styles';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {styles} from '@/styles/common/styles';
 import translator from '../translator';
 import {dispatchLevelContext, levelContext} from './Context.jsx';
 function Create(props) {

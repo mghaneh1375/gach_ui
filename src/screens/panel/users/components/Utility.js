@@ -1,7 +1,7 @@
 import {routes} from '@/api/apiRoutes';
-import {getUser, setCacheItem} from '../../../../api/user';
+import {getUser, setCacheItem} from '@/api/user';
 import {generalRequest} from '@/api/utility';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 import {levelKeyVals} from '../../ticket/components/keyVals';
 export const filter = async (

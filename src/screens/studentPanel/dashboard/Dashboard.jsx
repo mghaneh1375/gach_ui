@@ -7,10 +7,10 @@ import {
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {fetchUser, setCacheItem} from '../../../api/user';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import CopyBox from '../../../components/CopyBox.jsx';
-import {formatPrice, showError, showSuccess} from '../../../services/utility';
+import CopyBox from '@/components/CopyBox.jsx';
+import {formatPrice, showError, showSuccess} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -18,12 +18,12 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import JustBottomBorderTextInput from '../../../styles/common/JustBottomBorderTextInput.jsx';
-import {LargePopUp} from '../../../styles/common/PopUp.jsx';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
-import commonTranslator from '../../../translator/common';
+} from '@/styles/CommonComponents.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
 import ProgressCard from '../myOffs/progressCard/ProgressCard.jsx';
 import DashboardCard from './dashboardCard/DashboardCard.jsx';
 import ExchangeOffer from './ExchangeOffer.jsx';

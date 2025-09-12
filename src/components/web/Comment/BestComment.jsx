@@ -1,12 +1,8 @@
 import {useEffect, useState} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
-import {
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import vars from '../../../styles/root';
-import {styles} from '../../../styles/common/styles';
+import {MyView, PhoneView, SimpleText} from '@/styles/CommonComponents.jsx';
+import vars from '@/styles/root';
+import {styles} from '@/styles/common/styles';
 function BestComment(props) {
   const [pic, setPic] = useState();
   useEffect(() => {

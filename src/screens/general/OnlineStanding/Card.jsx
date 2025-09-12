@@ -12,16 +12,16 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
 import {
   styleCard,
   styleItemsParent,
   styleTitle,
   styleYellowBox,
 } from '../../panel/package/card/style';
-import {faNums} from '../../../services/utility';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
+import {faNums} from '@/services/utility';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 function Card(props) {
   const colors = ['#FFAA00', '#c5c5c5', '#D27F66'];
   return (

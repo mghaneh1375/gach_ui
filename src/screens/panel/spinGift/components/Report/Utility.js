@@ -1,5 +1,5 @@
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 export const filter = async (
   token,
   from = undefined,

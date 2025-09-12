@@ -1,8 +1,8 @@
 import translator from '../../translator';
 import {CommonButton, CommonWebBox, ShrinkView} from '@/styles';
 import React, {useEffect, useState} from 'react';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {routes} from '@/api/apiRoutes';
 import {closeRequest} from './utility';
 import {StudentTableStructure, TableStructure} from '../tableStructure';

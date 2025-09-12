@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import List from './list/List.jsx';
 import Create from './create/Create.jsx';
-import {removeItems, editItem, addItem} from '../../../services/utility';
+import {removeItems, editItem, addItem} from '@/services/utility';
 import {MyView} from '@/styles';
 function ManageTeachers(props) {
   const queryString = require('query-string');

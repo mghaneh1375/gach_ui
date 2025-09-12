@@ -6,10 +6,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import {globalStateContext} from '@/App.jsx';
-import {Device} from '../../../../../models/device';
+import {Device} from '@/models/device';
 import {getDevice} from '@/services/utility';
 import {MyView} from '@/styles';
-import translator from '../../../../../translator/common';
+import translator from '@/translator/common';
 import MobileLogout from '../MobileLogout.jsx';
 import {MenuItem, MenuItemPhone, style} from '../Style.jsx';
 import MenuItemRepeat from './MenuItemRepeat.jsx';

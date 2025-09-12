@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {CommonButton, CommonWebBox} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {quizContext} from '../Context.jsx';
-import {downloadRequest} from '../../../../../api/utility';
+import {downloadRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 function KarnameReport(props) {
   const useGlobalState = () => [React.useContext(quizContext)];

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {CommonWebBox, MyView} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import Ops from './Ops.jsx';
 function List(props) {
   const [levels, setLevels] = useState();

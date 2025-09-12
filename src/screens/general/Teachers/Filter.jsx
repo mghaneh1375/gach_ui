@@ -1,16 +1,16 @@
 import {Slider} from '@material-ui/core';
-import {getDevice} from '../../../services/utility';
+import {getDevice} from '@/services/utility';
 import {
   CommonButton,
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
-import JustBottomBorderSelect from '../../../styles/common/JustBottomBorderSelect.jsx';
+} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import React, {useMemo, useState} from 'react';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 function Filter(props) {
   const isInPhone = getDevice().indexOf('WebPort') !== -1;

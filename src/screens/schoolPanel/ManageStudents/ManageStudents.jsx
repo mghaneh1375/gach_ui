@@ -7,7 +7,7 @@ import {
   editItem,
   addItem,
   isUserAdvisor,
-} from '../../../services/utility';
+} from '@/services/utility';
 import {MyView} from '@/styles';
 import {getAllStudent} from './utility';
 import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin.jsx';

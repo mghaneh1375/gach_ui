@@ -9,7 +9,7 @@ import translator from '../../translator/common';
 import {TextIcon} from './TextIcon.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {styles} from './styles';
-import {getWidthHeight} from '../../services/utility';
+import {getWidthHeight} from '@/services/utility';
 import vars from '../root';
 const width = getWidthHeight()[0];
 const modal = {

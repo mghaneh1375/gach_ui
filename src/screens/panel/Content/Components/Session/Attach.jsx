@@ -8,7 +8,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {SimpleFontIcon} from '../../../../../styles/common/FontIcon.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
 import Translator from '../../translate';
 import {contentContext, dispatchContentContext} from '../Context.jsx';

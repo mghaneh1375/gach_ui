@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Circle from '../../../../../components/web/Circle.jsx';
+import Circle from '@/components/web/Circle.jsx';
 import {CommonWebBox, PhoneView, MyView, SimpleText} from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';

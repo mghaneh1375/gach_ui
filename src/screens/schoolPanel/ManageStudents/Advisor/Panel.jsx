@@ -13,14 +13,14 @@ import {
 } from '@/styles';
 import commonTranslator from '@/translator/common';
 import Card from '../../../general/advisors/Card.jsx';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {Image} from 'react-native';
 import vars from '@/styles/root';
-import translator from '../../../../screens/advisorPanel/myFinancePlans/components/translator';
+import translator from '@/screens/advisorPanel/myFinancePlans/components/translator';
 import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import {
   faClockRotateLeft,

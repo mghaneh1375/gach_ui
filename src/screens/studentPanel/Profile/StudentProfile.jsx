@@ -6,21 +6,21 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {BASE_SITE_NAME, generalRequest} from '../../../api/utility';
+} from '@/styles/CommonComponents.jsx';
+import {BASE_SITE_NAME, generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
-import {styles} from '../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import {Image} from 'react-native';
-import vars from '../../../styles/root';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
+import vars from '@/styles/root';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import ContentCard from '../../general/packages/components/Card.jsx';
 import CommentCard from './CommentCard.jsx';
 import TeacherCard from './TeacherCard.jsx';
 import BadgeCard from './../../general/badge/Card.jsx';
 import Card from '../../panel/quiz/components/card/Card.jsx';
-import CopyBox from '../../../components/CopyBox.jsx';
+import CopyBox from '@/components/CopyBox.jsx';
 function StudentProfile(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),

@@ -1,4 +1,4 @@
-import {CommonWebBox} from '../../../../styles/Common.jsx';
+import {CommonWebBox} from '@/styles/common.jsx';
 function AddAll(props) {
   return (
     <CommonWebBox

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {BASE_SITE_NAME, BASE_URL} from '../../../../../api/utility';
+import {BASE_SITE_NAME, BASE_URL} from '@/api/utility';
 import UploadFile from '@/components/web/UploadFile.jsx';
 import {showSuccess} from '@/services/utility';
 const AddBatch = props => {

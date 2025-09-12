@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
-import Quizzes from '../../../../../components/web/Quizzes.jsx';
-import {
-  getDevice,
-  getWidthHeight,
-  showError,
-} from '../../../../../services/utility';
+import Quizzes from '@/components/web/Quizzes.jsx';
+import {getDevice, getWidthHeight, showError} from '@/services/utility';
 import {BigBoldBlueText, MyView, PhoneView, SimpleText} from '@/styles';
 import {packagesContext} from '../Context.jsx';
 import commonTranslator from '@/translator/common';

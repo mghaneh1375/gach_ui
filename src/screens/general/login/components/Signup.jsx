@@ -11,10 +11,10 @@ import {generalRequest} from '@/api/utility';
 import translator from '../translate';
 import commonTranslator from '@/translator/common';
 import {routes} from '@/api/apiRoutes';
-import {CommonTextInput} from '../../../../styles/common/CommonTextInput.jsx';
-import {changeText, showError} from '../../../../services/utility';
+import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';
+import {changeText, showError} from '@/services/utility';
 import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 const Signup = props => {
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();

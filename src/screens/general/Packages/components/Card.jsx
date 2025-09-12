@@ -9,13 +9,13 @@ import {
 } from '@/styles';
 import React, {useState} from 'react';
 import vars from '@/styles/root';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import {faCheck, faRemove} from '@fortawesome/free-solid-svg-icons';
 import {formatPrice} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 import {Translator} from '../translator';
 import {Rating} from 'react-native-ratings';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {useMediaQuery} from '@material-ui/core';
 function Card(props) {
   const [img, setImg] = useState();

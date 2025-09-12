@@ -1,6 +1,6 @@
 import React from 'react';
-import {CommonWebBox, SimpleText} from '../../../styles/CommonComponents.jsx';
-import commonTranslator from '../../../translator/common';
+import {CommonWebBox, SimpleText} from '@/styles/CommonComponents.jsx';
+import commonTranslator from '@/translator/common';
 function PageNotFound() {
   return (
     <CommonWebBox>

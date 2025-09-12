@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '@/styles';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import columns from '../../manageTeachers/list/tableStructure';
 import Ops from '../list/ops/Ops.jsx';
 import Translate from '../translate';

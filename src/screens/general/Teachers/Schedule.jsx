@@ -16,10 +16,10 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {SimpleFontIcon} from '../../../styles/common/FontIcon.jsx';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
+} from '@/styles/CommonComponents.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 import Translator from '../../advisorPanel/teach/schedule/components/translator';
 function Schedule(props) {
   const [showMore, setShowMore] = useState(false);

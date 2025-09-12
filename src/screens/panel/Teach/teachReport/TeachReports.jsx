@@ -5,16 +5,16 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '../../../../styles/CommonComponents.jsx';
+} from '@/styles/commonComponents.jsx';
 import translator from '../translate';
-import CommonDataTable from '../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import columns from './components/tableStructure';
 import {useEffectOnce} from 'usehooks-ts';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 function TeachReports(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

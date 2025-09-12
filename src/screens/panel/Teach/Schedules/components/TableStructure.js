@@ -1,4 +1,4 @@
-import {formatPrice} from '../../../../../services/utility';
+import {formatPrice} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 import Translator from '../../../../advisorPanel/teach/schedule/components/translator';
 const TableStructure = [

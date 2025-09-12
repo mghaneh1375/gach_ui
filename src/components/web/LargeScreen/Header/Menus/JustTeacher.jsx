@@ -1,6 +1,6 @@
 import {faTasks} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import {Device} from '../../../../../models/device';
+import {Device} from '@/models/device';
 import {getDevice} from '@/services/utility';
 import {MenuItem, MenuItemPhone} from '../style';
 function JustTeacher(props) {

@@ -1,5 +1,5 @@
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 export const filter = async (token, kind, grade, state, city, hasUser) => {

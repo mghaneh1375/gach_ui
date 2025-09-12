@@ -11,8 +11,8 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {styles} from '../../../styles/common/styles';
-import vars from '../../../styles/root';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
 import {formatPrice} from '@/services/utility';
 import {
   faArrowLeft,
@@ -22,8 +22,8 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import QuizItemCard from '@/components/web/QuizItemCard.jsx';
-import {FontIcon} from '../../../styles/common/FontIcon.jsx';
-import {LargePopUp} from '../../../styles/common/PopUp.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 function Card(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];
   const [state] = useGlobalState();

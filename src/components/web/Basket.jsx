@@ -4,7 +4,7 @@ import {
   styleFontSize13,
   styleFontSize15,
 } from '../../screens/panel/package/card/style';
-import {getDevice} from '../../services/utility';
+import {getDevice} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,

@@ -1,6 +1,6 @@
 import React from 'react';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
-import {LargePopUp} from '../../../../../styles/common/PopUp.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {getAllStudent} from '../../../../schoolPanel/manageStudents/utility';
 import {dispatchPackagesContext, packagesContext} from '../Context.jsx';
 import columns from '../../../../schoolPanel/manageStudents/list/tableStructure';

@@ -7,12 +7,12 @@ import {
   CommonWebBox,
   MyView,
   PhoneView,
-} from '../../../../styles/CommonComponents.jsx';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
-import {styles} from '../../../../styles/common/styles';
+} from '@/styles/commonComponents.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import {styles} from '@/styles/common/styles';
 import translator from './translator';
 import commonTranslator from '@/translator/common';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 function Certificate(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [React.useContext(dispatchStateContext)];

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import SelectFromMyStudents from '../../../../components/web/SelectFromMyStudents.jsx';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {
   advisorScheduleContext,
   dispatchAdvisorScheduleContext,

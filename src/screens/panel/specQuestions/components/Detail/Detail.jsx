@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {addQuestionToQuizzes, filter, removeQuestion} from '../utility';
 import Question from './Question.jsx';
-import Quizzes from '../../../../../components/web/Quizzes.jsx';
-import {generalRequest} from '../../../../../api/utility';
+import Quizzes from '@/components/web/Quizzes.jsx';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';
 import {CommonButton, MyView, CommonWebBox} from '@/styles';

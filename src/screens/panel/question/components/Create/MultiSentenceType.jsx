@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {MyView} from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import translator from '../../translator';
 import {sentencesCountKeyVals} from '../keyVals';
 import MultiSentenceYesOrNo from './MultiSentenceYesOrNo.jsx';

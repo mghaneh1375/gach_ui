@@ -1,9 +1,5 @@
-import {
-  CommonButton,
-  MyView,
-  SimpleText,
-} from '../../../styles/CommonComponents.jsx';
-import {styles} from '../../../styles/common/styles';
+import {CommonButton, MyView, SimpleText} from '@/styles/CommonComponents.jsx';
+import {styles} from '@/styles/common/styles';
 function Card(props) {
   return (
     <MyView

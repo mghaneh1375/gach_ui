@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {getFileType, makeDownload} from '../../../../services/utility';
+import {getFileType, makeDownload} from '@/services/utility';
 function MassengerContent(props) {
   const [message, setMessage] = useState([]);
   useEffect(() => {

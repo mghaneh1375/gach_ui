@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import Translate from '../../translate';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
-import {generalRequest} from '../../../../../api/utility';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';
 function GroupEdit(props) {

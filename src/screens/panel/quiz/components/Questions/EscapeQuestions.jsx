@@ -1,13 +1,9 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {
-  CommonButton,
-  CommonWebBox,
-  MyView,
-} from '../../../../../styles/Common.jsx';
+import {CommonButton, CommonWebBox, MyView} from '@/styles/Common.jsx';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
-import ExcelComma from '../../../../../components/web/excelCommaInput';
+import ExcelComma from '@/components/web/excelCommaInput';
 import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane.jsx';
 import {changeQuestionsArrangeInQuiz, getQuestions} from '../utility';
 import Edit from './edit';

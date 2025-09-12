@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {CommonWebBox, MyView} from '@/styles';
-import CommonDataTable from '../../../../../styles/common/CommonDataTable.jsx';
+import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {routes} from '@/api/apiRoutes';
 import columns from './tableStructure';
 import commonTranslator from '@/translator/common';
 import Ops from '../Ops.jsx';
-import {removeItems} from '../../../../../services/utility';
+import {removeItems} from '@/services/utility';
 function List(props) {
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selected, setSelected] = useState();

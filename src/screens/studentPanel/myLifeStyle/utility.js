@@ -1,6 +1,6 @@
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../api/utility';
-import {showSuccess} from '../../../services/utility';
+import {generalRequest} from '@/api/utility';
+import {showSuccess} from '@/services/utility';
 export const fetchMyLifeStyle = (token, userId) => {
   return generalRequest(
     userId === undefined ? routes.myLifeStyle : routes.myLifeStyle + userId,

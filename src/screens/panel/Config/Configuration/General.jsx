@@ -4,14 +4,14 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
-} from '../../../../styles/CommonComponents.jsx';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+} from '@/styles/commonComponents.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from './translator';
 import {dispatchStateContext} from '@/App.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import commonTranslator from '@/translator/common';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 function General(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [React.useContext(dispatchStateContext)];

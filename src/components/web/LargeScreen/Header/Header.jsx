@@ -6,19 +6,19 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useRef, useState} from 'react';
 import {TouchableOpacity} from 'react-native';
-import {logout} from '../../../../api/user';
+import {logout} from '@/api/user';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {Device} from '../../../../models/device';
-import {getDevice, getWidthHeight} from '../../../../services/utility';
+import {Device} from '@/models/device';
+import {getDevice, getWidthHeight} from '@/services/utility';
 import {
   EqualTwoTextInputs,
   MyView,
   PhoneView,
   SimpleText,
   TextLink,
-} from '../../../../styles/CommonComponents.jsx';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
-import {styles} from '../../../../styles/common/styles';
+} from '@/styles/commonComponents.jsx';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
 import UserTinyPic from '../UserTinyPic.jsx';

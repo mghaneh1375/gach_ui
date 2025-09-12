@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
-import {styles} from '../../../../styles/common/styles';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {styles} from '@/styles/common/styles';
 import translator from '../../../panel/quiz/translator';
 import {
   dispatchMyQuizzesContext,
@@ -12,9 +12,9 @@ import {
 import commonTranslator from '@/translator/common';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import {showSuccess} from '../../../../services/utility';
+import {showSuccess} from '@/services/utility';
 import {launchModeKeyVals} from '../../../panel/quiz/components/keyVals';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 function Copy(props) {
   const useGlobalState = () => [
     React.useContext(myQuizzesContext),

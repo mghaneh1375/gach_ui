@@ -3,15 +3,15 @@ import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {formatPrice} from '@/services/utility';
 import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
-import {LargePopUp} from '../../../../styles/common/PopUp.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import translator from '../../../panel/quiz/translator';
 import {
   dispatchMyQuizzesContext,
   myQuizzesContext,
 } from './../../myQuizzes/components/Context.jsx';
 import commonTranslator from '@/translator/common';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
-import {setCacheItem} from '../../../../api/user';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {setCacheItem} from '@/api/user';
 import SuccessTransaction from '../../../../components/web/successTransaction/SuccessTransaction.jsx';
 import hwTranslator from './translator';
 const Ops = props => {

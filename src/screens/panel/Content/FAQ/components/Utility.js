@@ -1,6 +1,6 @@
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../../../api/utility';
-import {showError, showSuccess} from '../../../../../services/utility';
+import {generalRequest} from '@/api/utility';
+import {showError, showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
 export const getAll = async token => {
   return await generalRequest(routes.getFAQ, 'get', undefined, 'data', token);

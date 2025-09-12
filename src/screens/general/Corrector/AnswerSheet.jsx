@@ -3,14 +3,10 @@ import React, {useState} from 'react';
 import {Image} from 'react-native';
 import {useParams} from 'react-router';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {getDevice, getWidthHeight} from '../../../services/utility';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-} from '../../../styles/CommonComponents.jsx';
-import {FontIcon} from '../../../styles/common/FontIcon.jsx';
-import vars from '../../../styles/root';
+import {getDevice, getWidthHeight} from '@/services/utility';
+import {CommonWebBox, MyView, PhoneView} from '@/styles/CommonComponents.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import vars from '@/styles/root';
 import {DoCorrectProvider} from './components/Context.jsx';
 import Correct from './components/Correct.jsx';
 import Filter from './components/Filter.jsx';

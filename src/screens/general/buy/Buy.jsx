@@ -5,7 +5,7 @@ import {PackageProvider} from './components/Context.jsx';
 import Detail from './components/detail/Detail.jsx';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
-import {getDevice} from '../../../services/utility';
+import {getDevice} from '@/services/utility';
 function Buy(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [

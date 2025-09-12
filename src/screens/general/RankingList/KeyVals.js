@@ -1,4 +1,4 @@
-import commonTranslator from '../../../translator/common';
+import commonTranslator from '@/translator/common';
 export const grades = [
   {
     item: commonTranslator.aval,

@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {CommonButton, EqualTwoTextInputs, MyView} from '@/styles';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import vars from '@/styles/root';
 import translator from '../translate';
 import commonTranslator from '@/translator/common';
 import {changePass} from './utility';
-import {changeText} from '../../../../services/utility';
+import {changeText} from '@/services/utility';
 const ChangePass = props => {
   const [oldPass, setOldPass] = useState('');
   const [pass, setPass] = useState('');

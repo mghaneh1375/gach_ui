@@ -1,5 +1,5 @@
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
-import {styles} from '../../../../styles/common/styles';
+import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import translator from '../translator';
 function HomeBox(props) {

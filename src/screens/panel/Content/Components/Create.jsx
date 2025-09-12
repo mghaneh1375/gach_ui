@@ -6,29 +6,25 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import JustBottomBorderSelect from '../../../../styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {statusKeyVals} from '../../question/components/keyVals';
 import Translator from '../translate';
 import commonTranslator from '@/translator/common';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import MyCustomUploadAdapterPlugin from '../../../../services/myUploadAdapter';
-import JustBottomBorderTextInput from '../../../../styles/common/JustBottomBorderTextInput.jsx';
-import {
-  CKEditorToolbar,
-  showError,
-  trueFalseValues,
-} from '../../../../services/utility';
+import MyCustomUploadAdapterPlugin from '@/services/myUploadAdapter';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {CKEditorToolbar, showError, trueFalseValues} from '@/services/utility';
 import {contentContext, dispatchContentContext} from './Context.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {addFile, fetchContent, removeFile, store, update} from './utility';
-import {styles} from '../../../../styles/common/styles';
-import {SimpleFontIcon} from '../../../../styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {useFilePicker} from 'use-file-picker';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import AttachBox from '../../ticket/components/show/attachBox/AttachBox.jsx';
-import JustBottomBorderDatePicker from '../../../../styles/common/JustBottomBorderDatePicker.jsx';
+import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 import {typeKeyVals} from '../../offcode/components/utility';
 function Create(props) {
   const useGlobalState = () => [

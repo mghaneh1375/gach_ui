@@ -1,5 +1,5 @@
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '../../../../../api/utility';
+import {generalRequest} from '@/api/utility';
 export const fetchMyQuizzes = async (token, advisor, status = undefined) => {
   const query = new URLSearchParams();
   query.append('forAdvisor', advisor);

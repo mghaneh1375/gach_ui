@@ -1,7 +1,7 @@
 import React from 'react';
 import {PhoneView, MyView} from '@/styles';
-import JustBottomBorderSelect from '../../../../../styles/common/JustBottomBorderSelect.jsx';
-import JustBottomBorderTextInput from '../../../../../styles/common/JustBottomBorderTextInput.jsx';
+import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
 import {kindQuizKeyVals, limitedKindQuizKeyVals} from '../keyVals';

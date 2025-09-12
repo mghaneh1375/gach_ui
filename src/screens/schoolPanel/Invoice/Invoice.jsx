@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import {useParams} from 'react-router';
 import {MyView} from '@/styles';
 import {dispatchStateContext} from '@/App.jsx';
-import {generalRequest} from '../../../api/utility';
+import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
-import Recp from '../../../components/web/Recp.jsx';
+import Recp from '@/components/web/Recp.jsx';
 function Invoice(props) {
   const params = useParams();
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
