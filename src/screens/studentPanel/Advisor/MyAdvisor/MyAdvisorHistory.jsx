@@ -8,7 +8,7 @@ import {
   CommonWebBox,
   EqualTwoTextInputs,
   SimpleText,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import {useParams} from 'react-router';
 import {useCallback} from 'react';
 import {fetchSchedule} from '../../../advisorPanel/schedule/components/utility';

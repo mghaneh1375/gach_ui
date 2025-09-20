@@ -7,7 +7,7 @@ import {
   CommonButton,
   SimpleText,
   PhoneView,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import ChangePass from '../components/ChangePass.jsx';
 import ChangeUsername from '../components/ChangeUsername.jsx';
 import UpdateInfo from '../components/UpdateInfo.jsx';

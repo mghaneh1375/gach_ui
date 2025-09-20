@@ -4,7 +4,7 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import {Translator} from '../translate';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';

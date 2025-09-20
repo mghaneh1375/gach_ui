@@ -4,7 +4,7 @@ import {getDevice} from '@/services/utility';
 import {style} from './Style.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import FilterItem from './FilterItem.jsx';
-import {MyView, SimpleText} from '@/styles/commonComponents.jsx';
+import {MyView, SimpleText} from '@/styles/CommonComponents.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import {SimpleTextIcon} from '@/styles/common/TextIcon.jsx';

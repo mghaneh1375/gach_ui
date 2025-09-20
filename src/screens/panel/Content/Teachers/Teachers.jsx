@@ -1,6 +1,6 @@
 import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {CommonWebBox} from '@/styles/commonComponents.jsx';
+import {CommonWebBox} from '@/styles/CommonComponents.jsx';
 import React, {useState} from 'react';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';

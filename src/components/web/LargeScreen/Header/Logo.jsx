@@ -5,7 +5,7 @@ import {style} from './Style.jsx';
 import {faClose, faNavicon} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '@/services/utility';
 import {Device} from '@/models/device';
-import {PhoneView, MyView} from '@/styles/commonComponents.jsx';
+import {PhoneView, MyView} from '@/styles/CommonComponents.jsx';
 import {globalStateContext} from '../../../../App.jsx';
 const Logo = props => {
   const device = getDevice();

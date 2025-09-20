@@ -6,6 +6,7 @@ import {
   MyView,
   CommonRadioButton,
   SimpleText,
+  SimpleFontIcon,
 } from '@/styles';
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
@@ -28,12 +29,15 @@ import {getAnswerSheets, removeStudents} from '../utility';
 import {dispatchQuizContext, quizContext} from '../Context.jsx';
 import StudentAnswerSheet from '../answerSheet/StudentAnswerSheet.jsx';
 import {styles} from '@/styles/common/styles';
+import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
+import BuyChart from '@/components/web/chart/BuyChart';
 const Students = props => {
   const useGlobalState = () => [
     React.useContext(quizContext),
     React.useContext(dispatchQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
+  const [showStats, setShowStats] = useState(false);
   const [isWorking, setIsWorking] = useState(false);
   const [showOpPopUp, setShowOpPopUp] = useState(false);
   const [selectedSudent, setSelectedStudent] = useState(undefined);
@@ -231,111 +235,126 @@ const Students = props => {
         </LargePopUp>
       )}
       {showOpPopUp && state.selectedQuiz.generalMode === 'onlineStanding' && (
-        <CommonWebBox
-          backBtn={true}
-          onBackClick={() => toggleShowOpPopUp()}
-          header={state.selectedQuiz.title}>
-          {selectedSudent !== undefined && selectedSudent.team !== undefined && (
-            <>
-              <SimpleText
+        <>
+          <CommonWebBox
+            backBtn={true}
+            onBackClick={() => toggleShowOpPopUp()}
+            header={state.selectedQuiz.title}>
+            {selectedSudent !== undefined && selectedSudent.team !== undefined && (
+              <>
+                <SimpleText
+                  style={{
+                    ...styles.BlueBold,
+                    ...styles.margin15,
+                  }}
+                  text={translator.members}
+                />
+                <ExcelComma
+                  header={translator.addStudent}
+                  placeholder={commonTranslator.NIDs}
+                  help={commonTranslator.NIDHelp}
+                  newItems={
+                    foundUser === undefined
+                      ? []
+                      : foundUser.map(elem => elem.NID)
+                  }
+                  setNewItems={setFoundUser}
+                  setLoading={props.setLoading}
+                  onSearchClick={() => setShowSearchUser(true)}
+                  token={props.token}
+                  url={
+                    routes.onlineStandingAddMember +
+                    state.selectedQuiz.id +
+                    '/' +
+                    selectedSudent.id
+                  }
+                  afterAddingCallBack={items => {
+                    state.selectedQuiz.students = undefined;
+                    dispatch({
+                      selectedQuiz: state.selectedQuiz,
+                    });
+                    props.setMode('list');
+                  }}
+                />
+                <CommonDataTable
+                  groupOps={[
+                    {
+                      key: 'setMainMember',
+                      url:
+                        routes.onlineStandingChangeMainMember +
+                        state.selectedQuiz.id +
+                        '/' +
+                        selectedSudent.id,
+                      method: 'put',
+                      label: 'انتخاب به عنوان نفر اصلی',
+                      warning: translator.sureChangeMainMember,
+                      afterFunc: arr => {
+                        state.selectedQuiz.students = undefined;
+                        dispatch({
+                          selectedQuiz: state.selectedQuiz,
+                        });
+                        props.setMode('list');
+                      },
+                    },
+                    {
+                      key: 'removeMember',
+                      url:
+                        routes.onlineStandingRemoveMember +
+                        state.selectedQuiz.id +
+                        '/' +
+                        selectedSudent.id,
+                      method: 'delete',
+                      label: 'حذف عضو/اعضا',
+                      warning: commonTranslator.sureRemove,
+                      afterFunc: arr => {
+                        state.selectedQuiz.students = undefined;
+                        dispatch({
+                          selectedQuiz: state.selectedQuiz,
+                        });
+                        props.setMode('list');
+                      },
+                    },
+                  ]}
+                  setLoading={props.setLoading}
+                  token={props.token}
+                  columns={columnsForMember}
+                  data={selectedSudent.team}
+                  pagination={false}
+                  excel={false}
+                />
+              </>
+            )}
+            {props.isAdmin && (
+              <PhoneView
                 style={{
-                  ...styles.BlueBold,
-                  ...styles.margin15,
-                }}
-                text={translator.members}
-              />
-              <ExcelComma
-                header={translator.addStudent}
-                placeholder={commonTranslator.NIDs}
-                help={commonTranslator.NIDHelp}
-                newItems={
-                  foundUser === undefined ? [] : foundUser.map(elem => elem.NID)
-                }
-                setNewItems={setFoundUser}
-                setLoading={props.setLoading}
-                onSearchClick={() => setShowSearchUser(true)}
-                token={props.token}
-                url={
-                  routes.onlineStandingAddMember +
-                  state.selectedQuiz.id +
-                  '/' +
-                  selectedSudent.id
-                }
-                afterAddingCallBack={items => {
-                  state.selectedQuiz.students = undefined;
-                  dispatch({
-                    selectedQuiz: state.selectedQuiz,
-                  });
-                  props.setMode('list');
-                }}
-              />
-              <CommonDataTable
-                groupOps={[
-                  {
-                    key: 'setMainMember',
-                    url:
-                      routes.onlineStandingChangeMainMember +
-                      state.selectedQuiz.id +
-                      '/' +
-                      selectedSudent.id,
-                    method: 'put',
-                    label: 'انتخاب به عنوان نفر اصلی',
-                    warning: translator.sureChangeMainMember,
-                    afterFunc: arr => {
-                      state.selectedQuiz.students = undefined;
-                      dispatch({
-                        selectedQuiz: state.selectedQuiz,
-                      });
-                      props.setMode('list');
-                    },
-                  },
-                  {
-                    key: 'removeMember',
-                    url:
-                      routes.onlineStandingRemoveMember +
-                      state.selectedQuiz.id +
-                      '/' +
-                      selectedSudent.id,
-                    method: 'delete',
-                    label: 'حذف عضو/اعضا',
-                    warning: commonTranslator.sureRemove,
-                    afterFunc: arr => {
-                      state.selectedQuiz.students = undefined;
-                      dispatch({
-                        selectedQuiz: state.selectedQuiz,
-                      });
-                      props.setMode('list');
-                    },
-                  },
-                ]}
-                setLoading={props.setLoading}
-                token={props.token}
-                columns={columnsForMember}
-                data={selectedSudent.team}
-                pagination={false}
-                excel={false}
-              />
-            </>
-          )}
-          {props.isAdmin && (
-            <PhoneView
-              style={{
-                gap: 20,
-              }}>
-              <CommonButton
-                onPress={() => prepareShowAnswerSheet()}
-                dir={'rtl'}
-                theme={'transparent'}
-                title={'مشاهده پاسخ برگ'}
-              />
-            </PhoneView>
-          )}
-        </CommonWebBox>
+                  gap: 20,
+                }}>
+                <CommonButton
+                  onPress={() => prepareShowAnswerSheet()}
+                  dir={'rtl'}
+                  theme={'transparent'}
+                  title={'مشاهده پاسخ برگ'}
+                />
+              </PhoneView>
+            )}
+          </CommonWebBox>
+        </>
       )}
       {!showAnswerSheet &&
         (!showOpPopUp ||
           state.selectedQuiz.generalMode !== 'onlineStanding') && (
           <MyView>
+            <CommonWebBox
+              header={'آمارخرید'}
+              btn={
+                <SimpleFontIcon
+                  kind={'large'}
+                  icon={showStats ? faAngleDown : faAngleUp}
+                  onPress={() => setShowStats(!showStats)}
+                />
+              }>
+              {showStats && <BuyChart data={data} />}
+            </CommonWebBox>
             <SearchUser
               setFinalResult={setFoundUser}
               setShow={setShowSearchUser}

@@ -7,15 +7,16 @@ export const getTransactions = async (
   to,
   useOffCode,
   section,
+  pageIndex,
 ) => {
   const query = new URLSearchParams();
-  if (userId !== undefined) query.append('userId', userId);
-  if (from !== undefined) query.append('from', from);
-  if (to !== undefined) query.append('to', to);
-  if (useOffCode !== undefined && useOffCode !== 'all')
+  if (userId) query.append('userId', userId);
+  if (from) query.append('from', from);
+  if (to) query.append('to', to);
+  if (useOffCode && useOffCode !== 'all')
     query.append('useOffCode', useOffCode);
-  if (section !== undefined && section !== 'all')
-    query.append('section', section);
+  if (section && section !== 'all') query.append('section', section);
+  query.append('pageIndex', pageIndex);
   return await generalRequest(
     routes.getTransactions + query.toString(),
     'get',

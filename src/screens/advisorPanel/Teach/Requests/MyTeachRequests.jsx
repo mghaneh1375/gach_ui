@@ -3,7 +3,7 @@ import {
   CommonButton,
   CommonWebBox,
   PhoneView,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import {Translator} from './translator';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {useEffectOnce} from 'usehooks-ts';

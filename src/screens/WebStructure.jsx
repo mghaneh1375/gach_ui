@@ -11,7 +11,12 @@ const Home = lazy(() => import('./general/home/Home.jsx'));
 const Login = lazy(() => import('./general/login/Login.jsx'));
 const WebLogin = lazy(() => import('./general/login/web/Login'));
 const WebProfile = lazy(() => import('./general/profile/web/Profile'));
-import {getToday, isUserAdmin, isUserEditorAccess} from '../services/utility';
+import {
+  getToday,
+  isUserAdmin,
+  isUserAdvisor,
+  isUserEditorAccess,
+} from '../services/utility';
 import 'react-notifications-component/dist/theme.css';
 import {ReactNotifications} from 'react-notifications-component';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
@@ -40,6 +45,9 @@ const Certificate = lazy(() => import('./panel/certificate/Certificate'));
 const Ticket = lazy(() => import('./panel/ticket/Ticket'));
 const Dashboard = lazy(() => import('./studentPanel/dashboard/Dashboard'));
 const AdminDashboard = lazy(() => import('./panel/dashboard/Dashboard'));
+const AdvisorDashboard = lazy(() =>
+  import('./advisorPanel/dashboard/Dashboard'),
+);
 const BuyReport = lazy(() => import('./panel/reports/buyReport/BuyReport'));
 const Ticketstd = lazy(() => import('./studentPanel/ticket/Ticket'));
 const Author = lazy(() => import('./panel/users/author/Author'));
@@ -418,15 +426,20 @@ const WebStructue = props => {
                       navigate={navigate}
                     />
                   )}
-                  {props.page === 'dashboard' && !isUserAdmin(state.user) && (
-                    <Dashboard
-                      token={state.token}
-                      user={state.user}
-                      navigate={navigate}
-                    />
-                  )}
+                  {props.page === 'dashboard' &&
+                    !isUserAdmin(state.user) &&
+                    !isUserAdvisor(state.user) && (
+                      <Dashboard
+                        token={state.token}
+                        user={state.user}
+                        navigate={navigate}
+                      />
+                    )}
                   {props.page === 'dashboard' && isUserAdmin(state.user) && (
                     <AdminDashboard />
+                  )}
+                  {props.page === 'dashboard' && isUserAdvisor(state.user) && (
+                    <AdvisorDashboard />
                   )}
                   {props.page === 'buyReport' && isUserAdmin(state.user) && (
                     <BuyReport />

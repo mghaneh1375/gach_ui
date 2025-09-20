@@ -117,17 +117,24 @@ export function convertTimestampToJustDate(unix_timestamp) {
   if (unix_timestamp === undefined || unix_timestamp === '') return '...';
   return moment.unix(unix_timestamp / 1000).format('jYYYY/jMM/jDD');
 }
-export function getToday() {
-  return moment.unix(Date.now() / 1000).format('jYYYY/jMM/jDD');
+export function getToday(jalali = true) {
+  const m = moment.unix(Date.now() / 1000);
+  return jalali ? m.format('jYYYY/jMM/jDD') : m.valueOf();
 }
 export function getPast(pastInDays, jalali = true, delimeter = '/') {
   const momentDate = moment.unix(
     (Date.now() - pastInDays * 24 * 60 * 60 * 1000) / 1000,
   );
+
   return jalali
     ? momentDate.format(`jYYYY${delimeter}jMM${delimeter}jDD`)
-    : momentDate;
+    : momentDate.valueOf();
 }
+
+export function convertJalaliDateToTimestamp(jdate) {
+  return moment(jdate, 'jYYYY/jMM/jDD').valueOf();
+}
+
 export function getCurrTime() {
   return moment
     .unix(Date.now() / 1000)
@@ -311,6 +318,12 @@ export const allTrueFalseValues = [
     id: 'all',
   },
 ];
+export function getRandomColor() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r}, ${g}, ${b})`;
+}
 export function formatPrice(Number) {
   Number += '';
   Number = Number.replace(',', '');

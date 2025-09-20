@@ -5,7 +5,7 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import translator from '../translate';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import columns from './components/tableStructure';

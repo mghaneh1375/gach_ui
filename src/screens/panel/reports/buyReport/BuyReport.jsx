@@ -1,14 +1,22 @@
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import sectionValues from '@/constants/sectionValues';
-import {CommonButton, CommonWebBox, PhoneView, SimpleFontIcon} from '@/styles';
-import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
-import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect';
+import {
+  formatPrice,
+  getPast,
+  getRandomColor,
+  getToday,
+} from '@/services/utility';
+import {SimpleText} from '@/styles';
+import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
-import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router';
+import AggregatedReport from './components/AggregatedReport';
+import DrawPieChart from './components/DrawPieChart';
+import Filter from './components/Filter';
+import Stat from './components/Stat';
+import {Translate} from './components/translate';
 
 const queryString = require('query-string');
 function BuyReport() {
@@ -20,47 +28,13 @@ function BuyReport() {
   const [contentBuyers, setContentBuyers] = useState([]);
   const [openQuizBuyers, setOpenQuizBuyers] = useState([]);
   const [adviceBuyers, setAdviceBuyers] = useState([]);
-  const [showContentBuyers, setShowContentBuyers] = useState(true);
-  const [showOpenQuizBuyers, setShowOpenQuizBuyers] = useState(true);
+  const [regularQuizBuyers, setRegularQuizBuyers] = useState([]);
+  const [customQuizBuyers, setCustomQuizBuyers] = useState([]);
+  const [stats, setStats] = useState();
+
   const navigate = useNavigate();
   const {search} = useLocation();
   const [filters, setFilters] = useState();
-
-  const columns = useMemo(
-    () => [
-      {
-        name: commonTranslator.firstname,
-        selector: row => row.firstname,
-        grow: 1,
-      },
-      {
-        name: commonTranslator.lastname,
-        selector: row => row.lastname,
-        grow: 1,
-      },
-      {
-        name: commonTranslator.NID,
-        selector: row => row.nid,
-        grow: 1,
-      },
-      {
-        name: commonTranslator.phone,
-        selector: row => row.phone,
-        grow: 1,
-      },
-      {
-        name: commonTranslator.title,
-        selector: row => row.title,
-        grow: 1,
-      },
-      {
-        name: commonTranslator.registeredAt,
-        selector: row => row.registeredAt,
-        grow: 1,
-      },
-    ],
-    [],
-  );
 
   useEffect(() => {
     const params = queryString.parse(search);
@@ -69,13 +43,19 @@ function BuyReport() {
         params !== null && params.section
           ? params.section.toUpperCase()
           : 'ALL',
-      from: undefined,
-      to: undefined,
+      from: params !== null && params.from ? params.from : getPast(30, false),
+      to: getToday(false),
     });
   }, [search]);
 
   const fetchData = useCallback(async () => {
     dispatch({loading: true});
+    setContentBuyers(null);
+    setOpenQuizBuyers(null);
+    setCustomQuizBuyers(null);
+    setAdviceBuyers(null);
+    setRegularQuizBuyers(null);
+    setStats(undefined);
     const res = await generalRequest(
       routes.buyReport,
       'post',
@@ -88,6 +68,10 @@ function BuyReport() {
     if (res !== null) {
       setContentBuyers(res.contentBuyersInfoDto);
       setOpenQuizBuyers(res.openQuizBuyersInfoDto);
+      setCustomQuizBuyers(res.customQuizBuyersInfoDto);
+      setAdviceBuyers(res.adviceBuyersInfoDto);
+      setRegularQuizBuyers(res.regularQuizBuyersInfoDto);
+      setStats(res.stats);
     } else navigate('/');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, state.token]);
@@ -97,54 +81,152 @@ function BuyReport() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
+  const advisorColumns = useMemo(
+    () => [
+      {
+        name: commonTranslator.title,
+        selector: row => row.title,
+        grow: 1,
+      },
+      {
+        name: commonTranslator.firstname,
+        selector: row => row.user.firstname,
+        grow: 1,
+      },
+      {
+        name: commonTranslator.lastname,
+        selector: row => row.user.lastname,
+        grow: 1,
+      },
+      {
+        name: commonTranslator.NID,
+        selector: row => row.user.nid,
+        grow: 1,
+      },
+      {
+        name: commonTranslator.phone,
+        selector: row => row.user.phone,
+        grow: 1,
+      },
+      {
+        name: commonTranslator.mail,
+        selector: row => row.user.mail,
+        grow: 1,
+      },
+      {
+        name: Translate.advisorName,
+        selector: row => row.advisor.firstname + ' ' + row.advisor.lastname,
+        grow: 1,
+      },
+      {
+        name: commonTranslator.registeredAt,
+        selector: row => row.registeredAt,
+        grow: 1,
+      },
+      {
+        name: commonTranslator.paid,
+        selector: row => formatPrice(row.paid),
+        grow: 1,
+      },
+    ],
+    [],
+  );
+
+  const [showContentAggregatedReport, setShowContentAggregatedReport] =
+    useState(false);
+
+  const [showOpenQuizAggregatedReport, setShowOpenQuizAggregatedReport] =
+    useState(false);
+
+  const [showRegularQuizAggregatedReport, setShowRegularQuizAggregatedReport] =
+    useState(false);
+
+  const [showAdviceAggregatedReport, setShowAdviceAggregatedReport] =
+    useState(false);
+
   return (
     <>
-      <CommonWebBox header={commonTranslator.filter}>
-        <PhoneView>
-          <JustBottomBorderSelect
-            setter={newVal =>
-              setFilters(prevValues => ({
-                ...prevValues,
-                section: newVal,
-              }))
-            }
-            value={sectionValues.find(e => e.id === filters?.section)}
-            values={sectionValues}
-            placeholder={commonTranslator.section_}
-            subText={commonTranslator.section_}
-          />
-        </PhoneView>
-        <CommonButton title={commonTranslator.search} />
-      </CommonWebBox>
-      {contentBuyers !== null && (
-        <CommonWebBox
-          btn={
-            <SimpleFontIcon
-              kind={'large'}
-              onPress={() => setShowContentBuyers(!showContentBuyers)}
-              icon={showContentBuyers ? faAngleDown : faAngleUp}
+      <SimpleText
+        style={{
+          padding: 20,
+          fontSize: 16,
+          fontWeight: 'bold',
+          color: vars.DARK_BLUE,
+        }}
+        text={Translate.title}
+      />
+      {!showContentAggregatedReport &&
+        !showOpenQuizAggregatedReport &&
+        !showAdviceAggregatedReport &&
+        !showRegularQuizAggregatedReport && (
+          <>
+            {filters && <Filter filter={filters} setFilter={setFilters} />}
+
+            {stats && (
+              <DrawPieChart
+                data={Object.keys(stats).map(e => ({
+                  name: e,
+                  value: stats[e],
+                  color: getRandomColor(),
+                }))}
+              />
+            )}
+            <Stat
+              setShowDetailReport={setShowContentAggregatedReport}
+              title={Translate.contentBuyers}
+              data={contentBuyers}
             />
-          }
-          header={'خریداران دوره‌های آموزشی در 30 روز اخیر'}>
-          {showContentBuyers && (
-            <CommonDataTable data={contentBuyers} columns={columns} />
-          )}
-        </CommonWebBox>
+            <Stat
+              setShowDetailReport={setShowAdviceAggregatedReport}
+              title={Translate.adviceBuyers}
+              data={adviceBuyers}
+              customColumns={advisorColumns}
+            />
+            <Stat
+              setShowDetailReport={setShowOpenQuizAggregatedReport}
+              title={Translate.openQuizBuyers}
+              data={openQuizBuyers}
+            />
+            <Stat title={Translate.customQuizBuyers} data={customQuizBuyers} />
+            <Stat
+              setShowDetailReport={setShowRegularQuizAggregatedReport}
+              title={Translate.regularQuizBuyers}
+              data={regularQuizBuyers}
+            />
+          </>
+        )}
+
+      {showContentAggregatedReport && (
+        <AggregatedReport
+          title={Translate.contentAggregateReport}
+          data={contentBuyers}
+          onClose={() => setShowContentAggregatedReport(false)}
+        />
       )}
-      {openQuizBuyers !== null && (
-        <CommonWebBox
-          btn={
-            <SimpleFontIcon
-              kind={'large'}
-              onPress={() => setShowOpenQuizBuyers(!showOpenQuizBuyers)}
-              icon={showOpenQuizBuyers ? faAngleDown : faAngleUp}
-            />
-          }
-          header={'خریداران آزمون‌های باز در 30 روز اخیر'}>
-          {showOpenQuizBuyers && (
-            <CommonDataTable data={openQuizBuyers} columns={columns} />
-          )}
-        </CommonWebBox>
+
+      {showOpenQuizAggregatedReport && (
+        <AggregatedReport
+          title={Translate.openQuizAggregateReport}
+          data={openQuizBuyers}
+          onClose={() => setShowOpenQuizAggregatedReport(false)}
+        />
+      )}
+
+      {showRegularQuizAggregatedReport && (
+        <AggregatedReport
+          title={Translate.regularQuizAggregateReport}
+          data={regularQuizBuyers}
+          onClose={() => setShowRegularQuizAggregatedReport(false)}
+        />
+      )}
+
+      {showAdviceAggregatedReport && (
+        <AggregatedReport
+          title={Translate.adviceAggregateReport}
+          data={adviceBuyers}
+          onClose={() => setShowAdviceAggregatedReport(false)}
+          titleKey="advisorName"
+        />
       )}
     </>
   );

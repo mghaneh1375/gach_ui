@@ -9,7 +9,7 @@ import {
   CommonWebBox,
   MyView,
   SimpleText,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import {styles} from '@/styles/common/styles';
 import RenderHTML from 'react-native-render-html';
 import {

@@ -8,7 +8,7 @@ import {
   CommonWebBox,
   PhoneView,
   SimpleText,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';

@@ -1,9 +1,9 @@
-import { routes } from "../../../../../API/APIRoutes";
-import { generalRequest } from "../../../../../API/Utility";
-import { getDevice } from "../../../../../services/Utility";
-import { CommonButton, CommonWebBox } from "../../../../../styles/Common";
-import CommonDataTable from "../../../../../styles/Common/CommonDataTable";
 import React, {useState} from React;
+import { getDevice } from "@/services/utility";
+import { generalRequest } from "@/api/utility";
+import { routes } from "@/api/apiRoutes";
+import { CommonButton, CommonWebBox } from "@/styles";
+import CommonDataTable from "@/styles/common/CommonDataTable";
 
 let timerVar;
 

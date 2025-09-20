@@ -10,7 +10,7 @@ import {
   MyView,
   PhoneView,
   SimpleText,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import {styles} from '@/styles/common/styles';
 import MyAdvisorFinancePlan from './MyAdvisorFinancePlan.jsx';
 function MyAdvisor(props) {

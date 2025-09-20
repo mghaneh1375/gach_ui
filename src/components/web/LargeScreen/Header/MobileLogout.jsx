@@ -11,7 +11,7 @@ import {
   PhoneView,
   SimpleText,
   TextLink,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import UserTinyPic from '../UserTinyPic.jsx';
 import {TouchableOpacity} from 'react-native';

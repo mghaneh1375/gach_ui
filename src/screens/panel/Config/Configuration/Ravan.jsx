@@ -6,7 +6,7 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import translator from './translator';
 import commonTranslator from '@/translator/common';
 import {showSuccess} from '@/services/utility';

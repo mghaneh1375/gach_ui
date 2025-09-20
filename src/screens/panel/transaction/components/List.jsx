@@ -6,8 +6,10 @@ import columns from './tableStructure';
 import Filter from './fliter/Filter.jsx';
 import Translate from '../translate';
 import {styles} from '@/styles/common/styles';
+import Pagination from '@/components/web/pagination/Pagination';
 function List(props) {
   const [items, setItems] = useState();
+
   React.useEffect(() => {
     setItems(props.transactions);
   }, [props.transactions]);
@@ -35,8 +37,21 @@ function List(props) {
           }
         />
       </PhoneView>
-      {items !== undefined && (
-        <CommonDataTable columns={columns} data={items} groupOps={[]} />
+      {items && (
+        <>
+          <CommonDataTable
+            pagination={false}
+            columns={columns}
+            data={items}
+            groupOps={[]}
+          />
+          <Pagination
+            perPage={20}
+            totalCount={1000}
+            pageIndex={props.pageIndex}
+            setPageIndex={props.setPageIndex}
+          />
+        </>
       )}
     </CommonWebBox>
   );

@@ -16,7 +16,7 @@ import {
   PhoneView,
   SimpleText,
   TextLink,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';

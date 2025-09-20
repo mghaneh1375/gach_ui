@@ -7,7 +7,7 @@ import {
   CommonWebBox,
   MyView,
   PhoneView,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {styles} from '@/styles/common/styles';
 import translator from './translator';

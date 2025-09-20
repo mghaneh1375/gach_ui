@@ -42,6 +42,16 @@ const columns = [
     grow: 1,
   },
   {
+    name: commonTranslator.section_,
+    selector: row =>
+      row.refTitle === null || !row.refTitle
+        ? ''
+        : Array.isArray(row.refTitle)
+        ? row.refTitle.map(e => e.name).join(' - ')
+        : row.refTitle.title,
+    grow: 1,
+  },
+  {
     name: commonTranslator.refId,
     selector: row => row.refId,
     grow: 1,

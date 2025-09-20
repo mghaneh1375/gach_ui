@@ -4,10 +4,10 @@ import {dispatchStateContext} from '@/App.jsx';
 import {getTransactions} from './components/utility';
 import List from './components/List.jsx';
 function Transaction(props) {
-  const [mode, setMode] = useState('list');
   const [transactions, setTransactions] = useState();
   const [sum, setSum] = useState();
   const [accountMoneySum, setAccountMoneySum] = useState();
+  const [pageIndex, setPageIndex] = useState(1);
   const navigate = props.navigate;
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();
@@ -20,7 +20,17 @@ function Transaction(props) {
     dispatch({
       loading: true,
     });
-    Promise.all([getTransactions(props.token)]).then(res => {
+    Promise.all([
+      getTransactions(
+        props.token,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        'all',
+        pageIndex,
+      ),
+    ]).then(res => {
       dispatch({
         loading: false,
       });
@@ -32,10 +42,11 @@ function Transaction(props) {
       setSum(res[0].sum);
       setAccountMoneySum(res[0].accountMoneySum);
     });
-  }, [navigate, props.token, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageIndex]);
   return (
     <MyView>
-      {mode === 'list' && transactions !== undefined && (
+      {transactions && (
         <List
           setTransactions={setTransactions}
           setSum={setSum}
@@ -45,6 +56,8 @@ function Transaction(props) {
           transactions={transactions}
           sum={sum}
           accountMoneySum={accountMoneySum}
+          pageIndex={pageIndex}
+          setPageIndex={setPageIndex}
         />
       )}
     </MyView>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   faAngleDoubleDown,
   faAngleDoubleUp,
@@ -48,6 +48,17 @@ function Filter(props) {
       props.setAccountMoneySum(res.accountMoneySum);
     }
   };
+
+  const sectionAllValues = useMemo(
+    () => [
+      {
+        item: 'شارژ حساب',
+        id: 'charge',
+      },
+      ...sectionKeyVals,
+    ],
+    [],
+  );
   return (
     <MyView>
       <PhoneView
@@ -74,8 +85,8 @@ function Filter(props) {
         </PhoneView>
         <JustBottomBorderSelect
           setter={setSection}
-          values={sectionKeyVals}
-          value={sectionKeyVals.find(elem => elem.id === section)}
+          values={sectionAllValues}
+          value={sectionAllValues.find(elem => elem.id === section)}
           placeholder={commonTranslator.section}
           subText={commonTranslator.section}
         />

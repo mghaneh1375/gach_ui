@@ -5,7 +5,7 @@ import {
   CommonWebBox,
   MyView,
   PhoneView,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {useEffectOnce} from 'usehooks-ts';

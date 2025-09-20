@@ -151,7 +151,7 @@ function SettlementRequests(props) {
     const param = new URLSearchParams();
     if (settledFilter.status !== 'all')
       param.append('status', settledFilter.status);
-    console.log(settledFilter);
+
     if (settledFilter.from) param.append('createdFrom', settledFilter.from);
     if (settledFilter.to) param.append('createdTo', settledFilter.to);
     if (settledFilter.answerFrom)

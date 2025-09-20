@@ -6,7 +6,7 @@ import {
   MyView,
   PhoneView,
   ScreenScroll,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {BlurLoginBack} from './style';
 import LoginModule from '../components/Login.jsx';

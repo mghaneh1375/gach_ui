@@ -4,7 +4,7 @@ import {
   CommonWebBox,
   PhoneView,
   MyView,
-} from '@/styles/commonComponents.jsx';
+} from '@/styles/CommonComponents.jsx';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from './translator';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';

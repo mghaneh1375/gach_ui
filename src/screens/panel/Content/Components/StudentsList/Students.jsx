@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '@/styles';
+import {CommonWebBox, MyView, SimpleFontIcon} from '@/styles';
 import Translator from '../../translate';
 import commonTranslator from '@/translator/common';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
@@ -11,6 +11,9 @@ import columns from './tableStructure';
 import SearchUser from '@/components/web/searchUser/SearchUser.jsx';
 import {changeText} from '@/services/utility';
 import {contentContext, dispatchContentContext} from '../Context.jsx';
+import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
+import BuyChart from '@/components/web/chart/BuyChart';
+
 const Students = props => {
   const useGlobalState = () => [
     React.useContext(contentContext),
@@ -59,8 +62,21 @@ const Students = props => {
   }, [props, isWorking, dispatch, state.selectedContent]);
   const [showSearchUser, setShowSearchUser] = useState(false);
   const [foundUser, setFoundUser] = useState();
+  const [showStats, setShowStats] = useState(false);
+
   return (
     <MyView>
+      <CommonWebBox
+        header={'آمارخرید'}
+        btn={
+          <SimpleFontIcon
+            kind={'large'}
+            icon={showStats ? faAngleDown : faAngleUp}
+            onPress={() => setShowStats(!showStats)}
+          />
+        }>
+        {showStats && <BuyChart data={state.selectedContent.students} />}
+      </CommonWebBox>
       <MyView>
         <SearchUser
           setFinalResult={setFoundUser}
