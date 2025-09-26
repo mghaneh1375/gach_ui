@@ -55,7 +55,7 @@ const itemsUrl = {
     '/admin/report/general?section=ADVISOR&from=' + getPast(30, false),
   lastMonthTeachReportsCount: '/admin/teach/reports',
   pendingComments: '/all-comments',
-  activeTeachers: undefined,
-  activeAdvisors: undefined,
+  activeTeachers: '/users/advisor?additionalLevel=teach',
+  activeAdvisors: '/users/advisor?additionalLevel=advice',
 };
 export {itemsIcon, itemsUrl};

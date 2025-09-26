@@ -77,8 +77,14 @@ export const advisorColumns = [
     grow: 1,
   },
   {
-    name: commonTranslator.sex,
-    selector: row => row.sex,
+    name: 'درصد تسویه مشاوره',
+    selector: row => row.iryscAdvicePercent,
+    center: true,
+    grow: 1,
+  },
+  {
+    name: 'درصد تسویه تدریس',
+    selector: row => row.iryscTeachPercent,
     center: true,
     grow: 1,
   },
@@ -88,8 +94,8 @@ export const advisorColumns = [
     grow: 1,
   },
   {
-    name: commonTranslator.mail,
-    selector: row => row.mail,
+    name: 'تعداد دانش آموزان فعال',
+    selector: row => row.studentsCount,
     grow: 1,
   },
   {

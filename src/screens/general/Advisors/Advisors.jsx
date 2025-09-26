@@ -629,7 +629,18 @@ function Advisors(props) {
                   ...styles.gap15,
                   ...styles.margin15,
                 }}>
-                <CommonWebBox header={'برنامه\u200cها'} />
+                <SimpleText
+                  style={{
+                    color: vars.DARK_BLUE,
+                    fontWeight: 'bold',
+                    fontSize: 18,
+                    borderBottom: `2px solid ${vars.DARK_BLUE}`,
+                    paddingBottom: 8,
+                    marginLeft: 20,
+                    marginRight: 20,
+                  }}
+                  text={'برنامه\u200cها'}
+                />
                 <PhoneView
                   style={
                     state.isInPhone

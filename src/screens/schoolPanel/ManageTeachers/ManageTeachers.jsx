@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
-import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import List from './list/List.jsx';
-import Create from './create/Create.jsx';
-import {removeItems, editItem, addItem} from '@/services/utility';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {addItem, editItem, removeItems} from '@/services/utility';
 import {MyView} from '@/styles';
+import React, {useState} from 'react';
+import Create from './create/Create.jsx';
+import List from './list/List.jsx';
 function ManageTeachers(props) {
-  const queryString = require('query-string');
-  const navigate = props.navigate;
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),

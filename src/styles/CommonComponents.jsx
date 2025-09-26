@@ -177,7 +177,7 @@ export const CommonButton = props => {
       ...textStyle,
       ...props.textStyle,
     };
-  if (props.theme !== undefined) {
+  if (props.theme) {
     const themeRes = chooseTheme(props.theme, allStyles, textStyle);
     allStyles = themeRes[0];
     textStyle = themeRes[1];

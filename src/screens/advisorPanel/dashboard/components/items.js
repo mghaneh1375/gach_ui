@@ -1,11 +1,18 @@
-import {faUsers, faUsersLine, faVideo} from '@fortawesome/free-solid-svg-icons';
+import {
+  faMoneyBill,
+  faUsers,
+  faUsersLine,
+  faVideo,
+} from '@fortawesome/free-solid-svg-icons';
 const itemsIcon = {
   studentsCountForAdvice: faUsers,
   studentsCountForTeach: faUsersLine,
   pendingExamsForPay: faVideo,
   lastMonthCreatedExams: faVideo,
   lastMonthMeetings: faVideo,
-  lastMonthkarbargs: faVideo,
+  lastMonthKarbargs: faVideo,
+  lastMonthSettled: faMoneyBill,
+  pendingSettled: faVideo,
 };
 const itemsUrl = {
   studentsCountForAdvice: '/manageStudent',
@@ -13,6 +20,6 @@ const itemsUrl = {
   pendingExamsForPay: '/mySchoolQuizzes?status=init',
   lastMonthCreatedExams: undefined,
   lastMonthMeetings: undefined,
-  lastMonthkarbargs: undefined,
+  lastMonthKarbargs: undefined,
 };
 export {itemsIcon, itemsUrl};

@@ -153,7 +153,7 @@ function BuyReport() {
           fontWeight: 'bold',
           color: vars.DARK_BLUE,
         }}
-        text={Translate.title}
+        text={commonTranslator.sellReport}
       />
       {!showContentAggregatedReport &&
         !showOpenQuizAggregatedReport &&

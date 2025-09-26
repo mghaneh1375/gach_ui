@@ -1,20 +1,20 @@
-import React, {useState} from 'react';
-import {CommonWebBox, MyView} from '@/styles';
-import {Translate} from '../../translate';
-import Digest from '../digest/Digest.jsx';
-import Filter from '../../../../panel/ticket/components/proSearch/Filter.jsx';
-import {editItem} from '@/services/utility';
-import {useSearchParams} from 'react-router-dom';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
+import {editItem} from '@/services/utility';
+import {CommonWebBox, MyView} from '@/styles';
+import React, {useState} from 'react';
 import Create from '../../../../panel/ticket/components/Create.jsx';
+import Filter from '../../../../panel/ticket/components/proSearch/Filter.jsx';
+import {Translate} from '../../translate';
+import Digest from '../digest/Digest.jsx';
+
 function List(props) {
-  const searchParams = useSearchParams();
   const [isWorking, setIsWorking] = useState();
   const [myAdvisors, setMyAdvisors] = useState();
   const [myStudents, setMyStudents] = useState();
   const [section, setSection] = useState();
   const [refId, setRefId] = useState();
+
   const fetchMyAdvisors = React.useCallback(() => {
     if (isWorking || myAdvisors !== undefined) return;
     props.setLoading(true);
@@ -43,6 +43,7 @@ function List(props) {
       setIsWorking(false);
     });
   }, [props, isWorking, myAdvisors]);
+
   const fetchMyStudents = React.useCallback(() => {
     if (isWorking || myStudents !== undefined) return;
     props.setLoading(true);
@@ -71,15 +72,18 @@ function List(props) {
       setIsWorking(false);
     });
   }, [props, isWorking, myStudents]);
+
   React.useEffect(() => {
     if (section !== 'advisor' || myAdvisors !== undefined) return;
     if (props.isAdmin) fetchMyStudents();
     else fetchMyAdvisors();
   }, [section, myAdvisors, fetchMyAdvisors, fetchMyStudents, props.isAdmin]);
+
   React.useEffect(() => {
-    setSection(searchParams.get('section'));
-    setRefId(searchParams.get('userId'));
-  }, [searchParams]);
+    setSection(props.section);
+    setRefId(props.userId);
+  }, [props.userId, props.section]);
+
   const [isInCreateMode, setIsInCreateMode] = useState(false);
   return (
     <>
@@ -115,7 +119,7 @@ function List(props) {
                 items={props.isAdmin ? myStudents : myAdvisors}
                 setSection={setSection}
                 section={section}
-                userId={searchParams.get('userId')}
+                userId={props.userId}
                 setTickets={props.setTickets}
                 isAdvisor={props.isAdmin}
                 isAdmin={false}

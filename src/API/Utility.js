@@ -66,7 +66,7 @@ export const generalRequest = async (
     (token === undefined || token === null)
   )
     return null;
-  if (data !== undefined && data !== null) {
+  if (data && data !== null && mandatoryFields) {
     try {
       data = preProcess(data, mandatoryFields);
     } catch (err) {
@@ -362,12 +362,10 @@ export const videoFileRequest = async (
   return res;
 };
 export const preProcess = (data, mandatoryFields = undefined) => {
-  if (mandatoryFields !== undefined) {
+  if (mandatoryFields) {
     for (let i = 0; i < mandatoryFields.length; i++) {
       const element = mandatoryFields[i];
       if (data[element] === undefined || data[element].length === 0) {
-        console.log(element);
-        console.log(data[element]);
         showError(commonTranslator.pleaseFillAllFields);
         throw 'please fill all mandatory fields';
       }

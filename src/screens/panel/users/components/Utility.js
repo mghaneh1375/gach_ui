@@ -19,18 +19,15 @@ export const filter = async (
   from = undefined,
   to = undefined,
 ) => {
-  console.log(from);
   const query = new URLSearchParams();
   query.append('level', level);
-  if (NID !== undefined && NID !== '') query.append('NID', NID);
-  if (phone !== undefined && phone !== '') query.append('phone', phone);
-  if (name !== undefined && name !== '') query.append('name', name);
-  if (lastname !== undefined && lastname !== '')
-    query.append('lastname', lastname);
-  if (grade !== undefined && grade !== '') query.append('gradeId', grade);
-  if (branch !== undefined && branch !== '') query.append('branchId', branch);
-  if (additionalLevel !== undefined)
-    query.append('additionalLevel', additionalLevel);
+  if (NID && NID !== '') query.append('NID', NID);
+  if (phone && phone !== '') query.append('phone', phone);
+  if (name && name !== '') query.append('name', name);
+  if (lastname && lastname !== '') query.append('lastname', lastname);
+  if (grade && grade !== '') query.append('gradeId', grade);
+  if (branch && branch !== '') query.append('branchId', branch);
+  if (additionalLevel) query.append('additionalLevel', additionalLevel);
   settlementStatus &&
     query.append('justSettled', settlementStatus === 'settled');
   from && query.append('from', from);

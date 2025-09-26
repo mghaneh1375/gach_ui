@@ -43,18 +43,6 @@ function AdminMenu(props) {
           selected={props.selected === 'dashboard'}
         />
         <SuperMenuItem
-          text={translator.stats}
-          icon={faChartBar}
-          selected={props.selected === 'admin'}
-          navigate={navigate}
-          items={[
-            {
-              text: translator.generalStats,
-              url: '/admin/stats/general',
-            },
-          ]}
-        />
-        <SuperMenuItem
           text={translator.basicDefinition}
           icon={faCog}
           selected={props.selected === 'basic'}
@@ -266,7 +254,7 @@ function AdminMenu(props) {
           ]}
         />
         <SuperMenuItem
-          text={translator.consultants}
+          text={'تگ‌های مشاوره'}
           icon={faUsers}
           selected={props.selected === 'consultants'}
           navigate={navigate}
@@ -394,8 +382,12 @@ function AdminMenu(props) {
           navigate={navigate}
           items={[
             {
-              text: translator.generalStats,
+              text: translator.sellReport,
               url: '/admin/report/general',
+            },
+            {
+              text: translator.generalStats,
+              url: '/admin/stats/general',
             },
           ]}
         />
@@ -636,7 +628,7 @@ function AdminMenu(props) {
         ]}
       />
       <SuperMenuItem
-        text={translator.consultants}
+        text={'تگ‌های مشاوره'}
         icon={faUsers}
         selected={props.selected === 'consultants'}
         navigate={navigate}

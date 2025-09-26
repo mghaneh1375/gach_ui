@@ -1,16 +1,26 @@
-import {faCog} from '@fortawesome/free-solid-svg-icons';
-import React, {useMemo, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {CommonWebBox, MyView, PhoneView} from '@/styles/CommonComponents.jsx';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {formatPrice} from '@/services/utility.js';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import {
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '@/styles/CommonComponents.jsx';
 import vars from '@/styles/root';
+import {faCog} from '@fortawesome/free-solid-svg-icons';
+import React, {useMemo, useState} from 'react';
+import {useNavigate} from 'react-router';
 import DashboardCard from '../../studentPanel/dashboard/dashboardCard/DashboardCard.jsx';
+import AdviceRequest from './components/AdviceRequest.jsx';
 import Config from './components/Config.jsx';
 import {itemsIcon, itemsUrl} from './components/items';
+import Notif from './components/Notif.jsx';
 import {Translate} from './components/translate';
-import {useNavigate} from 'react-router';
+import UnSeenTickets from './components/UnSeenTickets.jsx';
+
 function Dashboard() {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -65,31 +75,106 @@ function Dashboard() {
           />
         }>
         {data && mode === 'dashboard' && (
-          <PhoneView>
-            {Object.keys(data).map((e, index) => {
-              return (
-                <DashboardCard
-                  key={index}
-                  width={state.isInPhone ? '100%' : undefined}
-                  fontSize={18}
-                  text={Translate[e]}
-                  theme={colors[index % 4]}
-                  subtext={data[e]}
-                  borderRight={true}
-                  borderRightWidth={18}
-                  multiline={true}
-                  icon={icons[e]}
-                  onPress={() =>
-                    urls[e] !== undefined
-                      ? window.open(urls[e])
-                      : console.log('no_action_defined')
-                  }
-                />
-              );
-            })}
-          </PhoneView>
+          <>
+            {data.adviceRequests &&
+              data.adviceRequests !== null &&
+              data.adviceRequests.length > 0 && (
+                <>
+                  <SimpleText
+                    style={{
+                      color: vars.DARK_BLUE,
+                      fontWeight: 'bold',
+                      fontSize: '18px',
+                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
+                      paddingBottom: '8px',
+                    }}
+                    text={Translate.newRequests}
+                  />
+                  {data.adviceRequests.map((request, index) => (
+                    <AdviceRequest
+                      key={index}
+                      firstname={request.student.firstname}
+                      lastname={request.student.lastname}
+                      price={request.planDigest.price}
+                      title={request.planDigest.title}
+                      requestAt={request.requestAt}
+                    />
+                  ))}
+                </>
+              )}
+
+            {data.lastNotifs &&
+              data.lastNotifs !== null &&
+              data.lastNotifs.length > 0 && (
+                <>
+                  <SimpleText
+                    style={{
+                      color: vars.DARK_BLUE,
+                      fontWeight: 'bold',
+                      fontSize: '18px',
+                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
+                      paddingBottom: '8px',
+                    }}
+                    text={Translate.lastNotifs}
+                  />
+                  {data.lastNotifs.map((notif, index) => (
+                    <Notif
+                      key={index}
+                      createdAt={notif.createdAt}
+                      title={notif.title}
+                      id={notif.id}
+                    />
+                  ))}
+                </>
+              )}
+
+            <SimpleText
+              style={{
+                color: vars.DARK_BLUE,
+                fontWeight: 'bold',
+                fontSize: '18px',
+                borderBottom: `2px solid ${vars.DARK_BLUE}`,
+                paddingBottom: '8px',
+              }}
+              text={Translate.stats}
+            />
+            <PhoneView>
+              {Object.keys(data)
+                .filter(e => Number.isInteger(data[e]))
+                .map((e, index) => {
+                  return (
+                    <DashboardCard
+                      key={index}
+                      width={state.isInPhone ? '100%' : undefined}
+                      fontSize={18}
+                      text={Translate[e]}
+                      theme={colors[index % 4]}
+                      subtext={formatPrice(data[e])}
+                      borderRight={true}
+                      borderRightWidth={18}
+                      multiline={true}
+                      icon={icons[e]}
+                      onPress={() =>
+                        urls[e] !== undefined
+                          ? window.open(urls[e])
+                          : console.log('no_action_defined')
+                      }
+                    />
+                  );
+                })}
+            </PhoneView>
+
+            {data.unSeenTickets &&
+              data.unSeenTickets !== null &&
+              data.unSeenTickets.length > 0 && (
+                <UnSeenTickets tickets={data.unSeenTickets} />
+              )}
+          </>
         )}
-        {mode === 'config' && <Config />}
+
+        {mode === 'config' && (
+          <Config onClose={() => setMode('dashboard')} token={state.token} />
+        )}
       </CommonWebBox>
     </MyView>
   );

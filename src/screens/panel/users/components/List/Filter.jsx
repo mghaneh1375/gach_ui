@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {useParams} from 'react-router';
+import {useLocation, useParams} from 'react-router';
 import {CommonButton, MyView, PhoneView} from '@/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import commonTranslator from '@/translator/common';
@@ -10,8 +10,13 @@ import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePick
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {levelsKeyVals} from '../../../ticket/components/keyVals';
 import {dispatchUsersContext} from '../Context.jsx';
+
+const queryString = require('query-string');
+
 function Filter(props) {
   const useGlobalState = () => [React.useContext(dispatchUsersContext)];
+  const {search} = useLocation();
+
   const [dispatch] = useGlobalState();
   const [NID, setNID] = useState();
   const [phone, setPhone] = useState();
@@ -19,8 +24,12 @@ function Filter(props) {
   const [lastName, setLastName] = useState();
   const [grade, setGrade] = useState();
   const [branch, setBranch] = useState();
-  const [wantedLevel, setWantedLevel] = useState('all');
-  const [additionalLevel, setAdditionalLevel] = useState('all');
+  const [wantedLevel, setWantedLevel] = useState(
+    props.currLevel && props.currLevel === 'advisor' ? props.currLevel : 'all',
+  );
+  const [additionalLevel, setAdditionalLevel] = useState(
+    queryString.parse(search)?.additionalLevel,
+  );
   const [settlementStatus, setSettlementStatus] = useState('all');
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
@@ -62,6 +71,12 @@ function Filter(props) {
     clearFilters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.clearFilters]);
+
+  useEffect(() => {
+    filterLocal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.pageIndex]);
+
   const filterLocal = React.useCallback(() => {
     props.setLoading(true);
     Promise.all([
@@ -105,10 +120,7 @@ function Filter(props) {
     start,
     end,
   ]);
-  useEffect(() => {
-    filterLocal();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.pageIndex]);
+
   const clearFilters = React.useCallback(() => {
     setNID('');
     setPhone('');
@@ -130,6 +142,7 @@ function Filter(props) {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.pageIndex, level]);
+
   return (
     <MyView
       style={{

@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
-import List from './components/list/List.jsx';
-import {filter} from '../../panel/ticket/components/list/utility';
-import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import Show from '../../panel/ticket/components/show/Show.jsx';
-import Create from '../../panel/ticket/components/Create.jsx';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {addItem, isUserAdvisor, removeItems} from '@/services/utility';
 import {MyView} from '@/styles';
-import {useParams} from 'react-router';
+import React, {useCallback, useMemo, useState} from 'react';
+import {useLocation, useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
-import {useSearchParams} from 'react-router-dom';
+import Create from '../../panel/ticket/components/Create.jsx';
+import {filter} from '../../panel/ticket/components/list/utility';
+import Show from '../../panel/ticket/components/show/Show.jsx';
+import List from './components/list/List.jsx';
+const queryString = require('query-string');
+
 function Ticketstd(props) {
   const [mode, setMode] = useState();
   const [tickets, setTickets] = useState();
@@ -19,14 +20,19 @@ function Ticketstd(props) {
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
-  const isAdvisor = isUserAdvisor(state.user);
+  const {search} = useLocation();
+
+  const [isAdvisor, searchParams] = useMemo(
+    () => [isUserAdvisor(state.user), queryString.parse(search)],
+    [state.user, search],
+  );
   const setLoading = status => {
     dispatch({
       loading: status,
     });
   };
-  const [searchParams, setSearchParams] = useSearchParams();
-  React.useEffect(() => {
+
+  const fetchData = useCallback(() => {
     filter(
       {
         setLoading: status =>
@@ -39,7 +45,7 @@ function Ticketstd(props) {
         isAdmin: false,
       },
       undefined,
-      searchParams.get('section'),
+      searchParams.section,
       undefined,
       undefined,
       undefined,
@@ -48,23 +54,33 @@ function Ticketstd(props) {
       undefined,
       undefined,
       undefined,
-      isAdvisor ? undefined : searchParams.get('userId'),
-      isAdvisor ? searchParams.get('userId') : undefined,
+      isAdvisor ? undefined : searchParams.userId,
+      isAdvisor ? searchParams.userId : undefined,
     );
   }, [navigate, props.token, dispatch, searchParams, isAdvisor]);
+
+  // React.useEffect(() => {
+  //   console.log(searchParams);
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [searchParams]);
+
   const params = useParams();
+
   useEffectOnce(() => {
     if (
       params.section === undefined ||
       params.id === undefined ||
       params.name === undefined
-    )
+    ) {
+      fetchData();
       setMode('list');
-    else setMode('create');
+    } else setMode('create');
   }, [params]);
+
   return (
     <MyView>
-      {mode !== undefined && mode === 'list' && (
+      {mode && mode === 'list' && (
         <List
           tickets={tickets}
           setTickets={setTickets}
@@ -78,9 +94,11 @@ function Ticketstd(props) {
             removeItems(tickets, setTickets, itemRemove)
           }
           addTicket={newItem => addItem(tickets, setTickets, newItem)}
+          section={searchParams.section}
+          userId={searchParams.userId}
         />
       )}
-      {mode !== undefined && mode === 'show' && (
+      {mode && mode === 'show' && (
         <Show
           setLoading={setLoading}
           token={props.token}
@@ -92,7 +110,7 @@ function Ticketstd(props) {
           setSelectedTicket={setSelectedTicket}
         />
       )}
-      {mode !== undefined && mode === 'create' && (
+      {mode && mode === 'create' && (
         <Create
           setLoading={setLoading}
           token={props.token}

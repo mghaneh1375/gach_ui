@@ -13,7 +13,6 @@ export const Translate = {
   section: 'بخش',
   from: 'تاریخ آغاز فیلتر',
   to: 'تاریخ پایان فیلتر',
-  title: 'گزارش فروش سامانه',
   advisorName: 'نام مشاور',
   contentAggregateReport: 'گزارش تجمعی از فروش دوره‌های آموزشی',
   openQuizAggregateReport: 'گزارش تجمعی از فروش آزمون‌های باز',

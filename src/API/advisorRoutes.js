@@ -51,4 +51,6 @@ export const advisorRoutes = {
     'teach/manage/getMyTeachScheduleReportProblems/',
   setMyTeachScheduleReportProblemsForTeacher:
     'teach/manage/setTeachScheduleReportProblems/',
+  getAdvisorDashboardConfig: 'advisor/dashboard/getConfig',
+  setAdvisorDashboardConfig: 'advisor/dashboard/setConfig',
 };
