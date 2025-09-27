@@ -177,6 +177,7 @@ function MyComments(props) {
 
       {comments && (
         <CommonDataTable
+          excel={false}
           handleOp={handleOp}
           paginate={false}
           data={comments}

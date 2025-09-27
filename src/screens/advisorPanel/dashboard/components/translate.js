@@ -12,8 +12,10 @@ export const Translate = {
   requestAt: 'زمان ارسال درخواست',
   newRequests: 'درخواست‌های مشاوره جدید',
   lastNotifs: 'اعلانات اخیر دیده نشده',
+  lastComments: 'نظرات اخیر درباره من',
   lastUnSeenTickets: 'آخرین تیکت‌های مشاهده نشده',
   lastMonthSettled: 'مجموع مبالغ تسویه شده در 30 روز اخیر',
+  inProgressKarbargs: 'کاربرگ‌های در حال تدوین',
   pendingSettled: 'تعداد تراکنش‌های درانتظار پرداخت',
   stats: 'آمار کلی',
   showLastSettleRequest: 'نمایش آخرین تسویه انجام شده',
@@ -25,4 +27,6 @@ export const Translate = {
   showDashboard: 'نمایش آمار کلی',
   showLastNotifs: 'نمایش آخرین اعلانات',
   showLastTickets: 'نمایش آخرین تیکت‌ها',
+  weekStartAt: 'شروع برنامه',
+  studentName: 'نام دانش آموز',
 };

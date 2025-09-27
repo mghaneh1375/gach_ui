@@ -20,6 +20,8 @@ import {itemsIcon, itemsUrl} from './components/items';
 import Notif from './components/Notif.jsx';
 import {Translate} from './components/translate';
 import UnSeenTickets from './components/UnSeenTickets.jsx';
+import LastComment from './components/LastComment.jsx';
+import Schedules from './components/Schedules.jsx';
 
 function Dashboard() {
   const useGlobalState = () => [
@@ -164,10 +166,52 @@ function Dashboard() {
                 })}
             </PhoneView>
 
+            {data.inProgressSchedules &&
+              data.inProgressSchedules !== null &&
+              data.inProgressSchedules.length > 0 && (
+                <>
+                  <SimpleText
+                    style={{
+                      color: vars.DARK_BLUE,
+                      fontWeight: 'bold',
+                      fontSize: '18px',
+                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
+                      paddingBottom: '8px',
+                    }}
+                    text={Translate.inProgressKarbargs}
+                  />
+                  <Schedules schedules={data.inProgressSchedules} />
+                </>
+              )}
+
             {data.unSeenTickets &&
               data.unSeenTickets !== null &&
               data.unSeenTickets.length > 0 && (
                 <UnSeenTickets tickets={data.unSeenTickets} />
+              )}
+
+            {data.lastComments &&
+              data.lastComments !== null &&
+              data.lastComments.length > 0 && (
+                <>
+                  <SimpleText
+                    style={{
+                      color: vars.DARK_BLUE,
+                      fontWeight: 'bold',
+                      fontSize: '18px',
+                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
+                      paddingBottom: '8px',
+                    }}
+                    text={Translate.lastComments}
+                  />
+                  {data.lastComments.map((comment, index) => (
+                    <LastComment
+                      isInPhone={state.isInPhone}
+                      key={index}
+                      comment={comment}
+                    />
+                  ))}
+                </>
               )}
           </>
         )}

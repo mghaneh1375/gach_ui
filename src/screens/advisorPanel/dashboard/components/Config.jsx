@@ -80,11 +80,11 @@ function Config({token, onClose}) {
           setter={newValue =>
             setConfig(prevValues => ({
               ...prevValues,
-              show_filled_karbargs: newValue,
+              show_my_last_comments: newValue,
             }))
           }
           value={trueFalseValues.find(
-            e => e.id === config?.show_filled_karbargs,
+            e => e.id === config?.show_my_last_comments,
           )}
           subText={Translate.showMyLastComments}
           placeholder={Translate.showMyLastComments}
