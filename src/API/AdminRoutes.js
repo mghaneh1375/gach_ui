@@ -78,4 +78,14 @@ export const adminRoutes = {
 
   // BUY REPORTS API
   buyReport: 'admin/report/buyersReport',
+
+  // COMMENT API
+  getAllComments: 'comment/admin/getComments',
+  setCommentStatus: 'comment/admin/setCommentStatus/',
+  toggleTopStatus: 'comment/admin/toggleTopStatus/',
+  getCommentsCount: 'comment/admin/getCommentsCount/',
+  getListOfPackageLevels: 'admin/package_level/list',
+  storePackageLevel: 'admin/package_level/store',
+  updatePackageLevel: 'admin/package_level/update/',
+  removePackageLevel: 'admin/package_level/remove/',
 };

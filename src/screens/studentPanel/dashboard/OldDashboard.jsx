@@ -7,7 +7,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles/common.jsx';
-import {Translate} from './translate';
+import {Translate} from './components/translate';
 import DashboardCard from './dashboardCard/dashboardCard';
 import vars from '@/styles/root';
 import {faExchange, faEye, faIdCard} from '@fortawesome/free-solid-svg-icons';

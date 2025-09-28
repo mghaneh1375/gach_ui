@@ -1,4 +1,5 @@
 import {
+  faCog,
   faExchange,
   faEye,
   faIdCard,
@@ -27,8 +28,10 @@ import commonTranslator from '@/translator/common';
 import ProgressCard from '../myOffs/progressCard/ProgressCard.jsx';
 import DashboardCard from './dashboardCard/DashboardCard.jsx';
 import ExchangeOffer from './ExchangeOffer.jsx';
-import {Translate} from './translate';
+import {Translate} from './components/translate';
 import {getMySummary} from './utility';
+import Config from './components/Config';
+import {FontIcon} from '@/styles';
 function Dashboard(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -59,8 +62,10 @@ function Dashboard(props) {
   const [showExchangeCoinToMoneyPopup, setShowExchangeCoinToMoneyPopup] =
     useState(false);
   const [mode, setMode] = useState('coin');
+  const [showConfig, setShowConfig] = useState(false);
   const [offCodeAmount, setOffCodeAmount] = useState();
   const [code, setCode] = useState();
+
   const check = React.useCallback(() => {
     if (data === undefined || offCodeAmount === undefined) return;
     if (mode === 'coin' && offCodeAmount > data.coin) {
@@ -79,9 +84,11 @@ function Dashboard(props) {
       );
     }
   }, [data, mode, offCodeAmount]);
+
   React.useEffect(() => {
     if (offCodeAmount !== undefined) check();
   }, [offCodeAmount, check]);
+
   return (
     <MyView>
       {createOff && (
@@ -239,6 +246,7 @@ function Dashboard(props) {
           )}
         </LargePopUp>
       )}
+
       {showExchangeCoinToMoneyPopup && (
         <LargePopUp
           header={'موجودی فعلی شما: ' + data.coin + ' ' + commonTranslator.coin}
@@ -294,120 +302,137 @@ function Dashboard(props) {
         </LargePopUp>
       )}
 
-      <CommonWebBox header={Translate.youSee}>
-        {data !== undefined && (
-          <PhoneView>
-            <DashboardCard
-              width={state.isInPhone ? '100%' : undefined}
-              text={Translate.money}
-              theme={vars.ORANGE}
-              subtext={formatPrice(data.money)}
-              btnColor={'yellow'}
-              borderRight={true}
-              borderRightWidth={18}
-              icon={faPlus}
-              onPress={() => navigate('/charge')}
-            />
-            <DashboardCard
-              width={state.isInPhone ? '100%' : undefined}
-              text={commonTranslator.coin}
-              theme={vars.GREEN}
-              subtext={data.coin}
-              btnColor={'blue'}
-              borderRight={true}
-              icon={faExchange}
-              onPress={async () => {
-                if (exchangeOffers) {
-                  setShowExchangeCoinToMoneyPopup(true);
-                  return;
-                }
-                dispatch({
-                  loading: true,
-                });
-                const res = await generalRequest(
-                  routes.exchangeOffers,
-                  'get',
-                  undefined,
-                  'data',
-                  state.token,
-                );
-                dispatch({
-                  loading: false,
-                });
-                if (res != null) {
-                  setExchangeOffers(res);
-                  setShowExchangeCoinToMoneyPopup(true);
-                }
-              }}
-              borderRightWidth={18}
-            />
-            <DashboardCard
-              width={state.isInPhone ? '100%' : undefined}
-              text={Translate.allQuizzes}
-              theme={vars.DARK_BLUE}
-              subtext={data.registrableQuizzes}
-              btnColor={'blue'}
-              borderRight={true}
-              icon={faEye}
-              onPress={() => props.navigate('/buy')}
-              borderRightWidth={18}
-            />
+      <CommonWebBox
+        btn={
+          <FontIcon
+            onPress={() => setShowConfig('config')}
+            back={'blue'}
+            theme="rect"
+            kind="normal"
+            icon={faCog}
+          />
+        }
+        header={Translate.youSee}>
+        {showConfig && (
+          <Config onClose={() => setShowConfig(false)} token={state.token} />
+        )}
+        {!showConfig && data && (
+          <>
+            {data.activeTeachers && data.activeTeachers !== null && (
+              <PhoneView>
+                <DashboardCard
+                  width={state.isInPhone ? '100%' : undefined}
+                  text={Translate.money}
+                  theme={vars.ORANGE}
+                  subtext={formatPrice(data.money)}
+                  btnColor={'yellow'}
+                  borderRight={true}
+                  borderRightWidth={18}
+                  icon={faPlus}
+                  onPress={() => navigate('/charge')}
+                />
+                <DashboardCard
+                  width={state.isInPhone ? '100%' : undefined}
+                  text={commonTranslator.coin}
+                  theme={vars.GREEN}
+                  subtext={data.coin}
+                  btnColor={'blue'}
+                  borderRight={true}
+                  icon={faExchange}
+                  onPress={async () => {
+                    if (exchangeOffers) {
+                      setShowExchangeCoinToMoneyPopup(true);
+                      return;
+                    }
+                    dispatch({
+                      loading: true,
+                    });
+                    const res = await generalRequest(
+                      routes.exchangeOffers,
+                      'get',
+                      undefined,
+                      'data',
+                      state.token,
+                    );
+                    dispatch({
+                      loading: false,
+                    });
+                    if (res != null) {
+                      setExchangeOffers(res);
+                      setShowExchangeCoinToMoneyPopup(true);
+                    }
+                  }}
+                  borderRightWidth={18}
+                />
+                <DashboardCard
+                  width={state.isInPhone ? '100%' : undefined}
+                  text={Translate.allQuizzes}
+                  theme={vars.DARK_BLUE}
+                  subtext={data.registrableQuizzes}
+                  btnColor={'blue'}
+                  borderRight={true}
+                  icon={faEye}
+                  onPress={() => props.navigate('/buy')}
+                  borderRightWidth={18}
+                />
 
-            <DashboardCard
-              width={state.isInPhone ? '100%' : undefined}
-              text={Translate.passedQuizzes}
-              theme={vars.DARK_BLUE}
-              subtext={data.passedQuizzes}
-              btnColor={'blue'}
-              borderRight={true}
-              icon={faEye}
-              onPress={() => props.navigate('/myIRYSCQuizzes/passed')}
-              borderRightWidth={18}
-            />
+                <DashboardCard
+                  width={state.isInPhone ? '100%' : undefined}
+                  text={Translate.passedQuizzes}
+                  theme={vars.DARK_BLUE}
+                  subtext={data.passedQuizzes}
+                  btnColor={'blue'}
+                  borderRight={true}
+                  icon={faEye}
+                  onPress={() => props.navigate('/myIRYSCQuizzes/passed')}
+                  borderRightWidth={18}
+                />
 
-            <DashboardCard
-              width={state.isInPhone ? '100%' : undefined}
-              text={Translate.activeQuizzes}
-              theme={vars.ORANGE_RED}
-              btnColor={'orange'}
-              subtext={data.activeQuizzes}
-              borderRight={true}
-              icon={faEye}
-              onPress={() => props.navigate('/myIRYSCQuizzes/future')}
-              borderRightWidth={18}
-            />
+                <DashboardCard
+                  width={state.isInPhone ? '100%' : undefined}
+                  text={Translate.activeQuizzes}
+                  theme={vars.ORANGE_RED}
+                  btnColor={'orange'}
+                  subtext={data.activeQuizzes}
+                  borderRight={true}
+                  icon={faEye}
+                  onPress={() => props.navigate('/myIRYSCQuizzes/future')}
+                  borderRightWidth={18}
+                />
 
-            <DashboardCard
-              width={state.isInPhone ? '100%' : undefined}
-              text={Translate.createOff}
-              theme={'purple'}
-              subtext={'در فروشگاه کتاب آیریسک!'}
-              subFontSize={15}
-              btnColor={'purple'}
-              borderRight={true}
-              icon={faIdCard}
-              onPress={() => setCreateOff(true)}
-              borderRightWidth={18}
-            />
+                <DashboardCard
+                  width={state.isInPhone ? '100%' : undefined}
+                  text={Translate.createOff}
+                  theme={'purple'}
+                  subtext={'در فروشگاه کتاب آیریسک!'}
+                  subFontSize={15}
+                  btnColor={'purple'}
+                  borderRight={true}
+                  icon={faIdCard}
+                  onPress={() => setCreateOff(true)}
+                  borderRightWidth={18}
+                />
 
-            <DashboardCard
-              width={state.isInPhone ? '100%' : undefined}
-              text={Translate.yourRank}
-              subtext={data.rank}
-              background={vars.GRADIENT}
-              padding={'38px 10px'}
-              borderRight={false}
-            />
-            <DashboardCard
-              width={state.isInPhone ? '100%' : undefined}
-              text={Translate.yourGradeRank}
-              subtext={data.gradeRank}
-              background={vars.GRADIENT}
-              fontSize={20}
-              padding={'38px 10px'}
-              borderRight={false}
-            />
-          </PhoneView>
+                <DashboardCard
+                  width={state.isInPhone ? '100%' : undefined}
+                  text={Translate.yourRank}
+                  subtext={data.rank}
+                  background={vars.GRADIENT}
+                  padding={'38px 10px'}
+                  borderRight={false}
+                />
+                <DashboardCard
+                  width={state.isInPhone ? '100%' : undefined}
+                  text={Translate.yourGradeRank}
+                  subtext={data.gradeRank}
+                  background={vars.GRADIENT}
+                  fontSize={20}
+                  padding={'38px 10px'}
+                  borderRight={false}
+                />
+              </PhoneView>
+            )}
+          </>
         )}
       </CommonWebBox>
     </MyView>

@@ -423,13 +423,9 @@ export const routes = {
   getCommentsAboutMe: 'comment/manage/getCommentsAboutMe',
   toggleCommentMarkedStatus: 'comment/manage/toggleCommentMarkedStatus/',
   removeMyComment: 'comment/manage/removeComment/',
-  getAllComments: 'comment/admin/getComments',
-  setCommentStatus: 'comment/admin/setCommentStatus/',
-  toggleTopStatus: 'comment/admin/toggleTopStatus/',
-  getCommentsCount: 'comment/admin/getCommentsCount/',
-  getListOfPackageLevels: 'admin/package_level/list',
+
   publicGetListOfPackageLevels: 'package_content/public/getListOfPackageLevels',
-  storePackageLevel: 'admin/package_level/store',
-  updatePackageLevel: 'admin/package_level/update/',
-  removePackageLevel: 'admin/package_level/remove/',
+
+  getStudentDashboardConfig: 'dashboard/getConfig',
+  setStudentDashboardConfig: 'dashboard/setConfig',
 };
