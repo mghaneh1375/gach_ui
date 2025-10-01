@@ -18,4 +18,6 @@ export const Translate = {
   showSuggestionForContent: 'نمایش پیشنهادات برای خرید بسته‌های آموزشی',
   showSuggestionForQuiz: 'نمایش پیشنهادات برای خرید آزمون‌ها',
   showFutureQuiz: '(کمتر از 3 روز مانده به شروع آزمون)نمایش آزمون پیشرو',
+  adviceRequests: 'درخواست‌های مشاوره اخیر',
+  myAdvisors: 'مشاوران من',
 };

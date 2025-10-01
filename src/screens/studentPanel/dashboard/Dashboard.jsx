@@ -1,17 +1,13 @@
-import {
-  faCog,
-  faExchange,
-  faEye,
-  faIdCard,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons';
-import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {fetchUser, setCacheItem} from '../../../api/user';
 import {generalRequest} from '@/api/utility';
-import {globalStateContext, dispatchStateContext} from '@/App.jsx';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import CopyBox from '@/components/CopyBox.jsx';
+import Notif from '@/screens/advisorPanel/dashboard/components/Notif';
 import {formatPrice, showError, showSuccess} from '@/services/utility';
+import {FontIcon} from '@/styles';
+import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
+import {styles} from '@/styles/common/styles';
 import {
   CommonButton,
   CommonWebBox,
@@ -20,18 +16,19 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
-import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
-import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
+import {faCog} from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react';
+import {fetchUser, setCacheItem} from '../../../api/user';
 import ProgressCard from '../myOffs/progressCard/ProgressCard.jsx';
-import DashboardCard from './dashboardCard/DashboardCard.jsx';
-import ExchangeOffer from './ExchangeOffer.jsx';
-import {Translate} from './components/translate';
-import {getMySummary} from './utility';
 import Config from './components/Config';
-import {FontIcon} from '@/styles';
+import GeneralInfo from './components/GeneralInfo';
+import {Translate} from './components/translate';
+import ExchangeOffer from './ExchangeOffer.jsx';
+import {getMySummary} from './utility';
+import AdviceRequest from '@/screens/advisorPanel/dashboard/components/AdviceRequest';
+import MyAdvisor from './components/MyAdvisor';
 function Dashboard(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -318,119 +315,96 @@ function Dashboard(props) {
         )}
         {!showConfig && data && (
           <>
+            {data.adviceRequests &&
+              data.adviceRequests !== null &&
+              data.adviceRequests.length > 0 && (
+                <>
+                  <SimpleText
+                    style={{
+                      color: vars.DARK_BLUE,
+                      fontWeight: 'bold',
+                      fontSize: '18px',
+                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
+                      paddingBottom: '8px',
+                    }}
+                    text={Translate.adviceRequests}
+                  />
+                  {data.adviceRequests.map((request, index) => (
+                    <AdviceRequest
+                      key={index}
+                      dashbaordMode="student"
+                      firstname={request.user.firstname}
+                      lastname={request.user.lastname}
+                      price={request.planDigest.price}
+                      title={request.planDigest.title}
+                      requestAt={request.requestAt}
+                      answerAt={request.answerAt}
+                      status={request.status}
+                    />
+                  ))}
+                </>
+              )}
+            {data.lastNotifs &&
+              data.lastNotifs !== null &&
+              data.lastNotifs.length > 0 && (
+                <>
+                  <SimpleText
+                    style={{
+                      color: vars.DARK_BLUE,
+                      fontWeight: 'bold',
+                      fontSize: '18px',
+                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
+                      paddingBottom: '8px',
+                    }}
+                    text={commonTranslator.lastNotifs}
+                  />
+                  {data.lastNotifs.map((notif, index) => (
+                    <Notif
+                      key={index}
+                      createdAt={notif.createdAt}
+                      title={notif.title}
+                      id={notif.id}
+                    />
+                  ))}
+                </>
+              )}
+            {data.myAdvisors &&
+              data.myAdvisors !== null &&
+              data.myAdvisors.length > 0 && (
+                <>
+                  <SimpleText
+                    style={{
+                      color: vars.DARK_BLUE,
+                      fontWeight: 'bold',
+                      fontSize: '18px',
+                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
+                      paddingBottom: '8px',
+                    }}
+                    text={Translate.myAdvisors}
+                  />
+                  {data.myAdvisors.map((advisor, index) => (
+                    <MyAdvisor
+                      key={index}
+                      advisor={advisor.advisor}
+                      rate={advisor.rate}
+                      isInPhone={state.isInPhone}
+                    />
+                  ))}
+                </>
+              )}
             {data.activeTeachers && data.activeTeachers !== null && (
-              <PhoneView>
-                <DashboardCard
-                  width={state.isInPhone ? '100%' : undefined}
-                  text={Translate.money}
-                  theme={vars.ORANGE}
-                  subtext={formatPrice(data.money)}
-                  btnColor={'yellow'}
-                  borderRight={true}
-                  borderRightWidth={18}
-                  icon={faPlus}
-                  onPress={() => navigate('/charge')}
-                />
-                <DashboardCard
-                  width={state.isInPhone ? '100%' : undefined}
-                  text={commonTranslator.coin}
-                  theme={vars.GREEN}
-                  subtext={data.coin}
-                  btnColor={'blue'}
-                  borderRight={true}
-                  icon={faExchange}
-                  onPress={async () => {
-                    if (exchangeOffers) {
-                      setShowExchangeCoinToMoneyPopup(true);
-                      return;
-                    }
-                    dispatch({
-                      loading: true,
-                    });
-                    const res = await generalRequest(
-                      routes.exchangeOffers,
-                      'get',
-                      undefined,
-                      'data',
-                      state.token,
-                    );
-                    dispatch({
-                      loading: false,
-                    });
-                    if (res != null) {
-                      setExchangeOffers(res);
-                      setShowExchangeCoinToMoneyPopup(true);
-                    }
-                  }}
-                  borderRightWidth={18}
-                />
-                <DashboardCard
-                  width={state.isInPhone ? '100%' : undefined}
-                  text={Translate.allQuizzes}
-                  theme={vars.DARK_BLUE}
-                  subtext={data.registrableQuizzes}
-                  btnColor={'blue'}
-                  borderRight={true}
-                  icon={faEye}
-                  onPress={() => props.navigate('/buy')}
-                  borderRightWidth={18}
-                />
-
-                <DashboardCard
-                  width={state.isInPhone ? '100%' : undefined}
-                  text={Translate.passedQuizzes}
-                  theme={vars.DARK_BLUE}
-                  subtext={data.passedQuizzes}
-                  btnColor={'blue'}
-                  borderRight={true}
-                  icon={faEye}
-                  onPress={() => props.navigate('/myIRYSCQuizzes/passed')}
-                  borderRightWidth={18}
-                />
-
-                <DashboardCard
-                  width={state.isInPhone ? '100%' : undefined}
-                  text={Translate.activeQuizzes}
-                  theme={vars.ORANGE_RED}
-                  btnColor={'orange'}
-                  subtext={data.activeQuizzes}
-                  borderRight={true}
-                  icon={faEye}
-                  onPress={() => props.navigate('/myIRYSCQuizzes/future')}
-                  borderRightWidth={18}
-                />
-
-                <DashboardCard
-                  width={state.isInPhone ? '100%' : undefined}
-                  text={Translate.createOff}
-                  theme={'purple'}
-                  subtext={'در فروشگاه کتاب آیریسک!'}
-                  subFontSize={15}
-                  btnColor={'purple'}
-                  borderRight={true}
-                  icon={faIdCard}
-                  onPress={() => setCreateOff(true)}
-                  borderRightWidth={18}
-                />
-
-                <DashboardCard
-                  width={state.isInPhone ? '100%' : undefined}
-                  text={Translate.yourRank}
-                  subtext={data.rank}
-                  background={vars.GRADIENT}
-                  padding={'38px 10px'}
-                  borderRight={false}
-                />
-                <DashboardCard
-                  width={state.isInPhone ? '100%' : undefined}
-                  text={Translate.yourGradeRank}
-                  subtext={data.gradeRank}
-                  background={vars.GRADIENT}
-                  fontSize={20}
-                  padding={'38px 10px'}
-                  borderRight={false}
-                />
-              </PhoneView>
+              <GeneralInfo
+                isInPhone={state.isInPhone}
+                data={data}
+                exchangeOffers={exchangeOffers}
+                setExchangeOffers={setExchangeOffers}
+                token={state.token}
+                dispatch={dispatch}
+                setShowExchangeCoinToMoneyPopup={
+                  setShowExchangeCoinToMoneyPopup
+                }
+                setCreateOff={setCreateOff}
+              />
             )}
           </>
         )}

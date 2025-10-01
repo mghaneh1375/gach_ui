@@ -9,6 +9,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
+import commonTranslator from '@/translator/common';
 import vars from '@/styles/root';
 import {faCog} from '@fortawesome/free-solid-svg-icons';
 import React, {useMemo, useState} from 'react';
@@ -95,8 +96,8 @@ function Dashboard() {
                   {data.adviceRequests.map((request, index) => (
                     <AdviceRequest
                       key={index}
-                      firstname={request.student.firstname}
-                      lastname={request.student.lastname}
+                      firstname={request.user.firstname}
+                      lastname={request.user.lastname}
                       price={request.planDigest.price}
                       title={request.planDigest.title}
                       requestAt={request.requestAt}
@@ -117,7 +118,7 @@ function Dashboard() {
                       borderBottom: `2px solid ${vars.DARK_BLUE}`,
                       paddingBottom: '8px',
                     }}
-                    text={Translate.lastNotifs}
+                    text={commonTranslator.lastNotifs}
                   />
                   {data.lastNotifs.map((notif, index) => (
                     <Notif

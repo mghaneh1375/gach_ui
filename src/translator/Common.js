@@ -307,5 +307,6 @@ const translator = {
   accept: 'تایید کردن',
   detail: 'جزئیات',
   unknow: 'ناشناخته',
+  lastNotifs: 'اعلانات اخیر دیده نشده',
 };
 export default translator;
