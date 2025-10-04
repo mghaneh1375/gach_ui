@@ -37,8 +37,10 @@ function Show(props) {
         <MyView>
           <CommonWebBox
             header={props.ticket.title}
-            backBtn={true}
-            onBackClick={() => props.setMode('list')}
+            backBtn={props.setMode ? true : undefined}
+            onBackClick={
+              props.setMode ? () => props.setMode('list') : undefined
+            }
             child={
               <MyView>
                 <PhoneView

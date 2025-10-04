@@ -341,7 +341,7 @@ function Create(props) {
             />
           </PhoneView>
         </EqualTwoTextInputs>
-        {filesContent !== undefined && filesContent.length > 0 && (
+        {filesContent && filesContent.length > 0 && (
           <PhoneView
             style={{
               marginTop: 20,

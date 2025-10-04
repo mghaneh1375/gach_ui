@@ -92,6 +92,7 @@ const MakeQuiz = lazy(() => import('./studentPanel/makeQuiz/MakeQuiz'));
 const History = lazy(() => import('./studentPanel/history/History'));
 const OpenQuiz = lazy(() => import('./panel/quiz/OpenQuiz'));
 const Content = lazy(() => import('./panel/content/Content'));
+const Missed = lazy(() => import('./panel/content/missed/Missed.jsx'));
 const ShowRecp = lazy(() => import('./studentPanel/recp/ShowRecp'));
 const Packages = lazy(() => import('./general/packages/Packages'));
 const FAQ = lazy(() => import('./panel/content/faq/FAQ.jsx'));
@@ -109,6 +110,13 @@ const SingleNotif = lazy(() => import('./studentPanel/notif/Notif'));
 const PackageLevel = lazy(() => import('./panel/content/level/PackageLevel'));
 import {routes} from '../api/apiRoutes';
 import {generalRequest} from '../api/utility';
+
+const ShowScheduleByUrlForStudent = lazy(() =>
+  import('./advisorPanel/schedule/components/ShowScheduleByUrlForStudent.jsx'),
+);
+const ShowScheduleByUrlForAdvisor = lazy(() =>
+  import('./advisorPanel/schedule/components/ShowScheduleByUrlForAdvisor.jsx'),
+);
 const MyAdvisorHistory = lazy(() =>
   import('./studentPanel/advisor/myAdvisor/MyAdvisorHistory'),
 );
@@ -215,6 +223,7 @@ const SettlementRequests = lazy(() =>
   import('./panel/settlements/SettlementRequests'),
 );
 const RunPDFQuiz = lazy(() => import('./studentPanel/runPDFQuiz/RunPDFQuiz'));
+
 const WebStructue = props => {
   const navigate = useNavigate();
   const useGlobalState = () => [
@@ -486,6 +495,12 @@ const WebStructue = props => {
                   {props.page === 'notif' && (
                     <SingleNotif navigate={navigate} />
                   )}
+                  {props.page === 'showSchedule' && (
+                    <ShowScheduleByUrlForStudent />
+                  )}
+                  {props.page === 'showScheduleForAdvisor' && (
+                    <ShowScheduleByUrlForAdvisor />
+                  )}
                   {props.page === 'invoice' && (
                     <Invoice
                       user={state.user}
@@ -753,6 +768,7 @@ const WebStructue = props => {
                       navigate={navigate}
                     />
                   )}
+                  {props.page === 'findMissedInContent' && <Missed />}
                   {props.page === 'quiz' &&
                     params !== undefined &&
                     params.mode !== undefined &&

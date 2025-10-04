@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import List from './list/List.jsx';
 import Create from './create/Create.jsx';
@@ -13,22 +13,33 @@ import {getAllStudent} from './utility';
 import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin.jsx';
 import {AdvicePanelProvider} from './advisor/components/Context.jsx';
 import Panel from './advisor/Panel.jsx';
+import {useParams} from 'react-router';
+
 function ManageStudents(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
-  const [mode, setMode] = useState('list');
+
+  const params = useParams();
+  const [mode, setMode] = useState(params?.studentId ? 'advisorPanel' : 'list');
   const [selectedStudent, setSelectedStudent] = useState();
   const [state, dispatch] = useGlobalState();
   const [data, setData] = useState();
+  const [wantedUserId, setWantedUserId] = useState();
+
+  useEffect(() => {
+    if (params?.studentId) setWantedUserId(params.studentId);
+  }, [params?.studentId]);
+
   const setLoading = status => {
     dispatch({
       loading: status,
     });
   };
-  React.useEffect(() => {
+
+  const fetchAllStudents = useCallback(() => {
     dispatch({
       loading: true,
     });
@@ -43,7 +54,15 @@ function ManageStudents(props) {
       setData(res[0]);
       setMode('list');
     });
-  }, [navigate, props.token, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.token]);
+
+  React.useEffect(() => {
+    if (params?.studentId) return;
+    fetchAllStudents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params?.studentId]);
+
   const [isAdvisor, setIsAdvisor] = useState(false);
   React.useEffect(() => {
     if (state.user === undefined) return;
@@ -82,9 +101,9 @@ function ManageStudents(props) {
         />
       )}
       <AdvicePanelProvider>
-        {mode === 'advisorPanel' && (
+        {mode === 'advisorPanel' && (wantedUserId || selectedStudent?.id) && (
           <Panel
-            wantedUserId={selectedStudent.id}
+            wantedUserId={wantedUserId ? wantedUserId : selectedStudent?.id}
             setMode={setMode}
             setLoading={setLoading}
             token={props.token}

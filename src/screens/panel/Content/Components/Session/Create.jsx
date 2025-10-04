@@ -561,7 +561,7 @@ function Create(props) {
                   />
                 )}
 
-                {filesContent !== undefined && filesContent.length > 0 && (
+                {filesContent && filesContent.length > 0 && (
                   <AttachBox
                     filename={filesContent[0].name}
                     removeAttach={() => {

@@ -25,27 +25,14 @@ import RenderHTML from 'react-native-render-html';
 import {CKEditorToolbar} from '@/services/utility';
 import Attach from './Attach.jsx';
 import Excel from './Excel.jsx';
+
 function Create(props) {
   const [isWorking, setIsWorking] = useState(false);
   const useGlobalState = () => [
     React.useContext(notifContext),
     React.useContext(dispatchNotifContext),
   ];
-  const removeUploadedAttach = async filename => {
-    // props.setLoading(true);
-    // let res = await removeFile(props.token, filename, state.selectedQuiz.id);
-    // props.setLoading(false);
-    // if (res === null) return;
-    // let tmp = [];
-    // attaches.forEach(element => {
-    //   if (element !== filename) tmp.push(element);
-    // });
-    // setAttaches(tmp);
-    // state.selectedQuiz.attaches = tmp;
-    // dispatch({selectedQuiz: state.selectedQuiz, needUpdate: true});
-  };
   const [state, dispatch] = useGlobalState();
-  const [attaches, setAttaches] = useState();
   const [sendSMS, setSendSMS] = useState('no');
   const [sendMail, setSendMail] = useState('no');
   const [showFilter, setShowFilter] = useState();
@@ -224,7 +211,10 @@ function Create(props) {
           />
         )}
 
-        <Attach attaches={attaches} setFilesContent={setAttachesFilesContent} />
+        <Attach
+          attaches={attachesFilesContent}
+          setFilesContent={setAttachesFilesContent}
+        />
         <Excel setFilesContent={setExcelsFilesContent} />
 
         {props.sendVia !== 'mail' && props.sendVia !== 'sms' && (

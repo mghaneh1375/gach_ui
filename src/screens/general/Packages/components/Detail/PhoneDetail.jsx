@@ -307,8 +307,7 @@ function PhoneDetail(props) {
                       isInMyMode={false}
                       isInPhone={true}
                       key={index}
-                      package={elem}
-                      navigate={props.navigate}
+                      tutorial={elem}
                     />
                   );
                 })}

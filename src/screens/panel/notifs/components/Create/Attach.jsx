@@ -4,15 +4,15 @@ import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '@/styles/common/styles';
 import React from 'react';
-export default function Attach({attaches, setFilesContent}) {
-  const [openFileSelector, {filesContent, remove}] = useFilePicker({
+export default function Attach({setFilesContent}) {
+  const [openFileSelector, {filesContent, clear}] = useFilePicker({
     maxFileSize: 6,
     accept: ['image/*', '.pdf', '.zip'],
-    readAs: 'ArrayBuffer',
+    readAs: 'DataURL',
     multiple: false,
   });
-  const removeAttach = index => {
-    remove(index);
+  const removeAttach = () => {
+    clear();
   };
   React.useEffect(() => {
     setFilesContent(filesContent);
@@ -40,12 +40,12 @@ export default function Attach({attaches, setFilesContent}) {
         style={{
           marginTop: 20,
         }}>
-        {attaches !== undefined &&
+        {/* {attaches &&
           attaches.map((elem, index) => {
             return <AttachBox key={index} filename={elem} />;
-          })}
+          })} */}
 
-        {filesContent !== undefined &&
+        {filesContent &&
           filesContent.length > 0 &&
           filesContent.map((elem, index) => {
             return (
@@ -53,9 +53,7 @@ export default function Attach({attaches, setFilesContent}) {
                 key={index}
                 filename={elem.name}
                 fileContent={elem.content}
-                removeAttach={() => {
-                  removeAttach(index);
-                }}
+                removeAttach={removeAttach}
               />
             );
           })}

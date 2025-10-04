@@ -48,6 +48,7 @@ export const filter = (
   refId = undefined,
   advisorId = undefined,
   studentId = undefined,
+  ticketId = undefined,
 ) => {
   const query = new URLSearchParams();
   if (priority !== undefined && priority !== 'all') {
@@ -59,8 +60,11 @@ export const filter = (
   if (status !== undefined && status !== 'all') {
     query.append('status', status);
   }
-  if (refId !== undefined) {
+  if (refId) {
     query.append('refId', refId);
+  }
+  if (ticketId) {
+    query.append('ticketId', ticketId);
   }
   if (advisorId !== undefined && advisorId !== null) {
     query.append('advisorId', advisorId);
@@ -109,5 +113,10 @@ export const filter = (
       props.setTickets(res[0].tickets);
       if (props.setItems !== undefined) props.setItems(res[0].items);
     } else props.navigate('/');
+
+    if (props.setMode && ticketId) {
+      props.setSelectedTicket(res[0].tickets[0]);
+      props.setMode('show');
+    }
   });
 };

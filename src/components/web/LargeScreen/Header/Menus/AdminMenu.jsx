@@ -307,6 +307,10 @@ function AdminMenu(props) {
               text: translator.copySessions,
               url: '/copy-sessions',
             },
+            {
+              text: translator.contentMissed,
+              url: '/admin/content/findMissed',
+            },
           ]}
         />
         <SuperMenuItem

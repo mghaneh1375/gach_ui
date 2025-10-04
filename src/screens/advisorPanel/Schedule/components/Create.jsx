@@ -53,11 +53,14 @@ import {routes} from '@/api/apiRoutes';
 import vars from '@/styles/root';
 import LastBuyer from '../../../general/packages/components/detail/LastBuyer.jsx';
 import {getGrades} from '../../../panel/basic/utility';
+import {useNavigate} from 'react-router';
+
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(advisorScheduleContext),
     React.useContext(dispatchAdvisorScheduleContext),
   ];
+  const navigate = useNavigate();
   const [state, dispatch] = useGlobalState();
   const [scheduleFor, setScheduleFor] = useState();
   const [description, setDescription] = useState();
@@ -136,6 +139,7 @@ function Create(props) {
       setLessonsKeyVals(grade.lessons);
       setIsWorking(false);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedGrade, isWorking, state, dispatch, props]);
   React.useEffect(() => {
     if (selectedGrade == null) return;
@@ -171,7 +175,7 @@ function Create(props) {
     ]).then(res => {
       props.setLoading(false);
       if (res[0] == null) {
-        props.navigate('/');
+        navigate('/');
         return;
       }
       if (props.isInEditMode) {
@@ -188,6 +192,7 @@ function Create(props) {
         });
       setIsWorking(false);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props, isWorking, dispatch, scheduleFor, state.selectedSchedule]);
   React.useEffect(() => {
     if (scheduleFor === undefined) return;
@@ -259,7 +264,7 @@ function Create(props) {
           res[3] == null ||
           res[4] == null
         ) {
-          props.navigate('/');
+          navigate('/');
           return;
         }
         if (props.isInEditMode)
@@ -287,7 +292,7 @@ function Create(props) {
       ]).then(res => {
         props.setLoading(false);
         if (res[0] == null || res[1] == null) {
-          props.navigate('/');
+          navigate('/');
           return;
         }
         setSelectedSchedule(
@@ -299,6 +304,7 @@ function Create(props) {
         });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props, dispatch, state.selectedSchedule]);
   useEffectOnce(() => {
     if (state.tags !== undefined) return;

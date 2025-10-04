@@ -75,12 +75,18 @@ export const store = async (
 ) => {
   const formData = new FormData();
   let hasFile = false;
-  if (attachFileContent !== null && attachFileContent !== undefined) {
-    formData.append(
-      'file',
-      new Blob([new Uint8Array(attachFileContent.content)]),
-      attachFileContent.name,
-    );
+  if (attachFileContent !== null && attachFileContent) {
+    await fetch(attachFileContent.content)
+      .then(res => res.blob())
+      .then(async blob => {
+        formData.append('file', blob, attachFileContent.name);
+      });
+
+    // formData.append(
+    //   'file',
+    //   new Blob([new Uint8Array(attachFileContent.content)]),
+    //   attachFileContent.name,
+    // );
     hasFile = true;
   }
   if (excelFileContent !== null && excelFileContent !== undefined) {

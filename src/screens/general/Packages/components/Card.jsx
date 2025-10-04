@@ -17,20 +17,23 @@ import {Translator} from '../translator';
 import {Rating} from 'react-native-ratings';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {useMediaQuery} from '@material-ui/core';
-function Card(props) {
+import {useNavigate} from 'react-router';
+
+function Card({tutorial, isInPhone, isInMyMode}) {
+  const navigate = useNavigate();
   const [img, setImg] = useState();
   React.useEffect(() => {
-    setImg(props.package.img);
-  }, [props.package.img]);
+    setImg(tutorial.img);
+  }, [tutorial.img]);
   const size600 = useMediaQuery('(max-width:600px)');
   const isInApp =
     window.navigator.userAgent.toLowerCase().indexOf('android') !== -1;
 
-  // const fontSize = props.isInPhone ? 10 : 11;
-  // const valFontSize = props.isInPhone ? 12 : 15;
+  // const fontSize = isInPhone ? 10 : 11;
+  // const valFontSize = isInPhone ? 12 : 15;
 
   return (
-    <CommonWebBox width={size600 ? '100%' : props.isInPhone ? 320 : 350}>
+    <CommonWebBox width={size600 ? '100%' : isInPhone ? 320 : 350}>
       <Image
         style={{
           width: '100%',
@@ -56,61 +59,63 @@ function Card(props) {
             paddingBottom: 5,
             backgroundColor: vars.SOLID_CREAM,
           }}>
-          <SimpleText style={styles.BlueBold} text={props.package.title} />
+          <SimpleText style={styles.BlueBold} text={tutorial.title} />
         </PhoneView>
-        <PhoneView>
+        <EqualTwoTextInputs>
           <SimpleText
             style={{
               ...styles.BlueBold,
               ...styles.margin15,
-              width: '50%',
             }}
-            text={props.package.sessionsCount + ' جلسه'}
+            text={tutorial.sessionsCount + ' جلسه'}
           />
-
-          {/* <QuizItemCard
-            text={Translator.sessionsCount}
-            val={props.package.sessionsCount + ' جلسه'}
-            icon={faListSquares}
-            textFontSize={fontSize}
-            color={vars.YELLOW}
-            valFontSize={valFontSize}
-           /> */}
-          {/* <QuizItemCard
-            text={Translator.cert}
-            iconVal={props.package.hasCert ? faCheck : faRemove}
-            iconColor={props.package.hasCert ? vars.GREEN : vars.YELLOW}
-            val={'icon'}
-            icon={faSun}
-            color={vars.YELLOW}
-            textFontSize={fontSize}
-            valFontSize={valFontSize}
-           /> */}
-          <PhoneView>
+          {tutorial.buyersCount && (
             <SimpleText
               style={{
                 ...styles.BlueBold,
                 ...styles.margin15,
               }}
-              text={Translator.cert + ' '}
+              text={`${Translator.buyersCount}: ${tutorial.buyersCount}`}
             />
-            <SimpleFontIcon
-              style={{
-                color: props.package.hasCert ? vars.GREEN : vars.YELLOW,
-              }}
-              kind={'normal'}
-              icon={props.package.hasCert ? faCheck : faRemove}
-            />
+          )}
+          {tutorial.hasCert !== undefined && (
+            <PhoneView>
+              <SimpleText
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.margin15,
+                }}
+                text={Translator.cert + ' '}
+              />
+              <SimpleFontIcon
+                style={{
+                  color: tutorial.hasCert ? vars.GREEN : vars.YELLOW,
+                }}
+                kind={'normal'}
+                icon={tutorial.hasCert ? faCheck : faRemove}
+              />
+            </PhoneView>
+          )}
+        </EqualTwoTextInputs>
+        {tutorial.teacher && (
+          <SimpleText
+            style={styles.BlueBold}
+            text={Translator.teacher + commonTranslator.col + tutorial.teacher}
+          />
+        )}
+        {tutorial.teachers && (
+          <PhoneView style={{gap: 10}}>
+            {tutorial.teachers.map((teacher, index) => (
+              <SimpleText
+                key={index}
+                style={styles.BlueBold}
+                text={Translator.teacher + commonTranslator.col + teacher}
+              />
+            ))}
           </PhoneView>
-        </PhoneView>
-        <SimpleText
-          style={styles.BlueBold}
-          text={
-            Translator.teacher + commonTranslator.col + props.package.teacher
-          }
-        />
+        )}
 
-        {props.package.rate !== undefined && (
+        {tutorial.rate !== undefined && (
           <PhoneView
             style={{
               width: '100%',
@@ -125,7 +130,7 @@ function Card(props) {
               style={{
                 direction: 'ltr',
               }}
-              startingValue={props.package.rate}
+              startingValue={tutorial.rate}
             />
           </PhoneView>
         )}
@@ -134,7 +139,7 @@ function Card(props) {
           style={{
             ...styles.flexNoWrap,
           }}>
-          {!props.isInMyMode && (
+          {!isInMyMode && (
             <PhoneView
               style={{
                 ...styles.alignSelfCenter,
@@ -147,8 +152,8 @@ function Card(props) {
               />
               <SimpleText
                 style={
-                  props.package.afterOff !== undefined &&
-                  props.package.price !== props.package.afterOff
+                  tutorial.afterOff !== undefined &&
+                  tutorial.price !== tutorial.afterOff
                     ? {
                         ...styles.textDecorRed,
                         ...styles.BlueBold,
@@ -158,15 +163,15 @@ function Card(props) {
                       }
                 }
                 text={
-                  props.package.price === 0
+                  tutorial.price === 0
                     ? commonTranslator.free
-                    : formatPrice(props.package.price) +
+                    : formatPrice(tutorial.price) +
                       ' ' +
                       commonTranslator.priceUnit
                 }
               />
-              {props.package.afterOff !== undefined &&
-                props.package.price !== props.package.afterOff && (
+              {tutorial.afterOff !== undefined &&
+                tutorial.price !== tutorial.afterOff && (
                   <SimpleText
                     style={{
                       ...styles.BlueBold,
@@ -174,7 +179,7 @@ function Card(props) {
                       ...styles.marginRight15,
                     }}
                     text={
-                      formatPrice(props.package.afterOff) +
+                      formatPrice(tutorial.afterOff) +
                       ' ' +
                       commonTranslator.priceUnit
                     }
@@ -182,26 +187,24 @@ function Card(props) {
                 )}
             </PhoneView>
           )}
-          {props.isInMyMode && <SimpleText />}
+          {isInMyMode && <SimpleText />}
           <CommonButton
             onPress={() =>
               isInApp
-                ? props.navigate('/packages/' + props.package.slug)
-                : window.open('/packages/' + props.package.slug)
+                ? navigate('/packages/' + tutorial.slug)
+                : window.open('/packages/' + tutorial.slug)
             }
             title={Translator.select}
           />
         </EqualTwoTextInputs>
 
         <PhoneView style={styles.gap10}>
-          {props.package.tags !== undefined &&
-            props.package.tags.map((elem, index) => {
+          {tutorial.tags !== undefined &&
+            tutorial.tags.map((elem, index) => {
               return <SimpleText key={index} text={'#' + elem} />;
             })}
         </PhoneView>
-        {props.package.level && (
-          <SimpleText text={'سطح دوره ' + props.package.level} />
-        )}
+        {tutorial.level && <SimpleText text={'سطح دوره ' + tutorial.level} />}
       </MyView>
     </CommonWebBox>
   );

@@ -21,6 +21,7 @@ function Ticketstd(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const {search} = useLocation();
+  const params = useParams();
 
   const [isAdvisor, searchParams] = useMemo(
     () => [isUserAdvisor(state.user), queryString.parse(search)],
@@ -43,6 +44,8 @@ function Ticketstd(props) {
         setTickets: setTickets,
         navigate: navigate,
         isAdmin: false,
+        setMode: setMode,
+        setSelectedTicket: setSelectedTicket,
       },
       undefined,
       searchParams.section,
@@ -56,23 +59,19 @@ function Ticketstd(props) {
       undefined,
       isAdvisor ? undefined : searchParams.userId,
       isAdvisor ? searchParams.userId : undefined,
+      params.ticketId,
     );
-  }, [navigate, props.token, dispatch, searchParams, isAdvisor]);
-
-  // React.useEffect(() => {
-  //   console.log(searchParams);
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [searchParams]);
-
-  const params = useParams();
+  }, [
+    navigate,
+    props.token,
+    dispatch,
+    searchParams,
+    isAdvisor,
+    params.ticketId,
+  ]);
 
   useEffectOnce(() => {
-    if (
-      params.section === undefined ||
-      params.id === undefined ||
-      params.name === undefined
-    ) {
+    if (!params.section || !params.id || !params.name) {
       fetchData();
       setMode('list');
     } else setMode('create');
@@ -102,7 +101,7 @@ function Ticketstd(props) {
         <Show
           setLoading={setLoading}
           token={props.token}
-          setMode={setMode}
+          setMode={params.ticketId ? undefined : setMode}
           user={props.user}
           updateTicket={() => {}}
           isAdmin={isAdvisor}

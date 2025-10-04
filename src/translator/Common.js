@@ -281,6 +281,7 @@ const translator = {
   seoContents: 'سئو',
   teachersContents: 'مدرسان',
   copySessions: 'کپی کردن جلسات',
+  contentMissed: 'خرابی‌های دوره‌های آموزشی',
   results: 'نتایج',
   free: 'رایگان',
   clearFilters: 'پاک کردن فیلترها',

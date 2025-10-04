@@ -1,65 +1,95 @@
-import {SimpleFontIcon, SimpleText} from '@/styles';
-import vars from '@/styles/root';
+import Titr from '@/screens/panel/quiz/components/Titr';
+import {SimpleFontIcon} from '@/styles';
+import CommonDataTable from '@/styles/common/CommonDataTable';
 import commonTranslator from '@/translator/common';
+import {faEye} from '@fortawesome/free-solid-svg-icons';
 import {useMemo} from 'react';
 import {Translate} from './translate';
-import CommonDataTable from '@/styles/common/CommonDataTable';
-import {faEye} from '@fortawesome/free-solid-svg-icons';
 
-function UnSeenTickets({tickets}) {
+function UnSeenTickets({tickets, dashboardMode = 'advisor'}) {
   const columns = useMemo(
-    () => [
-      {
-        name: commonTranslator.sender,
-        selector: row => row.sender.firstname + ' ' + row.sender.lastname,
-        grow: 1,
-      },
-      {
-        name: commonTranslator.operation,
-        cell: (row, index) => (
-          <SimpleFontIcon
-            kind={'med'}
-            key={index}
-            onPress={() => window.open('/ticket/' + row.id)}
-            icon={faEye}
-          />
-        ),
-        grow: 1,
-      },
-      {
-        name: commonTranslator.title,
-        selector: row => row.title,
-        grow: 1,
-      },
-      {
-        name: commonTranslator.sendDate,
-        selector: row => row.sendAt,
-        grow: 1,
-      },
-      {
-        name: commonTranslator.digestMsg,
-        selector: row =>
-          row.description
-            ?.toString()
-            .substr(0, Math.min(50, row.description.length)),
-        grow: 1,
-      },
-    ],
-    [],
+    () =>
+      dashboardMode === 'advisor'
+        ? [
+            {
+              name: commonTranslator.sender,
+              selector: row => row.sender.firstname + ' ' + row.sender.lastname,
+              grow: 1,
+            },
+            {
+              name: commonTranslator.operation,
+              cell: (row, index) => (
+                <SimpleFontIcon
+                  kind={'med'}
+                  key={index}
+                  onPress={() => window.open('/ticket/' + row.id)}
+                  icon={faEye}
+                />
+              ),
+              grow: 1,
+            },
+            {
+              name: commonTranslator.title,
+              selector: row => row.title,
+              grow: 1,
+            },
+            {
+              name: commonTranslator.sendDate,
+              selector: row => row.sendAt,
+              grow: 1,
+            },
+            {
+              name: commonTranslator.digestMsg,
+              selector: row =>
+                row.description
+                  ?.toString()
+                  .substr(0, Math.min(20, row.description.length)),
+              grow: 1,
+            },
+          ]
+        : [
+            {
+              name: commonTranslator.operation,
+              cell: (row, index) => (
+                <SimpleFontIcon
+                  kind={'med'}
+                  key={index}
+                  onPress={() => window.open('/ticket/' + row.id)}
+                  icon={faEye}
+                />
+              ),
+              grow: 1,
+            },
+            {
+              name: commonTranslator.title,
+              selector: row => row.title,
+              grow: 1,
+            },
+            {
+              name: commonTranslator.sendDate,
+              selector: row => row.sendAt,
+              grow: 1,
+            },
+            {
+              name: commonTranslator.answerAt,
+              selector: row => row.answerAt,
+              grow: 1,
+            },
+            {
+              name: commonTranslator.digestMsg,
+              selector: row =>
+                row.description
+                  ?.toString()
+                  .substr(0, Math.min(20, row.description.length)),
+              grow: 1,
+            },
+          ],
+    [dashboardMode],
   );
 
   return (
     <>
-      <SimpleText
-        style={{
-          color: vars.DARK_BLUE,
-          fontWeight: 'bold',
-          fontSize: '18px',
-          borderBottom: `2px solid ${vars.DARK_BLUE}`,
-          paddingBottom: '8px',
-        }}
-        text={Translate.lastUnSeenTickets}
-      />
+      <Titr title={Translate.lastUnSeenTickets} />
       {tickets && (
         <CommonDataTable
           excel={false}

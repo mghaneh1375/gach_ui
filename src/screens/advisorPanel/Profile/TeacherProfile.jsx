@@ -502,8 +502,7 @@ function TeacherProfile(props) {
                       isInMyMode={false}
                       isInPhone={state.isInPhone}
                       key={index}
-                      package={elem}
-                      navigate={props.navigate}
+                      tutorial={elem}
                     />
                   );
                 })}

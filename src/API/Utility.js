@@ -11,9 +11,9 @@ export const CV_BASE_URL = 'https://cv.irysc.com/api/';
 
 // export const VIDEO_BASE_URL = 'http://127.0.0.1:8086/video_api/';
 export const VIDEO_BASE_URL = 'https://video.irysc.com/video_api/';
-export const BASE_URL = 'http://127.0.0.1:8080/api/';
+// export const BASE_URL = 'http://127.0.0.1:8080/api/';
 // export const BASE_URL = 'https://dev.irysc.com/api/';
-// export const BASE_URL = 'https://e.irysc.com/api/';
+export const BASE_URL = 'https://e.irysc.com/api/';
 
 export const COMMON_HEADER = {
   'content-type': 'application/json',
@@ -89,9 +89,8 @@ export const generalRequest = async (
         if (data.msg === 'Token is not valid') {
           await removeAuthCache();
           showError(data.msg);
-          window.location.href = '/';
+          window.location.href = '/login';
           return undefined;
-          // return null;
         }
         showError(data.msg);
         return null;
@@ -124,6 +123,7 @@ export const generalRequest = async (
         showError('شما دسترسی لازم برای انجام این کار را ندارید');
       } else {
         showError(commonTranslator.opErr);
+        return undefined;
       }
       return null;
     });

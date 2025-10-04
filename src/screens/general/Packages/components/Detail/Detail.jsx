@@ -311,8 +311,7 @@ function Detail(props) {
                       isInMyMode={false}
                       isInPhone={isInPhone}
                       key={index}
-                      package={elem}
-                      navigate={props.navigate}
+                      tutorial={elem}
                     />
                   );
                 })}

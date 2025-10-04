@@ -54,13 +54,12 @@ const CreateOpenQuiz = props => {
   const [attaches, setAttaches] = useState(
     state.selectedQuiz === undefined ? [] : state.selectedQuiz.attaches,
   );
-  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
-    useFilePicker({
-      maxFileSize: 6,
-      accept: ['image/*'],
-      readAs: 'DataURL',
-      multiple: true,
-    });
+  const [openFileSelector, {filesContent, remove}] = useFilePicker({
+    maxFileSize: 6,
+    accept: ['image/*'],
+    readAs: 'DataURL',
+    multiple: true,
+  });
   const removeAttach = index => {
     remove(index);
   };

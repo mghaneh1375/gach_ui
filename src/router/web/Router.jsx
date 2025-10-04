@@ -1,9 +1,10 @@
+import {globalStateContext} from '@/App.jsx';
 import {MyView} from '@/styles';
+import {Loader} from '@/styles/common/Loader.jsx';
 import React from 'react';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-import {globalStateContext} from '@/App.jsx';
-import WebStructue from '@/screens/WebStructure.jsx';
-import {Loader} from '@/styles/common/Loader.jsx';
+import AdminRoutes from './AdminRoutes';
+import WebStructue from '@/screens/WebStructure';
 
 export default function WebRouter() {
   const useGlobalState = () => [React.useContext(globalStateContext)];
@@ -18,14 +19,7 @@ export default function WebRouter() {
 
       <Router>
         <Routes>
-          <Route
-            path="admin/stats/general"
-            element={<WebStructue page="generalStats" />}
-          />
-          <Route
-            path="admin/report/general"
-            element={<WebStructue page="buyReport" />}
-          />
+          {AdminRoutes}
           <Route exact path="/" element={<WebStructue page="home" />} />
           <Route path="dashboard" element={<WebStructue page="dashboard" />} />
           <Route
@@ -99,6 +93,14 @@ export default function WebRouter() {
             element={<WebStructue page="mySchedules" />}
           />
           <Route
+            path="showSchedule/:id"
+            element={<WebStructue page="showSchedule" />}
+          />
+          <Route
+            path="showScheduleForAdvisor/:id/:studentId"
+            element={<WebStructue page="showScheduleForAdvisor" />}
+          />
+          <Route
             path="studentProgress/:userId"
             element={<WebStructue page="studentProgress" />}
           />
@@ -134,14 +136,7 @@ export default function WebRouter() {
             path="myTeachRequests"
             element={<WebStructue page="myTeachRequests" />}
           />
-          <Route
-            path="admin/teach/reports"
-            element={<WebStructue page="teachReports" />}
-          />
-          <Route
-            path="admin/teach/list"
-            element={<WebStructue page="allTeaches" />}
-          />
+
           <Route
             path="myComments"
             element={<WebStructue page="myComments" />}
@@ -154,10 +149,7 @@ export default function WebRouter() {
             path="all-comments"
             element={<WebStructue page="allComments" />}
           />
-          <Route
-            path="admin/teach/transactions"
-            element={<WebStructue page="allTeachTransactions" />}
-          />
+
           <Route path="exchanges" element={<WebStructue page="exchanges" />} />
           <Route
             path="all-badges"
@@ -224,6 +216,10 @@ export default function WebRouter() {
           />
           <Route path="/offs" element={<WebStructue page="offs" />} />
           <Route path="/ticket" element={<WebStructue page="ticket" />} />
+          <Route
+            path="/ticket/:ticketId"
+            element={<WebStructue page="ticket" />}
+          />
           <Route
             path="/ticket/:section/:name/:id"
             element={<WebStructue page="ticket" />}
@@ -354,6 +350,10 @@ export default function WebRouter() {
           />
           <Route
             path="/manageStudent"
+            element={<WebStructue page="manageStudent" />}
+          />
+          <Route
+            path="/manageStudent/:studentId"
             element={<WebStructue page="manageStudent" />}
           />
           <Route

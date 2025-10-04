@@ -2,7 +2,12 @@ import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import CopyBox from '@/components/CopyBox.jsx';
+import AdviceRequest from '@/screens/advisorPanel/dashboard/components/AdviceRequest';
 import Notif from '@/screens/advisorPanel/dashboard/components/Notif';
+import Schedules from '@/screens/advisorPanel/dashboard/components/Schedules';
+import UnSeenTickets from '@/screens/advisorPanel/dashboard/components/UnSeenTickets';
+import Card from '@/screens/general/packages/components/Card';
+import Titr from '@/screens/panel/quiz/components/Titr';
 import {formatPrice, showError, showSuccess} from '@/services/utility';
 import {FontIcon} from '@/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
@@ -24,11 +29,11 @@ import {fetchUser, setCacheItem} from '../../../api/user';
 import ProgressCard from '../myOffs/progressCard/ProgressCard.jsx';
 import Config from './components/Config';
 import GeneralInfo from './components/GeneralInfo';
+import Meeting from './components/Meeting';
+import MyAdvisor from './components/MyAdvisor';
 import {Translate} from './components/translate';
 import ExchangeOffer from './ExchangeOffer.jsx';
 import {getMySummary} from './utility';
-import AdviceRequest from '@/screens/advisorPanel/dashboard/components/AdviceRequest';
-import MyAdvisor from './components/MyAdvisor';
 function Dashboard(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -309,26 +314,41 @@ function Dashboard(props) {
             icon={faCog}
           />
         }
-        header={Translate.youSee}>
+        header={''}>
         {showConfig && (
           <Config onClose={() => setShowConfig(false)} token={state.token} />
         )}
         {!showConfig && data && (
           <>
+            {data.currMeetings &&
+              data.currMeetings !== null &&
+              data.currMeetings.length > 0 && (
+                <>
+                  <Titr title={Translate.currMeetings} />
+                  {data.currMeetings.map((e, index) => (
+                    <Meeting
+                      key={index}
+                      createdAt={e.createdAt}
+                      endAt={e.endAt}
+                      url={e.url}
+                      user={e.user}
+                    />
+                  ))}
+                </>
+              )}
+            {data.currentSchedules &&
+              data.currentSchedules !== null &&
+              data.currentSchedules.length > 0 && (
+                <>
+                  <Titr title={Translate.currentSchedules} />
+                  <Schedules schedules={data.currentSchedules} />
+                </>
+              )}
             {data.adviceRequests &&
               data.adviceRequests !== null &&
               data.adviceRequests.length > 0 && (
                 <>
-                  <SimpleText
-                    style={{
-                      color: vars.DARK_BLUE,
-                      fontWeight: 'bold',
-                      fontSize: '18px',
-                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
-                      paddingBottom: '8px',
-                    }}
-                    text={Translate.adviceRequests}
-                  />
+                  <Titr title={Translate.adviceRequests} />
                   {data.adviceRequests.map((request, index) => (
                     <AdviceRequest
                       key={index}
@@ -348,16 +368,7 @@ function Dashboard(props) {
               data.lastNotifs !== null &&
               data.lastNotifs.length > 0 && (
                 <>
-                  <SimpleText
-                    style={{
-                      color: vars.DARK_BLUE,
-                      fontWeight: 'bold',
-                      fontSize: '18px',
-                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
-                      paddingBottom: '8px',
-                    }}
-                    text={commonTranslator.lastNotifs}
-                  />
+                  <Titr title={commonTranslator.lastNotifs} />
                   {data.lastNotifs.map((notif, index) => (
                     <Notif
                       key={index}
@@ -372,40 +383,70 @@ function Dashboard(props) {
               data.myAdvisors !== null &&
               data.myAdvisors.length > 0 && (
                 <>
-                  <SimpleText
-                    style={{
-                      color: vars.DARK_BLUE,
-                      fontWeight: 'bold',
-                      fontSize: '18px',
-                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
-                      paddingBottom: '8px',
-                    }}
-                    text={Translate.myAdvisors}
-                  />
+                  <Titr title={Translate.myAdvisors} />
                   {data.myAdvisors.map((advisor, index) => (
                     <MyAdvisor
                       key={index}
+                      startAt={advisor.startAt}
+                      endAt={advisor.endAt}
                       advisor={advisor.advisor}
                       rate={advisor.rate}
+                      stdCount={advisor.stdCount}
+                      age={advisor.age}
                       isInPhone={state.isInPhone}
                     />
                   ))}
                 </>
               )}
             {data.activeTeachers && data.activeTeachers !== null && (
-              <GeneralInfo
-                isInPhone={state.isInPhone}
-                data={data}
-                exchangeOffers={exchangeOffers}
-                setExchangeOffers={setExchangeOffers}
-                token={state.token}
-                dispatch={dispatch}
-                setShowExchangeCoinToMoneyPopup={
-                  setShowExchangeCoinToMoneyPopup
-                }
-                setCreateOff={setCreateOff}
-              />
+              <>
+                <Titr title={Translate.youSee} />
+                <GeneralInfo
+                  isInPhone={state.isInPhone}
+                  data={data}
+                  exchangeOffers={exchangeOffers}
+                  setExchangeOffers={setExchangeOffers}
+                  token={state.token}
+                  dispatch={dispatch}
+                  setShowExchangeCoinToMoneyPopup={
+                    setShowExchangeCoinToMoneyPopup
+                  }
+                  setCreateOff={setCreateOff}
+                />
+              </>
             )}
+            {data.tutorialsSuggestion && data.tutorialsSuggestion.length > 0 && (
+              <>
+                <Titr title={Translate.tutorialsSuggestion} />
+                <PhoneView style={{gap: 10}}>
+                  {data.tutorialsSuggestion.map((e, index) => {
+                    if (e.off !== null && e.off) {
+                      e.afterOff =
+                        e.off.type === 'percent'
+                          ? (100 - e.off.amount) * e.price
+                          : e.price - e.off.amount;
+                    }
+
+                    return (
+                      <Card
+                        isInMyMode={false}
+                        isInPhone={state.isInPhone}
+                        tutorial={e}
+                        key={index}
+                      />
+                    );
+                  })}
+                </PhoneView>
+              </>
+            )}
+            {data.unSeenTickets &&
+              data.unSeenTickets !== null &&
+              data.unSeenTickets.length > 0 && (
+                <UnSeenTickets
+                  tickets={data.unSeenTickets}
+                  dashboardMode="student"
+                />
+              )}
           </>
         )}
       </CommonWebBox>

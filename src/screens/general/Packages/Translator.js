@@ -18,4 +18,5 @@ export const Translator = {
   publicOff: 'هدیه آیریسک',
   wallet: 'کیف پول',
   level: 'سطح',
+  buyersCount: 'تعداد خریداران',
 };

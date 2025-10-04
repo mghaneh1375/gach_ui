@@ -9,6 +9,7 @@ import MobileLogout from '../MobileLogout.jsx';
 import {MenuItemPhone, style} from '../Style.jsx';
 import MenuItemRepeat from './MenuItemRepeat.jsx';
 import MenuItemRepeatForPhone from './MenuItemRepeatForPhone.jsx';
+
 function StudentMenu(props) {
   const device = getDevice();
   const navigate = props.navigate;
@@ -21,8 +22,13 @@ function StudentMenu(props) {
         // excludes={['advisor', 'mySchool']}
         excludes={
           state.user?.user?.hasAdvisor
-            ? []
-            : ['my_advisor', 'my_advisor_quizzes', 'my_schedules']
+            ? ['quiz_makeQuiz']
+            : [
+                'my_advisor',
+                'my_advisor_quizzes',
+                'my_schedules',
+                'quiz_makeQuiz',
+              ]
         }
         navigate={props.navigate}
         selected={props.selected}
@@ -40,7 +46,7 @@ function StudentMenu(props) {
         },
       }}>
       <MenuItemRepeatForPhone
-        excludes={['certs', 'mySchool']}
+        excludes={['certs', 'mySchool', 'quiz_makeQuiz']}
         navigate={props.navigate}
         selected={props.selected}
         child={

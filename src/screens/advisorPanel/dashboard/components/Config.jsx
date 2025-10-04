@@ -38,6 +38,34 @@ function Config({token, onClose}) {
           setter={newValue =>
             setConfig(prevValues => ({
               ...prevValues,
+              show_my_curr_students: newValue,
+            }))
+          }
+          value={trueFalseValues.find(
+            e => e.id === config?.show_my_curr_students,
+          )}
+          subText={Translate.showMyAdviceStudents}
+          placeholder={Translate.showMyAdviceStudents}
+        />
+        <JustBottomBorderSelect
+          values={trueFalseValues}
+          setter={newValue =>
+            setConfig(prevValues => ({
+              ...prevValues,
+              show_my_future_teaches: newValue,
+            }))
+          }
+          value={trueFalseValues.find(
+            e => e.id === config?.show_my_future_teaches,
+          )}
+          subText={Translate.showMyFutureTeaches}
+          placeholder={Translate.showMyFutureTeaches}
+        />
+        <JustBottomBorderSelect
+          values={trueFalseValues}
+          setter={newValue =>
+            setConfig(prevValues => ({
+              ...prevValues,
               show_last_settle_request: newValue,
             }))
           }

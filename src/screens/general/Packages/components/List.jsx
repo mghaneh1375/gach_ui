@@ -314,9 +314,8 @@ function List(props) {
                   <Card
                     isInMyMode={props.isInMyMode}
                     isInPhone={isInPhone}
-                    package={elem}
+                    tutorial={elem}
                     key={index}
-                    navigate={props.navigate}
                   />
                 );
               })}

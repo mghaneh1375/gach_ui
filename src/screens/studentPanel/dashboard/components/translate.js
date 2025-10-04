@@ -20,4 +20,13 @@ export const Translate = {
   showFutureQuiz: '(کمتر از 3 روز مانده به شروع آزمون)نمایش آزمون پیشرو',
   adviceRequests: 'درخواست‌های مشاوره اخیر',
   myAdvisors: 'مشاوران من',
+  startAdviceAt: 'تاریخ شروع مشاوره',
+  endAdviceAt: 'تاریخ اتمام مشاوره',
+  tutorialsSuggestion: 'بسته‌های پیشنهادی مخصوص شما',
+  currMeetings: 'جلسات آنلاین شما',
+  meetingStartAt: 'تاریخ شروع جلسه',
+  meetingEndAt: 'تاریخ اتمام جلسه',
+  meetingTeacher: 'استاد جلسه',
+  meetingUrl: 'لینک ورود به جلسه',
+  currentSchedules: 'کاربرگ‌های هفته جاری',
 };

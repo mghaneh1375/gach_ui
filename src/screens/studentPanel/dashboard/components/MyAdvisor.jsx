@@ -9,9 +9,14 @@ import {
 } from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import {faCalendarAlt, faUser} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendar,
+  faCalendarAlt,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import {useEffect, useState} from 'react';
 import {Image, Pressable} from 'react-native';
+import {Translate} from './translate';
 
 function MyAdvisor({advisor, startAt, endAt, rate, stdCount, age, isInPhone}) {
   const [pic, setPic] = useState();
@@ -20,7 +25,7 @@ function MyAdvisor({advisor, startAt, endAt, rate, stdCount, age, isInPhone}) {
   }, [advisor.pic]);
   return (
     <>
-      <CommonWebBox width={300}>
+      <CommonWebBox width={500}>
         <EqualTwoTextInputs
           style={{
             ...styles.justifyContentCenter,
@@ -38,27 +43,29 @@ function MyAdvisor({advisor, startAt, endAt, rate, stdCount, age, isInPhone}) {
             }}
             text={advisor.firstname + ' ' + advisor.lastname}
           />
-          <PhoneView
-            style={{
-              ...styles.positionAbsolute,
-              top: -5,
-              left: 15,
-              ...styles.gap15,
-            }}>
-            <SimpleText
+          {rate !== null && rate && (
+            <PhoneView
               style={{
-                ...styles.colorDarkBlue,
-                ...styles.alignSelfCenter,
-              }}
-              text={'امتیاز'}
-            />
-            <Circle
-              diameter={50}
-              text={rate === null ? '-' : rate}
-              color={vars.WHITE}
-              backgroundColor={vars.ORANGE_RED}
-            />
-          </PhoneView>
+                ...styles.positionAbsolute,
+                top: -5,
+                left: 15,
+                ...styles.gap15,
+              }}>
+              <SimpleText
+                style={{
+                  ...styles.colorDarkBlue,
+                  ...styles.alignSelfCenter,
+                }}
+                text={'امتیاز'}
+              />
+              <Circle
+                diameter={50}
+                text={rate}
+                color={vars.WHITE}
+                backgroundColor={vars.ORANGE_RED}
+              />
+            </PhoneView>
+          )}
         </EqualTwoTextInputs>
 
         <PhoneView
@@ -128,9 +135,9 @@ function MyAdvisor({advisor, startAt, endAt, rate, stdCount, age, isInPhone}) {
                   maxWidth={350}
                 />
                 <QuizItemCard
-                  text={'سن'}
-                  val={age + ' سال'}
-                  icon={faCalendarAlt}
+                  text={Translate.startAdviceAt}
+                  val={startAt}
+                  icon={faCalendar}
                   background={false}
                   iconFontSize={'normal'}
                   color={vars.YELLOW}
@@ -140,6 +147,34 @@ function MyAdvisor({advisor, startAt, endAt, rate, stdCount, age, isInPhone}) {
                   isBoldValue={false}
                   maxWidth={350}
                 />
+                <QuizItemCard
+                  text={Translate.endAdviceAt}
+                  val={endAt}
+                  icon={faCalendar}
+                  background={false}
+                  iconFontSize={'normal'}
+                  color={vars.YELLOW}
+                  textFontSize={14}
+                  valFontSize={14}
+                  isBold={true}
+                  isBoldValue={false}
+                  maxWidth={350}
+                />
+                {age && (
+                  <QuizItemCard
+                    text={'سن'}
+                    val={age + ' سال'}
+                    icon={faCalendarAlt}
+                    background={false}
+                    iconFontSize={'normal'}
+                    color={vars.YELLOW}
+                    textFontSize={14}
+                    valFontSize={14}
+                    isBold={true}
+                    isBoldValue={false}
+                    maxWidth={350}
+                  />
+                )}
               </MyView>
             </MyView>
           </PhoneView>

@@ -1,16 +1,12 @@
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import Titr from '@/screens/panel/quiz/components/Titr.jsx';
 import {formatPrice} from '@/services/utility.js';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
-import {
-  CommonWebBox,
-  MyView,
-  PhoneView,
-  SimpleText,
-} from '@/styles/CommonComponents.jsx';
-import commonTranslator from '@/translator/common';
+import {CommonWebBox, MyView, PhoneView} from '@/styles/CommonComponents.jsx';
 import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
 import {faCog} from '@fortawesome/free-solid-svg-icons';
 import React, {useMemo, useState} from 'react';
 import {useNavigate} from 'react-router';
@@ -18,11 +14,13 @@ import DashboardCard from '../../studentPanel/dashboard/dashboardCard/DashboardC
 import AdviceRequest from './components/AdviceRequest.jsx';
 import Config from './components/Config.jsx';
 import {itemsIcon, itemsUrl} from './components/items';
+import LastComment from './components/LastComment.jsx';
 import Notif from './components/Notif.jsx';
+import Schedules from './components/Schedules.jsx';
 import {Translate} from './components/translate';
 import UnSeenTickets from './components/UnSeenTickets.jsx';
-import LastComment from './components/LastComment.jsx';
-import Schedules from './components/Schedules.jsx';
+import Meeting from './components/Meeting.jsx';
+import MyCurrStudent from './components/MyCurrStudent.jsx';
 
 function Dashboard() {
   const useGlobalState = () => [
@@ -79,20 +77,27 @@ function Dashboard() {
         }>
         {data && mode === 'dashboard' && (
           <>
+            {data.currMeetings &&
+              data.currMeetings !== null &&
+              data.currMeetings.length > 0 && (
+                <>
+                  <Titr title={Translate.currMeetings} />
+                  {data.currMeetings.map((e, index) => (
+                    <Meeting
+                      key={index}
+                      createdAt={e.createdAt}
+                      endAt={e.endAt}
+                      url={e.url}
+                      user={e.user}
+                    />
+                  ))}
+                </>
+              )}
             {data.adviceRequests &&
               data.adviceRequests !== null &&
               data.adviceRequests.length > 0 && (
                 <>
-                  <SimpleText
-                    style={{
-                      color: vars.DARK_BLUE,
-                      fontWeight: 'bold',
-                      fontSize: '18px',
-                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
-                      paddingBottom: '8px',
-                    }}
-                    text={Translate.newRequests}
-                  />
+                  <Titr title={Translate.newRequests} />
                   {data.adviceRequests.map((request, index) => (
                     <AdviceRequest
                       key={index}
@@ -110,16 +115,7 @@ function Dashboard() {
               data.lastNotifs !== null &&
               data.lastNotifs.length > 0 && (
                 <>
-                  <SimpleText
-                    style={{
-                      color: vars.DARK_BLUE,
-                      fontWeight: 'bold',
-                      fontSize: '18px',
-                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
-                      paddingBottom: '8px',
-                    }}
-                    text={commonTranslator.lastNotifs}
-                  />
+                  <Titr title={commonTranslator.lastNotifs} />
                   {data.lastNotifs.map((notif, index) => (
                     <Notif
                       key={index}
@@ -131,16 +127,7 @@ function Dashboard() {
                 </>
               )}
 
-            <SimpleText
-              style={{
-                color: vars.DARK_BLUE,
-                fontWeight: 'bold',
-                fontSize: '18px',
-                borderBottom: `2px solid ${vars.DARK_BLUE}`,
-                paddingBottom: '8px',
-              }}
-              text={Translate.stats}
-            />
+            <Titr title={Translate.stats} />
             <PhoneView>
               {Object.keys(data)
                 .filter(e => Number.isInteger(data[e]))
@@ -171,17 +158,17 @@ function Dashboard() {
               data.inProgressSchedules !== null &&
               data.inProgressSchedules.length > 0 && (
                 <>
-                  <SimpleText
-                    style={{
-                      color: vars.DARK_BLUE,
-                      fontWeight: 'bold',
-                      fontSize: '18px',
-                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
-                      paddingBottom: '8px',
-                    }}
-                    text={Translate.inProgressKarbargs}
-                  />
+                  <Titr title={Translate.inProgressKarbargs} />
                   <Schedules schedules={data.inProgressSchedules} />
+                </>
+              )}
+
+            {data.filledSchedules &&
+              data.filledSchedules !== null &&
+              data.filledSchedules.length > 0 && (
+                <>
+                  <Titr title={Translate.filledSchedules} />
+                  <Schedules schedules={data.filledSchedules} />
                 </>
               )}
 
@@ -190,21 +177,29 @@ function Dashboard() {
               data.unSeenTickets.length > 0 && (
                 <UnSeenTickets tickets={data.unSeenTickets} />
               )}
-
+            {data.myCurrStudents &&
+              data.myCurrStudents !== null &&
+              data.myCurrStudents.length > 0 && (
+                <>
+                  <Titr title={Translate.myCurrStudents} />
+                  <PhoneView style={{gap: 10}}>
+                    {data.myCurrStudents.map((std, index) => (
+                      <MyCurrStudent
+                        isInPhone={state.isInPhone}
+                        key={index}
+                        student={std.student}
+                        startAt={std.startAt}
+                        endAt={std.endAt}
+                      />
+                    ))}
+                  </PhoneView>
+                </>
+              )}
             {data.lastComments &&
               data.lastComments !== null &&
               data.lastComments.length > 0 && (
                 <>
-                  <SimpleText
-                    style={{
-                      color: vars.DARK_BLUE,
-                      fontWeight: 'bold',
-                      fontSize: '18px',
-                      borderBottom: `2px solid ${vars.DARK_BLUE}`,
-                      paddingBottom: '8px',
-                    }}
-                    text={Translate.lastComments}
-                  />
+                  <Titr title={Translate.lastComments} />
                   {data.lastComments.map((comment, index) => (
                     <LastComment
                       isInPhone={state.isInPhone}

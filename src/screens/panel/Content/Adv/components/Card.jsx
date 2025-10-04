@@ -24,13 +24,12 @@ import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
 function Card(props) {
   const [show, setShow] = useState(false);
   const [file, setFile] = useState();
-  const [openFileSelector, {filesContent, loading, errors, clear, remove}] =
-    useFilePicker({
-      maxFileSize: 15,
-      accept: ['video/*'],
-      readAs: 'ArrayBuffer',
-      multiple: false,
-    });
+  const [openFileSelector, {filesContent, remove}] = useFilePicker({
+    maxFileSize: 15,
+    accept: ['video/*'],
+    readAs: 'ArrayBuffer',
+    multiple: false,
+  });
   const removeFile = index => {
     remove(index);
   };

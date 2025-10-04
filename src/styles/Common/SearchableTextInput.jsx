@@ -46,7 +46,7 @@ export const SearchableTextInput = props => {
         onFocus={() => setSelectingStatue(true)}
         onBlur={() => setSelectingStatue(false)}
         key={suggest.id}
-        onPress={e => select(suggest)}>
+        onPress={() => select(suggest)}>
         <SimpleText
           style={{
             cursor: 'pointer',
