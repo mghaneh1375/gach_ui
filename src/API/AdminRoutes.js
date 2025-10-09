@@ -4,6 +4,7 @@ export const adminRoutes = {
   settlementRequests: 'admin/settled/getSettledRequests',
   createSettlementRequest: 'admin/settled/createSettlementRequest/',
   setSettlementRequestStatus: 'admin/settled/changeSettlementRequestStatus/',
+
   // USER MANAGEMENT API
   adminLogin: 'admin/user/signIn/',
   createUserByAdmin: 'admin/user/createUser',
@@ -89,10 +90,16 @@ export const adminRoutes = {
   updatePackageLevel: 'admin/package_level/update/',
   removePackageLevel: 'admin/package_level/remove/',
 
-  // PACKAGE_CONTENT
+  // PACKAGE_CONTENT API
   contentBuyers: 'package_content/admin/buyers/',
   contentForceRegistry: 'package_content/admin/force_registry/',
   contentForceFire: 'package_content/admin/forceFire/',
   getAllCotents: 'package_content/admin/allContents',
   findMissed: 'package_content/admin/findMissed',
+
+  // CV API
+  cropAndAddQuestionsToQuiz: 'admin/cv_question/cropAndAddQuestionsToQuiz/',
+
+  // QUIZ API
+  quizDigests: 'admin/quiz/digests',
 };

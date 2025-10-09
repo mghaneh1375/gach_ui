@@ -2,6 +2,7 @@ const translator = {
   uploadExcelFile: 'بارگذاری فایل اکسل سوالات',
   uploadZipFile: 'بارگذاری فایل زیپ سوالات',
   uploadPDFFile: 'بارگذاری فایل PDF سوالات',
+  addQuestionsAndAddToQuizAuto: 'افزودن سوالات به سامانه و آزمون به شکل یکجا',
   addBatch: 'افزودن دسته ای سوالات',
   addBatchFiles: 'افزودن دسته ای فایل صورت/پاسخ سوالات',
   qNo: 'تعداد سوالات',

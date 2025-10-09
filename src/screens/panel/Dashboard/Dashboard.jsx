@@ -66,27 +66,29 @@ function Dashboard() {
         }>
         {data && mode === 'dashboard' && (
           <PhoneView>
-            {Object.keys(data).map((e, index) => {
-              return (
-                <DashboardCard
-                  key={index}
-                  width={state.isInPhone ? '100%' : undefined}
-                  fontSize={18}
-                  text={Translate[e]}
-                  theme={colors[index % 4]}
-                  subtext={data[e]}
-                  borderRight={true}
-                  borderRightWidth={18}
-                  multiline={true}
-                  icon={icons[e]}
-                  onPress={() =>
-                    urls[e] !== undefined
-                      ? window.open(urls[e])
-                      : console.log('no_action_defined')
-                  }
-                />
-              );
-            })}
+            {Object.keys(data)
+              .filter(e => Number.isInteger(data[e]))
+              .map((e, index) => {
+                return (
+                  <DashboardCard
+                    key={index}
+                    width={state.isInPhone ? '100%' : undefined}
+                    fontSize={18}
+                    text={Translate[e]}
+                    theme={colors[index % 4]}
+                    subtext={data[e]}
+                    borderRight={true}
+                    borderRightWidth={18}
+                    multiline={true}
+                    icon={icons[e]}
+                    onPress={() =>
+                      urls[e] !== undefined
+                        ? window.open(urls[e])
+                        : console.log('no_action_defined')
+                    }
+                  />
+                );
+              })}
           </PhoneView>
         )}
         {mode === 'config' && <Config />}

@@ -34,6 +34,7 @@ import {dispatchQuestionContext, questionContext} from '../detail/Context.jsx';
 import UploadFile from '@/components/web/UploadFile.jsx';
 import {CV_BASE_URL} from '@/api/utility';
 import RenderHTML from 'react-native-render-html';
+import AutoAddPopUp from './AutoAddPopUp';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(questionContext),
@@ -81,6 +82,7 @@ function Create(props) {
   };
   const [showAddBatchPopUp, setShowAddBatchPopUp] = useState(false);
   const [showAddPDFPopUp, setShowAddPDFPopUp] = useState(false);
+  const [showAutoAdd, setShowAutoPopUp] = useState(false);
   const [showAddBatchFilesPopUp, setShowAddBatchFilesPopUp] = useState(false);
   const [type, setType] = useState();
   const [neededTime, setNeededTime] = useState();
@@ -142,6 +144,9 @@ function Create(props) {
   };
   const toggleShowAddPDFFilePopUp = () => {
     setShowAddPDFPopUp(!showAddPDFPopUp);
+  };
+  const toggleShowAutoAdd = () => {
+    setShowAutoPopUp(!showAutoAdd);
   };
   const sendData = async () => {
     if (
@@ -236,24 +241,36 @@ function Create(props) {
             setLoading={props.setLoading}
           />
         )}
+        {showAutoAdd && (
+          <AutoAddPopUp
+            token={props.token}
+            toggleShow={toggleShowAutoAdd}
+            setLoading={props.setLoading}
+          />
+        )}
         <PhoneView
           style={{
             ...styleGap10Wrap,
           }}>
           <CommonButton
-            onPress={() => toggleShowAddBatchPopUp()}
+            onPress={toggleShowAddBatchPopUp}
             theme={'dark'}
             title={translator.uploadExcelFile}
           />
           <CommonButton
-            onPress={() => toggleShowAddBatchFilesPopUp()}
+            onPress={toggleShowAddBatchFilesPopUp}
             theme={'dark'}
             title={translator.uploadZipFile}
           />
           <CommonButton
-            onPress={() => toggleShowAddPDFFilePopUp()}
+            onPress={toggleShowAddPDFFilePopUp}
             theme={'dark'}
             title={translator.uploadPDFFile}
+          />
+          <CommonButton
+            onPress={toggleShowAutoAdd}
+            theme={'green'}
+            title={translator.addQuestionsAndAddToQuizAuto}
           />
         </PhoneView>
         <PhoneView

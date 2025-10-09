@@ -85,6 +85,8 @@ export const chooseTheme = (theme, allStyles, textStyle) => {
       ? vars.YELLOW
       : theme === 'cream'
       ? vars.CREAM
+      : theme === 'green'
+      ? vars.GREEN
       : theme === 'orangeRed'
       ? vars.ORANGE_RED
       : vars.DARK_BLUE;

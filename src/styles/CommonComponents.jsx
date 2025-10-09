@@ -155,15 +155,13 @@ export const ScreenScroll =
 // contentContainerStyle={ScreenContentContainerStyle}
 
 export const CommonButton = props => {
-  let allStyles =
-    props.style !== undefined
-      ? props.style
-      : {
-          ...styles.flexEnd,
-        };
+  let allStyles = props.style
+    ? props.style
+    : {
+        ...styles.flexEnd,
+      };
   let className = props.theme === 'transparent' ? 'myBtn-Transparent' : 'myBtn';
-  if (props.style === undefined || props.style.justifyContent === undefined)
-    className += ' flex-end';
+  if (props.style || props.style?.justifyContent) className += ' flex-end';
   const isInWebPhone =
     Platform.OS === 'web' && getDevice().indexOf('WebPort') !== -1;
   let textStyle =
@@ -209,10 +207,14 @@ export const CommonButton = props => {
     //     ? 5
     //     : '5px 30px';
   }
-  if (props.icon !== undefined) {
+  if (props.icon) {
     allStyles.display = 'flex';
     allStyles.alignItems = 'center';
     allStyles.justifyContent = 'space-around';
+  }
+  if (props.disabled) {
+    allStyles.opacity = '40%';
+    allStyles.cursor = 'no-drop';
   }
   return Platform.OS === 'android' || Platform.OS === 'ios' ? (
     <Button style={allStyles} onPress={props.onPress}>
