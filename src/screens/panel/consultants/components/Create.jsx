@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {courseContext, dispatchCourseContext} from './Context.jsx';

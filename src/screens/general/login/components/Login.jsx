@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {setCacheItem} from '@/api/user';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
 import {CommonButton, MyView, PhoneView} from '@/styles';
 import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';

@@ -24,7 +24,7 @@ import {addCertificate, editCertificate, getCertificate} from '../utility';
 import NextButtons from '../components/NextButtons.jsx';
 import commonTranslator from '@/translator/common';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
-import {fileRequest} from '@/api/utility';
+import {fileRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 let inc = 1;
 function Create(props) {

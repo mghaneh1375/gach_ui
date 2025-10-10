@@ -108,8 +108,9 @@ const Adv = lazy(() => import('./panel/content/adv/Adv'));
 const Notif = lazy(() => import('./panel/notifs/Notif'));
 const SingleNotif = lazy(() => import('./studentPanel/notif/Notif'));
 const PackageLevel = lazy(() => import('./panel/content/level/PackageLevel'));
+const Advisor = lazy(() => import('./panel/advisor/Advisor.jsx'));
 import {routes} from '../api/apiRoutes';
-import {generalRequest} from '../api/utility';
+import {generalRequest} from '../api/utility.js';
 
 const ShowScheduleByUrlForStudent = lazy(() =>
   import('./advisorPanel/schedule/components/ShowScheduleByUrlForStudent.jsx'),
@@ -453,6 +454,8 @@ const WebStructue = props => {
                   {props.page === 'buyReport' && isUserAdmin(state.user) && (
                     <BuyReport />
                   )}
+                  {props.page === 'advisorFullInfo' &&
+                    isUserAdmin(state.user) && <Advisor />}
                   {props.page === 'generalStats' && (
                     <GeneralStats navigate={navigate} />
                   )}

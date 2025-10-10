@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
-import {downloadRequest, generalRequest} from '@/api/utility';
+import {downloadRequest, generalRequest} from '@/api/utility.js';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {
   CommonButton,

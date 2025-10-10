@@ -24,7 +24,7 @@ import commonTranslator from '@/translator/common';
 import UserTinyPic from '../UserTinyPic.jsx';
 import newAlertsKeyVals from './newAlertsKeyVals';
 import {style} from './Style.jsx';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import DailyAdv from './DailyAdv.jsx';
 const Header = props => {

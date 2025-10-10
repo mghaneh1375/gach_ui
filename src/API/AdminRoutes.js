@@ -102,4 +102,11 @@ export const adminRoutes = {
 
   // QUIZ API
   quizDigests: 'admin/quiz/digests',
+
+  // CONFIG API
+  getAdminDashboardConfig: 'admin/dashboard/getConfig',
+  setAdminDashboardConfig: 'admin/dashboard/setConfig',
+
+  // ADVISOR API
+  fetchAdvisorGeneralInfo: 'admin/advisor/generalInfo/',
 };

@@ -19,4 +19,5 @@ export const Translator = {
   wallet: 'کیف پول',
   level: 'سطح',
   buyersCount: 'تعداد خریداران',
+  lastWeekBuyersCount: 'تعداد خریداران 7 روز گذشته',
 };

@@ -1,5 +1,5 @@
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {editItem} from '@/services/utility';
 import {CommonWebBox, MyView} from '@/styles';
 import React, {useState} from 'react';

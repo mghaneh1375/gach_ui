@@ -18,4 +18,19 @@ export const Translate = {
   lastMonthTeachReportsCount: 'مشکلات گزارش شده درباره تدریس در 30 روز گذشته',
   activeTeachers: 'تعداد مدرسان فعال',
   activeAdvisors: 'تعداد مشاوران فعال',
+  showLastSettleRequest: 'نمایش آخرین درخواست‌های تسویه',
+  showIncomingRequestsForAdvice:
+    'نمایش درخواست‌های رسیده برای مشاوره در انتظار تایید',
+  showIncomingRequestsForTeach: 'نمایش درخواست‌های تدریس در انتظار تایید',
+  showLastUserReports: 'نمایش آخرین گزارشات مشکل',
+  showMeetings: 'نمایش جلسات آنلاین کنونی',
+  showTopAdvisors: 'نمایش برترین مشاوران',
+  showTopTeachers: 'نمایش برترین دبیران',
+  showTopLastWeekBestSellerContents:
+    'نمایش پرفروش‌ترین محتواهای آموزشی 7 روز گذشته',
+  showDashboard: 'نمایش آمار کلی',
+  studentsCount: 'تعداد دانش آموزان فعلی',
+  commentsCount: 'تعداد کامنت‌ها',
+  topAdvisors: 'مشاوران برتر 30 روز گذشته',
+  topLastWeekBestSeller: 'بسته‌های پرفروش هفته',
 };

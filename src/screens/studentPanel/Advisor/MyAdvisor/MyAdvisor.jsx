@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {showSuccess} from '@/services/utility';
 import {

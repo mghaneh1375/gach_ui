@@ -1,5 +1,5 @@
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import Titr from '@/screens/panel/quiz/components/Titr.jsx';
 import {formatPrice} from '@/services/utility.js';

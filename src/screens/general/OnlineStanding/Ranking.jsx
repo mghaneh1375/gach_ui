@@ -2,7 +2,7 @@ import {useEffectOnce} from 'usehooks-ts';
 import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {useParams} from 'react-router';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {MyView} from '@/styles';
 import OnlineStanding from './OnlineStanding.jsx';

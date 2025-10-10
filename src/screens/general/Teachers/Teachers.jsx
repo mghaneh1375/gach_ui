@@ -5,7 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useEffect, useMemo, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import Basket from '@/components/web/Basket.jsx';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';

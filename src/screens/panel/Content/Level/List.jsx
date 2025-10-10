@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {CommonWebBox, MyView} from '@/styles';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';

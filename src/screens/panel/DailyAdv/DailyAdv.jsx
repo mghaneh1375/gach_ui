@@ -7,7 +7,7 @@ import {
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
 import {useFilePicker} from 'use-file-picker';
-import {fileRequest, generalRequest} from '@/api/utility';
+import {fileRequest, generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {styles} from '@/styles/common/styles';
 import Card from './Card.jsx';

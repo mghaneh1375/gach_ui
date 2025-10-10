@@ -8,7 +8,7 @@ import {
 import Translator from './translator';
 import {routes} from '@/api/apiRoutes';
 import {showError, showSuccess} from '@/services/utility';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import commonTranslator from '@/translator/common';
 function Copy(props) {
   const useGlobalState = () => [

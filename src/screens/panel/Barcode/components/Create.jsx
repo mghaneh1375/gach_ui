@@ -13,7 +13,7 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {barcodeContext, dispatchBarcodeContext} from './Context.jsx';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import columns from './tableStructure';
 function Create(props) {

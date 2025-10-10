@@ -27,7 +27,7 @@ import PhoneFilter from './components/PhoneFilter.jsx';
 import Submits from './components/Submits.jsx';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {styles} from '@/styles/common/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';

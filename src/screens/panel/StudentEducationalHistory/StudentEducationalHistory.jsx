@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {
   CommonWebBox,

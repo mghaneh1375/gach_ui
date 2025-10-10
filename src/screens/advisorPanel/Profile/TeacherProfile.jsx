@@ -12,7 +12,7 @@ import React, {useEffect, useState} from 'react';
 import {Image} from 'react-native';
 import {useParams} from 'react-router';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 import {

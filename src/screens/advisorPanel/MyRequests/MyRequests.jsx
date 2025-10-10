@@ -2,7 +2,7 @@ import {faCheck, faInfo, faRemove} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {formatPrice, showSuccess} from '@/services/utility';
 import {CommonButton, CommonWebBox, PhoneView, FontIcon} from '@/styles';

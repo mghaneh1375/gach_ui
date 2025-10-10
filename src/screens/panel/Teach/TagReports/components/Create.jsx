@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';

@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from 'react';
 import {dispatchExchangeContext, exchangeContext} from './Context.jsx';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from './translator';

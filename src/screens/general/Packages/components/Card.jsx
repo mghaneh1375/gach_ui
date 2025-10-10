@@ -69,15 +69,26 @@ function Card({tutorial, isInPhone, isInMyMode}) {
             }}
             text={tutorial.sessionsCount + ' جلسه'}
           />
-          {tutorial.buyersCount && (
-            <SimpleText
-              style={{
-                ...styles.BlueBold,
-                ...styles.margin15,
-              }}
-              text={`${Translator.buyersCount}: ${tutorial.buyersCount}`}
-            />
-          )}
+          <MyView>
+            {tutorial.buyersCount && (
+              <SimpleText
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.margin15,
+                }}
+                text={`${Translator.buyersCount}: ${tutorial.buyersCount}`}
+              />
+            )}
+            {tutorial.lastWeekBuyersCount && (
+              <SimpleText
+                style={{
+                  ...styles.BlueBold,
+                  ...styles.margin15,
+                }}
+                text={`${Translator.lastWeekBuyersCount}: ${tutorial.lastWeekBuyersCount}`}
+              />
+            )}
+          </MyView>
           {tutorial.hasCert !== undefined && (
             <PhoneView>
               <SimpleText

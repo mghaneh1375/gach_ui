@@ -14,7 +14,7 @@ import {
 import commonTranslator from '@/translator/common';
 import Card from '../../../general/advisors/Card.jsx';
 import {styles} from '@/styles/common/styles';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';

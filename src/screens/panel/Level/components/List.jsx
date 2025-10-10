@@ -3,7 +3,7 @@ import {CommonWebBox} from '@/styles';
 import {dispatchLevelContext, levelContext} from './Context.jsx';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import columns from './columns';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';
 import Ops from './Ops.jsx';

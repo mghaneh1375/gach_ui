@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';

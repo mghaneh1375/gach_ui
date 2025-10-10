@@ -26,7 +26,7 @@ import RenderHTML from 'react-native-render-html';
 import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {useParams} from 'react-router';
-import {downloadRequest, generalRequest} from '@/api/utility';
+import {downloadRequest, generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import AttachBox from '../../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 function SessionDetail(props) {

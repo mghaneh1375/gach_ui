@@ -6,7 +6,7 @@ import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput
 import translator from '../../translator';
 import commonTranslator from '@/translator/common';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';
 function Copy(props) {

@@ -309,5 +309,6 @@ const translator = {
   detail: 'جزئیات',
   unknow: 'ناشناخته',
   lastNotifs: 'اعلانات اخیر دیده نشده',
+  rate: 'امتیاز',
 };
 export default translator;

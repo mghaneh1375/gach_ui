@@ -28,7 +28,7 @@ import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import {Col, Row} from 'react-grid-system';
 import {useParams} from 'react-router';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {getPreRequirements, updateUserPic} from '../components/utility';
 import UpdateForm from '../components/UpdateForm.jsx';

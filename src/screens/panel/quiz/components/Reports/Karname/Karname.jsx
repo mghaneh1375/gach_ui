@@ -38,7 +38,7 @@ import {
 import AnswerSheet from '../../answerSheet/AnswerSheet.jsx';
 import StudentCard from '../../../../../../components/web/StudentCard.jsx';
 import CopyBox from '@/components/CopyBox.jsx';
-import {BASE_SITE_NAME} from '../../../../../../api/utility';
+import {BASE_SITE_NAME} from '../../../../../../api/utility.js';
 import {getDevice, showError} from '../../../../../../services/utility';
 import {getMyAnswerSheet} from '../../../../../studentPanel/myQuizzes/irysc/components/utility';
 import {styleCard100Percent} from '../../../../package/card/style';

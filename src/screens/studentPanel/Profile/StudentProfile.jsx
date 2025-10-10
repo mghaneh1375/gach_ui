@@ -7,7 +7,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
-import {BASE_SITE_NAME, generalRequest} from '@/api/utility';
+import {BASE_SITE_NAME, generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
 import {styles} from '@/styles/common/styles';

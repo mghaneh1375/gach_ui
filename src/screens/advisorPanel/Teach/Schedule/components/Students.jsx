@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Rating} from 'react-native-ratings';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {getSimpleCurrTime, showSuccess} from '@/services/utility';
 import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';

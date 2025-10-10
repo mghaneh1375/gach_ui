@@ -11,7 +11,7 @@ import ProgressCard from '../../../myOffs/progressCard/ProgressCard.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {setCacheItem} from '@/api/user';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';

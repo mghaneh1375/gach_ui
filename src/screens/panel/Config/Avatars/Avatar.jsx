@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {dispatchStateContext} from '@/App.jsx';
 import {MyView} from '@/styles';
 import Create from './components/Create.jsx';

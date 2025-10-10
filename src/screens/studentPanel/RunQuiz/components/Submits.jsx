@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {CommonButton, CommonWebBox} from '@/styles';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {getDevice} from '@/services/utility';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {faDownload} from '@fortawesome/free-solid-svg-icons';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';

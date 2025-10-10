@@ -1,7 +1,7 @@
 import React from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {CommonWebBox} from '@/styles';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {courseContext, dispatchCourseContext} from './Context.jsx';

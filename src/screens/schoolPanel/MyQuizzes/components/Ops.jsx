@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {CV_BASE_URL, generalRequest} from '@/api/utility';
+import {CV_BASE_URL, generalRequest} from '@/api/utility.js';
 import UploadFile from '../../../../components/web/UploadFile.jsx';
 import {formatPrice, showError, showSuccess} from '@/services/utility';
 import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';

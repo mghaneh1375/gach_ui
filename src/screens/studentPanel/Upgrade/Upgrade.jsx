@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {dispatchStateContext} from '@/App.jsx';
 import {CommonWebBox} from '@/styles/CommonComponents.jsx';
 import {useParams} from 'react-router';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {isUserAdmin} from '@/services/utility';
 function Upgrade(props) {

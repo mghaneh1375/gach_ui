@@ -2,7 +2,7 @@ import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {CommonWebBox} from '@/styles/CommonComponents.jsx';
 import React, {useState} from 'react';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import Teacher from './Teacher.jsx';
 function Teachers(props) {

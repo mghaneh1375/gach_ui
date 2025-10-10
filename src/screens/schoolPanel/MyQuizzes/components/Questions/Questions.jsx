@@ -14,7 +14,7 @@ import {
   getQuestions,
 } from '../../../../panel/quiz/components/utility';
 import UploadFile from '@/components/web/UploadFile.jsx';
-import {CV_BASE_URL} from '@/api/utility';
+import {CV_BASE_URL} from '@/api/utility.js';
 import RenderHTML from 'react-native-render-html';
 import AddBatch from './AddBatch.jsx';
 const Questions = props => {

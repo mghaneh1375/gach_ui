@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import {CommonButton, MyView, SimpleText} from '../styles/Common.jsx';
-import {videoGeneralRequest} from './utility';
+import {videoGeneralRequest} from './utility.js';
 import {routes} from './aPIRoutes';
 function ChunkUpload(props) {
   const [progress, setProgress] = useState(0);

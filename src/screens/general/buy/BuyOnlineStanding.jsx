@@ -11,7 +11,7 @@ import {
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {useEffectOnce} from 'usehooks-ts';
 import React, {useState} from 'react';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
 import {styles} from '@/styles/common/styles';

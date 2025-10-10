@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import {dispatchUsersContext, usersContext} from './Context.jsx';
 import {showError, showSuccess} from '@/services/utility';

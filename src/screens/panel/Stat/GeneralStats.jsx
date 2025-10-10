@@ -4,7 +4,7 @@ import DashboardCard from '../../studentPanel/dashboard/dashboardCard/DashboardC
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import Translate from './translate';
 import {faChartBar} from '@fortawesome/free-solid-svg-icons';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
 import vars from '@/styles/root';

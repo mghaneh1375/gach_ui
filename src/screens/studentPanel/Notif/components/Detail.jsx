@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import RenderHTML from 'react-native-render-html';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {systemFonts, tagsStyles} from '@/services/utility';
 import {CommonWebBox, EqualTwoTextInputs, SimpleText} from '@/styles';
 import {styles} from '@/styles/common/styles';

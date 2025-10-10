@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import CodeInput from 'react-native-confirmation-code-input';
 import {routes} from '@/api/apiRoutes';
 import {fetchUser, setCacheItem} from '@/api/user';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
 import {showError, showSuccess} from '@/services/utility';
 import {BlueTextInline, CommonButton, MyView} from '@/styles';

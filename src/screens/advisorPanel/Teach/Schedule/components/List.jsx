@@ -13,7 +13,7 @@ import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {removeItems, showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import Translator from './translator';
 function List(props) {
   const useGlobalState = () => [

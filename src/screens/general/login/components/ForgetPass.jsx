@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
 import {showError} from '@/services/utility';
 import {

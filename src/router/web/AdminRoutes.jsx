@@ -32,6 +32,11 @@ const AdminRoutes = [
     path="admin/content/findMissed"
     element={<WebStructue page="findMissedInContent" />}
   />,
+  <Route
+    key={'admin/advisor-full-info'}
+    path="admin/advisor-full-info/:advisorId"
+    element={<WebStructue page="advisorFullInfo" />}
+  />,
 ];
 
 export default AdminRoutes;

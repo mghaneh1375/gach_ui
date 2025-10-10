@@ -5,7 +5,7 @@ import AttachBox from '../../ticket/components/show/attachBox/AttachBox.jsx';
 import {useFilePicker} from 'use-file-picker';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
-import {fileRequest} from '@/api/utility';
+import {fileRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {showError} from '@/services/utility';
 function Create(props) {

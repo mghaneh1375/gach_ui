@@ -7,7 +7,7 @@ import React, {useState} from 'react';
 import {fetchSessions} from '../utility';
 import Translator from '../../translate';
 import columns from './tableStructure';
-import {VIDEO_BASE_URL} from '@/api/utility';
+import {VIDEO_BASE_URL} from '@/api/utility.js';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),

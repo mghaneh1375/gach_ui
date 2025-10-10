@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {dispatchExchangeContext, exchangeContext} from './Context.jsx';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {CommonWebBox} from '@/styles';
 import translator from './translator';
 import {showSuccess} from '@/services/utility';

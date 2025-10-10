@@ -5,7 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import {CommonWebBox, MyView, SimpleText} from '@/styles/CommonComponents.jsx';
 import {FontIcon, SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import commonTranslator from '@/translator/common';

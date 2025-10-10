@@ -1,7 +1,7 @@
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import React, {useEffect, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
-import {generalRequest} from '@/api/utility';
+import {generalRequest} from '@/api/utility.js';
 import BestComments from '../../../../components/web/comment/BestComments.jsx';
 import {getDevice} from '@/services/utility';
 import {
