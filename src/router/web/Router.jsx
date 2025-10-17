@@ -149,8 +149,6 @@ export default function WebRouter() {
             path="all-comments"
             element={<WebStructue page="allComments" />}
           />
-
-          <Route path="exchanges" element={<WebStructue page="exchanges" />} />
           <Route
             path="all-badges"
             element={<WebStructue page="publicBadges" />}
@@ -229,16 +227,6 @@ export default function WebRouter() {
             path="/users/:level"
             element={<WebStructue page="users" />}
           />
-          <Route
-            exact
-            path="/basic/:mode/:subMode"
-            element={<WebStructue page="basic" />}
-          />
-          <Route
-            exact
-            path="/basic/:mode"
-            element={<WebStructue page="basic" />}
-          />
           {/* <Route
             path="/basic/questionReport"
             element={<WebStructue page="questionReport" />}
@@ -270,10 +258,6 @@ export default function WebRouter() {
             path="/shopConfiguration"
             element={<WebStructue page="shopConfiguration" />}
           />
-          <Route path="/points" element={<WebStructue page="points" />} />
-          <Route path="/levels" element={<WebStructue page="levels" />} />
-          <Route path="/badges" element={<WebStructue page="badges" />} />
-          <Route path="/dailyAdv" element={<WebStructue page="dailyAdv" />} />
           <Route
             path="/validateCertification/:certId"
             element={<WebStructue page="validateCert" />}
@@ -318,10 +302,7 @@ export default function WebRouter() {
           />
           <Route path="/notifs/:mode" element={<WebStructue page="notifs" />} />
           <Route path="/quiz/:mode" element={<WebStructue page="quiz" />} />
-          <Route
-            path="/consultants/:mode"
-            element={<WebStructue page="consultants" />}
-          />
+
           <Route
             path="/ranking/:mode/:quizId/:quizName"
             element={<WebStructue page="ranking" />}

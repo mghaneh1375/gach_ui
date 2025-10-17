@@ -342,13 +342,7 @@ export const routes = {
   addQuestionReportTag: 'questionReport/manage/addTag',
   removeQuestionReportTags: 'questionReport/manage/remove',
   editQuestionReportTag: 'questionReport/manage/editTag/',
-  getAdvisorIRYSCPercent: 'teach/admin/getAdvisorIRYSCPercent/',
-  setAdvisorIRYSCPercent: 'teach/admin/setAdvisorIRYSCPercent/',
-  getTeachTagsReport: 'teach/admin/getAllReportTags',
-  getTeachSchedulesForAdmin: 'teach/admin/getSchedules',
-  createTeachTagsReport: 'teach/admin/createReportTag',
-  removeTeachTagsReport: 'teach/admin/removeTags',
-  editTeachReportTag: 'teach/admin/editReportTag/',
+
   getVisibleQuestionReportTags: 'questionReport/public/getAllTags',
   storeQuestionReport: 'questionReport/public/storeReport/',
   getAllTags: 'advisor/tag/getAllTags',
@@ -407,10 +401,7 @@ export const routes = {
     'teach/student/setMyTeachScheduleReportProblems/',
   getTeachAllReportTags: 'teach/student/getAllReportTags',
   getTeachReports: 'teach/student/getTeachReports',
-  getTeachReportsForAdmin: 'teach/admin/getTeachReports',
-  getAllTeachersDigest: 'teach/admin/getAllTeachersDigest',
-  setTeachReportAsSeen: 'teach/admin/setTeachReportAsSeen/',
-  getAllTeachTransactions: 'teach/admin/getTransactions',
+
   getComments: 'comment/public/getComments/',
   getTopComments: 'comment/public/getTopComments/',
   getTeacherMarkedComments: 'comment/public/getTeacherMarkedComments/',
@@ -424,4 +415,10 @@ export const routes = {
 
   getStudentDashboardConfig: 'dashboard/getConfig',
   setStudentDashboardConfig: 'dashboard/setConfig',
+
+  getAdviceAllReportTags: 'advisor/public/getAllReportTags',
+  setAdviceScheduleReportProblemsByStudent:
+    'general/advice_tag_report/setAdviceScheduleReportProblemsByStudent/',
+  setAdviceScheduleReportProblemsByAdvisor:
+    'general/advice_tag_report/setAdviceScheduleReportProblemsByAdvisor/',
 };

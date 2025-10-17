@@ -13,10 +13,10 @@ import {getAllStudent} from './utility';
 import ChangePassByAdmin from '../../panel/users/components/ChangePassByAdmin.jsx';
 import {AdvicePanelProvider} from './advisor/components/Context.jsx';
 import Panel from './advisor/Panel.jsx';
-import {useParams} from 'react-router';
+import {useNavigate, useParams} from 'react-router';
 
-function ManageStudents(props) {
-  const navigate = props.navigate;
+function ManageStudents() {
+  const navigate = useNavigate();
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -43,7 +43,7 @@ function ManageStudents(props) {
     dispatch({
       loading: true,
     });
-    Promise.all([getAllStudent(props.token)]).then(res => {
+    Promise.all([getAllStudent(state.token)]).then(res => {
       dispatch({
         loading: false,
       });
@@ -55,7 +55,7 @@ function ManageStudents(props) {
       setMode('list');
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.token]);
+  }, [state.token]);
 
   React.useEffect(() => {
     if (params?.studentId) return;
@@ -77,7 +77,7 @@ function ManageStudents(props) {
           data={data}
           isAdvisor={isAdvisor}
           setData={setData}
-          token={props.token}
+          token={state.token}
           remove={ids => removeItems(data, setData, ids)}
           setSelectedStudent={setSelectedStudent}
           edit={ids => editItem(data, setData, ids)}
@@ -88,7 +88,7 @@ function ManageStudents(props) {
           data={data}
           setMode={setMode}
           setLoading={setLoading}
-          token={props.token}
+          token={state.token}
           addItem={i => addItem(data, setData, i)}
         />
       )}
@@ -97,7 +97,7 @@ function ManageStudents(props) {
           wantedUserId={selectedStudent.id}
           setMode={setMode}
           setLoading={setLoading}
-          token={props.token}
+          token={state.token}
         />
       )}
       <AdvicePanelProvider>
@@ -106,7 +106,7 @@ function ManageStudents(props) {
             wantedUserId={wantedUserId ? wantedUserId : selectedStudent?.id}
             setMode={setMode}
             setLoading={setLoading}
-            token={props.token}
+            token={state.token}
             isInPhone={state.isInPhone}
           />
         )}

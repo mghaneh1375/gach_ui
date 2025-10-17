@@ -221,7 +221,7 @@ function Advisors(props) {
       setHasMore(res[0].hasMore);
       setSelectableItems(res[0].data);
       setTotalSelectableItemsSize(res[0].totalCount);
-      if (totalCount === undefined) setTotalCount(res[0].totalCount);
+      if (!totalCount) setTotalCount(res[0].totalCount);
     });
   }, [dispatch, state.token, props, pageIndex, totalCount]);
   useEffectOnce(() => {

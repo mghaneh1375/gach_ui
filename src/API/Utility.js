@@ -11,9 +11,9 @@ export const CV_BASE_URL = 'https://cv.irysc.com/api/';
 
 // export const VIDEO_BASE_URL = 'http://127.0.0.1:8086/video_api/';
 export const VIDEO_BASE_URL = 'https://video.irysc.com/video_api/';
-// export const BASE_URL = 'http://127.0.0.1:8080/api/';
+export const BASE_URL = 'http://127.0.0.1:8080/api/';
 // export const BASE_URL = 'https://dev.irysc.com/api/';
-export const BASE_URL = 'https://e.irysc.com/api/';
+// export const BASE_URL = 'https://e.irysc.com/api/';
 
 export const COMMON_HEADER = {
   'content-type': 'application/json',
@@ -84,6 +84,9 @@ export const generalRequest = async (
     data: data,
   })
     .then(async function (response) {
+      if (response.status === 201 || response.status === 204) {
+        return true;
+      }
       var data = response.data;
       if (data.status === 'nok') {
         if (data.msg === 'Token is not valid') {
@@ -96,7 +99,7 @@ export const generalRequest = async (
         return null;
       }
       if (data.status === 'ok') {
-        if (dataShouldReturnKey === undefined) return true;
+        if (!dataShouldReturnKey) return true;
         if (dataShouldReturnKey instanceof Array) {
           var output = {};
           var key;
@@ -121,8 +124,12 @@ export const generalRequest = async (
         return undefined;
       } else if (error.response.status === 403) {
         showError('شما دسترسی لازم برای انجام این کار را ندارید');
+      } else if (error.response.status === 400) {
+        showError(error.response.data.msg);
+        return undefined;
       } else {
-        showError(commonTranslator.opErr);
+        if (error.response?.data?.msg) showError(error.response.data.msg);
+        else showError(commonTranslator.opErr);
         return undefined;
       }
       return null;

@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
-import {
-  advicePanelContext,
-  dispatchAdvicePanelContext,
-} from './components/Context.jsx';
+import {routes} from '@/api/apiRoutes';
+import {generalRequest} from '@/api/utility.js';
+import translator from '@/screens/advisorPanel/myFinancePlans/components/translator';
+import {showSuccess} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -11,17 +10,10 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import commonTranslator from '@/translator/common';
-import Card from '../../../general/advisors/Card.jsx';
-import {styles} from '@/styles/common/styles';
-import {generalRequest} from '@/api/utility.js';
-import {routes} from '@/api/apiRoutes';
-import {showSuccess} from '@/services/utility';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import {Image} from 'react-native';
+import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import translator from '@/screens/advisorPanel/myFinancePlans/components/translator';
-import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
+import commonTranslator from '@/translator/common';
 import {
   faClockRotateLeft,
   faNewspaper,
@@ -29,7 +21,16 @@ import {
   faQuestion,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react';
+import {Image} from 'react-native';
+import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
+import Card from '../../../general/advisors/Card.jsx';
 import DashboardCard from '../../../studentPanel/dashboard/dashboardCard/DashboardCard.jsx';
+import {
+  advicePanelContext,
+  dispatchAdvicePanelContext,
+} from './components/Context.jsx';
+import Report from './components/Report.jsx';
 function Panel(props) {
   const useGlobalState = () => [
     React.useContext(advicePanelContext),
@@ -41,9 +42,12 @@ function Panel(props) {
   const [url, setUrl] = useState();
   const [src, setSrc] = useState();
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showReportPane, setShowReportPane] = useState(false);
+
   React.useEffect(() => {
     setSrc(data?.pic);
   }, [data?.pic]);
+
   const fetchData = React.useCallback(() => {
     if (data !== undefined || isWorking) return;
     props.setLoading(true);
@@ -145,9 +149,6 @@ function Panel(props) {
                     style={{
                       width: 120,
                       height: 120,
-                      // borderColor: vars.ORANGE_RED,
-                      // borderRadius: 2,
-                      // borderWidth: 4,
                       objectFit: 'cover',
                       objectPosition: 'center',
                     }}
@@ -197,29 +198,6 @@ function Panel(props) {
                   }
                 : {}
             }>
-            <CommonButton
-              style={
-                props.isInPhone
-                  ? {
-                      minWidth: 290,
-                      justifyContent: 'center',
-                    }
-                  : {
-                      minWidth: 260,
-                    }
-              }
-              parentStyle={
-                props.isInPhone
-                  ? {
-                      alignSelf: 'center !important',
-                    }
-                  : {}
-              }
-              onPress={() =>
-                window.open('/studentLifeStyle/' + props.wantedUserId)
-              }
-              title={'مشاهده برنامه روزانه دانش آموز'}
-            />
             <PhoneView>
               <CommonButton
                 padding={props.isInPhone ? '5px' : '5px 15px'}
@@ -237,9 +215,19 @@ function Panel(props) {
                 onPress={() =>
                   window.open('/studentSchedules/' + props.wantedUserId)
                 }
-                theme={'orangeRed'}
+                theme={'cream'}
                 title={'رویت کاربرگ\u200cها'}
               />
+              <CommonButton
+                padding={props.isInPhone ? '5px' : '5px 15px'}
+                onPress={() =>
+                  window.open('/studentLifeStyle/' + props.wantedUserId)
+                }
+                title={'مشاهده برنامه روزانه دانش آموز'}
+              />
+            </PhoneView>
+
+            <PhoneView>
               <CommonButton
                 padding={props.isInPhone ? '5px' : '5px 15px'}
                 style={
@@ -259,20 +247,18 @@ function Panel(props) {
                 theme={'dark'}
                 title={'نمودار پیشرفت'}
               />
-            </PhoneView>
-
-            <PhoneView>
               <CommonButton
                 padding={props.isInPhone ? '5px' : '5px 15px'}
+                theme={'green'}
                 style={
                   props.isInPhone
                     ? {
-                        minWidth: 140,
+                        minWidth: 210,
                         marginRight: 3,
                         marginLeft: 3,
                       }
                     : {
-                        minWidth: 120,
+                        minWidth: 210,
                       }
                 }
                 onPress={() =>
@@ -282,7 +268,9 @@ function Panel(props) {
                 }
                 title={'رفتن به چت روم'}
               />
+            </PhoneView>
 
+            <PhoneView>
               {url === undefined && (
                 <CommonButton
                   padding={props.isInPhone ? '5px' : '5px 15px'}
@@ -302,7 +290,25 @@ function Panel(props) {
                 />
               )}
 
-              {url !== undefined && (
+              <CommonButton
+                padding={props.isInPhone ? '5px' : '5px 15px'}
+                theme={'orangeRed'}
+                style={
+                  props.isInPhone
+                    ? {
+                        minWidth: 210,
+                        marginRight: 3,
+                        marginLeft: 3,
+                      }
+                    : {
+                        minWidth: 210,
+                      }
+                }
+                onPress={() => setShowReportPane(true)}
+                title={'گزارش مشکل'}
+              />
+
+              {url && (
                 <CommonButton
                   padding={props.isInPhone ? '5px' : '5px 15px'}
                   style={
@@ -325,6 +331,15 @@ function Panel(props) {
           </MyView>
         </EqualTwoTextInputs>
       </CommonWebBox>
+      {showReportPane && (
+        <Report
+          showReportPane={showReportPane}
+          onClose={() => setShowReportPane(false)}
+          token={props.token}
+          setLoading={props.setLoading}
+          studentId={props.wantedUserId}
+        />
+      )}
       <CommonWebBox header={'تعهدات'}>
         {data !== undefined && data.maxKarbarg !== undefined && (
           <SimpleText

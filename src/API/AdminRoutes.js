@@ -109,4 +109,24 @@ export const adminRoutes = {
 
   // ADVISOR API
   fetchAdvisorGeneralInfo: 'admin/advisor/generalInfo/',
+  getAllAdvisorsDigest: 'admin/advisor/getAllAdvisorsDigest',
+  createAdviceTagsReport: 'admin/advice_tag_report/createReportTag',
+  editAdviceTagsReport: 'admin/advice_tag_report/editReportTag/',
+  removeAdviceTagsReport: 'admin/advice_tag_report/removeTags',
+  getAdviceTagsReport: 'admin/advice_tag_report/getAllReportTags',
+  setAdviceReportAsSeen: 'admin/advice_tag_report/setReportAsSeen/',
+  getAdviceReports: 'admin/advice_tag_report/getAdviceReports',
+
+  // TEACH API
+  getAdvisorIRYSCPercent: 'teach/admin/getAdvisorIRYSCPercent/',
+  setAdvisorIRYSCPercent: 'teach/admin/setAdvisorIRYSCPercent/',
+  getTeachTagsReport: 'teach/admin/getAllReportTags',
+  getTeachSchedulesForAdmin: 'teach/admin/getSchedules',
+  createTeachTagsReport: 'teach/admin/createReportTag',
+  removeTeachTagsReport: 'teach/admin/removeTags',
+  editTeachReportTag: 'teach/admin/editReportTag/',
+  getTeachReportsForAdmin: 'teach/admin/getTeachReports',
+  getAllTeachersDigest: 'teach/admin/getAllTeachersDigest',
+  setTeachReportAsSeen: 'teach/admin/setTeachReportAsSeen/',
+  getAllTeachTransactions: 'teach/admin/getTransactions',
 };

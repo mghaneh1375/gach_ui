@@ -50,47 +50,47 @@ function AdminMenu(props) {
           items={[
             {
               text: translator.gradeDefinition,
-              url: '/basic/grades',
+              url: '/admin/basic/grades',
             },
             {
               text: translator.lessonsDefinitionInGrades,
-              url: '/basic/lessons/grade',
+              url: '/admin/basic/lessons/grade',
             },
             {
               text: translator.lessonsDefinitionInBranches,
-              url: '/basic/lessons/branch',
+              url: '/admin/basic/lessons/branch',
             },
             {
               text: translator.subjectDefinition,
-              url: '/basic/subjects',
+              url: '/admin/basic/subjects',
             },
             {
               text: translator.questionReportTags,
-              url: '/basic/questionReports',
+              url: '/admin/basic/questionReports',
             },
             {
               text: translator.teachReportTags,
-              url: '/basic/teachTagsReport',
+              url: '/admin/basic/teachTagsReport',
             },
             {
               text: translator.badges,
-              url: '/badges',
+              url: '/admin/badges',
             },
             {
               text: translator.levels,
-              url: '/levels',
+              url: '/admin/levels',
             },
             {
               text: translator.points,
-              url: '/points',
+              url: '/admin/points',
             },
             {
               text: translator.dailyAdv,
-              url: '/dailyAdv',
+              url: '/admin/dailyAdv',
             },
             {
               text: translator.exchanges,
-              url: '/exchanges',
+              url: '/admin/exchanges',
             },
           ]}
         />
@@ -254,21 +254,29 @@ function AdminMenu(props) {
           ]}
         />
         <SuperMenuItem
-          text={'تگ‌های مشاوره'}
+          text={'بخش مشاوره'}
           icon={faUsers}
           selected={props.selected === 'consultants'}
           navigate={navigate}
           items={[
             {
-              text: translator.course,
+              text: translator.adviceReportTags,
+              url: '/admin/basic/adviceTagsReport',
+            },
+            {
+              text: translator.adviceReports,
+              url: '/admin/advice/reports',
+            },
+            {
+              text: 'تگ‌های مشاوره - ' + translator.course,
               url: '/consultants/course',
             },
             {
-              text: translator.lifeStyle,
+              text: 'تگ‌های مشاوره - ' + translator.lifeStyle,
               url: '/consultants/lifestyle',
             },
             {
-              text: translator.examTags,
+              text: 'تگ‌های مشاوره - ' + translator.examTags,
               url: '/consultants/examTags',
             },
           ]}
@@ -639,15 +647,15 @@ function AdminMenu(props) {
         items={[
           {
             text: translator.course,
-            url: '/consultants/course',
+            url: '/admin/consultants/course',
           },
           {
             text: translator.lifeStyle,
-            url: '/consultants/lifestyle',
+            url: '/admin/consultants/lifestyle',
           },
           {
             text: translator.examTags,
-            url: '/consultants/examTags',
+            url: '/admin/consultants/examTags',
           },
         ]}
       />

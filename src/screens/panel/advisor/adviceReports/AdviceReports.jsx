@@ -6,7 +6,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
-import translator from '../translate';
+import {Translate} from '../translate';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import columns from './components/tableStructure';
 import {useEffectOnce} from 'usehooks-ts';
@@ -16,21 +16,25 @@ import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 import {useNavigate} from 'react-router';
-function TeachReports() {
+import Pagination from '@/components/web/pagination/Pagination';
+
+function AdviceReports() {
   const navigate = useNavigate();
+
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
   ];
+  const [pageIndex, setPageIndex] = useState(1);
+  const [totalCount, setTotalCount] = useState();
+  const [perPage, setPerPage] = useState();
   const [state, dispatch] = useGlobalState();
-  const [reports, setReports] = useState();
+  const [reports, setReports] = useState([]);
   const [selectedReport, setSelectedReport] = useState();
-  const [teachers, setTeachers] = useState();
   const [showOp, setShowOp] = useState(false);
   const [filter, setFilter] = useState({
     seenStatus: 'showJustUnSeen',
     sendFrom: 'student',
-    teacherId: 'all',
   });
   const [seenStatusValues, sendFromValues] = useMemo(() => {
     return [
@@ -41,7 +45,7 @@ function TeachReports() {
         },
         {
           id: 'showJustUnSeen',
-          item: translator.justUnSeen,
+          item: Translate.justUnSeen,
         },
       ],
       [
@@ -55,19 +59,19 @@ function TeachReports() {
         },
         {
           id: 'teacher',
-          item: 'دبیر',
+          item: Translate.advisor,
         },
       ],
     ];
   }, []);
-  const handleOp = async (idx, row) => {
+  const handleOp = async (_, row) => {
     setSelectedReport(row);
     if (!row.seen) {
       dispatch({
         loading: true,
       });
       await generalRequest(
-        routes.setTeachReportAsSeen + row.id,
+        routes.setAdviceReportAsSeen + row.id,
         'put',
         undefined,
         undefined,
@@ -81,85 +85,56 @@ function TeachReports() {
   };
   const fetchData = React.useCallback(() => {
     const query = new URLSearchParams();
+    query.append('pageIndex', pageIndex);
     if (filter.seenStatus === 'showJustUnSeen')
       query.append('showJustUnSeen', true);
-    if (filter.teacherId && filter.teacherId !== 'all')
-      query.append('teacherId', filter.teacherId);
     if (filter.sendFrom === 'student')
       query.append('justSendFromStudent', true);
     else if (filter.sendFrom === 'teacher')
       query.append('justSendFromTeacher', true);
     if (filter.from) query.append('from', filter.from);
     if (filter.to) query.append('to', filter.to);
+    if (!totalCount) query.append('needTotalCount', true);
+
     dispatch({
       loading: true,
     });
-    Promise.all(
-      teachers === undefined
-        ? [
-            generalRequest(
-              routes.getTeachReportsForAdmin + '?' + query.toString(),
-              'get',
-              undefined,
-              'data',
-              state.token,
-            ),
-            generalRequest(
-              routes.getAllTeachersDigest,
-              'get',
-              undefined,
-              'data',
-              state.token,
-            ),
-          ]
-        : [
-            generalRequest(
-              routes.getTeachReportsForAdmin + '?' + query.toString(),
-              'get',
-              undefined,
-              'data',
-              state.token,
-            ),
-          ],
-    ).then(res => {
+    Promise.all([
+      generalRequest(
+        routes.getAdviceReports + '?' + query.toString(),
+        'get',
+        undefined,
+        ['data', 'perPage', 'totalCount'],
+        state.token,
+      ),
+    ]).then(res => {
       dispatch({
         loading: false,
       });
-      if (res[0] == null || (teachers === undefined && res[1] == null)) {
+
+      if (res[0] == null) {
         navigate('/');
         return;
       }
-      setReports(res[0]);
-      if (teachers === undefined) {
-        setTeachers([
-          {
-            id: 'all',
-            item: commonTranslator.all,
-          },
-          ...res[1].map(e => {
-            return {
-              id: e.id,
-              item: e.name,
-            };
-          }),
-        ]);
-      }
+      setReports(res[0].data);
+      setPerPage(res[0].perPage);
+      setTotalCount(res[0].totalCount);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, teachers]);
+  }, [filter, pageIndex]);
   useEffectOnce(() => {
     fetchData();
   }, []);
   return (
-    <CommonWebBox header={translator.reports}>
+    <CommonWebBox header={Translate.reports}>
       <PhoneView
         style={{
           gap: '20px',
         }}>
         <JustBottomBorderSelect
           value={sendFromValues.find(elem => elem.id === filter.sendFrom)}
-          placeholder={translator.sendFrom}
-          subText={translator.sendFrom}
+          placeholder={Translate.sendFrom}
+          subText={Translate.sendFrom}
           setter={e =>
             setFilter(prevValues => ({
               ...prevValues,
@@ -170,8 +145,8 @@ function TeachReports() {
         />
         <JustBottomBorderSelect
           value={seenStatusValues.find(elem => elem.id === filter.seenStatus)}
-          placeholder={translator.seenStatus}
-          subText={translator.seenStatus}
+          placeholder={Translate.seenStatus}
+          subText={Translate.seenStatus}
           setter={e =>
             setFilter(prevValues => ({
               ...prevValues,
@@ -180,24 +155,6 @@ function TeachReports() {
           }
           values={seenStatusValues}
         />
-        {teachers && (
-          <JustBottomBorderSelect
-            value={
-              filter.teacherId
-                ? teachers.find(elem => elem.id === filter.teacherId)
-                : undefined
-            }
-            placeholder={translator.teacher}
-            subText={translator.teacher}
-            setter={e =>
-              setFilter(prevValues => ({
-                ...prevValues,
-                teacherId: e,
-              }))
-            }
-            values={teachers}
-          />
-        )}
         <JustBottomBorderDatePicker
           value={filter.from}
           setter={e =>
@@ -206,8 +163,8 @@ function TeachReports() {
               from: e,
             }))
           }
-          placeholder={translator.from}
-          subText={translator.from}
+          placeholder={commonTranslator.from}
+          subText={commonTranslator.from}
         />
         <JustBottomBorderDatePicker
           value={filter.to}
@@ -217,26 +174,35 @@ function TeachReports() {
               to: e,
             }))
           }
-          placeholder={translator.to}
-          subText={translator.to}
+          placeholder={commonTranslator.to}
+          subText={commonTranslator.to}
         />
       </PhoneView>
       <CommonButton
         onPress={() => fetchData()}
         title={commonTranslator.confirm}
       />
-      {!showOp && reports && (
-        <CommonDataTable
-          excel={false}
-          handleOp={handleOp}
-          data={reports}
-          columns={columns}
-        />
+      {!showOp && (
+        <>
+          <CommonDataTable
+            excel={false}
+            pagination={false}
+            handleOp={handleOp}
+            data={reports}
+            columns={columns}
+          />
+          <Pagination
+            perPage={perPage}
+            totalCount={totalCount}
+            pageIndex={pageIndex}
+            setPageIndex={setPageIndex}
+          />
+        </>
       )}
       {showOp && (
         <CommonWebBox
           backBtn={true}
-          header={translator.detail}
+          header={Translate.detail}
           onBackClick={() => setShowOp(false)}>
           {selectedReport.tags !== null && (
             <SimpleText text={selectedReport.tags.map(e => e + ' ')} />
@@ -247,4 +213,4 @@ function TeachReports() {
     </CommonWebBox>
   );
 }
-export default TeachReports;
+export default AdviceReports;

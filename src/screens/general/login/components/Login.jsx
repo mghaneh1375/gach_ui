@@ -69,9 +69,6 @@ const Login = props => {
       />
       <PhoneView>
         <CommonButton
-          style={{
-            marginTop: 50,
-          }}
           onPress={() => requestLogin()}
           title={commonTranlator.entrance}
         />

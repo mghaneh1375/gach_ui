@@ -1,30 +1,30 @@
-import React, {useState, lazy, Suspense, useMemo, useEffect} from 'react';
-import {
-  MinFullHeightView,
-  LargeContentConianerStyle,
-  PhoneContentConianerStyle,
-  MyView,
-  PhoneContentConianerStyle2,
-} from '../styles/CommonComponents.jsx';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import React, {lazy, Suspense, useEffect, useMemo, useState} from 'react';
+import {ReactNotifications} from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 import {useNavigate, useParams} from 'react-router-dom';
-const Home = lazy(() => import('./general/home/Home.jsx'));
-const Login = lazy(() => import('./general/login/Login.jsx'));
-const WebLogin = lazy(() => import('./general/login/web/Login'));
-const WebProfile = lazy(() => import('./general/profile/web/Profile'));
+import BottomNavBar from '../components/web/BottomNavBar.jsx';
+import Header from '../components/web/largeScreen/header/Header.jsx';
+import Logo from '../components/web/largeScreen/header/Logo.jsx';
+import Menu from '../components/web/largeScreen/header/Menu.jsx';
+import Navbar from '../components/web/Navbar.jsx';
 import {
   getToday,
   isUserAdmin,
   isUserAdvisor,
   isUserEditorAccess,
 } from '../services/utility';
-import 'react-notifications-component/dist/theme.css';
-import {ReactNotifications} from 'react-notifications-component';
-import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import Logo from '../components/web/largeScreen/header/Logo.jsx';
-import Header from '../components/web/largeScreen/header/Header.jsx';
-import Menu from '../components/web/largeScreen/header/Menu.jsx';
-import Navbar from '../components/web/Navbar.jsx';
-import BottomNavBar from '../components/web/BottomNavBar.jsx';
+import {
+  LargeContentConianerStyle,
+  MinFullHeightView,
+  MyView,
+  PhoneContentConianerStyle,
+  PhoneContentConianerStyle2,
+} from '../styles/CommonComponents.jsx';
+const Home = lazy(() => import('./general/home/Home.jsx'));
+const Login = lazy(() => import('./general/login/Login.jsx'));
+const WebLogin = lazy(() => import('./general/login/web/Login'));
+const WebProfile = lazy(() => import('./general/profile/web/Profile'));
 const Quiz = lazy(() => import('./panel/quiz/Quiz'));
 const Course = lazy(() => import('./panel/consultants/Course'));
 const LifeStyle = lazy(() => import('./panel/consultants/LifeStyle'));
@@ -44,11 +44,11 @@ const Subject = lazy(() => import('./panel/basic/subject/Subject'));
 const Certificate = lazy(() => import('./panel/certificate/Certificate'));
 const Ticket = lazy(() => import('./panel/ticket/Ticket'));
 const Dashboard = lazy(() => import('./studentPanel/dashboard/Dashboard'));
-const AdminDashboard = lazy(() => import('./panel/dashboard/Dashboard'));
+
 const AdvisorDashboard = lazy(() =>
   import('./advisorPanel/dashboard/Dashboard'),
 );
-const BuyReport = lazy(() => import('./panel/reports/buyReport/BuyReport'));
+
 const Ticketstd = lazy(() => import('./studentPanel/ticket/Ticket'));
 const Author = lazy(() => import('./panel/users/author/Author'));
 const SpinGift = lazy(() => import('./panel/spinGift/SpinGift'));
@@ -108,9 +108,10 @@ const Adv = lazy(() => import('./panel/content/adv/Adv'));
 const Notif = lazy(() => import('./panel/notifs/Notif'));
 const SingleNotif = lazy(() => import('./studentPanel/notif/Notif'));
 const PackageLevel = lazy(() => import('./panel/content/level/PackageLevel'));
-const Advisor = lazy(() => import('./panel/advisor/Advisor.jsx'));
+
 import {routes} from '../api/apiRoutes';
 import {generalRequest} from '../api/utility.js';
+import AdminWebStructue from './AdminWebStructure.jsx';
 
 const ShowScheduleByUrlForStudent = lazy(() =>
   import('./advisorPanel/schedule/components/ShowScheduleByUrlForStudent.jsx'),
@@ -121,9 +122,7 @@ const ShowScheduleByUrlForAdvisor = lazy(() =>
 const MyAdvisorHistory = lazy(() =>
   import('./studentPanel/advisor/myAdvisor/MyAdvisorHistory'),
 );
-const TeachReports = lazy(() =>
-  import('./panel/teach/teachReport/TeachReports'),
-);
+
 const TeachSchedules = lazy(() => import('./panel/teach/schedules/Schedules'));
 const TeacherProfile = lazy(() =>
   import('./advisorPanel/profile/TeacherProfile'),
@@ -157,9 +156,7 @@ const MyTasks = lazy(() => import('./correctorPanel/myTasks/MyTasks'));
 const QuestionReport = lazy(() =>
   import('./panel/questionReport/QuestionReport'),
 );
-const TeachTagsReport = lazy(() =>
-  import('./panel/teach/tagReports/TeachTagsReport'),
-);
+
 const GeneralStats = lazy(() => import('./panel/stat/GeneralStats'));
 const MyQuizzes = lazy(() =>
   import('./studentPanel/myQuizzes/school/MyQuizzes'),
@@ -300,7 +297,7 @@ const WebStructue = props => {
           state.token,
         ),
       ]).then(res => {
-        if (res[0] !== null)
+        if (res[0] && res[0] !== null)
           dispatch({
             newAlerts: res[0],
           });
@@ -370,10 +367,6 @@ const WebStructue = props => {
                   props.page === 'rankingList' ||
                   state.user === null) &&
                   !state.isInPhone && <Navbar user={state.user} />}
-
-                {/* {device.indexOf(Device.WebPort) !== -1 && state.user === null && (
-                 <TopNavBar />
-                 )} */}
 
                 {!state.isInPhone &&
                   myAlerts !== undefined &&
@@ -445,17 +438,15 @@ const WebStructue = props => {
                         navigate={navigate}
                       />
                     )}
-                  {props.page === 'dashboard' && isUserAdmin(state.user) && (
-                    <AdminDashboard />
-                  )}
+                  <AdminWebStructue
+                    page={props.page}
+                    isUserAdmin={isUserAdmin(state.user)}
+                  />
+
                   {props.page === 'dashboard' && isUserAdvisor(state.user) && (
                     <AdvisorDashboard />
                   )}
-                  {props.page === 'buyReport' && isUserAdmin(state.user) && (
-                    <BuyReport />
-                  )}
-                  {props.page === 'advisorFullInfo' &&
-                    isUserAdmin(state.user) && <Advisor />}
+
                   {props.page === 'generalStats' && (
                     <GeneralStats navigate={navigate} />
                   )}
@@ -690,9 +681,7 @@ const WebStructue = props => {
                   {props.page === 'psychology' && (
                     <Psychology navigate={navigate} />
                   )}
-                  {props.page === 'teachReports' && (
-                    <TeachReports navigate={navigate} />
-                  )}
+
                   {props.page === 'allTeaches' && (
                     <TeachSchedules navigate={navigate} />
                   )}
@@ -896,8 +885,8 @@ const WebStructue = props => {
                       />
                     )}
                   {props.page === 'basic' &&
-                    params !== undefined &&
-                    params.mode !== undefined &&
+                    params &&
+                    params.mode &&
                     params.mode === 'grades' && (
                       <Grade
                         token={state.token}
@@ -906,15 +895,13 @@ const WebStructue = props => {
                       />
                     )}
                   {props.page === 'basic' &&
-                    params !== undefined &&
-                    params.mode !== undefined &&
+                    params &&
+                    params.mode &&
                     params.mode === 'lessons' &&
-                    params.subMode !== undefined && (
-                      <Lesson navigate={navigate} />
-                    )}
+                    params.subMode && <Lesson navigate={navigate} />}
                   {props.page === 'basic' &&
-                    params !== undefined &&
-                    params.mode !== undefined &&
+                    params &&
+                    params.mode &&
                     params.mode === 'subjects' && (
                       <Subject
                         token={state.token}
@@ -923,17 +910,12 @@ const WebStructue = props => {
                       />
                     )}
                   {props.page === 'basic' &&
-                    params !== undefined &&
-                    params.mode !== undefined &&
+                    params &&
+                    params.mode &&
                     params.mode === 'questionReports' && (
                       <QuestionReport navigate={navigate} />
                     )}
-                  {props.page === 'basic' &&
-                    params !== undefined &&
-                    params.mode !== undefined &&
-                    params.mode === 'teachTagsReport' && (
-                      <TeachTagsReport navigate={navigate} />
-                    )}
+
                   {props.page === 'avatars' && (
                     <Avatar
                       token={state.token}
@@ -1051,13 +1033,7 @@ const WebStructue = props => {
                       navigate={navigate}
                     />
                   )}
-                  {props.page === 'manageStudent' && (
-                    <ManageStudents
-                      token={state.token}
-                      user={state.user}
-                      navigate={navigate}
-                    />
-                  )}
+                  {props.page === 'manageStudent' && <ManageStudents />}
                   {props.page === 'manageTeacher' && (
                     <ManageTeachers
                       token={state.token}

@@ -23,6 +23,11 @@ const AdminRoutes = [
     element={<WebStructue page="allTeaches" />}
   />,
   <Route
+    key={'admin/advice/reports'}
+    path="admin/advice/reports"
+    element={<WebStructue page="adviceReports" />}
+  />,
+  <Route
     key={'admin/teach/transactions'}
     path="admin/teach/transactions"
     element={<WebStructue page="allTeachTransactions" />}
@@ -36,6 +41,48 @@ const AdminRoutes = [
     key={'admin/advisor-full-info'}
     path="admin/advisor-full-info/:advisorId"
     element={<WebStructue page="advisorFullInfo" />}
+  />,
+  <Route
+    exact
+    key={'/admin/basic/:mode/:subMode'}
+    path="/admin/basic/:mode/:subMode"
+    element={<WebStructue page="basic" />}
+  />,
+  <Route
+    exact
+    key={'/admin/basic/:mode'}
+    path="/admin/basic/:mode"
+    element={<WebStructue page="basic" />}
+  />,
+  <Route
+    key={'/admin/points'}
+    path="/admin/points"
+    element={<WebStructue page="points" />}
+  />,
+  <Route
+    key={'/admin/levels'}
+    path="/admin/levels"
+    element={<WebStructue page="levels" />}
+  />,
+  <Route
+    key={'/admin/badges'}
+    path="/admin/badges"
+    element={<WebStructue page="badges" />}
+  />,
+  <Route
+    key={'/admin/dailyAdv'}
+    path="/admin/dailyAdv"
+    element={<WebStructue page="dailyAdv" />}
+  />,
+  <Route
+    key={'/admin/exchanges'}
+    path="/admin/exchanges"
+    element={<WebStructue page="exchanges" />}
+  />,
+  <Route
+    key="/admin/consultants/:mode"
+    path="/admin/consultants/:mode"
+    element={<WebStructue page="consultants" />}
   />,
 ];
 

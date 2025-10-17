@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import List from './components/List.jsx';
 import Create from './components/Create.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {TeachTagReportProvider} from './components/Context.jsx';
-import {useNavigate} from 'react-router';
-function TeachTagsReport() {
-  const navigate = useNavigate();
+import {AdviceTagReportProvider} from './components/Context.jsx';
+
+function TeachTagsReport(props) {
+  const navigate = props.navigate;
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -17,8 +17,9 @@ function TeachTagsReport() {
       loading: status,
     });
   };
+
   return (
-    <TeachTagReportProvider>
+    <AdviceTagReportProvider>
       {mode === 'list' && (
         <List
           setMode={setMode}
@@ -45,7 +46,7 @@ function TeachTagsReport() {
           token={state.token}
         />
       )}
-    </TeachTagReportProvider>
+    </AdviceTagReportProvider>
   );
 }
 export default TeachTagsReport;

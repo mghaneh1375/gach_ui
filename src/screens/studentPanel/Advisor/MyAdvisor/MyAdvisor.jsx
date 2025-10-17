@@ -104,7 +104,7 @@ function MyAdvisor(props) {
           ...styles.gap15,
           ...styles.marginTop10,
         }}>
-        {myAdvisors !== undefined &&
+        {myAdvisors &&
           myAdvisors !== null &&
           myAdvisors.map((myAdvisor, index) => {
             return (
@@ -112,6 +112,12 @@ function MyAdvisor(props) {
                 key={index}
                 isInPhone={state.isInPhone}
                 plan={myAdvisor.plan}
+                token={state.token}
+                setLoading={newLoadingStatus =>
+                  dispatch({
+                    loading: newLoadingStatus,
+                  })
+                }
                 setRate={async rate => {
                   dispatch({
                     loading: true,

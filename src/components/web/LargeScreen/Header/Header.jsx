@@ -74,6 +74,7 @@ const Header = props => {
   React.useEffect(() => {
     setPic(props.pic);
   }, [props.pic]);
+
   if (!state.isInPhone || props.isRightMenuVisible) {
     const width = getWidthHeight()[0];
     return (
