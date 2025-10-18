@@ -26,29 +26,7 @@ const RoleFormForSelect = props => {
       setIsWorking(false);
     });
   }, [props, roleForms, isWorking]);
-  const changeRole = r => {
-    setRole(r);
-    if (
-      props.forms === undefined ||
-      props.forms.find(elem => elem.role === r) === undefined
-    )
-      setUserRoleFormData({});
-    else {
-      const form = props.forms.find(elem => elem.role === r);
-      let allForms = roleForms;
-      allForms = allForms.map(elem => {
-        if (elem.role === form.role) return form;
-        return elem;
-      });
-      setRoleForms(allForms);
-      const newUserData = {};
-      form.data.forEach(elem => {
-        newUserData[elem.key] = elem.value;
-      });
-      setUserRoleFormData(newUserData);
-    }
-    setStep('form');
-  };
+
   const setFormUserData = (key, val) => {
     userRoleFormData[key] = val;
     setUserRoleFormData(userRoleFormData);

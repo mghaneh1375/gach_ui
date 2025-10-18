@@ -100,6 +100,16 @@ function Ops(props) {
                 title={'مشاهده تراکنش ها'}
                 onPress={() => props.changeMode('transactions')}
               />
+              <CommonButton
+                theme={'transparent'}
+                title={'مشاهده صفحه مشاور'}
+                onPress={() =>
+                  window.open(
+                    '/admin/advisor-full-info/' + state.selectedUser.id,
+                    '_blank',
+                  )
+                }
+              />
             </>
           )}
           {!isAdvisor && (

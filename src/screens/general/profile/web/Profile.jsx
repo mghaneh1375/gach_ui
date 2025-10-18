@@ -578,7 +578,7 @@ const Profile = props => {
                     )}
                   </MyView>
                 )}
-                {user.forms !== undefined && (
+                {user.forms && (
                   <CommonWebBox>
                     <EqualTwoTextInputs>
                       <BigBoldBlueTextInline

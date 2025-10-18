@@ -312,5 +312,6 @@ const translator = {
   unknow: 'ناشناخته',
   lastNotifs: 'اعلانات اخیر دیده نشده',
   rate: 'امتیاز',
+  age: 'سن',
 };
 export default translator;

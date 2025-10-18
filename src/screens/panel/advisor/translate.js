@@ -15,4 +15,13 @@ export const Translate = {
   reportAbout: 'گزارش‌شونده',
   detail: 'جزئیات',
   justUnSeen: 'فقط مشاهده نشده‌ها',
+  videoLink: 'مشاهده ویدیو معرفی',
+  meetingCount: 'تعداد جلسات آنلاین برگزار کرده',
+  reportsCount: 'تعداد گزارشات مشکل از سمت دانش آموزان',
+  totalSettlements: 'تعداد کل تسویه‌های انجام شده',
+  totalSettledAmount: 'مبلغ کل تسویه انجام شده',
+  schedulesCount: 'تعداد کل کاربرگ‌های طراحی شده',
+  currentStudents: 'دانش آموزان فعلی',
+  recentComments: 'کامنت‌های اخیر',
+  recentReports: 'مشکل‌های گزارش‌‌های اخیر',
 };

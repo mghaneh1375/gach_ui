@@ -1,10 +1,11 @@
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
-import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import StudentDigestCard from '@/components/web/StudentDigestCard.jsx';
 import Titr from '@/screens/panel/quiz/components/Titr.jsx';
 import {formatPrice} from '@/services/utility.js';
-import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import {CommonWebBox, MyView, PhoneView} from '@/styles/CommonComponents.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
 import {faCog} from '@fortawesome/free-solid-svg-icons';
@@ -13,14 +14,13 @@ import {useNavigate} from 'react-router';
 import DashboardCard from '../../studentPanel/dashboard/dashboardCard/DashboardCard.jsx';
 import AdviceRequest from './components/AdviceRequest.jsx';
 import Config from './components/Config.jsx';
-import {itemsIcon, itemsUrl} from './components/items';
 import LastComment from './components/LastComment.jsx';
+import Meeting from './components/Meeting.jsx';
 import Notif from './components/Notif.jsx';
 import Schedules from './components/Schedules.jsx';
-import {Translate} from './components/translate';
 import UnSeenTickets from './components/UnSeenTickets.jsx';
-import Meeting from './components/Meeting.jsx';
-import MyCurrStudent from './components/MyCurrStudent.jsx';
+import {itemsIcon, itemsUrl} from './components/items';
+import {Translate} from './components/translate';
 
 function Dashboard() {
   const useGlobalState = () => [
@@ -184,12 +184,22 @@ function Dashboard() {
                   <Titr title={Translate.myCurrStudents} />
                   <PhoneView style={{gap: 10}}>
                     {data.myCurrStudents.map((std, index) => (
-                      <MyCurrStudent
+                      <StudentDigestCard
+                        student={std.student}
                         isInPhone={state.isInPhone}
                         key={index}
-                        student={std.student}
-                        startAt={std.startAt}
-                        endAt={std.endAt}
+                        children={
+                          <>
+                            <SimpleText
+                              style={{fontSize: 11}}
+                              text={`${Translate.startAdviceAt}: ${std.startAt}`}
+                            />
+                            <SimpleText
+                              style={{fontSize: 11}}
+                              text={`${Translate.endAdviceAt}: ${std.endAt}`}
+                            />
+                          </>
+                        }
                       />
                     ))}
                   </PhoneView>

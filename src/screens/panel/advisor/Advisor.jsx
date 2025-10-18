@@ -14,6 +14,9 @@ import {routes} from '@/api/apiRoutes';
 import commonTranslator from '@/translator/common';
 import {getUser, setCacheItem} from '@/api/user';
 import {Image} from 'react-native';
+import StudentDigestCard from '@/components/web/StudentDigestCard';
+import Titr from '../quiz/components/Titr';
+import RecentComment from './components/RecentComment';
 
 function Advisor() {
   const param = useParams();
@@ -104,6 +107,10 @@ function Advisor() {
               />
               <SimpleText
                 style={{fontSize: 11}}
+                text={`${commonTranslator.age} ${data.age}`}
+              />
+              <SimpleText
+                style={{fontSize: 11}}
                 text={`${Translate.studentsCount}: ${data.studentsCount}`}
               />
               <SimpleText
@@ -116,19 +123,74 @@ function Advisor() {
               />
               <SimpleText
                 style={{fontSize: 11}}
+                text={`${Translate.meetingCount}: ${data.meetingCount}`}
+              />
+              <SimpleText
+                style={{fontSize: 11}}
+                text={`${Translate.reportsCount}: ${data.reportsCount}`}
+              />
+              <SimpleText
+                style={{fontSize: 11}}
+                text={`${Translate.totalSettlements}: ${data.totalSettlements}`}
+              />
+              <SimpleText
+                style={{fontSize: 11}}
+                text={`${Translate.totalSettledAmount}: ${data.totalSettledAmount}`}
+              />
+              <SimpleText
+                style={{fontSize: 11}}
+                text={`${Translate.schedulesCount}: ${data.schedulesCount}`}
+              />
+              <SimpleText
+                style={{fontSize: 11}}
                 text={`${commonTranslator.rate}: ${data.rate}`}
               />
               <SimpleText
                 style={{fontSize: 11}}
                 text={`${Translate.ratesCount}: ${data.rateCount}`}
               />
+              {data.tags && data.tags.map(e => '#' + e).join(' - ')}
             </MyView>
           )}
 
           <MyView>
             {data?.adviceBio && <SimpleText text={data.adviceBio} />}
+            {data?.adviceVideoLink && (
+              <a href={data.adviceVideoLink}>{Translate.videoLink}</a>
+            )}
           </MyView>
         </PhoneView>
+        {data?.students && (
+          <>
+            <Titr title={Translate.currentStudents} />
+            <PhoneView style={{gap: 10}}>
+              {data.students.map((std, index) => (
+                <StudentDigestCard
+                  student={std}
+                  isInPhone={state.isInPhone}
+                  key={index}
+                />
+              ))}
+            </PhoneView>
+          </>
+        )}
+        {data?.recentComments && (
+          <>
+            <Titr title={Translate.recentComments} />
+            {data.recentComments.map((comment, index) => (
+              <RecentComment comment={comment} key={index} />
+            ))}
+          </>
+        )}
+        {data?.recentReports && (
+          <>
+            <Titr title={Translate.recentReports} />
+            {data.recentReports.map((report, index) => (
+              <RecentComment report={report} key={index} />
+            ))}
+          </>
+        )}
+        {/* display forms */}
       </CommonWebBox>
     </>
   );

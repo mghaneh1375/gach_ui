@@ -1,42 +1,36 @@
 import {PhoneView, SimpleText} from '@/styles';
-import commonTranslator from '@/translator/common';
-import {useEffect, useState} from 'react';
 import {Image, TouchableOpacity} from 'react-native';
-import {Translate} from './translate';
+import commonTranslator from '@/translator/common';
+import {useEffect} from 'react';
 
-function MyCurrStudent({student, startAt, endAt, isInPhone}) {
+function StudentDigestCard({student, isInPhone, children}) {
   const [pic, setPic] = useState();
   useEffect(() => {
     setPic(student.pic);
   }, [student.pic]);
+
   return (
     <>
       <PhoneView style={{gap: 20, alignItems: 'center'}}>
         <TouchableOpacity
           onPress={() => window.open('/manageStudent/' + student.id, '_blank')}
           style={{gap: 5, alignItems: 'center'}}>
-          <Image
-            style={{
-              width: isInPhone ? 90 : 140,
-              height: isInPhone ? 90 : 140,
-              borderRadius: '50%',
-              objectFit: 'cover',
-              objectPosition: 'center',
-            }}
-            source={pic}
-          />
-          <SimpleText
-            style={{fontSize: 11}}
-            text={student.firstname + ' ' + student.lastname}
-          />
+          {pic && (
+            <Image
+              style={{
+                width: isInPhone ? 90 : 140,
+                height: isInPhone ? 90 : 140,
+                borderRadius: '50%',
+                objectFit: 'cover',
+                objectPosition: 'center',
+              }}
+              source={pic}
+            />
+          )}
 
           <SimpleText
             style={{fontSize: 11}}
-            text={`${Translate.startAdviceAt}: ${startAt}`}
-          />
-          <SimpleText
-            style={{fontSize: 11}}
-            text={`${Translate.endAdviceAt}: ${endAt}`}
+            text={student.firstname + ' ' + student.lastname}
           />
 
           <SimpleText
@@ -68,10 +62,12 @@ function MyCurrStudent({student, startAt, endAt, isInPhone}) {
               student.city && student.city !== null ? student.city : '-'
             }`}
           />
+
+          {children}
         </TouchableOpacity>
       </PhoneView>
     </>
   );
 }
 
-export default MyCurrStudent;
+export default StudentDigestCard;

@@ -1,5 +1,7 @@
 import {
   faBook,
+  faBug,
+  faCheckCircle,
   faClock,
   faCode,
   faComment,
@@ -10,6 +12,7 @@ import {
   faTicket,
   faUser,
   faUserAlt,
+  faUsers,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import {getPast} from '@/services/utility';
@@ -20,15 +23,16 @@ const itemsIcon = {
   pendingRequestForAdvisorAnswer: faClock,
   pendingRequestForStudentPay: faMoneyBills,
   lastMonthKarbargs: faBook,
-  lastMonthMeetings: faMoneyCheck,
-  lastMonthSettled: faMoneyCheck,
+  lastMonthMeetings: faUsers,
+  lastMonthSettled: faCheckCircle,
   pendingUpgradeLevelRequests: faLevelUp,
   lastMonthCustomQuizRegistry: faRegistered,
   lastMonthOpenQuizRegistry: faRegistered,
   lastMonthTutorialCount: faCode,
   lastMonthContentBuyCount: faLevelUp,
   lastMonthAdviceMeetings: faBook,
-  lastMonthTeachReportsCount: faBook,
+  lastMonthTeachReportsCount: faBug,
+  lastMonthAdviceReportsCount: faBug,
   pendingComments: faComment,
   activeTeachers: faUser,
   activeAdvisors: faUserAlt,
@@ -54,6 +58,7 @@ const itemsUrl = {
   lastMonthAdviceMeetings:
     '/admin/report/general?section=ADVISOR&from=' + getPast(30, false),
   lastMonthTeachReportsCount: '/admin/teach/reports',
+  lastMonthAdviceReportsCount: '/admin/advice/reports',
   pendingComments: '/all-comments',
   activeTeachers: '/users/advisor?additionalLevel=teach',
   activeAdvisors: '/users/advisor?additionalLevel=advice',
