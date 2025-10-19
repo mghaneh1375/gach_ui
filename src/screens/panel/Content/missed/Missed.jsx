@@ -32,36 +32,55 @@ function Missed() {
     fetchData();
   }, []);
 
-  const columns = useMemo(
+  const [missedAttachesColumns, missedChunksColumns] = useMemo(
     () => [
-      {
-        name: 'نام دوره',
-        selector: row => row.contentTitle,
-        grow: 1,
-      },
-      {
-        name: 'نام فصل',
-        selector: row => row.sessionTitle,
-        grow: 1,
-      },
-      {
-        name: 'فایلهای پیوست جامانده',
-        selector: row =>
-          row.missedAttaches && row.missedAttaches != null
-            ? row.missedAttaches.join(' - ')
-            : '',
-        grow: 1,
-      },
-      {
-        name: 'آیا ویدیو چانک شده است',
-        selector: row => (row.isChunked ? 'بله' : 'خیر'),
-        grow: 1,
-      },
-      {
-        name: 'آیا ویدیو جامانده است',
-        selector: row => (row.isVideoMissed ? 'بله' : 'خیر'),
-        grow: 1,
-      },
+      [
+        {
+          name: 'نام دوره',
+          selector: row => row.contentTitle,
+          grow: 1,
+        },
+        {
+          name: 'نام فصل',
+          selector: row => row.sessionTitle,
+          grow: 1,
+        },
+        {
+          name: 'فایلهای پیوست جامانده',
+          selector: row =>
+            row.missedAttaches && row.missedAttaches != null
+              ? row.missedAttaches.join(' - ')
+              : '',
+          grow: 1,
+        },
+        {
+          name: 'آیا ویدیو چانک شده است',
+          selector: row => (row.isChunked ? 'بله' : 'خیر'),
+          grow: 1,
+        },
+      ],
+      [
+        {
+          name: 'نام دوره',
+          selector: row => row.contentTitle,
+          grow: 1,
+        },
+        {
+          name: 'نام فصل',
+          selector: row => row.sessionTitle,
+          grow: 1,
+        },
+        {
+          name: 'نام فایل',
+          selector: row => row.video,
+          grow: 1,
+        },
+        {
+          name: 'زمان تشخیص',
+          selector: row => row.createdAt,
+          grow: 1,
+        },
+      ],
     ],
     [],
   );
@@ -70,12 +89,20 @@ function Missed() {
     <>
       <CommonWebBox header={'گزارش خرابی‌های محتواهای آموزشی'}>
         {data && (
-          <CommonDataTable
-            data={data}
-            columns={columns}
-            pagination={false}
-            excel={false}
-          />
+          <>
+            <CommonDataTable
+              data={data.missedChunks}
+              columns={missedChunksColumns}
+              pagination={false}
+              excel={false}
+            />
+            <CommonDataTable
+              data={data.missedAttaches}
+              columns={missedAttachesColumns}
+              pagination={false}
+              excel={false}
+            />
+          </>
         )}
       </CommonWebBox>
     </>
