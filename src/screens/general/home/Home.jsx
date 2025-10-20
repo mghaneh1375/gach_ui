@@ -12,13 +12,14 @@ import {
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
 import vars from '@/styles/root';
-import {dispatchStateContext} from '@/App.jsx';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {useEffectOnce} from 'usehooks-ts';
 import {styles} from '@/styles/common/styles';
 import HomeBox from './homeBox/HomeBox.jsx';
 import RSS from './rss/RSS.jsx';
+import {useTheme} from 'styled-components';
 
 const device = getDevice();
 const Home = props => {
@@ -36,8 +37,13 @@ const Home = props => {
   const [whiteDividerH, setWhiteDividerH] = useState('100%');
   const [isWorking, setIsWorking] = useState(false);
   const [data, setData] = useState();
-  const useGlobalState = () => [React.useContext(dispatchStateContext)];
-  const [dispatch] = useGlobalState();
+  const theme = useTheme();
+
+  const useGlobalState = () => [
+    React.useContext(globalStateContext),
+    React.useContext(dispatchStateContext),
+  ];
+  const [state, dispatch] = useGlobalState();
   const [news, setNews] = useState([]);
   const fetchNews = React.useCallback(() => {
     Promise.all([
@@ -154,8 +160,8 @@ const Home = props => {
           width: '100%',
           height: '100vh',
           background: 'url(./assets/images/back3.png)',
-        }}
-      />
+          backgroundColor: state.theme === 'dark' ? vars.DARK_BLUE : 'unset',
+        }}></div>
       <BackgroundScrollView
         images={[
           {
@@ -199,12 +205,12 @@ const Home = props => {
           marginTop: whiteDividerH,
           width: '100%',
           height: grayFooterH,
-          backgroundColor: 'white',
+          backgroundColor: state.theme === 'dark' ? vars.DARK_BLUE : 'white',
         }}>
         <MyView
           className={'transparent-cards'}
           style={{
-            background: '#ffffffcc',
+            background: `${theme.colors.background.primary}cc`,
             zIndex: 20,
             position: 'absolute',
             // top: width < 440 ? -320 : -170,
@@ -251,12 +257,11 @@ const Home = props => {
             maxWidth: '100%',
             width: whiteDividerW,
             height: whiteDividerH,
-            background: 'url(./assets/images/whitedevider.svg)',
+            background: 'url(./assets/images/whitedevider-dark.svg)',
             backgroundSize: 'cover',
             backgroundPosition: 'right',
             backgroundRepeat: 'no-repeat',
-          }}
-        />
+          }}></div>
         <div
           style={{
             position: 'absolute',
@@ -296,7 +301,10 @@ const Home = props => {
             width: grayFooterW,
             height: grayFooterH,
             top: 0,
-            background: 'url(./assets/images/footergray.svg)',
+            background:
+              state.theme === 'light'
+                ? 'url(./assets/images/footergray.svg)'
+                : 'url(./assets/images/footergray-dark.svg)',
             backgroundSize: 'cover',
             backgroundPosition: 'right',
             backgroundRepeat: 'no-repeat',
@@ -314,10 +322,7 @@ const Home = props => {
             // height: '5px',
           }}>
           {!isInPhone && (
-            <EqualTwoTextInputs
-              style={{
-                alignItems: 'end',
-              }}>
+            <EqualTwoTextInputs style={{alignItems: 'end'}}>
               <MyView
                 style={{
                   ...styles.gap10,

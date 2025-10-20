@@ -4,7 +4,7 @@ import {
   calcInputWidth,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
-} from './commonText';
+} from './commonText.js';
 import SubInputText from './subInputText';
 function TimePicker(props) {
   const [value, setValue] = useState(

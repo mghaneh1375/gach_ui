@@ -2,13 +2,15 @@ import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
 import translator from '../translator';
+import {useTheme} from 'styled-components';
+
 function HomeBox(props) {
+  const theme = useTheme();
   return (
     <CommonWebBox
       width={300}
-      style={{
-        height: 137,
-      }}>
+      style={{height: 137}}
+      childStyle={{backgroundColor: theme.colors.background.card}}>
       <PhoneView
         style={{
           width: 33,

@@ -9,7 +9,7 @@ import {fetchContents} from '../utility';
 import Ops from './Ops.jsx';
 import columns from './tableStruncture';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
-import {justifyContentEnd} from '@/styles/common/button';
+import {justifyContentEnd} from '@/styles/Common/button';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 function List(props) {
   const useGlobalState = () => [

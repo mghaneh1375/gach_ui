@@ -1,11 +1,11 @@
+import vars from '../root';
 import {Platform, Pressable} from 'react-native';
 import styled from 'styled-components';
-import vars from './../root';
 
 const style = {
   textAlign: 'center',
   color: vars.WHITE,
-  backgroundColor: vars.ORANGE,
+  backgroundColor: porps => porps.theme.components.button.colors.primary,
   borderRadius: 10,
   paddingTop: 5,
   paddingBottom: 5,
@@ -39,7 +39,6 @@ export const CommonButtonTextStyleAndroid = {
   color: vars.WHITE,
   fontSize: 20,
 };
-
 export const CommonButtonTextStyleWebPhone = {
   textAlign: 'center',
   color: vars.WHITE,

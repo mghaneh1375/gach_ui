@@ -4,18 +4,21 @@ import {CommonButton, MyView} from '../../styles/CommonComponents.jsx';
 import {styles} from '../../styles/common/styles';
 import vars from '../../styles/root';
 import {Nav, NavLink, NavLinkExternal} from '../../styles/web/navbarElement';
+import {useTheme} from 'styled-components';
+
 const Navbar = props => {
   const [isLogin, setIsLogin] = useState(props.user !== null);
+
   React.useEffect(() => {
     setIsLogin(props.user !== null);
   }, [props.user]);
+
   const width = getWidthHeight()[0];
+  const theme = useTheme();
+
   return (
-    <MyView
-      style={{
-        width: '100%',
-      }}>
-      <Nav>
+    <MyView style={{width: '100%'}}>
+      <Nav style={{backgroundColor: theme.colors.background.secondary}}>
         <NavLinkExternal
           rel="noopener noreferrer"
           target="_blank"
@@ -144,4 +147,5 @@ const Navbar = props => {
     </MyView>
   );
 };
+
 export default Navbar;

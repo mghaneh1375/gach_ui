@@ -5,7 +5,7 @@ import commonTranslator from '@/translator/common';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 import {showError, showSuccess} from '@/services/utility';
-import {justifyContentEnd} from '@/styles/common/button';
+import {justifyContentEnd} from '@/styles/Common/button';
 function CreateUser(props) {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();

@@ -8,7 +8,7 @@ import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
 import {FontIcon, SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import {justifyContentEnd} from '@/styles/common/button';
+import {justifyContentEnd} from '@/styles/Common/button';
 import {Image, Pressable} from 'react-native';
 import React from 'react';
 function Box(props) {
