@@ -10,7 +10,7 @@ import {
   dispatchQuestionReportContext,
 } from './Context.jsx';
 import columns from './tableStructure';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(questionReportContext),

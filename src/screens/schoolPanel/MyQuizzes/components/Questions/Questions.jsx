@@ -5,7 +5,7 @@ import Card from './Card.jsx';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import translator from '../../../../panel/quiz/translator';
 import QuestionsModule from '../../../../panel/question/Question.jsx';
 import qTranslator from '../../../../panel/question/translator';

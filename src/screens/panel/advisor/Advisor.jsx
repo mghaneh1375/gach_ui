@@ -1,3 +1,8 @@
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {routes} from '@/api/apiRoutes';
+import {getUser, setCacheItem} from '@/api/user';
+import {generalRequest} from '@/api/utility';
+import {formatPrice} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -5,18 +10,14 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import React, {useCallback, useEffect, useState} from 'react';
-import {useParams} from 'react-router';
-import {Translate} from './translate';
-import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {generalRequest} from '@/api/utility';
-import {routes} from '@/api/apiRoutes';
 import commonTranslator from '@/translator/common';
-import {getUser, setCacheItem} from '@/api/user';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Image} from 'react-native';
-import StudentDigestCard from '@/components/web/StudentDigestCard';
+import {useParams} from 'react-router';
 import Titr from '../quiz/components/Titr';
 import RecentComment from './components/RecentComment';
+import {Translate} from './translate';
+import StudentDigestCardSnake from '@/components/web/StudentDigestCardSnake';
 
 function Advisor() {
   const param = useParams();
@@ -105,14 +106,18 @@ function Advisor() {
                 style={{fontSize: 11}}
                 text={`${data.firstname} ${data.lastname}`}
               />
-              <SimpleText
-                style={{fontSize: 11}}
-                text={`${commonTranslator.age} ${data.age}`}
-              />
-              <SimpleText
-                style={{fontSize: 11}}
-                text={`${Translate.studentsCount}: ${data.studentsCount}`}
-              />
+              {data.age && (
+                <SimpleText
+                  style={{fontSize: 11}}
+                  text={`${commonTranslator.age} ${data.age}`}
+                />
+              )}
+              {data.studentsCount && (
+                <SimpleText
+                  style={{fontSize: 11}}
+                  text={`${Translate.studentsCount}: ${data.studentsCount}`}
+                />
+              )}
               <SimpleText
                 style={{fontSize: 11}}
                 text={`${Translate.totalStudentsCount}: ${data.totalStudentsCount}`}
@@ -135,7 +140,9 @@ function Advisor() {
               />
               <SimpleText
                 style={{fontSize: 11}}
-                text={`${Translate.totalSettledAmount}: ${data.totalSettledAmount}`}
+                text={`${Translate.totalSettledAmount}: ${formatPrice(
+                  data.totalSettledAmount,
+                )}`}
               />
               <SimpleText
                 style={{fontSize: 11}}
@@ -160,21 +167,23 @@ function Advisor() {
             )}
           </MyView>
         </PhoneView>
-        {data?.students && (
+        {data?.students && data.students.length > 0 && (
           <>
             <Titr title={Translate.currentStudents} />
             <PhoneView style={{gap: 10}}>
-              {data.students.map((std, index) => (
-                <StudentDigestCard
-                  student={std}
-                  isInPhone={state.isInPhone}
-                  key={index}
-                />
-              ))}
+              {data.students.map((std, index) => {
+                return (
+                  <StudentDigestCardSnake
+                    student={std}
+                    isInPhone={state.isInPhone}
+                    key={index}
+                  />
+                );
+              })}
             </PhoneView>
           </>
         )}
-        {data?.recentComments && (
+        {data?.recentComments && data?.recentComments.length > 0 && (
           <>
             <Titr title={Translate.recentComments} />
             {data.recentComments.map((comment, index) => (
@@ -182,7 +191,7 @@ function Advisor() {
             ))}
           </>
         )}
-        {data?.recentReports && (
+        {data?.recentReports && data?.recentReports.length > 0 && (
           <>
             <Titr title={Translate.recentReports} />
             {data.recentReports.map((report, index) => (

@@ -9,7 +9,7 @@ import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 function List(props) {
   const useGlobalState = () => [

@@ -4,7 +4,7 @@ import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput
 import {dispatchUsersContext, usersContext} from './Context.jsx';
 import Translator from '../translator';
 import {styles} from '@/styles/common/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {setPriority} from './utility';
 function SetPriority(props) {
   const useGlobalState = () => [

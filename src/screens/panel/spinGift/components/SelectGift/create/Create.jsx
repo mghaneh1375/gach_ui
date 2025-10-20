@@ -3,14 +3,14 @@ import {CommonButton, CommonWebBox, PhoneView, MyView} from '@/styles';
 import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect.jsx';
 import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import Translate from '../../../translate';
-import commonTranslate from '../../../../../../translator/common';
+import commonTranslate from '../../../../../../translator/common.js';
 import {
   typeGiftKeyVals,
   offCodeKeyVals,
   typeOffCodeKeyVals,
   siteAppKeyVals,
 } from './keyVals';
-import commonTranslator from '../../../../../../translator/common';
+import commonTranslator from '../../../../../../translator/common.js';
 import JustBottomBorderDatePicker from '../../../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import {addGift, editGift} from '../../configGift/utility';
 import {changeText} from '../../../../../../services/utility';

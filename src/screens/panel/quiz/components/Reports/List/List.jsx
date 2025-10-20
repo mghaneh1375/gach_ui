@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {quizContext, dispatchQuizContext} from '../../Context.jsx';
 import Participants from '../participants/Participants.jsx';
 import translator from './translator';
-import commonTranslator from '../../../../../../translator/common';
+import commonTranslator from '../../../../../../translator/common.js';
 import {
   fetchKarnameReportLocal,
   fetchCityReportLocal,

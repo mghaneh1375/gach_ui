@@ -4,10 +4,15 @@ import {generalRequest} from '@/api/utility.js';
 import StudentDigestCard from '@/components/web/StudentDigestCard.jsx';
 import Titr from '@/screens/panel/quiz/components/Titr.jsx';
 import {formatPrice} from '@/services/utility.js';
-import {CommonWebBox, MyView, PhoneView} from '@/styles/CommonComponents.jsx';
+import {
+  CommonWebBox,
+  MyView,
+  PhoneView,
+  SimpleText,
+} from '@/styles/CommonComponents.jsx';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import vars from '@/styles/root';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {faCog} from '@fortawesome/free-solid-svg-icons';
 import React, {useMemo, useState} from 'react';
 import {useNavigate} from 'react-router';

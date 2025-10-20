@@ -4,7 +4,7 @@ import {globalStateContext} from '@/App.jsx';
 import {Device} from '@/models/device';
 import {getDevice} from '@/services/utility';
 import {MyView} from '@/styles';
-import translator from '@/translator/common';
+import translator from '@/translator/common.js';
 import MobileLogout from '../MobileLogout.jsx';
 import {MenuItemPhone, style} from '../Style.jsx';
 import MenuItemRepeat from './MenuItemRepeat.jsx';

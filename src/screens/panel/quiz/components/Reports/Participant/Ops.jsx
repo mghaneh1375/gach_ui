@@ -1,6 +1,6 @@
 import {CommonButton, PhoneView} from '@/styles';
 import {LargePopUp} from '../../../../../../styles/common/PopUp.jsx';
-import commonTranslator from '../../../../../../translator/common';
+import commonTranslator from '../../../../../../translator/common.js';
 import {resetStudentQuizEntryTime} from '../../utility';
 import translator from '../list/translator';
 function Ops(props) {

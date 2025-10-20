@@ -13,7 +13,7 @@ import {
   SimpleText,
 } from '@/styles';
 import {styles} from '@/styles/common/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {Translator} from '../translator';
 import Card from './Card.jsx';
 import {dispatchPackagesContext, packagesContext} from './Context.jsx';

@@ -4,7 +4,7 @@ import {generalRequest} from '@/api/utility.js';
 import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {courseContext, dispatchCourseContext} from './Context.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {showError, trueFalseValues} from '@/services/utility';
 function Create(props) {

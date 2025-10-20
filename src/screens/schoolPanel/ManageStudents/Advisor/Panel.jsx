@@ -13,7 +13,7 @@ import {
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {
   faClockRotateLeft,
   faNewspaper,

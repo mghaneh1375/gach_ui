@@ -20,7 +20,7 @@ import {
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import UserTinyPic from '../UserTinyPic.jsx';
 import newAlertsKeyVals from './newAlertsKeyVals';
 import {style} from './Style.jsx';

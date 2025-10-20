@@ -9,7 +9,7 @@ import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {reportColumns} from './tableStructure';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import translator from '../translate';
 function Report(props) {
   const useGlobalState = () => [

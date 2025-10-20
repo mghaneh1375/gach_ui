@@ -15,7 +15,7 @@ import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
 import {styles} from '@/styles/common/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {faNums, getDevice, showError, showSuccess} from '@/services/utility';
 import OffCode from './components/OffCode.jsx';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';

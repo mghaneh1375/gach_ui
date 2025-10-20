@@ -8,7 +8,7 @@ import {
   SimpleText,
   FontIcon,
 } from '@/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {dispatchPackagesContext, packagesContext} from '../Context.jsx';
 import OffCode from '../OffCode.jsx';
 import Quizzes from './Quizzes.jsx';

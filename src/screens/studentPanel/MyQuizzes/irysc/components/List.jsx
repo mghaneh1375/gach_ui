@@ -7,7 +7,7 @@ import {
 } from '../../../../panel/quiz/components/Context.jsx';
 import Ops from './Ops.jsx';
 import {fetchMyQuizze} from './utility';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import ProgressCard from '../../../myOffs/progressCard/ProgressCard.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';

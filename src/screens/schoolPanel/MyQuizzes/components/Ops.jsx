@@ -7,7 +7,7 @@ import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import translator from '../../../panel/quiz/translator';
 import {dispatchMyQuizzesContext, myQuizzesContext} from './Context.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {
   createTaraz,
   generateQuestionPDF,

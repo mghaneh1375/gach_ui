@@ -5,7 +5,7 @@ import {
   PhoneView,
   MyView,
 } from '../CommonComponents.jsx';
-import translator from '../../translator/common';
+import translator from '../../translator/common.js';
 import {TextIcon} from './TextIcon.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import {styles} from './styles';

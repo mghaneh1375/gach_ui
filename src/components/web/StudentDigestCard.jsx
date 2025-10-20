@@ -1,7 +1,7 @@
 import {PhoneView, SimpleText} from '@/styles';
 import {Image, TouchableOpacity} from 'react-native';
 import commonTranslator from '@/translator/common';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 function StudentDigestCard({student, isInPhone, children}) {
   const [pic, setPic] = useState();

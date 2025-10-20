@@ -9,7 +9,7 @@ import A1Report from '../../../panel/quiz/components/reports/A1Report.jsx';
 import KarnameReport from '../../../panel/quiz/components/reports/KarnameReport.jsx';
 import ParticipantReport from '../../../panel/quiz/components/reports/participant/ParticipantReport.jsx';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import translator from '../../../panel/quiz/components/reports/list/translator';
 function Report(props) {

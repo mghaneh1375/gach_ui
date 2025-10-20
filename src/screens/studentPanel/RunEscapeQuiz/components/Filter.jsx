@@ -11,7 +11,7 @@ import vars from '@/styles/root';
 import React from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 import {getDevice} from '@/services/utility';
 import Timer from './Timer.jsx';

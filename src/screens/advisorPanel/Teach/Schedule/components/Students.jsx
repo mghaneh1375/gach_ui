@@ -13,7 +13,7 @@ import {
 import {studentsColumns} from './tableStructure';
 import Translator from './translator';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 function Students(props) {
   const useGlobalState = () => [
     React.useContext(teachScheduleContext),

@@ -4,7 +4,7 @@ import {dispatchQuizContext, quizContext} from '../Context.jsx';
 import {useState} from 'react';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import translator from '../../translator';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';

@@ -2,7 +2,7 @@ import React from 'react';
 import {Device} from '@/models/device';
 import {getDevice} from '@/services/utility';
 import {MenuItem, style, MenuItemPhone} from '../Style.jsx';
-import translator from '@/translator/common';
+import translator from '@/translator/common.js';
 import {faUsers} from '@fortawesome/free-solid-svg-icons';
 import {MyView} from '@/styles';
 import MenuItemRepeat from './MenuItemRepeat.jsx';

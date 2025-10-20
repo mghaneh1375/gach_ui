@@ -20,7 +20,7 @@ import {
 } from '@/styles/CommonComponents.jsx';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import OffCode from '../buy/components/OffCode.jsx';
 import BuySchedule from './BuySchedule.jsx';
 import Card from './Card.jsx';

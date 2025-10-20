@@ -6,7 +6,7 @@ import {
   MyView,
 } from '@/styles';
 import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput.jsx';
-import commonTranslator from '../../../../../../translator/common';
+import commonTranslator from '../../../../../../translator/common.js';
 import Translate from '../../../translate';
 import React, {useState} from 'react';
 import {TextIcon} from '../../../../../../styles/common/TextIcon.jsx';

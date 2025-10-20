@@ -9,7 +9,7 @@ import {
 import QuizAnswerSheetInfo from './create/QuizAnswerSheetInfo.jsx';
 import QuizGeneralInfo from './create/QuizGeneralInfo.jsx';
 import QuizRegistryInfo from './create/QuizRegistryInfo.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import translator from '../translator';
 import {CallAPI} from './create/callAPI';
 import {routes} from '@/api/apiRoutes';

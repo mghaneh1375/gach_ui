@@ -5,7 +5,7 @@ import {generalRequest} from '@/api/utility.js';
 import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
 import {CommonButton, MyView, PhoneView} from '@/styles';
 import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';
-import commonTranlator from '../../../../translator/common';
+import commonTranlator from '../../../../translator/common.js';
 import translator from '../translate';
 const Login = props => {
   const [username, setUsername] = useState('');

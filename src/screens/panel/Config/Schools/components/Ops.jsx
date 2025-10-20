@@ -4,7 +4,7 @@ import ConfirmationBatchOpPane from '@/components/web/ConfirmationBatchOpPane.js
 import {showSuccess} from '@/services/utility';
 import {CommonButton, PhoneView, MyView} from '@/styles';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {dispatchSchoolContext, schoolContext} from './Context.jsx';
 function Ops(props) {
   const useGlobalState = () => [

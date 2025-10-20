@@ -15,7 +15,7 @@ import {getRanking} from '../../../../panel/quiz/components/utility';
 import Translate from '../../translate';
 import {getMyAnswerSheet, getRecpForQuiz} from './utility';
 import translator from '../../../../panel/quiz/translator';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {Rating} from 'react-native-ratings';
 import vars from '@/styles/root';
 import {generalRequest} from '@/api/utility.js';

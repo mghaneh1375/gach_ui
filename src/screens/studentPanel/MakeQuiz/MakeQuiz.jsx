@@ -18,7 +18,7 @@ import {fetchAllFlags, finalized} from './utility';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import Basket from '@/components/web/Basket.jsx';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import BuyBasket from './BuyBasket.jsx';
 import OffCode from '../../general/buy/components/OffCode.jsx';
 import {LoadingCommonWebBox} from '@/components/LoadingCommonWebBox.jsx';

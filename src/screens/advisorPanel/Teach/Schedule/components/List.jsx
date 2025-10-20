@@ -12,7 +12,7 @@ import {routes} from '@/api/apiRoutes';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {removeItems, showSuccess} from '@/services/utility';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {generalRequest} from '@/api/utility.js';
 import Translator from './translator';
 function List(props) {
