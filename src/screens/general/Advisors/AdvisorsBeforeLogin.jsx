@@ -14,7 +14,7 @@ import {
 } from '@/styles/CommonComponents.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import Card from './Card.jsx';
 import Filter from './Filter.jsx';
 function AdvisorsBeforeLogin(props) {

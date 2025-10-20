@@ -1,6 +1,6 @@
 import {PhoneView, MyView} from '@/styles';
 import {LargePopUp} from '../../../../../../../styles/common/PopUp.jsx';
-import commonTranslator from '../../../../../../../translator/common';
+import commonTranslator from '../../../../../../../translator/common.js';
 import {CommonButton} from '../../../../../../../styles/CommonComponents.jsx';
 import {showSuccess} from '../../../../../../../services/utility';
 import {useState} from 'react';

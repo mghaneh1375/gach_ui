@@ -23,7 +23,7 @@ import {
 } from '@/services/utility';
 import {Device} from '@/models/device';
 import translator from '../translate';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import {Col, Row} from 'react-grid-system';
@@ -36,7 +36,7 @@ import {fetchUser, setCacheItem} from '@/api/user';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
-import commonTranslate from '../../../../translator/common';
+import commonTranslate from '../../../../translator/common.js';
 import {styles} from '@/styles/common/styles';
 const Profile = props => {
   const [user, setUser] = useState();

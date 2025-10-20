@@ -9,7 +9,7 @@ import {sectionKeyVals} from '../../offcode/components/utility';
 import {routes} from '@/api/apiRoutes';
 import {showError, showSuccess} from '@/services/utility';
 import {styles} from '@/styles/common/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(exchangeContext),

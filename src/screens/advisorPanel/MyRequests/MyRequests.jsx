@@ -10,7 +10,7 @@ import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {styles} from '@/styles/common/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import FinancePlan from '../../general/advisors/FinancePlan.jsx';
 import Translate from './translate';
 import Schedule from '../../studentPanel/myLifeStyle/components/Schedule.jsx';

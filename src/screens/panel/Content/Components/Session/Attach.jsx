@@ -15,7 +15,7 @@ import {contentContext, dispatchContentContext} from '../Context.jsx';
 import {removeSessionFile, setSessionFile} from '../utility';
 import React from 'react';
 import {styles} from '@/styles/common/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 function Attach(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),

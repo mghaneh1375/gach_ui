@@ -29,7 +29,7 @@ import {styles} from '@/styles/common/styles';
 import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import vars from '@/styles/root';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';

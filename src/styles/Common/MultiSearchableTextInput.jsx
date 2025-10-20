@@ -8,7 +8,7 @@ import {
   CommonTextInputElem,
   CommonTextInputStyleWeb,
 } from './commonText';
-import translator from '../../translator/common';
+import translator from '../../translator/common.js';
 import SubInputText from './subInputText';
 import MultiBox from '../../components/web/multiBox/MultiBox.jsx';
 export const MultiSearchableTextInput = props => {

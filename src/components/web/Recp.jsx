@@ -7,7 +7,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../styles/CommonComponents.jsx';
-import commonTranslator from '../../translator/common';
+import commonTranslator from '../../translator/common.js';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
 import {formatPrice, showError} from '@/services/utility';

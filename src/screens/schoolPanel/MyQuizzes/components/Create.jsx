@@ -7,7 +7,7 @@ import {addFile, removeFile} from '../../../panel/quiz/components/utility';
 import {CommonButton, CommonWebBox, EqualTwoTextInputs, MyView} from '@/styles';
 import QuizGeneralInfo from '../../../panel/quiz/components/create/QuizGeneralInfo.jsx';
 import translator from '../../../panel/quiz/translator';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import QuizAnswerSheetInfo from '../../../panel/quiz/components/create/QuizAnswerSheetInfo.jsx';
 import {showError, showSuccess} from '@/services/utility';
 import QuizRunInfo from './QuizRunInfo.jsx';

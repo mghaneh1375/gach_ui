@@ -22,7 +22,7 @@ import Translate from '../translator';
 import {useFilePicker} from 'use-file-picker';
 import {addCertificate, editCertificate, getCertificate} from '../utility';
 import NextButtons from '../components/NextButtons.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {fileRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';

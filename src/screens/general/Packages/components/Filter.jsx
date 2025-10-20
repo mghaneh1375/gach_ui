@@ -15,7 +15,7 @@ import {
 } from '@/styles';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {styles} from '@/styles/common/styles';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {dispatchPackagesContext} from './Context.jsx';
 import {filter} from './utility';
 function Filter(props) {

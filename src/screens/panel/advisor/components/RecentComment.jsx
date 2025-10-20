@@ -6,7 +6,7 @@ function RecentComment({comment}) {
     <>
       <SimpleText text={comment.comment} />
       <SimpleText
-        text={`${commonTranslator.createdAt}: ${comment.createdAt}`}
+        text={`${commonTranslator.createdAt}: ${comment.created_at}`}
       />
     </>
   );

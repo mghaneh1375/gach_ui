@@ -7,7 +7,7 @@ import {
 } from '../../../../panel/quiz/components/Context.jsx';
 import Ops from './Ops.jsx';
 import {fetchMyQuizzes} from './utility';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

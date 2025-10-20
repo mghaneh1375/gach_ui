@@ -20,7 +20,7 @@ import {getDevice, getWidthHeight} from '@/services/utility';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import vars from '@/styles/root';
 import newAlertsKeyVals from './newAlertsKeyVals';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {styles} from '@/styles/common/styles';
 import {logout} from '@/api/user';
 function MobileLogout(props) {

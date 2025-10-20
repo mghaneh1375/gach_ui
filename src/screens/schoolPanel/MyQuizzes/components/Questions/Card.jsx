@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {CommonRadioButton, MyView, PhoneView} from '@/styles';
 import Question from '../../../../panel/question/components/detail/Question.jsx';
 import {dispatchMyQuizzesContext, myQuizzesContext} from '../Context.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 function Card(props) {
   const [isSelected, setIsSelected] = useState(false);
   const useGlobalState = () => [

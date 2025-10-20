@@ -10,7 +10,7 @@ import {
   MyView,
 } from '@/styles';
 import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import translator from '../translate';
 const ForgetPass = props => {
   const [authVia, setAuthVia] = useState('sms');

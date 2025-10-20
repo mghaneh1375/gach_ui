@@ -4,7 +4,7 @@ import {
   SimpleText,
 } from '../styles/CommonComponents.jsx';
 import {useState} from 'react';
-import commonTranslator from '../translator/common';
+import commonTranslator from '../translator/common.js';
 const CopyBox = props => {
   const [copying, setCopying] = useState(false);
   const doCopy = () => {

@@ -3,7 +3,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../styles/CommonComponents.jsx';
-import commonTranslator from '../../translator/common';
+import commonTranslator from '../../translator/common.js';
 import React from 'react';
 function RadioButtonYesOrNo(props) {
   return (

@@ -500,3 +500,24 @@ export const makeDownload = link => {
 export const f2e = v => {
   return (v + '').replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
 };
+
+export function snakeToCamel(s) {
+  return s.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+}
+
+export function keysToCamel(o) {
+  if (Array.isArray(o)) {
+    return o.map(v => keysToCamel(v));
+  } else if (o !== null && o.constructor === Object) {
+    return Object.keys(o).reduce((result, key) => {
+      console.log(key);
+      console.log(result);
+
+      const camelKey = snakeToCamel(key);
+      console.log(camelKey);
+      result[camelKey] = keysToCamel(o[key]);
+      return result;
+    }, {});
+  }
+  return o;
+}

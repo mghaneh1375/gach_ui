@@ -3,7 +3,7 @@ import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatc
 import {showSuccess} from '@/services/utility';
 import {CommonButton, PhoneView, MyView} from '@/styles';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import Translate from '../translate';
 function Ops(props) {
   const [showRemovePane, setShowRemovePane] = useState(false);

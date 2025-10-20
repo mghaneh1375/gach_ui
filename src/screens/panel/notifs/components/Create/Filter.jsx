@@ -8,7 +8,7 @@ import {
   sexKeyVals,
   showError,
 } from '@/services/utility';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {notifContext, dispatchNotifContext} from '../Context.jsx';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';

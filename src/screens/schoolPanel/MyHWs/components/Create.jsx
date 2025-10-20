@@ -15,7 +15,7 @@ import {
   PhoneView,
 } from '@/styles';
 import translator from '../../../panel/quiz/translator';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import QuizAnswerSheetInfo from '../../../panel/quiz/components/create/QuizAnswerSheetInfo.jsx';
 import {answerTypes, showSuccess, trueFalseValues} from '@/services/utility';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CommonRadioButton, PhoneView, MyView} from '@/styles';
 import Question from '../../../question/components/detail/Question.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {dispatchQuizContext, quizContext} from '../Context.jsx';
 import EscapeQuestion from '../../../question/components/detail/EscapeQuestion.jsx';
 function Card(props) {

@@ -3,7 +3,7 @@ import Quizzes from '@/components/web/Quizzes.jsx';
 import {getDevice, getWidthHeight, showError} from '@/services/utility';
 import {BigBoldBlueText, MyView, PhoneView, SimpleText} from '@/styles';
 import {packagesContext} from '../Context.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import OffCode from '../OffCode.jsx';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
 import BuyBasket from '../BuyBasket.jsx';

@@ -26,7 +26,7 @@ import {
 import PhoneFilter from './components/PhoneFilter.jsx';
 import Submits from './components/Submits.jsx';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {styles} from '@/styles/common/styles';

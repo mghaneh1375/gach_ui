@@ -17,7 +17,7 @@ import {
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import Translate from '../translate';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import Circle from '../../../../components/web/Circle.jsx';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 import {convertTimestampToJustTime, getDevice} from '@/services/utility';

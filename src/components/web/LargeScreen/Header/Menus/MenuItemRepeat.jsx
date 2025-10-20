@@ -14,7 +14,7 @@ import {
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
-import translator from '@/translator/common';
+import translator from '@/translator/common.js';
 import {MenuItem, style} from '../Style.jsx';
 import {SuperMenuItem} from './SuperMenuItem.jsx';
 function MenuItemRepeat(props) {

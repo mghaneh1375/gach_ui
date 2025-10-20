@@ -19,7 +19,7 @@ import {styles} from '@/styles/common/styles';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import {basketBox, basketBoxInPhone} from '../../../panel/package/card/style';
 import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import {getDevice, getWidthHeight, setImgSize} from '@/services/utility';
 function Question(props) {
   const useGlobalState = () => [

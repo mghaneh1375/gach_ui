@@ -4,7 +4,7 @@ import JustBottomBorderTextInput from '../../../../../../styles/common/JustBotto
 import {styles} from '../../../../../../styles/common/styles';
 import {showError} from '../../../../../../services/utility';
 import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect.jsx';
-import commonTranslator from '../../../../../../translator/common';
+import commonTranslator from '../../../../../../translator/common.js';
 import {getLessons} from '../../../../../advisorPanel/schedule/components/utility';
 import {getSubjectsKeyVals} from '../../../../question/components/utility';
 import {dispatchSetSubjectContext, setSubjectContext} from './Context.jsx';

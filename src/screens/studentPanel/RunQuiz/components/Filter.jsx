@@ -21,7 +21,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Translate from '../translate';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import Circle from '../../../../components/web/Circle.jsx';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 import {getDevice} from '@/services/utility';

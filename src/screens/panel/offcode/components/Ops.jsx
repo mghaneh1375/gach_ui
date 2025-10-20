@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {CommonButton, PhoneView, MyView, SimpleText} from '@/styles';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane.jsx';
 import {routes} from '@/api/apiRoutes';
 import {showSuccess} from '@/services/utility';

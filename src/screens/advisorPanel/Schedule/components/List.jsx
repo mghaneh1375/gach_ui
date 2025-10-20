@@ -13,7 +13,7 @@ import {removeItems, showSuccess} from '@/services/utility';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane.jsx';
 import {routes} from '@/api/apiRoutes';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
-import commonTranslator from '@/translator/common';
+import commonTranslator from '@/translator/common.js';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(advisorScheduleContext),
