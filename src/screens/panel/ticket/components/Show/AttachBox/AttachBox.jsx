@@ -47,7 +47,7 @@ const AttachBox = props => {
     props.filename.indexOf('.pdf') === -1;
   return (
     <MyView style={style.container}>
-      {props.removeAttach !== undefined && (
+      {props.removeAttach && (
         <MyView style={style.close}>
           <SimpleFontIcon
             onPress={props.removeAttach}
@@ -88,19 +88,17 @@ const AttachBox = props => {
           />
         </Pressable>
       )}
-      {isImg && props.icon === undefined && (
+      {isImg && !props.icon && (
         <img
           style={{
             width: 100,
             height: 80,
             borderRadius: 1,
           }}
-          src={
-            props.fileContent === undefined ? props.filename : props.fileContent
-          }
+          src={props.fileContent ? props.fileContent : props.filename}
         />
       )}
-      {isImg && props.icon !== undefined && (
+      {isImg && props.icon && (
         <MyView
           style={{
             ...style.box,
@@ -132,7 +130,7 @@ const AttachBox = props => {
           />
         </MyView>
       )}
-      {props.fileContent !== undefined && (
+      {props.fileContent && (
         <SimpleText text={props.filename} style={style.filename} />
       )}
     </MyView>

@@ -35,20 +35,19 @@ function Session(props) {
           }}
         />
         <PhoneView style={styles.gap15}>
-          {props.session.attachesCount !== undefined &&
-            props.session.attachesCount > 0 && (
-              <PhoneView
-                style={{
-                  ...styles.gap5,
-                  ...styles.marginLeft15,
-                }}>
-                <SimpleFontIcon kind={'med'} icon={faPaperclip} />
-                <SimpleText
-                  style={styles.alignSelfCenter}
-                  text={props.session.attachesCount}
-                />
-              </PhoneView>
-            )}
+          {props.session.attachesCount && props.session.attachesCount > 0 && (
+            <PhoneView
+              style={{
+                ...styles.gap5,
+                ...styles.marginLeft15,
+              }}>
+              <SimpleFontIcon kind={'med'} icon={faPaperclip} />
+              <SimpleText
+                style={styles.alignSelfCenter}
+                text={props.session.attachesCount}
+              />
+            </PhoneView>
+          )}
           <SimpleFontIcon kind={'med'} icon={faClock} />
           <SimpleText
             style={styles.alignSelfCenter}

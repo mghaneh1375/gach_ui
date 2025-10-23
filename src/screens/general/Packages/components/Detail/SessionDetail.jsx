@@ -139,7 +139,7 @@ function SessionDetail(props) {
                   )}
                 </>
               )}
-              {selectedSession.attachesCount !== undefined &&
+              {selectedSession.attachesCount &&
                 selectedSession.attachesCount > 0 && (
                   <PhoneView
                     style={{
@@ -184,7 +184,7 @@ function SessionDetail(props) {
                 html: selectedSession.description,
               }}
             />
-            {selectedSession.attaches !== undefined &&
+            {selectedSession.attaches &&
               selectedSession.attaches.map((elem, index) => {
                 return (
                   <PhoneView key={index}>
@@ -192,14 +192,19 @@ function SessionDetail(props) {
                       style={{
                         alignSelf: 'center',
                       }}
-                      text={'فایل ضمیمه شماره: ' + (index + 1)}
+                      text={elem.title}
                     />
                     <AttachBox
                       onClick={() =>
-                        downloadRequest(elem, undefined, undefined, undefined)
+                        downloadRequest(
+                          elem.filename,
+                          undefined,
+                          undefined,
+                          undefined,
+                        )
                       }
                       key={index}
-                      filename={elem}
+                      filename={elem.filename}
                     />
                   </PhoneView>
                 );
@@ -251,20 +256,19 @@ function SessionDetail(props) {
                         elem.video === '') && (
                         <SimpleFontIcon kind={'med'} icon={faLock} />
                       )}
-                      {elem.attachesCount !== undefined &&
-                        elem.attachesCount > 0 && (
-                          <PhoneView
-                            style={{
-                              ...styles.gap5,
-                              ...styles.marginLeft15,
-                            }}>
-                            <SimpleFontIcon kind={'med'} icon={faPaperclip} />
-                            <SimpleText
-                              style={styles.alignSelfCenter}
-                              text={elem.attachesCount}
-                            />
-                          </PhoneView>
-                        )}
+                      {elem.attachesCount && elem.attachesCount > 0 && (
+                        <PhoneView
+                          style={{
+                            ...styles.gap5,
+                            ...styles.marginLeft15,
+                          }}>
+                          <SimpleFontIcon kind={'med'} icon={faPaperclip} />
+                          <SimpleText
+                            style={styles.alignSelfCenter}
+                            text={elem.attachesCount}
+                          />
+                        </PhoneView>
+                      )}
                       <SimpleText
                         style={styles.alignSelfCenter}
                         text={convertSecToMinWithOutHour(elem.duration) + '"'}

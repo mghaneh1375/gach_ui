@@ -173,6 +173,7 @@ export const addFile = async (token, fileContent, contentId) => {
 export const setSessionFile = async (
   token,
   fileContent,
+  title,
   contentId,
   sessionId,
 ) => {
@@ -181,6 +182,7 @@ export const setSessionFile = async (
     .then(async blob => {
       const formData = new FormData();
       formData.append('file', blob, fileContent.name);
+      formData.append('title', title);
       const res = await videoFileRequest(
         routes.addٰAttachToSession + contentId + '/' + sessionId,
         formData,
