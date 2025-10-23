@@ -5,7 +5,7 @@ import {style} from './Style.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import FilterItem from './FilterItem.jsx';
 import {MyView, SimpleText} from '@/styles/CommonComponents.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import {SimpleTextIcon} from '@/styles/common/TextIcon.jsx';
 import {faClose, faFilter} from '@fortawesome/free-solid-svg-icons';

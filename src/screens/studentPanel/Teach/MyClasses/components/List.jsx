@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {CommonWebBox, PhoneView} from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import ProgressCard from '../../../myOffs/progressCard/ProgressCard.jsx';
 import {Translator} from '../../translate';

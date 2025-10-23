@@ -19,7 +19,7 @@ import {
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import Video from '../../../../panel/Video.jsx';
 import {Pressable} from 'react-native';
 import RenderHTML from 'react-native-render-html';

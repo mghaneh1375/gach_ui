@@ -7,7 +7,7 @@ import {
   CommonHalfTextInputStyleWeb,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
-} from './commonText';
+} from './commonText.js';
 import SubInputText from './subInputText';
 export const SearchableTextInput = props => {
   const [suggests, setSuggests] = useState([]);

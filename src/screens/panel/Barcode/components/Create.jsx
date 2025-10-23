@@ -7,7 +7,7 @@ import {
 } from '@/styles/common.jsx';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import React, {useState} from 'react';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import {FontIcon, SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';

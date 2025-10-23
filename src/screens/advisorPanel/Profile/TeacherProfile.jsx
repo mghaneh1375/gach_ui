@@ -23,7 +23,7 @@ import {
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import ContentCard from '../../general/packages/components/Card.jsx';
 import CommentCard from '@/components/web/comment/Card.jsx';

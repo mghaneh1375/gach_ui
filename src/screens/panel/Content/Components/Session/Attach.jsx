@@ -14,7 +14,7 @@ import Translator from '../../translate';
 import {contentContext, dispatchContentContext} from '../Context.jsx';
 import {removeSessionFile, setSessionFile} from '../utility';
 import React from 'react';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import commonTranslator from '@/translator/common.js';
 function Attach(props) {
   const useGlobalState = () => [

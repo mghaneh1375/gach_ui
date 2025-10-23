@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import vars from './../root';
+import vars from '../root';
 import {Platform, TextInput} from 'react-native';
 import {DatePicker, DateTimePicker} from 'react-advance-jalaali-datepicker';
 import SelectBox from 'react-native-multi-selectbox';

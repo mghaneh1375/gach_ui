@@ -14,7 +14,7 @@ import {
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import {faFilePdf} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';

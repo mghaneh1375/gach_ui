@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import Basket from '@/components/web/Basket.jsx';
 import {MyView, PhoneView} from '@/styles';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import Card from '../../../../panel/quiz/components/card/Card.jsx';
 import {packagesContext, dispatchPackagesContext} from '../Context.jsx';
 function Quizzes(props) {

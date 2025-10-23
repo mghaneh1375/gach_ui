@@ -9,7 +9,7 @@ import {
 import {useFilePicker} from 'use-file-picker';
 import {fileRequest, generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import Card from './Card.jsx';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';

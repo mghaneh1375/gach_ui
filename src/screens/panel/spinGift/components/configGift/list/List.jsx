@@ -21,7 +21,7 @@ import {
   fetchContentDigests,
   fetchQuizDigests,
 } from '../../../../notifs/components/utility';
-import {styles} from '../../../../../../styles/common/styles';
+import {styles} from '../../../../../../styles/common/styles.js';
 function List(props) {
   const [newDate, setNewDate] = useState();
   const [appNewDate, setAppNewDate] = useState();

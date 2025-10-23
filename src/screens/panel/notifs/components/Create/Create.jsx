@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {CommonButton, CommonWebBox, PhoneView, SimpleText} from '@/styles';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import {dispatchNotifContext, notifContext} from '../Context.jsx';
 import {
   fetchContentDigests,

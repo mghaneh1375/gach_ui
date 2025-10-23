@@ -20,7 +20,7 @@ import {
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 function Card(props) {
   const useGlobalState = () => [React.useContext(globalStateContext)];

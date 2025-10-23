@@ -12,7 +12,7 @@ import {
   SimpleText,
 } from '@/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import commonTranslator from '@/translator/common.js';
 import {

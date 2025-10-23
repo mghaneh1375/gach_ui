@@ -13,7 +13,7 @@ import {
   faListNumeric,
 } from '@fortawesome/free-solid-svg-icons';
 import RenderHTML from 'react-native-render-html';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import {
   convertSecToMin,
   convertSecToMinWithOutHour,

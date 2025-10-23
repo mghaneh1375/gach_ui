@@ -8,7 +8,7 @@ import {
 } from '../CommonComponents.jsx';
 import vars from '../root';
 import {FontIcon, SimpleFontIcon} from './FontIcon.jsx';
-import {styles} from './styles';
+import {styles} from './styles.js';
 const style = {
   paddingRight: 10,
   marginTop: 0,

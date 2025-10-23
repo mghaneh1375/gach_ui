@@ -3,7 +3,7 @@ import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {dispatchUsersContext, usersContext} from './Context.jsx';
 import Translator from '../translator';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import commonTranslator from '@/translator/common.js';
 import {setPriority} from './utility';
 function SetPriority(props) {

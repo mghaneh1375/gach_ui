@@ -19,7 +19,7 @@ import {useFilePicker} from 'use-file-picker';
 import {showSuccess} from '@/services/utility';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 const CreateOnlineQuiz = props => {
   const useGlobalState = () => [
     React.useContext(quizContext),

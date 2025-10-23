@@ -8,7 +8,7 @@ import {
   dispatchQuestionReportContext,
 } from './Context.jsx';
 import commonTranslator from '@/translator/common.js';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import {trueFalseValues} from '@/services/utility';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import translator from '../translate';

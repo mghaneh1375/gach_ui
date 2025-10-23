@@ -3,7 +3,7 @@ import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext} from '@/App.jsx';
 import {formatPrice} from '@/services/utility';
 import {MyView, PhoneView} from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import OffsCard from './offsCard/OffsCard.jsx';
 import ProgressCard from './progressCard/ProgressCard.jsx';

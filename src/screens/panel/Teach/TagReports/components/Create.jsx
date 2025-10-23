@@ -6,7 +6,7 @@ import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common.js';
 import {trueFalseValues} from '@/services/utility';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import {
   dispatchTeachTagReportContext,
   teachTagReportContext,

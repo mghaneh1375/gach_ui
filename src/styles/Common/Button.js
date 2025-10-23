@@ -1,6 +1,6 @@
 import {Platform, Pressable} from 'react-native';
 import styled from 'styled-components';
-import vars from './../root';
+import vars from '../root';
 
 const style = {
   textAlign: 'center',

@@ -7,7 +7,7 @@ import {
   CommonHalfTextInputStyleWeb,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
-} from './commonText';
+} from './commonText.js';
 import translator from '../../translator/common.js';
 import SubInputText from './subInputText';
 import MultiBox from '../../components/web/multiBox/MultiBox.jsx';

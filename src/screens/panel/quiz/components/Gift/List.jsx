@@ -6,7 +6,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import {dispatchQuizContext, quizContext} from '../Context.jsx';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';

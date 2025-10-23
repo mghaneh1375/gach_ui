@@ -15,7 +15,7 @@ import Quizzes from './Quizzes.jsx';
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import BuyBasket from '../BuyBasket.jsx';
 import columns from '../../../../schoolPanel/manageStudents/list/tableStructure';
 import StudentList from './MyStudenstList.jsx';

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {convertSecToMinWithOutSec} from '@/services/utility';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import {
   advisorScheduleContext,

@@ -9,7 +9,7 @@ import {CommonButton, CommonWebBox, PhoneView, FontIcon} from '@/styles';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import commonTranslator from '@/translator/common.js';
 import FinancePlan from '../../general/advisors/FinancePlan.jsx';
 import Translate from './translate';

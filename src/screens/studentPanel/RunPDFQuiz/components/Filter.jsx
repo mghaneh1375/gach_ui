@@ -5,7 +5,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import React from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';

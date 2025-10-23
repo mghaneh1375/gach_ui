@@ -28,7 +28,7 @@ import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common.js';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 function RunEscapeQuiz(props) {
   const useGlobalState = () => [

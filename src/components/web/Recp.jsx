@@ -13,7 +13,7 @@ import {toPng} from 'html-to-image';
 import {formatPrice, showError} from '@/services/utility';
 import {FontIcon} from '../../styles/common/FontIcon.jsx';
 import {faArrowLeft, faPrint} from '@fortawesome/free-solid-svg-icons';
-import {styles} from '../../styles/common/styles';
+import {styles} from '../../styles/common/styles.js';
 import vars from '../../styles/root';
 import {Image} from 'react-native';
 function Recp(props) {

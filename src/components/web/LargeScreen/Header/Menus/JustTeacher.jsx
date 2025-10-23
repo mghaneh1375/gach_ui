@@ -2,7 +2,7 @@ import {faTasks} from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import {Device} from '@/models/device';
 import {getDevice} from '@/services/utility';
-import {MenuItem, MenuItemPhone} from '../style';
+import {MenuItem, MenuItemPhone} from '../Style';
 function JustTeacher(props) {
   const device = getDevice();
   const isLargePage = device.indexOf(Device.Large) !== -1;

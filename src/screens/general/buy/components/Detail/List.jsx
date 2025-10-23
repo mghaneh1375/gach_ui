@@ -7,7 +7,7 @@ import commonTranslator from '@/translator/common.js';
 import OffCode from '../OffCode.jsx';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
 import BuyBasket from '../BuyBasket.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 function List(props) {
   const [price, setPrice] = useState(0);
   const [off, setOff] = useState(0);

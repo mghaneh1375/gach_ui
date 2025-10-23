@@ -11,7 +11,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import {formatPrice} from '@/services/utility';
 import {

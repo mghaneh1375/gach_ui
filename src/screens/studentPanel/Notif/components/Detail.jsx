@@ -5,7 +5,7 @@ import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
 import {systemFonts, tagsStyles} from '@/services/utility';
 import {CommonWebBox, EqualTwoTextInputs, SimpleText} from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 function Detail(props) {
   const [notif, setNotif] = useState();

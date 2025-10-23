@@ -12,7 +12,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import commonTranslator from '@/translator/common.js';
 import {Translator} from '../translator';
 import Card from './Card.jsx';

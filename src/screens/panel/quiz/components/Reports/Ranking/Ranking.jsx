@@ -17,7 +17,7 @@ import {faArrowLeft, faEye} from '@fortawesome/free-solid-svg-icons';
 import CopyBox from '@/components/CopyBox.jsx';
 import commonTranslator from '../../../translator';
 import {BASE_SITE_NAME} from '../../../../../../api/utility.js';
-import {styles} from '../../../../../../styles/common/styles';
+import {styles} from '../../../../../../styles/common/styles.js';
 import {
   convertSecToMin,
   convertSecToMinWithOutSec3,

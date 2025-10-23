@@ -19,7 +19,7 @@ import {
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import commonTranslator from '@/translator/common.js';
 import OffCode from '../buy/components/OffCode.jsx';
 import BuySchedule from './BuySchedule.jsx';

@@ -15,7 +15,7 @@ import {
   MyView,
   PhoneView,
 } from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import {basketBox, basketBoxInPhone} from '../../../panel/package/card/style';
 import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';

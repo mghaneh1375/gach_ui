@@ -16,7 +16,7 @@ import {
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {FontIcon, SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import AttachBox from '../../ticket/components/show/attachBox/AttachBox.jsx';
 import Translate from '../translator';
 import {useFilePicker} from 'use-file-picker';

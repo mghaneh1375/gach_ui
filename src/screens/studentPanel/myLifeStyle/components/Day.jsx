@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import {f2e, removeItems} from '@/services/utility';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import Box from './Box.jsx';
 function Day(props) {

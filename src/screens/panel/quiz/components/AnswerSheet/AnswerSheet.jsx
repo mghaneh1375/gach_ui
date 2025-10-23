@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Circle from '@/components/web/Circle.jsx';
 import {CommonWebBox, PhoneView, MyView, SimpleText} from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import MultiSentence from './MultiSentence.jsx';
 import ShortAnswer from './ShortAnswer.jsx';

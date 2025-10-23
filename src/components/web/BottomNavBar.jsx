@@ -10,7 +10,7 @@ import {Text} from 'react-native';
 import {Link} from 'react-router-dom';
 import {MyView} from '@/styles';
 import {SimpleFontIcon} from '../../styles/common/FontIcon.jsx';
-import {styles} from '../../styles/common/styles';
+import {styles} from '../../styles/common/styles.js';
 import {
   NavItemStyle,
   NavItemContainerStyle,
@@ -18,7 +18,7 @@ import {
   NavTextStyle,
   TinyNavTextStyle,
 } from '../../styles/web/bottomNavBar';
-import {BottomLinkExternal} from '../../styles/web/navbarElement';
+import {BottomLinkExternal} from '../../styles/web/navbarElement.js';
 export default function BottomNavBar() {
   return (
     <MyView

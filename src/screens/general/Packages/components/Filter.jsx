@@ -14,7 +14,7 @@ import {
   SimpleText,
 } from '@/styles';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import commonTranslator from '@/translator/common.js';
 import {dispatchPackagesContext} from './Context.jsx';
 import {filter} from './utility';

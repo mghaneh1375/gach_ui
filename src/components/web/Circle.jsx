@@ -1,5 +1,5 @@
 import {PhoneView, SimpleText} from '../../styles/CommonComponents.jsx';
-import {styles} from '../../styles/common/styles';
+import {styles} from '../../styles/common/styles.js';
 function Circle(props) {
   return (
     <PhoneView

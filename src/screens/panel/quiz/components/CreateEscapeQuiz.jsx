@@ -18,7 +18,7 @@ import {addFile, getTags, removeFile} from './utility';
 import {useFilePicker} from 'use-file-picker';
 import {showSuccess, trueFalseValues} from '@/services/utility';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 const CreateEscapeQuiz = props => {

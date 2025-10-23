@@ -14,7 +14,7 @@ import React, {useState} from 'react';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import commonTranslator from '@/translator/common.js';
 import {faNums, getDevice, showError, showSuccess} from '@/services/utility';
 import OffCode from './components/OffCode.jsx';

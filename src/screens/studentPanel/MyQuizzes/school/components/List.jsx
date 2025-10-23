@@ -8,7 +8,7 @@ import {
 import Ops from './Ops.jsx';
 import {fetchMyQuizzes} from './utility';
 import ProgressCard from '../../../myOffs/progressCard/ProgressCard.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {generalRequest} from '@/api/utility.js';

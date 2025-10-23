@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {CommonWebBox, MyView, SimpleText} from '@/styles/CommonComponents.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import Card from './components/Card.jsx';
 import Description from './components/Description.jsx';
 function Psychology(props) {

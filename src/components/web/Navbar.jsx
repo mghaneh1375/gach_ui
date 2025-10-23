@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {getWidthHeight} from '@/services/utility';
 import {CommonButton, MyView} from '../../styles/CommonComponents.jsx';
-import {styles} from '../../styles/common/styles';
+import {styles} from '../../styles/common/styles.js';
 import vars from '../../styles/root';
-import {Nav, NavLink, NavLinkExternal} from '../../styles/web/navbarElement';
+import {Nav, NavLink, NavLinkExternal} from '../../styles/web/navbarElement.js';
 const Navbar = props => {
   const [isLogin, setIsLogin] = useState(props.user !== null);
   React.useEffect(() => {

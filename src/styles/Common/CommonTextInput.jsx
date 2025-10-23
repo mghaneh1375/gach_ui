@@ -5,7 +5,7 @@ import {
   CommonHalfTextInputStyleWeb,
   CommonTextInputElem,
   CommonTextInputStyleWeb,
-} from './commonText';
+} from './commonText.js';
 import SubInputText from './subInputText';
 import SubInputTextTwo from './subInputTextTwo';
 export const CommonTextInput = props => {

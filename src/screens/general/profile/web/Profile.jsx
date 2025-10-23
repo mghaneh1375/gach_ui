@@ -37,7 +37,7 @@ import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 import commonTranslate from '../../../../translator/common.js';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 const Profile = props => {
   const [user, setUser] = useState();
   const [isAdmin, setIsAdmin] = useState(false);

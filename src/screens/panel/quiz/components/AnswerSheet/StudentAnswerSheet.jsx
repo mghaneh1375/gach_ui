@@ -14,7 +14,7 @@ import {updateStudentAnswers} from '../utility';
 import {faLock, faUnlock} from '@fortawesome/free-solid-svg-icons';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import commonTranslator from '@/translator/common.js';
 import {getDevice, showError} from '@/services/utility';
 function StudentAnswerSheet({

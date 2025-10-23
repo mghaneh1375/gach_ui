@@ -8,7 +8,7 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import Card from '../../panel/quiz/components/card/Card.jsx';
 import ProgressCard from '../../studentPanel/myOffs/progressCard/ProgressCard.jsx';

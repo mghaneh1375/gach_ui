@@ -13,7 +13,7 @@ import {
   VictoryAxis,
 } from 'victory-native';
 import Tag from './Tag.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 function Lesson(props) {

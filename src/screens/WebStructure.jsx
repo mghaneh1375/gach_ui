@@ -60,7 +60,7 @@ const Upgrade = lazy(() => import('./studentPanel/upgrade/Upgrade'));
 const ConfigGift = lazy(() =>
   import('./panel/spinGift/components/configGift/ConfigGift'),
 );
-const SchoolUsers = lazy(() => import('./agentPanel/schools/Schools'));
+const SchoolUsers = lazy(() => import('./agentPanel/schools/Schools.jsx'));
 const AcceptInvite = lazy(() => import('./singlePages/AcceptInvite'));
 const Teachers = lazy(() => import('./teacher/teachers/Teachers'));
 const TarazLevels = lazy(() =>
@@ -182,7 +182,7 @@ const StudentEducationalHistory = lazy(() =>
 );
 const MyHWs = lazy(() => import('./schoolPanel/myHWs/MyHWs'));
 const StudentHWs = lazy(() => import('./studentPanel/myQuizzes/hw/MyHWs'));
-const DoHW = lazy(() => import('./studentPanel/myQuizzes/doHW/DoHW'));
+const DoHW = lazy(() => import('./studentPanel/myQuizzes/doHW/DoHW.jsx'));
 const OnlineStanding = lazy(() => import('./panel/quiz/OnlineStanding'));
 const BuyOnlineStanding = lazy(() => import('./general/buy/BuyOnlineStanding'));
 const EscapeQuiz = lazy(() => import('./panel/quiz/EscapeQuiz'));

@@ -9,7 +9,7 @@ import {
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import vars from '@/styles/root';
 import MakeQuizBox from './MakeQuizBox.jsx';
 import Translate from './translate';

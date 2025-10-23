@@ -1,7 +1,7 @@
 import React from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {CommonWebBox, MyView, PhoneView} from '@/styles';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import {
   contentContext,
   dispatchContentContext,

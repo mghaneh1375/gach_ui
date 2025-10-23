@@ -6,7 +6,7 @@ import {
   PhoneView,
   SimpleText,
 } from '../../../../../../styles/Common.jsx';
-import {styles} from '../../../../../../styles/common/styles';
+import {styles} from '../../../../../../styles/common/styles.js';
 import translator from '../../../translator';
 import {questionContext, dispatchQuestionContext} from '../Context.jsx';
 function Level(props) {

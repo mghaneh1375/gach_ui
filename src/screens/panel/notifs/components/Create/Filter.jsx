@@ -12,7 +12,7 @@ import commonTranslator from '@/translator/common.js';
 import {notifContext, dispatchNotifContext} from '../Context.jsx';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 function Filter(props) {
   const useGlobalState = () => [

@@ -10,7 +10,7 @@ import {
 import {BASE_SITE_NAME, generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import {Image} from 'react-native';
 import vars from '@/styles/root';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';

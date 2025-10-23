@@ -13,7 +13,7 @@ import {
   SimpleFontIcon,
 } from '@/styles';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import commonTranslator from '@/translator/common.js';
 import MiniCard from '../quiz/components/cv/MiniCard.jsx';
 import {subjectColsCustomQuiz} from '../quiz/components/reports/karname/lessonTableStructure';
