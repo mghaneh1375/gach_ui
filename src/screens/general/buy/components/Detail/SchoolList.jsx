@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {showError} from '@/services/utility';
+import {showError} from '@/services/utility.js';
 import {
   BigBoldBlueText,
   CommonWebBox,
@@ -162,7 +162,7 @@ function SchoolList(props) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                   ...styles.marginLeft5,
                 }}
@@ -181,7 +181,7 @@ function SchoolList(props) {
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                 }}
                 text={commonTranslator.clickHere}

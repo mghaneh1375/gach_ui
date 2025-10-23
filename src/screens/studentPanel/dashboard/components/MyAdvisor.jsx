@@ -17,15 +17,19 @@ import {
 import {useEffect, useState} from 'react';
 import {Image, Pressable} from 'react-native';
 import {Translate} from './translate';
+import {useTheme} from 'styled-components';
 
 function MyAdvisor({advisor, startAt, endAt, rate, stdCount, age, isInPhone}) {
   const [pic, setPic] = useState();
+  const theme = useTheme();
   useEffect(() => {
     setPic(advisor.pic);
   }, [advisor.pic]);
   return (
     <>
-      <CommonWebBox width={500}>
+      <CommonWebBox
+        style={{backgroundColor: theme.colors.background.card}}
+        width={500}>
         <EqualTwoTextInputs
           style={{
             ...styles.justifyContentCenter,

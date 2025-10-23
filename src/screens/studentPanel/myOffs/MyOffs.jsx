@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useEffectOnce} from 'usehooks-ts';
 import {dispatchStateContext} from '@/App.jsx';
-import {formatPrice} from '@/services/utility';
+import {formatPrice} from '@/services/utility.js';
 import {MyView, PhoneView} from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';

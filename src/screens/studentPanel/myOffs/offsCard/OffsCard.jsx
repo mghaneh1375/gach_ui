@@ -1,6 +1,3 @@
-import React from 'react';
-import {faBuilding, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
-import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import {
   CommonWebBox,
   EqualTwoTextInputs,
@@ -8,6 +5,9 @@ import {
   SimpleText,
 } from '@/styles';
 import {styles} from '@/styles/common/styles';
+import {faBuilding, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
+import {useTheme} from 'styled-components';
+import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import {
   styleCard,
   styleTitle,
@@ -15,16 +15,23 @@ import {
 } from '../../../panel/package/card/style';
 import Translate from '../translate';
 function GiftOffsCard(props) {
+  const theme = useTheme();
   return (
     <CommonWebBox
       style={{
         ...styleCard,
-        ...styles.BlueBold,
         ...styles.padding10,
+        ...{
+          color: theme.colors.text,
+          fontWeight: 600,
+        },
       }}>
       <SimpleText
         style={{
-          ...styles.BlueBold,
+          ...{
+            color: theme.colors.text,
+            fontWeight: 600,
+          },
           ...styles.fontSize15,
           ...styles.paddingRight15,
         }}
@@ -82,15 +89,21 @@ function GiftOffsCard(props) {
         <PhoneView
           style={{
             ...styleYellowBox,
-            ...styles.BlueBold,
             ...styles.margin0,
-            boxShadow: '1px 1px 20px 0px #bebebe',
-            width: props.code !== '' ? '60%' : '100%',
+            ...{
+              color: theme.colors.text,
+              fontWeight: 600,
+              boxShadow: '1px 1px 20px 0px #bebebe',
+              width: props.code !== '' ? '60%' : '100%',
+            },
           }}>
           <SimpleText
             style={{
               ...styleTitle,
-              ...styles.BlueBold,
+              ...{
+                color: theme.colors.text,
+                fontWeight: 600,
+              },
             }}
             text={
               props.amount === undefined
@@ -117,22 +130,31 @@ function GiftOffsCard(props) {
           <PhoneView
             style={{
               ...styleYellowBox,
-              ...styles.BlueBold,
               ...styles.margin0,
-              boxShadow: '1px 1px 20px 0px #bebebe',
-              width: '40%',
+              ...{
+                color: theme.colors.text,
+                fontWeight: 600,
+                boxShadow: '1px 1px 20px 0px #bebebe',
+                width: '40%',
+              },
             }}>
             <SimpleText
               style={{
                 ...styleTitle,
-                ...styles.BlueBold,
+                ...{
+                  color: theme.colors.text,
+                  fontWeight: 600,
+                },
               }}
               text={Translate.offsCode + ' : '}
             />
             <SimpleText
               style={{
                 ...styleTitle,
-                ...styles.BlueBold,
+                ...{
+                  color: theme.colors.text,
+                  fontWeight: 600,
+                },
               }}
               text={props.code}
             />
@@ -141,9 +163,12 @@ function GiftOffsCard(props) {
       </EqualTwoTextInputs>
       <SimpleText
         style={{
-          ...styles.BlueBold,
           ...styles.fontSize10,
-          marginTop: -10,
+          ...{
+            color: theme.colors.text,
+            fontWeight: 600,
+            marginTop: -10,
+          },
         }}
         text={
           props.code === ''

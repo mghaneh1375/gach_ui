@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import Quizzes from '@/components/web/Quizzes.jsx';
-import {getDevice, getWidthHeight, showError} from '@/services/utility';
+import {getDevice, getWidthHeight, showError} from '@/services/utility.js';
 import {BigBoldBlueText, MyView, PhoneView, SimpleText} from '@/styles';
 import {packagesContext} from '../Context.jsx';
 import commonTranslator from '@/translator/common.js';
@@ -97,9 +97,11 @@ function List(props) {
       code: code,
     });
   };
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
-  const w = getWidthHeight()[0];
+
+  const [isInPhone, w] = useMemo(() => {
+    return [getDevice().indexOf('WebPort') !== -1, getWidthHeight()[0]];
+  }, []);
+
   return (
     <MyView>
       {showOffCodePane && (
@@ -118,7 +120,7 @@ function List(props) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                   ...styles.marginLeft5,
                 }}
@@ -137,7 +139,7 @@ function List(props) {
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                 }}
                 text={commonTranslator.clickHere}

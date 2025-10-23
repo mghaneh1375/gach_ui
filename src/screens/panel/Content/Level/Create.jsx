@@ -7,7 +7,7 @@ import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {fileRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
-import {showError} from '@/services/utility';
+import {showError} from '@/services/utility.js';
 function Create(props) {
   const [title, setTitle] = useState();
   const [openFileSelector, {filesContent}] = useFilePicker({

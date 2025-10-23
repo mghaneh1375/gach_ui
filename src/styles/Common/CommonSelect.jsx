@@ -2,7 +2,9 @@ import {MyView} from '@/styles';
 import vars from '../root';
 import {calcInputWidth, CommonSelectElem} from './commonText';
 import SubInputText from './subInputText';
+import {useTheme} from 'styled-components';
 export const CommonSelect = props => {
+  const theme = useTheme();
   const isHalf = props.isHalf !== undefined && props.isHalf;
   const inputProps = {
     options: props.values,
@@ -12,8 +14,8 @@ export const CommonSelect = props => {
       props.placeholder === undefined ? 'انتخاب کنید' : props.placeholder,
     onChange: e => {
       props.setter(e.id);
-      if (props.afterSetter !== undefined) {
-        if (props.args === undefined) props.afterSetter(e.id);
+      if (props.afterSetter) {
+        if (!props.args) props.afterSetter(e.id);
         else props.afterSetter(props.args, e.id);
       }
     },
@@ -21,11 +23,14 @@ export const CommonSelect = props => {
       backgroundColor: vars.transparent,
       paddingRight: 7,
       paddingLeft: 10,
-      paddingBottom: props.paddingLeft !== undefined ? 6 : 2,
-      paddingTop: props.paddingLeft !== undefined ? 5 : 9,
+      paddingBottom: props.paddingLeft ? 6 : 2,
+      paddingTop: props.paddingLeft ? 5 : 9,
       borderBottomWidth: 1,
-      borderColor:
-        props.style.color === undefined ? vars.LIGHT_SILVER : props.style.color,
+      borderColor: props.style?.color
+        ? props.style.color
+        : theme.name === 'dark'
+        ? vars.WHITE
+        : vars.LIGHT_SILVER,
     },
     optionContainerStyle: {
       borderRadius: 0,
@@ -40,16 +45,20 @@ export const CommonSelect = props => {
     },
     selectedItemStyle: {
       fontFamily: 'IRANSans',
-      color:
-        props.style !== undefined && props.style.color !== undefined
-          ? props.style.color
-          : vars.LIGHT_SILVER,
+      color: props.style?.color
+        ? props.style.color
+        : theme.name === 'dark'
+        ? vars.WHITE
+        : vars.LIGHT_SILVER,
       fontSize: 13,
       paddingBottom: 1,
-      paddingLeft: props.paddingLeft !== undefined ? props.paddingLeft : 0,
+      paddingLeft: props.paddingLeft ? props.paddingLeft : 0,
     },
-    arrowIconColor:
-      props.style.color === undefined ? vars.LIGHT_SILVER : props.style.color,
+    arrowIconColor: props.style?.color
+      ? props.style.color
+      : theme.name === 'dark'
+      ? vars.WHITE
+      : vars.LIGHT_SILVER,
     optionsLabelStyle: {
       fontFamily: 'IRANSans',
       fontSize: 13,
@@ -58,7 +67,7 @@ export const CommonSelect = props => {
     },
     hideInputFilter: true,
   };
-  if (props.value !== undefined) inputProps.defaultValue = props.value;
+  if (props.value) inputProps.defaultValue = props.value;
   let parentAllStyles = isHalf
     ? {
         ...{
@@ -75,7 +84,7 @@ export const CommonSelect = props => {
           textAlign: 'right',
         }, // zIndex: 5,
       };
-  if (props.parentStyle !== undefined)
+  if (props.parentStyle)
     parentAllStyles = {
       ...parentAllStyles,
       ...props.parentStyle,
@@ -84,10 +93,10 @@ export const CommonSelect = props => {
   return (
     <MyView className={'myView mySelect'} style={parentAllStyles}>
       <CommonSelectElem className={'myView2'} {...inputProps} />
-      {props.subText !== undefined ? (
+      {props.subText ? (
         <SubInputText
           style={
-            props.style.color !== undefined
+            props.style.color
               ? {
                   width: '100%',
                   height: '100%',
@@ -96,6 +105,7 @@ export const CommonSelect = props => {
               : {
                   width: '100%',
                   height: '100%',
+                  color: theme.name === 'dark' ? vars.WHITE : vars.LIGHT_SILVER,
                 }
           }>
           {props.subText}

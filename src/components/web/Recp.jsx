@@ -10,7 +10,7 @@ import {
 import commonTranslator from '../../translator/common.js';
 import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
-import {formatPrice, showError} from '@/services/utility';
+import {formatPrice, showError} from '@/services/utility.js';
 import {FontIcon} from '../../styles/common/FontIcon.jsx';
 import {faArrowLeft, faPrint} from '@fortawesome/free-solid-svg-icons';
 import {styles} from '../../styles/common/styles';

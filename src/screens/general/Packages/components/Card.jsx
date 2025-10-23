@@ -18,10 +18,13 @@ import {Rating} from 'react-native-ratings';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {useMediaQuery} from '@material-ui/core';
 import {useNavigate} from 'react-router';
+import {useTheme} from 'styled-components';
 
-function Card({tutorial, isInPhone, isInMyMode}) {
+function Card({tutorial, isInPhone, isInMyMode, isDarkMode}) {
   const navigate = useNavigate();
   const [img, setImg] = useState();
+  const theme = useTheme();
+
   React.useEffect(() => {
     setImg(tutorial.img);
   }, [tutorial.img]);
@@ -29,11 +32,10 @@ function Card({tutorial, isInPhone, isInMyMode}) {
   const isInApp =
     window.navigator.userAgent.toLowerCase().indexOf('android') !== -1;
 
-  // const fontSize = isInPhone ? 10 : 11;
-  // const valFontSize = isInPhone ? 12 : 15;
-
   return (
-    <CommonWebBox width={size600 ? '100%' : isInPhone ? 320 : 350}>
+    <CommonWebBox
+      style={{backgroundColor: theme.colors.background.card}}
+      width={size600 ? '100%' : isInPhone ? 320 : 350}>
       <Image
         style={{
           width: '100%',
@@ -59,12 +61,15 @@ function Card({tutorial, isInPhone, isInMyMode}) {
             paddingBottom: 5,
             backgroundColor: vars.SOLID_CREAM,
           }}>
-          <SimpleText style={styles.BlueBold} text={tutorial.title} />
+          <SimpleText
+            style={styles.BlueBold(isDarkMode)}
+            text={tutorial.title}
+          />
         </PhoneView>
         <EqualTwoTextInputs>
           <SimpleText
             style={{
-              ...styles.BlueBold,
+              ...styles.BlueBold(isDarkMode),
               ...styles.margin15,
             }}
             text={tutorial.sessionsCount + ' جلسه'}
@@ -73,7 +78,7 @@ function Card({tutorial, isInPhone, isInMyMode}) {
             {tutorial.buyersCount && (
               <SimpleText
                 style={{
-                  ...styles.BlueBold,
+                  ...styles.BlueBold(isDarkMode),
                   ...styles.margin15,
                 }}
                 text={`${Translator.buyersCount}: ${tutorial.buyersCount}`}
@@ -82,7 +87,7 @@ function Card({tutorial, isInPhone, isInMyMode}) {
             {tutorial.lastWeekBuyersCount && (
               <SimpleText
                 style={{
-                  ...styles.BlueBold,
+                  ...styles.BlueBold(isDarkMode),
                   ...styles.margin15,
                 }}
                 text={`${Translator.lastWeekBuyersCount}: ${tutorial.lastWeekBuyersCount}`}
@@ -93,7 +98,7 @@ function Card({tutorial, isInPhone, isInMyMode}) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...styles.BlueBold,
+                  ...styles.BlueBold(isDarkMode),
                   ...styles.margin15,
                 }}
                 text={Translator.cert + ' '}
@@ -110,7 +115,7 @@ function Card({tutorial, isInPhone, isInMyMode}) {
         </EqualTwoTextInputs>
         {tutorial.teacher && (
           <SimpleText
-            style={styles.BlueBold}
+            style={styles.BlueBold(isDarkMode)}
             text={Translator.teacher + commonTranslator.col + tutorial.teacher}
           />
         )}
@@ -119,7 +124,7 @@ function Card({tutorial, isInPhone, isInMyMode}) {
             {tutorial.teachers.map((teacher, index) => (
               <SimpleText
                 key={index}
-                style={styles.BlueBold}
+                style={styles.BlueBold(isDarkMode)}
                 text={Translator.teacher + commonTranslator.col + teacher}
               />
             ))}
@@ -157,7 +162,7 @@ function Card({tutorial, isInPhone, isInMyMode}) {
               }}>
               <SimpleText
                 style={{
-                  ...styles.BlueBold,
+                  ...styles.BlueBold(isDarkMode),
                 }}
                 text={commonTranslator.price + ' '}
               />
@@ -167,10 +172,10 @@ function Card({tutorial, isInPhone, isInMyMode}) {
                   tutorial.price !== tutorial.afterOff
                     ? {
                         ...styles.textDecorRed,
-                        ...styles.BlueBold,
+                        ...styles.BlueBold(isDarkMode),
                       }
                     : {
-                        ...styles.BlueBold,
+                        ...styles.BlueBold(isDarkMode),
                       }
                 }
                 text={
@@ -185,7 +190,7 @@ function Card({tutorial, isInPhone, isInMyMode}) {
                 tutorial.price !== tutorial.afterOff && (
                   <SimpleText
                     style={{
-                      ...styles.BlueBold,
+                      ...styles.BlueBold(isDarkMode),
                       ...styles.red,
                       ...styles.marginRight15,
                     }}

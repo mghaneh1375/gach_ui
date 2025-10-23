@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import List from './components/list/List.jsx';
 import {PackageProvider} from './components/Context.jsx';
 import Detail from './components/detail/Detail.jsx';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 function Buy(props) {
   const navigate = props.navigate;
   const useGlobalState = () => [
@@ -22,7 +22,10 @@ function Buy(props) {
   const [quizId, setQuizId] = useState();
   const [mode, setMode] = useState();
   const params = useParams();
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   React.useEffect(() => {
     if (packageId == undefined) return;
     setMode('detail');

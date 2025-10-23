@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import {faClose} from '@fortawesome/free-solid-svg-icons';
 import LoginModule from './components/Login.jsx';
 import {

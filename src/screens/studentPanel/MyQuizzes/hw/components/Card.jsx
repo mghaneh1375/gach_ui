@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   faHourglassEnd,
   faHourglassStart,
@@ -22,8 +22,9 @@ import {
 import {convertTimestamp, getDevice} from '@/services/utility';
 import Translate from '../../../../schoolPanel/myHWs/components/translator';
 function Card(props) {
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const fontSize = isInPhone ? 10 : 11;
   return (
     <CommonWebBox

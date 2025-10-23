@@ -21,9 +21,6 @@ export const styles = {
   yellow_color: {
     color: vars.YELLOW,
   },
-  dark_blue_color: {
-    color: vars.DARK_BLUE,
-  },
   colorOrange: {
     color: vars.ORANGE,
   },
@@ -298,10 +295,10 @@ export const styles = {
   margin15: {
     margin: 10,
   },
-  BlueBold: {
-    color: vars.DARK_BLUE,
+  BlueBold: isDarkMode => ({
+    color: isDarkMode ? vars.DARK_THEME_DARK : vars.DARK_BLUE,
     fontWeight: 600,
-  },
+  }),
   bold: {
     fontWeight: 600,
   },

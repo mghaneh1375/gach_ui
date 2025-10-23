@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
 import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
-import {showError, showSuccess} from '@/services/utility';
+import {showError, showSuccess} from '@/services/utility.js';
 import {CommonButton, MyView} from '@/styles';
 import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';
 import translator from '../translate';

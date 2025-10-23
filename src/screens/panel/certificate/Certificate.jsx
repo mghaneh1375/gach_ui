@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {MyView} from '@/styles';
 import {dispatchStateContext} from '@/App.jsx';
 import List from './list/List.jsx';
-import {addItem, editItem, removeItems} from '@/services/utility';
+import {addItem, editItem, removeItems} from '@/services/utility.js';
 import Create from './create/Create.jsx';
 import AddStudent from './addStudent/AddStudent.jsx';
 import {getCertificates} from './utility';

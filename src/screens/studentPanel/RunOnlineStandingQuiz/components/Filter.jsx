@@ -8,7 +8,7 @@ import {
 } from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import {SimpleTextIcon} from '@/styles/common/TextIcon.jsx';
 import {
@@ -20,7 +20,7 @@ import Translate from '../translate';
 import commonTranslator from '@/translator/common.js';
 import Circle from '../../../../components/web/Circle.jsx';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
-import {convertTimestampToJustTime, getDevice} from '@/services/utility';
+import {convertTimestampToJustTime, getDevice} from '@/services/utility.js';
 import QuestionNumber from '../../runQuiz/components/questionComponents/QuestionNumber.jsx';
 import Timer from './Timer.jsx';
 function Filter(props) {
@@ -33,9 +33,10 @@ function Filter(props) {
   const toggleHelp = () => {
     setHelp(!help);
   };
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
-  if (state.quizInfo === undefined) return <></>;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+  if (!state.quizInfo) return <></>;
   return (
     <CommonWebBox
       childStyle={{
@@ -73,10 +74,7 @@ function Filter(props) {
             paddingRight: 10,
             paddingTop: 10,
           }}>
-          <SimpleText
-            style={styles.dark_blue_color}
-            text={Translate.quizList}
-          />
+          <SimpleText style={styles.colorDarkBlue} text={Translate.quizList} />
           <SimpleTextIcon
             onPress={() => toggleHelp()}
             icon={help ? faAngleUp : faAngleDown}
@@ -185,7 +183,7 @@ function Filter(props) {
         !isInPhone && (
           <MyView>
             <SimpleText
-              style={styles.dark_blue_color}
+              style={styles.colorDarkBlue}
               text={commonTranslator.nesFile}
             />
             <PhoneView>

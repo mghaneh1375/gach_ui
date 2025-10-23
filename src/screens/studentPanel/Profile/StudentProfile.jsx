@@ -188,6 +188,7 @@ function StudentProfile(props) {
                           isInPhone={state.isInPhone}
                           key={index}
                           tutorial={elem}
+                          isDarkMode={state.theme === 'dark'}
                         />
                       );
                     })}

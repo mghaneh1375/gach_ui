@@ -1,4 +1,4 @@
-import React, {useState, useRef, useCallback} from 'react';
+import React, {useState, useRef, useCallback, useMemo} from 'react';
 import {
   CommonButton,
   BigBoldBlueTextInline,
@@ -39,7 +39,7 @@ import AnswerSheet from '../../answerSheet/AnswerSheet.jsx';
 import StudentCard from '../../../../../../components/web/StudentCard.jsx';
 import CopyBox from '@/components/CopyBox.jsx';
 import {BASE_SITE_NAME} from '../../../../../../api/utility.js';
-import {getDevice, showError} from '../../../../../../services/utility';
+import {getDevice, showError} from '../../../../../../services/utility.js';
 import {getMyAnswerSheet} from '../../../../../studentPanel/myQuizzes/irysc/components/utility';
 import {styleCard100Percent} from '../../../../package/card/style';
 function Karname(props) {
@@ -204,7 +204,10 @@ function Karname(props) {
     });
     setConditionalRowStyles(conditions);
   }, [karname]);
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   return (
     <MyView>
       <CommonWebBox

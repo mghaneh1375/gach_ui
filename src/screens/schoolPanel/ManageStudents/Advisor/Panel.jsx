@@ -1,7 +1,7 @@
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
 import translator from '@/screens/advisorPanel/myFinancePlans/components/translator';
-import {showSuccess} from '@/services/utility';
+import {showSuccess} from '@/services/utility.js';
 import {
   CommonButton,
   CommonWebBox,
@@ -163,25 +163,25 @@ function Panel(props) {
                 }}>
                 <SimpleText
                   style={{
-                    ...styles.dark_blue_color,
+                    ...styles.colorDarkBlue,
                   }}
                   text={'رشته: ' + data.branches}
                 />
                 <SimpleText
                   style={{
-                    ...styles.dark_blue_color,
+                    ...styles.colorDarkBlue,
                   }}
                   text={'پایه تحصیلی: ' + data.grade}
                 />
                 <SimpleText
                   style={{
-                    ...styles.dark_blue_color,
+                    ...styles.colorDarkBlue,
                   }}
                   text={'نام مدرسه: ' + data.school}
                 />
                 <SimpleText
                   style={{
-                    ...styles.dark_blue_color,
+                    ...styles.colorDarkBlue,
                   }}
                   text={'نام شهر: ' + data.city}
                 />

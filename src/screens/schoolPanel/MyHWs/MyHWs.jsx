@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {isUserAdvisor} from '@/services/utility';
+import {isUserAdvisor} from '@/services/utility.js';
 import {MyQuizzesProvider} from '../myQuizzes/components/Context.jsx';
 import Copy from './components/Copy.jsx';
 import Create from './components/Create.jsx';

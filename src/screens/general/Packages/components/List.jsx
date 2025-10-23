@@ -1,9 +1,9 @@
 import {faChevronRight} from '@fortawesome/free-solid-svg-icons';
-import React, {useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
 import BestComments from '../../../../components/web/comment/BestComments.jsx';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import {
   CommonButton,
   CommonWebBox,
@@ -19,10 +19,11 @@ import Card from './Card.jsx';
 import {dispatchPackagesContext, packagesContext} from './Context.jsx';
 import Filter from './Filter.jsx';
 import {fetchAllPackages} from './utility';
+
 function List(props) {
   const useGlobalState = () => [
-    React.useContext(packagesContext),
-    React.useContext(dispatchPackagesContext),
+    useContext(packagesContext),
+    useContext(dispatchPackagesContext),
   ];
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
@@ -37,11 +38,11 @@ function List(props) {
   const [bestComments, setBestComments] = useState();
   const [viewableItems, setViewableItems] = useState();
   const [levels, setLevels] = useState();
-  React.useEffect(() => {
+  useEffect(() => {
     if (state.selectableItems === undefined) return;
     setViewableItems(state.selectableItems.slice(0, 9));
   }, [state.selectableItems]);
-  React.useEffect(() => {
+  useEffect(() => {
     if (isWorking || state.allItems !== undefined) return;
     setIsWorking(true);
     props.setLoading(true);
@@ -124,15 +125,16 @@ function List(props) {
       setIsWorking(false);
     });
   }, [dispatch, props, isWorking, state.allItems]);
-  const changeMode = React.useCallback(() => {
+  const changeMode = useCallback(() => {
     props.setMode('detail');
   }, [props]);
-  React.useEffect(() => {
+
+  useEffect(() => {
     if (state.selectedPackage === undefined) return;
     changeMode();
   }, [state.selectedPackage, changeMode]);
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+
+  const isInPhone = useMemo(() => getDevice().indexOf('WebPort') !== -1, []);
   useEffect(() => {
     if (isInPhone) setShowFilter(false);
   }, [isInPhone]);
@@ -170,7 +172,7 @@ function List(props) {
                   <SimpleText
                     style={{
                       ...styles.fontSize13,
-                      ...styles.dark_blue_color,
+                      ...styles.colorDarkBlue,
                     }}
                     text={
                       'نمایش ' +
@@ -227,7 +229,7 @@ function List(props) {
                   <SimpleText
                     style={{
                       ...styles.fontSize13,
-                      ...styles.dark_blue_color,
+                      ...styles.colorDarkBlue,
                     }}
                     text={
                       'نمایش ' +
@@ -316,6 +318,7 @@ function List(props) {
                     isInPhone={isInPhone}
                     tutorial={elem}
                     key={index}
+                    isDarkMode={props.theme === 'dark'}
                   />
                 );
               })}

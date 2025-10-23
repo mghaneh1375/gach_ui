@@ -1,6 +1,6 @@
 import {setCacheItem} from '../../../api/user';
 import {formatPrice, getDevice} from '@/services/utility';
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {
   BigBoldBlueText,
   CommonButton,
@@ -45,7 +45,10 @@ function BuyBasket(props) {
       ref.current.submit();
     }, 1000);
   }, [refId]);
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   return (
     <PhoneView
       style={{
@@ -91,7 +94,7 @@ function BuyBasket(props) {
                         ...{
                           marginRight: 5,
                         },
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                         ...styles.fontSize13,
                       }}
                       text={Translate.off}
@@ -163,7 +166,7 @@ function BuyBasket(props) {
                         ...{
                           marginRight: 5,
                         },
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                         ...styles.fontSize13,
                       }}
                       text={Translate.wallet}
@@ -178,11 +181,11 @@ function BuyBasket(props) {
               style={
                 props.shouldPay !== props.price
                   ? {
-                      ...styles.dark_blue_color,
+                      ...styles.colorDarkBlue,
                       ...styles.textDecorRed,
                     }
                   : {
-                      ...styles.dark_blue_color,
+                      ...styles.colorDarkBlue,
                     }
               }
               text={formatPrice(props.price) + ' تومان '}

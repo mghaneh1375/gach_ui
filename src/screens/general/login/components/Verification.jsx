@@ -4,7 +4,7 @@ import {routes} from '@/api/apiRoutes';
 import {fetchUser, setCacheItem} from '@/api/user';
 import {generalRequest} from '@/api/utility.js';
 import {style} from '../../../../components/web/largeScreen/header/Style.jsx';
-import {showError, showSuccess} from '@/services/utility';
+import {showError, showSuccess} from '@/services/utility.js';
 import {BlueTextInline, CommonButton, MyView} from '@/styles';
 import {MyCountDown} from '@/styles/common/MyCountDown.jsx';
 import vars from '@/styles/root';

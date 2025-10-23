@@ -1,6 +1,6 @@
 import BestComment from './BestComment.jsx';
 import {MyView, PhoneView} from '@/styles/CommonComponents.jsx';
-import {getWidthHeight} from '@/services/utility';
+import {getWidthHeight} from '@/services/utility.js';
 import {useMemo} from 'react';
 function BestComments(props) {
   const w = useMemo(() => getWidthHeight()[0], []);

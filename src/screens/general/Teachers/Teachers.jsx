@@ -9,7 +9,7 @@ import {generalRequest} from '@/api/utility.js';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import Basket from '@/components/web/Basket.jsx';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
-import {getDevice, showSuccess} from '@/services/utility';
+import {getDevice, showSuccess} from '@/services/utility.js';
 import {
   CommonButton,
   CommonWebBox,
@@ -49,8 +49,9 @@ function Teachers(props) {
   const [branches, setBranches] = useState();
   const [lessons, setLessons] = useState();
   const [offAmount, setOffAmount] = useState(0);
-  const userMoney = useMemo(
-    () => state.user.user.money,
+
+  const [userMoney, isInPhone] = useMemo(
+    () => [state.user.user.money, getDevice().indexOf('WebPort') !== -1],
     [state.user.user.money],
   );
   const [usedFromWallet, setUsedFromWallet] = useState();
@@ -161,8 +162,7 @@ function Teachers(props) {
   const [showFilter, setShowFilter] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [selectedTeacherForComment, setSelectedTeacherForComment] = useState();
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+
   useEffect(() => {
     if (clearFilter) setShowFilter(false);
   }, [clearFilter]);
@@ -175,7 +175,7 @@ function Teachers(props) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                   ...styles.marginLeft5,
                 }}
@@ -183,7 +183,7 @@ function Teachers(props) {
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                 }}
                 text={commonTranslator.clickHere}
@@ -260,7 +260,7 @@ function Teachers(props) {
                         <SimpleText
                           style={{
                             ...styles.fontSize13,
-                            ...styles.dark_blue_color,
+                            ...styles.colorDarkBlue,
                           }}
                           text={
                             'نمایش ' +

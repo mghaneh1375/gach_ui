@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {faEye} from '@fortawesome/free-solid-svg-icons';
 import {getDevice} from '@/services/utility';
 import {getRanking} from '../../../../panel/quiz/components/utility';
@@ -17,7 +17,10 @@ function Ranking(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   const [columns, setColumns] = useState();
   const [ranking, setRanking] = useState();
   const chooseColumns = React.useCallback(() => {

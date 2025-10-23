@@ -35,7 +35,6 @@ function DashboardCard({
       theme={theme}
       childStyle={{
         borderColor: theme,
-        background: background !== undefined ? background : 'white',
         padding: padding !== undefined ? padding : '10px',
         borderRightWidth: borderRight ? 18 : 0,
         height: '100%',
@@ -43,6 +42,7 @@ function DashboardCard({
       }}
       style={{
         ...styleJustifyContentCenter,
+        backgroundColor: background !== undefined ? background : 'white',
       }}>
       <PhoneView
         style={{

@@ -1,6 +1,6 @@
 import {Platform, Text} from 'react-native';
 import {FontIcon, SimpleFontIcon} from './FontIcon';
-import {getDevice} from '../../services/Utility';
+import {getDevice} from '../../services/utility';
 import {
   Button,
   chooseTheme,
@@ -9,15 +9,15 @@ import {
   CommonButtonTextStyleWebPhone,
 } from './button';
 import vars from '../root';
-import {styles} from './Styles';
+import {styles} from './styles.js';
 import {Link} from 'react-router-dom';
+import {useTheme} from 'styled-components';
 
 const CommonButton = props => {
   let allStyles = props.style !== undefined ? props.style : {...styles.flexEnd};
   let className = props.theme === 'transparent' ? 'myBtn-Transparent' : 'myBtn';
 
-  if (props.style === undefined || props.style.justifyContent === undefined)
-    className += ' flex-end';
+  if (!props.style || !props.style.justifyContent) className += ' flex-end';
 
   const isInWebPhone =
     Platform.OS === 'web' && getDevice().indexOf('WebPort') !== -1;
@@ -34,23 +34,24 @@ const CommonButton = props => {
       ...textStyle,
       ...props.textStyle,
     };
+  const theme = useTheme();
 
-  if (props.theme !== undefined) {
-    const themeRes = chooseTheme(props.theme, allStyles, textStyle);
+  if (props.theme) {
+    const themeRes = chooseTheme(props.theme, allStyles, textStyle, theme);
     allStyles = themeRes[0];
     textStyle = themeRes[1];
   }
 
   allStyles.alignSelf =
-    props.dir !== undefined && props.dir === 'rtl' ? 'flex-start' : 'flex-end';
-  let hrefStyle = {textDecoration: 'none'};
-  if (props.href === undefined) {
+    props.dir && props.dir === 'rtl' ? 'flex-start' : 'flex-end';
+  const hrefStyle = {textDecoration: 'none'};
+  if (!props.href) {
     allStyles.padding =
-      props.padding !== undefined && props.padding === 'unset'
+      props.padding && props.padding === 'unset'
         ? isInWebPhone
           ? 5
           : '9px 15px'
-        : props.padding !== undefined
+        : props.padding
         ? props.padding
         : isInWebPhone
         ? 5

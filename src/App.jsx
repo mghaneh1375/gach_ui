@@ -1,8 +1,14 @@
-import React, {useState} from 'react';
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react';
 import {LogBox} from 'react-native';
+import {ThemeProvider} from 'styled-components';
 import {fetchUser, getToken, getUser} from './api/user';
 import WebRouter from './router/web/Router.jsx';
-import {ThemeProvider} from 'styled-components';
 import vars from './styles/root';
 
 const defaultGlobalState = {
@@ -19,8 +25,8 @@ const defaultGlobalState = {
   theme: 'dark',
 };
 
-export const globalStateContext = React.createContext(defaultGlobalState);
-export const dispatchStateContext = React.createContext(undefined);
+export const globalStateContext = createContext(defaultGlobalState);
+export const dispatchStateContext = createContext(undefined);
 
 const excludeRightMenu = [
   'login',
@@ -52,7 +58,7 @@ const excludeAuthRoutes = [
 const hasLeftFilterRoutes = ['buy', 'package'];
 
 const GlobalStateProvider = ({children}) => {
-  const [state, dispatch] = React.useReducer(
+  const [state, dispatch] = useReducer(
     (state, newValue) => ({
       ...state,
       ...newValue,
@@ -60,7 +66,7 @@ const GlobalStateProvider = ({children}) => {
     defaultGlobalState,
   );
 
-  const doFetchUser = React.useCallback(() => {
+  const doFetchUser = useCallback(() => {
     Promise.all([getToken(), getUser()]).then(async res => {
       dispatch({
         token: res[0],
@@ -83,14 +89,14 @@ const GlobalStateProvider = ({children}) => {
     });
   }, [dispatch]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (state.user !== undefined) return;
     doFetchUser();
   }, [state.user, doFetchUser]);
 
   const size = useWindowSize();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch({
       isInPhone: size.width < 768,
     });
@@ -104,7 +110,7 @@ const GlobalStateProvider = ({children}) => {
       width: undefined,
       height: undefined,
     });
-    React.useEffect(() => {
+    useEffect(() => {
       // Handler to call on window resize
       function handleResize() {
         // Set window width/height to state
@@ -123,26 +129,19 @@ const GlobalStateProvider = ({children}) => {
     return windowSize;
   }
 
-  React.useEffect(() => {
-    if (
-      state.page === undefined ||
-      state.user === undefined ||
-      state.isInPhone === undefined
-    )
-      return;
+  useEffect(() => {
+    if (!state.page || !state.user || state.isInPhone === undefined) return;
     if (state.user === null && excludeAuthRoutes.indexOf(state.page) === -1) {
       window.location.href = '/login';
       return;
     }
+
     dispatch({
       showTopNav: excludeTopNav.indexOf(state.page) === -1,
       showBottonNav: excludeBottomNav.indexOf(state.page) === -1,
       isFilterMenuVisible: hasLeftFilterRoutes.indexOf(state.page) !== -1,
       isRightMenuVisible:
-        !state.isInPhone &&
-        excludeRightMenu.indexOf(state.page) === -1 &&
-        state.user !== null &&
-        !state.user,
+        !state.isInPhone && excludeRightMenu.indexOf(state.page) === -1,
     });
   }, [state.page, state.user, state.isInPhone]);
 
@@ -177,6 +176,7 @@ const lightTheme = {
     button: {
       colors: {
         primary: vars.ORANGE,
+        dark: vars.DARK_BLUE,
       },
     },
     menu: {
@@ -206,6 +206,7 @@ const lightTheme = {
     text: vars.DARK_BLUE,
     light: vars.LIGHT_SILVER,
   },
+  name: 'light',
 };
 
 const darkTheme = {
@@ -213,6 +214,7 @@ const darkTheme = {
     button: {
       colors: {
         primary: vars.ORANGE,
+        dark: vars.DARK_THEME_DARK,
       },
     },
     menu: {
@@ -223,7 +225,7 @@ const darkTheme = {
       },
       colors: {
         text: 'rgb(152, 134, 165)',
-        background: '#15051F',
+        background: vars.DARK_THEME_DARK,
         selected: '#492455',
         icon: 'rgb(152, 134, 165)',
         hover: vars.WHITE,
@@ -232,16 +234,17 @@ const darkTheme = {
   },
   colors: {
     background: {
-      primary: '#15051F',
+      primary: vars.DARK_THEME_DARK,
       secondary: vars.DARK_BLUE_LIGHT,
-      modal: '#292929',
+      modal: 'rgb(109, 68, 135)',
       shadow: '#334d56',
-      card: '#AC46BD',
+      card: 'rgb(192, 150, 219)',
     },
     primary: vars.DARK_BLUE,
-    text: '#ffffff',
+    text: vars.DARK_THEME_DARK,
     light: '#ffffff',
   },
+  name: 'dark',
 };
 
 export default function App() {

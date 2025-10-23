@@ -3,7 +3,7 @@ import {Image} from 'react-native';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import {style} from './Style.jsx';
 import {faClose, faNavicon} from '@fortawesome/free-solid-svg-icons';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import {Device} from '@/models/device';
 import {PhoneView, MyView} from '@/styles/CommonComponents.jsx';
 import {globalStateContext} from '../../../../App.jsx';

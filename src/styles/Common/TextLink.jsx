@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import BlueTextInlineElem from './BlueTextInline';
+import BlueTextInlineElem from './blueTextInline.js';
 import {Platform} from 'react-native';
 
 const TextLink = props => {

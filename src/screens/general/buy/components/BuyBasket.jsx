@@ -12,7 +12,7 @@ import {styles} from '@/styles/common/styles';
 import {goToPay, goToPayCustomUrl, goToPayGroup} from './utility';
 import {setCacheItem} from '@/api/user';
 import commonTranslator from '@/translator/common';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useMemo} from 'react';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import vars from '@/styles/root';
@@ -74,7 +74,10 @@ function BuyBasket(props) {
       ref.current.submit();
     }, 1000);
   }, [refId]);
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   return (
     <>
       <PhoneView
@@ -121,7 +124,7 @@ function BuyBasket(props) {
                           ...{
                             marginRight: 5,
                           },
-                          ...styles.dark_blue_color,
+                          ...styles.colorDarkBlue,
                           ...styles.fontSize13,
                         }}
                         text={Translate.off}
@@ -193,7 +196,7 @@ function BuyBasket(props) {
                           ...{
                             marginRight: 5,
                           },
-                          ...styles.dark_blue_color,
+                          ...styles.colorDarkBlue,
                           ...styles.fontSize13,
                         }}
                         text={Translate.wallet}
@@ -208,11 +211,11 @@ function BuyBasket(props) {
                 style={
                   props.shouldPay !== props.price
                     ? {
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                         ...styles.textDecorRed,
                       }
                     : {
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                       }
                 }
                 text={formatPrice(props.price) + ' تومان '}

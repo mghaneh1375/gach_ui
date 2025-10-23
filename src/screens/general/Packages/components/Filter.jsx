@@ -1,11 +1,11 @@
 import Slider from '@material-ui/core/Slider';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   allTrueFalseValues,
   convertSecToMinWithOutSecAndDay,
   formatPrice,
   getDevice,
-} from '@/services/utility';
+} from '@/services/utility.js';
 import {
   CommonButton,
   EqualTwoTextInputs,
@@ -21,7 +21,10 @@ import {filter} from './utility';
 function Filter(props) {
   const useGlobalState = () => [React.useContext(dispatchPackagesContext)];
   const [dispatch] = useGlobalState();
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   const [value, setValue] = useState([props.min, props.max]);
   const [valueDuration, setValueDuration] = useState([
     props.minDuration,

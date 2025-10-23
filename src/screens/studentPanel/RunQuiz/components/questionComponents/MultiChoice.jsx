@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {getDevice} from '@/services/utility';
 import {PhoneView} from '@/styles';
 import {styles} from '@/styles/common/styles';
@@ -6,8 +6,9 @@ import Translate from '../../translate';
 import Choice from './Choice.jsx';
 function MultiChoice(props) {
   const [choices, setChoices] = useState();
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const buildChoices = React.useCallback(() => {
     const tmp = [];
     for (let i = 1; i <= props.choicesCount; i++) {

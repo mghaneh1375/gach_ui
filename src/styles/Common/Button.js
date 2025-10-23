@@ -76,21 +76,23 @@ const TransparentButtonStyle = {
   borderStyle: 'solid',
 };
 
-export const chooseTheme = (theme, allStyles, textStyle) => {
+export const chooseTheme = (color, allStyles, textStyle, theme) => {
   allStyles.backgroundColor =
-    theme === 'transparent' || theme === 'yellow-transparent'
+    color === 'transparent' || color === 'yellow-transparent'
       ? 'transparent'
-      : theme === 'yellow'
+      : color === 'yellow'
       ? vars.YELLOW
-      : theme === 'cream'
+      : color === 'cream'
       ? vars.CREAM
-      : theme === 'green'
+      : color === 'green'
       ? vars.GREEN
-      : theme === 'orangeRed'
+      : color === 'orangeRed'
       ? vars.ORANGE_RED
+      : theme.name === 'dark'
+      ? vars.DARK_THEME_DARK
       : vars.DARK_BLUE;
 
-  if (theme === 'transparent' || theme === 'cream') {
+  if (color === 'transparent' || color === 'cream') {
     // className = 'myTransparentBtn';
     allStyles = {
       ...allStyles,
@@ -105,7 +107,7 @@ export const chooseTheme = (theme, allStyles, textStyle) => {
         color: vars.LIGHT_SILVER,
       },
     };
-  } else if (theme === 'yellow-transparent') {
+  } else if (color === 'yellow-transparent') {
     allStyles = {
       ...allStyles,
       ...TransparentButtonStyle,

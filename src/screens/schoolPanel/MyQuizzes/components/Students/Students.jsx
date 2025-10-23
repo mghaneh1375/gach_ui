@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
 import SelectFromMyStudents from '@/components/web/SelectFromMyStudents.jsx';
-import {showSuccess} from '@/services/utility';
+import {showSuccess} from '@/services/utility.js';
 import {CommonButton, CommonWebBox, MyView, PhoneView} from '@/styles';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';

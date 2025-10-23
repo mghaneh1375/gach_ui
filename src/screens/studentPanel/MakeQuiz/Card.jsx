@@ -15,7 +15,7 @@ function Card(props) {
       />
 
       <SimpleText
-        style={styles.dark_blue_color}
+        style={styles.colorDarkBlue}
         text={
           props.limitEasy +
           Translate.easy +

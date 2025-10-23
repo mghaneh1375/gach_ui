@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {useParams} from 'react-router';
 import {
   CommonButton,
@@ -22,7 +22,7 @@ import {
   getWidthHeight,
   showError,
   showSuccess,
-} from '@/services/utility';
+} from '@/services/utility.js';
 import PhoneFilter from './components/PhoneFilter.jsx';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common.js';
@@ -74,8 +74,9 @@ function RunEscapeQuiz(props) {
   const [showReportPane, setShowReportPane] = useState(false);
   const [questionId, setQuestionId] = useState();
   const [tags, setTags] = useState();
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const [isWorking, setIsWorking] = useState(false);
   const fetchTags = React.useCallback(() => {
     if (tags !== undefined || isWorking) return;

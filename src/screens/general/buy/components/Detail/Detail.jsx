@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {dispatchPackagesContext, packagesContext} from '../Context.jsx';
 import {MyView} from '@/styles';
 import Info from '../../../../panel/package/components/detail/Info.jsx';
 import List from './List.jsx';
 import SchoolList from './SchoolList.jsx';
 import vars from '@/styles/root';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import {getPackage} from '../utility';
 function Detail(props) {
   const useGlobalState = () => [
@@ -49,7 +49,11 @@ function Detail(props) {
     if (props.packageId === undefined) return;
     localFetchPackage();
   }, [props.packageId, localFetchPackage]);
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   return (
     <>
       {state.package !== undefined && (

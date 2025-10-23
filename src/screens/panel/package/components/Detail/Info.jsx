@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   CommonButton,
   CommonWebBox,
@@ -24,7 +24,10 @@ import {getDevice} from '@/services/utility';
 function Info(props) {
   const useGlobalState = () => [React.useContext(dispatchQuizzesContext)];
   const [dispatch] = useGlobalState();
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   return (
     <CommonWebBox
       header={props.package.title}

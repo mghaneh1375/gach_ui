@@ -1,8 +1,8 @@
 import {dispatchDoQuizContext, doQuizContext} from './Context.jsx';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {CommonButton, CommonWebBox} from '@/styles';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {faDownload} from '@fortawesome/free-solid-svg-icons';
@@ -84,8 +84,9 @@ function Submits(props) {
       center: true,
     },
   ];
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const timer = React.useCallback(() => {
     const tmp = state.stdAnswerSheets.find(elem => {
       return elem.status === 'pending';

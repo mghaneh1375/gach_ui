@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
 import {getDevice} from '@/services/utility';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
 import {FontIcon, SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
-import {faMessage, faUser, faQuestion} from '@fortawesome/free-solid-svg-icons';
+import {faMessage, faQuestion, faUser} from '@fortawesome/free-solid-svg-icons';
+import {useMemo} from 'react';
 import {Image, Pressable} from 'react-native';
 function Card(props) {
-  const navigate = props.navigate;
-  const [view, setView] = useState(props.show);
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   return (
     <>
       <PhoneView>
@@ -48,7 +48,7 @@ function Card(props) {
             </PhoneView>
           </PhoneView>
         </CommonWebBox>
-        {view && (
+        {props.show && (
           <CommonWebBox width={isInPhone ? '100%' : '20%'}>
             <MyView
               style={{
@@ -115,7 +115,7 @@ function Card(props) {
             </MyView>
           </CommonWebBox>
         )}
-        {!view && (
+        {!props.show && (
           <CommonWebBox
             style={{
               ...styles.gap0,

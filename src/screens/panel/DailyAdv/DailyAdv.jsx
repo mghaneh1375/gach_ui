@@ -14,7 +14,7 @@ import Card from './Card.jsx';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {faPaperclip} from '@fortawesome/free-solid-svg-icons';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
-import {showError, showSuccess} from '@/services/utility';
+import {showError, showSuccess} from '@/services/utility.js';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 function DailyAdv(props) {
   const useGlobalState = () => [

@@ -1,5 +1,5 @@
 import {Platform} from 'react-native';
-import {getWidthHeight} from './../services/utility';
+import {getWidthHeight} from '../services/utility';
 const width = getWidthHeight()[0];
 const vars = {
   RIGHT_MENU_WIDTH: width > 1500 ? 250 : 200,
@@ -24,6 +24,7 @@ const vars = {
   DARK_WHITE: '#EEEEEE',
   DARK_BLUE: '#013243',
   DARK_BLUE_LIGHT: '#045d7bff',
+  DARK_THEME_DARK: '#15051F',
   SILVER: '#E6E6E6',
   LIGHT_SILVER: '#707070',
   DARK_SILVER: '#5B5B5B',

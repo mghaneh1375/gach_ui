@@ -8,12 +8,12 @@ import {
 } from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import commonTranslator from '@/translator/common.js';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import Timer from './Timer.jsx';
 function Filter(props) {
   const useGlobalState = () => [
@@ -21,8 +21,9 @@ function Filter(props) {
     React.useContext(dispatchDoQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   if (state.quizInfo === undefined) return <></>;
   return (
     <CommonWebBox
@@ -60,7 +61,7 @@ function Filter(props) {
         !isInPhone && (
           <MyView>
             <SimpleText
-              style={styles.dark_blue_color}
+              style={styles.colorDarkBlue}
               text={commonTranslator.nesFile}
             />
             <PhoneView>

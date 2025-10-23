@@ -4,7 +4,7 @@ import Create from './Create.jsx';
 import Details from './details/Details.jsx';
 import List from './list/List.jsx';
 import Students from './students/Students.jsx';
-import {removeItems, editItem, addItem} from '@/services/utility';
+import {removeItems, editItem, addItem} from '@/services/utility.js';
 import {getAllAgent} from './utility';
 import {MyView} from '@/styles';
 import ChargeAccount from '../../panel/users/components/ChargeAccount.jsx';

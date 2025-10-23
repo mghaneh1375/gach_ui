@@ -110,7 +110,7 @@ function SuccessTransaction(props) {
           <SimpleText
             onPress={() => props.navigate('/financeHistory')}
             style={{
-              ...styles.dark_blue_color,
+              ...styles.colorDarkBlue,
               ...styles.FontWeight600,
               ...styles.fontSize13,
               ...styles.marginLeft5,

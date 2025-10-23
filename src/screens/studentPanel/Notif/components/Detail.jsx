@@ -3,7 +3,7 @@ import RenderHTML from 'react-native-render-html';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
-import {systemFonts, tagsStyles} from '@/services/utility';
+import {systemFonts, tagsStyles} from '@/services/utility.js';
 import {CommonWebBox, EqualTwoTextInputs, SimpleText} from '@/styles';
 import {styles} from '@/styles/common/styles';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';

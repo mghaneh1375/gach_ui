@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   faClock,
   faLock,
@@ -9,7 +9,7 @@ import {
   convertSecToMinWithOutHour,
   getDevice,
   showError,
-} from '@/services/utility';
+} from '@/services/utility.js';
 import {
   CommonButton,
   CommonWebBox,
@@ -30,7 +30,9 @@ import {downloadRequest, generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import AttachBox from '../../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
 function SessionDetail(props) {
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const [showAdvertising, setShowAdvertising] = useState(true);
   const [selectedSession, setSelectedSession] = useState();
   const [nextVideo, setNextVideo] = useState();

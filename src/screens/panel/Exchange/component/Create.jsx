@@ -7,7 +7,7 @@ import translator from './translator';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import {sectionKeyVals} from '../../offcode/components/utility';
 import {routes} from '@/api/apiRoutes';
-import {showError, showSuccess} from '@/services/utility';
+import {showError, showSuccess} from '@/services/utility.js';
 import {styles} from '@/styles/common/styles';
 import commonTranslator from '@/translator/common.js';
 function Create(props) {

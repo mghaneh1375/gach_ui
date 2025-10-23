@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {useParams} from 'react-router';
 import {getDevice, showError} from '@/services/utility';
 import {
@@ -14,7 +14,10 @@ function CheckCert(props) {
   const params = useParams();
   const [certId, setCertId] = useState();
   const [NID, setNID] = useState();
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   const navigate = props.navigate;
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();

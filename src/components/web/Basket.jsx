@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import {getDevice} from '@/services/utility';
+import {useEffect, useMemo, useState} from 'react';
 import {
   basketBox,
   styleFontSize13,
   styleFontSize15,
 } from '../../screens/panel/package/card/style';
-import {getDevice} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -16,16 +16,23 @@ import {
 import {styles} from '../../styles/common/styles';
 import vars from '../../styles/root';
 import commonTranslator from '../../translator/common';
+import {useTheme} from 'styled-components';
 function Basket(props) {
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   const [width, setWidth] = useState(
     isInPhone ? 'calc(100% - 20px)' : vars.BASKET_WIDTH_WITH_OPEN_MENU,
   );
-  React.useEffect(() => {
+
+  useEffect(() => {
     if (props.fullWidth === undefined) return;
     if (props.fullWidth) setWidth(vars.BASKET_WIDTH_WITH_CLOSE_MENU);
     else setWidth(vars.BASKET_WIDTH_WITH_OPEN_MENU);
   }, [props.fullWidth]);
+
+  const theme = useTheme();
   return (
     <CommonWebBox
       style={{
@@ -58,9 +65,11 @@ function Basket(props) {
             {(props.total !== undefined || props.label !== undefined) && (
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
                   ...styles.fontSize17,
                   ...styles.bold,
+                  ...{
+                    color: theme.colors.text,
+                  },
                 }}
                 text={
                   props.label === undefined
@@ -98,9 +107,11 @@ function Basket(props) {
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...{
+                    color: theme.colors.text,
+                  },
                   ...styleFontSize15,
-                  ...styles.BlueBold,
+                  ...styles.bold,
                 }}
                 text={
                   commonTranslator.from +
@@ -111,7 +122,7 @@ function Basket(props) {
               />
             </PhoneView>
           )}
-          {props.total === undefined && props.calculation !== undefined && (
+          {!props.total && props.calculation && (
             <PhoneView>
               <SimpleText
                 style={{
@@ -123,9 +134,11 @@ function Basket(props) {
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...{
+                    color: theme.colors.text,
+                  },
+                  ...styles.bold,
                   ...styleFontSize15,
-                  ...styles.BlueBold,
                 }}
                 text={
                   props.label === undefined

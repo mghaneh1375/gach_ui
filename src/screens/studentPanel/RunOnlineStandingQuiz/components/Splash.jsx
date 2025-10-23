@@ -1,4 +1,9 @@
-import React, {useState} from 'react';
+import {
+  convertSecToMin,
+  getDevice,
+  systemFonts,
+  tagsStyles,
+} from '@/services/utility';
 import {
   CommonButton,
   CommonWebBox,
@@ -7,44 +12,42 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import vars from '@/styles/root';
-import {
-  basketBox,
-  basketBoxInPhone,
-  styleTitle,
-  styleYellowBox,
-} from '../../../panel/package/card/style';
-import Translate from '../translate';
-import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
-import {doQuiz, reviewQuiz} from './utility';
-import commonTranslator from '@/translator/common';
-import {styles} from '@/styles/common/styles';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
 import {
   faArrowLeft,
   faClock,
   faMagnifyingGlass,
   faMessage,
 } from '@fortawesome/free-solid-svg-icons';
+import {useContext, useEffect, useMemo, useState} from 'react';
+import RenderHTML from 'react-native-render-html';
+import {useTheme} from 'styled-components';
 import QuizItemCard from '../../../../components/web/QuizItemCard.jsx';
 import {
-  convertSecToMin,
-  getDevice,
-  systemFonts,
-  tagsStyles,
-} from '@/services/utility';
-import RenderHTML from 'react-native-render-html';
+  basketBox,
+  basketBoxInPhone,
+  styleTitle,
+  styleYellowBox,
+} from '../../../panel/package/card/style';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
+import Translate from '../translate';
+import {dispatchDoQuizContext, doQuizContext} from './Context.jsx';
+import {doQuiz, reviewQuiz} from './utility';
 function Splash(props) {
   const useGlobalState = () => [
-    React.useContext(doQuizContext),
-    React.useContext(dispatchDoQuizContext),
+    useContext(doQuizContext),
+    useContext(dispatchDoQuizContext),
   ];
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const theme = useTheme();
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       isWorking ||
       state.questions !== undefined ||
@@ -101,7 +104,10 @@ function Splash(props) {
                   <SimpleText
                     style={{
                       ...styleTitle,
-                      ...styles.BlueBold,
+                      ...{
+                        color: theme.colors.text,
+                        fontWeight: 600,
+                      },
                     }}
                     text={state.quizInfo.title}
                   />

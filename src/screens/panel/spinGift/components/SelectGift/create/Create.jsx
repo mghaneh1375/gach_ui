@@ -13,7 +13,7 @@ import {
 import commonTranslator from '../../../../../../translator/common.js';
 import JustBottomBorderDatePicker from '../../../../../../styles/common/JustBottomBorderDatePicker.jsx';
 import {addGift, editGift} from '../../configGift/utility';
-import {changeText} from '../../../../../../services/utility';
+import {changeText} from '../../../../../../services/utility.js';
 function Create(props) {
   const [giftType, setGiftType] = useState(
     props.gift !== undefined ? props.gift.type : '',

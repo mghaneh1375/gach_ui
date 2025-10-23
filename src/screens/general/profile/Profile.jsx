@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {CommonWebBox, PhoneView} from '@/styles/CommonComponents.jsx';
 import UpdateInfo from './components/UpdateInfo.jsx';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {getDevice, getWidthHeight} from '@/services/utility';
+import {getDevice, getWidthHeight} from '@/services/utility.js';
 import {Device} from '@/models/device';
 const Profile = props => {
   const [user, setUser] = useState(undefined);

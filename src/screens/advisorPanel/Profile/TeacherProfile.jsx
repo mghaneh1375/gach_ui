@@ -429,7 +429,7 @@ function TeacherProfile(props) {
               <>
                 <SimpleText
                   style={{
-                    ...styles.dark_blue_color,
+                    ...styles.colorDarkBlue,
                     ...styles.marginTop10,
                   }}
                   text={'تگ\u200cها'}
@@ -503,6 +503,7 @@ function TeacherProfile(props) {
                       isInPhone={state.isInPhone}
                       key={index}
                       tutorial={elem}
+                      isDarkMode={state.theme === 'dark'}
                     />
                   );
                 })}

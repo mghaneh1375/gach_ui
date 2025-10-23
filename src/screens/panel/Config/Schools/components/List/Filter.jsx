@@ -4,7 +4,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import StateAndCity from '../../../../../../components/web/StateAndCity.jsx';
-import {allTrueFalseValues} from '../../../../../../services/utility';
+import {allTrueFalseValues} from '../../../../../../services/utility.js';
 import {CommonButton, PhoneView, MyView, SimpleText} from '@/styles';
 import {SimpleFontIcon} from '../../../../../../styles/common/FontIcon.jsx';
 import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect.jsx';

@@ -17,7 +17,7 @@ import {
 import translator from '../../../panel/quiz/translator';
 import commonTranslator from '@/translator/common.js';
 import QuizAnswerSheetInfo from '../../../panel/quiz/components/create/QuizAnswerSheetInfo.jsx';
-import {answerTypes, showSuccess, trueFalseValues} from '@/services/utility';
+import {answerTypes, showSuccess, trueFalseValues} from '@/services/utility.js';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';

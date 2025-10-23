@@ -1,6 +1,6 @@
 import React from 'react';
 import {globalStateContext} from '../../../../App.jsx';
-import {isUserAdmin} from '@/services/utility';
+import {isUserAdmin} from '@/services/utility.js';
 import {MyView} from '@/styles';
 import Filter from './Filter.jsx';
 import AdminMenu from './menus/AdminMenu.jsx';
@@ -14,6 +14,7 @@ import Teacher from './menus/Teacher.jsx';
 const Menu = props => {
   const useGlobalState = () => [React.useContext(globalStateContext)];
   const [state] = useGlobalState();
+
   return (
     <MyView
       style={{

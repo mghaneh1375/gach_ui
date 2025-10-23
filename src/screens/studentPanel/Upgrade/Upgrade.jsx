@@ -5,7 +5,7 @@ import {CommonWebBox} from '@/styles/CommonComponents.jsx';
 import {useParams} from 'react-router';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
-import {isUserAdmin} from '@/services/utility';
+import {isUserAdmin} from '@/services/utility.js';
 function Upgrade(props) {
   const useGlobalState = () => [React.useContext(dispatchStateContext)];
   const [dispatch] = useGlobalState();

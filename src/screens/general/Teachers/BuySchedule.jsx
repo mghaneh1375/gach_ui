@@ -11,7 +11,7 @@ import {
 import {styles} from '@/styles/common/styles';
 import {faQuestion} from '@fortawesome/free-solid-svg-icons';
 import vars from '@/styles/root';
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {fetchUser, setCacheItem} from '../../../api/user';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
@@ -26,7 +26,10 @@ function BuySchedule(props) {
       ref.current.submit();
     }, 1000);
   }, [refId]);
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   const goToPayLocal = async () => {
     const data = {};
     if (props.userOff !== undefined && props.userOff.code !== undefined)
@@ -100,7 +103,7 @@ function BuySchedule(props) {
                         ...{
                           marginRight: 5,
                         },
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                         ...styles.fontSize13,
                       }}
                       text={Translate.off}
@@ -172,7 +175,7 @@ function BuySchedule(props) {
                         ...{
                           marginRight: 5,
                         },
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                         ...styles.fontSize13,
                       }}
                       text={Translate.wallet}
@@ -196,7 +199,7 @@ function BuySchedule(props) {
                         ...{
                           marginRight: 5,
                         },
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                         ...styles.fontSize13,
                       }}
                       text={Translate.prePaid}
@@ -211,11 +214,11 @@ function BuySchedule(props) {
               style={
                 props.shouldPay !== props.price
                   ? {
-                      ...styles.dark_blue_color,
+                      ...styles.colorDarkBlue,
                       ...styles.textDecorRed,
                     }
                   : {
-                      ...styles.dark_blue_color,
+                      ...styles.colorDarkBlue,
                     }
               }
               text={formatPrice(props.price) + ' تومان '}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   faArrowLeft,
   faListNumeric,
@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import RenderHTML from 'react-native-render-html';
 import {dispatchDoCorrectContext, doCorrectContext} from './Context.jsx';
-import {getDevice, systemFonts, tagsStyles} from '@/services/utility';
+import {getDevice, systemFonts, tagsStyles} from '@/services/utility.js';
 import {
   CommonButton,
   CommonWebBox,
@@ -39,8 +39,9 @@ function Splash(props) {
     React.useContext(doCorrectContext),
     React.useContext(dispatchDoCorrectContext),
   ];
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   const params = useParams();

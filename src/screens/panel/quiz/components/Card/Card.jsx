@@ -8,7 +8,7 @@ import {
   faPlug,
   faStopwatch,
 } from '@fortawesome/free-solid-svg-icons';
-import {useState} from 'react';
+import {useMemo, useState} from 'react';
 import {Rating} from 'react-native-ratings';
 import QuizItemCard from '@/components/web/QuizItemCard.jsx';
 import {
@@ -41,8 +41,9 @@ import {kindQuizKeyVals, launchModeKeyVals} from '../keyVals';
 import Translate from './translate';
 function Card(props) {
   const [showMore, setShowMore] = useState(false);
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const fontSize = isInPhone ? 10 : 11;
   const valFontSize = isInPhone ? 12 : 15;
   return (

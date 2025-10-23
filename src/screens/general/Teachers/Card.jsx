@@ -288,7 +288,7 @@ function Card(props) {
         <>
           <SimpleText
             style={{
-              ...styles.dark_blue_color,
+              ...styles.colorDarkBlue,
               ...styles.marginTop10,
             }}
             text={'تگ\u200cها'}
@@ -342,7 +342,7 @@ function Card(props) {
             }}>
             <SimpleText
               style={{
-                ...styles.dark_blue_color,
+                ...styles.colorDarkBlue,
               }}
               text={'امتیاز شما به دبیر'}
             />

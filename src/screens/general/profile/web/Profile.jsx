@@ -20,7 +20,7 @@ import {
   showError,
   showSuccess,
   trueFalseValues,
-} from '@/services/utility';
+} from '@/services/utility.js';
 import {Device} from '@/models/device';
 import translator from '../translate';
 import commonTranslator from '@/translator/common.js';

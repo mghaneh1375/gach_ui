@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {convertSecToMinWithOutSec} from '@/services/utility';
+import {convertSecToMinWithOutSec} from '@/services/utility.js';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';

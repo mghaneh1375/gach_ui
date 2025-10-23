@@ -1,5 +1,5 @@
 import {useEffectOnce} from 'usehooks-ts';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {useParams} from 'react-router';
 import {generalRequest} from '@/api/utility.js';
@@ -7,7 +7,7 @@ import {routes} from '@/api/apiRoutes';
 import {MyView} from '@/styles';
 import OnlineStanding from './OnlineStanding.jsx';
 import Team from './Team.jsx';
-import {getDevice, isUserAdmin} from '@/services/utility';
+import {getDevice, isUserAdmin} from '@/services/utility.js';
 import TeamDetail from './TeamDetail.jsx';
 import vars from '@/styles/root';
 function Ranking(props) {
@@ -21,7 +21,10 @@ function Ranking(props) {
   const params = useParams();
   const [quiz, setQuiz] = useState();
   const [desc, setDesc] = useState();
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   const fetchData = React.useCallback(() => {
     dispatch({
       loading: true,

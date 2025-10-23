@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useLocation} from 'react-router';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {addItem, editItem, isUserEditorAccess} from '@/services/utility';
+import {addItem, editItem, isUserEditorAccess} from '@/services/utility.js';
 import {MyView} from '@/styles';
 import ChangeLevel from './components/ChangeLevel.jsx';
 import Create from './components/Create.jsx';

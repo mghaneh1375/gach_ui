@@ -112,7 +112,7 @@ function AdvisorsBeforeLogin(props) {
                   <SimpleText
                     style={{
                       ...styles.fontSize13,
-                      ...styles.dark_blue_color,
+                      ...styles.colorDarkBlue,
                     }}
                     text={
                       'نمایش ' +

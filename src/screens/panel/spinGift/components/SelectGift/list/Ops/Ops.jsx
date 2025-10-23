@@ -2,7 +2,7 @@ import {PhoneView, MyView} from '@/styles';
 import {LargePopUp} from '../../../../../../../styles/common/PopUp.jsx';
 import commonTranslator from '../../../../../../../translator/common.js';
 import {CommonButton} from '../../../../../../../styles/CommonComponents.jsx';
-import {showSuccess} from '../../../../../../../services/utility';
+import {showSuccess} from '../../../../../../../services/utility.js';
 import {useState} from 'react';
 import {routes} from '../../../../../../../api/apiRoutes';
 import ConfirmationBatchOpPane from '../../../../../../../components/web/ConfirmationBatchOpPane.jsx';

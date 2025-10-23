@@ -7,7 +7,7 @@ import {
 } from './Context.jsx';
 import Translator from './translator';
 import {routes} from '@/api/apiRoutes';
-import {showError, showSuccess} from '@/services/utility';
+import {showError, showSuccess} from '@/services/utility.js';
 import {generalRequest} from '@/api/utility.js';
 import commonTranslator from '@/translator/common.js';
 function Copy(props) {

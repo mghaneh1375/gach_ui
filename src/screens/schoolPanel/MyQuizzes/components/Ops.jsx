@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {CV_BASE_URL, generalRequest} from '@/api/utility.js';
 import UploadFile from '../../../../components/web/UploadFile.jsx';
-import {formatPrice, showError, showSuccess} from '@/services/utility';
+import {formatPrice, showError, showSuccess} from '@/services/utility.js';
 import {CommonButton, MyView, PhoneView, SimpleText} from '@/styles';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import translator from '../../../panel/quiz/translator';

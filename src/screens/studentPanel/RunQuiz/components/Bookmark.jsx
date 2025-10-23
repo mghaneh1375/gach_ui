@@ -12,18 +12,22 @@ import vars from '@/styles/root';
 import commonTranslator from '@/translator/common';
 import Translate from '../translate';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
+import {useTheme} from 'styled-components';
 function Bookmark(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
+  const theme = useTheme();
+
   return (
     <CommonWebBox>
       <EqualTwoTextInputs>
         <SimpleText
           style={{
-            ...styles.BlueBold,
+            color: theme.colors.text,
+            fontWeight: 600,
           }}
           text={
             commonTranslator.question +

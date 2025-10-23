@@ -20,7 +20,7 @@ import {Rating} from 'react-native-ratings';
 import vars from '@/styles/root';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
-import {showError, showSuccess} from '@/services/utility';
+import {showError, showSuccess} from '@/services/utility.js';
 function Ops(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

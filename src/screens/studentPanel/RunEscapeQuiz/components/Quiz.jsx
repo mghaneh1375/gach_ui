@@ -1,16 +1,17 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {CommonButton, MyView, SimpleText} from '@/styles';
 import Question from './Question.jsx';
 import {dispatchDoQuizContext, doQuizContext} from './Context.jsx';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 function Quiz(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const [state, dispatch] = useGlobalState();
   return (
     <>

@@ -209,6 +209,7 @@ export const style = {
 
 export const MenuItem = props => {
   const theme = useTheme();
+
   return (
     <div
       onClick={props.onClick}

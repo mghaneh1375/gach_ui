@@ -1,5 +1,5 @@
 import {faDownload} from '@fortawesome/free-solid-svg-icons';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
@@ -94,7 +94,10 @@ function MyCerts(props) {
     if (NID === undefined) return;
     if (NID !== null) fetchData();
   }, [NID, fetchData]);
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   return (
     <MyView>
       <div

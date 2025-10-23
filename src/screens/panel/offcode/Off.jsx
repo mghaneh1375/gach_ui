@@ -4,7 +4,7 @@ import {MyView} from '@/styles';
 import Create from './components/Create.jsx';
 import List from './components/list/List.jsx';
 import {filter} from './components/utility';
-import {editItem} from '@/services/utility';
+import {editItem} from '@/services/utility.js';
 import Copun from './components/list/Copun.jsx';
 import CopunRev from './components/list/CopunRev.jsx';
 const Off = props => {

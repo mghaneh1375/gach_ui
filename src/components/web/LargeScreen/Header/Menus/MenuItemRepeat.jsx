@@ -19,6 +19,7 @@ import {MenuItem, style} from '../Style.jsx';
 import {SuperMenuItem} from './SuperMenuItem.jsx';
 function MenuItemRepeat(props) {
   const navigate = props.navigate;
+
   return (
     <div className="menu-item-container" style={style.MenuJustLarge}>
       <MenuItem

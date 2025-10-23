@@ -4,7 +4,7 @@ import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {formatPrice, showSuccess} from '@/services/utility';
+import {formatPrice, showSuccess} from '@/services/utility.js';
 import {CommonButton, CommonWebBox, PhoneView, FontIcon} from '@/styles';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';

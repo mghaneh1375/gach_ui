@@ -1,14 +1,13 @@
-import {useState} from 'react';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import {MyView, PhoneView, SimpleText} from '@/styles';
 import vars from '@/styles/root';
+import {useMemo} from 'react';
 import ItemCard from './ItemCard.jsx';
 function RSS({news}) {
-  const [selectedNews, setSelectedNews] = useState(
-    news.length > 0 ? news[0] : undefined,
-  );
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
 
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
   if (isInPhone)
     return (
       <MyView
@@ -30,25 +29,13 @@ function RSS({news}) {
         <MyView>
           {news &&
             news.slice(0, Math.min(news.length, 5)).map((currNews, index) => {
-              return (
-                <ItemCard
-                  selectItem={() => setSelectedNews(currNews)}
-                  news={currNews}
-                  key={index}
-                />
-              );
+              return <ItemCard news={currNews} key={index} />;
             })}
         </MyView>
         <MyView>
           {news &&
             news.slice(5, Math.min(news.length, 10)).map((currNews, index) => {
-              return (
-                <ItemCard
-                  selectItem={() => setSelectedNews(currNews)}
-                  news={currNews}
-                  key={index}
-                />
-              );
+              return <ItemCard news={currNews} key={index} />;
             })}
         </MyView>
         {/* <MyView>
@@ -132,25 +119,13 @@ function RSS({news}) {
       <MyView>
         {news &&
           news.slice(0, Math.min(news.length, 5)).map((currNews, index) => {
-            return (
-              <ItemCard
-                selectItem={() => setSelectedNews(currNews)}
-                news={currNews}
-                key={index}
-              />
-            );
+            return <ItemCard news={currNews} key={index} />;
           })}
       </MyView>
       <MyView>
         {news &&
           news.slice(5, Math.min(news.length, 10)).map((currNews, index) => {
-            return (
-              <ItemCard
-                selectItem={() => setSelectedNews(currNews)}
-                news={currNews}
-                key={index}
-              />
-            );
+            return <ItemCard news={currNews} key={index} />;
           })}
       </MyView>
       {/* <PhoneView style={{width: 'calc(100% - 320px)'}}>

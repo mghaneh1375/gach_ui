@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import CommonDataTable from '../../../../../../styles/common/CommonDataTable.jsx';
 import {getRanking} from '../../utility';
 import {
@@ -22,7 +22,7 @@ import {
   convertSecToMin,
   convertSecToMinWithOutSec3,
   getDevice,
-} from '../../../../../../services/utility';
+} from '../../../../../../services/utility.js';
 function Ranking(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),
@@ -30,7 +30,10 @@ function Ranking(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   const [columns, setColumns] = useState();
   const [selectedTeam, setSelectedTeam] = useState();
   const [showDetails, setshowDetails] = useState(false);

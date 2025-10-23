@@ -16,7 +16,7 @@ import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import UserTinyPic from '../UserTinyPic.jsx';
 import {TouchableOpacity} from 'react-native';
 import {Device} from '@/models/device';
-import {getDevice, getWidthHeight} from '@/services/utility';
+import {getDevice, getWidthHeight} from '@/services/utility.js';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import vars from '@/styles/root';
 import newAlertsKeyVals from './newAlertsKeyVals';

@@ -1,7 +1,7 @@
 import {routes} from '@/api/apiRoutes.js';
 import {generalRequest} from '@/api/utility.js';
 import translator from '@/screens/advisorPanel/myFinancePlans/components/translator';
-import {showError, showSuccess} from '@/services/utility';
+import {showError, showSuccess} from '@/services/utility.js';
 import {
   CommonButton,
   CommonWebBox,
@@ -267,7 +267,7 @@ function MyAdvisorFinancePlan(props) {
                     }}>
                     <SimpleText
                       style={{
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                       }}
                       text={'امتیاز شما به مشاور'}
                     />
@@ -491,7 +491,7 @@ function MyAdvisorFinancePlan(props) {
           props.plan?.description.length > 0 && (
             <SimpleText
               style={{
-                ...styles.dark_blue_color,
+                ...styles.colorDarkBlue,
               }}
               text={'توضیحات: ' + props.plan.description}
             />

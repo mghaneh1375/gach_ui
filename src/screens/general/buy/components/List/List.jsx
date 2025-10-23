@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {MyView, PhoneView, SimpleText} from '@/styles';
 import Card from '../../../../panel/package/card/Card.jsx';
 import {packagesContext, dispatchPackagesContext} from '../Context.jsx';
 import {fetchAllPackages} from '../../../../panel/package/components/utility';
 import QuizList from '../detail/List.jsx';
-import {getDevice, getWidthHeight} from '@/services/utility';
+import {getDevice, getWidthHeight} from '@/services/utility.js';
 import {styles} from '@/styles/common/styles';
 function List(props) {
   const useGlobalState = () => [
@@ -80,8 +80,10 @@ function List(props) {
       setIsWorking(false);
     });
   }, [dispatch, props, isWorking, state.allItems]);
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   return (
     <MyView
       style={

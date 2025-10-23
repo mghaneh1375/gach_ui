@@ -253,7 +253,7 @@ function Advisors(props) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                   ...styles.marginLeft5,
                 }}
@@ -272,7 +272,7 @@ function Advisors(props) {
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                 }}
                 text={commonTranslator.clickHere}
@@ -326,7 +326,7 @@ function Advisors(props) {
                     <SimpleText
                       style={{
                         ...styles.fontSize13,
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                       }}
                       text={
                         'نمایش ' +

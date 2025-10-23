@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
-import {getDevice, showError, showSuccess} from '@/services/utility';
+import {getDevice, showError, showSuccess} from '@/services/utility.js';
 import {
   CommonButton,
   CommonWebBox,
@@ -22,8 +22,11 @@ function Filter(props) {
     React.useContext(dispatchDoCorrectContext),
   ];
   const [state, dispatch] = useGlobalState();
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   const [mark, setMark] = useState();
   const [qMark, setQMark] = useState();
   const [descMark, setDescMark] = useState();

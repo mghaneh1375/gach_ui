@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Device} from '@/models/device';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import {style} from './Style.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import FilterItem from './FilterItem.jsx';

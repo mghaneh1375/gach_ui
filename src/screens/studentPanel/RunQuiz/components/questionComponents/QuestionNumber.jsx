@@ -1,5 +1,5 @@
 import {faBookmark} from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {PhoneView, SimpleText} from '@/styles';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {style} from '../../style';
@@ -8,8 +8,9 @@ import {styles} from '@/styles/common/styles';
 import {Pressable} from 'react-native';
 import {getDevice} from '@/services/utility';
 function QuestionNumber(props) {
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const mapItem = {
     borderWidth:
       props.selected !== undefined && props.selected

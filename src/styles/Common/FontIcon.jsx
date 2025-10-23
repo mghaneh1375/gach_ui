@@ -2,6 +2,8 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Platform, Pressable} from 'react-native';
 import {BigBoldBlueText} from '../CommonComponents.jsx';
 import vars from './../root';
+import {useTheme} from 'styled-components';
+
 const FontIconStyle = {
   color: vars.WHITE,
   width: '100%',
@@ -18,6 +20,8 @@ const FontIconStyleWeb = {
   alignSelf: 'center',
 };
 export const FontIcon = props => {
+  const theme = useTheme();
+
   const className =
     props.theme === 'transparent' ? 'myBtn-Transparent' : 'myBtn';
   const style1 = {
@@ -25,7 +29,7 @@ export const FontIcon = props => {
       props.back === undefined || props.back === 'orange'
         ? vars.ORANGE_RED
         : props.back === 'blue'
-        ? vars.DARK_BLUE
+        ? theme.components.button.colors.dark
         : props.back === 'green'
         ? vars.GREEN
         : props.back === 'purple'

@@ -1,5 +1,5 @@
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {addItem, isUserAdvisor, removeItems} from '@/services/utility';
+import {addItem, isUserAdvisor, removeItems} from '@/services/utility.js';
 import {MyView} from '@/styles';
 import React, {useCallback, useMemo, useState} from 'react';
 import {useLocation, useParams} from 'react-router';

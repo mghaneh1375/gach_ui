@@ -5,7 +5,7 @@ import {
   faExpand,
 } from '@fortawesome/free-solid-svg-icons';
 import {Image} from 'react-native';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {doCorrectContext, dispatchDoCorrectContext} from './Context.jsx';
 import vars from '@/styles/root';
 import {
@@ -20,14 +20,15 @@ import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import {basketBox, basketBoxInPhone} from '../../../panel/package/card/style';
 import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';
 import commonTranslator from '@/translator/common.js';
-import {getDevice, getWidthHeight, setImgSize} from '@/services/utility';
+import {getDevice, getWidthHeight, setImgSize} from '@/services/utility.js';
 function Question(props) {
   const useGlobalState = () => [
     React.useContext(doCorrectContext),
     React.useContext(dispatchDoCorrectContext),
   ];
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const [state, dispatch] = useGlobalState();
   const [question, setQuestion] = useState();
   React.useEffect(() => {

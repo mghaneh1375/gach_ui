@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   CommonButton,
   CommonWebBox,
@@ -40,8 +40,9 @@ function Splash(props) {
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   React.useEffect(() => {

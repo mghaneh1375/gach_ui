@@ -9,8 +9,7 @@ function HomeBox(props) {
   return (
     <CommonWebBox
       width={300}
-      style={{height: 137}}
-      childStyle={{backgroundColor: theme.colors.background.card}}>
+      style={{height: 137, backgroundColor: theme.colors.background.card}}>
       <PhoneView
         style={{
           width: 33,

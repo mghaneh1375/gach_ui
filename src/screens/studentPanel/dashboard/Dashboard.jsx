@@ -431,6 +431,7 @@ function Dashboard(props) {
                       <Card
                         isInMyMode={false}
                         isInPhone={state.isInPhone}
+                        isDarkMode={state.theme === 'dark'}
                         tutorial={e}
                         key={index}
                       />

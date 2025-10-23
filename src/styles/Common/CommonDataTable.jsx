@@ -2,10 +2,12 @@ import React, {useReducer, useState} from 'react';
 import DataTable from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import ConfirmationBatchOpPane from '../../components/web/ConfirmationBatchOpPane.jsx';
-import {showSuccess} from '@/services/utility';
+import {showSuccess} from '@/services/utility.js';
 import commonTranslator from '../../translator/common.js';
 import {CommonButton, MyView} from '../CommonComponents.jsx';
+import {useTheme} from 'styled-components';
 const CommonDataTable = props => {
+  const theme = useTheme();
   const customStyles = {
     rows: {
       style: {
@@ -16,6 +18,7 @@ const CommonDataTable = props => {
     headCells: {
       style: {
         fontFamily: 'IRANSans',
+        backgroundColor: theme.colors.text,
       },
     },
     cells: {
@@ -50,8 +53,8 @@ const CommonDataTable = props => {
   };
   const localAfterFunc = res => {
     toggleShowRemovePopUp();
-    if (selectedOp.url !== undefined) showSuccess(res.excepts);
-    if (selectedOp.needData !== undefined && selectedOp.needData)
+    if (selectedOp.url) showSuccess(res.excepts);
+    if (selectedOp.needData && selectedOp.needData)
       selectedOp.afterFunc(res, state.data);
     else selectedOp.afterFunc(res);
     setSelected([]);
@@ -355,7 +358,7 @@ const CommonDataTable = props => {
           />
         </DataTableExtensions>
       )}
-      {state.data !== undefined && props.excel !== undefined && !props.excel && (
+      {state.data && props.excel !== undefined && !props.excel && (
         <DataTable
           data={state.data}
           columns={state.columns}
@@ -393,7 +396,7 @@ const CommonDataTable = props => {
         />
       )}
 
-      {state.ops !== undefined &&
+      {state.ops &&
         state.ops.length > 0 &&
         state.ops.map((e, index) => {
           if (e.showAsButton === undefined || !e.showAsButton) return;

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {getWidthHeight} from '@/services/utility';
+import {getWidthHeight} from '@/services/utility.js';
 import {CommonButton, MyView} from '../../styles/CommonComponents.jsx';
 import {styles} from '../../styles/common/styles';
 import vars from '../../styles/root';
-import {Nav, NavLink, NavLinkExternal} from '../../styles/web/navbarElement';
+import {Nav, NavLink, NavLinkExternal} from '../../styles/web/navbarElement.js';
 import {useTheme} from 'styled-components';
 
 const Navbar = props => {

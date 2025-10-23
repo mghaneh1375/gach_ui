@@ -5,7 +5,7 @@ const SimpleText = props => {
   const allStyle =
     props.style !== undefined ? {...style1, ...props.style} : style1;
 
-  let textProps = {
+  const textProps = {
     style: allStyle,
   };
 

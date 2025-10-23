@@ -8,7 +8,7 @@ import {EqualTwoTextInputs, MyView, PhoneView, SimpleText} from '@/styles';
 import {FontIcon, SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import {justifyContentEnd} from '@/styles/Common/button';
+import {justifyContentEnd} from '@/styles/common/button';
 import {Image, Pressable} from 'react-native';
 import React from 'react';
 function Box(props) {
@@ -212,7 +212,7 @@ function Box(props) {
                     <SimpleText
                       text={props.item.additionalLabel}
                       style={{
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                         ...styles.fontSize10,
                       }}
                     />
@@ -225,7 +225,7 @@ function Box(props) {
                             props.item.additional
                       }
                       style={{
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                         ...{
                           textAlign: 'end',
                         },
@@ -262,7 +262,7 @@ function Box(props) {
                   <SimpleText
                     text={'مدت زمان'}
                     style={{
-                      ...styles.dark_blue_color,
+                      ...styles.colorDarkBlue,
                       ...styles.fontSize10,
                     }}
                   />
@@ -270,7 +270,7 @@ function Box(props) {
                     <SimpleText
                       text={props.item.duration + ' دقیقه'}
                       style={{
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                       }}
                     />
                   )}
@@ -278,7 +278,7 @@ function Box(props) {
                   {props.item.doneDuration !== undefined && (
                     <SimpleText
                       style={{
-                        ...styles.dark_blue_color,
+                        ...styles.colorDarkBlue,
                         ...styles.fontSize10,
                       }}
                       text={

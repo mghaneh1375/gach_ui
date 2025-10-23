@@ -1,5 +1,5 @@
 import vars from '../root';
-import BlueTextInline from './BlueTextInline';
+import BlueTextInline from './blueTextInline.js';
 import InlineTextContainer from './InlineTextContainer';
 import TextLink from './TextLink';
 

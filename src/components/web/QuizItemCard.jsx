@@ -1,7 +1,8 @@
-import {getDevice, getWidthHeight} from '@/services/utility';
+import {getDevice, getWidthHeight} from '@/services/utility.js';
 import {MyView, PhoneView, SimpleText} from '../../styles/CommonComponents.jsx';
 import {FontIcon, SimpleFontIcon} from '../../styles/common/FontIcon.jsx';
 import {styles} from '../../styles/common/styles';
+import {useMemo} from 'react';
 function QuizItemCard({
   text,
   val,
@@ -18,8 +19,10 @@ function QuizItemCard({
   isBoldValue,
   minWidth,
 }) {
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
-  const width = getWidthHeight()[0];
+  const [isInPhone, width] = useMemo(() => {
+    return [getDevice().indexOf('WebPort') !== -1, getWidthHeight()[0]];
+  }, []);
+
   if (val === undefined || val === '' || val === '...') return <></>;
   return (
     <PhoneView
@@ -64,7 +67,7 @@ function QuizItemCard({
               : {
                   maxWidth: maxWidth ? maxWidth - 40 : 'unset',
                   fontSize: textFontSize,
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.flexWrap,
                 }
           }
@@ -87,7 +90,7 @@ function QuizItemCard({
                   }
                 : {
                     fontSize: valFontSize,
-                    ...styles.dark_blue_color,
+                    ...styles.colorDarkBlue,
                     ...styles.alignSelfStart,
                     maxWidth: isInPhone
                       ? width - 120

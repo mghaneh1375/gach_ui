@@ -4,7 +4,7 @@ import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common.js';
 import ConfirmationBatchOpPane from '../../../../components/web/ConfirmationBatchOpPane.jsx';
 import {routes} from '@/api/apiRoutes';
-import {showSuccess} from '@/services/utility';
+import {showSuccess} from '@/services/utility.js';
 const Ops = props => {
   const [showRemovePane, setShowRemovePane] = useState(false);
   const toggleShowRemovePane = () => {

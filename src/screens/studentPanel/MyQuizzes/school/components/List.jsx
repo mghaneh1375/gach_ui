@@ -15,7 +15,7 @@ import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {setCacheItem} from '@/api/user';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
-import {formatPrice} from '@/services/utility';
+import {formatPrice} from '@/services/utility.js';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

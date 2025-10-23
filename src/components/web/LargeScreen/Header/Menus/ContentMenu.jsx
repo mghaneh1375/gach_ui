@@ -1,6 +1,6 @@
 import React from 'react';
 import {Device} from '@/models/device';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import {MenuItem, style, MenuItemPhone} from '../Style.jsx';
 import translator from '@/translator/common.js';
 import {

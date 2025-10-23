@@ -9,7 +9,7 @@ import {
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
 import {Device} from '@/models/device';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import {MyView} from '@/styles';
 import translator from '@/translator/common.js';
 import {MenuItem, MenuItemPhone, style} from '../Style.jsx';

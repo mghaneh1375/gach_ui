@@ -1,7 +1,7 @@
 import {routes} from '@/api/apiRoutes';
 import {downloadRequest, generalRequest} from '@/api/utility.js';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {showError, showSuccess, trueFalseValues} from '@/services/utility';
+import {showError, showSuccess, trueFalseValues} from '@/services/utility.js';
 import {
   CommonButton,
   CommonWebBox,

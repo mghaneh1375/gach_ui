@@ -5,7 +5,7 @@ import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import columns from './columns';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
-import {showSuccess} from '@/services/utility';
+import {showSuccess} from '@/services/utility.js';
 import Ops from './Ops.jsx';
 import translator from '../translator';
 function List(props) {

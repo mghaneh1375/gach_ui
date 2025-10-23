@@ -13,7 +13,7 @@ import {
 } from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import {formatPrice} from '@/services/utility';
+import {formatPrice} from '@/services/utility.js';
 import {
   faArrowLeft,
   faBook,
@@ -261,7 +261,7 @@ function Card(props) {
         <>
           <SimpleText
             style={{
-              ...styles.dark_blue_color,
+              ...styles.colorDarkBlue,
               ...styles.marginTop10,
             }}
             text={'تگ\u200cها'}
@@ -314,7 +314,7 @@ function Card(props) {
           }}>
           <SimpleText
             style={{
-              ...styles.dark_blue_color,
+              ...styles.colorDarkBlue,
             }}
             text="برای مشاهده برنامه‌های مشاوره یا نظرات کاربران و یا درخواست مشاوره
             لطفا ابتدا به سامانه ورود فرمایید"
@@ -364,7 +364,7 @@ function Card(props) {
         <>
           <SimpleText
             style={{
-              ...styles.dark_blue_color,
+              ...styles.colorDarkBlue,
             }}
             text={'وضعیت: در انتظار پرداخت'}
           />
@@ -372,7 +372,7 @@ function Card(props) {
           <EqualTwoTextInputs>
             <SimpleText
               style={{
-                ...styles.dark_blue_color,
+                ...styles.colorDarkBlue,
               }}
               text={
                 'مبلغ مشاوره برای یک ماه: ' +
@@ -383,7 +383,7 @@ function Card(props) {
             {props.offAmount !== undefined && (
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                 }}
                 text={
                   'تخفیف اعمال شده: ' + formatPrice(props.offAmount) + ' تومان'
@@ -392,7 +392,7 @@ function Card(props) {
             )}
             <SimpleText
               style={{
-                ...styles.dark_blue_color,
+                ...styles.colorDarkBlue,
               }}
               text={
                 'مبلغ قابل کسر از حساب کاربری: ' +
@@ -465,7 +465,7 @@ function Card(props) {
             }}>
             <SimpleText
               style={{
-                ...styles.dark_blue_color,
+                ...styles.colorDarkBlue,
               }}
               text={'امتیاز شما به مشاور'}
             />
@@ -503,7 +503,7 @@ function Card(props) {
         <EqualTwoTextInputs>
           <SimpleText
             style={{
-              ...styles.dark_blue_color,
+              ...styles.colorDarkBlue,
             }}
             text={'وضعیت: در حال بررسی توسط مشاور'}
           />

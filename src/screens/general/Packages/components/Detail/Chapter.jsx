@@ -19,7 +19,7 @@ import {
   convertSecToMinWithOutHour,
   systemFonts,
   tagsStyles,
-} from '@/services/utility';
+} from '@/services/utility.js';
 import Session from './Session.jsx';
 function Chapter(props) {
   const [show, setShow] = useState(false);

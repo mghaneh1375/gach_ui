@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {useParams} from 'react-router';
 import {useEffectOnce} from 'usehooks-ts';
 import {routes} from '@/api/apiRoutes';
@@ -21,7 +21,7 @@ import {
   simpleConvertTimestamp,
   systemFonts,
   tagsStyles,
-} from '@/services/utility';
+} from '@/services/utility.js';
 import Row from './Row.jsx';
 import UploadFile from '../../../../components/web/UploadFile.jsx';
 function DoHW(props) {
@@ -63,7 +63,11 @@ function DoHW(props) {
     }
     fetchData();
   });
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   return (
     <CommonWebBox
       header={hw !== undefined ? hw.title : ''}

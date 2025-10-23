@@ -30,12 +30,11 @@ export const DoQuizProvider = ({children}) => {
     }),
     defaultGlobalState,
   );
-  const [openFileSelector, {filesContent, loading, errors, clear}] =
-    useFilePicker({
-      maxFileSize: 5,
-      accept: ['image/*', '.pdf'],
-      readAs: 'ArrayBuffer',
-    });
+  const [openFileSelector, {filesContent, errors, clear}] = useFilePicker({
+    maxFileSize: 5,
+    accept: ['image/*', '.pdf'],
+    readAs: 'ArrayBuffer',
+  });
   const [isUploading, setIsUploading] = useState(false);
   useEffect(() => {
     if (errors?.length > 0) {

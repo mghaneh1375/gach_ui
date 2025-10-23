@@ -13,7 +13,6 @@ import React, {useMemo, useState} from 'react';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 function Filter(props) {
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
   const [rate, setRate] = useState([1, 5]);
   const [valueAge, setValueAge] = useState([props.minAge, props.maxAge]);
   const [justHasFreeSchedule, setJustHasFreeSchedule] = useState('all');
@@ -68,20 +67,23 @@ function Filter(props) {
     props.setLoading(false);
     if (res != null) props.setSelectableItems(res);
   };
-  const sortByValues = useMemo(() => {
+  const [sortByValues, isInPhone] = useMemo(() => {
     [
-      {
-        id: 'rate',
-        item: 'امتیاز',
-      },
-      {
-        id: 'student',
-        item: 'دانش آموزان',
-      },
-      {
-        id: 'age',
-        item: 'سن',
-      },
+      [
+        {
+          id: 'rate',
+          item: 'امتیاز',
+        },
+        {
+          id: 'student',
+          item: 'دانش آموزان',
+        },
+        {
+          id: 'age',
+          item: 'سن',
+        },
+      ],
+      getDevice().indexOf('WebPort') !== -1,
     ];
   }, []);
   const justHasFreeScheduleValues = [

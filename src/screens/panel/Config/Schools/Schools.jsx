@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import List from './components/list/List.jsx';
 import Create from './components/Create.jsx';
-import {isUserAdmin} from '@/services/utility';
+import {isUserAdmin} from '@/services/utility.js';
 import {MyView} from '@/styles';
 import vars from '@/styles/root';
 import {SchoolProvider} from './components/Context.jsx';

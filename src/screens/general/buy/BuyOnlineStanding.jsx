@@ -10,13 +10,13 @@ import {
 } from '@/styles';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {useEffectOnce} from 'usehooks-ts';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {useParams} from 'react-router';
 import {styles} from '@/styles/common/styles';
 import commonTranslator from '@/translator/common.js';
-import {faNums, getDevice, showError, showSuccess} from '@/services/utility';
+import {faNums, getDevice, showError, showSuccess} from '@/services/utility.js';
 import OffCode from './components/OffCode.jsx';
 import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
 import BuyBasket from './components/BuyBasket.jsx';
@@ -49,7 +49,10 @@ function BuyOnlineStanding(props) {
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [accountOff, setAccountOff] = useState();
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   const calc = React.useCallback(() => {
     let off = 0;
     const totalPrice = quiz.price;
@@ -225,7 +228,7 @@ function BuyOnlineStanding(props) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                   ...styles.marginLeft5,
                 }}
@@ -244,7 +247,7 @@ function BuyOnlineStanding(props) {
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                 }}
                 text={commonTranslator.clickHere}

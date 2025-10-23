@@ -6,7 +6,7 @@ import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput
 import {courseContext, dispatchCourseContext} from './Context.jsx';
 import commonTranslator from '@/translator/common.js';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
-import {showError, trueFalseValues} from '@/services/utility';
+import {showError, trueFalseValues} from '@/services/utility.js';
 function Create(props) {
   const useGlobalState = () => [
     React.useContext(courseContext),

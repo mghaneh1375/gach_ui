@@ -3,7 +3,7 @@ import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import List from './list/List.jsx';
 import Create from './create/Create.jsx';
 import {getAllGift} from '../configGift/utility';
-import {addItem, editItem, removeItems} from '@/services/utility';
+import {addItem, editItem, removeItems} from '@/services/utility.js';
 import {MyView} from '@/styles';
 function SelectGift(props) {
   const queryString = require('query-string');

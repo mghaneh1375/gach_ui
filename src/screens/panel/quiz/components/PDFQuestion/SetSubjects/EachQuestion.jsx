@@ -2,7 +2,7 @@ import React from 'react';
 import {MyView, PhoneView, SimpleText} from '@/styles';
 import JustBottomBorderTextInput from '../../../../../../styles/common/JustBottomBorderTextInput.jsx';
 import {styles} from '../../../../../../styles/common/styles';
-import {showError} from '../../../../../../services/utility';
+import {showError} from '../../../../../../services/utility.js';
 import JustBottomBorderSelect from '../../../../../../styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '../../../../../../translator/common.js';
 import {getLessons} from '../../../../../advisorPanel/schedule/components/utility';

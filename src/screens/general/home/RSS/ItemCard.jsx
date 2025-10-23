@@ -2,7 +2,7 @@ import React from 'react';
 import {Pressable} from 'react-native';
 import {PhoneView, SimpleText} from '@/styles';
 import {styles} from '@/styles/common/styles';
-function ItemCard({news, selectItem}) {
+function ItemCard({news}) {
   //   const [pic, setPic] = useState();
   //   React.useEffect(() => {
   //     setPic(news.mainImage);
@@ -11,7 +11,6 @@ function ItemCard({news, selectItem}) {
   return (
     <Pressable
       onPress={() => {
-        selectItem();
         window.open(news.link, '_blank');
       }}>
       <PhoneView

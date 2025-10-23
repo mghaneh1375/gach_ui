@@ -1,5 +1,5 @@
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {addItem, editItem, removeItems} from '@/services/utility';
+import {addItem, editItem, removeItems} from '@/services/utility.js';
 import {MyView} from '@/styles';
 import React, {useState} from 'react';
 import Create from './create/Create.jsx';

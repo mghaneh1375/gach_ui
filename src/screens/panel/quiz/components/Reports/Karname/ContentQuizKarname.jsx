@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useMemo} from 'react';
 import {
   BigBoldBlueTextInline,
   CommonWebBox,
@@ -16,7 +16,7 @@ import {
   subjectColsCustomQuiz,
 } from './lessonTableStructure';
 import AnswerSheet from '../../answerSheet/AnswerSheet.jsx';
-import {getDevice} from '../../../../../../services/utility';
+import {getDevice} from '../../../../../../services/utility.js';
 import {getMyAnswerSheet} from '../../../../../studentPanel/myQuizzes/irysc/components/utility';
 import {styleCard100Percent} from '../../../../package/card/style';
 function ContentQuizKarname(props) {
@@ -120,7 +120,10 @@ function ContentQuizKarname(props) {
     });
     setConditionalRowStyles(conditions);
   }, [karname]);
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   return (
     <MyView>
       <CommonWebBox

@@ -8,7 +8,7 @@ import CreateSession from './components/session/Create.jsx';
 import Attach from './components/session/Attach.jsx';
 import Students from './components/studentsList/Students.jsx';
 import Seo from './seo/Seo.jsx';
-import {isUserAdmin, isUserEditorAccess} from '@/services/utility';
+import {isUserAdmin, isUserEditorAccess} from '@/services/utility.js';
 import IndividualFAQ from './individualFAQ/IndividualFAQ.jsx';
 function Content(props) {
   const navigate = props.navigate;

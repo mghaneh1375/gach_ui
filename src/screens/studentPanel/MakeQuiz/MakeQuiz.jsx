@@ -1,6 +1,6 @@
 import {faCheck, faSearch} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {showError} from '@/services/utility';
+import {showError} from '@/services/utility.js';
 import {
   CommonButton,
   CommonWebBox,
@@ -170,7 +170,7 @@ function MakeQuiz(props) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                   ...styles.marginLeft5,
                 }}
@@ -189,7 +189,7 @@ function MakeQuiz(props) {
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                 }}
                 text={commonTranslator.clickHere}

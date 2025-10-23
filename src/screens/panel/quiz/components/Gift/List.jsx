@@ -10,7 +10,7 @@ import {styles} from '@/styles/common/styles';
 import {dispatchQuizContext, quizContext} from '../Context.jsx';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
-import {showSuccess} from '@/services/utility';
+import {showSuccess} from '@/services/utility.js';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

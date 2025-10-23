@@ -1,7 +1,7 @@
 import {faAdd} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {f2e, removeItems} from '@/services/utility';
+import {f2e, removeItems} from '@/services/utility.js';
 import {CommonWebBox, MyView, PhoneView, SimpleText} from '@/styles';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import {styles} from '@/styles/common/styles';
@@ -174,7 +174,7 @@ function Day(props) {
                     onPress={() => props.addNewItem()}
                     text={'ایجاد برنامه جدید'}
                     style={{
-                      ...styles.dark_blue_color,
+                      ...styles.colorDarkBlue,
                       ...styles.bold,
                       ...styles.cursor_pointer,
                     }}

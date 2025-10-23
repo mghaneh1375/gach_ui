@@ -1,25 +1,25 @@
 import {CommonTextInput} from './CommonTextInput.jsx';
 import {MultiSearchableTextInput} from './MultiSearchableTextInput.jsx';
 import {SearchableTextInput} from './SearchableTextInput.jsx';
+
 const JustBottomBorderTextInput = props => {
-  const customStyle =
-    props.style === undefined
-      ? {
-          borderTopWidth: 0,
-          borderLeftWidth: 0,
-          borderRightWidth: 0,
-          borderRadius: 0,
-          padding: 5,
-        }
-      : {
-          ...props.style,
-          borderTopWidth: 0,
-          borderLeftWidth: 0,
-          borderRightWidth: 0,
-          borderRadius: 0,
-          padding: 5,
-        };
-  if (props.resultPane === undefined)
+  const customStyle = !props.style
+    ? {
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
+        borderRadius: 0,
+        padding: 5,
+      }
+    : {
+        ...props.style,
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
+        borderRadius: 0,
+        padding: 5,
+      };
+  if (!props.resultPane)
     return (
       <CommonTextInput
         onChangeText={props.onChangeText}
@@ -40,7 +40,7 @@ const JustBottomBorderTextInput = props => {
         onEnter={props.onEnter}
       />
     );
-  if (props.multi === undefined)
+  if (!props.multi)
     return (
       <SearchableTextInput
         onChangeText={props.onChangeText}
@@ -54,9 +54,7 @@ const JustBottomBorderTextInput = props => {
         reset={props.reset}
         resultPaneHeight={props.resultPaneHeight}
         setSelectedItem={props.setSelectedItem}
-        addNotFound={
-          props.addNotFound === undefined ? false : props.addNotFound
-        }
+        addNotFound={!props.addNotFound ? false : props.addNotFound}
       />
     );
   return (
@@ -71,7 +69,7 @@ const JustBottomBorderTextInput = props => {
       value={props.value}
       reset={props.reset}
       setSelectedItem={props.setSelectedItem}
-      addNotFound={props.addNotFound === undefined ? false : props.addNotFound}
+      addNotFound={!props.addNotFound ? false : props.addNotFound}
     />
   );
 };

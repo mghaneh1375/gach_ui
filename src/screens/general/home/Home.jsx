@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import BackgroundScrollView from '@/components/BackgroundScrollView.jsx';
 import translator from './translator';
 import {Device} from '@/models/device';
@@ -21,11 +21,15 @@ import HomeBox from './homeBox/HomeBox.jsx';
 import RSS from './rss/RSS.jsx';
 import {useTheme} from 'styled-components';
 
-const device = getDevice();
 const Home = props => {
-  const wH = getWidthHeight();
-  const width = wH[0];
-  const height = wH[1];
+  const [isInPhone, width, height, device] = useMemo(() => {
+    return [
+      getDevice().indexOf('WebPort') !== -1,
+      getWidthHeight()[0],
+      getWidthHeight()[1],
+      getDevice(),
+    ];
+  }, []);
   const isRightMenuVisible = props.isRightMenuVisible;
   const [grayFooterW, setGrayFooterW] = useState('100%');
   const [grayFooterH, setGrayFooterH] = useState('100%');
@@ -85,7 +89,6 @@ const Home = props => {
     );
     fetchNews();
   });
-  const isInPhone = device.indexOf('WebPort') !== -1;
   React.useEffect(() => {
     if (isWorking || data !== undefined) return;
     setIsWorking(true);
@@ -376,7 +379,7 @@ const Home = props => {
                 </PhoneView>
                 <SimpleText
                   style={{
-                    ...styles.dark_blue_color,
+                    ...styles.colorDarkBlue,
                   }}
                   text={
                     'تمام حقوق این وبسایت، مطالب، سوالات و دوره‌های موجود در آن متعلق به کانون دانش پژوهان ایران (آیریسک) است. هر گونه استفاده بدون مجوز از مطالب می تواند پیگرد قانونی داشته باشد.'
@@ -457,7 +460,7 @@ const Home = props => {
               <SimpleText
                 style={{
                   ...styles.fontSize12,
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                 }}
                 text={
                   'تمام حقوق این وبسایت، مطالب، سوالات و دوره‌های موجود در آن متعلق به کانون دانش پژوهان ایران (آیریسک) است. هر گونه استفاده بدون مجوز از مطالب می تواند پیگرد قانونی داشته باشد.'

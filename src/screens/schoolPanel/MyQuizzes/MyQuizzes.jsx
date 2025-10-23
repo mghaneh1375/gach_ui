@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {isUserAdvisor} from '@/services/utility';
+import {isUserAdvisor} from '@/services/utility.js';
 import Key from '../../panel/quiz/components/key/Key.jsx';
 import {
   dispatchMyQuizzesContext,

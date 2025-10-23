@@ -4,7 +4,7 @@ import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
 import {CommonWebBox} from '@/styles';
 import translator from './translator';
-import {showSuccess} from '@/services/utility';
+import {showSuccess} from '@/services/utility.js';
 import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import columns from './columns';
 import Ops from './Ops.jsx';

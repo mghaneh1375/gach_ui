@@ -1,12 +1,9 @@
 import {Platform, ScrollView, StyleSheet, Text, View} from 'react-native';
 import styled from 'styled-components';
-import BlueTextInlineElem from './Common/BlueTextInline';
 import vars from './root';
-
-import {BigBoldBlueTextElem} from './Common/BigBoldTextElem';
-
-import {Link} from 'react-router-dom';
-import {getScreenHeight} from '../services/Utility';
+import {getScreenHeight} from '../services/utility';
+import {BigBoldBlueTextElem} from './common/bigBoldTextElem.js';
+import BlueTextInlineElem from './common/blueTextInline.js';
 
 export const BigBoldBlueText = props => (
   <BigBoldBlueTextElem style={props.style !== undefined ? props.style : {}}>
@@ -82,22 +79,22 @@ export const commonStyles = StyleSheet.create({
   },
 });
 
-export {default as BigBoldBlueTextInline} from './Common/BigBoldBlueTextInline';
-export {default as BlueTextFromStart} from './Common/BlueTextFromStart';
-export {default as BlueTextInline} from './Common/BlueTextInline';
-export {default as CommonButton} from './Common/CommonButton';
-export {default as CommonRadioButton} from './Common/CommonRadioButton';
-export {default as CommonWebBox} from './Common/CommonWebBox';
-export {default as EqualTwoTextInputs} from './Common/EqualTwoTextInputs';
-export {default as InlineTextContainer} from './Common/InlineTextContainer';
-export {default as MyView} from './Common/MyView';
-export {default as MyViewWithRef} from './Common/MyViewWithRef';
-export {default as PhoneView} from './Common/PhoneView';
-export {default as ShrinkView} from './Common/ShrinkView';
-export {default as SimpleText} from './Common/SimpleText';
-export {default as SimpleTextWithRef} from './Common/SimpleTextWithRef';
-export {default as TextWithLink} from './Common/TextWithLink';
-export {default as TextLink} from './Common/TextLink';
+export {default as BigBoldBlueTextInline} from './common/BigBoldBlueTextInline';
+export {default as BlueTextFromStart} from './common/BlueTextFromStart';
+export {default as BlueTextInline} from './common/blueTextInline.js';
+export {default as CommonButton} from './common/CommonButton';
+export {default as CommonRadioButton} from './common/CommonRadioButton';
+export {default as CommonWebBox} from './common/CommonWebBox';
+export {default as EqualTwoTextInputs} from './common/EqualTwoTextInputs';
+export {default as InlineTextContainer} from './common/InlineTextContainer';
+export {default as MyView} from './common/MyView';
+export {default as MyViewWithRef} from './common/MyViewWithRef';
+export {default as PhoneView} from './common/PhoneView';
+export {default as ShrinkView} from './common/ShrinkView';
+export {default as SimpleText} from './common/SimpleText';
+export {default as SimpleTextWithRef} from './common/SimpleTextWithRef';
+export {default as TextWithLink} from './common/TextWithLink';
+export {default as TextLink} from './common/TextLink';
 
 export const PhoneContentConianerStyle = {
   width: '100%',

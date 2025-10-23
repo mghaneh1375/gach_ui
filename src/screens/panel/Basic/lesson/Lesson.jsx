@@ -4,7 +4,7 @@ import List from './list/List.jsx';
 import React from 'react';
 import {getGradesOnly, getLessons} from '../utility';
 import Create from './create/Create.jsx';
-import {addItem, editItem} from '@/services/utility';
+import {addItem, editItem} from '@/services/utility.js';
 import {MyView} from '@/styles';
 import {useParams} from 'react-router';
 function Lesson(props) {

@@ -6,7 +6,7 @@ import {
 import {useState} from 'react';
 import {useTheme} from 'styled-components';
 import {globalStateContext} from '@/App.jsx';
-import {SimpleText} from '@/styles/CommonComponents.jsx';
+import {PhoneView, SimpleText} from '@/styles/CommonComponents.jsx';
 import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
 import vars from '@/styles/root';
 import React from 'react';

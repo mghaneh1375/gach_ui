@@ -8,7 +8,7 @@ import commonTranslator from '@/translator/common.js';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
-import {showSuccess} from '@/services/utility';
+import {showSuccess} from '@/services/utility.js';
 function Copy(props) {
   const useGlobalState = () => [
     React.useContext(quizContext),

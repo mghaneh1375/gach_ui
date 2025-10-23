@@ -17,7 +17,7 @@ import {
 import {CommonTextInput} from '@/styles/common/CommonTextInput.jsx';
 import Translate from '../translate';
 import {styles} from '@/styles/common/styles';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import vars from '@/styles/root';
 import {getDevice, getWidthHeight, setImgSize} from '@/services/utility';
@@ -29,8 +29,9 @@ function Question(props) {
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const [state, dispatch] = useGlobalState();
   const [question, setQuestion] = useState();
   React.useEffect(() => {

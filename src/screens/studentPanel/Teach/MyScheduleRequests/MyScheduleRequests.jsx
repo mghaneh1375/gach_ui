@@ -19,6 +19,7 @@ import OffCode from '../../../general/buy/components/OffCode.jsx';
 import SuccessTransaction from '../../../../components/web/successTransaction/SuccessTransaction.jsx';
 import {styles} from '@/styles/common/styles';
 import commonTranslator from '@/translator/common';
+import {useTheme} from 'styled-components';
 function MyScheduleRequests(props) {
   const useGlobalState = () => [
     React.useContext(globalStateContext),
@@ -39,6 +40,8 @@ function MyScheduleRequests(props) {
   const [usedFromWallet, setUsedFromWallet] = useState();
   const [userOff, setUserOff] = useState();
   const [offAmount, setOffAmount] = useState(0);
+  const theme = useTheme();
+
   const fetchData = React.useCallback(() => {
     dispatch({
       loading: true,
@@ -100,16 +103,20 @@ function MyScheduleRequests(props) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
                   ...styles.fontSize13,
                   ...styles.marginLeft5,
+                  ...{
+                    color: theme.colors.text,
+                  },
                 }}
                 text={commonTranslator.forView}
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
                   ...styles.fontSize13,
+                  ...{
+                    color: theme.colors.text,
+                  },
                 }}
                 text={commonTranslator.clickHere}
               />

@@ -1,24 +1,23 @@
 import {CommonSelect} from './CommonSelect.jsx';
 const JustBottomBorderSelect = props => {
-  const customStyle =
-    props.style === undefined
-      ? {
-          borderTopWidth: 0,
-          borderLeftWidth: 0,
-          borderRightWidth: 0,
-          borderRadius: 0,
-          paddingBottom: 0,
-          marginTop: -5,
-        }
-      : {
-          ...props.style,
-          borderTopWidth: 0,
-          borderLeftWidth: 0,
-          borderRightWidth: 0,
-          borderRadius: 0,
-          paddingBottom: 0,
-          marginTop: -3,
-        };
+  const customStyle = !props.style
+    ? {
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
+        borderRadius: 0,
+        paddingBottom: 0,
+        marginTop: -5,
+      }
+    : {
+        ...props.style,
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
+        borderRadius: 0,
+        paddingBottom: 0,
+        marginTop: -3,
+      };
   return (
     <CommonSelect
       setter={props.setter}

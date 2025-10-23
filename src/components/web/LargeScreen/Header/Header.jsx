@@ -9,7 +9,7 @@ import {TouchableOpacity} from 'react-native';
 import {logout} from '@/api/user';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {Device} from '@/models/device';
-import {getDevice, getWidthHeight} from '@/services/utility';
+import {getDevice, getWidthHeight} from '@/services/utility.js';
 import {
   EqualTwoTextInputs,
   MyView,
@@ -332,7 +332,7 @@ const Header = props => {
                           <TextLink
                             style={{
                               ...styles.fontSize12,
-                              ...styles.BlueBold,
+                              ...styles.BlueBold(state.theme === 'dark'),
                             }}
                             // text={
                             //   newAlertsKeyVals.find(itr => itr.id === elem.key)
@@ -368,7 +368,7 @@ const Header = props => {
                 </MyView>
                 <TextLink
                   style={{
-                    ...styles.BlueBold,
+                    ...styles.BlueBold(state.theme === 'dark'),
                     ...styles.fontSize12,
                     ...styles.alignSelfEnd,
                   }}

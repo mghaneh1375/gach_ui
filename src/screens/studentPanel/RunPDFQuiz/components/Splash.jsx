@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   CommonButton,
   CommonWebBox,
@@ -36,13 +36,17 @@ import {
 } from '@/services/utility';
 import RenderHTML from 'react-native-render-html';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
+import {useTheme} from 'styled-components';
 function Splash(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const theme = useTheme();
+
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const [state, dispatch] = useGlobalState();
   const [isWorking, setIsWorking] = useState(false);
   React.useEffect(() => {
@@ -112,7 +116,10 @@ function Splash(props) {
                   <SimpleText
                     style={{
                       ...styleTitle,
-                      ...styles.BlueBold,
+                      ...{
+                        color: theme.colors.text,
+                        fontWeight: 600,
+                      },
                     }}
                     text={state.quizInfo.title}
                   />

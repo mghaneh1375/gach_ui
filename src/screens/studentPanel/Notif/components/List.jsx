@@ -46,7 +46,7 @@ function List(props) {
   const columns = [
     {
       name: '',
-      cell: (row, index, column, id) => {
+      cell: index => {
         return (
           <SimpleFontIcon
             onPress={() => {
@@ -100,7 +100,7 @@ function List(props) {
   ];
   return (
     <>
-      {selectedNotif !== undefined && (
+      {selectedNotif && (
         <CommonWebBox
           header={Translator.myNotifs}
           backBtn={true}
@@ -138,9 +138,9 @@ function List(props) {
           )}
         </CommonWebBox>
       )}
-      {selectedNotif === undefined && (
+      {!selectedNotif && (
         <CommonWebBox header={Translator.myNotifs}>
-          {data !== undefined && (
+          {data && (
             <CommonDataTable
               paginate={false}
               columns={columns}

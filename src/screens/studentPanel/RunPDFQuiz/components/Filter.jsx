@@ -7,26 +7,28 @@ import {
 } from '@/styles';
 import {styles} from '@/styles/common/styles';
 import vars from '@/styles/root';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {doQuizContext, dispatchDoQuizContext} from './Context.jsx';
 import Timer from './Timer.jsx';
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import commonTranslator from '@/translator/common.js';
 import AttachBox from '../../../panel/ticket/components/show/attachBox/AttachBox.jsx';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
+import {useTheme} from 'styled-components';
 function Filter(props) {
   const useGlobalState = () => [
     React.useContext(doQuizContext),
     React.useContext(dispatchDoQuizContext),
   ];
   const [state, dispatch] = useGlobalState();
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+  const theme = useTheme();
   if (
-    state.quizInfo === undefined ||
+    !state.quizInfo ||
     (props.isInReviewMode &&
-      (state.quizInfo.attaches === undefined ||
-        state.quizInfo.attaches.length === 0))
+      (!state.quizInfo.attaches || state.quizInfo.attaches.length === 0))
   )
     return <></>;
   return (
@@ -76,13 +78,15 @@ function Filter(props) {
           </>
         )}
 
-      {state.quizInfo !== undefined &&
-        state.quizInfo.attaches !== undefined &&
+      {state.quizInfo &&
+        state.quizInfo.attaches &&
         state.quizInfo.attaches.length > 0 &&
         !isInPhone && (
           <MyView>
             <SimpleText
-              style={styles.dark_blue_color}
+              style={{
+                color: theme.colors.text,
+              }}
               text={commonTranslator.nesFile}
             />
             <PhoneView>

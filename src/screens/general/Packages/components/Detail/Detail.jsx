@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {Image} from 'react-native';
+import {routes} from '@/api/apiRoutes';
+import {setCacheItem} from '@/api/user';
+import {generalRequest} from '@/api/utility';
+import Comment from '@/components/web/comment/Comment.jsx';
+import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
 import {
   convertSecToMinWithOutSecAndDay,
   faNums,
   formatPrice,
-  getDevice,
   showError,
   showSuccess,
   systemFonts,
@@ -18,10 +20,11 @@ import {
   PhoneView,
   SimpleText,
 } from '@/styles';
-import RenderHTML from 'react-native-render-html';
+import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
+import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import {styles} from '@/styles/common/styles';
-import {fetchPackage, goToPay} from '../utility';
-import {Translator} from '../../translator';
+import vars from '@/styles/root';
+import commonTranslator from '@/translator/common';
 import {
   faAngleDown,
   faAngleUp,
@@ -34,28 +37,23 @@ import {
   faSun,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import vars from '@/styles/root';
-import commonTranslator from '@/translator/common';
-import {SimpleFontIcon} from '@/styles/common/FontIcon.jsx';
-import {useEffectOnce} from 'usehooks-ts';
-import FAQ from './FAQ.jsx';
-import {setCacheItem} from '@/api/user';
-import SuccessTransaction from '@/components/web/successTransaction/SuccessTransaction.jsx';
-import OffCode from '../../../buy/components/OffCode.jsx';
-import SessionDetail from './SessionDetail.jsx';
-import Chapter from './Chapter.jsx';
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {Image} from 'react-native';
 import {Rating} from 'react-native-ratings';
-import {generalRequest} from '@/api/utility';
-import {routes} from '@/api/apiRoutes';
-import Card from '../Card.jsx';
-import LastBuyer from './LastBuyer.jsx';
+import RenderHTML from 'react-native-render-html';
+import {useEffectOnce} from 'usehooks-ts';
 import {downloadCert} from '../../../../panel/certificate/utility';
-import {LargePopUp} from '@/styles/common/PopUp.jsx';
-import Comment from '@/components/web/comment/Comment.jsx';
+import OffCode from '../../../buy/components/OffCode.jsx';
+import {Translator} from '../../translator';
+import Card from '../Card.jsx';
+import {fetchPackage, goToPay} from '../utility';
+import Chapter from './Chapter.jsx';
+import FAQ from './FAQ.jsx';
+import LastBuyer from './LastBuyer.jsx';
+import SessionDetail from './SessionDetail.jsx';
+
 function Detail(props) {
   const [item, setItem] = useState();
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
   const [img, setImg] = useState();
   const [isWorking, setIsWorking] = useState(false);
   const [showDescMore, setShowDescMore] = useState(false);
@@ -67,9 +65,10 @@ function Detail(props) {
   const [userOff, setUserOff] = useState();
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [showOffCodePane, setShowOffCodePane] = useState(false);
-  const [userMoney, setUserMoney] = useState(
-    props.user === null ? 0 : props.user.user.money,
-  );
+
+  const userMoney = useMemo(() => {
+    return props.user === null ? 0 : props.user.user.money;
+  }, [props.user]);
   const [showRunQuizWarning, setShowRunQuizWarning] = useState(false);
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [off, setOff] = useState();
@@ -78,7 +77,7 @@ function Detail(props) {
   const [showTeacher, setShowTeacher] = useState(false);
   const [packageRate, setPackageRate] = useState();
   const [teacherBio, setTeacherBio] = useState();
-  const ref = React.useRef();
+  const ref = useRef();
   const toggleShowOffCodePane = () => {
     if (
       !showOffCodePane &&
@@ -89,7 +88,7 @@ function Detail(props) {
     }
     setShowOffCodePane(!showOffCodePane);
   };
-  React.useEffect(() => {
+  useEffect(() => {
     if (refId === undefined) return;
     ref.current.submit();
   }, [refId]);
@@ -124,8 +123,8 @@ function Detail(props) {
       code: code,
     });
   };
-  const fetchPackageLocal = React.useCallback(() => {
-    if (isWorking || item !== undefined) return;
+  const fetchPackageLocal = useCallback(() => {
+    if (isWorking || item) return;
     props.setLoading(true);
     setIsWorking(true);
     Promise.all([fetchPackage(props.slug, props.token)]).then(res => {
@@ -137,14 +136,13 @@ function Detail(props) {
       else setShouldPay(res[0].price);
     });
   }, [props, isWorking, item]);
-  React.useEffect(() => {
-    if (item !== undefined) setImg(item.img);
+  useEffect(() => {
+    if (item) setImg(item.img);
   }, [item]);
   useEffectOnce(() => {
     fetchPackageLocal();
   }, [props.slug]);
-  const fontSize = props.isInPhone ? 10 : 11;
-  const valFontSize = props.isInPhone ? 12 : 15;
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = () => {
     const position = window.pageYOffset;
@@ -153,7 +151,7 @@ function Detail(props) {
   const [rate, setRate] = useState();
   const [teacherPackages, setTeacherPackages] = useState();
   const [selectedTeacher, setSelectedTeacher] = useState();
-  React.useEffect(() => {
+  useEffect(() => {
     if (item !== undefined && item.rate !== undefined)
       setPackageRate(item.rate);
     if (item !== undefined && item.stdRate !== undefined) setRate(item.stdRate);
@@ -309,9 +307,10 @@ function Detail(props) {
                   return (
                     <Card
                       isInMyMode={false}
-                      isInPhone={isInPhone}
+                      isInPhone={false}
                       key={index}
                       tutorial={elem}
+                      isDarkMode={props.theme === 'dark'}
                     />
                   );
                 })}
@@ -336,7 +335,7 @@ function Detail(props) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                   ...styles.marginLeft5,
                 }}
@@ -355,7 +354,7 @@ function Detail(props) {
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                 }}
                 text={commonTranslator.clickHere}
@@ -371,8 +370,8 @@ function Detail(props) {
           <MyView
             style={{
               alignSelf: 'center',
-              width: props.token === undefined && !isInPhone ? '80%' : '100%',
-              gap: isInPhone ? 10 : 0,
+              width: props.token === undefined && '80%',
+              gap: 0,
             }}>
             <CommonWebBox
               header={item.title}
@@ -386,8 +385,7 @@ function Detail(props) {
             <PhoneView>
               <MyView
                 style={{
-                  // order: isInPhone ? 2 : 1,
-                  width: isInPhone ? '100%' : 'calc(70% - 10px)',
+                  width: 'calc(70% - 10px)',
                 }}>
                 <CommonWebBox>
                   <PhoneView>
@@ -395,7 +393,7 @@ function Detail(props) {
                       source={img}
                       resizeMode={'contain'}
                       style={{
-                        width: isInPhone ? '100%' : '60%',
+                        width: '60%',
                         height: 300,
                       }}
                     />
@@ -405,7 +403,7 @@ function Detail(props) {
                         ...styles.gap10,
                         ...styles.textJustify,
                         ...{
-                          width: isInPhone || showDescMore ? '100%' : '40%',
+                          width: showDescMore ? '100%' : '40%',
                           maxHeight: showDescMore ? 'unset' : 300,
                           overflow: showDescMore ? 'unset' : 'hidden',
                         },
@@ -577,7 +575,7 @@ function Detail(props) {
 
               <MyView
                 style={{
-                  order: isInPhone ? 1 : 2,
+                  order: 2,
                   position: 'relative',
                   left: 10,
                   top:
@@ -586,7 +584,7 @@ function Detail(props) {
                       : scrollPosition > 100
                       ? 20
                       : 140 - scrollPosition,
-                  width: isInPhone ? '100%' : 'calc(30% - 20px)',
+                  width: 'calc(30% - 20px)',
                 }}>
                 {item.quizStatus !== undefined && (
                   <CommonWebBox>
@@ -934,7 +932,7 @@ function Detail(props) {
                           <SimpleText
                             onPress={() => setShowOffCodePane(true)}
                             style={{
-                              ...styles.dark_blue_color,
+                              ...styles.colorDarkBlue,
                               ...styles.cursor_pointer,
                               // ...styles.alignSelfCenter,
                               ...styles.alignSelfEnd,
@@ -971,7 +969,7 @@ function Detail(props) {
                               ...{
                                 marginRight: 5,
                               },
-                              ...styles.dark_blue_color,
+                              ...styles.colorDarkBlue,
                               ...styles.fontSize13,
                             }}
                             text={Translator.publicOff}
@@ -992,7 +990,7 @@ function Detail(props) {
                               ...{
                                 marginRight: 5,
                               },
-                              ...styles.dark_blue_color,
+                              ...styles.colorDarkBlue,
                               ...styles.fontSize13,
                             }}
                             text={Translator.off}
@@ -1013,7 +1011,7 @@ function Detail(props) {
                               ...{
                                 marginRight: 5,
                               },
-                              ...styles.dark_blue_color,
+                              ...styles.colorDarkBlue,
                               ...styles.fontSize13,
                             }}
                             text={Translator.wallet}

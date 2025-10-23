@@ -1,6 +1,6 @@
 import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility.js';
-import {editItem} from '@/services/utility';
+import {editItem} from '@/services/utility.js';
 import {CommonWebBox, MyView} from '@/styles';
 import React, {useState} from 'react';
 import Create from '../../../../panel/ticket/components/Create.jsx';

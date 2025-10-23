@@ -5,7 +5,7 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
-import {changeText, showError, trueFalseValues} from '@/services/utility';
+import {changeText, showError, trueFalseValues} from '@/services/utility.js';
 import {
   CommonRadioButton,
   CommonWebBox,

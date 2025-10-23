@@ -1,14 +1,15 @@
 import {SimpleText} from '@/styles';
-import vars from '@/styles/root';
+import {useTheme} from 'styled-components';
 
 function Titr({title}) {
+  const theme = useTheme();
   return (
     <SimpleText
       style={{
-        color: vars.DARK_BLUE,
+        color: theme.colors.text,
         fontWeight: 'bold',
         fontSize: '18px',
-        borderBottom: `2px solid ${vars.DARK_BLUE}`,
+        borderBottom: `2px solid ${theme.colors.text}`,
         paddingBottom: '8px',
       }}
       text={title}

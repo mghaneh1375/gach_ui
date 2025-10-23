@@ -22,7 +22,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import MyCustomUploadAdapterPlugin from '@/services/myUploadAdapter';
 import RadioButtonYesOrNo from '@/components/web/RadioButtonYesOrNo.jsx';
 import RenderHTML from 'react-native-render-html';
-import {CKEditorToolbar} from '@/services/utility';
+import {CKEditorToolbar} from '@/services/utility.js';
 import Attach from './Attach.jsx';
 import Excel from './Excel.jsx';
 

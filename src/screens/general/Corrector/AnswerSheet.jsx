@@ -1,9 +1,9 @@
 import {faClose} from '@fortawesome/free-solid-svg-icons';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {Image} from 'react-native';
 import {useParams} from 'react-router';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import {getDevice, getWidthHeight} from '@/services/utility';
+import {getDevice, getWidthHeight} from '@/services/utility.js';
 import {CommonWebBox, MyView, PhoneView} from '@/styles/CommonComponents.jsx';
 import {FontIcon} from '@/styles/common/FontIcon.jsx';
 import vars from '@/styles/root';
@@ -34,8 +34,10 @@ function AnswerSheet(props) {
   };
   const [oldMode, setOldMode] = useState();
   const [selectedAttach, setSelectedAttach] = useState();
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   return (
     <MyView
       style={

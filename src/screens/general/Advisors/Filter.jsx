@@ -10,11 +10,13 @@ import {
 import {styles} from '@/styles/common/styles';
 import commonTranslator from '@/translator/common';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {generalRequest} from '@/api/utility';
 import {routes} from '@/api/apiRoutes';
 function Filter(props) {
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
   const [rate, setRate] = useState([1, 5]);
   const [value, setValue] = useState([props.min, props.max]);
   const [valueAge, setValueAge] = useState([props.minAge, props.maxAge]);

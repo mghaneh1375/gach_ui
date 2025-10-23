@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {useParams} from 'react-router';
 import {globalStateContext, dispatchStateContext} from '@/App.jsx';
 import {PackageProvider} from './components/Context.jsx';
 import Detail from './components/detail/Detail.jsx';
 import List from './components/List.jsx';
-import {getDevice} from '@/services/utility';
+import {getDevice} from '@/services/utility.js';
 import PhoneDetail from './components/detail/PhoneDetail.jsx';
 function Packages(props) {
   const [mode, setMode] = useState();
@@ -14,7 +14,10 @@ function Packages(props) {
   ];
   const [state, dispatch] = useGlobalState();
   const params = useParams();
-  const isInPhone = getDevice().indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   const setLoading = status => {
     dispatch({
       loading: status,
@@ -33,9 +36,10 @@ function Packages(props) {
           token={state.token}
           setLoading={setLoading}
           isInMyMode={props.isInMyMode}
+          theme={state.theme}
         />
       )}
-      {mode !== undefined && mode === 'detail' && !isInPhone && (
+      {mode && mode === 'detail' && !isInPhone && (
         <Detail
           navigate={props.navigate}
           slug={params.slug}
@@ -43,9 +47,10 @@ function Packages(props) {
           user={state.user}
           setMode={setMode}
           setLoading={setLoading}
+          theme={state.theme}
         />
       )}
-      {mode !== undefined && mode === 'detail' && isInPhone && (
+      {mode && mode === 'detail' && isInPhone && (
         <PhoneDetail
           navigate={props.navigate}
           slug={params.slug}
@@ -53,6 +58,7 @@ function Packages(props) {
           user={state.user}
           setMode={setMode}
           setLoading={setLoading}
+          theme={state.theme}
         />
       )}
     </PackageProvider>

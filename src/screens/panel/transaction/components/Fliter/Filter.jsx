@@ -107,7 +107,7 @@ function Filter(props) {
               paddingrRight: 15,
               paddingBottom: 15,
               cursor: 'pointer',
-              ...styles.dark_blue_color,
+              ...styles.colorDarkBlue,
             }}
             text={commonTranslator.advancedSearch}
           />
@@ -120,7 +120,7 @@ function Filter(props) {
             <SimpleFontIcon
               onPress={() => toggleShowProSearch()}
               style={{
-                ...styles.dark_blue_color,
+                ...styles.colorDarkBlue,
               }}
               icon={wantedIcon}
             />

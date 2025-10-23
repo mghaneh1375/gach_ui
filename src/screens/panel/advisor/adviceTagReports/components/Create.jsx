@@ -5,7 +5,7 @@ import {CommonButton, CommonWebBox, PhoneView} from '@/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import commonTranslator from '@/translator/common.js';
-import {showSuccess, trueFalseValues} from '@/services/utility';
+import {showSuccess, trueFalseValues} from '@/services/utility.js';
 import {styles} from '@/styles/common/styles';
 import {
   adviceTagReportContext,

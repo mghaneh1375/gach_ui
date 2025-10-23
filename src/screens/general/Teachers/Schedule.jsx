@@ -222,7 +222,7 @@ function Schedule(props) {
             }}>
             <SimpleText
               style={{
-                ...styles.dark_blue_color,
+                ...styles.colorDarkBlue,
                 ...{
                   maxHeight: showMore ? 'unset' : 46,
                   overflow: showMore ? 'unset' : 'hidden',

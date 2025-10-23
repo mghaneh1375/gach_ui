@@ -1,13 +1,12 @@
+import {faArrowLeft, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {useTheme} from 'styled-components';
+import BigBoldBlueTextInline from './BigBoldBlueTextInline';
+import EqualTwoTextInputs from './EqualTwoTextInputs';
+import {FontIcon} from './FontIcon';
 import MyView from './MyView';
 import PhoneView from './PhoneView';
 import SimpleText from './SimpleText';
-import vars from '../root';
-import {styles} from './Styles';
-import {faArrowLeft, faPlus} from '@fortawesome/free-solid-svg-icons';
-import EqualTwoTextInputs from './EqualTwoTextInputs';
-import {FontIcon} from './FontIcon';
-import BigBoldBlueTextInline from './BigBoldBlueTextInline';
+import {styles} from './styles.js';
 
 const CommonWebBox = props => {
   const theme = useTheme();
@@ -17,8 +16,9 @@ const CommonWebBox = props => {
     width: props.width !== undefined ? props.width : 'auto',
   };
 
-  const allStyle =
-    props.style !== undefined ? {...style1, ...props.style} : {...style1};
+  const allStyle = props.style
+    ? {...style1, ...props.style, backgroundColor: 'unset'}
+    : {...style1};
 
   return (
     <MyView style={allStyle}>
@@ -26,7 +26,7 @@ const CommonWebBox = props => {
         style={{
           overflow: props.rowId ? 'hidden' : 'visible',
           backgroundColor: props.style?.backgroundColor
-            ? props.childStyle?.backgroundColor
+            ? props.style?.backgroundColor
             : theme.colors.background.modal,
           padding:
             props.style === undefined || props.style.padding === undefined

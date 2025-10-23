@@ -9,7 +9,7 @@ import QuizGeneralInfo from '../../../panel/quiz/components/create/QuizGeneralIn
 import translator from '../../../panel/quiz/translator';
 import commonTranslator from '@/translator/common.js';
 import QuizAnswerSheetInfo from '../../../panel/quiz/components/create/QuizAnswerSheetInfo.jsx';
-import {showError, showSuccess} from '@/services/utility';
+import {showError, showSuccess} from '@/services/utility.js';
 import QuizRunInfo from './QuizRunInfo.jsx';
 const Create = props => {
   const useGlobalState = () => [

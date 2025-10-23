@@ -7,7 +7,7 @@ import {
   removeItems,
   sexKeyVals,
   showError,
-} from '@/services/utility';
+} from '@/services/utility.js';
 import commonTranslator from '@/translator/common.js';
 import {notifContext, dispatchNotifContext} from '../Context.jsx';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';

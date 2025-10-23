@@ -11,7 +11,7 @@ import {
   faSun,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Image} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import RenderHTML from 'react-native-render-html';
@@ -64,9 +64,11 @@ function PhoneDetail(props) {
   const [userOff, setUserOff] = useState();
   const [showSuccessTransaction, setShowSuccessTransaction] = useState(false);
   const [showOffCodePane, setShowOffCodePane] = useState(false);
-  const [userMoney, setUserMoney] = useState(
-    props.user === null ? 0 : props.user.user.money,
-  );
+
+  const userMoney = useMemo(() => {
+    return props.user === null ? 0 : props.user.user.money;
+  }, [props.user]);
+
   const [showRunQuizWarning, setShowRunQuizWarning] = useState(false);
   const [usedFromWallet, setUsedFromWallet] = useState(0);
   const [off, setOff] = useState();
@@ -308,6 +310,7 @@ function PhoneDetail(props) {
                       isInPhone={true}
                       key={index}
                       tutorial={elem}
+                      isDarkMode={props.theme === 'dark'}
                     />
                   );
                 })}
@@ -332,7 +335,7 @@ function PhoneDetail(props) {
             <PhoneView>
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                   ...styles.marginLeft5,
                 }}
@@ -351,7 +354,7 @@ function PhoneDetail(props) {
               />
               <SimpleText
                 style={{
-                  ...styles.dark_blue_color,
+                  ...styles.colorDarkBlue,
                   ...styles.fontSize13,
                 }}
                 text={commonTranslator.clickHere}
@@ -724,7 +727,7 @@ function PhoneDetail(props) {
                         <SimpleText
                           onPress={() => setShowOffCodePane(true)}
                           style={{
-                            ...styles.dark_blue_color,
+                            ...styles.colorDarkBlue,
                             ...styles.cursor_pointer,
                             // ...styles.alignSelfCenter,
                             ...styles.alignSelfEnd,
@@ -761,7 +764,7 @@ function PhoneDetail(props) {
                             ...{
                               marginRight: 5,
                             },
-                            ...styles.dark_blue_color,
+                            ...styles.colorDarkBlue,
                             ...styles.fontSize13,
                           }}
                           text={Translator.publicOff}
@@ -782,7 +785,7 @@ function PhoneDetail(props) {
                             ...{
                               marginRight: 5,
                             },
-                            ...styles.dark_blue_color,
+                            ...styles.colorDarkBlue,
                             ...styles.fontSize13,
                           }}
                           text={Translator.off}
@@ -803,7 +806,7 @@ function PhoneDetail(props) {
                             ...{
                               marginRight: 5,
                             },
-                            ...styles.dark_blue_color,
+                            ...styles.colorDarkBlue,
                             ...styles.fontSize13,
                           }}
                           text={Translator.wallet}

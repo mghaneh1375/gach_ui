@@ -18,7 +18,7 @@ import {
   NavTextStyle,
   TinyNavTextStyle,
 } from '../../styles/web/bottomNavBar';
-import {BottomLinkExternal} from '../../styles/web/navbarElement';
+import {BottomLinkExternal} from '../../styles/web/navbarElement.js';
 export default function BottomNavBar() {
   return (
     <MyView

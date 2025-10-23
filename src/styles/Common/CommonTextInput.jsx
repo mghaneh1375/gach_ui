@@ -8,7 +8,10 @@ import {
 } from './commonText.js';
 import SubInputText from './subInputText';
 import SubInputTextTwo from './subInputTextTwo';
+import {useTheme} from 'styled-components';
+import vars from '../root.js';
 export const CommonTextInput = props => {
+  const theme = useTheme();
   const isHalf = props.isHalf !== undefined && props.isHalf;
   const isApp = Platform.OS !== 'web';
   let style1 = !isApp
@@ -33,8 +36,7 @@ export const CommonTextInput = props => {
         }
       : style1;
   if (props.disable !== undefined && props.disable) {
-    if (props.backgroundColor === undefined)
-      allStyle.backgroundColor = '#d1d1d1';
+    if (!props.backgroundColor) allStyle.backgroundColor = '#d1d1d1';
     else allStyle.backgroundColor = props.backgroundColor;
   }
   const inputProps = {
@@ -43,14 +45,14 @@ export const CommonTextInput = props => {
     style: allStyle,
     editable: !props.disable,
   };
-  if (props.onEnter !== undefined) {
+  if (props.onEnter) {
     inputProps.onKeyPress = e => {
       var charCode = e.which ? e.which : e.keyCode;
       if (charCode === 13) props.onEnter();
     };
   }
   if (props.value !== undefined) inputProps.value = props.value;
-  if (props.type !== undefined && props.type === 'password')
+  if (props.type && props.type === 'password')
     inputProps.secureTextEntry = true;
   if (props.justNum !== undefined && props.justNum && Platform.OS === 'web') {
     inputProps.onKeyPress = e => {
@@ -107,23 +109,31 @@ export const CommonTextInput = props => {
       ...props.parentStyle,
     };
   parentAllStyles = calcInputWidth(15, isHalf, parentAllStyles);
+
   return (
     <MyView style={parentAllStyles}>
       <CommonTextInputElem {...inputProps} />
       <EqualTwoTextInputs>
-        {props.subText !== undefined ? (
+        {props.subText ? (
           <SubInputText
             style={
-              props?.style?.color !== undefined
+              props?.style?.color
                 ? {
+                    width: '100%',
+                    height: '100%',
                     color: props.style.color,
                   }
-                : {}
+                : {
+                    width: '100%',
+                    height: '100%',
+                    color:
+                      theme.name === 'dark' ? vars.WHITE : vars.LIGHT_SILVER,
+                  }
             }>
             {props.subText}
           </SubInputText>
         ) : null}
-        {props.subTextTwo !== undefined ? (
+        {props.subTextTwo ? (
           <SubInputTextTwo>{props.subTextTwo}</SubInputTextTwo>
         ) : null}
       </EqualTwoTextInputs>

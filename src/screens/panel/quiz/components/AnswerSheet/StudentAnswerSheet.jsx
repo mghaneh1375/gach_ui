@@ -16,7 +16,7 @@ import {jsPDF} from 'jspdf';
 import {toPng} from 'html-to-image';
 import {styles} from '@/styles/common/styles';
 import commonTranslator from '@/translator/common.js';
-import {getDevice, showError} from '@/services/utility';
+import {getDevice, showError} from '@/services/utility.js';
 function StudentAnswerSheet({
   token,
   setLoading,

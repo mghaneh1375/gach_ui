@@ -1,5 +1,5 @@
 import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {generalRequest} from '../../api/utility';
 import Card from '../../screens/panel/quiz/components/card/Card.jsx';
 import {MyView, PhoneView, SimpleText} from '@/styles';
@@ -17,10 +17,12 @@ function Quizzes(props) {
     React.useContext(dispatchStateContext),
   ];
   const [state, dispatch] = useGlobalState();
-  const device = getDevice();
-  const isInPhone = device.indexOf('WebPort') !== -1;
+  const isInPhone = useMemo(() => {
+    return getDevice().indexOf('WebPort') !== -1;
+  }, []);
+
   React.useEffect(() => {
-    if (props.quizzes !== undefined) setQuizzes(props.quizzes);
+    if (!props.quizzes) setQuizzes(props.quizzes);
     else fetchQuizzes();
   }, [props.quizzes, fetchQuizzes]);
   const toggleSelectedItems = id => {

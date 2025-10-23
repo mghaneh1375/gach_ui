@@ -9,7 +9,7 @@ import {
 } from './Context.jsx';
 import commonTranslator from '@/translator/common.js';
 import {styles} from '@/styles/common/styles';
-import {trueFalseValues} from '@/services/utility';
+import {trueFalseValues} from '@/services/utility.js';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
 import translator from '../translate';
 function Create(props) {

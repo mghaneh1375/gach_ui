@@ -53,7 +53,7 @@ function FinancePlan(props) {
             }}>
             <SimpleText
               style={{
-                ...styles.dark_blue_color,
+                ...styles.colorDarkBlue,
                 ...{
                   maxHeight: showMore ? 'unset' : 50,
                   overflow: showMore ? 'unset' : 'hidden',
@@ -157,7 +157,7 @@ function FinancePlan(props) {
 
                 <SimpleText
                   style={{
-                    ...styles.dark_blue_color,
+                    ...styles.colorDarkBlue,
                     ...styles.fontSize13,
                   }}
                   text={translator.price}

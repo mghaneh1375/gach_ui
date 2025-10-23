@@ -1,4 +1,4 @@
-import {BigBoldBlueTextInlineElem} from './BigBoldTextElem';
+import {BigBoldBlueTextInlineElem} from './bigBoldTextElem.js';
 
 const BigBoldBlueTextInline = props => (
   <BigBoldBlueTextInlineElem

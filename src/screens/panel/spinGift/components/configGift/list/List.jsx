@@ -11,7 +11,10 @@ import Translate from '../../../translate';
 import React, {useState} from 'react';
 import {TextIcon} from '../../../../../../styles/common/TextIcon.jsx';
 import {faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
-import {convertTimestamp, showError} from '../../../../../../services/utility';
+import {
+  convertTimestamp,
+  showError,
+} from '../../../../../../services/utility.js';
 import {FontIcon} from '../../../../../../styles/common/FontIcon.jsx';
 import {LargePopUp} from '../../../../../../styles/common/PopUp.jsx';
 import {CommonDatePicker} from '../../../../../../styles/common/CommonDatePicker.jsx';

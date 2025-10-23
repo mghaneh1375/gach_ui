@@ -116,6 +116,7 @@ function Dashboard() {
                         isInPhone={state.isInPhone}
                         tutorial={e}
                         key={index}
+                        isDarkMode={state.theme === 'dark'}
                       />
                     ))}
                   </PhoneView>

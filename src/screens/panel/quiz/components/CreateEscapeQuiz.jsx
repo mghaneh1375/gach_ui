@@ -16,7 +16,7 @@ import {routes} from '@/api/apiRoutes';
 import {dispatchQuizContext, quizContext} from './Context.jsx';
 import {addFile, getTags, removeFile} from './utility';
 import {useFilePicker} from 'use-file-picker';
-import {showSuccess, trueFalseValues} from '@/services/utility';
+import {showSuccess, trueFalseValues} from '@/services/utility.js';
 import JustBottomBorderDatePicker from '@/styles/common/JustBottomBorderDatePicker.jsx';
 import {styles} from '@/styles/common/styles';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';

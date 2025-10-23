@@ -11,7 +11,7 @@ const PhoneView = props => {
   const allStyles =
     props.style !== undefined ? {...style1, ...props.style} : style1;
 
-  let viewProps = {
+  const viewProps = {
     style: allStyles,
   };
 
