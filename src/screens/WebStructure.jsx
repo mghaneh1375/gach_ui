@@ -56,7 +56,6 @@ const Psychology = lazy(() => import('./panel/psychology/Psychology'));
 const SelectGift = lazy(() =>
   import('./panel/spinGift/components/selectGift/SelectGift'),
 );
-const Upgrade = lazy(() => import('./studentPanel/upgrade/Upgrade'));
 const ConfigGift = lazy(() =>
   import('./panel/spinGift/components/configGift/ConfigGift'),
 );
@@ -654,13 +653,6 @@ const WebStructue = props => {
                   )}
                   {props.page === 'studentEducationalHistory' && (
                     <StudentEducationalHistory navigate={navigate} />
-                  )}
-                  {props.page === 'upgrade' && (
-                    <Upgrade
-                      token={state.token}
-                      user={state.user}
-                      navigate={navigate}
-                    />
                   )}
                   {props.page === 'profile' && state.isInPhone && (
                     <WebProfile

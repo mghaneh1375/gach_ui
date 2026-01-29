@@ -41,6 +41,7 @@ const translator = {
   teachForTeachers: 'تدریس مخصوص دبیران',
   teaches: 'تدریس\u200cها',
   entrance: 'ورود',
+  tempCode: 'تولید کد موقت',
   continue: 'ادامه',
   support: 'پشتیبانی',
   email: 'آدرس ایمیل',

@@ -135,6 +135,19 @@ export const login = async (setLoading, token, userId) => {
   }
   return false;
 };
+export const generateTempCode = async (setLoading, token, userId) => {
+  setLoading(true);
+  const res = await generalRequest(
+    routes.generateTempCode + userId,
+    'post',
+    undefined,
+    'password',
+    token,
+  );
+  setLoading(false);
+  if (res !== null) return res;
+  return null;
+};
 export const chargeAccount = async (coin, money, userId, token) => {
   const res = await generalRequest(
     routes.chargeAccount + userId,

@@ -9,10 +9,8 @@ import {
   PhoneView,
 } from '@/styles/CommonComponents.jsx';
 import ChangePass from '../components/ChangePass.jsx';
-import ChangeUsername from '../components/ChangeUsername.jsx';
 import UpdateInfo from '../components/UpdateInfo.jsx';
 import UpdatePic from '../components/UpdatePic.jsx';
-import UpdateUsername from '../components/UpdateUsername.jsx';
 import {dispatchStateContext, globalStateContext} from '@/App.jsx';
 import {
   getDevice,
@@ -31,7 +29,6 @@ import {useParams} from 'react-router';
 import {generalRequest} from '@/api/utility.js';
 import {routes} from '@/api/apiRoutes';
 import {getPreRequirements, updateUserPic} from '../components/utility';
-import UpdateForm from '../components/UpdateForm.jsx';
 import {fetchUser, setCacheItem} from '@/api/user';
 import JustBottomBorderTextInput from '@/styles/common/JustBottomBorderTextInput.jsx';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect.jsx';
@@ -42,7 +39,6 @@ const Profile = props => {
   const [user, setUser] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdvisor, setIsAdvisor] = useState(false);
-  const [aboutMe, setAboutMe] = useState();
   const navigate = props.navigate;
   const params = useParams();
   const useGlobalState = () => [
@@ -63,13 +59,10 @@ const Profile = props => {
   const [schools, setSchools] = useState();
   const [wantToTeach, setWantToTeach] = useState(false);
   const [wantToAdvice, setWantToAdvice] = useState(false);
-  const [showChangeUsernameModal, setShowChangeUsernameModal] = useState(false);
-  const [usernameModalMode, setUsernameModalMode] = useState(false);
   const [showEditInfo, setShowEditInfo] = useState(true);
   const [showEditUsername, setShowEditUsername] = useState(true);
   const [showEditPassword, setShowEditPassword] = useState(true);
   const [showEditPic, setShowEditPic] = useState(true);
-  const [showEditForm, setShowEditForm] = useState(true);
   const [acceptStd, setAcceptStd] = useState();
   const [teachVideoLink, setTeachVideoLink] = useState();
   const [defaultTeachPrice, setDefaultTeachPrice] = useState();
@@ -202,28 +195,9 @@ const Profile = props => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchedStates, dispatch]);
-  const toggleChangeUsernameModal = () => {
-    setShowChangeUsernameModal(!showChangeUsernameModal);
-  };
+
   return (
     <MyView>
-      {showChangeUsernameModal && (
-        <ChangeUsername
-          mode={usernameModalMode}
-          token={props.token}
-          setLoading={setLoading}
-          userId={isAdmin ? user.id : undefined}
-          NID={user.NID}
-          updateUser={(key, val) => {
-            const u = user;
-            u[key] = val;
-            setUser(u);
-          }}
-          navigate={navigate}
-          toggleModal={toggleChangeUsernameModal}
-        />
-      )}
-
       <Row>
         <Col lg={8}>
           {user !== undefined &&
@@ -276,15 +250,6 @@ const Profile = props => {
                       icon={showEditUsername ? faAngleUp : faAngleDown}
                     />
                   </EqualTwoTextInputs>
-                  {showEditUsername && (
-                    <UpdateUsername
-                      isInPhone={state.isInPhone}
-                      phone={user.phone}
-                      mail={user.mail}
-                      setMode={setUsernameModalMode}
-                      toggleModal={toggleChangeUsernameModal}
-                    />
-                  )}
                 </CommonWebBox>
                 <CommonWebBox>
                   <EqualTwoTextInputs>
@@ -577,31 +542,6 @@ const Profile = props => {
                       </CommonWebBox>
                     )}
                   </MyView>
-                )}
-                {user.forms && (
-                  <CommonWebBox>
-                    <EqualTwoTextInputs>
-                      <BigBoldBlueTextInline
-                        style={{
-                          alignSelf: 'center',
-                        }}
-                        text={translator.formInfo}
-                      />
-                      <SimpleFontIcon
-                        onPress={() => setShowEditForm(!showEditForm)}
-                        kind={'normal'}
-                        icon={showEditForm ? faAngleUp : faAngleDown}
-                      />
-                    </EqualTwoTextInputs>
-                    {showEditForm && (
-                      <UpdateForm
-                        userId={isAdmin ? user.id : undefined}
-                        forms={user.forms}
-                        setLoading={setLoading}
-                        token={props.token}
-                      />
-                    )}
-                  </CommonWebBox>
                 )}
                 {isAdmin && (
                   <CommonButton

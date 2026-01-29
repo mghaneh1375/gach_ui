@@ -2,9 +2,9 @@ import React from 'react';
 import {CommonButton, PhoneView, MyView} from '@/styles';
 import {LargePopUp} from '@/styles/common/PopUp.jsx';
 import commonTranslator from '@/translator/common';
-import {login, toggleStatus} from './utility';
+import {generateTempCode, login, toggleStatus} from './utility';
 import {usersContext, dispatchUsersContext} from './Context.jsx';
-import {isUserAdvisor} from '@/services/utility';
+import {isUserAdvisor, showSuccess} from '@/services/utility';
 function Ops(props) {
   const useGlobalState = () => [
     React.useContext(usersContext),
@@ -34,6 +34,21 @@ function Ops(props) {
               if (res) {
                 props.toggleShowPopUp();
                 window.location.href = '/';
+              }
+            }}
+            theme={'transparent'}
+          />
+          <CommonButton
+            title={commonTranslator.tempCode}
+            onPress={async () => {
+              const res = await generateTempCode(
+                props.setLoading,
+                props.token,
+                state.selectedUser.id,
+              );
+              if (res !== undefined && res !== null) {
+                navigator.clipboard.writeText(res);
+                showSuccess('کد موقت کپی شد!');
               }
             }}
             theme={'transparent'}

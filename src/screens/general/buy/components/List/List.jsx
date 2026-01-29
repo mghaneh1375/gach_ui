@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
-import {MyView, PhoneView, SimpleText} from '@/styles';
-import Card from '../../../../panel/package/card/Card.jsx';
-import {packagesContext, dispatchPackagesContext} from '../Context.jsx';
-import {fetchAllPackages} from '../../../../panel/package/components/utility';
-import QuizList from '../detail/List.jsx';
 import {getDevice, getWidthHeight} from '@/services/utility';
+import {MyView, PhoneView, SimpleText} from '@/styles';
 import {styles} from '@/styles/common/styles.js';
+import vars from '@/styles/root.js';
+import React, {useState} from 'react';
+import Card from '../../../../panel/package/card/Card.jsx';
+import {fetchAllPackages} from '../../../../panel/package/components/utility';
+import {dispatchPackagesContext, packagesContext} from '../Context.jsx';
+import QuizList from '../detail/List.jsx';
 function List(props) {
   const useGlobalState = () => [
     React.useContext(packagesContext),
@@ -15,6 +16,7 @@ function List(props) {
   const [isWorking, setIsWorking] = useState(false);
   const [quizzes, setQuizzes] = useState();
   const [registered, setRegistered] = useState(false);
+  const [expiredMessage, setExpiredMessage] = useState(false);
   React.useEffect(() => {
     if (state.selectableItems === undefined) return;
     setQuizzes(
@@ -42,6 +44,10 @@ function List(props) {
       }
       if (props.quizId !== undefined && res[0].registered !== undefined) {
         setRegistered(true);
+        return;
+      }
+      if (props.quizId !== undefined && res[0].items.length === 0) {
+        setExpiredMessage(true);
         return;
       }
       dispatch({
@@ -105,6 +111,18 @@ function List(props) {
                   padding: 20,
                 }
           }>
+          {expiredMessage && (
+            <SimpleText
+              style={{
+                color: vars.DARK_BLUE,
+                fontSize: '20px',
+                margin: '100px auto',
+              }}
+              text={
+                'به دلیل اتمام زمان ثبت نام، امکان ثبت نام در آزمون مدنظر وجود ندارد'
+              }
+            />
+          )}
           {state.selectableItems !== undefined &&
             state.selectableItems.map((item, index) => {
               if (item.type === 'package')

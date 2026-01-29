@@ -1,22 +1,16 @@
-import React, {useState} from 'react';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {Device} from '@/models/device';
 import {getDevice} from '@/services/utility';
-import {faClose} from '@fortawesome/free-solid-svg-icons';
-import LoginModule from './components/Login.jsx';
+import {TextIcon} from '@/styles/common/TextIcon.jsx';
 import {
   commonStyles,
   MyView,
   ScreenScroll,
 } from '@/styles/CommonComponents.jsx';
+import {faClose} from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import LoginModule from './components/Login.jsx';
 import translator from './translate';
-import {TextIcon} from '@/styles/common/TextIcon.jsx';
-import {Device} from '@/models/device';
-import {globalStateContext, dispatchStateContext} from '@/App.jsx';
-import ForgetPassModule from './components/ForgetPass.jsx';
-import ResetPassModule from './components/ResetPass.jsx';
-import VerificationModule from './components/Verification.jsx';
-import SignupModule from './components/Signup.jsx';
-import RoleFormModule from './components/RoleForm.jsx';
-import {style} from '@/components/web/largeScreen/header/Style.jsx';
 const Login = props => {
   const device = getDevice();
   const navigate = props.navigate;
@@ -35,17 +29,7 @@ const Login = props => {
       loading: status,
     });
   };
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [mode, setMode] = useState('login'); // available values: [signUp, verification, role, form]
-  const [token, setToken] = useState('');
-  const [reminder, setReminder] = useState(0);
-  const [username, setUsername] = useState();
-  const [code, setCode] = useState();
-  const changeMode = wantedMode => {
-    if (wantedMode === 'signUp') setIsSignUp(true);
-    else if (wantedMode === 'forget') setIsSignUp(false);
-    setMode(wantedMode);
-  };
+
   const root = device.indexOf(Device.App) !== -1 ? 'Home' : '/';
   const redirectToRoot = () => {
     navigate(root);
@@ -82,102 +66,19 @@ const Login = props => {
           }}
           text={translator.entryText}
           icon={faClose}
-          onPress={() =>
-            mode === 'login' ? redirectToRoot() : changeMode('login')
-          }
+          onPress={() => redirectToRoot()}
         />
-        {mode === 'login' && (
-          <MyView>
-            <LoginModule
-              setToken={token => {
-                dispatch({
-                  token: token,
-                });
-              }}
-              // style={{marginTop: 20}}
-              setLoading={setLoading}
-              changeMode={changeMode}
-            />
 
-            {/* <button> */}
-            {/* <TextWithLink
-              onPress={() => changeMode('signUp')}
-              style={{...styles.margin30}}
-              link={translator.subscrible}
-              text={translator.ifNotSubscribe}
-             /> */}
-            {/* </button> */}
-            {/* <TextWithLink
-              onPress={() => changeMode('forget')}
-              style={{...styles.margin30}}
-              text={translator.ifForget}
-              link={translator.forgetAction}
-             /> */}
-          </MyView>
-        )}
-
-        {mode === 'forget' && (
-          <ForgetPassModule
-            setUsername={setUsername}
-            username={username}
-            setMode={changeMode}
-            setLoading={setLoading}
-            setReminder={setReminder}
-            setToken={setToken}
-            style={{
-              marginTop: 20,
+        <MyView>
+          <LoginModule
+            setToken={token => {
+              dispatch({
+                token: token,
+              });
             }}
-          />
-        )}
-        {mode === 'verification' && (
-          <VerificationModule
             setLoading={setLoading}
-            setReminder={setReminder}
-            setToken={setToken}
-            reminder={reminder}
-            token={token}
-            setCode={setCode}
-            setMode={setMode}
-            username={username}
-            mode={isSignUp ? 'signUp' : 'forget'}
           />
-        )}
-        {mode === 'resetPass' && (
-          <ResetPassModule
-            username={username}
-            token={token}
-            code={code}
-            setLoading={setLoading}
-            navigate={navigate}
-            redirectTo={'/login'}
-          />
-        )}
-        {mode === 'signUp' && (
-          <SignupModule
-            setLoading={setLoading}
-            setToken={setToken}
-            setReminder={setReminder}
-            setMode={changeMode}
-            isInLargeScreen={false}
-            style={{
-              marginTop: 20,
-            }}
-            username={username}
-            setUsername={setUsername}
-          />
-        )}
-        {mode === 'roleForm' && (
-          <RoleFormModule
-            style={{
-              ...style.paddingLeft50,
-            }}
-            signUp={true}
-            token={token}
-            setLoading={setLoading}
-            navigate={navigate}
-            redirectTo={isApp ? 'Home' : '/dashboard'}
-          />
-        )}
+        </MyView>
       </MyView>
     </ScreenScroll>
   );

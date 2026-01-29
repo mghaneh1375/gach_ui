@@ -16,7 +16,7 @@ import React, {useState} from 'react';
 import {useFilePicker} from 'use-file-picker';
 import AttachBox from '../../../ticket/components/show/attachBox/AttachBox.jsx';
 import {contentContext, dispatchContentContext} from '../Context.jsx';
-import {removeSessionFile, setSessionFile} from '../utility';
+import {removeSessionFile, setSessionFile} from '../utility.js';
 function Attach(props) {
   const useGlobalState = () => [
     React.useContext(contentContext),

@@ -108,7 +108,8 @@ div[data-testid='marker-box'] {
 
 .super-menu-item-font-container-phone {
   margin-right: auto;
-  width: 115px;
+  /* width: 115px; */
+  width: 40px;
   height: 40px;
   display: flex;
   flex-direction: row;
@@ -1030,4 +1031,8 @@ option {
     left: unset;
     right: -45px;
   }
+}
+
+.super-menu-item-font-container-phone > div:nth-child(2) {
+  display: none;
 }

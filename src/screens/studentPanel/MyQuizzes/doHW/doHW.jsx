@@ -10,7 +10,7 @@ import {
   MyView,
   SimpleText,
 } from '@/styles/CommonComponents.jsx';
-import {styles} from '@/styles/common/styles';
+import {styles} from '@/styles/common/styles.js';
 import RenderHTML from 'react-native-render-html';
 import {
   answerTypes,

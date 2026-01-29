@@ -6,7 +6,7 @@ export const routes = {
   whichKindOfAuthIsAvailable: 'user/whichKindOfAuthIsAvailable?NID=',
   forgetPassword: 'user/forgetPassword',
   resetPassword: 'user/resetPassword',
-  signIn: 'user/signIn',
+  signIn: 'admin/user/adminSignIn',
   signup: 'user/signUp',
   setAboutMe: 'user/aboutMe',
   setMyFields: 'user/setMyFields',

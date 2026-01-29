@@ -72,17 +72,6 @@ const Login = props => {
           onPress={() => requestLogin()}
           title={commonTranlator.entrance}
         />
-        <CommonButton
-          theme={'dark'}
-          onPress={() => props.changeMode('signUp')}
-          title={'ثبت نام'}
-        />
-
-        <CommonButton
-          theme={'orangeRed'}
-          onPress={() => props.changeMode('forget')}
-          title={'فراموشی رمزعبور'}
-        />
       </PhoneView>
     </MyView>
   );

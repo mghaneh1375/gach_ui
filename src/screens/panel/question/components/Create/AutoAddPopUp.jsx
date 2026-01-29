@@ -16,7 +16,7 @@ import translator from '../../translator';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {showError} from '@/services/utility';
 import {routes} from '@/api/apiRoutes';
-import {fileRequest, generalRequest} from '@/api/utility';
+import {BASE_SITE_NAME, fileRequest, generalRequest} from '@/api/utility';
 import JustBottomBorderSelect from '@/styles/common/JustBottomBorderSelect';
 
 function AutoAddPopUp({token, toggleShow, setLoading}) {
@@ -160,46 +160,56 @@ function AutoAddPopUp({token, toggleShow, setLoading}) {
         </PhoneView>
         <MyView style={(styles.gap15, styles.marginTop20)}>
           {selectedQuiz && (
-            <PhoneView>
-              <JustBottomBorderTextInput
-                style={{minWidth: 250}}
-                disable={true}
-                placeholder={
-                  filesContent.length > 0
-                    ? filesContent.map(e => e.name).join('-')
-                    : commonTranslator.notChooseFile
-                }
-                subText={
-                  commonTranslator.maxSize +
-                  5 +
-                  '  مگابایت   - ' +
-                  commonTranslator.format +
-                  ' ' +
-                  'pdf, xlsx, xls, xlx'
-                }
-              />
-              <MyView
-                style={{
-                  width: 40,
-                  height: 40,
-                  marginRight: 10,
-                }}>
-                <SimpleFontIcon onPress={openFileSelector} icon={faFolder} />
-              </MyView>
-              <MyView
-                style={{
-                  width: 40,
-                  height: 40,
-                }}>
-                <SimpleFontIcon
-                  onPress={clear}
-                  style={{
-                    color: vars.ORANGE_RED,
-                  }}
-                  icon={faTrash}
+            <>
+              <PhoneView>
+                <JustBottomBorderTextInput
+                  style={{minWidth: 250}}
+                  disable={true}
+                  placeholder={
+                    filesContent.length > 0
+                      ? filesContent.map(e => e.name).join('-')
+                      : commonTranslator.notChooseFile
+                  }
+                  subText={
+                    commonTranslator.maxSize +
+                    5 +
+                    '  مگابایت   - ' +
+                    commonTranslator.format +
+                    ' ' +
+                    'pdf, xlsx, xls, xlx'
+                  }
                 />
-              </MyView>
-            </PhoneView>
+                <MyView
+                  style={{
+                    width: 40,
+                    height: 40,
+                    marginRight: 10,
+                  }}>
+                  <SimpleFontIcon onPress={openFileSelector} icon={faFolder} />
+                </MyView>
+                <MyView
+                  style={{
+                    width: 40,
+                    height: 40,
+                  }}>
+                  <SimpleFontIcon
+                    onPress={clear}
+                    style={{
+                      color: vars.ORANGE_RED,
+                    }}
+                    icon={faTrash}
+                  />
+                </MyView>
+              </PhoneView>
+              <SimpleText text="لطفا توجه داشته باشید که باید نام فایل سوالات questions.pdf و همچنین نام فایل پاسخ‌ها answers.pdf و نام فایل اکسل باید info.xlsx باشد." />
+              <a
+                href={
+                  BASE_SITE_NAME +
+                  'assets/add_quesstion_to_system_and_quiz.xlsx'
+                }>
+                دانلود فایل نمونه
+              </a>
+            </>
           )}
         </MyView>
 

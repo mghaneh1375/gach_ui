@@ -7,6 +7,7 @@ export const adminRoutes = {
 
   // USER MANAGEMENT API
   adminLogin: 'admin/user/signIn/',
+  generateTempCode: 'admin/user/generateTempCode/',
   createUserByAdmin: 'admin/user/createUser',
   fetchTinyUser: 'admin/user/fetchTinyUser?',
   addAccess: 'admin/user/addAccess/',

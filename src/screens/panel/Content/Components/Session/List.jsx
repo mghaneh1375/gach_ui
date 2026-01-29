@@ -4,7 +4,7 @@ import CommonDataTable from '@/styles/common/CommonDataTable.jsx';
 import {contentContext, dispatchContentContext} from '../Context.jsx';
 import Ops from './Ops.jsx';
 import React, {useState} from 'react';
-import {fetchSessions} from '../utility';
+import {fetchSessions} from '../utility.js';
 import Translator from '../../translate';
 import columns from './tableStructure';
 import {VIDEO_BASE_URL} from '@/api/utility.js';

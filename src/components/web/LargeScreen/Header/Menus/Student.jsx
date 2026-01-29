@@ -22,13 +22,8 @@ function StudentMenu(props) {
         // excludes={['advisor', 'mySchool']}
         excludes={
           state.user?.user?.hasAdvisor
-            ? ['quiz_makeQuiz']
-            : [
-                'my_advisor',
-                'my_advisor_quizzes',
-                'my_schedules',
-                'quiz_makeQuiz',
-              ]
+            ? []
+            : ['my_advisor', 'my_advisor_quizzes', 'my_schedules']
         }
         navigate={props.navigate}
         selected={props.selected}
@@ -46,7 +41,7 @@ function StudentMenu(props) {
         },
       }}>
       <MenuItemRepeatForPhone
-        excludes={['certs', 'mySchool', 'quiz_makeQuiz']}
+        excludes={['certs', 'mySchool']}
         navigate={props.navigate}
         selected={props.selected}
         child={

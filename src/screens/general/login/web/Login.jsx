@@ -1,4 +1,7 @@
-import React, {useState} from 'react';
+import {getToken} from '@/api/user';
+import {dispatchStateContext, globalStateContext} from '@/App.jsx';
+import {FontIcon} from '@/styles/common/FontIcon.jsx';
+import {styles} from '@/styles/common/styles';
 import {
   BigBoldBlueText,
   BlueTextInline,
@@ -7,29 +10,15 @@ import {
   PhoneView,
   ScreenScroll,
 } from '@/styles/CommonComponents.jsx';
-import {faClose} from '@fortawesome/free-solid-svg-icons';
-import {BlurLoginBack} from './style';
-import LoginModule from '../components/Login.jsx';
-import ForgetPassModule from '../components/ForgetPass.jsx';
-import VerificationModule from '../components/Verification.jsx';
-import SignupModule from '../components/Signup.jsx';
-import ResetPassModule from '../components/ResetPass.jsx';
-import RoleFormModule from '../components/RoleForm.jsx';
-import commonTranlator from '../../../../translator/common';
-import translator from '../translate';
-import {Container, Row, Col} from 'react-grid-system';
 import vars from '@/styles/root';
-import {dispatchStateContext, globalStateContext} from '@/App.jsx';
-import {FontIcon} from '@/styles/common/FontIcon.jsx';
-import {getToken} from '@/api/user';
-import {styles} from '@/styles/common/styles';
+import {faClose} from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import {Col, Container, Row} from 'react-grid-system';
+import commonTranlator from '../../../../translator/common';
+import LoginModule from '../components/Login.jsx';
+import translator from '../translate';
+import {BlurLoginBack} from './style';
 const Login = props => {
-  const [mode, setMode] = useState('login');
-  const [token, setToken] = useState('');
-  const [code, setCode] = useState('');
-  const [reminder, setReminder] = useState(0);
-  const [username, setUsername] = useState();
-  const [isSignUp, setIsSignUp] = useState(false);
   const useGlobalState = () => [
     React.useContext(globalStateContext),
     React.useContext(dispatchStateContext),
@@ -37,21 +26,16 @@ const Login = props => {
   const navigate = props.navigate;
   const [state, dispatch] = useGlobalState();
   React.useEffect(() => {
-    if (mode === 'verification' || mode === 'roleForm') return;
     Promise.all([getToken()]).then(res => {
       if (res[0] !== undefined) navigate('/');
     });
-  }, [navigate, mode]);
+  }, [navigate]);
   const setLoading = status => {
     dispatch({
       loading: status,
     });
   };
-  const changeMode = wantedMode => {
-    if (wantedMode === 'signUp') setIsSignUp(true);
-    else if (wantedMode === 'forget') setIsSignUp(false);
-    setMode(wantedMode);
-  };
+
   const redirectToHome = () => {
     navigate('/');
   };
@@ -85,12 +69,7 @@ const Login = props => {
           top: 70,
           zIndex: 8,
         }}>
-        <FontIcon
-          icon={faClose}
-          onPress={() =>
-            mode === 'login' ? redirectToHome() : changeMode('login')
-          }
-        />
+        <FontIcon icon={faClose} onPress={() => redirectToHome()} />
       </MyView>
       <MyView
         style={{
@@ -105,69 +84,14 @@ const Login = props => {
           style={{
             zIndex: 10,
           }}>
-          {mode === 'login' && (
-            <LoginModule
-              setToken={token => {
-                dispatch({
-                  token: token,
-                });
-              }}
-              setLoading={setLoading}
-              changeMode={changeMode}
-            />
-          )}
-          {mode === 'forget' && (
-            <ForgetPassModule
-              setUsername={setUsername}
-              username={username}
-              setMode={setMode}
-              setLoading={setLoading}
-              setReminder={setReminder}
-              setToken={setToken}
-            />
-          )}
-          {mode === 'resetPass' && (
-            <ResetPassModule
-              username={username}
-              token={token}
-              code={code}
-              setLoading={setLoading}
-              setMode={setMode}
-            />
-          )}
-          {mode === 'verification' && (
-            <VerificationModule
-              setLoading={setLoading}
-              setReminder={setReminder}
-              setToken={setToken}
-              reminder={reminder}
-              token={token}
-              setCode={setCode}
-              setMode={setMode}
-              username={username}
-              mode={isSignUp ? 'signUp' : 'forget'}
-            />
-          )}
-          {mode === 'signUp' && (
-            <SignupModule
-              setLoading={setLoading}
-              setToken={setToken}
-              setReminder={setReminder}
-              setMode={setMode}
-              isInLargeScreen={true}
-              username={username}
-              setUsername={setUsername}
-            />
-          )}
-          {mode === 'roleForm' && (
-            <RoleFormModule
-              signUp={true}
-              token={token}
-              setLoading={setLoading}
-              navigate={navigate}
-              redirectTo={'/dashboard'}
-            />
-          )}
+          <LoginModule
+            setToken={token => {
+              dispatch({
+                token: token,
+              });
+            }}
+            setLoading={setLoading}
+          />
         </BlurLoginBack>
         <BlurLoginBack
           style={{
