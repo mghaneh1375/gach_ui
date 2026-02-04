@@ -65,6 +65,10 @@ function AdminMenu(props) {
               url: '/admin/basic/subjects',
             },
             {
+              text: translator.courseIntroduction,
+              url: '/admin/basic/courseIntroduction',
+            },
+            {
               text: translator.questionReportTags,
               url: '/admin/basic/questionReports',
             },

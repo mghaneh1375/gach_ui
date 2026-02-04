@@ -94,6 +94,15 @@ export const getGradeAndBranchesLessons = async token => {
   );
   return res;
 };
+export const getCourseIntroduction = async token => {
+  return await generalRequest(
+    routes.fetchCourseIntroductionList,
+    'get',
+    undefined,
+    'data',
+    token,
+  );
+};
 export const getGrades = async token => {
   return await generalRequest(
     routes.fetchGradesAndBranches,
@@ -123,6 +132,17 @@ export const getLessons = async (token, subMode) => {
   );
   return res;
 };
+export const editCoueseIntroduction = async (id, token, data) => {
+  const res = await generalRequest(
+    routes.addCourseIntroduction + id,
+    'put',
+    data,
+    undefined,
+    token,
+  );
+  if (res !== null) showSuccess(commonTranslator.success);
+  return res;
+};
 export const editGrade = async (id, token, data, isOlympiadOld) => {
   const res = await generalRequest(
     isOlympiadOld ? routes.editBranch + id : routes.editGrade + id,
@@ -140,6 +160,17 @@ export const editLesson = async (subMode, id, gradeId, token, data) => {
     'put',
     data,
     undefined,
+    token,
+  );
+  if (res !== null) showSuccess(commonTranslator.success);
+  return res;
+};
+export const createCourseIntroduction = async (token, data) => {
+  const res = await generalRequest(
+    routes.addCourseIntroduction,
+    'post',
+    data,
+    'id',
     token,
   );
   if (res !== null) showSuccess(commonTranslator.success);

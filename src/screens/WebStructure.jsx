@@ -38,6 +38,9 @@ const CertConf = lazy(() => import('./panel/config/configuration/Certificate'));
 const Ravan = lazy(() => import('./panel/config/configuration/Ravan'));
 const Schools = lazy(() => import('./panel/config/schools/Schools'));
 const Grade = lazy(() => import('./panel/basic/grade/Grade'));
+const CourseIntroduction = lazy(() =>
+  import('./panel/basic/courseIntroduction/CourseIntroduction'),
+);
 const Lesson = lazy(() => import('./panel/basic/lesson/Lesson'));
 const Package = lazy(() => import('./panel/package/Package'));
 const Subject = lazy(() => import('./panel/basic/subject/Subject'));
@@ -875,6 +878,12 @@ const WebStructue = props => {
                         user={state.user}
                         navigate={navigate}
                       />
+                    )}
+                  {props.page === 'basic' &&
+                    params &&
+                    params.mode &&
+                    params.mode === 'courseIntroduction' && (
+                      <CourseIntroduction />
                     )}
                   {props.page === 'basic' &&
                     params &&
