@@ -70,6 +70,7 @@ function Create(props) {
               if (res !== null) {
                 props.afterFunc({
                   title: title,
+                  description: description,
                   id: props.item !== undefined ? props.item.id : res,
                 });
                 props.setMode('list');

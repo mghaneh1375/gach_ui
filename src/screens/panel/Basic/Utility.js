@@ -2,6 +2,30 @@ import {routes} from '@/api/apiRoutes';
 import {generalRequest} from '@/api/utility';
 import {showSuccess} from '@/services/utility';
 import commonTranslator from '@/translator/common';
+
+export const removeCourseIntroduction = async (
+  setLoading,
+  token,
+  id,
+  afterFunc,
+) => {
+  setLoading(true);
+  const res = await generalRequest(
+    routes.removeCourseIntroduction,
+    'delete',
+    {
+      items: [id],
+    },
+    ['excepts', 'doneIds'],
+    token,
+  );
+  setLoading(false);
+  if (res !== null) {
+    showSuccess(res.excepts);
+    afterFunc(res.doneIds);
+  }
+};
+
 export const removeGrade = async (setLoading, token, gradeId, afterFunc) => {
   setLoading(true);
   const res = await generalRequest(

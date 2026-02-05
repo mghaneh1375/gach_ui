@@ -52,11 +52,9 @@ function Card(props) {
               <CommonButton
                 onPress={async () => {
                   props.setLoading(true);
-                  const res = await remove(
-                    props.id,
-                    props.elem.key,
-                    props.token,
-                  );
+                  const res = props.removeFunc
+                    ? await props.removeFunc(props.elem.key)
+                    : await remove(props.id, props.elem.key, props.token);
                   props.setLoading(false);
                   if (res !== null) {
                     setShow(false);
@@ -75,7 +73,9 @@ function Card(props) {
                   key: key,
                   value: value,
                 };
-                const res = await store(data, props.token, props.id);
+                const res = props.storeFunc
+                  ? await props.storeFunc(data)
+                  : await store(data, props.token, props.id);
                 props.setLoading(false);
                 if (res !== null) {
                   props.onAdd(data);

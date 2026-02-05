@@ -37,6 +37,8 @@ export const adminRoutes = {
   getSubjectsKeyVals: 'admin/content/getSubjectsKeyVals',
   fetchGradesAndBranches: 'admin/content/gradesAndBranches',
   fetchCourseIntroductionList: 'admin/course/list',
+  fetchCourseIntroductionSeoTags: 'admin/course/seo/',
+  addCourseIntroductionSeoTag: 'admin/course/seo/',
   removeGrades: 'admin/content/deleteGrades',
   removeCourseIntroduction: 'admin/course/',
   addCourseIntroduction: 'admin/course/',

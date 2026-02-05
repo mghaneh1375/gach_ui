@@ -284,6 +284,7 @@ const translator = {
   advContents: 'ویدیوهای تبلیغاتی',
   packageLevels: 'سطوح دوره ها',
   seoContents: 'سئو',
+  manageSeo: 'مدیریت تگ‌های سئو',
   teachersContents: 'مدرسان',
   copySessions: 'کپی کردن جلسات',
   contentMissed: 'خرابی‌های دوره‌های آموزشی',

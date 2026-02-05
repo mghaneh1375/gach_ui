@@ -6,9 +6,10 @@ import Translate from '../translate';
 import Create from './create/Create.jsx';
 import List from './list/List.jsx';
 import {getCourseIntroduction} from '../utility';
+import Seo from './seo/Seo';
 function CourseIntroduction(props) {
   const [mode, setMode] = useState('list');
-  const [selectedGrade, setSelectedGrade] = useState();
+  const [selectedItem, setSelectedItem] = useState();
   const [data, setData] = useState();
   const navigate = props.navigate;
   const useGlobalState = () => [
@@ -45,7 +46,7 @@ function CourseIntroduction(props) {
           setData={setData}
           setMode={setMode}
           setLoading={setLoading}
-          setSelectedGrade={setSelectedGrade}
+          setSelectedItem={setSelectedItem}
           token={state.token}
         />
       )}
@@ -64,7 +65,15 @@ function CourseIntroduction(props) {
           setMode={setMode}
           afterFunc={newItem => editItem(data, setData, newItem)}
           setLoading={setLoading}
-          item={selectedGrade}
+          item={selectedItem}
+        />
+      )}
+      {mode === 'seo' && (
+        <Seo
+          token={state.token}
+          setMode={setMode}
+          setLoading={setLoading}
+          item={selectedItem}
         />
       )}
     </MyView>

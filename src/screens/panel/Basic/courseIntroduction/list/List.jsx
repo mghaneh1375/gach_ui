@@ -13,7 +13,7 @@ function List(props) {
     setShowOpPopUp(!showOpPopUp);
   };
   const handleOp = idx => {
-    props.setSelectedGrade(props.data[idx]);
+    props.setSelectedItem(props.data[idx]);
     setSelected(props.data[idx]);
     toggleShowOpPopUp();
   };
@@ -45,6 +45,8 @@ function List(props) {
             removeUrl={routes.removeCourseIntroduction}
             token={props.token}
             setLoading={props.setLoading}
+            excel={false}
+            pagination={false}
           />
         </MyView>
       </CommonWebBox>

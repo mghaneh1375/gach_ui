@@ -29,6 +29,12 @@ function Ops(props) {
             onPress={() => props.setMode('edit')}
             title={commonTranslator.edit}
           />
+          <CommonButton
+            dir={'rtl'}
+            theme={'transparent'}
+            onPress={() => props.setMode('seo')}
+            title={commonTranslator.manageSeo}
+          />
         </PhoneView>
       </LargePopUp>
     </MyView>
